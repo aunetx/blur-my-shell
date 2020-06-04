@@ -5,11 +5,25 @@ const GLib = imports.gi.GLib;
 const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 
+const topbar_effect = new Shell.BlurEffect({
+    brightness: 0.6,
+    sigma: 30,
+    mode: 1
+});
+
+const dash_effect = new Shell.BlurEffect({
+    brightness: 0.6,
+    sigma: 30,
+    mode: 1
+});
 
 var Extension = class Extension {
     constructor() {
+        // shared
         this._monitor = Main.layoutManager.primaryMonitor;
-        this._topbar_effect = this._new_topbar_effect();
+        // topbar
+        this._topbar_effect_container = this._new_topbar_effect();
+        // dash
         this._dash_container = null;
     }
 
@@ -17,7 +31,7 @@ var Extension = class Extension {
     // Called when extension is enabled
     enable() {
         // add effect to panel
-        Main.panel.get_parent().insert_child_at_index(this._topbar_effect, 0);
+        Main.panel.get_parent().insert_child_at_index(this._topbar_effect_container, 0);
 
         // find the dash
         // this is used as remplacement to setTimout in order to let the time for the dash to be loaded by the SHELL
@@ -28,35 +42,35 @@ var Extension = class Extension {
         });
     }
 
-
     // Called when extension is disabled
     disable() {
-        Main.panel.get_parent().remove_child(this._topbar_effect);
+        Main.panel.get_parent().remove_child(this._topbar_effect_container);
     }
 
 
     _find_dash() {
+        let dash_container = null;
         Main.uiGroup.get_children().forEach(child => {
             if (child.get_name() == "dashtodockContainer") {
-                this._dash_container = child;
-                this._blur_dash();
+                dash_container = child;
+                this._blur_dash_from(dash_container);
             }
         });
-        if (this._dash_container == null) { this._log("dash to dock not found") }
+        if (dash_container == null) { this._log("dash to dock not found") }
     }
 
 
-    _blur_dash() {
+    _blur_dash_from(dash_container) {
         this._log("dash to dock found, blurring it");
 
         // blur the dash
-        let dash = this._dash_container.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0);
+        let dash = dash_container.get_child_at_index(0).get_child_at_index(0);
 
         let dash_blurred_background_parent = new St.Widget({
             style_class: 'dash-blurred-background-parent',
             x: 0,
             y: 0,
-            width: this._monitor.width,
+            width: 0,
             height: 0,
         });
         let dash_blurred_background = new St.Widget({
@@ -67,13 +81,16 @@ var Extension = class Extension {
             height: dash.height,
         });
 
-        let effect = new Shell.BlurEffect({
-            brightness: 0.6,
-            sigma: 30,
-            mode: 1
+        // TODO 'notify' does not fire only when size changes, needs to be changed accordingly
+        dash.connect('notify', () => {
+            dash_blurred_background.height = dash.height;
+            dash_blurred_background.width = dash.width;
         });
+        // TODO find a way to connect to entry/exit of the cursor on each component, not just motion (CPU very high)
+        dash.connect('motion-event', () => { dash_effect.queue_repaint() });
+        dash.connect('leave-event', () => { dash_effect.queue_repaint() });
 
-        dash_blurred_background.add_effect(effect);
+        dash_blurred_background.add_effect(dash_effect);
         dash_blurred_background_parent.add_child(dash_blurred_background);
 
         dash.insert_child_at_index(dash_blurred_background_parent, 0);
@@ -96,13 +113,7 @@ var Extension = class Extension {
             height: Main.panel.height,
         });
 
-        let effect = new Shell.BlurEffect({
-            brightness: 0.6,
-            sigma: 30,
-            mode: 1
-        });
-
-        topbar_blurred_background.add_effect(effect);
+        topbar_blurred_background.add_effect(topbar_effect);
         topbar_blurred_background_parent.add_child(topbar_blurred_background);
 
         return topbar_blurred_background_parent;
