@@ -25,6 +25,13 @@ class DashInfos {
             }
         });
     }
+
+    show() {
+        this.effect.sigma = 30;
+    }
+    hide() {
+        this.effect.sigma = 0;
+    }
 }
 
 var DashBlur = class DashBlur {
@@ -34,7 +41,7 @@ var DashBlur = class DashBlur {
         this.dash_searching_id = 0;
     }
 
-    search_dashes() {
+    enable() {
         this.blur_dashes();
 
         this.dash_searching_id = Main.uiGroup.connect('actor-added', (_, actor) => {
@@ -190,11 +197,18 @@ var DashBlur = class DashBlur {
         return dash_infos;
     }
 
-    remove() {
+    disable() {
         this._log("removing blur from dashes");
 
         this.dashes.forEach((dash) => { dash.remove_dash() });
         Main.uiGroup.disconnect(this.dash_searching_id);
+    }
+
+    show() {
+        this.dashes.forEach((dash) => { dash.show() });
+    }
+    hide() {
+        this.dashes.forEach((dash) => { dash.hide() });
     }
 
     _log(str) { log("[Blur my Gnome] " + str) }

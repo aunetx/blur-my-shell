@@ -6,27 +6,60 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const Panel = Me.imports.panel;
+const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
-const TopPanel = Me.imports.top_panel;
 
 
 class Extension {
     constructor() {
-        this._topbar_blur = new TopPanel.PanelBlur;
+        this._panel_blur = new Panel.PanelBlur;
         this._dash_blur = new DashToDock.DashBlur;
+        this._overview_blur = new Overview.OverviewBlur;
+        this._connections = [];
     }
 
     enable() {
-        // blur the top panel
-        this._topbar_blur.blur();
+        this._log("enabling extension...");
 
-        // blur the dash
-        this._dash_blur.search_dashes();
+        this._panel_blur.enable();
+        this._dash_blur.enable();
+        this._overview_blur.enable();
+
+        this._connect_to_overview();
+
+        this._log("extension enabled.");
     }
 
     disable() {
-        this._topbar_blur.remove();
-        this._dash_blur.remove();
+        this._log("disabling extension...");
+
+        this._panel_blur.disable();
+        this._dash_blur.disable();
+        this._overview_blur.disable();
+
+        this._log("extension disabled.");
+    }
+
+    _connect_to_overview() {
+        this._connections.push(Main.overview.connect('showing',
+            () => {
+                this._panel_blur.hide();
+                this._dash_blur.hide();
+            }
+        ));
+        this._connections.push(Main.overview.connect('hiding',
+            () => {
+                this._panel_blur.show();
+                this._dash_blur.show();
+            }
+        ));
+    }
+
+    _disconnect_to_overview() {
+        this._connections.forEach((connection) => {
+            Main.overview.disconnect(connection);
+        })
     }
 
     _log(str) { log("[Blur my Gnome] " + str) }

@@ -21,7 +21,7 @@ var PanelBlur = class PanelBlur {
         });
     }
 
-    blur() {
+    enable() {
         this._log("blurring top panel");
 
         let background = new St.Widget({
@@ -38,11 +38,14 @@ var PanelBlur = class PanelBlur {
         Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
     }
 
-    remove() {
+    disable() {
         this._log("removing blur from top panel");
 
         this.background_parent.get_parent().remove_child(this.background_parent);
     }
+
+    show() { this.effect.sigma = 30 }
+    hide() { this.effect.sigma = 0 }
 
     _log(str) { log("[Blur my Gnome] " + str) }
 }
