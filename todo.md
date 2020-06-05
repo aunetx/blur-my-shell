@@ -9,14 +9,15 @@
   - [x] update dash blur size when dash size changes
   - [x] fix artefacts on mouse hovering
   - [ ] allow the use of corners
-  - [ ] blur for each monitor
+  - [x] blur for each monitor
+  - [ ] update on monitor plug in/out
 
 - [ ] blur overview
   - [ ] remove panel/dash blur on overview
   - [ ] blur for each monitor?
 
 - [ ] fix the "shadows" issue
-- [ ] fix error `The meta of type 'ShellBlurEffect' with name '<unknown>' is already attached to actor 'StWidget'` at launch
+- [x] fix error `The meta of type 'ShellBlurEffect' with name '<unknown>' is already attached to actor 'StWidget'` at launch
 
 - [ ] allow changing blur settings
   - [ ] choose which parts to blur
