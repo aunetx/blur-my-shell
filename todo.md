@@ -41,7 +41,6 @@ Nn means how important is the elements:
 - [ ] allow changing blur settings  -> N1
   - [ ] choose which parts to blur  -> N2
   - [ ] define blur settings (sigma/brighness), for each part? (probably not as they are disabled on overview)  -> N2
-  - [ ] define text color (for top panel)?  -> N3
 
 - misc
   - [ ] fix the "shadows" issue -> N?

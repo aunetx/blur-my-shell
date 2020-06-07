@@ -1,3 +1,5 @@
+'use strict';
+
 const GObject = imports.gi.GObject;
 
 var Connections = class Connections {
@@ -39,5 +41,5 @@ var Connections = class Connections {
         this.buffer = [];
     }
 
-    _log(str) { log("[Blur my Gnome] " + str) }
+    _log(str) { log("[Blur my Shell] " + str) }
 }

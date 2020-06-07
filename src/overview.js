@@ -75,5 +75,5 @@ var OverviewBlur = class OverviewBlur {
         );
     }
 
-    _log(str) { log("[Blur my Gnome] " + str) }
+    _log(str) { log("[Blur my Shell] " + str) }
 }

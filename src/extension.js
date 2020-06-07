@@ -10,6 +10,7 @@ const Connections = Me.imports.connections;
 const Panel = Me.imports.panel;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
+const Lockscreen = Me.imports.lockscreen;
 
 
 class Extension {
@@ -19,6 +20,7 @@ class Extension {
         this._panel_blur = new Panel.PanelBlur(this._connections);
         this._dash_blur = new DashToDock.DashBlur(this._connections);
         this._overview_blur = new Overview.OverviewBlur(this._connections);
+        this._lockscreen_blur = new Lockscreen.LockscreenBlur(this._connections);
     }
 
     enable() {
@@ -27,6 +29,7 @@ class Extension {
         this._panel_blur.enable();
         this._dash_blur.enable();
         this._overview_blur.enable();
+        this._lockscreen_blur.enable();
 
         this._connect_to_overview();
 
@@ -39,6 +42,7 @@ class Extension {
         this._panel_blur.disable();
         this._dash_blur.disable();
         this._overview_blur.disable();
+        this._lockscreen_blur.disable();
 
         this._connections.disconnect_all();
 
@@ -56,7 +60,7 @@ class Extension {
         });
     }
 
-    _log(str) { log("[Blur my Gnome] " + str) }
+    _log(str) { log("[Blur my Shell] " + str) }
 };
 
 

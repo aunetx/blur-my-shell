@@ -191,7 +191,7 @@ var DashBlur = class DashBlur {
         this.emit('hide', true);
     }
 
-    _log(str) { log("[Blur my Gnome] " + str) }
+    _log(str) { log("[Blur my Shell] " + str) }
 }
 
 Signals.addSignalMethods(DashBlur.prototype);
