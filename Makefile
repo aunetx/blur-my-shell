@@ -9,23 +9,23 @@ build:
 
 build_pkg: build
 	mkdir -p pkg/
-	cd build/ && zip -r ../pkg/blur_my_gnome/blur-my-gnome@aunetx.zip .
+	cd build/ && zip -r ../pkg/blur-my-shell@aunetx.zip .
 
 
 vm_test: build
-	rm -rf $(HOME)/Documents/shared/blur_my_gnome/blur-my-gnome@aunetx
-	mkdir -p $(HOME)/Documents/shared/blur_my_gnome/blur-my-gnome@aunetx
-	cp -r build/* $(HOME)/Documents/shared/blur_my_gnome/blur-my-gnome@aunetx/
+	rm -rf $(HOME)/Documents/shared/blur_my_shell/blur-my-shell@aunetx
+	mkdir -p $(HOME)/Documents/shared/blur_my_shell/blur-my-shell@aunetx
+	cp -r build/* $(HOME)/Documents/shared/blur_my_shell/blur-my-shell@aunetx/
 
 
 install: build
-	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-gnome@aunetx
-	mkdir -p $(HOME)/.local/share/gnome-shell/extensions/blur-my-gnome@aunetx
-	cp -r build/* $(HOME)/.local/share/gnome-shell/extensions/blur-my-gnome@aunetx/
+	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
+	mkdir -p $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
+	cp -r build/* $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/
 
 
 remove:
-	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-gnome@aunetx
+	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
 
 
 clean:
