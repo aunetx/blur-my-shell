@@ -8,6 +8,7 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 
 const Connections = Me.imports.connections;
 const Panel = Me.imports.panel;
+const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
@@ -18,7 +19,8 @@ class Extension {
         this._connections = new Connections.Connections;
 
         this._panel_blur = new Panel.PanelBlur(this._connections);
-        this._dash_blur = new DashToDock.DashBlur(this._connections);
+        this._dash_blur = new Dash.DashBlur(this._connections);
+        this._dash_to_dock_blur = new DashToDock.DashBlur(this._connections);
         this._overview_blur = new Overview.OverviewBlur(this._connections);
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(this._connections);
     }
@@ -28,6 +30,7 @@ class Extension {
 
         this._panel_blur.enable();
         this._dash_blur.enable();
+        this._dash_to_dock_blur.enable();
         this._overview_blur.enable();
         this._lockscreen_blur.enable();
 
@@ -41,6 +44,7 @@ class Extension {
 
         this._panel_blur.disable();
         this._dash_blur.disable();
+        this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
 
@@ -52,11 +56,11 @@ class Extension {
     _connect_to_overview() {
         this._connections.connect(Main.overview, 'showing', () => {
             this._panel_blur.hide();
-            this._dash_blur.hide();
+            this._dash_to_dock_blur.hide();
         });
         this._connections.connect(Main.overview, 'hiding', () => {
             this._panel_blur.show();
-            this._dash_blur.show();
+            this._dash_to_dock_blur.show();
         });
     }
 

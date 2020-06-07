@@ -41,6 +41,10 @@ var PanelBlur = class PanelBlur {
 
         this.remove_background_color();
 
+        // remove corners, can't style them
+        Main.panel._leftCorner.hide();
+        Main.panel._rightCorner.hide();
+
         // connect to size changes
         this.connections.connect(Main.panel, 'notify::height', () => {
             this.background.height = Main.panel.height;
@@ -75,6 +79,9 @@ var PanelBlur = class PanelBlur {
 
     disable() {
         this._log("removing blur from top panel");
+
+        Main.panel._leftCorner.show();
+        Main.panel._rightCorner.show();
 
         this.reset_background_color();
         this.background_parent.get_parent().remove_child(this.background_parent);

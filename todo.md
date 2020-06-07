@@ -16,7 +16,7 @@ Nn means how important is the elements:
 - [x] blur `dash to dock`
   - [x] update dash blur size when dash size changes
   - [x] fix artefacts on mouse hovering
-  - [ ] allow the use of corners || hide them?  -> N2
+  - [x] allow the use of corners || hide them?  -> N2
   - [x] blur for each monitor
   - [x] update on monitor plug in/out ! NEEDS TESTING
   - [x] fix the dash not being able to be enabled again
@@ -31,12 +31,13 @@ Nn means how important is the elements:
   - [ ] add an ease in/out animation  -> N2
   - [ ] blur app folders popups -> N3
 
-- [ ] blur lockscreen -> N1
-  - [ ] set lockscreen blur effect to the same intensity as other components  -> N1
+- [x] blur lockscreen -> N1
+  - [x] set lockscreen blur effect to the same intensity as other components  -> N1
 
 - [ ] blur `dash to panel`  -> N2
 
-- [ ] blur vanilla dash -> N1
+- [x] blur vanilla dash -> N1
+  - [ ] remove borders of vanilla dash  -> N2
 
 - [ ] allow changing blur settings  -> N1
   - [ ] choose which parts to blur  -> N2
