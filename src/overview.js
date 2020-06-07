@@ -26,8 +26,10 @@ var OverviewBlur = class OverviewBlur {
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
-            this._log("changed monitors");
-            this.update_backgrounds();
+            if (!Main.screenShield.locked) {
+                this._log("changed monitors");
+                this.update_backgrounds();
+            }
         });
 
         this.update_backgrounds();

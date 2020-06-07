@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schemalist>
+    <schema id="org.gnome.shell.extensions.blur-my-shell" path="/org/gnome/shell/extensions/blur-my-shell/">
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Global sigma (gaussian blur radius) to use</summary>
+            <description />
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Global brightness to use</summary>
+            <description />
+        </key>
+    </schema>
+</schemalist>

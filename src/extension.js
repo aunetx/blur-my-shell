@@ -6,7 +6,9 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const Settings = Me.imports.settings;
 const Connections = Me.imports.connections;
+
 const Panel = Me.imports.panel;
 const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
@@ -17,6 +19,7 @@ const Lockscreen = Me.imports.lockscreen;
 class Extension {
     constructor() {
         this._connections = new Connections.Connections;
+        this._prefs = new Settings.Prefs;
 
         this._panel_blur = new Panel.PanelBlur(this._connections);
         this._dash_blur = new Dash.DashBlur(this._connections);
@@ -28,11 +31,16 @@ class Extension {
     enable() {
         this._log("enabling extension...");
 
+        this._connect_to_settings();
+
         this._panel_blur.enable();
         this._dash_blur.enable();
         this._dash_to_dock_blur.enable();
         this._overview_blur.enable();
         this._lockscreen_blur.enable();
+
+        this._update_sigma();
+        this._update_brightness();
 
         this._connect_to_overview();
 
@@ -48,9 +56,38 @@ class Extension {
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
 
+        this._disconnect_settings();
         this._connections.disconnect_all();
 
         this._log("extension disabled.");
+    }
+
+    _connect_to_settings() {
+        this._prefs.SIGMA.changed(() => { this._update_sigma() });
+        this._prefs.BRIGHTNESS.changed(() => { this._update_brightness() });
+    }
+
+    _disconnect_settings() {
+        this._prefs.SIGMA.disconnect();
+        this._prefs.BRIGHTNESS.disconnect();
+    }
+
+    _update_sigma() {
+        let sigma = this._prefs.SIGMA.get();
+
+        this._panel_blur.set_sigma(sigma);
+        this._dash_to_dock_blur.set_sigma(sigma);
+        this._overview_blur.set_sigma(sigma);
+        this._lockscreen_blur.set_sigma(sigma);
+    }
+
+    _update_brightness() {
+        let brightness = this._prefs.BRIGHTNESS.get();
+
+        this._panel_blur.set_brightness(brightness);
+        this._dash_to_dock_blur.set_brightness(brightness);
+        this._overview_blur.set_brightness(brightness);
+        this._lockscreen_blur.set_brightness(brightness);
     }
 
     _connect_to_overview() {

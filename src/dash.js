@@ -25,7 +25,9 @@ var DashBlur = class DashBlur {
         this._log("removing blur from dash");
 
         if (Main.overview.dash.constructor.name == "Dash") {
-            Main.overview.dash.get_child_at_index(0).style = none;
+            if (!Main.screenShield.locked) {
+                Main.overview.dash.get_child_at_index(0).style = none;
+            }
         }
     }
 
