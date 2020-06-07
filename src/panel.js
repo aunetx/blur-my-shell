@@ -4,12 +4,14 @@ const St = imports.gi.St;
 const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 
+const default_sigma = 30;
+const default_brightness = 0.6;
+
 var PanelBlur = class PanelBlur {
-    constructor() {
-        this.monitor = Main.layoutManager.primaryMonitor;
+    constructor(connections) {
         this.effect = new Shell.BlurEffect({
-            brightness: 0.6,
-            sigma: 30,
+            brightness: default_brightness,
+            sigma: default_sigma,
             mode: 1
         });
         this.background_parent = new St.Widget({
@@ -28,7 +30,7 @@ var PanelBlur = class PanelBlur {
         });
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
-        this.connections = [];
+        this.connections = connections;
     }
 
     enable() {
@@ -37,20 +39,45 @@ var PanelBlur = class PanelBlur {
         // insert child
         Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
 
-        // connect size changes
-        this.connections.push(Main.panel.connect('notify::height', () => {
+        this.remove_background_color();
+
+        // connect to size changes
+        this.connections.connect(Main.panel, 'notify::height', () => {
             this.background.height = Main.panel.height;
-        }));
+        });
+        this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
+            this.background_parent.width = this.monitor.width;
+            this.background.width = this.monitor.width;
+        });
+        // ! HACK: connect to click, removing a lot of artefacts
+        this.connections.connect(Main.panel, 'button-press-event', () => {
+            this.effect.queue_repaint()
+        });
+    }
+
+    get monitor() { return Main.layoutManager.primaryMonitor }
+
+    set_sigma(sigma) {
+        this.effect.sigma = sigma;
+    }
+
+    set_brightness(brightness) {
+        this.effect.brightness = brightness;
+    }
+
+    remove_background_color() {
+        Main.panel.style = "background-color:rgba(0,0,0,0.0);"
+    }
+
+    reset_background_color() {
+        Main.panel.style = null
     }
 
     disable() {
         this._log("removing blur from top panel");
 
-        // insert child
+        this.reset_background_color();
         this.background_parent.get_parent().remove_child(this.background_parent);
-
-        // disconnect signals
-        this.connections.forEach((connection) => { Main.panel.disconnect(connection) })
     }
 
     show() { this.effect.sigma = 30 }

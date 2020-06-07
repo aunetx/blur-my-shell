@@ -6,6 +6,7 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const Connections = Me.imports.connections;
 const Panel = Me.imports.panel;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
@@ -13,10 +14,11 @@ const DashToDock = Me.imports.dash_to_dock;
 
 class Extension {
     constructor() {
-        this._panel_blur = new Panel.PanelBlur;
-        this._dash_blur = new DashToDock.DashBlur;
-        this._overview_blur = new Overview.OverviewBlur;
-        this._connections = [];
+        this._connections = new Connections.Connections;
+
+        this._panel_blur = new Panel.PanelBlur(this._connections);
+        this._dash_blur = new DashToDock.DashBlur(this._connections);
+        this._overview_blur = new Overview.OverviewBlur(this._connections);
     }
 
     enable() {
@@ -38,28 +40,20 @@ class Extension {
         this._dash_blur.disable();
         this._overview_blur.disable();
 
+        this._connections.disconnect_all();
+
         this._log("extension disabled.");
     }
 
     _connect_to_overview() {
-        this._connections.push(Main.overview.connect('showing',
-            () => {
-                this._panel_blur.hide();
-                this._dash_blur.hide();
-            }
-        ));
-        this._connections.push(Main.overview.connect('hiding',
-            () => {
-                this._panel_blur.show();
-                this._dash_blur.show();
-            }
-        ));
-    }
-
-    _disconnect_to_overview() {
-        this._connections.forEach((connection) => {
-            Main.overview.disconnect(connection);
-        })
+        this._connections.connect(Main.overview, 'showing', () => {
+            this._panel_blur.hide();
+            this._dash_blur.hide();
+        });
+        this._connections.connect(Main.overview, 'hiding', () => {
+            this._panel_blur.show();
+            this._dash_blur.show();
+        });
     }
 
     _log(str) { log("[Blur my Gnome] " + str) }
