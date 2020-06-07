@@ -39,15 +39,15 @@ Nn means how important is the elements:
 - [x] blur vanilla dash -> N1
   - [ ] remove borders of vanilla dash  -> N2
 
-- [ ] allow changing blur settings  -> N1
+- [x] allow changing blur settings  -> N1
   - [ ] choose which parts to blur  -> N2
-  - [ ] define blur settings (sigma/brighness), for each part? (probably not as they are disabled on overview)  -> N2
+  - [ ] define blur settings (sigma/brighness) for each part? (probably not as they are disabled on overview)  -> N2
 
 - misc
   - [ ] fix the "shadows" issue -> N?
   - [x] fix error `The meta of type 'ShellBlurEffect' with name '<unknown>' is already attached to actor 'StWidget'` at launch
   - [x] verify that we proprely disable the extension (no error + no big allocation left)
   - [x] use names instead of cached instances for actors and widgets (may be less buggy and painful)
-  - [ ] publish the extension (beta) when ~ready  -> N1
+  - [x] publish the extension (beta) when ~ready  -> N1
 
 finally: make `Shell.BlurEffect` fixed and available in `css`
