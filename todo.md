@@ -10,7 +10,7 @@ Nn means how important is the elements:
   - [x] fix artefacts when button clicked
   - [x] automatically change background/text color so that we don't need `smart transparent topbar` extension
   - [ ] blur for each monitor?  -> N3
-  - [ ] allow the use of corners || hide them?  -> N3
+  - [x] allow the use of corners || hide them?  -> N3
   - [x] update blur on size changed (required for `hide top bar`)
 
 - [x] blur `dash to dock`
@@ -36,10 +36,12 @@ Nn means how important is the elements:
 
 - [ ] blur `dash to panel`  -> N2
 
+- [ ] blur `ubuntu panel` -> N2
+
 - [x] blur vanilla dash -> N1
   - [ ] remove borders of vanilla dash  -> N2
 
-- [ ] allow changing blur settings  -> N1
+- [x] allow changing blur settings  -> N1
   - [ ] choose which parts to blur  -> N2
   - [ ] define blur settings (sigma/brighness), for each part? (probably not as they are disabled on overview)  -> N2
 
@@ -48,6 +50,6 @@ Nn means how important is the elements:
   - [x] fix error `The meta of type 'ShellBlurEffect' with name '<unknown>' is already attached to actor 'StWidget'` at launch
   - [x] verify that we proprely disable the extension (no error + no big allocation left)
   - [x] use names instead of cached instances for actors and widgets (may be less buggy and painful)
-  - [ ] publish the extension (beta) when ~ready  -> N1
+  - [x] publish the extension (beta) when ~ready  -> N1
 
 finally: make `Shell.BlurEffect` fixed and available in `css`
