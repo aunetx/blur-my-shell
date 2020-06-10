@@ -95,7 +95,7 @@ class Extension {
             this._panel_blur.hide();
             this._dash_to_dock_blur.hide();
         });
-        this._connections.connect(Main.overview, 'hiding', () => {
+        this._connections.connect(Main.overview, 'hidden', () => {
             this._panel_blur.show();
             this._dash_to_dock_blur.show();
         });

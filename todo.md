@@ -27,7 +27,7 @@ Nn means how important is the elements:
   - [x] blur for each monitor
   - [x] update on monitor plug in/out ! NEEDS TESTING
   - [x] fix effect being disabled when background changes
-  - [ ] make getting out of overview more responsive (so that effects do not blend for some milliseconds) -> N2
+  - [x] make getting out of overview more responsive (so that effects do not blend for some milliseconds) -> N2
   - [ ] add an ease in/out animation  -> N2
   - [ ] blur app folders popups -> N3
 
