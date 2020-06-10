@@ -10,7 +10,7 @@ Nn means how important is the elements:
   - [x] fix artefacts when button clicked
   - [x] automatically change background/text color so that we don't need `smart transparent topbar` extension
   - [ ] blur for each monitor?  -> N3
-  - [ ] allow the use of corners || hide them?  -> N3
+  - [x] allow the use of corners || hide them?  -> N3
   - [x] update blur on size changed (required for `hide top bar`)
 
 - [x] blur `dash to dock`
@@ -35,6 +35,8 @@ Nn means how important is the elements:
   - [x] set lockscreen blur effect to the same intensity as other components  -> N1
 
 - [ ] blur `dash to panel`  -> N2
+
+- [ ] blur `ubuntu panel` -> N2
 
 - [x] blur vanilla dash -> N1
   - [ ] remove borders of vanilla dash  -> N2
