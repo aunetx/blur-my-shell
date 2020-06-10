@@ -26,10 +26,14 @@ var DashBlur = class DashBlur {
 
         if (Main.overview.dash.constructor.name == "Dash") {
             if (!Main.screenShield.locked) {
-                Main.overview.dash.get_child_at_index(0).style = none;
+                try {
+                    Main.overview.dash.get_child_at_index(0).style = none;
+                } catch (e) {
+                    this._log(e)
+                }
             }
         }
     }
 
-    _log(str) { log("[Blur my Shell] " + str) }
+    _log(str) { log(`[Blur my Shell] ${str}`) }
 }

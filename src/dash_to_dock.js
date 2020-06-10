@@ -38,7 +38,7 @@ class DashInfos {
         });
     }
 
-    _log(str) { log("[Blur my Gnome] " + str) }
+    _log(str) { log(`[Blur my Shell] ${str}`) }
 }
 
 var DashBlur = class DashBlur {
@@ -184,7 +184,7 @@ var DashBlur = class DashBlur {
         this.emit('hide', true);
     }
 
-    _log(str) { log("[Blur my Shell] " + str) }
+    _log(str) { log(`[Blur my Shell] ${str}`) }
 }
 
 Signals.addSignalMethods(DashBlur.prototype);

@@ -90,5 +90,5 @@ var PanelBlur = class PanelBlur {
     show() { this.effect.sigma = 30 }
     hide() { this.effect.sigma = 0 }
 
-    _log(str) { log("[Blur my Shell] " + str) }
+    _log(str) { log(`[Blur my Shell] ${str}`) }
 }

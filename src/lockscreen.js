@@ -75,5 +75,5 @@ var LockscreenBlur = class LockscreenBlur {
         imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = original_createBackground;
     }
 
-    _log(str) { log("[Blur my Shell] " + str) }
+    _log(str) { log(`[Blur my Shell] ${str}`) }
 }

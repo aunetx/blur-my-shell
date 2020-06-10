@@ -16,7 +16,7 @@ function buildPrefsWidget() {
     return widget;
 }
 
-const PrefsWidget = new GObject.Class({
+var PrefsWidget = new GObject.Class({
     Name: "My.Prefs.Widget",
     GTypeName: "PrefsWidget",
     Extends: Gtk.ScrolledWindow,
