@@ -30,19 +30,12 @@ class DashInfos {
         });
 
         dash_blur.connections.connect(dash_blur, 'show', () => {
-            this.show();
+            this.effect.sigma = this.dash_blur.sigma;
         });
 
         dash_blur.connections.connect(dash_blur, 'hide', () => {
-            this.hide();
+            this.effect.sigma = 0;
         });
-    }
-
-    show() {
-        this.effect.sigma = this.dash_blur.sigma;
-    }
-    hide() {
-        this.effect.sigma = 0;
     }
 
     _log(str) { log("[Blur my Gnome] " + str) }
