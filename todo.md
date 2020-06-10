@@ -28,7 +28,7 @@ Nn means how important is the elements:
   - [x] update on monitor plug in/out ! NEEDS TESTING
   - [x] fix effect being disabled when background changes
   - [x] make getting out of overview more responsive (so that effects do not blend for some milliseconds) -> N2
-  - [ ] add an ease in/out animation  -> N2
+  - [x] add an ease in/out animation  -> N2
   - [ ] blur app folders popups -> N3
 
 - [x] blur lockscreen -> N1
@@ -46,7 +46,8 @@ Nn means how important is the elements:
   - [ ] define blur settings (sigma/brighness) for each part? (probably not as they are disabled on overview)  -> N2
 
 - misc
-  - [ ] fix the "shadows" issue -> N?
+  - [ ] fix the "shadows" issue -> [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857)
+  - [ ] fix the "overview opacity" issue
   - [x] fix error `The meta of type 'ShellBlurEffect' with name '<unknown>' is already attached to actor 'StWidget'` at launch
   - [x] verify that we proprely disable the extension (no error + no big allocation left)
   - [x] use names instead of cached instances for actors and widgets (may be less buggy and painful)
