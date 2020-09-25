@@ -35,7 +35,7 @@ var OverviewBlur = class OverviewBlur {
             })
         }
 
-        // FIXME GNOME Shell bug there: changing opacity to an inferior level does not update the opcaity (and causes a lot of weird bugs)
+        // FIXME GNOME Shell bug there: changing opacity to an inferior level does not update the opacity (and causes a lot of weird bugs)
         Main.overview._unshadeBackgrounds = function () {
             this._backgroundGroup.get_children().forEach((background) => {
                 background.ease_property('opacity', 0, {
