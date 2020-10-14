@@ -26,7 +26,7 @@ var OverviewBlur = class OverviewBlur {
     enable() {
         this._log("blurring overview");
 
-        Main.overview._shadeBackgrounds = function () {
+        Main.overview._shadeBackgrounds = function() {
             this._backgroundGroup.get_children().forEach((background) => {
                 background.ease_property('opacity', 255, {
                     duration: ANIMATION_DURATION,
@@ -36,7 +36,7 @@ var OverviewBlur = class OverviewBlur {
         }
 
         // FIXME GNOME Shell bug there: changing opacity to an inferior level does not update the opacity (and causes a lot of weird bugs)
-        Main.overview._unshadeBackgrounds = function () {
+        Main.overview._unshadeBackgrounds = function() {
             this._backgroundGroup.get_children().forEach((background) => {
                 background.ease_property('opacity', 0, {
                     duration: ANIMATION_DURATION,
@@ -99,6 +99,7 @@ var OverviewBlur = class OverviewBlur {
             (bg) => {
                 bg.vignette = true;
                 bg.brightness = old_brightness;
+                bg.opacity = 255;
 
                 // remove blur effect
                 bg.remove_effect_by_name('blur');
@@ -106,5 +107,7 @@ var OverviewBlur = class OverviewBlur {
         );
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 }

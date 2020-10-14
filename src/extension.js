@@ -63,8 +63,12 @@ class Extension {
     }
 
     _connect_to_settings() {
-        this._prefs.SIGMA.changed(() => { this._update_sigma() });
-        this._prefs.BRIGHTNESS.changed(() => { this._update_brightness() });
+        this._prefs.SIGMA.changed(() => {
+            this._update_sigma()
+        });
+        this._prefs.BRIGHTNESS.changed(() => {
+            this._update_brightness()
+        });
     }
 
     _disconnect_settings() {
@@ -101,7 +105,9 @@ class Extension {
         });
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 };
 
 

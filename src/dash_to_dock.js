@@ -38,7 +38,9 @@ class DashInfos {
         });
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 }
 
 var DashBlur = class DashBlur {
@@ -123,7 +125,9 @@ var DashBlur = class DashBlur {
             // ! but it prevents the shadows of the dash buttons to cause artefacts on the dash itself
             // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            let rp = () => { effect.queue_repaint() };
+            let rp = () => {
+                effect.queue_repaint()
+            };
 
             dash_icons_container.get_children().forEach((icon) => {
                 let zone = icon.get_child_at_index(0);
@@ -184,7 +188,9 @@ var DashBlur = class DashBlur {
         this.emit('hide', true);
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 }
 
 Signals.addSignalMethods(DashBlur.prototype);

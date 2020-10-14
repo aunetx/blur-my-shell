@@ -41,5 +41,7 @@ var Connections = class Connections {
         this.buffer = [];
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 }

@@ -35,5 +35,7 @@ var DashBlur = class DashBlur {
         }
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 }

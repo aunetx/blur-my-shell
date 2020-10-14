@@ -80,7 +80,9 @@ var LockscreenBlur = class LockscreenBlur {
             mode: 0
         });
 
-        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => { effect.sigma = sigma * themeContext.scale_factor; });
+        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => {
+            effect.sigma = sigma * themeContext.scale_factor;
+        });
 
         widget.add_effect(effect);
     }
@@ -105,5 +107,7 @@ var LockscreenBlur = class LockscreenBlur {
 
     }
 
-    _log(str) { log(`[Blur my Shell] ${str}`) }
+    _log(str) {
+        log(`[Blur my Shell] ${str}`)
+    }
 }

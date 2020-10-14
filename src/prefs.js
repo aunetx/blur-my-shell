@@ -7,8 +7,7 @@ let Extension = imports.misc.extensionUtils.getCurrentExtension();
 let Settings = Extension.imports.settings;
 let config = new Settings.Prefs();
 
-function init() {
-}
+function init() {}
 
 function buildPrefsWidget() {
     let widget = new PrefsWidget();
@@ -21,7 +20,7 @@ var PrefsWidget = new GObject.Class({
     GTypeName: "PrefsWidget",
     Extends: Gtk.ScrolledWindow,
 
-    _init: function (params) {
+    _init: function(params) {
         this.parent(params);
 
         let builder = new Gtk.Builder();
