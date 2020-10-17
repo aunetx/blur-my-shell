@@ -15,7 +15,6 @@ const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 
-
 class Extension {
     constructor() {
         this._connections = new Connections.Connections;
@@ -33,11 +32,19 @@ class Extension {
 
         this._connect_to_settings();
 
-        this._panel_blur.enable();
-        this._dash_blur.enable();
-        this._dash_to_dock_blur.enable();
-        this._overview_blur.enable();
-        this._lockscreen_blur.enable();
+        if (this._prefs.BLUR_PANEL.get()) {
+            this._panel_blur.enable()
+        }
+        if (this._prefs.BLUR_DASH.get()) {
+            this._dash_blur.enable();
+            this._dash_to_dock_blur.enable();
+        }
+        if (this._prefs.BLUR_OVERVIEW.get()) {
+            this._overview_blur.enable()
+        }
+        if (this._prefs.BLUR_LOCKSCREEN.get()) {
+            this._lockscreen_blur.enable()
+        }
 
         this._update_sigma();
         this._update_brightness();

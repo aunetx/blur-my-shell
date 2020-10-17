@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <schema id="org.gnome.shell.extensions.blur-my-shell" path="/org/gnome/shell/extensions/blur-my-shell/">
         <!-- SIGMA -->
@@ -11,6 +11,42 @@
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Global brightness to use</summary>
+            <description />
+        </key>
+        <!-- BLUR DASH -->
+        <key type="b" name="blur-dash">
+            <default>true</default>
+            <summary>Boolean, whether to blur the dash or not</summary>
+            <description />
+        </key>
+        <!-- BLUR PANEL -->
+        <key type="b" name="blur-panel">
+            <default>true</default>
+            <summary>Boolean, whether to blur the panel or not</summary>
+            <description />
+        </key>
+        <!-- BLUR OVERVIEW -->
+        <key type="b" name="blur-overview">
+            <default>true</default>
+            <summary>Boolean, whether to blur the overview or not</summary>
+            <description />
+        </key>
+        <!-- BLUR LOCKSCREEN -->
+        <key type="b" name="blur-lockscreen">
+            <default>true</default>
+            <summary>Boolean, whether to blur lockscreen or not</summary>
+            <description />
+        </key>
+        <!-- HACKS LEVEL -->
+        <key type="i" name="hacks-level">
+            <default>1</default>
+            <summary>Level of hacks to use (from 0 to 2)</summary>
+            <description />
+        </key>
+        <!-- ANIMATE OVERVIEW -->
+        <key type="b" name="animate-overview">
+            <default>true</default>
+            <summary>Boolean, whether to animate overview in/out or not</summary>
             <description />
         </key>
     </schema>

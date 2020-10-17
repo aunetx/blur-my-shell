@@ -120,38 +120,55 @@ var DashBlur = class DashBlur {
 
         // hack
         {
+
+            let hacking_level = 2;
+
             // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
             // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
             // ! but it prevents the shadows of the dash buttons to cause artefacts on the dash itself
             // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            let rp = () => {
-                effect.queue_repaint()
-            };
+            if (hacking_level == 1) {
+                let rp = () => {
+                    effect.queue_repaint()
+                };
 
-            dash_icons_container.get_children().forEach((icon) => {
-                let zone = icon.get_child_at_index(0);
-                this.connections.connect(zone, 'enter-event', rp);
-                this.connections.connect(zone, 'leave-event', rp);
-                this.connections.connect(zone, 'button-press-event', rp);
-            })
+                dash_icons_container.get_children().forEach((icon) => {
+                    let zone = icon.get_child_at_index(0);
+                    this.connections.connect(zone, 'enter-event', rp);
+                    this.connections.connect(zone, 'leave-event', rp);
+                    this.connections.connect(zone, 'button-press-event', rp);
+                })
 
-            this.connections.connect(dash_icons_container, 'actor-added', (_, actor) => {
-                let zone = actor.get_child_at_index(0);
-                this.connections.connect(zone, 'enter-event', rp);
-                this.connections.connect(zone, 'leave-event', rp);
-                this.connections.connect(zone, 'button-press-event', rp);
-            })
+                this.connections.connect(dash_icons_container, 'actor-added', (_, actor) => {
+                    let zone = actor.get_child_at_index(0);
+                    this.connections.connect(zone, 'enter-event', rp);
+                    this.connections.connect(zone, 'leave-event', rp);
+                    this.connections.connect(zone, 'button-press-event', rp);
+                })
 
-            let dash_show_apps = dash.get_child_at_index(0).get_child_at_index(1);
+                let dash_show_apps = dash.get_child_at_index(0).get_child_at_index(1);
 
-            this.connections.connect(dash_show_apps, 'enter-event', rp);
-            this.connections.connect(dash_show_apps, 'leave-event', rp);
-            this.connections.connect(dash_show_apps, 'button-press-event', rp);
+                this.connections.connect(dash_show_apps, 'enter-event', rp);
+                this.connections.connect(dash_show_apps, 'leave-event', rp);
+                this.connections.connect(dash_show_apps, 'button-press-event', rp);
 
-            this.connections.connect(dash, 'leave-event', rp);
+                this.connections.connect(dash, 'leave-event', rp);
+            } else
 
-            // ! END OF DITRY PART
+            if (hacking_level == 2) {
+                let number = 0;
+
+                let rp = () => {
+                    effect.queue_repaint();
+                    number += 1;
+                    //this._log("repainted the dash " + number + " times since the beginning...");
+                };
+
+                this.connections.connect(dash, 'paint', rp);
+            }
+
+            // ! END OF DIRTY PART
         }
 
         // add the widget to the dash

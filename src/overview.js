@@ -75,6 +75,7 @@ var OverviewBlur = class OverviewBlur {
                     sigma: this.sigma,
                     mode: 0
                 }));
+                this._log("updated background no1");
             }
         );
     }

@@ -7,9 +7,7 @@ var Connections = class Connections {
         this.buffer = [];
     }
 
-    connect(actor, signal, handler) {
-        let id = actor.connect(signal, handler);
-
+    process_connection(actor, id) {
         let infos = {
             actor: actor,
             id: id
@@ -28,6 +26,18 @@ var Connections = class Connections {
         }
 
         this.buffer.push(infos)
+    }
+
+    connect(actor, signal, handler) {
+        let id = actor.connect(signal, handler);
+
+        this.process_connection(actor, id);
+    }
+
+    connect_after(actor, signal, handler) {
+        let id = actor.connect_after(signal, handler);
+
+        this.process_connection(actor, id);
     }
 
     disconnect_all() {
