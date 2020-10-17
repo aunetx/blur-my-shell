@@ -6,6 +6,10 @@ const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const Signals = imports.signals;
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Settings = Me.imports.settings;
+let prefs = new Settings.Prefs;
+
 const default_sigma = 30;
 const default_brightness = 0.6;
 
@@ -118,17 +122,16 @@ var DashBlur = class DashBlur {
             background.width = dash.width;
         });
 
-        // hack
+        // HACK
         {
-
-            let hacking_level = 2;
-
             // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
             // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
             // ! but it prevents the shadows of the dash buttons to cause artefacts on the dash itself
             // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (hacking_level == 1) {
+            if (prefs.HACKS_LEVEL.get() == 1) {
+                this._log("dash hack level 1");
+
                 let rp = () => {
                     effect.queue_repaint()
                 };
@@ -154,15 +157,11 @@ var DashBlur = class DashBlur {
                 this.connections.connect(dash_show_apps, 'button-press-event', rp);
 
                 this.connections.connect(dash, 'leave-event', rp);
-            } else
-
-            if (hacking_level == 2) {
-                let number = 0;
+            } else if (prefs.HACKS_LEVEL.get() == 2) {
+                this._log("dash hack level 2");
 
                 let rp = () => {
                     effect.queue_repaint();
-                    number += 1;
-                    //this._log("repainted the dash " + number + " times since the beginning...");
                 };
 
                 this.connections.connect(dash, 'paint', rp);

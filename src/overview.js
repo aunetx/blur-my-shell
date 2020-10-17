@@ -6,6 +6,15 @@ const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const Clutter = imports.gi.Clutter;
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Settings = Me.imports.settings;
+let prefs = new Settings.Prefs;
+
+let ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get();
+prefs.ANIMATE_OVERVIEW.changed(() => {
+    ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get()
+})
+
 const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brightness;
 
 const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
@@ -26,25 +35,36 @@ var OverviewBlur = class OverviewBlur {
     enable() {
         this._log("blurring overview");
 
-        Main.overview._shadeBackgrounds = function() {
-            this._backgroundGroup.get_children().forEach((background) => {
-                background.ease_property('opacity', 255, {
-                    duration: ANIMATION_DURATION,
-                    mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-                });
-            })
+        Main.overview._shadeBackgrounds = function () {
+            if (ANIMATE_OVERVIEW) {
+                this._backgroundGroup.get_children().forEach((background) => {
+                    background.ease_property('opacity', 255, {
+                        duration: ANIMATION_DURATION,
+                        mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                    });
+                })
+            } else {
+                this._backgroundGroup.get_children().forEach((background) => {
+                    background.opacity = 255;
+                })
+            }
         }
 
         // FIXME GNOME Shell bug there: changing opacity to an inferior level does not update the opacity (and causes a lot of weird bugs)
-        Main.overview._unshadeBackgrounds = function() {
-            this._backgroundGroup.get_children().forEach((background) => {
-                background.ease_property('opacity', 0, {
-                    duration: ANIMATION_DURATION,
-                    mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-                });
-            })
+        Main.overview._unshadeBackgrounds = function () {
+            if (ANIMATE_OVERVIEW) {
+                this._backgroundGroup.get_children().forEach((background) => {
+                    background.ease_property('opacity', 0, {
+                        duration: ANIMATION_DURATION,
+                        mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                    });
+                })
+            } else {
+                this._backgroundGroup.get_children().forEach((background) => {
+                    background.opacity = 0;
+                })
+            }
         }
-
 
         this.connections.connect(Main.layoutManager._bgManagers[Main.layoutManager.primaryIndex], 'changed', () => {
             this._log("updated background");

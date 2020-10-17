@@ -4,6 +4,10 @@ const St = imports.gi.St;
 const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Settings = Me.imports.settings;
+let prefs = new Settings.Prefs;
+
 const default_sigma = 30;
 const default_brightness = 0.6;
 
@@ -54,30 +58,25 @@ var PanelBlur = class PanelBlur {
             this.background.width = this.monitor.width;
         });
 
-        // hack
+        // HACK
         {
-
-            let hacking_level = 2;
-
             // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
             // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
             // ! but it prevents the shadows of the panel buttons to cause artefacts on the panel itself
             // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (hacking_level == 1) {
+            if (prefs.HACKS_LEVEL.get() == 1) {
+                this._log("panel hack level 1");
+
                 this.connections.connect(Main.panel, 'button-press-event', () => {
                     this.effect.queue_repaint()
                 });
-            } else
-
-            if (hacking_level == 2) {
-                let number = 0;
+            } else if (prefs.HACKS_LEVEL.get() == 2) {
+                this._log("panel hack level 2");
 
                 Main.panel.get_children().forEach(child => {
                     this.connections.connect(child, 'paint', () => {
                         this.effect.queue_repaint();
-                        number += 1;
-                        //this._log("repainted the panel " + number + " times since the beginning...");
                     });
                 });
             }

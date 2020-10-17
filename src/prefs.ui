@@ -171,7 +171,10 @@
       <object class="GtkLabel">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Dash hacks</property>
+        <property name="label" translatable="yes">Artifacts hacks
+(needs re-enabling extension)</property>
+        <property name="use_markup">True</property>
+        <property name="justify">center</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -181,7 +184,7 @@
     </child>
     <child>
       <object class="GtkRadioButton" id="hacks_level0">
-        <property name="label" translatable="yes">none</property>
+        <property name="label" translatable="yes">lots of artifacts, good perfs</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
@@ -196,7 +199,7 @@
     </child>
     <child>
       <object class="GtkRadioButton" id="hacks_level1">
-        <property name="label" translatable="yes">some </property>
+        <property name="label" translatable="yes">less artifacts, perfs OK+</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
@@ -212,7 +215,7 @@
     </child>
     <child>
       <object class="GtkRadioButton" id="hacks_level2">
-        <property name="label" translatable="yes">heavy</property>
+        <property name="label" translatable="yes">no artifacts, bad perfs</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>

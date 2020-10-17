@@ -76,6 +76,37 @@ class Extension {
         this._prefs.BRIGHTNESS.changed(() => {
             this._update_brightness()
         });
+
+        this._prefs.BLUR_DASH.changed(() => {
+            if (this._prefs.BLUR_DASH.get()) {
+                this._dash_blur.enable();
+                this._dash_to_dock_blur.enable();
+            } else {
+                this._dash_blur.disable();
+                this._dash_to_dock_blur.disable();
+            }
+        });
+        this._prefs.BLUR_PANEL.changed(() => {
+            if (this._prefs.BLUR_PANEL.get()) {
+                this._panel_blur.enable()
+            } else {
+                this._panel_blur.disable()
+            }
+        });
+        this._prefs.BLUR_OVERVIEW.changed(() => {
+            if (this._prefs.BLUR_OVERVIEW.get()) {
+                this._overview_blur.enable()
+            } else {
+                this._overview_blur.disable()
+            }
+        });
+        this._prefs.BLUR_LOCKSCREEN.changed(() => {
+            if (this._prefs.BLUR_LOCKSCREEN.get()) {
+                this._lockscreen_blur.enable()
+            } else {
+                this._lockscreen_blur.disable()
+            }
+        });
     }
 
     _disconnect_settings() {
