@@ -34,20 +34,22 @@ Nn means how important is the elements:
 - [x] blur lockscreen -> N1
   - [x] set lockscreen blur effect to the same intensity as other components  -> N1
 
-- [ ] blur `dash to panel`  -> N2
+- [x] blur `dash to panel`  -> N2
 
-- [ ] blur `ubuntu panel` -> N2
+- [x] blur `ubuntu panel` -> N2
 
 - [x] blur vanilla dash -> N1
   - [ ] remove borders of vanilla dash  -> N2
 
 - [x] allow changing blur settings  -> N1
-  - [ ] choose which parts to blur  -> N2
+  - [x] choose which parts to blur  -> N2
   - [ ] define blur settings (sigma/brighness) for each part? (probably not as they are disabled on overview)  -> N2
 
 - misc
   - [ ] fix the "shadows" issue -> [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857)
   - [ ] fix the "overview opacity" issue
+  - [ ] fix the "screenshot" issue -> shows an audit on journalctl
+    - `sept. 25 17:16:49 main audit[86871]: ANOM_ABEND auid=1000 uid=1000 gid=1000 ses=3 subj=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 pid=86871 comm="gnome-shell" exe="/usr/bin/gnome-shell" sig=11 res=1`
   - [x] fix error `The meta of type 'ShellBlurEffect' with name '<unknown>' is already attached to actor 'StWidget'` at launch
   - [x] verify that we proprely disable the extension (no error + no big allocation left)
   - [x] use names instead of cached instances for actors and widgets (may be less buggy and painful)
