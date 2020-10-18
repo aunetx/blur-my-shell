@@ -5,109 +5,106 @@ const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const Clutter = imports.gi.Clutter;
+const GLib = imports.gi.GLib;
 
+// get ANIMATE_OVERVIEW setting
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
-let prefs = new Settings.Prefs;
-
+const prefs = new Settings.Prefs;
 let ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get();
 prefs.ANIMATE_OVERVIEW.changed(() => {
     ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get()
 })
 
-const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brightness;
+// useful
+const setTimeout = function (func, delay, ...args) {
+    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
+        func(...args);
+        return GLib.SOURCE_REMOVE;
+    });
+};
 
+// save old functions
+const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brightness;
 const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
 const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
+const old_updateBackgrounds = Main.overview._updateBackgrounds;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
-
+// numeric values
 const ANIMATION_DURATION = 200;
+let sigma = 30;
+let brightness = 0.6;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections) {
         this.connections = connections;
-        this.sigma = default_sigma;
-        this.brightness = default_brightness;
     }
 
     enable() {
         this._log("blurring overview");
 
+        // FIXME GNOME shell bug here: changing opacity to an inferior level does not update the opacity
         Main.overview._shadeBackgrounds = function () {
-            if (ANIMATE_OVERVIEW) {
-                this._backgroundGroup.get_children().forEach((background) => {
+            this._backgroundGroup.get_children().forEach((background) => {
+                if (ANIMATE_OVERVIEW) {
+                    background.opacity = 0;
                     background.ease_property('opacity', 255, {
                         duration: ANIMATION_DURATION,
                         mode: Clutter.AnimationMode.EASE_OUT_QUAD,
                     });
-                })
-            } else {
-                this._backgroundGroup.get_children().forEach((background) => {
+                } else {
                     background.opacity = 255;
-                })
-            }
+                }
+            })
+
         }
 
-        // FIXME GNOME Shell bug there: changing opacity to an inferior level does not update the opacity (and causes a lot of weird bugs)
         Main.overview._unshadeBackgrounds = function () {
-            if (ANIMATE_OVERVIEW) {
-                this._backgroundGroup.get_children().forEach((background) => {
-                    background.ease_property('opacity', 0, {
-                        duration: ANIMATION_DURATION,
-                        mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-                    });
-                })
-            } else {
-                this._backgroundGroup.get_children().forEach((background) => {
-                    background.opacity = 0;
-                })
-            }
+            this._backgroundGroup.get_children().forEach((background) => {
+                background.opacity = 255;
+            })
         }
+
+        Main.overview._updateBackgrounds = function () {
+            Main.overview._backgroundGroup.get_children().forEach(
+                (bg) => {
+                    bg.vignette = false;
+                    bg.brightness = 1.0;
+
+                    bg.remove_effect_by_name('blur');
+
+                    bg.add_effect_with_name('blur', new Shell.BlurEffect({
+                        brightness: brightness,
+                        sigma: sigma,
+                        mode: 0
+                    }));
+                }
+            );
+        };
 
         this.connections.connect(Main.layoutManager._bgManagers[Main.layoutManager.primaryIndex], 'changed', () => {
             this._log("updated background");
-            this.update_backgrounds();
+            setTimeout(() => { Main.overview._updateBackgrounds() }, 100)
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (!Main.screenShield.locked) {
                 this._log("changed monitors");
-                this.update_backgrounds();
+                Main.overview._updateBackgrounds();
             }
         });
 
-        this.update_backgrounds();
+        Main.overview._updateBackgrounds();
     }
 
-    update_backgrounds() {
-        Main.overview._backgroundGroup.get_children().forEach(
-            (bg) => {
-                bg.vignette = false;
-                bg.brightness = 1.0;
-
-                bg.remove_effect_by_name('blur');
-
-                // apply blur effect
-                bg.add_effect_with_name('blur', new Shell.BlurEffect({
-                    brightness: this.brightness,
-                    sigma: this.sigma,
-                    mode: 0
-                }));
-                this._log("updated background no1");
-            }
-        );
+    set_sigma(s) {
+        sigma = s;
+        Main.overview._updateBackgrounds();
     }
 
-    set_sigma(sigma) {
-        this.sigma = sigma;
-        this.update_backgrounds();
-    }
-
-    set_brightness(brightness) {
-        this.brightness = brightness;
-        this.update_backgrounds();
+    set_brightness(b) {
+        brightness = b;
+        Main.overview._updateBackgrounds();
     }
 
     disable() {
@@ -115,17 +112,9 @@ var OverviewBlur = class OverviewBlur {
 
         Main.overview._shadeBackgrounds = old_shadeBackgrounds;
         Main.overview._unshadeBackgrounds = old_unshadeBackgrounds;
+        Main.overview._updateBackgrounds = old_updateBackgrounds;
 
-        Main.overview._backgroundGroup.get_children().forEach(
-            (bg) => {
-                bg.vignette = true;
-                bg.brightness = old_brightness;
-                bg.opacity = 255;
-
-                // remove blur effect
-                bg.remove_effect_by_name('blur');
-            }
-        );
+        Main.overview._updateBackgrounds();
     }
 
     _log(str) {
