@@ -21,7 +21,7 @@ Selecting another profile might be enought (especially if you have disabled anim
 ### List of bugs
 
 - artifacts on blurred parts [gnome shell bug](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857)
-- screenshots make the shell crash (gnome shell bug)
+- screenshots make the shell crash [gnome shell bug](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/3301) 
 
 If you find other bugs, please report them!
 
