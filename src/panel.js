@@ -11,6 +11,8 @@ let prefs = new Settings.Prefs;
 const default_sigma = 30;
 const default_brightness = 0.6;
 
+let sigma = 30;
+
 var PanelBlur = class PanelBlur {
     constructor(connections) {
         this.effect = new Shell.BlurEffect({
@@ -89,12 +91,13 @@ var PanelBlur = class PanelBlur {
         return Main.layoutManager.primaryMonitor
     }
 
-    set_sigma(sigma) {
-        this.effect.sigma = sigma;
+    set_sigma(s) {
+        this.effect.sigma = s;
+        sigma = s;
     }
 
-    set_brightness(brightness) {
-        this.effect.brightness = brightness;
+    set_brightness(b) {
+        this.effect.brightness = b;
     }
 
     remove_background_color() {
@@ -116,7 +119,7 @@ var PanelBlur = class PanelBlur {
     }
 
     show() {
-        this.effect.sigma = 30
+        this.effect.sigma = sigma
     }
     hide() {
         this.effect.sigma = 0
