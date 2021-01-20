@@ -28,7 +28,6 @@ const setTimeout = function (func, delay, ...args) {
 const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brightness;
 const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
 const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
-const old_updateBackgrounds = Main.overview._updateBackgrounds;
 
 // numeric values
 const ANIMATION_DURATION = 200;
@@ -65,7 +64,7 @@ var OverviewBlur = class OverviewBlur {
             })
         }
 
-        Main.overview._updateBackgrounds = function () {
+        Main.overview._updateBackgroundsBlur = function () {
             Main.overview._backgroundGroup.get_children().forEach(
                 (bg) => {
                     bg.vignette = false;
@@ -84,27 +83,27 @@ var OverviewBlur = class OverviewBlur {
 
         this.connections.connect(Main.layoutManager._bgManagers[Main.layoutManager.primaryIndex], 'changed', () => {
             this._log("updated background");
-            setTimeout(() => { Main.overview._updateBackgrounds() }, 100)
+            setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 400);
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (!Main.screenShield.locked) {
                 this._log("changed monitors");
-                Main.overview._updateBackgrounds();
+                Main.overview._updateBackgroundsBlur();
             }
         });
 
-        Main.overview._updateBackgrounds();
+        Main.overview._updateBackgroundsBlur();
     }
 
     set_sigma(s) {
         sigma = s;
-        Main.overview._updateBackgrounds();
+        Main.overview._updateBackgroundsBlur();
     }
 
     set_brightness(b) {
         brightness = b;
-        Main.overview._updateBackgrounds();
+        Main.overview._updateBackgroundsBlur();
     }
 
     disable() {
@@ -112,7 +111,6 @@ var OverviewBlur = class OverviewBlur {
 
         Main.overview._shadeBackgrounds = old_shadeBackgrounds;
         Main.overview._unshadeBackgrounds = old_unshadeBackgrounds;
-        Main.overview._updateBackgrounds = old_updateBackgrounds;
 
         Main.overview._updateBackgrounds();
     }
