@@ -6,6 +6,9 @@ const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const Clutter = imports.gi.Clutter;
 const GLib = imports.gi.GLib;
+const Gio = imports.gi.Gio;
+
+const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
 // get ANIMATE_OVERVIEW setting
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -81,9 +84,9 @@ var OverviewBlur = class OverviewBlur {
             );
         };
 
-        this.connections.connect(Main.layoutManager._bgManagers[Main.layoutManager.primaryIndex], 'changed', () => {
+        this.connections.connect(backgroundSettings, 'changed', () => {
             this._log("updated background");
-            setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 400);
+            setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
