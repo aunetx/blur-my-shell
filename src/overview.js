@@ -4,6 +4,7 @@ const St = imports.gi.St;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
+const Overview = imports.ui.overview;
 const Clutter = imports.gi.Clutter;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
@@ -33,7 +34,6 @@ const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
 const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
 
 // numeric values
-const ANIMATION_DURATION = 200;
 let sigma = 30;
 let brightness = 0.6;
 
@@ -45,13 +45,21 @@ var OverviewBlur = class OverviewBlur {
     enable() {
         this._log("blurring overview");
 
+        // Move the background group one level up, so that it isn't a child of the window_group anymore,
+        // but a sibling. We then also set the background group below all actors on that level.
+        let backgroundGroup = Main.layoutManager._backgroundGroup;
+        global.window_group.remove_child(backgroundGroup);
+        Main.layoutManager.uiGroup.add_child(backgroundGroup);
+        Main.layoutManager.uiGroup.set_child_below_sibling(backgroundGroup, null);
+
+
         // FIXME GNOME shell bug here: changing opacity to an inferior level does not update the opacity
         Main.overview._shadeBackgrounds = function () {
             this._backgroundGroup.get_children().forEach((background) => {
                 if (ANIMATE_OVERVIEW) {
                     background.opacity = 0;
                     background.ease_property('opacity', 255, {
-                        duration: ANIMATION_DURATION,
+                        duration: Overview.SHADE_ANIMATION_TIME,
                         mode: Clutter.AnimationMode.EASE_OUT_QUAD,
                     });
                 } else {
@@ -63,15 +71,30 @@ var OverviewBlur = class OverviewBlur {
 
         Main.overview._unshadeBackgrounds = function () {
             this._backgroundGroup.get_children().forEach((background) => {
-                background.opacity = 255;
+                if (ANIMATE_OVERVIEW) {
+                    background.opacity = 255;
+                    background.ease_property('opacity', 0, {
+                        duration: Overview.SHADE_ANIMATION_TIME,
+                        mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                    });
+                } else {
+                    background.opacity = 0;
+                }
             })
         }
 
         Main.overview._updateBackgroundsBlur = function () {
             Main.overview._backgroundGroup.get_children().forEach(
                 (bg) => {
-                    bg.vignette = false;
-                    bg.brightness = 1.0;
+                    if(bg.content == undefined) {
+                        // Shell version 3.36
+                        bg.vignette = false;
+                        bg.brightness = 1.0;
+                    } else {
+                        // Shell version >= 3.38
+                        bg.content.vignette = false;
+                        bg.content.brightness = 1.0;
+                    }
 
                     bg.remove_effect_by_name('blur');
 
@@ -85,6 +108,11 @@ var OverviewBlur = class OverviewBlur {
         };
 
         this.connections.connect(backgroundSettings, 'changed', () => {
+            this._log("updated background");
+            setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
+        });
+
+        this.connections.connect(backgroundSettings, 'changed::picture-uri', () => {
             this._log("updated background");
             setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
         });
@@ -114,6 +142,12 @@ var OverviewBlur = class OverviewBlur {
 
         Main.overview._shadeBackgrounds = old_shadeBackgrounds;
         Main.overview._unshadeBackgrounds = old_unshadeBackgrounds;
+
+        // Move the background group back to its original position
+        let backgroundGroup = Main.layoutManager._backgroundGroup;
+        Main.layoutManager.uiGroup.remove_child(backgroundGroup);
+        global.window_group.add_child(backgroundGroup);
+        global.window_group.set_child_below_sibling(backgroundGroup, null);
 
         Main.overview._updateBackgrounds();
     }
