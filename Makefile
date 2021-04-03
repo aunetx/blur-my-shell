@@ -1,3 +1,5 @@
+SHARED_VM = $(HOME)/Projets/.shared/
+
 .PHONY: build_pkg build vm_test install remove clean
 
 
@@ -14,9 +16,9 @@ build_pkg: build
 
 
 vm_test: build
-	rm -rf $(HOME)/Documents/shared/blur_my_shell/blur-my-shell@aunetx
-	mkdir -p $(HOME)/Documents/shared/blur_my_shell/blur-my-shell@aunetx
-	cp -r build/* $(HOME)/Documents/shared/blur_my_shell/blur-my-shell@aunetx/
+	rm -rf $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx
+	mkdir -p $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx
+	cp -r build/* $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx/
 
 
 install: build
