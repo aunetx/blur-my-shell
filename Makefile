@@ -20,6 +20,8 @@ vm_test: build
 	mkdir -p $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx
 	cp -r build/* $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx/
 
+vm_pkg: build_pkg
+	cp pkg/blur-my-shell@aunetx.zip $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx.zip
 
 install: build
 	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx

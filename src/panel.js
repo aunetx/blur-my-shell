@@ -101,11 +101,11 @@ var PanelBlur = class PanelBlur {
     }
 
     remove_background_color() {
-        Main.panel.style = "background-color:rgba(0,0,0,0.0);"
+        Main.panel.add_style_class_name('transparent-top-bar--transparent');
     }
 
     reset_background_color() {
-        Main.panel.style = null
+        Main.panel.remove_style_class_name('transparent-top-bar--transparent');
     }
 
     disable() {
@@ -119,10 +119,10 @@ var PanelBlur = class PanelBlur {
     }
 
     show() {
-        this.effect.sigma = sigma
+        this.background_parent.show();
     }
     hide() {
-        this.effect.sigma = 0
+        this.background_parent.hide();
     }
 
     _log(str) {

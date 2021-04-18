@@ -1,32 +1,22 @@
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Gtk = imports.gi.Gtk;
-
-let Extension = imports.misc.extensionUtils.getCurrentExtension();
+const { GObject, Gtk } = imports.gi;
+const ExtensionUtils = imports.misc.extensionUtils;
+const Extension = ExtensionUtils.getCurrentExtension();
 let Settings = Extension.imports.settings;
 let config = new Settings.Prefs();
 
-function init() { }
+const PrefsWidget = GObject.registerClass({
+    GTypeName: 'PrefsWidget',
+    Template: Extension.dir.get_child('prefs.ui').get_uri(),
+}, class PrefsWidget extends Gtk.Box {
 
-function buildPrefsWidget() {
-    let widget = new PrefsWidget();
-    widget.show_all();
-    return widget;
-}
-
-var PrefsWidget = new GObject.Class({
-    Name: "My.Prefs.Widget",
-    GTypeName: "PrefsWidget",
-    Extends: Gtk.ScrolledWindow,
-
-    _init: function (params) {
+    _init(params = {}) {
         this.parent(params);
 
         let builder = new Gtk.Builder();
+        builder.set_scope(new BuilderScope());
         builder.set_translation_domain('Blur my Shell preferences');
-        builder.add_from_file(Extension.path + '/prefs.ui');
-        this.connect("destroy", Gtk.main_quit);
 
         // ! sigma
         let sigma = config.SIGMA;
@@ -137,3 +127,9 @@ var PrefsWidget = new GObject.Class({
         this.add(builder.get_object('main_frame'));
     }
 });
+
+function init() { }
+
+function buildPrefsWidget() {
+    return new PrefsWidget();
+}
