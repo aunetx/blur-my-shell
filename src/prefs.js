@@ -12,11 +12,8 @@ const PrefsWidget = GObject.registerClass({
 }, class PrefsWidget extends Gtk.Box {
 
     _init(params = {}) {
-        this.parent(params);
-
+        super._init(params);
         let builder = new Gtk.Builder();
-        builder.set_scope(new BuilderScope());
-        builder.set_translation_domain('Blur my Shell preferences');
 
         // ! sigma
         let sigma = config.SIGMA;
