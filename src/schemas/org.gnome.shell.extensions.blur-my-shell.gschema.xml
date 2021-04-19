@@ -43,11 +43,5 @@
             <summary>Level of hacks to use (from 0 to 2)</summary>
             <description />
         </key>
-        <!-- ANIMATE OVERVIEW -->
-        <key type="b" name="animate-overview">
-            <default>true</default>
-            <summary>Boolean, whether to animate overview in/out or not</summary>
-            <description />
-        </key>
     </schema>
 </schemalist>
