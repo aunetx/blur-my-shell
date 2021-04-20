@@ -1,7 +1,7 @@
 'use strict';
 
 const { Shell, GLib, Gio, Meta } = imports.gi;
-const Main = imports.ui.Main;
+const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
 // useful
