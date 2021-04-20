@@ -1,8 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const Meta = imports.gi.Meta;
-const Shell = imports.gi.Shell;
+const { St, Shell, Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const default_sigma = 30;

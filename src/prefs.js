@@ -1,6 +1,7 @@
 'use strict';
 
 const { GObject, Gtk } = imports.gi;
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Extension = ExtensionUtils.getCurrentExtension();
 let Settings = Extension.imports.settings;

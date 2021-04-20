@@ -1,8 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const GLib = imports.gi.GLib;
-const Shell = imports.gi.Shell;
+const { St, Shell, GLib } = imports.gi;
 const Main = imports.ui.main;
 const Signals = imports.signals;
 

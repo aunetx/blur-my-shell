@@ -1,7 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
