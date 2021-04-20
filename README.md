@@ -2,9 +2,12 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
-You can now select which part you want to blur, wether or not you want overview animation and there is an option that reduces a lot the artifacts :)
+![Capture d’écran de 2021-04-20 15-00-18](https://user-images.githubusercontent.com/31563930/115416485-1cad1a80-a1f8-11eb-844e-cab11d3b863e.png)
+![Capture d’écran de 2021-04-20 15-00-13](https://user-images.githubusercontent.com/31563930/115400536-af928880-a1e9-11eb-8ac2-44dcb7718285.png)
 
 [<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
+
+You can now select which part you want to blur, wether or not you want overview animation and there is an option that reduces a lot the artifacts :)
 
 *Note: this extension contains a lot of bugs. If you find one (that is not already reported), please create an issue!*
 
