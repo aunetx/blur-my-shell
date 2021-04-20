@@ -15,6 +15,7 @@ var DashBlur = class DashBlur {
         this._log("blurring dash");
 
         if (Main.overview.dash.constructor.name == "Dash") {
+            this._log("normal dash found");
             Main.overview.dash.get_child_at_index(0).style = "background-color:rgba(0,0,0,0.0)";
         }
     }
@@ -25,7 +26,7 @@ var DashBlur = class DashBlur {
         if (Main.overview.dash.constructor.name == "Dash") {
             if (!Main.screenShield.locked) {
                 try {
-                    Main.overview.dash.get_child_at_index(0).style = none;
+                    Main.overview.dash.get_child_at_index(0).style = null;
                 } catch (e) {
                     this._log(e)
                 }
