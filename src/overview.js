@@ -18,12 +18,7 @@ const default_brightness = 0.6;
 var OverviewBlur = class OverviewBlur {
     constructor(connections) {
         this.connections = connections;
-        this.effect = new Shell.BlurEffect({
-            brightness: default_brightness,
-            sigma: default_sigma,
-            mode: 0
-        });
-        this.overview_bg = new Meta.BackgroundActor;
+        this.effects = [];
     }
 
     enable() {
@@ -31,42 +26,68 @@ var OverviewBlur = class OverviewBlur {
 
         this.connections.connect(backgroundSettings, 'changed', () => {
             this._log("updated background");
-            setTimeout(() => { this.update_background() }, 100);
-        });
-
-        this.connections.connect(backgroundSettings, 'changed::picture-uri', () => {
-            this._log("updated background");
-            setTimeout(() => { this.update_background() }, 100);
+            setTimeout(() => { this.update_backgrounds() }, 100);
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (!Main.screenShield.locked) {
                 this._log("changed monitors");
-                this.update_background()
+                this.update_backgrounds()
             }
         });
 
-        this.update_background();
-        Main.overview._overview.get_parent().insert_child_at_index(this.overview_bg, 0);
+        this.update_backgrounds();
     }
 
-    update_background() {
-        let bg = Main.layoutManager._backgroundGroup.get_child_at_index(0);
-        this.overview_bg.set_content(bg.get_content());
-        this.overview_bg.add_effect(this.effect);
+    update_backgrounds() {
+        // remove every old background
+        Main.layoutManager.overviewGroup.get_children().forEach(actor => {
+            if (actor.constructor.name == 'Meta_BackgroundActor') {
+                Main.layoutManager.overviewGroup.remove_child(actor)
+            };
+            this.effects = [];
+        });
+
+        // add new backgrounds
+        Main.layoutManager.monitors.forEach(monitor => {
+            let bg_actor = new Meta.BackgroundActor
+            let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
+            bg_actor.set_content(background.get_content());
+            let effect = new Shell.BlurEffect({
+                brightness: default_brightness,
+                sigma: default_sigma,
+                mode: 0
+            });
+            bg_actor.add_effect(effect);
+            this.effects.push(effect);
+
+            bg_actor.set_x(monitor.x);
+            bg_actor.set_y(monitor.y);
+
+            Main.layoutManager.overviewGroup.insert_child_at_index(bg_actor, monitor.index);
+        });
     }
 
     set_sigma(s) {
-        this.effect.sigma = s
+        this.effects.forEach(effect => {
+            effect.sigma = s
+        });
     }
 
     set_brightness(b) {
-        this.effect.brightness = b
+        this.effects.forEach(effect => {
+            effect.brightness = b
+        });
     }
 
     disable() {
         this._log("removing blur from overview");
-        Main.overview._overview.get_parent().remove_child(this.overview_bg);
+        Main.layoutManager.overviewGroup.get_children().forEach(actor => {
+            if (actor.constructor.name == 'Meta_BackgroundActor') {
+                Main.layoutManager.overviewGroup.remove_child(actor)
+            }
+        });
+        this.effects = []
     }
 
     _log(str) {
