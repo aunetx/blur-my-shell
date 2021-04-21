@@ -49,5 +49,11 @@
             <summary>Opacity of dash to use</summary>
             <description />
         </key>
+        <!-- STATIC BLUR -->
+        <key type="b" name="static-blur">
+            <default>true</default>
+            <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
+            <description />
+        </key>
     </schema>
 </schemalist>

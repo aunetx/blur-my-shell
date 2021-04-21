@@ -109,6 +109,9 @@ class Extension {
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update()
         });
+        this._prefs.STATIC_BLUR.changed(() => {
+            this._panel_blur.change_blur_type()
+        });
     }
 
     _disconnect_settings() {

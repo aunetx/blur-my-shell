@@ -20,7 +20,8 @@ const PrefsWidget = GObject.registerClass({
         'hacks_level0',
         'hacks_level1',
         'hacks_level2',
-        'dash_opacity_scale'
+        'dash_opacity_scale',
+        'static_blur'
     ],
 }, class PrefsWidget extends Gtk.Box {
     _init(params = {}) {
@@ -61,6 +62,9 @@ const PrefsWidget = GObject.registerClass({
 
         // ! dash opacity
         this._dash_opacity_scale.set_value(config.DASH_OPACITY.get());
+
+        // ! static panel blur
+        this._static_blur.set_active(config.STATIC_BLUR.get());
     }
 
     sigma_changed(w) {
@@ -111,6 +115,11 @@ const PrefsWidget = GObject.registerClass({
     dash_opacity_changed(w) {
         let value = w.get_value();
         config.DASH_OPACITY.set(value);
+    }
+
+    static_blur_toogled(w) {
+        let value = w.get_active();
+        config.STATIC_BLUR.set(value);
     }
 
     _log(str) {

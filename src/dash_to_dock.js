@@ -182,7 +182,10 @@ var DashBlur = class DashBlur {
                     effect.queue_repaint();
                 };
 
+                // disabled because of #31
+                /*
                 this.connections.connect(dash, 'paint', rp);
+                */
             }
 
             // ! END OF DIRTY PART
