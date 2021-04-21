@@ -21,6 +21,7 @@ const PrefsWidget = GObject.registerClass({
         'hacks_level1',
         'hacks_level2',
         'dash_opacity_scale',
+        'blur_applications',
         'static_blur'
     ],
 }, class PrefsWidget extends Gtk.Box {
@@ -44,6 +45,9 @@ const PrefsWidget = GObject.registerClass({
 
         // ! blur lockscreen
         this._blur_lockscreen.set_active(config.BLUR_LOCKSCREEN.get());
+
+        // ! blur applications
+        this._blur_applications.set_active(config.BLUR_APPLICATIONS.get());
 
         // ! dash hacks
         if (config.HACKS_LEVEL.get() == 0) {
@@ -95,6 +99,11 @@ const PrefsWidget = GObject.registerClass({
     blur_lockscreen_toggled(w) {
         let value = w.get_active();
         config.BLUR_LOCKSCREEN.set(value);
+    }
+
+    blur_applications_toggled(w) {
+        let is_active = w.get_active();
+        config.BLUR_APPLICATIONS.set(value);
     }
 
     hacks_level0_toggled(w) {
