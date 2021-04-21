@@ -4,6 +4,10 @@ const { Shell, GLib, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Settings = Me.imports.settings;
+let prefs = new Settings.Prefs;
+
 // useful
 const setTimeout = function (func, delay, ...args) {
     return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
@@ -54,8 +58,8 @@ var OverviewBlur = class OverviewBlur {
             let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
             bg_actor.set_content(background.get_content());
             let effect = new Shell.BlurEffect({
-                brightness: default_brightness,
-                sigma: default_sigma,
+                brightness: prefs.BRIGHTNESS.get(),
+                sigma: prefs.SIGMA.get(),
                 mode: 0
             });
             bg_actor.add_effect(effect);
