@@ -143,20 +143,20 @@ var Prefs = class Prefs {
             },
         };
 
-        this.ANIMATE_OVERVIEW = {
-            key: 'animate-overview',
+        this.DASH_OPACITY = {
+            key: 'dash-opacity',
             get: function () {
-                return settings.get_boolean(this.key);
+                return settings.get_double(this.key);
             },
             set: function (v) {
-                settings.set_boolean(this.key, v);
+                settings.set_double(this.key, v);
             },
             changed: function (cb) {
                 return settings.connect('changed::' + this.key, cb);
             },
             disconnect: function () {
                 return settings.disconnect.apply(settings, arguments);
-            }
+            },
         };
     }
 };

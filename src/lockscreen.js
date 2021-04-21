@@ -1,29 +1,15 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 const Background = imports.ui.background;
 
 const themeContext = St.ThemeContext.get_for_stage(global.stage);
 
-let shell_version = imports.misc.config.PACKAGE_VERSION.split('.');
-
-function verify_function_to_use() {
-    if (parseInt(shell_version[1]) <= 36 && parseInt(shell_version[2] <= 3))
-        return false
-    else
-        return true
-}
-
-let is_new_function = verify_function_to_use();
-
 let sigma = 30;
 let brightness = 0.6;
 
 const original_createBackground = imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
-const original_createBackground_old = imports.ui.unlockDialog.UnlockDialog.prototype._createBackground;
-
 
 var LockscreenBlur = class LockscreenBlur {
     constructor(connections) {
@@ -37,11 +23,7 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     update_lockscreen() {
-        if (is_new_function)
-            imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = this._createBackground;
-        else
-            imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = this._createBackground_old;
-
+        imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = this._createBackground;
     }
 
 
@@ -100,11 +82,7 @@ var LockscreenBlur = class LockscreenBlur {
     disable() {
         this._log("removing blur from lockscreen");
 
-        if (is_new_function)
-            imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = original_createBackground;
-        else
-            imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = original_createBackground_old;
-
+        imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = original_createBackground;
     }
 
     _log(str) {

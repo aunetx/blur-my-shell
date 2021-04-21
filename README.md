@@ -2,8 +2,7 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
-![Capture d’écran de 2021-04-20 15-00-18](https://user-images.githubusercontent.com/31563930/115416485-1cad1a80-a1f8-11eb-844e-cab11d3b863e.png)
-![Capture d’écran de 2021-04-20 15-00-13](https://user-images.githubusercontent.com/31563930/115400536-af928880-a1e9-11eb-8ac2-44dcb7718285.png)
+![Gnome 40](https://user-images.githubusercontent.com/31563930/115416797-5ed65c00-a1f8-11eb-808b-55791c80ac1e.png)
 
 [<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
 
@@ -17,7 +16,8 @@ You can now select which part you want to blur, wether or not you want overview 
 
 This extension can be buggy, as the gnome-shell's blur implementation is quite flawed in some ways.
 
-However, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (adds ~3% CPU usage for the gnome-shell process in my old Thinkpad).
+However, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (adds ~3% CPU usage for the gnome-shell process in my old Thinkpad).\
+**note: in Gnome 40, selecting this option is not possible for the moment**
 
 Selecting another profile might be enought (especially if you have disabled animations), feel free to test!
 
@@ -45,6 +45,10 @@ And restart GNOME Shell if needed.
 ### Versions support
 
 The current extension supports those GNOME Shell versions:
+
+- 40 (beta)
+
+Older GNOME versions are supported up to Blur my Shell version 6:
 
 - 3.36
 - 3.38

@@ -1,7 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -107,6 +106,9 @@ class Extension {
                 this._lockscreen_blur.disable()
             }
         });
+        this._prefs.DASH_OPACITY.changed(() => {
+            this._dash_blur.update()
+        });
     }
 
     _disconnect_settings() {
@@ -135,11 +137,11 @@ class Extension {
     _connect_to_overview() {
         this._connections.connect(Main.overview, 'showing', () => {
             this._panel_blur.hide();
-            this._dash_to_dock_blur.hide();
+            //this._dash_to_dock_blur.hide();
         });
         this._connections.connect(Main.overview, 'hidden', () => {
             this._panel_blur.show();
-            this._dash_to_dock_blur.show();
+            //this._dash_to_dock_blur.show();
         });
     }
 

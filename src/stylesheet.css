@@ -1,0 +1,7 @@
+.transparent-top-bar--transparent {
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 500ms;
+}
+.app-folder {
+    background-color: rgba(0, 0, 0, 0.12);
+}

@@ -1,7 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -101,11 +100,11 @@ var PanelBlur = class PanelBlur {
     }
 
     remove_background_color() {
-        Main.panel.style = "background-color:rgba(0,0,0,0.0);"
+        Main.panel.add_style_class_name('transparent-top-bar--transparent');
     }
 
     reset_background_color() {
-        Main.panel.style = null
+        Main.panel.remove_style_class_name('transparent-top-bar--transparent');
     }
 
     disable() {
@@ -115,14 +114,16 @@ var PanelBlur = class PanelBlur {
         Main.panel._rightCorner.show();
 
         this.reset_background_color();
-        this.background_parent.get_parent().remove_child(this.background_parent);
+        try {
+            this.background_parent.get_parent().remove_child(this.background_parent);
+        } catch (e) { }
     }
 
     show() {
-        this.effect.sigma = sigma
+        this.background_parent.show();
     }
     hide() {
-        this.effect.sigma = 0
+        this.background_parent.hide();
     }
 
     _log(str) {

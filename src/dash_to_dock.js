@@ -1,8 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const GLib = imports.gi.GLib;
-const Shell = imports.gi.Shell;
+const { St, Shell, GLib } = imports.gi;
 const Main = imports.ui.main;
 const Signals = imports.signals;
 
@@ -13,16 +11,26 @@ let prefs = new Settings.Prefs;
 const default_sigma = 30;
 const default_brightness = 0.6;
 
+// useful
+const setTimeout = function (func, delay, ...args) {
+    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
+        func(...args);
+        return GLib.SOURCE_REMOVE;
+    });
+};
+
 class DashInfos {
-    constructor(dash_blur, dash, background_parent, effect) {
+    constructor(dash_blur, dash, dash_box, background_parent, effect) {
         this.dash_blur = dash_blur;
         this.dash = dash;
+        this.dash_box = dash_box;
         this.background_parent = background_parent;
         this.effect = effect;
 
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
             this._log("removing blur from dash");
             this.dash.get_parent().remove_child(this.background_parent);
+            this.dash_box.style = null;
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
@@ -76,7 +84,7 @@ var DashBlur = class DashBlur {
     try_blur(dash) {
         if (dash.get_name() == "dashtodockContainer" &&
             (dash.constructor.name == 'DashToDock') &&
-            (dash.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0).name != 'dash-blurred-background-parent')
+            (dash.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0).get_child_at_index(0).name != 'dash-blurred-background-parent')
         ) {
             this._log("dash to dock found, blurring it");
             this.dashes.push(this.blur_dash_from(dash));
@@ -87,6 +95,7 @@ var DashBlur = class DashBlur {
     blur_dash_from(dash_container) {
         // the actual styled dash
         let dash = dash_container.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0);
+        let dash_box = dash.get_child_at_index(0);
 
         // the effect applied
         let effect = new Shell.BlurEffect({
@@ -107,19 +116,28 @@ var DashBlur = class DashBlur {
         // dash background widget
         let background = new St.Widget({
             style_class: 'dash-blurred-background',
-            x: 0,
-            y: 0,
-            width: dash.width,
-            height: dash.height,
+            x: dash_box.x,
+            y: dash.height - dash_box.height - 8,
+            width: dash_box.width,
+            height: dash_box.height,
         });
 
-        let dash_icons_container = dash.get_child_at_index(0).get_child_at_index(0).get_child_at_index(2);
+        setTimeout(() => {
+            background.height = dash_box.height;
+            background.width = dash_box.width;
+            background.x = dash_box.x;
+            background.y = dash.height - dash_box.height - 8;
+        }, 100);
+
+        let dash_icons_container = dash.get_child_at_index(1).get_child_at_index(0).get_child_at_index(2);
 
         // updates size on change
         // TODO maybe use `connect_after`?
         this.connections.connect(dash_icons_container, 'notify', () => {
-            background.height = dash.height;
-            background.width = dash.width;
+            background.height = dash_box.height;
+            background.width = dash_box.width;
+            background.x = dash_box.x;
+            background.y = dash.height - dash_box.height - 8;
         });
 
         // HACK
@@ -150,7 +168,7 @@ var DashBlur = class DashBlur {
                     this.connections.connect(zone, 'button-press-event', rp);
                 })
 
-                let dash_show_apps = dash.get_child_at_index(0).get_child_at_index(1);
+                let dash_show_apps = dash.get_child_at_index(1).get_child_at_index(1);
 
                 this.connections.connect(dash_show_apps, 'enter-event', rp);
                 this.connections.connect(dash_show_apps, 'leave-event', rp);
@@ -174,9 +192,18 @@ var DashBlur = class DashBlur {
         background.add_effect(effect);
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
+        dash_box.style = "background-color:rgba(0,0,0,0.0);";
+        setTimeout(() => {
+            dash_box.style = "background-color:rgba(0,0,0,0.0);";
+            Main.panel._leftCorner.hide();
+            Main.panel._rightCorner.hide();
+        }, 500);
+        setTimeout(() => {
+            dash_box.style = "background-color:rgba(0,0,0,0.0);"
+        }, 3000);
 
         // returns infos
-        return new DashInfos(this, dash, background_parent, effect);
+        return new DashInfos(this, dash, dash_box, background_parent, effect);
     }
 
     set_sigma(sigma) {
