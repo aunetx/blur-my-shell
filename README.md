@@ -16,7 +16,8 @@ You can now select which part you want to blur, wether or not you want overview 
 
 This extension can be buggy, as the gnome-shell's blur implementation is quite flawed in some ways.
 
-However, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (adds ~3% CPU usage for the gnome-shell process in my old Thinkpad).
+However, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (adds ~3% CPU usage for the gnome-shell process in my old Thinkpad).\
+**note: in Gnome 40, selecting this option is not possible for the moment**
 
 Selecting another profile might be enought (especially if you have disabled animations), feel free to test!
 
@@ -46,6 +47,11 @@ And restart GNOME Shell if needed.
 The current extension supports those GNOME Shell versions:
 
 - 40 (beta)
+
+Older GNOME versions are supported up to Blur my Shell version 6:
+
+- 3.36
+- 3.38
 
 ## License
 
