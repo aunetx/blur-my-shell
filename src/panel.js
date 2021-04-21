@@ -8,6 +8,7 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 let prefs = new Settings.Prefs;
 
+const dash_to_panel_uuid = 'dash-to-panel@jderose9.github.com';
 const default_sigma = 30;
 const default_brightness = 0.6;
 
@@ -46,6 +47,15 @@ var PanelBlur = class PanelBlur {
 
     enable() {
         this._log("blurring top panel");
+
+        this.connections.connect(Main.extensionManager, 'extension-state-changed', (data, extension) => {
+            if (extension.uuid === dash_to_panel_uuid && extension.state === 1) {
+                // doesn't work
+                this._log("Dash to Panel detected, resetting panel blur")
+                this.disable();
+                this.enable();
+            }
+        });
 
         // insert background parent
         Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
