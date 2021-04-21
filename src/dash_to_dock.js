@@ -194,7 +194,9 @@ var DashBlur = class DashBlur {
         dash.get_parent().insert_child_at_index(background_parent, 0);
         dash_box.style = "background-color:rgba(0,0,0,0.0);";
         setTimeout(() => {
-            dash_box.style = "background-color:rgba(0,0,0,0.0);"
+            dash_box.style = "background-color:rgba(0,0,0,0.0);";
+            Main.panel._leftCorner.hide();
+            Main.panel._rightCorner.hide();
         }, 500);
         setTimeout(() => {
             dash_box.style = "background-color:rgba(0,0,0,0.0);"
