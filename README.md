@@ -49,7 +49,7 @@ And restart GNOME Shell if needed.
 
 The current extension supports those GNOME Shell versions:
 
-- 40 (beta)
+- 40
 
 Older GNOME versions are supported up to Blur my Shell version 6:
 
