@@ -114,7 +114,9 @@ var PanelBlur = class PanelBlur {
         Main.panel._rightCorner.show();
 
         this.reset_background_color();
-        this.background_parent.get_parent().remove_child(this.background_parent);
+        try {
+            this.background_parent.get_parent().remove_child(this.background_parent);
+        } catch (e) { }
     }
 
     show() {
