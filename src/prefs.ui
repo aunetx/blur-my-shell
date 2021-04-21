@@ -99,7 +99,7 @@
             <layout>
               <property name="column">0</property>
               <property name="row">3</property>
-              <property name="row-span">4</property>
+              <property name="row-span">5</property>
             </layout>
           </object>
         </child>
@@ -126,6 +126,17 @@
           </object>
         </child>
         <child>
+          <object class="GtkCheckButton" id="blur_overview">
+            <property name="label" translatable="yes">overview</property>
+            <property name="active">1</property>
+            <signal name="toggled" handler="blur_overview_toggled" swapped="no" />
+            <layout>
+              <property name="column">1</property>
+              <property name="row">5</property>
+            </layout>
+          </object>
+        </child>
+        <child>
           <object class="GtkCheckButton" id="blur_lockscreen">
             <property name="label" translatable="yes">lockscreen</property>
             <property name="active">1</property>
@@ -137,13 +148,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkCheckButton" id="blur_overview">
-            <property name="label" translatable="yes">overview</property>
+          <object class="GtkCheckButton" id="blur_applications">
+            <property name="label" translatable="yes">applications (coming soon)</property>
             <property name="active">1</property>
-            <signal name="toggled" handler="blur_overview_toggled" swapped="no" />
+            <property name="sensitive">0</property>
+            <signal name="toggled" handler="blur_applications_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">5</property>
+              <property name="row">7</property>
             </layout>
           </object>
         </child>
@@ -156,7 +168,7 @@
             <property name="orientation">vertical</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">7</property>
+              <property name="row">8</property>
               <property name="column-span">2</property>
             </layout>
           </object>
@@ -171,7 +183,7 @@
             <property name="justify">center</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">8</property>
+              <property name="row">9</property>
               <property name="row-span">3</property>
             </layout>
           </object>
@@ -183,7 +195,7 @@
             <signal name="toggled" handler="hacks_level0_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">8</property>
+              <property name="row">9</property>
             </layout>
           </object>
         </child>
@@ -195,7 +207,7 @@
             <signal name="toggled" handler="hacks_level1_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">9</property>
+              <property name="row">10</property>
             </layout>
           </object>
         </child>
@@ -208,7 +220,18 @@
             <signal name="toggled" handler="hacks_level2_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">10</property>
+              <property name="row">11</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="can_focus">0</property>
+            <property name="orientation">vertical</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">12</property>
+              <property name="column-span">2</property>
             </layout>
           </object>
         </child>
