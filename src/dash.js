@@ -3,6 +3,10 @@
 const { St, Shell, Meta } = imports.gi;
 const Main = imports.ui.main;
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Settings = Me.imports.settings;
+let prefs = new Settings.Prefs;
+
 const default_sigma = 30;
 const default_brightness = 0.6;
 
@@ -13,10 +17,12 @@ var DashBlur = class DashBlur {
 
     enable() {
         this._log("blurring dash");
+        this.update()
+    }
 
+    update() {
         if (Main.overview.dash.constructor.name == "Dash") {
-            this._log("normal dash found");
-            Main.overview.dash.get_child_at_index(0).style = "background-color:rgba(0,0,0,0.0)";
+            Main.overview.dash.get_child_at_index(0).style = "background-color:rgba(0,0,0," + prefs.DASH_OPACITY.get() + ")";
         }
     }
 

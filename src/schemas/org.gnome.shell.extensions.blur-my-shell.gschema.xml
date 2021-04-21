@@ -43,5 +43,11 @@
             <summary>Level of hacks to use (from 0 to 2)</summary>
             <description />
         </key>
+        <!-- DASH OPACITY -->
+        <key type="d" name="dash-opacity">
+            <default>0.12</default>
+            <summary>Opacity of dash to use</summary>
+            <description />
+        </key>
     </schema>
 </schemalist>

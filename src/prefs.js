@@ -20,6 +20,7 @@ const PrefsWidget = GObject.registerClass({
         'hacks_level0',
         'hacks_level1',
         'hacks_level2',
+        'dash_opacity_scale'
     ],
 }, class PrefsWidget extends Gtk.Box {
     _init(params = {}) {
@@ -57,6 +58,9 @@ const PrefsWidget = GObject.registerClass({
             this._log(`hack level out-of-bound: ${hack_level}, defaulting to 1.`);
             this._hacks_level0.set_active(true);
         }
+
+        // ! dash opacity
+        this._dash_opacity_scale.set_value(config.DASH_OPACITY.get());
     }
 
     sigma_changed(w) {
@@ -102,6 +106,11 @@ const PrefsWidget = GObject.registerClass({
     hacks_level2_toggled(w) {
         let is_active = w.get_active();
         if (is_active) { config.HACKS_LEVEL.set(2) }
+    }
+
+    dash_opacity_changed(w) {
+        let value = w.get_value();
+        config.DASH_OPACITY.set(value);
     }
 
     _log(str) {

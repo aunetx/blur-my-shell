@@ -106,6 +106,9 @@ class Extension {
                 this._lockscreen_blur.disable()
             }
         });
+        this._prefs.DASH_OPACITY.changed(() => {
+            this._dash_blur.update()
+        });
     }
 
     _disconnect_settings() {
