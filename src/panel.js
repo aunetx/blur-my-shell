@@ -46,8 +46,10 @@ var PanelBlur = class PanelBlur {
             if (extension.uuid === dash_to_panel_uuid && extension.state === 1) {
                 // doesn't work
                 this._log("Dash to Panel detected, resetting panel blur")
-                this.disable();
-                this.enable();
+                setTimeout(() => {
+                    this.disable();
+                    this.enable();
+                }, 500);
             }
         });
 
