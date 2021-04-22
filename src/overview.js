@@ -41,7 +41,7 @@ var OverviewBlur = class OverviewBlur {
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
             if (actor.constructor.name == 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor)
-            };
+            }
             this.effects = [];
         });
 
@@ -67,13 +67,13 @@ var OverviewBlur = class OverviewBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.sigma = s
+            effect.sigma = s;
         });
     }
 
     set_brightness(b) {
         this.effects.forEach(effect => {
-            effect.brightness = b
+            effect.brightness = b;
         });
     }
 
@@ -84,7 +84,7 @@ var OverviewBlur = class OverviewBlur {
                 Main.layoutManager.overviewGroup.remove_child(actor)
             }
         });
-        this.effects = []
+        this.effects = [];
         this.connections.disconnect_all();
     }
 
