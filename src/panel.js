@@ -95,9 +95,6 @@ var PanelBlur = class PanelBlur {
             this.show();
         });
 
-        // not solving the issue for now
-        //this._connect_to_dash_to_panel();
-
         // HACK
         if (!is_static) {
             // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
