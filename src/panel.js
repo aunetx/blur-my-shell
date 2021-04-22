@@ -95,7 +95,8 @@ var PanelBlur = class PanelBlur {
             this.show();
         });
 
-        this._connect_to_dash_to_panel();
+        // not solving the issue for now
+        //this._connect_to_dash_to_panel();
 
         // HACK
         if (!is_static) {
@@ -166,7 +167,7 @@ var PanelBlur = class PanelBlur {
                 Utils.setTimeout(() => {
                     this.disable();
                     this.enable();
-                }, 100);
+                }, 300);
             }
         });
     }
