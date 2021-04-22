@@ -64,7 +64,8 @@ var PanelBlur = class PanelBlur {
             Utils.setTimeout(() => { this.update_wallpaper(prefs.STATIC_BLUR.get()) }, 100);
         });
 
-        this._connect_to_dash_to_panel();
+        // not needed for now, but may be needed later
+        //this._connect_to_dash_to_panel();
     }
 
     change_blur_type() {
@@ -155,7 +156,7 @@ var PanelBlur = class PanelBlur {
                 Utils.setTimeout(() => {
                     this.disable();
                     this.enable();
-                }, 100);
+                }, 500);
             }
         });
     }
