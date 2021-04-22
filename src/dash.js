@@ -38,6 +38,8 @@ var DashBlur = class DashBlur {
                 }
             }
         }
+
+        this.connections.disconnect_all();
     }
 
     _log(str) {

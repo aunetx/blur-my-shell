@@ -83,6 +83,8 @@ var LockscreenBlur = class LockscreenBlur {
         this._log("removing blur from lockscreen");
 
         imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = original_createBackground;
+
+        this.connections.disconnect_all();
     }
 
     _log(str) {

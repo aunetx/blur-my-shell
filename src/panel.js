@@ -6,19 +6,14 @@ const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.backgro
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 let prefs = new Settings.Prefs;
 
 const dash_to_panel_uuid = 'dash-to-panel@jderose9.github.com';
 const default_sigma = 30;
 const default_brightness = 0.6;
 
-// useful
-const setTimeout = function (func, delay, ...args) {
-    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
-        func(...args);
-        return GLib.SOURCE_REMOVE;
-    });
-};
+let sigma = 30;
 
 var PanelBlur = class PanelBlur {
     constructor(connections) {
@@ -48,17 +43,6 @@ var PanelBlur = class PanelBlur {
     enable() {
         this._log("blurring top panel");
 
-        this.connections.connect(Main.extensionManager, 'extension-state-changed', (data, extension) => {
-            if (extension.uuid === dash_to_panel_uuid && extension.state === 1) {
-                // doesn't work
-                this._log("Dash to Panel detected, resetting panel blur")
-                setTimeout(() => {
-                    this.disable();
-                    this.enable();
-                }, 500);
-            }
-        });
-
         // insert background parent
         Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
         // hide corners, can't style them
@@ -77,8 +61,10 @@ var PanelBlur = class PanelBlur {
             this.update_size(prefs.STATIC_BLUR.get());
         });
         this.connections.connect(backgroundSettings, 'changed', () => {
-            setTimeout(() => { this.update_wallpaper(prefs.STATIC_BLUR.get()) }, 100);
+            Utils.setTimeout(() => { this.update_wallpaper(prefs.STATIC_BLUR.get()) }, 100);
         });
+
+        this._connect_to_dash_to_panel();
     }
 
     change_blur_type() {
@@ -162,6 +148,18 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    _connect_to_dash_to_panel() {
+        this.connections.connect(Main.extensionManager, 'extension-state-changed', (data, extension) => {
+            if (extension.uuid === dash_to_panel_uuid/* && extension.state === 1*/) {
+                this._log("Dash to Panel detected, resetting panel blur");
+                Utils.setTimeout(() => {
+                    this.disable();
+                    this.enable();
+                }, 100);
+            }
+        });
+    }
+
     get monitor() {
         return Main.layoutManager.primaryMonitor
     }
@@ -183,6 +181,8 @@ var PanelBlur = class PanelBlur {
         try {
             this.background_parent.get_parent().remove_child(this.background_parent);
         } catch (e) { }
+
+        this.connections.disconnect_all();
     }
 
     show() {
