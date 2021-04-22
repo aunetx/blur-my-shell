@@ -78,7 +78,6 @@ class Extension {
         this._log("extension disabled.");
     }
 
-
     _connect_to_settings() {
         this._prefs.SIGMA.changed(() => {
             this._update_sigma();
@@ -156,6 +155,5 @@ class Extension {
 
 // Called on gnome-shell loading, even if extension is deactivated
 function init() {
-    log("[Blur my Shell] init");
     return new Extension();
 }

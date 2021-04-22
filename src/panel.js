@@ -6,6 +6,7 @@ const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.backgro
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 let prefs = new Settings.Prefs;
 
 const dash_to_panel_uuid = 'dash-to-panel@jderose9.github.com';
@@ -41,17 +42,6 @@ var PanelBlur = class PanelBlur {
 
     enable() {
         this._log("blurring top panel");
-
-        this.connections.connect(Main.extensionManager, 'extension-state-changed', (data, extension) => {
-            if (extension.uuid === dash_to_panel_uuid && extension.state === 1) {
-                // doesn't work
-                this._log("Dash to Panel detected, resetting panel blur")
-                setTimeout(() => {
-                    this.disable();
-                    this.enable();
-                }, 500);
-            }
-        });
 
         // insert background parent
         Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
@@ -96,6 +86,16 @@ var PanelBlur = class PanelBlur {
 
         this.update_wallpaper(is_static);
         this.update_size(is_static);
+
+        // connect to overview
+        this.connections.connect(Main.overview, 'showing', () => {
+            this.hide();
+        });
+        this.connections.connect(Main.overview, 'hidden', () => {
+            this.show();
+        });
+
+        this._connect_to_dash_to_panel();
 
         // HACK
         if (!is_static) {
@@ -166,7 +166,7 @@ var PanelBlur = class PanelBlur {
                 Utils.setTimeout(() => {
                     this.disable();
                     this.enable();
-                }, 500);
+                }, 100);
             }
         });
     }
@@ -185,13 +185,14 @@ var PanelBlur = class PanelBlur {
 
     disable() {
         this._log("removing blur from top panel");
-
         Main.panel._leftCorner.show();
         Main.panel._rightCorner.show();
 
         try {
             this.background_parent.get_parent().remove_child(this.background_parent);
         } catch (e) { }
+
+        this.connections.disconnect_all();
     }
 
     show() {
