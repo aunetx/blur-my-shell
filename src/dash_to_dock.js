@@ -6,18 +6,11 @@ const Signals = imports.signals;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 let prefs = new Settings.Prefs;
 
 const default_sigma = 30;
 const default_brightness = 0.6;
-
-// useful
-const setTimeout = function (func, delay, ...args) {
-    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
-        func(...args);
-        return GLib.SOURCE_REMOVE;
-    });
-};
 
 class DashInfos {
     constructor(dash_blur, dash, dash_box, background_parent, effect) {
@@ -122,7 +115,7 @@ var DashBlur = class DashBlur {
             height: dash_box.height,
         });
 
-        setTimeout(() => {
+        Utils.setTimeout(() => {
             background.height = dash_box.height;
             background.width = dash_box.width;
             background.x = dash_box.x;
@@ -196,12 +189,12 @@ var DashBlur = class DashBlur {
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
         dash_box.style = "background-color:rgba(0,0,0,0.0);";
-        setTimeout(() => {
+        Utils.setTimeout(() => {
             dash_box.style = "background-color:rgba(0,0,0,0.0);";
             Main.panel._leftCorner.hide();
             Main.panel._rightCorner.hide();
         }, 500);
-        setTimeout(() => {
+        Utils.setTimeout(() => {
             dash_box.style = "background-color:rgba(0,0,0,0.0);"
         }, 3000);
 
@@ -222,9 +215,11 @@ var DashBlur = class DashBlur {
     disable() {
         this._log("removing blur from dashes");
 
+
         this.emit('remove-dashes', true);
 
         this.dashes = [];
+        this.connections.disconnect_all();
     }
 
     show() {

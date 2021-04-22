@@ -6,15 +6,8 @@ const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.backgro
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 let prefs = new Settings.Prefs;
-
-// useful
-const setTimeout = function (func, delay, ...args) {
-    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
-        func(...args);
-        return GLib.SOURCE_REMOVE;
-    });
-};
 
 const default_sigma = 30;
 const default_brightness = 0.6;
@@ -30,7 +23,7 @@ var OverviewBlur = class OverviewBlur {
 
         this.connections.connect(backgroundSettings, 'changed', () => {
             this._log("updated background");
-            setTimeout(() => { this.update_backgrounds() }, 100);
+            Utils.setTimeout(() => { this.update_backgrounds() }, 100);
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
@@ -92,6 +85,7 @@ var OverviewBlur = class OverviewBlur {
             }
         });
         this.effects = []
+        this.connections.disconnect_all();
     }
 
     _log(str) {
