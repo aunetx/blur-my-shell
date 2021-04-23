@@ -52,6 +52,8 @@ var PanelBlur = class PanelBlur {
         // hide corners, can't style them
         Main.panel._leftCorner.hide();
         Main.panel._rightCorner.hide();
+        // remove background
+        Main.panel.add_style_class_name('transparent-panel');
 
         // perform updates
         this.change_blur_type();
@@ -167,6 +169,7 @@ var PanelBlur = class PanelBlur {
 
         Main.panel._leftCorner.show();
         Main.panel._rightCorner.show();
+        Main.panel.remove_style_class_name('transparent-panel');
 
         try {
             this.background_parent.get_parent().remove_child(this.background_parent);
