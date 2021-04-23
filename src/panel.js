@@ -66,6 +66,14 @@ var PanelBlur = class PanelBlur {
             Utils.setTimeout(() => { this.update_wallpaper(prefs.STATIC_BLUR.get()) }, 100);
         });
 
+        // connect to overview
+        this.connections.connect(Main.overview, 'showing', () => {
+            this.hide();
+        });
+        this.connections.connect(Main.overview, 'hidden', () => {
+            this.show();
+        });
+
         // not needed for now, but may be needed later
         //this._connect_to_dash_to_panel();
     }
@@ -88,14 +96,6 @@ var PanelBlur = class PanelBlur {
 
         this.update_wallpaper(is_static);
         this.update_size(is_static);
-
-        // connect to overview
-        this.connections.connect(Main.overview, 'showing', () => {
-            this.hide();
-        });
-        this.connections.connect(Main.overview, 'hidden', () => {
-            this.show();
-        });
 
         // HACK
         if (!is_static) {
