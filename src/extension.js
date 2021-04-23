@@ -16,7 +16,6 @@ const Lockscreen = Me.imports.lockscreen;
 
 class Extension {
     constructor() {
-        this._log("constructed");
         // this._connections = new Connections.Connections;
     }
 
