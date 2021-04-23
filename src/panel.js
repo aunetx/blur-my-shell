@@ -139,6 +139,7 @@ var PanelBlur = class PanelBlur {
 
     update_size(is_static) {
         if (is_static) {
+            this.background_parent.width = this.monitor.width;
             this.background.set_clip(
                 this.monitor.x,
                 this.monitor.y,
