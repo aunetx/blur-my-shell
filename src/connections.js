@@ -30,7 +30,6 @@ var Connections = class Connections {
 
     connect(actor, signal, handler) {
         let id = actor.connect(signal, handler);
-
         this.process_connection(actor, id);
     }
 
