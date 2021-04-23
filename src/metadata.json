@@ -1,5 +1,5 @@
 {
-    "description": "Adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.\n\nContains some bugs due to the implementation of the blur effect on gnome shell, see https: //gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857 for more informations.\n\nThere is a particular bug with Gnome 3.38 and the last version: entire parts of some applications disappear until you move the window...\nTo fix this, you can either:\n- downgrade to a previous version (version 5 should work, but I'm not sure, please let me know if not)\n- or use this extension: https: //extensions.gnome.org/extension/545/hide-top-bar/ ; it will hide topbar and (weirdly) it entirely removes all the annoying visual bugs.\n\nAdded support for Gnome 40 :)",
+    "description": "Adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.\n\nContains some bugs due to the implementation of the blur effect on gnome shell, see https: //gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857 for more informations.\n\nAdded support for Gnome 40, and a way to entirely remove artifacts from top panel :)",
     "name": "Blur my Shell",
     "shell-version": [
         "40"
