@@ -142,7 +142,7 @@ var PanelBlur = class PanelBlur {
             this.background.set_clip(
                 this.monitor.x,
                 this.monitor.y,
-                Main.panel.width,
+                this.monitor.width,
                 Main.panel.height
             );
         } else {
