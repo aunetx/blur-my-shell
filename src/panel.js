@@ -123,14 +123,14 @@ var PanelBlur = class PanelBlur {
             } else if (prefs.HACKS_LEVEL.get() == 2) {
                 this._log("panel hack level 2");
 
-                // disabled because of #31
-                /*
+                // FIXME need to remove the effect afterward
                 Main.panel.get_children().forEach(child => {
-                    this.connections.connect(child, 'paint', () => {
+                    let paint_effect = new Utils.EmitPaintSignal();
+                    child.add_effect(paint_effect);
+                    this.connections.connect(paint_effect, 'update-blur', () => {
                         this.effect.queue_repaint();
                     });
                 });
-                */
             }
 
             // ! END OF DIRTY PART
