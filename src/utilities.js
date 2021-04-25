@@ -1,5 +1,5 @@
 'use strict'
-const {GLib} = imports.gi;
+const { GLib } = imports.gi;
 
 let clearTimeout, clearInterval;
 clearInterval = clearTimeout = GLib.Source.remove;
