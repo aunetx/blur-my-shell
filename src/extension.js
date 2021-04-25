@@ -1,6 +1,6 @@
 'use strict';
 
-const {St, Shell} = imports.gi;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -15,9 +15,7 @@ const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 
 class Extension {
-    constructor() {
-        // this._connections = new Connections.Connections;
-    }
+    constructor() { }
 
     enable() {
         this._log("enabling extension...");
