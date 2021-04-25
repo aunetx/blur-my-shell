@@ -155,10 +155,14 @@ var DashBlur = class DashBlur {
                 })
 
                 this.connections.connect(dash_icons_container, 'actor-added', (_, actor) => {
-                    let zone = actor.get_child_at_index(0);
-                    this.connections.connect(zone, 'enter-event', rp);
-                    this.connections.connect(zone, 'leave-event', rp);
-                    this.connections.connect(zone, 'button-press-event', rp);
+                    try {
+                        let zone = actor.get_child_at_index(0);
+                        this.connections.connect(zone, 'enter-event', rp);
+                        this.connections.connect(zone, 'leave-event', rp);
+                        this.connections.connect(zone, 'button-press-event', rp);
+                    } catch (e) {
+                        this._log(`${e}, continuing`);
+                    }
                 })
 
                 let dash_show_apps = dash.get_child_at_index(1).get_child_at_index(1);
