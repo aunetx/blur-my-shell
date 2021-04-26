@@ -224,17 +224,6 @@
             </layout>
           </object>
         </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="can_focus">0</property>
-            <property name="orientation">vertical</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">12</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
 
         <!--! MISC !-->
 
@@ -244,7 +233,7 @@
             <property name="orientation">vertical</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">11</property>
+              <property name="row">12</property>
               <property name="column-span">2</property>
             </layout>
           </object>
@@ -258,7 +247,7 @@
             <property name="justify">center</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">12</property>
+              <property name="row">13</property>
             </layout>
           </object>
         </child>
@@ -272,7 +261,7 @@
             <signal name="value-changed" handler="dash_opacity_changed" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">12</property>
+              <property name="row">13</property>
             </layout>
           </object>
         </child>
@@ -285,7 +274,7 @@
             <property name="justify">center</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">13</property>
+              <property name="row">14</property>
             </layout>
           </object>
         </child>
@@ -296,7 +285,7 @@
             <signal name="toggled" handler="static_blur_toogled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">13</property>
+              <property name="row">15</property>
             </layout>
           </object>
         </child>
