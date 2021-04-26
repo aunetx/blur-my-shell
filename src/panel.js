@@ -13,15 +13,13 @@ const dash_to_panel_uuid = 'dash-to-panel@jderose9.github.com';
 const default_sigma = 30;
 const default_brightness = 0.6;
 
-let sigma = 30;
-
 var PanelBlur = class PanelBlur {
     constructor(connections) {
         this.connections = connections;
         this.effect = new Shell.BlurEffect({
             brightness: default_brightness,
             sigma: default_sigma,
-            mode: prefs.STATIC_BLUR.get() ? 0 : 1
+            mode: prefs.STATIC_BLUR.get() ? Shell.BlurMode.ACTOR : Shell.BlurMode.BACKGROUND
         });
         this.background_parent = new St.Widget({
             style_class: 'topbar-blurred-background-parent',
