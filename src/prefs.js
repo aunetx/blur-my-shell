@@ -17,11 +17,11 @@ const PrefsWidget = GObject.registerClass({
         'blur_panel',
         'blur_overview',
         'blur_lockscreen',
+        'blur_applications',
         'hacks_level0',
         'hacks_level1',
         'hacks_level2',
         'dash_opacity_scale',
-        'blur_applications',
         'static_blur'
     ],
 }, class PrefsWidget extends Gtk.Box {
@@ -102,7 +102,7 @@ const PrefsWidget = GObject.registerClass({
     }
 
     blur_applications_toggled(w) {
-        let is_active = w.get_active();
+        let value = w.get_active();
         config.BLUR_APPLICATIONS.set(value);
     }
 
