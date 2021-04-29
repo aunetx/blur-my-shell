@@ -4,6 +4,8 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
 
 [<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
 
+## Screenshots
+
 *Blurred Overview:*
 ![Blurred Overview](https://user-images.githubusercontent.com/38633812/116588850-779beb80-a935-11eb-8f2f-81bcd46fe694.png)
 *Blurred Top Panel:*
@@ -47,14 +49,14 @@ And restart GNOME Shell if needed.
 
 ### Versions support
 
-The current extension supports those GNOME Shell versions:
+The current extension supports these GNOME Shell versions:
 
 - 40
 
-Older GNOME versions are supported up to Blur my Shell version 6:
+Older GNOME Shell versions are supported up to Blur my Shell version 6:
 
-- 3.36
 - 3.38
+- 3.36
 
 ## License
 
