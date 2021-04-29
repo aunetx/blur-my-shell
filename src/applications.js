@@ -125,7 +125,7 @@ var ApplicationsBlur = class ApplicationsBlur {
       wab.blurActor = blurActor;
       global.window_group.insert_child_below(blurActor, wab.actor);
       blurActor["blur_provider_pid"] = pid;
-      this.connections.connect(actor, "notify::visible", (window_actor) => {
+      this.connections.connect(wab.actor, "notify::visible", (window_actor) => {
         let pid = window_actor.blur_provider_pid;
         if (this.windowActorBlurMap.has(pid)) {
           let blurActor = this.windowActorBlurMap.get(pid).blurActor;
