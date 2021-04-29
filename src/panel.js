@@ -169,7 +169,7 @@ var PanelBlur = class PanelBlur {
     }
 
     get monitor() {
-        return Main.layoutManager.primaryMonitor
+        return Main.layoutManager.primaryMonitor;
     }
 
     set_sigma(s) {
