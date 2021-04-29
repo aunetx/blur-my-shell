@@ -16,7 +16,6 @@ let sigma = 30;
 
 var ApplicationsBlur = class ApplicationsBlur {
   constructor(connections) {
-    global.blurr = this;
     this.connections = connections;
     this.effect = new Shell.BlurEffect({
       brightness: default_brightness,
@@ -26,19 +25,14 @@ var ApplicationsBlur = class ApplicationsBlur {
     this.blurActorMap = new Map();
     this.actorMap = new Map();
     this.windowMap = new Map();
-    this.on_window_unmanagedMap = new Map();
-    this.on_actor_destroyedMap = new Map();
-    this.on_actor_visibleMap = new Map();
     Utils.setInterval(() => this.fix_blur(), 1);
   }
   create_blur_actor(meta_window, window_actor) {
-    // let blurEffect = this.effect;
     let blurEffect = new Shell.BlurEffect({
       brightness: this.effect.brightness,
       sigma: this.effect.sigma,
       mode: this.effect.mode,
     });
-    global.bliii = blurEffect;
     let frame = meta_window.get_frame_rect();
     let buffer = meta_window.get_buffer_rect();
 
@@ -108,7 +102,7 @@ var ApplicationsBlur = class ApplicationsBlur {
 
   remove_blur(pid) {
     global.window_group.remove_actor(this.get_blur_actor(pid));
-    this.remove_blur_tracking(pid);
+    this.blurActorMap.delete(pid);
   }
 
   update_blur_actor(blur_actor) {
@@ -126,8 +120,14 @@ var ApplicationsBlur = class ApplicationsBlur {
     global.window_group.insert_child_below(blurActor, actor);
     blurActor["blur_provider_pid"] = pid;
     this.set_blur_actor(pid, blurActor);
-
-    this.connect_actor_visible(pid);
+    this.connections.connect(actor, "notify::visible", (window_actor) => {
+      let pid = window_actor.blur_provider_pid;
+      if (window_actor.visible) {
+        this.blurActorMap.get(pid).show();
+      } else {
+        this.blurActorMap.get(pid).hide();
+      }
+    });
   }
 
   get_window(pid) {
@@ -165,41 +165,13 @@ var ApplicationsBlur = class ApplicationsBlur {
       window["blur_provider_pid"] = pid;
       this.actorMap.set(pid, actor);
       this.windowMap.set(pid, window);
-      this.on_actor_destroyedMap.set(
-        pid,
-        actor.connect("destroy", (...args) => this.actor_destroyed(...args))
-      );
-      //   this.on_mutter_hint_changedMap.set(
-      //     pid,
-      //     window.connect("notify::mutter-hints", this.mutter_hint_changed)
-      //   );
-      this.on_window_unmanagedMap.set(
-        pid,
-        window.connect("unmanaged", (...args) => this.window_unmanaged(...args))
-      );
+      this.connections.connect(actor, "destroy", (window_actor) => {
+        this.actor_destroyed(window_actor);
+      });
+      this.connections.connect(window, "unmanaged", (...args) => this.window_unmanaged(...args));
 
       this.update_blur(window, pid);
     }
-  }
-
-  connect_actor_visible(pid) {
-    if (!this.on_actor_visibleMap.has(pid)) {
-      this.on_actor_visibleMap.set(
-        pid,
-        this.actorMap
-          .get(pid)
-          .connect("notify::visible", (...args) =>
-            this.actor_visibility_changed(...args)
-          )
-      );
-    }
-  }
-
-  remove_blur_tracking(pid) {
-    this.blurActorMap.delete(pid);
-    if (this.actorMap.has(pid))
-      this.actorMap.get(pid).disconnect(this.on_actor_visibleMap.get(pid));
-    this.on_actor_visibleMap.delete(pid);
   }
 
   cleanup_windows() {
@@ -229,7 +201,6 @@ var ApplicationsBlur = class ApplicationsBlur {
   }
 
   cleanup_window(pid) {
-    this.windowMap.get(pid).disconnect(this.on_window_unmanagedMap.get(pid));
     this.windowMap.delete(pid);
   }
 
@@ -237,23 +208,9 @@ var ApplicationsBlur = class ApplicationsBlur {
     if (this.blurActorMap.has(pid)) {
       this.remove_blur(pid);
     }
-    this.actorMap.get(pid).disconnect(this.on_actor_destroyedMap.get(pid));
-    if (this.on_actor_visibleMap.has(pid)) {
-      this.actorMap.get(pid).disconnect(this.on_actor_visibleMap.get(pid));
-      this.on_actor_visibleMap.delete(pid);
-    }
 
     this.on_actor_destroyedMap.delete(pid);
     this.actorMap.delete(pid);
-  }
-
-  actor_visibility_changed(window_actor) {
-    let pid = window_actor.blur_provider_pid;
-    if (window_actor.visible) {
-      this.blurActorMap.get(pid).show();
-    } else {
-      this.blurActorMap.get(pid).hide();
-    }
   }
 
   fix_blur() {
@@ -277,23 +234,26 @@ var ApplicationsBlur = class ApplicationsBlur {
   }
 
   window_created(meta_display, meta_window) {
+    log("window created");
     if (!meta_window) {
+      this._log("no meta window");
       return;
     }
     let window_actor = meta_window.get_compositor_private();
-    if (window_actor) this.track_new(window_actor, meta_window);
+    this.track_new(window_actor, meta_window);
   }
   enable() {
     this._log("blurring applications");
-    this._on_focus_changed = global.display.connect(
-      "notify::focus-window",
-      this.focus_changed
+    this.connections.connect(global.display, "notify::focus-window", () =>
+      this.focus_changed()
     );
-    this._on_window_created = global.display.connect(
+    this.connections.connect(
+      global.display,
       "window-created",
-      (...args) => this.window_created(...args)
+      (meta_display, meta_window) => {
+        this.window_created(meta_display, meta_window);
+      }
     );
-    let all_windows = [];
     for (let wks = 0; wks < global.workspace_manager.n_workspaces; ++wks) {
       // construct a list with all windows
       let workspace_name = Meta.prefs_get_workspace_name(wks);
@@ -302,8 +262,6 @@ var ApplicationsBlur = class ApplicationsBlur {
       windows.forEach((v) => {
         this.window_created(undefined, v);
       });
-      all_windows.push(...windows);
-      global.www = all_windows;
     }
   }
 
@@ -325,9 +283,6 @@ var ApplicationsBlur = class ApplicationsBlur {
     this._log("removing blur from applications");
 
     try {
-      global.display.disconnect(this._on_focus_changed);
-      global.display.disconnect(this._on_window_created);
-
       this.cleanup_actors();
       this.cleanup_windows();
     } catch (e) {}
