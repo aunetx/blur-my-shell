@@ -149,9 +149,8 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="blur_applications">
-            <property name="label" translatable="yes">applications (coming soon)</property>
+            <property name="label" translatable="yes">applications</property>
             <property name="active">1</property>
-            <property name="sensitive">0</property>
             <signal name="toggled" handler="blur_applications_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>

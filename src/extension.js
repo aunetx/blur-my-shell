@@ -13,6 +13,7 @@ const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
+const Applications = Me.imports.applications;
 
 class Extension {
     constructor() { }
@@ -27,9 +28,11 @@ class Extension {
         this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections);
         this._overview_blur = new Overview.OverviewBlur(new Connections.Connections);
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
+        this._applications_blur = new Applications.ApplicationsBlur(new Connections.Connections);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
-            this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections);
+            this._dash_to_dock_blur.connections, this._overview_blur.connections,
+            this._lockscreen_blur.connections,this._applications_blur.connections);
 
         this._connect_to_settings();
 
@@ -47,9 +50,12 @@ class Extension {
             this._lockscreen_blur.enable();
         }
 
+        if (this._prefs.BLUR_APPLICATIONS.get()||true) {
+            this._applications_blur.enable();
+        }
+
         this._update_sigma();
         this._update_brightness();
-
         this._log("extension enabled.");
     }
 
@@ -61,6 +67,7 @@ class Extension {
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
+        this._applications_blur.disable();
 
         this._disconnect_settings();
 
@@ -71,7 +78,6 @@ class Extension {
             connections.disconnect_all();
         })
         this._connections = [];
-
         this._log("extension disabled.");
     }
 
@@ -113,6 +119,13 @@ class Extension {
                 this._lockscreen_blur.disable();
             }
         });
+        this._prefs.BLUR_APPLICATIONS.changed(() => {
+            if (this._prefs.BLUR_APPLICATIONS.get()) {
+                this._applications_blur.enable();
+            } else {
+                this._applications_blur.disable();
+            }
+        });
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update();
         });
@@ -133,6 +146,7 @@ class Extension {
         this._dash_to_dock_blur.set_sigma(sigma);
         this._overview_blur.set_sigma(sigma);
         this._lockscreen_blur.set_sigma(sigma);
+        this._applications_blur.set_sigma(sigma);
     }
 
     _update_brightness() {
@@ -142,6 +156,7 @@ class Extension {
         this._dash_to_dock_blur.set_brightness(brightness);
         this._overview_blur.set_brightness(brightness);
         this._lockscreen_blur.set_brightness(brightness);
+        this._applications_blur.set_brightness(brightness);
     }
 
     _log(str) {
