@@ -1,13 +1,16 @@
-# GNOME Shell Extension - Blur my Shell
+# GNOME Shell Extension - Blur Me
 
-A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
+A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview, and Applications.
+
+![widget-factory-dark](images/widget-factory-dark.png?raw=true)
+*blurred applications* With [Materia Transparent](https://github.com/ckissane/materia-theme-transparent)
 
 ![Capture d’écran de 2021-04-21 23-59-06](https://user-images.githubusercontent.com/31563930/115626495-dc37c480-a2fd-11eb-8066-002dee4b5159.png)
 *blurred top panel*
 ![Capture d’écran de 2021-04-21 23-59-11](https://user-images.githubusercontent.com/31563930/115626626-10ab8080-a2fe-11eb-89a5-7392cbe7c2f8.png)
 *blurred overview*
 
-[<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
+[<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100">](https://extensions.gnome.org/extension/4236/blur-me/)
 
 ## Known bugs
 
@@ -38,8 +41,8 @@ If you find other bugs, please report them!
 To install the latest version (though maybe unstable), use the makefile:
 
 ```sh
-git clone https://github.com/aunetx/blur-my-shell
-cd blur-my-shell
+git clone https://github.com/ckissane/blur-me
+cd blur-me
 make install
 ```
 
@@ -50,11 +53,6 @@ And restart GNOME Shell if needed.
 The current extension supports those GNOME Shell versions:
 
 - 40
-
-Older GNOME versions are supported up to Blur my Shell version 6:
-
-- 3.36
-- 3.38
 
 ## License
 

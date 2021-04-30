@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <schema id="org.gnome.shell.extensions.blur-my-shell" path="/org/gnome/shell/extensions/blur-my-shell/">
+    <schema id="org.gnome.shell.extensions.blur-me" path="/org/gnome/shell/extensions/blur-me/">
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>

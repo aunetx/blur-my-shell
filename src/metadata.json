@@ -1,9 +1,9 @@
 {
-    "description": "Adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.\n\nContains some bugs due to the implementation of the blur effect on gnome shell, see https: //gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857 for more informations.\n\nAdded support for Gnome 40, and a way to entirely remove artifacts from top panel :)",
-    "name": "Blur my Shell",
+    "description": "Adds a blur look to different parts of the GNOME Shell, including the top panel, dash, overview, and applications.\n\nContains some bugs due to the implementation of the blur effect on gnome shell, see https: //gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857 for more informations.\n\nAdded support for Gnome 40, and a way to entirely remove artifacts from top panel :)",
+    "name": "Blur Me",
     "shell-version": [
         "40"
     ],
-    "url": "https://github.com/aunetx/gnome-shell-extension-blur-my-shell",
-    "uuid": "blur-my-shell@aunetx"
+    "url": "https://github.com/ckissane/blur-me",
+    "uuid": "blur-me@nunchucks"
 }

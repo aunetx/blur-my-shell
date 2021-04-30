@@ -203,6 +203,6 @@ var PanelBlur = class PanelBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        log(`[Blur Me] ${str}`)
     }
 }

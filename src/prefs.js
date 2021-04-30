@@ -132,7 +132,7 @@ const PrefsWidget = GObject.registerClass({
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        log(`[Blur Me] ${str}`)
     }
 });
 

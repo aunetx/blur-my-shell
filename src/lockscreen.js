@@ -88,6 +88,6 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        log(`[Blur Me] ${str}`)
     }
 }

@@ -51,6 +51,6 @@ var Connections = class Connections {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        log(`[Blur Me] ${str}`)
     }
 }
