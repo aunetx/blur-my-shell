@@ -24,12 +24,16 @@ var ApplicationsBlur = class ApplicationsBlur {
     });
     this.windowActorBlurMap = new Map();
     this.pid = 0;
+    global.gg = [];
     Utils.setInterval(() => this.fix_blur(), 1);
   }
   create_blur_actor(pid) {
     let wab = this.windowActorBlurMap.get(pid);
     let meta_window = wab.window;
     let window_actor = wab.actor;
+    global.gg.push(window_actor);
+    window_actor.set_property("no-shadow", true);
+
     let blurEffect = new Shell.BlurEffect({
       brightness: this.effect.brightness,
       sigma: this.effect.sigma,
@@ -38,6 +42,17 @@ var ApplicationsBlur = class ApplicationsBlur {
     let frame = meta_window.get_frame_rect();
     let buffer = meta_window.get_buffer_rect();
 
+    buffer = {
+      x: buffer.x,
+      y: buffer.y,
+      width: buffer.width,
+      height: buffer.height,
+    };
+
+    try {
+      buffer.width = get_children()[0].get_width();
+      buffer.height = get_children()[0].get_height();
+    } catch (e) {}
     const offsetX = frame.x - buffer.x;
     const offsetY = frame.y - buffer.y;
     const offsetWidth = buffer.width - frame.width;
@@ -78,6 +93,54 @@ var ApplicationsBlur = class ApplicationsBlur {
     } else {
       blurActor.hide();
     }
+    meta_window.connect("size-changed", (...args) => {
+      let frame = meta_window.get_frame_rect();
+      let buffer = meta_window.get_buffer_rect();
+      buffer = {
+        x: buffer.x,
+        y: buffer.y,
+        width: buffer.width,
+        height: buffer.height,
+      };
+      try {
+        buffer.width = get_children()[0].get_width();
+        buffer.height = get_children()[0].get_height();
+      } catch (e) {}
+      const offsetX = frame.x - buffer.x;
+      const offsetY = frame.y - buffer.y;
+      const offsetWidth = buffer.width - frame.width;
+      const offsetHeight = buffer.height - frame.height;
+
+      blurActor.remove_constraint(constraintPosX);
+      constraintPosX = new Clutter.BindConstraint({
+        source: window_actor,
+        coordinate: Clutter.BindCoordinate.X,
+        offset: offsetX,
+      });
+      blurActor.remove_constraint(constraintPosY);
+      constraintPosY = new Clutter.BindConstraint({
+        source: window_actor,
+        coordinate: Clutter.BindCoordinate.Y,
+        offset: offsetY,
+      });
+
+      blurActor.remove_constraint(constraintSizeX);
+      constraintSizeX = new Clutter.BindConstraint({
+        source: window_actor,
+        coordinate: Clutter.BindCoordinate.WIDTH,
+        offset: -offsetWidth,
+      });
+      blurActor.remove_constraint(constraintSizeY);
+      constraintSizeY = new Clutter.BindConstraint({
+        source: window_actor,
+        coordinate: Clutter.BindCoordinate.HEIGHT,
+        offset: -offsetHeight,
+      });
+      blurActor.add_constraint(constraintPosX);
+      blurActor.add_constraint(constraintPosY);
+      blurActor.add_constraint(constraintSizeX);
+      blurActor.add_constraint(constraintSizeY);
+    });
     return blurActor;
   }
 
