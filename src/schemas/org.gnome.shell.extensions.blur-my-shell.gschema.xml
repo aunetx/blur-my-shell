@@ -39,7 +39,7 @@
         </key>
         <!-- BLUR APPLICATIONS -->
         <key type="b" name="blur-applications">
-            <default>false</default>
+            <default>true</default>
             <summary>Boolean, whether to blur applications that request it or not</summary>
             <description />
         </key>
