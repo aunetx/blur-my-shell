@@ -73,6 +73,11 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     blurActor.add_effect_with_name("blur-effect", blurEffect);
     wab.blurActor = blurActor;
+    if (wab.actor.visible) {
+      blurActor.show();
+    } else {
+      blurActor.hide();
+    }
     return blurActor;
   }
 
