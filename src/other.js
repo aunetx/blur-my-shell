@@ -25,14 +25,15 @@ var OtherBlur = class OtherBlur {
     this.windowActorBlurMap = new Map();
     this.conspMap = new Map();
     this.pid = 0;
-    Utils.setInterval(() => this.fix_blur(), 1);
+    this.addNotifInterval = undefined;
+    this.fixBlurInterval = Utils.setInterval(() => this.fix_blur(), 1);
   }
   create_blur_actor(pid) {
     let wab = this.windowActorBlurMap.get(pid);
     let meta_window = wab.window;
     let window_actor = wab.actor;
-    let cons=this.conspMap.has(pid)?this.conspMap.get(pid):undefined;
-    let con=cons?cons:window_actor;
+    let cons = this.conspMap.has(pid) ? this.conspMap.get(pid) : undefined;
+    let con = cons ? cons : window_actor;
 
     let blurEffect = new Shell.BlurEffect({
       brightness: this.effect.brightness,
@@ -41,10 +42,10 @@ var OtherBlur = class OtherBlur {
     });
     // const frame = meta_window.get_frame_rect();
     // const buffer = meta_window.get_buffer_rect();
-    const offsetX = 0;//frame.x - buffer.x;
-    const offsetY = 0;//frame.y - buffer.y;
-    const offsetWidth = 0;//buffer.width - frame.width;
-    const offsetHeight = 0;//buffer.height - frame.height;
+    const offsetX = 0; //frame.x - buffer.x;
+    const offsetY = 0; //frame.y - buffer.y;
+    const offsetWidth = 0; //buffer.width - frame.width;
+    const offsetHeight = 0; //buffer.height - frame.height;
 
     let constraintPosX = new Clutter.BindConstraint({
       source: con,
@@ -68,7 +69,11 @@ var OtherBlur = class OtherBlur {
       offset: -offsetHeight,
     });
 
-    let blurActor = new Clutter.Actor();
+    let blurActor = new Clutter.Actor({
+      fixedPositionSet: true,
+      fixedX: 0,
+      fixedY: 0,
+    });
     blurActor.add_constraint(constraintPosX);
     blurActor.add_constraint(constraintPosY);
     blurActor.add_constraint(constraintSizeX);
@@ -81,7 +86,39 @@ var OtherBlur = class OtherBlur {
     } else {
       blurActor.hide();
     }
-    
+    this.connections.connect(wab.actor, "notify", () => {
+      blurActor.remove_constraint(constraintPosX);
+      blurActor.remove_constraint(constraintPosY);
+      blurActor.remove_constraint(constraintSizeX);
+      blurActor.remove_constraint(constraintSizeY);
+      constraintPosX = new Clutter.BindConstraint({
+        source: con,
+        coordinate: Clutter.BindCoordinate.X,
+        offset: offsetX,
+      });
+      constraintPosY = new Clutter.BindConstraint({
+        source: con,
+        coordinate: Clutter.BindCoordinate.Y,
+        offset: offsetY,
+      });
+
+      constraintSizeX = new Clutter.BindConstraint({
+        source: con,
+        coordinate: Clutter.BindCoordinate.WIDTH,
+        offset: -offsetWidth,
+      });
+      constraintSizeY = new Clutter.BindConstraint({
+        source: con,
+        coordinate: Clutter.BindCoordinate.HEIGHT,
+        offset: -offsetHeight,
+      });
+
+      blurActor.add_constraint(constraintPosX);
+      blurActor.add_constraint(constraintPosY);
+      blurActor.add_constraint(constraintSizeX);
+      blurActor.add_constraint(constraintSizeY);
+    });
+
     return blurActor;
   }
 
@@ -127,24 +164,26 @@ var OtherBlur = class OtherBlur {
     }
   }
 
-  init_blur_actor(pid,get_p) {
+  init_blur_actor(pid, get_p) {
     let wab = this.windowActorBlurMap.get(pid);
     if (!wab.blurActor) {
       let blurActor = this.create_blur_actor(pid);
       wab.blurActor = blurActor;
-      try{
-      if(get_p){
-        get_p(wab.actor).get_parent().insert_child_below(blurActor, get_p(wab.actor));
-      }else{
-        wab.actor.get_parent().insert_child_below(blurActor, wab.actor);
-      }
-      }catch(e){
-        global.fai=e;
+      try {
+        if (get_p) {
+          get_p(wab.actor)
+            .get_parent()
+            .insert_child_below(blurActor, get_p(wab.actor));
+        } else {
+          wab.actor.get_parent().insert_child_below(blurActor, wab.actor);
+        }
+      } catch (e) {
+        global.fai = e;
       }
       blurActor["blur_provider_pid"] = pid;
-      let lis=(window_actor) => {
+      let lis = (window_actor) => {
         let pid = window_actor.blur_provider_pid;
-        global.ppp=pid;
+        global.ppp = pid;
         if (this.windowActorBlurMap.has(pid)) {
           let blurActor = this.windowActorBlurMap.get(pid).blurActor;
           if (blurActor) {
@@ -222,27 +261,43 @@ var OtherBlur = class OtherBlur {
     } catch (e) {}
   }
 
-  window_created(meta_display, meta_window,getActor) {
+  window_created(meta_display, meta_window, getActor) {
     log("other thing created");
     if (!meta_window) {
       this._log("no other thing");
       return;
     }
-    let window_actor = getActor?getActor(meta_window):meta_window.get_compositor_private();
+    let window_actor = getActor
+      ? getActor(meta_window)
+      : meta_window.get_compositor_private();
     this.track_new(window_actor, meta_window);
   }
   enable() {
     this._log("blurring other");
-    this.conspMap.set(this.pid,Main.keyboard.keyboardActor);
-    this.window_created(undefined,Main.keyboard,(x)=>{
-      let c=x.keyboardActor.get_children();
-      return c[c.length-1];
+    this.conspMap.set(this.pid, Main.keyboard.keyboardActor);
+    this.window_created(undefined, Main.keyboard, (x) => {
+      let c = x.keyboardActor.get_children();
+      return c[c.length - 1];
     });
-    Main.createLookingGlass()
-    this.conspMap.set(this.pid,Main.lookingGlass.actor);
-    this.window_created(undefined,Main.lookingGlass,(x)=>{
+    Main.createLookingGlass();
+    this.conspMap.set(this.pid, Main.lookingGlass.actor);
+    this.window_created(undefined, Main.lookingGlass, (x) => {
       return x.actor;
     });
+    let addMC = () => {
+      let cc = Main.messageTray._bannerBin.get_children();
+      for (let c of cc) {
+        let wi = c.get_children()[0];
+        let pid = wi["blur_provider_pid"] || this.pid;
+        this.conspMap.set(pid, wi);
+        this.window_created(undefined, wi, (x) => {
+          return x.get_children()[0].actor;
+        });
+      }
+    };
+    this.addNotifInterval = Utils.setInterval(() => {
+      addMC();
+    }, 1);
   }
 
   get monitor() {
@@ -265,7 +320,9 @@ var OtherBlur = class OtherBlur {
     try {
       this.cleanup_things();
     } catch (e) {}
-
+    if (this.addNotifInterval !== undefined) {
+      Utils.clearInterval(this.addNotifInterval);
+    }
     this.connections.disconnect_all();
   }
 
