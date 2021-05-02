@@ -18,6 +18,7 @@ const PrefsWidget = GObject.registerClass({
         'blur_overview',
         'blur_lockscreen',
         'blur_applications',
+        'blur_other',
         'hacks_level0',
         'hacks_level1',
         'hacks_level2',
@@ -48,6 +49,8 @@ const PrefsWidget = GObject.registerClass({
 
         // ! blur applications
         this._blur_applications.set_active(config.BLUR_APPLICATIONS.get());
+
+        this._blur_other.set_active(config.BLUR_OTHER.get());
 
         // ! dash hacks
         if (config.HACKS_LEVEL.get() == 0) {
@@ -104,6 +107,11 @@ const PrefsWidget = GObject.registerClass({
     blur_applications_toggled(w) {
         let value = w.get_active();
         config.BLUR_APPLICATIONS.set(value);
+    }
+
+    blur_other_toggled(w) {
+        let value = w.get_active();
+        config.BLUR_OTHER.set(value);
     }
 
     hacks_level0_toggled(w) {

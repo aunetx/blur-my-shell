@@ -40,7 +40,12 @@
         <!-- BLUR APPLICATIONS -->
         <key type="b" name="blur-applications">
             <default>true</default>
-            <summary>Boolean, whether to blur applications that request it or not</summary>
+            <summary>Boolean, whether to blur applications or not</summary>
+            <description />
+        </key>
+        <key type="b" name="blur-other">
+            <default>true</default>
+            <summary>Boolean, whether to blur things like onscreen keyboard, notifications section, etc.</summary>
             <description />
         </key>
         <!-- HACKS LEVEL -->

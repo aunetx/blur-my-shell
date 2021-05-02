@@ -14,6 +14,7 @@ const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 const Applications = Me.imports.applications;
+const Other = Me.imports.other;
 
 class Extension {
     constructor() { }
@@ -29,10 +30,12 @@ class Extension {
         this._overview_blur = new Overview.OverviewBlur(new Connections.Connections);
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
         this._applications_blur = new Applications.ApplicationsBlur(new Connections.Connections);
+        this._other_blur = new Other.OtherBlur(new Connections.Connections);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
             this._dash_to_dock_blur.connections, this._overview_blur.connections,
-            this._lockscreen_blur.connections,this._applications_blur.connections);
+            this._lockscreen_blur.connections,this._applications_blur.connections,
+            this._other_blur.connections);
 
         this._connect_to_settings();
 
@@ -49,9 +52,11 @@ class Extension {
         if (this._prefs.BLUR_LOCKSCREEN.get()) {
             this._lockscreen_blur.enable();
         }
-
-        if (this._prefs.BLUR_APPLICATIONS.get()||true) {
+        if (this._prefs.BLUR_APPLICATIONS.get()) {
             this._applications_blur.enable();
+        }
+        if (this._prefs.BLUR_OTHER.get()) {
+            this._other_blur.enable();
         }
 
         this._update_sigma();
@@ -68,6 +73,7 @@ class Extension {
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
         this._applications_blur.disable();
+        this._other_blur.disable();
 
         this._disconnect_settings();
 
@@ -126,6 +132,13 @@ class Extension {
                 this._applications_blur.disable();
             }
         });
+        this._prefs.BLUR_OTHER.changed(() => {
+            if (this._prefs.BLUR_OTHER.get()) {
+                this._other_blur.enable();
+            } else {
+                this._other_blur.disable();
+            }
+        });
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update();
         });
@@ -147,6 +160,7 @@ class Extension {
         this._overview_blur.set_sigma(sigma);
         this._lockscreen_blur.set_sigma(sigma);
         this._applications_blur.set_sigma(sigma);
+        this._other_blur.set_sigma(sigma);
     }
 
     _update_brightness() {
@@ -157,6 +171,7 @@ class Extension {
         this._overview_blur.set_brightness(brightness);
         this._lockscreen_blur.set_brightness(brightness);
         this._applications_blur.set_brightness(brightness);
+        this._other_blur.set_brightness(brightness);
     }
 
     _log(str) {

@@ -143,6 +143,22 @@ var Prefs = class Prefs {
           }
         };
 
+        this.BLUR_OTHER = {
+            key: 'blur-other',
+            get: function () {
+                return settings.get_boolean(this.key);
+            },
+            set: function (v) {
+                settings.set_boolean(this.key, v);
+            },
+            changed: function (cb) {
+                return settings.connect('changed::' + this.key, cb);
+            },
+            disconnect: function () {
+                return settings.disconnect.apply(settings, arguments);
+            }
+          };
+
         this.HACKS_LEVEL = {
             key: 'hacks-level',
             get: function () {
