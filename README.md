@@ -1,6 +1,8 @@
 # GNOME Shell Extension - Blur Me
 
-A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview, and Applications.
+A GNOME Shell extension to blur:
+
+Applications | Dash | Overview | Dash | Panel | Onscreen Keyboard | & More!
 
 ![blurred-applications](images/blurred-applications.png?raw=true)
 *blurred applications* With [Materia Transparent](https://github.com/ckissane/materia-theme-transparent)
