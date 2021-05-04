@@ -148,10 +148,14 @@ var DashBlur = class DashBlur {
                 };
 
                 dash_icons_container.get_children().forEach((icon) => {
-                    let zone = icon.get_child_at_index(0);
-                    this.connections.connect(zone, 'enter-event', rp);
-                    this.connections.connect(zone, 'leave-event', rp);
-                    this.connections.connect(zone, 'button-press-event', rp);
+                    try {
+                        let zone = icon.get_child_at_index(0);
+                        this.connections.connect(zone, 'enter-event', rp);
+                        this.connections.connect(zone, 'leave-event', rp);
+                        this.connections.connect(zone, 'button-press-event', rp);
+                    } catch (e) {
+                        this._log(`${e}, continuing`);
+                    }
                 })
 
                 this.connections.connect(dash_icons_container, 'actor-added', (_, actor) => {
