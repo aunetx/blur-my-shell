@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0" />
-  <template class="PrefsWidget" parent="GtkBox">
+  <template class="BlurMyShellPrefsWidget" parent="GtkBox">
 
     <object class="GtkAdjustment" id="brightness_adjustment">
       <property name="upper">1</property>
