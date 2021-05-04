@@ -34,6 +34,7 @@ var OverviewBlur = class OverviewBlur {
         });
 
         this.update_backgrounds();
+        Utils.setTimeout(() => { this.update_backgrounds() }, 500);
     }
 
     update_backgrounds() {
