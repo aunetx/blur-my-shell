@@ -53,6 +53,7 @@ var PanelBlur = class PanelBlur {
 
         // perform updates
         this.change_blur_type();
+        Utils.setTimeout(() => { this.change_blur_type() }, 500);
 
         // connect to size, monitor or wallpaper changes
         this.connections.connect(Main.panel, 'notify::height', () => {
