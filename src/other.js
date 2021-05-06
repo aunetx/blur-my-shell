@@ -267,18 +267,24 @@ var OtherBlur = class OtherBlur {
       this._log("no other thing");
       return;
     }
-    let window_actor = getActor
-      ? getActor(meta_window)
-      : meta_window.get_compositor_private();
-    this.track_new(window_actor, meta_window);
+    try {
+      let window_actor = getActor
+        ? getActor(meta_window)
+        : meta_window.get_compositor_private();
+      this.track_new(window_actor, meta_window);
+    } catch (e) {
+      this._log("failed to get actor for " + meta_window);
+    }
   }
   enable() {
     this._log("blurring other");
-    this.conspMap.set(this.pid, Main.keyboard.keyboardActor);
-    this.window_created(undefined, Main.keyboard, (x) => {
-      let c = x.keyboardActor.get_children();
-      return c[c.length - 1];
-    });
+    if (Main.keyboard.keyboardActor) {
+      this.conspMap.set(this.pid, Main.keyboard.keyboardActor);
+      this.window_created(undefined, Main.keyboard, (x) => {
+        let c = x.keyboardActor.get_children();
+        return c[c.length - 1];
+      });
+    }
     Main.createLookingGlass();
     this.conspMap.set(this.pid, Main.lookingGlass.actor);
     this.window_created(undefined, Main.lookingGlass, (x) => {
