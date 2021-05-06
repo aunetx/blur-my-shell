@@ -291,14 +291,16 @@ var OtherBlur = class OtherBlur {
       return x.actor;
     });
     let addMC = () => {
-      let cc = Main.messageTray._bannerBin.get_children();
-      for (let c of cc) {
-        let wi = c.get_children()[0];
-        let pid = wi["blur_provider_pid"] || this.pid;
-        this.conspMap.set(pid, wi);
-        this.window_created(undefined, wi, (x) => {
-          return x.get_children()[0].actor;
-        });
+      if (Main.messageTray && Main.messageTray._bannerBin) {
+        let cc = Main.messageTray._bannerBin.get_children();
+        for (let c of cc) {
+          let wi = c.get_children()[0];
+          let pid = wi["blur_provider_pid"] || this.pid;
+          this.conspMap.set(pid, wi);
+          this.window_created(undefined, wi, (x) => {
+            return x.get_children()[0].actor;
+          });
+        }
       }
     };
     this.addNotifInterval = Utils.setInterval(() => {
