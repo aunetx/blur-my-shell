@@ -7,8 +7,8 @@ const Extension = ExtensionUtils.getCurrentExtension();
 let Settings = Extension.imports.settings;
 let config = new Settings.Prefs();
 
-const PrefsWidget = GObject.registerClass({
-    GTypeName: 'PrefsWidget',
+const BlurMePrefsWidget = GObject.registerClass({
+    GTypeName: 'BlurMePrefsWidget',
     Template: Extension.dir.get_child('prefs.ui').get_uri(),
     InternalChildren: [
         'sigma_scale',
@@ -25,7 +25,7 @@ const PrefsWidget = GObject.registerClass({
         'dash_opacity_scale',
         'static_blur'
     ],
-}, class PrefsWidget extends Gtk.Box {
+}, class BlurMePrefsWidget extends Gtk.Box {
     _init(params = {}) {
         super._init(params);
 
@@ -147,5 +147,5 @@ const PrefsWidget = GObject.registerClass({
 function init() { }
 
 function buildPrefsWidget() {
-    return new PrefsWidget();
+    return new BlurMePrefsWidget();
 }
