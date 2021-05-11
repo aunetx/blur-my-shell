@@ -124,7 +124,7 @@ var ApplicationsBlur = class ApplicationsBlur {
   update_blur(pid) {
     if (this.windowActorBlurMap.has(pid)) {
       let wab = this.windowActorBlurMap.get(pid);
-      wab.excluded = this.override_map[wab.window.get_wm_class()] === false;
+      wab.excluded = this.override_map[Utils.get_process_name_from_window(wab.window)] === false;
       if (wab.blurActor) {
         this.update_blur_actor(pid);
       } else {

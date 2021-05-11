@@ -184,7 +184,6 @@ var OtherBlur = class OtherBlur {
       blurActor["blur_provider_pid"] = pid;
       let lis = (window_actor) => {
         let pid = window_actor.blur_provider_pid;
-        global.ppp = pid;
         if (this.windowActorBlurMap.has(pid)) {
           let blurActor = this.windowActorBlurMap.get(pid).blurActor;
           if (blurActor) {

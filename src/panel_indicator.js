@@ -1,4 +1,4 @@
-const { Clutter, GObject, St } = imports.gi;
+const { Clutter, GObject, St ,GLib} = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Main = imports.ui.main;
@@ -11,6 +11,7 @@ const N_ = (x) => x;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 let prefs = new Settings.Prefs();
 
 var BlurWindowMenuItem = GObject.registerClass(
@@ -109,7 +110,7 @@ let BlurMenu = GObject.registerClass(
           global.workspace_manager.get_workspace_by_index(wks);
         let windows = metaWorkspace.list_windows();
         windows.forEach((v) => {
-          wm_classes_set.add(v.get_wm_class());
+          wm_classes_set.add(Utils.get_process_name_from_window(v));
         });
       }
       let wm_classes = [...wm_classes_set];
