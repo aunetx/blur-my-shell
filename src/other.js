@@ -26,6 +26,7 @@ var OtherBlur = class OtherBlur {
     this.conspMap = new Map();
     this.pid = 0;
     this.addNotifInterval = undefined;
+    this.keyboardActor = undefined;
     this.fixBlurInterval = Utils.setInterval(() => this.fix_blur(), 1);
   }
   create_blur_actor(pid) {
@@ -285,6 +286,18 @@ var OtherBlur = class OtherBlur {
         return c[c.length - 1];
       });
     }
+    this.keyboardActor = Main.keyboard.keyboardActor;
+    this.connections.connect(Main.uiGroup, "actor-added", (_, actor) => {
+      if (Main.keyboard.keyboardActor && !this.keyboardActor) {
+        this.conspMap.set(this.pid, Main.keyboard.keyboardActor);
+        this.window_created(undefined, Main.keyboard, (x) => {
+          let c = x.keyboardActor.get_children();
+          return c[c.length - 1];
+        });
+
+        this.keyboardActor = Main.keyboard.keyboardActor;
+      }
+    });
     Main.createLookingGlass();
     this.conspMap.set(this.pid, Main.lookingGlass.actor);
     this.window_created(undefined, Main.lookingGlass, (x) => {

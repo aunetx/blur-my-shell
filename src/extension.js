@@ -61,6 +61,7 @@ class Extension {
 
         this._update_sigma();
         this._update_brightness();
+        this._applications_blur.set_overrides(this._prefs.WINDOW_CLASS_OVERRIDES.get());
         this._log("extension enabled.");
     }
 
@@ -132,6 +133,9 @@ class Extension {
                 this._applications_blur.disable();
             }
         });
+        this._prefs.WINDOW_CLASS_OVERRIDES.changed(() => {
+            this._applications_blur.set_overrides(this._prefs.WINDOW_CLASS_OVERRIDES.get());
+        });
         this._prefs.BLUR_OTHER.changed(() => {
             if (this._prefs.BLUR_OTHER.get()) {
                 this._other_blur.enable();
@@ -150,6 +154,7 @@ class Extension {
     _disconnect_settings() {
         this._prefs.SIGMA.disconnect();
         this._prefs.BRIGHTNESS.disconnect();
+        this._prefs.WINDOW_CLASS_OVERRIDES.disconnect();
     }
 
     _update_sigma() {

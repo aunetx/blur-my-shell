@@ -7,6 +7,7 @@ const Clutter = imports.gi.Clutter;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
+const PanelIndicator = Me.imports.panel_indicator;
 let prefs = new Settings.Prefs();
 
 const default_sigma = 30;
@@ -24,6 +25,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     });
     this.windowActorBlurMap = new Map();
     this.pid = 0;
+    this.override_map = {};
     Utils.setInterval(() => this.fix_blur(), 1);
   }
   create_blur_actor(pid) {
@@ -73,7 +75,7 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     blurActor.add_effect_with_name("blur-effect", blurEffect);
     wab.blurActor = blurActor;
-    if (wab.actor.visible) {
+    if (wab.actor.visible && !wab.excluded) {
       blurActor.show();
     } else {
       blurActor.hide();
@@ -122,6 +124,7 @@ var ApplicationsBlur = class ApplicationsBlur {
   update_blur(pid) {
     if (this.windowActorBlurMap.has(pid)) {
       let wab = this.windowActorBlurMap.get(pid);
+      wab.excluded = this.override_map[wab.window.get_wm_class()] === false;
       if (wab.blurActor) {
         this.update_blur_actor(pid);
       } else {
@@ -157,6 +160,11 @@ var ApplicationsBlur = class ApplicationsBlur {
         });
         blur_actor.remove_effect_by_name("blur-effect");
         blur_actor.add_effect_with_name("blur-effect", blurEffect);
+        if (wab.actor.visible && !wab.excluded) {
+          blur_actor.show();
+        } else {
+          blur_actor.hide();
+        }
       }
     }
   }
@@ -173,7 +181,10 @@ var ApplicationsBlur = class ApplicationsBlur {
         if (this.windowActorBlurMap.has(pid)) {
           let blurActor = this.windowActorBlurMap.get(pid).blurActor;
           if (blurActor) {
-            if (window_actor.visible) {
+            if (
+              window_actor.visible &&
+              !this.windowActorBlurMap.get(pid).excluded
+            ) {
               blurActor.show();
             } else {
               blurActor.hide();
@@ -273,6 +284,9 @@ var ApplicationsBlur = class ApplicationsBlur {
         this.window_created(undefined, v);
       });
     }
+    try {
+      PanelIndicator.enable();
+    } catch (e) {}
   }
 
   get monitor() {
@@ -288,6 +302,10 @@ var ApplicationsBlur = class ApplicationsBlur {
     this.effect.brightness = b;
     this.blur_setting_changed();
   }
+  set_overrides(overrides) {
+    this.override_map = overrides;
+    this.blur_setting_changed();
+  }
 
   disable() {
     this._log("removing blur from applications");
@@ -297,6 +315,9 @@ var ApplicationsBlur = class ApplicationsBlur {
     } catch (e) {}
 
     this.connections.disconnect_all();
+    try {
+      PanelIndicator.disable();
+    } catch (e) {}
   }
 
   show() {}

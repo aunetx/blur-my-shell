@@ -47,6 +47,26 @@ var Prefs = class Prefs {
             },
         };
 
+        this.WINDOW_CLASS_OVERRIDES = {
+            key: 'window-class-overrides',
+            get: function () {
+                try {
+                    return JSON.parse(settings.get_string(this.key));
+                } catch(e){
+                    return {};
+                }
+            },
+            set: function (v) {
+                settings.set_string(this.key, JSON.stringify(v));
+            },
+            changed: function (cb) {
+                return settings.connect('changed::' + this.key, cb);
+            },
+            disconnect: function () {
+                return settings.disconnect.apply(settings, arguments);
+            },
+        };
+
         this.BRIGHTNESS = {
             key: 'brightness',
             get: function () {
