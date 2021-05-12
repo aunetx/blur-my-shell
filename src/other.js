@@ -282,7 +282,7 @@ var OtherBlur = class OtherBlur {
       this.conspMap.set(this.pid, Main.keyboard.keyboardActor);
       this.window_created(undefined, Main.keyboard, (x) => {
         let c = x.keyboardActor.get_children();
-        return c[c.length - 1];
+        return c[Math.min(c.length - 1,1)];
       });
     }
     this.keyboardActor = Main.keyboard.keyboardActor;
@@ -291,7 +291,7 @@ var OtherBlur = class OtherBlur {
         this.conspMap.set(this.pid, Main.keyboard.keyboardActor);
         this.window_created(undefined, Main.keyboard, (x) => {
           let c = x.keyboardActor.get_children();
-          return c[c.length - 1];
+          return c[Math.min(c.length - 1,1)];
         });
 
         this.keyboardActor = Main.keyboard.keyboardActor;
