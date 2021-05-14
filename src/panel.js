@@ -25,16 +25,16 @@ var PanelBlur = class PanelBlur {
         });
         this.background_parent = new St.Widget({
             style_class: 'topbar-blurred-background-parent',
-            x: this.monitor.x,
-            y: this.monitor.y,
+            x: 0,
+            y: 0,
             width: this.monitor.width,
             height: 0,
         });
         this.background = prefs.STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
             style_class: 'topbar-blurred-background',
-            x: 0,
-            y: 0,
-            width: this.monitor.width,
+            x: Main.panel.position.x,
+            y: Main.panel.position.y,
+            width: Main.panel.width,
             height: Main.panel.height,
         });
         this.background_parent.add_child(this.background);
@@ -56,6 +56,12 @@ var PanelBlur = class PanelBlur {
 
         // connect to size, monitor or wallpaper changes
         this.connections.connect(Main.panel, 'notify::height', () => {
+            this.update_size(prefs.STATIC_BLUR.get());
+        });
+        this.connections.connect(Main.panel, 'notify::width', () => {
+            this.update_size(prefs.STATIC_BLUR.get());
+        });
+        this.connections.connect(Main.panel, 'notify::position', () => {
             this.update_size(prefs.STATIC_BLUR.get());
         });
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
@@ -85,9 +91,9 @@ var PanelBlur = class PanelBlur {
         this.background.remove_effect(this.effect);
         this.background = is_static ? new Meta.BackgroundActor : new St.Widget({
             style_class: 'topbar-blurred-background',
-            x: 0,
-            y: 0,
-            width: this.monitor.width,
+            x: Main.panel.position.x,
+            y: Main.panel.position.y,
+            width: Main.panel.width,
             height: Main.panel.height,
         });
         this.effect.set_mode(is_static ? 0 : 1);
@@ -146,13 +152,18 @@ var PanelBlur = class PanelBlur {
 
     update_size(is_static) {
         this.background_parent.width = this.monitor.width;
-        this.background.width = this.monitor.width;
+        this.background_parent.height = 0;
+        this.background_parent.position.x=0;
+        this.background_parent.position.y=0;
+        this.background.width = Main.panel.width;
         this.background.height = Main.panel.height;
+        this.background.position.x=Main.panel.position.x;
+        this.background.position.y=Main.panel.position.y;
         if (is_static) {
             this.background.set_clip(
-                this.monitor.x,
-                this.monitor.y,
-                this.monitor.width,
+                Main.panel.position.x,
+                Main.panel.position.y,
+                Main.panel.width,
                 Main.panel.height
             );
         }
