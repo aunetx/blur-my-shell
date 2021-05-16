@@ -7,6 +7,7 @@ const Signals = imports.signals;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
+const PaintSignals = Me.imports.paint_signals;
 let prefs = new Settings.Prefs;
 
 const default_sigma = 30;
@@ -52,6 +53,7 @@ var DashBlur = class DashBlur {
     constructor(connections) {
         this.dashes = [];
         this.connections = connections;
+        this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.sigma = default_sigma;
         this.brightness = default_brightness;
     }
@@ -142,6 +144,7 @@ var DashBlur = class DashBlur {
 
             if (prefs.HACKS_LEVEL.get() == 1) {
                 this._log("dash hack level 1");
+                this.paint_signals.disconnect_all();
 
                 let rp = () => {
                     effect.queue_repaint()
@@ -179,14 +182,11 @@ var DashBlur = class DashBlur {
             } else if (prefs.HACKS_LEVEL.get() == 2) {
                 this._log("dash hack level 2");
 
-                let rp = () => {
-                    effect.queue_repaint();
-                };
-
-                // disabled because of #31
-                /*
-                this.connections.connect(dash, 'paint', rp);
-                */
+                Main.panel.get_children().forEach(child => {
+                    this.paint_signals.connect(dash, this.effect);
+                });
+            } else {
+                this.paint_signals.disconnect_all();
             }
 
             // ! END OF DIRTY PART
