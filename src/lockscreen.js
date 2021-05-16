@@ -58,12 +58,12 @@ var LockscreenBlur = class LockscreenBlur {
 
         let effect = new Shell.BlurEffect({
             brightness: brightness,
-            sigma: sigma * themeContext.scale_factor,
+            sigma: sigma,
             mode: 0
         });
 
         this._scaleChangedId = themeContext.connect('notify::scale-factor', () => {
-            effect.sigma = sigma * themeContext.scale_factor;
+            effect.sigma = sigma;
         });
 
         widget.add_effect(effect);

@@ -44,7 +44,7 @@ var PanelBlur = class PanelBlur {
         this._log("blurring top panel");
 
         // insert background parent
-        Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
+        Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
         // hide corners, can't style them
         Main.panel._leftCorner.hide();
         Main.panel._rightCorner.hide();
@@ -190,7 +190,7 @@ var PanelBlur = class PanelBlur {
         Main.panel.remove_style_class_name('transparent-panel');
 
         try {
-            this.background_parent.get_parent().remove_child(this.background_parent);
+            Main.layoutManager.panelBox.get_parent().remove_child(this.background_parent);
         } catch (e) { }
 
         this.connections.disconnect_all();
