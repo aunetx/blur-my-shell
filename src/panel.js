@@ -140,7 +140,7 @@ var PanelBlur = class PanelBlur {
 
     update_wallpaper(is_static) {
         if (is_static) {
-            let bg = Main.layoutManager._backgroundGroup.get_child_at_index(this.monitor.index);
+            let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
             this.background.set_content(bg.get_content());
         }
     }
