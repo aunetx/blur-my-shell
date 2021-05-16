@@ -182,9 +182,7 @@ var DashBlur = class DashBlur {
             } else if (prefs.HACKS_LEVEL.get() == 2) {
                 this._log("dash hack level 2");
 
-                Main.panel.get_children().forEach(child => {
-                    this.paint_signals.connect(dash, this.effect);
-                });
+                this.paint_signals.connect(dash, this.effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
