@@ -7,6 +7,7 @@ const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.backgro
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
+const PaintSignals = Me.imports.paint_signals;
 let prefs = new Settings.Prefs;
 
 const dash_to_panel_uuid = 'dash-to-panel@jderose9.github.com';
@@ -18,6 +19,7 @@ let sigma = 30;
 var PanelBlur = class PanelBlur {
     constructor(connections) {
         this.connections = connections;
+        this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.effect = new Shell.BlurEffect({
             brightness: default_brightness,
             sigma: default_sigma,
@@ -107,6 +109,7 @@ var PanelBlur = class PanelBlur {
 
             if (prefs.HACKS_LEVEL.get() == 1) {
                 this._log("panel hack level 1");
+                this.paint_signals.disconnect_all();
 
                 let rp = () => {
                     this.effect.queue_repaint()
@@ -124,14 +127,11 @@ var PanelBlur = class PanelBlur {
             } else if (prefs.HACKS_LEVEL.get() == 2) {
                 this._log("panel hack level 2");
 
-                // disabled because of #31
-                /*
                 Main.panel.get_children().forEach(child => {
-                    this.connections.connect(child, 'paint', () => {
-                        this.effect.queue_repaint();
-                    });
+                    this.paint_signals.connect(child, this.effect);
                 });
-                */
+            } else {
+                this.paint_signals.disconnect_all();
             }
 
             // ! END OF DIRTY PART
