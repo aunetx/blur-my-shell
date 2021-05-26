@@ -151,8 +151,8 @@ var PanelBlur = class PanelBlur {
         this.background.height = Main.panel.height;
         if (is_static) {
             this.background.set_clip(
-                this.monitor.x,
-                this.monitor.y,
+                0,
+                0,
                 this.monitor.width,
                 Main.panel.height
             );
