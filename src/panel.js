@@ -26,6 +26,7 @@ var PanelBlur = class PanelBlur {
             mode: prefs.STATIC_BLUR.get() ? 0 : 1
         });
         this.background_parent = new St.Widget({
+            name: 'topbar-blurred-background-parent',
             style_class: 'topbar-blurred-background-parent',
             x: this.monitor.x,
             y: this.monitor.y,
@@ -46,6 +47,10 @@ var PanelBlur = class PanelBlur {
         this._log("blurring top panel");
 
         // insert background parent
+        let children = Main.layoutManager.panelBox.get_children();
+        for (let i = 0; i < children.length; ++i)
+            if (children[i].name == 'topbar-blurred-background-parent')
+                Main.layoutManager.panelBox.remove_child(children[i]);
         Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
         // hide corners, can't style them
         Main.panel._leftCorner.hide();
