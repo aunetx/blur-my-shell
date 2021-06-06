@@ -1,8 +1,8 @@
 /build/
 /pkg/
 *~
-.idea
+.idea/
 .ts-for-gir.js
-.vscode
+.vscode/
 jsconfig.json
-@types
+@types/
