@@ -19,7 +19,7 @@ This extension can be buggy, as the gnome-shell's blur implementation is quite f
 
 To entirely remove artifacts from the top panel, you can use static blur with the appropriate switch, **use static blur**.
 
-Moreover, if you don't use static blur, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (but cannot currently tell the difference, less than 0.5% CPU on my middle-range i5)\
+Moreover, if you don't use static blur, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (but cannot currently tell the difference, less than 0.5% CPU on my middle-range i5)
 
 Selecting another profile might be enough (especially if you have disabled animations and/or windows borders), feel free to test!
 
