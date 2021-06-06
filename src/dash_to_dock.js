@@ -92,6 +92,21 @@ var DashBlur = class DashBlur {
         let dash = dash_container.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0);
         let dash_box = dash.get_child_at_index(0);
 
+		var adjustment = 0;
+		switch (dash_container._position)
+		{
+			case 0: // top, dash to dock 40 PR has a bug where has space on top
+				adjustment = 8;
+			break;
+			case 1: // right
+			case 3: // left
+				adjustment = 16;
+			break;
+			case 2: // bottom
+				adjustment = 0;
+			break;
+		}
+
         // the effect applied
         let effect = new Shell.BlurEffect({
             brightness: this.brightness,
@@ -112,7 +127,7 @@ var DashBlur = class DashBlur {
         let background = new St.Widget({
             style_class: 'dash-blurred-background',
             x: dash_box.x,
-            y: dash.height - dash_box.height - 8,
+            y: dash.height - dash_box.height - adjustment,
             width: dash_box.width,
             height: dash_box.height,
         });
@@ -121,7 +136,7 @@ var DashBlur = class DashBlur {
             background.height = dash_box.height;
             background.width = dash_box.width;
             background.x = dash_box.x;
-            background.y = dash.height - dash_box.height - 8;
+            background.y = dash.height - dash_box.height - adjustment;
         }, 100);
 
         let dash_icons_container = dash.get_child_at_index(1).get_child_at_index(0).get_child_at_index(2);
@@ -132,7 +147,7 @@ var DashBlur = class DashBlur {
             background.height = dash_box.height;
             background.width = dash_box.width;
             background.x = dash_box.x;
-            background.y = dash.height - dash_box.height - 8;
+            background.y = dash.height - dash_box.height - adjustment;
         });
 
         // HACK
