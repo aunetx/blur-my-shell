@@ -195,7 +195,7 @@ var PanelBlur = class PanelBlur {
         Main.panel.remove_style_class_name('transparent-panel');
 
         try {
-            Main.layoutManager.panelBox.get_parent().remove_child(this.background_parent);
+            Main.layoutManager.panelBox.remove_child(this.background_parent);
         } catch (e) { }
 
         this.connections.disconnect_all();
