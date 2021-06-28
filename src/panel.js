@@ -154,13 +154,28 @@ var PanelBlur = class PanelBlur {
         this.background_parent.width = Main.panel.width;
         this.background.width = Main.panel.width;
         this.background.height = Main.panel.height;
+        let clip_box = Main.layoutManager.panelBox.get_parent();
         if (is_static) {
-            this.background.set_clip(
-                0,
-                0,
-                this.monitor.width,
-                Main.panel.height
-            );
+            if (clip_box.x == this.monitor.x && clip_box.y == this.monitor.y && clip_box.width == this.monitor.width && clip_box.height == this.monitor.height) {
+                this.background.set_clip(
+                    0,
+                    0,
+                    Main.panel.width,
+                    Main.panel.height
+                );
+                this.background.x = 0;
+                this.background.y = 0;
+            }
+            else {
+                this.background.set_clip(
+                    clip_box.x,
+                    clip_box.y,
+                    clip_box.width,
+                    clip_box.height
+                );
+                this.background.x = -clip_box.x;
+                this.background.y = -clip_box.y;
+            }
         }
     }
 
