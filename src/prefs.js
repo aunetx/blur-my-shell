@@ -78,11 +78,11 @@ var PrefsWidget = new GObject.Class({
 
         // ! dash opacity
         let dash_opacity = config.DASH_OPACITY;
-        builder.get_object("dash_opacity_scale").set_active(animate_overview.get());
+        builder.get_object("dash_opacity_scale").set_value(dash_opacity.get());
 
         // ! static panel blur
         let static_blur = config.STATIC_BLUR;
-        builder.get_object("static_blur").set_active(animate_overview.get());
+        builder.get_object("static_blur").set_active(static_blur.get());
 
 
         // ! connect

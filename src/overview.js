@@ -24,8 +24,8 @@ const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
 const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
 
 // numeric values
-let default_sigma = 30;
-let default_brightness = 0.6;
+let sigma = 30;
+let brightness = 0.6;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections) {
@@ -89,8 +89,8 @@ var OverviewBlur = class OverviewBlur {
                     bg.remove_effect_by_name('blur');
 
                     bg.add_effect_with_name('blur', new Shell.BlurEffect({
-                        brightness: default_brightness,
-                        sigma: default_sigma,
+                        brightness: brightness,
+                        sigma: sigma,
                         mode: 0
                     }));
                 }
@@ -110,6 +110,8 @@ var OverviewBlur = class OverviewBlur {
         });
 
         Main.overview._updateBackgroundsBlur();
+        Utils.setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
+        Utils.setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 500);
     }
 
     set_sigma(s) {

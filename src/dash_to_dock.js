@@ -5,6 +5,7 @@ const Main = imports.ui.main;
 const Signals = imports.signals;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Utils = Me.imports.utilities;
 const Settings = Me.imports.settings;
 let prefs = new Settings.Prefs;
 
@@ -58,6 +59,14 @@ var DashBlur = class DashBlur {
             this.try_blur(actor);
         });
 
+        // connect to overview
+        this.connections.connect(Main.overview, 'showing', () => {
+            this.hide();
+        });
+        this.connections.connect(Main.overview, 'hidden', () => {
+            this.show();
+        });
+
         this.blur_existing_dashes();
     }
 
@@ -77,6 +86,10 @@ var DashBlur = class DashBlur {
             (dash.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0).name != 'dash-blurred-background-parent')
         ) {
             this._log("dash to dock found, blurring it");
+            Utils.setTimeout(() => {
+                Main.panel._leftCorner.hide();
+                Main.panel._rightCorner.hide();
+            }, 100);
             this.dashes.push(this.blur_dash_from(dash));
         }
     }

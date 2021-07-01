@@ -3,6 +3,10 @@
 const { St, Shell, Meta } = imports.gi;
 const Main = imports.ui.main;
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const Settings = Me.imports.settings;
+const prefs = new Settings.Prefs;
+
 const default_sigma = 30;
 const default_brightness = 0.6;
 
