@@ -8,15 +8,9 @@ const Clutter = imports.gi.Clutter;
 
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
-// get ANIMATE_OVERVIEW setting
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
-const prefs = new Settings.Prefs;
-let ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get();
-prefs.ANIMATE_OVERVIEW.changed(() => {
-    ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get()
-})
 
 // save old functions
 const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brightness;
@@ -28,12 +22,19 @@ let sigma = 30;
 let brightness = 0.6;
 
 var OverviewBlur = class OverviewBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
+        this.prefs = prefs;
     }
 
     enable() {
         this._log("blurring overview");
+
+        // get ANIMATE_OVERVIEW setting
+        let ANIMATE_OVERVIEW = this.prefs.ANIMATE_OVERVIEW.get();
+        this.prefs.ANIMATE_OVERVIEW.changed(() => {
+            ANIMATE_OVERVIEW = this.prefs.ANIMATE_OVERVIEW.get();
+        })
 
         // Move the background group one level up, so that it isn't a child of the window_group anymore,
         // but a sibling. We then also set the background group below all actors on that level.

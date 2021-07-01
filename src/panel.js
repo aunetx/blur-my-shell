@@ -7,7 +7,6 @@ const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.backgro
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
-let prefs = new Settings.Prefs;
 
 const default_sigma = 30;
 const default_brightness = 0.6;
@@ -15,12 +14,13 @@ const default_brightness = 0.6;
 let sigma = 30;
 
 var PanelBlur = class PanelBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
+        this.prefs = prefs;
         this.effect = new Shell.BlurEffect({
             brightness: default_brightness,
             sigma: default_sigma,
-            mode: prefs.STATIC_BLUR.get() ? 0 : 1
+            mode: this.prefs.STATIC_BLUR.get() ? 0 : 1
         });
         this.background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
@@ -30,7 +30,7 @@ var PanelBlur = class PanelBlur {
             width: this.monitor.width,
             height: 0,
         });
-        this.background = prefs.STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
+        this.background = this.prefs.STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
             style_class: 'topbar-blurred-background',
             x: 0,
             y: 0,
@@ -61,14 +61,14 @@ var PanelBlur = class PanelBlur {
 
         // connect to size, monitor or wallpaper changes
         this.connections.connect(Main.panel, 'notify::height', () => {
-            this.update_size(prefs.STATIC_BLUR.get());
+            this.update_size(this.prefs.STATIC_BLUR.get());
         });
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
-            this.update_wallpaper(prefs.STATIC_BLUR.get());
-            this.update_size(prefs.STATIC_BLUR.get());
+            this.update_wallpaper(this.prefs.STATIC_BLUR.get());
+            this.update_size(this.prefs.STATIC_BLUR.get());
         });
         this.connections.connect(backgroundSettings, 'changed', () => {
-            Utils.setTimeout(() => { this.update_wallpaper(prefs.STATIC_BLUR.get()) }, 100);
+            Utils.setTimeout(() => { this.update_wallpaper(this.prefs.STATIC_BLUR.get()) }, 100);
         });
 
         // connect to overview
@@ -81,7 +81,7 @@ var PanelBlur = class PanelBlur {
     }
 
     change_blur_type() {
-        let is_static = prefs.STATIC_BLUR.get();
+        let is_static = this.prefs.STATIC_BLUR.get();
 
         this.background_parent.remove_child(this.background);
         this.background.remove_effect(this.effect);
@@ -106,13 +106,13 @@ var PanelBlur = class PanelBlur {
             // ! but it prevents the shadows of the panel buttons to cause artefacts on the panel itself
             // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (prefs.HACKS_LEVEL.get() == 1) {
+            if (this.prefs.HACKS_LEVEL.get() == 1) {
                 this._log("panel hack level 1");
 
                 this.connections.connect(Main.panel, 'button-press-event', () => {
                     this.effect.queue_repaint()
                 });
-            } else if (prefs.HACKS_LEVEL.get() == 2) {
+            } else if (this.prefs.HACKS_LEVEL.get() == 2) {
                 this._log("panel hack level 2");
 
                 Main.panel.get_children().forEach(child => {

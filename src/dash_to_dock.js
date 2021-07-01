@@ -7,13 +7,13 @@ const Signals = imports.signals;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.utilities;
 const Settings = Me.imports.settings;
-let prefs = new Settings.Prefs;
 
 const default_sigma = 30;
 const default_brightness = 0.6;
 
 class DashInfos {
-    constructor(dash_blur, dash, background_parent, effect) {
+    constructor(dash_blur, dash, background_parent, effect, prefs) {
+        this.prefs = prefs;
         this.dash_blur = dash_blur;
         this.dash = dash;
         this.background_parent = background_parent;
@@ -47,9 +47,10 @@ class DashInfos {
 }
 
 var DashBlur = class DashBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.dashes = [];
         this.connections = connections;
+        this.prefs = prefs;
         this.sigma = default_sigma;
         this.brightness = default_brightness;
     }
@@ -140,7 +141,7 @@ var DashBlur = class DashBlur {
             // ! but it prevents the shadows of the dash buttons to cause artefacts on the dash itself
             // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (prefs.HACKS_LEVEL.get() == 1) {
+            if (this.prefs.HACKS_LEVEL.get() == 1) {
                 this._log("dash hack level 1");
 
                 let rp = () => {
@@ -168,7 +169,7 @@ var DashBlur = class DashBlur {
                 this.connections.connect(dash_show_apps, 'button-press-event', rp);
 
                 this.connections.connect(dash, 'leave-event', rp);
-            } else if (prefs.HACKS_LEVEL.get() == 2) {
+            } else if (this.prefs.HACKS_LEVEL.get() == 2) {
                 this._log("dash hack level 2");
 
                 let rp = () => {
@@ -187,7 +188,7 @@ var DashBlur = class DashBlur {
         dash.get_parent().insert_child_at_index(background_parent, 0);
 
         // returns infos
-        return new DashInfos(this, dash, background_parent, effect);
+        return new DashInfos(this, dash, background_parent, effect, this.prefs);
     }
 
     set_sigma(sigma) {

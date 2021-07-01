@@ -23,14 +23,15 @@ const original_createBackground_old = imports.ui.unlockDialog.UnlockDialog.proto
 
 
 var LockscreenBlur = class LockscreenBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
+        this.prefs = prefs;
     }
 
     enable() {
         this._log("blurring lockscreen");
 
-        this.update_lockscreen()
+        this.update_lockscreen();
     }
 
     update_lockscreen() {

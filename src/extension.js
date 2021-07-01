@@ -18,15 +18,17 @@ class Extension {
     constructor() { }
 
     enable() {
-        this._log("enabling extension...");
-        this._connections = [];
         this._prefs = new Settings.Prefs;
 
-        this._panel_blur = new Panel.PanelBlur(new Connections.Connections);
-        this._dash_blur = new Dash.DashBlur(new Connections.Connections);
-        this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections);
-        this._overview_blur = new Overview.OverviewBlur(new Connections.Connections);
-        this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
+        this._log("enabling extension...");
+
+        this._connections = [];
+
+        this._panel_blur = new Panel.PanelBlur(new Connections.Connections, this._prefs);
+        this._dash_blur = new Dash.DashBlur(new Connections.Connections, this._prefs);
+        this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections, this._prefs);
+        this._overview_blur = new Overview.OverviewBlur(new Connections.Connections, this._prefs);
+        this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections, this._prefs);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
             this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections);
@@ -62,6 +64,12 @@ class Extension {
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
 
+        this._panel_blur = null;
+        this._dash_blur = null;
+        this._dash_to_dock_blur = null;
+        this._overview_blur = null;
+        this._lockscreen_blur = null;
+
         this._disconnect_settings();
 
         // in theory, this shouldn't be needed if we switch to making modules responsible for disconnecting their own
@@ -73,6 +81,8 @@ class Extension {
         this._connections = [];
 
         this._log("extension disabled.");
+
+        this.prefs = null;
     }
 
     _connect_to_settings() {
