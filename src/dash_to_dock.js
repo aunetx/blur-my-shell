@@ -13,12 +13,13 @@ const default_sigma = 30;
 const default_brightness = 0.6;
 
 class DashInfos {
-    constructor(dash_blur, dash, dash_box, background_parent, effect) {
+    constructor(dash_blur, dash, dash_box, background_parent, effect, prefs) {
         this.dash_blur = dash_blur;
         this.dash = dash;
         this.dash_box = dash_box;
         this.background_parent = background_parent;
         this.effect = effect;
+        this.prefs = prefs;
 
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
             this._log("removing blur from dash");
@@ -44,7 +45,8 @@ class DashInfos {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 
@@ -219,7 +221,7 @@ var DashBlur = class DashBlur {
         }, 3000);
 
         // returns infos
-        return new DashInfos(this, dash, dash_box, background_parent, effect);
+        return new DashInfos(this, dash, dash_box, background_parent, effect, this.prefs);
     }
 
     set_sigma(sigma) {
@@ -235,7 +237,6 @@ var DashBlur = class DashBlur {
     disable() {
         this._log("removing blur from dashes");
 
-
         this.emit('remove-dashes', true);
 
         this.dashes = [];
@@ -250,7 +251,8 @@ var DashBlur = class DashBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 

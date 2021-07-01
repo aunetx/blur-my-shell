@@ -55,5 +55,11 @@
             <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
             <description />
         </key>
+        <!-- DEBUG -->
+        <key type="b" name="debug">
+            <default>false</default>
+            <summary>Boolean, set to true to activate debug mode (more verbose journalctl logs)</summary>
+            <description />
+        </key>
     </schema>
 </schemalist>
