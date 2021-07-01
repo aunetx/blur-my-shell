@@ -10,7 +10,7 @@ let brightness = 0.6;
 const original_createBackground = imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
 
 var LockscreenBlur = class LockscreenBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
     }
 

@@ -7,15 +7,15 @@ const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.backgro
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
-let prefs = new Settings.Prefs;
 
 const default_sigma = 30;
 const default_brightness = 0.6;
 
 var OverviewBlur = class OverviewBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
         this.effects = [];
+        this.prefs = prefs;
     }
 
     enable() {
@@ -42,6 +42,7 @@ var OverviewBlur = class OverviewBlur {
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
             if (actor.constructor.name == 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor)
+                actor.destroy();
             }
             this.effects = [];
         });
@@ -52,8 +53,8 @@ var OverviewBlur = class OverviewBlur {
             let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
             bg_actor.set_content(background.get_content());
             let effect = new Shell.BlurEffect({
-                brightness: prefs.BRIGHTNESS.get(),
-                sigma: prefs.SIGMA.get(),
+                brightness: this.prefs.BRIGHTNESS.get(),
+                sigma: this.prefs.SIGMA.get(),
                 mode: 0
             });
             bg_actor.add_effect(effect);
