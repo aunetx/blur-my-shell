@@ -47,13 +47,18 @@ make install
 
 And restart GNOME Shell if needed.
 
+### Force overview blur update
+
+In case you have problems with your dynamic timed wallpaper not being updated due to using third-party process to change the wallpaper, you can force the overview blur to be updated with the command:\
+`gsettings set org.gnome.desktop.background picture-opacity 99 && gsettings set org.gnome.desktop.background picture-opacity 100`
+
 ### Versions support
 
 The current extension supports these GNOME Shell versions:
 
 - 40
 
-Older GNOME Shell versions are supported up to Blur my Shell version 6:
+Older GNOME Shell versions are supported up to Blur my Shell version 6, and by version 17:
 
 - 3.38
 - 3.36
