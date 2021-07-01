@@ -12,12 +12,13 @@ const original_createBackground = imports.ui.unlockDialog.UnlockDialog.prototype
 var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
         this.connections = connections;
+        this.prefs = prefs;
     }
 
     enable() {
         this._log("blurring lockscreen");
 
-        this.update_lockscreen()
+        this.update_lockscreen();
     }
 
     update_lockscreen() {
@@ -56,6 +57,7 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }

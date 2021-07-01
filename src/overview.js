@@ -29,7 +29,7 @@ var OverviewBlur = class OverviewBlur {
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (!Main.screenShield.locked) {
                 this._log("changed monitors");
-                this.update_backgrounds()
+                this.update_backgrounds();
             }
         });
 
@@ -41,7 +41,7 @@ var OverviewBlur = class OverviewBlur {
         // remove every old background
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
             if (actor.constructor.name == 'Meta_BackgroundActor') {
-                Main.layoutManager.overviewGroup.remove_child(actor)
+                Main.layoutManager.overviewGroup.remove_child(actor);
                 actor.destroy();
             }
             this.effects = [];
@@ -91,6 +91,7 @@ var OverviewBlur = class OverviewBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }

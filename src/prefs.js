@@ -21,7 +21,8 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'hacks_level1',
         'hacks_level2',
         'dash_opacity_scale',
-        'static_blur'
+        'static_blur',
+        'debug_mode'
     ],
 }, class BlurMyShellPrefsWidget extends Gtk.Box {
     _init(params = {}) {
@@ -65,6 +66,9 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
 
         // ! static panel blur
         this._static_blur.set_active(config.STATIC_BLUR.get());
+
+        // ! debug mode
+        this._debug_mode.set_active(config.DEBUG.get());
     }
 
     sigma_changed(w) {
@@ -117,13 +121,19 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         config.DASH_OPACITY.set(value);
     }
 
-    static_blur_toogled(w) {
+    static_blur_toggled(w) {
         let value = w.get_active();
         config.STATIC_BLUR.set(value);
     }
 
+    debug_mode_toggled(w) {
+        let value = w.get_active();
+        config.DEBUG.set(value);
+    }
+
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (config.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 });
 

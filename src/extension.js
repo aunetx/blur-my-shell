@@ -14,13 +14,16 @@ const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 
+const DEBUG = false;
+
 class Extension {
     constructor() { }
 
     enable() {
+        this._prefs = new Settings.Prefs;
+
         this._log("enabling extension...");
         this._connections = [];
-        this._prefs = new Settings.Prefs;
 
         this._panel_blur = new Panel.PanelBlur(new Connections.Connections, this._prefs);
         this._dash_blur = new Dash.DashBlur(new Connections.Connections, this._prefs);
@@ -77,9 +80,10 @@ class Extension {
             connections.disconnect_all();
         })
         this._connections = [];
-        this._prefs = null;
 
         this._log("extension disabled.");
+
+        this._prefs = null;
     }
 
     _connect_to_settings() {
@@ -152,7 +156,8 @@ class Extension {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this._prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 

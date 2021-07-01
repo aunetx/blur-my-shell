@@ -269,10 +269,34 @@
           <object class="GtkCheckButton" id="static_blur">
             <property name="label" translatable="yes">(refresh by going in/out of overview)</property>
             <property name="active">1</property>
-            <signal name="toggled" handler="static_blur_toogled" swapped="no" />
+            <signal name="toggled" handler="static_blur_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
               <property name="row">13</property>
+            </layout>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="can_focus">0</property>
+            <property name="label" translatable="yes">Debug mode</property>
+            <property name="use_markup">1</property>
+            <property name="justify">center</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">14</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="debug_mode">
+            <property name="label" translatable="yes">(adds some logs, useful when reporting an issue)</property>
+            <property name="active">1</property>
+            <signal name="toggled" handler="debug_mode_toggled" swapped="no" />
+            <layout>
+              <property name="column">1</property>
+              <property name="row">14</property>
             </layout>
           </object>
         </child>
