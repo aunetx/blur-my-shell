@@ -2,14 +2,14 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
-![Capture d’écran de 2021-04-20 15-00-18](https://user-images.githubusercontent.com/31563930/115416485-1cad1a80-a1f8-11eb-844e-cab11d3b863e.png)
-![Capture d’écran de 2021-04-20 15-00-13](https://user-images.githubusercontent.com/31563930/115400536-af928880-a1e9-11eb-8ac2-44dcb7718285.png)
-
 [<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
 
-You can now select which part you want to blur, wether or not you want overview animation and there is an option that reduces a lot the artifacts :)
+## Screenshots
 
-*Note: this extension contains a lot of bugs. If you find one (that is not already reported), please create an issue!*
+*Blurred Overview:*
+![Blurred Overview](https://user-images.githubusercontent.com/38633812/116588850-779beb80-a935-11eb-8f2f-81bcd46fe694.png)
+*Blurred Top Panel:*
+![Blurred Top Panel](https://user-images.githubusercontent.com/38633812/116588885-81bdea00-a935-11eb-9c80-c97716369b7c.png)
 
 ## Known bugs
 
@@ -17,9 +17,11 @@ You can now select which part you want to blur, wether or not you want overview 
 
 This extension can be buggy, as the gnome-shell's blur implementation is quite flawed in some ways.
 
-However, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (adds ~3% CPU usage for the gnome-shell process in my old Thinkpad).
+To entirely remove artifacts from the top panel, you can use static blur with the appropriate switch, **use static blur**.
 
-Selecting another profile might be enought (especially if you have disabled animations), feel free to test!
+Moreover, if you don't use static blur, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (but cannot currently tell the difference, less than 0.5% CPU on my middle-range i5)
+
+Selecting another profile might be enough (especially if you have disabled animations and/or windows borders), feel free to test!
 
 ### List of bugs
 
@@ -44,10 +46,10 @@ And restart GNOME Shell if needed.
 
 ### Versions support
 
-The current extension supports those GNOME Shell versions:
+The current extension supports these GNOME Shell versions:
 
-- 3.36
 - 3.38
+- 3.36
 
 ## License
 

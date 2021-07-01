@@ -40,6 +40,25 @@ var Connections = class Connections {
         this.process_connection(actor, id);
     }
 
+    disconnect_all_for(actor) {
+        actor_connections = this.buffer.filter((infos) => {
+            infos.actor == actor
+        });
+
+        actor_connections.forEach((connection) => {
+            // disconnect
+            try {
+                connection.actor.disconnect(connection.id)
+            } catch (e) {
+                this._log(`error removing connection: ${e}; continuing`)
+            }
+
+            // remove from buffer
+            let index = this.buffer.indexOf(connection);
+            this.buffer.splice(index, 1);
+        })
+    }
+
     disconnect_all() {
         this.buffer.forEach((connection) => {
             try {

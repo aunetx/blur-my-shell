@@ -1,11 +1,12 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell, Meta, Gio } = imports.gi;
 const Main = imports.ui.main;
+const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' })
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 let prefs = new Settings.Prefs;
 
 const default_sigma = 30;
@@ -15,53 +16,91 @@ let sigma = 30;
 
 var PanelBlur = class PanelBlur {
     constructor(connections) {
+        this.connections = connections;
         this.effect = new Shell.BlurEffect({
             brightness: default_brightness,
             sigma: default_sigma,
-            mode: 1
+            mode: prefs.STATIC_BLUR.get() ? 0 : 1
         });
         this.background_parent = new St.Widget({
+            name: 'topbar-blurred-background-parent',
             style_class: 'topbar-blurred-background-parent',
             x: this.monitor.x,
             y: this.monitor.y,
             width: this.monitor.width,
             height: 0,
         });
-        this.background = new St.Widget({
+        this.background = prefs.STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
             style_class: 'topbar-blurred-background',
             x: 0,
             y: 0,
             width: this.monitor.width,
             height: Main.panel.height,
         });
-        this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
-        this.connections = connections;
     }
 
     enable() {
         this._log("blurring top panel");
 
-        // insert child
-        Main.panel.get_parent().insert_child_at_index(this.background_parent, 0);
-
-        this.remove_background_color();
-
-        // remove corners, can't style them
+        // insert background parent
+        let children = Main.layoutManager.panelBox.get_children();
+        for (let i = 0; i < children.length; ++i)
+            if (children[i].name == 'topbar-blurred-background-parent')
+                Main.layoutManager.panelBox.remove_child(children[i]);
+        Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
+        // hide corners, can't style them
         Main.panel._leftCorner.hide();
         Main.panel._rightCorner.hide();
+        // remove background
+        Main.panel.add_style_class_name('transparent-panel');
 
-        // connect to size changes
+        // perform updates
+        this.change_blur_type();
+        Utils.setTimeout(() => { this.change_blur_type() }, 500);
+
+        // connect to size, monitor or wallpaper changes
         this.connections.connect(Main.panel, 'notify::height', () => {
-            this.background.height = Main.panel.height;
+            this.update_size(prefs.STATIC_BLUR.get());
         });
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
-            this.background_parent.width = this.monitor.width;
-            this.background.width = this.monitor.width;
+            this.update_wallpaper(prefs.STATIC_BLUR.get());
+            this.update_size(prefs.STATIC_BLUR.get());
+        });
+        this.connections.connect(backgroundSettings, 'changed', () => {
+            Utils.setTimeout(() => { this.update_wallpaper(prefs.STATIC_BLUR.get()) }, 100);
         });
 
+        // connect to overview
+        this.connections.connect(Main.overview, 'showing', () => {
+            this.hide();
+        });
+        this.connections.connect(Main.overview, 'hidden', () => {
+            this.show();
+        });
+    }
+
+    change_blur_type() {
+        let is_static = prefs.STATIC_BLUR.get();
+
+        this.background_parent.remove_child(this.background);
+        this.background.remove_effect(this.effect);
+        this.background = is_static ? new Meta.BackgroundActor : new St.Widget({
+            style_class: 'topbar-blurred-background',
+            x: 0,
+            y: 0,
+            width: this.monitor.width,
+            height: Main.panel.height,
+        });
+        this.effect.set_mode(is_static ? 0 : 1);
+        this.background.add_effect(this.effect);
+        this.background_parent.add_child(this.background);
+
+        this.update_wallpaper(is_static);
+        this.update_size(is_static);
+
         // HACK
-        {
+        if (!is_static) {
             // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
             // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
             // ! but it prevents the shadows of the panel buttons to cause artefacts on the panel itself
@@ -87,25 +126,41 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    update_wallpaper(is_static) {
+        if (is_static) {
+            let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
+            this.background.set_content(bg.get_content());
+        }
+    }
+
+    update_size(is_static) {
+        this.background_parent.width = Main.panel.width;
+        this.background.width = Main.panel.width;
+        this.background.height = Main.panel.height;
+        let panel_box = Main.layoutManager.panelBox;
+        let clip_box = panel_box.get_parent();
+        if (is_static) {
+            this.background.set_clip(
+                clip_box.x,
+                clip_box.y,
+                panel_box.width,
+                panel_box.height
+            );
+            this.background.x = -clip_box.x;
+            this.background.y = -clip_box.y;
+        }
+    }
+
     get monitor() {
         return Main.layoutManager.primaryMonitor
     }
 
     set_sigma(s) {
         this.effect.sigma = s;
-        sigma = s;
     }
 
     set_brightness(b) {
         this.effect.brightness = b;
-    }
-
-    remove_background_color() {
-        Main.panel.style = "background-color:rgba(0,0,0,0.0);"
-    }
-
-    reset_background_color() {
-        Main.panel.style = null
     }
 
     disable() {
@@ -113,16 +168,20 @@ var PanelBlur = class PanelBlur {
 
         Main.panel._leftCorner.show();
         Main.panel._rightCorner.show();
+        Main.panel.remove_style_class_name('transparent-panel');
 
-        this.reset_background_color();
-        this.background_parent.get_parent().remove_child(this.background_parent);
+        try {
+            Main.layoutManager.panelBox.remove_child(this.background_parent);
+        } catch (e) { }
+
+        this.connections.disconnect_all();
     }
 
     show() {
-        this.effect.sigma = sigma
+        this.background_parent.show();
     }
     hide() {
-        this.effect.sigma = 0
+        this.background_parent.hide();
     }
 
     _log(str) {

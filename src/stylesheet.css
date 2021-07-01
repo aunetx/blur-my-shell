@@ -1,0 +1,4 @@
+#panel.transparent-panel {
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 500ms;
+}

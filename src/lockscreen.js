@@ -1,11 +1,8 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 const Background = imports.ui.background;
-
-const themeContext = St.ThemeContext.get_for_stage(global.stage);
 
 let shell_version = imports.misc.config.PACKAGE_VERSION.split('.');
 
@@ -49,7 +46,7 @@ var LockscreenBlur = class LockscreenBlur {
         for (const widget of this._backgroundGroup.get_children()) {
             widget.get_effect('blur').set({
                 brightness: brightness,
-                sigma: sigma * themeContext.scale_factor,
+                sigma: sigma,
             });
         }
     }
@@ -76,12 +73,12 @@ var LockscreenBlur = class LockscreenBlur {
 
         let effect = new Shell.BlurEffect({
             brightness: brightness,
-            sigma: sigma * themeContext.scale_factor,
+            sigma: sigma,
             mode: 0
         });
 
         this._scaleChangedId = themeContext.connect('notify::scale-factor', () => {
-            effect.sigma = sigma * themeContext.scale_factor;
+            effect.sigma = sigma;
         });
 
         widget.add_effect(effect);
@@ -105,6 +102,7 @@ var LockscreenBlur = class LockscreenBlur {
         else
             imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = original_createBackground_old;
 
+        this.connections.disconnect_all();
     }
 
     _log(str) {

@@ -1,32 +1,22 @@
 'use strict';
 
+const { Shell, GLib, Gio, Meta } = imports.gi;
 const St = imports.gi.St;
-const Meta = imports.gi.Meta;
-const Shell = imports.gi.Shell;
 const Main = imports.ui.main;
 const Overview = imports.ui.overview;
 const Clutter = imports.gi.Clutter;
-const GLib = imports.gi.GLib;
-const Gio = imports.gi.Gio;
 
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
 // get ANIMATE_OVERVIEW setting
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
+const Utils = Me.imports.utilities;
 const prefs = new Settings.Prefs;
 let ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get();
 prefs.ANIMATE_OVERVIEW.changed(() => {
     ANIMATE_OVERVIEW = prefs.ANIMATE_OVERVIEW.get()
 })
-
-// useful
-const setTimeout = function (func, delay, ...args) {
-    return GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
-        func(...args);
-        return GLib.SOURCE_REMOVE;
-    });
-};
 
 // save old functions
 const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brightness;
@@ -34,8 +24,8 @@ const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
 const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
 
 // numeric values
-let sigma = 30;
-let brightness = 0.6;
+let default_sigma = 30;
+let default_brightness = 0.6;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections) {
@@ -86,7 +76,7 @@ var OverviewBlur = class OverviewBlur {
         Main.overview._updateBackgroundsBlur = function () {
             Main.overview._backgroundGroup.get_children().forEach(
                 (bg) => {
-                    if(bg.content == undefined) {
+                    if (bg.content == undefined) {
                         // Shell version 3.36
                         bg.vignette = false;
                         bg.brightness = 1.0;
@@ -99,8 +89,8 @@ var OverviewBlur = class OverviewBlur {
                     bg.remove_effect_by_name('blur');
 
                     bg.add_effect_with_name('blur', new Shell.BlurEffect({
-                        brightness: brightness,
-                        sigma: sigma,
+                        brightness: default_brightness,
+                        sigma: default_sigma,
                         mode: 0
                     }));
                 }
@@ -109,12 +99,7 @@ var OverviewBlur = class OverviewBlur {
 
         this.connections.connect(backgroundSettings, 'changed', () => {
             this._log("updated background");
-            setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
-        });
-
-        this.connections.connect(backgroundSettings, 'changed::picture-uri', () => {
-            this._log("updated background");
-            setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
+            Utils.setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {

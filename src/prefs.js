@@ -1,9 +1,9 @@
 'use strict';
 
-const GObject = imports.gi.GObject;
-const Gtk = imports.gi.Gtk;
+const { GObject, Gtk } = imports.gi;
 
-let Extension = imports.misc.extensionUtils.getCurrentExtension();
+const ExtensionUtils = imports.misc.extensionUtils;
+const Extension = ExtensionUtils.getCurrentExtension();
 let Settings = Extension.imports.settings;
 let config = new Settings.Prefs();
 
@@ -76,6 +76,14 @@ var PrefsWidget = new GObject.Class({
         let animate_overview = config.ANIMATE_OVERVIEW;
         builder.get_object("animate_overview").set_active(animate_overview.get());
 
+        // ! dash opacity
+        let dash_opacity = config.DASH_OPACITY;
+        builder.get_object("dash_opacity_scale").set_active(animate_overview.get());
+
+        // ! static panel blur
+        let static_blur = config.STATIC_BLUR;
+        builder.get_object("static_blur").set_active(animate_overview.get());
+
 
         // ! connect
         let SignalHandler = {
@@ -128,6 +136,16 @@ var PrefsWidget = new GObject.Class({
                 let value = w.get_active();
                 animate_overview.set(value);
             },
+
+            dash_opacity_changed(w) {
+                let value = w.get_value();
+                dash_opacity.set(value);
+            },
+
+            static_blur_toogled(w) {
+                let value = w.get_active();
+                static_blur.set(value);
+            }
         };
 
         builder.connect_signals_full((builder, object, signal, handler) => {

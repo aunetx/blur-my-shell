@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.36.0 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk+" version="3.20" />
   <object class="GtkAdjustment" id="brightness_adjustment">
     <property name="upper">1</property>
     <property name="step_increment">1</property>
@@ -9,6 +9,11 @@
   </object>
   <object class="GtkAdjustment" id="sigma_adjustment">
     <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="dash_opacity_adjustment">
+    <property name="upper">1</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
@@ -49,7 +54,7 @@
         <property name="round_digits">2</property>
         <property name="digits">2</property>
         <property name="value_pos">right</property>
-        <signal name="value-changed" handler="brightness_changed" swapped="no"/>
+        <signal name="value-changed" handler="brightness_changed" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -64,7 +69,7 @@
         <property name="round_digits">0</property>
         <property name="digits">0</property>
         <property name="value_pos">right</property>
-        <signal name="value-changed" handler="sigma_changed" swapped="no"/>
+        <signal name="value-changed" handler="sigma_changed" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -103,7 +108,7 @@
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
-        <signal name="toggled" handler="blur_dash_toggled" swapped="no"/>
+        <signal name="toggled" handler="blur_dash_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -118,7 +123,7 @@
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
-        <signal name="toggled" handler="blur_panel_toggled" swapped="no"/>
+        <signal name="toggled" handler="blur_panel_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -133,7 +138,7 @@
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
-        <signal name="toggled" handler="blur_lockscreen_toggled" swapped="no"/>
+        <signal name="toggled" handler="blur_lockscreen_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -160,7 +165,7 @@
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
-        <signal name="toggled" handler="blur_overview_toggled" swapped="no"/>
+        <signal name="toggled" handler="blur_overview_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -190,7 +195,7 @@
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
-        <signal name="toggled" handler="hacks_level0_toggled" swapped="no"/>
+        <signal name="toggled" handler="hacks_level0_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -199,14 +204,14 @@
     </child>
     <child>
       <object class="GtkRadioButton" id="hacks_level1">
-        <property name="label" translatable="yes">less artifacts, perfs OK+</property>
+        <property name="label" translatable="yes">some artifacts, perfs OK+</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
         <property name="group">hacks_level0</property>
-        <signal name="toggled" handler="hacks_level1_toggled" swapped="no"/>
+        <signal name="toggled" handler="hacks_level1_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -222,7 +227,7 @@
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
         <property name="group">hacks_level0</property>
-        <signal name="toggled" handler="hacks_level2_toggled" swapped="no"/>
+        <signal name="toggled" handler="hacks_level2_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
@@ -248,11 +253,63 @@
         <property name="receives_default">False</property>
         <property name="active">True</property>
         <property name="draw_indicator">True</property>
-        <signal name="toggled" handler="animate_overview_toggled" swapped="no"/>
+        <signal name="toggled" handler="animate_overview_toggled" swapped="no" />
       </object>
       <packing>
         <property name="left_attach">1</property>
         <property name="top_attach">12</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Dash opacity</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScale" id="dash_opacity_scale">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="adjustment">dash_opacity_adjustment</property>
+        <property name="round_digits">2</property>
+        <property name="digits">2</property>
+        <property name="value_pos">right</property>
+        <signal name="value-changed" handler="dash_opacity_changed" swapped="no" />
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">13</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Static panel blur</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">14</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkCheckButton" id="static_blur">
+        <property name="label" translatable="yes">(refresh by going in/out of overview)</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">False</property>
+        <property name="active">True</property>
+        <property name="draw_indicator">True</property>
+        <signal name="toggled" handler="static_blur_toogled" swapped="no" />
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">14</property>
       </packing>
     </child>
     <child>
@@ -263,7 +320,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">11</property>
+        <property name="top_attach">15</property>
         <property name="width">2</property>
       </packing>
     </child>

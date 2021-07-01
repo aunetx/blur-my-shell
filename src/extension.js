@@ -1,7 +1,6 @@
 'use strict';
 
-const St = imports.gi.St;
-const Shell = imports.gi.Shell;
+const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -16,40 +15,40 @@ const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 
 class Extension {
-    constructor() {
-        this._connections = new Connections.Connections;
-        this._prefs = new Settings.Prefs;
-
-        this._panel_blur = new Panel.PanelBlur(this._connections);
-        this._dash_blur = new Dash.DashBlur(this._connections);
-        this._dash_to_dock_blur = new DashToDock.DashBlur(this._connections);
-        this._overview_blur = new Overview.OverviewBlur(this._connections);
-        this._lockscreen_blur = new Lockscreen.LockscreenBlur(this._connections);
-    }
+    constructor() { }
 
     enable() {
         this._log("enabling extension...");
+        this._connections = [];
+        this._prefs = new Settings.Prefs;
+
+        this._panel_blur = new Panel.PanelBlur(new Connections.Connections);
+        this._dash_blur = new Dash.DashBlur(new Connections.Connections);
+        this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections);
+        this._overview_blur = new Overview.OverviewBlur(new Connections.Connections);
+        this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
+
+        this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
+            this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections);
 
         this._connect_to_settings();
 
         if (this._prefs.BLUR_PANEL.get()) {
-            this._panel_blur.enable()
+            this._panel_blur.enable();
         }
         if (this._prefs.BLUR_DASH.get()) {
             this._dash_blur.enable();
             this._dash_to_dock_blur.enable();
         }
         if (this._prefs.BLUR_OVERVIEW.get()) {
-            this._overview_blur.enable()
+            this._overview_blur.enable();
         }
         if (this._prefs.BLUR_LOCKSCREEN.get()) {
-            this._lockscreen_blur.enable()
+            this._lockscreen_blur.enable();
         }
 
         this._update_sigma();
         this._update_brightness();
-
-        this._connect_to_overview();
 
         this._log("extension enabled.");
     }
@@ -64,17 +63,24 @@ class Extension {
         this._lockscreen_blur.disable();
 
         this._disconnect_settings();
-        this._connections.disconnect_all();
+
+        // in theory, this shouldn't be needed if we switch to making modules responsible for disconnecting their own
+        // signals. For now, I will leave this small bit of code in. Calling disable on all modules has already
+        // done the same thing
+        this._connections.forEach((connections) => {
+            connections.disconnect_all();
+        })
+        this._connections = [];
 
         this._log("extension disabled.");
     }
 
     _connect_to_settings() {
         this._prefs.SIGMA.changed(() => {
-            this._update_sigma()
+            this._update_sigma();
         });
         this._prefs.BRIGHTNESS.changed(() => {
-            this._update_brightness()
+            this._update_brightness();
         });
 
         this._prefs.BLUR_DASH.changed(() => {
@@ -88,24 +94,30 @@ class Extension {
         });
         this._prefs.BLUR_PANEL.changed(() => {
             if (this._prefs.BLUR_PANEL.get()) {
-                this._panel_blur.enable()
+                this._panel_blur.enable();
             } else {
-                this._panel_blur.disable()
+                this._panel_blur.disable();
             }
         });
         this._prefs.BLUR_OVERVIEW.changed(() => {
             if (this._prefs.BLUR_OVERVIEW.get()) {
-                this._overview_blur.enable()
+                this._overview_blur.enable();
             } else {
-                this._overview_blur.disable()
+                this._overview_blur.disable();
             }
         });
         this._prefs.BLUR_LOCKSCREEN.changed(() => {
             if (this._prefs.BLUR_LOCKSCREEN.get()) {
-                this._lockscreen_blur.enable()
+                this._lockscreen_blur.enable();
             } else {
-                this._lockscreen_blur.disable()
+                this._lockscreen_blur.disable();
             }
+        });
+        this._prefs.DASH_OPACITY.changed(() => {
+            this._dash_blur.update();
+        });
+        this._prefs.STATIC_BLUR.changed(() => {
+            this._panel_blur.change_blur_type()
         });
     }
 
@@ -132,21 +144,10 @@ class Extension {
         this._lockscreen_blur.set_brightness(brightness);
     }
 
-    _connect_to_overview() {
-        this._connections.connect(Main.overview, 'showing', () => {
-            this._panel_blur.hide();
-            this._dash_to_dock_blur.hide();
-        });
-        this._connections.connect(Main.overview, 'hidden', () => {
-            this._panel_blur.show();
-            this._dash_to_dock_blur.show();
-        });
-    }
-
     _log(str) {
         log(`[Blur my Shell] ${str}`)
     }
-};
+}
 
 
 // Called on gnome-shell loading, even if extension is deactivated

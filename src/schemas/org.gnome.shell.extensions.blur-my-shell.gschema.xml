@@ -49,5 +49,17 @@
             <summary>Boolean, whether to animate overview in/out or not</summary>
             <description />
         </key>
+        <!-- DASH OPACITY -->
+        <key type="d" name="dash-opacity">
+            <default>0.12</default>
+            <summary>Opacity of dash to use</summary>
+            <description />
+        </key>
+        <!-- STATIC BLUR -->
+        <key type="b" name="static-blur">
+            <default>true</default>
+            <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
+            <description />
+        </key>
     </schema>
 </schemalist>
