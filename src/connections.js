@@ -70,6 +70,7 @@ var Connections = class Connections {
         this.buffer = [];
     }
 
+    // no need to check if DEBUG here, the log function is only used on error
     _log(str) {
         log(`[Blur my Shell] ${str}`)
     }

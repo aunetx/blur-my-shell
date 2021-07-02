@@ -42,7 +42,8 @@ class DashInfos {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 
@@ -219,7 +220,8 @@ var DashBlur = class DashBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 

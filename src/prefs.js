@@ -84,6 +84,10 @@ var PrefsWidget = new GObject.Class({
         let static_blur = config.STATIC_BLUR;
         builder.get_object("static_blur").set_active(static_blur.get());
 
+        // ! debug mode
+        let debug_mode = config.DEBUG;
+        builder.get_object("debug_mode").set_active(debug_mode.get());
+
 
         // ! connect
         let SignalHandler = {
@@ -142,9 +146,14 @@ var PrefsWidget = new GObject.Class({
                 dash_opacity.set(value);
             },
 
-            static_blur_toogled(w) {
+            static_blur_toggled(w) {
                 let value = w.get_active();
                 static_blur.set(value);
+            },
+
+            debug_mode_toggled(w) {
+                let value = w.get_active();
+                debug_mode.set(value);
             }
         };
 
@@ -153,5 +162,10 @@ var PrefsWidget = new GObject.Class({
         });
 
         this.add(builder.get_object('main_frame'));
+    },
+
+    _log(str) {
+        if (config.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 });

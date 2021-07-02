@@ -155,7 +155,8 @@ class Extension {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this._prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 
