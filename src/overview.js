@@ -11,6 +11,8 @@ const Utils = Me.imports.utilities;
 const default_sigma = 30;
 const default_brightness = 0.6;
 
+let sigma = default_sigma;
+
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -33,8 +35,28 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
+        if (Main.overview._overview.controls._appDisplay._folderIcons.length > 0) {
+            this.blur_appfolders();
+        }
+        this.connections.connect(Main.overview._overview.controls._appDisplay, 'view-loaded', () => {
+            this.blur_appfolders();
+        })
+
         this.update_backgrounds();
         Utils.setTimeout(() => { this.update_backgrounds() }, 500);
+    }
+
+    blur_appfolders() {
+        Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+            let effect = new Shell.BlurEffect({
+                name: "appfolder-blur",
+                sigma: sigma,
+                brightness: 1.0,
+                mode: 1
+            });
+            icon._dialog.remove_effect_by_name("appfolder-blur");
+            icon._dialog.add_effect(effect);
+        });
     }
 
     update_backgrounds() {
@@ -71,6 +93,8 @@ var OverviewBlur = class OverviewBlur {
         this.effects.forEach(effect => {
             effect.sigma = s;
         });
+        sigma = s;
+        this.blur_appfolders();
     }
 
     set_brightness(b) {
