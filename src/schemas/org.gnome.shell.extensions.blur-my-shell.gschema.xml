@@ -37,6 +37,12 @@
             <summary>Boolean, whether to blur lockscreen or not</summary>
             <description />
         </key>
+        <!-- BLUR APPFOLDERS -->
+        <key type="b" name="blur-appfolders">
+            <default>true</default>
+            <summary>Boolean, whether to blur appfolders or not</summary>
+            <description />
+        </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>

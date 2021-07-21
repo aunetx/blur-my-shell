@@ -1,6 +1,6 @@
 'use strict';
 
-const { Shell, GLib, Gio, Meta } = imports.gi;
+const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
@@ -10,6 +10,8 @@ const Utils = Me.imports.utilities;
 
 const default_sigma = 30;
 const default_brightness = 0.6;
+
+let sigma = default_sigma;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
@@ -71,6 +73,7 @@ var OverviewBlur = class OverviewBlur {
         this.effects.forEach(effect => {
             effect.sigma = s;
         });
+        sigma = s;
     }
 
     set_brightness(b) {
