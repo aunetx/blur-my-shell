@@ -1,6 +1,6 @@
 'use strict';
 
-const { Shell, GLib, Gio, Meta } = imports.gi;
+const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
@@ -35,28 +35,8 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
-        if (Main.overview._overview.controls._appDisplay._folderIcons.length > 0) {
-            this.blur_appfolders();
-        }
-        this.connections.connect(Main.overview._overview.controls._appDisplay, 'view-loaded', () => {
-            this.blur_appfolders();
-        })
-
         this.update_backgrounds();
         Utils.setTimeout(() => { this.update_backgrounds() }, 500);
-    }
-
-    blur_appfolders() {
-        Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
-            let effect = new Shell.BlurEffect({
-                name: "appfolder-blur",
-                sigma: sigma,
-                brightness: 1.0,
-                mode: 1
-            });
-            icon._dialog.remove_effect_by_name("appfolder-blur");
-            icon._dialog.add_effect(effect);
-        });
     }
 
     update_backgrounds() {
@@ -94,7 +74,6 @@ var OverviewBlur = class OverviewBlur {
             effect.sigma = s;
         });
         sigma = s;
-        this.blur_appfolders();
     }
 
     set_brightness(b) {
