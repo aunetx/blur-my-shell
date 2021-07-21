@@ -13,8 +13,7 @@ const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
-
-const DEBUG = false;
+const AppFolders = Me.imports.appfolders;
 
 class Extension {
     constructor() { }
@@ -30,9 +29,10 @@ class Extension {
         this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections, this._prefs);
         this._overview_blur = new Overview.OverviewBlur(new Connections.Connections, this._prefs);
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections, this._prefs);
+        this._appfolders_blur = new AppFolders.AppFoldersBlur(new Connections.Connections, this._prefs);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
-            this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections);
+            this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections, this._appfolders_blur.connections);
 
         this._connect_to_settings();
 
@@ -50,6 +50,8 @@ class Extension {
             this._lockscreen_blur.enable();
         }
 
+        this._appfolders_blur.enable();
+
         this._update_sigma();
         this._update_brightness();
 
@@ -64,12 +66,14 @@ class Extension {
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
+        this._appfolders_blur.disable();
 
         this._panel_blur = null;
         this._dash_blur = null;
         this._dash_to_dock_blur = null;
         this._overview_blur = null;
         this._lockscreen_blur = null;
+        this._appfolders_blur = null;
 
         this._disconnect_settings();
 
@@ -144,6 +148,7 @@ class Extension {
         this._dash_to_dock_blur.set_sigma(sigma);
         this._overview_blur.set_sigma(sigma);
         this._lockscreen_blur.set_sigma(sigma);
+        this._appfolders_blur.set_sigma(sigma);
     }
 
     _update_brightness() {
@@ -153,6 +158,7 @@ class Extension {
         this._dash_to_dock_blur.set_brightness(brightness);
         this._overview_blur.set_brightness(brightness);
         this._lockscreen_blur.set_brightness(brightness);
+        this._appfolders_blur.set_brightness(brightness);
     }
 
     _log(str) {
