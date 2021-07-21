@@ -144,6 +144,8 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(effect);
 
+            icon._dialog._viewBox.add_style_class_name('transparent-app-folder-dialogs');
+
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
         });
@@ -174,6 +176,7 @@ var AppFoldersBlur = class AppFoldersBlur {
         }
         Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
             icon._dialog.remove_effect_by_name("appfolder-blur")
+            icon._dialog._viewBox.remove_style_class_name('transparent-app-folder-dialogs');
         });
 
         this.connections.disconnect_all();
