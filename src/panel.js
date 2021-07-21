@@ -132,6 +132,7 @@ var PanelBlur = class PanelBlur {
             } else if (this.prefs.HACKS_LEVEL.get() == 2) {
                 this._log("panel hack level 2");
 
+                this.paint_signals.connect(Main.panel, this.effect);
                 Main.panel.get_children().forEach(child => {
                     this.paint_signals.connect(child, this.effect);
                 });
@@ -181,7 +182,12 @@ var PanelBlur = class PanelBlur {
     }
 
     get monitor() {
-        return Main.layoutManager.primaryMonitor
+        if (Main.layoutManager.primaryMonitor != null) {
+            return Main.layoutManager.primaryMonitor
+        }
+        else {
+            return { x: 0, y: 0, width: 0, index: 0 }
+        }
     }
 
     set_sigma(s) {
