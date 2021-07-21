@@ -49,8 +49,9 @@ class Extension {
         if (this._prefs.BLUR_LOCKSCREEN.get()) {
             this._lockscreen_blur.enable();
         }
-
-        this._appfolders_blur.enable();
+        if (this._prefs.BLUR_APPFOLDERS.get()) {
+            this._appfolders_blur.enable();
+        }
 
         this._update_sigma();
         this._update_brightness();
@@ -126,6 +127,13 @@ class Extension {
                 this._lockscreen_blur.enable();
             } else {
                 this._lockscreen_blur.disable();
+            }
+        });
+        this._prefs.BLUR_APPFOLDERS.changed(() => {
+            if (this._prefs.BLUR_APPFOLDERS.get()) {
+                this._appfolders_blur.enable();
+            } else {
+                this._appfolders_blur.disable();
             }
         });
         this._prefs.DASH_OPACITY.changed(() => {
