@@ -162,8 +162,16 @@ var AppFoldersBlur = class AppFoldersBlur {
     disable() {
         this._log("removing blur from appfolders");
 
-        icon._dialog._zoomAndFadeIn = original_zoomAndFadeIn;
-        icon._dialog._zoomAndFadeOut = original_zoomAndFadeOut;
+        if (original_zoomAndFadeIn != null) {
+            Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+                icon._dialog._zoomAndFadeIn = original_zoomAndFadeIn;
+            });
+        }
+        if (original_zoomAndFadeOut != null) {
+            Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+                icon._dialog._zoomAndFadeOut = original_zoomAndFadeOut;
+            });
+        }
         Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
             icon._dialog.remove_effect_by_name("appfolder-blur")
         });
