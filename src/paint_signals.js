@@ -26,7 +26,7 @@ var PaintSignals = class PaintSignals {
     disconnect_all() {
         this.buffer.forEach((infos) => {
             this.connections.disconnect_all_for(infos.paint_effect);
-            infos.actor.remove_effect(paint_effect);
+            infos.actor.remove_effect(infos.paint_effect);
         });
 
         this.buffer = []

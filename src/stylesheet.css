@@ -8,3 +8,7 @@
 .transparent-app-folder-dialogs {
     background-color: rgba(0, 0, 0, 0);
 }
+.transparent-app-folder-dialogs .edit-folder-button {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 19px; 
+}
