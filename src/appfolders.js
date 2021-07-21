@@ -6,6 +6,7 @@ const Main = imports.ui.main;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
+const PaintSignals = Me.imports.paint_signals;
 
 const default_sigma = 30;
 const default_brightness = 0.6;
@@ -112,6 +113,7 @@ let _zoomAndFadeOut = function () {
 var AppFoldersBlur = class AppFoldersBlur {
     constructor(connections, prefs) {
         this.connections = connections;
+        this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
     }
 
@@ -143,6 +145,34 @@ var AppFoldersBlur = class AppFoldersBlur {
             });
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(effect);
+
+            // HACK
+            // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
+            // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
+            // ! but it prevents the shadows of the panel buttons to cause artefacts on the panel itself
+            // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
+
+            if (this.prefs.HACKS_LEVEL.get() == 1) {
+                this._log("appfolders hack level 1");
+                this.paint_signals.disconnect_all();
+
+                Utils.setTimeout(() => {
+                    this.paint_signals.connect(Main.overview._overview, effect);
+                    this.paint_signals.connect(icon._dialog, effect);
+                }, 100);
+            } else if (this.prefs.HACKS_LEVEL.get() == 2) {
+                this._log("panel hack level 2");
+                this.paint_signals.disconnect_all();
+
+                Utils.setTimeout(() => {
+                    this.paint_signals.connect(Main.overview._overview, effect);
+                    this.paint_signals.connect(icon._dialog, effect);
+                }, 100);
+            } else {
+                this.paint_signals.disconnect_all();
+            }
+
+            // ! END OF DIRTY PART
 
             icon._dialog._viewBox.add_style_class_name('transparent-app-folder-dialogs');
 
