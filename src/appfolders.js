@@ -130,6 +130,8 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     blur_appfolders() {
         Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+            icon._ensureFolderDialog();
+
             if (original_zoomAndFadeIn == null) {
                 original_zoomAndFadeIn = icon._dialog._zoomAndFadeIn;
             }
