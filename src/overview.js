@@ -153,7 +153,6 @@ var OverviewBlur = class OverviewBlur {
         Main.overview._overview.remove_style_class_name("cosmic-transparent-bg");
 
         Main.overview._updateBackgrounds();
-        this.connections.disconnect_all();
     }
 
     _log(str) {

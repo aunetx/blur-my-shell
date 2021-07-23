@@ -208,6 +208,7 @@ var DashBlur = class DashBlur {
     disable() {
         this._log("removing blur from dashes");
 
+        Main.overview.dash.get_child_at_index(0).style = null;
 
         this.emit('remove-dashes', true);
 
