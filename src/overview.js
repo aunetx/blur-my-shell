@@ -21,6 +21,9 @@ const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
 let sigma = 30;
 let brightness = 0.6;
 
+let IS_COSMIC = Main.overview._overview.get_style_class_name().includes("cosmic-solid-bg");
+
+
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -57,7 +60,13 @@ var OverviewBlur = class OverviewBlur {
                     background.opacity = 255;
                 }
             })
+        }
 
+        if (IS_COSMIC) {
+            Main.overview._overview.add_style_class_name("cosmic-transparent-overview-bg");
+            this.connections.connect(Main.overview._backgroundGroup.get_child_at_index(0), 'hide', () => {
+                Main.overview._backgroundGroup.get_child_at_index(0).show();
+            });
         }
 
         Main.overview._unshadeBackgrounds = function () {
@@ -137,7 +146,12 @@ var OverviewBlur = class OverviewBlur {
         global.window_group.add_child(backgroundGroup);
         global.window_group.set_child_below_sibling(backgroundGroup, null);
 
+        if (IS_COSMIC) {
+            Main.overview._overview.remove_style_class_name("cosmic-transparent-overview-bg");
+        }
+
         Main.overview._updateBackgrounds();
+        this.connections.disconnect_all();
     }
 
     _log(str) {

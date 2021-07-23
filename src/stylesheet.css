@@ -1,4 +1,7 @@
 #panel.transparent-panel {
-    background-color: rgba(0, 0, 0, 0);
+    background: transparent;
     transition-duration: 500ms;
+}
+#overview.cosmic-transparent-overview-bg {
+    background: transparent !important;
 }
