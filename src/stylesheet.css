@@ -2,6 +2,6 @@
     background: transparent;
     transition-duration: 500ms;
 }
-#overview.cosmic-transparent-overview-bg {
+#overview.cosmic-solid-bg.cosmic-transparent-bg {
     background: transparent !important;
 }
