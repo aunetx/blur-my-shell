@@ -125,7 +125,7 @@ var OverviewBlur = class OverviewBlur {
     }
 
     get is_cosmic() {
-        Main.overview._overview.get_style_class_name().includes("cosmic-solid-bg");
+        return Main.overview._overview.get_style_class_name().includes("cosmic-solid-bg");
     }
 
     set_sigma(s) {
