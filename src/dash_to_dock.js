@@ -21,7 +21,9 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
             this._log("removing blur from dash");
-            this.dash.get_parent().remove_child(this.background_parent);
+            try {
+                this.dash.get_parent().remove_child(this.background_parent);
+            } catch (e) { }
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
@@ -91,6 +93,7 @@ var DashBlur = class DashBlur {
             Utils.setTimeout(() => {
                 Main.panel._leftCorner.hide();
                 Main.panel._rightCorner.hide();
+                Main.overview.dash.get_child_at_index(0).style = "background-color: rgba(0, 0, 0, 0.0); border: none;";
             }, 100);
             this.dashes.push(this.blur_dash_from(dash));
         }
