@@ -185,12 +185,14 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     set_sigma(s) {
         sigma = s;
-        this.blur_appfolders();
+        if (this.prefs.BLUR_APPFOLDERS.get())
+            this.blur_appfolders();
     }
 
     set_brightness(b) {
         brightness = b;
-        this.blur_appfolders();
+        if (this.prefs.BLUR_APPFOLDERS.get())
+            this.blur_appfolders();
     }
 
     disable() {
@@ -215,7 +217,9 @@ var AppFoldersBlur = class AppFoldersBlur {
             }
         });
 
+        this._log(`before: ${this.connections.buffer}`)
         this.connections.disconnect_all();
+        this._log(`after: ${this.connections.buffer}`)
     }
 
     _log(str) {
