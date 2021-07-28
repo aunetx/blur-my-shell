@@ -43,6 +43,12 @@
             <summary>Boolean, whether to blur appfolders or not</summary>
             <description />
         </key>
+        <!-- BLUR WINDOW LIST -->
+        <key type="b" name="blur-window-list">
+            <default>true</default>
+            <summary>Boolean, whether to blur window list extension or not</summary>
+            <description />
+        </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
