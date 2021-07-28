@@ -81,9 +81,6 @@ var PanelBlur = class PanelBlur {
         this.connections.connect(Main.overview, 'hidden', () => {
             this.show();
         });
-
-        // not needed for now, but may be needed later
-        //this._connect_to_dash_to_panel();
     }
 
     change_blur_type() {

@@ -43,6 +43,12 @@
             <summary>Boolean, whether to blur appfolders or not</summary>
             <description />
         </key>
+        <!-- BLUR KEYOARD -->
+        <key type="b" name="blur-keyboard">
+            <default>true</default>
+            <summary>Boolean, whether to blur the onscreen keyboard or not</summary>
+            <description />
+        </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>

@@ -14,6 +14,7 @@ const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 const AppFolders = Me.imports.appfolders;
+const Keyboard = Me.imports.keyboard;
 
 class Extension {
     constructor() { }
@@ -30,9 +31,12 @@ class Extension {
         this._overview_blur = new Overview.OverviewBlur(new Connections.Connections, this._prefs);
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections, this._prefs);
         this._appfolders_blur = new AppFolders.AppFoldersBlur(new Connections.Connections, this._prefs);
+        this._keyboard_blur = new Keyboard.KeyboardBlur(new Connections.Connections, this._prefs);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
-            this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections, this._appfolders_blur.connections);
+            this._dash_to_dock_blur.connections, this._overview_blur.connections,
+            this._lockscreen_blur.connections, this._appfolders_blur.connections,
+            this._keyboard_blur.connections);
 
         this._connect_to_settings();
 
@@ -52,6 +56,9 @@ class Extension {
         if (this._prefs.BLUR_APPFOLDERS.get()) {
             this._appfolders_blur.enable();
         }
+        if (this._prefs.BLUR_KEYBOARD.get()) {
+            this._keyboard_blur.enable();
+        }
 
         this._update_sigma();
         this._update_brightness();
@@ -68,6 +75,7 @@ class Extension {
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
         this._appfolders_blur.disable();
+        this._keyboard_blur.disable();
 
         this._panel_blur = null;
         this._dash_blur = null;
@@ -75,12 +83,10 @@ class Extension {
         this._overview_blur = null;
         this._lockscreen_blur = null;
         this._appfolders_blur = null;
+        this._keyboard_blur = null;
 
         this._disconnect_settings();
 
-        // in theory, this shouldn't be needed if we switch to making modules responsible for disconnecting their own
-        // signals. For now, I will leave this small bit of code in. Calling disable on all modules has already
-        // done the same thing
         this._connections.forEach((connections) => {
             connections.disconnect_all();
         })
@@ -136,6 +142,13 @@ class Extension {
                 this._appfolders_blur.disable();
             }
         });
+        this._prefs.BLUR_KEYBOARD.changed(() => {
+            if (this._prefs.BLUR_KEYBOARD.get()) {
+                this._keyboard_blur.enable();
+            } else {
+                this._keyboard_blur.disable();
+            }
+        });
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update();
         });
@@ -157,6 +170,7 @@ class Extension {
         this._overview_blur.set_sigma(sigma);
         this._lockscreen_blur.set_sigma(sigma);
         this._appfolders_blur.set_sigma(sigma);
+        this._keyboard_blur.set_sigma(sigma);
     }
 
     _update_brightness() {
@@ -167,6 +181,7 @@ class Extension {
         this._overview_blur.set_brightness(brightness);
         this._lockscreen_blur.set_brightness(brightness);
         this._appfolders_blur.set_brightness(brightness);
+        this._keyboard_blur.set_brightness(brightness);
     }
 
     _log(str) {
