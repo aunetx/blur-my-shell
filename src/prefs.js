@@ -18,6 +18,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'blur_overview',
         'blur_lockscreen',
         'blur_appfolders',
+        'blur_window_list',
         'hacks_level0',
         'hacks_level1',
         'hacks_level2',
@@ -49,6 +50,9 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
 
         // ! blur appfolders
         this._blur_appfolders.set_active(config.BLUR_APPFOLDERS.get());
+
+        // ! blur window list
+        this._blur_window_list.set_active(config.BLUR_WINDOW_LIST.get());
 
         // ! dash hacks
         if (config.HACKS_LEVEL.get() == 0) {
@@ -108,6 +112,11 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
     blur_appfolders_toggled(w) {
         let value = w.get_active();
         config.BLUR_APPFOLDERS.set(value);
+    }
+
+    blur_window_list_toggled(w) {
+        let value = w.get_active();
+        config.BLUR_WINDOW_LIST.set(value);
     }
 
     hacks_level0_toggled(w) {
