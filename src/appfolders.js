@@ -217,9 +217,7 @@ var AppFoldersBlur = class AppFoldersBlur {
             }
         });
 
-        this._log(`before: ${this.connections.buffer}`)
         this.connections.disconnect_all();
-        this._log(`after: ${this.connections.buffer}`)
     }
 
     _log(str) {
