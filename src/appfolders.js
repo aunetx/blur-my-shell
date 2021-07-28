@@ -163,7 +163,7 @@ var AppFoldersBlur = class AppFoldersBlur {
                     this.paint_signals.connect(icon._dialog, effect);
                 }, 100);
             } else if (this.prefs.HACKS_LEVEL.get() == 2) {
-                this._log("panel hack level 2");
+                this._log("appfolders hack level 2");
                 this.paint_signals.disconnect_all();
 
                 Utils.setTimeout(() => {
