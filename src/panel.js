@@ -9,7 +9,6 @@ const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
-const dash_to_panel_uuid = 'dash-to-panel@jderose9.github.com';
 const default_sigma = 30;
 const default_brightness = 0.6;
 
@@ -55,6 +54,8 @@ var PanelBlur = class PanelBlur {
         // hide corners, can't style them
         Main.panel._leftCorner.hide();
         Main.panel._rightCorner.hide();
+        this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide() });
+        this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide() });
         // remove background
         Main.panel.add_style_class_name('transparent-panel');
 
@@ -81,9 +82,6 @@ var PanelBlur = class PanelBlur {
         this.connections.connect(Main.overview, 'hidden', () => {
             this.show();
         });
-
-        // not needed for now, but may be needed later
-        //this._connect_to_dash_to_panel();
     }
 
     change_blur_type() {
@@ -170,18 +168,6 @@ var PanelBlur = class PanelBlur {
         }
     }
 
-    _connect_to_dash_to_panel() {
-        this.connections.connect(Main.extensionManager, 'extension-state-changed', (data, extension) => {
-            if (extension.uuid === dash_to_panel_uuid/* && extension.state === 1*/) {
-                this._log("Dash to Panel detected, resetting panel blur");
-                Utils.setTimeout(() => {
-                    this.disable();
-                    this.enable();
-                }, 300);
-            }
-        });
-    }
-
     get monitor() {
         if (Main.layoutManager.primaryMonitor != null) {
             return Main.layoutManager.primaryMonitor
@@ -201,8 +187,6 @@ var PanelBlur = class PanelBlur {
 
     disable() {
         this._log("removing blur from top panel");
-        Main.panel._leftCorner.show();
-        Main.panel._rightCorner.show();
         Main.panel.remove_style_class_name('transparent-panel');
 
         try {
@@ -210,6 +194,9 @@ var PanelBlur = class PanelBlur {
         } catch (e) { }
 
         this.connections.disconnect_all();
+
+        Main.panel._leftCorner.show();
+        Main.panel._rightCorner.show();
     }
 
     show() {
