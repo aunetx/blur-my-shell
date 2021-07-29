@@ -21,6 +21,7 @@ var WindowListBlur = class WindowListBlur {
         this._log("blurring window list");
 
         Main.layoutManager.uiGroup.get_children().forEach(child => this.try_blur(child));
+        this.connections.connect(Main.layoutManager.uiGroup, 'actor-added', (_, child) => this.try_blur(child));
 
         // connect to overview
         this.connections.connect(Main.overview, 'showing', () => {
@@ -33,6 +34,8 @@ var WindowListBlur = class WindowListBlur {
 
     try_blur(child) {
         if (child.constructor.name == "WindowList" && child.style != "background:transparent;") {
+            this._log("found window list to blur");
+
             child.style = "background:transparent;";
             let effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
@@ -72,7 +75,7 @@ var WindowListBlur = class WindowListBlur {
     }
 
     blur_window_button(window) {
-        window.get_child_at_index(0).style = "background:transparent;";
+        window.get_child_at_index(0).style = "box-shadow:none;background-color:rgba(0,0,0,0.2);border-radius:5px;";
     }
 
     try_remove_blur(child) {
