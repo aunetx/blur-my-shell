@@ -31,14 +31,12 @@ var KeyboardBlur = class KeyboardBlur {
 
     init_blur() {
         if (!this.first_blurred && Main.layoutManager.keyboardBox) {
-            Utils.setTimeout(() => {
-                Main.keyboard.open(Main.layoutManager.keyboardIndex);
-                Main.keyboard.close();
-                Utils.setTimeout(() => {
-                    this.connections.connect(Main.layoutManager.keyboardBox, 'show', () => { this.blur_keyboard() });
-                    this.connections.connect(Main.layoutManager.keyboardBox, 'hide', () => { this.unblur_keyboard() });
-                }, 100);
-            }, 100);
+            this.connections.connect(Main.layoutManager.keyboardBox, 'show', () => {
+                Utils.setTimeout(() => { this.blur_keyboard(); }, 100);
+            });
+            this.connections.connect(Main.layoutManager.keyboardBox, 'hide', () => {
+                Utils.setTimeout(() => { this.unblur_keyboard(); }, 100);
+            });
             this.first_blurred = true;
         };
     }
