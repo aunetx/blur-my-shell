@@ -56,12 +56,12 @@ In case you have problems with your dynamic timed wallpaper not being updated du
 
 The current extension supports these GNOME Shell versions:
 
-- 40
+- 40 -- `master` branch
 
 Older GNOME Shell versions are supported up to Blur my Shell version 6, and by versions 17, 19 and 22:
 
-- 3.38
-- 3.36
+- 3.38 -- `pre_40` branch
+- 3.36 -- `pre_40` branch
 
 ## License
 
