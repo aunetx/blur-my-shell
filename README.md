@@ -58,7 +58,7 @@ The current extension supports these GNOME Shell versions:
 
 - 40
 
-Older GNOME Shell versions are supported up to Blur my Shell version 6, and by version 17:
+Older GNOME Shell versions are supported up to Blur my Shell version 6, and by versions 17, 19 and 22:
 
 - 3.38
 - 3.36
