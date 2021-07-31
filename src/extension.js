@@ -8,6 +8,7 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Connections = Me.imports.connections;
 
+const Dynamic = Me.imports.dynamic;
 const Panel = Me.imports.panel;
 const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
@@ -25,7 +26,8 @@ class Extension {
         this._log("enabling extension...");
         this._connections = [];
 
-        this._panel_blur = new Panel.PanelBlur(new Connections.Connections, this._prefs);
+        this._dynamic = new Dynamic.Dynamic(new Connections.Connections, this._prefs);
+        this._panel_blur = new Panel.PanelBlur(new Connections.Connections, this._prefs, this._dynamic);
         this._dash_blur = new Dash.DashBlur(new Connections.Connections, this._prefs);
         this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections, this._prefs);
         this._overview_blur = new Overview.OverviewBlur(new Connections.Connections, this._prefs);
@@ -33,13 +35,16 @@ class Extension {
         this._appfolders_blur = new AppFolders.AppFoldersBlur(new Connections.Connections, this._prefs);
         this._window_list_blur = new WindowList.WindowListBlur(new Connections.Connections, this._prefs);
 
-        this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
-            this._dash_to_dock_blur.connections, this._overview_blur.connections,
-            this._lockscreen_blur.connections, this._appfolders_blur.connections,
-            this._window_list_blur.connections);
+        this._connections.push(
+            this._dynamic.connections, this._panel_blur.connections,
+            this._dash_blur.connections, this._dash_to_dock_blur.connections,
+            this._overview_blur.connections, this._lockscreen_blur.connections,
+            this._appfolders_blur.connections, this._window_list_blur.connections
+        );
 
         this._connect_to_settings();
 
+        this._dynamic.enable();
         if (this._prefs.BLUR_PANEL.get()) {
             this._panel_blur.enable();
         }
@@ -69,6 +74,7 @@ class Extension {
     disable() {
         this._log("disabling extension...");
 
+        this._dynamic.disable();
         this._panel_blur.disable();
         this._dash_blur.disable();
         this._dash_to_dock_blur.disable();
@@ -77,6 +83,7 @@ class Extension {
         this._appfolders_blur.disable();
         this._window_list_blur.disable();
 
+        this._dynamic = null;
         this._panel_blur = null;
         this._dash_blur = null;
         this._dash_to_dock_blur = null;
@@ -87,9 +94,6 @@ class Extension {
 
         this._disconnect_settings();
 
-        // in theory, this shouldn't be needed if we switch to making modules responsible for disconnecting their own
-        // signals. For now, I will leave this small bit of code in. Calling disable on all modules has already
-        // done the same thing
         this._connections.forEach((connections) => {
             connections.disconnect_all();
         })
