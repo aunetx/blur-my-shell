@@ -14,18 +14,19 @@ var Dynamic = class Dynamic {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
+        this.solid = false;
     }
 
     enable() {
         this._log("init dynamic");
 
-        this.connections.connect(Main.overview, 'showing', () => this.dynamic_update())
-        this.connections.connect(Main.overview, 'hiding', () => this.dynamic_update())
-        this.connections.connect(Main.sessionMode, 'updated', () => this.dynamic_update())
+        this.connections.connect(Main.overview, 'showing', () => this.dynamic_update());
+        this.connections.connect(Main.overview, 'hiding', () => this.dynamic_update());
+        this.connections.connect(Main.sessionMode, 'updated', () => this.dynamic_update());
 
-        for (const actor of global.get_window_actors()) {
+        global.get_window_actors().forEach(actor => {
             this.window_actor_added(actor);
-        }
+        });
 
         this.connections.connect(global.window_group, 'actor-added', (actor) => this.window_actor_added(actor));
         this.connections.connect(global.window_group, 'actor-removed', (actor) => this.window_actor_removed(actor));
@@ -36,8 +37,8 @@ var Dynamic = class Dynamic {
     }
 
     window_actor_added(actor) {
-        this.connections.connect(actor, 'notify::allocation', () => this.dynamic_update());
-        this.connections.connect(actor, 'notify::visible', () => this.dynamic_update());
+        this.connections.connect(actor, 'notify::allocation', () => { this.dynamic_update(); });
+        this.connections.connect(actor, 'notify::visible', () => { this.dynamic_update(); });
     }
 
     window_actor_removed(actor) {
@@ -47,7 +48,8 @@ var Dynamic = class Dynamic {
 
     dynamic_update() {
         if (Main.panel.has_style_pseudo_class('overview') || !Main.sessionMode.hasWindows) {
-            this.emit('set-solid', false);
+            this.solid = false;
+            this.emit('update-solid', true);
             return;
         }
 
@@ -58,7 +60,6 @@ var Dynamic = class Dynamic {
         const windows = global.workspace_manager.get_active_workspace().list_windows().filter(window => {
             return window.is_on_primary_monitor() &&
                 window.showing_on_its_workspace() &&
-                !window.is_hidden() &&
                 window.get_window_type() !== Meta.WindowType.DESKTOP;
         });
 
@@ -71,7 +72,8 @@ var Dynamic = class Dynamic {
             return vertical_pos < panel_bottom + distance * scale;
         });
 
-        this.emit('set-solid', is_near_enough);
+        this.solid = is_near_enough;
+        this.emit('update-solid', true);
     }
 
     disable() {
