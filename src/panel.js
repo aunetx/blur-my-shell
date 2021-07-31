@@ -15,10 +15,11 @@ const default_brightness = 0.6;
 let sigma = 30;
 
 var PanelBlur = class PanelBlur {
-    constructor(connections, prefs) {
+    constructor(connections, prefs, dynamic) {
         this.connections = connections;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
+        this.dynamic = dynamic;
         this.effect = new Shell.BlurEffect({
             brightness: default_brightness,
             sigma: default_sigma,
@@ -82,6 +83,8 @@ var PanelBlur = class PanelBlur {
         this.connections.connect(Main.overview, 'hidden', () => {
             this.show();
         });
+
+        this.init_dynamic();
     }
 
     change_blur_type() {
@@ -168,6 +171,18 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    init_dynamic() {
+        this.connections.connect(this.dynamic, 'set-solid', (solid) => {
+            if (solid) {
+                this.hide();
+                Main.panel.remove_style_class_name('transparent-panel');
+            } else {
+                this.show();
+                Main.panel.add_style_class_name('transparent-panel');
+            }
+        })
+    }
+
     get monitor() {
         if (Main.layoutManager.primaryMonitor != null) {
             return Main.layoutManager.primaryMonitor
@@ -202,6 +217,7 @@ var PanelBlur = class PanelBlur {
     show() {
         this.background_parent.show();
     }
+
     hide() {
         this.background_parent.hide();
     }
