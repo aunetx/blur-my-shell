@@ -172,12 +172,12 @@ var PanelBlur = class PanelBlur {
     }
 
     init_dynamic() {
-        this.connections.connect(this.dynamic, 'set-solid', (solid) => {
-            if (solid) {
-                this.hide();
+        this.connections.connect(this.dynamic, 'update-solid', () => {
+            if (this.dynamic.solid) {
+                this._log("set solid");
                 Main.panel.remove_style_class_name('transparent-panel');
             } else {
-                this.show();
+                this._log("set blurred");
                 Main.panel.add_style_class_name('transparent-panel');
             }
         })
