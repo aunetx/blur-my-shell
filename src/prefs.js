@@ -25,6 +25,7 @@ const BlurMePrefsWidget = GObject.registerClass(
       "hacks_level2",
       "dash_opacity_scale",
       "static_blur",
+      "toggle_app_blur",
     ],
   },
   class BlurMePrefsWidget extends Gtk.Box {
@@ -53,6 +54,8 @@ const BlurMePrefsWidget = GObject.registerClass(
       this._blur_applications.set_active(config.BLUR_APPLICATIONS.get());
 
       this._blur_other.set_active(config.BLUR_OTHER.get());
+
+      this._toggle_app_blur.set_active(config.TOGGLE_APP_BLUR.get());
 
       // ! dash hacks
       if (config.HACKS_LEVEL.get() == 0) {
@@ -112,6 +115,11 @@ const BlurMePrefsWidget = GObject.registerClass(
     blur_other_toggled(w) {
       let value = w.get_active();
       config.BLUR_OTHER.set(value);
+    }
+
+    toggle_app_blur_toggled(w) {
+      let value = w.get_active();
+      prefs.TOGGLE_APP_BLUR.set(value);
     }
 
     hacks_level0_toggled(w) {

@@ -285,7 +285,7 @@ var ApplicationsBlur = class ApplicationsBlur {
       });
     }
     try {
-      PanelIndicator.enable();
+      PanelIndicator.PanelIndicator.enable();
     } catch (e) {}
   }
 
@@ -316,7 +316,7 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     this.connections.disconnect_all();
     try {
-      PanelIndicator.disable();
+      PanelIndicator.PanelIndicator.disable();
     } catch (e) {}
   }
 

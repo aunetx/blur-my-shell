@@ -123,6 +123,11 @@ let BlurMenu = GObject.registerClass(
   }
 );
 
+// var PanelIndicator = class PanelIndicator {
+//   constructor(connections) {
+//       this.connections = connections;
+//   }
+
 let _indicator;
 
 function enable() {
@@ -143,3 +148,5 @@ function disable() {
     _indicator = null;
   }
 }
+
+// }
