@@ -32,7 +32,7 @@ class Extension {
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
         this._applications_blur = new Applications.ApplicationsBlur(new Connections.Connections);
         this._other_blur = new Other.OtherBlur(new Connections.Connections);
-        this._panel_indicator = new PanelIndicator(new Connections.Connections);
+        this._panel_indicator = new PanelIndicator.PanelIndicator(new Connections.Connections);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
             this._dash_to_dock_blur.connections, this._overview_blur.connections,

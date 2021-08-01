@@ -123,30 +123,30 @@ let BlurMenu = GObject.registerClass(
   }
 );
 
-// var PanelIndicator = class PanelIndicator {
-//   constructor(connections) {
-//       this.connections = connections;
-//   }
-
-let _indicator;
-
-function enable() {
-  if (_indicator) {
-    _indicator.destroy();
-    _indicator = null;
+var PanelIndicator = class PanelIndicator {
+  constructor(connections) {
+      this.connections = connections;
   }
-  _indicator = new BlurMenu();
 
-  let pos = Main.sessionMode.panel.left.indexOf("appMenu");
-  if ("apps-menu" in Main.panel.statusArea) pos++;
-  Main.panel.addToStatusArea("blur-menu", _indicator, pos, "left");
-}
+  let _indicator;
 
-function disable() {
-  if (_indicator) {
-    _indicator.destroy();
-    _indicator = null;
+  function enable() {
+    if (_indicator) {
+      _indicator.destroy();
+      _indicator = null;
+    }
+    _indicator = new BlurMenu();
+
+    let pos = Main.sessionMode.panel.left.indexOf("appMenu");
+    if ("apps-menu" in Main.panel.statusArea) pos++;
+    Main.panel.addToStatusArea("blur-menu", _indicator, pos, "left");
   }
-}
 
-// }
+  function disable() {
+    if (_indicator) {
+      _indicator.destroy();
+      _indicator = null;
+    }
+  }
+
+}
