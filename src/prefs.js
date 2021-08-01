@@ -119,7 +119,7 @@ const BlurMePrefsWidget = GObject.registerClass(
 
     toggle_app_blur_toggled(w) {
       let value = w.get_active();
-      prefs.TOGGLE_APP_BLUR.set(value);
+      config.TOGGLE_APP_BLUR.set(value);
     }
 
     hacks_level0_toggled(w) {

@@ -126,26 +126,25 @@ let BlurMenu = GObject.registerClass(
 var PanelIndicator = class PanelIndicator {
   constructor(connections) {
       this.connections = connections;
+      this._indicator = null;
   }
 
-  let _indicator;
-
-  function enable() {
-    if (_indicator) {
-      _indicator.destroy();
-      _indicator = null;
+  enable() {
+    if (this._indicator) {
+      this._indicator.destroy();
+      this._indicator = null;
     }
-    _indicator = new BlurMenu();
+    this._indicator = new BlurMenu();
 
     let pos = Main.sessionMode.panel.left.indexOf("appMenu");
     if ("apps-menu" in Main.panel.statusArea) pos++;
-    Main.panel.addToStatusArea("blur-menu", _indicator, pos, "left");
+    Main.panel.addToStatusArea("blur-menu", this._indicator, pos, "left");
   }
 
-  function disable() {
-    if (_indicator) {
-      _indicator.destroy();
-      _indicator = null;
+  disable() {
+    if (this._indicator) {
+      this._indicator.destroy();
+      this._indicator = null;
     }
   }
 

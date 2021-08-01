@@ -81,6 +81,7 @@ class Extension {
         this._lockscreen_blur.disable();
         this._applications_blur.disable();
         this._other_blur.disable();
+        this._panel_indicator.disable();
 
 
         this._disconnect_settings();
@@ -136,8 +137,10 @@ class Extension {
         this._prefs.BLUR_APPLICATIONS.changed(() => {
             if (this._prefs.BLUR_APPLICATIONS.get()) {
                 this._applications_blur.enable();
+                this._panel_indicator.enable();
             } else {
                 this._applications_blur.disable();
+                this._panel_indicator.disable();
             }
         });
         this._prefs.WINDOW_CLASS_OVERRIDES.changed(() => {
@@ -150,7 +153,7 @@ class Extension {
                 this._other_blur.disable();
             }
         });
-        this._prefs.BLUR_OTHER.changed(() => {
+        this._prefs.TOGGLE_APP_BLUR.changed(() => {
             if (this._prefs.TOGGLE_APP_BLUR.get()) {
                 this._panel_indicator.enable();
             } else {
