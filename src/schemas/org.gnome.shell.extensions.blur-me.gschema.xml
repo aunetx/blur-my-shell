@@ -43,6 +43,11 @@
             <summary>Boolean, whether to blur applications or not</summary>
             <description />
         </key>
+        <key type="b" name="toggle-app-blur">
+            <default>true</default>
+            <summary>Boolean, whether to show toggle application blur button in panel</summary>
+            <description />
+        </key>
         <key type="s" name="window-class-overrides">
             <default>"{}"</default>
             <summary>String, json map for window class blur overrides</summary>

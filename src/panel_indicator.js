@@ -123,23 +123,29 @@ let BlurMenu = GObject.registerClass(
   }
 );
 
-let _indicator;
-
-function enable() {
-  if (_indicator) {
-    _indicator.destroy();
-    _indicator = null;
+var PanelIndicator = class PanelIndicator {
+  constructor(connections) {
+      this.connections = connections;
+      this._indicator = null;
   }
-  _indicator = new BlurMenu();
 
-  let pos = Main.sessionMode.panel.left.indexOf("appMenu");
-  if ("apps-menu" in Main.panel.statusArea) pos++;
-  Main.panel.addToStatusArea("blur-menu", _indicator, pos, "left");
-}
+  enable() {
+    if (this._indicator) {
+      this._indicator.destroy();
+      this._indicator = null;
+    }
+    this._indicator = new BlurMenu();
 
-function disable() {
-  if (_indicator) {
-    _indicator.destroy();
-    _indicator = null;
+    let pos = Main.sessionMode.panel.left.indexOf("appMenu");
+    if ("apps-menu" in Main.panel.statusArea) pos++;
+    Main.panel.addToStatusArea("blur-menu", this._indicator, pos, "left");
   }
+
+  disable() {
+    if (this._indicator) {
+      this._indicator.destroy();
+      this._indicator = null;
+    }
+  }
+
 }

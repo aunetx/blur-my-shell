@@ -14,6 +14,7 @@ const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 const Applications = Me.imports.applications;
+const PanelIndicator = Me.imports.panel_indicator;
 const Other = Me.imports.other;
 
 class Extension {
@@ -31,11 +32,12 @@ class Extension {
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
         this._applications_blur = new Applications.ApplicationsBlur(new Connections.Connections);
         this._other_blur = new Other.OtherBlur(new Connections.Connections);
+        this._panel_indicator = new PanelIndicator.PanelIndicator(new Connections.Connections);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
             this._dash_to_dock_blur.connections, this._overview_blur.connections,
             this._lockscreen_blur.connections,this._applications_blur.connections,
-            this._other_blur.connections);
+            this._other_blur.connections, this._panel_indicator.connections);
 
         this._connect_to_settings();
 
@@ -58,6 +60,10 @@ class Extension {
         if (this._prefs.BLUR_OTHER.get()) {
             this._other_blur.enable();
         }
+        if (this._prefs.TOGGLE_APP_BLUR.get()) {
+            this._panel_indicator.enable();
+        }
+
 
         this._update_sigma();
         this._update_brightness();
@@ -75,6 +81,8 @@ class Extension {
         this._lockscreen_blur.disable();
         this._applications_blur.disable();
         this._other_blur.disable();
+        this._panel_indicator.disable();
+
 
         this._disconnect_settings();
 
@@ -129,8 +137,10 @@ class Extension {
         this._prefs.BLUR_APPLICATIONS.changed(() => {
             if (this._prefs.BLUR_APPLICATIONS.get()) {
                 this._applications_blur.enable();
+                this._panel_indicator.enable();
             } else {
                 this._applications_blur.disable();
+                this._panel_indicator.disable();
             }
         });
         this._prefs.WINDOW_CLASS_OVERRIDES.changed(() => {
@@ -141,6 +151,13 @@ class Extension {
                 this._other_blur.enable();
             } else {
                 this._other_blur.disable();
+            }
+        });
+        this._prefs.TOGGLE_APP_BLUR.changed(() => {
+            if (this._prefs.TOGGLE_APP_BLUR.get()) {
+                this._panel_indicator.enable();
+            } else {
+                this._panel_indicator.disable();
             }
         });
         this._prefs.DASH_OPACITY.changed(() => {

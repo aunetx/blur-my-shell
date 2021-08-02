@@ -197,15 +197,13 @@
           </object>
         </child>
         <child>
-        <object class="GtkLabel">
-            <property name="can_focus">0</property>
-            <property name="label" translatable="yes">Use top panel "Toggle Application Blur" menu to do this</property>
-            <property name="use_markup">1</property>
-            <property name="justify">center</property>
+          <object class="GtkCheckButton" id="toggle_app_blur">
+            <property name="label" translatable="yes">Show application blur menu in panel</property>
+            <property name="active">1</property>
+            <signal name="toggled" handler="toggle_app_blur_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
               <property name="row">10</property>
-              <property name="row-span">1</property>
             </layout>
           </object>
         </child>
