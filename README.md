@@ -4,7 +4,7 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
-Functionnalities:
+Functionalities:
 
 - blur dash with opacity prefs
 - blur panel
