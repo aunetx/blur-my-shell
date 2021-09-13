@@ -25,6 +25,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'dash_opacity_scale',
         'appfolder_dialog_opacity_scale',
         'static_blur',
+        'hidetopbar',
         'debug_mode'
     ],
 }, class BlurMyShellPrefsWidget extends Gtk.Box {
@@ -75,6 +76,9 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
 
         // ! static panel blur
         this._static_blur.set_active(config.STATIC_BLUR.get());
+
+        // ! hidetopbar compatibility
+        this._hidetopbar.set_active(config.HIDETOPBAR.get());
 
         // ! debug mode
         this._debug_mode.set_active(config.DEBUG.get());
@@ -148,6 +152,11 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
     static_blur_toggled(w) {
         let value = w.get_active();
         config.STATIC_BLUR.set(value);
+    }
+
+    hidetopbar_toggled(w) {
+        let value = w.get_active();
+        config.HIDETOPBAR.set(value);
     }
 
     debug_mode_toggled(w) {

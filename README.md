@@ -20,6 +20,7 @@ This extension is guaranteed to be compatible with the following extensions:
 - [Dash to Dock](https://github.com/micheleg/dash-to-dock) (from dash blur switch)
 - [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel) (from panel blur switch)
 - [Window List](https://extensions.gnome.org/extension/602/window-list/) (from dedicated switch)
+- [Hide Top Bar](https://github.com/mlutfy/hidetopbar) (from dedicated option)
 
 
 ## Screenshots

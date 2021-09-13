@@ -3,7 +3,7 @@ SHARED_VM = $(HOME)/Projets/.shared/
 .PHONY: build_pkg build vm_test install remove clean
 
 
-build:
+build: clean
 	glib-compile-schemas src/schemas
 	mkdir -p build/
 	cp -r src/* build/

@@ -161,6 +161,9 @@ class Extension {
         this._prefs.STATIC_BLUR.changed(() => {
             this._panel_blur.change_blur_type();
         });
+        this._prefs.HIDETOPBAR.changed(() => {
+            this._panel_blur.connect_to_overview();
+        });
     }
 
     _disconnect_settings() {

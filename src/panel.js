@@ -75,13 +75,7 @@ var PanelBlur = class PanelBlur {
             Utils.setTimeout(() => { this.update_wallpaper(this.prefs.STATIC_BLUR.get()) }, 100);
         });
 
-        // connect to overview
-        this.connections.connect(Main.overview, 'showing', () => {
-            this.hide();
-        });
-        this.connections.connect(Main.overview, 'hidden', () => {
-            this.show();
-        });
+        this.connect_to_overview();
     }
 
     change_blur_type() {
@@ -173,6 +167,30 @@ var PanelBlur = class PanelBlur {
             return Main.layoutManager.primaryMonitor
         } else {
             return { x: 0, y: 0, width: 0, index: 0 }
+        }
+    }
+
+    connect_to_overview() {
+        this.connections.disconnect_all_for(Main.overview._overview._controls._appDisplay);
+        this.connections.disconnect_all_for(Main.overview);
+
+        if (!this.prefs.HIDETOPBAR.get()) {
+            this.connections.connect(Main.overview, 'showing', () => {
+                this.hide();
+            });
+            this.connections.connect(Main.overview, 'hidden', () => {
+                this.show();
+            });
+        } else {
+            this.connections.connect(Main.overview._overview._controls._appDisplay, 'show', () => {
+                this.hide();
+            });
+            this.connections.connect(Main.overview._overview._controls._appDisplay, 'hide', () => {
+                this.show();
+            });
+            this.connections.connect(Main.overview, 'hidden', () => {
+                this.show();
+            });
         }
     }
 
