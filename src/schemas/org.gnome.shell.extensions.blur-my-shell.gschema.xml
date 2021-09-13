@@ -73,6 +73,12 @@
             <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
             <description />
         </key>
+        <!-- HIDETOPBAR -->
+        <key type="b" name="hidetopbar">
+            <default>false</default>
+            <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
+            <description />
+        </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
             <default>false</default>

@@ -104,7 +104,7 @@
             <layout>
               <property name="column">0</property>
               <property name="row">3</property>
-              <property name="row-span">5</property>
+              <property name="row-span">6</property>
             </layout>
           </object>
         </child>
@@ -348,12 +348,36 @@
         <child>
           <object class="GtkLabel">
             <property name="can_focus">0</property>
-            <property name="label" translatable="yes">Debug mode</property>
+            <property name="label" translatable="yes">Compatibility with hidetopbar</property>
             <property name="use_markup">1</property>
             <property name="justify">center</property>
             <layout>
               <property name="column">0</property>
               <property name="row">18</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="hidetopbar">
+            <property name="active">1</property>
+            <property name="label" translatable="yes">(do not disable blur in overview, best with static-blur)</property>
+            <signal name="toggled" handler="hidetopbar_toggled" swapped="no" />
+            <layout>
+              <property name="column">1</property>
+              <property name="row">18</property>
+            </layout>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="can_focus">0</property>
+            <property name="label" translatable="yes">Debug mode</property>
+            <property name="use_markup">1</property>
+            <property name="justify">center</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">19</property>
             </layout>
           </object>
         </child>
@@ -364,7 +388,7 @@
             <signal name="toggled" handler="debug_mode_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">18</property>
+              <property name="row">19</property>
             </layout>
           </object>
         </child>
