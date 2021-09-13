@@ -18,6 +18,11 @@
       <property name="step_increment">1</property>
       <property name="page_increment">10</property>
     </object>
+    <object class="GtkAdjustment" id="appfolder_dialog_opacity_adjustment">
+      <property name="upper">1</property>
+      <property name="step_increment">1</property>
+      <property name="page_increment">10</property>
+    </object>
 
     <child>
       <object class="GtkGrid" id="main_frame">
@@ -234,7 +239,7 @@
           </object>
         </child>
 
-        <!--! MISC !-->
+        <!--! OPACITY OPTIONS !-->
 
         <child>
           <object class="GtkSeparator">
@@ -278,12 +283,53 @@
         <child>
           <object class="GtkLabel">
             <property name="can_focus">0</property>
-            <property name="label" translatable="yes">Static panel blur</property>
+            <property name="label" translatable="yes">Appfolder dialog opacity</property>
             <property name="use_markup">1</property>
             <property name="justify">center</property>
             <layout>
               <property name="column">0</property>
               <property name="row">15</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScale" id="appfolder_dialog_opacity_scale">
+            <property name="draw-value">1</property>
+            <property name="adjustment">appfolder_dialog_opacity_adjustment</property>
+            <property name="round_digits">2</property>
+            <property name="digits">2</property>
+            <property name="value_pos">right</property>
+            <signal name="value-changed" handler="appfolder_dialog_opacity_changed" swapped="no" />
+            <layout>
+              <property name="column">1</property>
+              <property name="row">15</property>
+            </layout>
+          </object>
+        </child>
+
+        <!--! MISC -->
+
+        <child>
+          <object class="GtkSeparator">
+            <property name="can_focus">0</property>
+            <property name="orientation">vertical</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">16</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="can_focus">0</property>
+            <property name="label" translatable="yes">Static panel blur</property>
+            <property name="use_markup">1</property>
+            <property name="justify">center</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">17</property>
             </layout>
           </object>
         </child>
@@ -294,7 +340,7 @@
             <signal name="toggled" handler="static_blur_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">15</property>
+              <property name="row">17</property>
             </layout>
           </object>
         </child>
@@ -307,7 +353,7 @@
             <property name="justify">center</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">16</property>
+              <property name="row">18</property>
             </layout>
           </object>
         </child>
@@ -318,7 +364,7 @@
             <signal name="toggled" handler="debug_mode_toggled" swapped="no" />
             <layout>
               <property name="column">1</property>
-              <property name="row">16</property>
+              <property name="row">18</property>
             </layout>
           </object>
         </child>

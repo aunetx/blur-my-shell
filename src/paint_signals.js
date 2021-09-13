@@ -33,8 +33,7 @@ var PaintSignals = class PaintSignals {
     }
 }
 
-var EmitPaintSignal = GObject.registerClass(
-    {
+var EmitPaintSignal = GObject.registerClass({
         GTypeName: 'EmitPaintSignal',
         Signals: {
             'update-blur': {

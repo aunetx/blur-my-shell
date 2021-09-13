@@ -171,8 +171,7 @@ var PanelBlur = class PanelBlur {
     get monitor() {
         if (Main.layoutManager.primaryMonitor != null) {
             return Main.layoutManager.primaryMonitor
-        }
-        else {
+        } else {
             return { x: 0, y: 0, width: 0, index: 0 }
         }
     }
@@ -191,7 +190,7 @@ var PanelBlur = class PanelBlur {
 
         try {
             Main.layoutManager.panelBox.remove_child(this.background_parent);
-        } catch (e) { }
+        } catch (e) {}
 
         this.connections.disconnect_all();
 

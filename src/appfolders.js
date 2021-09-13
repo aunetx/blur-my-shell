@@ -19,11 +19,11 @@ let original_zoomAndFadeOut = null;
 let sigma = default_sigma;
 let brightness = default_brightness;
 
-let _zoomAndFadeIn = function () {
+let _zoomAndFadeIn = function() {
     let [sourceX, sourceY] =
-        this._source.get_transformed_position();
+    this._source.get_transformed_position();
     let [dialogX, dialogY] =
-        this.child.get_transformed_position();
+    this.child.get_transformed_position();
 
     this.child.set({
         translation_x: sourceX - dialogX,
@@ -61,7 +61,7 @@ let _zoomAndFadeIn = function () {
     }
 }
 
-let _zoomAndFadeOut = function () {
+let _zoomAndFadeOut = function() {
     if (!this._isOpen)
         return;
 
@@ -71,9 +71,9 @@ let _zoomAndFadeOut = function () {
     }
 
     let [sourceX, sourceY] =
-        this._source.get_transformed_position();
+    this._source.get_transformed_position();
     let [dialogX, dialogY] =
-        this.child.get_transformed_position();
+    this.child.get_transformed_position();
 
     this.set_background_color(transparent);
 
@@ -176,7 +176,7 @@ var AppFoldersBlur = class AppFoldersBlur {
 
             // ! END OF DIRTY PART
 
-            icon._dialog._viewBox.add_style_class_name('transparent-app-folder-dialogs');
+            icon._dialog._viewBox.set_style_class_name('app-folder-dialog transparent-app-folder-dialogs-' + 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get());
 
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
