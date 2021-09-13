@@ -17,7 +17,7 @@ const AppFolders = Me.imports.appfolders;
 const WindowList = Me.imports.window_list;
 
 class Extension {
-    constructor() { }
+    constructor() {}
 
     enable() {
         this._prefs = new Settings.Prefs;
@@ -154,6 +154,9 @@ class Extension {
         });
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update();
+        });
+        this._prefs.APPFOLDER_DIALOG_OPACITY.changed(() => {
+            this._appfolders_blur.blur_appfolders();
         });
         this._prefs.STATIC_BLUR.changed(() => {
             this._panel_blur.change_blur_type();

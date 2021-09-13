@@ -23,6 +23,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'hacks_level1',
         'hacks_level2',
         'dash_opacity_scale',
+        'appfolder_dialog_opacity_scale',
         'static_blur',
         'debug_mode'
     ],
@@ -57,20 +58,20 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         // ! dash hacks
         if (config.HACKS_LEVEL.get() == 0) {
             this._hacks_level0.set_active(true);
-        }
-        else if (config.HACKS_LEVEL.get() == 1) {
+        } else if (config.HACKS_LEVEL.get() == 1) {
             this._hacks_level1.set_active(true);
-        }
-        else if (config.HACKS_LEVEL.get() == 2) {
+        } else if (config.HACKS_LEVEL.get() == 2) {
             this._hacks_level2.set_active(true);
-        }
-        else {
+        } else {
             this._log(`hack level out-of-bound: ${hack_level}, defaulting to 1.`);
             this._hacks_level0.set_active(true);
         }
 
         // ! dash opacity
         this._dash_opacity_scale.set_value(config.DASH_OPACITY.get());
+
+        // ! appfolder dialog opacity
+        this._appfolder_dialog_opacity_scale.set_value(config.APPFOLDER_DIALOG_OPACITY.get());
 
         // ! static panel blur
         this._static_blur.set_active(config.STATIC_BLUR.get());
@@ -139,6 +140,11 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         config.DASH_OPACITY.set(value);
     }
 
+    appfolder_dialog_opacity_changed(w) {
+        let value = w.get_value();
+        config.APPFOLDER_DIALOG_OPACITY.set(value);
+    }
+
     static_blur_toggled(w) {
         let value = w.get_active();
         config.STATIC_BLUR.set(value);
@@ -155,7 +161,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
     }
 });
 
-function init() { }
+function init() {}
 
 function buildPrefsWidget() {
     return new BlurMyShellPrefsWidget();

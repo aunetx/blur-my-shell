@@ -61,6 +61,12 @@
             <summary>Opacity of dash to use</summary>
             <description />
         </key>
+        <!-- APPFOLDER DIALOG OPACITY -->
+        <key type="d" name="appfolder-dialog-opacity">
+            <default>0.12</default>
+            <summary>Opacity of appfolder dialog to use</summary>
+            <description />
+        </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
             <default>true</default>
