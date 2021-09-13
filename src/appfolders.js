@@ -213,7 +213,7 @@ var AppFoldersBlur = class AppFoldersBlur {
         Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
                 icon._dialog.remove_effect_by_name("appfolder-blur")
-                icon._dialog._viewBox.remove_style_class_name('transparent-app-folder-dialogs');
+                icon._dialog._viewBox.remove_style_class_name('transparent-app-folder-dialogs-' + 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get());
             }
         });
 
