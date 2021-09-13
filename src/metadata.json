@@ -5,5 +5,6 @@
         "40"
     ],
     "url": "https://github.com/aunetx/gnome-shell-extension-blur-my-shell",
-    "uuid": "blur-my-shell@aunetx"
+    "uuid": "blur-my-shell@aunetx",
+    "version": 24
 }
