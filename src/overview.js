@@ -35,6 +35,11 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
+        this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
+            this._log("updated background");
+            this.update_backgrounds();
+        })
+
         this.update_backgrounds();
         Utils.setTimeout(() => { this.update_backgrounds() }, 500);
     }
