@@ -17,15 +17,16 @@ const old_brightness = Main.overview._backgroundGroup.get_child_at_index(0).brig
 const old_shadeBackgrounds = Main.overview._shadeBackgrounds;
 const old_unshadeBackgrounds = Main.overview._unshadeBackgrounds;
 
-// numeric values
-let sigma = 30;
-let brightness = 0.6;
+const default_sigma = 30;
+const default_brightness = 0.6;
 
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
+        this.sigma = default_sigma;
+        this.brightness = default_brightness;
     }
 
     enable() {
@@ -46,7 +47,7 @@ var OverviewBlur = class OverviewBlur {
 
 
         // FIXME GNOME shell bug here: changing opacity to an inferior level does not update the opacity
-        Main.overview._shadeBackgrounds = function () {
+        Main.overview._shadeBackgrounds = function() {
             this._backgroundGroup.get_children().forEach((background) => {
                 if (ANIMATE_OVERVIEW) {
                     background.opacity = 0;
@@ -62,14 +63,13 @@ var OverviewBlur = class OverviewBlur {
 
         Main.overview._overview.add_style_class_name("cosmic-transparent-bg");
 
-
         this.connections.connect(Main.overview._backgroundGroup.get_child_at_index(0), 'hide', () => {
             if (this.is_cosmic) {
                 Main.overview._backgroundGroup.get_child_at_index(0).show();
             }
         });
 
-        Main.overview._unshadeBackgrounds = function () {
+        Main.overview._unshadeBackgrounds = function() {
             this._backgroundGroup.get_children().forEach((background) => {
                 if (ANIMATE_OVERVIEW) {
                     background.opacity = 255;
@@ -83,59 +83,59 @@ var OverviewBlur = class OverviewBlur {
             })
         }
 
-        Main.overview._updateBackgroundsBlur = function () {
-            Main.overview._backgroundGroup.get_children().forEach(
-                (bg) => {
-                    if (bg.content == undefined) {
-                        // Shell version 3.36
-                        bg.vignette = false;
-                        bg.brightness = 1.0;
-                    } else {
-                        // Shell version >= 3.38
-                        bg.content.vignette = false;
-                        bg.content.brightness = 1.0;
-                    }
-
-                    bg.remove_effect_by_name('blur');
-
-                    bg.add_effect_with_name('blur', new Shell.BlurEffect({
-                        brightness: brightness,
-                        sigma: sigma,
-                        mode: 0
-                    }));
-                }
-            );
-        };
-
         this.connections.connect(backgroundSettings, 'changed', () => {
             this._log("updated background");
-            Utils.setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
+            Utils.setTimeout(() => { this.update_backgrounds_blur() }, 100);
         });
 
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (!Main.screenShield.locked) {
                 this._log("changed monitors");
-                Main.overview._updateBackgroundsBlur();
+                this.update_backgrounds_blur();
             }
         });
 
-        Main.overview._updateBackgroundsBlur();
-        Utils.setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 100);
-        Utils.setTimeout(() => { Main.overview._updateBackgroundsBlur() }, 500);
+        this.update_backgrounds_blur();
+        Utils.setTimeout(() => { this.update_backgrounds_blur() }, 100);
+        Utils.setTimeout(() => { this.update_backgrounds_blur() }, 500);
     }
+
+    updateBackgroundsBlur() {
+        Main.overview._backgroundGroup.get_children().forEach(
+            (bg) => {
+                if (bg.content == undefined) {
+                    // Shell version 3.36
+                    bg.vignette = false;
+                    bg.brightness = 1.0;
+                } else {
+                    // Shell version >= 3.38
+                    bg.content.vignette = false;
+                    bg.content.brightness = 1.0;
+                }
+
+                bg.remove_effect_by_name('blur');
+
+                bg.add_effect_with_name('blur', new Shell.BlurEffect({
+                    brightness: this.brightness,
+                    sigma: this.sigma,
+                    mode: 0
+                }));
+            }
+        );
+    };
 
     get is_cosmic() {
         return Main.overview._overview.get_style_class_name().includes("cosmic-solid-bg");
     }
 
     set_sigma(s) {
-        sigma = s;
-        Main.overview._updateBackgroundsBlur();
+        this.sigma = s;
+        this.update_backgrounds_blur();
     }
 
     set_brightness(b) {
-        brightness = b;
-        Main.overview._updateBackgroundsBlur();
+        this.brightness = b;
+        this.update_backgrounds_blur();
     }
 
     disable() {
@@ -152,7 +152,7 @@ var OverviewBlur = class OverviewBlur {
 
         Main.overview._overview.remove_style_class_name("cosmic-transparent-bg");
 
-        Main.overview._updateBackgrounds();
+        this.update_backgrounds_blur();
     }
 
     _log(str) {
