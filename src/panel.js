@@ -9,17 +9,14 @@ const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
-
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
         this.effect = new Shell.BlurEffect({
-            brightness: default_brightness,
-            sigma: default_sigma,
+            brightness: prefs.BRIGHTNESS.get(),
+            sigma: prefs.SIGMA.get(),
             mode: prefs.STATIC_BLUR.get() ? 0 : 1
         });
         this.background_parent = new St.Widget({
@@ -49,11 +46,13 @@ var PanelBlur = class PanelBlur {
             if (children[i].name == 'topbar-blurred-background-parent')
                 Main.layoutManager.panelBox.remove_child(children[i]);
         Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
+
         // hide corners, can't style them
         Main.panel._leftCorner.hide();
         Main.panel._rightCorner.hide();
         this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide() });
         this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide() });
+
         // remove background
         Main.panel.add_style_class_name('transparent-panel');
 
@@ -61,16 +60,22 @@ var PanelBlur = class PanelBlur {
         this.change_blur_type();
         Utils.setTimeout(() => { this.change_blur_type() }, 500);
 
-        // connect to size, monitor or wallpaper changes
+        // connect to panel size change
         this.connections.connect(Main.panel, 'notify::height', () => {
             this.update_size(this.prefs.STATIC_BLUR.get());
         });
-        this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
+
+        // connect to every background change (even without changing image)
+        this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
             this.update_wallpaper(this.prefs.STATIC_BLUR.get());
-            this.update_size(this.prefs.STATIC_BLUR.get());
-        });
-        this.connections.connect(backgroundSettings, 'changed', () => {
-            Utils.setTimeout(() => { this.update_wallpaper(this.prefs.STATIC_BLUR.get()) }, 100);
+        })
+
+        // connect to monitors change
+        this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
+            if (!Main.screenShield.locked) {
+                this.update_wallpaper(this.prefs.STATIC_BLUR.get());
+                this.update_size(this.prefs.STATIC_BLUR.get());
+            }
         });
 
         this.connect_to_overview();
@@ -79,6 +84,7 @@ var PanelBlur = class PanelBlur {
     change_blur_type() {
         let is_static = this.prefs.STATIC_BLUR.get();
 
+        // reset widgets to right state
         this.background_parent.remove_child(this.background);
         this.background.remove_effect(this.effect);
         this.background = is_static ? new Meta.BackgroundActor : new St.Widget({
@@ -92,6 +98,7 @@ var PanelBlur = class PanelBlur {
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
 
+        // perform updates
         this.update_wallpaper(is_static);
         this.update_size(is_static);
 
@@ -106,9 +113,7 @@ var PanelBlur = class PanelBlur {
                 this._log("panel hack level 1");
                 this.paint_signals.disconnect_all();
 
-                let rp = () => {
-                    this.effect.queue_repaint()
-                };
+                let rp = () => { this.effect.queue_repaint() };
 
                 this.connections.connect(Main.panel, 'enter-event', rp);
                 this.connections.connect(Main.panel, 'leave-event', rp);
@@ -136,6 +141,7 @@ var PanelBlur = class PanelBlur {
     }
 
     update_wallpaper(is_static) {
+        // if static blur, get right wallpaper and update blur with it
         if (is_static) {
             let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
             this.background.set_content(bg.get_content());
@@ -160,6 +166,7 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    // returns either the primary monitor, or a dummy one if none is connected
     get monitor() {
         if (Main.layoutManager.primaryMonitor != null) {
             return Main.layoutManager.primaryMonitor
@@ -168,6 +175,8 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    // connect when overview if opened/closed to hide/show the blur in consequence
+    // if HIDETOPBAR set, we need just to hide the blur when showing appgrid (so no shadow is cropped)
     connect_to_overview() {
         this.connections.disconnect_all_for(Main.overview._overview._controls._appDisplay);
         this.connections.disconnect_all_for(Main.overview);

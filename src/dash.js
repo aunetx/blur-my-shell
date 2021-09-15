@@ -6,8 +6,6 @@ const Main = imports.ui.main;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
 
 var DashBlur = class DashBlur {
     constructor(connections, prefs) {

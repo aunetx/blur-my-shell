@@ -16,8 +16,9 @@ const Lockscreen = Me.imports.lockscreen;
 const AppFolders = Me.imports.appfolders;
 const WindowList = Me.imports.window_list;
 
+
 class Extension {
-    constructor() {}
+    constructor() { }
 
     enable() {
         this._prefs = new Settings.Prefs;
