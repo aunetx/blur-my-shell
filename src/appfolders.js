@@ -8,22 +8,20 @@ const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
 const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const FRAME_UPDATE_PERIOD = 16;
 
 let original_zoomAndFadeIn = null;
 let original_zoomAndFadeOut = null;
-let sigma = default_sigma;
-let brightness = default_brightness;
+let sigma = 30;
+let brightness = 0.6;
 
-let _zoomAndFadeIn = function() {
+let _zoomAndFadeIn = function () {
     let [sourceX, sourceY] =
-    this._source.get_transformed_position();
+        this._source.get_transformed_position();
     let [dialogX, dialogY] =
-    this.child.get_transformed_position();
+        this.child.get_transformed_position();
 
     this.child.set({
         translation_x: sourceX - dialogX,
@@ -61,7 +59,7 @@ let _zoomAndFadeIn = function() {
     }
 }
 
-let _zoomAndFadeOut = function() {
+let _zoomAndFadeOut = function () {
     if (!this._isOpen)
         return;
 
@@ -71,9 +69,9 @@ let _zoomAndFadeOut = function() {
     }
 
     let [sourceX, sourceY] =
-    this._source.get_transformed_position();
+        this._source.get_transformed_position();
     let [dialogX, dialogY] =
-    this.child.get_transformed_position();
+        this.child.get_transformed_position();
 
     this.set_background_color(transparent);
 

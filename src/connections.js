@@ -2,6 +2,7 @@
 
 const GObject = imports.gi.GObject;
 
+
 var Connections = class Connections {
     constructor() {
         this.buffer = [];
