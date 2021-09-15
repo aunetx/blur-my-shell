@@ -7,9 +7,6 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
-
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {

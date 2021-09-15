@@ -20,7 +20,10 @@ var WindowListBlur = class WindowListBlur {
     enable() {
         this._log("blurring window list");
 
+        // add the blur if window-list found
         Main.layoutManager.uiGroup.get_children().forEach(child => this.try_blur(child));
+
+        // listen to new actors in `Main.layoutManager.uiGroup` and blur if window-list
         this.connections.connect(Main.layoutManager.uiGroup, 'actor-added', (_, child) => this.try_blur(child));
 
         // connect to overview
