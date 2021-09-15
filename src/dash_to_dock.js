@@ -9,8 +9,6 @@ const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
 
 class DashInfos {
     constructor(dash_blur, dash, dash_box, background_parent, effect, prefs) {
@@ -56,8 +54,8 @@ var DashBlur = class DashBlur {
         this.connections = connections;
         this.prefs = prefs;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
-        this.sigma = default_sigma;
-        this.brightness = default_brightness;
+        this.sigma = prefs.SIGMA.get();
+        this.brightness = prefs.BRIGHTNESS.get();
     }
 
     enable() {

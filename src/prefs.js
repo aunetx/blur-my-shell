@@ -7,6 +7,7 @@ const Extension = ExtensionUtils.getCurrentExtension();
 let Settings = Extension.imports.settings;
 let config = new Settings.Prefs();
 
+
 const BlurMyShellPrefsWidget = GObject.registerClass({
     GTypeName: 'BlurMyShellPrefsWidget',
     Template: Extension.dir.get_child('prefs.ui').get_uri(),
@@ -170,7 +171,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
     }
 });
 
-function init() {}
+function init() { }
 
 function buildPrefsWidget() {
     return new BlurMyShellPrefsWidget();

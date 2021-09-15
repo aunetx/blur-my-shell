@@ -2,16 +2,11 @@
 
 const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
-const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' });
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 
-const default_sigma = 30;
-const default_brightness = 0.6;
-
-let sigma = default_sigma;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
@@ -23,11 +18,13 @@ var OverviewBlur = class OverviewBlur {
     enable() {
         this._log("blurring overview");
 
-        this.connections.connect(backgroundSettings, 'changed', () => {
+        // connect to every background change (even without changing image)
+        this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
             this._log("updated background");
-            Utils.setTimeout(() => { this.update_backgrounds() }, 100);
-        });
+            this.update_backgrounds();
+        })
 
+        // connect to monitors change
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (!Main.screenShield.locked) {
                 this._log("changed monitors");
@@ -35,8 +32,8 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
+        // update background on extension activation
         this.update_backgrounds();
-        Utils.setTimeout(() => { this.update_backgrounds() }, 500);
     }
 
     update_backgrounds() {
@@ -73,7 +70,6 @@ var OverviewBlur = class OverviewBlur {
         this.effects.forEach(effect => {
             effect.sigma = s;
         });
-        sigma = s;
     }
 
     set_brightness(b) {

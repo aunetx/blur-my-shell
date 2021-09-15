@@ -2,6 +2,7 @@
 
 const { GObject, Clutter } = imports.gi;
 
+
 var PaintSignals = class PaintSignals {
     constructor(connections) {
         this.buffer = [];
@@ -34,13 +35,13 @@ var PaintSignals = class PaintSignals {
 }
 
 var EmitPaintSignal = GObject.registerClass({
-        GTypeName: 'EmitPaintSignal',
-        Signals: {
-            'update-blur': {
-                param_types: []
-            },
-        }
-    },
+    GTypeName: 'EmitPaintSignal',
+    Signals: {
+        'update-blur': {
+            param_types: []
+        },
+    }
+},
     class EmitPaintSignal extends Clutter.Effect {
         vfunc_paint(node, paint_context, paint_flags) {
             this.emit("update-blur");
