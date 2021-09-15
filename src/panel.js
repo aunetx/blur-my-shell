@@ -12,8 +12,6 @@ const PaintSignals = Me.imports.paint_signals;
 const default_sigma = 30;
 const default_brightness = 0.6;
 
-let sigma = 30;
-
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -208,7 +206,7 @@ var PanelBlur = class PanelBlur {
 
         try {
             Main.layoutManager.panelBox.remove_child(this.background_parent);
-        } catch (e) {}
+        } catch (e) { }
 
         this.connections.disconnect_all();
 
