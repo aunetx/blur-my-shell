@@ -26,7 +26,7 @@ var OverviewBlur = class OverviewBlur {
 
         // connect to monitors change
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
-            if (!Main.screenShield.locked) {
+            if (Main.screenShield && !Main.screenShield.locked) {
                 this._log("changed monitors");
                 this.update_backgrounds();
             }

@@ -72,7 +72,7 @@ var PanelBlur = class PanelBlur {
 
         // connect to monitors change
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
-            if (!Main.screenShield.locked) {
+            if (Main.screenShield && !Main.screenShield.locked) {
                 this.update_wallpaper(this.prefs.STATIC_BLUR.get());
                 this.update_size(this.prefs.STATIC_BLUR.get());
             }
