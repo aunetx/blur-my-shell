@@ -32,6 +32,9 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
+        // add css class name, to change folders background
+        Main.overview._overview.add_style_class_name("blurred-overview");
+
         // update background on extension activation
         this.update_backgrounds();
     }
@@ -85,6 +88,7 @@ var OverviewBlur = class OverviewBlur {
                 Main.layoutManager.overviewGroup.remove_child(actor)
             }
         });
+        Main.overview._overview.remove_style_class_name("blurred-overview");
         this.effects = [];
         this.connections.disconnect_all();
     }
