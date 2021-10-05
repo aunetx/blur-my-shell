@@ -47,7 +47,7 @@ var OverviewBlur = class OverviewBlur {
 
 
         // FIXME GNOME shell bug here: changing opacity to an inferior level does not update the opacity
-        Main.overview._shadeBackgrounds = function() {
+        Main.overview._shadeBackgrounds = function () {
             this._backgroundGroup.get_children().forEach((background) => {
                 if (ANIMATE_OVERVIEW) {
                     background.opacity = 0;
@@ -69,7 +69,7 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
-        Main.overview._unshadeBackgrounds = function() {
+        Main.overview._unshadeBackgrounds = function () {
             this._backgroundGroup.get_children().forEach((background) => {
                 if (ANIMATE_OVERVIEW) {
                     background.opacity = 255;
@@ -100,7 +100,7 @@ var OverviewBlur = class OverviewBlur {
         Utils.setTimeout(() => { this.update_backgrounds_blur() }, 500);
     }
 
-    updateBackgroundsBlur() {
+    update_backgrounds_blur() {
         Main.overview._backgroundGroup.get_children().forEach(
             (bg) => {
                 if (bg.content == undefined) {
