@@ -19,10 +19,12 @@ var OverviewBlur = class OverviewBlur {
         this._log("blurring overview");
 
         // connect to every background change (even without changing image)
+        /*
         this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
             this._log("updated background");
             this.update_backgrounds();
         })
+        */
 
         // connect to monitors change
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
