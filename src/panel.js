@@ -152,7 +152,7 @@ var PanelBlur = class PanelBlur {
             try {
                 do_panel_blur();
             } catch (error) {
-                Utils.setTimeout(do_panel_blur, 100);
+                Utils.setTimeout(do_panel_blur, 1000);
             }
         }
     }
