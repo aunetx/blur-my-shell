@@ -18,8 +18,9 @@ var PaintSignals = class PaintSignals {
 
         actor.add_effect(paint_effect);
         this.connections.connect(paint_effect, 'update-blur', () => {
-            if(! typeof blur_effect === 'undefined')
+            try {
                 blur_effect.queue_repaint();
+            } catch (e) { }
         });
 
         this.buffer.push(infos)
