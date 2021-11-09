@@ -74,7 +74,11 @@ var OverviewBlur = class OverviewBlur {
             try {
                 do_overview_blur(monitor)
             } catch (error) {
-                Utils.setTimeout(() => { do_overview_blur(monitor) }, 1000);
+                try {
+                    Utils.setTimeout(() => { do_overview_blur(monitor) }, 500);
+                } catch (error) {
+                    this._log(`could not blur overview: ${error}`);
+                }
             }
         });
     }
