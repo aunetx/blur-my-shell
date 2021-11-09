@@ -142,12 +142,23 @@ var DashBlur = class DashBlur {
 
         // updates size on change
         // TODO maybe use `connect_after`?
-        this.connections.connect(dash_icons_container, 'notify', () => {
-            background.height = dash_box.height;
-            background.width = dash_box.width;
-            background.x = dash_box.x;
-            background.y = dash.height - dash_box.height - adjustment;
-        });
+        let notify_connect = _ => {
+            this.connections.connect(dash_icons_container, 'notify', () => {
+                background.height = dash_box.height;
+                background.width = dash_box.width;
+                background.x = dash_box.x;
+                background.y = dash.height - dash_box.height - adjustment;
+            });
+        }
+        try {
+            notify_connect();
+        } catch (e) {
+            try {
+                Utils.setTimeout(notify_connect, 100);
+            } catch (e) {
+                this._log(`could not find dash icons container to connect to: ${e}`);
+            }
+        }
 
         // HACK
         {
