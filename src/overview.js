@@ -49,8 +49,8 @@ var OverviewBlur = class OverviewBlur {
             this.effects = [];
         });
 
-        // add new backgrounds
-        Main.layoutManager.monitors.forEach(monitor => {
+        // adds new backgrounds
+        let do_overview_blur = monitor => {
             let bg_actor = new Meta.BackgroundActor
             let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
             bg_actor.set_content(background.get_content());
@@ -66,6 +66,16 @@ var OverviewBlur = class OverviewBlur {
             bg_actor.set_y(monitor.y);
 
             Main.layoutManager.overviewGroup.insert_child_at_index(bg_actor, monitor.index);
+        }
+
+        // apply to each monitor
+        Main.layoutManager.monitors.forEach(monitor => {
+            // fixes a waking-from-sleep error, by trying again if wallpaper is not ready
+            try {
+                do_overview_blur(monitor)
+            } catch (error) {
+                Utils.setTimeout(() => { do_overview_blur(monitor) }, 100);
+            }
         });
     }
 

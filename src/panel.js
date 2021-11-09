@@ -142,9 +142,18 @@ var PanelBlur = class PanelBlur {
 
     update_wallpaper(is_static) {
         // if static blur, get right wallpaper and update blur with it
-        if (is_static) {
+        let do_panel_blur = _ => {
             let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
             this.background.set_content(bg.get_content());
+        }
+
+        if (is_static) {
+            // fixes a waking-from-sleep error, by trying again if wallpaper is not ready
+            try {
+                do_panel_blur();
+            } catch (error) {
+                Utils.setTimeout(do_panel_blur, 100);
+            }
         }
     }
 
