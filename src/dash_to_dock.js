@@ -154,7 +154,7 @@ var DashBlur = class DashBlur {
             notify_connect();
         } catch (e) {
             try {
-                Utils.setTimeout(notify_connect, 100);
+                Utils.setTimeout(_ => { notify_connect() }, 100);
             } catch (e) {
                 this._log(`could not find dash icons container to connect to: ${e}`);
             }
