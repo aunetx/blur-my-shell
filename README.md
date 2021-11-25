@@ -40,15 +40,15 @@ Preferences:
 
 This extension can be buggy, as the gnome-shell's blur implementation is quite flawed in some ways.
 
-To entirely remove artifacts from the top panel, you can use static blur with the appropriate switch, **use static blur**.
+To entirely remove artefacts from the top panel, you can use static blur with the appropriate switch, **use static blur**.
 
-Moreover, if you don't use static blur, selecting *no artifacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (but cannot currently tell the difference, less than 0.5% CPU on my middle-range i5)
+Moreover, if you don't use static blur, selecting *no artefacts* in the settings allows the blur to regenerate itself a lot better, at the expense of CPU time (but cannot currently tell the difference, less than 0.5% CPU on my middle-range i5)
 
 Selecting another profile might be enough (especially if you have disabled animations and/or windows borders), feel free to test!
 
 ### List of bugs
 
-- artifacts on blurred parts [gnome shell bug](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857)
+- artefacts on blurred parts [gnome shell bug](https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857)
 - some apps may become transparent, a weird issue...
 - cannot create rounded blur (so no rounded dash-to-dock, or panel corners, ...)
 - overview blur is transparent on second monitor when using Wayland, sometimes :(
