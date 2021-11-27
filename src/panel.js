@@ -1,6 +1,6 @@
 'use strict';
 
-const { St, Shell, Meta, Gio, GLib } = imports.gi;
+const { St, Shell, Meta, Gio, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' })
 
@@ -95,7 +95,14 @@ var PanelBlur = class PanelBlur {
             height: Main.panel.height,
         });
         this.effect.set_mode(is_static ? 0 : 1);
+
+        let brightness_effect = new Clutter.BrightnessContrastEffect();
+        brightness_effect.set_brightness(0.1);
+        brightness_effect.set_contrast(0);
+        this.background.add_effect(brightness_effect);
         this.background.add_effect(this.effect);
+
+
         this.background_parent.add_child(this.background);
 
         // perform updates

@@ -1,6 +1,6 @@
 'use strict';
 
-const { Shell, Gio, Meta } = imports.gi;
+const { Shell, Gio, Meta, Clutter, GLib } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -40,6 +40,10 @@ var OverviewBlur = class OverviewBlur {
     }
 
     update_backgrounds() {
+        //let color_str = GLib.spawn_command_line_sync('python wal.py ' + Main.layoutManager._backgroundGroup.get_children()[0].get_content().background._file.get_uri())[1].toString()
+        //let color = Clutter.color_from_string(color_str)[1].darken().darken();
+        //Main.overview._overview.style = "background-color:" + color.to_string().slice(0, -2) + ";";
+
         // remove every old background
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
             if (actor.constructor.name == 'Meta_BackgroundActor') {
@@ -59,8 +63,13 @@ var OverviewBlur = class OverviewBlur {
                 sigma: this.prefs.SIGMA.get(),
                 mode: 0
             });
-            bg_actor.add_effect(effect);
             this.effects.push(effect);
+
+            let brightness_effect = new Clutter.BrightnessContrastEffect();
+            brightness_effect.set_brightness(0.1);
+            brightness_effect.set_contrast(0);
+            bg_actor.add_effect(brightness_effect);
+            bg_actor.add_effect(effect);
 
             bg_actor.set_x(monitor.x);
             bg_actor.set_y(monitor.y);
