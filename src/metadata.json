@@ -3,7 +3,8 @@
     "name": "Blur Me",
     "shell-version": [
         "40",
-        "40.1"
+        "40.1",
+        "41"
     ],
     "url": "https://github.com/ckissane/blur-me",
     "uuid": "blur-me@nunchucks"
