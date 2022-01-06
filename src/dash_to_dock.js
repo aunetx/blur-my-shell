@@ -142,12 +142,16 @@ var DashBlur = class DashBlur {
 
         // updates size on change
         // TODO maybe use `connect_after`?
-        this.connections.connect(dash_icons_container, 'notify', () => {
-            background.height = dash_box.height;
-            background.width = dash_box.width;
-            background.x = dash_box.x;
-            background.y = dash.height - dash_box.height - adjustment;
-        });
+        try {
+            this.connections.connect(dash_icons_container, 'notify', () => {
+                background.height = dash_box.height;
+                background.width = dash_box.width;
+                background.x = dash_box.x;
+                background.y = dash.height - dash_box.height - adjustment;
+            });
+        } catch (e) {
+            this._log(`could not connect to dash to dock container, error:\n${e}`);
+        }
 
         // HACK
         {
