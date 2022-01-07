@@ -2,6 +2,7 @@
 
 const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
+const WorkspaceAnimationController = imports.ui.workspaceAnimation.WorkspaceAnimationController;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
@@ -13,6 +14,7 @@ var OverviewBlur = class OverviewBlur {
         this.connections = connections;
         this.effects = [];
         this.prefs = prefs;
+        this._workspace_switch_bg_actors = [];
     }
 
     enable() {
@@ -32,11 +34,42 @@ var OverviewBlur = class OverviewBlur {
             }
         });
 
-        // add css class name, to change folders background
-        Main.overview._overview.add_style_class_name("blurred-overview");
+        // add css class names, to change folders and workspace-switch background
+        Main.uiGroup.add_style_class_name("blurred-overview");
 
         // update background on extension activation
         this.update_backgrounds();
+
+        // store original methods for restoring them on disable()
+        this._origPrepareSwitch = WorkspaceAnimationController.prototype._prepareWorkspaceSwitch;
+        this._origFinishSwitch = WorkspaceAnimationController.prototype._finishWorkspaceSwitch;
+
+        const outerThis = this;
+
+        // create blurred background actors for each monitor during a workspace switch
+        WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = function (...params) {
+            outerThis._log("prepare workspace switch");
+            outerThis._origPrepareSwitch.apply(this, params);
+
+            Main.layoutManager.monitors.forEach(monitor => {
+                const bg_actor = outerThis.create_background_actor(monitor);
+                Main.uiGroup.insert_child_above(bg_actor, global.window_group);
+
+                // store the actors so that we can delete them later
+                outerThis._workspace_switch_bg_actors.push(bg_actor);
+            });
+        };
+
+        // remove the workspace-switch actors when the switch is done
+        WorkspaceAnimationController.prototype._finishWorkspaceSwitch = function (...params) {
+            outerThis._log("finish workspace switch");
+            outerThis._origFinishSwitch.apply(this, params);
+
+            outerThis._workspace_switch_bg_actors.forEach(actor => {
+                actor.destroy();
+            });
+            outerThis._workspace_switch_bg_actors = [];
+        };
     }
 
     update_backgrounds() {
@@ -51,22 +84,29 @@ var OverviewBlur = class OverviewBlur {
 
         // add new backgrounds
         Main.layoutManager.monitors.forEach(monitor => {
-            let bg_actor = new Meta.BackgroundActor
-            let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
-            bg_actor.set_content(background.get_content());
-            let effect = new Shell.BlurEffect({
-                brightness: this.prefs.BRIGHTNESS.get(),
-                sigma: this.prefs.SIGMA.get(),
-                mode: 0
-            });
-            bg_actor.add_effect(effect);
-            this.effects.push(effect);
-
-            bg_actor.set_x(monitor.x);
-            bg_actor.set_y(monitor.y);
-
+            const bg_actor = this.create_background_actor(monitor);
             Main.layoutManager.overviewGroup.insert_child_at_index(bg_actor, monitor.index);
         });
+    }
+
+    create_background_actor(monitor) {
+        let bg_actor = new Meta.BackgroundActor
+
+        let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
+        bg_actor.set_content(background.get_content());
+
+        let effect = new Shell.BlurEffect({
+            brightness: this.prefs.BRIGHTNESS.get(),
+            sigma: this.prefs.SIGMA.get(),
+            mode: 0
+        });
+        bg_actor.add_effect(effect);
+        this.effects.push(effect);
+
+        bg_actor.set_x(monitor.x);
+        bg_actor.set_y(monitor.y);
+
+        return bg_actor;
     }
 
     set_sigma(s) {
@@ -88,9 +128,14 @@ var OverviewBlur = class OverviewBlur {
                 Main.layoutManager.overviewGroup.remove_child(actor)
             }
         });
-        Main.overview._overview.remove_style_class_name("blurred-overview");
+        Main.uiGroup.remove_style_class_name("blurred-overview");
+
         this.effects = [];
         this.connections.disconnect_all();
+
+        // restore original behavior
+        WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = this._origPrepareSwitch;
+        WorkspaceAnimationController.prototype._finishWorkspaceSwitch = this._origFinishSwitch;
     }
 
     _log(str) {
