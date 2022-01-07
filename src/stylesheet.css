@@ -8,7 +8,7 @@
 }
 
 .blurred-overview .workspace-animation {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .transparent-app-folder-dialogs .edit-folder-button {
