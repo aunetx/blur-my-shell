@@ -9,11 +9,15 @@ const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
-
+// This type of object is created for every dash found, and talks to the main DashBlur thanks
+// to signals. This allows to dynamically track the created dashes for each screen.
 class DashInfos {
     constructor(dash_blur, dash, dash_box, background_parent, effect, prefs) {
+        // the parent DashBlur object, to communicate
         this.dash_blur = dash_blur;
+        // the blurred dash
         this.dash = dash;
+        // the actually blurred box
         this.dash_box = dash_box;
         this.background_parent = background_parent;
         this.effect = effect;
@@ -60,53 +64,41 @@ var DashBlur = class DashBlur {
 
     enable() {
         this.connections.connect(Main.uiGroup, 'actor-added', (_, actor) => {
-            this.try_blur(actor);
+            if ((actor.get_name() == "dashtodockContainer") && (actor.constructor.name == 'DashToDock'))
+                this.try_blur(actor);
         });
 
         this.blur_existing_dashes();
     }
 
     // Finds all existing dashes on every monitor, and call `try_blur` on them
+    // We cannot only blur `Main.overview.dash`, as there could be multiple screens
     blur_existing_dashes() {
         this._log("searching for dash");
         // blur every dash found
-        Main.uiGroup.get_children().forEach(child => {
-            this.try_blur(child);
-        });
+        Main.uiGroup.get_children().filter((child) => {
+            // filter by name
+            return (child.get_name() == "dashtodockContainer") && (child.constructor.name == 'DashToDock')
+        }).forEach(this.try_blur.bind(this));
     }
 
-    // Tries to blur the child if it is a dash needing to be blurred
-    try_blur(dash) {
-        if (dash.get_name() == "dashtodockContainer" &&
-            (dash.constructor.name == 'DashToDock') &&
-            (dash.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0).get_child_at_index(0).name != 'dash-blurred-background-parent')
-        ) {
+    // Tries to blur the dash contained in the given actor
+    try_blur(dash_container) {
+        let dash_box = dash_container._slider.get_child();
+        // verify that we did not already blur that dash
+        if (!dash_box.get_children().some((c) => {
+            return c.get_name() == "dash-blurred-background-parent"
+        })) {
+            // finally blur the dash
             this._log("dash to dock found, blurring it");
-            this.dashes.push(this.blur_dash_from(dash));
+            let dash = dash_box.get_children().find(c => { return c.get_name() == 'dash' })
+            this.dashes.push(this.blur_dash_from(dash, dash_container));
         }
     }
 
     // Blurs the dash and returns a `DashInfos` containing its informations
-    blur_dash_from(dash_container) {
-        // the actual styled dash
-        let dash = dash_container.get_child_at_index(0).get_child_at_index(0).get_child_at_index(0);
-        let dash_box = dash.get_child_at_index(0);
-
-        var adjustment = 0;
-        switch (dash_container._position) {
-            case 0: // top, dash to dock 40 PR has a bug where has space on top
-                adjustment = 8;
-                break;
-            case 1: // right
-            case 3: // left
-                adjustment = 16;
-                break;
-            case 2: // bottom
-                adjustment = 0;
-                break;
-        }
-
-        // the effect applied
+    blur_dash_from(dash, dash_container) {
+        // the effect to be applied
         let effect = new Shell.BlurEffect({
             brightness: this.brightness,
             sigma: this.sigma,
@@ -115,43 +107,37 @@ var DashBlur = class DashBlur {
 
         // dash background parent, not visible
         let background_parent = new St.Widget({
+            name: 'dash-blurred-background-parent',
             style_class: 'dash-blurred-background-parent',
-            x: 0,
-            y: 0,
             width: 0,
-            height: 0,
+            height: 0
         });
 
         // dash background widget
         let background = new St.Widget({
+            name: 'dash-blurred-background',
             style_class: 'dash-blurred-background',
-            x: dash_box.x,
-            y: dash.height - dash_box.height - adjustment,
-            width: dash_box.width,
-            height: dash_box.height,
+            x: 0
         });
 
+        // permits to set dimensions of the background
+        let set_size_position = (b) => {
+            b.y = 0//dash_container._slider.y;
+            b.width = dash_container._slider.width;
+            b.height = dash_container._slider.height;
+            this._log(`set y to ${b.y} and size to (${b.width}x${b.height})`)
+        }
+
+        set_size_position(background);
         Utils.setTimeout(() => {
-            background.height = dash_box.height;
-            background.width = dash_box.width;
-            background.x = dash_box.x;
-            background.y = dash.height - dash_box.height - adjustment;
+            set_size_position(background);
         }, 100);
 
-        let dash_icons_container = dash.get_child_at_index(1).get_child_at_index(0).get_child_at_index(2);
-
         // updates size on change
-        // TODO maybe use `connect_after`?
-        try {
-            this.connections.connect(dash_icons_container, 'notify', () => {
-                background.height = dash_box.height;
-                background.width = dash_box.width;
-                background.x = dash_box.x;
-                background.y = dash.height - dash_box.height - adjustment;
-            });
-        } catch (e) {
-            this._log(`could not connect to dash to dock container, error:\n${e}`);
-        }
+        this.connections.connect(dash._box, 'notify', () => {
+            set_size_position(background);
+        });
+
 
         // HACK
         {
@@ -168,7 +154,7 @@ var DashBlur = class DashBlur {
                     effect.queue_repaint()
                 };
 
-                dash_icons_container.get_children().forEach((icon) => {
+                dash._box.get_children().forEach((icon) => {
                     try {
                         let zone = icon.get_child_at_index(0);
                         this.connections.connect(zone, 'enter-event', rp);
@@ -179,7 +165,7 @@ var DashBlur = class DashBlur {
                     }
                 })
 
-                this.connections.connect(dash_icons_container, 'actor-added', (_, actor) => {
+                this.connections.connect(dash._box, 'actor-added', (_, actor) => {
                     try {
                         let zone = actor.get_child_at_index(0);
                         this.connections.connect(zone, 'enter-event', rp);
@@ -190,11 +176,9 @@ var DashBlur = class DashBlur {
                     }
                 })
 
-                let dash_show_apps = dash.get_child_at_index(1).get_child_at_index(1);
-
-                this.connections.connect(dash_show_apps, 'enter-event', rp);
-                this.connections.connect(dash_show_apps, 'leave-event', rp);
-                this.connections.connect(dash_show_apps, 'button-press-event', rp);
+                this.connections.connect(dash._showAppsIcon, 'enter-event', rp);
+                this.connections.connect(dash._showAppsIcon, 'leave-event', rp);
+                this.connections.connect(dash._showAppsIcon, 'button-press-event', rp);
 
                 this.connections.connect(dash, 'leave-event', rp);
             } else if (this.prefs.HACKS_LEVEL.get() == 2) {
@@ -212,16 +196,19 @@ var DashBlur = class DashBlur {
         background.add_effect(effect);
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
-        dash_box.style = "background-color:rgba(0,0,0,0.0);";
+
+        // remove background color
+        // TODO use a signal to automatically remove color
+        dash._background.style = "background:transparent;";
         Utils.setTimeout(() => {
-            dash_box.style = "background-color:rgba(0,0,0,0.0);";
+            dash._background.style = "background:transparent;";
         }, 500);
         Utils.setTimeout(() => {
-            dash_box.style = "background-color:rgba(0,0,0,0.0);"
+            dash._background.style = "background:transparent;"
         }, 3000);
 
         // returns infos
-        return new DashInfos(this, dash, dash_box, background_parent, effect, this.prefs);
+        return new DashInfos(this, dash, dash._background, background_parent, effect, this.prefs);
     }
 
     set_sigma(sigma) {
