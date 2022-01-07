@@ -35,7 +35,6 @@ var OverviewBlur = class OverviewBlur {
         });
 
         // add css class names, to change folders and workspace-switch background
-        Main.overview._overview.add_style_class_name("blurred-overview");
         Main.uiGroup.add_style_class_name("blurred-overview");
 
         // update background on extension activation
@@ -48,12 +47,12 @@ var OverviewBlur = class OverviewBlur {
         const outerThis = this;
 
         // create blurred background actors for each monitor during a workspace switch
-        WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = function(...params) {
+        WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = function (...params) {
             outerThis._log("prepare workspace switch");
             outerThis._origPrepareSwitch.apply(this, params);
 
             Main.layoutManager.monitors.forEach(monitor => {
-                const bg_actor = outerThis._create_background_actor(monitor);
+                const bg_actor = outerThis.create_background_actor(monitor);
                 Main.uiGroup.insert_child_above(bg_actor, global.window_group);
 
                 // store the actors so that we can delete them later
@@ -61,8 +60,8 @@ var OverviewBlur = class OverviewBlur {
             });
         };
 
-        // remove the worksspace-switch actors when the switch is done
-        WorkspaceAnimationController.prototype._finishWorkspaceSwitch = function(...params) {
+        // remove the workspace-switch actors when the switch is done
+        WorkspaceAnimationController.prototype._finishWorkspaceSwitch = function (...params) {
             outerThis._log("finish workspace switch");
             outerThis._origFinishSwitch.apply(this, params);
 
@@ -85,9 +84,29 @@ var OverviewBlur = class OverviewBlur {
 
         // add new backgrounds
         Main.layoutManager.monitors.forEach(monitor => {
-            const bg_actor = this._create_background_actor(monitor);
+            const bg_actor = this.create_background_actor(monitor);
             Main.layoutManager.overviewGroup.insert_child_at_index(bg_actor, monitor.index);
         });
+    }
+
+    create_background_actor(monitor) {
+        let bg_actor = new Meta.BackgroundActor
+
+        let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
+        bg_actor.set_content(background.get_content());
+
+        let effect = new Shell.BlurEffect({
+            brightness: this.prefs.BRIGHTNESS.get(),
+            sigma: this.prefs.SIGMA.get(),
+            mode: 0
+        });
+        bg_actor.add_effect(effect);
+        this.effects.push(effect);
+
+        bg_actor.set_x(monitor.x);
+        bg_actor.set_y(monitor.y);
+
+        return bg_actor;
     }
 
     set_sigma(s) {
@@ -109,7 +128,6 @@ var OverviewBlur = class OverviewBlur {
                 Main.layoutManager.overviewGroup.remove_child(actor)
             }
         });
-        Main.overview._overview.remove_style_class_name("blurred-overview");
         Main.uiGroup.remove_style_class_name("blurred-overview");
 
         this.effects = [];
@@ -118,26 +136,6 @@ var OverviewBlur = class OverviewBlur {
         // restore original behavior
         WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = this._origPrepareSwitch;
         WorkspaceAnimationController.prototype._finishWorkspaceSwitch = this._origFinishSwitch;
-    }
-
-    _create_background_actor(monitor) {
-        let bg_actor = new Meta.BackgroundActor
-        
-        let background = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - monitor.index - 1);
-        bg_actor.set_content(background.get_content());
-
-        let effect = new Shell.BlurEffect({
-            brightness: this.prefs.BRIGHTNESS.get(),
-            sigma: this.prefs.SIGMA.get(),
-            mode: 0
-        });
-        bg_actor.add_effect(effect);
-        this.effects.push(effect);
-
-        bg_actor.set_x(monitor.x);
-        bg_actor.set_y(monitor.y);
-
-        return bg_actor;
     }
 
     _log(str) {
