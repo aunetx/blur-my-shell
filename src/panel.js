@@ -153,7 +153,7 @@ var PanelBlur = class PanelBlur {
                 do_panel_blur();
             } catch (error) {
                 try {
-                    Utils.setTimeout(() => { do_panel_blur(monitor) }, 500);
+                    Utils.setTimeout(() => { do_panel_blur() }, 500);
                 } catch (error) {
                     this._log(`could not blur overview: ${error}`);
                 }
