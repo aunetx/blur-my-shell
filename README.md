@@ -10,9 +10,10 @@ Functionalities:
 - blur panel
 - blur overview
 - blur appfolders
+- blur workspaces separation
 - change lockscreen blur settings
-- change appgrid's folders background
-- choose between static blur (generated once) and dynamic blur (generated each frame)
+- change appgrid's folders background blur intensity
+- choose between static blur (generated once) and dynamic blur (generated each frame) for panel blur
 - change performances settings
 
 This extension is guaranteed to be compatible with the following extensions:
@@ -79,6 +80,7 @@ In case you have problems with your dynamic timed wallpaper not being updated du
 
 The current extension supports these GNOME Shell versions:
 
+- 41 -- `master` branch
 - 40 -- `master` branch
 
 Older GNOME Shell versions are supported up to Blur my Shell version 6, and by versions 17, 19 and 22:
