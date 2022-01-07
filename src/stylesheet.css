@@ -12,6 +12,10 @@
     border-radius: 19px;
 }
 
+.blurred-dash .dash-background {
+    background: transparent;
+}
+
 /*
 ! TRANSPARENT APPFOLDER DIALOGS
 
