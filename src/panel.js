@@ -143,8 +143,11 @@ var PanelBlur = class PanelBlur {
     update_wallpaper(is_static) {
         // if static blur, get right wallpaper and update blur with it
         if (is_static) {
-            let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
-            this.background.set_content(bg.get_content());
+            // the try/catch behaviour is used to prevent bugs like #136 and #137
+            try {
+                let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
+                this.background.set_content(bg.get_content());
+            } catch (error) { this._log(`could not blur panel: ${error}`) }
         }
     }
 

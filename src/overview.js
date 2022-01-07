@@ -38,7 +38,10 @@ var OverviewBlur = class OverviewBlur {
         Main.uiGroup.add_style_class_name("blurred-overview");
 
         // update background on extension activation
-        this.update_backgrounds();
+        // the try/catch behaviour is used to prevent bugs like #136 and #137
+        try {
+            this.update_backgrounds();
+        } catch (error) { this._log(`could not blur overview: ${error}`) }
 
         // store original methods for restoring them on disable()
         this._origPrepareSwitch = WorkspaceAnimationController.prototype._prepareWorkspaceSwitch;
@@ -79,8 +82,8 @@ var OverviewBlur = class OverviewBlur {
                 Main.layoutManager.overviewGroup.remove_child(actor);
                 actor.destroy();
             }
-            this.effects = [];
         });
+        this.effects = [];
 
         // add new backgrounds
         Main.layoutManager.monitors.forEach(monitor => {
