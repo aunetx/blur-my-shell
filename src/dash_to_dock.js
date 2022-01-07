@@ -26,7 +26,7 @@ class DashInfos {
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
             this._log("removing blur from dash");
             this.dash.get_parent().remove_child(this.background_parent);
-            this.dash_box.style = null;
+            this.dash.remove_style_class_name('blurred-dash');
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
@@ -194,14 +194,7 @@ var DashBlur = class DashBlur {
         dash.get_parent().insert_child_at_index(background_parent, 0);
 
         // remove background color
-        // TODO use a signal to automatically remove color
-        dash._background.style = "background:transparent;";
-        Utils.setTimeout(() => {
-            dash._background.style = "background:transparent;";
-        }, 500);
-        Utils.setTimeout(() => {
-            dash._background.style = "background:transparent;"
-        }, 3000);
+        dash.set_style_class_name('blurred-dash');
 
         // returns infos
         return new DashInfos(this, dash, dash._background, background_parent, effect, this.prefs);
