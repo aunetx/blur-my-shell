@@ -117,25 +117,21 @@ var DashBlur = class DashBlur {
         let background = new St.Widget({
             name: 'dash-blurred-background',
             style_class: 'dash-blurred-background',
-            x: 0
+            x: 0,
+            y: dash_container._slider.y,
+            width: dash.width,
+            height: dash.height,
         });
 
-        // permits to set dimensions of the background
-        let set_size_position = (b) => {
-            b.y = 0//dash_container._slider.y;
-            b.width = dash_container._slider.width;
-            b.height = dash_container._slider.height;
-            this._log(`set y to ${b.y} and size to (${b.width}x${b.height})`)
-        }
-
-        set_size_position(background);
-        Utils.setTimeout(() => {
-            set_size_position(background);
-        }, 100);
-
-        // updates size on change
-        this.connections.connect(dash._box, 'notify', () => {
-            set_size_position(background);
+        // updates size and position on change
+        this.connections.connect(dash_container._slider, 'notify::y', _ => {
+            background.y = dash_container._slider.y;
+        });
+        this.connections.connect(dash, 'notify::width', _ => {
+            background.width = dash.width;
+        });
+        this.connections.connect(dash, 'notify::height', _ => {
+            background.height = dash.height;
         });
 
 
