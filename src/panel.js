@@ -40,21 +40,29 @@ var PanelBlur = class PanelBlur {
     enable() {
         this._log("blurring top panel");
 
-        // insert background parent
-        let children = Main.layoutManager.panelBox.get_children();
-        for (let i = 0; i < children.length; ++i)
-            if (children[i].name == 'topbar-blurred-background-parent')
-                Main.layoutManager.panelBox.remove_child(children[i]);
-        Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
+        // remove all previously created background parents
+        Main.layoutManager.panelBox.get_children().forEach(child => {
+            if (child.name == 'topbar-blurred-background-parent')
+                Main.layoutManager.panelBox.remove_child(child);
+        })
 
-        // hide corners, can't style them
-        Main.panel._leftCorner.hide();
-        Main.panel._rightCorner.hide();
-        this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide() });
-        this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide() });
+        // check if dash-to-panel is present
+        if (global.dashToPanel) {
+            // if dash-to-panel, blur every panel found
+            global.dashToPanel.panels.forEach(p => {
+                this.blur_panel(p.panel);
+            })
+        } else {
+            // if no dash-to-panel, blur the main and only panel
+            this.blur_panel(Main.panel);
 
-        // remove background
-        Main.panel.add_style_class_name('transparent-panel');
+            // hide corners, can't style them
+            Main.panel._leftCorner.hide();
+            Main.panel._rightCorner.hide();
+            // and prevent them from reappearing
+            this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide() });
+            this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide() });
+        }
 
         // perform updates
         this.change_blur_type();
@@ -79,6 +87,15 @@ var PanelBlur = class PanelBlur {
         });
 
         this.connect_to_overview();
+    }
+
+    blur_panel(panel) {
+        // insert background parent
+        Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
+
+        // remove background
+        Main.panel.add_style_class_name('transparent-panel');
+
     }
 
     change_blur_type() {
