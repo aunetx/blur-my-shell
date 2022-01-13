@@ -55,11 +55,14 @@ var OverviewBlur = class OverviewBlur {
             outerThis._origPrepareSwitch.apply(this, params);
 
             Main.layoutManager.monitors.forEach(monitor => {
+              let blur_this_monitor = Meta.prefs_get_workspaces_only_on_primary() && (monitor == Main.layoutManager.primaryMonitor);
+              if (blur_this_monitor) {
                 const bg_actor = outerThis.create_background_actor(monitor);
                 Main.uiGroup.insert_child_above(bg_actor, global.window_group);
 
                 // store the actors so that we can delete them later
                 outerThis._workspace_switch_bg_actors.push(bg_actor);
+              }
             });
         };
 
