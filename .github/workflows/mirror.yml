@@ -1,7 +1,6 @@
 name: "Mirror to gitlab.gnome.org"
 
-on:
-  - [push, delete, create]
+on: [push, delete, create]
 
 jobs:
   to_gitlab:
