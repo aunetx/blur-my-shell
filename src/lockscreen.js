@@ -4,69 +4,39 @@ const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 const Background = imports.ui.background;
 
-const themeContext = St.ThemeContext.get_for_stage(global.stage);
-
 let sigma = 30;
 let brightness = 0.6;
 
 const original_createBackground = imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
 
+
 var LockscreenBlur = class LockscreenBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
+        this.prefs = prefs;
     }
 
     enable() {
         this._log("blurring lockscreen");
 
-        this.update_lockscreen()
+        this.update_lockscreen();
     }
 
     update_lockscreen() {
         imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = this._createBackground;
     }
 
-
     _createBackground() {
-        for (const widget of this._backgroundGroup.get_children()) {
-            widget.get_effect('blur').set({
-                brightness: brightness,
-                sigma: sigma * themeContext.scale_factor,
-            });
+        for (const widget of this._backgroundGroup) {
+            const effect = widget.get_effect('blur');
+
+            if (effect) {
+                effect.set({
+                    brightness: brightness,
+                    sigma: sigma,
+                });
+            }
         }
-    }
-
-    _createBackground_old(monitorIndex) {
-        let monitor = Main.layoutManager.monitors[monitorIndex];
-        let widget = new St.Widget({
-            style_class: 'screen-shield-background',
-            x: monitor.x,
-            y: monitor.y,
-            width: monitor.width,
-            height: monitor.height,
-        });
-
-        let bgManager = new Background.BackgroundManager({
-            container: widget,
-            monitorIndex,
-            controlPosition: false,
-        });
-
-        this._bgManagers.push(bgManager);
-
-        this._backgroundGroup.add_child(widget);
-
-        let effect = new Shell.BlurEffect({
-            brightness: brightness,
-            sigma: sigma * themeContext.scale_factor,
-            mode: 0
-        });
-
-        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => {
-            effect.sigma = sigma * themeContext.scale_factor;
-        });
-
-        widget.add_effect(effect);
     }
 
     set_sigma(s) {
@@ -88,6 +58,7 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }

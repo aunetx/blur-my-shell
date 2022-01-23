@@ -13,23 +13,31 @@ const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
+const AppFolders = Me.imports.appfolders;
+const WindowList = Me.imports.window_list;
+
 
 class Extension {
     constructor() { }
 
     enable() {
-        this._log("enabling extension...");
-        this._connections = [];
         this._prefs = new Settings.Prefs;
 
-        this._panel_blur = new Panel.PanelBlur(new Connections.Connections);
-        this._dash_blur = new Dash.DashBlur(new Connections.Connections);
-        this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections);
-        this._overview_blur = new Overview.OverviewBlur(new Connections.Connections);
-        this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections);
+        this._log("enabling extension...");
+        this._connections = [];
+
+        this._panel_blur = new Panel.PanelBlur(new Connections.Connections, this._prefs);
+        this._dash_blur = new Dash.DashBlur(new Connections.Connections, this._prefs);
+        this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections, this._prefs);
+        this._overview_blur = new Overview.OverviewBlur(new Connections.Connections, this._prefs);
+        this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections, this._prefs);
+        this._appfolders_blur = new AppFolders.AppFoldersBlur(new Connections.Connections, this._prefs);
+        this._window_list_blur = new WindowList.WindowListBlur(new Connections.Connections, this._prefs);
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
-            this._dash_to_dock_blur.connections, this._overview_blur.connections, this._lockscreen_blur.connections);
+            this._dash_to_dock_blur.connections, this._overview_blur.connections,
+            this._lockscreen_blur.connections, this._appfolders_blur.connections,
+            this._window_list_blur.connections);
 
         this._connect_to_settings();
 
@@ -46,6 +54,12 @@ class Extension {
         if (this._prefs.BLUR_LOCKSCREEN.get()) {
             this._lockscreen_blur.enable();
         }
+        if (this._prefs.BLUR_APPFOLDERS.get()) {
+            this._appfolders_blur.enable();
+        }
+        if (this._prefs.BLUR_WINDOW_LIST.get()) {
+            this._window_list_blur.enable();
+        }
 
         this._update_sigma();
         this._update_brightness();
@@ -61,6 +75,16 @@ class Extension {
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
+        this._appfolders_blur.disable();
+        this._window_list_blur.disable();
+
+        this._panel_blur = null;
+        this._dash_blur = null;
+        this._dash_to_dock_blur = null;
+        this._overview_blur = null;
+        this._lockscreen_blur = null;
+        this._appfolders_blur = null;
+        this._window_list_blur = null;
 
         this._disconnect_settings();
 
@@ -73,6 +97,8 @@ class Extension {
         this._connections = [];
 
         this._log("extension disabled.");
+
+        this._prefs = null;
     }
 
     _connect_to_settings() {
@@ -113,11 +139,31 @@ class Extension {
                 this._lockscreen_blur.disable();
             }
         });
+        this._prefs.BLUR_APPFOLDERS.changed(() => {
+            if (this._prefs.BLUR_APPFOLDERS.get()) {
+                this._appfolders_blur.enable();
+            } else {
+                this._appfolders_blur.disable();
+            }
+        });
+        this._prefs.BLUR_WINDOW_LIST.changed(() => {
+            if (this._prefs.BLUR_WINDOW_LIST.get()) {
+                this._window_list_blur.enable();
+            } else {
+                this._window_list_blur.disable();
+            }
+        });
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update();
         });
+        this._prefs.APPFOLDER_DIALOG_OPACITY.changed(() => {
+            this._appfolders_blur.blur_appfolders();
+        });
         this._prefs.STATIC_BLUR.changed(() => {
-            this._panel_blur.change_blur_type()
+            this._panel_blur.change_blur_type();
+        });
+        this._prefs.HIDETOPBAR.changed(() => {
+            this._panel_blur.connect_to_overview();
         });
     }
 
@@ -133,6 +179,8 @@ class Extension {
         this._dash_to_dock_blur.set_sigma(sigma);
         this._overview_blur.set_sigma(sigma);
         this._lockscreen_blur.set_sigma(sigma);
+        this._appfolders_blur.set_sigma(sigma);
+        this._window_list_blur.set_sigma(sigma);
     }
 
     _update_brightness() {
@@ -142,10 +190,13 @@ class Extension {
         this._dash_to_dock_blur.set_brightness(brightness);
         this._overview_blur.set_brightness(brightness);
         this._lockscreen_blur.set_brightness(brightness);
+        this._appfolders_blur.set_brightness(brightness);
+        this._window_list_blur.set_brightness(brightness);
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this._prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
 
