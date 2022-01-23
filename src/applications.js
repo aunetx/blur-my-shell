@@ -19,17 +19,23 @@ var ApplicationsBlur = class ApplicationsBlur {
         });
 
         // TODO rehaul this code, 3 maps is not an elegant solution (just legacy code from blur-provider for testing)
-        this._actorMap = new Map();
+        // this._actorMap = new Map();
         //this._windowMap = new Map();
         this.blurActorMap = new Map();
-        this._on_actor_visibleMap = new Map();
+        // this._on_actor_visibleMap = new Map();
     }
 
     enable() {
         this._log("blurring applications...");
-        // TODO add code to iterate through existing windows and add blur as needed
-
-
+        // iterate through existing windows and add blur as needed
+        for (let workspace = 0; workspace < global.workspace_manager.get_n_workspaces(); ++workspace){
+            let metaWorkspace = global.workspace_manager.get_workspace_by_index(workspace);
+            let windows = metaWorkspace.list_windows();
+            windows.forEach((meta_window) => {
+                let window_actor = meta_window.get_compositor_private();
+                this.track_new(window_actor, meta_window);
+            })
+        }
 
         this.connections.connect(global.display, 'window-created', (meta_display, meta_window) => {
             log("window created");
@@ -49,7 +55,7 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         actor['blur_provider_pid'] = pid;
         window['blur_provider_pid'] = pid;
-        this._actorMap.set(pid, actor);
+        // this._actorMap.set(pid, actor);
         //this._windowMap.set(pid, window);
         // might be able to use connections class, need to make sure we can get the on actor destroyed signal to
         // cleanup blur
