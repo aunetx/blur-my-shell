@@ -5,11 +5,19 @@ const {Shell, Clutter, Meta, GLib} = imports.gi;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
-let prefs = new Settings.Prefs;
+const PaintSignals = Me.imports.paint_signals;
 
 var ApplicationsBlur = class ApplicationsBlur {
-    constructor(connections) {
+    constructor(connections, prefs) {
         this.connections = connections;
+        this.prefs = prefs;
+        this.paint_signals = new PaintSignals.PaintSignals(connections);
+        this.effect = new Shell.BlurEffect({
+            brightness: prefs.BRIGHTNESS.get(),
+            sigma: prefs.SIGMA.get(),
+            mode: prefs.STATIC_BLUR.get() ? 0 : 1
+        });
+
         // TODO rehaul this code, 3 maps is not an elegant solution (just legacy code from blur-provider for testing)
         this._actorMap = new Map();
         //this._windowMap = new Map();
@@ -20,6 +28,8 @@ var ApplicationsBlur = class ApplicationsBlur {
     enable() {
         this._log("blurring applications...");
         // TODO add code to iterate through existing windows and add blur as needed
+
+
 
         this.connections.connect(global.display, 'window-created', (meta_display, meta_window) => {
             log("window created");
@@ -46,28 +56,32 @@ var ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(actor, 'destroy', (window_actor) => {
             let pid = window_actor.blur_provider_pid;
             if (this.blurActorMap.has(pid)) {
-                // TODO Blur.remove_blur(pid);
+                // Blur.remove_blur(pid);
+                this.remove_blur(pid)
             }
         });
         //this._on_actor_destroyedMap.set(pid, actor.connect('destroy', _actor_destroyed));
 
         this.connections.connect(window, 'notify::mutter-hints', (meta_window) => {
             this._log("mutter-hint changed");
-            // TODO Blur.update_blur(meta_window, meta_window.blur_provider_pid)
+            // Blur.update_blur(meta_window, meta_window.blur_provider_pid)
+            let pid = window_actor.blur_provider_pid;
+            this.update_blur(meta_window, pid)
         });
         //this._on_mutter_hint_changedMap.set(pid, window.connect('notify::mutter-hints', _mutter_hint_changed));
 
-        // TODO Blur.update_blur(window, pid)
+        // Blur.update_blur(window, pid)
+        this.update_blur(window, pid);
     }
 
     update_blur(window, pid) {
         let mutter_hint = window.get_mutter_hints();
         if (mutter_hint != null && mutter_hint.includes("blur-provider")) {
             let sigma = this.parse_sigma_value(mutter_hint);
-            let brightness = prefs.BRIGHTNESS.get();
+            let brightness = this.prefs.BRIGHTNESS.get();
             if (sigma == null || (sigma < 0 && sigma > 111)) {
                 this._log("sigma value is null or outside of range (0-111), defaulting to extension setting")
-                sigma = prefs.SIGMA.get();
+                sigma = this.prefs.SIGMA.get();
                 //Tracking.set_uses_default_blur(pid);
             } else {
                 //Tracking.remove_uses_default_blur(pid);
@@ -80,15 +94,23 @@ var ApplicationsBlur = class ApplicationsBlur {
                     this._update_blur(this.blurActorMap.get(pid), sigma, brightness);
                 }
             } else if (sigma !== 0) { // don't set blur if it is 0
-                _set_blur(pid, Tracking.get_actor(pid), Tracking.get_window(pid), sigma)
+                this._set_blur(pid, this.blurActorMap.get(pid), window, sigma)
             }
-        } else if (Tracking.has_blur_actor(pid)) {
-            remove_blur(pid); // remove blur if the mutter_hint no longer contains our blur-provider value
+        } else if (this.blurActorMap.has(pid)) {
+            this.remove_blur(pid); // remove blur if the mutter_hint no longer contains our blur-provider value
         }
     }
 
     _set_blur(pid, actor, window, sigma, brightness){
         let blurActor = this._create_blur_actor(window, actor, sigma, brightness);
+        if (this.prefs.HACKS_LEVEL.get() === 2){
+            this._log("applications hack level 2");
+            this.paint_signals.disconnect_all();
+            this.paint_signals.connect(blurActor, this.effect);
+        } else {
+            this.paint_signals.disconnect_all();
+        }
+
         global.window_group.insert_child_below(blurActor, actor);
         blurActor['blur_provider_pid'] = pid;
         this.blurActorMap.set(pid, blurActor);
@@ -107,7 +129,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     }
 
     _create_blur_actor(meta_window, window_actor, sigma_value, brightness_value) {
-        let blurEffect = new Shell.BlurEffect({sigma: sigma_value, brightness: brightness_value, mode: Shell.BlurMode.BACKGROUND});
+        let blurEffect = this.effect;
 
         let frame = meta_window.get_frame_rect();
         let buffer = meta_window.get_buffer_rect();
@@ -178,17 +200,23 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     disable() {
         this._log("removing blur from applications...");
+        this.blurActorMap.forEach(((value, key) => {
+            this.remove_blur(key)
+        }));
+        this.connections.disconnect_all();
+        this.paint_signals.disconnect_all();
     }
 
     set_sigma(s) {
-        // TODO
+        this.effect.sigma = s;
     }
 
-    set_brightness(s) {
-        // TODO
+    set_brightness(b) {
+        this.effect.brightness = b;
     }
 
     _log(str) {
-        log(`[Blur my Shell] ${str}`)
+        if (this.prefs.DEBUG.get())
+            log(`[Blur my Shell] ${str}`)
     }
 }
