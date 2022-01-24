@@ -40,7 +40,7 @@ class Extension {
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
             this._dash_to_dock_blur.connections, this._overview_blur.connections,
             this._lockscreen_blur.connections, this._appfolders_blur.connections,
-            this._window_list_blur.connections, this._applications_blur);
+            this._window_list_blur.connections, this._applications_blur.connections);
 
         this._connect_to_settings();
 
