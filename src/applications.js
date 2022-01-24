@@ -229,6 +229,7 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         global.window_group.remove_actor(this.blurActorMap.get(pid));
         this.blurActorMap.delete(pid);
+        this.windowMap.delete(pid);
     }
 
     // When given the xprop property, returns either a valid sigma value between 0 and 111
