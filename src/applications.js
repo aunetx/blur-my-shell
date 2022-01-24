@@ -50,7 +50,7 @@ var ApplicationsBlur = class ApplicationsBlur {
                 let callbackId = Meta.later_add(Meta.LaterType.BEFORE_REDRAW, () => {
                     this.blurActorMap.forEach((blurActor, pid) => {
                         let actor = this.windowMap.get(pid).get_compositor_private();
-                        if (actor.get_parent() === blurActor.get_parent()) {
+                        if (actor !== null && actor.get_parent() === blurActor.get_parent()) {
                             global.window_group.set_child_below_sibling(blurActor, actor);
                         }
                     })
