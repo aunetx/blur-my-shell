@@ -4,6 +4,8 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
+[Want to integrate simple automatic blurring in to your application?]() # TODO link to part further down
+
 Functionalities:
 
 - blur dash with opacity prefs
@@ -11,6 +13,7 @@ Functionalities:
 - blur overview
 - blur appfolders
 - blur workspaces separation
+- blur applications that request it (blur-provider)
 - change lockscreen blur settings
 - change appgrid's folders background blur intensity
 - choose between static blur (generated once) and dynamic blur (generated each frame) for panel blur
@@ -34,6 +37,31 @@ Blurred Top Panel:
 
 Preferences:
 ![Preferences](https://user-images.githubusercontent.com/31563930/130880374-4345abd9-2ed0-4f97-95b3-66d9039395e1.png)
+
+## Application Blurring
+Blur my Shell now supports providing blur to applications (formerly [blur-provider](https://github.com/CorvetteCole/blur-provider)).
+Soon, this will allow users to choose applications out of a list to manually apply background blur to.
+### Try it out!
+#### Method 1
+1. run `xprop -f _MUTTER_HINTS 8s -set _MUTTER_HINTS blur-provider=${sigma-value}`
+2. click on the window you want blur applied to (it needs to have transparency for the blur to be visible)
+#### Method 2
+1. clone https://github.com/AryToNeX/Glasstron
+2. cd in to Glasstron/test
+3. run npm install && npm test
+
+### Integrate in to your application
+To request your application to be blurred, you simply need to add a property to your window.
+
+add below keypair to property _MUTTER_HINTS
+
+keypair template: blur-provider=${sigma-value} apply blur with given sigma value (note, ${sigma-value} is a value between 0 and 111)
+
+You can test this with xprop: `xprop -f _MUTTER_HINTS 8s -set _MUTTER_HINTS blur-provider=${sigma-value}`
+
+info about _MUTTER_HINTS property: The purpose of the hints is to allow fine-tuning of the Window Manager and Compositor behaviour on per-window basis, and is intended primarily for hints that are plugin-specific.
+
+The property is a list of colon-separated key=value pairs. The key names for any plugin-specific hints must be suitably namespaced to allow for shared use; 'mutter-' key prefix is reserved for internal use, and must not be used by plugins.
 
 ## Known bugs
 
