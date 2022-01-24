@@ -154,7 +154,7 @@
         </child>
         <child>
           <object class="GtkCheckButton" id="blur_applications">
-            <property name="label" translatable="yes">applications (coming soon)</property>
+            <property name="label" translatable="yes">applications</property>
             <property name="active">1</property>
             <signal name="toggled" handler="blur_applications_toggled" swapped="no" />
             <layout>
