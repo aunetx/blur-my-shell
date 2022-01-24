@@ -4,7 +4,7 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
-[Want to integrate simple automatic blurring in to your application?]() # TODO link to part further down
+[Want to integrate simple automatic blurring in to your application?](https://github.com/aunetx/blur-my-shell/tree/application-blur#integrate-in-to-your-application)
 
 Functionalities:
 
