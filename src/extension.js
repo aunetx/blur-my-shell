@@ -15,6 +15,7 @@ const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
 const AppFolders = Me.imports.appfolders;
 const WindowList = Me.imports.window_list;
+const Applications = Me.imports.applications;
 
 
 class Extension {
@@ -33,11 +34,13 @@ class Extension {
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections, this._prefs);
         this._appfolders_blur = new AppFolders.AppFoldersBlur(new Connections.Connections, this._prefs);
         this._window_list_blur = new WindowList.WindowListBlur(new Connections.Connections, this._prefs);
+        this._applications_blur = new Applications.ApplicationsBlur(new Connections.Connections, this._prefs);
+
 
         this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
             this._dash_to_dock_blur.connections, this._overview_blur.connections,
             this._lockscreen_blur.connections, this._appfolders_blur.connections,
-            this._window_list_blur.connections);
+            this._window_list_blur.connections, this._applications_blur);
 
         this._connect_to_settings();
 
@@ -60,6 +63,9 @@ class Extension {
         if (this._prefs.BLUR_WINDOW_LIST.get()) {
             this._window_list_blur.enable();
         }
+        if (this._prefs.BLUR_APPLICATIONS.get()) {
+            this._applications_blur.enable();
+        }
 
         this._update_sigma();
         this._update_brightness();
@@ -77,6 +83,7 @@ class Extension {
         this._lockscreen_blur.disable();
         this._appfolders_blur.disable();
         this._window_list_blur.disable();
+        this._applications_blur.disable();
 
         this._panel_blur = null;
         this._dash_blur = null;
@@ -85,6 +92,7 @@ class Extension {
         this._lockscreen_blur = null;
         this._appfolders_blur = null;
         this._window_list_blur = null;
+        this._applications_blur = null;
 
         this._disconnect_settings();
 
@@ -153,6 +161,13 @@ class Extension {
                 this._window_list_blur.disable();
             }
         });
+        this._prefs.BLUR_APPLICATIONS.changed(() => {
+            if (this._prefs.BLUR_APPLICATIONS.get()) {
+                this._applications_blur.enable();
+            } else {
+                this._applications_blur.disable();
+            }
+        })
         this._prefs.DASH_OPACITY.changed(() => {
             this._dash_blur.update();
         });
@@ -181,6 +196,7 @@ class Extension {
         this._lockscreen_blur.set_sigma(sigma);
         this._appfolders_blur.set_sigma(sigma);
         this._window_list_blur.set_sigma(sigma);
+        this._applications_blur.set_sigma(sigma);
     }
 
     _update_brightness() {
@@ -192,6 +208,7 @@ class Extension {
         this._lockscreen_blur.set_brightness(brightness);
         this._appfolders_blur.set_brightness(brightness);
         this._window_list_blur.set_brightness(brightness);
+        this._applications_blur.set_brightness(brightness);
     }
 
     _log(str) {
