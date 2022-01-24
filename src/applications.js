@@ -18,11 +18,8 @@ var ApplicationsBlur = class ApplicationsBlur {
             mode: Shell.BlurMode.BACKGROUND
         });
 
-        // TODO rehaul this code, 3 maps is not an elegant solution (just legacy code from blur-provider for testing)
-        // this.actorMap = new Map();
         this.windowMap = new Map();
         this.blurActorMap = new Map();
-        // this._on_actor_visibleMap = new Map();
     }
 
     enable() {
@@ -69,34 +66,26 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         window_actor['blur_provider_pid'] = pid;
         meta_window['blur_provider_pid'] = pid;
-        // this._actorMap.set(pid, actor);
-        //this._windowMap.set(pid, window);
-        // might be able to use connections class, need to make sure we can get the on actor destroyed signal to
-        // cleanup blur
+
         this.connections.connect(window_actor, 'destroy', (window_actor) => {
             let pid = window_actor.blur_provider_pid;
             if (this.blurActorMap.has(pid)) {
-                // Blur.remove_blur(pid);
                 this.remove_blur(pid)
             }
         });
-        //this._on_actor_destroyedMap.set(pid, actor.connect('destroy', _actor_destroyed));
 
         this.connections.connect(meta_window, 'notify::mutter-hints', (meta_window) => {
             this._log("mutter-hint changed");
-            // Blur.update_blur(meta_window, meta_window.blur_provider_pid)
             let pid = meta_window.blur_provider_pid;
             let window_actor = meta_window.get_compositor_private();
             this.update_blur(window_actor, meta_window, pid)
         });
-        //this._on_mutter_hint_changedMap.set(pid, window.connect('notify::mutter-hints', _mutter_hint_changed));
 
-        // Blur.update_blur(window, pid)
         this.update_blur(window_actor, meta_window, pid);
     }
 
     // this method is basically a catch-all for blurring windows. It handles the decisions to call different methods
-    // that handle removing, setting, and blurActorMapupdating blur
+    // that handle removing, setting, and updating blur
     update_blur(window_actor, meta_window, pid) {
         let mutter_hint = meta_window.get_mutter_hints();
         // this._log("updating blur for blur-pid " + pid + "with mutter hints: " + mutter_hint)
@@ -136,13 +125,13 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     _set_blur(pid, window_actor, meta_window, blurEffect) {
         let blurActor = this._create_blur_actor(meta_window, window_actor, blurEffect);
-        // if (this.prefs.HACKS_LEVEL.get() === 2){
-        //     this._log("applications hack level 2");
-        //     this.paint_signals.disconnect_all();
-        //     this.paint_signals.connect(blurActor, this.effect);
-        // } else {
-        //     this.paint_signals.disconnect_all();
-        // }
+        if (this.prefs.HACKS_LEVEL.get() === 2){
+            this._log("applications hack level 2");
+            this.paint_signals.disconnect_all();
+            this.paint_signals.connect(blurActor, this.effect);
+        } else {
+            this.paint_signals.disconnect_all();
+        }
 
         global.window_group.insert_child_below(blurActor, window_actor);
 
@@ -154,15 +143,11 @@ var ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(window_actor, 'notify::visible', (window_actor) => {
             let pid = window_actor.blur_provider_pid;
             if (window_actor.visible) {
-                //log("actor visible");
                 this.blurActorMap.get(pid).show();
-                // global.window_group.set_child_below_sibling(this.blurActorMap.get(pid), window_actor);
             } else {
-                //log("actor not visible");
                 this.blurActorMap.get(pid).hide();
             }
         });
-        //Tracking.connect_actor_visible(pid);
     }
 
     _create_blur_actor(meta_window, window_actor, blurEffect) {
@@ -198,11 +183,6 @@ var ApplicationsBlur = class ApplicationsBlur {
 
 
         let blurActor = new Clutter.Actor();
-        // blurActor.paint = function() {
-        //     global.window_group.set_child_below_sibling(_blurActorMap.get(pid), _actorMap.get(pid));
-        //     log("vfunc_paint");
-        //     this.paint();
-        // }
         blurActor.add_constraint(constraintPosX);
         blurActor.add_constraint(constraintPosY);
         blurActor.add_constraint(constraintSizeX);
@@ -224,7 +204,6 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     parse_sigma_value(property) {
         let result = property.match("(blur-provider=)(\\d{1,3})")
-        //log(result);
         if (result == null) { // return -1 if result is null
             return null;
         } else {
