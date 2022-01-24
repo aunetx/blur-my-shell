@@ -17,6 +17,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'blur_dash',
         'blur_panel',
         'blur_overview',
+        'blur_applications',
         'blur_lockscreen',
         'blur_appfolders',
         'blur_window_list',
@@ -27,7 +28,6 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'appfolder_dialog_opacity_scale',
         'static_blur',
         'hidetopbar',
-        'blur_applications',
         'debug_mode'
     ],
 }, class BlurMyShellPrefsWidget extends Gtk.Box {
@@ -114,6 +114,11 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         config.BLUR_OVERVIEW.set(value);
     }
 
+    blur_applications_toggled(w) {
+        let value = w.get_active();
+        config.BLUR_APPLICATIONS.set(value);
+    }
+
     blur_lockscreen_toggled(w) {
         let value = w.get_active();
         config.BLUR_LOCKSCREEN.set(value);
@@ -127,11 +132,6 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
     blur_window_list_toggled(w) {
         let value = w.get_active();
         config.BLUR_WINDOW_LIST.set(value);
-    }
-
-    blur_applications_toggled(w) {
-        let is_active = w.get_active();
-        config.BLUR_APPLICATIONS.set(value);
     }
 
     hacks_level0_toggled(w) {
