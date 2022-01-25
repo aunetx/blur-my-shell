@@ -1,6 +1,6 @@
 'use strict';
 
-const { St, Shell, Meta, Gio, GLib } = imports.gi;
+const { St, Shell, Meta, Gio, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' })
 
@@ -64,6 +64,13 @@ var PanelBlur = class PanelBlur {
         this.connections.connect(Main.panel, 'notify::height', () => {
             this.update_size(this.prefs.STATIC_BLUR.get());
         });
+
+        let constraint = new Clutter.BindConstraint({
+            source: Main.layoutManager.panelBox,
+            coordinate: Clutter.BindCoordinate.ALL,
+        });
+
+        this.background.add_constraint(constraint);
 
         // connect to every background change (even without changing image)
         this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
@@ -164,8 +171,6 @@ var PanelBlur = class PanelBlur {
                 panel_box.width,
                 panel_box.height
             );
-            this.background.x = -clip_box.x;
-            this.background.y = -clip_box.y;
         }
     }
 

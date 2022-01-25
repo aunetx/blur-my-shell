@@ -1,6 +1,6 @@
 'use strict';
 
-const { St, Shell, GLib, Meta } = imports.gi;
+const { St, Shell, GLib, Meta, Clutter } = imports.gi;
 const Main = imports.ui.main;
 const Signals = imports.signals;
 
@@ -141,38 +141,33 @@ var DashBlur = class DashBlur {
 
         // dash background widget
         let background = is_static ? new Meta.BackgroundActor({
-            name: 'dash-blurred-background',
-            x: -dash_container.x - dash_container._slider.x,
-            y: dash._isHorizontal
-                ? -dash_container.y - dash_container._slider.y + dash_container.height
-                : dash_container.y + dash_container._slider.y,
-            width: dash.width,
-            height: dash.height,
+            name: 'dash-blurred-background'
         }) : new St.Widget({
             name: 'dash-blur-effect-actor',
-            style_class: 'dash-blur-effect-actor',
-            x: dash_container._slider.x,
-            y: dash_container._slider.y,
-            width: dash.width,
-            height: dash.height,
+            style_class: 'dash-blur-effect-actor'
         });
 
-        let upd = _ => this.update_size_position(is_static, background, dash_container, dash);
-        upd();
+        background.set_clip_to_allocation(true);
 
         // update the static wallpaper if needed
         if (is_static)
             this.update_wallpaper(background);
 
-        // updates size and position on change
-        this.connections.connect(dash_container, 'notify::x', upd);
-        this.connections.connect(dash_container, 'notify::y', upd);
-        this.connections.connect(dash_container._slider, 'notify::x', upd);
-        this.connections.connect(dash_container._slider, 'notify::y', upd);
-        this.connections.connect(dash, 'notify::width', upd);
-        this.connections.connect(dash, 'notify::height', upd);
-        this.connections.connect(dash, 'event', upd);
+        let constraint = new Clutter.BindConstraint({
+            source: dash,
+            coordinate: Clutter.BindCoordinate.ALL,
+        });
 
+        let upd = () => {
+            this.update_clip(background, dash_container);
+        }
+
+        this.connections.connect(background, 'notify::x', upd);
+        this.connections.connect(background, 'notify::y', upd);
+        this.connections.connect(background, 'notify::width', upd);
+        this.connections.connect(background, 'notify::height', upd);
+
+        background.add_constraint(constraint);
 
         // HACK
         if (!is_static) {
@@ -240,54 +235,13 @@ var DashBlur = class DashBlur {
     }
 
     /// Updates the size and the position of the blurred widget
-    update_size_position(is_static, bg, cont, dash) {
-        if (is_static) {
-            let x, y, w, h;
-            let e = dash.get_transformed_extents();
-            if (dash._isHorizontal) {
-                x = cont.x + cont._slider.x;
-                y = cont.y + cont._slider.y - cont.height;
-                w = dash.width;
-                h = dash.height;
-            } else {
-                x = cont.x + cont._slider.x;
-                y = cont.y + cont._slider.y;
-                w = dash.width;
-                h = dash.height;
-            }
-            this._log(`dash-to-dock position changed: x = ${x}, y = ${y}, width = ${w}, height = ${h}`);
-            bg.set_clip(x, y, w, h);
-            bg.set_position(-x, -y);
-            bg.set_size(w, h);
-        } else {
-            bg.set_position(cont._slider.x, cont._slider.y);
-            bg.set_size(dash.width, dash.height);
-        }
-    }
-
-    ///! REMOVE
-    _update_size_position(is_static, bg, cont, dash) {
-        if (is_static) {
-            let x, y, w, h;
-            if (dash._isHorizontal) {
-                x = cont.x + cont._slider.x;
-                y = cont.y + cont._slider.y - cont.height;
-                w = dash.width;
-                h = dash.height;
-            } else {
-                x = cont.x + cont._slider.x;
-                y = cont.y + cont._slider.y;
-                w = dash.width;
-                h = dash.height;
-            }
-            this._log(`dash-to-dock position changed: x = ${x}, y = ${y}, width = ${w}, height = ${h}`);
-            bg.set_clip(x, y, w, h);
-            bg.set_position(-x, -y);
-            bg.set_size(w, h);
-        } else {
-            bg.set_position(cont._slider.x, cont._slider.y);
-            bg.set_size(dash.width, dash.height);
-        }
+    update_clip(bg, cont) {
+        bg.set_clip(
+            cont.x + cont._slider.x,
+            cont.y + cont._slider.y - cont.height,
+            bg.width,
+            bg.height
+        );
     }
 
     /// Gets the right wallpaper to set it on the dash and blur it
