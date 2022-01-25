@@ -2,6 +2,7 @@
 
 const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
+
 const WorkspaceAnimationController = imports.ui.workspaceAnimation.WorkspaceAnimationController;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -55,13 +56,13 @@ var OverviewBlur = class OverviewBlur {
             outerThis._origPrepareSwitch.apply(this, params);
 
             Main.layoutManager.monitors.forEach(monitor => {
-              if (!(Meta.prefs_get_workspaces_only_on_primary() && (monitor != Main.layoutManager.primaryMonitor))) {
-                const bg_actor = outerThis.create_background_actor(monitor);
-                Main.uiGroup.insert_child_above(bg_actor, global.window_group);
+                if (!(Meta.prefs_get_workspaces_only_on_primary() && (monitor != Main.layoutManager.primaryMonitor))) {
+                    const bg_actor = outerThis.create_background_actor(monitor);
+                    Main.uiGroup.insert_child_above(bg_actor, global.window_group);
 
-                // store the actors so that we can delete them later
-                outerThis._workspace_switch_bg_actors.push(bg_actor);
-              }
+                    // store the actors so that we can delete them later
+                    outerThis._workspace_switch_bg_actors.push(bg_actor);
+                }
             });
         };
 
@@ -101,9 +102,13 @@ var OverviewBlur = class OverviewBlur {
         bg_actor.set_content(background.get_content());
 
         let effect = new Shell.BlurEffect({
-            brightness: this.prefs.BRIGHTNESS.get(),
-            sigma: this.prefs.SIGMA.get(),
-            mode: 0
+            brightness: this.prefs.OVERVIEW_GENERAL_VALUES.get()
+                ? this.prefs.BRIGHTNESS.get()
+                : this.prefs.OVERVIEW_BRIGHTNESS.get(),
+            sigma: this.prefs.OVERVIEW_GENERAL_VALUES.get()
+                ? this.prefs.SIGMA.get()
+                : this.prefs.OVERVIEW_SIGMA.get(),
+            mode: Shell.BlurMode.ACTOR
         });
         bg_actor.add_effect(effect);
         this.effects.push(effect);

@@ -5,6 +5,63 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
 const SCHEMA_PATH = 'org.gnome.shell.extensions.blur-my-shell';
 
+const Type = {
+    B: 'Boolean',
+    I: 'Integer',
+    D: 'Double'
+};
+
+// Each key name can only be made of lowercase characters and "-"
+const Keys = [
+    { type: Type.I, name: "sigma" },
+    { type: Type.D, name: "brightness" },
+    { type: Type.I, name: "hacks-level" },
+
+    { type: Type.B, name: "overview-blur" },
+    { type: Type.B, name: "overview-general-values" },
+    { type: Type.I, name: "overview-sigma" },
+    { type: Type.D, name: "overview-brightness" },
+
+    { type: Type.B, name: "appfolder-blur" },
+    { type: Type.B, name: "appfolder-general-values" },
+    { type: Type.I, name: "appfolder-sigma" },
+    { type: Type.D, name: "appfolder-brightness" },
+    { type: Type.D, name: "appfolder-icon-opacity" },
+    { type: Type.D, name: "appfolder-dialog-opacity" },
+
+    { type: Type.B, name: "panel-blur" },
+    { type: Type.B, name: "panel-general-values" },
+    { type: Type.I, name: "panel-sigma" },
+    { type: Type.D, name: "panel-brightness" },
+    { type: Type.B, name: "panel-static-blur" },
+
+    { type: Type.B, name: "dash-blur" },
+    { type: Type.B, name: "dash-to-dock-general-values" },
+    { type: Type.I, name: "dash-to-dock-sigma" },
+    { type: Type.D, name: "dash-to-dock-brightness" },
+    { type: Type.B, name: "dash-to-dock-static-blur" },
+    { type: Type.D, name: "dash-opacity" },
+
+    { type: Type.B, name: "applications-blur" },
+    { type: Type.B, name: "applications-general-values" },
+    { type: Type.I, name: "applications-sigma" },
+    { type: Type.D, name: "applications-brightness" },
+
+    { type: Type.B, name: "lockscreen-blur" },
+    { type: Type.B, name: "lockscreen-general-values" },
+    { type: Type.I, name: "lockscreen-sigma" },
+    { type: Type.D, name: "lockscreen-brightness" },
+
+    { type: Type.B, name: "window-list-blur" },
+    { type: Type.B, name: "window-list-general-values" },
+    { type: Type.I, name: "window-list-sigma" },
+    { type: Type.D, name: "window-list-brightness" },
+
+    { type: Type.B, name: "hidetopbar-blur" },
+
+    { type: Type.B, name: "debug" },
+]
+
 function get_local_gsettings(schema_path) {
     const GioSSS = Gio.SettingsSchemaSource;
     let schemaDir = Extension.dir.get_child('schemas');
@@ -31,244 +88,73 @@ function get_local_gsettings(schema_path) {
 var Prefs = class Prefs {
     constructor() {
         var settings = this.settings = get_local_gsettings(SCHEMA_PATH);
-        this.SIGMA = {
-            key: 'sigma',
-            get: function () {
-                return settings.get_int(this.key);
-            },
-            set: function (v) {
-                settings.set_int(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            },
-        };
 
-        this.BRIGHTNESS = {
-            key: 'brightness',
-            get: function () {
-                return settings.get_double(this.key);
-            },
-            set: function (v) {
-                settings.set_double(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            },
-        };
+        Keys.forEach(key => {
+            let property_name = key.name;
+            let accessible_name = property_name.replaceAll('-', '_').toUpperCase();
 
-        this.BLUR_DASH = {
-            key: 'blur-dash',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
+            switch (key.type) {
+                case Type.B:
+                    this[accessible_name] = {
+                        key: property_name,
+                        get: function () {
+                            return settings.get_boolean(this.key);
+                        },
+                        set: function (v) {
+                            settings.set_boolean(this.key, v);
+                        },
+                        changed: function (cb) {
+                            return settings.connect('changed::' + this.key, cb);
+                        },
+                        disconnect: function () {
+                            return settings.disconnect.apply(settings, arguments);
+                        }
+                    };
+                    break;
+
+                case Type.I:
+                    this[accessible_name] = {
+                        key: property_name,
+                        get: function () {
+                            return settings.get_int(this.key);
+                        },
+                        set: function (v) {
+                            settings.set_int(this.key, v);
+                        },
+                        changed: function (cb) {
+                            return settings.connect('changed::' + this.key, cb);
+                        },
+                        disconnect: function () {
+                            return settings.disconnect.apply(settings, arguments);
+                        },
+                    };
+                    break;
+
+                case Type.D:
+                    this[accessible_name] = {
+                        key: property_name,
+                        get: function () {
+                            return settings.get_double(this.key);
+                        },
+                        set: function (v) {
+                            settings.set_double(this.key, v);
+                        },
+                        changed: function (cb) {
+                            return settings.connect('changed::' + this.key, cb);
+                        },
+                        disconnect: function () {
+                            return settings.disconnect.apply(settings, arguments);
+                        },
+                    };
+                    break;
             }
-        };
+        })
+    }
 
-        this.BLUR_PANEL = {
-            key: 'blur-panel',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.BLUR_OVERVIEW = {
-            key: 'blur-overview',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.BLUR_LOCKSCREEN = {
-            key: 'blur-lockscreen',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.BLUR_APPLICATIONS = {
-          key: 'blur-applications',
-          get: function () {
-              return settings.get_boolean(this.key);
-          },
-          set: function (v) {
-              settings.set_boolean(this.key, v);
-          },
-          changed: function (cb) {
-              return settings.connect('changed::' + this.key, cb);
-          },
-          disconnect: function () {
-              return settings.disconnect.apply(settings, arguments);
-          }
-        };
-
-        this.BLUR_APPFOLDERS = {
-            key: 'blur-appfolders',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.BLUR_WINDOW_LIST = {
-            key: 'blur-window-list',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.HACKS_LEVEL = {
-            key: 'hacks-level',
-            get: function () {
-                return settings.get_int(this.key);
-            },
-            set: function (v) {
-                settings.set_int(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            },
-        };
-
-        this.DASH_OPACITY = {
-            key: 'dash-opacity',
-            get: function () {
-                return settings.get_double(this.key);
-            },
-            set: function (v) {
-                settings.set_double(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            },
-        };
-
-        this.APPFOLDER_DIALOG_OPACITY = {
-            key: 'appfolder-dialog-opacity',
-            get: function () {
-                return settings.get_double(this.key);
-            },
-            set: function (v) {
-                settings.set_double(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            },
-        };
-
-        this.STATIC_BLUR = {
-            key: 'static-blur',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.HIDETOPBAR = {
-            key: 'hidetopbar',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
-
-        this.DEBUG = {
-            key: 'debug',
-            get: function () {
-                return settings.get_boolean(this.key);
-            },
-            set: function (v) {
-                settings.set_boolean(this.key, v);
-            },
-            changed: function (cb) {
-                return settings.connect('changed::' + this.key, cb);
-            },
-            disconnect: function () {
-                return settings.disconnect.apply(settings, arguments);
-            }
-        };
+    _disconnect_all_settings() {
+        Keys.forEach(key => {
+            let accessible_name = key.name.replaceAll('-', '_').toUpperCase();
+            this[accessible_name].disconnect();
+        })
     }
 };
