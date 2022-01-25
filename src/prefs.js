@@ -17,6 +17,7 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
         'blur_dash',
         'blur_panel',
         'blur_overview',
+        'blur_applications',
         'blur_lockscreen',
         'blur_appfolders',
         'blur_window_list',
@@ -47,6 +48,9 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
 
         // ! blur overview
         this._blur_overview.set_active(config.BLUR_OVERVIEW.get());
+
+        // ! blur applications
+        this._blur_applications.set_active(config.BLUR_APPLICATIONS.get());
 
         // ! blur lockscreen
         this._blur_lockscreen.set_active(config.BLUR_LOCKSCREEN.get());
@@ -108,6 +112,11 @@ const BlurMyShellPrefsWidget = GObject.registerClass({
     blur_overview_toggled(w) {
         let value = w.get_active();
         config.BLUR_OVERVIEW.set(value);
+    }
+
+    blur_applications_toggled(w) {
+        let value = w.get_active();
+        config.BLUR_APPLICATIONS.set(value);
     }
 
     blur_lockscreen_toggled(w) {
