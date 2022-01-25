@@ -49,6 +49,12 @@
             <summary>Boolean, whether to blur window list extension or not</summary>
             <description />
         </key>
+        <!-- BLUR APPLICATIONS -->
+        <key type="b" name="blur-applications">
+            <default>false</default>
+            <summary>Boolean, whether to blur applications that request it or not</summary>
+            <description />
+        </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
