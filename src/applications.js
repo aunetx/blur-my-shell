@@ -26,7 +26,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     this.windowActorBlurMap = new Map();
     this.pid = 0;
     this.override_map = {};
-    Utils.setInterval(() => this.fix_blur(), 1);
+    Utils.setInterval(() => this.fix_blur(), 16);
   }
   create_blur_actor(pid) {
     let wab = this.windowActorBlurMap.get(pid);
