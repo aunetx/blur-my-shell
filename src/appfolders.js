@@ -141,7 +141,7 @@ var AppFoldersBlur = class AppFoldersBlur {
                 name: "appfolder-blur",
                 sigma: sigma,
                 brightness: brightness,
-                mode: 1
+                mode: Shell.BlurMode.BACKGROUND
             });
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(effect);
@@ -183,13 +183,13 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     set_sigma(s) {
         sigma = s;
-        if (this.prefs.BLUR_APPFOLDERS.get())
+        if (this.prefs.APPFOLDER_BLUR.get())
             this.blur_appfolders();
     }
 
     set_brightness(b) {
         brightness = b;
-        if (this.prefs.BLUR_APPFOLDERS.get())
+        if (this.prefs.APPFOLDER_BLUR.get())
             this.blur_appfolders();
     }
 

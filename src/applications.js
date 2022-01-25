@@ -6,7 +6,6 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
-const BlurMode = Shell.BlurMode;
 
 var ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, prefs) {
@@ -91,12 +90,16 @@ var ApplicationsBlur = class ApplicationsBlur {
         if (mutter_hint != null && mutter_hint.includes("blur-provider")) {
             // get blur effect parameters
             let sigma = this.parse_sigma_value(mutter_hint);
-            let brightness = this.prefs.BRIGHTNESS.get();
+            let brightness = this.prefs.APPLICATIONS_GENERAL_VALUES.get()
+                ? this.prefs.BRIGHTNESS.get()
+                : this.prefs.APPLICATIONS_BRIGHTNESS.get();
 
             // if the provided sigma value is incorrect
             if (sigma == null || sigma < 0 || sigma > 111) {
                 this._log("sigma value is null or outside of range (0-111), defaulting to extension setting")
-                sigma = this.prefs.SIGMA.get();
+                sigma = this.prefs.APPLICATIONS_GENERAL_VALUES.get()
+                    ? this.prefs.SIGMA.get()
+                    : this.prefs.APPLICATIONS_SIGMA.get();;
             }
 
             // check wether the actor is already blurred and act consequently
@@ -132,7 +135,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         return new Shell.BlurEffect({
             sigma: sigma,
             brightness: brightness,
-            mode: BlurMode.BACKGROUND
+            mode: Shell.BlurMode.BACKGROUND
         });
     }
 

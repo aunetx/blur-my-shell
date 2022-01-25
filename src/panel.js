@@ -15,9 +15,15 @@ var PanelBlur = class PanelBlur {
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
         this.effect = new Shell.BlurEffect({
-            brightness: prefs.BRIGHTNESS.get(),
-            sigma: prefs.SIGMA.get(),
-            mode: prefs.STATIC_BLUR.get() ? 0 : 1
+            brightness: this.prefs.PANEL_GENERAL_VALUES.get()
+                ? this.prefs.BRIGHTNESS.get()
+                : this.prefs.PANEL_BRIGHTNESS.get(),
+            sigma: this.prefs.PANEL_GENERAL_VALUES.get()
+                ? this.prefs.SIGMA.get()
+                : this.prefs.PANEL_SIGMA.get(),
+            mode: prefs.PANEL_STATIC_BLUR.get()
+                ? Shell.BlurMode.ACTOR
+                : Shell.BlurMode.BACKGROUND
         });
         this.background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
@@ -27,7 +33,7 @@ var PanelBlur = class PanelBlur {
             width: this.monitor.width,
             height: 0,
         });
-        this.background = prefs.STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
+        this.background = prefs.PANEL_STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
             style_class: 'topbar-blurred-background',
             x: 0,
             y: 0,
@@ -62,19 +68,19 @@ var PanelBlur = class PanelBlur {
 
         // connect to panel size change
         this.connections.connect(Main.panel, 'notify::height', () => {
-            this.update_size(this.prefs.STATIC_BLUR.get());
+            this.update_size(this.prefs.PANEL_STATIC_BLUR.get());
         });
 
         // connect to every background change (even without changing image)
         this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
-            this.update_wallpaper(this.prefs.STATIC_BLUR.get());
+            this.update_wallpaper(this.prefs.PANEL_STATIC_BLUR.get());
         })
 
         // connect to monitors change
         this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
             if (Main.screenShield && !Main.screenShield.locked) {
-                this.update_wallpaper(this.prefs.STATIC_BLUR.get());
-                this.update_size(this.prefs.STATIC_BLUR.get());
+                this.update_wallpaper(this.prefs.PANEL_STATIC_BLUR.get());
+                this.update_size(this.prefs.PANEL_STATIC_BLUR.get());
             }
         });
 
@@ -82,7 +88,7 @@ var PanelBlur = class PanelBlur {
     }
 
     change_blur_type() {
-        let is_static = this.prefs.STATIC_BLUR.get();
+        let is_static = this.prefs.PANEL_STATIC_BLUR.get();
 
         // reset widgets to right state
         this.background_parent.remove_child(this.background);
@@ -184,23 +190,29 @@ var PanelBlur = class PanelBlur {
         this.connections.disconnect_all_for(Main.overview._overview._controls._appDisplay);
         this.connections.disconnect_all_for(Main.overview);
 
-        if (!this.prefs.HIDETOPBAR.get()) {
-            this.connections.connect(Main.overview, 'showing', () => {
-                this.hide();
-            });
-            this.connections.connect(Main.overview, 'hidden', () => {
-                this.show();
-            });
-        } else {
-            this.connections.connect(Main.overview._overview._controls._appDisplay, 'show', () => {
-                this.hide();
-            });
-            this.connections.connect(Main.overview._overview._controls._appDisplay, 'hide', () => {
-                this.show();
-            });
-            this.connections.connect(Main.overview, 'hidden', () => {
-                this.show();
-            });
+        // may be called when panel blur is disabled, if hidetopbar blur is toggled on/off
+        // if this is the case, do nothing as only the panel blur interfers with hidetopbar
+        if (this.prefs.PANEL_BLUR.get()) {
+
+            if (!this.prefs.HIDETOPBAR_BLUR.get()) {
+                this.connections.connect(Main.overview, 'showing', () => {
+                    this.hide();
+                });
+                this.connections.connect(Main.overview, 'hidden', () => {
+                    this.show();
+                });
+            } else {
+                this.connections.connect(Main.overview._overview._controls._appDisplay, 'show', () => {
+                    this.hide();
+                });
+                this.connections.connect(Main.overview._overview._controls._appDisplay, 'hide', () => {
+                    this.show();
+                });
+                this.connections.connect(Main.overview, 'hidden', () => {
+                    this.show();
+                });
+            }
+
         }
     }
 

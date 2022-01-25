@@ -58,8 +58,12 @@ var DashBlur = class DashBlur {
         this.connections = connections;
         this.prefs = prefs;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
-        this.sigma = prefs.SIGMA.get();
-        this.brightness = prefs.BRIGHTNESS.get();
+        this.sigma = this.prefs.DASH_TO_DOCK_GENERAL_VALUES.get()
+            ? this.prefs.SIGMA.get()
+            : this.prefs.DASH_TO_DOCK_SIGMA.get();
+        this.brightness = this.prefs.DASH_TO_DOCK_GENERAL_VALUES.get()
+            ? this.prefs.BRIGHTNESS.get()
+            : this.prefs.DASH_TO_DOCK_BRIGHTNESS.get();
     }
 
     enable() {
@@ -102,7 +106,7 @@ var DashBlur = class DashBlur {
         let effect = new Shell.BlurEffect({
             brightness: this.brightness,
             sigma: this.sigma,
-            mode: 1
+            mode: Shell.BlurMore.BACKGROUND
         });
 
         // dash background parent, not visible
