@@ -76,27 +76,33 @@ var PanelBlur = class PanelBlur {
 
         // perform updates
         this.change_blur_type();
-        Utils.setTimeout(change_blur_type.bind(this), 500);
+        Utils.setTimeout(this.change_blur_type.bind(this), 500);
 
         // connect to panel size change
-        this.connections.connect(Main.panel, 'notify::height', _ => {
-            this.update_size();
-        });
+        this.connections.connect(
+            Main.panel,
+            'notify::height',
+            _ => this.update_size()
+        );
 
         // connect to every background change (even without changing image)
-        this.connections.connect(Main.layoutManager._backgroundGroup, 'notify',
-            _ => {
-                this.update_wallpaper();
-            }
+        this.connections.connect(
+            Main.layoutManager._backgroundGroup,
+            'notify',
+            _ => this.update_wallpaper()
         );
 
         // connect to monitors change
-        this.connections.connect(Main.layoutManager, 'monitors-changed', _ => {
-            if (Main.screenShield && !Main.screenShield.locked) {
-                this.update_wallpaper();
-                this.update_size();
+        this.connections.connect(
+            Main.layoutManager,
+            'monitors-changed',
+            _ => {
+                if (Main.screenShield && !Main.screenShield.locked) {
+                    this.update_wallpaper();
+                    this.update_size();
+                }
             }
-        });
+        );
 
         this.connect_to_overview();
     }
@@ -156,9 +162,9 @@ var PanelBlur = class PanelBlur {
                 this.paint_signals.disconnect_all();
 
                 this.paint_signals.connect(Main.panel, this.effect);
-                Main.panel.get_children().forEach(child => {
-                    this.paint_signals.connect(child, this.effect);
-                });
+                Main.panel.get_children().forEach(
+                    child => this.paint_signals.connect(child, this.effect)
+                );
             } else {
                 this.paint_signals.disconnect_all();
             }
@@ -225,26 +231,28 @@ var PanelBlur = class PanelBlur {
         if (this.prefs.PANEL_BLUR.get()) {
 
             if (!this.prefs.HIDETOPBAR_BLUR.get()) {
-                this.connections.connect(Main.overview, 'showing', () => {
-                    this.hide();
-                });
-                this.connections.connect(Main.overview, 'hidden', () => {
-                    this.show();
-                });
+                this.connections.connect(
+                    Main.overview,
+                    'showing',
+                    _ => this.hide()
+                );
+                this.connections.connect(
+                    Main.overview,
+                    'hidden',
+                    _ => this.show()
+                );
             } else {
-                this.connections.connect(appDisplay, 'show', () => {
-                    this.hide();
-                });
-                this.connections.connect(appDisplay, 'hide', () => {
-                    this.show();
-                });
-                this.connections.connect(Main.overview, 'hidden', () => {
-                    this.show();
-                });
+                this.connections.connect(appDisplay, 'show', _ => this.hide());
+                this.connections.connect(appDisplay, 'hide', _ => this.show());
+                this.connections.connect(
+                    Main.overview,
+                    'hidden',
+                    _ => this.show()
+                );
             }
 
         }
-    }
+    };
 
     set_sigma(s) {
         this.effect.sigma = s;

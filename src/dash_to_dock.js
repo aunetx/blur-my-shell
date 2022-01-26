@@ -116,7 +116,7 @@ var DashBlur = class DashBlur {
         let effect = new Shell.BlurEffect({
             brightness: this.brightness,
             sigma: this.sigma,
-            mode: Shell.BlurMore.BACKGROUND
+            mode: Shell.BlurMode.BACKGROUND
         });
 
         // dash background parent, not visible

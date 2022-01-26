@@ -48,7 +48,7 @@ class Extension {
             // store it to keeps track of them globally
             this._connections.push(connection);
 
-            return connection, this._prefs;
+            return [connection, this._prefs];
         };
 
         this._panel_blur = new Panel.PanelBlur(...init());
