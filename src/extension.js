@@ -1,6 +1,6 @@
 'use strict';
 
-const { St, Shell } = imports.gi;
+const { St, Shell, Gio, Gtk } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -30,6 +30,13 @@ class Extension {
 
     /// Enables the extension
     enable() {
+        // load our resources
+
+        this.resources = Gio.Resource.load(
+            `${Me.path}/blur-my-shell.gresource`
+        );
+        Gio.resources_register(this.resources);
+
         // create a Prefs instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
 
@@ -104,6 +111,9 @@ class Extension {
     /// Disables the extension
     disable() {
         this._log("disabling extension...");
+
+        // unregister our resources
+        Gio.resources_unregister(this.resources);
 
         // disable every component
 
