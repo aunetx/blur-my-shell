@@ -60,7 +60,7 @@ const Keys = [
     { type: Type.B, name: "hidetopbar-blur" },
 
     { type: Type.B, name: "debug" },
-]
+];
 
 function get_local_gsettings(schema_path) {
     const GioSSS = Gio.SettingsSchemaSource;
@@ -91,7 +91,7 @@ var Prefs = class Prefs {
 
         Keys.forEach(key => {
             let property_name = key.name;
-            let accessible_name = property_name.replaceAll('-', '_').toUpperCase();
+            let accessible_name = key.name.replaceAll('-', '_').toUpperCase();
 
             switch (key.type) {
                 case Type.B:
@@ -107,7 +107,9 @@ var Prefs = class Prefs {
                             return settings.connect('changed::' + this.key, cb);
                         },
                         disconnect: function () {
-                            return settings.disconnect.apply(settings, arguments);
+                            return settings.disconnect.apply(
+                                settings, arguments
+                            );
                         }
                     };
                     break;
@@ -125,7 +127,9 @@ var Prefs = class Prefs {
                             return settings.connect('changed::' + this.key, cb);
                         },
                         disconnect: function () {
-                            return settings.disconnect.apply(settings, arguments);
+                            return settings.disconnect.apply(
+                                settings, arguments
+                            );
                         },
                     };
                     break;
@@ -143,18 +147,20 @@ var Prefs = class Prefs {
                             return settings.connect('changed::' + this.key, cb);
                         },
                         disconnect: function () {
-                            return settings.disconnect.apply(settings, arguments);
+                            return settings.disconnect.apply(
+                                settings, arguments
+                            );
                         },
                     };
                     break;
             }
-        })
+        });
     }
 
     _disconnect_all_settings() {
         Keys.forEach(key => {
             let accessible_name = key.name.replaceAll('-', '_').toUpperCase();
             this[accessible_name].disconnect();
-        })
+        });
     }
 };

@@ -9,16 +9,17 @@ const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
-// This type of object is created for every dash found, and talks to the main DashBlur thanks
-// to signals. This allows to dynamically track the created dashes for each screen.
+
+/// This type of object is created for every dash found, and talks to the main
+/// DashBlur thanks to signals.
+///
+/// This allows to dynamically track the created dashes for each screen.
 class DashInfos {
-    constructor(dash_blur, dash, dash_box, background_parent, effect, prefs) {
+    constructor(dash_blur, dash, background_parent, effect, prefs) {
         // the parent DashBlur object, to communicate
         this.dash_blur = dash_blur;
         // the blurred dash
         this.dash = dash;
-        // the actually blurred box
-        this.dash_box = dash_box;
         this.background_parent = background_parent;
         this.effect = effect;
         this.prefs = prefs;
@@ -48,7 +49,7 @@ class DashInfos {
 
     _log(str) {
         if (this.prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
 }
 
@@ -68,7 +69,10 @@ var DashBlur = class DashBlur {
 
     enable() {
         this.connections.connect(Main.uiGroup, 'actor-added', (_, actor) => {
-            if ((actor.get_name() == "dashtodockContainer") && (actor.constructor.name == 'DashToDock'))
+            if (
+                (actor.get_name() == "dashtodockContainer") &&
+                (actor.constructor.name == 'DashToDock')
+            )
                 this.try_blur(actor);
         });
 
@@ -76,26 +80,32 @@ var DashBlur = class DashBlur {
     }
 
     // Finds all existing dashes on every monitor, and call `try_blur` on them
-    // We cannot only blur `Main.overview.dash`, as there could be multiple screens
+    // We cannot only blur `Main.overview.dash`, as there could be several
     blur_existing_dashes() {
         this._log("searching for dash");
-        // blur every dash found
+
+        // blur every dash found, filtered by name
         Main.uiGroup.get_children().filter((child) => {
-            // filter by name
-            return (child.get_name() == "dashtodockContainer") && (child.constructor.name == 'DashToDock')
+            return (child.get_name() == "dashtodockContainer") &&
+                (child.constructor.name == 'DashToDock');
         }).forEach(this.try_blur.bind(this));
     }
 
     // Tries to blur the dash contained in the given actor
     try_blur(dash_container) {
         let dash_box = dash_container._slider.get_child();
+
         // verify that we did not already blur that dash
-        if (!dash_box.get_children().some((c) => {
-            return c.get_name() == "dash-blurred-background-parent"
+        if (!dash_box.get_children().some((child) => {
+            return child.get_name() == "dash-blurred-background-parent";
         })) {
-            // finally blur the dash
             this._log("dash to dock found, blurring it");
-            let dash = dash_box.get_children().find(c => { return c.get_name() == 'dash' })
+
+            // finally blur the dash
+            let dash = dash_box.get_children().find(child => {
+                return child.get_name() == 'dash';
+            });
+
             this.dashes.push(this.blur_dash_from(dash, dash_container));
         }
     }
@@ -138,60 +148,6 @@ var DashBlur = class DashBlur {
             background.height = dash.height;
         });
 
-
-        // HACK
-        {
-            // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
-            // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
-            // ! but it prevents the shadows of the dash buttons to cause artefacts on the dash itself
-            // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
-
-            if (this.prefs.HACKS_LEVEL.get() == 1) {
-                this._log("dash hack level 1");
-                this.paint_signals.disconnect_all();
-
-                let rp = () => {
-                    effect.queue_repaint()
-                };
-
-                dash._box.get_children().forEach((icon) => {
-                    try {
-                        let zone = icon.get_child_at_index(0);
-                        this.connections.connect(zone, 'enter-event', rp);
-                        this.connections.connect(zone, 'leave-event', rp);
-                        this.connections.connect(zone, 'button-press-event', rp);
-                    } catch (e) {
-                        this._log(`${e}, continuing`);
-                    }
-                })
-
-                this.connections.connect(dash._box, 'actor-added', (_, actor) => {
-                    try {
-                        let zone = actor.get_child_at_index(0);
-                        this.connections.connect(zone, 'enter-event', rp);
-                        this.connections.connect(zone, 'leave-event', rp);
-                        this.connections.connect(zone, 'button-press-event', rp);
-                    } catch (e) {
-                        this._log(`${e}, continuing`);
-                    }
-                })
-
-                this.connections.connect(dash._showAppsIcon, 'enter-event', rp);
-                this.connections.connect(dash._showAppsIcon, 'leave-event', rp);
-                this.connections.connect(dash._showAppsIcon, 'button-press-event', rp);
-
-                this.connections.connect(dash, 'leave-event', rp);
-            } else if (this.prefs.HACKS_LEVEL.get() == 2) {
-                this._log("dash hack level 2");
-
-                this.paint_signals.connect(dash, this.effect);
-            } else {
-                this.paint_signals.disconnect_all();
-            }
-
-            // ! END OF DIRTY PART
-        }
-
         // add the widget to the dash
         background.add_effect(effect);
         background_parent.add_child(background);
@@ -200,8 +156,66 @@ var DashBlur = class DashBlur {
         // remove background color
         dash.set_style_class_name('blurred-dash');
 
+
+        // HACK
+        //
+        //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
+        //
+        // This does not entirely fix this bug (shadows caused by windows
+        // still cause artefacts), but it prevents the shadows of the panel
+        // buttons to cause artefacts on the panel itself
+        //
+        // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
+
+        if (this.prefs.HACKS_LEVEL.get() == 1) {
+            this._log("dash hack level 1");
+            this.paint_signals.disconnect_all();
+
+            let rp = () => {
+                effect.queue_repaint();
+            };
+
+            dash._box.get_children().forEach((icon) => {
+                try {
+                    let zone = icon.get_child_at_index(0);
+
+                    this.connections.connect(zone, 'enter-event', rp);
+                    this.connections.connect(zone, 'leave-event', rp);
+                    this.connections.connect(zone, 'button-press-event', rp);
+                } catch (e) {
+                    this._log(`${e}, continuing`);
+                }
+            });
+
+            this.connections.connect(dash._box, 'actor-added', (_, actor) => {
+                try {
+                    let zone = actor.get_child_at_index(0);
+
+                    this.connections.connect(zone, 'enter-event', rp);
+                    this.connections.connect(zone, 'leave-event', rp);
+                    this.connections.connect(zone, 'button-press-event', rp);
+                } catch (e) {
+                    this._log(`${e}, continuing`);
+                }
+            });
+
+            let show_apps = dash._showAppsIcon;
+
+            this.connections.connect(show_apps, 'enter-event', rp);
+            this.connections.connect(show_apps, 'leave-event', rp);
+            this.connections.connect(show_apps, 'button-press-event', rp);
+
+            this.connections.connect(dash, 'leave-event', rp);
+        } else if (this.prefs.HACKS_LEVEL.get() == 2) {
+            this._log("dash hack level 2");
+
+            this.paint_signals.connect(dash, this.effect);
+        } else {
+            this.paint_signals.disconnect_all();
+        }
+
         // returns infos
-        return new DashInfos(this, dash, dash._background, background_parent, effect, this.prefs);
+        return new DashInfos(this, dash, background_parent, effect, this.prefs);
     }
 
     set_sigma(sigma) {
@@ -232,8 +246,8 @@ var DashBlur = class DashBlur {
 
     _log(str) {
         if (this.prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
-}
+};
 
 Signals.addSignalMethods(DashBlur.prototype);

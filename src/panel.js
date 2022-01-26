@@ -2,7 +2,9 @@
 
 const { St, Shell, Meta, Gio, GLib } = imports.gi;
 const Main = imports.ui.main;
-const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' })
+const backgroundSettings = new Gio.Settings({
+    schema: 'org.gnome.desktop.background'
+});
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
@@ -33,54 +35,66 @@ var PanelBlur = class PanelBlur {
             width: this.monitor.width,
             height: 0,
         });
-        this.background = prefs.PANEL_STATIC_BLUR.get() ? new Meta.BackgroundActor : new St.Widget({
-            style_class: 'topbar-blurred-background',
-            x: 0,
-            y: 0,
-            width: this.monitor.width,
-            height: Main.panel.height,
-        });
+        this.background = prefs.PANEL_STATIC_BLUR.get()
+            ? new Meta.BackgroundActor
+            : new St.Widget({
+                style_class: 'topbar-blurred-background',
+                x: 0,
+                y: 0,
+                width: this.monitor.width,
+                height: Main.panel.height,
+            });
         this.background_parent.add_child(this.background);
     }
 
     enable() {
         this._log("blurring top panel");
 
+        let panel_box = Main.layoutManager.panelBox;
+
+        // remove old background parents
+        panel_box.get_children().forEach(child => {
+            if (child.name == 'topbar-blurred-background-parent')
+                panel_box.remove_child(child);
+        });
+
         // insert background parent
-        let children = Main.layoutManager.panelBox.get_children();
-        for (let i = 0; i < children.length; ++i)
-            if (children[i].name == 'topbar-blurred-background-parent')
-                Main.layoutManager.panelBox.remove_child(children[i]);
-        Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
+        panel_box.insert_child_at_index(this.background_parent, 0);
 
         // hide corners, can't style them
         Main.panel._leftCorner.hide();
         Main.panel._rightCorner.hide();
-        this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide() });
-        this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide() });
+        this.connections.connect(Main.panel._leftCorner, 'show', () => {
+            Main.panel._leftCorner.hide();
+        });
+        this.connections.connect(Main.panel._rightCorner, 'show', () => {
+            Main.panel._rightCorner.hide();
+        });
 
         // remove background
         Main.panel.add_style_class_name('transparent-panel');
 
         // perform updates
         this.change_blur_type();
-        Utils.setTimeout(() => { this.change_blur_type() }, 500);
+        Utils.setTimeout(change_blur_type.bind(this), 500);
 
         // connect to panel size change
-        this.connections.connect(Main.panel, 'notify::height', () => {
-            this.update_size(this.prefs.PANEL_STATIC_BLUR.get());
+        this.connections.connect(Main.panel, 'notify::height', _ => {
+            this.update_size();
         });
 
         // connect to every background change (even without changing image)
-        this.connections.connect(Main.layoutManager._backgroundGroup, 'notify', () => {
-            this.update_wallpaper(this.prefs.PANEL_STATIC_BLUR.get());
-        })
+        this.connections.connect(Main.layoutManager._backgroundGroup, 'notify',
+            _ => {
+                this.update_wallpaper();
+            }
+        );
 
         // connect to monitors change
-        this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
+        this.connections.connect(Main.layoutManager, 'monitors-changed', _ => {
             if (Main.screenShield && !Main.screenShield.locked) {
-                this.update_wallpaper(this.prefs.PANEL_STATIC_BLUR.get());
-                this.update_size(this.prefs.PANEL_STATIC_BLUR.get());
+                this.update_wallpaper();
+                this.update_size();
             }
         });
 
@@ -93,13 +107,15 @@ var PanelBlur = class PanelBlur {
         // reset widgets to right state
         this.background_parent.remove_child(this.background);
         this.background.remove_effect(this.effect);
-        this.background = is_static ? new Meta.BackgroundActor : new St.Widget({
-            style_class: 'topbar-blurred-background',
-            x: 0,
-            y: 0,
-            width: this.monitor.width,
-            height: Main.panel.height,
-        });
+        this.background = is_static
+            ? new Meta.BackgroundActor
+            : new St.Widget({
+                style_class: 'topbar-blurred-background',
+                x: 0,
+                y: 0,
+                width: this.monitor.width,
+                height: Main.panel.height,
+            });
         this.effect.set_mode(is_static ? 0 : 1);
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
@@ -108,18 +124,23 @@ var PanelBlur = class PanelBlur {
         this.update_wallpaper(is_static);
         this.update_size(is_static);
 
-        // HACK
-        if (!is_static) {
-            // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
-            // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
-            // ! but it prevents the shadows of the panel buttons to cause artefacts on the panel itself
-            // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
+        // HACK
+        //
+        //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
+        //
+        // This does not entirely fix this bug (shadows caused by windows
+        // still cause artefacts), but it prevents the shadows of the panel
+        // buttons to cause artefacts on the panel itself
+        //
+        // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
+
+        if (!is_static) {
             if (this.prefs.HACKS_LEVEL.get() == 1) {
                 this._log("panel hack level 1");
                 this.paint_signals.disconnect_all();
 
-                let rp = () => { this.effect.queue_repaint() };
+                let rp = () => { this.effect.queue_repaint(); };
 
                 this.connections.connect(Main.panel, 'enter-event', rp);
                 this.connections.connect(Main.panel, 'leave-event', rp);
@@ -141,29 +162,32 @@ var PanelBlur = class PanelBlur {
             } else {
                 this.paint_signals.disconnect_all();
             }
-
-            // ! END OF DIRTY PART
         }
     }
 
-    update_wallpaper(is_static) {
+    update_wallpaper() {
         // if static blur, get right wallpaper and update blur with it
-        if (is_static) {
-            // the try/catch behaviour is used to prevent bugs like #136 and #137
+        if (this.prefs.PANEL_STATIC_BLUR.get()) {
+            // the try/catch behaviour prevents bugs like #136 and #137
             try {
-                let bg = Main.layoutManager._backgroundGroup.get_child_at_index(Main.layoutManager.monitors.length - this.monitor.index - 1);
+                let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
+                    Main.layoutManager.monitors.length - this.monitor.index - 1
+                );
                 this.background.set_content(bg.get_content());
-            } catch (error) { this._log(`could not blur panel: ${error}`) }
+            } catch (error) { this._log(`could not blur panel: ${error}`); }
         }
     }
 
-    update_size(is_static) {
+    update_size() {
         this.background_parent.width = Main.panel.width;
         this.background.width = Main.panel.width;
         this.background.height = Main.panel.height;
-        let panel_box = Main.layoutManager.panelBox;
-        let clip_box = panel_box.get_parent();
-        if (is_static) {
+
+        // if static blur, need to clip the background
+        if (this.prefs.PANEL_STATIC_BLUR.get()) {
+            let panel_box = Main.layoutManager.panelBox;
+            let clip_box = panel_box.get_parent();
+
             this.background.set_clip(
                 clip_box.x,
                 clip_box.y,
@@ -175,23 +199,29 @@ var PanelBlur = class PanelBlur {
         }
     }
 
-    // returns either the primary monitor, or a dummy one if none is connected
+    /// Returns either the primary monitor, or a dummy one if none is connected
     get monitor() {
         if (Main.layoutManager.primaryMonitor != null) {
-            return Main.layoutManager.primaryMonitor
+            return Main.layoutManager.primaryMonitor;
         } else {
-            return { x: 0, y: 0, width: 0, index: 0 }
+            return { x: 0, y: 0, width: 0, index: 0 };
         }
     }
 
-    // connect when overview if opened/closed to hide/show the blur in consequence
-    // if HIDETOPBAR set, we need just to hide the blur when showing appgrid (so no shadow is cropped)
+    /// Connect when overview if opened/closed to hide/show the blur accordingly
+    ///
+    /// If HIDETOPBAR is set, we need just to hide the blur when showing appgrid
+    /// (so no shadow is cropped)
     connect_to_overview() {
-        this.connections.disconnect_all_for(Main.overview._overview._controls._appDisplay);
+        let appDisplay = Main.overview._overview._controls._appDisplay;
+
+        this.connections.disconnect_all_for(appDisplay);
         this.connections.disconnect_all_for(Main.overview);
 
-        // may be called when panel blur is disabled, if hidetopbar blur is toggled on/off
-        // if this is the case, do nothing as only the panel blur interfers with hidetopbar
+        // may be called when panel blur is disabled, if hidetopbar blur is
+        // toggled on/off
+        // if this is the case, do nothing as only the panel blur interfers with
+        // hidetopbar
         if (this.prefs.PANEL_BLUR.get()) {
 
             if (!this.prefs.HIDETOPBAR_BLUR.get()) {
@@ -202,10 +232,10 @@ var PanelBlur = class PanelBlur {
                     this.show();
                 });
             } else {
-                this.connections.connect(Main.overview._overview._controls._appDisplay, 'show', () => {
+                this.connections.connect(appDisplay, 'show', () => {
                     this.hide();
                 });
-                this.connections.connect(Main.overview._overview._controls._appDisplay, 'hide', () => {
+                this.connections.connect(appDisplay, 'hide', () => {
                     this.show();
                 });
                 this.connections.connect(Main.overview, 'hidden', () => {
@@ -247,6 +277,6 @@ var PanelBlur = class PanelBlur {
 
     _log(str) {
         if (this.prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
-}
+};

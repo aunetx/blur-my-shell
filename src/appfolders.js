@@ -36,10 +36,17 @@ let _zoomAndFadeIn = function () {
     let effect = this.get_effect("appfolder-blur");
 
     effect.sigma = 0;
-    Utils.ease_property(effect, 'sigma', 0, sigma, FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD);
+    Utils.ease_property(
+        effect, 'sigma',
+        0, sigma,
+        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    );
 
     effect.brightness = 1.0;
-    Utils.ease_property(effect, 'brightness', 1.0, brightness, FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD);
+    Utils.ease_property(effect, 'brightness',
+        1.0, brightness,
+        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    );
 
     this.child.ease({
         translation_x: 0,
@@ -57,7 +64,7 @@ let _zoomAndFadeIn = function () {
         this._sourceMappedId = this._source.connect(
             'notify::mapped', this._zoomAndFadeOut.bind(this));
     }
-}
+};
 
 let _zoomAndFadeOut = function () {
     if (!this._isOpen)
@@ -77,9 +84,15 @@ let _zoomAndFadeOut = function () {
 
     let effect = this.get_effect("appfolder-blur");
 
-    Utils.ease_property(effect, 'sigma', effect.sigma, 0, FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD);
+    Utils.ease_property(effect, 'sigma',
+        effect.sigma, 0,
+        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    );
 
-    Utils.ease_property(effect, 'brightness', effect.brightness, 1.0, FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD);
+    Utils.ease_property(effect, 'brightness',
+        effect.brightness, 1.0,
+        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    );
 
     this.child.ease({
         translation_x: sourceX - dialogX,
@@ -105,7 +118,7 @@ let _zoomAndFadeOut = function () {
     });
 
     this._needsZoomAndFade = false;
-}
+};
 
 
 var AppFoldersBlur = class AppFoldersBlur {
@@ -118,16 +131,20 @@ var AppFoldersBlur = class AppFoldersBlur {
     enable() {
         this._log("blurring appfolders");
 
-        if (Main.overview._overview.controls._appDisplay._folderIcons.length > 0) {
+        let appDisplay = Main.overview._overview.controls._appDisplay;
+
+        if (appDisplay._folderIcons.length > 0) {
             this.blur_appfolders();
         }
-        this.connections.connect(Main.overview._overview.controls._appDisplay, 'view-loaded', () => {
+        this.connections.connect(appDisplay, 'view-loaded', () => {
             this.blur_appfolders();
-        })
+        });
     }
 
     blur_appfolders() {
-        Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+        let appDisplay = Main.overview._overview.controls._appDisplay;
+
+        appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
 
             if (original_zoomAndFadeIn == null) {
@@ -146,17 +163,22 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(effect);
 
+
             // HACK
-            // ! DIRTY PART: hack because `Shell.BlurEffect` does not repaint when shadows are under it
-            // ! this does not entirely fix this bug (shadows caused by windows still cause artefacts)
-            // ! but it prevents the shadows of the panel buttons to cause artefacts on the panel itself
-            // ! note: issue opened at https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
+            //
+            //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
+            //
+            // This does not entirely fix this bug (shadows caused by windows
+            // still cause artefacts), but it prevents the shadows of the panel
+            // buttons to cause artefacts on the panel itself
+            //
+            // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
             if (this.prefs.HACKS_LEVEL.get() == 1) {
                 this._log("appfolders hack level 1");
                 this.paint_signals.disconnect_all();
 
-                Utils.setTimeout(() => {
+                Utils.setTimeout(_ => {
                     this.paint_signals.connect(Main.overview._overview, effect);
                     this.paint_signals.connect(icon._dialog, effect);
                 }, 100);
@@ -164,7 +186,7 @@ var AppFoldersBlur = class AppFoldersBlur {
                 this._log("appfolders hack level 2");
                 this.paint_signals.disconnect_all();
 
-                Utils.setTimeout(() => {
+                Utils.setTimeout(_ => {
                     this.paint_signals.connect(Main.overview._overview, effect);
                     this.paint_signals.connect(icon._dialog, effect);
                 }, 100);
@@ -172,14 +194,17 @@ var AppFoldersBlur = class AppFoldersBlur {
                 this.paint_signals.disconnect_all();
             }
 
-            // ! END OF DIRTY PART
 
-            icon._dialog._viewBox.set_style_class_name('app-folder-dialog transparent-app-folder-dialogs-' + 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get());
+            let opacity = 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get();
+
+            icon._dialog._viewBox.set_style_class_name(
+                `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
+            );
 
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
         });
-    }
+    };
 
     set_sigma(s) {
         sigma = s;
@@ -196,22 +221,30 @@ var AppFoldersBlur = class AppFoldersBlur {
     disable() {
         this._log("removing blur from appfolders");
 
+        let appDisplay = Main.overview._overview.controls._appDisplay;
+
         if (original_zoomAndFadeIn != null) {
-            Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+            appDisplay._folderIcons.forEach(icon => {
                 if (icon._dialog)
                     icon._dialog._zoomAndFadeIn = original_zoomAndFadeIn;
             });
         }
+
         if (original_zoomAndFadeOut != null) {
-            Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+            appDisplay._folderIcons.forEach(icon => {
                 if (icon._dialog)
                     icon._dialog._zoomAndFadeOut = original_zoomAndFadeOut;
             });
         }
-        Main.overview._overview.controls._appDisplay._folderIcons.forEach(icon => {
+
+        appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
-                icon._dialog.remove_effect_by_name("appfolder-blur")
-                icon._dialog._viewBox.remove_style_class_name('transparent-app-folder-dialogs-' + 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get());
+                let opacity = 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get();
+
+                icon._dialog.remove_effect_by_name("appfolder-blur");
+                icon._dialog._viewBox.remove_style_class_name(
+                    `transparent-app-folder-dialogs-${opacity}`
+                );
             }
         });
 
@@ -220,6 +253,6 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     _log(str) {
         if (this.prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
-}
+};
