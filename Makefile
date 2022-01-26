@@ -1,36 +1,30 @@
-SHARED_VM = $(HOME)/Projets/.shared/
+NAME = blur-my-shell
+UUID = $(NAME)@aunetx
 
-.PHONY: build_pkg build vm_test install remove clean
+.PHONY: build pkg install remove clean
 
 
 build: clean
-	glib-compile-schemas src/schemas
 	mkdir -p build/
+	glib-compile-schemas --targetdir=build schemas
+	glib-compile-resources --sourcedir="resources" \
+						   --generate resources/$(NAME).gresource.xml \
+						   --target=build/$(NAME).gresource
 	cp -r src/* build/
-	rm -f build/prefs.ui~
+	cp metadata.json build/metadata.json
 
 
-build_pkg: build
+pkg: build
 	mkdir -p pkg/
-	cd build/ && zip -r ../pkg/blur-my-shell@aunetx.zip .
+	cd build/ && zip -r ../pkg/$(UUID).zip .
 
 
-vm_test: build
-	rm -rf $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx
-	mkdir -p $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx
-	cp -r build/* $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx/
-
-vm_pkg: build_pkg
-	cp pkg/blur-my-shell@aunetx.zip $(SHARED_VM)/blur_my_shell/blur-my-shell@aunetx.zip
-
-install: build
-	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
-	mkdir -p $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
-	cp -r build/* $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/
+install: build remove
+	mv build $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
 
 
 remove:
-	rm -rf $(HOME)/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
+	rm -rf $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
 
 
 clean:
