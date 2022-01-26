@@ -17,40 +17,50 @@ const AppFolders = Me.imports.appfolders;
 const WindowList = Me.imports.window_list;
 const Applications = Me.imports.applications;
 
-// This lists the components that need to be connected in order to either use general
-// sigma/brightness or their own.
+// This lists the components that need to be connected in order to either use
+// general sigma/brightness or their own.
 const INDEPENDENT_COMPONENTS = [
-    "overview", "appfolder", "panel", "dash_to_dock", "applications", "lockscreen", "window_list"
-]
+    "overview", "appfolder", "panel", "dash_to_dock", "applications",
+    "lockscreen", "window_list"
+];
 
-
+/// The main extension class, created when the GNOME Shell is loaded.
 class Extension {
     constructor() { }
 
     /// Enables the extension
     enable() {
+        // create a Prefs instance, to manage extension's preferences
+        // it needs to be loaded before logging, as it checks for DEBUG
+
         this._prefs = new Settings.Prefs;
 
         this._log("enabling extension...");
-        this._connections = [];
 
         // create an instance of each component
 
-        this._panel_blur = new Panel.PanelBlur(new Connections.Connections, this._prefs);
-        this._dash_blur = new Dash.DashBlur(new Connections.Connections, this._prefs);
-        this._dash_to_dock_blur = new DashToDock.DashBlur(new Connections.Connections, this._prefs);
-        this._overview_blur = new Overview.OverviewBlur(new Connections.Connections, this._prefs);
-        this._lockscreen_blur = new Lockscreen.LockscreenBlur(new Connections.Connections, this._prefs);
-        this._appfolder_blur = new AppFolders.AppFoldersBlur(new Connections.Connections, this._prefs);
-        this._window_list_blur = new WindowList.WindowListBlur(new Connections.Connections, this._prefs);
-        this._applications_blur = new Applications.ApplicationsBlur(new Connections.Connections, this._prefs);
+        this._connections = [];
 
-        this._connections.push(this._panel_blur.connections, this._dash_blur.connections,
-            this._dash_to_dock_blur.connections, this._overview_blur.connections,
-            this._lockscreen_blur.connections, this._appfolder_blur.connections,
-            this._window_list_blur.connections, this._applications_blur.connections);
+        let init = _ => {
+            // create a Connections instance, to manage signals
+            let connection = new Connections.Connections;
 
-        // connect them to preferences change
+            // store it to keeps track of them globally
+            this._connections.push(connection);
+
+            return connection, this._prefs;
+        };
+
+        this._panel_blur = new Panel.PanelBlur(...init());
+        this._dash_blur = new Dash.DashBlur(...init());
+        this._dash_to_dock_blur = new DashToDock.DashBlur(...init());
+        this._overview_blur = new Overview.OverviewBlur(...init());
+        this._lockscreen_blur = new Lockscreen.LockscreenBlur(...init());
+        this._appfolder_blur = new AppFolders.AppFoldersBlur(...init());
+        this._window_list_blur = new WindowList.WindowListBlur(...init());
+        this._applications_blur = new Applications.ApplicationsBlur(...init());
+
+        // connect each component to preferences change
 
         this._connect_to_settings();
 
@@ -84,7 +94,7 @@ class Extension {
         this._update_sigma();
         this._update_brightness();
 
-        // add the extension to GJS's global, to make it more accessible to other extensions
+        // add the extension to global to make it accessible to other extensions
 
         global.blur_my_shell = this;
 
@@ -125,7 +135,7 @@ class Extension {
 
         this._connections.forEach((connections) => {
             connections.disconnect_all();
-        })
+        });
         this._connections = [];
 
         // remove the extension from GJS's global
@@ -153,7 +163,7 @@ class Extension {
 
         INDEPENDENT_COMPONENTS.forEach(component => {
             this._connect_to_individual_settings(component);
-        })
+        });
 
         // other component's preferences changed
 
@@ -212,7 +222,7 @@ class Extension {
         // ---------- DASH ----------
 
         // toggled on/off
-        // this enables both dash blur (only changes opacity) and dash-to-dock blur
+        // this enables both dash blur and dash-to-dock blur
         this._prefs.DASH_BLUR.changed(() => {
             if (this._prefs.DASH_BLUR.get()) {
                 this._dash_blur.enable();
@@ -245,7 +255,7 @@ class Extension {
             } else {
                 this._applications_blur.disable();
             }
-        })
+        });
 
 
         // ---------- LOCKSCREEN ----------
@@ -276,20 +286,22 @@ class Extension {
 
         // toggled on/off
         this._prefs.HIDETOPBAR_BLUR.changed(() => {
-            // no need to verify if it is enabled or not, the function does it anyway
+            // no need to verify if it is enabled or not, it is done anyway
             this._panel_blur.connect_to_overview();
         });
     }
 
-    /// Select the component by its name and connect it to its preferences changes for general values,
-    /// sigma and brightness.
-    /// Doing this in such a way is less accessible but prevents a lot of boilerplate and headaches.
+    /// Select the component by its name and connect it to its preferences
+    /// changes for general values, sigma and brightness.
+    ///
+    /// Doing this in such a way is less accessible but prevents a lot of
+    /// boilerplate and headaches.
     _connect_to_individual_settings(name) {
         const accessible_name = name.toUpperCase();
 
         // get component and preferences needed
 
-        let prefs_general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
+        let general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
             component_sigma = this._prefs[accessible_name + '_SIGMA'],
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'],
@@ -298,8 +310,8 @@ class Extension {
 
         // general values switch is toggled
 
-        prefs_general_values.changed(() => {
-            if (prefs_general_values.get()) {
+        general_values.changed(() => {
+            if (general_values.get()) {
                 component.set_sigma(general_sigma.get());
                 component.set_brightness(general_brightness.get());
             }
@@ -312,7 +324,7 @@ class Extension {
         // sigma is changed
 
         component_sigma.changed(() => {
-            if (prefs_general_values.get())
+            if (general_values.get())
                 component.set_sigma(general_sigma.get());
             else
                 component.set_sigma(component_sigma.get());
@@ -321,7 +333,7 @@ class Extension {
         // brightness is changed
 
         component_brightness.changed(() => {
-            if (prefs_general_values.get())
+            if (general_values.get())
                 component.set_brightness(general_brightness.get());
             else
                 component.set_brightness(component_brightness.get());
@@ -352,13 +364,13 @@ class Extension {
 
         // get component and preferences needed
 
-        let prefs_general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
+        let general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
             component_sigma = this._prefs[accessible_name + '_SIGMA'],
             component = this['_' + name + '_blur'];
 
         // update sigma accordingly
 
-        if (prefs_general_values.get())
+        if (general_values.get())
             component.set_sigma(general_sigma.get());
         else
             component.set_sigma(component_sigma.get());
@@ -370,13 +382,13 @@ class Extension {
 
         // get component and preferences needed
 
-        let prefs_general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
+        let general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'];
 
         // update brightness accordingly
 
-        if (prefs_general_values.get())
+        if (general_values.get())
             component.set_brightness(general_brightness.get());
         else
             component.set_brightness(component_brightness.get());
@@ -384,7 +396,7 @@ class Extension {
 
     _log(str) {
         if (this._prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
 }
 

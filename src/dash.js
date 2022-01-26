@@ -15,12 +15,14 @@ var DashBlur = class DashBlur {
 
     enable() {
         this._log("blurring dash");
-        this.update()
+        this.update();
     }
 
     update() {
         if (Main.overview.dash.constructor.name == "Dash") {
-            Main.overview.dash.get_child_at_index(0).style = "background-color:rgba(0,0,0," + this.prefs.DASH_OPACITY.get() + ")";
+            Main.overview.dash.get_child_at_index(0).set_style(
+                `background-color:rgba(0,0,0,${this.prefs.DASH_OPACITY.get()})`
+            );
         }
     }
 
@@ -32,7 +34,7 @@ var DashBlur = class DashBlur {
                 try {
                     Main.overview.dash.get_child_at_index(0).style = null;
                 } catch (e) {
-                    this._log(e)
+                    this._log(e);
                 }
             }
         }
@@ -42,6 +44,6 @@ var DashBlur = class DashBlur {
 
     _log(str) {
         if (this.prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
-}
+};
