@@ -6,7 +6,8 @@ UUID = $(NAME)@aunetx
 
 build: clean
 	mkdir -p build/
-	glib-compile-schemas --targetdir=build schemas
+	glib-compile-schemas schemas
+	cp -r schemas build/schemas
 	glib-compile-resources --sourcedir="resources" \
 						   --generate resources/$(NAME).gresource.xml \
 						   --target=build/$(NAME).gresource
