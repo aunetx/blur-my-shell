@@ -41,13 +41,13 @@
         <!-- OVERVIEW SIGMA -->
         <key type="i" name="overview-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for overview</summary>
+            <summary>Sigma (gaussian blur radius) to use for overview</summary>
             <description />
         </key>
         <!-- OVERVIEW BRIGHTNESS -->
         <key type="d" name="overview-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for overview</summary>
+            <summary>Brightness to use for overview</summary>
             <description />
         </key>
 
@@ -66,13 +66,13 @@
         <!-- APPFOLDER SIGMA -->
         <key type="i" name="appfolder-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for appfolder</summary>
+            <summary>Sigma (gaussian blur radius) to use for appfolder</summary>
             <description />
         </key>
         <!-- APPFOLDER BRIGHTNESS -->
         <key type="d" name="appfolder-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for appfolder</summary>
+            <summary>Brightness to use for appfolder</summary>
             <description />
         </key>
         <!-- APPFOLDER ICON OPACITY -->
@@ -106,13 +106,13 @@
         <!-- PANEL SIGMA -->
         <key type="i" name="panel-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for panel</summary>
+            <summary>Sigma (gaussian blur radius) to use for panel</summary>
             <description />
         </key>
         <!-- PANEL BRIGHTNESS -->
         <key type="d" name="panel-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for panel</summary>
+            <summary>Brightness to use for panel</summary>
             <description />
         </key>
         <!-- PANEL STATIC BLUR -->
@@ -140,13 +140,13 @@
         <!-- DASH-TO-DOCK SIGMA -->
         <key type="i" name="dash-to-dock-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for dash-to-dock</summary>
+            <summary>Sigma (gaussian blur radius) to use for dash-to-dock</summary>
             <description />
         </key>
         <!-- DASH-TO-DOCK BRIGHTNESS -->
         <key type="d" name="dash-to-dock-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for dash-to-dock</summary>
+            <summary>Brightness to use for dash-to-dock</summary>
             <description />
         </key>
         <!-- DASH-TO-DOCK STATIC BLUR -->
@@ -180,13 +180,19 @@
         <!-- APPLICATIONS SIGMA -->
         <key type="i" name="applications-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for applications</summary>
+            <summary>Default sigma (gaussian blur radius) to use for applications</summary>
             <description />
         </key>
-        <!-- DASH BRIGHTNESS -->
+        <!-- APPLICATIONS BRIGHTNESS -->
         <key type="d" name="applications-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for applications</summary>
+            <summary>Default brightness to use for applications</summary>
+            <description />
+        </key>
+        <!-- APPLICATIONS BRIGHTNESS -->
+        <key type="s" name="applications-whitelist">
+            <default>""</default>
+            <summary>List of applications to blur, separated by a comma</summary>
             <description />
         </key>
 
@@ -208,13 +214,13 @@
         <!-- LOCKSCREEN SIGMA -->
         <key type="i" name="lockscreen-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for lockscreen</summary>
+            <summary>Sigma (gaussian blur radius) to use for lockscreen</summary>
             <description />
         </key>
         <!-- LOCKSCREEN BRIGHTNESS -->
         <key type="d" name="lockscreen-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for lockscreen</summary>
+            <summary>Brightness to use for lockscreen</summary>
             <description />
         </key>
 
@@ -233,13 +239,13 @@
         <!-- WINDOW LIST SIGMA -->
         <key type="i" name="window-list-sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use for window-list</summary>
+            <summary>Sigma (gaussian blur radius) to use for window-list</summary>
             <description />
         </key>
         <!-- WINDOW LIST BRIGHTNESS -->
         <key type="d" name="window-list-brightness">
             <default>0.6</default>
-            <summary>Global brightness to use for window-list</summary>
+            <summary>Brightness to use for window-list</summary>
             <description />
         </key>
 

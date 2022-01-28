@@ -8,7 +8,8 @@ const SCHEMA_PATH = 'org.gnome.shell.extensions.blur-my-shell';
 const Type = {
     B: 'Boolean',
     I: 'Integer',
-    D: 'Double'
+    D: 'Double',
+    S: 'String'
 };
 
 // Each key name can only be made of lowercase characters and "-"
@@ -46,6 +47,7 @@ const Keys = [
     { type: Type.B, name: "applications-general-values" },
     { type: Type.I, name: "applications-sigma" },
     { type: Type.D, name: "applications-brightness" },
+    { type: Type.S, name: "applications-whitelist" },
 
     { type: Type.B, name: "lockscreen-blur" },
     { type: Type.B, name: "lockscreen-general-values" },
@@ -142,6 +144,26 @@ var Prefs = class Prefs {
                         },
                         set: function (v) {
                             settings.set_double(this.key, v);
+                        },
+                        changed: function (cb) {
+                            return settings.connect('changed::' + this.key, cb);
+                        },
+                        disconnect: function () {
+                            return settings.disconnect.apply(
+                                settings, arguments
+                            );
+                        },
+                    };
+                    break;
+
+                case Type.S:
+                    this[accessible_name] = {
+                        key: property_name,
+                        get: function () {
+                            return settings.get_string(this.key);
+                        },
+                        set: function (v) {
+                            settings.set_string(this.key, v);
                         },
                         changed: function (cb) {
                             return settings.connect('changed::' + this.key, cb);
