@@ -128,10 +128,7 @@ var PanelBlur = class PanelBlur {
                 this._log("panel hack level 2");
                 this.paint_signals.disconnect_all();
 
-                this.paint_signals.connect(Main.panel, this.effect);
-                Main.panel.get_children().forEach(child => {
-                    this.paint_signals.connect(child, this.effect);
-                });
+                this.paint_signals.connect(this.background, this.effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
