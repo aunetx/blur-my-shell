@@ -151,8 +151,8 @@ var PanelBlur = class PanelBlur {
     update_size(is_static) {
         this.background_parent.width = Main.panel.width;
         this.background.width = Main.panel.width;
-        this.background.height = Main.panel.height;
         let panel_box = Main.layoutManager.panelBox;
+        this.background.height = panel_box.height;
         let clip_box = panel_box.get_parent();
         if (is_static) {
             this.background.set_clip(
