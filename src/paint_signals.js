@@ -15,11 +15,18 @@ var PaintSignals = class PaintSignals {
             actor: actor,
             paint_effect: paint_effect
         };
+        let queue_repaint_has_been_called = false;
 
         actor.add_effect(paint_effect);
         this.connections.connect(paint_effect, 'update-blur', () => {
             try {
-                blur_effect.queue_repaint();
+                // check if blur_effect.queue_repaint() has been called
+                if (!queue_repaint_has_been_called) {
+                    queue_repaint_has_been_called = true;
+                    blur_effect.queue_repaint();
+                }
+                else
+                    queue_repaint_has_been_called = false;
             } catch (e) { }
         });
 
