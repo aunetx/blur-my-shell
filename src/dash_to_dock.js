@@ -180,7 +180,7 @@ var DashBlur = class DashBlur {
             } else if (this.prefs.HACKS_LEVEL.get() == 2) {
                 this._log("dash hack level 2");
 
-                this.paint_signals.connect(dash, this.effect);
+                this.paint_signals.connect(background, effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
