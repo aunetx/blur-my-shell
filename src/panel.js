@@ -128,10 +128,7 @@ var PanelBlur = class PanelBlur {
                 this._log("panel hack level 2");
                 this.paint_signals.disconnect_all();
 
-                this.paint_signals.connect(Main.panel, this.effect);
-                Main.panel.get_children().forEach(child => {
-                    this.paint_signals.connect(child, this.effect);
-                });
+                this.paint_signals.connect(this.background, this.effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
@@ -154,8 +151,8 @@ var PanelBlur = class PanelBlur {
     update_size(is_static) {
         this.background_parent.width = Main.panel.width;
         this.background.width = Main.panel.width;
-        this.background.height = Main.panel.height;
         let panel_box = Main.layoutManager.panelBox;
+        this.background.height = panel_box.height;
         let clip_box = panel_box.get_parent();
         if (is_static) {
             this.background.set_clip(
