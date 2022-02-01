@@ -212,9 +212,13 @@ var ApplicationsBlur = class ApplicationsBlur {
         // if argument is valid, parse it
         if (arg != null) {
             // verify if there is only one value: in this case, this is sigma
-            let maybe_sigma = parseInt(arg);
+            let maybe_sigma = parseInt(arg[1]);
 
-            if (!isNaN(maybe_sigma)) {
+            if (
+                !isNaN(maybe_sigma) &&
+                maybe_sigma >= 0 &&
+                maybe_sigma <= 999
+            ) {
                 sigma = maybe_sigma;
             } else {
                 // perform pattern matching
