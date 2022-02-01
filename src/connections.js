@@ -8,6 +8,9 @@ var Connections = class Connections {
         this.buffer = [];
     }
 
+    /// Process the given actor and id, so that the signal is disconnected when
+    /// the actor is destroyed, and that the connected can be managed through
+    /// other Connections methods
     process_connection(actor, id) {
         let infos = {
             actor: actor,
@@ -35,17 +38,26 @@ var Connections = class Connections {
         this.buffer.push(infos);
     }
 
+    /// Add a connection
+    ///
+    /// Takes as argument:
+    /// - an actor, which fires the signal
+    /// - a signal (string), which is watched for
+    /// - a callback, which is called when the signal is fired
     connect(actor, signal, handler) {
         let id = actor.connect(signal, handler);
+
         this.process_connection(actor, id);
     }
 
+    /// Add a latent connection if possible, same as connect otherwise
     connect_after(actor, signal, handler) {
         let id = actor.connect_after(signal, handler);
 
         this.process_connection(actor, id);
     }
 
+    /// Disconnect every connection found for an actor
     disconnect_all_for(actor) {
         let actor_connections = [];
 
@@ -69,6 +81,7 @@ var Connections = class Connections {
         });
     }
 
+    /// Disconnect every connection for all actors
     disconnect_all() {
         this.buffer.forEach((connection) => {
             try {

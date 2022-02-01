@@ -47,13 +47,13 @@ var OverviewBlur = class OverviewBlur {
         // add css class names to change folders and workspace-switch background
         Main.uiGroup.add_style_class_name("blurred-overview");
 
-        // update background on extension activation
-        // the try/catch behaviour is used to prevent bugs like #136 and #137
-        try {
-            this.update_backgrounds();
-        } catch (error) { this._log(`could not blur overview: ${error}`); }
+        // update backgrounds when the component is enabled
+        this.update_backgrounds();
 
-        // store original methods for restoring them on disable()
+        // part for the workspace animation switch
+
+        // store original workspace switching methods for restoring them on
+        // disable()
         this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
         this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
 
@@ -126,6 +126,11 @@ var OverviewBlur = class OverviewBlur {
             Main.layoutManager.monitors.length - monitor.index - 1
         );
 
+        if (!background) {
+            this._log("could not get background for overview");
+            return bg_actor;
+        }
+
         bg_actor.set_content(background.get_content());
 
         let effect = new Shell.BlurEffect({
@@ -172,8 +177,10 @@ var OverviewBlur = class OverviewBlur {
         this.connections.disconnect_all();
 
         // restore original behavior
-        wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
-        wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
+        if (this._original_PrepareSwitch && this._original_FinishSwitch) {
+            wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
+            wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
+        }
     }
 
     _log(str) {

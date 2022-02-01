@@ -15,6 +15,7 @@ var DashBlur = class DashBlur {
 
     enable() {
         this._log("blurring dash");
+
         this.update();
     }
 

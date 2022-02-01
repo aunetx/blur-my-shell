@@ -92,7 +92,8 @@ var WindowListBlur = class WindowListBlur {
                     this.connections.connect(
                         child,
                         'button-press-event',
-                        _ => effect.queue_repaint());
+                        effect.queue_repaint
+                    );
                 });
             } else if (this.prefs.HACKS_LEVEL.get() == 2) {
                 this._log("window list hack level 2");

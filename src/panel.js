@@ -62,34 +62,33 @@ var PanelBlur = class PanelBlur {
         panel_box.insert_child_at_index(this.background_parent, 0);
 
         // hide corners, can't style them
-        Main.panel._leftCorner.hide();
-        Main.panel._rightCorner.hide();
-        this.connections.connect(Main.panel._leftCorner, 'show', () => {
-            Main.panel._leftCorner.hide();
-        });
-        this.connections.connect(Main.panel._rightCorner, 'show', () => {
-            Main.panel._rightCorner.hide();
+        [Main.panel._leftCorner, Main.panel._rightCorner].forEach(corner => {
+            corner.hide();
+            this.connections.connect(
+                corner,
+                'show',
+                corner.hide
+            );
         });
 
-        // remove background
+        // remove panel background colour
         Main.panel.add_style_class_name('transparent-panel');
 
         // perform updates
         this.change_blur_type();
-        Utils.setTimeout(this.change_blur_type.bind(this), 500);
 
         // connect to panel size change
         this.connections.connect(
             Main.panel,
             'notify::height',
-            _ => this.update_size()
+            this.update_size.bind(this)
         );
 
         // connect to every background change (even without changing image)
         this.connections.connect(
             Main.layoutManager._backgroundGroup,
             'notify',
-            _ => this.update_wallpaper()
+            this.update_wallpaper.bind(this)
         );
 
         // connect to monitors change
@@ -174,13 +173,13 @@ var PanelBlur = class PanelBlur {
     update_wallpaper() {
         // if static blur, get right wallpaper and update blur with it
         if (this.prefs.PANEL_STATIC_BLUR.get()) {
-            // the try/catch behaviour prevents bugs like #136 and #137
-            try {
-                let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
-                    Main.layoutManager.monitors.length - this.monitor.index - 1
-                );
+            let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
+                Main.layoutManager.monitors.length - this.monitor.index - 1
+            );
+            if (bg)
                 this.background.set_content(bg.get_content());
-            } catch (error) { this._log(`could not blur panel: ${error}`); }
+            else
+                this._log("could not get background for panel");
         }
     }
 
@@ -232,22 +231,20 @@ var PanelBlur = class PanelBlur {
 
             if (!this.prefs.HIDETOPBAR_BLUR.get()) {
                 this.connections.connect(
-                    Main.overview,
-                    'showing',
-                    _ => this.hide()
+                    Main.overview, 'showing', this.hide.bind(this)
                 );
                 this.connections.connect(
-                    Main.overview,
-                    'hidden',
-                    _ => this.show()
+                    Main.overview, 'hidden', this.show.bind(this)
                 );
             } else {
-                this.connections.connect(appDisplay, 'show', _ => this.hide());
-                this.connections.connect(appDisplay, 'hide', _ => this.show());
                 this.connections.connect(
-                    Main.overview,
-                    'hidden',
-                    _ => this.show()
+                    appDisplay, 'show', this.hide.bind(this)
+                );
+                this.connections.connect(
+                    appDisplay, 'hide', this.show.bind(this)
+                );
+                this.connections.connect(
+                    Main.overview, 'hidden', this.show.bind(this)
                 );
             }
 
@@ -279,6 +276,7 @@ var PanelBlur = class PanelBlur {
     show() {
         this.background_parent.show();
     }
+
     hide() {
         this.background_parent.hide();
     }
