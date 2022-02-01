@@ -136,9 +136,10 @@ var AppFoldersBlur = class AppFoldersBlur {
         if (appDisplay._folderIcons.length > 0) {
             this.blur_appfolders();
         }
-        this.connections.connect(appDisplay, 'view-loaded', () => {
-            this.blur_appfolders();
-        });
+
+        this.connections.connect(
+            appDisplay, 'view-loaded', this.blur_appfolders.bind(this)
+        );
     }
 
     blur_appfolders() {
@@ -162,6 +163,18 @@ var AppFoldersBlur = class AppFoldersBlur {
             });
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(effect);
+
+
+            // change appfolder dialog opacity
+
+            let opacity = 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get();
+
+            icon._dialog._viewBox.set_style_class_name(
+                `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
+            );
+
+            icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
+            icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
 
 
             // HACK
@@ -193,16 +206,6 @@ var AppFoldersBlur = class AppFoldersBlur {
             } else {
                 this.paint_signals.disconnect_all();
             }
-
-
-            let opacity = 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get();
-
-            icon._dialog._viewBox.set_style_class_name(
-                `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
-            );
-
-            icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
-            icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
         });
     };
 

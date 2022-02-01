@@ -44,9 +44,15 @@ class Extension {
 
         this._log("enabling extension...");
 
-        // create an instance of each component
+        // create main extension Connections instance
 
-        this._connections = [];
+        this._connection = new Connections.Connections;
+
+        // store it in a global array
+
+        this._connections = [this._connection];
+
+        // create an instance of each component, with its associated Connections
 
         let init = _ => {
             // create a Connections instance, to manage signals
@@ -71,41 +77,23 @@ class Extension {
 
         this._connect_to_settings();
 
-        // enable each component if needed
-
-        if (this._prefs.PANEL_BLUR.get())
-            this._panel_blur.enable();
-
-        if (this._prefs.DASH_BLUR.get()) {
-            this._dash_blur.enable();
-            this._dash_to_dock_blur.enable();
+        // enable every component
+        // if the shell is still starting up, wait for it to be entirely loaded;
+        // this should prevent bugs like #136 and #137
+        if (Main.layoutManager._startingUp) {
+            this._connection.connect(
+                Main.layoutManager,
+                'startup-complete',
+                this._enable_components.bind(this)
+            );
         }
-
-        if (this._prefs.OVERVIEW_BLUR.get())
-            this._overview_blur.enable();
-
-        if (this._prefs.LOCKSCREEN_BLUR.get())
-            this._lockscreen_blur.enable();
-
-        if (this._prefs.APPFOLDER_BLUR.get())
-            this._appfolder_blur.enable();
-
-        if (this._prefs.APPLICATIONS_BLUR.get())
-            this._applications_blur.enable();
-
-        if (this._prefs.WINDOW_LIST_BLUR.get())
-            this._window_list_blur.enable();
-
-        // update the sigma and brightness values of each component
-
-        this._update_sigma();
-        this._update_brightness();
+        else {
+            this._enable_components();
+        }
 
         // add the extension to global to make it accessible to other extensions
 
         global.blur_my_shell = this;
-
-        this._log("extension enabled.");
     }
 
     /// Disables the extension
@@ -157,6 +145,42 @@ class Extension {
         this._prefs = null;
     }
 
+    /// Enables every component needed, should be called when the shell is
+    /// entirely loaded as the `enable` methods interact with it.
+    _enable_components() {
+        // enable each component if needed
+
+        if (this._prefs.PANEL_BLUR.get())
+            this._panel_blur.enable();
+
+        if (this._prefs.DASH_BLUR.get()) {
+            this._dash_blur.enable();
+            this._dash_to_dock_blur.enable();
+        }
+
+        if (this._prefs.OVERVIEW_BLUR.get())
+            this._overview_blur.enable();
+
+        if (this._prefs.LOCKSCREEN_BLUR.get())
+            this._lockscreen_blur.enable();
+
+        if (this._prefs.APPFOLDER_BLUR.get())
+            this._appfolder_blur.enable();
+
+        if (this._prefs.APPLICATIONS_BLUR.get())
+            this._applications_blur.enable();
+
+        if (this._prefs.WINDOW_LIST_BLUR.get())
+            this._window_list_blur.enable();
+
+        // update the sigma and brightness values of each component
+
+        this._update_sigma();
+        this._update_brightness();
+
+        this._log("all components enabled.");
+    }
+
     /// Updates needed things in each component when a preference changed
     _connect_to_settings() {
 
@@ -203,12 +227,14 @@ class Extension {
         // TODO implement icon opacity
         // changed icon opacity
         this._prefs.APPFOLDER_ICON_OPACITY.changed(() => {
-            this._appfolder_blur.blur_appfolders();
+            if (this._prefs.APPFOLDER_BLUR.get())
+                this._appfolder_blur.blur_appfolders();
         });
 
         // changed dialog opacity
         this._prefs.APPFOLDER_DIALOG_OPACITY.changed(() => {
-            this._appfolder_blur.blur_appfolders();
+            if (this._prefs.APPFOLDER_BLUR.get())
+                this._appfolder_blur.blur_appfolders();
         });
 
 
@@ -225,7 +251,8 @@ class Extension {
 
         // static blur toggled on/off
         this._prefs.PANEL_STATIC_BLUR.changed(() => {
-            this._panel_blur.change_blur_type();
+            if (this._prefs.PANEL_BLUR.get())
+                this._panel_blur.change_blur_type();
         });
 
 
@@ -246,13 +273,15 @@ class Extension {
         // TODO implement static blur for dash
         // static blur toggled on/off
         this._prefs.DASH_TO_DOCK_STATIC_BLUR.changed(() => {
-            //this._dash_to_dock_blur.change_blur_type();
+            //if (this._prefs.DASH_BLUR.get())
+            //    this._dash_to_dock_blur.change_blur_type();
         });
 
         // TODO implement dash opacity in overview for dash-to-dock
         // dash opacity changed
         this._prefs.DASH_OPACITY.changed(() => {
-            this._dash_blur.update();
+            if (this._prefs.DASH_BLUR.get())
+                this._dash_blur.update();
         });
 
 
@@ -265,6 +294,12 @@ class Extension {
             } else {
                 this._applications_blur.disable();
             }
+        });
+
+        // application whitelist changed
+        this._prefs.APPLICATIONS_WHITELIST.changed(_ => {
+            if (this._prefs.APPLICATIONS_BLUR.get())
+                this._applications_blur.update_all_windows();
         });
 
 

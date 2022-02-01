@@ -22,23 +22,8 @@ var ApplicationsBlur = class ApplicationsBlur {
     enable() {
         this._log("blurring applications...");
 
-        // iterate through existing windows and add blur as needed
-        //
-        // note: it looks like iterating through `global.window_group` would not
-        // properly work, as some of its children are not actual windows
-        for (
-            let i = 0;
-            i < global.workspace_manager.get_n_workspaces();
-            ++i
-        ) {
-            let workspace = global.workspace_manager.get_workspace_by_index(i);
-            let windows = workspace.list_windows();
-
-            windows.forEach(meta_window => {
-                let window_actor = meta_window.get_compositor_private();
-                this.track_new(window_actor, meta_window);
-            });
-        }
+        // blur already existing windows
+        this.update_all_windows();
 
         // blur every new window
         this.connections.connect(
@@ -77,10 +62,39 @@ var ApplicationsBlur = class ApplicationsBlur {
         });
     }
 
+    /// Iterate through all existing windows and add blur as needed.
+    update_all_windows() {
+        // remove all previously blurred windows, in the case where the
+        // whitelist was changed
+        this.window_map.forEach(((_meta_window, pid) => {
+            this.remove_blur(pid);
+        }));
+
+        // note: it looks like iterating through `global.window_group` would not
+        // properly work, as some of its children are not actual windows
+        for (
+            let i = 0;
+            i < global.workspace_manager.get_n_workspaces();
+            ++i
+        ) {
+            let workspace = global.workspace_manager.get_workspace_by_index(i);
+            let windows = workspace.list_windows();
+
+            windows.forEach(meta_window => {
+                let window_actor = meta_window.get_compositor_private();
+
+                // disconnect previous signals
+                this.connections.disconnect_all_for(window_actor);
+
+                this.track_new(window_actor, meta_window);
+            });
+        }
+    }
+
     /// Adds the needed signals to every new tracked window, and adds blur if
     /// needed.
     track_new(window_actor, meta_window) {
-        let pid = Date.now();
+        let pid = ("" + Math.random()).slice(2, 16);
 
         window_actor['blur_provider_pid'] = pid;
         meta_window['blur_provider_pid'] = pid;
@@ -130,12 +144,12 @@ var ApplicationsBlur = class ApplicationsBlur {
 
             let brightness, sigma;
 
-            if (this.prefs.OVERVIEW_GENERAL_VALUES.get()) {
+            if (this.prefs.APPLICATIONS_GENERAL_VALUES.get()) {
                 brightness = this.prefs.BRIGHTNESS.get();
                 sigma = this.prefs.SIGMA.get();
             } else {
-                brightness = this.prefs.OVERVIEW_BRIGHTNESS.get();
-                sigma = this.prefs.OVERVIEW_SIGMA.get();
+                brightness = this.prefs.APPLICATIONS_BRIGHTNESS.get();
+                sigma = this.prefs.APPLICATIONS_SIGMA.get();
             }
 
             this.update_blur(pid, window_actor, meta_window, brightness, sigma);
@@ -183,12 +197,12 @@ var ApplicationsBlur = class ApplicationsBlur {
     parse_xprop(property) {
         // set brightness and sigma to default values
         let brightness, sigma;
-        if (this.prefs.OVERVIEW_GENERAL_VALUES.get()) {
+        if (this.prefs.APPLICATIONS_GENERAL_VALUES.get()) {
             brightness = this.prefs.BRIGHTNESS.get();
             sigma = this.prefs.SIGMA.get();
         } else {
-            brightness = this.prefs.OVERVIEW_BRIGHTNESS.get();
-            sigma = this.prefs.OVERVIEW_SIGMA.get();
+            brightness = this.prefs.APPLICATIONS_BRIGHTNESS.get();
+            sigma = this.prefs.APPLICATIONS_SIGMA.get();
         }
 
         // get the argument of the property
@@ -197,24 +211,31 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         // if argument is valid, parse it
         if (arg != null) {
-            // perform pattern matching
-            let res_b = arg[1].match("(brightness|b):(default|0?1?\.[0-9]*)");
-            let res_s = arg[1].match("(sigma|s):(default|\\d{1,3})");
+            // verify if there is only one value: in this case, this is sigma
+            let maybe_sigma = parseInt(arg);
 
-            this._log(`res_b = ${res_b}`);
-            this._log(`res_s = ${res_s}`);
+            if (!isNaN(maybe_sigma)) {
+                sigma = maybe_sigma;
+            } else {
+                // perform pattern matching
+                let res_b = arg[1].match("(brightness|b):(default|0?1?\.[0-9]*)");
+                let res_s = arg[1].match("(sigma|s):(default|\\d{1,3})");
 
-            // if values are valid and not default, change them to the xprop one
-            if (
-                res_b != null && res_b[2] != 'default'
-            ) {
-                brightness = parseFloat(res_b[2]);
-            }
+                this._log(`res_b = ${res_b}`);
+                this._log(`res_s = ${res_s}`);
 
-            if (
-                res_s != null && res_s[2] != 'default'
-            ) {
-                sigma = parseInt(res_s[2]);
+                // if values are valid and not default, change them to the xprop one
+                if (
+                    res_b != null && res_b[2] != 'default'
+                ) {
+                    brightness = parseFloat(res_b[2]);
+                }
+
+                if (
+                    res_s != null && res_s[2] != 'default'
+                ) {
+                    sigma = parseInt(res_s[2]);
+                }
             }
         }
 
@@ -361,22 +382,32 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     /// Removes the blur actor from the shell and unregister it.
     remove_blur(pid) {
+        this._log(`removing blur for pid ${pid}`);
+
         // global.window_group is null when restarting the shell, causing an
         // innocent crash
         if (global.window_group == null)
             return;
 
-        global.window_group.remove_actor(this.blur_actor_map.get(pid));
-        this.blur_actor_map.delete(pid);
-        // FIXME should be deleted??
-        //this.window_map.delete(pid);
+        // remove blur actor and untrack it
+        let blur_actor = this.blur_actor_map.get(pid);
+        if (blur_actor) {
+            global.window_group.remove_actor(blur_actor);
+            this.blur_actor_map.delete(pid);
+        }
+
+        // disconnect needed signals and untrack window
+        let meta_window = this.window_map.get(pid);
+        if (meta_window) {
+            this.window_map.delete(pid);
+        }
     }
 
     disable() {
         this._log("removing blur from applications...");
 
-        this.blur_actor_map.forEach(((value, key) => {
-            this.remove_blur(key);
+        this.blur_actor_map.forEach(((_blur_actor, pid) => {
+            this.remove_blur(pid);
         }));
 
         this.connections.disconnect_all();
