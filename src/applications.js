@@ -137,7 +137,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         this._log(`checking blur for ${pid}`);
 
         // either the window is included in whitelist
-        if (whitelist.includes(window_wm_class)) {
+        if (window_wm_class != "" && whitelist.includes(window_wm_class)) {
             this._log(`application ${pid} whitelisted, blurring it`);
 
             // get blur effect parameters

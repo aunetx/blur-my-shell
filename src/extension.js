@@ -86,10 +86,24 @@ class Extension {
                 'startup-complete',
                 this._enable_components.bind(this)
             );
-        }
-        else {
+        } else {
             this._enable_components();
         }
+
+        // try to enable the components as soon as possible anyway, this way the
+        // overview may load before the user sees it
+        try {
+            if (this._prefs.OVERVIEW_BLUR.get() && !this._overview_blur.enabled)
+                this._overview_blur.enable();
+        } catch (e) { }
+        try {
+            if (this._prefs.DASH_BLUR.get() && !this._dash_blur.enabled)
+                this._dash_blur.enable();
+        } catch (e) { }
+        try {
+            if (this._prefs.PANEL_BLUR.get() && !this._panel_blur.enabled)
+                this._panel_blur.enable();
+        } catch (e) { }
 
         // add the extension to global to make it accessible to other extensions
 
@@ -148,17 +162,18 @@ class Extension {
     /// Enables every component needed, should be called when the shell is
     /// entirely loaded as the `enable` methods interact with it.
     _enable_components() {
-        // enable each component if needed
+        // enable each component if needed, and if it is not already enabled
 
-        if (this._prefs.PANEL_BLUR.get())
+        if (this._prefs.PANEL_BLUR.get() && !this._panel_blur.enabled)
             this._panel_blur.enable();
 
         if (this._prefs.DASH_BLUR.get()) {
-            this._dash_blur.enable();
+            if (!this._panel_blur.enabled)
+                this._dash_blur.enable();
             this._dash_to_dock_blur.enable();
         }
 
-        if (this._prefs.OVERVIEW_BLUR.get())
+        if (this._prefs.OVERVIEW_BLUR.get() && !this._overview_blur.enabled)
             this._overview_blur.enable();
 
         if (this._prefs.LOCKSCREEN_BLUR.get())

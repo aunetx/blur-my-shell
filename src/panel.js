@@ -45,6 +45,7 @@ var PanelBlur = class PanelBlur {
                 height: Main.panel.height,
             });
         this.background_parent.add_child(this.background);
+        this.enabled = false;
     }
 
     enable() {
@@ -104,6 +105,7 @@ var PanelBlur = class PanelBlur {
         );
 
         this.connect_to_overview();
+        this.enabled = true;
     }
 
     change_blur_type() {
@@ -271,6 +273,8 @@ var PanelBlur = class PanelBlur {
 
         Main.panel._leftCorner.show();
         Main.panel._rightCorner.show();
+
+        this.enabled = false;
     }
 
     show() {

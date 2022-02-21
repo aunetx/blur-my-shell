@@ -11,12 +11,14 @@ var DashBlur = class DashBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
+        this.enabled = false;
     }
 
     enable() {
         this._log("blurring dash");
 
         this.update();
+        this.enabled = true;
     }
 
     update() {
@@ -41,6 +43,7 @@ var DashBlur = class DashBlur {
         }
 
         this.connections.disconnect_all();
+        this.enabled = false;
     }
 
     _log(str) {

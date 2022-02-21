@@ -17,6 +17,7 @@ var OverviewBlur = class OverviewBlur {
         this.effects = [];
         this.prefs = prefs;
         this._workspace_switch_bg_actors = [];
+        this.enabled = false;
     }
 
     enable() {
@@ -49,6 +50,8 @@ var OverviewBlur = class OverviewBlur {
 
         // update backgrounds when the component is enabled
         this.update_backgrounds();
+
+        this.enabled = true;
 
         // part for the workspace animation switch
 
@@ -175,6 +178,7 @@ var OverviewBlur = class OverviewBlur {
 
         this.effects = [];
         this.connections.disconnect_all();
+        this.enabled = false;
 
         // restore original behavior
         if (this._original_PrepareSwitch && this._original_FinishSwitch) {
