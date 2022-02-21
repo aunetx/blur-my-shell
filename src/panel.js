@@ -47,12 +47,6 @@ var PanelBlur = class PanelBlur {
                 Main.layoutManager.panelBox.remove_child(children[i]);
         Main.layoutManager.panelBox.insert_child_at_index(this.background_parent, 0);
 
-        // hide corners, can't style them
-        Main.panel._leftCorner.hide();
-        Main.panel._rightCorner.hide();
-        this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide() });
-        this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide() });
-
         // remove background
         Main.panel.add_style_class_name('transparent-panel');
 
@@ -218,9 +212,6 @@ var PanelBlur = class PanelBlur {
         } catch (e) { }
 
         this.connections.disconnect_all();
-
-        Main.panel._leftCorner.show();
-        Main.panel._rightCorner.show();
     }
 
     show() {
