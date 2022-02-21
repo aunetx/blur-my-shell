@@ -133,6 +133,8 @@ Special thanks to @swyknox for the awesome icon!
 
 Many thanks to @CorvetteCole for his awesome contributions, especially for the applications blur :p
 
+Of course, I am really grateful to the people sponsoring my work, it is really cool to be supported like this!
+
 And an enormous thank you to every contributors, issue openers or simple users -- this is a fun project to manage :)
 
 ## License
