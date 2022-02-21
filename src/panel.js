@@ -2,12 +2,16 @@
 
 const { St, Shell, Meta, Gio, GLib } = imports.gi;
 const Main = imports.ui.main;
+const Config = imports.misc.config;
 const backgroundSettings = new Gio.Settings({ schema: 'org.gnome.desktop.background' })
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
+
+const [GS_MAJOR, GS_MINOR] = Config.PACKAGE_VERSION.split('.');
+
 
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
@@ -39,6 +43,14 @@ var PanelBlur = class PanelBlur {
 
     enable() {
         this._log("blurring top panel");
+
+        if (GS_MAJOR < 42) {
+            // hide corners, can't style them
+            Main.panel._leftCorner.hide();
+            Main.panel._rightCorner.hide();
+            this.connections.connect(Main.panel._leftCorner, 'show', () => { Main.panel._leftCorner.hide(); });
+            this.connections.connect(Main.panel._rightCorner, 'show', () => { Main.panel._rightCorner.hide(); });
+        }
 
         // insert background parent
         let children = Main.layoutManager.panelBox.get_children();
@@ -206,6 +218,11 @@ var PanelBlur = class PanelBlur {
     disable() {
         this._log("removing blur from top panel");
         Main.panel.remove_style_class_name('transparent-panel');
+
+        if (GS_MAJOR < 42) {
+            Main.panel._leftCorner.show();
+            Main.panel._rightCorner.show();
+        }
 
         try {
             Main.layoutManager.panelBox.remove_child(this.background_parent);
