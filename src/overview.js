@@ -137,12 +137,12 @@ var OverviewBlur = class OverviewBlur {
         bg_actor.set_content(background.get_content());
 
         let effect = new Shell.BlurEffect({
-            brightness: this.prefs.OVERVIEW_GENERAL_VALUES.get()
-                ? this.prefs.BRIGHTNESS.get()
-                : this.prefs.OVERVIEW_BRIGHTNESS.get(),
-            sigma: this.prefs.OVERVIEW_GENERAL_VALUES.get()
-                ? this.prefs.SIGMA.get()
-                : this.prefs.OVERVIEW_SIGMA.get(),
+            brightness: this.prefs.OVERVIEW_CUSTOMIZE.get()
+                ? this.prefs.OVERVIEW_BRIGHTNESS.get()
+                : this.prefs.BRIGHTNESS.get(),
+            sigma: this.prefs.OVERVIEW_CUSTOMIZE.get()
+                ? this.prefs.OVERVIEW_SIGMA.get()
+                : this.prefs.SIGMA.get(),
             mode: Shell.BlurMode.ACTOR
         });
 

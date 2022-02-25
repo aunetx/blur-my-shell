@@ -33,9 +33,9 @@
             <description />
         </key>
         <!-- OVERVIEW GENERAL VALUES SWITCH -->
-        <key type="b" name="overview-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for overview blur sigma/brightness or not</summary>
+        <key type="b" name="overview-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize overview blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- OVERVIEW SIGMA -->
@@ -58,9 +58,9 @@
             <description />
         </key>
         <!-- APPFOLDER GENERAL VALUES SWITCH -->
-        <key type="b" name="appfolder-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for appfolder blur sigma/brightness or not</summary>
+        <key type="b" name="appfolder-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize appfolder blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- APPFOLDER SIGMA -->
@@ -98,9 +98,9 @@
             <description />
         </key>
         <!-- PANEL GENERAL VALUES SWITCH -->
-        <key type="b" name="panel-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for panel blur sigma/brightness or not</summary>
+        <key type="b" name="panel-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize panel blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- PANEL SIGMA -->
@@ -132,9 +132,9 @@
             <description />
         </key>
         <!-- DASH-TO-DOCK GENERAL VALUES SWITCH -->
-        <key type="b" name="dash-to-dock-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for dash-to-dock blur sigma/brightness or not</summary>
+        <key type="b" name="dash-to-dock-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize dash-to-dock blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- DASH-TO-DOCK SIGMA -->
@@ -172,9 +172,9 @@
             <description />
         </key>
         <!-- APPLICATIONS GENERAL VALUES SWITCH -->
-        <key type="b" name="applications-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for applications blur sigma/brightness or not</summary>
+        <key type="b" name="applications-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize applications blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- APPLICATIONS SIGMA -->
@@ -206,9 +206,9 @@
             <description />
         </key>
         <!-- LOCKSCREEN GENERAL VALUES SWITCH -->
-        <key type="b" name="lockscreen-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for lockscreen blur sigma/brightness or not</summary>
+        <key type="b" name="lockscreen-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize lockscreen blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- LOCKSCREEN SIGMA -->
@@ -231,9 +231,9 @@
             <description />
         </key>
         <!-- WINDOW LIST GENERAL VALUES SWITCH -->
-        <key type="b" name="window-list-general-values">
-            <default>true</default>
-            <summary>Boolean, whether to use general values for window-list blur sigma/brightness or not</summary>
+        <key type="b" name="window-list-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize window-list blur sigma/brightness or use general values</summary>
             <description />
         </key>
         <!-- WINDOW LIST SIGMA -->
