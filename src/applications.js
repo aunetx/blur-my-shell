@@ -144,12 +144,12 @@ var ApplicationsBlur = class ApplicationsBlur {
 
             let brightness, sigma;
 
-            if (this.prefs.APPLICATIONS_GENERAL_VALUES.get()) {
-                brightness = this.prefs.BRIGHTNESS.get();
-                sigma = this.prefs.SIGMA.get();
-            } else {
+            if (this.prefs.APPLICATIONS_CUSTOMIZE.get()) {
                 brightness = this.prefs.APPLICATIONS_BRIGHTNESS.get();
                 sigma = this.prefs.APPLICATIONS_SIGMA.get();
+            } else {
+                brightness = this.prefs.BRIGHTNESS.get();
+                sigma = this.prefs.SIGMA.get();
             }
 
             this.update_blur(pid, window_actor, meta_window, brightness, sigma);
@@ -197,12 +197,12 @@ var ApplicationsBlur = class ApplicationsBlur {
     parse_xprop(property) {
         // set brightness and sigma to default values
         let brightness, sigma;
-        if (this.prefs.APPLICATIONS_GENERAL_VALUES.get()) {
-            brightness = this.prefs.BRIGHTNESS.get();
-            sigma = this.prefs.SIGMA.get();
-        } else {
+        if (this.prefs.APPLICATIONS_CUSTOMIZE.get()) {
             brightness = this.prefs.APPLICATIONS_BRIGHTNESS.get();
             sigma = this.prefs.APPLICATIONS_SIGMA.get();
+        } else {
+            brightness = this.prefs.BRIGHTNESS.get();
+            sigma = this.prefs.SIGMA.get();
         }
 
         // get the argument of the property

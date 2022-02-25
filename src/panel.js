@@ -17,12 +17,12 @@ var PanelBlur = class PanelBlur {
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
         this.effect = new Shell.BlurEffect({
-            brightness: this.prefs.PANEL_GENERAL_VALUES.get()
-                ? this.prefs.BRIGHTNESS.get()
-                : this.prefs.PANEL_BRIGHTNESS.get(),
-            sigma: this.prefs.PANEL_GENERAL_VALUES.get()
-                ? this.prefs.SIGMA.get()
-                : this.prefs.PANEL_SIGMA.get(),
+            brightness: this.prefs.PANEL_CUSTOMIZE.get()
+                ? this.prefs.PANEL_BRIGHTNESS.get()
+                : this.prefs.BRIGHTNESS.get(),
+            sigma: this.prefs.PANEL_CUSTOMIZE.get()
+                ? this.prefs.PANEL_SIGMA.get()
+                : this.prefs.SIGMA.get(),
             mode: prefs.PANEL_STATIC_BLUR.get()
                 ? Shell.BlurMode.ACTOR
                 : Shell.BlurMode.BACKGROUND

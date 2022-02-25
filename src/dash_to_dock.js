@@ -59,12 +59,12 @@ var DashBlur = class DashBlur {
         this.connections = connections;
         this.prefs = prefs;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
-        this.sigma = this.prefs.DASH_TO_DOCK_GENERAL_VALUES.get()
-            ? this.prefs.SIGMA.get()
-            : this.prefs.DASH_TO_DOCK_SIGMA.get();
-        this.brightness = this.prefs.DASH_TO_DOCK_GENERAL_VALUES.get()
-            ? this.prefs.BRIGHTNESS.get()
-            : this.prefs.DASH_TO_DOCK_BRIGHTNESS.get();
+        this.sigma = this.prefs.DASH_TO_DOCK_CUSTOMIZE.get()
+            ? this.prefs.DASH_TO_DOCK_SIGMA.get()
+            : this.prefs.SIGMA.get();
+        this.brightness = this.prefs.DASH_TO_DOCK_CUSTOMIZE.get()
+            ? this.prefs.DASH_TO_DOCK_BRIGHTNESS.get()
+            : this.prefs.BRIGHTNESS.get();
     }
 
     enable() {

@@ -361,7 +361,7 @@ class Extension {
 
         // get component and preferences needed
 
-        let general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
+        let customize = this._prefs[accessible_name + '_CUSTOMIZE'],
             component_sigma = this._prefs[accessible_name + '_SIGMA'],
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'],
@@ -370,33 +370,33 @@ class Extension {
 
         // general values switch is toggled
 
-        general_values.changed(() => {
-            if (general_values.get()) {
-                component.set_sigma(general_sigma.get());
-                component.set_brightness(general_brightness.get());
-            }
-            else {
+        customize.changed(() => {
+            if (customize.get()) {
                 component.set_sigma(component_sigma.get());
                 component.set_brightness(component_brightness.get());
+            }
+            else {
+                component.set_sigma(general_sigma.get());
+                component.set_brightness(general_brightness.get());
             }
         });
 
         // sigma is changed
 
         component_sigma.changed(() => {
-            if (general_values.get())
-                component.set_sigma(general_sigma.get());
-            else
+            if (customize.get())
                 component.set_sigma(component_sigma.get());
+            else
+                component.set_sigma(general_sigma.get());
         });
 
         // brightness is changed
 
         component_brightness.changed(() => {
-            if (general_values.get())
-                component.set_brightness(general_brightness.get());
-            else
+            if (customize.get())
                 component.set_brightness(component_brightness.get());
+            else
+                component.set_brightness(general_brightness.get());
         });
     }
 
@@ -424,16 +424,16 @@ class Extension {
 
         // get component and preferences needed
 
-        let general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
+        let customize = this._prefs[accessible_name + '_CUSTOMIZE'],
             component_sigma = this._prefs[accessible_name + '_SIGMA'],
             component = this['_' + name + '_blur'];
 
         // update sigma accordingly
 
-        if (general_values.get())
-            component.set_sigma(general_sigma.get());
-        else
+        if (customize.get())
             component.set_sigma(component_sigma.get());
+        else
+            component.set_sigma(general_sigma.get());
     }
 
     /// Update brightness for a given component
@@ -442,16 +442,16 @@ class Extension {
 
         // get component and preferences needed
 
-        let general_values = this._prefs[accessible_name + '_GENERAL_VALUES'],
+        let customize = this._prefs[accessible_name + '_CUSTOMIZE'],
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'];
 
         // update brightness accordingly
 
-        if (general_values.get())
-            component.set_brightness(general_brightness.get());
-        else
+        if (customize.get())
             component.set_brightness(component_brightness.get());
+        else
+            component.set_brightness(general_brightness.get());
     }
 
     _log(str) {

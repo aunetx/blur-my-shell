@@ -51,13 +51,13 @@ var WindowListBlur = class WindowListBlur {
 
             let effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
-                sigma: this.prefs.WINDOW_LIST_GENERAL_VALUES.get()
-                    ? this.prefs.SIGMA.get()
-                    : this.prefs.WINDOW_LIST_SIGMA.get(),
-                brightness: this.prefs.WINDOW_LIST_GENERAL_VALUES.get()
-                    ? this.prefs.BRIGHTNESS.get()
-                    : this.prefs.WINDOW_LIST_BRIGHTNESS.get(),
-                mode: 1
+                sigma: this.prefs.WINDOW_LIST_CUSTOMIZE.get()
+                    ? this.prefs.WINDOW_LIST_SIGMA.get()
+                    : this.prefs.SIGMA.get(),
+                brightness: this.prefs.WINDOW_LIST_CUSTOMIZE.get()
+                    ? this.prefs.WINDOW_LIST_BRIGHTNESS.get()
+                    : this.prefs.BRIGHTNESS.get(),
+                mode: Shell.BlurMode.BACKGROUND
             });
 
             child.set_style("background:transparent;");
@@ -143,9 +143,9 @@ var WindowListBlur = class WindowListBlur {
 
     show() {
         this.set_sigma(
-            this.prefs.WINDOW_LIST_GENERAL_VALUES.get()
-                ? this.prefs.SIGMA.get()
-                : this.prefs.WINDOW_LIST_SIGMA.get()
+            this.prefs.WINDOW_LIST_CUSTOMIZE.get()
+                ? this.prefs.WINDOW_LIST_SIGMA.get()
+                : this.prefs.SIGMA.get()
         );
     }
 
