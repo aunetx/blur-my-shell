@@ -9,30 +9,17 @@ const { Keys } = Me.imports.conveniences.keys;
 
 const Preferences = new Prefs(Keys);
 
+const { General } = Me.imports.preferences.general;
+const { Panel } = Me.imports.preferences.panel;
 
-var General = GObject.registerClass({
-    GTypeName: 'General',
-    // TODO use gresources to load ui files
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'general.ui'])}`,
-    InternalChildren: [
-        'sigma',
-        'brightness',
-        'debug',
-        'sigma_adjustment',
-        'brightness_adjustment',
-    ],
-}, class General extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
-    }
-});
-
+// TODO use gresources to load ui files
 
 function init() { }
 
 function fillPreferencesWindow(window) {
-    let general = new General();
-    window.add(general);
+    window.add(new General);
+    window.add(new Panel);
+
     window.search_enabled = true;
     window.set_default_size(720, 530);
 }
