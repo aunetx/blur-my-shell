@@ -145,8 +145,13 @@ var OverviewBlur = class OverviewBlur {
         this.connections.disconnect_all();
 
         // restore original behavior
-        WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = this._origPrepareSwitch;
-        WorkspaceAnimationController.prototype._finishWorkspaceSwitch = this._origFinishSwitch;
+        if (this._origPrepareSwitch) {
+            WorkspaceAnimationController.prototype._prepareWorkspaceSwitch = this._origPrepareSwitch;
+        }
+        
+        if (this._origFinishSwitch) {
+            WorkspaceAnimationController.prototype._finishWorkspaceSwitch = this._origFinishSwitch;
+        }
     }
 
     _log(str) {
