@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="panel-corners@aunetx">
+  <template class="MainPage" parent="AdwPreferencesPage">
+    <property name="name">main_page</property>
+    <property name="title" translatable="yes">Main page</property>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Panel corners</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="panel_corners">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Radius</property>
+            <property name="subtitle" translatable="yes">Recommended size is 12 px, to integrate with applications.</property>
+            <property name="activatable-widget">panel_corner_radius</property>
+            <property name="sensitive" bind-source="panel_corners" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkSpinButton" id="panel_corner_radius">
+                <property name="valign">center</property>
+                <property name="orientation">horizontal</property>
+                <property name="numeric">True</property>
+                <property name="adjustment">panel_radius_adjustment</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Color</property>
+            <property name="subtitle" translatable="yes">Changes the color of corners, black is recommended.</property>
+            <property name="activatable-widget">panel_corner_color</property>
+            <property name="sensitive" bind-source="panel_corners" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkColorButton" id="panel_corner_color">
+                <property name="valign">center</property>
+                <property name="title">Corner color</property>
+                <property name="show-editor">True</property>
+                <property name="use-alpha">False</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Opacity</property>
+            <property name="subtitle" translatable="yes">Defines the corner opacity.</property>
+            <property name="activatable-widget">panel_corner_opacity</property>
+            <property name="sensitive" bind-source="panel_corners" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkSpinButton" id="panel_corner_opacity">
+                <property name="valign">center</property>
+                <property name="orientation">horizontal</property>
+                <property name="numeric">True</property>
+                <property name="digits">2</property>
+                <property name="adjustment">panel_opacity_adjustment</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Screen corners</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="screen_corners">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Radius</property>
+            <property name="subtitle" translatable="yes">Recommended size is 12 px, to integrate with applications.</property>
+            <property name="activatable-widget">screen_corner_radius</property>
+            <property name="sensitive" bind-source="screen_corners" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkSpinButton" id="screen_corner_radius">
+                <property name="valign">center</property>
+                <property name="orientation">horizontal</property>
+                <property name="numeric">True</property>
+                <property name="adjustment">screen_radius_adjustment</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Color</property>
+            <property name="subtitle" translatable="yes">Changes the color of corners, black is recommended.</property>
+            <property name="activatable-widget">screen_corner_color</property>
+            <property name="sensitive" bind-source="screen_corners" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkColorButton" id="screen_corner_color">
+                <property name="valign">center</property>
+                <property name="title">Corner color</property>
+                <property name="show-editor">True</property>
+                <property name="use-alpha">False</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Opacity</property>
+            <property name="subtitle" translatable="yes">Defines the corner opacity.</property>
+            <property name="activatable-widget">screen_corner_opacity</property>
+            <property name="sensitive" bind-source="screen_corners" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkSpinButton" id="screen_corner_opacity">
+                <property name="valign">center</property>
+                <property name="orientation">horizontal</property>
+                <property name="numeric">True</property>
+                <property name="digits">2</property>
+                <property name="adjustment">screen_opacity_adjustment</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Advanced</property>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Force extension values</property>
+            <property name="subtitle" translatable="yes">Allows you to override the current theme-defined corner preference, if the theme sets one.</property>
+            <property name="activatable-widget">force_extension_values</property>
+            <child>
+              <object class="GtkSwitch" id="force_extension_values">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Debug</property>
+            <property name="subtitle" translatable="yes">Makes the extension verbose in logs, activate when you need to report an issue.</property>
+            <property name="activatable-widget">debug</property>
+            <child>
+              <object class="GtkSwitch" id="debug">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkAdjustment" id="panel_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">25</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="panel_opacity_adjustment">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="screen_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">25</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="screen_opacity_adjustment">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+</interface>
