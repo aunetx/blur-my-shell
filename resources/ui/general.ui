@@ -17,7 +17,6 @@
               <object class="GtkScale" id="sigma">
                 <property name="valign">center</property>
                 <property name="orientation">horizontal</property>
-                <property name="numeric">True</property>
                 <property name="adjustment">sigma_adjustment</property>
               </object>
             </child>
@@ -33,7 +32,6 @@
               <object class="GtkScale" id="brightness">
                 <property name="valign">center</property>
                 <property name="orientation">horizontal</property>
-                <property name="numeric">True</property>
                 <property name="digits">2</property>
                 <property name="adjustment">brightness_adjustment</property>
               </object>
