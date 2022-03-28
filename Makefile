@@ -12,6 +12,7 @@ build: clean
 						   --generate resources/$(NAME).gresource.xml \
 						   --target=build/$(NAME).gresource
 	cp -r src/* build/
+	cp -r resources/ui build/
 	cp metadata.json build/metadata.json
 
 
