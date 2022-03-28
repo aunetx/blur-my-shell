@@ -6,3 +6,4 @@
 .vscode/
 jsconfig.json
 @types/
+schemas/gschemas.compiled
