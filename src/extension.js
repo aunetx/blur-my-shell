@@ -16,12 +16,13 @@ const Lockscreen = Me.imports.lockscreen;
 const AppFolders = Me.imports.appfolders;
 const WindowList = Me.imports.window_list;
 const Applications = Me.imports.applications;
+const Screenshot = Me.imports.screenshot;
 
 // This lists the components that need to be connected in order to either use
 // general sigma/brightness or their own.
 const INDEPENDENT_COMPONENTS = [
     "overview", "appfolder", "panel", "dash_to_dock", "applications",
-    "lockscreen", "window_list"
+    "lockscreen", "window_list", "screenshot"
 ];
 
 /// The main extension class, created when the GNOME Shell is loaded.
@@ -72,6 +73,7 @@ class Extension {
         this._appfolder_blur = new AppFolders.AppFoldersBlur(...init());
         this._window_list_blur = new WindowList.WindowListBlur(...init());
         this._applications_blur = new Applications.ApplicationsBlur(...init());
+        this._screenshot_blur = new Screenshot.ScreenshotBlur(...init());
 
         // connect each component to preferences change
 
@@ -127,6 +129,7 @@ class Extension {
         this._appfolder_blur.disable();
         this._window_list_blur.disable();
         this._applications_blur.disable();
+        this._screenshot_blur.disable();
 
         // untrack them
 
@@ -187,6 +190,9 @@ class Extension {
 
         if (this._prefs.WINDOW_LIST_BLUR.get())
             this._window_list_blur.enable();
+
+        if (this._prefs.SCREENSHOT_BLUR.get())
+            this._screenshot_blur.enable();
 
         // update the sigma and brightness values of each component
 
@@ -348,6 +354,18 @@ class Extension {
         this._prefs.HIDETOPBAR_BLUR.changed(() => {
             // no need to verify if it is enabled or not, it is done anyway
             this._panel_blur.connect_to_overview();
+        });
+
+
+        // ---------- SCREENSHOT ----------
+
+        // toggled on/off
+        this._prefs.SCREENSHOT_BLUR.changed(() => {
+            if (this._prefs.SCREENSHOT_BLUR.get()) {
+                this._screenshot_blur.enable();
+            } else {
+                this._screenshot_blur.disable();
+            }
         });
     }
 
