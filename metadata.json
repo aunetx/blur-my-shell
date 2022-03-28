@@ -3,7 +3,8 @@
     "name": "Blur my Shell",
     "shell-version": [
         "40",
-        "41"
+        "41",
+        "42"
     ],
     "url": "https://github.com/aunetx/gnome-shell-extension-blur-my-shell",
     "uuid": "blur-my-shell@aunetx",

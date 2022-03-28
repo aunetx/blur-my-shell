@@ -197,6 +197,34 @@
         </key>
 
 
+        <!-- ****** SCREENSHOT ****** -->
+
+        <!-- SCREENSHOT SWITCH -->
+        <key type="b" name="screenshot-blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur the screenshot's window selector or not</summary>
+            <description />
+        </key>
+        <!-- SCREENSHOT GENERAL VALUES SWITCH -->
+        <key type="b" name="screenshot-customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize screenshot's window selector blur sigma/brightness or use general values</summary>
+            <description />
+        </key>
+        <!-- SCREENSHOT SIGMA -->
+        <key type="i" name="screenshot-sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for screenshot's window selector</summary>
+            <description />
+        </key>
+        <!-- SCREENSHOT BRIGHTNESS -->
+        <key type="d" name="overviscreenshotew-brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for screenshot's window selector</summary>
+            <description />
+        </key>
+
+
         <!-- ****** OTHER ****** -->
 
         <!-- LOCKSCREEN SWITCH -->

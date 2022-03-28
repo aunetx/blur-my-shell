@@ -59,6 +59,12 @@ const Keys = [
     { type: Type.I, name: "window-list-sigma" },
     { type: Type.D, name: "window-list-brightness" },
 
+
+    { type: Type.B, name: "screenshot-blur" },
+    { type: Type.B, name: "screenshot-customize" },
+    { type: Type.I, name: "screenshot-sigma" },
+    { type: Type.D, name: "screenshot-brightness" },
+
     { type: Type.B, name: "hidetopbar-blur" },
 
     { type: Type.B, name: "debug" },
