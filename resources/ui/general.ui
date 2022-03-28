@@ -16,7 +16,12 @@
             <child>
               <object class="GtkScale" id="sigma">
                 <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
                 <property name="orientation">horizontal</property>
+                <property name="digits">0</property>
                 <property name="adjustment">sigma_adjustment</property>
               </object>
             </child>
@@ -31,6 +36,10 @@
             <child>
               <object class="GtkScale" id="brightness">
                 <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
                 <property name="orientation">horizontal</property>
                 <property name="digits">2</property>
                 <property name="adjustment">brightness_adjustment</property>
@@ -49,6 +58,13 @@
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Hack level</property>
             <property name="subtitle" translatable="yes">Changes the behaviour of dynamic blur effect. Default value is very recommended.</property>
+            <property name="activatable-widget">hack-level</property>
+            <child>
+              <object class="GtkDropDown" id="hack-level">
+                <property name="valign">center</property>
+                <property name="model">hack_level_model</property>
+              </object>
+            </child>
           </object>
         </child>
 
@@ -70,7 +86,7 @@
 
   <object class="GtkAdjustment" id="sigma_adjustment">
     <property name="lower">0</property>
-    <property name="upper">25</property>
+    <property name="upper">200</property>
     <property name="step-increment">1</property>
   </object>
 
@@ -78,5 +94,13 @@
     <property name="lower">0.0</property>
     <property name="upper">1.0</property>
     <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkStringList" id="hack_level_model">
+    <items>
+      <item translatable="yes">High performances</item>
+      <item translatable="yes">Default</item>
+      <item translatable="yes">High quality</item>
+    </items>
   </object>
 </interface>

@@ -12,7 +12,6 @@ const Preferences = new Prefs(Keys);
 
 var Panel = GObject.registerClass({
     GTypeName: 'Panel',
-    // TODO use gresources to load ui files
     Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'panel.ui'])}`,
     InternalChildren: [
         'blur',
