@@ -75,12 +75,6 @@
             <summary>Brightness to use for appfolder</summary>
             <description />
         </key>
-        <!-- APPFOLDER ICON OPACITY -->
-        <key type="d" name="appfolder-icon-opacity">
-            <default>0.12</default>
-            <summary>Opacity of appfolder icon to use</summary>
-            <description />
-        </key>
         <!-- APPFOLDER DIALOG OPACITY -->
         <key type="d" name="appfolder-dialog-opacity">
             <default>0.12</default>

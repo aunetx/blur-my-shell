@@ -245,13 +245,6 @@ class Extension {
             }
         });
 
-        // TODO implement icon opacity
-        // changed icon opacity
-        this._prefs.APPFOLDER_ICON_OPACITY.changed(() => {
-            if (this._prefs.APPFOLDER_BLUR.get())
-                this._appfolder_blur.blur_appfolders();
-        });
-
         // changed dialog opacity
         this._prefs.APPFOLDER_DIALOG_OPACITY.changed(() => {
             if (this._prefs.APPFOLDER_BLUR.get())
