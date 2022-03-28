@@ -27,7 +27,6 @@ const Keys = [
     { type: Type.B, name: "appfolder-customize" },
     { type: Type.I, name: "appfolder-sigma" },
     { type: Type.D, name: "appfolder-brightness" },
-    { type: Type.D, name: "appfolder-icon-opacity" },
     { type: Type.D, name: "appfolder-dialog-opacity" },
 
     { type: Type.B, name: "panel-blur" },

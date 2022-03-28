@@ -45,7 +45,7 @@ var OverviewBlur = class OverviewBlur {
             }
         );
 
-        // add css class names to change folders and workspace-switch background
+        // add css class names to change and workspace-switch background
         Main.uiGroup.add_style_class_name("blurred-overview");
 
         // update backgrounds when the component is enabled
