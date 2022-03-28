@@ -7,7 +7,6 @@ const backgroundSettings = new Gio.Settings({
 });
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 const PaintSignals = Me.imports.paint_signals;
 
