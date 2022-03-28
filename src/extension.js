@@ -5,8 +5,8 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
-const Settings = Me.imports.settings;
-const Connections = Me.imports.connections;
+const { Connections } = Me.imports.conveniences.connections;
+const { Prefs, Type } = Me.imports.conveniences.settings;
 
 const Panel = Me.imports.panel;
 const Dash = Me.imports.dash;
@@ -25,6 +25,64 @@ const INDEPENDENT_COMPONENTS = [
     "lockscreen", "window_list", "screenshot"
 ];
 
+// This lists the preferences keys
+const Keys = [
+    { type: Type.I, name: "sigma" },
+    { type: Type.D, name: "brightness" },
+    { type: Type.I, name: "hacks-level" },
+
+    { type: Type.B, name: "overview-blur" },
+    { type: Type.B, name: "overview-customize" },
+    { type: Type.I, name: "overview-sigma" },
+    { type: Type.D, name: "overview-brightness" },
+
+    { type: Type.B, name: "appfolder-blur" },
+    { type: Type.B, name: "appfolder-customize" },
+    { type: Type.I, name: "appfolder-sigma" },
+    { type: Type.D, name: "appfolder-brightness" },
+    { type: Type.D, name: "appfolder-dialog-opacity" },
+
+    { type: Type.B, name: "panel-blur" },
+    { type: Type.B, name: "panel-customize" },
+    { type: Type.I, name: "panel-sigma" },
+    { type: Type.D, name: "panel-brightness" },
+    { type: Type.B, name: "panel-static-blur" },
+
+    { type: Type.B, name: "dash-blur" },
+    { type: Type.B, name: "dash-to-dock-customize" },
+    { type: Type.I, name: "dash-to-dock-sigma" },
+    { type: Type.D, name: "dash-to-dock-brightness" },
+    { type: Type.B, name: "dash-to-dock-static-blur" },
+    { type: Type.D, name: "dash-opacity" },
+
+    { type: Type.B, name: "applications-blur" },
+    { type: Type.B, name: "applications-customize" },
+    { type: Type.I, name: "applications-sigma" },
+    { type: Type.D, name: "applications-brightness" },
+    { type: Type.S, name: "applications-whitelist" },
+
+    { type: Type.B, name: "lockscreen-blur" },
+    { type: Type.B, name: "lockscreen-customize" },
+    { type: Type.I, name: "lockscreen-sigma" },
+    { type: Type.D, name: "lockscreen-brightness" },
+
+    { type: Type.B, name: "window-list-blur" },
+    { type: Type.B, name: "window-list-customize" },
+    { type: Type.I, name: "window-list-sigma" },
+    { type: Type.D, name: "window-list-brightness" },
+
+
+    { type: Type.B, name: "screenshot-blur" },
+    { type: Type.B, name: "screenshot-customize" },
+    { type: Type.I, name: "screenshot-sigma" },
+    { type: Type.D, name: "screenshot-brightness" },
+
+    { type: Type.B, name: "hidetopbar-blur" },
+
+    { type: Type.B, name: "debug" },
+];
+
+
 /// The main extension class, created when the GNOME Shell is loaded.
 class Extension {
     constructor() { }
@@ -41,13 +99,13 @@ class Extension {
         // create a Prefs instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
 
-        this._prefs = new Settings.Prefs;
+        this._prefs = new Prefs(Keys);
 
         this._log("enabling extension...");
 
         // create main extension Connections instance
 
-        this._connection = new Connections.Connections;
+        this._connection = new Connections;
 
         // store it in a global array
 
@@ -57,7 +115,7 @@ class Extension {
 
         let init = _ => {
             // create a Connections instance, to manage signals
-            let connection = new Connections.Connections;
+            let connection = new Connections;
 
             // store it to keeps track of them globally
             this._connections.push(connection);

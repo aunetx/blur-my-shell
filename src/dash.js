@@ -4,7 +4,6 @@ const { St, Shell, Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Settings = Me.imports.settings;
 
 
 var DashBlur = class DashBlur {

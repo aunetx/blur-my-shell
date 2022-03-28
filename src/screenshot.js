@@ -4,7 +4,6 @@ const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Settings = Me.imports.settings;
 const Utils = Me.imports.utilities;
 
 

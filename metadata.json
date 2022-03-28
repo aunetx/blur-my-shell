@@ -8,11 +8,9 @@
     ],
     "url": "https://github.com/aunetx/gnome-shell-extension-blur-my-shell",
     "uuid": "blur-my-shell@aunetx",
+    "settings-schema": "org.gnome.shell.extensions.blur-my-shell",
     "original-authors": [
         "me@aunetx.dev"
-    ],
-    "session-modes": [
-        "user"
     ],
     "version": 27
 }
