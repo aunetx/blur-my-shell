@@ -146,7 +146,7 @@ class Extension {
 
         // make sure no settings change can re-enable them
 
-        this._prefs._disconnect_all_settings();
+        this._prefs.disconnect_all_settings();
 
         // force disconnecting every signal, even if component crashed
 
