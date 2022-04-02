@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const { GObject, Clutter } = imports.gi;
 
@@ -6,7 +6,7 @@ const { GObject, Clutter } = imports.gi;
 var PaintSignals = class PaintSignals {
     constructor(connections) {
         this.buffer = [];
-        this.connections = connections
+        this.connections = connections;
     }
 
     connect(actor, blur_effect) {
@@ -29,7 +29,7 @@ var PaintSignals = class PaintSignals {
             } catch (e) { }
         });
 
-        this.buffer.push(infos)
+        this.buffer.push(infos);
     }
 
     disconnect_all() {
@@ -38,9 +38,9 @@ var PaintSignals = class PaintSignals {
             infos.actor.remove_effect(infos.paint_effect);
         });
 
-        this.buffer = []
+        this.buffer = [];
     }
-}
+};
 
 var EmitPaintSignal = GObject.registerClass({
     GTypeName: 'EmitPaintSignal',

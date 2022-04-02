@@ -3,22 +3,46 @@
     transition-duration: 500ms;
 }
 
-.blurred-overview .app-folder {
-    background-color: rgba(0, 0, 0, 0.12);
-}
-
-
 .blurred-overview .workspace-animation {
     background-color: transparent !important;
 }
 
-.transparent-app-folder-dialogs .edit-folder-button {
-    background: transparent;
-    border-radius: 19px;
+.blurred-dash .dash-background {
+    background-color: transparent !important;
 }
 
-.blurred-dash .dash-background {
-    background: transparent;
+.bms-overview-components .blurred-dash .dash-background {
+    background-color: rgba(100, 100, 100, 0.3) !important;
+}
+
+.bms-overview-components .search-entry {
+    padding: 10px;
+    color: white;
+    background-color: rgba(100, 100, 100, 0.3);
+    border: 0;
+    box-shadow: none;
+}
+
+.bms-overview-components .search-entry .search-entry-icon {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.bms-overview-components .search-section-content,
+.bms-overview-components .app-folder .overview-icon {
+    background-color: rgba(100, 100, 100, 0.3);
+}
+
+.bms-overview-components.just-perfection .search-section-content {
+    background-color: transparent;
+}
+
+.bms-overview-components .app-folder:hover .overview-icon,
+.bms-overview-components .app-folder:focus .overview-icon {
+    background-color: rgba(120, 120, 120, 0.3);
+}
+
+.bms-overview-components .dash-background {
+    background-color: rgba(100, 100, 100, 0.3);
 }
 
 /*

@@ -119,6 +119,10 @@ The current extension supports these GNOME Shell versions:
 
 - 42 -- `master` branch
 - 41 -- `master` branch
+
+Up to version 29, Blur my Shell supports GNOME Shell versions:
+
+- 41 -- `master` branch
 - 40 -- `master` branch
 
 Older GNOME Shell versions are supported up to Blur my Shell version 6, and by versions 17, 19 and 22:
