@@ -9,14 +9,14 @@ const { Connections } = Me.imports.conveniences.connections;
 const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 
-const Panel = Me.imports.panel;
-const Overview = Me.imports.overview;
-const DashToDock = Me.imports.dash_to_dock;
-const Lockscreen = Me.imports.lockscreen;
-const AppFolders = Me.imports.appfolders;
-const WindowList = Me.imports.window_list;
-const Applications = Me.imports.applications;
-const Screenshot = Me.imports.screenshot;
+const Panel = Me.imports.components.panel;
+const Overview = Me.imports.components.overview;
+const DashToDock = Me.imports.components.dash_to_dock;
+const Lockscreen = Me.imports.components.lockscreen;
+const AppFolders = Me.imports.components.appfolders;
+const WindowList = Me.imports.components.window_list;
+const Applications = Me.imports.components.applications;
+const Screenshot = Me.imports.components.screenshot;
 
 // This lists the components that need to be connected in order to either use
 // general sigma/brightness or their own.

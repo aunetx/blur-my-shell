@@ -7,7 +7,7 @@ const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
 const wac_proto = WorkspaceAnimationController.prototype;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utilities;
+const Utils = Me.imports.conveniences.utilities;
 
 
 var OverviewBlur = class OverviewBlur {

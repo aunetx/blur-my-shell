@@ -7,8 +7,8 @@ const backgroundSettings = new Gio.Settings({
 });
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utilities;
-const PaintSignals = Me.imports.paint_signals;
+const Utils = Me.imports.conveniences.utilities;
+const PaintSignals = Me.imports.conveniences.paint_signals;
 
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {

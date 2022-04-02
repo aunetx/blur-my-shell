@@ -4,7 +4,7 @@ const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utilities;
+const Utils = Me.imports.conveniences.utilities;
 
 
 var ScreenshotBlur = class ScreenshotBlur {

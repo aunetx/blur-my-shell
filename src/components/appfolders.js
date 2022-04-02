@@ -4,8 +4,8 @@ const { Shell, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.utilities;
-const PaintSignals = Me.imports.paint_signals;
+const Utils = Me.imports.conveniences.utilities;
+const PaintSignals = Me.imports.conveniences.paint_signals;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
