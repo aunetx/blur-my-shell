@@ -224,13 +224,13 @@ var PanelBlur = class PanelBlur {
         this.connections.disconnect_all_for(appDisplay);
         this.connections.disconnect_all_for(Main.overview);
 
-        // may be called when panel blur is disabled, if hidetopbar blur is
-        // toggled on/off
+        // may be called when panel blur is disabled, if hidetopbar
+        // compatibility is toggled on/off
         // if this is the case, do nothing as only the panel blur interfers with
         // hidetopbar
         if (this.prefs.PANEL_BLUR.get()) {
 
-            if (!this.prefs.HIDETOPBAR_BLUR.get()) {
+            if (!this.prefs.HIDETOPBAR_COMPATIBILITY.get()) {
                 this.connections.connect(
                     Main.overview, 'showing', this.hide.bind(this)
                 );
