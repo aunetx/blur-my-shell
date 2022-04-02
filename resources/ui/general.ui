@@ -7,6 +7,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Blur preferences</property>
+        <property name="description" translatable="yes">Global blur preferences, used by all components by default.</property>
 
         <child>
           <object class="AdwActionRow">
@@ -53,6 +54,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Performances</property>
+        <property name="description" translatable="yes">Various options to tweak the performances.</property>
 
         <child>
           <object class="AdwActionRow">

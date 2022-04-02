@@ -7,6 +7,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Dash to Dock blur</property>
+        <property name="description" translatable="yes">Blur the background of the Dash to Dock extension, if it is used.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
