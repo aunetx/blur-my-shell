@@ -7,7 +7,8 @@ const Background = imports.ui.background;
 let sigma = 30;
 let brightness = 0.6;
 
-const original_createBackground = imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects;
+const UnlockDialog_proto = imports.ui.unlockDialog.UnlockDialog.prototype;
+const original_createBackground = UnlockDialog_proto._updateBackgroundEffects;
 
 
 var LockscreenBlur = class LockscreenBlur {
@@ -23,7 +24,7 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     update_lockscreen() {
-        imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = this._createBackground;
+        UnlockDialog_proto._updateBackgroundEffects = this._createBackground;
     }
 
     _createBackground() {
@@ -52,13 +53,13 @@ var LockscreenBlur = class LockscreenBlur {
     disable() {
         this._log("removing blur from lockscreen");
 
-        imports.ui.unlockDialog.UnlockDialog.prototype._updateBackgroundEffects = original_createBackground;
+        UnlockDialog_proto._updateBackgroundEffects = original_createBackground;
 
         this.connections.disconnect_all();
     }
 
     _log(str) {
         if (this.prefs.DEBUG.get())
-            log(`[Blur my Shell] ${str}`)
+            log(`[Blur my Shell] ${str}`);
     }
-}
+};
