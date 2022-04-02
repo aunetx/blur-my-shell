@@ -105,9 +105,6 @@ class Extension {
     disable() {
         this._log("disabling extension...");
 
-        // unregister our resources
-        Gio.resources_unregister(this.resources);
-
         // disable every component
 
         this._panel_blur.disable();
