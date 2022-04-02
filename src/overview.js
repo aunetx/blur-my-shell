@@ -44,8 +44,11 @@ var OverviewBlur = class OverviewBlur {
             }
         );
 
-        // add css class names to change and workspace-switch background
+        // add css class name for workspace-switch background
         Main.uiGroup.add_style_class_name("blurred-overview");
+
+        // add css class name to make components semi-transparent if wanted
+        this.update_components_classname();
 
         // update backgrounds when the component is enabled
         this.update_backgrounds();
@@ -154,6 +157,18 @@ var OverviewBlur = class OverviewBlur {
         return bg_actor;
     }
 
+    /// Updates the classname to style overview components with semi-transparent
+    /// backgrounds, if needed.
+    update_components_classname() {
+        if (this.prefs.OVERVIEW_STYLE_COMPONENTS.get()) {
+            this._log("add overview components classname");
+            Main.uiGroup.add_style_class_name("bms-overview-components");
+        } else {
+            this._log("remove overview components classname");
+            Main.uiGroup.remove_style_class_name("bms-overview-components");
+        }
+    }
+
     set_sigma(s) {
         this.effects.forEach(effect => {
             effect.sigma = s;
@@ -174,6 +189,7 @@ var OverviewBlur = class OverviewBlur {
             }
         });
         Main.uiGroup.remove_style_class_name("blurred-overview");
+        Main.uiGroup.remove_style_class_name("bms-overview-components");
 
         this.effects = [];
         this.connections.disconnect_all();

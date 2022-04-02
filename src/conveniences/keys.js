@@ -15,6 +15,7 @@ var Keys = [
     { type: Type.B, name: "overview-customize" },
     { type: Type.I, name: "overview-sigma" },
     { type: Type.D, name: "overview-brightness" },
+    { type: Type.B, name: "overview-style-components" },
 
     { type: Type.B, name: "appfolder-blur" },
     { type: Type.B, name: "appfolder-customize" },
@@ -29,13 +30,13 @@ var Keys = [
     { type: Type.B, name: "panel-static-blur" },
     { type: Type.B, name: "panel-unblur-in-overview" },
 
-    { type: Type.B, name: "dash-blur" },
+    { type: Type.B, name: "dash-to-dock-blur" },
     { type: Type.B, name: "dash-to-dock-customize" },
     { type: Type.I, name: "dash-to-dock-sigma" },
     { type: Type.D, name: "dash-to-dock-brightness" },
     { type: Type.B, name: "dash-to-dock-static-blur" },
     { type: Type.B, name: "dash-to-dock-unblur-in-overview" },
-    { type: Type.D, name: "dash-opacity" },
+    { type: Type.B, name: "dash-to-dock-override-background" },
 
     { type: Type.B, name: "applications-blur" },
     { type: Type.B, name: "applications-customize" },

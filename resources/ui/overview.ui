@@ -61,6 +61,20 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Stylize overview components</property>
+            <property name="subtitle" translatable="yes">Makes the dash, search entry/results, and applications folder icon semi-transparent.</property>
+            <property name="activatable-widget">overview_style_components</property>
+
+            <child>
+              <object class="GtkSwitch" id="overview_style_components">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
 

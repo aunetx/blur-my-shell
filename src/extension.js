@@ -10,7 +10,6 @@ const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 
 const Panel = Me.imports.panel;
-const Dash = Me.imports.dash;
 const Overview = Me.imports.overview;
 const DashToDock = Me.imports.dash_to_dock;
 const Lockscreen = Me.imports.lockscreen;
@@ -68,7 +67,6 @@ class Extension {
         };
 
         this._panel_blur = new Panel.PanelBlur(...init());
-        this._dash_blur = new Dash.DashBlur(...init());
         this._dash_to_dock_blur = new DashToDock.DashBlur(...init());
         this._overview_blur = new Overview.OverviewBlur(...init());
         this._lockscreen_blur = new Lockscreen.LockscreenBlur(...init());
@@ -101,10 +99,6 @@ class Extension {
                 this._overview_blur.enable();
         } catch (e) { }
         try {
-            if (this._prefs.DASH_BLUR.get() && !this._dash_blur.enabled)
-                this._dash_blur.enable();
-        } catch (e) { }
-        try {
             if (this._prefs.PANEL_BLUR.get() && !this._panel_blur.enabled)
                 this._panel_blur.enable();
         } catch (e) { }
@@ -124,7 +118,6 @@ class Extension {
         // disable every component
 
         this._panel_blur.disable();
-        this._dash_blur.disable();
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._lockscreen_blur.disable();
@@ -136,7 +129,6 @@ class Extension {
         // untrack them
 
         this._panel_blur = null;
-        this._dash_blur = null;
         this._dash_to_dock_blur = null;
         this._overview_blur = null;
         this._lockscreen_blur = null;
@@ -172,9 +164,7 @@ class Extension {
         if (this._prefs.PANEL_BLUR.get() && !this._panel_blur.enabled)
             this._panel_blur.enable();
 
-        if (this._prefs.DASH_BLUR.get()) {
-            if (!this._panel_blur.enabled)
-                this._dash_blur.enable();
+        if (this._prefs.DASH_TO_DOCK_BLUR.get()) {
             this._dash_to_dock_blur.enable();
         }
 
@@ -235,6 +225,13 @@ class Extension {
             }
         });
 
+        // overview components style changed
+        this._prefs.OVERVIEW_STYLE_COMPONENTS.changed(() => {
+            if (this._prefs.OVERVIEW_BLUR.get()) {
+                this._overview_blur.update_components_classname();
+            }
+        });
+
 
         // ---------- APPFOLDER ----------
 
@@ -277,16 +274,13 @@ class Extension {
         });
 
 
-        // ---------- DASH ----------
+        // ---------- DASH TO DOCK ----------
 
         // toggled on/off
-        // this enables both dash blur and dash-to-dock blur
-        this._prefs.DASH_BLUR.changed(() => {
-            if (this._prefs.DASH_BLUR.get()) {
-                this._dash_blur.enable();
+        this._prefs.DASH_TO_DOCK_BLUR.changed(() => {
+            if (this._prefs.DASH_TO_DOCK_BLUR.get()) {
                 this._dash_to_dock_blur.enable();
             } else {
-                this._dash_blur.disable();
                 this._dash_to_dock_blur.disable();
             }
         });
@@ -294,20 +288,19 @@ class Extension {
         // TODO implement static blur for dash
         // static blur toggled on/off
         this._prefs.DASH_TO_DOCK_STATIC_BLUR.changed(() => {
-            //if (this._prefs.DASH_BLUR.get())
+            //if (this._prefs.DASH_TO_DOCK_BLUR.get())
             //    this._dash_to_dock_blur.change_blur_type();
         });
 
-        // TODO implement dash opacity in overview for dash-to-dock
-        // dash opacity changed
-        this._prefs.DASH_OPACITY.changed(() => {
-            if (this._prefs.DASH_BLUR.get())
-                this._dash_blur.update();
+        // dash-to-dock override background toggled on/off
+        this._prefs.DASH_TO_DOCK_OVERRIDE_BACKGROUND.changed(() => {
+            if (this._prefs.DASH_TO_DOCK_BLUR.get())
+                this._dash_to_dock_blur.update_background();
         });
 
         // dash-to-dock blur's overview connection toggled on/off
         this._prefs.DASH_TO_DOCK_UNBLUR_IN_OVERVIEW.changed(() => {
-            if (this._prefs.DASH_BLUR.get())
+            if (this._prefs.DASH_TO_DOCK_BLUR.get())
                 this._dash_to_dock_blur.connect_to_overview();
         });
 
