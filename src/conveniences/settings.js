@@ -65,7 +65,7 @@ var Prefs = class Prefs {
                             return settings.connect('changed::' + this.key, cb);
                         },
                         disconnect: function () {
-                            return this.settings.disconnect.apply(
+                            return settings.disconnect.apply(
                                 settings, arguments
                             );
                         },
