@@ -3,6 +3,11 @@
     transition-duration: 500ms;
 }
 
+.blurred-overview .app-folder {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+
 .blurred-overview .workspace-animation {
     background-color: transparent !important;
 }
