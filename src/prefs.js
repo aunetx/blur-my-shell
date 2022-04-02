@@ -16,9 +16,13 @@ const { Dash } = Me.imports.preferences.dash;
 const { Applications } = Me.imports.preferences.applications;
 const { Other } = Me.imports.preferences.other;
 
-// TODO use gresources to load ui files
 
-function init() { }
+function init() {
+    // load the icon theme
+    let iconPath = Me.dir.get_child("icons").get_path();
+    let iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
+    iconTheme.add_search_path(iconPath);
+}
 
 function fillPreferencesWindow(window) {
     window.add(new General);

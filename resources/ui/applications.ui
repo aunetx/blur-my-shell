@@ -3,6 +3,7 @@
   <template class="Applications" parent="AdwPreferencesPage">
     <property name="name">applications</property>
     <property name="title" translatable="yes">Applications</property>
+    <property name="icon-name">applications-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">

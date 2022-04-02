@@ -3,6 +3,7 @@
   <template class="Panel" parent="AdwPreferencesPage">
     <property name="name">panel</property>
     <property name="title" translatable="yes">Panel</property>
+    <property name="icon-name">panel-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">

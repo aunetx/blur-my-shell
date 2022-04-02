@@ -8,11 +8,10 @@ build: clean
 	mkdir -p build/
 	glib-compile-schemas schemas
 	cp -r schemas build/schemas
-	glib-compile-resources --sourcedir="resources" \
-						   --generate resources/$(NAME).gresource.xml \
-						   --target=build/$(NAME).gresource
 	cp -r src/* build/
 	cp -r resources/ui build/
+	mkdir -p build/icons/hicolor/scalable/actions
+	cp resources/icons/* build/icons/hicolor/scalable/actions
 	cp metadata.json build/metadata.json
 
 
