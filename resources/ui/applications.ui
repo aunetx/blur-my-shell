@@ -7,6 +7,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Applications blur</property>
+        <property name="description" translatable="yes">Add blur to the applications.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
