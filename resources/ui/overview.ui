@@ -3,6 +3,8 @@
   <template class="Overview" parent="AdwPreferencesPage">
     <property name="name">overview</property>
     <property name="title" translatable="yes">Overview</property>
+    <property name="icon-name">overview-symbolic</property>
+
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Background blur</property>

@@ -3,6 +3,7 @@
   <template class="General" parent="AdwPreferencesPage">
     <property name="name">general</property>
     <property name="title" translatable="yes">General</property>
+    <property name="icon-name">general-properties-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">

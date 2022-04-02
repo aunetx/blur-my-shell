@@ -32,13 +32,6 @@ class Extension {
 
     /// Enables the extension
     enable() {
-        // load our resources
-
-        this.resources = Gio.Resource.load(
-            `${Me.path}/blur-my-shell.gresource`
-        );
-        Gio.resources_register(this.resources);
-
         // create a Prefs instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
 

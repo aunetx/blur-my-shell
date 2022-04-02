@@ -3,6 +3,7 @@
   <template class="Dash" parent="AdwPreferencesPage">
     <property name="name">dash</property>
     <property name="title" translatable="yes">Dash</property>
+    <property name="icon-name">dash-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">
