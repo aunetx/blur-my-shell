@@ -26,7 +26,6 @@ This extension is guaranteed to be compatible with the following extensions:
 - [Window List](https://extensions.gnome.org/extension/602/window-list/) (from dedicated switch)
 - [Hide Top Bar](https://github.com/mlutfy/hidetopbar) (from dedicated option)
 
-
 ## Screenshots
 
 Blurred Overview:
@@ -36,7 +35,7 @@ Blurred Top Panel:
 ![Blurred Top Panel](https://user-images.githubusercontent.com/38633812/116588885-81bdea00-a935-11eb-9c80-c97716369b7c.png)
 
 Preferences:
-![Preferences](https://user-images.githubusercontent.com/31563930/130880374-4345abd9-2ed0-4f97-95b3-66d9039395e1.png)
+![Screenshot from 2022-04-03 00-35-16](https://user-images.githubusercontent.com/31563930/161403582-4cd8ebb9-7ffd-47c9-b4af-f6ddff8348df.png)
 
 ## Known bugs
 
