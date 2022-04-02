@@ -27,12 +27,14 @@ var Keys = [
     { type: Type.I, name: "panel-sigma" },
     { type: Type.D, name: "panel-brightness" },
     { type: Type.B, name: "panel-static-blur" },
+    { type: Type.B, name: "panel-unblur-in-overview" },
 
     { type: Type.B, name: "dash-blur" },
     { type: Type.B, name: "dash-to-dock-customize" },
     { type: Type.I, name: "dash-to-dock-sigma" },
     { type: Type.D, name: "dash-to-dock-brightness" },
     { type: Type.B, name: "dash-to-dock-static-blur" },
+    { type: Type.B, name: "dash-to-dock-unblur-in-overview" },
     { type: Type.D, name: "dash-opacity" },
 
     { type: Type.B, name: "applications-blur" },

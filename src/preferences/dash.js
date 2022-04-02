@@ -19,6 +19,7 @@ var Dash = GObject.registerClass({
         'sigma',
         'brightness',
         'opacity',
+        'unblur_in_overview'
     ],
 }, class Dash extends Adw.PreferencesPage {
     constructor(props = {}) {
@@ -29,5 +30,6 @@ var Dash = GObject.registerClass({
         Preferences.settings.bind('dash-to-dock-sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('dash-to-dock-brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('dash-opacity', this._opacity, 'value', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('dash-to-dock-unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
     }
 });

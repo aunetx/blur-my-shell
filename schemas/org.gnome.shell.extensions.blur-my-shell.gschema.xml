@@ -115,6 +115,12 @@
             <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
             <description />
         </key>
+        <!-- PANEL UNBLUR IN OVERVIEW -->
+        <key type="b" name="panel-unblur-in-overview">
+            <default>true</default>
+            <summary>Boolean, whether to disable blur from the panel when opening the overview or not</summary>
+            <description />
+        </key>
 
 
         <!-- ****** DASH ****** -->
@@ -153,6 +159,12 @@
         <key type="d" name="dash-opacity">
             <default>0.12</default>
             <summary>Opacity of dash to use</summary>
+            <description />
+        </key>
+        <!-- DASH-TO-DOCK UNBLUR IN OVERVIEW -->
+        <key type="b" name="dash-to-dock-unblur-in-overview">
+            <default>false</default>
+            <summary>Boolean, whether to disable blur from dash-to-dock when opening the overview or not</summary>
             <description />
         </key>
 

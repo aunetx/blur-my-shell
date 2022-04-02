@@ -76,6 +76,7 @@ var DashBlur = class DashBlur {
         });
 
         this.blur_existing_dashes();
+        this.connect_to_overview();
     }
 
     // Finds all existing dashes on every monitor, and call `try_blur` on them
@@ -216,6 +217,20 @@ var DashBlur = class DashBlur {
         // returns infos
         return new DashInfos(this, dash, background_parent, effect, this.prefs);
     }
+
+    /// Connect when overview if opened/closed to hide/show the blur accordingly
+    connect_to_overview() {
+        this.connections.disconnect_all_for(Main.overview);
+
+        if (this.prefs.DASH_TO_DOCK_UNBLUR_IN_OVERVIEW.get()) {
+            this.connections.connect(
+                Main.overview, 'shown', this.hide.bind(this)
+            );
+            this.connections.connect(
+                Main.overview, 'hiding', this.show.bind(this)
+            );
+        }
+    };
 
     set_sigma(sigma) {
         this.sigma = sigma;

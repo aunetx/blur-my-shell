@@ -271,6 +271,11 @@ class Extension {
                 this._panel_blur.change_blur_type();
         });
 
+        // panel blur's overview connection toggled on/off
+        this._prefs.PANEL_UNBLUR_IN_OVERVIEW.changed(() => {
+            this._panel_blur.connect_to_overview();
+        });
+
 
         // ---------- DASH ----------
 
@@ -298,6 +303,12 @@ class Extension {
         this._prefs.DASH_OPACITY.changed(() => {
             if (this._prefs.DASH_BLUR.get())
                 this._dash_blur.update();
+        });
+
+        // dash-to-dock blur's overview connection toggled on/off
+        this._prefs.DASH_TO_DOCK_UNBLUR_IN_OVERVIEW.changed(() => {
+            if (this._prefs.DASH_BLUR.get())
+                this._dash_to_dock_blur.connect_to_overview();
         });
 
 
