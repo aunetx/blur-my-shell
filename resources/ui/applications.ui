@@ -69,6 +69,7 @@
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Whitelist (beta)</property>
             <property name="subtitle" translatable="yes">A list of the applications to blur, separated by whitespaces.</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">whitelist</property>
 
             <child>
