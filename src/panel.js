@@ -228,8 +228,10 @@ var PanelBlur = class PanelBlur {
         // compatibility is toggled on/off
         // if this is the case, do nothing as only the panel blur interfers with
         // hidetopbar
-        if (this.prefs.PANEL_BLUR.get()) {
-
+        if (
+            this.prefs.PANEL_BLUR.get() &&
+            this.prefs.PANEL_UNBLUR_IN_OVERVIEW.get()
+        ) {
             if (!this.prefs.HIDETOPBAR_COMPATIBILITY.get()) {
                 this.connections.connect(
                     Main.overview, 'showing', this.hide.bind(this)
@@ -250,7 +252,7 @@ var PanelBlur = class PanelBlur {
             }
 
         }
-    };
+    }
 
     set_sigma(s) {
         this.effect.sigma = s;

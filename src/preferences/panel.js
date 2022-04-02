@@ -19,6 +19,7 @@ var Panel = GObject.registerClass({
         'sigma',
         'brightness',
         'static_blur',
+        'unblur_in_overview',
         'hidetopbar_compatibility'
     ],
 }, class Panel extends Adw.PreferencesPage {
@@ -30,6 +31,7 @@ var Panel = GObject.registerClass({
         Preferences.settings.bind('panel-sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('panel-brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('panel-static-blur', this._static_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('panel-unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
 
         Preferences.settings.bind('hidetopbar-compatibility', this._hidetopbar_compatibility, 'state', Gio.SettingsBindFlags.DEFAULT);
     }

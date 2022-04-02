@@ -84,6 +84,21 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="subtitle" translatable="yes">Disables the blur from Dash to Dock when entering the overview.</property>
+            <property name="activatable-widget">unblur_in_overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="unblur_in_overview">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>
