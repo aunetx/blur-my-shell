@@ -212,7 +212,7 @@
             <description />
         </key>
         <!-- SCREENSHOT BRIGHTNESS -->
-        <key type="d" name="overviscreenshotew-brightness">
+        <key type="d" name="screenshot-brightness">
             <default>0.6</default>
             <summary>Brightness to use for screenshot's window selector</summary>
             <description />
@@ -272,7 +272,7 @@
         </key>
 
         <!-- HIDETOPBAR SWITCH -->
-        <key type="b" name="hidetopbar-blur">
+        <key type="b" name="hidetopbar-compatibility">
             <default>false</default>
             <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
             <description />

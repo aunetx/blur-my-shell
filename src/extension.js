@@ -346,7 +346,7 @@ class Extension {
         // ---------- HIDETOPBAR ----------
 
         // toggled on/off
-        this._prefs.HIDETOPBAR_BLUR.changed(() => {
+        this._prefs.HIDETOPBAR_COMPATIBILITY.changed(() => {
             // no need to verify if it is enabled or not, it is done anyway
             this._panel_blur.connect_to_overview();
         });

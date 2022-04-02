@@ -3,50 +3,60 @@
   <template class="Overview" parent="AdwPreferencesPage">
     <property name="name">overview</property>
     <property name="title" translatable="yes">Overview</property>
-
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Blur preferences</property>
+        <property name="title" translatable="yes">Background blur</property>
         <property name="header-suffix">
-          <object class="GtkLabel">
-            <property name="label">customize</property>
-            <property name="valign">center</property>
-          </object>
-          <object class="GtkSwitch" id="customize">
+          <object class="GtkSwitch" id="overview_blur">
             <property name="valign">center</property>
           </object>
         </property>
 
         <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Sigma</property>
-            <property name="subtitle" translatable="yes">The intensity of the blur.</property>
-            <property name="activatable-widget">sigma</property>
-            <property name="sensitive" bind-source="customize" bind-property="state" bind-flags="sync-create" />
+          <object class="AdwExpanderRow" id="overview_customize">
+            <property name="title" translatable="yes">Customize properties</property>
+            <property name="subtitle" translatable="yes">Uses customized blur properties, instead of the ones set in the General page.</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+
             <child>
-              <object class="GtkScale" id="sigma">
-                <property name="valign">center</property>
-                <property name="orientation">horizontal</property>
-                <property name="numeric">True</property>
-                <property name="adjustment">sigma_adjustment</property>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Sigma</property>
+                <property name="subtitle" translatable="yes">The intensity of the blur.</property>
+                <property name="activatable-widget">overview_sigma_scale</property>
+
+                <child>
+                  <object class="GtkScale" id="overview_sigma_scale">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="width-request">200px</property>
+                    <property name="draw-value">true</property>
+                    <property name="value-pos">right</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="digits">0</property>
+                    <property name="adjustment">overview_sigma</property>
+                  </object>
+                </child>
               </object>
             </child>
-          </object>
-        </child>
 
-        <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Brightness</property>
-            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
-            <property name="activatable-widget">brightness</property>
-            <property name="sensitive" bind-source="customize" bind-property="state" bind-flags="sync-create" />
             <child>
-              <object class="GtkScale" id="brightness">
-                <property name="valign">center</property>
-                <property name="orientation">horizontal</property>
-                <property name="numeric">True</property>
-                <property name="digits">2</property>
-                <property name="adjustment">brightness_adjustment</property>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Brightness</property>
+                <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+                <property name="activatable-widget">overview_brightness_scale</property>
+
+                <child>
+                  <object class="GtkScale" id="overview_brightness_scale">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="width-request">200px</property>
+                    <property name="draw-value">true</property>
+                    <property name="value-pos">right</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="digits">2</property>
+                    <property name="adjustment">overview_brightness</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -56,29 +66,58 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Blur preferences</property>
+        <property name="title" translatable="yes">Applications folder blur</property>
         <property name="header-suffix">
-          <object class="GtkLabel">
-            <property name="label">customize</property>
-            <property name="valign">center</property>
-          </object>
-          <object class="GtkSwitch" id="customize">
+          <object class="GtkSwitch" id="appfolder_blur">
             <property name="valign">center</property>
           </object>
         </property>
 
         <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Sigma</property>
-            <property name="subtitle" translatable="yes">The intensity of the blur.</property>
-            <property name="activatable-widget">sigma</property>
-            <property name="sensitive" bind-source="customize" bind-property="state" bind-flags="sync-create" />
+          <object class="AdwExpanderRow" id="appfolder_customize">
+            <property name="title" translatable="yes">Customize properties</property>
+            <property name="subtitle" translatable="yes">Uses customized blur properties, instead of the ones set in the General page.</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+
             <child>
-              <object class="GtkScale" id="sigma">
-                <property name="valign">center</property>
-                <property name="orientation">horizontal</property>
-                <property name="numeric">True</property>
-                <property name="adjustment">sigma_adjustment</property>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Sigma</property>
+                <property name="subtitle" translatable="yes">The intensity of the blur.</property>
+                <property name="activatable-widget">appfolder_sigma_scale</property>
+
+                <child>
+                  <object class="GtkScale" id="appfolder_sigma_scale">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="width-request">200px</property>
+                    <property name="draw-value">true</property>
+                    <property name="value-pos">right</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="digits">0</property>
+                    <property name="adjustment">appfolder_sigma</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Brightness</property>
+                <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+                <property name="activatable-widget">appfolder_brightness_scale</property>
+
+                <child>
+                  <object class="GtkScale" id="appfolder_brightness_scale">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="width-request">200px</property>
+                    <property name="draw-value">true</property>
+                    <property name="value-pos">right</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="digits">2</property>
+                    <property name="adjustment">appfolder_brightness</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -86,17 +125,21 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Brightness</property>
-            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
-            <property name="activatable-widget">brightness</property>
-            <property name="sensitive" bind-source="customize" bind-property="state" bind-flags="sync-create" />
+            <property name="title" translatable="yes">Dialog opacity</property>
+            <property name="subtitle" translatable="yes">The opacity of the applications folder popup.</property>
+            <property name="activatable-widget">appfolder_dialog_opacity_scale</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+
             <child>
-              <object class="GtkScale" id="brightness">
+              <object class="GtkScale" id="appfolder_dialog_opacity_scale">
                 <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
                 <property name="orientation">horizontal</property>
-                <property name="numeric">True</property>
                 <property name="digits">2</property>
-                <property name="adjustment">brightness_adjustment</property>
+                <property name="adjustment">appfolder_dialog_opacity</property>
               </object>
             </child>
           </object>
@@ -105,13 +148,31 @@
     </child>
   </template>
 
-  <object class="GtkAdjustment" id="sigma_adjustment">
+  <object class="GtkAdjustment" id="overview_sigma">
     <property name="lower">0</property>
-    <property name="upper">25</property>
+    <property name="upper">200</property>
     <property name="step-increment">1</property>
   </object>
 
-  <object class="GtkAdjustment" id="brightness_adjustment">
+  <object class="GtkAdjustment" id="overview_brightness">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkAdjustment" id="appfolder_sigma">
+    <property name="lower">0</property>
+    <property name="upper">200</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="appfolder_brightness">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkAdjustment" id="appfolder_dialog_opacity">
     <property name="lower">0.0</property>
     <property name="upper">1.0</property>
     <property name="step-increment">0.01</property>
