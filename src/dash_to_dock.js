@@ -22,10 +22,12 @@ class DashInfos {
         this.background_parent = background_parent;
         this.effect = effect;
         this.prefs = prefs;
+        this.old_style = this.dash._background.style;
 
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
             this._log("removing blur from dash");
             this.dash.get_parent().remove_child(this.background_parent);
+            this.dash._background.style = this.old_style;
             this.dash.remove_style_class_name('blurred-dash');
         });
 
@@ -35,6 +37,16 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'update-brightness', () => {
             this.effect.brightness = this.dash_blur.brightness;
+        });
+
+        dash_blur.connections.connect(dash_blur, 'override-background', () => {
+            this.dash._background.style = null;
+            this.dash.set_style_class_name('blurred-dash');
+        });
+
+        dash_blur.connections.connect(dash_blur, 'reset-background', () => {
+            this.dash._background.style = this.old_style;
+            this.dash.remove_style_class_name('blurred-dash');
         });
 
         dash_blur.connections.connect(dash_blur, 'show', () => {
@@ -153,10 +165,6 @@ var DashBlur = class DashBlur {
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
 
-        // remove background color
-        dash.set_style_class_name('blurred-dash');
-
-
         // HACK
         //
         //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
@@ -214,8 +222,16 @@ var DashBlur = class DashBlur {
             this.paint_signals.disconnect_all();
         }
 
+        // create infos
+        let infos = new DashInfos(
+            this, dash, background_parent, effect, this.prefs
+        );
+
+        // update the background
+        this.update_background();
+
         // returns infos
-        return new DashInfos(this, dash, background_parent, effect, this.prefs);
+        return infos;
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly
@@ -231,6 +247,15 @@ var DashBlur = class DashBlur {
             );
         }
     };
+
+    /// Updates the background to either remove it or not, according to the
+    /// user preferences.
+    update_background() {
+        if (this.prefs.DASH_TO_DOCK_OVERRIDE_BACKGROUND.get())
+            this.emit('override-background', true);
+        else
+            this.emit('reset-background', true);
+    }
 
     set_sigma(sigma) {
         this.sigma = sigma;

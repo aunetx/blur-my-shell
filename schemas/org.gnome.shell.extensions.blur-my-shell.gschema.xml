@@ -50,6 +50,12 @@
             <summary>Brightness to use for overview</summary>
             <description />
         </key>
+        <!-- OVERVIEW STYLE COMPONENTS -->
+        <key type="b" name="overview-style-components">
+            <default>true</default>
+            <summary>Boolean, whether to make overview components semi-transparent or not</summary>
+            <description />
+        </key>
 
         <!-- APPFOLDER SWITCH -->
         <key type="b" name="appfolder-blur">
@@ -123,12 +129,12 @@
         </key>
 
 
-        <!-- ****** DASH ****** -->
+        <!-- ****** DASH TO DOCK ****** -->
 
-        <!-- DASH SWITCH -->
-        <key type="b" name="dash-blur">
+        <!-- DASH-TO-DOCK SWITCH -->
+        <key type="b" name="dash-to-dock-blur">
             <default>true</default>
-            <summary>Boolean, whether to blur the dash or not</summary>
+            <summary>Boolean, whether to blur dash-to-dock or not</summary>
             <description />
         </key>
         <!-- DASH-TO-DOCK GENERAL VALUES SWITCH -->
@@ -155,10 +161,10 @@
             <summary>Boolean, whether to have a static blur on dash-to-dock or a dynamic one</summary>
             <description />
         </key>
-        <!-- DASH OPACITY -->
-        <key type="d" name="dash-opacity">
-            <default>0.12</default>
-            <summary>Opacity of dash to use</summary>
+        <!-- DASH-TO-DOCK OVERRIDE BACKGROUND -->
+        <key type="b" name="dash-to-dock-override-background">
+            <default>true</default>
+            <summary>Boolean, whether to override the background on dash-to-dock or not</summary>
             <description />
         </key>
         <!-- DASH-TO-DOCK UNBLUR IN OVERVIEW -->

@@ -29,5 +29,5 @@ function fillPreferencesWindow(window) {
     window.add(new Other);
 
     window.search_enabled = true;
-    window.set_default_size(720, 530);
+    window.set_default_size(680, 450);
 }
