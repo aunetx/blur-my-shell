@@ -92,6 +92,6 @@ var Connections = class Connections {
 
     _log(str) {
         // no need to check if DEBUG here as this._log is only used on error
-        log(`[Panel corners] ${str}`);
+        log(`[Blur my Shell] ${str}`);
     }
 };
