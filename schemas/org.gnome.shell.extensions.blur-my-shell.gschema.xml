@@ -296,6 +296,24 @@
             <description />
         </key>
 
+        <!-- COLOR BLUR OPTIONS -->
+        
+        <key type="d" name="red">
+            <default>0.6</default>
+            <summary>Global brightness to use</summary>
+            <description />
+        </key>
+        <key type="d" name="green">
+            <default>0.6</default>
+            <summary>Global brightness to use</summary>
+            <description />
+        </key>
+        <key type="d" name="blue">
+            <default>0.6</default>
+            <summary>Global brightness to use</summary>
+            <description />
+        </key>
+
 
         <!-- ****** MISC / DIALOG ****** -->
 
