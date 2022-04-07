@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="ColorBlur" parent="AdwPreferencesPage">
+    <property name="name">ColorBlur</property>
+    <property name="title" translatable="yes">ColorBlur</property>
+    <property name="icon-name">color-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Background blur</property>
+        <property name="description" translatable="yes">Add blur to the overview background, using the wallpaper picture.</property>
+        
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Red</property>
+            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+            <property name="activatable-widget">red_scale</property>
+
+            <child>
+              <object class="GtkScale" id="red_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">red</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Green</property>
+            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+            <property name="activatable-widget">green_scale</property>
+
+            <child>
+              <object class="GtkScale" id="green_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">green</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blue</property>
+            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+            <property name="activatable-widget">blue_scale</property>
+
+            <child>
+              <object class="GtkScale" id="blue_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">blue</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+
+  <object class="GtkAdjustment" id="red">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="blue">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="green">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+</interface>

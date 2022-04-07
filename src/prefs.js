@@ -14,6 +14,7 @@ const { Panel } = Me.imports.preferences.panel;
 const { Overview } = Me.imports.preferences.overview;
 const { Dash } = Me.imports.preferences.dash;
 const { Applications } = Me.imports.preferences.applications;
+const { ColorBlur } = Me.imports.preferences.color_blur;
 const { Other } = Me.imports.preferences.other;
 
 
@@ -31,6 +32,7 @@ function fillPreferencesWindow(window) {
     window.add(new Dash);
     window.add(new Applications);
     window.add(new Other);
+    window.add(new ColorBlur);
 
     window.search_enabled = true;
     window.set_default_size(680, 450);

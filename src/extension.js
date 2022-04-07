@@ -373,7 +373,16 @@ class Extension {
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'],
             general_sigma = this._prefs.SIGMA,
-            general_brightness = this._prefs.BRIGHTNESS;
+            general_brightness = this._prefs.BRIGHTNESS,
+            red = this._prefs.red,
+            green = this._prefs.green,
+            blue = this._prefs.blue;
+
+        log(Object.getOwnPropertyNames(this._prefs));
+        log(green)
+        log(red)
+        log(component_sigma)
+        log("osdhfoijf")
 
         // general values switch is toggled
 
