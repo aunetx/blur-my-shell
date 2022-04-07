@@ -8,6 +8,7 @@ const wac_proto = WorkspaceAnimationController.prototype;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.conveniences.utilities;
+const ColorEffect = Me.imports.conveniences.color_effect;
 
 
 var OverviewBlur = class OverviewBlur {
@@ -147,6 +148,8 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.SIGMA.get(),
             mode: Shell.BlurMode.ACTOR
         });
+
+        bg_actor.add_effect(new ColorEffect.ColorEffect());
 
         bg_actor.add_effect(effect);
         this.effects.push(effect);
