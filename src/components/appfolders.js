@@ -190,7 +190,10 @@ var AppFoldersBlur = class AppFoldersBlur {
                 this._log("appfolders hack level 1");
                 this.paint_signals.disconnect_all();
 
-                Utils.setTimeout(_ => {
+                if (this._hacks_timeout)
+                    clearTimeout(this._hacks_timeout);
+
+                this._hacks_timeout = setTimeout(_ => {
                     this.paint_signals.connect(Main.overview._overview, effect);
                     this.paint_signals.connect(icon._dialog, effect);
                 }, 100);
@@ -198,7 +201,10 @@ var AppFoldersBlur = class AppFoldersBlur {
                 this._log("appfolders hack level 2");
                 this.paint_signals.disconnect_all();
 
-                Utils.setTimeout(_ => {
+                if (this._hacks_timeout)
+                    clearTimeout(this._hacks_timeout);
+
+                this._hacks_timeout = setTimeout(_ => {
                     this.paint_signals.connect(Main.overview._overview, effect);
                     this.paint_signals.connect(icon._dialog, effect);
                 }, 100);
@@ -222,6 +228,10 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     disable() {
         this._log("removing blur from appfolders");
+
+        Utils.clear_ease_timeouts();
+        if (this._hacks_timeout)
+            clearTimeout(this._hacks_timeout);
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
