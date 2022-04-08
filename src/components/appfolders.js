@@ -2,13 +2,13 @@
 
 const { Shell, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
+const Tweener = imports.tweener.tweener;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.conveniences.utilities;
 const PaintSignals = Me.imports.conveniences.paint_signals;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
-const FOLDER_DIALOG_ANIMATION_TIME = 200;
+const FOLDER_DIALOG_ANIMATION_TIME = 0.2;
 const FRAME_UPDATE_PERIOD = 16;
 
 let original_zoomAndFadeIn = null;
@@ -35,16 +35,21 @@ let _zoomAndFadeIn = function () {
     let effect = this.get_effect("appfolder-blur");
 
     effect.sigma = 0;
-    Utils.ease_property(
-        effect, 'sigma',
-        0, sigma,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            sigma: sigma,
+            time: FOLDER_DIALOG_ANIMATION_TIME,
+            transition: 'easeOutQuad'
+        }
     );
 
     effect.brightness = 1.0;
-    Utils.ease_property(effect, 'brightness',
-        1.0, brightness,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            brightness: brightness,
+            time: FOLDER_DIALOG_ANIMATION_TIME,
+            transition: 'easeOutQuad'
+        }
     );
 
     this.child.ease({
@@ -83,14 +88,20 @@ let _zoomAndFadeOut = function () {
 
     let effect = this.get_effect("appfolder-blur");
 
-    Utils.ease_property(effect, 'sigma',
-        effect.sigma, 0,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            sigma: 0,
+            time: FOLDER_DIALOG_ANIMATION_TIME,
+            transition: 'easeOutQuad'
+        }
     );
 
-    Utils.ease_property(effect, 'brightness',
-        effect.brightness, 1.0,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            brightness: 1.0,
+            time: FOLDER_DIALOG_ANIMATION_TIME,
+            transition: 'easeOutQuad'
+        }
     );
 
     this.child.ease({

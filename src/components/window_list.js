@@ -4,7 +4,6 @@ const { St, Shell, Meta, Gio } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.conveniences.utilities;
 const PaintSignals = Me.imports.conveniences.paint_signals;
 
 
