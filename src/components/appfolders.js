@@ -229,7 +229,6 @@ var AppFoldersBlur = class AppFoldersBlur {
     disable() {
         this._log("removing blur from appfolders");
 
-        Utils.clear_ease_timeouts();
         if (this._hacks_timeout)
             clearTimeout(this._hacks_timeout);
 
