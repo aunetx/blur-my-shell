@@ -12,13 +12,13 @@
 }
 
 .bms-overview-components .blurred-dash .dash-background {
-    background-color: rgba(100, 100, 100, 0.3) !important;
+    background-color: rgba(200, 200, 200, 0.2) !important;
 }
 
 .bms-overview-components .search-entry {
     padding: 10px;
     color: white;
-    background-color: rgba(100, 100, 100, 0.3);
+    background-color: rgba(200, 200, 200, 0.2);
     border: 0;
     box-shadow: none;
 }
@@ -29,7 +29,7 @@
 
 .bms-overview-components .search-section-content,
 .bms-overview-components .app-folder .overview-icon {
-    background-color: rgba(100, 100, 100, 0.3);
+    background-color: rgba(200, 200, 200, 0.2);
 }
 
 .bms-overview-components.just-perfection .search-section-content {
@@ -38,11 +38,11 @@
 
 .bms-overview-components .app-folder:hover .overview-icon,
 .bms-overview-components .app-folder:focus .overview-icon {
-    background-color: rgba(120, 120, 120, 0.3);
+    background-color: rgba(230, 230, 230, 0.2);
 }
 
 .bms-overview-components .dash-background {
-    background-color: rgba(100, 100, 100, 0.3);
+    background-color: rgba(200, 200, 200, 0.2);
 }
 
 /*
