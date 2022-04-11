@@ -29,4 +29,4 @@ remove:
 
 
 clean:
-	rm -rf pkg/ build/
+	rm -rf pkg/ build/ schemas/gschemas.compiled
