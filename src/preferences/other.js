@@ -34,17 +34,17 @@ var Other = GObject.registerClass({
         super(props);
 
         Preferences.settings.bind('lockscreen-blur', this._lockscreen_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('lockscreen-customize', this._lockscreen_customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('lockscreen-customize', this._lockscreen_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('lockscreen-sigma', this._lockscreen_sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('lockscreen-brightness', this._lockscreen_brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
 
         Preferences.settings.bind('screenshot-blur', this._screenshot_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('screenshot-customize', this._screenshot_customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('screenshot-customize', this._screenshot_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('screenshot-sigma', this._screenshot_sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('screenshot-brightness', this._screenshot_brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
 
         Preferences.settings.bind('window-list-blur', this._window_list_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('window-list-customize', this._window_list_customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('window-list-customize', this._window_list_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('window-list-sigma', this._window_list_sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('window-list-brightness', this._window_list_brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
     }

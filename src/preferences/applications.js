@@ -25,7 +25,7 @@ var Applications = GObject.registerClass({
         super(props);
 
         Preferences.settings.bind('applications-blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('applications-customize', this._customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('applications-customize', this._customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('applications-sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('applications-brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('applications-whitelist', this._whitelist.buffer, 'text', Gio.SettingsBindFlags.DEFAULT);
