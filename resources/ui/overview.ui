@@ -20,6 +20,7 @@
             <property name="title" translatable="yes">Customize properties</property>
             <property name="subtitle" translatable="yes">Uses customized blur properties, instead of the ones set in the General page.</property>
             <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="show-enable-switch">true</property>
 
             <child>
               <object class="AdwActionRow">
@@ -97,6 +98,7 @@
             <property name="title" translatable="yes">Customize properties</property>
             <property name="subtitle" translatable="yes">Uses customized blur properties, instead of the ones set in the General page.</property>
             <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="show-enable-switch">true</property>
 
             <child>
               <object class="AdwActionRow">
