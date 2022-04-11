@@ -28,6 +28,6 @@ var Applications = GObject.registerClass({
         Preferences.settings.bind('applications-customize', this._customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('applications-sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('applications-brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('applications-whitelist', this._whitelist, 'text', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('applications-whitelist', this._whitelist.buffer, 'text', Gio.SettingsBindFlags.DEFAULT);
     }
 });

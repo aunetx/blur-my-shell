@@ -7,8 +7,8 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Applications blur</property>
-        <property name="description" translatable="yes">Add blur to the applications.</property>
+        <property name="title" translatable="yes">Applications blur (beta)</property>
+        <property name="description" translatable="yes">Add blur to the applications. This is still a beta functionnality, is quite buggy and is only applied to the apps that ask it, or to the ones set in the whitelist below.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
@@ -67,15 +67,22 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Whitelist (beta)</property>
-            <property name="subtitle" translatable="yes">A list of the applications to blur, separated by whitespaces.</property>
+            <property name="title" translatable="yes">Whitelist</property>
+            <property name="subtitle" translatable="yes">A list of the applications to blur, one per line. To get an application class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last name here.</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">whitelist</property>
 
             <child>
-              <object class="GtkEntry" id="whitelist">
+              <object class="GtkTextView" id="whitelist">
                 <property name="valign">center</property>
-                <property name="hexpand">true</property>
+                <property name="hexpand">false</property>
+                <property name="width-request">180px</property>
+                <property name="monospace">true</property>
+                <property name="left-margin">10px</property>
+                <property name="right-margin">10px</property>
+                <property name="top-margin">10px</property>
+                <property name="bottom-margin">10px</property>
+                <property name="tooltip-text">example: Gnome-terminal</property>
               </object>
             </child>
           </object>
