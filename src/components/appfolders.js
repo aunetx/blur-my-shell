@@ -4,8 +4,8 @@ const { Shell, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Easing = Me.imports.conveniences.easing;
 const PaintSignals = Me.imports.conveniences.paint_signals;
+const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
@@ -15,8 +15,6 @@ let original_zoomAndFadeIn = null;
 let original_zoomAndFadeOut = null;
 let sigma = 30;
 let brightness = 0.6;
-
-const EasingManager = new Easing.EasingManager;
 
 let _zoomAndFadeIn = function () {
     let [sourceX, sourceY] =
@@ -36,18 +34,15 @@ let _zoomAndFadeIn = function () {
 
     let effect = this.get_effect("appfolder-blur");
 
-    EasingManager.remove_all_sources();
-
     effect.sigma = 0;
-    EasingManager.ease_property(
-        effect, 'sigma', sigma,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
-    );
-
     effect.brightness = 1.0;
-    EasingManager.ease_property(
-        effect, 'brightness', brightness,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            sigma: sigma,
+            brightness: brightness,
+            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
+            transition: 'easeOutQuad'
+        }
     );
 
     this.child.ease({
@@ -86,16 +81,13 @@ let _zoomAndFadeOut = function () {
 
     let effect = this.get_effect("appfolder-blur");
 
-    EasingManager.remove_all_sources();
-
-    EasingManager.ease_property(
-        effect, 'sigma', 0,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
-    );
-
-    EasingManager.ease_property(
-        effect, 'brightness', 1.0,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            sigma: 0,
+            brightness: 1.0,
+            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
+            transition: 'easeInQuad'
+        }
     );
 
     this.child.ease({
@@ -149,6 +141,9 @@ var AppFoldersBlur = class AppFoldersBlur {
     blur_appfolders() {
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
+        if (this.prefs.HACKS_LEVEL.get() >= 1)
+            this._log(`appfolders hack level ${this.prefs.HACKS_LEVEL.get()}`);
+
         appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
 
@@ -192,11 +187,7 @@ var AppFoldersBlur = class AppFoldersBlur {
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
             if (this.prefs.HACKS_LEVEL.get() >= 1) {
-                this._log(
-                    `appfolders hack level ${this.prefs.HACKS_LEVEL.get()}`
-                );
                 this.paint_signals.disconnect_all_for_actor(icon._dialog);
-
                 this.paint_signals.connect(icon._dialog, effect);
             } else {
                 this.paint_signals.disconnect_all();
@@ -218,11 +209,6 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     disable() {
         this._log("removing blur from appfolders");
-
-        EasingManager.remove_all_sources();
-
-        if (this._hacks_timeout)
-            clearTimeout(this._hacks_timeout);
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
