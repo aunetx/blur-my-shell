@@ -68,14 +68,15 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Stylize overview components</property>
-            <property name="subtitle" translatable="yes">Make the dash, search entry/results, and applications folder icon semi-transparent.</property>
+            <property name="title" translatable="yes">Overview components style</property>
+            <property name="subtitle" translatable="yes">The semi-transparent style for the dash, search entry/results, and applications folders.</property>
             <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">overview_style_components</property>
 
             <child>
-              <object class="GtkSwitch" id="overview_style_components">
+              <object class="GtkDropDown" id="overview_style_components">
                 <property name="valign">center</property>
+                <property name="model">overview_style_components_model</property>
               </object>
             </child>
           </object>
@@ -178,6 +179,13 @@
     <property name="lower">0.0</property>
     <property name="upper">1.0</property>
     <property name="step-increment">0.01</property>
+  </object>
+  <object class="GtkStringList" id="overview_style_components_model">
+    <items>
+      <item translatable="yes">Do not style</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+    </items>
   </object>
 
   <object class="GtkAdjustment" id="appfolder_sigma">

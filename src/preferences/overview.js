@@ -34,7 +34,7 @@ var Overview = GObject.registerClass({
         Preferences.settings.bind('overview-customize', this._overview_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('overview-sigma', this._overview_sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('overview-brightness', this._overview_brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('overview-style-components', this._overview_style_components, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('overview-style-components', this._overview_style_components, 'selected', Gio.SettingsBindFlags.DEFAULT);
 
         Preferences.settings.bind('appfolder-blur', this._appfolder_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('appfolder-customize', this._appfolder_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);

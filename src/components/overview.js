@@ -157,14 +157,27 @@ var OverviewBlur = class OverviewBlur {
     }
 
     /// Updates the classname to style overview components with semi-transparent
-    /// backgrounds, if needed.
+    /// backgrounds.
     update_components_classname() {
-        if (this.prefs.OVERVIEW_STYLE_COMPONENTS.get()) {
-            this._log("add overview components classname");
-            Main.uiGroup.add_style_class_name("bms-overview-components");
-        } else {
-            this._log("remove overview components classname");
-            Main.uiGroup.remove_style_class_name("bms-overview-components");
+        let group = Main.uiGroup;
+        switch (this.prefs.OVERVIEW_STYLE_COMPONENTS.get()) {
+            case 1:
+                this._log("set overview components light classname");
+                group.remove_style_class_name("bms-overview-components-dark");
+                group.add_style_class_name("bms-overview-components-light");
+                break;
+
+            case 2:
+                this._log("set overview components dark classname");
+                group.remove_style_class_name("bms-overview-components-light");
+                group.add_style_class_name("bms-overview-components-dark");
+                break;
+
+            default:
+                this._log("remove overview components classname");
+                group.remove_style_class_name("bms-overview-components-light");
+                group.remove_style_class_name("bms-overview-components-dark");
+                break;
         }
     }
 
@@ -188,7 +201,8 @@ var OverviewBlur = class OverviewBlur {
             }
         });
         Main.uiGroup.remove_style_class_name("blurred-overview");
-        Main.uiGroup.remove_style_class_name("bms-overview-components");
+        Main.uiGroup.remove_style_class_name("bms-overview-components-light");
+        Main.uiGroup.remove_style_class_name("bms-overview-components-dark");
 
         this.effects = [];
         this.connections.disconnect_all();
