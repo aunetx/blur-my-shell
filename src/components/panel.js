@@ -188,6 +188,9 @@ var PanelBlur = class PanelBlur {
             this.background.height = panel_box.height;
             this.background.x = -clip_box.x;
             this.background.y = -clip_box.y;
+
+            // fixes a bug where the blur is washed away when changing the sigma
+            this.effect.actor.get_content().invalidate();
         }
     }
 
@@ -242,6 +245,10 @@ var PanelBlur = class PanelBlur {
 
     set_sigma(s) {
         this.effect.sigma = s;
+
+        // fixes a bug where the blur is washed away when changing the sigma
+        if (this.prefs.PANEL_STATIC_BLUR.get())
+            this.effect.actor.get_content().invalidate();
     }
 
     set_brightness(b) {
