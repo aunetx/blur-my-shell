@@ -247,7 +247,7 @@ var PanelBlur = class PanelBlur {
         this.effect.sigma = s;
 
         // fixes a bug where the blur is washed away when changing the sigma
-        if (this.prefs.PANEL_STATIC_BLUR.get())
+        if (this.prefs.PANEL_STATIC_BLUR.get() && this.effect.actor != null)
             this.effect.actor.get_content().invalidate();
     }
 
