@@ -9,6 +9,7 @@ const backgroundSettings = new Gio.Settings({
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const Utils = Me.imports.conveniences.utilities;
 const PaintSignals = Me.imports.conveniences.paint_signals;
+const ColorEffect = Me.imports.conveniences.color_effect;
 
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
@@ -113,6 +114,7 @@ var PanelBlur = class PanelBlur {
                 height: Main.panel.height,
             });
         this.effect.set_mode(is_static ? 0 : 1);
+        this.background.add_effect(new ColorEffect.example({'red' : this.prefs.RED.get()}))
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
 
