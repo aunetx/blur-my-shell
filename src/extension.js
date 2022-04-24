@@ -378,11 +378,6 @@ class Extension {
             green = this._prefs.green,
             blue = this._prefs.blue;
 
-        log(Object.getOwnPropertyNames(this._prefs));
-        log(green)
-        log(red)
-        log(component_sigma)
-        log("osdhfoijf")
 
         // general values switch is toggled
 
