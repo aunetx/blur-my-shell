@@ -11,6 +11,9 @@ const UnlockDialog_proto = imports.ui.unlockDialog.UnlockDialog.prototype;
 const original_createBackground = UnlockDialog_proto._updateBackgroundEffects;
 
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+
 var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -20,11 +23,21 @@ var LockscreenBlur = class LockscreenBlur {
     enable() {
         this._log("blurring lockscreen");
 
+
+        log("fspadfdsf")
+        log(this.prefs.BLUE.get())
+
         this.update_lockscreen();
     }
 
     update_lockscreen() {
         UnlockDialog_proto._updateBackgroundEffects = this._createBackground;
+
+        // Color effect does not work when we apply it after the blur in this case?
+        // widget.add_effect() did not work ether for the ColorEffect so I overrided the function
+        // Instead to call it first
+        UnlockDialog_proto._createBackground =
+        this._createBackground_with_color;
     }
 
     _createBackground() {
@@ -38,7 +51,38 @@ var LockscreenBlur = class LockscreenBlur {
                 });
             }
         }
-    }
+    } 
+
+    _createBackground_with_color(monitorIndex) {
+        let monitor = Main.layoutManager.monitors[monitorIndex];
+        let widget = new St.Widget({
+          style_class: "screen-shield-background",
+          x: monitor.x,
+          y: monitor.y,
+          width: monitor.width,
+          height: monitor.height,
+          // So for some reason These exact values make it follow whatever the global
+          // effect is? changing them causes it to crash and these were random values 
+          // I put in to test it......
+          effect: new ColorEffect({ 
+            'red' : 0.9,
+            'green' : 0.4, 
+            'blue' : 0.6,
+          })
+        });
+    
+        widget.add_effect(new Shell.BlurEffect({ name: "blur" }));
+    
+        let bgManager = new Background.BackgroundManager({
+          container: widget,
+          monitorIndex,
+          controlPosition: false,
+        });
+    
+        this._bgManagers.push(bgManager);
+    
+        this._backgroundGroup.add_child(widget);
+      }
 
     set_sigma(s) {
         sigma = s;
