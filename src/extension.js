@@ -25,6 +25,10 @@ const INDEPENDENT_COMPONENTS = [
     "lockscreen", "window_list", "screenshot"
 ];
 
+const COLORED_COMPONENTS = [
+    "overview", "panel", "lockscreen"
+]
+
 
 /// The main extension class, created when the GNOME Shell is loaded.
 class Extension {
@@ -190,6 +194,7 @@ class Extension {
         // global blur values changed, update everybody
 
         this._prefs.SIGMA.changed(() => {
+            log('h')
             this._update_sigma();
         });
         this._prefs.BRIGHTNESS.changed(() => {
@@ -356,6 +361,16 @@ class Extension {
                 this._screenshot_blur.disable();
             }
         });
+
+        log(this._prefs.RED.get());
+
+        // ---------- COLOR ----------
+
+        this._prefs.RED.changed(() => {
+
+            this._update_color();
+
+        });
     }
 
     /// Select the component by its name and connect it to its preferences
@@ -429,6 +444,20 @@ class Extension {
         });
     }
 
+    // Update the Color
+    _update_color() {
+
+        log("hello");
+    
+        let red = this._prefs.RED;
+        let green = this._prefs.GREEN;
+        let blue = this._prefs.BLUE;
+
+        COLORED_COMPONENTS.forEach(component => {
+            this._change_color_for(component, red, green, blue);
+        });
+    }
+    
     /// Update sigma for a given component
     _change_sigma_for(name, general_sigma) {
         const accessible_name = name.toUpperCase();
@@ -463,6 +492,15 @@ class Extension {
             component.set_brightness(component_brightness.get());
         else
             component.set_brightness(general_brightness.get());
+    }
+
+    _change_color_for(name, red, green, blue) {
+        const accessible_name = name.toUpperCase();
+
+        component = this['_' + name + '_blur'];
+
+        componenet.set_color(red,green,blue);
+
     }
 
     _log(str) {
