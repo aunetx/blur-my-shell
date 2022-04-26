@@ -149,13 +149,8 @@ var OverviewBlur = class OverviewBlur {
             mode: Shell.BlurMode.ACTOR
         });
 
-        log(this.prefs.RED.get() + " 22");
-
-        //bg_actor.add_effect(new ColorEffect.ColorEffect());
-
-        const a = new ColorEffect.example({'red': this.prefs.RED.get()});
-
-        bg_actor.add_effect(a);
+        let color_effect = ColorEffect.get_new_color_effect(this.prefs.RED.get(),this.prefs.GREEN.get(),this.prefs.BLUE.get())
+        bg_actor.add_effect(color_effect);
 
         bg_actor.add_effect(effect);
         this.effects.push(effect);

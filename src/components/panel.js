@@ -114,7 +114,7 @@ var PanelBlur = class PanelBlur {
                 height: Main.panel.height,
             });
         this.effect.set_mode(is_static ? 0 : 1);
-        this.background.add_effect(new ColorEffect.example({'red' : this.prefs.RED.get()}))
+        this.background.add_effect(ColorEffect.get_new_color_effect(this.prefs.RED.get(), this.prefs.GREEN.get(), this.prefs.BLUE.get()))
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
 
