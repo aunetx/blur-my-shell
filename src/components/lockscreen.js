@@ -14,6 +14,13 @@ const original_createBackground = UnlockDialog_proto._updateBackgroundEffects;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
 
+// When we override _createBackground we can't call this.prefs anymore as "this"
+// refers to the UnlockDialog_proto class now, so if we cache the values
+// before we override the function we can still access the rbg values
+let red;
+let blue;
+let green;
+
 var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -32,10 +39,15 @@ var LockscreenBlur = class LockscreenBlur {
 
     update_lockscreen() {
         UnlockDialog_proto._updateBackgroundEffects = this._createBackground;
+        
+        red = this.prefs.RED.get();
+        green = this.prefs.GREEN.get();
+        blue = this.prefs.BLUE.get();
 
         // Color effect does not work when we apply it after the blur in this case?
         // widget.add_effect() did not work ether for the ColorEffect so I overrided the function
-        // Instead to call it first
+        // instead to call it 
+
         UnlockDialog_proto._createBackground =
         this._createBackground_with_color;
     }
@@ -61,13 +73,10 @@ var LockscreenBlur = class LockscreenBlur {
           y: monitor.y,
           width: monitor.width,
           height: monitor.height,
-          // So for some reason These exact values make it follow whatever the global
-          // effect is? changing them causes it to crash and these were random values 
-          // I put in to test it......
           effect: new ColorEffect({ 
-            'red' : 0.9,
-            'green' : 0.4, 
-            'blue' : 0.6,
+            'red' : red,
+            'green' : green, 
+            'blue' : blue,
           })
         });
     
