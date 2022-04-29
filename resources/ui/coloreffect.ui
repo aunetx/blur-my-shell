@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="blur-my-shell@aunetx">
-  <template class="ColorBlur" parent="AdwPreferencesPage">
-    <property name="name">ColorBlur</property>
-    <property name="title" translatable="yes">ColorBlur</property>
+  <template class="Color_Effect" parent="AdwPreferencesPage">
+    <property name="name">Color_Effect</property>
+    <property name="title" translatable="yes">Color Blur</property>
     <property name="icon-name">color-symbolic</property>
 
     <child>
