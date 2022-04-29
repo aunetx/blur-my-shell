@@ -148,12 +148,15 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.SIGMA.get(),
             mode: Shell.BlurMode.ACTOR
         });
-
-        log(this.prefs.COLOR_BLUR.get())
-
+        
         if(this.prefs.COLOR_BLUR.get()) {
 
-            let color_effect = new ColorEffect({'red' : this.prefs.RED.get(), 'green' : this.prefs.GREEN.get(), 'blue' : this.prefs.BLUE.get()});
+            let color_effect = new ColorEffect({
+                'red' : this.prefs.RED.get(), 
+                'green' : this.prefs.GREEN.get(), 
+                'blue' : this.prefs.BLUE.get(),
+                'blend' : this.prefs.BLEND.get(),
+            });
             bg_actor.add_effect(color_effect);
         }
 

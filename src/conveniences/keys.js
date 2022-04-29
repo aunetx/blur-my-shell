@@ -63,6 +63,7 @@ var Keys = [
     { type: Type.D, name: "red" },
     { type: Type.D, name: "green" },
     { type: Type.D, name: "blue" },
+    { type: Type.D, name: "blend" },
 
     { type: Type.B, name: "hidetopbar-compatibility" },
 

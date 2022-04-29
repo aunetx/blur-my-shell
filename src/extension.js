@@ -385,6 +385,11 @@ class Extension {
 
             this._update_color();
         })
+
+        this._prefs.BLEND.changed(() => {
+
+            this._update_color();
+        })
     }
 
     /// Select the component by its name and connect it to its preferences

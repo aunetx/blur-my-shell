@@ -21,6 +21,7 @@ let color_blur; // true/false to add color
 let red;        // red value
 let blue;       // blue value
 let green;      // green value
+let blend;
 
 var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
@@ -45,6 +46,7 @@ var LockscreenBlur = class LockscreenBlur {
         red = this.prefs.RED.get();
         green = this.prefs.GREEN.get();
         blue = this.prefs.BLUE.get();
+        blend = this.prefs.BLEND.get();
 
         // Color effect does not work when we apply it after the blur in this case?
         // widget.add_effect() did not work ether for the ColorEffect so I overrided the function
@@ -83,6 +85,7 @@ var LockscreenBlur = class LockscreenBlur {
                 'red': red,
                 'green': green,
                 'blue': blue,
+                'blend' : blend,
             }));
 
         }

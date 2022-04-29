@@ -318,8 +318,12 @@
             <summary>Global Blue value</summary>
             <description />
         </key>
-
-
+        <key type="d" name="blend">
+            <default>0.1</default>
+            <summary>Global Mix value</summary>
+            <description />
+        </key>
+        
         <!-- ****** MISC / DIALOG ****** -->
 
         <!-- DEBUG -->

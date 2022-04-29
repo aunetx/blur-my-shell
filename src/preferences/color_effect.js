@@ -51,12 +51,14 @@ var ColorEffect = GObject.registerClass({
         'red',
         'green',
         'blue',
+        'blend',
     ],
 }, class ColorEffect extends Adw.PreferencesPage {
     constructor(props = {}) {
         super(props);
 
         Preferences.settings.bind('color-blur', this._color_blur, 'state', Gio.SettingsBindFlags.DEFAULT)
+        Preferences.settings.bind('blend', this._blend, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('red', this._red, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('green', this._green, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('blue', this._blue, 'value', Gio.SettingsBindFlags.DEFAULT);

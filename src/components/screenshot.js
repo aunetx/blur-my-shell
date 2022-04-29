@@ -90,7 +90,8 @@ var ScreenshotBlur = class ScreenshotBlur {
             bg_actor.add_effect(new ColorEffect({
                 'red': this.prefs.RED.get(),
                 'green': this.prefs.GREEN.get(),
-                'blue': this.prefs.BLUE.get()
+                'blue': this.prefs.BLUE.get(),
+                'blend' : this.prefs.BLEND.get(),
             }))
         }
 
