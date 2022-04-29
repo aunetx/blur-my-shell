@@ -31,13 +31,13 @@ var Overview = GObject.registerClass({
         super(props);
 
         Preferences.settings.bind('overview-blur', this._overview_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('overview-customize', this._overview_customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('overview-customize', this._overview_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('overview-sigma', this._overview_sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('overview-brightness', this._overview_brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('overview-style-components', this._overview_style_components, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('overview-style-components', this._overview_style_components, 'selected', Gio.SettingsBindFlags.DEFAULT);
 
         Preferences.settings.bind('appfolder-blur', this._appfolder_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('appfolder-customize', this._appfolder_customize, 'expanded', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.settings.bind('appfolder-customize', this._appfolder_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('appfolder-sigma', this._appfolder_sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('appfolder-brightness', this._appfolder_brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('appfolder-dialog-opacity', this._appfolder_dialog_opacity, 'value', Gio.SettingsBindFlags.DEFAULT);

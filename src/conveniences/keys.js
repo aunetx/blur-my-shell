@@ -15,7 +15,7 @@ var Keys = [
     { type: Type.B, name: "overview-customize" },
     { type: Type.I, name: "overview-sigma" },
     { type: Type.D, name: "overview-brightness" },
-    { type: Type.B, name: "overview-style-components" },
+    { type: Type.I, name: "overview-style-components" },
 
     { type: Type.B, name: "appfolder-blur" },
     { type: Type.B, name: "appfolder-customize" },

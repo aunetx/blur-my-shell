@@ -51,9 +51,9 @@
             <description />
         </key>
         <!-- OVERVIEW STYLE COMPONENTS -->
-        <key type="b" name="overview-style-components">
-            <default>true</default>
-            <summary>Boolean, whether to make overview components semi-transparent or not</summary>
+        <key type="i" name="overview-style-components">
+            <default>1</default>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark)</summary>
             <description />
         </key>
 
@@ -83,7 +83,7 @@
         </key>
         <!-- APPFOLDER DIALOG OPACITY -->
         <key type="d" name="appfolder-dialog-opacity">
-            <default>0.12</default>
+            <default>0.0</default>
             <summary>Opacity of appfolder dialog to use</summary>
             <description />
         </key>

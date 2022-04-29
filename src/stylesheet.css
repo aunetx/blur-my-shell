@@ -1,3 +1,8 @@
+/*
+* Makes transparent some backgrounds, in order to see the blur behind.
+* The panel, workspace separator and dash-to-dock (if set) are targeted.
+*/
+
 #panel.transparent-panel {
     background: transparent;
     transition-duration: 500ms;
@@ -11,48 +16,96 @@
     background-color: transparent !important;
 }
 
-.bms-overview-components .blurred-dash .dash-background {
-    background-color: rgba(100, 100, 100, 0.3) !important;
+/*
+* Style the overview components with a light color, when the UI group has class
+* `.bms-overview-components-light`
+*/
+
+.bms-overview-components-light .blurred-dash .dash-background {
+    background-color: rgba(200, 200, 200, 0.2) !important;
 }
 
-.bms-overview-components .search-entry {
+.bms-overview-components-light .search-entry {
     padding: 10px;
     color: white;
-    background-color: rgba(100, 100, 100, 0.3);
+    background-color: rgba(200, 200, 200, 0.2);
     border: 0;
     box-shadow: none;
 }
 
-.bms-overview-components .search-entry .search-entry-icon {
+.bms-overview-components-light .search-entry .search-entry-icon {
     color: rgba(255, 255, 255, 0.65);
 }
 
-.bms-overview-components .search-section-content,
-.bms-overview-components .app-folder .overview-icon {
-    background-color: rgba(100, 100, 100, 0.3);
+.bms-overview-components-light .search-section-content,
+.bms-overview-components-light .app-folder .overview-icon {
+    background-color: rgba(200, 200, 200, 0.2);
 }
 
-.bms-overview-components.just-perfection .search-section-content {
+/* prevents the extension from interfering with Just Perfection */
+.bms-overview-components-light.just-perfection .search-section-content {
     background-color: transparent;
 }
 
-.bms-overview-components .app-folder:hover .overview-icon,
-.bms-overview-components .app-folder:focus .overview-icon {
-    background-color: rgba(120, 120, 120, 0.3);
+.bms-overview-components-light .app-folder:hover .overview-icon,
+.bms-overview-components-light .app-folder:focus .overview-icon {
+    background-color: rgba(230, 230, 230, 0.2);
 }
 
-.bms-overview-components .dash-background {
-    background-color: rgba(100, 100, 100, 0.3);
+.bms-overview-components-light .dash-background {
+    background-color: rgba(200, 200, 200, 0.2);
 }
 
 /*
-! TRANSPARENT APPFOLDER DIALOGS
+* Style the overview components with a dark color, when the UI group has class
+* `.bms-overview-components-dark`
+*/
 
-python generator:
+.bms-overview-components-dark .blurred-dash .dash-background {
+    background-color: rgba(100, 100, 100, 0.35) !important;
+}
 
-```py
-for e in range(0,101):print(".transparent-app-folder-dialogs-"+str(e)+"\n{background-color: rgba(0, 0, 0, "+str(round(e/100,2))+");}")
-```
+.bms-overview-components-dark .search-entry {
+    padding: 10px;
+    color: white;
+    background-color: rgba(100, 100, 100, 0.35);
+    border: 0;
+    box-shadow: none;
+}
+
+.bms-overview-components-dark .search-entry .search-entry-icon {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.bms-overview-components-dark .search-section-content,
+.bms-overview-components-dark .app-folder .overview-icon {
+    background-color: rgba(100, 100, 100, 0.35);
+}
+
+/* prevents the extension from interfering with Just Perfection */
+.bms-overview-components-dark.just-perfection .search-section-content {
+    background-color: transparent;
+}
+
+.bms-overview-components-dark .app-folder:hover .overview-icon,
+.bms-overview-components-dark .app-folder:focus .overview-icon {
+    background-color: rgba(120, 120, 120, 0.35);
+}
+
+.bms-overview-components-dark .dash-background {
+    background-color: rgba(100, 100, 100, 0.35);
+}
+
+/* ! Generated from now on */
+
+/*
+* Generated styles for the app-folder dialogs background.
+*
+* python generator:
+*
+* for e in range(0,101):print(".transparent-app-folder-dialogs-"+str(e)+"\n{background-color:rgba(0,0,0,"+str(round(e/100,2))+");}")
+*
+* TODO change the preferences to simply have the choice [transparent|light|dark]
 */
 
 .transparent-app-folder-dialogs-0 {

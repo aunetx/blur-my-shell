@@ -4,8 +4,8 @@ const { Shell, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.conveniences.utilities;
 const PaintSignals = Me.imports.conveniences.paint_signals;
+const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
@@ -35,16 +35,14 @@ let _zoomAndFadeIn = function () {
     let effect = this.get_effect("appfolder-blur");
 
     effect.sigma = 0;
-    Utils.ease_property(
-        effect, 'sigma',
-        0, sigma,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
-    );
-
     effect.brightness = 1.0;
-    Utils.ease_property(effect, 'brightness',
-        1.0, brightness,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            sigma: sigma,
+            brightness: brightness,
+            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
+            transition: 'easeOutQuad'
+        }
     );
 
     this.child.ease({
@@ -83,14 +81,13 @@ let _zoomAndFadeOut = function () {
 
     let effect = this.get_effect("appfolder-blur");
 
-    Utils.ease_property(effect, 'sigma',
-        effect.sigma, 0,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
-    );
-
-    Utils.ease_property(effect, 'brightness',
-        effect.brightness, 1.0,
-        FOLDER_DIALOG_ANIMATION_TIME, FRAME_UPDATE_PERIOD
+    Tweener.addTween(effect,
+        {
+            sigma: 0,
+            brightness: 1.0,
+            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
+            transition: 'easeInQuad'
+        }
     );
 
     this.child.ease({
@@ -144,6 +141,9 @@ var AppFoldersBlur = class AppFoldersBlur {
     blur_appfolders() {
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
+        if (this.prefs.HACKS_LEVEL.get() >= 1)
+            this._log(`appfolders hack level ${this.prefs.HACKS_LEVEL.get()}`);
+
         appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
 
@@ -186,22 +186,9 @@ var AppFoldersBlur = class AppFoldersBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.prefs.HACKS_LEVEL.get() == 1) {
-                this._log("appfolders hack level 1");
-                this.paint_signals.disconnect_all();
-
-                Utils.setTimeout(_ => {
-                    this.paint_signals.connect(Main.overview._overview, effect);
-                    this.paint_signals.connect(icon._dialog, effect);
-                }, 100);
-            } else if (this.prefs.HACKS_LEVEL.get() == 2) {
-                this._log("appfolders hack level 2");
-                this.paint_signals.disconnect_all();
-
-                Utils.setTimeout(_ => {
-                    this.paint_signals.connect(Main.overview._overview, effect);
-                    this.paint_signals.connect(icon._dialog, effect);
-                }, 100);
+            if (this.prefs.HACKS_LEVEL.get() >= 1) {
+                this.paint_signals.disconnect_all_for_actor(icon._dialog);
+                this.paint_signals.connect(icon._dialog, effect);
             } else {
                 this.paint_signals.disconnect_all();
             }

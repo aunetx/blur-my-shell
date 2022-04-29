@@ -4,8 +4,8 @@ const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const Utils = Me.imports.conveniences.utilities;
 const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect
+
 
 
 var ScreenshotBlur = class ScreenshotBlur {
