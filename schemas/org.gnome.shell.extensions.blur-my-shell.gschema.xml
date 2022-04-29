@@ -297,20 +297,25 @@
         </key>
 
         <!-- COLOR BLUR OPTIONS -->
-        
+
+         <key type="b" name="color-blur">
+            <default>false</default>
+            <summary>Toggle if color effect should be applied</summary>
+            <description />
+        </key>
         <key type="d" name="red">
             <default>0.6</default>
-            <summary>Global brightness to use</summary>
+            <summary>Global Red value</summary>
             <description />
         </key>
         <key type="d" name="green">
             <default>0.6</default>
-            <summary>Global brightness to use</summary>
+            <summary>Global Green value</summary>
             <description />
         </key>
         <key type="d" name="blue">
             <default>0.6</default>
-            <summary>Global brightness to use</summary>
+            <summary>Global Blue value</summary>
             <description />
         </key>
 
