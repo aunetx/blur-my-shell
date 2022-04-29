@@ -25,6 +25,10 @@ const INDEPENDENT_COMPONENTS = [
     "lockscreen", "window_list", "screenshot"
 ];
 
+const COLORED_COMPONENTS = [
+    "overview", "panel"
+]
+
 
 /// The main extension class, created when the GNOME Shell is loaded.
 class Extension {
@@ -190,6 +194,7 @@ class Extension {
         // global blur values changed, update everybody
 
         this._prefs.SIGMA.changed(() => {
+            log('h')
             this._update_sigma();
         });
         this._prefs.BRIGHTNESS.changed(() => {
@@ -356,6 +361,35 @@ class Extension {
                 this._screenshot_blur.disable();
             }
         });
+
+       
+
+        // ---------- COLOR ----------
+
+        this._prefs.RED.changed(() => {
+
+            this._update_color();
+        });
+
+        this._prefs.BLUE.changed(() => {
+
+            this._update_color();
+        });
+
+        this._prefs.GREEN.changed(() => {
+
+            this._update_color();
+        });
+
+        this._prefs.COLOR_BLUR.changed(() => {
+
+            this._update_color();
+        })
+
+        this._prefs.BLEND.changed(() => {
+
+            this._update_color();
+        })
     }
 
     /// Select the component by its name and connect it to its preferences
@@ -373,7 +407,7 @@ class Extension {
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'],
             general_sigma = this._prefs.SIGMA,
-            general_brightness = this._prefs.BRIGHTNESS;
+            general_brightness = this._prefs.BRIGHTNESS
 
         // general values switch is toggled
 
@@ -425,6 +459,18 @@ class Extension {
         });
     }
 
+    // Update the Color
+    _update_color() {
+
+        let red = this._prefs.RED.get();
+        let green = this._prefs.GREEN.get();
+        let blue = this._prefs.BLUE.get();
+
+        COLORED_COMPONENTS.forEach(component => {
+            this._change_color_for(component, red, green, blue);
+        });
+    }
+    
     /// Update sigma for a given component
     _change_sigma_for(name, general_sigma) {
         const accessible_name = name.toUpperCase();
@@ -459,6 +505,18 @@ class Extension {
             component.set_brightness(component_brightness.get());
         else
             component.set_brightness(general_brightness.get());
+    }
+
+    _change_color_for(name, red, green, blue) {
+        const accessible_name = name.toUpperCase();
+
+        
+        let customize = this._prefs[accessible_name + '_CUSTOMIZE'],
+            component_sigma = this._prefs[accessible_name + '_SIGMA'],
+            component = this['_' + name + '_blur'];
+
+        component.set_color(red,green,blue);
+
     }
 
     _log(str) {

@@ -4,6 +4,8 @@ const { Shell, Gio, Meta } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect
+
 
 
 var ScreenshotBlur = class ScreenshotBlur {
@@ -82,6 +84,16 @@ var ScreenshotBlur = class ScreenshotBlur {
                 : this.prefs.SIGMA.get(),
             mode: Shell.BlurMode.ACTOR
         });
+
+        if(this.prefs.COLOR_BLUR.get()) {
+
+            bg_actor.add_effect(new ColorEffect({
+                'red': this.prefs.RED.get(),
+                'green': this.prefs.GREEN.get(),
+                'blue': this.prefs.BLUE.get(),
+                'blend' : this.prefs.BLEND.get(),
+            }))
+        }
 
         bg_actor.add_effect(effect);
         this.effects.push(effect);

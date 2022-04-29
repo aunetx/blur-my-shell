@@ -8,6 +8,7 @@ const backgroundSettings = new Gio.Settings({
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PaintSignals = Me.imports.conveniences.paint_signals;
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
 
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
@@ -112,6 +113,16 @@ var PanelBlur = class PanelBlur {
                 height: Main.panel.height,
             });
         this.effect.set_mode(is_static ? 0 : 1);
+
+        if (this.prefs.COLOR_BLUR.get()) {
+            this.background.add_effect(new ColorEffect({
+                'red': this.prefs.RED.get(),
+                'green': this.prefs.GREEN.get(),
+                'blue': this.prefs.BLUE.get(),
+                'blend' : this.prefs.BLEND.get(),
+            }));
+        }
+
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
 
@@ -253,6 +264,12 @@ var PanelBlur = class PanelBlur {
 
     set_brightness(b) {
         this.effect.brightness = b;
+    }
+
+    set_color(red, blue, green) {
+
+        this.change_blur_type();
+
     }
 
     disable() {

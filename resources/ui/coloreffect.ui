@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="Color_Effect" parent="AdwPreferencesPage">
+    <property name="name">Color_Effect</property>
+    <property name="title" translatable="yes">Color Blur</property>
+    <property name="icon-name">color-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Color blur</property>
+        <property name="description" translatable="yes">Change the color of the blur</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="color_blur">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
+       <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Red</property>
+            <property name="subtitle" translatable="yes">Amount of red that is added to the blur </property>
+            <property name="activatable-widget">red_scale</property>
+            <property name="sensitive" bind-source="color_blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="red_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">red</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Green</property>
+            <property name="subtitle" translatable="yes">Amount of green that is added to the blur.</property>
+            <property name="activatable-widget">green_scale</property>
+            <property name="sensitive" bind-source="color_blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="green_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">green</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blue</property>
+            <property name="subtitle" translatable="yes">Amount of blue that is added to the blur</property>
+            <property name="activatable-widget">blue_scale</property>
+            <property name="sensitive" bind-source="color_blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="blue_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">blue</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blend</property>
+            <property name="subtitle" translatable="yes">Amount that the colors above are blended in </property>
+            <property name="activatable-widget">blend_scale</property>
+            <property name="sensitive" bind-source="color_blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="blend_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">blend</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+
+  <object class="GtkAdjustment" id="red">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="blue">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="green">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="blend">
+    <property name="lower">0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.1</property>
+  </object>
+</interface>

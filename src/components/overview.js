@@ -7,6 +7,8 @@ const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
 const wac_proto = WorkspaceAnimationController.prototype;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+
 
 
 var OverviewBlur = class OverviewBlur {
@@ -146,6 +148,17 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.SIGMA.get(),
             mode: Shell.BlurMode.ACTOR
         });
+        
+        if(this.prefs.COLOR_BLUR.get()) {
+
+            let color_effect = new ColorEffect({
+                'red' : this.prefs.RED.get(), 
+                'green' : this.prefs.GREEN.get(), 
+                'blue' : this.prefs.BLUE.get(),
+                'blend' : this.prefs.BLEND.get(),
+            });
+            bg_actor.add_effect(color_effect);
+        }
 
         bg_actor.add_effect(effect);
         this.effects.push(effect);
@@ -191,6 +204,12 @@ var OverviewBlur = class OverviewBlur {
         this.effects.forEach(effect => {
             effect.brightness = b;
         });
+    }
+
+    set_color(red, green, blue) {
+
+        this.update_backgrounds();
+
     }
 
     disable() {
