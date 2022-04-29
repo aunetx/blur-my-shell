@@ -7,13 +7,18 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Background blur</property>
-        <property name="description" translatable="yes">Add blur to the overview background, using the wallpaper picture.</property>
-        
+        <property name="title" translatable="yes">Color blur</property>
+        <property name="description" translatable="yes"></property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="color_blur">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Red</property>
-            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+            <property name="subtitle" translatable="yes">Red value </property>
             <property name="activatable-widget">red_scale</property>
 
             <child>
