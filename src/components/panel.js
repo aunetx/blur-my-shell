@@ -114,12 +114,15 @@ var PanelBlur = class PanelBlur {
                 height: Main.panel.height,
             });
         this.effect.set_mode(is_static ? 0 : 1);
-        this.background.add_effect(new ColorEffect({ 
-            'red' : this.prefs.RED.get(),
-            'green' : this.prefs.GREEN.get(), 
-            'blue' : this.prefs.BLUE.get()})
-        );
-        
+
+        if (this.prefs.COLOR_BLUR.get()) {
+            this.background.add_effect(new ColorEffect({
+                'red': this.prefs.RED.get(),
+                'green': this.prefs.GREEN.get(),
+                'blue': this.prefs.BLUE.get()
+            }));
+        }
+
         this.background.add_effect(this.effect);
         this.background_parent.add_child(this.background);
 
@@ -256,7 +259,7 @@ var PanelBlur = class PanelBlur {
         this.effect.brightness = b;
     }
 
-    set_color(red,blue,green) {
+    set_color(red, blue, green) {
 
         this.change_blur_type();
 

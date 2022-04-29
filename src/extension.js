@@ -26,7 +26,7 @@ const INDEPENDENT_COMPONENTS = [
 ];
 
 const COLORED_COMPONENTS = [
-    "overview", "panel", "lockscreen"
+    "overview", "panel"
 ]
 
 
@@ -362,15 +362,29 @@ class Extension {
             }
         });
 
-        log(this._prefs.RED.get());
+       
 
         // ---------- COLOR ----------
 
         this._prefs.RED.changed(() => {
 
             this._update_color();
-
         });
+
+        this._prefs.BLUE.changed(() => {
+
+            this._update_color();
+        });
+
+        this._prefs.GREEN.changed(() => {
+
+            this._update_color();
+        });
+
+        this._prefs.COLOR_BLUR.changed(() => {
+
+            this._update_color();
+        })
     }
 
     /// Select the component by its name and connect it to its preferences
@@ -388,11 +402,7 @@ class Extension {
             component_brightness = this._prefs[accessible_name + '_BRIGHTNESS'],
             component = this['_' + name + '_blur'],
             general_sigma = this._prefs.SIGMA,
-            general_brightness = this._prefs.BRIGHTNESS,
-            red = this._prefs.red,
-            green = this._prefs.green,
-            blue = this._prefs.blue;
-
+            general_brightness = this._prefs.BRIGHTNESS
 
         // general values switch is toggled
 
@@ -447,11 +457,9 @@ class Extension {
     // Update the Color
     _update_color() {
 
-        log("hello");
-    
-        let red = this._prefs.RED;
-        let green = this._prefs.GREEN;
-        let blue = this._prefs.BLUE;
+        let red = this._prefs.RED.get();
+        let green = this._prefs.GREEN.get();
+        let blue = this._prefs.BLUE.get();
 
         COLORED_COMPONENTS.forEach(component => {
             this._change_color_for(component, red, green, blue);
@@ -497,9 +505,12 @@ class Extension {
     _change_color_for(name, red, green, blue) {
         const accessible_name = name.toUpperCase();
 
-        component = this['_' + name + '_blur'];
+        
+        let customize = this._prefs[accessible_name + '_CUSTOMIZE'],
+            component_sigma = this._prefs[accessible_name + '_SIGMA'],
+            component = this['_' + name + '_blur'];
 
-        componenet.set_color(red,green,blue);
+        component.set_color(red,green,blue);
 
     }
 

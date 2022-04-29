@@ -59,6 +59,7 @@ var Keys = [
     { type: Type.I, name: "screenshot-sigma" },
     { type: Type.D, name: "screenshot-brightness" },
 
+    { type: Type.B, name: "color-blur"},
     { type: Type.D, name: "red" },
     { type: Type.D, name: "green" },
     { type: Type.D, name: "blue" },

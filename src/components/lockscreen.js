@@ -17,9 +17,10 @@ const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
 // When we override _createBackground we can't call this.prefs anymore as "this"
 // refers to the UnlockDialog_proto class now, so if we cache the values
 // before we override the function we can still access the rbg values
-let red;
-let blue;
-let green;
+let color_blur; // true/false to add color
+let red;        // red value
+let blue;       // blue value
+let green;      // green value
 
 var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
@@ -39,7 +40,8 @@ var LockscreenBlur = class LockscreenBlur {
 
     update_lockscreen() {
         UnlockDialog_proto._updateBackgroundEffects = this._createBackground;
-        
+
+        color_blur = this.prefs.COLOR_BLUR.get();
         red = this.prefs.RED.get();
         green = this.prefs.GREEN.get();
         blue = this.prefs.BLUE.get();
@@ -49,7 +51,7 @@ var LockscreenBlur = class LockscreenBlur {
         // instead to call it 
 
         UnlockDialog_proto._createBackground =
-        this._createBackground_with_color;
+            this._createBackground_with_color;
     }
 
     _createBackground() {
@@ -63,35 +65,40 @@ var LockscreenBlur = class LockscreenBlur {
                 });
             }
         }
-    } 
+    }
 
     _createBackground_with_color(monitorIndex) {
         let monitor = Main.layoutManager.monitors[monitorIndex];
         let widget = new St.Widget({
-          style_class: "screen-shield-background",
-          x: monitor.x,
-          y: monitor.y,
-          width: monitor.width,
-          height: monitor.height,
-          effect: new ColorEffect({ 
-            'red' : red,
-            'green' : green, 
-            'blue' : blue,
-          })
+            style_class: "screen-shield-background",
+            x: monitor.x,
+            y: monitor.y,
+            width: monitor.width,
+            height: monitor.height,
         });
-    
+
+        if (color_blur) {
+
+            widget.add_effect(new ColorEffect({
+                'red': red,
+                'green': green,
+                'blue': blue,
+            }));
+
+        }
+
         widget.add_effect(new Shell.BlurEffect({ name: "blur" }));
-    
+
         let bgManager = new Background.BackgroundManager({
-          container: widget,
-          monitorIndex,
-          controlPosition: false,
+            container: widget,
+            monitorIndex,
+            controlPosition: false,
         });
-    
+
         this._bgManagers.push(bgManager);
-    
+
         this._backgroundGroup.add_child(widget);
-      }
+    }
 
     set_sigma(s) {
         sigma = s;
