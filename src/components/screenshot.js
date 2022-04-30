@@ -108,7 +108,8 @@ var ScreenshotBlur = class ScreenshotBlur {
         this._log("removing blur from screenshot's window selector");
 
         Main.screenshotUI._windowSelectors.forEach(actor => {
-            actor.remove_child(actor._blur_actor);
+            if (actor._blur_actor)
+                actor.remove_child(actor._blur_actor);
         });
         this.effects = [];
         this.connections.disconnect_all();
