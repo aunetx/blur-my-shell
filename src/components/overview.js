@@ -207,9 +207,7 @@ var OverviewBlur = class OverviewBlur {
     }
 
     set_color(red, green, blue) {
-
         this.update_backgrounds();
-
     }
 
     disable() {
