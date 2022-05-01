@@ -30,12 +30,8 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     enable() {
+        
         this._log("blurring lockscreen");
-
-
-        log("fspadfdsf")
-        log(this.prefs.BLUE.get())
-
         this.update_lockscreen();
     }
 
@@ -87,7 +83,6 @@ var LockscreenBlur = class LockscreenBlur {
                 'blue': blue,
                 'blend' : blend,
             }));
-
         }
 
         widget.add_effect(new Shell.BlurEffect({ name: "blur" }));
