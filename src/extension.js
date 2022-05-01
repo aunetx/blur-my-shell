@@ -194,7 +194,6 @@ class Extension {
         // global blur values changed, update everybody
 
         this._prefs.SIGMA.changed(() => {
-            log('h')
             this._update_sigma();
         });
         this._prefs.BRIGHTNESS.changed(() => {
