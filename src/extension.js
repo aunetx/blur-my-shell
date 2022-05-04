@@ -252,6 +252,12 @@ class Extension {
             }
         });
 
+        // panel background
+        this._prefs.PANEL_BACKGROUND_COLOR.changed(() => {
+            if (this._prefs.PANEL_BLUR.get())
+                this._panel_blur.change_background_color();
+        });
+
         // static blur toggled on/off
         this._prefs.PANEL_STATIC_BLUR.changed(() => {
             if (this._prefs.PANEL_BLUR.get())

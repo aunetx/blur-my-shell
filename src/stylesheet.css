@@ -1,13 +1,3 @@
-/*
-* Makes transparent some backgrounds, in order to see the blur behind.
-* The panel, workspace separator and dash-to-dock (if set) are targeted.
-*/
-
-#panel.transparent-panel {
-    background: transparent;
-    transition-duration: 500ms;
-}
-
 .blurred-overview .workspace-animation {
     background-color: transparent !important;
 }

@@ -60,8 +60,8 @@ var PanelBlur = class PanelBlur {
         // insert background parent
         panel_box.insert_child_at_index(this.background_parent, 0);
 
-        // remove panel background colour
-        Main.panel.add_style_class_name('transparent-panel');
+        // set panel background colour
+        this.change_background_color();
 
         // perform updates
         this.change_blur_type();
@@ -94,6 +94,32 @@ var PanelBlur = class PanelBlur {
 
         this.connect_to_overview();
         this.enabled = true;
+    }
+
+    change_background_color() {
+        let background = this.prefs.PANEL_BACKGROUND_COLOR.get();
+        if (background == null || background == "")
+            this.remove_background_color();
+        else {
+            // Not directly set_style() because https://gitlab.gnome.org/GNOME/gnome-shell/-/blob/main/js/ui/overview.js#L590
+            let panel_style = `background-color: ${background};transition: 500ms;`;
+            let cb = () => {
+                if (Main.overview.visible)
+                    Main.panel.set_style(null);
+                else if (Main.panel.style != panel_style)
+                    Main.panel.set_style(panel_style);
+            }
+            if (this._change_background_color_id != null)
+                this.connections.disconnect(this._change_background_color_id);
+            cb();
+            this._change_background_color_id = this.connections.connect(Main.panel, 'style-changed', cb);
+        }
+    }
+
+    remove_background_color() {
+        if (this._change_background_color_id != null)
+            this.connections.disconnect(this._change_background_color_id);
+        Main.panel.set_style(null);
     }
 
     change_blur_type() {
@@ -257,7 +283,7 @@ var PanelBlur = class PanelBlur {
 
     disable() {
         this._log("removing blur from top panel");
-        Main.panel.remove_style_class_name('transparent-panel');
+        this.remove_background_color();
 
         try {
             Main.layoutManager.panelBox.remove_child(this.background_parent);

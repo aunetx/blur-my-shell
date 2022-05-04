@@ -27,6 +27,7 @@ var Keys = [
     { type: Type.B, name: "panel-customize" },
     { type: Type.I, name: "panel-sigma" },
     { type: Type.D, name: "panel-brightness" },
+    { type: Type.S, name: "panel-background-color" },
     { type: Type.B, name: "panel-static-blur" },
     { type: Type.B, name: "panel-unblur-in-overview" },
 

@@ -51,6 +51,25 @@ var Connections = class Connections {
         let id = actor.connect(signal, handler);
 
         this.process_connection(actor, id);
+
+        return id;
+    }
+
+    /// Disconnects the connection with id.
+    disconnect(id) {
+        for (const [index, connection] of this.buffer.entries()) {
+            try {
+                if (connection.id == id) {
+                    // disconnect
+                    connection.actor.disconnect(connection.id);
+                    // remove from buffer
+                    this.buffer.splice(index, 1);
+                    break;
+                }
+            } catch (e) {
+                this._log(`error removing connection: ${e};`);
+            }
+        }
     }
 
     /// Disconnects every connection found for an actor.

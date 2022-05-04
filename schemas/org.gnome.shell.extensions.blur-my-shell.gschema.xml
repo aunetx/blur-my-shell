@@ -115,6 +115,12 @@
             <summary>Brightness to use for panel</summary>
             <description />
         </key>
+        <!-- PANEL BACKGROUND -->
+        <key type="s" name="panel-background-color">
+            <default>""</default>
+            <summary>The color to use as panel background</summary>
+            <description />
+        </key>
         <!-- PANEL STATIC BLUR -->
         <key type="b" name="panel-static-blur">
             <default>true</default>
