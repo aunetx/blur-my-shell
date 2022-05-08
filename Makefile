@@ -1,27 +1,25 @@
 NAME = blur-my-shell
 UUID = $(NAME)@aunetx
 
-.PHONY: build pkg install remove clean
+.PHONY: build install remove clean
 
 
 build: clean
 	mkdir -p build/
-	glib-compile-schemas schemas
-	cp -r schemas build/schemas
-	cp -r src/* build/
-	cp -r resources/ui build/
-	mkdir -p build/icons/hicolor/scalable/actions
-	cp resources/icons/* build/icons/hicolor/scalable/actions
-	cp metadata.json build/metadata.json
-
-
-pkg: build
-	mkdir -p pkg/
-	cd build/ && zip -r ../pkg/$(UUID).zip .
+	cd src && gnome-extensions pack -f \
+			--extra-source=../metadata.json \
+			--extra-source=../resources/icons \
+			--extra-source=../resources/ui \
+			--extra-source=./components \
+			--extra-source=./conveniences \
+			--extra-source=./preferences \
+			--podir=../po \
+			--schema=../schemas/org.gnome.shell.extensions.blur-my-shell.gschema.xml \
+			-o ../build
 
 
 install: build remove
-	mv build $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
+	gnome-extensions install -f build/$(UUID).shell-extension.zip
 
 
 remove:
@@ -29,4 +27,4 @@ remove:
 
 
 clean:
-	rm -rf pkg/ build/ schemas/gschemas.compiled
+	rm -rf build/ schemas/gschemas.compiled
