@@ -18,6 +18,8 @@ const { Other } = Me.imports.preferences.other;
 
 
 function init() {
+    ExtensionUtils.initTranslations(Me.metadata.uuid);
+
     // load the icon theme
     let iconPath = Me.dir.get_child("icons").get_path();
     let iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
