@@ -28,3 +28,8 @@ remove:
 
 clean:
 	rm -rf build/ schemas/gschemas.compiled
+
+
+pot:
+	mkdir -p po/
+	xgettext --from-code=UTF-8 resources/ui/*.ui --output=po/$(UUID).pot
