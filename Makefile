@@ -22,14 +22,14 @@ install: build remove
 	gnome-extensions install -f build/$(UUID).shell-extension.zip
 
 
+pot:
+	mkdir -p po/
+	xgettext --from-code=UTF-8 resources/ui/*.ui --output=po/$(UUID).pot
+
+
 remove:
 	rm -rf $(HOME)/.local/share/gnome-shell/extensions/$(UUID)
 
 
 clean:
 	rm -rf build/ schemas/gschemas.compiled
-
-
-pot:
-	mkdir -p po/
-	xgettext --from-code=UTF-8 resources/ui/*.ui --output=po/$(UUID).pot
