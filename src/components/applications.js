@@ -106,18 +106,20 @@ var ApplicationsBlur = class ApplicationsBlur {
             this.window_map.delete(pid);
         });
 
-        // update the blur when the mutter-hint is changed
-        this.connections.connect(
-            meta_window,
-            'notify::mutter-hints',
-            _ => {
-                let pid = meta_window.blur_provider_pid;
-                this._log(`mutter-hint changed for pid ${pid}`);
+        // update the blur when mutter-hint or wm-class is changed
+        for (const prop of ['mutter-hints', 'wm-class']) {
+            this.connections.connect(
+                meta_window,
+                `notify::${prop}`,
+                _ => {
+                    let pid = meta_window.blur_provider_pid;
+                    this._log(`${prop} changed for pid ${pid}`);
 
-                let window_actor = meta_window.get_compositor_private();
-                this.check_blur(pid, window_actor, meta_window);
-            }
-        );
+                    let window_actor = meta_window.get_compositor_private();
+                    this.check_blur(pid, window_actor, meta_window);
+                }
+            );
+        }
 
         this.check_blur(pid, window_actor, meta_window);
     }
