@@ -1,7 +1,7 @@
 NAME = blur-my-shell
 UUID = $(NAME)@aunetx
 
-.PHONY: build install remove clean
+.PHONY: build install pot remove clean
 
 
 build: clean
@@ -14,7 +14,7 @@ build: clean
 			--extra-source=./conveniences \
 			--extra-source=./preferences \
 			--podir=../po \
-			--schema=../schemas/org.gnome.shell.extensions.blur-my-shell.gschema.xml \
+			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
 			-o ../build
 
 
@@ -23,7 +23,6 @@ install: build remove
 
 
 pot:
-	mkdir -p po/
 	xgettext --from-code=UTF-8 resources/ui/*.ui --output=po/$(UUID).pot
 
 
@@ -32,4 +31,4 @@ remove:
 
 
 clean:
-	rm -rf build/ schemas/gschemas.compiled
+	rm -rf build/

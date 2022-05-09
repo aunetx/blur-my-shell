@@ -1,5 +1,4 @@
 /build/
-/pkg/
 *~
 .idea/
 .ts-for-gir.js
