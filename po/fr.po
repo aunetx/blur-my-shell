@@ -1,0 +1,322 @@
+# French translations for Blur my Shell.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# AurÃ©lien Hamy <me@aunetx.dev>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-08 16:41+0200\n"
+"PO-Revision-Date: 2022-05-09 20:02+0200\n"
+"Last-Translator: AurÃ©lien Hamy <me@aunetx.dev>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: resources/ui/applications.ui:5
+msgid "Applications"
+msgstr "Applications"
+
+#: resources/ui/applications.ui:10
+msgid "Applications blur (beta)"
+msgstr "Flou d'applications (bêta)"
+
+#: resources/ui/applications.ui:11
+msgid ""
+"Add blur to the applications. This is still a beta functionnality, is quite "
+"buggy and is only applied to the apps that ask it, or to the ones set in the "
+"whitelist below."
+msgstr ""
+"Ajoute du flou aux applications. Fonctionnalité bêta, assez fragile et qui "
+"n'est qu'appliquée aux applications qui le demandent, ou celles désignées "
+"dans la liste blanche ci-dessous."
+
+#: resources/ui/applications.ui:20 resources/ui/dash.ui:20
+#: resources/ui/other.ui:20 resources/ui/other.ui:83 resources/ui/other.ui:146
+#: resources/ui/overview.ui:20 resources/ui/overview.ui:99
+#: resources/ui/panel.ui:20
+msgid "Customize properties"
+msgstr "Customiser les paramètres"
+
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:21
+#: resources/ui/other.ui:21 resources/ui/other.ui:84 resources/ui/other.ui:147
+#: resources/ui/overview.ui:21 resources/ui/overview.ui:100
+#: resources/ui/panel.ui:21
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+"Utilises les paramètres de flou ci-dessous, plutôt que ceux définis dans les "
+"préférences Générales."
+
+#: resources/ui/applications.ui:27 resources/ui/dash.ui:27
+#: resources/ui/general.ui:15 resources/ui/other.ui:27 resources/ui/other.ui:90
+#: resources/ui/other.ui:153 resources/ui/overview.ui:27
+#: resources/ui/overview.ui:106 resources/ui/panel.ui:27
+msgid "Sigma"
+msgstr "Sigma"
+
+#: resources/ui/applications.ui:28 resources/ui/dash.ui:28
+#: resources/ui/general.ui:16 resources/ui/other.ui:28 resources/ui/other.ui:91
+#: resources/ui/other.ui:154 resources/ui/overview.ui:28
+#: resources/ui/overview.ui:107 resources/ui/panel.ui:28
+msgid "The intensity of the blur."
+msgstr "L'intensité du flou."
+
+#: resources/ui/applications.ui:48 resources/ui/dash.ui:48
+#: resources/ui/general.ui:35 resources/ui/other.ui:48
+#: resources/ui/other.ui:111 resources/ui/other.ui:174
+#: resources/ui/overview.ui:48 resources/ui/overview.ui:127
+#: resources/ui/panel.ui:48
+msgid "Brightness"
+msgstr "Luminosité"
+
+#: resources/ui/applications.ui:49 resources/ui/dash.ui:49
+#: resources/ui/general.ui:36 resources/ui/other.ui:49
+#: resources/ui/other.ui:112 resources/ui/other.ui:175
+#: resources/ui/overview.ui:49 resources/ui/overview.ui:128
+#: resources/ui/panel.ui:49
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"La luminosité de l'effet de flou, une valeur importante pourrait rendre le "
+"texte difficile à lire."
+
+#: resources/ui/applications.ui:71
+msgid "Whitelist"
+msgstr "Liste blanche"
+
+#: resources/ui/applications.ui:72
+msgid ""
+"A list of the applications to blur, one per line. To get an application "
+"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
+"name here."
+msgstr ""
+"Une liste des applications à flouter, une par ligne. Pour avoir le nom d'une "
+"application, sous xorg vous pouvez utiliser `xprop|grep WM_CLASS` et coller "
+"ici le dernier nom fourni."
+
+#: resources/ui/dash.ui:5
+#, fuzzy
+msgid "Dash"
+msgstr "Dash"
+
+#: resources/ui/dash.ui:10
+msgid "Dash to Dock blur"
+msgstr "Flou de Dash to Dock"
+
+#: resources/ui/dash.ui:11
+msgid "Blur the background of the Dash to Dock extension, if it is used."
+msgstr "Floute le fond de l'extension Dash to Dock, si elle est installée."
+
+#: resources/ui/dash.ui:71
+msgid "Override background"
+msgstr "Outrepasser le fond"
+
+#: resources/ui/dash.ui:72
+msgid ""
+"Makes the background semi-transparent, disable this to use Dash to Dock "
+"preferences instead."
+msgstr ""
+"Rend le fond semi-transparent, désactivez cela pour utiliser les préférences "
+"de Dash to Dock à la place."
+
+#: resources/ui/dash.ui:86 resources/ui/panel.ui:86
+msgid "Disable in overview"
+msgstr "Désactiver dans l'aperçu"
+
+#: resources/ui/dash.ui:87
+msgid "Disables the blur from Dash to Dock when entering the overview."
+msgstr "Désactiver le flou de Dash to Dock lorsqu'on ouvre l'aperçu."
+
+#: resources/ui/general.ui:5
+msgid "General"
+msgstr "Général"
+
+#: resources/ui/general.ui:10
+msgid "Blur preferences"
+msgstr "Préférences du flou"
+
+#: resources/ui/general.ui:11
+msgid "Global blur preferences, used by all components by default."
+msgstr ""
+"Les préférences globales de l'effet de flou, utilisées par tous les "
+"composants par défaut."
+
+#: resources/ui/general.ui:57
+msgid "Performances"
+msgstr "Performances"
+
+#: resources/ui/general.ui:58
+msgid "Various options to tweak the performances."
+msgstr "Différentes options pour ajuster les performances."
+
+#: resources/ui/general.ui:62
+msgid "Hack level"
+msgstr "Type de système D"
+
+#: resources/ui/general.ui:63
+msgid ""
+"Changes the behaviour of dynamic blur effect. Default value is very "
+"recommended."
+msgstr ""
+"Change le comportement du flou dynamique. La valeur par défaut est très "
+"recommandée."
+
+#: resources/ui/general.ui:76
+msgid "Debug"
+msgstr "Débogage"
+
+#: resources/ui/general.ui:77
+msgid ""
+"Makes the extension verbose in logs, activate when you need to report an "
+"issue."
+msgstr ""
+"Rend l'extension verbeuse dans les journaux systèmes, activez-cela pour "
+"rendre compte d'un problème."
+
+#: resources/ui/general.ui:104
+msgid "High performances"
+msgstr "Hautes performances"
+
+#: resources/ui/general.ui:105
+msgid "Default"
+msgstr "Par défaut"
+
+#: resources/ui/general.ui:106
+msgid "High quality"
+msgstr "Haute qualité"
+
+#: resources/ui/other.ui:5
+msgid "Other"
+msgstr "Autres"
+
+#: resources/ui/other.ui:10
+msgid "Lockscreen blur"
+msgstr "Flou de l'écran de verrouillage"
+
+#: resources/ui/other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+"Utilise les préférences de l'extension pour le flou de l'écran de "
+"verrouillage"
+
+#: resources/ui/other.ui:73
+msgid "Screenshot blur"
+msgstr "Flou de l'outil capture d'écran"
+
+#: resources/ui/other.ui:74
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+"Ajoute du flou au fond d'écran de l'espace de sélection de fenêtres, dans "
+"l'outil de capture d'écran."
+
+#: resources/ui/other.ui:136
+msgid "Window list extension blur"
+msgstr "Flou de l'extension Window List"
+
+#: resources/ui/other.ui:137
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "Rend l'extension window-list floutée, si elle est utilisée."
+
+#: resources/ui/overview.ui:5
+msgid "Overview"
+msgstr "Aperçu"
+
+#: resources/ui/overview.ui:10
+msgid "Background blur"
+msgstr "Flouter l'arrière-plan"
+
+#: resources/ui/overview.ui:11
+msgid "Add blur to the overview background, using the wallpaper picture."
+msgstr ""
+"Ajoute un effet de flou à l'arrière-plan de l'aperçu, en utilisant l'image "
+"de fond d'écran."
+
+#: resources/ui/overview.ui:71
+msgid "Overview components style"
+msgstr "Style des composants de l'aperçu"
+
+#: resources/ui/overview.ui:72
+msgid ""
+"The semi-transparent style for the dash, search entry/results, and "
+"applications folders."
+msgstr ""
+"Le style semi-transparent à utiliser pour le dash, la barre et les résultats "
+"de recherche, et les dossier d'applications."
+
+#: resources/ui/overview.ui:89
+msgid "Applications folder blur"
+msgstr "Flou des dossiers d'applications"
+
+#: resources/ui/overview.ui:90
+msgid "Makes the background of folder icons blurred."
+msgstr "Floute le fond des icônes de dossiers d'applications."
+
+#: resources/ui/overview.ui:150
+msgid "Dialog opacity"
+msgstr "Opacité du dialogue"
+
+#: resources/ui/overview.ui:151
+msgid "The opacity of the applications folder popup."
+msgstr "L'opacité du fond de la fenêtre contextuelle."
+
+#: resources/ui/overview.ui:185
+msgid "Do not style"
+msgstr "Ne pas appliquer de thème"
+
+#: resources/ui/overview.ui:186
+msgid "Light"
+msgstr "Clair"
+
+#: resources/ui/overview.ui:187
+msgid "Dark"
+msgstr "Foncé"
+
+#: resources/ui/panel.ui:5
+msgid "Panel"
+msgstr "Panneau"
+
+#: resources/ui/panel.ui:10
+msgid "Panel blur"
+msgstr "Flou du panneau"
+
+#: resources/ui/panel.ui:11
+msgid "Blur the top panel using the background image."
+msgstr "Floute le panneau du haut en utilisant l'image de fond d'écran."
+
+#: resources/ui/panel.ui:71
+msgid "Static blur"
+msgstr "Flou statique"
+
+#: resources/ui/panel.ui:72
+msgid "Uses a static blurred image, more performant and stable."
+msgstr "Utilise une image statique, plus stable et performant."
+
+#: resources/ui/panel.ui:87
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Désactive le flou du panneau lorsqu'on est dans l'aperçu."
+
+#: resources/ui/panel.ui:103
+msgid "Compatibility"
+msgstr "Compatibilité"
+
+#: resources/ui/panel.ui:104
+msgid "Various options to provide compatibility with other extensions."
+msgstr ""
+"Des options diverses pour permettre de rester compatible avec d'autres "
+"extensions."
+
+#: resources/ui/panel.ui:108
+msgid "Hidetopbar extension"
+msgstr "Extension Hidetopbar"
+
+#: resources/ui/panel.ui:109
+msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
+"Ne désactive pas le flou lorsqu'on est dans l'aperçu, à utiliser de "
+"préférence avec un flou statique."
