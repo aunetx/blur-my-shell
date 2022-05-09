@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-08 16:41+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: resources/ui/applications.ui:5
+msgid "Applications"
+msgstr ""
+
+#: resources/ui/applications.ui:10
+msgid "Applications blur (beta)"
+msgstr ""
+
+#: resources/ui/applications.ui:11
+msgid ""
+"Add blur to the applications. This is still a beta functionnality, is quite "
+"buggy and is only applied to the apps that ask it, or to the ones set in the "
+"whitelist below."
+msgstr ""
+
+#: resources/ui/applications.ui:20 resources/ui/dash.ui:20
+#: resources/ui/other.ui:20 resources/ui/other.ui:83 resources/ui/other.ui:146
+#: resources/ui/overview.ui:20 resources/ui/overview.ui:99
+#: resources/ui/panel.ui:20
+msgid "Customize properties"
+msgstr ""
+
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:21
+#: resources/ui/other.ui:21 resources/ui/other.ui:84 resources/ui/other.ui:147
+#: resources/ui/overview.ui:21 resources/ui/overview.ui:100
+#: resources/ui/panel.ui:21
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+
+#: resources/ui/applications.ui:27 resources/ui/dash.ui:27
+#: resources/ui/general.ui:15 resources/ui/other.ui:27 resources/ui/other.ui:90
+#: resources/ui/other.ui:153 resources/ui/overview.ui:27
+#: resources/ui/overview.ui:106 resources/ui/panel.ui:27
+msgid "Sigma"
+msgstr ""
+
+#: resources/ui/applications.ui:28 resources/ui/dash.ui:28
+#: resources/ui/general.ui:16 resources/ui/other.ui:28 resources/ui/other.ui:91
+#: resources/ui/other.ui:154 resources/ui/overview.ui:28
+#: resources/ui/overview.ui:107 resources/ui/panel.ui:28
+msgid "The intensity of the blur."
+msgstr ""
+
+#: resources/ui/applications.ui:48 resources/ui/dash.ui:48
+#: resources/ui/general.ui:35 resources/ui/other.ui:48
+#: resources/ui/other.ui:111 resources/ui/other.ui:174
+#: resources/ui/overview.ui:48 resources/ui/overview.ui:127
+#: resources/ui/panel.ui:48
+msgid "Brightness"
+msgstr ""
+
+#: resources/ui/applications.ui:49 resources/ui/dash.ui:49
+#: resources/ui/general.ui:36 resources/ui/other.ui:49
+#: resources/ui/other.ui:112 resources/ui/other.ui:175
+#: resources/ui/overview.ui:49 resources/ui/overview.ui:128
+#: resources/ui/panel.ui:49
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+
+#: resources/ui/applications.ui:71
+msgid "Whitelist"
+msgstr ""
+
+#: resources/ui/applications.ui:72
+msgid ""
+"A list of the applications to blur, one per line. To get an application "
+"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
+"name here."
+msgstr ""
+
+#: resources/ui/dash.ui:5
+msgid "Dash"
+msgstr ""
+
+#: resources/ui/dash.ui:10
+msgid "Dash to Dock blur"
+msgstr ""
+
+#: resources/ui/dash.ui:11
+msgid "Blur the background of the Dash to Dock extension, if it is used."
+msgstr ""
+
+#: resources/ui/dash.ui:71
+msgid "Override background"
+msgstr ""
+
+#: resources/ui/dash.ui:72
+msgid ""
+"Makes the background semi-transparent, disable this to use Dash to Dock "
+"preferences instead."
+msgstr ""
+
+#: resources/ui/dash.ui:86 resources/ui/panel.ui:86
+msgid "Disable in overview"
+msgstr ""
+
+#: resources/ui/dash.ui:87
+msgid "Disables the blur from Dash to Dock when entering the overview."
+msgstr ""
+
+#: resources/ui/general.ui:5
+msgid "General"
+msgstr ""
+
+#: resources/ui/general.ui:10
+msgid "Blur preferences"
+msgstr ""
+
+#: resources/ui/general.ui:11
+msgid "Global blur preferences, used by all components by default."
+msgstr ""
+
+#: resources/ui/general.ui:57
+msgid "Performances"
+msgstr ""
+
+#: resources/ui/general.ui:58
+msgid "Various options to tweak the performances."
+msgstr ""
+
+#: resources/ui/general.ui:62
+msgid "Hack level"
+msgstr ""
+
+#: resources/ui/general.ui:63
+msgid ""
+"Changes the behaviour of dynamic blur effect. Default value is very "
+"recommended."
+msgstr ""
+
+#: resources/ui/general.ui:76
+msgid "Debug"
+msgstr ""
+
+#: resources/ui/general.ui:77
+msgid ""
+"Makes the extension verbose in logs, activate when you need to report an "
+"issue."
+msgstr ""
+
+#: resources/ui/general.ui:104
+msgid "High performances"
+msgstr ""
+
+#: resources/ui/general.ui:105
+msgid "Default"
+msgstr ""
+
+#: resources/ui/general.ui:106
+msgid "High quality"
+msgstr ""
+
+#: resources/ui/other.ui:5
+msgid "Other"
+msgstr ""
+
+#: resources/ui/other.ui:10
+msgid "Lockscreen blur"
+msgstr ""
+
+#: resources/ui/other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+
+#: resources/ui/other.ui:73
+msgid "Screenshot blur"
+msgstr ""
+
+#: resources/ui/other.ui:74
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+
+#: resources/ui/other.ui:136
+msgid "Window list extension blur"
+msgstr ""
+
+#: resources/ui/other.ui:137
+msgid "Make the window-list extension blurred, if it is used."
+msgstr ""
+
+#: resources/ui/overview.ui:5
+msgid "Overview"
+msgstr ""
+
+#: resources/ui/overview.ui:10
+msgid "Background blur"
+msgstr ""
+
+#: resources/ui/overview.ui:11
+msgid "Add blur to the overview background, using the wallpaper picture."
+msgstr ""
+
+#: resources/ui/overview.ui:71
+msgid "Overview components style"
+msgstr ""
+
+#: resources/ui/overview.ui:72
+msgid ""
+"The semi-transparent style for the dash, search entry/results, and "
+"applications folders."
+msgstr ""
+
+#: resources/ui/overview.ui:89
+msgid "Applications folder blur"
+msgstr ""
+
+#: resources/ui/overview.ui:90
+msgid "Makes the background of folder icons blurred."
+msgstr ""
+
+#: resources/ui/overview.ui:150
+msgid "Dialog opacity"
+msgstr ""
+
+#: resources/ui/overview.ui:151
+msgid "The opacity of the applications folder popup."
+msgstr ""
+
+#: resources/ui/overview.ui:185
+msgid "Do not style"
+msgstr ""
+
+#: resources/ui/overview.ui:186
+msgid "Light"
+msgstr ""
+
+#: resources/ui/overview.ui:187
+msgid "Dark"
+msgstr ""
+
+#: resources/ui/panel.ui:5
+msgid "Panel"
+msgstr ""
+
+#: resources/ui/panel.ui:10
+msgid "Panel blur"
+msgstr ""
+
+#: resources/ui/panel.ui:11
+msgid "Blur the top panel using the background image."
+msgstr ""
+
+#: resources/ui/panel.ui:71
+msgid "Static blur"
+msgstr ""
+
+#: resources/ui/panel.ui:72
+msgid "Uses a static blurred image, more performant and stable."
+msgstr ""
+
+#: resources/ui/panel.ui:87
+msgid "Disables the blur from the panel when entering the overview."
+msgstr ""
+
+#: resources/ui/panel.ui:103
+msgid "Compatibility"
+msgstr ""
+
+#: resources/ui/panel.ui:104
+msgid "Various options to provide compatibility with other extensions."
+msgstr ""
+
+#: resources/ui/panel.ui:108
+msgid "Hidetopbar extension"
+msgstr ""
+
+#: resources/ui/panel.ui:109
+msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
