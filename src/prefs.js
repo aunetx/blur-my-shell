@@ -9,6 +9,7 @@ const { Keys } = Me.imports.conveniences.keys;
 
 const Preferences = new Prefs(Keys);
 
+const { addMenu } = Me.imports.preferences.menu;
 const { General } = Me.imports.preferences.general;
 const { Panel } = Me.imports.preferences.panel;
 const { Overview } = Me.imports.preferences.overview;
@@ -27,6 +28,8 @@ function init() {
 }
 
 function fillPreferencesWindow(window) {
+    addMenu(window);
+
     window.add(new General);
     window.add(new Panel);
     window.add(new Overview);
