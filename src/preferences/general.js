@@ -22,9 +22,11 @@ var General = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        Preferences.settings.bind('sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('hacks-level', this._hack_level, 'selected', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.settings.bind('debug', this._debug, 'state', Gio.SettingsBindFlags.DEFAULT);
+        const prefs = Preferences.settings;
+
+        prefs.bind('sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
+        prefs.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
+        prefs.bind('hacks-level', this._hack_level, 'selected', Gio.SettingsBindFlags.DEFAULT);
+        prefs.bind('debug', this._debug, 'state', Gio.SettingsBindFlags.DEFAULT);
     }
 });

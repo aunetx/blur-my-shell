@@ -144,7 +144,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     check_blur(pid, window_actor, meta_window) {
         let mutter_hint = meta_window.get_mutter_hints();
         let window_wm_class = meta_window.get_wm_class();
-        let whitelist = this.prefs.APPLICATIONS_WHITELIST.get();
+        let whitelist = this.prefs.applications.WHITELIST;
 
         this._log(`checking blur for ${pid}`);
 
@@ -156,12 +156,12 @@ var ApplicationsBlur = class ApplicationsBlur {
 
             let brightness, sigma;
 
-            if (this.prefs.APPLICATIONS_CUSTOMIZE.get()) {
-                brightness = this.prefs.APPLICATIONS_BRIGHTNESS.get();
-                sigma = this.prefs.APPLICATIONS_SIGMA.get();
+            if (this.prefs.applications.CUSTOMIZE) {
+                brightness = this.prefs.applications.BRIGHTNESS;
+                sigma = this.prefs.applications.SIGMA;
             } else {
-                brightness = this.prefs.BRIGHTNESS.get();
-                sigma = this.prefs.SIGMA.get();
+                brightness = this.prefs.BRIGHTNESS;
+                sigma = this.prefs.SIGMA;
             }
 
             this.update_blur(pid, window_actor, meta_window, brightness, sigma);
@@ -209,12 +209,12 @@ var ApplicationsBlur = class ApplicationsBlur {
     parse_xprop(property) {
         // set brightness and sigma to default values
         let brightness, sigma;
-        if (this.prefs.APPLICATIONS_CUSTOMIZE.get()) {
-            brightness = this.prefs.APPLICATIONS_BRIGHTNESS.get();
-            sigma = this.prefs.APPLICATIONS_SIGMA.get();
+        if (this.prefs.applications.CUSTOMIZE) {
+            brightness = this.prefs.applications.BRIGHTNESS;
+            sigma = this.prefs.applications.SIGMA;
         } else {
-            brightness = this.prefs.BRIGHTNESS.get();
-            sigma = this.prefs.SIGMA.get();
+            brightness = this.prefs.BRIGHTNESS;
+            sigma = this.prefs.SIGMA;
         }
 
         // get the argument of the property
@@ -306,7 +306,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         );
 
         // if hacks are selected, force to repaint the window
-        if (this.prefs.HACKS_LEVEL.get() >= 1) {
+        if (this.prefs.HACKS_LEVEL >= 1) {
             this._log("applications hack level 1 or 2");
 
             this.paint_signals.disconnect_all();
@@ -455,7 +455,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };

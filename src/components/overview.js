@@ -138,12 +138,12 @@ var OverviewBlur = class OverviewBlur {
         bg_actor.set_content(background.get_content());
 
         let effect = new Shell.BlurEffect({
-            brightness: this.prefs.OVERVIEW_CUSTOMIZE.get()
-                ? this.prefs.OVERVIEW_BRIGHTNESS.get()
-                : this.prefs.BRIGHTNESS.get(),
-            sigma: this.prefs.OVERVIEW_CUSTOMIZE.get()
-                ? this.prefs.OVERVIEW_SIGMA.get()
-                : this.prefs.SIGMA.get(),
+            brightness: this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.BRIGHTNESS
+                : this.prefs.BRIGHTNESS,
+            sigma: this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.SIGMA
+                : this.prefs.SIGMA,
             mode: Shell.BlurMode.ACTOR
         });
 
@@ -160,7 +160,7 @@ var OverviewBlur = class OverviewBlur {
     /// backgrounds.
     update_components_classname() {
         let group = Main.uiGroup;
-        switch (this.prefs.OVERVIEW_STYLE_COMPONENTS.get()) {
+        switch (this.prefs.overview.STYLE_COMPONENTS) {
             case 1:
                 this._log("set overview components light classname");
                 group.remove_style_class_name("bms-overview-components-dark");
@@ -216,7 +216,7 @@ var OverviewBlur = class OverviewBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };

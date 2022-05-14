@@ -1,310 +1,277 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
+    <!-- GENERAL -->
     <schema id="org.gnome.shell.extensions.blur-my-shell" path="/org/gnome/shell/extensions/blur-my-shell/">
-
-        <!-- ****** GENERAL ****** -->
-
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
             <summary>Global sigma (gaussian blur radius) to use</summary>
-            <description />
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Global brightness to use</summary>
-            <description />
         </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
             <summary>Level of hacks to use (from 0 to 2)</summary>
-            <description />
         </key>
-
-
-        <!-- ****** OVERVIEW ****** -->
-
-        <!-- OVERVIEW SWITCH -->
-        <key type="b" name="overview-blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur the overview or not</summary>
-            <description />
-        </key>
-        <!-- OVERVIEW GENERAL VALUES SWITCH -->
-        <key type="b" name="overview-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize overview blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- OVERVIEW SIGMA -->
-        <key type="i" name="overview-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for overview</summary>
-            <description />
-        </key>
-        <!-- OVERVIEW BRIGHTNESS -->
-        <key type="d" name="overview-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for overview</summary>
-            <description />
-        </key>
-        <!-- OVERVIEW STYLE COMPONENTS -->
-        <key type="i" name="overview-style-components">
-            <default>1</default>
-            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark)</summary>
-            <description />
-        </key>
-
-        <!-- APPFOLDER SWITCH -->
-        <key type="b" name="appfolder-blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur appfolders or not</summary>
-            <description />
-        </key>
-        <!-- APPFOLDER GENERAL VALUES SWITCH -->
-        <key type="b" name="appfolder-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize appfolder blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- APPFOLDER SIGMA -->
-        <key type="i" name="appfolder-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for appfolder</summary>
-            <description />
-        </key>
-        <!-- APPFOLDER BRIGHTNESS -->
-        <key type="d" name="appfolder-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for appfolder</summary>
-            <description />
-        </key>
-        <!-- APPFOLDER DIALOG OPACITY -->
-        <key type="d" name="appfolder-dialog-opacity">
-            <default>0.0</default>
-            <summary>Opacity of appfolder dialog to use</summary>
-            <description />
-        </key>
-
-
-        <!-- ****** PANEL ****** -->
-
-        <!-- PANEL SWITCH -->
-        <key type="b" name="panel-blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur the panel or not</summary>
-            <description />
-        </key>
-        <!-- PANEL GENERAL VALUES SWITCH -->
-        <key type="b" name="panel-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize panel blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- PANEL SIGMA -->
-        <key type="i" name="panel-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for panel</summary>
-            <description />
-        </key>
-        <!-- PANEL BRIGHTNESS -->
-        <key type="d" name="panel-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for panel</summary>
-            <description />
-        </key>
-        <!-- PANEL STATIC BLUR -->
-        <key type="b" name="panel-static-blur">
-            <default>true</default>
-            <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
-            <description />
-        </key>
-        <!-- PANEL UNBLUR IN OVERVIEW -->
-        <key type="b" name="panel-unblur-in-overview">
-            <default>true</default>
-            <summary>Boolean, whether to disable blur from the panel when opening the overview or not</summary>
-            <description />
-        </key>
-
-
-        <!-- ****** DASH TO DOCK ****** -->
-
-        <!-- DASH-TO-DOCK SWITCH -->
-        <key type="b" name="dash-to-dock-blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur dash-to-dock or not</summary>
-            <description />
-        </key>
-        <!-- DASH-TO-DOCK GENERAL VALUES SWITCH -->
-        <key type="b" name="dash-to-dock-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize dash-to-dock blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- DASH-TO-DOCK SIGMA -->
-        <key type="i" name="dash-to-dock-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for dash-to-dock</summary>
-            <description />
-        </key>
-        <!-- DASH-TO-DOCK BRIGHTNESS -->
-        <key type="d" name="dash-to-dock-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for dash-to-dock</summary>
-            <description />
-        </key>
-        <!-- DASH-TO-DOCK STATIC BLUR -->
-        <key type="b" name="dash-to-dock-static-blur">
-            <default>true</default>
-            <summary>Boolean, whether to have a static blur on dash-to-dock or a dynamic one</summary>
-            <description />
-        </key>
-        <!-- DASH-TO-DOCK OVERRIDE BACKGROUND -->
-        <key type="b" name="dash-to-dock-override-background">
-            <default>true</default>
-            <summary>Boolean, whether to override the background on dash-to-dock or not</summary>
-            <description />
-        </key>
-        <!-- DASH-TO-DOCK UNBLUR IN OVERVIEW -->
-        <key type="b" name="dash-to-dock-unblur-in-overview">
-            <default>false</default>
-            <summary>Boolean, whether to disable blur from dash-to-dock when opening the overview or not</summary>
-            <description />
-        </key>
-
-
-        <!-- ****** APPLICATIONS ****** -->
-
-        <!-- APPLICATIONS SWITCH -->
-        <key type="b" name="applications-blur">
-            <default>false</default>
-            <summary>Boolean, whether to blur applications that request it or not</summary>
-            <description />
-        </key>
-        <!-- APPLICATIONS GENERAL VALUES SWITCH -->
-        <key type="b" name="applications-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize applications blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- APPLICATIONS SIGMA -->
-        <key type="i" name="applications-sigma">
-            <default>30</default>
-            <summary>Default sigma (gaussian blur radius) to use for applications</summary>
-            <description />
-        </key>
-        <!-- APPLICATIONS BRIGHTNESS -->
-        <key type="d" name="applications-brightness">
-            <default>0.6</default>
-            <summary>Default brightness to use for applications</summary>
-            <description />
-        </key>
-        <!-- APPLICATIONS BRIGHTNESS -->
-        <key type="s" name="applications-whitelist">
-            <default>""</default>
-            <summary>List of applications to blur, separated by a comma</summary>
-            <description />
-        </key>
-
-
-        <!-- ****** SCREENSHOT ****** -->
-
-        <!-- SCREENSHOT SWITCH -->
-        <key type="b" name="screenshot-blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur the screenshot's window selector or not</summary>
-            <description />
-        </key>
-        <!-- SCREENSHOT GENERAL VALUES SWITCH -->
-        <key type="b" name="screenshot-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize screenshot's window selector blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- SCREENSHOT SIGMA -->
-        <key type="i" name="screenshot-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for screenshot's window selector</summary>
-            <description />
-        </key>
-        <!-- SCREENSHOT BRIGHTNESS -->
-        <key type="d" name="screenshot-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for screenshot's window selector</summary>
-            <description />
-        </key>
-
-
-        <!-- ****** OTHER ****** -->
-
-        <!-- LOCKSCREEN SWITCH -->
-        <key type="b" name="lockscreen-blur">
-            <default>true</default>
-            <summary>Boolean, whether to change the default lockscreen blur or not</summary>
-            <description />
-        </key>
-        <!-- LOCKSCREEN GENERAL VALUES SWITCH -->
-        <key type="b" name="lockscreen-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize lockscreen blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- LOCKSCREEN SIGMA -->
-        <key type="i" name="lockscreen-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for lockscreen</summary>
-            <description />
-        </key>
-        <!-- LOCKSCREEN BRIGHTNESS -->
-        <key type="d" name="lockscreen-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for lockscreen</summary>
-            <description />
-        </key>
-
-        <!-- WINDOW LIST SWITCH -->
-        <key type="b" name="window-list-blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur window list extension or not</summary>
-            <description />
-        </key>
-        <!-- WINDOW LIST GENERAL VALUES SWITCH -->
-        <key type="b" name="window-list-customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize window-list blur sigma/brightness or use general values</summary>
-            <description />
-        </key>
-        <!-- WINDOW LIST SIGMA -->
-        <key type="i" name="window-list-sigma">
-            <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for window-list</summary>
-            <description />
-        </key>
-        <!-- WINDOW LIST BRIGHTNESS -->
-        <key type="d" name="window-list-brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for window-list</summary>
-            <description />
-        </key>
-
-        <!-- HIDETOPBAR SWITCH -->
-        <key type="b" name="hidetopbar-compatibility">
-            <default>false</default>
-            <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
-            <description />
-        </key>
-
-
-        <!-- ****** MISC / DIALOG ****** -->
-
         <!-- DEBUG -->
         <key type="b" name="debug">
             <default>false</default>
             <summary>Boolean, set to true to activate debug mode (more verbose journalctl logs)</summary>
-            <description />
         </key>
 
+        <child name='overview' schema='org.gnome.shell.extensions.blur-my-shell.overview'></child>
+        <child name='appfolder' schema='org.gnome.shell.extensions.blur-my-shell.appfolder'></child>
+        <child name='panel' schema='org.gnome.shell.extensions.blur-my-shell.panel'></child>
+        <child name='dash-to-dock' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-dock'></child>
+        <child name='applications' schema='org.gnome.shell.extensions.blur-my-shell.applications'></child>
+        <child name='screenshot' schema='org.gnome.shell.extensions.blur-my-shell.screenshot'></child>
+        <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
+        <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
+        <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
+    </schema>
+
+    <!-- OVERVIEW -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.overview" path="/org/gnome/shell/extensions/blur-my-shell/overview/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- STYLE COMPONENTS -->
+        <key type="i" name="style-components">
+            <default>1</default>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark)</summary>
+        </key>
+    </schema>
+
+    <!-- APPFOLDER -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.appfolder" path="/org/gnome/shell/extensions/blur-my-shell/appfolder/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- DIALOG OPACITY -->
+        <key type="d" name="dialog-opacity">
+            <default>0.0</default>
+            <summary>Opacity of the appfolder dialog to use</summary>
+        </key>
+    </schema>
+
+    <!-- PANEL -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.panel" path="/org/gnome/shell/extensions/blur-my-shell/panel/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- STATIC BLUR -->
+        <key type="b" name="static-blur">
+            <default>true</default>
+            <summary>Boolean, whether to use a static or dynamic blur for this component</summary>
+        </key>
+        <!-- UNBLUR IN OVERVIEW -->
+        <key type="b" name="unblur-in-overview">
+            <default>true</default>
+            <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
+        </key>
+    </schema>
+
+    <!-- DASH TO DOCK -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-dock" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- STATIC BLUR -->
+        <key type="b" name="static-blur">
+            <default>true</default>
+            <summary>Boolean, whether to use static or dynamic blur for this component</summary>
+        </key>
+        <!-- OVERRIDE BACKGROUND -->
+        <key type="b" name="override-background">
+            <default>true</default>
+            <summary>Boolean, whether to override the background or not</summary>
+        </key>
+        <!-- UNBLUR IN OVERVIEW -->
+        <key type="b" name="unblur-in-overview">
+            <default>false</default>
+            <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
+        </key>
+    </schema>
+
+    <!-- APPLICATIONS -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.applications" path="/org/gnome/shell/extensions/blur-my-shell/applications/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- WHITELIST -->
+        <key type="s" name="whitelist">
+            <default>""</default>
+            <summary>List of applications to blur, separated by a comma</summary>
+        </key>
+    </schema>
+
+    <!-- SCREENSHOT -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.screenshot" path="/org/gnome/shell/extensions/blur-my-shell/screenshot/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+    </schema>
+
+    <!-- LOCKSCREEN -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.lockscreen" path="/org/gnome/shell/extensions/blur-my-shell/lockscreen/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+    </schema>
+
+    <!-- WINDOW LIST -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.window-list" path="/org/gnome/shell/extensions/blur-my-shell/window-list/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+    </schema>
+
+    <!-- HIDETOPBAR -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.hidetopbar" path="/org/gnome/shell/extensions/blur-my-shell/hidetopbar/">
+        <!-- COMPATIBILITY -->
+        <key type="b" name="compatibility">
+            <default>false</default>
+            <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
+        </key>
     </schema>
 </schemalist>

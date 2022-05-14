@@ -58,7 +58,7 @@ class DashInfos {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 }
@@ -69,12 +69,12 @@ var DashBlur = class DashBlur {
         this.connections = connections;
         this.prefs = prefs;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
-        this.sigma = this.prefs.DASH_TO_DOCK_CUSTOMIZE.get()
-            ? this.prefs.DASH_TO_DOCK_SIGMA.get()
-            : this.prefs.SIGMA.get();
-        this.brightness = this.prefs.DASH_TO_DOCK_CUSTOMIZE.get()
-            ? this.prefs.DASH_TO_DOCK_BRIGHTNESS.get()
-            : this.prefs.BRIGHTNESS.get();
+        this.sigma = this.prefs.dash_to_dock.CUSTOMIZE
+            ? this.prefs.dash_to_dock.SIGMA
+            : this.prefs.SIGMA;
+        this.brightness = this.prefs.dash_to_dock.CUSTOMIZE
+            ? this.prefs.dash_to_dock.BRIGHTNESS
+            : this.prefs.BRIGHTNESS;
     }
 
     enable() {
@@ -174,7 +174,7 @@ var DashBlur = class DashBlur {
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-        if (this.prefs.HACKS_LEVEL.get() == 1) {
+        if (this.prefs.HACKS_LEVEL == 1) {
             this._log("dash hack level 1");
             this.paint_signals.disconnect_all();
 
@@ -213,7 +213,7 @@ var DashBlur = class DashBlur {
             this.connections.connect(show_apps, 'button-press-event', rp);
 
             this.connections.connect(dash, 'leave-event', rp);
-        } else if (this.prefs.HACKS_LEVEL.get() == 2) {
+        } else if (this.prefs.HACKS_LEVEL == 2) {
             this._log("dash hack level 2");
 
             this.paint_signals.connect(background, effect);
@@ -237,7 +237,7 @@ var DashBlur = class DashBlur {
     connect_to_overview() {
         this.connections.disconnect_all_for(Main.overview);
 
-        if (this.prefs.DASH_TO_DOCK_UNBLUR_IN_OVERVIEW.get()) {
+        if (this.prefs.dash_to_dock.UNBLUR_IN_OVERVIEW) {
             this.connections.connect(
                 Main.overview, 'shown', this.hide.bind(this)
             );
@@ -250,7 +250,7 @@ var DashBlur = class DashBlur {
     /// Updates the background to either remove it or not, according to the
     /// user preferences.
     update_background() {
-        if (this.prefs.DASH_TO_DOCK_OVERRIDE_BACKGROUND.get())
+        if (this.prefs.dash_to_dock.OVERRIDE_BACKGROUND)
             this.emit('override-background', true);
         else
             this.emit('reset-background', true);
@@ -283,7 +283,7 @@ var DashBlur = class DashBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };
