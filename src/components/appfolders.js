@@ -13,8 +13,8 @@ const FRAME_UPDATE_PERIOD = 16;
 
 let original_zoomAndFadeIn = null;
 let original_zoomAndFadeOut = null;
-let sigma = 30;
-let brightness = 0.6;
+let sigma;
+let brightness;
 
 let _zoomAndFadeIn = function () {
     let [sourceX, sourceY] =
@@ -127,6 +127,13 @@ var AppFoldersBlur = class AppFoldersBlur {
     enable() {
         this._log("blurring appfolders");
 
+        brightness = this.prefs.appfolder.CUSTOMIZE
+            ? this.prefs.appfolder.BRIGHTNESS
+            : this.prefs.BRIGHTNESS;
+        sigma = this.prefs.appfolder.CUSTOMIZE
+            ? this.prefs.appfolder.SIGMA
+            : this.prefs.SIGMA;
+
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
         if (appDisplay._folderIcons.length > 0) {
@@ -141,8 +148,8 @@ var AppFoldersBlur = class AppFoldersBlur {
     blur_appfolders() {
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
-        if (this.prefs.HACKS_LEVEL.get() >= 1)
-            this._log(`appfolders hack level ${this.prefs.HACKS_LEVEL.get()}`);
+        if (this.prefs.HACKS_LEVEL >= 1)
+            this._log(`appfolders hack level ${this.prefs.HACKS_LEVEL}`);
 
         appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
@@ -166,7 +173,7 @@ var AppFoldersBlur = class AppFoldersBlur {
 
             // change appfolder dialog opacity
 
-            let opacity = 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get();
+            let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
 
             icon._dialog._viewBox.set_style_class_name(
                 `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
@@ -186,7 +193,7 @@ var AppFoldersBlur = class AppFoldersBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.prefs.HACKS_LEVEL.get() >= 1) {
+            if (this.prefs.HACKS_LEVEL >= 1) {
                 this.paint_signals.disconnect_all_for_actor(icon._dialog);
                 this.paint_signals.connect(icon._dialog, effect);
             } else {
@@ -197,13 +204,13 @@ var AppFoldersBlur = class AppFoldersBlur {
 
     set_sigma(s) {
         sigma = s;
-        if (this.prefs.APPFOLDER_BLUR.get())
+        if (this.prefs.appfolder.BLUR)
             this.blur_appfolders();
     }
 
     set_brightness(b) {
         brightness = b;
-        if (this.prefs.APPFOLDER_BLUR.get())
+        if (this.prefs.appfolder.BLUR)
             this.blur_appfolders();
     }
 
@@ -228,7 +235,7 @@ var AppFoldersBlur = class AppFoldersBlur {
 
         appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
-                let opacity = 100 * this.prefs.APPFOLDER_DIALOG_OPACITY.get();
+                let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
 
                 icon._dialog.remove_effect_by_name("appfolder-blur");
                 icon._dialog._viewBox.remove_style_class_name(
@@ -241,7 +248,7 @@ var AppFoldersBlur = class AppFoldersBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };

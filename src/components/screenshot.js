@@ -74,12 +74,12 @@ var ScreenshotBlur = class ScreenshotBlur {
         bg_actor.set_content(background.get_content());
 
         let effect = new Shell.BlurEffect({
-            brightness: this.prefs.SCREENSHOT_CUSTOMIZE.get()
-                ? this.prefs.SCREENSHOT_BRIGHTNESS.get()
-                : this.prefs.BRIGHTNESS.get(),
-            sigma: this.prefs.SCREENSHOT_CUSTOMIZE.get()
-                ? this.prefs.SCREENSHOT_SIGMA.get()
-                : this.prefs.SIGMA.get(),
+            brightness: this.prefs.screenshot.CUSTOMIZE
+                ? this.prefs.screenshot.BRIGHTNESS
+                : this.prefs.BRIGHTNESS,
+            sigma: this.prefs.screenshot.CUSTOMIZE
+                ? this.prefs.screenshot.SIGMA
+                : this.prefs.SIGMA,
             mode: Shell.BlurMode.ACTOR
         });
 
@@ -116,7 +116,7 @@ var ScreenshotBlur = class ScreenshotBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };

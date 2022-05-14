@@ -49,12 +49,12 @@ var WindowListBlur = class WindowListBlur {
 
             let effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
-                sigma: this.prefs.WINDOW_LIST_CUSTOMIZE.get()
-                    ? this.prefs.WINDOW_LIST_SIGMA.get()
-                    : this.prefs.SIGMA.get(),
-                brightness: this.prefs.WINDOW_LIST_CUSTOMIZE.get()
-                    ? this.prefs.WINDOW_LIST_BRIGHTNESS.get()
-                    : this.prefs.BRIGHTNESS.get(),
+                sigma: this.prefs.window_list.CUSTOMIZE
+                    ? this.prefs.window_list.SIGMA
+                    : this.prefs.SIGMA,
+                brightness: this.prefs.window_list.CUSTOMIZE
+                    ? this.prefs.window_list.BRIGHTNESS
+                    : this.prefs.BRIGHTNESS,
                 mode: Shell.BlurMode.BACKGROUND
             });
 
@@ -83,12 +83,12 @@ var WindowListBlur = class WindowListBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.prefs.HACKS_LEVEL.get() == 1) {
+            if (this.prefs.HACKS_LEVEL == 1) {
                 this._log("window list hack level 1");
 
                 this.paint_signals.connect(child, effect);
 
-            } else if (this.prefs.HACKS_LEVEL.get() == 2) {
+            } else if (this.prefs.HACKS_LEVEL == 2) {
                 this._log("window list hack level 2");
 
                 this.paint_signals.connect(child, effect);
@@ -136,9 +136,9 @@ var WindowListBlur = class WindowListBlur {
 
     show() {
         this.set_sigma(
-            this.prefs.WINDOW_LIST_CUSTOMIZE.get()
-                ? this.prefs.WINDOW_LIST_SIGMA.get()
-                : this.prefs.SIGMA.get()
+            this.prefs.window_list.CUSTOMIZE
+                ? this.prefs.window_list.SIGMA
+                : this.prefs.SIGMA
         );
     }
 
@@ -154,7 +154,7 @@ var WindowListBlur = class WindowListBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };

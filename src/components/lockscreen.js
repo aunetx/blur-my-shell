@@ -4,8 +4,8 @@ const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 const Background = imports.ui.background;
 
-let sigma = 30;
-let brightness = 0.6;
+let sigma;
+let brightness;
 
 const UnlockDialog_proto = imports.ui.unlockDialog.UnlockDialog.prototype;
 const original_createBackground = UnlockDialog_proto._updateBackgroundEffects;
@@ -19,6 +19,13 @@ var LockscreenBlur = class LockscreenBlur {
 
     enable() {
         this._log("blurring lockscreen");
+
+        brightness = this.prefs.lockscreen.CUSTOMIZE
+            ? this.prefs.lockscreen.BRIGHTNESS
+            : this.prefs.BRIGHTNESS;
+        sigma = this.prefs.lockscreen.CUSTOMIZE
+            ? this.prefs.lockscreen.SIGMA
+            : this.prefs.SIGMA;
 
         this.update_lockscreen();
     }
@@ -59,7 +66,7 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG.get())
+        if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
     }
 };
