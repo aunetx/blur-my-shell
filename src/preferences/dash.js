@@ -16,8 +16,6 @@ var Dash = GObject.registerClass({
     InternalChildren: [
         'blur',
         'customize',
-        'sigma',
-        'brightness',
         'override_background',
         'unblur_in_overview'
     ],
@@ -29,8 +27,8 @@ var Dash = GObject.registerClass({
 
         prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('customize', this._customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
+        prefs.bind('sigma', this._customize._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
+        prefs.bind('brightness', this._customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('override-background', this._override_background, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
     }
