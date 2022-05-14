@@ -16,6 +16,7 @@ var Panel = GObject.registerClass({
     InternalChildren: [
         'blur',
         'customize',
+        'background_color',
         'static_blur',
         'unblur_in_overview',
         'hidetopbar_compatibility'
@@ -32,6 +33,23 @@ var Panel = GObject.registerClass({
         prefs_panel.bind('brightness', this._customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs_panel.bind('static-blur', this._static_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs_panel.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
+
+        // background-color connections
+        const parse_color = _ => {
+            let [r, g, b, a] = Preferences.panel.BACKGROUND_COLOR;
+            let w = this._background_color.rgba;
+            w.red = r;
+            w.green = g;
+            w.blue = b;
+            w.alpha = a;
+            this._background_color.rgba = w;
+        };
+        Preferences.panel.BACKGROUND_COLOR_changed(parse_color);
+        this._background_color.connect('color-set', _ => {
+            let c = this._background_color.rgba;
+            Preferences.panel.BACKGROUND_COLOR = [c.red, c.green, c.blue, c.alpha];
+        });
+        parse_color();
 
         const prefs_hidetopbar = Preferences.settings.get_child('hidetopbar');
 

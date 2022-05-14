@@ -1,10 +1,10 @@
 /*
 * Makes transparent some backgrounds, in order to see the blur behind.
-* The panel, workspace separator and dash-to-dock (if set) are targeted.
+* Workspace separators and dash-to-dock (if set) are targeted.
 */
 
-#panel.transparent-panel {
-    background: transparent;
+#panel {
+    background: transparent !important;
     transition-duration: 500ms;
 }
 
