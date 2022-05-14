@@ -114,6 +114,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- BACKGROUND COLOR -->
+        <key type="(dddd)" name="background-color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use as background for the panel</summary>
+        </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
             <default>true</default>

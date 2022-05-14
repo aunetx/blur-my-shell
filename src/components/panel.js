@@ -1,6 +1,6 @@
 'use strict';
 
-const { St, Shell, Meta, Gio, GLib } = imports.gi;
+const { St, Shell, Meta, Gio, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 const backgroundSettings = new Gio.Settings({
     schema: 'org.gnome.desktop.background'
@@ -60,8 +60,8 @@ var PanelBlur = class PanelBlur {
         // insert background parent
         panel_box.insert_child_at_index(this.background_parent, 0);
 
-        // remove panel background colour
-        Main.panel.add_style_class_name('transparent-panel');
+        // set panel background colour
+        this.change_background_color();
 
         // perform updates
         this.change_blur_type();
@@ -94,6 +94,35 @@ var PanelBlur = class PanelBlur {
 
         this.connect_to_overview();
         this.enabled = true;
+    }
+
+    change_background_color() {
+        let add_bg = _ => {
+            let [r, g, b, a] = this.prefs.panel.BACKGROUND_COLOR;
+            let parse = Clutter.color_from_string(
+                `rgba(${r * 255},${g * 255},${b * 255},${a})`
+            );
+            if (parse[0])
+                Main.panel.set_background_color(parse[1]);
+        };
+
+        let remove_bg = _ => {
+            Main.panel.set_background_color(null);
+        };
+
+        Main.overview.connect('showing', _ => remove_bg());
+        Main.overview.connect('shown', _ => remove_bg());
+        Main.overview.connect('show', _ => remove_bg());
+
+        Main.overview.connect('hiding', _ => add_bg());
+        Main.overview.connect('hidden', _ => add_bg());
+        Main.overview.connect('hide', _ => add_bg());
+    };
+
+    remove_background_color() {
+        if (this._change_background_color_id)
+            this.connections.disconnect(this._change_background_color_id);
+        Main.panel.set_style(null);
     }
 
     change_blur_type() {
@@ -257,7 +286,7 @@ var PanelBlur = class PanelBlur {
 
     disable() {
         this._log("removing blur from top panel");
-        Main.panel.remove_style_class_name('transparent-panel');
+        this.remove_background_color();
 
         try {
             Main.layoutManager.panelBox.remove_child(this.background_parent);

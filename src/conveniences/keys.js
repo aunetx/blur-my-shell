@@ -39,7 +39,7 @@ var Keys = [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.S, name: "background-color" },
+            { type: Type.C, name: "background-color" },
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
         ]

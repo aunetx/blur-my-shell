@@ -1,6 +1,6 @@
 'use strict';
 
-const Gio = imports.gi.Gio;
+const { Gio, GLib } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 
@@ -9,7 +9,8 @@ var Type = {
     B: 'Boolean',
     I: 'Integer',
     D: 'Double',
-    S: 'String'
+    S: 'String',
+    C: 'Color'
 };
 
 /// An object to get and manage the gsettings preferences.
@@ -83,6 +84,23 @@ var Prefs = class Prefs {
                             },
                             set(v) {
                                 component_settings.set_string(key.name, v);
+                            }
+                        });
+                        break;
+
+                    case Type.C:
+                        Object.defineProperty(component, property_name, {
+                            // returns the array [red, blue, green, alpha] with
+                            // values between 0 and 1
+                            get() {
+                                let val = component_settings.get_value(key.name);
+                                return val.deep_unpack();
+                            },
+                            // takes an array [red, blue, green, alpha] with
+                            // values between 0 and 1
+                            set(v) {
+                                let val = new GLib.Variant("(dddd)", v);
+                                component_settings.set_value(key.name, val);
                             }
                         });
                         break;

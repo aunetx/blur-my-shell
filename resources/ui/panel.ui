@@ -23,6 +23,24 @@
 
         <child>
           <object class="AdwActionRow">
+            <property name="title" translatable="yes">Panel background color</property>
+            <property name="subtitle" translatable="yes">Customize the panel background color. To see the blur behind, it must at least be semi-transparent.</property>
+            <property name="activatable-widget">background_color</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkColorButton" id="background_color">
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Static blur</property>
             <property name="subtitle" translatable="yes">Uses a static blurred image, more performant and stable.</property>
             <property name="activatable-widget">static_blur</property>
