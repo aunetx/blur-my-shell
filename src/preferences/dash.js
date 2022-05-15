@@ -23,7 +23,7 @@ var Dash = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs = Preferences.settings.get_child('dash-to-dock');
+        const prefs = Preferences.dash_to_dock.settings;
 
         prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('customize', this._customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
@@ -31,5 +31,6 @@ var Dash = GObject.registerClass({
         prefs.bind('brightness', this._customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('override-background', this._override_background, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.bind_color(Preferences.dash_to_dock, 'color', this._customize._color);
     }
 });

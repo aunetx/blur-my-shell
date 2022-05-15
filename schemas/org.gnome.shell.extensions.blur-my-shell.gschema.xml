@@ -12,6 +12,11 @@
             <default>0.6</default>
             <summary>Global brightness to use</summary>
         </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
+        </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
@@ -56,6 +61,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
+        </key>
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>1</default>
@@ -85,6 +95,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
+        </key>
         <!-- DIALOG OPACITY -->
         <key type="d" name="dialog-opacity">
             <default>0.0</default>
@@ -113,6 +128,11 @@
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -147,6 +167,11 @@
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -187,6 +212,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
+        </key>
         <!-- WHITELIST -->
         <key type="s" name="whitelist">
             <default>""</default>
@@ -216,6 +246,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
+        </key>
     </schema>
 
     <!-- LOCKSCREEN -->
@@ -240,6 +275,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
+        </key>
     </schema>
 
     <!-- WINDOW LIST -->
@@ -263,6 +303,11 @@
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- COLOR -->
+        <key type="(dddd)" name="color">
+            <default>(0.,0.,0.,0.)</default>
+            <summary>Color to use for the brightness effect</summary>
         </key>
     </schema>
 

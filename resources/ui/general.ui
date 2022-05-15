@@ -49,6 +49,22 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Color</property>
+            <property name="subtitle" translatable="yes">Changes the color of the blur.</property>
+            <property name="activatable-widget">color</property>
+            <child>
+              <object class="GtkColorButton" id="color">
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
 

@@ -454,6 +454,8 @@ var ApplicationsBlur = class ApplicationsBlur {
         });
     }
 
+    set_color(c) { }
+
     _log(str) {
         if (this.prefs.DEBUG)
             log(`[Blur my Shell] ${str}`);
