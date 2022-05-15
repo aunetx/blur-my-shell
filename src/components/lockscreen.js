@@ -30,6 +30,9 @@ var LockscreenBlur = class LockscreenBlur {
         sigma = this.prefs.lockscreen.CUSTOMIZE
             ? this.prefs.lockscreen.SIGMA
             : this.prefs.SIGMA;
+        color = this.prefs.lockscreen.CUSTOMIZE
+            ? this.prefs.lockscreen.COLOR
+            : this.prefs.COLOR;
 
         this.update_lockscreen();
     }

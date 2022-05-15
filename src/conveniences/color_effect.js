@@ -137,6 +137,7 @@ var ColorEffect = new GObject.registerClass({
             this._blend = value;
 
             this.set_uniform_value('blend', this._blend);
+            this.set_enabled(value > 0);
         }
     }
 
