@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-09 22:38+0200\n"
-"PO-Revision-Date: 2022-05-09 22:51+0200\n"
-"Last-Translator: AurÃ©lien Hamy <me@aunetx.dev>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2022-05-17 01:24+0000\n"
+"Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -89,9 +91,8 @@ msgstr ""
 "ici le dernier nom fourni."
 
 #: dash.ui:5
-#, fuzzy
 msgid "Dash"
-msgstr "Dash"
+msgstr "Tiroir"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
@@ -189,7 +190,7 @@ msgstr "Signaler un problème"
 
 #: menu.ui:14
 msgid "License"
-msgstr "License"
+msgstr "Licence"
 
 #: menu.ui:18
 msgid "Donate"
