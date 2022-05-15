@@ -34,6 +34,7 @@ class Extension {
     enable() {
         // create a Prefs instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
+        global.blur_my_shell = this;
 
         this._prefs = new Prefs(Keys);
 
@@ -98,7 +99,6 @@ class Extension {
 
         // add the extension to global to make it accessible to other extensions
 
-        global.blur_my_shell = this;
     }
 
     /// Disables the extension
@@ -190,8 +190,11 @@ class Extension {
         this._prefs.BRIGHTNESS_changed(() => {
             this._update_brightness();
         });
+        this._prefs.COLOR_changed(() => {
+            this._update_color();
+        });
 
-        // connect each component to use the proper sigma/brightness values
+        // connect each component to use the proper sigma/brightness/color
 
         INDEPENDENT_COMPONENTS.forEach(component => {
             this._connect_to_individual_settings(component);
@@ -365,13 +368,16 @@ class Extension {
 
         // general values switch is toggled
         component_prefs.CUSTOMIZE_changed(() => {
+            log('CUSTOMIZE CHANGED');
             if (component_prefs.CUSTOMIZE) {
                 component.set_sigma(component_prefs.SIGMA);
                 component.set_brightness(component_prefs.BRIGHTNESS);
+                component.set_color(component_prefs.COLOR);
             }
             else {
                 component.set_sigma(this._prefs.SIGMA);
                 component.set_brightness(this._prefs.BRIGHTNESS);
+                component.set_color(this._prefs.COLOR);
             }
         });
 
@@ -389,6 +395,14 @@ class Extension {
                 component.set_brightness(component_prefs.BRIGHTNESS);
             else
                 component.set_brightness(this._prefs.BRIGHTNESS);
+        });
+
+        // color is changed
+        component_prefs.COLOR_changed(() => {
+            if (component_prefs.CUSTOMIZE)
+                component.set_color(component_prefs.COLOR);
+            else
+                component.set_color(this._prefs.COLOR);
         });
     }
 
@@ -421,6 +435,21 @@ class Extension {
                 component.set_brightness(component_prefs.BRIGHTNESS);
             else
                 component.set_brightness(this._prefs.BRIGHTNESS);
+        });
+    }
+
+    /// Update each component's color value
+    _update_color() {
+        INDEPENDENT_COMPONENTS.forEach(name => {
+            // get component and preferences needed
+            let component = this['_' + name + '_blur'];
+            let component_prefs = this._prefs[name];
+
+            // update color accordingly
+            if (component_prefs.CUSTOMIZE)
+                component.set_color(component_prefs.COLOR);
+            else
+                component.set_color(this._prefs.COLOR);
         });
     }
 

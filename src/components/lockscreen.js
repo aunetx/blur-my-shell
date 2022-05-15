@@ -4,8 +4,12 @@ const { St, Shell } = imports.gi;
 const Main = imports.ui.main;
 const Background = imports.ui.background;
 
+const Me = imports.misc.extensionUtils.getCurrentExtension();
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+
 let sigma;
 let brightness;
+let color;
 
 const UnlockDialog_proto = imports.ui.unlockDialog.UnlockDialog.prototype;
 const original_createBackground = UnlockDialog_proto._updateBackgroundEffects;
@@ -36,13 +40,20 @@ var LockscreenBlur = class LockscreenBlur {
 
     _createBackground() {
         for (const widget of this._backgroundGroup) {
-            const effect = widget.get_effect('blur');
+            const blur_effect = widget.get_effect('blur');
 
-            if (effect) {
-                effect.set({
+            if (blur_effect) {
+                blur_effect.set({
                     brightness: brightness,
                     sigma: sigma,
                 });
+
+                widget.remove_effect_by_name('color');
+
+                let color_effect = new ColorEffect(color);
+                color_effect.set_name('color');
+
+                widget.add_effect(color_effect);
             }
         }
     }
@@ -54,6 +65,11 @@ var LockscreenBlur = class LockscreenBlur {
 
     set_brightness(b) {
         brightness = b;
+        this.update_lockscreen();
+    }
+
+    set_color(c) {
+        color = c;
         this.update_lockscreen();
     }
 

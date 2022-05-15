@@ -10,6 +10,7 @@ var CustomizeRow = GObject.registerClass({
     Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'customize-row.ui'])}`,
     InternalChildren: [
         'sigma',
-        'brightness'
+        'brightness',
+        'color'
     ],
 }, class CustomizeRow extends Adw.ExpanderRow { });

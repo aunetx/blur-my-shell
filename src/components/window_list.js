@@ -5,6 +5,7 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PaintSignals = Me.imports.conveniences.paint_signals;
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
 
 
 var WindowListBlur = class WindowListBlur {
@@ -12,7 +13,7 @@ var WindowListBlur = class WindowListBlur {
         this.connections = connections;
         this.prefs = prefs;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
-        this.blur_effects = [];
+        this.effects = [];
     }
 
     enable() {
@@ -47,7 +48,7 @@ var WindowListBlur = class WindowListBlur {
         ) {
             this._log("found window list to blur");
 
-            let effect = new Shell.BlurEffect({
+            let blur_effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
                 sigma: this.prefs.window_list.CUSTOMIZE
                     ? this.prefs.window_list.SIGMA
@@ -58,9 +59,17 @@ var WindowListBlur = class WindowListBlur {
                 mode: Shell.BlurMode.BACKGROUND
             });
 
+            let color_effect = new ColorEffect(
+                this.prefs.window_list.CUSTOMIZE
+                    ? this.prefs.window_list.COLOR
+                    : this.prefs.COLOR
+            );
+            color_effect.set_name('window-list-color');
+
             child.set_style("background:transparent;");
-            child.add_effect(effect);
-            this.blur_effects.push(effect);
+            child.add_effect(color_effect);
+            child.add_effect(blur_effect);
+            this.effects.push({ blur_effect, color_effect });
 
             child._windowList.get_children().forEach(
                 window => this.blur_window_button(window)
@@ -86,12 +95,12 @@ var WindowListBlur = class WindowListBlur {
             if (this.prefs.HACKS_LEVEL == 1) {
                 this._log("window list hack level 1");
 
-                this.paint_signals.connect(child, effect);
+                this.paint_signals.connect(child, blur_effect);
 
             } else if (this.prefs.HACKS_LEVEL == 2) {
                 this._log("window list hack level 2");
 
-                this.paint_signals.connect(child, effect);
+                this.paint_signals.connect(child, blur_effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
@@ -111,6 +120,7 @@ var WindowListBlur = class WindowListBlur {
         ) {
             child.style = null;
             child.remove_effect_by_name('window-list-blur');
+            child.remove_effect_by_name('window-list-color');
 
             child._windowList.get_children().forEach(
                 child => child.get_child_at_index(0).set_style(null)
@@ -119,14 +129,20 @@ var WindowListBlur = class WindowListBlur {
     }
 
     set_sigma(s) {
-        this.blur_effects.forEach(effect => {
-            effect.sigma = s;
+        this.effects.forEach(effect => {
+            effect.blur_effect.sigma = s;
         });
     }
 
     set_brightness(b) {
-        this.blur_effects.forEach(effect => {
-            effect.brightness = b;
+        this.effects.forEach(effect => {
+            effect.blur_effect.brightness = b;
+        });
+    }
+
+    set_color(c) {
+        this.effects.forEach(effect => {
+            effect.color_effect.set_from_rgba(c);
         });
     }
 
@@ -149,7 +165,7 @@ var WindowListBlur = class WindowListBlur {
             child => this.try_remove_blur(child)
         );
 
-        this.blur_effects = [];
+        this.effects = [];
         this.connections.disconnect_all();
     }
 

@@ -8,13 +8,14 @@ const backgroundSettings = new Gio.Settings({
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PaintSignals = Me.imports.conveniences.paint_signals;
+const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
 
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
-        this.effect = new Shell.BlurEffect({
+        this.blur_effect = new Shell.BlurEffect({
             brightness: prefs.panel.CUSTOMIZE
                 ? prefs.panel.BRIGHTNESS
                 : prefs.BRIGHTNESS,
@@ -25,6 +26,11 @@ var PanelBlur = class PanelBlur {
                 ? Shell.BlurMode.ACTOR
                 : Shell.BlurMode.BACKGROUND
         });
+        this.color_effect = new ColorEffect(
+            prefs.panel.CUSTOMIZE
+                ? prefs.panel.COLOR
+                : prefs.COLOR
+        );
         this.background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
             style_class: 'topbar-blurred-background-parent',
@@ -101,7 +107,8 @@ var PanelBlur = class PanelBlur {
 
         // reset widgets to right state
         this.background_parent.remove_child(this.background);
-        this.background.remove_effect(this.effect);
+        this.background.remove_effect(this.blur_effect);
+        this.background.remove_effect(this.color_effect);
         this.background = is_static
             ? new Meta.BackgroundActor
             : new St.Widget({
@@ -111,8 +118,9 @@ var PanelBlur = class PanelBlur {
                 width: this.monitor.width,
                 height: Main.panel.height,
             });
-        this.effect.set_mode(is_static ? 0 : 1);
-        this.background.add_effect(this.effect);
+        this.blur_effect.set_mode(is_static ? 0 : 1);
+        this.background.add_effect(this.color_effect);
+        this.background.add_effect(this.blur_effect);
         this.background_parent.add_child(this.background);
 
         // perform updates
@@ -135,7 +143,7 @@ var PanelBlur = class PanelBlur {
                 this._log("panel hack level 1");
                 this.paint_signals.disconnect_all();
 
-                let rp = () => { this.effect.queue_repaint(); };
+                let rp = () => { this.blur_effect.queue_repaint(); };
 
                 this.connections.connect(Main.panel, 'enter-event', rp);
                 this.connections.connect(Main.panel, 'leave-event', rp);
@@ -150,7 +158,7 @@ var PanelBlur = class PanelBlur {
                 this._log("panel hack level 2");
                 this.paint_signals.disconnect_all();
 
-                this.paint_signals.connect(this.background, this.effect);
+                this.paint_signals.connect(this.background, this.blur_effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
@@ -190,7 +198,7 @@ var PanelBlur = class PanelBlur {
             this.background.y = -clip_box.y;
 
             // fixes a bug where the blur is washed away when changing the sigma
-            this.effect.actor.get_content().invalidate();
+            this.blur_effect.actor.get_content().invalidate();
         }
     }
 
@@ -244,15 +252,19 @@ var PanelBlur = class PanelBlur {
     }
 
     set_sigma(s) {
-        this.effect.sigma = s;
+        this.blur_effect.sigma = s;
 
         // fixes a bug where the blur is washed away when changing the sigma
-        if (this.prefs.panel.STATIC_BLUR && this.effect.actor != null)
-            this.effect.actor.get_content().invalidate();
+        if (this.prefs.panel.STATIC_BLUR && this.blur_effect.actor != null)
+            this.blur_effect.actor.get_content().invalidate();
     }
 
     set_brightness(b) {
-        this.effect.brightness = b;
+        this.blur_effect.brightness = b;
+    }
+
+    set_color(c) {
+        this.color_effect.set_from_rgba(c);
     }
 
     disable() {

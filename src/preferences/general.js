@@ -15,6 +15,7 @@ var General = GObject.registerClass({
     InternalChildren: [
         'sigma',
         'brightness',
+        'color',
         'hack_level',
         'debug'
     ],
@@ -28,5 +29,6 @@ var General = GObject.registerClass({
         prefs.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('hacks-level', this._hack_level, 'selected', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('debug', this._debug, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.bind_color(Preferences, 'color', this._color);
     }
 });
