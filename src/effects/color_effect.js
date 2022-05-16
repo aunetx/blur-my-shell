@@ -18,7 +18,7 @@ const get_shader_source = _ => {
         return Shell.get_file_contents_utf8_sync(SHADER_PATH);
     } catch (e) {
         log(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
-        return "";
+        return null;
     }
 };
 
@@ -79,7 +79,9 @@ var ColorEffect = new GObject.registerClass({
         // set shader source
 
         this._source = get_shader_source();
-        this.set_shader_source(this._source);
+
+        if (this._source)
+            this.set_shader_source(this._source);
 
         // set shader values
 
