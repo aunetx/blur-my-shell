@@ -98,7 +98,7 @@ var ColorEffect = new GObject.registerClass({
         if (this._red !== value) {
             this._red = value;
 
-            this.set_uniform_value('red', this._red);
+            this.set_uniform_value('red', parseFloat(this._red - 1e-6));
         }
     }
 
@@ -110,7 +110,7 @@ var ColorEffect = new GObject.registerClass({
         if (this._green !== value) {
             this._green = value;
 
-            this.set_uniform_value('green', this._green);
+            this.set_uniform_value('green', parseFloat(this._green - 1e-6));
         }
     }
 
@@ -122,7 +122,7 @@ var ColorEffect = new GObject.registerClass({
         if (this._blue !== value) {
             this._blue = value;
 
-            this.set_uniform_value('blue', this._blue);
+            this.set_uniform_value('blue', parseFloat(this._blue - 1e-6));
         }
     }
 
@@ -134,7 +134,7 @@ var ColorEffect = new GObject.registerClass({
         if (this._blend !== value) {
             this._blend = value;
 
-            this.set_uniform_value('blend', this._blend);
+            this.set_uniform_value('blend', parseFloat(this._blend - 1e-6));
             this.set_enabled(value > 0);
         }
     }
