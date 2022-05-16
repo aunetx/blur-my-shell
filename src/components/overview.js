@@ -7,7 +7,7 @@ const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
 const wac_proto = WorkspaceAnimationController.prototype;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {

@@ -12,6 +12,7 @@ build: clean
 			--extra-source=../resources/ui \
 			--extra-source=./components \
 			--extra-source=./conveniences \
+			--extra-source=./effects \
 			--extra-source=./preferences \
 			--podir=../po \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \

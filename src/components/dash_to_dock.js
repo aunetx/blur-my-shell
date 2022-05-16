@@ -5,7 +5,7 @@ const Main = imports.ui.main;
 const Signals = imports.signals;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
+const PaintSignals = Me.imports.effects.paint_signals;
 
 
 /// This type of object is created for every dash found, and talks to the main

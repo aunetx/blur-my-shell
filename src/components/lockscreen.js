@@ -5,7 +5,7 @@ const Main = imports.ui.main;
 const Background = imports.ui.background;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 
 let sigma;
 let brightness;

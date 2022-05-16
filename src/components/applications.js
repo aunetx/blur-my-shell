@@ -3,7 +3,7 @@
 const { Shell, Clutter, Meta, GLib } = imports.gi;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
+const PaintSignals = Me.imports.effects.paint_signals;
 
 var ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, prefs) {
