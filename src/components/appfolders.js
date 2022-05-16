@@ -4,8 +4,8 @@ const { Shell, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
-const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+const PaintSignals = Me.imports.effects.paint_signals;
+const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);

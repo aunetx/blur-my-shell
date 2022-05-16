@@ -1,6 +1,6 @@
 'use strict';
 
-const { GLib, GObject, Gio, Clutter } = imports.gi;
+const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
@@ -8,6 +8,19 @@ const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 
 const Preferences = new Prefs(Keys);
+
+const SHADER_PATH = GLib.build_filenamev(
+    [Me.path, 'effects', 'color_effect.glsl']
+);
+
+const get_shader_source = _ => {
+    try {
+        return Shell.get_file_contents_utf8_sync(SHADER_PATH);
+    } catch (e) {
+        log(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
+        return "";
+    }
+};
 
 /// New Clutter Shader Effect that simply mixes a color in, the class applies
 /// the GLSL shader programmed into vfunc_get_static_shader_source and applies
@@ -48,7 +61,7 @@ var ColorEffect = new GObject.registerClass({
         'blend': GObject.ParamSpec.double(
             `blend`,
             `Blend`,
-            `Amount blending between the colors`,
+            `Amount of blending between the colors`,
             GObject.ParamFlags.READWRITE,
             0.0, 1.0,
             0.4,
@@ -65,22 +78,8 @@ var ColorEffect = new GObject.registerClass({
 
         // set shader source
 
-        this.set_shader_source(`
-            uniform sampler2D tex;
-            uniform float red;
-            uniform float green;
-            uniform float blue;
-            uniform float blend;
-
-            void main() {
-                vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
-                vec3 pix_color = vec3(c.x, c.y, c.z);
-
-                vec3 color = vec3(red, green, blue);
-
-                cogl_color_out = vec4(mix(pix_color, color, blend), 1.0);
-            }
-        `);
+        this._source = get_shader_source();
+        this.set_shader_source(this._source);
 
         // set shader values
 

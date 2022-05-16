@@ -4,8 +4,8 @@ const { St, Shell, Meta, Gio } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
-const ColorEffect = Me.imports.conveniences.color_effect.ColorEffect;
+const PaintSignals = Me.imports.effects.paint_signals;
+const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 
 
 var WindowListBlur = class WindowListBlur {
