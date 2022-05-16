@@ -5,6 +5,7 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
+const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 
 var ScreenshotBlur = class ScreenshotBlur {
@@ -90,9 +91,19 @@ var ScreenshotBlur = class ScreenshotBlur {
                 : this.prefs.COLOR
         );
 
+        let noise_effect = new NoiseEffect({
+            noise: this.prefs.screenshot.CUSTOMIZE
+                ? this.prefs.screenshot.NOISE_AMOUNT
+                : this.prefs.NOISE_AMOUNT,
+            lightness: this.prefs.screenshot.CUSTOMIZE
+                ? this.prefs.screenshot.NOISE_LIGHTNESS
+                : this.prefs.NOISE_LIGHTNESS
+        });
+
         bg_actor.add_effect(color_effect);
+        bg_actor.add_effect(noise_effect);
         bg_actor.add_effect(blur_effect);
-        this.effects.push({ blur_effect, color_effect });
+        this.effects.push({ blur_effect, color_effect, noise_effect });
 
         bg_actor.set_x(monitor.x);
         bg_actor.set_y(monitor.y);
@@ -115,6 +126,18 @@ var ScreenshotBlur = class ScreenshotBlur {
     set_color(c) {
         this.effects.forEach(effect => {
             effect.color_effect.set_from_rgba(c);
+        });
+    }
+
+    set_noise_amount(n) {
+        this.effects.forEach(effect => {
+            effect.noise_effect.noise = n;
+        });
+    }
+
+    set_noise_lightness(l) {
+        this.effects.forEach(effect => {
+            effect.noise_effect.lightness = l;
         });
     }
 

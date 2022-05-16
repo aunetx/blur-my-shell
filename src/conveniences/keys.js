@@ -12,6 +12,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
             { type: Type.I, name: "hacks-level" },
             { type: Type.B, name: "debug" },
         ]
@@ -23,6 +25,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
             { type: Type.I, name: "style-components" },
         ]
     },
@@ -33,6 +37,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
             { type: Type.D, name: "dialog-opacity" },
         ]
     },
@@ -43,6 +49,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
             { type: Type.S, name: "background-color" },
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
@@ -55,6 +63,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
@@ -67,6 +77,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
             { type: Type.S, name: "whitelist" },
         ]
     },
@@ -77,6 +89,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
@@ -86,6 +100,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
@@ -95,6 +111,8 @@ var Keys = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {

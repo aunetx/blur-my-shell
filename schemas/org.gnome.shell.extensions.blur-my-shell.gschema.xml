@@ -15,7 +15,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
@@ -64,7 +74,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
@@ -98,7 +118,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- DIALOG OPACITY -->
         <key type="d" name="dialog-opacity">
@@ -132,7 +162,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -171,7 +211,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -215,7 +265,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- WHITELIST -->
         <key type="s" name="whitelist">
@@ -249,7 +309,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
     </schema>
 
@@ -278,7 +348,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
     </schema>
 
@@ -307,7 +387,17 @@
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
-            <summary>Color to use for the brightness effect</summary>
+            <summary>Color to mix with the blur effect</summary>
+        </key>
+        <!-- NOISE AMOUNT -->
+        <key type="d" name="noise-amount">
+            <default>0.</default>
+            <summary>Amount of noise to add to the blur effect</summary>
+        </key>
+        <!-- NOISE LIGHTNESS -->
+        <key type="d" name="noise-lightness">
+            <default>0.</default>
+            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
     </schema>
 

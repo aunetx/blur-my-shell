@@ -47,16 +47,17 @@ var NoiseEffect = new GObject.registerClass({
         super._init();
 
         // set shader source
-
         this._source = get_shader_source();
-
         if (this._source)
             this.set_shader_source(this._source);
 
         // set shader values
-
         this.noise = params.noise;
         this.lightness = params.lightness;
+
+        // set effect name if set
+        if (params.name)
+            this.set_name(params.name);
     }
 
     get noise() {

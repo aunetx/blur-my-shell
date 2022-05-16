@@ -33,8 +33,12 @@ var PanelBlur = class PanelBlur {
                 : prefs.COLOR
         );
         this.noise_effect = new NoiseEffect({
-            noise: 0.5,
-            lightness: 0.5
+            noise: prefs.panel.CUSTOMIZE
+                ? prefs.panel.NOISE_AMOUNT
+                : prefs.NOISE_AMOUNT,
+            lightness: prefs.panel.CUSTOMIZE
+                ? prefs.panel.NOISE_LIGHTNESS
+                : prefs.NOISE_LIGHTNESS
         });
         this.background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
@@ -114,6 +118,9 @@ var PanelBlur = class PanelBlur {
         this.background_parent.remove_child(this.background);
         this.background.remove_effect(this.blur_effect);
         this.background.remove_effect(this.color_effect);
+        this.background.remove_effect(this.noise_effect);
+
+        // create new background actor
         this.background = is_static
             ? new Meta.BackgroundActor
             : new St.Widget({
@@ -123,10 +130,20 @@ var PanelBlur = class PanelBlur {
                 width: this.monitor.width,
                 height: Main.panel.height,
             });
+
+        // change blur mode
         this.blur_effect.set_mode(is_static ? 0 : 1);
+
+        // disable other effects if the blur is dynamic, as they makes it opaque
+        this.color_effect.set_enabled(is_static);
+        this.noise_effect.set_enabled(is_static);
+
+        // add the effects in order
         this.background.add_effect(this.color_effect);
         this.background.add_effect(this.noise_effect);
         this.background.add_effect(this.blur_effect);
+
+        // add the background actor behing the panel
         this.background_parent.add_child(this.background);
 
         // perform updates
@@ -204,7 +221,7 @@ var PanelBlur = class PanelBlur {
             this.background.y = -clip_box.y;
 
             // fixes a bug where the blur is washed away when changing the sigma
-            this.blur_effect.actor.get_content().invalidate();
+            this.background.get_content().invalidate();
         }
     }
 
@@ -273,11 +290,11 @@ var PanelBlur = class PanelBlur {
         this.color_effect.set_from_rgba(c);
     }
 
-    set_noise(n) {
+    set_noise_amount(n) {
         this.noise_effect.noise = n;
     }
 
-    set_lightness(l) {
+    set_noise_lightness(l) {
         this.noise_effect.lightness = l;
     }
 

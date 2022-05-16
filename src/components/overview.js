@@ -154,7 +154,14 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.COLOR
         );
 
-        let noise_effect = new NoiseEffect({ noise: 0.5, lightness: 0.5 });
+        let noise_effect = new NoiseEffect({
+            noise: this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.NOISE_AMOUNT
+                : this.prefs.NOISE_AMOUNT,
+            lightness: this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.NOISE_LIGHTNESS
+                : this.prefs.NOISE_LIGHTNESS
+        });
 
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);
@@ -210,13 +217,13 @@ var OverviewBlur = class OverviewBlur {
         });
     }
 
-    set_noise(n) {
+    set_noise_amount(n) {
         this.effects.forEach(effect => {
             effect.noise_effect.noise = n;
         });
     }
 
-    set_lightness(l) {
+    set_noise_lightness(l) {
         this.effects.forEach(effect => {
             effect.noise_effect.lightness = l;
         });
