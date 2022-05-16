@@ -4,10 +4,7 @@ const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
 
-const Preferences = new Prefs(Keys);
 
 const SHADER_PATH = GLib.build_filenamev(
     [Me.path, 'effects', 'color_effect.glsl']
