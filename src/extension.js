@@ -32,9 +32,13 @@ class Extension {
 
     /// Enables the extension
     enable() {
+        // add the extension to global to make it accessible to other extensions
+        // create it first as it is very useful when debugging crashes
+
+        global.blur_my_shell = this;
+
         // create a Prefs instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
-        global.blur_my_shell = this;
 
         this._prefs = new Prefs(Keys);
 
@@ -96,9 +100,6 @@ class Extension {
             if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
                 this._panel_blur.enable();
         } catch (e) { }
-
-        // add the extension to global to make it accessible to other extensions
-
     }
 
     /// Disables the extension
@@ -192,6 +193,12 @@ class Extension {
         });
         this._prefs.COLOR_changed(() => {
             this._update_color();
+        });
+        this._prefs.NOISE_AMOUNT_changed(() => {
+            this._update_noise_amount();
+        });
+        this._prefs.NOISE_LIGHTNESS_changed(() => {
+            this._update_noise_lightness();
         });
 
         // connect each component to use the proper sigma/brightness/color
@@ -373,11 +380,15 @@ class Extension {
                 component.set_sigma(component_prefs.SIGMA);
                 component.set_brightness(component_prefs.BRIGHTNESS);
                 component.set_color(component_prefs.COLOR);
+                component.set_noise_amount(component_prefs.NOISE_AMOUNT);
+                component.set_noise_lightness(component_prefs.NOISE_LIGHTNESS);
             }
             else {
                 component.set_sigma(this._prefs.SIGMA);
                 component.set_brightness(this._prefs.BRIGHTNESS);
                 component.set_color(this._prefs.COLOR);
+                component.set_noise_amount(this._prefs.NOISE_AMOUNT);
+                component.set_noise_lightness(this._prefs.NOISE_LIGHTNESS);
             }
         });
 
@@ -403,6 +414,22 @@ class Extension {
                 component.set_color(component_prefs.COLOR);
             else
                 component.set_color(this._prefs.COLOR);
+        });
+
+        // noise amount is changed
+        component_prefs.NOISE_AMOUNT_changed(() => {
+            if (component_prefs.CUSTOMIZE)
+                component.set_noise_amount(component_prefs.NOISE_AMOUNT);
+            else
+                component.set_noise_amount(this._prefs.NOISE_AMOUNT);
+        });
+
+        // noise lightness is changed
+        component_prefs.NOISE_LIGHTNESS_changed(() => {
+            if (component_prefs.CUSTOMIZE)
+                component.set_noise_lightness(component_prefs.NOISE_LIGHTNESS);
+            else
+                component.set_noise_lightness(this._prefs.NOISE_LIGHTNESS);
         });
     }
 
@@ -450,6 +477,36 @@ class Extension {
                 component.set_color(component_prefs.COLOR);
             else
                 component.set_color(this._prefs.COLOR);
+        });
+    }
+
+    /// Update each component's noise amount value
+    _update_noise_amount() {
+        INDEPENDENT_COMPONENTS.forEach(name => {
+            // get component and preferences needed
+            let component = this['_' + name + '_blur'];
+            let component_prefs = this._prefs[name];
+
+            // update color accordingly
+            if (component_prefs.CUSTOMIZE)
+                component.set_noise_amount(component_prefs.NOISE_AMOUNT);
+            else
+                component.set_noise_amount(this._prefs.NOISE_AMOUNT);
+        });
+    }
+
+    /// Update each component's noise lightness value
+    _update_noise_lightness() {
+        INDEPENDENT_COMPONENTS.forEach(name => {
+            // get component and preferences needed
+            let component = this['_' + name + '_blur'];
+            let component_prefs = this._prefs[name];
+
+            // update color accordingly
+            if (component_prefs.CUSTOMIZE)
+                component.set_noise_lightness(component_prefs.NOISE_LIGHTNESS);
+            else
+                component.set_noise_lightness(this._prefs.NOISE_LIGHTNESS);
         });
     }
 

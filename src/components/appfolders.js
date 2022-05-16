@@ -5,7 +5,6 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PaintSignals = Me.imports.effects.paint_signals;
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
@@ -16,7 +15,6 @@ let original_zoomAndFadeIn = null;
 let original_zoomAndFadeOut = null;
 let sigma;
 let brightness;
-let color;
 
 let _zoomAndFadeIn = function () {
     let [sourceX, sourceY] =
@@ -44,16 +42,6 @@ let _zoomAndFadeIn = function () {
             brightness: brightness,
             time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
             transition: 'easeOutQuad'
-        }
-    );
-
-    let color_effect = this.get_effect("appfolder-color");
-    color_effect.blend = 0.;
-    Tweener.addTween(color_effect,
-        {
-            blend: color[3],
-            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
-            transition: 'easeInQuad'
         }
     );
 
@@ -96,15 +84,6 @@ let _zoomAndFadeOut = function () {
         {
             sigma: 0,
             brightness: 1.0,
-            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
-            transition: 'easeInQuad'
-        }
-    );
-
-    let color_effect = this.get_effect("appfolder-color");
-    Tweener.addTween(color_effect,
-        {
-            blend: 0.,
             time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
             transition: 'easeInQuad'
         }
@@ -153,9 +132,6 @@ var AppFoldersBlur = class AppFoldersBlur {
         sigma = this.prefs.appfolder.CUSTOMIZE
             ? this.prefs.appfolder.SIGMA
             : this.prefs.SIGMA;
-        color = this.prefs.appfolder.CUSTOMIZE
-            ? this.prefs.appfolder.COLOR
-            : this.prefs.COLOR;
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
@@ -191,14 +167,8 @@ var AppFoldersBlur = class AppFoldersBlur {
                 mode: Shell.BlurMode.BACKGROUND
             });
 
-            let color_effect = new ColorEffect(color);
-            color_effect.set_name("appfolder-color");
-
             icon._dialog.remove_effect_by_name("appfolder-blur");
-            icon._dialog.remove_effect_by_name("appfolder-color");
-            icon._dialog.add_effect(color_effect);
             icon._dialog.add_effect(blur_effect);
-
 
             // change appfolder dialog opacity
 
@@ -207,6 +177,8 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog._viewBox.set_style_class_name(
                 `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
             );
+
+            // finally override the builtin functions
 
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
@@ -243,11 +215,10 @@ var AppFoldersBlur = class AppFoldersBlur {
             this.blur_appfolders();
     }
 
-    set_color(c) {
-        color = c;
-        if (this.prefs.appfolder.BLUR)
-            this.blur_appfolders();
-    }
+    // not implemented for dynamic blur
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from appfolders");
@@ -273,7 +244,6 @@ var AppFoldersBlur = class AppFoldersBlur {
                 let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
 
                 icon._dialog.remove_effect_by_name("appfolder-blur");
-                icon._dialog.remove_effect_by_name("appfolder-color");
                 icon._dialog._viewBox.remove_style_class_name(
                     `transparent-app-folder-dialogs-${opacity}`
                 );

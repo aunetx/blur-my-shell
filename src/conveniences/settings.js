@@ -170,28 +170,4 @@ var Prefs = class Prefs {
             });
         });
     }
-
-    /// Given a component (described by its preferences node), a gschema key and
-    /// a Gtk.ColorButton, binds everything transparently.
-    bind_color(component, key, widget) {
-        let property_name = this.get_property_name(key);
-
-        let parse_color = _ => {
-            let [r, g, b, a] = component[property_name];
-            let w = widget.rgba;
-            w.red = r;
-            w.green = g;
-            w.blue = b;
-            w.alpha = a;
-            widget.rgba = w;
-        };
-        component.settings.connect('changed::' + key, parse_color);
-
-        widget.connect('color-set', _ => {
-            let c = widget.rgba;
-            component[property_name] = [c.red, c.green, c.blue, c.alpha];
-        });
-
-        parse_color();
-    };
 };

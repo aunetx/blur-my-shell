@@ -266,7 +266,10 @@ var DashBlur = class DashBlur {
         this.emit('update-brightness', true);
     }
 
+    // not implemented for dynamic blur
     set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from dashes");

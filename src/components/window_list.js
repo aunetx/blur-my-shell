@@ -5,7 +5,6 @@ const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PaintSignals = Me.imports.effects.paint_signals;
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 
 
 var WindowListBlur = class WindowListBlur {
@@ -59,17 +58,9 @@ var WindowListBlur = class WindowListBlur {
                 mode: Shell.BlurMode.BACKGROUND
             });
 
-            let color_effect = new ColorEffect(
-                this.prefs.window_list.CUSTOMIZE
-                    ? this.prefs.window_list.COLOR
-                    : this.prefs.COLOR
-            );
-            color_effect.set_name('window-list-color');
-
             child.set_style("background:transparent;");
-            child.add_effect(color_effect);
             child.add_effect(blur_effect);
-            this.effects.push({ blur_effect, color_effect });
+            this.effects.push({ blur_effect });
 
             child._windowList.get_children().forEach(
                 window => this.blur_window_button(window)
@@ -120,7 +111,6 @@ var WindowListBlur = class WindowListBlur {
         ) {
             child.style = null;
             child.remove_effect_by_name('window-list-blur');
-            child.remove_effect_by_name('window-list-color');
 
             child._windowList.get_children().forEach(
                 child => child.get_child_at_index(0).set_style(null)
@@ -140,11 +130,10 @@ var WindowListBlur = class WindowListBlur {
         });
     }
 
-    set_color(c) {
-        this.effects.forEach(effect => {
-            effect.color_effect.set_from_rgba(c);
-        });
-    }
+    // not implemented for dynamic blur
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     hide() {
         this.set_sigma(0);

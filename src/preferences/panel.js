@@ -27,12 +27,9 @@ var Panel = GObject.registerClass({
         const prefs_panel = Preferences.panel.settings;
 
         prefs_panel.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs_panel.bind('customize', this._customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
-        prefs_panel.bind('sigma', this._customize._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs_panel.bind('brightness', this._customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs_panel.bind('static-blur', this._static_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs_panel.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
-        Preferences.bind_color(Preferences.panel, 'color', this._customize._color);
+        this._customize.connect_to(Preferences.panel);
 
         const prefs_hidetopbar = Preferences.hidetopbar.settings;
 

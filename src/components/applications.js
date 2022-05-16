@@ -454,7 +454,10 @@ var ApplicationsBlur = class ApplicationsBlur {
         });
     }
 
+    // not implemented for dynamic blur
     set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     _log(str) {
         if (this.prefs.DEBUG)
