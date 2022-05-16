@@ -9,6 +9,7 @@ const backgroundSettings = new Gio.Settings({
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const PaintSignals = Me.imports.effects.paint_signals;
 const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
+const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
@@ -31,6 +32,10 @@ var PanelBlur = class PanelBlur {
                 ? prefs.panel.COLOR
                 : prefs.COLOR
         );
+        this.noise_effect = new NoiseEffect({
+            noise: 0.5,
+            lightness: 0.5
+        });
         this.background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
             style_class: 'topbar-blurred-background-parent',
@@ -120,6 +125,7 @@ var PanelBlur = class PanelBlur {
             });
         this.blur_effect.set_mode(is_static ? 0 : 1);
         this.background.add_effect(this.color_effect);
+        this.background.add_effect(this.noise_effect);
         this.background.add_effect(this.blur_effect);
         this.background_parent.add_child(this.background);
 
@@ -265,6 +271,14 @@ var PanelBlur = class PanelBlur {
 
     set_color(c) {
         this.color_effect.set_from_rgba(c);
+    }
+
+    set_noise(n) {
+        this.noise_effect.noise = n;
+    }
+
+    set_lightness(l) {
+        this.noise_effect.lightness = l;
     }
 
     disable() {

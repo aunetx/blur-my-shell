@@ -8,6 +8,7 @@ const wac_proto = WorkspaceAnimationController.prototype;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
+const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
@@ -153,9 +154,12 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.COLOR
         );
 
+        let noise_effect = new NoiseEffect({ noise: 0.5, lightness: 0.5 });
+
         bg_actor.add_effect(color_effect);
+        bg_actor.add_effect(noise_effect);
         bg_actor.add_effect(blur_effect);
-        this.effects.push({ blur_effect, color_effect });
+        this.effects.push({ blur_effect, color_effect, noise_effect });
 
         bg_actor.set_x(monitor.x);
         bg_actor.set_y(monitor.y);
@@ -203,6 +207,18 @@ var OverviewBlur = class OverviewBlur {
     set_color(c) {
         this.effects.forEach(effect => {
             effect.color_effect.set_from_rgba(c);
+        });
+    }
+
+    set_noise(n) {
+        this.effects.forEach(effect => {
+            effect.noise_effect.noise = n;
+        });
+    }
+
+    set_lightness(l) {
+        this.effects.forEach(effect => {
+            effect.noise_effect.lightness = l;
         });
     }
 
