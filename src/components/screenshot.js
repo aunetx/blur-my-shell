@@ -85,11 +85,11 @@ var ScreenshotBlur = class ScreenshotBlur {
             mode: Shell.BlurMode.ACTOR
         });
 
-        let color_effect = new ColorEffect(
-            this.prefs.screenshot.CUSTOMIZE
+        let color_effect = new ColorEffect({
+            color: this.prefs.screenshot.CUSTOMIZE
                 ? this.prefs.screenshot.COLOR
                 : this.prefs.COLOR
-        );
+        });
 
         let noise_effect = new NoiseEffect({
             noise: this.prefs.screenshot.CUSTOMIZE
@@ -125,7 +125,7 @@ var ScreenshotBlur = class ScreenshotBlur {
 
     set_color(c) {
         this.effects.forEach(effect => {
-            effect.color_effect.set(c);
+            effect.color_effect.color = c;
         });
     }
 

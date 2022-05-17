@@ -65,13 +65,18 @@ var ColorEffect = new GObject.registerClass({
         ),
     }
 }, class ColorShader extends Clutter.ShaderEffect {
-    _init(color) {
+    _init(params) {
         this._red = null;
         this._green = null;
         this._blue = null;
         this._blend = null;
 
-        super._init();
+        // initialize without color as a parameter
+
+        let _color = params.color;
+        delete params.color;
+
+        super._init(params);
 
         // set shader source
 
@@ -80,14 +85,10 @@ var ColorEffect = new GObject.registerClass({
         if (this._source)
             this.set_shader_source(this._source);
 
-        // set shader values
+        // set shader color
 
-        let [red, green, blue, alpha] = color;
-
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-        this.blend = alpha;
+        if (_color)
+            this.color = _color;
     }
 
     get red() {
@@ -139,12 +140,21 @@ var ColorEffect = new GObject.registerClass({
         }
     }
 
-    set(rgba) {
+    set color(rgba) {
         let [r, g, b, a] = rgba;
         this.red = r;
         this.green = g;
         this.blue = b;
         this.blend = a;
+    }
+
+    get color() {
+        return [this.red, this.green, this.blue, this.blend];
+    }
+
+    /// False set function, only cares about the color. Too hard to change.
+    set(params) {
+        this.color = params.color;
     }
 
 
