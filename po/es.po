@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-08 16:41+0200\n"
-"PO-Revision-Date: 2022-05-08 16:54+0200\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2022-05-17 01:33+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
@@ -307,8 +308,7 @@ msgstr "Compatibilidad"
 
 #: resources/ui/panel.ui:104
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
-"Varias opciones para proporcionar compatibilidad con otras extensiones."
+msgstr "Varias opciones para proporcionar compatibilidad con otras extensiones."
 
 #: resources/ui/panel.ui:108
 msgid "Hidetopbar extension"
