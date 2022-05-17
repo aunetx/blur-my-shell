@@ -64,7 +64,9 @@ var CustomizeRow = GObject.registerClass({
             s.bind('noise-amount', this._noise_amount, 'value', Gio.SettingsBindFlags.DEFAULT);
             s.bind('noise-lightness', this._noise_lightness, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-            // the the panel, we gave the static_blur widget
+            // if dealing we gave the static_blur widget, we are dealing with
+            // the panel, and binding it to enable/disable the required
+            // components when swiching between static and dynamic blur
             if (color_and_noise instanceof Gtk.Switch) {
                 // bind its state to dynamically toggle the notice and rows
                 color_and_noise.bind_property('state', this._color_row, 'visible', GObject.BindingFlags.SYNC_CREATE);
@@ -82,7 +84,7 @@ var CustomizeRow = GObject.registerClass({
                 }, 10);
             }
 
-            // is not fired if in General page
+            // if in General page, there is no notice at all
             if (this instanceof CustomizeRow) {
                 // disable the notice and enable color and noise preferences
                 this._color_row.visible = true;
