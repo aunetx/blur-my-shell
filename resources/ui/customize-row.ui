@@ -48,10 +48,11 @@
     </child>
 
     <child>
-      <object class="AdwActionRow">
+      <object class="AdwActionRow" id="color_row">
         <property name="title" translatable="yes">Color</property>
         <property name="subtitle" translatable="yes">Changes the color of the blur. The opacity of the color controls how much it is blended into the blur effect.</property>
         <property name="activatable-widget">color</property>
+        <property name="visible">true</property>
 
         <child>
           <object class="GtkColorButton" id="color">
@@ -67,7 +68,7 @@
     </child>
 
     <child>
-      <object class="AdwActionRow">
+      <object class="AdwActionRow" id="noise_amount_row">
         <property name="title" translatable="yes">Noise amount</property>
         <property name="subtitle" translatable="yes">The amount of noise to add to the blur effect, useful on low-contrast screens or for aesthetic purpose.</property>
         <property name="activatable-widget">noise_amount_scale</property>
@@ -88,7 +89,7 @@
     </child>
 
     <child>
-      <object class="AdwActionRow">
+      <object class="AdwActionRow" id="noise_lightness_row">
         <property name="title" translatable="yes">Noise lightness</property>
         <property name="subtitle" translatable="yes">The lightness of the noise added to the blur effect.</property>
         <property name="activatable-widget">noise_lightness_scale</property>
@@ -107,6 +108,14 @@
         </child>
       </object>
     </child>
+
+    <child>
+      <object class="AdwActionRow" id="noise_color_notice">
+        <property name="title" translatable="yes">Notice</property>
+        <property name="subtitle" translatable="yes">Noise and color can't be activated on dynamically blurred components, such as this one.</property>
+      </object>
+    </child>
+
   </template>
 
   <object class="GtkAdjustment" id="sigma">

@@ -26,6 +26,6 @@ var Applications = GObject.registerClass({
 
         prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('whitelist', this._whitelist.buffer, 'text', Gio.SettingsBindFlags.DEFAULT);
-        this._customize.connect_to(Preferences.applications);
+        this._customize.connect_to(Preferences.applications, false);
     }
 });

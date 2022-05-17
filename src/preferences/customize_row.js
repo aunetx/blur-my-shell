@@ -1,6 +1,6 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
+const { Adw, GLib, GObject, Gio, Gtk } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
@@ -36,20 +36,66 @@ var CustomizeRow = GObject.registerClass({
         'sigma',
         'brightness',
         'color',
+        'color_row',
         'noise_amount',
-        'noise_lightness'
+        'noise_amount_row',
+        'noise_lightness',
+        'noise_lightness_row',
+        'noise_color_notice'
     ],
 }, class CustomizeRow extends Adw.ExpanderRow {
-    connect_to(component_prefs) {
+    connect_to(component_prefs, color_and_noise = true) {
         let s = component_prefs.settings;
 
+        // is not fired if in General page
         if (this instanceof CustomizeRow)
+            // bind the customize button
             s.bind('customize', this, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
+
+        // bind sigma an brightness
         s.bind('sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         s.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
-        s.bind('noise-amount', this._noise_amount, 'value', Gio.SettingsBindFlags.DEFAULT);
-        s.bind('noise-lightness', this._noise_lightness, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-        bind_color(component_prefs, 'color', this._color);
+        if (color_and_noise) {
+            // bind the color button
+            bind_color(component_prefs, 'color', this._color);
+
+            // bind noise sliders
+            s.bind('noise-amount', this._noise_amount, 'value', Gio.SettingsBindFlags.DEFAULT);
+            s.bind('noise-lightness', this._noise_lightness, 'value', Gio.SettingsBindFlags.DEFAULT);
+
+            // the the panel, we gave the static_blur widget
+            if (color_and_noise instanceof Gtk.Switch) {
+                // bind its state to dynamically toggle the notice and rows
+                color_and_noise.bind_property('state', this._color_row, 'visible', GObject.BindingFlags.SYNC_CREATE);
+                color_and_noise.bind_property('state', this._noise_amount_row, 'visible', GObject.BindingFlags.SYNC_CREATE);
+                color_and_noise.bind_property('state', this._noise_lightness_row, 'visible', GObject.BindingFlags.SYNC_CREATE);
+                color_and_noise.bind_property('state', this._noise_color_notice, 'visible', GObject.BindingFlags.INVERT_BOOLEAN);
+
+                // only way to get the correct state when first opening the window...
+                setTimeout(_ => {
+                    let is_visible = color_and_noise.state;
+                    this._color_row.visible = is_visible;
+                    this._noise_amount_row.visible = is_visible;
+                    this._noise_lightness_row.visible = is_visible;
+                    this._noise_color_notice.visible = !is_visible;
+                }, 10);
+            }
+
+            // is not fired if in General page
+            if (this instanceof CustomizeRow) {
+                // disable the notice and enable color and noise preferences
+                this._color_row.visible = true;
+                this._noise_amount_row.visible = true;
+                this._noise_lightness_row.visible = true;
+                this._noise_color_notice.visible = false;
+            }
+        } else {
+            // enable the notice and disable color and noise preferences
+            this._color_row.visible = false;
+            this._noise_amount_row.visible = false;
+            this._noise_lightness_row.visible = false;
+            this._noise_color_notice.visible = true;
+        }
     };
 });
