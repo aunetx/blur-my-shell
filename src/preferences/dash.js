@@ -28,6 +28,6 @@ var Dash = GObject.registerClass({
         prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('override-background', this._override_background, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
-        this._customize.connect_to(Preferences.dash_to_dock);
+        this._customize.connect_to(Preferences.dash_to_dock, false);
     }
 });

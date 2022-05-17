@@ -375,7 +375,6 @@ class Extension {
 
         // general values switch is toggled
         component_prefs.CUSTOMIZE_changed(() => {
-            log('CUSTOMIZE CHANGED');
             if (component_prefs.CUSTOMIZE) {
                 component.set_sigma(component_prefs.SIGMA);
                 component.set_brightness(component_prefs.BRIGHTNESS);

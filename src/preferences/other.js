@@ -40,6 +40,6 @@ var Other = GObject.registerClass({
         const prefs_window_list = Preferences.window_list.settings;
 
         prefs_window_list.bind('blur', this._window_list_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        this._window_list_customize.connect_to(Preferences.window_list);
+        this._window_list_customize.connect_to(Preferences.window_list, false);
     }
 });

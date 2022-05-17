@@ -36,6 +36,6 @@ var Overview = GObject.registerClass({
 
         prefs_appfolder.bind('blur', this._appfolder_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs_appfolder.bind('dialog-opacity', this._appfolder_dialog_opacity, 'value', Gio.SettingsBindFlags.DEFAULT);
-        this._appfolder_customize.connect_to(Preferences.appfolder);
+        this._appfolder_customize.connect_to(Preferences.appfolder, false);
     }
 });
