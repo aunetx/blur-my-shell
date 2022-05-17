@@ -27,11 +27,11 @@ var PanelBlur = class PanelBlur {
                 ? Shell.BlurMode.ACTOR
                 : Shell.BlurMode.BACKGROUND
         });
-        this.color_effect = new ColorEffect(
-            prefs.panel.CUSTOMIZE
+        this.color_effect = new ColorEffect({
+            color: prefs.panel.CUSTOMIZE
                 ? prefs.panel.COLOR
                 : prefs.COLOR
-        );
+        });
         this.noise_effect = new NoiseEffect({
             noise: prefs.panel.CUSTOMIZE
                 ? prefs.panel.NOISE_AMOUNT
@@ -287,7 +287,7 @@ var PanelBlur = class PanelBlur {
     }
 
     set_color(c) {
-        this.color_effect.set(c);
+        this.color_effect.color = c;
     }
 
     set_noise_amount(n) {

@@ -72,8 +72,10 @@ var LockscreenBlur = class LockscreenBlur {
             brightness: brightness
         });
 
-        let color_effect = new ColorEffect(color);
-        color_effect.set_name('color');
+        let color_effect = new ColorEffect({
+            name: 'color',
+            color: color
+        });
 
         let noise_effect = new NoiseEffect({
             name: 'noise',
@@ -103,7 +105,9 @@ var LockscreenBlur = class LockscreenBlur {
             const blur_effect = widget.get_effect('blur');
 
             if (color_effect)
-                color_effect.set(color);
+                color_effect.set({
+                    color: color
+                });
 
             if (noise_effect) {
                 noise_effect.set({
