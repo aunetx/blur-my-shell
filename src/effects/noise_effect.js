@@ -51,13 +51,8 @@ var NoiseEffect = new GObject.registerClass({
         if (this._source)
             this.set_shader_source(this._source);
 
-        // set shader values
-        this.noise = params.noise;
-        this.lightness = params.lightness;
-
-        // set effect name if set
-        if (params.name)
-            this.set_name(params.name);
+        // set values from parameters
+        this.set(params);
     }
 
     get noise() {
@@ -83,6 +78,16 @@ var NoiseEffect = new GObject.registerClass({
 
             this.set_uniform_value('lightness', parseFloat(this._lightness - 1e-6));
         }
+    }
+
+    set(params) {
+        // set shader values
+        this.noise = params.noise;
+        this.lightness = params.lightness;
+
+        // set effect name if set
+        if (params.name)
+            this.set_name(params.name);
     }
 
 

@@ -287,7 +287,7 @@ var PanelBlur = class PanelBlur {
     }
 
     set_color(c) {
-        this.color_effect.set_from_rgba(c);
+        this.color_effect.set(c);
     }
 
     set_noise_amount(n) {

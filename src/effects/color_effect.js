@@ -139,7 +139,7 @@ var ColorEffect = new GObject.registerClass({
         }
     }
 
-    set_from_rgba(rgba) {
+    set(rgba) {
         let [r, g, b, a] = rgba;
         this.red = r;
         this.green = g;
