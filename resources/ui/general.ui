@@ -49,6 +49,66 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Color</property>
+            <property name="subtitle" translatable="yes">Changes the color of the blur. The opacity of the color controls how much it is blended into the blur effect.</property>
+            <property name="activatable-widget">color</property>
+            <child>
+              <object class="GtkColorButton" id="color">
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <property name="width-request">70px</property>
+                <property name="height-request">45px</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Noise amount</property>
+            <property name="subtitle" translatable="yes">The amount of noise to add to the blur effect, useful on low-contrast screens or for aesthetic purpose.</property>
+            <property name="activatable-widget">noise_amount_scale</property>
+
+            <child>
+              <object class="GtkScale" id="noise_amount_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">noise_amount</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Noise lightness</property>
+            <property name="subtitle" translatable="yes">The lightness of the noise added to the blur effect.</property>
+            <property name="activatable-widget">noise_lightness_scale</property>
+
+            <child>
+              <object class="GtkScale" id="noise_lightness_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">noise_lightness</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
 
@@ -96,6 +156,18 @@
   <object class="GtkAdjustment" id="brightness">
     <property name="lower">0.0</property>
     <property name="upper">1.0</property>
+    <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkAdjustment" id="noise_amount">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkAdjustment" id="noise_lightness">
+    <property name="lower">0.0</property>
+    <property name="upper">2.0</property>
     <property name="step-increment">0.01</property>
   </object>
 

@@ -4,7 +4,7 @@ const { Shell, GLib, Clutter } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
+const PaintSignals = Me.imports.effects.paint_signals;
 const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
@@ -32,11 +32,11 @@ let _zoomAndFadeIn = function () {
 
     this.set_background_color(transparent);
 
-    let effect = this.get_effect("appfolder-blur");
+    let blur_effect = this.get_effect("appfolder-blur");
 
-    effect.sigma = 0;
-    effect.brightness = 1.0;
-    Tweener.addTween(effect,
+    blur_effect.sigma = 0;
+    blur_effect.brightness = 1.0;
+    Tweener.addTween(blur_effect,
         {
             sigma: sigma,
             brightness: brightness,
@@ -79,9 +79,8 @@ let _zoomAndFadeOut = function () {
 
     this.set_background_color(transparent);
 
-    let effect = this.get_effect("appfolder-blur");
-
-    Tweener.addTween(effect,
+    let blur_effect = this.get_effect("appfolder-blur");
+    Tweener.addTween(blur_effect,
         {
             sigma: 0,
             brightness: 1.0,
@@ -161,15 +160,15 @@ var AppFoldersBlur = class AppFoldersBlur {
                 original_zoomAndFadeOut = icon._dialog._zoomAndFadeOut;
             }
 
-            let effect = new Shell.BlurEffect({
+            let blur_effect = new Shell.BlurEffect({
                 name: "appfolder-blur",
                 sigma: sigma,
                 brightness: brightness,
                 mode: Shell.BlurMode.BACKGROUND
             });
-            icon._dialog.remove_effect_by_name("appfolder-blur");
-            icon._dialog.add_effect(effect);
 
+            icon._dialog.remove_effect_by_name("appfolder-blur");
+            icon._dialog.add_effect(blur_effect);
 
             // change appfolder dialog opacity
 
@@ -178,6 +177,8 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog._viewBox.set_style_class_name(
                 `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
             );
+
+            // finally override the builtin functions
 
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
@@ -195,7 +196,7 @@ var AppFoldersBlur = class AppFoldersBlur {
 
             if (this.prefs.HACKS_LEVEL >= 1) {
                 this.paint_signals.disconnect_all_for_actor(icon._dialog);
-                this.paint_signals.connect(icon._dialog, effect);
+                this.paint_signals.connect(icon._dialog, blur_effect);
             } else {
                 this.paint_signals.disconnect_all();
             }
@@ -213,6 +214,11 @@ var AppFoldersBlur = class AppFoldersBlur {
         if (this.prefs.appfolder.BLUR)
             this.blur_appfolders();
     }
+
+    // not implemented for dynamic blur
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from appfolders");

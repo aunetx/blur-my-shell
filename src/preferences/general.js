@@ -6,6 +6,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
+const { CustomizeRow } = Me.imports.preferences.customize_row;
 
 const Preferences = new Prefs(Keys);
 
@@ -15,6 +16,9 @@ var General = GObject.registerClass({
     InternalChildren: [
         'sigma',
         'brightness',
+        'color',
+        'noise_amount',
+        'noise_lightness',
         'hack_level',
         'debug'
     ],
@@ -24,8 +28,7 @@ var General = GObject.registerClass({
 
         const prefs = Preferences.settings;
 
-        prefs.bind('sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
+        CustomizeRow.prototype.connect_to.call(this, Preferences);
         prefs.bind('hacks-level', this._hack_level, 'selected', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('debug', this._debug, 'state', Gio.SettingsBindFlags.DEFAULT);
     }

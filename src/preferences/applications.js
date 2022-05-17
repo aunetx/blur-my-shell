@@ -22,12 +22,10 @@ var Applications = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs = Preferences.settings.get_child('applications');
+        const prefs = Preferences.applications.settings;
 
         prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('customize', this._customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('sigma', this._customize._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('brightness', this._customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('whitelist', this._whitelist.buffer, 'text', Gio.SettingsBindFlags.DEFAULT);
+        this._customize.connect_to(Preferences.applications, false);
     }
 });
