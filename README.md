@@ -37,6 +37,10 @@ Blurred Top Panel:
 Preferences:
 ![Screenshot from 2022-04-03 00-35-16](https://user-images.githubusercontent.com/31563930/161403582-4cd8ebb9-7ffd-47c9-b4af-f6ddff8348df.png)
 
+## Translations
+
+You can help translating the extension into your language, either by directly opening a pull request with the additions you've made, or by using [Weblate](https://hosted.weblate.org/projects/blur-my-shell/blur-my-shell/)!
+
 ## Known bugs
 
 ### Note
