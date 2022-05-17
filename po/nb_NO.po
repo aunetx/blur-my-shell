@@ -8,13 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-09 22:40+0200\n"
-<<<<<<< HEAD
-"PO-Revision-Date: 2022-05-17 01:24+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-=======
 "PO-Revision-Date: 2022-05-17 01:33+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
->>>>>>> weblate/master
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/nb_NO/>\n"
 "Language: nb_NO\n"

@@ -7,18 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2022-05-17 03:14+0200\n"
-"PO-Revision-Date: 2022-05-17 03:20+0200\n"
-"Last-Translator: AurÃ©lien Hamy <me@aunetx.dev>\n"
-"Language-Team: \n"
-=======
 "POT-Creation-Date: 2022-05-09 22:38+0200\n"
 "PO-Revision-Date: 2022-05-17 01:33+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
->>>>>>> weblate/master
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

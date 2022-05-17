@@ -8,11 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-09 22:40+0200\n"
-<<<<<<< HEAD
-"PO-Revision-Date: 2022-05-17 01:24+0000\n"
-=======
 "PO-Revision-Date: 2022-05-17 01:33+0000\n"
->>>>>>> weblate/master
 "Last-Translator: fawaz006 <fawaz27000@hotmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
