@@ -35,7 +35,7 @@ var NoiseEffect = new GObject.registerClass({
             `Lightness`,
             `Lightness of the grey used for the noise`,
             GObject.ParamFlags.READWRITE,
-            0.0, 1.0,
+            0.0, 2.0,
             0.4,
         ),
     }

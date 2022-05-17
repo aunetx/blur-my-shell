@@ -52,7 +52,6 @@
         <property name="title" translatable="yes">Color</property>
         <property name="subtitle" translatable="yes">Changes the color of the blur. The opacity of the color controls how much it is blended into the blur effect.</property>
         <property name="activatable-widget">color</property>
-        <property name="visible">true</property>
 
         <child>
           <object class="GtkColorButton" id="color">
