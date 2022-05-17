@@ -213,7 +213,7 @@ var OverviewBlur = class OverviewBlur {
 
     set_color(c) {
         this.effects.forEach(effect => {
-            effect.color_effect.set_from_rgba(c);
+            effect.color_effect.set(c);
         });
     }
 
