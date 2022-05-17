@@ -3,7 +3,7 @@
 const { Shell, Clutter, Meta, GLib } = imports.gi;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
+const PaintSignals = Me.imports.effects.paint_signals;
 
 var ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, prefs) {
@@ -453,6 +453,11 @@ var ApplicationsBlur = class ApplicationsBlur {
             actor.get_effect('blur-effect').set_brightness(b);
         });
     }
+
+    // not implemented for dynamic blur
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     _log(str) {
         if (this.prefs.DEBUG)

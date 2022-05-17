@@ -26,20 +26,16 @@ var Overview = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs_overview = Preferences.settings.get_child('overview');
+        const prefs_overview = Preferences.overview.settings;
 
         prefs_overview.bind('blur', this._overview_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs_overview.bind('customize', this._overview_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
-        prefs_overview.bind('sigma', this._overview_customize._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs_overview.bind('brightness', this._overview_customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs_overview.bind('style-components', this._overview_style_components, 'selected', Gio.SettingsBindFlags.DEFAULT);
+        this._overview_customize.connect_to(Preferences.overview);
 
-        const prefs_appfolder = Preferences.settings.get_child('appfolder');
+        const prefs_appfolder = Preferences.appfolder.settings;
 
         prefs_appfolder.bind('blur', this._appfolder_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs_appfolder.bind('customize', this._appfolder_customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
-        prefs_appfolder.bind('sigma', this._appfolder_customize._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs_appfolder.bind('brightness', this._appfolder_customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs_appfolder.bind('dialog-opacity', this._appfolder_dialog_opacity, 'value', Gio.SettingsBindFlags.DEFAULT);
+        this._appfolder_customize.connect_to(Preferences.appfolder, false);
     }
 });

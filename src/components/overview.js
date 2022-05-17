@@ -7,7 +7,8 @@ const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
 const wac_proto = WorkspaceAnimationController.prototype;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-
+const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
+const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
@@ -137,7 +138,7 @@ var OverviewBlur = class OverviewBlur {
 
         bg_actor.set_content(background.get_content());
 
-        let effect = new Shell.BlurEffect({
+        let blur_effect = new Shell.BlurEffect({
             brightness: this.prefs.overview.CUSTOMIZE
                 ? this.prefs.overview.BRIGHTNESS
                 : this.prefs.BRIGHTNESS,
@@ -147,8 +148,25 @@ var OverviewBlur = class OverviewBlur {
             mode: Shell.BlurMode.ACTOR
         });
 
-        bg_actor.add_effect(effect);
-        this.effects.push(effect);
+        let color_effect = new ColorEffect(
+            this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.COLOR
+                : this.prefs.COLOR
+        );
+
+        let noise_effect = new NoiseEffect({
+            noise: this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.NOISE_AMOUNT
+                : this.prefs.NOISE_AMOUNT,
+            lightness: this.prefs.overview.CUSTOMIZE
+                ? this.prefs.overview.NOISE_LIGHTNESS
+                : this.prefs.NOISE_LIGHTNESS
+        });
+
+        bg_actor.add_effect(color_effect);
+        bg_actor.add_effect(noise_effect);
+        bg_actor.add_effect(blur_effect);
+        this.effects.push({ blur_effect, color_effect, noise_effect });
 
         bg_actor.set_x(monitor.x);
         bg_actor.set_y(monitor.y);
@@ -183,13 +201,31 @@ var OverviewBlur = class OverviewBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.sigma = s;
+            effect.blur_effect.sigma = s;
         });
     }
 
     set_brightness(b) {
         this.effects.forEach(effect => {
-            effect.brightness = b;
+            effect.blur_effect.brightness = b;
+        });
+    }
+
+    set_color(c) {
+        this.effects.forEach(effect => {
+            effect.color_effect.set_from_rgba(c);
+        });
+    }
+
+    set_noise_amount(n) {
+        this.effects.forEach(effect => {
+            effect.noise_effect.noise = n;
+        });
+    }
+
+    set_noise_lightness(l) {
+        this.effects.forEach(effect => {
+            effect.noise_effect.lightness = l;
         });
     }
 

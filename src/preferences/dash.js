@@ -23,13 +23,11 @@ var Dash = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs = Preferences.settings.get_child('dash-to-dock');
+        const prefs = Preferences.dash_to_dock.settings;
 
         prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('customize', this._customize, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('sigma', this._customize._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('brightness', this._customize._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('override-background', this._override_background, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
+        this._customize.connect_to(Preferences.dash_to_dock, false);
     }
 });

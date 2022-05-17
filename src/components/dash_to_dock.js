@@ -5,7 +5,7 @@ const Main = imports.ui.main;
 const Signals = imports.signals;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.conveniences.paint_signals;
+const PaintSignals = Me.imports.effects.paint_signals;
 
 
 /// This type of object is created for every dash found, and talks to the main
@@ -265,6 +265,11 @@ var DashBlur = class DashBlur {
         this.brightness = brightness;
         this.emit('update-brightness', true);
     }
+
+    // not implemented for dynamic blur
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from dashes");
