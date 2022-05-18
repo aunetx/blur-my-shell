@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-09 22:38+0200\n"
-"PO-Revision-Date: 2022-05-17 01:33+0000\n"
-"Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
+"PO-Revision-Date: 2022-05-18 21:16+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
 "Language: fr\n"
@@ -55,14 +55,14 @@ msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "Customiser les paramètres"
+msgstr "Personnaliser les paramètres"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Utilises les paramètres de flou ci-dessous, plutôt que ceux définis dans les "
-"préférences Générales."
+"Utilise les paramètres de flou ci-dessous, plutôt que ceux définis dans les "
+"préférences générales."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
