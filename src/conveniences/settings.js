@@ -1,6 +1,6 @@
 'use strict';
 
-const { Gio, GLib, Gdk, Clutter } = imports.gi;
+const { Gio, GLib } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 
@@ -105,34 +105,6 @@ var Prefs = class Prefs {
                                 component_settings.set_value(key.name, val);
                             }
                         });
-
-                        Object.defineProperty(component, property_name + '_clutter', {
-                            // returns the corresponding Clutter.Color
-                            get() {
-                                let [r, g, b, a] = component[property_name];
-                                let c = new Clutter.Color({
-                                    red: r * 255,
-                                    green: g * 255,
-                                    blue: b * 255,
-                                    alpha: a
-                                });
-                                return c;
-                            }
-                        });
-
-                        Object.defineProperty(component, property_name + '_gdk', {
-                            // returns the corresponding Gdk.RGBA color
-                            get() {
-                                let [r, g, b, a] = component[property_name];
-                                let c = new Gdk.RGBA;
-                                c.red = r;
-                                c.green = g;
-                                c.blue = b;
-                                c.alpha = a;
-                                return c;
-                            }
-                        });
-                        break;
                 }
 
                 component[property_name + '_changed'] = function (cb) {
