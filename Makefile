@@ -24,7 +24,22 @@ install: build remove
 
 
 pot:
-	xgettext --from-code=UTF-8 resources/ui/*.ui --output=po/$(UUID).pot
+	find resources/ui -iname "*.ui" -printf "%f\n" | sort | \
+		xargs xgettext --directory=resources/ui --output=po/$(UUID).pot \
+		--from-code=utf-8 --package-name=$(UUID)
+
+	for l in $$(ls po/*.po); do \
+		basename $$l .po >> po/LINGUAS; \
+	done
+
+	cd po && \
+	for lang in $$(cat LINGUAS); do \
+    	mv $${lang}.po $${lang}.po.old; \
+    	msginit --no-translator --locale=$$lang --input $(UUID).pot -o $${lang}.po.new; \
+    	msgmerge -N $${lang}.po.old $${lang}.po.new > $${lang}.po; \
+    	rm $${lang}.po.old $${lang}.po.new; \
+	done
+
 
 
 remove:
