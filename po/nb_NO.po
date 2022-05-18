@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-09 22:40+0200\n"
+"POT-Creation-Date: 2022-05-18 23:46+0200\n"
 "PO-Revision-Date: 2022-05-17 01:33+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
+"shell/blur-my-shell/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,48 +40,11 @@ msgstr ""
 "fungerer helt. Det legges kun til for programmer som spør om det, eller dem "
 "som settes i hvitlisten nedenfor."
 
-#: applications.ui:20 dash.ui:20 other.ui:20 other.ui:83 other.ui:146
-#: overview.ui:20 overview.ui:99 panel.ui:20
-msgid "Customize properties"
-msgstr "Tilpass egenskaper"
-
-#: applications.ui:21 dash.ui:21 other.ui:21 other.ui:84 other.ui:147
-#: overview.ui:21 overview.ui:100 panel.ui:21
-msgid ""
-"Uses customized blur properties, instead of the ones set in the General page."
-msgstr ""
-"Bruker egendefinerte tilsløringsegenskaper, istedenfor dem som velges i "
-"«Generelt»."
-
-#: applications.ui:27 dash.ui:27 general.ui:15 other.ui:27 other.ui:90
-#: other.ui:153 overview.ui:27 overview.ui:106 panel.ui:27
-msgid "Sigma"
-msgstr "Sigma"
-
-#: applications.ui:28 dash.ui:28 general.ui:16 other.ui:28 other.ui:91
-#: other.ui:154 overview.ui:28 overview.ui:107 panel.ui:28
-#, fuzzy
-msgid "The intensity of the blur."
-msgstr "Tilsløringsgrad."
-
-#: applications.ui:48 dash.ui:48 general.ui:35 other.ui:48 other.ui:111
-#: other.ui:174 overview.ui:48 overview.ui:127 panel.ui:48
-msgid "Brightness"
-msgstr "Lysstyrke"
-
-#: applications.ui:49 dash.ui:49 general.ui:36 other.ui:49 other.ui:112
-#: other.ui:175 overview.ui:49 overview.ui:128 panel.ui:49
-msgid ""
-"The brightness of the blur effect, a high value might make the text harder "
-"to read."
-msgstr ""
-"Tilsløringslysstyrke. En høy verdi kan gjøre teksten vanskeligere å lese."
-
-#: applications.ui:71
+#: applications.ui:26
 msgid "Whitelist"
 msgstr "Hvitliste"
 
-#: applications.ui:72
+#: applications.ui:27
 #, fuzzy
 msgid ""
 "A list of the applications to blur, one per line. To get an application "
@@ -90,6 +53,75 @@ msgid ""
 msgstr ""
 "En liste med ett program per linje å tilsløre. Hent programmets klassenavn i "
 "Xorg med `xprop|grep WM_CLASS` og lim inn etternavnet her."
+
+#: customize-row.ui:4
+msgid "Customize properties"
+msgstr "Tilpass egenskaper"
+
+#: customize-row.ui:5
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+"Bruker egendefinerte tilsløringsegenskaper, istedenfor dem som velges i "
+"«Generelt»."
+
+#: customize-row.ui:10 general.ui:15
+msgid "Sigma"
+msgstr "Sigma"
+
+#: customize-row.ui:11 general.ui:16
+#, fuzzy
+msgid "The intensity of the blur."
+msgstr "Tilsløringsgrad."
+
+#: customize-row.ui:31 general.ui:35
+msgid "Brightness"
+msgstr "Lysstyrke"
+
+#: customize-row.ui:32 general.ui:36
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"Tilsløringslysstyrke. En høy verdi kan gjøre teksten vanskeligere å lese."
+
+#: customize-row.ui:52 general.ui:55
+msgid "Color"
+msgstr ""
+
+#: customize-row.ui:53 general.ui:56
+msgid ""
+"Changes the color of the blur. The opacity of the color controls how much it "
+"is blended into the blur effect."
+msgstr ""
+
+#: customize-row.ui:71 general.ui:73
+msgid "Noise amount"
+msgstr ""
+
+#: customize-row.ui:72 general.ui:74
+msgid ""
+"The amount of noise to add to the blur effect, useful on low-contrast "
+"screens or for aesthetic purpose."
+msgstr ""
+
+#: customize-row.ui:92 general.ui:94
+msgid "Noise lightness"
+msgstr ""
+
+#: customize-row.ui:93 general.ui:95
+msgid "The lightness of the noise added to the blur effect."
+msgstr ""
+
+#: customize-row.ui:113
+msgid "Notice"
+msgstr ""
+
+#: customize-row.ui:114
+msgid ""
+"Noise and color can't be activated on dynamically blurred components, such "
+"as this one."
+msgstr ""
 
 #: dash.ui:5
 msgid "Dash"
@@ -103,21 +135,21 @@ msgstr ""
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
 
-#: dash.ui:71
+#: dash.ui:26
 msgid "Override background"
 msgstr "Overstyr bakgrunn"
 
-#: dash.ui:72
+#: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
 
-#: dash.ui:86 panel.ui:86
+#: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
 msgstr "Skru av i oversikten"
 
-#: dash.ui:87
+#: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 
@@ -133,21 +165,31 @@ msgstr "Tilsløringsinnstillinger"
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
 
-#: general.ui:57
+#: general.ui:117
 #, fuzzy
 msgid "Performances"
 msgstr "Ytelse"
 
-#: general.ui:58
+#: general.ui:118
 #, fuzzy
 msgid "Various options to tweak the performances."
 msgstr "Forskjellige ytelsesrelaterte innstillinger"
 
-#: general.ui:62
+#: general.ui:122
+msgid "Color and noise effects"
+msgstr ""
+
+#: general.ui:123
+msgid ""
+"Permits to disable globally the use of noise and color effects, this may "
+"improve performances for low-end graphic."
+msgstr ""
+
+#: general.ui:135
 msgid "Hack level"
 msgstr "Hack-nivå"
 
-#: general.ui:63
+#: general.ui:136
 #, fuzzy
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
@@ -156,26 +198,26 @@ msgstr ""
 "Endrer oppførselen til den dynamiske tilsløringseffekten. Forvalgt verdi "
 "anbefales sterkt."
 
-#: general.ui:76
+#: general.ui:149
 msgid "Debug"
 msgstr "Avlusing"
 
-#: general.ui:77
+#: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
 
-#: general.ui:104
+#: general.ui:189
 #, fuzzy
 msgid "High performances"
 msgstr "Høy ytelse"
 
-#: general.ui:105
+#: general.ui:190
 msgid "Default"
 msgstr "Forvalg"
 
-#: general.ui:106
+#: general.ui:191
 msgid "High quality"
 msgstr "Høy kvalitet"
 
@@ -209,20 +251,20 @@ msgstr ""
 "Endrer tilsløring av låseskjermen slik at den bruker innstillingene fra "
 "dette tillegget."
 
-#: other.ui:73
+#: other.ui:28
 msgid "Screenshot blur"
 msgstr "Skjermavbildningstilsløring"
 
-#: other.ui:74
+#: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
 "Tilslører bakgrunnen av vindusvelgeren i skjermavbildningsgrensesnittet."
 
-#: other.ui:136
+#: other.ui:46
 msgid "Window list extension blur"
 msgstr "Tilsløring av vinduslistetillegg"
 
-#: other.ui:137
+#: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
 msgstr "Tilslører vinduslistetillegget, hvis det brukes."
 
@@ -238,43 +280,43 @@ msgstr "Bakgrunnstilsløring"
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "Tilslører oversiktsbakgrunnen, ved bruk av bakgrunnsbildet."
 
-#: overview.ui:71
+#: overview.ui:26
 #, fuzzy
 msgid "Overview components style"
 msgstr "Stil for oversiktskomponenter"
 
-#: overview.ui:72
+#: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
 msgstr ""
 
-#: overview.ui:89
+#: overview.ui:44
 msgid "Applications folder blur"
 msgstr "Programmappetilsløring"
 
-#: overview.ui:90
+#: overview.ui:45
 msgid "Makes the background of folder icons blurred."
 msgstr ""
 
-#: overview.ui:150
+#: overview.ui:60
 msgid "Dialog opacity"
 msgstr ""
 
-#: overview.ui:151
+#: overview.ui:61
 msgid "The opacity of the applications folder popup."
 msgstr ""
 
-#: overview.ui:185
+#: overview.ui:85
 #, fuzzy
 msgid "Do not style"
 msgstr "Ikke endre stil"
 
-#: overview.ui:186
+#: overview.ui:86
 msgid "Light"
 msgstr "Lys"
 
-#: overview.ui:187
+#: overview.ui:87
 msgid "Dark"
 msgstr "Mørk"
 
@@ -290,33 +332,33 @@ msgstr "Paneltilsløring"
 msgid "Blur the top panel using the background image."
 msgstr "Tilslør topp-panelet med bakgrunnsbildet."
 
-#: panel.ui:71
+#: panel.ui:26
 msgid "Static blur"
 msgstr "Statisk tilsløring"
 
-#: panel.ui:72
+#: panel.ui:27
 #, fuzzy
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Bruker et statisk tilslørt bilde. Gir bedre ytelse og stabilitet."
 
-#: panel.ui:87
+#: panel.ui:42
 #, fuzzy
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Skrur av tilsløring fra panelet når oversikten åpnes."
 
-#: panel.ui:103
+#: panel.ui:58
 msgid "Compatibility"
 msgstr "Kompatibilitet"
 
-#: panel.ui:104
+#: panel.ui:59
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 
-#: panel.ui:108
+#: panel.ui:63
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-tillegg"
 
-#: panel.ui:109
+#: panel.ui:64
 #, fuzzy
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""

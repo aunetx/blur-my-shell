@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-17 03:14+0200\n"
+"POT-Creation-Date: 2022-05-18 23:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
-"X-Poedit-Basepath: ../resources/ui\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -161,34 +159,44 @@ msgid "Various options to tweak the performances."
 msgstr ""
 
 #: general.ui:122
-msgid "Hack level"
+msgid "Color and noise effects"
 msgstr ""
 
 #: general.ui:123
+msgid ""
+"Permits to disable globally the use of noise and color effects, this may "
+"improve performances for low-end graphic."
+msgstr ""
+
+#: general.ui:135
+msgid "Hack level"
+msgstr ""
+
+#: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
 msgstr ""
 
-#: general.ui:136
+#: general.ui:149
 msgid "Debug"
 msgstr ""
 
-#: general.ui:137
+#: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
 
-#: general.ui:176
+#: general.ui:189
 msgid "High performances"
 msgstr ""
 
-#: general.ui:177
+#: general.ui:190
 msgid "Default"
 msgstr ""
 
-#: general.ui:178
+#: general.ui:191
 msgid "High quality"
 msgstr ""
 
