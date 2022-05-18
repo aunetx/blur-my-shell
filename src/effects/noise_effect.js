@@ -4,6 +4,8 @@ const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
+const { Prefs } = Me.imports.conveniences.settings;
+const { Keys } = Me.imports.conveniences.keys;
 
 
 const SHADER_PATH = GLib.build_filenamev(
@@ -44,12 +46,17 @@ var NoiseEffect = new GObject.registerClass({
         this._noise = null;
         this._lightness = null;
 
+        this._static = false;
+        this._prefs = new Prefs(Keys);
+
         super._init(params);
 
         // set shader source
         this._source = get_shader_source();
         if (this._source)
             this.set_shader_source(this._source);
+
+        this.update_enabled();
     }
 
     get noise() {
@@ -61,8 +68,8 @@ var NoiseEffect = new GObject.registerClass({
             this._noise = value;
 
             this.set_uniform_value('noise', parseFloat(this._noise - 1e-6));
-            this.set_enabled(value > 0);
         }
+        this.update_enabled();
     }
 
     get lightness() {
@@ -75,6 +82,13 @@ var NoiseEffect = new GObject.registerClass({
 
             this.set_uniform_value('lightness', parseFloat(this._lightness - 1e-6));
         }
+    }
+
+    update_enabled() {
+        this.set_enabled(
+            this.noise > 0 &&
+            this._prefs.COLOR_AND_NOISE) &&
+            !this._static;
     }
 
 

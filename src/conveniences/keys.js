@@ -14,6 +14,7 @@ var Keys = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
+            { type: Type.B, name: "color-and-noise" },
             { type: Type.I, name: "hacks-level" },
             { type: Type.B, name: "debug" },
         ]

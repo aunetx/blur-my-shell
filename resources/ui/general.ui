@@ -51,7 +51,7 @@
         </child>
 
         <child>
-          <object class="AdwActionRow">
+          <object class="AdwActionRow" id="color_row">
             <property name="title" translatable="yes">Color</property>
             <property name="subtitle" translatable="yes">Changes the color of the blur. The opacity of the color controls how much it is blended into the blur effect.</property>
             <property name="activatable-widget">color</property>
@@ -69,7 +69,7 @@
         </child>
 
         <child>
-          <object class="AdwActionRow">
+          <object class="AdwActionRow" id="noise_amount_row">
             <property name="title" translatable="yes">Noise amount</property>
             <property name="subtitle" translatable="yes">The amount of noise to add to the blur effect, useful on low-contrast screens or for aesthetic purpose.</property>
             <property name="activatable-widget">noise_amount_scale</property>
@@ -90,7 +90,7 @@
         </child>
 
         <child>
-          <object class="AdwActionRow">
+          <object class="AdwActionRow" id="noise_lightness_row">
             <property name="title" translatable="yes">Noise lightness</property>
             <property name="subtitle" translatable="yes">The lightness of the noise added to the blur effect.</property>
             <property name="activatable-widget">noise_lightness_scale</property>
@@ -116,6 +116,19 @@
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Performances</property>
         <property name="description" translatable="yes">Various options to tweak the performances.</property>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Color and noise effects</property>
+            <property name="subtitle" translatable="yes">Permits to disable globally the use of noise and color effects, this may improve performances for low-end graphic.</property>
+            <property name="activatable-widget">color_and_noise</property>
+            <child>
+              <object class="GtkSwitch" id="color_and_noise">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
 
         <child>
           <object class="AdwActionRow">

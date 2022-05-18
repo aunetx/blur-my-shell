@@ -27,6 +27,11 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
+        <!-- COLOR AND NOISE -->
+        <key type="b" name="color-and-noise">
+            <default>true</default>
+            <summary>Boolean, controls wether or not the color and noise effects are in use globally</summary>
+        </key>
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
