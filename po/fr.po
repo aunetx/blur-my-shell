@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-09 22:38+0200\n"
+"POT-Creation-Date: 2022-05-18 23:46+0200\n"
 "PO-Revision-Date: 2022-05-18 21:16+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -183,10 +183,20 @@ msgid "Various options to tweak the performances."
 msgstr "Différentes options pour ajuster les performances."
 
 #: general.ui:122
+msgid "Color and noise effects"
+msgstr ""
+
+#: general.ui:123
+msgid ""
+"Permits to disable globally the use of noise and color effects, this may "
+"improve performances for low-end graphic."
+msgstr ""
+
+#: general.ui:135
 msgid "Hack level"
 msgstr "Astuces de performances"
 
-#: general.ui:123
+#: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
@@ -194,11 +204,11 @@ msgstr ""
 "Change le comportement du flou dynamique vis-à-vis des artefacts. La valeur "
 "par défaut est très recommandée."
 
-#: general.ui:136
+#: general.ui:149
 msgid "Debug"
 msgstr "Débogage"
 
-#: general.ui:137
+#: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -206,15 +216,15 @@ msgstr ""
 "Rend l'extension verbeuse dans les journaux systèmes, activez-cela pour "
 "rendre compte d'un problème."
 
-#: general.ui:176
+#: general.ui:189
 msgid "High performances"
 msgstr "Hautes performances"
 
-#: general.ui:177
+#: general.ui:190
 msgid "Default"
 msgstr "Par défaut"
 
-#: general.ui:178
+#: general.ui:191
 msgid "High quality"
 msgstr "Haute qualité"
 
@@ -363,17 +373,3 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Ne désactive pas le flou lorsqu'on est dans l'aperçu, à utiliser de "
 "préférence avec un flou statique."
-
-#, fuzzy
-#~| msgid "Disables the blur from the panel when entering the overview."
-#~ msgid ""
-#~ "Boolean, whether to disable blur from the panel when opening the overview "
-#~ "or not"
-#~ msgstr "Désactive le flou du panneau lorsqu'on est dans l'aperçu."
-
-#, fuzzy
-#~| msgid "Disables the blur from Dash to Dock when entering the overview."
-#~ msgid ""
-#~ "Boolean, whether to disable blur from dash-to-dock when opening the "
-#~ "overview or not"
-#~ msgstr "Désactiver le flou de Dash to Dock lorsqu'on ouvre l'aperçu."
