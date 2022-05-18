@@ -135,8 +135,10 @@ var PanelBlur = class PanelBlur {
         this.blur_effect.set_mode(is_static ? 0 : 1);
 
         // disable other effects if the blur is dynamic, as they makes it opaque
-        this.color_effect.set_enabled(is_static);
-        this.noise_effect.set_enabled(is_static);
+        this.color_effect._static = is_static;
+        this.noise_effect._static = is_static;
+        this.color_effect.update_enabled();
+        this.noise_effect.update_enabled();
 
         // add the effects in order
         this.background.add_effect(this.color_effect);
@@ -221,7 +223,7 @@ var PanelBlur = class PanelBlur {
             this.background.y = -clip_box.y;
 
             // fixes a bug where the blur is washed away when changing the sigma
-            this.background.get_content().invalidate();
+            this.invalidate_blur();
         }
     }
 
@@ -274,12 +276,17 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    /// Fixes a bug where the blur is washed away when changing the sigma, or
+    /// enabling/disabling other effects.
+    invalidate_blur() {
+        if (this.prefs.panel.STATIC_BLUR && this.background)
+            this.background.get_content().invalidate();
+    }
+
     set_sigma(s) {
         this.blur_effect.sigma = s;
 
-        // fixes a bug where the blur is washed away when changing the sigma
-        if (this.prefs.panel.STATIC_BLUR && this.blur_effect.actor != null)
-            this.blur_effect.actor.get_content().invalidate();
+        this.invalidate_blur();
     }
 
     set_brightness(b) {

@@ -200,6 +200,12 @@ class Extension {
         this._prefs.NOISE_LIGHTNESS_changed(() => {
             this._update_noise_lightness();
         });
+        this._prefs.COLOR_AND_NOISE_changed(() => {
+            // both updating noise amount and color calls `update_enabled` on
+            // each color and noise effects
+            this._update_noise_amount();
+            this._update_color();
+        });
 
         // connect each component to use the proper sigma/brightness/color
 
@@ -255,6 +261,13 @@ class Extension {
             } else {
                 this._panel_blur.disable();
             }
+        });
+
+        this._prefs.COLOR_AND_NOISE_changed(() => {
+            // permits to make sure that the blur is not washed out when disabling
+            // the other effects
+            if (this._prefs.panel.BLUR)
+                this._panel_blur.invalidate_blur();
         });
 
         // static blur toggled on/off

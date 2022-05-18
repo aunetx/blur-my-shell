@@ -4,6 +4,8 @@ const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
+const { Prefs } = Me.imports.conveniences.settings;
+const { Keys } = Me.imports.conveniences.keys;
 
 
 const SHADER_PATH = GLib.build_filenamev(
@@ -71,6 +73,9 @@ var ColorEffect = new GObject.registerClass({
         this._blue = null;
         this._blend = null;
 
+        this._static = false;
+        this._prefs = new Prefs(Keys);
+
         // initialize without color as a parameter
 
         let _color = params.color;
@@ -89,6 +94,8 @@ var ColorEffect = new GObject.registerClass({
 
         if (_color)
             this.color = _color;
+
+        this.update_enabled();
     }
 
     get red() {
@@ -136,8 +143,8 @@ var ColorEffect = new GObject.registerClass({
             this._blend = value;
 
             this.set_uniform_value('blend', parseFloat(this._blend - 1e-6));
-            this.set_enabled(value > 0);
         }
+        this.update_enabled();
     }
 
     set color(rgba) {
@@ -155,6 +162,13 @@ var ColorEffect = new GObject.registerClass({
     /// False set function, only cares about the color. Too hard to change.
     set(params) {
         this.color = params.color;
+    }
+
+    update_enabled() {
+        this.set_enabled(
+            this.blend > 0 &&
+            this._prefs.COLOR_AND_NOISE) &&
+            !this._static;
     }
 
 

@@ -17,8 +17,12 @@ var General = GObject.registerClass({
         'sigma',
         'brightness',
         'color',
+        'color_row',
         'noise_amount',
+        'noise_amount_row',
         'noise_lightness',
+        'noise_lightness_row',
+        'color_and_noise',
         'hack_level',
         'debug'
     ],
@@ -29,6 +33,7 @@ var General = GObject.registerClass({
         const prefs = Preferences.settings;
 
         CustomizeRow.prototype.connect_to.call(this, Preferences);
+        prefs.bind('color-and-noise', this._color_and_noise, 'state', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('hacks-level', this._hack_level, 'selected', Gio.SettingsBindFlags.DEFAULT);
         prefs.bind('debug', this._debug, 'state', Gio.SettingsBindFlags.DEFAULT);
     }
