@@ -2,6 +2,12 @@
 
 [<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100" align="right">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
 
+![GitHub License](https://img.shields.io/github/license/aunetx/blur-my-shell)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/aunetx/blur-my-shell)
+[![Weblate project translated](https://img.shields.io/weblate/progress/blur-my-shell?server=https%3A%2F%2Fhosted.weblate.org)](https://hosted.weblate.org/projects/blur-my-shell/blur-my-shell/)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/aunetx)
+![Keybase BTC](https://img.shields.io/keybase/btc/aunetx)
+
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
 [Want to integrate simple automatic blurring in to your application?](https://github.com/aunetx/blur-my-shell#integrate-in-to-your-application)
