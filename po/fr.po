@@ -62,7 +62,7 @@ msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
 "Utilise les paramètres de flou ci-dessous, plutôt que ceux définis dans les "
-"préférences hénérales."
+"préférences générales."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
