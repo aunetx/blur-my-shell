@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-18 23:46+0200\n"
-"PO-Revision-Date: 2022-05-17 01:33+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2022-05-20 06:17+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -84,41 +84,47 @@ msgstr ""
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Cambia el color del desenfoque. La opacidad del color controla cuánto se "
+"mezcla en el efecto de desenfoque."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Cantidad de ruido"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"La cantidad de ruido que se añade al efecto de desenfoque, útil en pantallas "
+"de bajo contraste o con fines estéticos."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "Claridad del ruido"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "La claridad del ruido se suma al efecto de desenfoque."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Aviso"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"El ruido y el color no pueden ser activados en componentes dinámicamente "
+"desenfocados, como éste."
 
 #: dash.ui:5
 msgid "Dash"
@@ -176,13 +182,15 @@ msgstr "Varias opciones para ajustar los rendimientos."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Efectos de color y ruido"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
+"Permite desactivar globalmente el uso de efectos de ruido y color, esto "
+"puede mejorar el rendimiento para la gráfica de gama baja."
 
 #: general.ui:135
 msgid "Hack level"
@@ -222,19 +230,19 @@ msgstr "Alta calidad"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "Página del proyecto"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "Informar de un error"
 
 #: menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "Licencia"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "Donar"
 
 #: other.ui:5
 msgid "Other"
