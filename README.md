@@ -4,11 +4,13 @@
 
 [![License](https://img.shields.io/github/license/aunetx/blur-my-shell)](https://github.com/aunetx/blur-my-shell/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/aunetx/blur-my-shell)](https://github.com/aunetx/blur-my-shell/releases/latest)
-[![Weblate project translated](https://img.shields.io/weblate/progress/blur-my-shell?server=https%3A%2F%2Fhosted.weblate.org)](https://hosted.weblate.org/projects/blur-my-shell/blur-my-shell/)
+[![Weblate project translated](https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/svg-badge.svg)](https://hosted.weblate.org/engage/blur-my-shell/)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/aunetx)](https://github.com/sponsors/aunetx)
 [![Keybase BTC](https://img.shields.io/keybase/btc/aunetx)](https://github.com/aunetx/blur-my-shell/files/8720372/BTC.txt)
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
+
+[<img src="https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/multi-auto.svg" height="100" align="right">](https://hosted.weblate.org/engage/blur-my-shell/)
 
 Functionalities:
 
@@ -59,7 +61,7 @@ If you with to help me with this extension, there are quite a lot you can do!
 
 ### Translations
 
-You can help translating the extension into your language, either by directly opening a pull request with the additions you've made, or by using [Weblate](https://hosted.weblate.org/projects/blur-my-shell/blur-my-shell/)!
+You can help translating the extension into your language, either by directly opening a pull request with the additions you've made, or by using [Weblate](https://hosted.weblate.org/engage/blur-my-shell/)!
 
 ### Development
 
