@@ -10,7 +10,7 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
-[<img src="https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/multi-auto.svg" height="100" align="right">](https://hosted.weblate.org/engage/blur-my-shell/)
+[<img src="https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/multi-auto.svg" align="right">](https://hosted.weblate.org/engage/blur-my-shell/)
 
 Functionalities:
 
