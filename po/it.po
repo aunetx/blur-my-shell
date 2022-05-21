@@ -1,31 +1,28 @@
-# Spanish translation for Blur my Shell.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2022.
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-18 23:46+0200\n"
-"PO-Revision-Date: 2022-05-20 06:17+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/es/>\n"
-"Language: es\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Aplicaciones"
+msgstr ""
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Desenfoque de las aplicaciones (beta)"
+msgstr ""
 
 #: applications.ui:11
 msgid ""
@@ -33,13 +30,10 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
-"Añadir desenfoque a las aplicaciones. Esto es todavía una funcionalidad "
-"beta, tiene bastantes errores y sólo se aplica a las aplicaciones que lo "
-"piden, o a las que se establecen en la lista blanca de abajo."
 
 #: applications.ui:26
 msgid "Whitelist"
-msgstr "Lista blanca"
+msgstr ""
 
 #: applications.ui:27
 msgid ""
@@ -47,328 +41,294 @@ msgid ""
 "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
 "name here."
 msgstr ""
-"Una lista de las aplicaciones a difuminar, una por línea. Para obtener el "
-"nombre de una clase de aplicación, en xorg puedes usar `xprop|grep WM_CLASS` "
-"y pegar el último nombre aquí."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "Personalizar propiedades"
+msgstr ""
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Usa las propiedades de desenfoque personalizadas, en lugar de las "
-"establecidas en la página General."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "Sigma"
+msgstr ""
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "La intensidad del desenfoque."
+msgstr ""
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "Brillo"
+msgstr ""
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"El brillo del efecto de desenfoque, un valor alto puede hacer que el texto "
-"sea más difícil de leer."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "Color"
+msgstr ""
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Cambia el color del desenfoque. La opacidad del color controla cuánto se "
-"mezcla en el efecto de desenfoque."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Cantidad de ruido"
+msgstr ""
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"La cantidad de ruido que se añade al efecto de desenfoque, útil en pantallas "
-"de bajo contraste o con fines estéticos."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Claridad del ruido"
+msgstr ""
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "La claridad del ruido se suma al efecto de desenfoque."
+msgstr ""
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "Aviso"
+msgstr ""
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"El ruido y el color no pueden ser activados en componentes dinámicamente "
-"desenfocados, como éste."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "Tablero"
+msgstr ""
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Desenfoque de Dash to Dock"
+msgstr ""
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Desenfoca el fondo de la extensión Dash to Dock, si se usa."
+msgstr ""
 
 #: dash.ui:26
 msgid "Override background"
-msgstr "Sobrescribir el fondo"
+msgstr ""
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
-"Hace que el fondo sea semitransparente, desactívelo para usar las "
-"preferencias de Dash to Dock en su lugar."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr "Desactivar en la vista general"
+msgstr ""
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Desactiva el desenfoque de Dash a Dock al entrar en la vista general."
+msgstr ""
 
 #: general.ui:5
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "Preferencias del desenfoque"
+msgstr ""
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
-"Preferencias globales del desenfoque, usadas de forma predeterminada por "
-"todos los componentes."
 
 #: general.ui:117
 msgid "Performances"
-msgstr "Rendimientos"
+msgstr ""
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr "Varias opciones para ajustar los rendimientos."
+msgstr ""
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "Efectos de color y ruido"
+msgstr ""
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
-"Permite desactivar globalmente el uso de efectos de ruido y color, esto "
-"puede mejorar el rendimiento para la gráfica de gama baja."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Nivel de hack"
+msgstr ""
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
 msgstr ""
-"Cambia el comportamiento del efecto de desenfoque dinámico. El valor "
-"predeterminado es muy recomendable."
 
 #: general.ui:149
 msgid "Debug"
-msgstr "Depurar"
+msgstr ""
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"Hace que la extensión sea verbosa en los registros, se activa cuando se "
-"necesita informar de un problema."
 
 #: general.ui:189
 msgid "High performances"
-msgstr "Altos rendimientos"
+msgstr ""
 
 #: general.ui:190
 msgid "Default"
-msgstr "Predeterminado"
+msgstr ""
 
 #: general.ui:191
 msgid "High quality"
-msgstr "Alta calidad"
+msgstr ""
 
 #: menu.ui:6
 msgid "Project page"
-msgstr "Página del proyecto"
+msgstr ""
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "Informar de un error"
+msgstr ""
 
 #: menu.ui:14
 msgid "License"
-msgstr "Licencia"
+msgstr ""
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "Donar"
+msgstr ""
 
 #: other.ui:5
 msgid "Other"
-msgstr "Otro"
+msgstr ""
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "Desenfoque de la pantalla de bloqueo"
+msgstr ""
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
-"Cambia el desenfoque de la pantalla de bloqueo para usar las preferencias de "
-"esta extensión."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "Desenfoque de captura de pantalla"
+msgstr ""
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"Añade desenfoque al fondo del selector de ventanas en la interfaz de usuario "
-"de las capturas de pantalla."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "Desenfoque de la lista de ventanas"
+msgstr ""
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "Hacer borrosa la extensión de la lista de ventanas, si se usa."
+msgstr ""
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "Vista general"
+msgstr ""
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "Desenfoque del fondo"
+msgstr ""
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Añade desenfoque al fondo de la vista general, usando la imagen del fondo de "
-"pantalla."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "Estilo de los componentes de la vista general"
+msgstr ""
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
 msgstr ""
-"El estilo semitransparente para el tablero, la entrada de búsqueda/"
-"resultados y las carpetas de aplicaciones."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr "Desenfoque de la carpeta de aplicaciones"
+msgstr ""
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr "Hace que el fondo de los iconos de las carpetas sea borroso."
+msgstr ""
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr "Opacidad del diálogo"
+msgstr ""
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr "La opacidad de la ventana emergente de la carpeta de aplicaciones."
+msgstr ""
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr "No estilizar"
+msgstr ""
 
 #: overview.ui:86
 msgid "Light"
-msgstr "Claro"
+msgstr ""
 
 #: overview.ui:87
 msgid "Dark"
-msgstr "Oscuro"
+msgstr ""
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "Panel"
+msgstr ""
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "Desenfoque del panel"
+msgstr ""
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Desenfoca el panel superior con la imagen de fondo."
+msgstr ""
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "Desenfoque estático"
+msgstr ""
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "Usa una imagen borrosa estática, más potente y estable."
+msgstr ""
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Desactiva el desenfoque del panel al entrar en la vista general."
+msgstr ""
 
 #: panel.ui:58
 msgid "Compatibility"
-msgstr "Compatibilidad"
+msgstr ""
 
 #: panel.ui:59
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
-"Varias opciones para proporcionar compatibilidad con otras extensiones."
 
 #: panel.ui:63
 msgid "Hidetopbar extension"
-msgstr "Extensión Hidetopbar"
+msgstr ""
 
 #: panel.ui:64
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"No desactiva el desenfoque en la vista general, se usa mejor con el "
-"desenfoque estático."
