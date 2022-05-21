@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-18 23:46+0200\n"
-"PO-Revision-Date: 2022-05-17 01:33+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
-"shell/blur-my-shell/nb_NO/>\n"
+"PO-Revision-Date: 2022-05-20 20:12+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"blur-my-shell/blur-my-shell/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,71 +87,86 @@ msgstr ""
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "Farge"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Endrer tilsløringens farge. Dekkevnen for fargen kontrollerer hvor mye den "
+"tones inn i tilsløringseffekten."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Støymengde"
 
 #: customize-row.ui:72 general.ui:74
+#, fuzzy
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"Mengden støy å legge til tilsløringseffekten. Nyttig på lavkontrastskjermer "
+"eller til pynt."
 
 #: customize-row.ui:92 general.ui:94
+#, fuzzy
 msgid "Noise lightness"
-msgstr ""
+msgstr "Støyklarhet"
 
 #: customize-row.ui:93 general.ui:95
+#, fuzzy
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "Klarhet for støy som legges til i tilsløringseffekten."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Merk"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"Støy og farge kan ikke aktiveres på dunamisk tilslørte komponenter som denne."
 
 #: dash.ui:5
+#, fuzzy
 msgid "Dash"
-msgstr ""
+msgstr "Dash"
 
 #: dash.ui:10
+#, fuzzy
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Dash til dokk-tilsløring"
 
 #: dash.ui:11
+#, fuzzy
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr ""
+msgstr "Tilslør bakgrunnen til Dash til dokk-utvidelsen, hvis den benyttes."
 
 #: dash.ui:26
 msgid "Override background"
 msgstr "Overstyr bakgrunn"
 
 #: dash.ui:27
+#, fuzzy
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
+"Gjør bakgrunnen semi-gjennomsiktig. Skru dette av for å bruke Dash til Dokk-"
+"innstillinger istedenfor."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
 msgstr "Skru av i oversikten"
 
 #: dash.ui:42
+#, fuzzy
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
+msgstr "Skrur av tilsløring fra Dash til dokk når oversikten åpnes."
 
 #: general.ui:5
 msgid "General"
@@ -162,8 +177,9 @@ msgid "Blur preferences"
 msgstr "Tilsløringsinnstillinger"
 
 #: general.ui:11
+#, fuzzy
 msgid "Global blur preferences, used by all components by default."
-msgstr ""
+msgstr "Tilsløringsinnstillinger som brukes av alle komponenter som forvalg."
 
 #: general.ui:117
 #, fuzzy
@@ -177,13 +193,16 @@ msgstr "Forskjellige ytelsesrelaterte innstillinger"
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Farge og støyeffekter"
 
 #: general.ui:123
+#, fuzzy
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
+"Tillater å skru av bruk av støy og fargeeffekter for alt. Kan forbedre "
+"ytelse for trege grafikk-kort."
 
 #: general.ui:135
 msgid "Hack level"
@@ -203,10 +222,13 @@ msgid "Debug"
 msgstr "Avlusing"
 
 #: general.ui:150
+#, fuzzy
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"Sirlig loggføring av utvidelsen. Skru på dette når du vil innrapportere en "
+"feil."
 
 #: general.ui:189
 #, fuzzy
@@ -286,26 +308,29 @@ msgid "Overview components style"
 msgstr "Stil for oversiktskomponenter"
 
 #: overview.ui:27
+#, fuzzy
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
 msgstr ""
+"Semi-gjennomsiktig stil for dash, søkeoppføring/resultat, og programmapper."
 
 #: overview.ui:44
 msgid "Applications folder blur"
 msgstr "Programmappetilsløring"
 
 #: overview.ui:45
+#, fuzzy
 msgid "Makes the background of folder icons blurred."
-msgstr ""
+msgstr "Tilslærer bakgrunnen til mappeikonene."
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr ""
+msgstr "Dialogdekkevne"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr ""
+msgstr "Dekkevnen for programmappe-oppsprettet."
 
 #: overview.ui:85
 #, fuzzy
@@ -352,7 +377,7 @@ msgstr "Kompatibilitet"
 
 #: panel.ui:59
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "Forskjellige valg for å tilby kompatibilitet med andre utvidelser."
 
 #: panel.ui:63
 msgid "Hidetopbar extension"
