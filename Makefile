@@ -28,6 +28,7 @@ pot:
 		xargs xgettext --directory=resources/ui --output=po/$(UUID).pot \
 		--from-code=utf-8 --package-name=$(UUID)
 
+	rm po/LINGUAS
 	for l in $$(ls po/*.po); do \
 		basename $$l .po >> po/LINGUAS; \
 	done
