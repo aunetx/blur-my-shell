@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: 2022-05-17 01:33+0000\n"
+"PO-Revision-Date: 2022-05-27 11:40+0000\n"
 "Last-Translator: fawaz006 <fawaz27000@hotmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
@@ -83,7 +83,7 @@ msgstr "سطوع الضبابية، القيمة العالية قد تجعل ا
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "اللون"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
