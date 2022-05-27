@@ -28,7 +28,10 @@ const INDEPENDENT_COMPONENTS = [
 
 /// The main extension class, created when the GNOME Shell is loaded.
 class Extension {
-    constructor() { }
+    constructor() {
+        this.c = Me.imports.effects.corner_effect;
+        this.corner_effect = this.c.CornerEffect;
+    }
 
     /// Enables the extension
     enable() {
