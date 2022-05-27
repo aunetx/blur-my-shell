@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-05-28 08:14+0000\n"
+"Last-Translator: Wouter van der Wal <wjtje.wal@outlook.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Applicaties"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "Applicaties vervagen (bèta)"
 
 #: applications.ui:11
 msgid ""
@@ -30,10 +33,13 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
+"Voegt vervaging to aan de applicaties. Deze functionaliteit is nog niet "
+"stabiel, en is wordt alleen toegepast aan applicaties die er om vragen, of "
+"applicaties in lijst hier beneden staan."
 
 #: applications.ui:26
 msgid "Whitelist"
-msgstr ""
+msgstr "Whitelist"
 
 #: applications.ui:27
 msgid ""
@@ -61,17 +67,19 @@ msgstr ""
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr ""
+msgstr "Helderheid"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"De helderheid van het vervagingseffect, een hogere waarde is misschien "
+"moeiijker om te lezen."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "Kleur"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
@@ -81,7 +89,7 @@ msgstr ""
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Hoeveelheid ruis"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
@@ -139,7 +147,7 @@ msgstr ""
 
 #: general.ui:5
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: general.ui:10
 msgid "Blur preferences"
