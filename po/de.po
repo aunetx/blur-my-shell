@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: derarchitekt <fischer@webbakery.at>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -478,8 +478,7 @@ msgstr "In der Übersicht deaktivieren"
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
-"Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
+msgstr "Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
 
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
