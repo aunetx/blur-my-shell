@@ -8,36 +8,38 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: 2022-05-28 16:09+0000\n"
-"Last-Translator: Ujhhgtg <feyxiexzf@gmail.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/zh_Hans/>\n"
-"Language: zh_Hans\n"
+"PO-Revision-Date: 2022-05-28 08:14+0000\n"
+"Last-Translator: derarchitekt <fischer@webbakery.at>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.13-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "应用程序"
+msgstr "Anwendungen"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "应用程序模糊（实验性）"
+msgstr "Unschärfe für Anwendungen (beta)"
 
 #: applications.ui:11
 msgid ""
 "Add blur to the applications. This is still a beta functionnality, is quite "
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
-msgstr "为应用程序添加模糊。这仍然是一个实验性功能并存在一些问题，只对要求启用该功能"
-"的应用或者在下方白名单中指定的应用启动。"
+msgstr ""
+"Unschärfe zu Anwendungen hinzufügen. Diese Funktion ist noch in der Beta-"
+"Phase und ist ziemlich fehlerhaft. Sie wird nur auf Anwendungen angewendet, "
+"welche darum bitten oder in der Whitelist unten festgelegt sind."
 
 #: applications.ui:26
 msgid "Whitelist"
-msgstr "白名单"
+msgstr "Whitelist"
 
 #: applications.ui:27
 msgid ""
@@ -45,297 +47,334 @@ msgid ""
 "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
 "name here."
 msgstr ""
-"要启用模糊的应用程序的列表，一行一个。要在 Xorg "
-"下获取某个应用程序的类名，你可以使用“xprop|grep "
-"WM_CLASS”然后将结果中的最后一个字符串粘贴在这里。"
+"Eine Liste von Anwendungen bei denen Unschärfe hinzugefügt werden soll (Eine "
+"Anwendung pro Zeile). In Xorg kann man `xprop|grep WM_CLASS` verwenden, um "
+"den Class Name zu erhalten, welcher hier eingefügt werden muss."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "自定义属性"
+msgstr "Einstellungen anpassen"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
-msgstr "使用自定义的模糊属性，而不是在 常规 页面中指定的属性。"
+msgstr ""
+"Benutzerdefinierte Unschärfe-Einstellungen, statt den Unschärfe-"
+"Einstellungen des „Allgemein“ Reiters."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "强度"
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "模糊效果的强度。"
+msgstr "Die Intensität der Unschärfe."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "亮度"
+msgstr "Helligkeit"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
+msgstr ""
+"Die Helligkeit des Unschärfe-Effekts. Ein hoher Wert sorgt möglicherweise "
+"dafür, dass Text schwer zu lesen ist."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "颜色"
+msgstr "Farbe"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
-msgstr "更改模糊效果的颜色。颜色的不透明度决定了它将混合到模糊效果中的程度。"
+msgstr ""
+"Verändert die Fabre der Unschärfe. Die Deckkraft der Farbe steuert, wie "
+"stark sie in den Unschärfeeffekt eingeblendet wird."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "噪声数量"
+msgstr "Stärke des Bildrauschens"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
-msgstr "对模糊效果添加的噪声的数量，尤其在低对比度的屏幕上或美学效果有用。"
+msgstr ""
+"Die Stärke des Bildrauschens, die dem Unschärfeeffekt hinzugefügt wird. Dies "
+"ist nützlich bei kontrastarmen Bildschirmen oder für ästhetische Zwecke."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "噪声亮度"
+msgstr "Helligkeit des Bildrauschens"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "对模糊效果添加的噪声的亮度。"
+msgstr ""
+"Die Helligkeit des Bildrauschens, das dem Unschärfeeffekt hinzugefügt wird."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "注意"
+msgstr "Hinweis"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
-msgstr "噪声和颜色无法在动态模糊的组件上启用，比如当前这个。"
+msgstr ""
+"Bildrauschen und Farbe können bei dynamisch unscharf gemachten Komponenten, "
+"wie dieser, nicht aktiviert werden."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "任务栏"
+msgstr "Dash"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Dash to Dock 模糊"
+msgstr "Dash to Dock Unschärfe"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
+msgstr ""
+"Den Hintergrund der Dash to Dock-Erweiterung unscharf machen, sofern diese "
+"verwendet wird."
 
 #: dash.ui:26
 msgid "Override background"
-msgstr "覆盖背景"
+msgstr "Überschreiben des Hintergrunds"
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
-msgstr "让背景半透明。禁用此选项以使用 Dash to Dock 的选项。"
+msgstr ""
+"Macht den Hintergrund halbtransparent, deaktivieren Sie dies, um stattdessen "
+"die Dash to Dock-Einstellungen zu verwenden."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr "在总览中禁用"
+msgstr "In der Übersicht deaktivieren"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
+msgstr "Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
 
 #: general.ui:5
 msgid "General"
-msgstr "常规"
+msgstr "Allgemein"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "模糊首选项"
+msgstr "Unschärfeeinstellungen"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr "全局的模糊首选项，默认被所有组件使用。"
+msgstr ""
+"Globale Unschärfeeinstellungen, die standardmäßig von allen Komponenten "
+"verwendet werden."
 
 #: general.ui:117
 msgid "Performances"
-msgstr "性能"
+msgstr "Leistung"
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr "用来增强性能的选项。"
+msgstr "Diverse Optionen zur Optimierung der Leistungen."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "颜色及噪声效果"
+msgstr "Farb- und Rauscheffekte"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
-msgstr "允许全局禁用噪声和颜色效果，可能会在低端图形设备上增强性能。"
+msgstr ""
+"Ermöglicht es, die Verwendung von Rausch- und Farbeffekten global zu "
+"deaktivieren, um die Performance bei leistungsschwachen Grafikkarten zu "
+"verbessern."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Hack级别"
+msgstr "Hack-Level"
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
-msgstr "更改动态模糊效果的行为。默认 选项是被强烈推荐的。"
+msgstr ""
+"Ändert das Verhalten des dynamischen Unschärfeeffekts. Die "
+"Standardeinstellung wird sehr empfohlen."
 
 #: general.ui:149
 msgid "Debug"
-msgstr "调试"
+msgstr "Debug"
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr "让扩展输出详细日志，在提交缺陷时启用此选项。"
+msgstr ""
+"Sorgt dafür, dass die Erweiterung detailliert protokolliert wird. Aktivieren "
+"Sie diese Option, wenn Sie ein Problem melden müssen."
 
 #: general.ui:189
 msgid "High performances"
-msgstr "高性能"
+msgstr "Hohe Leistung"
 
 #: general.ui:190
 msgid "Default"
-msgstr "默认"
+msgstr "Standard"
 
 #: general.ui:191
 msgid "High quality"
-msgstr "高品质"
+msgstr "Hohe Qualität"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr "项目页面"
+msgstr "Projektseite"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "报告缺陷"
+msgstr "Einen Fehler melden"
 
 #: menu.ui:14
 msgid "License"
-msgstr "许可证"
+msgstr "Lizenz"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "捐助"
+msgstr "Spenden"
 
 #: other.ui:5
 msgid "Other"
-msgstr "其它"
+msgstr "Andere"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "锁屏界面模糊"
+msgstr "Sperrbildschirm Unschärfe"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "更改锁屏的模糊效果以使用此扩展的首选项。"
+msgstr ""
+"Die Einstellungen dieser Extension für die Unschärfe des Sperrbildschirms "
+"verwenden."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "截图界面模糊"
+msgstr "Bildschirmfoto Unschärfe"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "为截图的窗口选择界面的背景添加模糊。"
+msgstr ""
+"Fügen Sie dem Hintergrund der Fensterauswahl in der Screenshot-"
+"Benutzeroberfläche einen Unschärfeeffekt hinzu."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "应用程序列表效果"
+msgstr "Unschärfe der Window-List Eerweiterung"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "模糊window-list扩展（如果启用）。"
+msgstr ""
+"Unschärfeeffekt auf die Window-List Erweiterungen anwenden wenn diese "
+"verwendent wird."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "概览"
+msgstr "Übersicht"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "背景模糊"
+msgstr "Hintergrund Unschärfe"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr "模糊概览界面的背景，使用壁纸图片。"
+msgstr "Den Unschärfeeffekt auf das Hintergrundbild in der Übersicht anwenden."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "概览界面组件风格"
+msgstr "Übersicht Komponenten Stil"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
-msgstr "Dash、搜索框/搜索结果和应用文件夹的半透明风格。"
+msgstr ""
+"Der halbtransparente Stil für das Dash, die Sucheinträge/-ergebnisse und die "
+"Anwendungsordner."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr "应用文件夹模糊"
+msgstr "Anwendungsordner Unschärfe"
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr "模糊文件夹图标的背景。"
+msgstr "Macht den Hintergrund von Ordner Icons unscharf."
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr "对话框不透明度"
+msgstr "Dialog Deckkraft"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr "应用文件夹右键菜单的不透明度。"
+msgstr "Die Deckkraft des Anwendungsordner-Popups."
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr "原始风格"
+msgstr "Keinen Effekt anwenden"
 
 #: overview.ui:86
 msgid "Light"
-msgstr "亮色"
+msgstr "Hell"
 
 #: overview.ui:87
 msgid "Dark"
-msgstr "暗色"
+msgstr "Dunkel"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "面板"
+msgstr "Panel"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "面板模糊"
+msgstr "Panel Unschärfe"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "使用背景图片模糊顶部面板。"
+msgstr "Das obere Panel mit Hilfe des Hintergrundbildes unscharf machen."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "静态模糊"
+msgstr "Statische Unschärfe"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "使用静态的模糊图片，性能更好且更稳定。"
+msgstr ""
+"Verwendet ein statisches unscharfes Bild. Leistungsfähiger und stabiler."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "进入概览界面时禁用面板模糊。"
+msgstr "Deaktiviert die Unschärfe des Panels beim Aufrufen der Übersicht."
 
 #: panel.ui:58
 msgid "Compatibility"
-msgstr "兼容性"
+msgstr "Kompatibilität"
 
 #: panel.ui:59
 msgid "Various options to provide compatibility with other extensions."
-msgstr "提供与其它扩展兼容性的一些选项。"
+msgstr ""
+"Verschiedene Optionen zur Sicherstellung der Kompatibilität mit anderen "
+"Erweiterungen."
 
 #: panel.ui:63
 msgid "Hidetopbar extension"
-msgstr "Hide Top Bar 扩展"
+msgstr "Hidetopbar Erweiterung"
 
 #: panel.ui:64
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"
+msgstr ""
+"Deaktiviert die Unschärfe in der Übersicht nicht. Am besten mit statischer "
+"Unschärfe verwenden."
