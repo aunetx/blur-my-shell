@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: 2022-05-28 08:14+0000\n"
-"Last-Translator: Wouter van der Wal <wjtje.wal@outlook.com>\n"
+"PO-Revision-Date: 2022-05-28 16:09+0000\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/nl/>\n"
 "Language: nl\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Applicaties"
+msgstr "Toepassingen"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Applicaties vervagen (bèta)"
+msgstr "Toepassingen vervagen (bèta)"
 
 #: applications.ui:11
 msgid ""
@@ -33,9 +33,9 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
-"Voegt vervaging to aan de applicaties. Deze functionaliteit is nog niet "
-"stabiel, en is wordt alleen toegepast aan applicaties die er om vragen, of "
-"applicaties in lijst hier beneden staan."
+"Vervaging toevoegen aan toepassingen. Deze functionaliteit is nog niet "
+"stabiel, en is wordt alleen toegepast op toepassingen die er om vragen of in "
+"de lijst hieronder staan."
 
 #: applications.ui:26
 msgid "Whitelist"
@@ -47,23 +47,28 @@ msgid ""
 "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
 "name here."
 msgstr ""
+"Een lijst van toepassingen om te vervagen, één per regel. Om een "
+"toepassingsklassenaam te verkrijgen, kunt u onder xorg `xprop | grep "
+"WM_CLASS` uitvoeren en de laatste naam hier plakken."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "Eigenschappen aanpassen"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
+"Gebruikt aangepaste vervagingseigenschappen, in plaats van de eigenschappen "
+"ingesteld op de Algemeen-pagina."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "De intensiteit van de vervaging."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
@@ -74,8 +79,8 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"De helderheid van het vervagingseffect, een hogere waarde is misschien "
-"moeiijker om te lezen."
+"De helderheid van het vervagingseffect, een hoge waarde kan tekst moeilijker "
+"leesbaar maken."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
@@ -86,6 +91,8 @@ msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"De kleur van het vervagingseffect aanpassen. De ondoorzichtigheid van de "
+"kleur bepaalt hoeveel deze in het vervagingseffect wordt gemengd."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
@@ -96,54 +103,64 @@ msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"De hoeveelheid ruis om aan het vervagingseffect toe te voegen, nuttig voor "
+"schermen met een laag contrast of voor esthetische doeleinden."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "Lichtheid van ruis"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "De lichtheid van de ruis die wordt toegepast op het vervagingseffect."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Merk op"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"Ruis en kleur kunnen niet worden geactiveerd voor dynamisch vervaagde "
+"componenten zoals deze."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "Dash"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Vervaging van Dash to Dock"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
+"De achtergrond van de Dash to Dock-uitbreiding vervagen, als deze wordt "
+"gebruikt."
 
 #: dash.ui:26
 msgid "Override background"
-msgstr ""
+msgstr "Achtergrond overschrijven"
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
+"De achtergrond halfdoorzichtig maken. Schakel dit uit om de voorkeuren van "
+"Dash to Dock te gebruiken."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr ""
+msgstr "Uitschakelen in overzicht"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
+"De vervaging van Dash to Dock uitschakelen wanneer het overzicht wordt "
+"geactiveerd."
 
 #: general.ui:5
 msgid "General"
@@ -151,192 +168,211 @@ msgstr "Algemeen"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr ""
+msgstr "Vervagingseigenschappen"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
+"Globale vervagingseigenschappen, wordt standaard door alle componenten "
+"gebruikt."
 
 #: general.ui:117
 msgid "Performances"
-msgstr ""
+msgstr "Prestaties"
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr ""
+msgstr "Verschillende opties om de prestaties aan te passen."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Kleur- en ruiseffecten"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
+"Toestaan dat ruis- en kleureffecten globaal worden uitgeschakeld, dit kan de "
+"prestaties voor zwakke systemen verbeteren."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr ""
+msgstr "Hack-niveau"
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
 msgstr ""
+"Het gedrag van het dynamische vervagingseffect aanpassen. De standaardwaarde "
+"wordt sterk aangeraden."
 
 #: general.ui:149
 msgid "Debug"
-msgstr ""
+msgstr "Foutopsporing"
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"De logboeken van de uitbreiding uitgebreider maken, activeer wanneer u een "
+"probleem gaat melden."
 
 #: general.ui:189
 msgid "High performances"
-msgstr ""
+msgstr "Hoge prestaties"
 
 #: general.ui:190
 msgid "Default"
-msgstr ""
+msgstr "Standaard"
 
 #: general.ui:191
 msgid "High quality"
-msgstr ""
+msgstr "Hoge kwaliteit"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "Projectpagina"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "Een probleem melden"
 
 #: menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "Licentie"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "Doneren"
 
 #: other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "Anders"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "Vervaging van vergrendelscherm"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
+msgstr "De eigenschappen van deze extensie gebruiken op het vergrendelscherm."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "Vervaging bij schermafdrukken"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
+"De achtergrond van de vensterselectie vervagen bij het nemen van een "
+"schermafdruk."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "Vervaging van de uitbreiding Window List"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "De uitbreiding Window List vervagen, als deze wordt gebruikt."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "Overzicht"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "Achtergrondvervaging"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
+"De overzichtsachtergrond vervagen, gebruikmakend van de "
+"achtergrondafbeelding."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "Stijl van overzichtscomponenten"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
 msgstr ""
+"De halfdoorzichtige stijl voor de dash, zoekbalk en -resultaten, en "
+"toepassingsmappen."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr ""
+msgstr "Vervaging van toepassingsmappen"
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr ""
+msgstr "De achtergrond van mappictogrammen vervagen."
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr ""
+msgstr "Ondoorzichtigheid van dialogen"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr ""
+msgstr "De ondoorzichtigheid van de toepassingsmap-popup."
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr ""
+msgstr "Niet stijlen"
 
 #: overview.ui:86
 msgid "Light"
-msgstr ""
+msgstr "Licht"
 
 #: overview.ui:87
 msgid "Dark"
-msgstr ""
+msgstr "Donker"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "Paneel"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "Paneelvervaging"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "Het bovenpaneel vervagen, gebruikmakend van de achtergrondafbeelding."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr ""
+msgstr "Statische vervaging"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr ""
+"Een statisch vervaagde afbeelding gebruiken, dit is sneller en meer stabiel."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
+"De vervaging van het paneel uitschakelen wanneer het overzicht wordt "
+"geactiveerd."
 
 #: panel.ui:58
 msgid "Compatibility"
-msgstr ""
+msgstr "Compatibiliteit"
 
 #: panel.ui:59
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "Verschillende opties voor compatibiliteit met andere uitbreidingen."
 
 #: panel.ui:63
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Hide Top Bar-uitbreiding"
 
 #: panel.ui:64
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
+"De vervaging in het overzicht niet uitschakelen, best samen gebruikt met "
+"statische vervaging."
