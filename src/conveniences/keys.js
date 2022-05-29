@@ -55,6 +55,7 @@ var Keys = [
             { type: Type.S, name: "background-color" },
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
+            { type: Type.B, name: "unblur-in-fullscreen" },
         ]
     },
     {
