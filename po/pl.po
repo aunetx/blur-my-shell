@@ -1,0 +1,373 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blur-my-shell@aunetx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-22 16:38+0200\n"
+"PO-Revision-Date: 2022-05-29 12:18+0000\n"
+"Last-Translator: Rali Boińskx <me@rlgh.eu>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/pl/>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.13-dev\n"
+
+#: applications.ui:5
+msgid "Applications"
+msgstr "Aplikacje"
+
+#: applications.ui:10
+msgid "Applications blur (beta)"
+msgstr "Rozmazywanie aplikacji (beta)"
+
+#: applications.ui:11
+msgid ""
+"Add blur to the applications. This is still a beta functionnality, is quite "
+"buggy and is only applied to the apps that ask it, or to the ones set in the "
+"whitelist below."
+msgstr ""
+"Dodaje efekt rozmazania do aplikacji. Ta opcja jest obecnie w fazie beta, "
+"zawiera błędy i działa jedynie dla aplikacji które o nią poproszą lub dla "
+"tych dodanych do listy poniżej."
+
+#: applications.ui:26
+msgid "Whitelist"
+msgstr "Biała lista"
+
+#: applications.ui:27
+msgid ""
+"A list of the applications to blur, one per line. To get an application "
+"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
+"name here."
+msgstr ""
+"Lista aplikacji które chcesz rozmazać, jedna na wiersz. Aby uzyskać nazwę "
+"klasy aplikacji, w środowisku xorg użyj `xprop|grep WM_CLASS` - ostatnią "
+"nazwę możesz wkleić tutaj."
+
+#: customize-row.ui:4
+msgid "Customize properties"
+msgstr "Dostosuj parametry"
+
+#: customize-row.ui:5
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+"Wykorzystuje dostosowane przez użytkownika parametry, zamiast tych "
+"ustawionych na stronie Ogólne."
+
+#: customize-row.ui:10 general.ui:15
+msgid "Sigma"
+msgstr "Sigma"
+
+#: customize-row.ui:11 general.ui:16
+msgid "The intensity of the blur."
+msgstr "Intensywność rozmazania."
+
+#: customize-row.ui:31 general.ui:35
+msgid "Brightness"
+msgstr "Jasność"
+
+#: customize-row.ui:32 general.ui:36
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"Jasność efektu rozmazania, wyższa wartość może utrudnić czytanie tekstu."
+
+#: customize-row.ui:52 general.ui:55
+msgid "Color"
+msgstr "Kolor"
+
+#: customize-row.ui:53 general.ui:56
+msgid ""
+"Changes the color of the blur. The opacity of the color controls how much it "
+"is blended into the blur effect."
+msgstr ""
+"Zmienia kolor rozmazania. Nieprzeźroczystość koloru kontroluje jak bardzo "
+"wmieszany jest on w efekt rozmazania."
+
+#: customize-row.ui:71 general.ui:73
+msgid "Noise amount"
+msgstr "Ilość szumu"
+
+#: customize-row.ui:72 general.ui:74
+msgid ""
+"The amount of noise to add to the blur effect, useful on low-contrast "
+"screens or for aesthetic purpose."
+msgstr ""
+"Ilość szumu do wmieszania w efekt rozmazania; opcja przydatna na ekranach o "
+"niskim kontraście lub ze względów estetycznych."
+
+#: customize-row.ui:92 general.ui:94
+msgid "Noise lightness"
+msgstr "Lekkość szumu"
+
+#: customize-row.ui:93 general.ui:95
+msgid "The lightness of the noise added to the blur effect."
+msgstr "Lekkość efektu szumu wmieszanego w efekt rozmazania."
+
+#: customize-row.ui:113
+msgid "Notice"
+msgstr "Uwaga"
+
+#: customize-row.ui:114
+msgid ""
+"Noise and color can't be activated on dynamically blurred components, such "
+"as this one."
+msgstr ""
+"Szum oraz kolor nie mogą być aktywowane na dynamicznie rozmazywanych "
+"komponentach, na przykład tym."
+
+#: dash.ui:5
+msgid "Dash"
+msgstr "Dash"
+
+#: dash.ui:10
+msgid "Dash to Dock blur"
+msgstr "Rozmazywanie Dash to Dock"
+
+#: dash.ui:11
+msgid "Blur the background of the Dash to Dock extension, if it is used."
+msgstr "Rozmazuje tło rozszerzenia Dash to Dock, jeśli jest włączone."
+
+#: dash.ui:26
+msgid "Override background"
+msgstr "Nadpisz tło"
+
+#: dash.ui:27
+msgid ""
+"Makes the background semi-transparent, disable this to use Dash to Dock "
+"preferences instead."
+msgstr ""
+"Czyni tło półprzeźroczystym; wyłącz tę opcję aby używać preferencji "
+"rozszerzenia Dash to Dock."
+
+#: dash.ui:41 panel.ui:41
+msgid "Disable in overview"
+msgstr "Wyłączone w ekranie podglądu"
+
+#: dash.ui:42
+msgid "Disables the blur from Dash to Dock when entering the overview."
+msgstr ""
+"Wyłącza rozmazywanie rozszerzenia Dash to Dock podczas przechodzenia do "
+"ekranu podglądu."
+
+#: general.ui:5
+msgid "General"
+msgstr "Ogólne"
+
+#: general.ui:10
+msgid "Blur preferences"
+msgstr "Preferencje rozmazywania"
+
+#: general.ui:11
+msgid "Global blur preferences, used by all components by default."
+msgstr ""
+"Globalne preferencje rozmazywania, wykorzystywane domyślnie przez wszystkie "
+"komponenty."
+
+#: general.ui:117
+msgid "Performances"
+msgstr "Wydajność"
+
+#: general.ui:118
+msgid "Various options to tweak the performances."
+msgstr "Różne opcje dostrajania wydajności."
+
+#: general.ui:122
+msgid "Color and noise effects"
+msgstr "Efekty koloru i szumu"
+
+#: general.ui:123
+msgid ""
+"Permits to disable globally the use of noise and color effects, this may "
+"improve performances for low-end graphic."
+msgstr ""
+"Pozwala globalnie wyłączyć efekt szumu i koloru; może poprawić to wydajność "
+"na słabszych graficznie urządzeniach."
+
+#: general.ui:135
+msgid "Hack level"
+msgstr "Poziom wykombinowania"
+
+#: general.ui:136
+msgid ""
+"Changes the behaviour of dynamic blur effect. Default value is very "
+"recommended."
+msgstr ""
+"Zmienia zachowanie efektu dynamicznego rozmazywania. Bardzo zalecana jest "
+"domyślna wartość."
+
+#: general.ui:149
+msgid "Debug"
+msgstr "Debugowanie"
+
+#: general.ui:150
+msgid ""
+"Makes the extension verbose in logs, activate when you need to report an "
+"issue."
+msgstr ""
+"Sprawia, że rozszerzenie wypisuje swoje działanie w logach; aktywuj jeśli "
+"chcesz zgłosić problem."
+
+#: general.ui:189
+msgid "High performances"
+msgstr "Wysoka wydajność"
+
+#: general.ui:190
+msgid "Default"
+msgstr "Domyślne"
+
+#: general.ui:191
+msgid "High quality"
+msgstr "Wysoka jakość"
+
+#: menu.ui:6
+msgid "Project page"
+msgstr "Strona projektu"
+
+#: menu.ui:10
+msgid "Report a Bug"
+msgstr "Zgłoś problem"
+
+#: menu.ui:14
+msgid "License"
+msgstr "Licencja"
+
+#: menu.ui:18
+msgid "Donate"
+msgstr "Przekaż darowiznę"
+
+#: other.ui:5
+msgid "Other"
+msgstr "Inne"
+
+#: other.ui:10
+msgid "Lockscreen blur"
+msgstr "Rozmazywanie ekranu zablokowania"
+
+#: other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+"Sprawia, że rozmazywanie ekranu zablokowania wykorzystuje preferencje tego "
+"rozszerzenia."
+
+#: other.ui:28
+msgid "Screenshot blur"
+msgstr "Rozmazywanie podczas zrzucania ekranu"
+
+#: other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+"Dodaje efekt rozmazania do tła wyboru okien w interfejsie zrzutów ekranu."
+
+#: other.ui:46
+msgid "Window list extension blur"
+msgstr "Rozmazywanie Window List"
+
+#: other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr ""
+"Sprawia, że rozszerzenie Window List jest rozmazane, jeśli jest używane."
+
+#: overview.ui:5
+msgid "Overview"
+msgstr "Podgląd"
+
+#: overview.ui:10
+msgid "Background blur"
+msgstr "Rozmywanie tła"
+
+#: overview.ui:11
+msgid "Add blur to the overview background, using the wallpaper picture."
+msgstr "Dodaje efekt rozmazania do tła podglądu, korzystając z obrazka tapety."
+
+#: overview.ui:26
+msgid "Overview components style"
+msgstr "Styl komponentów podglądu"
+
+#: overview.ui:27
+msgid ""
+"The semi-transparent style for the dash, search entry/results, and "
+"applications folders."
+msgstr ""
+"Półprzeźroczysty styl dasha, wyszukiwania i wyników oraz folderów aplikacji."
+
+#: overview.ui:44
+msgid "Applications folder blur"
+msgstr "Rozmazywanie folderów aplikacji"
+
+#: overview.ui:45
+msgid "Makes the background of folder icons blurred."
+msgstr "Sprawia, że tło folderów aplikacji jest rozmazywane."
+
+#: overview.ui:60
+msgid "Dialog opacity"
+msgstr "Nieprzeźroczystość dialogów"
+
+#: overview.ui:61
+msgid "The opacity of the applications folder popup."
+msgstr "Nieprzeźroczystość okienka folderów aplikacji."
+
+#: overview.ui:85
+msgid "Do not style"
+msgstr "Nie styluj"
+
+#: overview.ui:86
+msgid "Light"
+msgstr "Lekki"
+
+#: overview.ui:87
+msgid "Dark"
+msgstr "Ciemny"
+
+#: panel.ui:5
+msgid "Panel"
+msgstr "Pasek"
+
+#: panel.ui:10
+msgid "Panel blur"
+msgstr "Rozmazywanie paska"
+
+#: panel.ui:11
+msgid "Blur the top panel using the background image."
+msgstr "Rozmazuje górny pasek korzystając z obrazka tapety."
+
+#: panel.ui:26
+msgid "Static blur"
+msgstr "Rozmazywanie statyczne"
+
+#: panel.ui:27
+msgid "Uses a static blurred image, more performant and stable."
+msgstr ""
+"Używa statycznego rozmazanego obrazka, opcja bardziej stabilna i wydajna."
+
+#: panel.ui:42
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Wyłącza rozmazywanie paska podczas przechodzenia do ekranu podglądu."
+
+#: panel.ui:58
+msgid "Compatibility"
+msgstr "Kompatybilność"
+
+#: panel.ui:59
+msgid "Various options to provide compatibility with other extensions."
+msgstr "Różne opcje zachowania kompatybilności z innymi rozszerzeniami."
+
+#: panel.ui:63
+msgid "Hidetopbar extension"
+msgstr "Rozszerzenie Hidetopbar"
+
+#: panel.ui:64
+msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
+"Nie wyłącza rozmazywania w ekranie podglądu; opcja najbardziej przydatna "
+"przy rozmazywaniu statycznym."
