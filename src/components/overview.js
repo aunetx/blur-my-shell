@@ -32,6 +32,19 @@ var OverviewBlur = class OverviewBlur {
             }
         );
 
+        // connect to the overview being opened (fix a bug with blur being gray
+        // with multipe monitors under wayland)
+        this.connections.connect(
+            Main.overview,
+            'showing',
+            _ => {
+                if (GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
+                    Main.layoutManager.monitors.length > 1) {
+                    this.repaint_blur_effects();
+                }
+            }
+        );
+
         // connect to monitors change
         this.connections.connect(
             Main.layoutManager,
@@ -197,6 +210,12 @@ var OverviewBlur = class OverviewBlur {
                 group.remove_style_class_name("bms-overview-components-dark");
                 break;
         }
+    }
+
+    repaint_blur_effects() {
+        this.effects.forEach(effect => {
+            effect.blur_effect.queue_repaint();
+        });
     }
 
     set_sigma(s) {
