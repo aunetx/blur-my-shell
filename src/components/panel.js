@@ -278,6 +278,7 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    /// Connect to windows disable transparency when a window is too close
     connect_to_fullscreen() {
         if (
             this.prefs.panel.BLUR &&
