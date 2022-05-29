@@ -281,6 +281,11 @@ class Extension {
             this._panel_blur.connect_to_overview();
         });
 
+        // panel blur's overview connection toggled on/off
+        this._prefs.panel.UNBLUR_IN_FULLSCREEN_changed(() => {
+            this._panel_blur.connect_to_fullscreen();
+        });
+
 
         // ---------- DASH TO DOCK ----------
 
