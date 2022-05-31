@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-31 18:40+0200\n"
-"PO-Revision-Date: 2022-05-20 06:17+0000\n"
+"PO-Revision-Date: 2022-06-01 22:15+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -356,11 +356,11 @@ msgstr "Desactiva el desenfoque del panel al entrar en la vista general."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Desactivar cuando una ventana está cerca"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr ""
+msgstr "Desactiva el desenfoque del panel cuando una ventana está cerca de el."
 
 #: panel.ui:73
 msgid "Compatibility"
