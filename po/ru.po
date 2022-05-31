@@ -160,7 +160,7 @@ msgstr "Отключает размытие из Dash в Dock при входе 
 
 #: general.ui:5
 msgid "General"
-msgstr "Основные"
+msgstr "Общие"
 
 #: general.ui:10
 msgid "Blur preferences"
