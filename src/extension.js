@@ -281,6 +281,12 @@ class Extension {
             this._panel_blur.connect_to_overview();
         });
 
+        // panel blur's dynamic unblurring toggled on/off
+        this._prefs.panel.UNBLUR_DYNAMICALLY_changed(() => {
+            if (this._prefs.panel.BLUR)
+                this._panel_blur.connect_to_windows();
+        });
+
 
         // ---------- DASH TO DOCK ----------
 
