@@ -358,7 +358,7 @@ msgstr "Отключить, когда рядом находится окно"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr "Отключает размытие панели, когда рядом с ней находится окно."
+msgstr "Отключает размытие верхней панели, когда рядом с ней находится окно."
 
 #: panel.ui:73
 msgid "Compatibility"
