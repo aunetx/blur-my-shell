@@ -23,6 +23,7 @@ Functionalities:
   - lockscreen — to customize the already existing blur
   - [Window List](https://extensions.gnome.org/extension/602/window-list/) extension
 - applications can be blurred too — see [Application blurring](https://github.com/aunetx/blur-my-shell#application-blurring)
+- panel blur can be deactivated when a window is near it, for example in fullscreen
 - components have either a static or a dynamic blur:
   - static blur (generated once) is faster and more stable, used for Overview, Lockscreen, Screenshot
   - dynamic blur (generated each frame) is more adapted to widgets which have components behind them, although it contains artifacts; used for Applications, Dash to Dock, Application folders, Window List
