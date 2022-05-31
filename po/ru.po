@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 17:04+0200\n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
 "PO-Revision-Date: 2022-05-31 15:45+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
@@ -352,19 +352,27 @@ msgstr ""
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Отключить размытие верхней панели при входе в Обзор."
 
-#: panel.ui:58
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr ""
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr ""
+
+#: panel.ui:73
 msgid "Compatibility"
 msgstr "Совместимость"
 
-#: panel.ui:59
+#: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Различные опции для обеспечения совместимости с другими расширениями."
 
-#: panel.ui:63
+#: panel.ui:78
 msgid "Hidetopbar extension"
 msgstr "Расширение \"Hidetopbar\""
 
-#: panel.ui:64
+#: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Не отключает размытие в Обзоре, лучше всего использовать со статическим "
