@@ -156,7 +156,7 @@ msgstr "Отключить в Обзоре"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Отключает размытие из Dash в Dock при входе в Обзор."
+msgstr "Отключает размытие из Dash to Dock при входе в Обзор."
 
 #: general.ui:5
 msgid "General"
@@ -350,15 +350,15 @@ msgstr ""
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Отключить размытие верхней панели при входе в Обзор."
+msgstr "Отключает размытие верхней панели при входе в Обзор."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Отключить, когда рядом находится окно"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr ""
+msgstr "Отключает размытие панели, когда рядом с ней находится окно."
 
 #: panel.ui:73
 msgid "Compatibility"
