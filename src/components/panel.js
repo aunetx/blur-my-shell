@@ -14,6 +14,9 @@ const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
+        // different way to manage signals for the dynamic unblurring
+        this.actor_signal_ids = new Map();
+        this.window_signal_ids = new Map();
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
         this.blur_effect = new Shell.BlurEffect({
@@ -75,8 +78,8 @@ var PanelBlur = class PanelBlur {
         // insert background parent
         panel_box.insert_child_at_index(this.background_parent, 0);
 
-        // remove panel background colour
-        Main.panel.add_style_class_name('transparent-panel');
+        // dynamically show or not the blur when a window is near the panel
+        this.connect_to_windows();
 
         // perform updates
         this.change_blur_type();
@@ -276,6 +279,65 @@ var PanelBlur = class PanelBlur {
         }
     }
 
+    /// Connect to windows disable transparency when a window is too close
+    connect_to_windows() {
+        if (
+            this.prefs.panel.UNBLUR_DYNAMICALLY
+        ) {
+            // reset connections (should not be needed)
+            this.actor_signal_ids = new Map();
+            this.window_signal_ids = new Map();
+
+            // connect to overview opening/closing
+            this.actor_signal_ids.set(Main.overview, [
+                Main.overview.connect('showing', this.update_visibility.bind(this)),
+                Main.overview.connect('hiding', this.update_visibility.bind(this))
+            ]);
+
+            // connect to session mode update
+            this.actor_signal_ids.set(Main.sessionMode, [
+                Main.sessionMode.connect('updated', this.update_visibility.bind(this))
+            ]);
+
+            // manage already-existing windows
+            for (const metaWindowActor of global.get_window_actors()) {
+                this.on_window_actor_added(metaWindowActor.get_parent(), metaWindowActor);
+            }
+
+            // manage windows at their creation/removal
+            this.actor_signal_ids.set(global.window_group, [
+                global.window_group.connect('actor-added', this.on_window_actor_added.bind(this)),
+                global.window_group.connect('actor-removed', this.on_window_actor_removed.bind(this))
+            ]);
+
+            // connect to a workspace change
+            this.actor_signal_ids.set(global.window_manager, [
+                global.window_manager.connect('switch-workspace', this.update_visibility.bind(this))
+            ]);
+
+            // perform early update
+            this.update_visibility();
+        } else {
+            // disable everything
+            this.disconnect_from_windows();
+
+            // reset transparency
+            Main.panel.add_style_class_name('transparent-panel');
+        }
+    }
+
+    disconnect_from_windows() {
+        for (const actorSignalIds of [this.actor_signal_ids, this.window_signal_ids]) {
+            for (const [actor, signalIds] of actorSignalIds) {
+                for (const signalId of signalIds) {
+                    actor.disconnect(signalId);
+                }
+            }
+        }
+        this.actor_signal_ids = new Map();
+        this.window_signal_ids = new Map();
+    }
+
     /// Fixes a bug where the blur is washed away when changing the sigma, or
     /// enabling/disabling other effects.
     invalidate_blur() {
@@ -307,6 +369,9 @@ var PanelBlur = class PanelBlur {
 
     disable() {
         this._log("removing blur from top panel");
+
+        this.disconnect_from_windows();
+
         Main.panel.remove_style_class_name('transparent-panel');
 
         try {
@@ -324,6 +389,63 @@ var PanelBlur = class PanelBlur {
 
     hide() {
         this.background_parent.hide();
+    }
+
+
+    /// Callback when a new window is added
+    on_window_actor_added(container, meta_window_actor) {
+        this.window_signal_ids.set(meta_window_actor, [
+            meta_window_actor.connect('notify::allocation', this.update_visibility.bind(this)),
+            meta_window_actor.connect('notify::visible', this.update_visibility.bind(this))
+        ]);
+    }
+
+    /// Callback when a window is removed
+    on_window_actor_removed(container, meta_window_actor) {
+        for (const signalId of this.window_signal_ids.get(meta_window_actor)) {
+            meta_window_actor.disconnect(signalId);
+        }
+        this.window_signal_ids.delete(meta_window_actor);
+        this.update_visibility();
+    }
+
+    /// Update the visibility of the blur effect
+    update_visibility() {
+        if (Main.panel.has_style_pseudo_class('overview') || !Main.sessionMode.hasWindows) {
+            Main.panel.add_style_class_name('transparent-panel');
+            return;
+        }
+
+        if (!Main.layoutManager.primaryMonitor) {
+            return;
+        }
+
+        // get all the windows in the active workspace that are in the primary monitor and visible
+        const active_workspace = global.workspace_manager.get_active_workspace();
+        const windows = active_workspace.list_windows().filter(meta_window => {
+            return meta_window.is_on_primary_monitor()
+                && meta_window.showing_on_its_workspace()
+                && !meta_window.is_hidden()
+                && meta_window.get_window_type() !== Meta.WindowType.DESKTOP;
+        });
+
+        // check if at least one window is near enough to the panel
+        const panel_top = Main.panel.get_transformed_position()[1];
+        const panel_bottom = panel_top + Main.panel.get_height();
+        const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        const is_near_enough = windows.some(meta_window => {
+            const vertical_position = meta_window.get_frame_rect().y;
+            return vertical_position < panel_bottom + 5 * scale;
+        });
+
+        // remove the transparency if a window is near enough, else add it back
+        // TODO remove the blur too, not only the transparency
+        //      as it may improve performances for dynamic blur
+        if (is_near_enough) {
+            Main.panel.remove_style_class_name('transparent-panel');
+        } else {
+            Main.panel.add_style_class_name('transparent-panel');
+        }
     }
 
     _log(str) {
