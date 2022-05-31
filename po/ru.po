@@ -193,7 +193,7 @@ msgstr ""
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Уровень хака"
+msgstr "Уровень взлома"
 
 #: general.ui:136
 msgid ""
