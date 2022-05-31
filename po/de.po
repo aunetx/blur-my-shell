@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:38+0200\n"
+"POT-Creation-Date: 2022-05-31 17:04+0200\n"
 "PO-Revision-Date: 2022-05-28 08:14+0000\n"
 "Last-Translator: derarchitekt <fischer@webbakery.at>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -159,7 +159,8 @@ msgstr "In der Übersicht deaktivieren"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
+msgstr ""
+"Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
 
 #: general.ui:5
 msgid "General"
