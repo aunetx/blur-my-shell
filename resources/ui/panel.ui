@@ -53,13 +53,13 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Disable in fullscreen</property>
+            <property name="title" translatable="yes">Disable when a window is near</property>
             <property name="subtitle" translatable="yes">Disables the blur from the panel when a window is near it.</property>
-            <property name="activatable-widget">unblur_in_fullscreen</property>
+            <property name="activatable-widget">unblur_dynamically</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
             <child>
-              <object class="GtkSwitch" id="unblur_in_fullscreen">
+              <object class="GtkSwitch" id="unblur_dynamically">
                 <property name="valign">center</property>
               </object>
             </child>
