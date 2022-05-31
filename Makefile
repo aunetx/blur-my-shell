@@ -1,7 +1,7 @@
 NAME = blur-my-shell
 UUID = $(NAME)@aunetx
 
-.PHONY: build install pot remove clean
+.PHONY: build install pot test-shell test-prefs remove clean
 
 
 build: clean
@@ -41,6 +41,16 @@ pot:
     	rm $${lang}.po.old $${lang}.po.new; \
 	done
 
+
+test-shell: install
+	env GNOME_SHELL_SLOWDOWN_FACTOR=2 \
+		MUTTER_DEBUG_DUMMY_MODE_SPECS=1500x1000 \
+	 	MUTTER_DEBUG_DUMMY_MONITOR_SCALES=1 \
+		dbus-run-session -- gnome-shell --nested --wayland
+
+
+test-prefs: install
+	gnome-extensions prefs blur-my-shell@aunetx
 
 
 remove:
