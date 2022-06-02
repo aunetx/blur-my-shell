@@ -40,7 +40,6 @@ var OverviewBlur = class OverviewBlur {
             _ => {
                 if (GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
                     Main.layoutManager.monitors.length > 1) {
-                    //this.repaint_blur_effects();
                     this.toogle_actors_visibility();
                 }
             }
@@ -212,17 +211,13 @@ var OverviewBlur = class OverviewBlur {
                 break;
         }
     }
-
-    repaint_blur_effects() {
-        this.effects.forEach(effect => {
-            effect.blur_effect.queue_repaint();
-        });
-    }
-
+    
     toogle_actors_visibility() {
         Main.layoutManager.overviewGroup.get_children().forEach(child => {
-            child.hide();
-            setTimeout(_ => child.show(), 10);
+            if (child.constructor.name === 'Meta_BackgroundActor') {
+                child.hide();
+                setTimeout(_ => child.show(), 10);
+            }
         });
     }
 
