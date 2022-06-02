@@ -14,8 +14,6 @@ const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
-        // different way to manage signals for the dynamic unblurring
-        this.actor_signal_ids = new Map();
         this.window_signal_ids = new Map();
         this.paint_signals = new PaintSignals.PaintSignals(connections);
         this.prefs = prefs;
@@ -284,58 +282,141 @@ var PanelBlur = class PanelBlur {
         if (
             this.prefs.panel.UNBLUR_DYNAMICALLY
         ) {
-            // reset connections (should not be needed)
-            this.actor_signal_ids = new Map();
-            this.window_signal_ids = new Map();
+            // reset connections if any is left
+            this.disconnect_from_windows();
 
             // connect to overview opening/closing
-            this.actor_signal_ids.set(Main.overview, [
-                Main.overview.connect('showing', this.update_visibility.bind(this)),
-                Main.overview.connect('hiding', this.update_visibility.bind(this))
-            ]);
+            this.connections.connect(Main.overview, 'showing',
+                this.update_visibility.bind(this)
+            );
+            this.connections.connect(Main.overview, 'hiding',
+                this.update_visibility.bind(this)
+            );
 
             // connect to session mode update
-            this.actor_signal_ids.set(Main.sessionMode, [
-                Main.sessionMode.connect('updated', this.update_visibility.bind(this))
-            ]);
+            this.connections.connect(Main.sessionMode, 'updated',
+                this.update_visibility.bind(this)
+            );
 
             // manage already-existing windows
-            for (const metaWindowActor of global.get_window_actors()) {
-                this.on_window_actor_added(metaWindowActor.get_parent(), metaWindowActor);
+            for (const meta_window_actor of global.get_window_actors()) {
+                this.on_window_actor_added(
+                    meta_window_actor.get_parent(), meta_window_actor
+                );
             }
 
             // manage windows at their creation/removal
-            this.actor_signal_ids.set(global.window_group, [
-                global.window_group.connect('actor-added', this.on_window_actor_added.bind(this)),
-                global.window_group.connect('actor-removed', this.on_window_actor_removed.bind(this))
-            ]);
+            this.connections.connect(global.window_group, 'actor-added',
+                this.on_window_actor_added.bind(this)
+            );
+            this.connections.connect(global.window_group, 'actor-removed',
+                this.on_window_actor_removed.bind(this)
+            );
 
             // connect to a workspace change
-            this.actor_signal_ids.set(global.window_manager, [
-                global.window_manager.connect('switch-workspace', this.update_visibility.bind(this))
-            ]);
+            this.connections.connect(global.window_manager, 'switch-workspace',
+                this.update_visibility.bind(this)
+            );
 
             // perform early update
             this.update_visibility();
         } else {
-            // disable everything
+            // disconnect everything
             this.disconnect_from_windows();
 
             // reset transparency
-            Main.panel.add_style_class_name('transparent-panel');
+            this.set_transparent(true);
         }
     }
 
+    /// Disconnect all the connections created by connect_to_windows
     disconnect_from_windows() {
-        for (const actorSignalIds of [this.actor_signal_ids, this.window_signal_ids]) {
-            for (const [actor, signalIds] of actorSignalIds) {
-                for (const signalId of signalIds) {
-                    actor.disconnect(signalId);
-                }
+        // disconnect the connections to actors
+        for (const actor of [
+            Main.overview, Main.sessionMode,
+            global.window_group, global.window_manager
+        ]) {
+            this.connections.disconnect_all_for(actor);
+        }
+
+        // disconnect the connections from windows
+        for (const [actor, ids] of this.window_signal_ids) {
+            for (const id of ids) {
+                actor.disconnect(id);
             }
         }
-        this.actor_signal_ids = new Map();
         this.window_signal_ids = new Map();
+
+        // re-connect to the overview, as it was disabled just before
+        this.connect_to_overview();
+    }
+
+    /// Callback when a new window is added
+    on_window_actor_added(container, meta_window_actor) {
+        this.window_signal_ids.set(meta_window_actor, [
+            meta_window_actor.connect('notify::allocation',
+                this.update_visibility.bind(this)
+            ),
+            meta_window_actor.connect('notify::visible',
+                this.update_visibility.bind(this)
+            )
+        ]);
+    }
+
+    /// Callback when a window is removed
+    on_window_actor_removed(container, meta_window_actor) {
+        for (const signalId of this.window_signal_ids.get(meta_window_actor)) {
+            meta_window_actor.disconnect(signalId);
+        }
+        this.window_signal_ids.delete(meta_window_actor);
+        this.update_visibility();
+    }
+
+    /// Update the visibility of the blur effect
+    update_visibility() {
+        if (
+            Main.panel.has_style_pseudo_class('overview') ||
+            !Main.sessionMode.hasWindows
+        ) {
+            this.set_transparent(true);
+            return;
+        }
+
+        if (!Main.layoutManager.primaryMonitor) {
+            return;
+        }
+
+        // get all the windows in the active workspace that are in the primary
+        // monitor and visible
+        const workspace = global.workspace_manager.get_active_workspace();
+        const windows = workspace.list_windows().filter(meta_window => {
+            return meta_window.is_on_primary_monitor()
+                && meta_window.showing_on_its_workspace()
+                && !meta_window.is_hidden()
+                && meta_window.get_window_type() !== Meta.WindowType.DESKTOP;
+        });
+
+        // check if at least one window is near enough to the panel
+        const panel_top = Main.panel.get_transformed_position()[1];
+        const panel_bottom = panel_top + Main.panel.get_height();
+        const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        const is_near_enough = windows.some(meta_window => {
+            const vertical_position = meta_window.get_frame_rect().y;
+            return vertical_position < panel_bottom + 5 * scale;
+        });
+
+        // remove the transparency if a window is near enough, else add it back
+        // TODO remove the blur too, not only the transparency
+        //      as it may improve performances for dynamic blur
+        this.set_transparent(!is_near_enough);
+    }
+
+    set_transparent(is_transparent) {
+        if (is_transparent) {
+            Main.panel.add_style_class_name('transparent-panel');
+        } else {
+            Main.panel.remove_style_class_name('transparent-panel');
+        }
     }
 
     /// Fixes a bug where the blur is washed away when changing the sigma, or
@@ -367,22 +448,6 @@ var PanelBlur = class PanelBlur {
         this.noise_effect.lightness = l;
     }
 
-    disable() {
-        this._log("removing blur from top panel");
-
-        this.disconnect_from_windows();
-
-        Main.panel.remove_style_class_name('transparent-panel');
-
-        try {
-            Main.layoutManager.panelBox.remove_child(this.background_parent);
-        } catch (e) { }
-
-        this.connections.disconnect_all();
-
-        this.enabled = false;
-    }
-
     show() {
         this.background_parent.show();
     }
@@ -391,61 +456,19 @@ var PanelBlur = class PanelBlur {
         this.background_parent.hide();
     }
 
+    disable() {
+        this._log("removing blur from top panel");
 
-    /// Callback when a new window is added
-    on_window_actor_added(container, meta_window_actor) {
-        this.window_signal_ids.set(meta_window_actor, [
-            meta_window_actor.connect('notify::allocation', this.update_visibility.bind(this)),
-            meta_window_actor.connect('notify::visible', this.update_visibility.bind(this))
-        ]);
-    }
+        this.disconnect_from_windows();
+        this.set_transparent(false);
 
-    /// Callback when a window is removed
-    on_window_actor_removed(container, meta_window_actor) {
-        for (const signalId of this.window_signal_ids.get(meta_window_actor)) {
-            meta_window_actor.disconnect(signalId);
-        }
-        this.window_signal_ids.delete(meta_window_actor);
-        this.update_visibility();
-    }
+        try {
+            Main.layoutManager.panelBox.remove_child(this.background_parent);
+        } catch (e) { }
 
-    /// Update the visibility of the blur effect
-    update_visibility() {
-        if (Main.panel.has_style_pseudo_class('overview') || !Main.sessionMode.hasWindows) {
-            Main.panel.add_style_class_name('transparent-panel');
-            return;
-        }
+        this.connections.disconnect_all();
 
-        if (!Main.layoutManager.primaryMonitor) {
-            return;
-        }
-
-        // get all the windows in the active workspace that are in the primary monitor and visible
-        const active_workspace = global.workspace_manager.get_active_workspace();
-        const windows = active_workspace.list_windows().filter(meta_window => {
-            return meta_window.is_on_primary_monitor()
-                && meta_window.showing_on_its_workspace()
-                && !meta_window.is_hidden()
-                && meta_window.get_window_type() !== Meta.WindowType.DESKTOP;
-        });
-
-        // check if at least one window is near enough to the panel
-        const panel_top = Main.panel.get_transformed_position()[1];
-        const panel_bottom = panel_top + Main.panel.get_height();
-        const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
-        const is_near_enough = windows.some(meta_window => {
-            const vertical_position = meta_window.get_frame_rect().y;
-            return vertical_position < panel_bottom + 5 * scale;
-        });
-
-        // remove the transparency if a window is near enough, else add it back
-        // TODO remove the blur too, not only the transparency
-        //      as it may improve performances for dynamic blur
-        if (is_near_enough) {
-            Main.panel.remove_style_class_name('transparent-panel');
-        } else {
-            Main.panel.add_style_class_name('transparent-panel');
-        }
+        this.enabled = false;
     }
 
     _log(str) {
