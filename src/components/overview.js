@@ -40,8 +40,8 @@ var OverviewBlur = class OverviewBlur {
             _ => {
                 if (GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
                     Main.layoutManager.monitors.length > 1) {
-                    this.repaint_blur_effects();
-                    //this.toogle_actors_visibility();
+                    //this.repaint_blur_effects();
+                    this.toogle_actors_visibility();
                 }
             }
         );
@@ -222,7 +222,7 @@ var OverviewBlur = class OverviewBlur {
     toogle_actors_visibility() {
         Main.layoutManager.overviewGroup.get_children().forEach(child => {
             child.hide();
-            child.show();
+            setTimeout(_ => child.show(), 10);
         });
     }
 
