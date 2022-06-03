@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-31 18:40+0200\n"
-"PO-Revision-Date: 2022-05-22 13:18+0000\n"
+"PO-Revision-Date: 2022-06-04 09:00+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -357,11 +357,11 @@ msgstr "Disattiva la sfocatura dal pannello quando si accede alla panoramica."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Disattiva quando una finestra è vicina"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr ""
+msgstr "Disattiva la sfocatura dal pannello quando una finestra è vicina."
 
 #: panel.ui:73
 msgid "Compatibility"
