@@ -38,9 +38,11 @@ var OverviewBlur = class OverviewBlur {
             Main.overview,
             'showing',
             _ => {
-                if (GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
-                    Main.layoutManager.monitors.length > 1) {
-                    this.toogle_actors_visibility();
+                if (
+                    GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
+                    Main.layoutManager.monitors.length > 1
+                ) {
+                    this.update_backgrounds();
                 }
             }
         );
@@ -210,15 +212,6 @@ var OverviewBlur = class OverviewBlur {
                 group.remove_style_class_name("bms-overview-components-dark");
                 break;
         }
-    }
-    
-    toogle_actors_visibility() {
-        Main.layoutManager.overviewGroup.get_children().forEach(child => {
-            if (child.constructor.name === 'Meta_BackgroundActor') {
-                child.hide();
-                setTimeout(_ => child.show(), 10);
-            }
-        });
     }
 
     set_sigma(s) {
