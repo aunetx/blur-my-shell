@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-31 18:40+0200\n"
-"PO-Revision-Date: 2022-05-28 16:09+0000\n"
-"Last-Translator: Ujhhgtg <feyxiexzf@gmail.com>\n"
+"PO-Revision-Date: 2022-06-04 18:08+0000\n"
+"Last-Translator: ofseed <ofseed@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -326,11 +326,11 @@ msgstr "进入概览界面时禁用面板模糊。"
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "当窗口接近时禁用"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr ""
+msgstr "当有窗口接近时，禁用面板的模糊。"
 
 #: panel.ui:73
 msgid "Compatibility"
