@@ -36,14 +36,9 @@ var OverviewBlur = class OverviewBlur {
         // with multipe monitors under wayland)
         this.connections.connect(
             Main.overview,
-            'showing',
+            'shown',
             _ => {
-                if (
-                    GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
-                    Main.layoutManager.monitors.length > 1
-                ) {
-                    this.update_backgrounds();
-                }
+                this.toogle_actors_visibility();
             }
         );
 
@@ -212,6 +207,15 @@ var OverviewBlur = class OverviewBlur {
                 group.remove_style_class_name("bms-overview-components-dark");
                 break;
         }
+    }
+    
+    toogle_actors_visibility() {
+        Main.layoutManager.overviewGroup.get_children().forEach(child => {
+            if (child.constructor.name === 'Meta_BackgroundActor') {
+                child.hide();
+                child.show();
+            }
+        });
     }
 
     set_sigma(s) {
