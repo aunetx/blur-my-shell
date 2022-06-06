@@ -1,6 +1,6 @@
 'use strict';
 
-const { Shell, Gio, Meta } = imports.gi;
+const { Shell, Gio, Meta, GLib } = imports.gi;
 const Main = imports.ui.main;
 
 const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
@@ -38,7 +38,12 @@ var OverviewBlur = class OverviewBlur {
             Main.overview,
             'shown',
             _ => {
-                this.toogle_actors_visibility();
+                if (
+                    GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
+                    Main.layoutManager.monitors.length > 1
+                ) {
+                    this.toogle_actors_visibility();
+                }
             }
         );
 
