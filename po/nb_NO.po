@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:38+0200\n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
 "PO-Revision-Date: 2022-05-20 20:12+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
@@ -371,19 +371,27 @@ msgstr "Bruker et statisk tilslørt bilde. Gir bedre ytelse og stabilitet."
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Skrur av tilsløring fra panelet når oversikten åpnes."
 
-#: panel.ui:58
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr ""
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr ""
+
+#: panel.ui:73
 msgid "Compatibility"
 msgstr "Kompatibilitet"
 
-#: panel.ui:59
+#: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Forskjellige valg for å tilby kompatibilitet med andre utvidelser."
 
-#: panel.ui:63
+#: panel.ui:78
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-tillegg"
 
-#: panel.ui:64
+#: panel.ui:79
 #, fuzzy
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""

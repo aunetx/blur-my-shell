@@ -1,34 +1,31 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-31 18:40+0200\n"
-"PO-Revision-Date: 2022-05-27 11:40+0000\n"
-"Last-Translator: fawaz006 <fawaz27000@hotmail.com>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ar/>\n"
-"Language: ar\n"
+"PO-Revision-Date: 2022-06-02 19:09+0000\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/nl/>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.13-dev\n"
-"X-Poedit-Basepath: ../resources/ui\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "التطبيقات"
+msgstr "Toepassingen"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "ضبابية التطبيقات (تجريبي)"
+msgstr "Toepassingen vervagen (bèta)"
 
 #: applications.ui:11
 msgid ""
@@ -36,13 +33,13 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
-"أضف ضبابية إلى التطبيقات, لا تزال هذه المِيزة تجريبية، وهي غير مكتملة ولا يتم "
-"تطبيقها إلا على التطبيقات التي تطلبها، أو تلك المحددة في القائمة البيضاء "
-"أدناه."
+"Vervaging toevoegen aan toepassingen. Deze functionaliteit is nog niet "
+"stabiel, en is wordt alleen toegepast op toepassingen die er om vragen of in "
+"de lijst hieronder staan."
 
 #: applications.ui:26
 msgid "Whitelist"
-msgstr "القائمة البيضاء"
+msgstr "Whitelist"
 
 #: applications.ui:27
 msgid ""
@@ -50,308 +47,341 @@ msgid ""
 "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
 "name here."
 msgstr ""
-"قائمة بالتطبيقات المراد تعتيمها، تطبيق واحد لكل سطر. للحصول على اسم فئة "
-"التطبيق، ضمن xorg يمكنك استخدام `xprop | grep WM_CLASS` ولصق الاسم الأخير "
-"هنا."
+"Een lijst van toepassingen om te vervagen, één per regel. Om een "
+"toepassingsklassenaam te verkrijgen, kunt u onder xorg `xprop | grep "
+"WM_CLASS` uitvoeren en de laatste naam hier plakken."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "تخصيص الخصائص"
+msgstr "Eigenschappen aanpassen"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
-msgstr "أستخدام خصائص الضبابية المخصصة، بدلاً من تلك المعينة في الصفحة العامة."
+msgstr ""
+"Gebruikt aangepaste vervagingseigenschappen, in plaats van de eigenschappen "
+"ingesteld op de Algemeen-pagina."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "سيجما"
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "شدة الضبابية."
+msgstr "De intensiteit van de vervaging."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "السطوع"
+msgstr "Helderheid"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr "سطوع الضبابية، القيمة العالية قد تجعل النص أكثر صعوبة في القراءة."
+msgstr ""
+"De helderheid van het vervagingseffect, een hoge waarde kan tekst moeilijker "
+"leesbaar maken."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "اللون"
+msgstr "Kleur"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"De kleur van het vervagingseffect aanpassen. De ondoorzichtigheid van de "
+"kleur bepaalt hoeveel deze in het vervagingseffect wordt gemengd."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Hoeveelheid ruis"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"De hoeveelheid ruis om aan het vervagingseffect toe te voegen, nuttig voor "
+"schermen met een laag contrast of voor esthetische doeleinden."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "Lichtheid van ruis"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "De lichtheid van de ruis die wordt toegepast op het vervagingseffect."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Merk op"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"Ruis en kleur kunnen niet worden geactiveerd voor dynamisch vervaagde "
+"componenten zoals deze."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "المشغل"
+msgstr "Dash"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "ضبابية Dash to Dock"
+msgstr "Vervaging van Dash to Dock"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "تعتيم خلفية الأضافة Dash to Dock، إذا تم استخدامها."
+msgstr ""
+"De achtergrond van de Dash to Dock-uitbreiding vervagen, als deze wordt "
+"gebruikt."
 
 #: dash.ui:26
 msgid "Override background"
-msgstr "تجاوز الخلفية"
+msgstr "Achtergrond overschrijven"
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
-"لجعل الخلفية شبه شفافة، قم بتعطيل هذا لاستخدام تفضيلات Dash to Dock بدلاً من "
-"ذلك."
+"De achtergrond halfdoorzichtig maken. Schakel dit uit om de voorkeuren van "
+"Dash to Dock te gebruiken."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr "تعطيل في overview"
+msgstr "Uitschakelen in overzicht"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "تعطيل الضبابية من Dash to Dock عند الدخول إلى overview."
+msgstr ""
+"De vervaging van Dash to Dock uitschakelen wanneer het overzicht wordt "
+"geactiveerd."
 
 #: general.ui:5
 msgid "General"
-msgstr "عام"
+msgstr "Algemeen"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "تفضيلات الضبابية"
+msgstr "Vervagingseigenschappen"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr "تفضيلات الضبابية العامة، تُستخدم بواسطة جميع المكونات افتراضيًا."
+msgstr ""
+"Globale vervagingseigenschappen, wordt standaard door alle componenten "
+"gebruikt."
 
 #: general.ui:117
 msgid "Performances"
-msgstr "الأداء"
+msgstr "Prestaties"
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr "خيارات مختلفة لتعديل الأداء."
+msgstr "Verschillende opties om de prestaties aan te passen."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Kleur- en ruiseffecten"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
+"Toestaan dat ruis- en kleureffecten globaal worden uitgeschakeld, dit kan de "
+"prestaties voor zwakke systemen verbeteren."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "مستوى الاختراق"
+msgstr "Hack-niveau"
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
-msgstr "يغير سلوك الضبابية الديناميكي. ينصح بشدة الاستخدام القيمة الافتراضية."
+msgstr ""
+"Het gedrag van het dynamische vervagingseffect aanpassen. De standaardwaarde "
+"wordt sterk aangeraden."
 
 #: general.ui:149
 msgid "Debug"
-msgstr "تصحيح الأخطاء"
+msgstr "Foutopsporing"
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr "يجعل الامتداد مطولًا في سجلات ، وينشط عندما تحتاج إلى الإبلاغ عن مشكلة."
+msgstr ""
+"De logboeken van de uitbreiding uitgebreider maken, activeer wanneer u een "
+"probleem gaat melden."
 
 #: general.ui:189
 msgid "High performances"
-msgstr "أداء عالي"
+msgstr "Hoge prestaties"
 
 #: general.ui:190
 msgid "Default"
-msgstr "الافتراضي"
+msgstr "Standaard"
 
 #: general.ui:191
 msgid "High quality"
-msgstr "جودة عالية"
+msgstr "Hoge kwaliteit"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr "صفحة المشروع"
+msgstr "Projectpagina"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "الإبلاغ عن خلل"
+msgstr "Een probleem melden"
 
 #: menu.ui:14
 msgid "License"
-msgstr "الرخصة"
+msgstr "Licentie"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "تبرع"
+msgstr "Doneren"
 
 #: other.ui:5
 msgid "Other"
-msgstr "آخر"
+msgstr "Anders"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "ضبابية قُفْل الشاشة"
+msgstr "Vervaging van vergrendelscherm"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "قم بتغيير ضبابية شاشة القُفْل لاستخدام تفضيلات هذا الامتداد."
+msgstr "De eigenschappen van deze extensie gebruiken op het vergrendelscherm."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "ضبابية لقطة شاشة"
+msgstr "Vervaging bij schermafdrukken"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "أضف ضبابية إلى خلفية محدد النافذة في واجهة لقطة الشاشة."
+msgstr ""
+"De achtergrond van de vensterselectie vervagen bij het nemen van een "
+"schermafdruk."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "تمويه امتداد قائمة النوافذ"
+msgstr "Vervaging van de uitbreiding Window List"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "اجعل امتداد قائمة النوافذ ضبابي، إذا تم استخدامه."
+msgstr "De uitbreiding Window List vervagen, als deze wordt gebruikt."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "النظرة العامة"
+msgstr "Overzicht"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "ضبابية الخلفية"
+msgstr "Achtergrondvervaging"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr "أضف ضبابية إلى خلفية الملخص باستخدام الخلفية."
+msgstr ""
+"De overzichtsachtergrond vervagen, gebruikmakend van de "
+"achtergrondafbeelding."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "نظرة عامة على نمط المكونات"
+msgstr "Stijl van overzichtscomponenten"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
-msgstr "النمط شبه الشفاف Dash وإدخال / نتائج البحث ومجلدات التطبيقات."
+msgstr ""
+"De halfdoorzichtige stijl voor de dash, zoekbalk en -resultaten, en "
+"toepassingsmappen."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr "ضبابية مجلد التطبيقات"
+msgstr "Vervaging van toepassingsmappen"
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr "يجعل خلفية المجلد ضبابية."
+msgstr "De achtergrond van mappictogrammen vervagen."
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr "ضبابية الحوار"
+msgstr "Ondoorzichtigheid van dialogen"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr "ضبابية مجلد التطبيقات المنبثقة."
+msgstr "De ondoorzichtigheid van de toepassingsmap-popup."
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr "لا تصمم"
+msgstr "Niet stijlen"
 
 #: overview.ui:86
 msgid "Light"
-msgstr "فاتح"
+msgstr "Licht"
 
 #: overview.ui:87
 msgid "Dark"
-msgstr "داكن"
+msgstr "Donker"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "لوحة"
+msgstr "Paneel"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "ضبابية الوحة"
+msgstr "Paneelvervaging"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "تغير ضبابية اللوحة العلوية باستخدام صورة الخلفية."
+msgstr "Het bovenpaneel vervagen, gebruikmakend van de achtergrondafbeelding."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "ضبابية ثابتة"
+msgstr "Statische vervaging"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "يستخدم صورة ثابتة ضبابية وأكثر أداءً واستقرارًا."
+msgstr ""
+"Een statisch vervaagde afbeelding gebruiken, dit is sneller en meer stabiel."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "تعطيل التمويه من اللوحة عند الدخول إلى النظرة العامة."
+msgstr ""
+"De vervaging van het paneel uitschakelen wanneer het overzicht wordt "
+"geactiveerd."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Uitschakelen wanneer een venster dichtbij is"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
 msgstr ""
+"Vervaging van het paneel uitschakelen wanneer een venster dichtbij komt."
 
 #: panel.ui:73
 msgid "Compatibility"
-msgstr "التوافق"
+msgstr "Compatibiliteit"
 
 #: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
-msgstr "خيارات متنوعة لتوفير التوافق مع الأضافات الأخرى."
+msgstr "Verschillende opties voor compatibiliteit met andere uitbreidingen."
 
 #: panel.ui:78
 msgid "Hidetopbar extension"
-msgstr "تمديد Hidetopbar"
+msgstr "Hide Top Bar-uitbreiding"
 
 #: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"لا يعطل الضبابية في النظرة العامة، وأفضل استخدام له مع الضبابية الثابت."
+"De vervaging in het overzicht niet uitschakelen, best samen gebruikt met "
+"statische vervaging."

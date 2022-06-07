@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: 2022-05-20 06:17+0000\n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"PO-Revision-Date: 2022-06-01 22:15+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
@@ -357,21 +357,31 @@ msgstr "Utilise une image statique, plus stable et performant."
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Désactive le flou du panneau lorsqu'on est dans l'aperçu."
 
-#: panel.ui:58
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr "Désactiver lorsqu'une fenêtre est proche"
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr ""
+"Désactive le flou du panneau lorsqu'une fenêtre le touche, par exemple en "
+"plein écran."
+
+#: panel.ui:73
 msgid "Compatibility"
 msgstr "Compatibilité"
 
-#: panel.ui:59
+#: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 "Des options diverses pour permettre de rester compatible avec d'autres "
 "extensions."
 
-#: panel.ui:63
+#: panel.ui:78
 msgid "Hidetopbar extension"
 msgstr "Extension Hidetopbar"
 
-#: panel.ui:64
+#: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Ne désactive pas le flou lorsqu'on est dans l'aperçu, à utiliser de "

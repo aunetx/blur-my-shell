@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: 2022-05-20 06:17+0000\n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"PO-Revision-Date: 2022-06-01 22:15+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -354,20 +354,28 @@ msgstr "Usa una imagen borrosa estática, más potente y estable."
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Desactiva el desenfoque del panel al entrar en la vista general."
 
-#: panel.ui:58
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr "Desactivar cuando una ventana está cerca"
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr "Desactiva el desenfoque del panel cuando una ventana está cerca de el."
+
+#: panel.ui:73
 msgid "Compatibility"
 msgstr "Compatibilidad"
 
-#: panel.ui:59
+#: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 "Varias opciones para proporcionar compatibilidad con otras extensiones."
 
-#: panel.ui:63
+#: panel.ui:78
 msgid "Hidetopbar extension"
 msgstr "Extensión Hidetopbar"
 
-#: panel.ui:64
+#: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "No desactiva el desenfoque en la vista general, se usa mejor con el "

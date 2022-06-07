@@ -1,34 +1,31 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-31 18:40+0200\n"
-"PO-Revision-Date: 2022-05-27 11:40+0000\n"
-"Last-Translator: fawaz006 <fawaz27000@hotmail.com>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ar/>\n"
-"Language: ar\n"
+"PO-Revision-Date: 2022-05-28 08:14+0000\n"
+"Last-Translator: derarchitekt <fischer@webbakery.at>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.13-dev\n"
-"X-Poedit-Basepath: ../resources/ui\n"
-"X-Poedit-SearchPath-0: .\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "التطبيقات"
+msgstr "Anwendungen"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "ضبابية التطبيقات (تجريبي)"
+msgstr "Unschärfe für Anwendungen (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -36,13 +33,13 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
-"أضف ضبابية إلى التطبيقات, لا تزال هذه المِيزة تجريبية، وهي غير مكتملة ولا يتم "
-"تطبيقها إلا على التطبيقات التي تطلبها، أو تلك المحددة في القائمة البيضاء "
-"أدناه."
+"Unschärfe zu Anwendungen hinzufügen. Diese Funktion ist noch in der Beta-"
+"Phase und ist ziemlich fehlerhaft. Sie wird nur auf Anwendungen angewendet, "
+"welche darum bitten oder in der Whitelist unten festgelegt sind."
 
 #: applications.ui:26
 msgid "Whitelist"
-msgstr "القائمة البيضاء"
+msgstr "Whitelist"
 
 #: applications.ui:27
 msgid ""
@@ -50,286 +47,318 @@ msgid ""
 "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
 "name here."
 msgstr ""
-"قائمة بالتطبيقات المراد تعتيمها، تطبيق واحد لكل سطر. للحصول على اسم فئة "
-"التطبيق، ضمن xorg يمكنك استخدام `xprop | grep WM_CLASS` ولصق الاسم الأخير "
-"هنا."
+"Eine Liste von Anwendungen bei denen Unschärfe hinzugefügt werden soll (Eine "
+"Anwendung pro Zeile). In Xorg kann man `xprop|grep WM_CLASS` verwenden, um "
+"den Class Name zu erhalten, welcher hier eingefügt werden muss."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "تخصيص الخصائص"
+msgstr "Einstellungen anpassen"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
-msgstr "أستخدام خصائص الضبابية المخصصة، بدلاً من تلك المعينة في الصفحة العامة."
+msgstr ""
+"Benutzerdefinierte Unschärfe-Einstellungen, statt den Unschärfe-"
+"Einstellungen des „Allgemein“ Reiters."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "سيجما"
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "شدة الضبابية."
+msgstr "Die Intensität der Unschärfe."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "السطوع"
+msgstr "Helligkeit"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr "سطوع الضبابية، القيمة العالية قد تجعل النص أكثر صعوبة في القراءة."
+msgstr ""
+"Die Helligkeit des Unschärfe-Effekts. Ein hoher Wert sorgt möglicherweise "
+"dafür, dass Text schwer zu lesen ist."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "اللون"
+msgstr "Farbe"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Verändert die Fabre der Unschärfe. Die Deckkraft der Farbe steuert, wie "
+"stark sie in den Unschärfeeffekt eingeblendet wird."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Stärke des Bildrauschens"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"Die Stärke des Bildrauschens, die dem Unschärfeeffekt hinzugefügt wird. Dies "
+"ist nützlich bei kontrastarmen Bildschirmen oder für ästhetische Zwecke."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "Helligkeit des Bildrauschens"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
 msgstr ""
+"Die Helligkeit des Bildrauschens, das dem Unschärfeeffekt hinzugefügt wird."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Hinweis"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"Bildrauschen und Farbe können bei dynamisch unscharf gemachten Komponenten, "
+"wie dieser, nicht aktiviert werden."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "المشغل"
+msgstr "Dash"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "ضبابية Dash to Dock"
+msgstr "Dash to Dock Unschärfe"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "تعتيم خلفية الأضافة Dash to Dock، إذا تم استخدامها."
+msgstr ""
+"Den Hintergrund der Dash to Dock-Erweiterung unscharf machen, sofern diese "
+"verwendet wird."
 
 #: dash.ui:26
 msgid "Override background"
-msgstr "تجاوز الخلفية"
+msgstr "Überschreiben des Hintergrunds"
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
-"لجعل الخلفية شبه شفافة، قم بتعطيل هذا لاستخدام تفضيلات Dash to Dock بدلاً من "
-"ذلك."
+"Macht den Hintergrund halbtransparent, deaktivieren Sie dies, um stattdessen "
+"die Dash to Dock-Einstellungen zu verwenden."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr "تعطيل في overview"
+msgstr "In der Übersicht deaktivieren"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "تعطيل الضبابية من Dash to Dock عند الدخول إلى overview."
+msgstr ""
+"Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
 
 #: general.ui:5
 msgid "General"
-msgstr "عام"
+msgstr "Allgemein"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "تفضيلات الضبابية"
+msgstr "Unschärfeeinstellungen"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr "تفضيلات الضبابية العامة، تُستخدم بواسطة جميع المكونات افتراضيًا."
+msgstr ""
+"Globale Unschärfeeinstellungen, die standardmäßig von allen Komponenten "
+"verwendet werden."
 
 #: general.ui:117
 msgid "Performances"
-msgstr "الأداء"
+msgstr "Leistung"
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr "خيارات مختلفة لتعديل الأداء."
+msgstr "Diverse Optionen zur Optimierung der Leistungen."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Farb- und Rauscheffekte"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
+"Ermöglicht es, die Verwendung von Rausch- und Farbeffekten global zu "
+"deaktivieren, um die Performance bei leistungsschwachen Grafikkarten zu "
+"verbessern."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "مستوى الاختراق"
+msgstr "Hack-Level"
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
-msgstr "يغير سلوك الضبابية الديناميكي. ينصح بشدة الاستخدام القيمة الافتراضية."
+msgstr ""
+"Ändert das Verhalten des dynamischen Unschärfeeffekts. Die "
+"Standardeinstellung wird sehr empfohlen."
 
 #: general.ui:149
 msgid "Debug"
-msgstr "تصحيح الأخطاء"
+msgstr "Debug"
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr "يجعل الامتداد مطولًا في سجلات ، وينشط عندما تحتاج إلى الإبلاغ عن مشكلة."
+msgstr ""
+"Sorgt dafür, dass die Erweiterung detailliert protokolliert wird. Aktivieren "
+"Sie diese Option, wenn Sie ein Problem melden müssen."
 
 #: general.ui:189
 msgid "High performances"
-msgstr "أداء عالي"
+msgstr "Hohe Leistung"
 
 #: general.ui:190
 msgid "Default"
-msgstr "الافتراضي"
+msgstr "Standard"
 
 #: general.ui:191
 msgid "High quality"
-msgstr "جودة عالية"
+msgstr "Hohe Qualität"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr "صفحة المشروع"
+msgstr "Projektseite"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "الإبلاغ عن خلل"
+msgstr "Einen Fehler melden"
 
 #: menu.ui:14
 msgid "License"
-msgstr "الرخصة"
+msgstr "Lizenz"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "تبرع"
+msgstr "Spenden"
 
 #: other.ui:5
 msgid "Other"
-msgstr "آخر"
+msgstr "Andere"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "ضبابية قُفْل الشاشة"
+msgstr "Sperrbildschirm Unschärfe"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "قم بتغيير ضبابية شاشة القُفْل لاستخدام تفضيلات هذا الامتداد."
+msgstr ""
+"Die Einstellungen dieser Extension für die Unschärfe des Sperrbildschirms "
+"verwenden."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "ضبابية لقطة شاشة"
+msgstr "Bildschirmfoto Unschärfe"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "أضف ضبابية إلى خلفية محدد النافذة في واجهة لقطة الشاشة."
+msgstr ""
+"Fügen Sie dem Hintergrund der Fensterauswahl in der Screenshot-"
+"Benutzeroberfläche einen Unschärfeeffekt hinzu."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "تمويه امتداد قائمة النوافذ"
+msgstr "Unschärfe der Window-List Eerweiterung"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "اجعل امتداد قائمة النوافذ ضبابي، إذا تم استخدامه."
+msgstr ""
+"Unschärfeeffekt auf die Window-List Erweiterungen anwenden wenn diese "
+"verwendent wird."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "النظرة العامة"
+msgstr "Übersicht"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "ضبابية الخلفية"
+msgstr "Hintergrund Unschärfe"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr "أضف ضبابية إلى خلفية الملخص باستخدام الخلفية."
+msgstr "Den Unschärfeeffekt auf das Hintergrundbild in der Übersicht anwenden."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "نظرة عامة على نمط المكونات"
+msgstr "Übersicht Komponenten Stil"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
-msgstr "النمط شبه الشفاف Dash وإدخال / نتائج البحث ومجلدات التطبيقات."
+msgstr ""
+"Der halbtransparente Stil für das Dash, die Sucheinträge/-ergebnisse und die "
+"Anwendungsordner."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr "ضبابية مجلد التطبيقات"
+msgstr "Anwendungsordner Unschärfe"
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr "يجعل خلفية المجلد ضبابية."
+msgstr "Macht den Hintergrund von Ordner Icons unscharf."
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr "ضبابية الحوار"
+msgstr "Dialog Deckkraft"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr "ضبابية مجلد التطبيقات المنبثقة."
+msgstr "Die Deckkraft des Anwendungsordner-Popups."
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr "لا تصمم"
+msgstr "Keinen Effekt anwenden"
 
 #: overview.ui:86
 msgid "Light"
-msgstr "فاتح"
+msgstr "Hell"
 
 #: overview.ui:87
 msgid "Dark"
-msgstr "داكن"
+msgstr "Dunkel"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "لوحة"
+msgstr "Panel"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "ضبابية الوحة"
+msgstr "Panel Unschärfe"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "تغير ضبابية اللوحة العلوية باستخدام صورة الخلفية."
+msgstr "Das obere Panel mit Hilfe des Hintergrundbildes unscharf machen."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "ضبابية ثابتة"
+msgstr "Statische Unschärfe"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "يستخدم صورة ثابتة ضبابية وأكثر أداءً واستقرارًا."
+msgstr ""
+"Verwendet ein statisches unscharfes Bild. Leistungsfähiger und stabiler."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "تعطيل التمويه من اللوحة عند الدخول إلى النظرة العامة."
+msgstr "Deaktiviert die Unschärfe des Panels beim Aufrufen der Übersicht."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
@@ -341,17 +370,20 @@ msgstr ""
 
 #: panel.ui:73
 msgid "Compatibility"
-msgstr "التوافق"
+msgstr "Kompatibilität"
 
 #: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
-msgstr "خيارات متنوعة لتوفير التوافق مع الأضافات الأخرى."
+msgstr ""
+"Verschiedene Optionen zur Sicherstellung der Kompatibilität mit anderen "
+"Erweiterungen."
 
 #: panel.ui:78
 msgid "Hidetopbar extension"
-msgstr "تمديد Hidetopbar"
+msgstr "Hidetopbar Erweiterung"
 
 #: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"لا يعطل الضبابية في النظرة العامة، وأفضل استخدام له مع الضبابية الثابت."
+"Deaktiviert die Unschärfe in der Übersicht nicht. Am besten mit statischer "
+"Unschärfe verwenden."

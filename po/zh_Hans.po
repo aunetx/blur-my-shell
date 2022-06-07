@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-22 16:38+0200\n"
-"PO-Revision-Date: 2022-05-25 12:17+0000\n"
-"Last-Translator: Ujhhgtg <feyxiexzf@gmail.com>\n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"PO-Revision-Date: 2022-06-04 18:08+0000\n"
+"Last-Translator: ofseed <ofseed@foxmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -25,14 +25,15 @@ msgstr "应用程序"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "应用程序模糊"
+msgstr "应用程序模糊（实验性）"
 
 #: applications.ui:11
 msgid ""
 "Add blur to the applications. This is still a beta functionnality, is quite "
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
-msgstr "为应用程序添加模糊。这仍然是一个实验性功能并存在一些问题，只对要求启用该功能"
+msgstr ""
+"为应用程序添加模糊。这仍然是一个实验性功能并存在一些问题，只对要求启用该功能"
 "的应用或者在下方白名单中指定的应用启动。"
 
 #: applications.ui:26
@@ -45,9 +46,8 @@ msgid ""
 "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
 "name here."
 msgstr ""
-"要启用模糊的应用程序的列表，一行一个。要在 Xorg "
-"下获取某个应用程序的类名，你可以使用“xprop|grep "
-"WM_CLASS”然后将结果中的最后一个字符串粘贴在这里。"
+"要启用模糊的应用程序的列表，一行一个。要在 Xorg 下获取某个应用程序的类名，你"
+"可以使用“xprop|grep WM_CLASS”然后将结果中的最后一个字符串粘贴在这里。"
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -176,7 +176,7 @@ msgstr "允许全局禁用噪声和颜色效果，可能会在低端图形设备
 
 #: general.ui:135
 msgid "Hack level"
-msgstr ""
+msgstr "Hack级别"
 
 #: general.ui:136
 msgid ""
@@ -248,94 +248,102 @@ msgstr "应用程序列表效果"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "模糊window-list扩展（如果启用）。"
 
 #: overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "概览"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "背景模糊"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr ""
+msgstr "模糊概览界面的背景，使用壁纸图片。"
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "概览界面组件风格"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
-msgstr ""
+msgstr "Dash、搜索框/搜索结果和应用文件夹的半透明风格。"
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr ""
+msgstr "应用文件夹模糊"
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr ""
+msgstr "模糊文件夹图标的背景。"
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr ""
+msgstr "对话框不透明度"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr ""
+msgstr "应用文件夹右键菜单的不透明度。"
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr ""
+msgstr "原始风格"
 
 #: overview.ui:86
 msgid "Light"
-msgstr ""
+msgstr "亮色"
 
 #: overview.ui:87
 msgid "Dark"
-msgstr ""
+msgstr "暗色"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "面板"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "面板模糊"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "使用背景图片模糊顶部面板。"
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr ""
+msgstr "静态模糊"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
+msgstr "使用静态的模糊图片，性能更好且更稳定。"
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
+msgstr "进入概览界面时禁用面板模糊。"
 
-#: panel.ui:58
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr "当窗口接近时禁用"
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr "当有窗口接近时，禁用面板的模糊。"
+
+#: panel.ui:73
 msgid "Compatibility"
-msgstr ""
+msgstr "兼容性"
 
-#: panel.ui:59
+#: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "提供与其它扩展兼容性的一些选项。"
 
-#: panel.ui:63
+#: panel.ui:78
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Hide Top Bar 扩展"
 
-#: panel.ui:64
+#: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr ""
+msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"

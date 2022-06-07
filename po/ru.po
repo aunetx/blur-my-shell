@@ -1,0 +1,379 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blur-my-shell@aunetx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"PO-Revision-Date: 2022-05-31 15:45+0300\n"
+"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: applications.ui:5
+msgid "Applications"
+msgstr "Приложения"
+
+#: applications.ui:10
+msgid "Applications blur (beta)"
+msgstr "Размытие приложений (бета)"
+
+#: applications.ui:11
+msgid ""
+"Add blur to the applications. This is still a beta functionnality, is quite "
+"buggy and is only applied to the apps that ask it, or to the ones set in the "
+"whitelist below."
+msgstr ""
+"Добавляет размытие приложений. Это пока бета-функция, она довольно глючная и "
+"применяется только к тем приложениям, которые просят об этом, или к тем, "
+"которые заданы в белом списке ниже."
+
+#: applications.ui:26
+msgid "Whitelist"
+msgstr "Белый список"
+
+#: applications.ui:27
+msgid ""
+"A list of the applications to blur, one per line. To get an application "
+"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
+"name here."
+msgstr ""
+"Список приложений для размытия, по одному на строку. Чтобы получить имя "
+"класса приложения, в xorg вы можете использовать `xprop|grep WM_CLASS` и "
+"вставить последнее имя сюда."
+
+#: customize-row.ui:4
+msgid "Customize properties"
+msgstr "Настройка свойств"
+
+#: customize-row.ui:5
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+"Использовать пользовательские свойства размытия вместо тех, которые заданы "
+"на странице Общие."
+
+#: customize-row.ui:10 general.ui:15
+msgid "Sigma"
+msgstr "Сигма"
+
+#: customize-row.ui:11 general.ui:16
+msgid "The intensity of the blur."
+msgstr "Интенсивность размытия."
+
+#: customize-row.ui:31 general.ui:35
+msgid "Brightness"
+msgstr "Яркость"
+
+#: customize-row.ui:32 general.ui:36
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"Яркость эффекта размытия, высокое значение может сделать текст "
+"трудночитаемым."
+
+#: customize-row.ui:52 general.ui:55
+msgid "Color"
+msgstr "Цвет"
+
+#: customize-row.ui:53 general.ui:56
+msgid ""
+"Changes the color of the blur. The opacity of the color controls how much it "
+"is blended into the blur effect."
+msgstr ""
+"Изменяет цвет размытия. Непрозрачность цвета определяет, насколько он "
+"смешивается с эффектом размытия."
+
+#: customize-row.ui:71 general.ui:73
+msgid "Noise amount"
+msgstr "Уровень шума"
+
+#: customize-row.ui:72 general.ui:74
+msgid ""
+"The amount of noise to add to the blur effect, useful on low-contrast "
+"screens or for aesthetic purpose."
+msgstr ""
+"Уровень шума, добавляемый к эффекту размытия, полезен на экранах с низкой "
+"контрастностью или в эстетических целях."
+
+#: customize-row.ui:92 general.ui:94
+msgid "Noise lightness"
+msgstr "Светлота шума"
+
+#: customize-row.ui:93 general.ui:95
+msgid "The lightness of the noise added to the blur effect."
+msgstr "Светлота шума усиливает эффект размытия."
+
+#: customize-row.ui:113
+msgid "Notice"
+msgstr "Уведомление"
+
+#: customize-row.ui:114
+msgid ""
+"Noise and color can't be activated on dynamically blurred components, such "
+"as this one."
+msgstr ""
+"Шум и цвет не могут быть активированы на динамически размытых компонентах, "
+"таких как этот."
+
+#: dash.ui:5
+msgid "Dash"
+msgstr "Панель приложений"
+
+#: dash.ui:10
+msgid "Dash to Dock blur"
+msgstr "Размытие \"Dash to Dock\""
+
+#: dash.ui:11
+msgid "Blur the background of the Dash to Dock extension, if it is used."
+msgstr "Размытие фона расширения Dash to Dock, если оно используется."
+
+#: dash.ui:26
+msgid "Override background"
+msgstr "Переопределить фон"
+
+#: dash.ui:27
+msgid ""
+"Makes the background semi-transparent, disable this to use Dash to Dock "
+"preferences instead."
+msgstr ""
+"Делает фон полупрозрачным, отключите его, чтобы вместо него использовать "
+"настройки Dash to Dock."
+
+#: dash.ui:41 panel.ui:41
+msgid "Disable in overview"
+msgstr "Отключить в Обзоре"
+
+#: dash.ui:42
+msgid "Disables the blur from Dash to Dock when entering the overview."
+msgstr "Отключает размытие из Dash to Dock при входе в Обзор."
+
+#: general.ui:5
+msgid "General"
+msgstr "Общие"
+
+#: general.ui:10
+msgid "Blur preferences"
+msgstr "Параметры размытия"
+
+#: general.ui:11
+msgid "Global blur preferences, used by all components by default."
+msgstr ""
+"Глобальные настройки размытия, используемые всеми компонентами по умолчанию."
+
+#: general.ui:117
+msgid "Performances"
+msgstr "Производительность"
+
+#: general.ui:118
+msgid "Various options to tweak the performances."
+msgstr "Различные опции для настройки производительности."
+
+#: general.ui:122
+msgid "Color and noise effects"
+msgstr "Цветовые и шумовые эффекты"
+
+#: general.ui:123
+msgid ""
+"Permits to disable globally the use of noise and color effects, this may "
+"improve performances for low-end graphic."
+msgstr ""
+"Позволяют глобально отключить использование шумовых и цветовых эффектов, это "
+"может улучшить производительность для графики низкого уровня."
+
+#: general.ui:135
+msgid "Hack level"
+msgstr "Уровень взлома"
+
+#: general.ui:136
+msgid ""
+"Changes the behaviour of dynamic blur effect. Default value is very "
+"recommended."
+msgstr ""
+"Изменяет поведение эффекта динамического размытия. Значение по умолчанию "
+"является очень рекомендуемым."
+
+#: general.ui:149
+msgid "Debug"
+msgstr "Отладка"
+
+#: general.ui:150
+msgid ""
+"Makes the extension verbose in logs, activate when you need to report an "
+"issue."
+msgstr ""
+"Делает работу расширения подробной в журналах, активируется, когда вам нужно "
+"сообщить о проблеме."
+
+#: general.ui:189
+msgid "High performances"
+msgstr "Высокая производительность"
+
+#: general.ui:190
+msgid "Default"
+msgstr "По умолчанию"
+
+#: general.ui:191
+msgid "High quality"
+msgstr "Высокое качество"
+
+#: menu.ui:6
+msgid "Project page"
+msgstr "Страница проекта"
+
+#: menu.ui:10
+msgid "Report a Bug"
+msgstr "Сообщить об ошибке"
+
+#: menu.ui:14
+msgid "License"
+msgstr "Лицензия"
+
+#: menu.ui:18
+msgid "Donate"
+msgstr "Пожертвовать"
+
+#: other.ui:5
+msgid "Other"
+msgstr "Прочее"
+
+#: other.ui:10
+msgid "Lockscreen blur"
+msgstr "Размытие экрана блокировки"
+
+#: other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+"Использовать настройки этого расширения для изменения размытия экрана "
+"блокировки."
+
+#: other.ui:28
+msgid "Screenshot blur"
+msgstr "Размытие при PrintScreen"
+
+#: other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+"Добавляет размытие к фону выбора окна в пользовательском интерфейсе "
+"скриншотов."
+
+#: other.ui:46
+msgid "Window list extension blur"
+msgstr "Размытие расширения \"Cписок окон\""
+
+#: other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "Делает расширение \"Список окон\" размытым, если оно используется."
+
+#: overview.ui:5
+msgid "Overview"
+msgstr "Обзор"
+
+#: overview.ui:10
+msgid "Background blur"
+msgstr "Размытие фона"
+
+#: overview.ui:11
+msgid "Add blur to the overview background, using the wallpaper picture."
+msgstr "Добавляет размытие к фону Обзора, используя картинку обоев."
+
+#: overview.ui:26
+msgid "Overview components style"
+msgstr "Стилизация компонентов Обзора"
+
+#: overview.ui:27
+msgid ""
+"The semi-transparent style for the dash, search entry/results, and "
+"applications folders."
+msgstr ""
+"Делает панель приложений, поиск и значок папки приложений полупрозрачными."
+
+#: overview.ui:44
+msgid "Applications folder blur"
+msgstr "Размытие папки приложений"
+
+#: overview.ui:45
+msgid "Makes the background of folder icons blurred."
+msgstr "Делает фон значков папок размытым."
+
+#: overview.ui:60
+msgid "Dialog opacity"
+msgstr "Непрозрачность диалогового окна"
+
+#: overview.ui:61
+msgid "The opacity of the applications folder popup."
+msgstr "Непрозрачность всплывающего окна папки приложений."
+
+#: overview.ui:85
+msgid "Do not style"
+msgstr "Не стилизовать"
+
+#: overview.ui:86
+msgid "Light"
+msgstr "Светлый"
+
+#: overview.ui:87
+msgid "Dark"
+msgstr "Темный"
+
+#: panel.ui:5
+msgid "Panel"
+msgstr "Верхняя панель"
+
+#: panel.ui:10
+msgid "Panel blur"
+msgstr "Размытие верхней панели"
+
+#: panel.ui:11
+msgid "Blur the top panel using the background image."
+msgstr "Размытие верхней панели с помощью фонового изображения."
+
+#: panel.ui:26
+msgid "Static blur"
+msgstr "Статичное размытие"
+
+#: panel.ui:27
+msgid "Uses a static blurred image, more performant and stable."
+msgstr ""
+"Используется статичное размытие изображения, более производительное и "
+"стабильное."
+
+#: panel.ui:42
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Отключает размытие верхней панели при входе в Обзор."
+
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr "Отключить, когда рядом находится окно"
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr "Отключает размытие верхней панели, когда рядом с ней находится окно."
+
+#: panel.ui:73
+msgid "Compatibility"
+msgstr "Совместимость"
+
+#: panel.ui:74
+msgid "Various options to provide compatibility with other extensions."
+msgstr "Различные опции для обеспечения совместимости с другими расширениями."
+
+#: panel.ui:78
+msgid "Hidetopbar extension"
+msgstr "Расширение \"Hidetopbar\""
+
+#: panel.ui:79
+msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
+"Не отключает размытие в Обзоре, лучше всего использовать со статическим "
+"размытием."
