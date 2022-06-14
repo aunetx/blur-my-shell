@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-31 18:40+0200\n"
-"PO-Revision-Date: 2022-05-28 08:14+0000\n"
-"Last-Translator: derarchitekt <fischer@webbakery.at>\n"
+"PO-Revision-Date: 2022-06-15 23:15+0000\n"
+"Last-Translator: arctize <patrick.wicki96@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -362,11 +362,13 @@ msgstr "Deaktiviert die Unschärfe des Panels beim Aufrufen der Übersicht."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Deaktiviert wenn ein Fenster in der Nähe ist"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
 msgstr ""
+"Deaktiviert die Unschärfe des Panels falls sich ein Fenster in der Nähe "
+"befindet."
 
 #: panel.ui:73
 msgid "Compatibility"
