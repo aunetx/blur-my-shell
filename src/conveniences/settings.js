@@ -4,7 +4,7 @@ const { Gio, GLib } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 
-/// An enum non-extensively describing the type of a gsettings key.
+/// An enum non-extensively describing the type of gsettings key.
 var Type = {
     B: 'Boolean',
     I: 'Integer',
@@ -32,7 +32,7 @@ var Prefs = class Prefs {
         this.keys.forEach(bundle => {
             let component = this;
             let component_settings = settings;
-            if (bundle.component != "general") {
+            if (bundle.component !== "general") {
                 let bundle_component = bundle.component.replaceAll('-', '_');
                 this[bundle_component] = {
                     settings: this.settings.get_child(bundle.component)
@@ -131,7 +131,7 @@ var Prefs = class Prefs {
     disconnect_all_settings() {
         this.keys.forEach(bundle => {
             let component = this;
-            if (bundle.component != "general") {
+            if (bundle.component !== "general") {
                 let bundle_component = bundle.component.replaceAll('-', '_');
                 component = this[bundle_component];
             }

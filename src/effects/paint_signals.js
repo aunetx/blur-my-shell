@@ -34,7 +34,7 @@ var PaintSignals = class PaintSignals {
 
     disconnect_all_for_actor(actor) {
         this.buffer.forEach(infos => {
-            if (infos.actor == actor) {
+            if (infos.actor === actor) {
                 this.connections.disconnect_all_for(infos.paint_effect);
                 infos.actor.remove_effect(infos.paint_effect);
 

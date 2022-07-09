@@ -80,8 +80,8 @@ var DashBlur = class DashBlur {
     enable() {
         this.connections.connect(Main.uiGroup, 'actor-added', (_, actor) => {
             if (
-                (actor.get_name() == "dashtodockContainer") &&
-                (actor.constructor.name == 'DashToDock')
+                (actor.get_name() === "dashtodockContainer") &&
+                (actor.constructor.name === 'DashToDock')
             )
                 this.try_blur(actor);
         });
@@ -97,8 +97,8 @@ var DashBlur = class DashBlur {
 
         // blur every dash found, filtered by name
         Main.uiGroup.get_children().filter((child) => {
-            return (child.get_name() == "dashtodockContainer") &&
-                (child.constructor.name == 'DashToDock');
+            return (child.get_name() === "dashtodockContainer") &&
+                (child.constructor.name === 'DashToDock');
         }).forEach(this.try_blur.bind(this));
     }
 
@@ -108,20 +108,20 @@ var DashBlur = class DashBlur {
 
         // verify that we did not already blur that dash
         if (!dash_box.get_children().some((child) => {
-            return child.get_name() == "dash-blurred-background-parent";
+            return child.get_name() === "dash-blurred-background-parent";
         })) {
             this._log("dash to dock found, blurring it");
 
             // finally blur the dash
             let dash = dash_box.get_children().find(child => {
-                return child.get_name() == 'dash';
+                return child.get_name() === 'dash';
             });
 
             this.dashes.push(this.blur_dash_from(dash, dash_container));
         }
     }
 
-    // Blurs the dash and returns a `DashInfos` containing its informations
+    // Blurs the dash and returns a `DashInfos` containing its information
     blur_dash_from(dash, dash_container) {
         // the effect to be applied
         let effect = new Shell.BlurEffect({
@@ -174,7 +174,7 @@ var DashBlur = class DashBlur {
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-        if (this.prefs.HACKS_LEVEL == 1) {
+        if (this.prefs.HACKS_LEVEL === 1) {
             this._log("dash hack level 1");
             this.paint_signals.disconnect_all();
 
@@ -213,7 +213,7 @@ var DashBlur = class DashBlur {
             this.connections.connect(show_apps, 'button-press-event', rp);
 
             this.connections.connect(dash, 'leave-event', rp);
-        } else if (this.prefs.HACKS_LEVEL == 2) {
+        } else if (this.prefs.HACKS_LEVEL === 2) {
             this._log("dash hack level 2");
 
             this.paint_signals.connect(background, effect);
