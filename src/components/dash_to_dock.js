@@ -186,9 +186,9 @@ var DashBlur = class DashBlur {
                 try {
                     let zone = icon.get_child_at_index(0);
 
-                    this.connections.connect(zone, 'enter-event', rp);
-                    this.connections.connect(zone, 'leave-event', rp);
-                    this.connections.connect(zone, 'button-press-event', rp);
+                    this.connections.connect(zone, [
+                        'enter-event', 'leave-event', 'button-press-event'
+                    ], rp);
                 } catch (e) {
                     this._log(`${e}, continuing`);
                 }
@@ -198,9 +198,9 @@ var DashBlur = class DashBlur {
                 try {
                     let zone = actor.get_child_at_index(0);
 
-                    this.connections.connect(zone, 'enter-event', rp);
-                    this.connections.connect(zone, 'leave-event', rp);
-                    this.connections.connect(zone, 'button-press-event', rp);
+                    this.connections.connect(zone, [
+                        'enter-event', 'leave-event', 'button-press-event'
+                    ], rp);
                 } catch (e) {
                     this._log(`${e}, continuing`);
                 }
@@ -208,9 +208,9 @@ var DashBlur = class DashBlur {
 
             let show_apps = dash._showAppsIcon;
 
-            this.connections.connect(show_apps, 'enter-event', rp);
-            this.connections.connect(show_apps, 'leave-event', rp);
-            this.connections.connect(show_apps, 'button-press-event', rp);
+            this.connections.connect(show_apps, [
+                'enter-event', 'leave-event', 'button-press-event'
+            ], rp);
 
             this.connections.connect(dash, 'leave-event', rp);
         } else if (this.prefs.HACKS_LEVEL === 2) {
