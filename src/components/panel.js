@@ -69,7 +69,7 @@ var PanelBlur = class PanelBlur {
 
         // remove old background parents
         panel_box.get_children().forEach(child => {
-            if (child.name == 'topbar-blurred-background-parent')
+            if (child.name === 'topbar-blurred-background-parent')
                 panel_box.remove_child(child);
         });
 
@@ -165,7 +165,7 @@ var PanelBlur = class PanelBlur {
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
         if (!is_static) {
-            if (this.prefs.HACKS_LEVEL == 1) {
+            if (this.prefs.HACKS_LEVEL === 1) {
                 this._log("panel hack level 1");
                 this.paint_signals.disconnect_all();
 
@@ -180,7 +180,7 @@ var PanelBlur = class PanelBlur {
                     this.connections.connect(child, 'leave-event', rp);
                     this.connections.connect(child, 'button-press-event', rp);
                 });
-            } else if (this.prefs.HACKS_LEVEL == 2) {
+            } else if (this.prefs.HACKS_LEVEL === 2) {
                 this._log("panel hack level 2");
                 this.paint_signals.disconnect_all();
 

@@ -264,7 +264,7 @@ class Extension {
         });
 
         this._prefs.COLOR_AND_NOISE_changed(() => {
-            // permits to make sure that the blur is not washed out when disabling
+            // permits making sure that the blur is not washed out when disabling
             // the other effects
             if (this._prefs.panel.BLUR)
                 this._panel_blur.invalidate_blur();

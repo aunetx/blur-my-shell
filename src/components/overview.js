@@ -74,7 +74,7 @@ var OverviewBlur = class OverviewBlur {
                 if (
                     !(
                         Meta.prefs_get_workspaces_only_on_primary() &&
-                        (monitor != Main.layoutManager.primaryMonitor)
+                        (monitor !== Main.layoutManager.primaryMonitor)
                     )
                 ) {
                     const bg_actor = outer_this.create_background_actor(
@@ -107,7 +107,7 @@ var OverviewBlur = class OverviewBlur {
     update_backgrounds() {
         // remove every old background
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
-            if (actor.constructor.name == 'Meta_BackgroundActor') {
+            if (actor.constructor.name === 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor);
                 actor.destroy();
             }
@@ -232,7 +232,7 @@ var OverviewBlur = class OverviewBlur {
     disable() {
         this._log("removing blur from overview");
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
-            if (actor.constructor.name == 'Meta_BackgroundActor') {
+            if (actor.constructor.name === 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor);
             }
         });

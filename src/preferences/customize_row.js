@@ -51,12 +51,12 @@ var CustomizeRow = GObject.registerClass({
 }, class CustomizeRow extends Adw.ExpanderRow {
     /// Makes the required connections between the widgets and the preferences.
     ///
-    /// This function may be binded to another object than CustomizeRow, if we
+    /// This function may be bound to another object than CustomizeRow, if we
     /// are using it for the General page; some things will then change (no
     /// expansion row, and no notice)
     ///
     /// The color_and_noise parameter is either a boolean (true by default) or
-    /// a widget; and permits to select wether or not we want to show the color
+    /// a widget; and permits selecting weather or not we want to show the color
     /// and noise buttons to the user. If it is a widget, it means we need to
     /// dynamically update their visibility, according to the widget's state.
     connect_to(component_prefs, color_and_noise = true) {
@@ -67,7 +67,7 @@ var CustomizeRow = GObject.registerClass({
             // bind the customize button
             s.bind('customize', this, 'enable-expansion', Gio.SettingsBindFlags.DEFAULT);
 
-        // bind sigma an brightness
+        // bind sigma and brightness
         s.bind('sigma', this._sigma, 'value', Gio.SettingsBindFlags.DEFAULT);
         s.bind('brightness', this._brightness, 'value', Gio.SettingsBindFlags.DEFAULT);
 
@@ -78,7 +78,7 @@ var CustomizeRow = GObject.registerClass({
         s.bind('noise-amount', this._noise_amount, 'value', Gio.SettingsBindFlags.DEFAULT);
         s.bind('noise-lightness', this._noise_lightness, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-        // color_and_noise is either a boolean or a widget, if true or it is a
+        // color_and_noise is either a boolean or a widget, if true, or it is a
         // widget, this will appropriately show the required preferences about
         // setting the color and noise
         if (color_and_noise) {
@@ -121,7 +121,7 @@ var CustomizeRow = GObject.registerClass({
         // have color and noise enabled
         // note: I would love to bind to the visibility instead, but this part
         //       is already dirty enough, it would look like I obfuscate my code
-        //       intentionnally... (I am not)
+        //       intentionally... (I am not)
         Preferences.settings.bind('color-and-noise', this._color_row, 'sensitive', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('color-and-noise', this._noise_amount_row, 'sensitive', Gio.SettingsBindFlags.DEFAULT);
         Preferences.settings.bind('color-and-noise', this._noise_lightness_row, 'sensitive', Gio.SettingsBindFlags.DEFAULT);

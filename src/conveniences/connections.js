@@ -57,7 +57,7 @@ var Connections = class Connections {
     disconnect_all_for(actor) {
         // get every connection stored for the actor
         let actor_connections = this.buffer.filter(
-            infos => infos.actor == actor
+            infos => infos.actor === actor
         );
 
         // remove each of them
