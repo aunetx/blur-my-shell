@@ -200,7 +200,7 @@
     <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-dock" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
         <!-- BLUR -->
         <key type="b" name="blur">
-            <default>true</default>
+            <default>false</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
         <!-- CUSTOMIZE -->
