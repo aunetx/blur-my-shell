@@ -85,7 +85,7 @@ var PanelBlur = class PanelBlur {
         // connect to panel size change
         this.connections.connect(
             Main.panel,
-            'notify::height',
+            ['notify::size', 'notify::position'],
             this.update_size.bind(this)
         );
 
@@ -171,14 +171,14 @@ var PanelBlur = class PanelBlur {
 
                 let rp = () => { this.blur_effect.queue_repaint(); };
 
-                this.connections.connect(Main.panel, 'enter-event', rp);
-                this.connections.connect(Main.panel, 'leave-event', rp);
-                this.connections.connect(Main.panel, 'button-press-event', rp);
+                this.connections.connect(Main.panel, [
+                    'enter-event', 'leave-event', 'button-press-event'
+                ], rp);
 
                 Main.panel.get_children().forEach(child => {
-                    this.connections.connect(child, 'enter-event', rp);
-                    this.connections.connect(child, 'leave-event', rp);
-                    this.connections.connect(child, 'button-press-event', rp);
+                    this.connections.connect(child, [
+                        'enter-event', 'leave-event', 'button-press-event'
+                    ], rp);
                 });
             } else if (this.prefs.HACKS_LEVEL === 2) {
                 this._log("panel hack level 2");
@@ -267,10 +267,7 @@ var PanelBlur = class PanelBlur {
                     appDisplay, 'show', this.hide.bind(this)
                 );
                 this.connections.connect(
-                    appDisplay, 'hide', this.show.bind(this)
-                );
-                this.connections.connect(
-                    Main.overview, 'hidden', this.show.bind(this)
+                    appDisplay, ['hide', 'hidden'], this.show.bind(this)
                 );
             }
 
@@ -286,10 +283,7 @@ var PanelBlur = class PanelBlur {
             this.disconnect_from_windows();
 
             // connect to overview opening/closing
-            this.connections.connect(Main.overview, 'showing',
-                this.update_visibility.bind(this)
-            );
-            this.connections.connect(Main.overview, 'hiding',
+            this.connections.connect(Main.overview, ['showing', 'hiding'],
                 this.update_visibility.bind(this)
             );
 
