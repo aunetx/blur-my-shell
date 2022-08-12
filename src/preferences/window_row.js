@@ -6,6 +6,7 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
+const { pick, on_picked } = Me.imports.dbus.client;
 
 const Preferences = new Prefs(Keys);
 
@@ -54,6 +55,17 @@ var WindowRow = GObject.registerClass({
         } else {
             this.set_expanded(true);
         }
+
+        this._window_picker.connect('clicked', _ => {
+            on_picked(wm_class => {
+                if (wm_class == 'window-not-found') {
+                    log("Can't pick window from here");
+                    return;
+                }
+                this._window_class.buffer.text = wm_class;
+            });
+            pick();
+        });
 
         // update list on buffer change
         this._window_class.connect('changed', _ => {
