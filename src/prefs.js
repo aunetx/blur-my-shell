@@ -11,6 +11,7 @@ const Preferences = new Prefs(Keys);
 
 const { addMenu } = Me.imports.preferences.menu;
 const { CustomizeRow } = Me.imports.preferences.customize_row;
+const { WindowRow } = Me.imports.preferences.window_row;
 const { General } = Me.imports.preferences.general;
 const { Panel } = Me.imports.preferences.panel;
 const { Overview } = Me.imports.preferences.overview;
@@ -39,5 +40,4 @@ function fillPreferencesWindow(window) {
     window.add(new Other);
 
     window.search_enabled = true;
-    window.set_default_size(680, 450);
 }
