@@ -10,7 +10,8 @@ var Type = {
     I: 'Integer',
     D: 'Double',
     S: 'String',
-    C: 'Color'
+    C: 'Color',
+    AS: 'StringArray'
 };
 
 /// An object to get and manage the gsettings preferences.
@@ -105,6 +106,20 @@ var Prefs = class Prefs {
                                 component_settings.set_value(key.name, val);
                             }
                         });
+                        break;
+
+                    case Type.AS:
+                        Object.defineProperty(component, property_name, {
+                            get() {
+                                let val = component_settings.get_value(key.name);
+                                return val.deep_unpack();
+                            },
+                            set(v) {
+                                let val = new GLib.Variant("as", v);
+                                component_settings.set_value(key.name, val);
+                            }
+                        });
+                        break;
                 }
 
                 component[property_name + '_changed'] = function (cb) {

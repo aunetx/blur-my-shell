@@ -23,26 +23,92 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Whitelist</property>
-            <property name="subtitle" translatable="yes">A list of the applications to blur, one per line. To get an application class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last name here.</property>
+            <property name="title" translatable="yes">Enable all by default</property>
+            <property name="subtitle" translatable="yes">Adds blur behind all windows by default. Not recommended because of performance and stability issues.</property>
+            <property name="activatable-widget">enable_all</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
-            <property name="activatable-widget">whitelist</property>
 
             <child>
-              <object class="GtkTextView" id="whitelist">
+              <object class="GtkSwitch" id="enable_all">
                 <property name="valign">center</property>
-                <property name="hexpand">false</property>
-                <property name="width-request">180px</property>
-                <property name="monospace">true</property>
-                <property name="left-margin">10px</property>
-                <property name="right-margin">10px</property>
-                <property name="top-margin">10px</property>
-                <property name="bottom-margin">10px</property>
-                <property name="tooltip-text">example: Gnome-terminal</property>
               </object>
             </child>
           </object>
         </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup" id="whitelist">
+        <property name="title" translatable="yes">Whitelist</property>
+        <property name="description" translatable="yes">A list of windows to blur.</property>
+        <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+        <property name="header-suffix">
+          <object class="GtkButton" id="add_window_whitelist">
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <child>
+              <object class="GtkBox">
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="margin-end">6</property>
+                    <property name="icon-name">list-add-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label" translatable="yes">Add Window</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+            </style>
+          </object>
+        </property>
+
+        <!-- WINDOW ROW WIDGETS GO HERE -->
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup" id="blacklist">
+        <property name="title" translatable="yes">Blacklist</property>
+        <property name="description" translatable="yes">A list of windows not to blur.</property>
+        <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+        <property name="header-suffix">
+          <object class="GtkButton" id="add_window_blacklist">
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <child>
+              <object class="GtkBox">
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="margin-end">6</property>
+                    <property name="icon-name">list-add-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label" translatable="yes">Add Window</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+            </style>
+          </object>
+        </property>
+
+        <!-- WINDOW ROW WIDGETS GO HERE -->
       </object>
     </child>
   </template>
