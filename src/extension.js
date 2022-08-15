@@ -330,9 +330,27 @@ class Extension {
             }
         });
 
+        // application enable-all changed
+        this._prefs.applications.ENABLE_ALL_changed(_ => {
+            if (this._prefs.applications.BLUR)
+                this._applications_blur.update_all_windows();
+        });
+
         // application whitelist changed
         this._prefs.applications.WHITELIST_changed(_ => {
-            if (this._prefs.applications.BLUR)
+            if (
+                this._prefs.applications.BLUR
+                && !this._prefs.applications.ENABLE_ALL
+            )
+                this._applications_blur.update_all_windows();
+        });
+
+        // application blacklist changed
+        this._prefs.applications.BLACKLIST_changed(_ => {
+            if (
+                this._prefs.applications.BLUR
+                && this._prefs.applications.ENABLE_ALL
+            )
                 this._applications_blur.update_all_windows();
         });
 
