@@ -9,8 +9,6 @@ const { Connections } = Me.imports.conveniences.connections;
 const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 
-const { Services } = Me.imports.dbus.services;
-
 const Panel = Me.imports.components.panel;
 const Overview = Me.imports.components.overview;
 const DashToDock = Me.imports.components.dash_to_dock;
@@ -74,11 +72,6 @@ class Extension {
         this._window_list_blur = new WindowList.WindowListBlur(...init());
         this._applications_blur = new Applications.ApplicationsBlur(...init());
         this._screenshot_blur = new Screenshot.ScreenshotBlur(...init());
-
-        // export dbus service for preferences
-
-        this._services = new Services;
-        this._services.export();
 
         // connect each component to preferences change
 

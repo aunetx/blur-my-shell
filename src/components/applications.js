@@ -3,13 +3,14 @@
 const { Shell, Clutter, Meta, GLib } = imports.gi;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.effects.paint_signals;
+const { PaintSignals } = Me.imports.effects.paint_signals;
+const { ApplicationsService } = Me.imports.dbus.services;
 
 var ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
-        this.paint_signals = new PaintSignals.PaintSignals(connections);
+        this.paint_signals = new PaintSignals(connections);
 
         // stores every blurred window
         this.window_map = new Map();
@@ -19,6 +20,10 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     enable() {
         this._log("blurring applications...");
+
+        // export dbus service for preferences
+        this.service = new ApplicationsService;
+        this.service.export();
 
         // blur already existing windows
         this.update_all_windows();
@@ -237,9 +242,6 @@ var ApplicationsBlur = class ApplicationsBlur {
                 let res_b = arg[1].match("(brightness|b):(default|0?1?\.[0-9]*)");
                 let res_s = arg[1].match("(sigma|s):(default|\\d{1,3})");
 
-                this._log(`res_b = ${res_b}`);
-                this._log(`res_s = ${res_s}`);
-
                 // if values are valid and not default, change them to the xprop one
                 if (
                     res_b != null && res_b[2] !== 'default'
@@ -428,6 +430,8 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     disable() {
         this._log("removing blur from applications...");
+
+        this.service.unexport();
 
         this.blur_actor_map.forEach(((_blur_actor, pid) => {
             this.remove_blur(pid);

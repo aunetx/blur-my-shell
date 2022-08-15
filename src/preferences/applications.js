@@ -69,6 +69,26 @@ var Applications = GObject.registerClass({
         );
     }
 
+    close_all_expanded() {
+        let i = 0;
+        let element_w = this._whitelist_elements.get_row_at_index(i);
+        while (element_w) {
+            element_w.set_expanded(false);
+
+            i += 1;
+            element_w = this._whitelist_elements.get_row_at_index(i);
+        }
+
+        let j = 0;
+        let element_b = this._blacklist_elements.get_row_at_index(i);
+        while (element_b) {
+            element_b.set_expanded(false);
+
+            i += 1;
+            element_b = this._blacklist_elements.get_row_at_index(i);
+        }
+    }
+
     add_to_whitelist(app_name = null) {
         let window_row = new WindowRow('whitelist', this, app_name);
         this._whitelist.add(window_row);
