@@ -2,17 +2,15 @@
 
 const Gio = imports.gi.Gio;
 
-const connect = Gio.DBus.session;
 const bus_name = 'org.gnome.Shell';
 const iface_name = 'dev.aunetx.BlurMyShell';
 const obj_path = '/dev/aunetx/BlurMyShell';
 
-/**
- * Call pick() of DBus service, it will open Inspector from gnome-shell to
- * Pick actor on stage.
- */
+
+/// Call pick() from the DBus service, it will open the Inspector from
+/// gnome-shell to pick an actor on stage.
 function pick() {
-    connect.call(
+    Gio.DBus.session.call(
         bus_name,
         obj_path,
         iface_name,
@@ -26,11 +24,11 @@ function pick() {
     );
 }
 
-/**
- * Connect to 'picked' signal, it will be emit when window is picked
- */
+
+/// Connect to DBus 'picked' signal, which will be emitted when a window is
+/// picked.
 function on_picked(cb) {
-    const id = connect.signal_subscribe(
+    const id = Gio.DBus.session.signal_subscribe(
         bus_name,
         iface_name,
         'picked',
@@ -40,7 +38,7 @@ function on_picked(cb) {
         (conn, sender, obj_path, iface, signal, params) => {
             const val = params.get_child_value(0);
             cb(val.get_string()[0]);
-            connect.signal_unsubscribe(id);
+            Gio.DBus.session.signal_unsubscribe(id);
         }
     );
 }

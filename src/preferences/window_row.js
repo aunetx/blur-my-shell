@@ -53,19 +53,12 @@ var WindowRow = GObject.registerClass({
         if (this._app_name) {
             this._window_class.buffer.text = this._app_name;
         } else {
+            this._app_page.close_all_expanded();
             this.set_expanded(true);
+            this.do_pick_window();
         }
 
-        this._window_picker.connect('clicked', _ => {
-            on_picked(wm_class => {
-                if (wm_class == 'window-not-found') {
-                    log("Can't pick window from here");
-                    return;
-                }
-                this._window_class.buffer.text = wm_class;
-            });
-            pick();
-        });
+        this._window_picker.connect('clicked', _ => this.do_pick_window());
 
         // update list on buffer change
         this._window_class.connect('changed', _ => {
@@ -74,5 +67,16 @@ var WindowRow = GObject.registerClass({
             else
                 this._app_page.update_blacklist_titles(this);
         });
+    }
+
+    do_pick_window() {
+        on_picked(wm_class => {
+            if (wm_class == 'window-not-found') {
+                log("Can't pick window from here");
+                return;
+            }
+            this._window_class.buffer.text = wm_class;
+        });
+        pick();
     }
 });
