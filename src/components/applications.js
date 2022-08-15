@@ -144,18 +144,26 @@ var ApplicationsBlur = class ApplicationsBlur {
     /// Checks if the given actor needs to be blurred.
     ///
     /// In order to be blurred, a window either:
-    /// - is whitelisted in the user preferences
+    /// - is whitelisted in the user preferences if not enable-all
+    /// - is not blacklisted if enable-all
     /// - has a correct mutter hint, set to `blur-provider=sigma_value`
     check_blur(pid, window_actor, meta_window) {
         let mutter_hint = meta_window.get_mutter_hints();
         let window_wm_class = meta_window.get_wm_class();
+
+        let enable_all = this.prefs.applications.ENABLE_ALL;
         let whitelist = this.prefs.applications.WHITELIST;
+        let blacklist = this.prefs.applications.BLACKLIST;
 
         this._log(`checking blur for ${pid}`);
 
         // either the window is included in whitelist
-        if (window_wm_class !== "" && whitelist.includes(window_wm_class)) {
-            this._log(`application ${pid} whitelisted, blurring it`);
+        if (window_wm_class !== ""
+            && ((enable_all && !blacklist.includes(window_wm_class))
+                || (!enable_all && whitelist.includes(window_wm_class))
+            )
+        ) {
+            this._log(`application ${pid} listed, blurring it`);
 
             // get blur effect parameters
 
@@ -186,7 +194,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         }
 
         // remove blur if the mutter hint is no longer valid, and the window
-        // is not explicitly whitelisted
+        // is not explicitly whitelisted or un-blacklisted
         else if (this.blur_actor_map.has(pid)) {
             this.remove_blur(pid);
         }
