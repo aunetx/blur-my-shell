@@ -473,6 +473,6 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > applications] ${str}`);
     }
 };

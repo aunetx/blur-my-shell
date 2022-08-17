@@ -160,6 +160,6 @@ var WindowListBlur = class WindowListBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > window list]  ${str}`);
     }
 };
