@@ -289,7 +289,7 @@
         </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
-            <default>true</default>
+            <default>false</default>
             <summary>Wether or not to blur all applications by default</summary>
         </key>
         <!-- WHITELIST -->
