@@ -1,0 +1,342 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blur-my-shell@aunetx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: applications.ui:5
+msgid "Applications"
+msgstr ""
+
+#: applications.ui:10
+msgid "Applications blur (beta)"
+msgstr ""
+
+#: applications.ui:11
+msgid ""
+"Add blur to the applications. This is still a beta functionnality, is quite "
+"buggy and is only applied to the apps that ask it, or to the ones set in the "
+"whitelist below."
+msgstr ""
+
+#: applications.ui:26
+msgid "Whitelist"
+msgstr ""
+
+#: applications.ui:27
+msgid ""
+"A list of the applications to blur, one per line. To get an application "
+"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
+"name here."
+msgstr ""
+
+#: customize-row.ui:4
+msgid "Customize properties"
+msgstr ""
+
+#: customize-row.ui:5
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+
+#: customize-row.ui:10 general.ui:15
+msgid "Sigma"
+msgstr ""
+
+#: customize-row.ui:11 general.ui:16
+msgid "The intensity of the blur."
+msgstr ""
+
+#: customize-row.ui:31 general.ui:35
+msgid "Brightness"
+msgstr ""
+
+#: customize-row.ui:32 general.ui:36
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+
+#: customize-row.ui:52 general.ui:55
+msgid "Color"
+msgstr ""
+
+#: customize-row.ui:53 general.ui:56
+msgid ""
+"Changes the color of the blur. The opacity of the color controls how much it "
+"is blended into the blur effect."
+msgstr ""
+
+#: customize-row.ui:71 general.ui:73
+msgid "Noise amount"
+msgstr ""
+
+#: customize-row.ui:72 general.ui:74
+msgid ""
+"The amount of noise to add to the blur effect, useful on low-contrast "
+"screens or for aesthetic purpose."
+msgstr ""
+
+#: customize-row.ui:92 general.ui:94
+msgid "Noise lightness"
+msgstr ""
+
+#: customize-row.ui:93 general.ui:95
+msgid "The lightness of the noise added to the blur effect."
+msgstr ""
+
+#: customize-row.ui:113
+msgid "Notice"
+msgstr ""
+
+#: customize-row.ui:114
+msgid ""
+"Noise and color can't be activated on dynamically blurred components, such "
+"as this one."
+msgstr ""
+
+#: dash.ui:5
+msgid "Dash"
+msgstr ""
+
+#: dash.ui:10
+msgid "Dash to Dock blur"
+msgstr ""
+
+#: dash.ui:11
+msgid "Blur the background of the Dash to Dock extension, if it is used."
+msgstr ""
+
+#: dash.ui:26
+msgid "Override background"
+msgstr ""
+
+#: dash.ui:27
+msgid ""
+"Makes the background semi-transparent, disable this to use Dash to Dock "
+"preferences instead."
+msgstr ""
+
+#: dash.ui:41 panel.ui:41
+msgid "Disable in overview"
+msgstr ""
+
+#: dash.ui:42
+msgid "Disables the blur from Dash to Dock when entering the overview."
+msgstr ""
+
+#: general.ui:5
+msgid "General"
+msgstr ""
+
+#: general.ui:10
+msgid "Blur preferences"
+msgstr ""
+
+#: general.ui:11
+msgid "Global blur preferences, used by all components by default."
+msgstr ""
+
+#: general.ui:117
+msgid "Performances"
+msgstr ""
+
+#: general.ui:118
+msgid "Various options to tweak the performances."
+msgstr ""
+
+#: general.ui:122
+msgid "Color and noise effects"
+msgstr ""
+
+#: general.ui:123
+msgid ""
+"Permits to disable globally the use of noise and color effects, this may "
+"improve performances for low-end graphic."
+msgstr ""
+
+#: general.ui:135
+msgid "Hack level"
+msgstr ""
+
+#: general.ui:136
+msgid ""
+"Changes the behaviour of dynamic blur effect. Default value is very "
+"recommended."
+msgstr ""
+
+#: general.ui:149
+msgid "Debug"
+msgstr ""
+
+#: general.ui:150
+msgid ""
+"Makes the extension verbose in logs, activate when you need to report an "
+"issue."
+msgstr ""
+
+#: general.ui:189
+msgid "High performances"
+msgstr ""
+
+#: general.ui:190
+msgid "Default"
+msgstr ""
+
+#: general.ui:191
+msgid "High quality"
+msgstr ""
+
+#: menu.ui:6
+msgid "Project page"
+msgstr ""
+
+#: menu.ui:10
+msgid "Report a Bug"
+msgstr ""
+
+#: menu.ui:14
+msgid "License"
+msgstr ""
+
+#: menu.ui:18
+msgid "Donate"
+msgstr ""
+
+#: other.ui:5
+msgid "Other"
+msgstr ""
+
+#: other.ui:10
+msgid "Lockscreen blur"
+msgstr ""
+
+#: other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+
+#: other.ui:28
+msgid "Screenshot blur"
+msgstr ""
+
+#: other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+
+#: other.ui:46
+msgid "Window list extension blur"
+msgstr ""
+
+#: other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr ""
+
+#: overview.ui:5
+msgid "Overview"
+msgstr ""
+
+#: overview.ui:10
+msgid "Background blur"
+msgstr ""
+
+#: overview.ui:11
+msgid "Add blur to the overview background, using the wallpaper picture."
+msgstr ""
+
+#: overview.ui:26
+msgid "Overview components style"
+msgstr ""
+
+#: overview.ui:27
+msgid ""
+"The semi-transparent style for the dash, search entry/results, and "
+"applications folders."
+msgstr ""
+
+#: overview.ui:44
+msgid "Applications folder blur"
+msgstr ""
+
+#: overview.ui:45
+msgid "Makes the background of folder icons blurred."
+msgstr ""
+
+#: overview.ui:60
+msgid "Dialog opacity"
+msgstr ""
+
+#: overview.ui:61
+msgid "The opacity of the applications folder popup."
+msgstr ""
+
+#: overview.ui:85
+msgid "Do not style"
+msgstr ""
+
+#: overview.ui:86
+msgid "Light"
+msgstr ""
+
+#: overview.ui:87
+msgid "Dark"
+msgstr ""
+
+#: panel.ui:5
+msgid "Panel"
+msgstr ""
+
+#: panel.ui:10
+msgid "Panel blur"
+msgstr ""
+
+#: panel.ui:11
+msgid "Blur the top panel using the background image."
+msgstr ""
+
+#: panel.ui:26
+msgid "Static blur"
+msgstr ""
+
+#: panel.ui:27
+msgid "Uses a static blurred image, more performant and stable."
+msgstr ""
+
+#: panel.ui:42
+msgid "Disables the blur from the panel when entering the overview."
+msgstr ""
+
+#: panel.ui:56
+msgid "Disable when a window is near"
+msgstr ""
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
+msgstr ""
+
+#: panel.ui:73
+msgid "Compatibility"
+msgstr ""
+
+#: panel.ui:74
+msgid "Various options to provide compatibility with other extensions."
+msgstr ""
+
+#: panel.ui:78
+msgid "Hidetopbar extension"
+msgstr ""
+
+#: panel.ui:79
+msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
