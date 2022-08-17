@@ -154,6 +154,6 @@ var ScreenshotBlur = class ScreenshotBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > screenshot]   ${str}`);
     }
 };

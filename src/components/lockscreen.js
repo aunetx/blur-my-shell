@@ -163,6 +163,6 @@ var LockscreenBlur = class LockscreenBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > lockscreen]   ${str}`);
     }
 };

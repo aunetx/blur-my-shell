@@ -267,13 +267,13 @@ class Extension {
             // permits making sure that the blur is not washed out when disabling
             // the other effects
             if (this._prefs.panel.BLUR)
-                this._panel_blur.invalidate_blur();
+                this._panel_blur.invalidate_all_blur();
         });
 
         // static blur toggled on/off
         this._prefs.panel.STATIC_BLUR_changed(() => {
             if (this._prefs.panel.BLUR)
-                this._panel_blur.change_blur_type();
+                this._panel_blur.update_all_blur_type();
         });
 
         // panel blur's overview connection toggled on/off
@@ -548,7 +548,7 @@ class Extension {
 
     _log(str) {
         if (this._prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > extension]    ${str}`);
     }
 }
 
