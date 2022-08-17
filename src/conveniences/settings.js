@@ -122,6 +122,10 @@ var Prefs = class Prefs {
                         break;
                 }
 
+                component[property_name + '_reset'] = function () {
+                    return component_settings.reset(key.name);
+                };
+
                 component[property_name + '_changed'] = function (cb) {
                     return component_settings.connect('changed::' + key.name, cb);
                 };
@@ -134,6 +138,22 @@ var Prefs = class Prefs {
             });
         });
     };
+
+    /// Reset the preferences.
+    reset() {
+        this.keys.forEach(bundle => {
+            let component = this;
+            if (bundle.component !== "general") {
+                let bundle_component = bundle.component.replaceAll('-', '_');
+                component = this[bundle_component];
+            }
+
+            bundle.schemas.forEach(key => {
+                let property_name = this.get_property_name(key.name);
+                component[property_name + '_reset']();
+            });
+        });
+    }
 
     /// From the gschema name, returns the name of the associated property on
     /// the Prefs object.
