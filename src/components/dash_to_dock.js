@@ -5,7 +5,7 @@ const Main = imports.ui.main;
 const Signals = imports.signals;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.effects.paint_signals;
+const { PaintSignals } = Me.imports.effects.paint_signals;
 
 
 /// This type of object is created for every dash found, and talks to the main
@@ -68,7 +68,7 @@ var DashBlur = class DashBlur {
         this.dashes = [];
         this.connections = connections;
         this.prefs = prefs;
-        this.paint_signals = new PaintSignals.PaintSignals(connections);
+        this.paint_signals = new PaintSignals(connections);
         this.sigma = this.prefs.dash_to_dock.CUSTOMIZE
             ? this.prefs.dash_to_dock.SIGMA
             : this.prefs.SIGMA;

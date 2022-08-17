@@ -7,7 +7,7 @@ const backgroundSettings = new Gio.Settings({
 });
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.effects.paint_signals;
+const { PaintSignals } = Me.imports.effects.paint_signals;
 const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
@@ -15,7 +15,7 @@ var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.window_signal_ids = new Map();
-        this.paint_signals = new PaintSignals.PaintSignals(connections);
+        this.paint_signals = new PaintSignals(connections);
         this.prefs = prefs;
         this.blur_effect = new Shell.BlurEffect({
             brightness: prefs.panel.CUSTOMIZE
