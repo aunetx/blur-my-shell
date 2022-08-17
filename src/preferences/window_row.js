@@ -4,11 +4,8 @@ const { Adw, GLib, GObject, Gio, Gtk } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
 const { pick, on_picked } = Me.imports.dbus.client;
 
-const Preferences = new Prefs(Keys);
 
 var WindowRow = GObject.registerClass({
     GTypeName: 'WindowRow',
