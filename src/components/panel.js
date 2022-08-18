@@ -268,7 +268,7 @@ var PanelBlur = class PanelBlur {
         if (this.prefs.panel.STATIC_BLUR) {
             let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
                 Main.layoutManager.monitors.length
-                - this.get_monitor_of(actors).index - 1
+                - this.find_monitor_for(actors.widgets.panel).index - 1
             );
             if (bg)
                 actors.widgets.background.set_content(bg.get_content());
@@ -306,27 +306,21 @@ var PanelBlur = class PanelBlur {
         actors.monitor = this.find_monitor_for(panel);
     }
 
-    /// Returns either the primary monitor, or a dummy one if none is connected
-    get_monitor_of(actors) {
-        // find the monitor in which the panel is
-        let monitor = this.find_monitor_for(actors.widgets.panel);
-
-        return monitor || { x: 0, y: 0, width: 0, index: 0 };
-    }
-
     /// An helper function to find the monitor in which an actor is situated,
     /// there might be a pre-existing function in GLib already
     find_monitor_for(actor) {
-        let adequate_monitors = Main.layoutManager.monitors.filter(monitor =>
-            monitor.x <= actor.x <= monitor.x + monitor.width
-            &&
-            monitor.y <= actor.y <= monitor.y + monitor.height
-        );
+        let extents = actor.get_transformed_extents();
+        let rect = new Meta.Rectangle({
+            x: extents.get_x(),
+            y: extents.get_y(),
+            width: extents.get_width(),
+            height: extents.get_height(),
+        });
 
-        if (adequate_monitors.length != 1)
-            return null;
-        else
-            return adequate_monitors[0];
+        let index = global.display.get_monitor_index_for_rect(rect);
+        this._log(`index: ${index}`);
+
+        return Main.layoutManager.monitors[index];
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly
