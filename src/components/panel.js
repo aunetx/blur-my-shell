@@ -370,7 +370,7 @@ var PanelBlur = class PanelBlur {
                     appDisplay, 'show', this.hide.bind(this)
                 );
                 this.connections.connect(
-                    appDisplay, ['hide', 'hidden'], this.show.bind(this)
+                    appDisplay, 'hide', this.show.bind(this)
                 );
             }
 
