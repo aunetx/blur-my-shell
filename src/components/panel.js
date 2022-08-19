@@ -22,6 +22,7 @@ var PanelBlur = class PanelBlur {
     enable() {
         this._log("blurring top panel");
 
+        // check for panels when Dash to Panel is activated
         this.connections.connect(
             Main.extensionManager,
             'extension-state-changed',
@@ -304,10 +305,6 @@ var PanelBlur = class PanelBlur {
             let [p_x, p_y] = panel_box.get_parent().get_position();
             let x = p_x - monitor.x;
             let y = p_y - monitor.y;
-
-            this._log(`x = ${x}, y = ${y}`);
-            this._log(`p_x = ${p_x}, p_y = ${p_y}`);
-            this._log(`m_x = ${monitor.x}, m_y = ${monitor.y}`);
 
             background.set_clip(x, y, width, height);
             background.x = -x;
