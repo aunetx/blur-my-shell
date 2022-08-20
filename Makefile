@@ -14,6 +14,7 @@ build: clean
 			--extra-source=./conveniences \
 			--extra-source=./effects \
 			--extra-source=./preferences \
+			--extra-source=./dbus \
 			--podir=../po \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
 			-o ../build

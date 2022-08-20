@@ -4,14 +4,14 @@ const { St, Shell, Meta, Gio } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.effects.paint_signals;
+const { PaintSignals } = Me.imports.effects.paint_signals;
 
 
 var WindowListBlur = class WindowListBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
-        this.paint_signals = new PaintSignals.PaintSignals(connections);
+        this.paint_signals = new PaintSignals(connections);
         this.effects = [];
     }
 
@@ -42,8 +42,8 @@ var WindowListBlur = class WindowListBlur {
 
     try_blur(child) {
         if (
-            child.constructor.name == "WindowList" &&
-            child.style != "background:transparent;"
+            child.constructor.name === "WindowList" &&
+            child.style !== "background:transparent;"
         ) {
             this._log("found window list to blur");
 
@@ -83,12 +83,12 @@ var WindowListBlur = class WindowListBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.prefs.HACKS_LEVEL == 1) {
+            if (this.prefs.HACKS_LEVEL === 1) {
                 this._log("window list hack level 1");
 
                 this.paint_signals.connect(child, blur_effect);
 
-            } else if (this.prefs.HACKS_LEVEL == 2) {
+            } else if (this.prefs.HACKS_LEVEL === 2) {
                 this._log("window list hack level 2");
 
                 this.paint_signals.connect(child, blur_effect);
@@ -106,8 +106,8 @@ var WindowListBlur = class WindowListBlur {
 
     try_remove_blur(child) {
         if (
-            child.constructor.name == "WindowList" &&
-            child.style == "background:transparent;"
+            child.constructor.name === "WindowList" &&
+            child.style === "background:transparent;"
         ) {
             child.style = null;
             child.remove_effect_by_name('window-list-blur');
@@ -160,6 +160,6 @@ var WindowListBlur = class WindowListBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > window list]  ${str}`);
     }
 };

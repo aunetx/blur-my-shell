@@ -4,6 +4,8 @@ const { Gdk, Gtk, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
+const { Prefs } = Me.imports.conveniences.settings;
+const { Keys } = Me.imports.conveniences.keys;
 
 function addMenu(window) {
     const builder = new Gtk.Builder();
@@ -28,6 +30,13 @@ function addMenuToHeader(window, builder) {
     // setup menu actions
     const actionGroup = new Gio.SimpleActionGroup();
     window.insert_action_group('prefs', actionGroup);
+
+    const Preferences = new Prefs(Keys);
+
+    // setup reset action
+    let act = new Gio.SimpleAction({ name: 'reset' });
+    act.connect('activate', _ => Preferences.reset());
+    actionGroup.add_action(act);
 
     // a list of actions with their associated link
     const actions = [

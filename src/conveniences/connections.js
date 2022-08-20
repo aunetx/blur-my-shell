@@ -8,6 +8,25 @@ var Connections = class Connections {
         this.buffer = [];
     }
 
+    /// Adds a connection.
+    ///
+    /// Takes as arguments:
+    /// - an actor, which fires the signal
+    /// - signal(s) (string or array of strings), which are watched for
+    /// - a callback, which is called when the signal is fired
+    connect(actor, signals, handler) {
+        if (signals instanceof Array) {
+            signals.forEach(signal => {
+                let id = actor.connect(signal, handler);
+                this.process_connection(actor, id);
+            });
+        } else {
+            let id = actor.connect(signals, handler);
+            this.process_connection(actor, id);
+        }
+
+    }
+
     /// Process the given actor and id.
     ///
     /// This makes sure that the signal is disconnected when the actor is
@@ -41,23 +60,11 @@ var Connections = class Connections {
         this.buffer.push(infos);
     }
 
-    /// Adds a connection.
-    ///
-    /// Takes as arguments:
-    /// - an actor, which fires the signal
-    /// - a signal (string), which is watched for
-    /// - a callback, which is called when the signal is fired
-    connect(actor, signal, handler) {
-        let id = actor.connect(signal, handler);
-
-        this.process_connection(actor, id);
-    }
-
     /// Disconnects every connection found for an actor.
     disconnect_all_for(actor) {
         // get every connection stored for the actor
         let actor_connections = this.buffer.filter(
-            infos => infos.actor == actor
+            infos => infos.actor === actor
         );
 
         // remove each of them
@@ -92,6 +99,6 @@ var Connections = class Connections {
 
     _log(str) {
         // no need to check if DEBUG here as this._log is only used on error
-        log(`[Blur my Shell] ${str}`);
+        log(`[Blur my Shell > connections]  ${str}`);
     }
 };

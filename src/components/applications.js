@@ -3,13 +3,14 @@
 const { Shell, Clutter, Meta, GLib } = imports.gi;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
-const PaintSignals = Me.imports.effects.paint_signals;
+const { PaintSignals } = Me.imports.effects.paint_signals;
+const { ApplicationsService } = Me.imports.dbus.services;
 
 var ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
-        this.paint_signals = new PaintSignals.PaintSignals(connections);
+        this.paint_signals = new PaintSignals(connections);
 
         // stores every blurred window
         this.window_map = new Map();
@@ -19,6 +20,10 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     enable() {
         this._log("blurring applications...");
+
+        // export dbus service for preferences
+        this.service = new ApplicationsService;
+        this.service.export();
 
         // blur already existing windows
         this.update_all_windows();
@@ -139,18 +144,26 @@ var ApplicationsBlur = class ApplicationsBlur {
     /// Checks if the given actor needs to be blurred.
     ///
     /// In order to be blurred, a window either:
-    /// - is whitelisted in the user preferences
+    /// - is whitelisted in the user preferences if not enable-all
+    /// - is not blacklisted if enable-all
     /// - has a correct mutter hint, set to `blur-provider=sigma_value`
     check_blur(pid, window_actor, meta_window) {
         let mutter_hint = meta_window.get_mutter_hints();
         let window_wm_class = meta_window.get_wm_class();
+
+        let enable_all = this.prefs.applications.ENABLE_ALL;
         let whitelist = this.prefs.applications.WHITELIST;
+        let blacklist = this.prefs.applications.BLACKLIST;
 
         this._log(`checking blur for ${pid}`);
 
         // either the window is included in whitelist
-        if (window_wm_class != "" && whitelist.includes(window_wm_class)) {
-            this._log(`application ${pid} whitelisted, blurring it`);
+        if (window_wm_class !== ""
+            && ((enable_all && !blacklist.includes(window_wm_class))
+                || (!enable_all && whitelist.includes(window_wm_class))
+            )
+        ) {
+            this._log(`application ${pid} listed, blurring it`);
 
             // get blur effect parameters
 
@@ -180,8 +193,8 @@ var ApplicationsBlur = class ApplicationsBlur {
             this.update_blur(pid, window_actor, meta_window, brightness, sigma);
         }
 
-        // remove blur if the mutter hint no is no longer valid, and the window
-        // is not explicitely whitelisted
+        // remove blur if the mutter hint is no longer valid, and the window
+        // is not explicitly whitelisted or un-blacklisted
         else if (this.blur_actor_map.has(pid)) {
             this.remove_blur(pid);
         }
@@ -201,7 +214,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     /// Sigma is an integer between 0 and 999 included.
     ///
     /// If sigma is set to 0, then the blur is removed.
-    /// Setting "default" instead of any of the two values will make the
+    /// Setting "default" instead of the two values will make the
     /// extension use its default value.
     ///
     /// Note that no space can be inserted.
@@ -237,18 +250,15 @@ var ApplicationsBlur = class ApplicationsBlur {
                 let res_b = arg[1].match("(brightness|b):(default|0?1?\.[0-9]*)");
                 let res_s = arg[1].match("(sigma|s):(default|\\d{1,3})");
 
-                this._log(`res_b = ${res_b}`);
-                this._log(`res_s = ${res_s}`);
-
                 // if values are valid and not default, change them to the xprop one
                 if (
-                    res_b != null && res_b[2] != 'default'
+                    res_b != null && res_b[2] !== 'default'
                 ) {
                     brightness = parseFloat(res_b[2]);
                 }
 
                 if (
-                    res_s != null && res_s[2] != 'default'
+                    res_s != null && res_s[2] !== 'default'
                 ) {
                     sigma = parseInt(res_s[2]);
                 }
@@ -265,7 +275,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         // the window is already blurred, update its blur effect
         if (this.blur_actor_map.has(pid)) {
             // window is already blurred, but sigma is null: remove the blur
-            if (sigma == 0) {
+            if (sigma === 0) {
                 this.remove_blur(pid);
             }
             // window is already blurred and sigma is non-null: update it
@@ -279,7 +289,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         }
 
         // the window is not blurred, and sigma is a non-null value: blur it
-        else if (sigma != 0) {
+        else if (sigma !== 0) {
             // window is not blurred, blur it
             this.create_blur_effect(
                 pid,
@@ -317,7 +327,7 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         global.window_group.insert_child_below(blur_actor, window_actor);
 
-        // registed the blur actor/effect
+        // register the blur actor/effect
         blur_actor['blur_provider_pid'] = pid;
         this.blur_actor_map.set(pid, blur_actor);
         this.window_map.set(pid, meta_window);
@@ -429,6 +439,8 @@ var ApplicationsBlur = class ApplicationsBlur {
     disable() {
         this._log("removing blur from applications...");
 
+        this.service.unexport();
+
         this.blur_actor_map.forEach(((_blur_actor, pid) => {
             this.remove_blur(pid);
         }));
@@ -461,6 +473,6 @@ var ApplicationsBlur = class ApplicationsBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > applications] ${str}`);
     }
 };

@@ -264,16 +264,16 @@ class Extension {
         });
 
         this._prefs.COLOR_AND_NOISE_changed(() => {
-            // permits to make sure that the blur is not washed out when disabling
+            // permits making sure that the blur is not washed out when disabling
             // the other effects
             if (this._prefs.panel.BLUR)
-                this._panel_blur.invalidate_blur();
+                this._panel_blur.invalidate_all_blur();
         });
 
         // static blur toggled on/off
         this._prefs.panel.STATIC_BLUR_changed(() => {
             if (this._prefs.panel.BLUR)
-                this._panel_blur.change_blur_type();
+                this._panel_blur.update_all_blur_type();
         });
 
         // panel blur's overview connection toggled on/off
@@ -330,9 +330,27 @@ class Extension {
             }
         });
 
+        // application enable-all changed
+        this._prefs.applications.ENABLE_ALL_changed(_ => {
+            if (this._prefs.applications.BLUR)
+                this._applications_blur.update_all_windows();
+        });
+
         // application whitelist changed
         this._prefs.applications.WHITELIST_changed(_ => {
-            if (this._prefs.applications.BLUR)
+            if (
+                this._prefs.applications.BLUR
+                && !this._prefs.applications.ENABLE_ALL
+            )
+                this._applications_blur.update_all_windows();
+        });
+
+        // application blacklist changed
+        this._prefs.applications.BLACKLIST_changed(_ => {
+            if (
+                this._prefs.applications.BLUR
+                && this._prefs.applications.ENABLE_ALL
+            )
                 this._applications_blur.update_all_windows();
         });
 
@@ -530,7 +548,7 @@ class Extension {
 
     _log(str) {
         if (this._prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > extension]    ${str}`);
     }
 }
 

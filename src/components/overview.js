@@ -89,7 +89,7 @@ var OverviewBlur = class OverviewBlur {
                 if (
                     !(
                         Meta.prefs_get_workspaces_only_on_primary() &&
-                        (monitor != Main.layoutManager.primaryMonitor)
+                        (monitor !== Main.layoutManager.primaryMonitor)
                     )
                 ) {
                     const bg_actor = outer_this.create_background_actor(
@@ -122,7 +122,7 @@ var OverviewBlur = class OverviewBlur {
     update_backgrounds() {
         // remove every old background
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
-            if (actor.constructor.name == 'Meta_BackgroundActor') {
+            if (actor.constructor.name === 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor);
                 actor.destroy();
             }
@@ -159,9 +159,13 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.BRIGHTNESS,
             sigma: this.prefs.overview.CUSTOMIZE
                 ? this.prefs.overview.SIGMA
-                : this.prefs.SIGMA,
+                : this.prefs.SIGMA
+                * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = new ColorEffect({
             color: this.prefs.overview.CUSTOMIZE
@@ -225,7 +229,7 @@ var OverviewBlur = class OverviewBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s;
+            effect.blur_effect.sigma = s * effect.blur_effect.scale;
         });
     }
 
@@ -256,7 +260,7 @@ var OverviewBlur = class OverviewBlur {
     disable() {
         this._log("removing blur from overview");
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
-            if (actor.constructor.name == 'Meta_BackgroundActor') {
+            if (actor.constructor.name === 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor);
             }
         });
@@ -277,6 +281,6 @@ var OverviewBlur = class OverviewBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > overview]     ${str}`);
     }
 };

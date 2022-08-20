@@ -30,7 +30,7 @@ Functionalities:
   - the Panel can be configured to either use static or dynamic mode; I personally prefer static blur
   - to prevent the artifacts from appearing with dynamic blur, the option Hack level permits you to select a behaviour:
     - High performances totally disables the optimisations, making the blur look broken sometimes; but that can be mitigated when animations and windows shadows are disabled
-    - High quality fixes the blur as much as it can, at the expense of some performances penalty; but not more than 0.5% of CPU on my middle-range i5 so the difference may be unnoticeable
+    - High quality fixes the blur as much as it can, at the expense of some performance penalty; but not more than 0.5% of CPU on my middle-range i5 so the difference may be unnoticeable
     - Default is a mix of both, and quite recommended overall
 - components using Static blur can also be added:
   - a noise effect, which can help to either prevent color bending in older monitors, or for aesthetic purpose
@@ -61,7 +61,7 @@ If you with to help me with this extension, there are quite a lot you can do!
 
 ### Translations
 
-You can help translating the extension into your language, either by directly opening a pull request with the additions you've made, or by using [Weblate](https://hosted.weblate.org/engage/blur-my-shell/)!
+You can help to translate the extension into your language, either by directly opening a pull request with the additions you've made, or by using [Weblate](https://hosted.weblate.org/engage/blur-my-shell/)!
 
 ### Development
 
@@ -96,7 +96,7 @@ Just don't hesitate to open issues and pull requests, and sorry if I take some t
 
 If you want to sponsor me, well thank you very much!
 
-You can use either [Github Sponsors](https://github.com/sponsors/aunetx) or [Ko-fi](https://ko-fi.com/aunetx); and don't hesitate to ask for more specialized support if you need to!
+You can use either [GitHub Sponsors](https://github.com/sponsors/aunetx) or [Ko-fi](https://ko-fi.com/aunetx); and don't hesitate to ask for more specialized support if you need to!
 
 ## Advanced
 

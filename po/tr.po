@@ -8,24 +8,21 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-06-24 18:18+0000\n"
-"Last-Translator: Bence Turi <benceturi2@gmail.com>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/hu/>\n"
-"Language: hu\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Alkalmazások"
+msgstr ""
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Alkalmazások elhomályosítása (beta)"
+msgstr ""
 
 #: applications.ui:11
 msgid ""
@@ -33,9 +30,6 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
-"Elhomályosítás az alkalmazásokhoz. Ez még beta funkció, problémák "
-"merülhetnek fel, illetve csak azok az alkalmazások használják, amelyek "
-"szeretnék, vagy a lenti fehérlistán szerepelnek."
 
 #: applications.ui:26
 msgid "Enable all by default"
@@ -49,7 +43,7 @@ msgstr ""
 
 #: applications.ui:43
 msgid "Whitelist"
-msgstr "Fehérlista"
+msgstr ""
 
 #: applications.ui:44
 msgid "A list of windows to blur."
@@ -68,9 +62,8 @@ msgid "A list of windows not to blur."
 msgstr ""
 
 #: customize-row.ui:4
-#, fuzzy
 msgid "Customize properties"
-msgstr "Beállítások személyre szabása"
+msgstr ""
 
 #: customize-row.ui:5
 msgid ""
@@ -83,23 +76,21 @@ msgstr ""
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "Az elhomályosítás erőssége."
+msgstr ""
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "Fényerő"
+msgstr ""
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Az elhomályosítás fényereje, egy magas érték nehezebbé teheti a szövegek "
-"olvasását."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "Szín"
+msgstr ""
 
 #: customize-row.ui:53 general.ui:56
 msgid ""

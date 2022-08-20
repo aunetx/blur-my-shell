@@ -4,13 +4,14 @@ const { Gio, GLib } = imports.gi;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 
-/// An enum non-extensively describing the type of a gsettings key.
+/// An enum non-extensively describing the type of gsettings key.
 var Type = {
     B: 'Boolean',
     I: 'Integer',
     D: 'Double',
     S: 'String',
-    C: 'Color'
+    C: 'Color',
+    AS: 'StringArray'
 };
 
 /// An object to get and manage the gsettings preferences.
@@ -32,7 +33,7 @@ var Prefs = class Prefs {
         this.keys.forEach(bundle => {
             let component = this;
             let component_settings = settings;
-            if (bundle.component != "general") {
+            if (bundle.component !== "general") {
                 let bundle_component = bundle.component.replaceAll('-', '_');
                 this[bundle_component] = {
                     settings: this.settings.get_child(bundle.component)
@@ -105,7 +106,25 @@ var Prefs = class Prefs {
                                 component_settings.set_value(key.name, val);
                             }
                         });
+                        break;
+
+                    case Type.AS:
+                        Object.defineProperty(component, property_name, {
+                            get() {
+                                let val = component_settings.get_value(key.name);
+                                return val.deep_unpack();
+                            },
+                            set(v) {
+                                let val = new GLib.Variant("as", v);
+                                component_settings.set_value(key.name, val);
+                            }
+                        });
+                        break;
                 }
+
+                component[property_name + '_reset'] = function () {
+                    return component_settings.reset(key.name);
+                };
 
                 component[property_name + '_changed'] = function (cb) {
                     return component_settings.connect('changed::' + key.name, cb);
@@ -120,6 +139,22 @@ var Prefs = class Prefs {
         });
     };
 
+    /// Reset the preferences.
+    reset() {
+        this.keys.forEach(bundle => {
+            let component = this;
+            if (bundle.component !== "general") {
+                let bundle_component = bundle.component.replaceAll('-', '_');
+                component = this[bundle_component];
+            }
+
+            bundle.schemas.forEach(key => {
+                let property_name = this.get_property_name(key.name);
+                component[property_name + '_reset']();
+            });
+        });
+    }
+
     /// From the gschema name, returns the name of the associated property on
     /// the Prefs object.
     get_property_name(name) {
@@ -131,7 +166,7 @@ var Prefs = class Prefs {
     disconnect_all_settings() {
         this.keys.forEach(bundle => {
             let component = this;
-            if (bundle.component != "general") {
+            if (bundle.component !== "general") {
                 let bundle_component = bundle.component.replaceAll('-', '_');
                 component = this[bundle_component];
             }

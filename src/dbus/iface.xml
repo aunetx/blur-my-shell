@@ -1,0 +1,10 @@
+<node>
+  <interface name="dev.aunetx.BlurMyShell">
+    <!-- This method is called in preferences to pick a window -->
+    <method name="pick" />
+    <!-- If window is picked, send a signal to preferences -->
+    <signal name="picked">
+      <arg name="window" type="s" />
+    </signal>
+  </interface>
+</node>

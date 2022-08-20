@@ -3,6 +3,12 @@
   <menu id="info_menu_model">
     <section>
       <item>
+        <attribute name="label" translatable="yes">Reset preferences</attribute>
+        <attribute name="action">prefs.reset</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
         <attribute name="label" translatable="yes">Project page</attribute>
         <attribute name="action">prefs.open-readme</attribute>
       </item>

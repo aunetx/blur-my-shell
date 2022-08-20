@@ -200,7 +200,7 @@
     <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-dock" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
         <!-- BLUR -->
         <key type="b" name="blur">
-            <default>true</default>
+            <default>false</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
         <!-- CUSTOMIZE -->
@@ -287,10 +287,20 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
+        <!-- ENABLE ALL -->
+        <key type="b" name="enable-all">
+            <default>false</default>
+            <summary>Wether or not to blur all applications by default</summary>
+        </key>
         <!-- WHITELIST -->
-        <key type="s" name="whitelist">
-            <default>""</default>
-            <summary>List of applications to blur, separated by a comma</summary>
+        <key type="as" name="whitelist">
+            <default>[""]</default>
+            <summary>List of applications to blur</summary>
+        </key>
+        <!-- BLACKLIST -->
+        <key type="as" name="blacklist">
+            <default>[""]</default>
+            <summary>List of applications not to blur</summary>
         </key>
     </schema>
 

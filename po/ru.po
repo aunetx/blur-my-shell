@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"POT-Creation-Date: 2022-08-20 15:00+0200\n"
 "PO-Revision-Date: 2022-05-31 15:45+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
@@ -38,18 +38,34 @@ msgstr ""
 "которые заданы в белом списке ниже."
 
 #: applications.ui:26
-msgid "Whitelist"
-msgstr "Белый список"
+msgid "Enable all by default"
+msgstr ""
 
 #: applications.ui:27
 msgid ""
-"A list of the applications to blur, one per line. To get an application "
-"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
-"name here."
+"Adds blur behind all windows by default. Not recommended because of "
+"performance and stability issues."
 msgstr ""
-"Список приложений для размытия, по одному на строку. Чтобы получить имя "
-"класса приложения, в xorg вы можете использовать `xprop|grep WM_CLASS` и "
-"вставить последнее имя сюда."
+
+#: applications.ui:43
+msgid "Whitelist"
+msgstr "Белый список"
+
+#: applications.ui:44
+msgid "A list of windows to blur."
+msgstr ""
+
+#: applications.ui:62 applications.ui:99
+msgid "Add Window"
+msgstr ""
+
+#: applications.ui:80
+msgid "Blacklist"
+msgstr ""
+
+#: applications.ui:81
+msgid "A list of windows not to blur."
+msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -228,18 +244,22 @@ msgid "High quality"
 msgstr "Высокое качество"
 
 #: menu.ui:6
+msgid "Reset preferences"
+msgstr ""
+
+#: menu.ui:12
 msgid "Project page"
 msgstr "Страница проекта"
 
-#: menu.ui:10
+#: menu.ui:16
 msgid "Report a Bug"
 msgstr "Сообщить об ошибке"
 
-#: menu.ui:14
+#: menu.ui:20
 msgid "License"
 msgstr "Лицензия"
 
-#: menu.ui:18
+#: menu.ui:24
 msgid "Donate"
 msgstr "Пожертвовать"
 
@@ -377,3 +397,24 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Не отключает размытие в Обзоре, лучше всего использовать со статическим "
 "размытием."
+
+#: window-row.ui:4
+msgid "Window Name"
+msgstr ""
+
+#: window-row.ui:8
+msgid "Select window"
+msgstr ""
+
+#: window-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr ""
+
+#~ msgid ""
+#~ "A list of the applications to blur, one per line. To get an application "
+#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
+#~ "last name here."
+#~ msgstr ""
+#~ "Список приложений для размытия, по одному на строку. Чтобы получить имя "
+#~ "класса приложения, в xorg вы можете использовать `xprop|grep WM_CLASS` и "
+#~ "вставить последнее имя сюда."
