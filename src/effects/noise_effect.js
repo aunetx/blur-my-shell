@@ -46,7 +46,7 @@ var NoiseEffect = new GObject.registerClass({
         this._noise = null;
         this._lightness = null;
 
-        this._static = false;
+        this._static = true;
         this._prefs = new Prefs(Keys);
 
         super._init(params);
@@ -87,8 +87,9 @@ var NoiseEffect = new GObject.registerClass({
     update_enabled() {
         this.set_enabled(
             this.noise > 0 &&
-            this._prefs.COLOR_AND_NOISE) &&
-            !this._static;
+            this._prefs.COLOR_AND_NOISE &&
+            this._static
+        );
     }
 
 

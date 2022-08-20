@@ -73,7 +73,7 @@ var ColorEffect = new GObject.registerClass({
         this._blue = null;
         this._blend = null;
 
-        this._static = false;
+        this._static = true;
         this._prefs = new Prefs(Keys);
 
         // initialize without color as a parameter
@@ -167,8 +167,9 @@ var ColorEffect = new GObject.registerClass({
     update_enabled() {
         this.set_enabled(
             this.blend > 0 &&
-            this._prefs.COLOR_AND_NOISE) &&
-            !this._static;
+            this._prefs.COLOR_AND_NOISE &&
+            this._static
+        );
     }
 
 
