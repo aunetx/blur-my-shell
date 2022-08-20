@@ -46,11 +46,7 @@ var ScreenshotBlur = class ScreenshotBlur {
 
     update_backgrounds() {
         // remove every old background
-        Main.screenshotUI._windowSelectors.forEach(actor => {
-            if (actor._blur_actor)
-                actor.remove_child(actor._blur_actor);
-        });
-        this.effects = [];
+        this.remove();
 
         // add new backgrounds
         for (let i = 0; i < Main.screenshotUI._windowSelectors.length; i++) {
@@ -81,9 +77,13 @@ var ScreenshotBlur = class ScreenshotBlur {
                 : this.prefs.BRIGHTNESS,
             sigma: this.prefs.screenshot.CUSTOMIZE
                 ? this.prefs.screenshot.SIGMA
-                : this.prefs.SIGMA,
+                : this.prefs.SIGMA
+                * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = new ColorEffect({
             color: this.prefs.screenshot.CUSTOMIZE
@@ -105,15 +105,12 @@ var ScreenshotBlur = class ScreenshotBlur {
         bg_actor.add_effect(blur_effect);
         this.effects.push({ blur_effect, color_effect, noise_effect });
 
-        bg_actor.set_x(monitor.x);
-        bg_actor.set_y(monitor.y);
-
         return bg_actor;
     }
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s;
+            effect.blur_effect.sigma = s * effect.blur_effect;
         });
     }
 
@@ -141,14 +138,18 @@ var ScreenshotBlur = class ScreenshotBlur {
         });
     }
 
-    disable() {
-        this._log("removing blur from screenshot's window selector");
-
+    remove() {
         Main.screenshotUI._windowSelectors.forEach(actor => {
             if (actor._blur_actor)
                 actor.remove_child(actor._blur_actor);
         });
         this.effects = [];
+    }
+
+    disable() {
+        this._log("removing blur from screenshot's window selector");
+
+        this.remove();
         this.connections.disconnect_all();
     }
 
