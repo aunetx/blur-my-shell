@@ -3,7 +3,7 @@
   <template class="Other" parent="AdwPreferencesPage">
     <property name="name">other</property>
     <property name="title" translatable="yes">Other</property>
-    <property name="icon-name">view-more-symbolic</property>
+    <property name="icon-name">other-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">

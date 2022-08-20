@@ -7,8 +7,6 @@ const Me = ExtensionUtils.getCurrentExtension();
 const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 
-const Preferences = new Prefs(Keys);
-
 
 var Other = GObject.registerClass({
     GTypeName: 'Other',
@@ -27,19 +25,27 @@ var Other = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs_lockscreen = Preferences.lockscreen.settings;
+        const Preferences = new Prefs(Keys);
 
-        prefs_lockscreen.bind('blur', this._lockscreen_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.lockscreen.settings.bind(
+            'blur', this._lockscreen_blur, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
         this._lockscreen_customize.connect_to(Preferences.lockscreen);
 
-        const prefs_screenshot = Preferences.screenshot.settings;
+        Preferences.screenshot.settings.bind(
+            'blur', this._screenshot_blur, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
 
-        prefs_screenshot.bind('blur', this._screenshot_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         this._screenshot_customize.connect_to(Preferences.screenshot);
 
-        const prefs_window_list = Preferences.window_list.settings;
+        Preferences.window_list.settings.bind(
+            'blur', this._window_list_blur, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
 
-        prefs_window_list.bind('blur', this._window_list_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
         this._window_list_customize.connect_to(Preferences.window_list, false);
     }
 });

@@ -9,9 +9,6 @@ const { Keys } = Me.imports.conveniences.keys;
 const { WindowRow } = Me.imports.preferences.window_row;
 
 
-const Preferences = new Prefs(Keys);
-
-
 var Applications = GObject.registerClass({
     GTypeName: 'Applications',
     Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'applications.ui'])}`,
@@ -28,15 +25,28 @@ var Applications = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs = Preferences.applications.settings;
+        this.preferences = new Prefs(Keys);
 
-        prefs.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        this._customize.connect_to(Preferences.applications, false);
-        prefs.bind('enable-all', this._enable_all, 'state', Gio.SettingsBindFlags.DEFAULT);
+        this.preferences.applications.settings.bind(
+            'blur', this._blur, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-all', this._enable_all, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
+        this._customize.connect_to(this.preferences.applications, false);
 
         // connect 'enable all' button to whitelist/blacklist visibility
-        this._enable_all.bind_property('active', this._whitelist, 'visible', GObject.BindingFlags.INVERT_BOOLEAN);
-        this._enable_all.bind_property('active', this._blacklist, 'visible', GObject.BindingFlags.DEFAULT);
+        this._enable_all.bind_property(
+            'active', this._whitelist, 'visible',
+            GObject.BindingFlags.INVERT_BOOLEAN
+        );
+        this._enable_all.bind_property(
+            'active', this._blacklist, 'visible',
+            GObject.BindingFlags.DEFAULT
+        );
 
         if (this._enable_all.active)
             this._whitelist.visible = false;
@@ -61,10 +71,10 @@ var Applications = GObject.registerClass({
         );
 
         // add initial applications
-        Preferences.applications.WHITELIST.forEach(
+        this.preferences.applications.WHITELIST.forEach(
             app_name => this.add_to_whitelist(app_name)
         );
-        Preferences.applications.BLACKLIST.forEach(
+        this.preferences.applications.BLACKLIST.forEach(
             app_name => this.add_to_blacklist(app_name)
         );
     }
@@ -112,7 +122,7 @@ var Applications = GObject.registerClass({
             element = this._whitelist_elements.get_row_at_index(i);
         }
 
-        Preferences.applications.WHITELIST = titles;
+        this.preferences.applications.WHITELIST = titles;
     }
 
     update_blacklist_titles() {
@@ -128,7 +138,7 @@ var Applications = GObject.registerClass({
             element = this._blacklist_elements.get_row_at_index(i);
         }
 
-        Preferences.applications.BLACKLIST = titles;
+        this.preferences.applications.BLACKLIST = titles;
     }
 
     remove_from_whitelist(widget) {

@@ -7,8 +7,6 @@ const Me = ExtensionUtils.getCurrentExtension();
 const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 
-const Preferences = new Prefs(Keys);
-
 
 var Panel = GObject.registerClass({
     GTypeName: 'Panel',
@@ -25,16 +23,30 @@ var Panel = GObject.registerClass({
     constructor(props = {}) {
         super(props);
 
-        const prefs_panel = Preferences.panel.settings;
+        const Preferences = new Prefs(Keys);
 
-        prefs_panel.bind('blur', this._blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs_panel.bind('static-blur', this._static_blur, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs_panel.bind('unblur-in-overview', this._unblur_in_overview, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs_panel.bind('unblur-dynamically', this._unblur_dynamically, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.panel.settings.bind(
+            'blur', this._blur, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        Preferences.panel.settings.bind(
+            'static-blur', this._static_blur, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        Preferences.panel.settings.bind(
+            'unblur-in-overview', this._unblur_in_overview, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        Preferences.panel.settings.bind(
+            'unblur-dynamically', this._unblur_dynamically, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
         this._customize.connect_to(Preferences.panel, this._static_blur);
 
-        const prefs_hidetopbar = Preferences.hidetopbar.settings;
-
-        prefs_hidetopbar.bind('compatibility', this._hidetopbar_compatibility, 'state', Gio.SettingsBindFlags.DEFAULT);
+        Preferences.hidetopbar.settings.bind(
+            'compatibility', this._hidetopbar_compatibility, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
     }
 });

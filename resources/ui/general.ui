@@ -3,7 +3,7 @@
   <template class="General" parent="AdwPreferencesPage">
     <property name="name">general</property>
     <property name="title" translatable="yes">General</property>
-    <property name="icon-name">general-properties-symbolic</property>
+    <property name="icon-name">general-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">
@@ -156,6 +156,43 @@
             </child>
           </object>
         </child>
+      </object>
+    </child>
+
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Reset preferences</property>
+        <property name="description" translatable="yes">Resets preferences of Blur my Shell irreversibly.</property>
+        <property name="header-suffix">
+          <object class="GtkButton" id="reset">
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <child>
+              <object class="GtkBox">
+                <property name="margin-start">20</property>
+                <property name="margin-end">20</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="margin-end">6</property>
+                    <property name="icon-name">reset-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label" translatable="yes">Reset</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="circular" />
+              <class name="destructive-action" />
+            </style>
+          </object>
+        </property>
       </object>
     </child>
   </template>
