@@ -6,18 +6,18 @@ UUID = $(NAME)@aunetx
 
 build: clean
 	mkdir -p build/
-	cd src && gnome-extensions pack -f \
-			--extra-source=../metadata.json \
-			--extra-source=../resources/icons \
-			--extra-source=../resources/ui \
-			--extra-source=./components \
-			--extra-source=./conveniences \
-			--extra-source=./effects \
-			--extra-source=./preferences \
-			--extra-source=./dbus \
-			--podir=../po \
-			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
-			-o ../build
+	gnome-extensions pack -f \
+			--extra-source=./metadata.json \
+			--extra-source=./resources/icons \
+			--extra-source=./resources/ui \
+			--extra-source=./src/components \
+			--extra-source=./src/conveniences \
+			--extra-source=./src/effects \
+			--extra-source=./src/preferences \
+			--extra-source=./src/dbus \
+			--podir=./po \
+			--schema=./schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
+			-o ./build
 
 
 install: build remove
