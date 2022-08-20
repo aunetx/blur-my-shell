@@ -294,12 +294,12 @@
         </key>
         <!-- WHITELIST -->
         <key type="as" name="whitelist">
-            <default>[""]</default>
+            <default>[]</default>
             <summary>List of applications to blur</summary>
         </key>
         <!-- BLACKLIST -->
         <key type="as" name="blacklist">
-            <default>[""]</default>
+            <default>[]</default>
             <summary>List of applications not to blur</summary>
         </key>
     </schema>
