@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"POT-Creation-Date: 2022-08-20 15:00+0200\n"
 "PO-Revision-Date: 2022-06-02 19:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,18 +38,34 @@ msgstr ""
 "de lijst hieronder staan."
 
 #: applications.ui:26
-msgid "Whitelist"
-msgstr "Whitelist"
+msgid "Enable all by default"
+msgstr ""
 
 #: applications.ui:27
 msgid ""
-"A list of the applications to blur, one per line. To get an application "
-"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
-"name here."
+"Adds blur behind all windows by default. Not recommended because of "
+"performance and stability issues."
 msgstr ""
-"Een lijst van toepassingen om te vervagen, één per regel. Om een "
-"toepassingsklassenaam te verkrijgen, kunt u onder xorg `xprop | grep "
-"WM_CLASS` uitvoeren en de laatste naam hier plakken."
+
+#: applications.ui:43
+msgid "Whitelist"
+msgstr "Whitelist"
+
+#: applications.ui:44
+msgid "A list of windows to blur."
+msgstr ""
+
+#: applications.ui:62 applications.ui:99
+msgid "Add Window"
+msgstr ""
+
+#: applications.ui:80
+msgid "Blacklist"
+msgstr ""
+
+#: applications.ui:81
+msgid "A list of windows not to blur."
+msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -233,18 +249,22 @@ msgid "High quality"
 msgstr "Hoge kwaliteit"
 
 #: menu.ui:6
+msgid "Reset preferences"
+msgstr ""
+
+#: menu.ui:12
 msgid "Project page"
 msgstr "Projectpagina"
 
-#: menu.ui:10
+#: menu.ui:16
 msgid "Report a Bug"
 msgstr "Een probleem melden"
 
-#: menu.ui:14
+#: menu.ui:20
 msgid "License"
 msgstr "Licentie"
 
-#: menu.ui:18
+#: menu.ui:24
 msgid "Donate"
 msgstr "Doneren"
 
@@ -385,3 +405,24 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "De vervaging in het overzicht niet uitschakelen, best samen gebruikt met "
 "statische vervaging."
+
+#: window-row.ui:4
+msgid "Window Name"
+msgstr ""
+
+#: window-row.ui:8
+msgid "Select window"
+msgstr ""
+
+#: window-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr ""
+
+#~ msgid ""
+#~ "A list of the applications to blur, one per line. To get an application "
+#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
+#~ "last name here."
+#~ msgstr ""
+#~ "Een lijst van toepassingen om te vervagen, één per regel. Om een "
+#~ "toepassingsklassenaam te verkrijgen, kunt u onder xorg `xprop | grep "
+#~ "WM_CLASS` uitvoeren en de laatste naam hier plakken."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 18:40+0200\n"
+"POT-Creation-Date: 2022-08-20 15:00+0200\n"
 "PO-Revision-Date: 2022-05-20 20:12+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
@@ -41,18 +41,34 @@ msgstr ""
 "som settes i hvitlisten nedenfor."
 
 #: applications.ui:26
+msgid "Enable all by default"
+msgstr ""
+
+#: applications.ui:27
+msgid ""
+"Adds blur behind all windows by default. Not recommended because of "
+"performance and stability issues."
+msgstr ""
+
+#: applications.ui:43
 msgid "Whitelist"
 msgstr "Hvitliste"
 
-#: applications.ui:27
-#, fuzzy
-msgid ""
-"A list of the applications to blur, one per line. To get an application "
-"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
-"name here."
+#: applications.ui:44
+msgid "A list of windows to blur."
 msgstr ""
-"En liste med ett program per linje å tilsløre. Hent programmets klassenavn i "
-"Xorg med `xprop|grep WM_CLASS` og lim inn etternavnet her."
+
+#: applications.ui:62 applications.ui:99
+msgid "Add Window"
+msgstr ""
+
+#: applications.ui:80
+msgid "Blacklist"
+msgstr ""
+
+#: applications.ui:81
+msgid "A list of windows not to blur."
+msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -244,18 +260,22 @@ msgid "High quality"
 msgstr "Høy kvalitet"
 
 #: menu.ui:6
+msgid "Reset preferences"
+msgstr ""
+
+#: menu.ui:12
 msgid "Project page"
 msgstr "Prosjektside"
 
-#: menu.ui:10
+#: menu.ui:16
 msgid "Report a Bug"
 msgstr "Innrapporter en feil"
 
-#: menu.ui:14
+#: menu.ui:20
 msgid "License"
 msgstr "Lisens"
 
-#: menu.ui:18
+#: menu.ui:24
 msgid "Donate"
 msgstr "Doner"
 
@@ -396,3 +416,24 @@ msgstr "Hidetopbar-tillegg"
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Skrur ikke av tilsløring i oversikten. Fungerer best med statisk tilsløring."
+
+#: window-row.ui:4
+msgid "Window Name"
+msgstr ""
+
+#: window-row.ui:8
+msgid "Select window"
+msgstr ""
+
+#: window-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "A list of the applications to blur, one per line. To get an application "
+#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
+#~ "last name here."
+#~ msgstr ""
+#~ "En liste med ett program per linje å tilsløre. Hent programmets "
+#~ "klassenavn i Xorg med `xprop|grep WM_CLASS` og lim inn etternavnet her."
