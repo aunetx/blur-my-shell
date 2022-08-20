@@ -8,7 +8,6 @@ const { Prefs } = Me.imports.conveniences.settings;
 const { Keys } = Me.imports.conveniences.keys;
 const { CustomizeRow } = Me.imports.preferences.customize_row;
 
-const Preferences = new Prefs(Keys);
 
 var General = GObject.registerClass({
     GTypeName: 'General',
@@ -24,17 +23,30 @@ var General = GObject.registerClass({
         'noise_lightness_row',
         'color_and_noise',
         'hack_level',
-        'debug'
+        'debug',
+        'reset'
     ],
 }, class General extends Adw.PreferencesPage {
     constructor(props = {}) {
         super(props);
 
-        const prefs = Preferences.settings;
+        const Preferences = new Prefs(Keys);
 
         CustomizeRow.prototype.connect_to.call(this, Preferences);
-        prefs.bind('color-and-noise', this._color_and_noise, 'state', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('hacks-level', this._hack_level, 'selected', Gio.SettingsBindFlags.DEFAULT);
-        prefs.bind('debug', this._debug, 'state', Gio.SettingsBindFlags.DEFAULT);
+
+        Preferences.settings.bind(
+            'color-and-noise', this._color_and_noise, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        Preferences.settings.bind(
+            'hacks-level', this._hack_level, 'selected',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        Preferences.settings.bind(
+            'debug', this._debug, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
+        this._reset.connect('clicked', _ => Preferences.reset());
     }
 });

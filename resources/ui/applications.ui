@@ -54,7 +54,7 @@
                 <child>
                   <object class="GtkImage">
                     <property name="margin-end">6</property>
-                    <property name="icon-name">list-add-symbolic</property>
+                    <property name="icon-name">add-window-symbolic</property>
                   </object>
                 </child>
                 <child>

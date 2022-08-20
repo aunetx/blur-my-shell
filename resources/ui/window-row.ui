@@ -20,7 +20,7 @@
               <object class="GtkButton" id="window_picker">
                 <property name="valign">center</property>
                 <property name="hexpand">true</property>
-                <property name="icon-name">select-mode-symbolic</property>
+                <property name="icon-name">select-window-symbolic</property>
               </object>
             </child>
 
