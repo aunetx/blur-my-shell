@@ -144,9 +144,13 @@ var OverviewBlur = class OverviewBlur {
                 : this.prefs.BRIGHTNESS,
             sigma: this.prefs.overview.CUSTOMIZE
                 ? this.prefs.overview.SIGMA
-                : this.prefs.SIGMA,
+                : this.prefs.SIGMA
+                * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = new ColorEffect({
             color: this.prefs.overview.CUSTOMIZE
@@ -201,7 +205,7 @@ var OverviewBlur = class OverviewBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s;
+            effect.blur_effect.sigma = s * effect.blur_effect.scale;
         });
     }
 

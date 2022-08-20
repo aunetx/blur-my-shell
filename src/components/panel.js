@@ -153,11 +153,15 @@ var PanelBlur = class PanelBlur {
                 : this.prefs.BRIGHTNESS,
             sigma: this.prefs.panel.CUSTOMIZE
                 ? this.prefs.panel.SIGMA
-                : this.prefs.SIGMA,
+                : this.prefs.SIGMA
+                * monitor.geometry_scale,
             mode: this.prefs.panel.STATIC_BLUR
                 ? Shell.BlurMode.ACTOR
                 : Shell.BlurMode.BACKGROUND
         });
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        blur.scale = monitor.geometry_scale;
 
         let color = new ColorEffect({
             color: this.prefs.panel.CUSTOMIZE
@@ -550,7 +554,7 @@ var PanelBlur = class PanelBlur {
 
     set_sigma(s) {
         this.actors_list.forEach(actors => {
-            actors.effects.blur.sigma = s;
+            actors.effects.blur.sigma = s * actors.effects.blur.scale;
             this.invalidate_blur(actors);
         });
     }
