@@ -72,6 +72,9 @@ var LockscreenBlur = class LockscreenBlur {
             brightness: brightness
         });
 
+        // store the scale in the effect in order to retrieve later
+        blur_effect.scale = monitor.geometry_scale;
+
         let color_effect = new ColorEffect({
             name: 'color',
             color: color
@@ -119,7 +122,7 @@ var LockscreenBlur = class LockscreenBlur {
             if (blur_effect) {
                 blur_effect.set({
                     brightness: brightness,
-                    sigma: sigma,
+                    sigma: sigma * blur_effect.scale,
                 });
             }
         }
@@ -163,6 +166,6 @@ var LockscreenBlur = class LockscreenBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > lockscreen]   ${str}`);
     }
 };

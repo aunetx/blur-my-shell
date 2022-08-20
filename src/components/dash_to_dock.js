@@ -59,7 +59,7 @@ class DashInfos {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > dash]         ${str}`);
     }
 }
 
@@ -289,7 +289,7 @@ var DashBlur = class DashBlur {
 
     _log(str) {
         if (this.prefs.DEBUG)
-            log(`[Blur my Shell] ${str}`);
+            log(`[Blur my Shell > dash manager] ${str}`);
     }
 };
 
