@@ -33,7 +33,7 @@ var PanelBlur = class PanelBlur {
                     this.connections.connect(
                         global.dashToPanel,
                         'panels-created',
-                        _ => this.blur_dtd_panels()
+                        _ => this.blur_dtp_panels()
                     );
 
                     this.blur_existing_panels();
@@ -85,14 +85,17 @@ var PanelBlur = class PanelBlur {
         if (global.dashToPanel) {
             // blur already existing ones
             if (global.dashToPanel.panels)
-                this.blur_dtd_panels();
+                this.blur_dtp_panels();
         } else {
             // if no dash-to-panel, blur the main and only panel
             this.maybe_blur_panel(Main.panel);
         }
     }
 
-    blur_dtd_panels() {
+    blur_dtp_panels() {
+        // FIXME when Dash to Panel changes its size, it seems it creates new
+        // panels; but I can't get to delete old widgets
+
         // blur every panel found
         global.dashToPanel.panels.forEach(p => {
             this.maybe_blur_panel(p.panel);
@@ -193,10 +196,21 @@ var PanelBlur = class PanelBlur {
         // perform updates
         this.change_blur_type(actors);
 
-        // connect to panel size change
+        // connect to panel, panel_box and its parent position or size change
+        // this should fire update_size every time one of its params change
         this.connections.connect(
             panel,
+            'notify::position',
+            _ => this.update_size(actors)
+        );
+        this.connections.connect(
+            panel_box,
             ['notify::size', 'notify::position'],
+            _ => this.update_size(actors)
+        );
+        this.connections.connect(
+            panel_box.get_parent(),
+            'notify::position',
             _ => this.update_size(actors)
         );
     }
@@ -306,9 +320,13 @@ var PanelBlur = class PanelBlur {
 
         // if static blur, need to clip the background
         if (this.prefs.panel.STATIC_BLUR) {
-            let [p_x, p_y] = panel_box.get_parent().get_position();
-            let x = p_x - monitor.x;
-            let y = p_y - monitor.y;
+            // an alternative to panel.get_transformed_position, because it
+            // sometimes yields NaN (probably when the actor is not fully
+            // positionned yet)
+            let [p_x, p_y] = panel_box.get_position();
+            let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
+            let x = p_x + p_p_x - monitor.x;
+            let y = p_y + p_p_y - monitor.y;
 
             background.set_clip(x, y, width, height);
             background.x = -x;
@@ -512,8 +530,8 @@ var PanelBlur = class PanelBlur {
                 // check if at least a window is near enough the panel
                 let window_overlap_panel = false;
                 windows.forEach(meta_window => {
-                    let window_monitor = this.find_monitor_for(meta_window);
-                    let same_monitor = actors.monitor == window_monitor;
+                    let window_monitor_i = meta_window.get_monitor();
+                    let same_monitor = actors.monitor.index == window_monitor_i;
 
                     let window_vertical_position = meta_window.get_frame_rect().y;
 

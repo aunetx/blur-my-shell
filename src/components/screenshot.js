@@ -52,6 +52,10 @@ var ScreenshotBlur = class ScreenshotBlur {
         for (let i = 0; i < Main.screenshotUI._windowSelectors.length; i++) {
             const actor = Main.screenshotUI._windowSelectors[i];
             const monitor = Main.layoutManager.monitors[i];
+
+            if (!monitor)
+                continue;
+
             const bg_actor = this.create_background_actor(monitor);
             actor.insert_child_at_index(bg_actor, 0);
             actor._blur_actor = bg_actor;
