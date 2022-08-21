@@ -8,13 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"Last-Translator: K.B.Dharun Krishna <kbdharunkrishna@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -36,13 +39,15 @@ msgstr ""
 
 #: applications.ui:26
 msgid "Enable all by default"
-msgstr ""
+msgstr "முன்னிருப்பாக அனைத்தையும் இயக்கு"
 
 #: applications.ui:27
 msgid ""
 "Adds blur behind all windows by default. Not recommended because of "
 "performance and stability issues."
 msgstr ""
+"முன்னிருப்பாக அனைத்து சாளரங்களுக்கும் பின்னால் மங்கலைச் சேர்க்கிறது. "
+"செயல்திறன் மற்றும் நிலைத்தன்மை சிக்கல்கள் காரணமாக பரிந்துரைக்கப்படவில்லை."
 
 #: applications.ui:26
 msgid "Whitelist"
@@ -50,19 +55,19 @@ msgstr "அனுமதிப்பட்டியல்"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "மங்கலாக்க வேண்டிய சாளரங்களின் பட்டியல்."
 
 #: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr ""
+msgstr "சாளரத்தைச் சேர்க்கவும்"
 
 #: applications.ui:80
 msgid "Blacklist"
-msgstr ""
+msgstr "பிளாக்லிஸ்ட்"
 
 #: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "மங்கலாக்கப்படக் கூடாத சாளரங்களின் பட்டியல்."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -238,7 +243,7 @@ msgstr "உயர் தரம்"
 
 #: menu.ui:6
 msgid "Reset preferences"
-msgstr ""
+msgstr "விருப்பங்களை மீட்டமைக்கவும்"
 
 #: menu.ui:6
 msgid "Project page"
@@ -386,15 +391,17 @@ msgstr "மேலோட்டத்தில் மங்கலை முடக�
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "சாளரத்தின் பெயர்"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "சாளரத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr ""
+"ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் "
+"தேர்ந்தெடுக்கவும்."
 
 #: applications.ui:27
 msgid ""
