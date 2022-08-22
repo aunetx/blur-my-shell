@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-06-02 19:09+0000\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,38 +34,40 @@ msgid ""
 "whitelist below."
 msgstr ""
 "Vervaging toevoegen aan toepassingen. Deze functionaliteit is nog niet "
-"stabiel, en is wordt alleen toegepast op toepassingen die er om vragen of in "
-"de lijst hieronder staan."
+"stabiel, en wordt alleen toegepast op toepassingen die er om vragen of in de "
+"lijst hieronder staan."
 
 #: applications.ui:26
 msgid "Enable all by default"
-msgstr ""
+msgstr "Alle standaard inschakelen"
 
 #: applications.ui:27
 msgid ""
 "Adds blur behind all windows by default. Not recommended because of "
 "performance and stability issues."
 msgstr ""
+"Past standaard vervaging toe achter alle vensters. Niet aanbevolen vanwege "
+"prestatie- en stabiliteitsproblemen."
 
 #: applications.ui:43
 msgid "Whitelist"
-msgstr "Whitelist"
+msgstr "Witte lijst"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Een lijst van vensters om te vervagen."
 
 #: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr ""
+msgstr "Venster toevoegen"
 
 #: applications.ui:80
 msgid "Blacklist"
-msgstr ""
+msgstr "Zwarte lijst"
 
 #: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Een lijst van vensters om niet te vervagen."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -250,7 +252,7 @@ msgstr "Hoge kwaliteit"
 
 #: menu.ui:6
 msgid "Reset preferences"
-msgstr ""
+msgstr "Voorkeuren opnieuw instellen"
 
 #: menu.ui:12
 msgid "Project page"
@@ -408,15 +410,15 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Vensternaam"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Venster selecteren"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Kies een venster of selecteer deze bij hun klassenaam."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "
