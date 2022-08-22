@@ -411,7 +411,7 @@ var ApplicationsBlur = class ApplicationsBlur {
     disable() {
         this._log("removing blur from applications...");
 
-        this.service.unexport();
+        this.service?.unexport();
 
         this.blur_actor_map.forEach(((_blur_actor, pid) => {
             this.remove_blur(pid);
