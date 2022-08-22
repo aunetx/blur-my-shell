@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"Last-Translator: Park Seonu <cotwo0139@gmail.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "어플리케이션"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "어플리케이션 블러 (베타)"
 
 #: applications.ui:11
 msgid ""
@@ -43,7 +46,7 @@ msgstr ""
 
 #: applications.ui:43
 msgid "Whitelist"
-msgstr ""
+msgstr "화이트리스트"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
