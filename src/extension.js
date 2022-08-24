@@ -147,6 +147,16 @@ class Extension {
         this._prefs = null;
     }
 
+    /// Restart the extension
+    restart() {
+        this._log("restarting...");
+
+        this.disable();
+        this.enable();
+
+        this._log("restarted.");
+    }
+
     /// Enables every component needed, should be called when the shell is
     /// entirely loaded as the `enable` methods interact with it.
     _enable_components() {
@@ -206,6 +216,10 @@ class Extension {
             this._update_noise_amount();
             this._update_color();
         });
+
+        // restart the extension when hacks level is changed, easier than
+        // restarting individual components and should not happen often either
+        this._prefs.HACKS_LEVEL_changed(_ => this.restart());
 
         // connect each component to use the proper sigma/brightness/color
 
