@@ -18,11 +18,11 @@ msgstr ""
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Aplicações"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "Desfocar aplicações (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -52,9 +52,9 @@ msgid ""
 "This may cause some latency or performance issues."
 msgstr ""
 
-#: applications.ui:66
+#: applications.ui:26
 msgid "Enable all by default"
-msgstr ""
+msgstr "Habilitar tudo por padrão"
 
 #: applications.ui:67
 msgid ""
@@ -62,76 +62,85 @@ msgid ""
 "Not recommended because of performance and stability issues."
 msgstr ""
 
-#: applications.ui:84
+#: applications.ui:43
 msgid "Whitelist"
-msgstr ""
+msgstr "Lista liberada"
 
-#: applications.ui:85
+#: applications.ui:44
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Lista de janelas para desfocar."
 
-#: applications.ui:103 applications.ui:140
+#: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr ""
+msgstr "Adicionar janela"
 
-#: applications.ui:121
+#: applications.ui:80
 msgid "Blacklist"
-msgstr ""
+msgstr "Lista bloqueada"
 
-#: applications.ui:122
+#: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Lista de janelas que não serão desfocadas."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "Customizar propriedades"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
+"Usa propriedades customizadas de desfoque ao invés das definidas nas "
+"propriedades gerais."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "Intensidade do desfoque."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr ""
+msgstr "Brilho"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"O brilho do efeito de desfoque, um valor alto pode tornar o texto difícil de "
+"ler."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "Cor"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Altera a cor do desfoque. A opacidade da cor controla o quanto esta é "
+"misturada ao efeito de desfoque."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Quantidade de ruído"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"A quantidade de ruído a adicionar ao efeito de desfoque, útil em telas de "
+"baixo contraste ou para efeito estético."
 
 #: customize-row.ui:92 general.ui:94
+#, fuzzy
 msgid "Noise lightness"
-msgstr ""
+msgstr "Quantidade de ruído"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
@@ -220,17 +229,17 @@ msgid ""
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
 
-#: general.ui:151
+#: general.ui:151 general.ui:149
 msgid "Debug"
 msgstr ""
 
-#: general.ui:152
+#: general.ui:152 general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
 
-#: general.ui:167
+#: general.ui:167 menu.ui:6
 msgid "Reset preferences"
 msgstr ""
 
@@ -242,15 +251,15 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: general.ui:228
+#: general.ui:228 general.ui:189
 msgid "High performances"
 msgstr ""
 
-#: general.ui:229
+#: general.ui:229 general.ui:190
 msgid "Default"
 msgstr ""
 
-#: general.ui:230
+#: general.ui:230 general.ui:191
 msgid "High quality"
 msgstr ""
 
@@ -258,19 +267,19 @@ msgstr ""
 msgid "No artefact"
 msgstr ""
 
-#: menu.ui:6
+#: menu.ui:6 menu.ui:12
 msgid "Project page"
 msgstr ""
 
-#: menu.ui:10
+#: menu.ui:10 menu.ui:16
 msgid "Report a Bug"
 msgstr ""
 
-#: menu.ui:14
+#: menu.ui:14 menu.ui:20
 msgid "License"
 msgstr ""
 
-#: menu.ui:18
+#: menu.ui:18 menu.ui:24
 msgid "Donate"
 msgstr ""
 
@@ -382,7 +391,7 @@ msgid ""
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
 
-#: panel.ui:64
+#: panel.ui:64 panel.ui:56
 msgid "Disable when a window is near"
 msgstr ""
 
@@ -390,19 +399,19 @@ msgstr ""
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 
-#: panel.ui:82
+#: panel.ui:82 panel.ui:73
 msgid "Compatibility"
 msgstr ""
 
-#: panel.ui:83
+#: panel.ui:83 panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 
-#: panel.ui:88
+#: panel.ui:88 panel.ui:78
 msgid "Hidetopbar extension"
 msgstr ""
 
-#: panel.ui:89
+#: panel.ui:89 panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 
@@ -416,4 +425,32 @@ msgstr ""
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
+msgstr ""
+
+#: applications.ui:11
+msgid ""
+"Add blur to the applications. This is still a beta functionnality, is quite "
+"buggy and is only applied to the apps that ask it, or to the ones set in the "
+"whitelist below."
+msgstr ""
+"Adiciona desfoque às aplicações. Esta funcionalidade ainda está em \"beta\", "
+"possui diversos bugs e é aplicada somente às aplicações que solicitarem ou "
+"as que estiverem na lista abaixo."
+
+#: applications.ui:27
+msgid ""
+"Adds blur behind all windows by default. Not recommended because of "
+"performance and stability issues."
+msgstr ""
+"Adiciona desfoque atrás de todas as janelas por padrão. Não recomendado pois "
+"pode ocasionar problemas de estabilidade e performance."
+
+#: general.ui:136
+msgid ""
+"Changes the behaviour of dynamic blur effect. Default value is very "
+"recommended."
+msgstr ""
+
+#: panel.ui:57
+msgid "Disables the blur from the panel when a window is near it."
 msgstr ""
