@@ -278,19 +278,19 @@ class Extension {
 
         // panel blur's overview connection toggled on/off
         this._prefs.panel.UNBLUR_IN_OVERVIEW_changed(() => {
-            this._panel_blur.connect_to_overview();
+            this._panel_blur.connect_to_windows_and_overview();
         });
 
         // panel override background toggled on/off
         this._prefs.panel.OVERRIDE_BACKGROUND_changed(() => {
             if (this._prefs.panel.BLUR)
-                this._panel_blur.connect_to_windows();
+                this._panel_blur.connect_to_windows_and_overview();
         });
 
         // panel background's dynamic overriding toggled on/off
         this._prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
             if (this._prefs.panel.BLUR)
-                this._panel_blur.connect_to_windows();
+                this._panel_blur.connect_to_windows_and_overview();
         });
 
 
@@ -390,7 +390,7 @@ class Extension {
         // toggled on/off
         this._prefs.hidetopbar.COMPATIBILITY_changed(() => {
             // no need to verify if it is enabled or not, it is done anyway
-            this._panel_blur.connect_to_overview();
+            this._panel_blur.connect_to_windows_and_overview();
         });
 
 
