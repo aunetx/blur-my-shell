@@ -189,8 +189,13 @@
             <default>true</default>
             <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
         </key>
+        <!-- OVERRIDE BACKGROUND -->
+        <key type="b" name="override-background">
+            <default>true</default>
+            <summary>Boolean, whether to override the background or not</summary>
+        </key>
         <!-- UNBLUR DYNAMICALLY -->
-        <key type="b" name="unblur-dynamically">
+        <key type="b" name="override-background-dynamically">
             <default>false</default>
             <summary>Boolean, whether to disable blur from this component when a window is close to the panel</summary>
         </key>

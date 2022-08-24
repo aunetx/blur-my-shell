@@ -281,8 +281,14 @@ class Extension {
             this._panel_blur.connect_to_overview();
         });
 
-        // panel blur's dynamic unblurring toggled on/off
-        this._prefs.panel.UNBLUR_DYNAMICALLY_changed(() => {
+        // panel override background toggled on/off
+        this._prefs.panel.OVERRIDE_BACKGROUND_changed(() => {
+            if (this._prefs.panel.BLUR)
+                this._panel_blur.connect_to_windows();
+        });
+
+        // panel background's dynamic overriding toggled on/off
+        this._prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
             if (this._prefs.panel.BLUR)
                 this._panel_blur.connect_to_windows();
         });
