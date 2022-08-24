@@ -50,6 +50,8 @@ var PanelBlur = class PanelBlur {
         this.connect_to_overview();
 
         // connect to every background change (even without changing image)
+        // FIXME this signal is fired very often, so we should find another one
+        //       fired only when necessary (but that still catches all cases)
         this.connections.connect(
             Main.layoutManager._backgroundGroup,
             'notify',
