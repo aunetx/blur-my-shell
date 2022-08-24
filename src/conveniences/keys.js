@@ -54,7 +54,8 @@ var Keys = [
             { type: Type.D, name: "noise-lightness" },
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
-            { type: Type.B, name: "unblur-dynamically" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.B, name: "override-background-dynamically" },
         ]
     },
     {

@@ -16,7 +16,8 @@ var Panel = GObject.registerClass({
         'customize',
         'static_blur',
         'unblur_in_overview',
-        'unblur_dynamically',
+        'override_background',
+        'override_background_dynamically',
         'hidetopbar_compatibility'
     ],
 }, class Panel extends Adw.PreferencesPage {
@@ -38,7 +39,13 @@ var Panel = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         Preferences.panel.settings.bind(
-            'unblur-dynamically', this._unblur_dynamically, 'state',
+            'override-background',
+            this._override_background, 'enable-expansion',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        Preferences.panel.settings.bind(
+            'override-background-dynamically',
+            this._override_background_dynamically, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
 

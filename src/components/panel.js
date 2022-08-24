@@ -399,7 +399,7 @@ var PanelBlur = class PanelBlur {
     /// Connect to windows disable transparency when a window is too close
     connect_to_windows() {
         if (
-            this.prefs.panel.UNBLUR_DYNAMICALLY
+            this.prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY
         ) {
             // reset connections if any is left
             this.disconnect_from_windows();
@@ -442,7 +442,7 @@ var PanelBlur = class PanelBlur {
 
             // reset transparency for every panels
             this.actors_list.forEach(
-                actors => this.set_transparent(actors, true)
+                actors => this.set_should_override_panel(actors, true)
             );
         }
     }
@@ -498,14 +498,13 @@ var PanelBlur = class PanelBlur {
             !Main.sessionMode.hasWindows
         ) {
             this.actors_list.forEach(
-                actors => this.set_transparent(actors, true)
+                actors => this.set_should_override_panel(actors, true)
             );
             return;
         }
 
-        if (!Main.layoutManager.primaryMonitor) {
+        if (!Main.layoutManager.primaryMonitor)
             return;
-        }
 
         // get all the windows in the active workspace that are visible
         const workspace = global.workspace_manager.get_active_workspace();
@@ -533,30 +532,35 @@ var PanelBlur = class PanelBlur {
                     let window_monitor_i = meta_window.get_monitor();
                     let same_monitor = actors.monitor.index == window_monitor_i;
 
-                    let window_vertical_position = meta_window.get_frame_rect().y;
+                    let window_vertical_pos = meta_window.get_frame_rect().y;
 
                     // if so, and if in the same monitor, then it overlaps
                     if (same_monitor
                         &&
-                        window_vertical_position < panel_bottom + 5 * scale
+                        window_vertical_pos < panel_bottom + 5 * scale
                     )
                         window_overlap_panel = true;
                 });
 
                 // if no window overlaps, then the panel is transparent
-                this.set_transparent(
+                this.set_should_override_panel(
                     actors,
                     !window_overlap_panel
                 );
             });
     }
 
-    set_transparent(actors, is_transparent) {
-        if (is_transparent) {
+    /// Choose wether or not the panel background should be overriden, in
+    /// respect to its argument and the `override-background` setting.
+    set_should_override_panel(actors, should_override) {
+        if (
+            this.prefs.panel.OVERRIDE_BACKGROUND
+            &&
+            should_override
+        )
             actors.widgets.panel.add_style_class_name('transparent-panel');
-        } else {
+        else
             actors.widgets.panel.remove_style_class_name('transparent-panel');
-        }
     }
 
     /// Fixes a bug where the blur is washed away when changing the sigma, or
@@ -619,7 +623,7 @@ var PanelBlur = class PanelBlur {
         this.disconnect_from_windows();
 
         this.actors_list.forEach(actors => {
-            this.set_transparent(actors, false);
+            this.set_should_override_panel(actors, false);
             try {
                 actors.widgets.panel_box.remove_child(
                     actors.widgets.background_parent
