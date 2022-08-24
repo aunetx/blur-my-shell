@@ -24,7 +24,8 @@
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Enable all by default</property>
-            <property name="subtitle" translatable="yes">Adds blur behind all windows by default. Not recommended because of performance and stability issues.</property>
+            <property name="subtitle" translatable="yes">Adds blur behind all windows by default.
+Not recommended because of performance and stability issues.</property>
             <property name="activatable-widget">enable_all</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
@@ -54,7 +55,7 @@
                 <child>
                   <object class="GtkImage">
                     <property name="margin-end">6</property>
-                    <property name="icon-name">list-add-symbolic</property>
+                    <property name="icon-name">add-window-symbolic</property>
                   </object>
                 </child>
                 <child>

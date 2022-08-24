@@ -4,8 +4,6 @@ const { Gdk, Gtk, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
 
 function addMenu(window) {
     const builder = new Gtk.Builder();
@@ -31,25 +29,36 @@ function addMenuToHeader(window, builder) {
     const actionGroup = new Gio.SimpleActionGroup();
     window.insert_action_group('prefs', actionGroup);
 
-    const Preferences = new Prefs(Keys);
-
-    // setup reset action
-    let act = new Gio.SimpleAction({ name: 'reset' });
-    act.connect('activate', _ => Preferences.reset());
-    actionGroup.add_action(act);
-
     // a list of actions with their associated link
     const actions = [
-        { name: 'open-bug-report', link: 'https://github.com/aunetx/blur-my-shell/issues' },
-        { name: 'open-readme', link: 'https://github.com/aunetx/blur-my-shell' },
-        { name: 'open-license', link: 'https://github.com/aunetx/blur-my-shell/blob/master/LICENSE' },
-        { name: 'donate-github', link: 'https://github.com/sponsors/aunetx' },
-        { name: 'donate-kofi', link: 'https://ko-fi.com/aunetx' },
+        {
+            name: 'open-bug-report',
+            link: 'https://github.com/aunetx/blur-my-shell/issues'
+        },
+        {
+            name: 'open-readme',
+            link: 'https://github.com/aunetx/blur-my-shell'
+        },
+        {
+            name: 'open-license',
+            link: 'https://github.com/aunetx/blur-my-shell/blob/master/LICENSE'
+        },
+        {
+            name: 'donate-github',
+            link: 'https://github.com/sponsors/aunetx'
+        },
+        {
+            name: 'donate-kofi',
+            link: 'https://ko-fi.com/aunetx'
+        },
     ];
 
     actions.forEach(action => {
         let act = new Gio.SimpleAction({ name: action.name });
-        act.connect('activate', _ => Gtk.show_uri(window, action.link, Gdk.CURRENT_TIME));
+        act.connect(
+            'activate',
+            _ => Gtk.show_uri(window, action.link, Gdk.CURRENT_TIME)
+        );
         actionGroup.add_action(act);
     });
 }

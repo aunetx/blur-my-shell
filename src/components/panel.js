@@ -43,13 +43,13 @@ var PanelBlur = class PanelBlur {
 
         this.blur_existing_panels();
 
-        // dynamically show or not the blur when a window is near a panel
-        this.connect_to_windows();
-
-        // maybe disable panel blur in overview
-        this.connect_to_overview();
+        // connect to overview being opened/closed, and dynamically show or not
+        // the blur when a window is near a panel
+        this.connect_to_windows_and_overview();
 
         // connect to every background change (even without changing image)
+        // FIXME this signal is fired very often, so we should find another one
+        //       fired only when necessary (but that still catches all cases)
         this.connections.connect(
             Main.layoutManager._backgroundGroup,
             'notify',
@@ -364,11 +364,6 @@ var PanelBlur = class PanelBlur {
     /// If HIDETOPBAR is set, we need just to hide the blur when showing appgrid
     /// (so no shadow is cropped)
     connect_to_overview() {
-        let appDisplay = Main.overview._overview._controls._appDisplay;
-
-        this.connections.disconnect_all_for(appDisplay);
-        this.connections.disconnect_all_for(Main.overview);
-
         // may be called when panel blur is disabled, if hidetopbar
         // compatibility is toggled on/off
         // if this is the case, do nothing as only the panel blur interfers with
@@ -385,6 +380,8 @@ var PanelBlur = class PanelBlur {
                     Main.overview, 'hidden', this.show.bind(this)
                 );
             } else {
+                let appDisplay = Main.overview._overview._controls._appDisplay;
+
                 this.connections.connect(
                     appDisplay, 'show', this.hide.bind(this)
                 );
@@ -399,11 +396,8 @@ var PanelBlur = class PanelBlur {
     /// Connect to windows disable transparency when a window is too close
     connect_to_windows() {
         if (
-            this.prefs.panel.UNBLUR_DYNAMICALLY
+            this.prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY
         ) {
-            // reset connections if any is left
-            this.disconnect_from_windows();
-
             // connect to overview opening/closing
             this.connections.connect(Main.overview, ['showing', 'hiding'],
                 this.update_visibility.bind(this)
@@ -437,22 +431,29 @@ var PanelBlur = class PanelBlur {
             // perform early update
             this.update_visibility();
         } else {
-            // disconnect everything
-            this.disconnect_from_windows();
-
             // reset transparency for every panels
             this.actors_list.forEach(
-                actors => this.set_transparent(actors, true)
+                actors => this.set_should_override_panel(actors, true)
             );
         }
     }
 
+    /// An helper to connect to both the windows and overview signals.
+    /// This is the only function that should be directly called, to prevent
+    /// inconsistencies with signals not being disconnected.
+    connect_to_windows_and_overview() {
+        this.disconnect_from_windows_and_overview();
+        this.connect_to_overview();
+        this.connect_to_windows();
+    }
+
     /// Disconnect all the connections created by connect_to_windows
-    disconnect_from_windows() {
+    disconnect_from_windows_and_overview() {
         // disconnect the connections to actors
         for (const actor of [
             Main.overview, Main.sessionMode,
-            global.window_group, global.window_manager
+            global.window_group, global.window_manager,
+            Main.overview._overview._controls._appDisplay
         ]) {
             this.connections.disconnect_all_for(actor);
         }
@@ -464,9 +465,6 @@ var PanelBlur = class PanelBlur {
             }
         }
         this.window_signal_ids = new Map();
-
-        // re-connect to the overview, as it was disabled just before
-        this.connect_to_overview();
     }
 
     /// Callback when a new window is added
@@ -494,18 +492,17 @@ var PanelBlur = class PanelBlur {
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
-            Main.panel.has_style_pseudo_class('overview') ||
-            !Main.sessionMode.hasWindows
+            Main.panel.has_style_pseudo_class('overview')
+            || !Main.sessionMode.hasWindows
         ) {
             this.actors_list.forEach(
-                actors => this.set_transparent(actors, true)
+                actors => this.set_should_override_panel(actors, true)
             );
             return;
         }
 
-        if (!Main.layoutManager.primaryMonitor) {
+        if (!Main.layoutManager.primaryMonitor)
             return;
-        }
 
         // get all the windows in the active workspace that are visible
         const workspace = global.workspace_manager.get_active_workspace();
@@ -533,30 +530,34 @@ var PanelBlur = class PanelBlur {
                     let window_monitor_i = meta_window.get_monitor();
                     let same_monitor = actors.monitor.index == window_monitor_i;
 
-                    let window_vertical_position = meta_window.get_frame_rect().y;
+                    let window_vertical_pos = meta_window.get_frame_rect().y;
 
                     // if so, and if in the same monitor, then it overlaps
                     if (same_monitor
                         &&
-                        window_vertical_position < panel_bottom + 5 * scale
+                        window_vertical_pos < panel_bottom + 5 * scale
                     )
                         window_overlap_panel = true;
                 });
 
                 // if no window overlaps, then the panel is transparent
-                this.set_transparent(
-                    actors,
-                    !window_overlap_panel
+                this.set_should_override_panel(
+                    actors, !window_overlap_panel
                 );
             });
     }
 
-    set_transparent(actors, is_transparent) {
-        if (is_transparent) {
+    /// Choose wether or not the panel background should be overriden, in
+    /// respect to its argument and the `override-background` setting.
+    set_should_override_panel(actors, should_override) {
+        if (
+            this.prefs.panel.OVERRIDE_BACKGROUND
+            &&
+            should_override
+        )
             actors.widgets.panel.add_style_class_name('transparent-panel');
-        } else {
+        else
             actors.widgets.panel.remove_style_class_name('transparent-panel');
-        }
     }
 
     /// Fixes a bug where the blur is washed away when changing the sigma, or
@@ -616,10 +617,10 @@ var PanelBlur = class PanelBlur {
     disable() {
         this._log("removing blur from top panel");
 
-        this.disconnect_from_windows();
+        this.disconnect_from_windows_and_overview();
 
         this.actors_list.forEach(actors => {
-            this.set_transparent(actors, false);
+            this.set_should_override_panel(actors, false);
             try {
                 actors.widgets.panel_box.remove_child(
                     actors.widgets.background_parent

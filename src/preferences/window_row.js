@@ -25,7 +25,7 @@ var WindowRow = GObject.registerClass({
         let action_row = this.child.get_first_child().get_first_child();
 
         let remove_button = new Gtk.Button({
-            'icon-name': 'close-symbolic',
+            'icon-name': 'remove-window-symbolic',
             'width-request': 38,
             'height-request': 38,
             'margin-top': 6,
@@ -44,7 +44,10 @@ var WindowRow = GObject.registerClass({
         action_row.add_prefix(remove_button);
 
         // bind window name to text buffer
-        this._window_class.buffer.bind_property('text', this, 'title', Gio.SettingsBindFlags.BIDIRECTIONNAL);
+        this._window_class.buffer.bind_property(
+            'text', this, 'title',
+            Gio.SettingsBindFlags.BIDIRECTIONNAL
+        );
 
         // set application name if it exists, else open the revealer to focus
         if (this._app_name) {

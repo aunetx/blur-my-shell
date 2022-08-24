@@ -41,28 +41,6 @@ var ApplicationsBlur = class ApplicationsBlur {
                 }
             }
         );
-
-        // workaround for blur being in front of target windows
-        this.connections.connect(global.display, 'notify::focus-window', _ => {
-            if (this.blur_actor_map.size > 0) {
-                Meta.later_add(Meta.LaterType.BEFORE_REDRAW, _ => {
-                    this.blur_actor_map.forEach((blur_actor, pid) => {
-                        let window = this.window_map.get(pid);
-                        let actor = window.get_compositor_private();
-
-                        if (
-                            actor !== null &&
-                            actor.get_parent() === blur_actor.get_parent()
-                        ) {
-                            global.window_group.set_child_below_sibling(
-                                blur_actor,
-                                actor
-                            );
-                        }
-                    });
-                });
-            }
-        });
     }
 
     /// Iterate through all existing windows and add blur as needed.
@@ -73,8 +51,6 @@ var ApplicationsBlur = class ApplicationsBlur {
             this.remove_blur(pid);
         }));
 
-        // note: it looks like iterating through `global.window_group` would not
-        // properly work, as some of its children are not actual windows
         for (
             let i = 0;
             i < global.workspace_manager.get_n_workspaces();
@@ -130,11 +106,12 @@ var ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(meta_window, 'size-changed', () => {
             if (this.blur_actor_map.has(pid)) {
                 let offset = this.compute_offset(meta_window);
-                let constraints = this.blur_actor_map.get(pid).get_constraints();
-                constraints[0].offset = offset.x;
-                constraints[1].offset = offset.y;
-                constraints[2].offset = offset.width;
-                constraints[3].offset = offset.height;
+                let blur_actor = this.blur_actor_map.get(pid);
+                let constraints = blur_actor.get_constraints();
+                blur_actor.x = offset.x;
+                blur_actor.y = offset.y;
+                constraints[0].offset = offset.width;
+                constraints[1].offset = offset.height;
             }
         });
 
@@ -325,7 +302,7 @@ var ApplicationsBlur = class ApplicationsBlur {
             this.paint_signals.disconnect_all();
         }
 
-        global.window_group.insert_child_below(blur_actor, window_actor);
+        window_actor.insert_child_at_index(blur_actor, 0);
 
         // register the blur actor/effect
         blur_actor['blur_provider_pid'] = pid;
@@ -371,17 +348,6 @@ var ApplicationsBlur = class ApplicationsBlur {
         // create the constraints in size and position to its target window
         let offset = this.compute_offset(meta_window);
 
-        let constraint_x = new Clutter.BindConstraint({
-            source: window_actor,
-            coordinate: Clutter.BindCoordinate.X,
-            offset: offset.x
-        });
-        let constraint_y = new Clutter.BindConstraint({
-            source: window_actor,
-            coordinate: Clutter.BindCoordinate.Y,
-            offset: offset.y
-        });
-
         let constraint_width = new Clutter.BindConstraint({
             source: window_actor,
             coordinate: Clutter.BindCoordinate.WIDTH,
@@ -395,10 +361,12 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         // create the actor and add the constraints
         let blur_actor = new Clutter.Actor();
-        blur_actor.add_constraint(constraint_x);
-        blur_actor.add_constraint(constraint_y);
         blur_actor.add_constraint(constraint_width);
         blur_actor.add_constraint(constraint_height);
+
+        // set position
+        blur_actor.x = offset.x;
+        blur_actor.y = offset.y;
 
         // add the effect
         blur_actor.add_effect_with_name('blur-effect', blur_effect);
@@ -422,24 +390,28 @@ var ApplicationsBlur = class ApplicationsBlur {
         if (global.window_group == null)
             return;
 
-        // remove blur actor and untrack it
-        let blur_actor = this.blur_actor_map.get(pid);
-        if (blur_actor) {
-            global.window_group.remove_actor(blur_actor);
-            this.blur_actor_map.delete(pid);
-        }
 
-        // disconnect needed signals and untrack window
         let meta_window = this.window_map.get(pid);
+        // disconnect needed signals and untrack window
         if (meta_window) {
             this.window_map.delete(pid);
+
+            // remove blur actor and untrack it
+            let blur_actor = this.blur_actor_map.get(pid);
+            if (blur_actor) {
+                this.blur_actor_map.delete(pid);
+
+                let window_actor = meta_window.get_compositor_private();
+                if (window_actor)
+                    window_actor.remove_child(blur_actor);
+            }
         }
     }
 
     disable() {
         this._log("removing blur from applications...");
 
-        this.service.unexport();
+        this.service?.unexport();
 
         this.blur_actor_map.forEach(((_blur_actor, pid) => {
             this.remove_blur(pid);

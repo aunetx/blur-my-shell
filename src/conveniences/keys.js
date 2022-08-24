@@ -52,10 +52,10 @@ var Keys = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
-            { type: Type.S, name: "background-color" },
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
-            { type: Type.B, name: "unblur-dynamically" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.B, name: "override-background-dynamically" },
         ]
     },
     {
