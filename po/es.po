@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-06-01 22:15+0000\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -39,13 +39,15 @@ msgstr ""
 
 #: applications.ui:26
 msgid "Enable all by default"
-msgstr ""
+msgstr "Activar todo por defecto"
 
 #: applications.ui:27
 msgid ""
 "Adds blur behind all windows by default. Not recommended because of "
 "performance and stability issues."
 msgstr ""
+"Añade desenfoque detrás de todas las ventanas por defecto. No se recomienda "
+"por problemas de rendimiento y estabilidad."
 
 #: applications.ui:43
 msgid "Whitelist"
@@ -53,19 +55,19 @@ msgstr "Lista blanca"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Una lista de ventanas para desenfocar."
 
 #: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr ""
+msgstr "Añadir ventana"
 
 #: applications.ui:80
 msgid "Blacklist"
-msgstr ""
+msgstr "Lista negra"
 
 #: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Una lista de ventanas para no difuminar."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -246,7 +248,7 @@ msgstr "Alta calidad"
 
 #: menu.ui:6
 msgid "Reset preferences"
-msgstr ""
+msgstr "Restablecer preferencias"
 
 #: menu.ui:12
 msgid "Project page"
@@ -403,15 +405,15 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Nombre de la ventana"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Seleccionar ventana"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Elija una ventana o selecciónela por su nombre de clase."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

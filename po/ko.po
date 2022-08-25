@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-08-24 13:52+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/it/>\n"
-"Language: it\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"Last-Translator: Park Seonu <cotwo0139@gmail.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ko/>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Applicazioni"
+msgstr "어플리케이션"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Sfocatura applicazioni (beta)"
+msgstr "어플리케이션 블러 (베타)"
 
 #: applications.ui:11
 msgid ""
@@ -33,393 +33,348 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
-"Aggiungi sfocatura alle applicazioni. Questa è ancora una funzionalità beta, "
-"è piuttosto buggata e viene applicata solo alle app che lo richiedono o a "
-"quelle impostate nella whitelist di seguito."
 
 #: applications.ui:26
 msgid "Enable all by default"
-msgstr "Abilita tutto per impostazione predefinita"
+msgstr ""
 
 #: applications.ui:27
 msgid ""
 "Adds blur behind all windows by default. Not recommended because of "
 "performance and stability issues."
 msgstr ""
-"Aggiunge sfocatura dietro tutte le finestre per impostazione predefinita. "
-"Non consigliato a causa di problemi di prestazioni e stabilità."
 
 #: applications.ui:43
 msgid "Whitelist"
-msgstr "Whitelist"
+msgstr "화이트리스트"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
-msgstr "Un elenco di finestre da sfocare."
+msgstr ""
 
 #: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr "Aggiungi finestra"
+msgstr ""
 
 #: applications.ui:80
 msgid "Blacklist"
-msgstr "Blacklist"
+msgstr ""
 
 #: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr "Un elenco di finestre da non sfocare."
+msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "Personalizza le proprietà"
+msgstr ""
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Utilizza proprietà di sfocatura personalizzate, invece di quelle impostate "
-"nella pagina Generale."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "Sigma"
+msgstr ""
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "L'intensità della sfocatura."
+msgstr ""
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "Luminosità"
+msgstr ""
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"La luminosità dell'effetto sfocato, un valore elevato potrebbe rendere il "
-"testo più difficile da leggere."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "Colore"
+msgstr ""
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Cambia il colore della sfocatura. L'opacità del colore controlla quanto "
-"viene sfumato nell'effetto di sfocatura."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Quantità di rumore"
+msgstr ""
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"La quantità di rumore da aggiungere all'effetto sfocato, utile su schermi a "
-"basso contrasto o per scopi estetici."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Leggerezza del rumore"
+msgstr ""
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "La leggerezza del rumore si aggiungeva all'effetto sfocato."
+msgstr ""
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "Avviso"
+msgstr ""
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"Il rumore e il colore non possono essere attivati su componenti sfocati "
-"dinamicamente, come questo."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "Dash"
+msgstr ""
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Sfocatura Dash to Dock"
+msgstr ""
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Sfoca lo sfondo dell'estensione Dash to Dock, se utilizzata."
+msgstr ""
 
 #: dash.ui:26
 msgid "Override background"
-msgstr "Sovrascrivi sfondo"
+msgstr ""
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
-"Rende lo sfondo semitrasparente, disabilitalo per utilizzare invece le "
-"preferenze Dash to Dock."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr "Disattiva in panoramica"
+msgstr ""
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
-"Disattiva la sfocatura da Dash to Dock quando si accede alla panoramica."
 
 #: general.ui:5
 msgid "General"
-msgstr "Generale"
+msgstr ""
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "Preferenze sfocatura"
+msgstr ""
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
-"Preferenze di sfocatura globali, utilizzate per impostazione predefinita da "
-"tutti i componenti."
 
 #: general.ui:117
 msgid "Performances"
-msgstr "Prestazioni"
+msgstr ""
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr "Varie opzioni per modificare le prestazioni."
+msgstr ""
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "Effetti di colore e rumore"
+msgstr ""
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
-"Consente di disabilitare globalmente l'uso del rumore e degli effetti "
-"colore, questo può migliorare le prestazioni per la grafica di fascia bassa."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Suggerimenti per le prestazioni"
+msgstr ""
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
 msgstr ""
-"Modifica il comportamento dell'effetto di sfocatura dinamica. Il valore di "
-"default è molto raccomandato."
 
 #: general.ui:149
 msgid "Debug"
-msgstr "Debug"
+msgstr ""
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"Rendi dettagliata l'estensione nei registri di sistema, abilitalo per "
-"segnalare un problema."
 
 #: general.ui:189
 msgid "High performances"
-msgstr "Alte prestazioni"
+msgstr ""
 
 #: general.ui:190
 msgid "Default"
-msgstr "Predefinito"
+msgstr ""
 
 #: general.ui:191
 msgid "High quality"
-msgstr "Alta qualità"
+msgstr ""
 
 #: menu.ui:6
 msgid "Reset preferences"
-msgstr "Ripristina le preferenze"
+msgstr ""
 
 #: menu.ui:12
 msgid "Project page"
-msgstr "Pagina del progetto"
+msgstr ""
 
 #: menu.ui:16
 msgid "Report a Bug"
-msgstr "Segnala un bug"
+msgstr ""
 
 #: menu.ui:20
 msgid "License"
-msgstr "Licenza"
+msgstr ""
 
 #: menu.ui:24
 msgid "Donate"
-msgstr "Donazione"
+msgstr ""
 
 #: other.ui:5
 msgid "Other"
-msgstr "Altro"
+msgstr ""
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "Sfocatura della schermata di blocco"
+msgstr ""
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
-"Modifica la sfocatura della schermata di blocco per utilizzare le preferenze "
-"di questa estensione."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "Sfocatura dello screenshot"
+msgstr ""
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"Aggiunge sfocatura allo sfondo dell'area di selezione della finestra nello "
-"strumento di cattura dello schermo."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "Sfocatura estensione dell'elenco delle finestre"
+msgstr ""
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "Rendi sfocata l'estensione dell'elenco di finestre, se utilizzata."
+msgstr ""
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "Panoramica"
+msgstr ""
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "Sfocatura dello sfondo"
+msgstr ""
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Aggiungi sfocatura allo sfondo della panoramica, utilizzando l'immagine "
-"dello sfondo."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "Panoramica stile componenti"
+msgstr ""
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
 msgstr ""
-"Lo stile semitrasparente per la dash, la voce/risultati di ricerca e le "
-"cartelle delle applicazioni."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr "Sfocatura della cartella delle applicazioni"
+msgstr ""
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr "Rende sfocato lo sfondo delle icone delle cartelle."
+msgstr ""
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr "Opacità di dialogo"
+msgstr ""
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr "L'opacità del popup della cartella delle applicazioni."
+msgstr ""
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr "Non dare stile"
+msgstr ""
 
 #: overview.ui:86
 msgid "Light"
-msgstr "Chiaro"
+msgstr ""
 
 #: overview.ui:87
 msgid "Dark"
-msgstr "Scuro"
+msgstr ""
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "Pannello"
+msgstr ""
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "Sfocatura pannello"
+msgstr ""
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Sfoca il pannello superiore usando l'immagine di sfondo."
+msgstr ""
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "Sfocatura statica"
+msgstr ""
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "Utilizza un'immagine sfocata statica, più performante e stabile."
+msgstr ""
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Disattiva la sfocatura dal pannello quando si accede alla panoramica."
+msgstr ""
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr "Disattiva quando una finestra è vicina"
+msgstr ""
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr "Disattiva la sfocatura dal pannello quando una finestra è vicina."
+msgstr ""
 
 #: panel.ui:73
 msgid "Compatibility"
-msgstr "Compatibilità"
+msgstr ""
 
 #: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
-msgstr "Varie opzioni per fornire compatibilità con altre estensioni."
+msgstr ""
 
 #: panel.ui:78
 msgid "Hidetopbar extension"
-msgstr "Estensione Hidetopbar"
+msgstr ""
 
 #: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"Non disabilita la sfocatura nella panoramica, meglio utilizzata con la "
-"sfocatura statica."
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr "Nome finestra"
+msgstr ""
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr "Seleziona finestra"
+msgstr ""
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr "Scegli una finestra o selezionala in base al nome della sua classe."
-
-#~ msgid ""
-#~ "A list of the applications to blur, one per line. To get an application "
-#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
-#~ "last name here."
-#~ msgstr ""
-#~ "Un elenco delle applicazioni da sfocare, una per riga. Per ottenere un "
-#~ "nome di classe dell'applicazione, sotto xorg puoi usare `xprop|grep "
-#~ "WM_CLASS` e incollare qui il nome nome."
+msgstr ""
