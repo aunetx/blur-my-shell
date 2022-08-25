@@ -207,6 +207,18 @@ msgid ""
 "issue."
 msgstr ""
 
+#: general.ui:165
+msgid "Reset preferences"
+msgstr ""
+
+#: general.ui:166
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr ""
+
+#: general.ui:185
+msgid "Reset"
+msgstr ""
+
 #: general.ui:189
 msgid "High performances"
 msgstr ""
@@ -217,10 +229,6 @@ msgstr ""
 
 #: general.ui:191
 msgid "High quality"
-msgstr ""
-
-#: menu.ui:6
-msgid "Reset preferences"
 msgstr ""
 
 #: menu.ui:12
