@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-08-19 16:15+0000\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
@@ -38,13 +38,13 @@ msgstr ""
 
 #: applications.ui:26
 msgid "Enable all by default"
-msgstr ""
+msgstr "默认全部启用"
 
 #: applications.ui:27
 msgid ""
 "Adds blur behind all windows by default. Not recommended because of "
 "performance and stability issues."
-msgstr ""
+msgstr "默认情况下在所有窗口后面添加模糊。由于性能和稳定性问题，不推荐使用。"
 
 #: applications.ui:43
 msgid "Whitelist"
@@ -52,19 +52,19 @@ msgstr "白名单"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "要模糊的窗口列表。"
 
 #: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr ""
+msgstr "添加窗口"
 
 #: applications.ui:80
 msgid "Blacklist"
-msgstr ""
+msgstr "黑名单"
 
 #: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "不模糊的窗口列表。"
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -225,7 +225,7 @@ msgstr "高品质"
 
 #: menu.ui:6
 msgid "Reset preferences"
-msgstr ""
+msgstr "重置首选项"
 
 #: menu.ui:12
 msgid "Project page"
@@ -371,15 +371,15 @@ msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "窗口名称"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "选择窗口"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "挑选一个窗口或通过其类别名称选择它。"
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

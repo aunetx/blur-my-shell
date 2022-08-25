@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"Last-Translator: K.B.Dharun Krishna <kbdharunkrishna@gmail.com>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "விண்ணப்பங்கள்"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "பயன்பாடுகள் மங்கலாக்குதல் (பீட்டா)"
 
 #: applications.ui:11
 msgid ""
@@ -30,348 +33,381 @@ msgid ""
 "buggy and is only applied to the apps that ask it, or to the ones set in the "
 "whitelist below."
 msgstr ""
+"பயன்பாடுகளில் மங்கலைச் சேர்க்கவும். இது இன்னும் ஒரு பீட்டா செயல்பாடாகும், மிகவும் தரமற்றதாக "
+"உள்ளது மற்றும் அதைக் கேட்கும் பயன்பாடுகள் அல்லது கீழே உள்ள அனுமதிப்பட்டியலில் "
+"அமைக்கப்பட்டுள்ளவற்றுக்கு மட்டுமே இது பொருந்தும்."
 
 #: applications.ui:26
 msgid "Enable all by default"
-msgstr ""
+msgstr "முன்னிருப்பாக அனைத்தையும் இயக்கு"
 
 #: applications.ui:27
 msgid ""
 "Adds blur behind all windows by default. Not recommended because of "
 "performance and stability issues."
 msgstr ""
+"முன்னிருப்பாக அனைத்து சாளரங்களுக்கும் பின்னால் மங்கலைச் சேர்க்கிறது. "
+"செயல்திறன் மற்றும் நிலைத்தன்மை சிக்கல்கள் காரணமாக பரிந்துரைக்கப்படவில்லை."
 
-#: applications.ui:43
+#: applications.ui:26
 msgid "Whitelist"
-msgstr ""
+msgstr "அனுமதிப்பட்டியல்"
 
 #: applications.ui:44
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "மங்கலாக்க வேண்டிய சாளரங்களின் பட்டியல்."
 
 #: applications.ui:62 applications.ui:99
 msgid "Add Window"
-msgstr ""
+msgstr "சாளரத்தைச் சேர்க்கவும்"
 
 #: applications.ui:80
 msgid "Blacklist"
-msgstr ""
+msgstr "பிளாக்லிஸ்ட்"
 
 #: applications.ui:81
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "மங்கலாக்கப்படக் கூடாத சாளரங்களின் பட்டியல்."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "பண்புகளைத் தனிப்பயனாக்குங்கள்"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
+"பொதுப் பக்கத்தில் அமைக்கப்படுவதற்குப் பதிலாக தனிப்பயனாக்கப்பட்ட மங்கலான பண்புகளைப் "
+"பயன்படுத்துகிறது."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "சிக்மா"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "மங்கலின் தீவிரம்."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr ""
+msgstr "பிரகாசம்"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr ""
+msgstr "மங்கலான விளைவின் பிரகாசம், அதிக மதிப்பு உரையைப் படிக்க கடினமாக்கலாம்."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "நிறம்"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"மங்கலின் நிறத்தை மாற்றுகிறது. வண்ணத்தின் ஒளிபுகாநிலை, அது மங்கலான விளைவுடன் எவ்வளவு "
+"கலக்கப்படுகிறது என்பதைக் கட்டுப்படுத்துகிறது."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "சத்தம் அளவு"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"மங்கலான விளைவைச் சேர்க்கும் சத்தத்தின் அளவு, குறைந்த-கான்ட்ராஸ்ட் திரைகளில் அல்லது அழகியல் "
+"நோக்கத்திற்காக பயனுள்ளதாக இருக்கும்."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "இரைச்சல் லேசான தன்மை"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "சத்தத்தின் லேசான தன்மை மங்கலான விளைவைக் கூட்டியது."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "அறிவிப்பு"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
-msgstr ""
+msgstr "இது போன்ற மாறும் மங்கலான கூறுகளில் இரைச்சல் மற்றும் வண்ணத்தை செயல்படுத்த முடியாது."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "கோடு"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "டேஷ் டு டாக் மங்கல்"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr ""
+msgstr "டாஷ் டு டாக் நீட்டிப்பு பயன்படுத்தப்பட்டால் அதன் பின்புலத்தை மங்கலாக்குங்கள்."
 
 #: dash.ui:26
 msgid "Override background"
-msgstr ""
+msgstr "பின்னணியை மேலெழுதவும்"
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
 msgstr ""
+"பின்னணியை அரை-வெளிப்படையாக்குகிறது, அதற்குப் பதிலாக டாஷ் டு டாக் விருப்பங்களைப் "
+"பயன்படுத்த இதை முடக்கவும்."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr ""
+msgstr "மேலோட்டத்தில் முடக்கு"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
+msgstr "மேலோட்டத்தை உள்ளிடும்போது டாஷ் முதல் டாக் வரை மங்கலை முடக்குகிறது."
 
 #: general.ui:5
 msgid "General"
-msgstr ""
+msgstr "பொது"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr ""
+msgstr "மங்கலான விருப்பத்தேர்வுகள்"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
+"உலகளாவிய மங்கலான விருப்பத்தேர்வுகள், இயல்பாகவே அனைத்து கூறுகளாலும் பயன்படுத்தப்படுகின்றன."
 
 #: general.ui:117
 msgid "Performances"
-msgstr ""
+msgstr "செயல்திறன்"
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr ""
+msgstr "செயல்திறனை மாற்ற பல்வேறு விருப்பங்கள்."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "நிறம் மற்றும் இரைச்சல் விளைவுகள்"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
 msgstr ""
+"சத்தம் மற்றும் வண்ண விளைவுகளின் பயன்பாட்டை உலகளவில் முடக்குவதற்கு அனுமதி அளிக்கிறது, இது "
+"குறைந்த-இறுதி வரைகலையின் செயல்திறனை மேம்படுத்தலாம்."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr ""
+msgstr "ஹேக் லெவல்"
 
 #: general.ui:136
 msgid ""
 "Changes the behaviour of dynamic blur effect. Default value is very "
 "recommended."
 msgstr ""
+"டைனமிக் மங்கலான விளைவின் நடத்தையை மாற்றுகிறது. இயல்புநிலை மதிப்பு மிகவும் "
+"பரிந்துரைக்கப்படுகிறது."
 
 #: general.ui:149
 msgid "Debug"
-msgstr ""
+msgstr "பிழைத்திருத்தம் செய்"
 
 #: general.ui:150
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"பதிவுகளில் நீட்டிப்பை வாய்மொழியாக மாற்றுகிறது, சிக்கலைப் புகாரளிக்க வேண்டியிருக்கும் "
+"போது செயல்படுத்தவும்."
 
 #: general.ui:189
 msgid "High performances"
-msgstr ""
+msgstr "உயர் செயல்திறன்"
 
 #: general.ui:190
 msgid "Default"
-msgstr ""
+msgstr "இயல்புநிலை"
 
 #: general.ui:191
 msgid "High quality"
-msgstr ""
+msgstr "உயர் தரம்"
 
 #: menu.ui:6
 msgid "Reset preferences"
-msgstr ""
+msgstr "விருப்பங்களை மீட்டமைக்கவும்"
 
-#: menu.ui:12
+#: menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "திட்டப் பக்கம்"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "பிழையைப் புகாரளிக்கவும்"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "உரிமம்"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "நன்கொடையளி"
 
 #: other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "மற்றவை"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "லாக்ஸ்கிரீன் மங்கலானது"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
+msgstr "இந்த நீட்டிப்பு விருப்பங்களைப் பயன்படுத்த பூட்டுத் திரையின் மங்கலை மாற்றவும்."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "ஸ்கிரீன்ஷாட் மங்கலானது"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
+msgstr "ஸ்கிரீன்ஷாட் UI இல் சாளரத் தேர்வியின் பின்னணியில் மங்கலைச் சேர்க்கவும்."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "சாளர பட்டியல் நீட்டிப்பு மங்கலானது"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "சாளரப் பட்டியல் நீட்டிப்பைப் பயன்படுத்தினால், அதை மங்கலாக்கவும்."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "கண்ணோட்டம்"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "பின்னணி தெளிவின்மை"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr ""
+msgstr "வால்பேப்பர் படத்தைப் பயன்படுத்தி மேலோட்டப் பின்னணியில் மங்கலைச் சேர்க்கவும்."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "மேலோட்டக் கூறுகளின் பாணி"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "applications folders."
 msgstr ""
+"கோடு, தேடல் நுழைவு/முடிவுகள் மற்றும் பயன்பாடுகள் கோப்புறைகளுக்கான அரை-வெளிப்படையான "
+"பாணி."
 
 #: overview.ui:44
 msgid "Applications folder blur"
-msgstr ""
+msgstr "பயன்பாடுகளின் கோப்புறை மங்கலாகிறது"
 
 #: overview.ui:45
 msgid "Makes the background of folder icons blurred."
-msgstr ""
+msgstr "கோப்புறை ஐகான்களின் பின்னணியை மங்கலாக்குகிறது."
 
 #: overview.ui:60
 msgid "Dialog opacity"
-msgstr ""
+msgstr "உரையாடல் ஒளிபுகாநிலை"
 
 #: overview.ui:61
 msgid "The opacity of the applications folder popup."
-msgstr ""
+msgstr "பயன்பாடுகள் கோப்புறை பாப்அப்பின் ஒளிபுகாநிலை."
 
 #: overview.ui:85
 msgid "Do not style"
-msgstr ""
+msgstr "ஸ்டைல் வேண்டாம்"
 
 #: overview.ui:86
 msgid "Light"
-msgstr ""
+msgstr "ஒளி"
 
 #: overview.ui:87
 msgid "Dark"
-msgstr ""
+msgstr "இருள்"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "பேனல்"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "பேனல் தெளிவின்மை"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "பின்னணி படத்தைப் பயன்படுத்தி மேல் பேனலை மங்கலாக்குங்கள்."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr ""
+msgstr "நிலையான தெளிவின்மை"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
+msgstr "நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, அதிக செயல்திறன் மற்றும் நிலையானது."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
+msgstr "மேலோட்டப் பார்வையை உள்ளிடும்போது பேனலில் இருந்து மங்கலானதை முடக்கும்."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "ஒரு சாளரம் அருகில் இருக்கும்போது முடக்கவும்"
 
 #: panel.ui:57
 msgid "Disables the blur from the panel when a window is near it."
-msgstr ""
+msgstr "ஒரு சாளரம் அதன் அருகில் இருக்கும்போது பேனலில் இருந்து மங்கலானதை முடக்குகிறது."
 
 #: panel.ui:73
 msgid "Compatibility"
-msgstr ""
+msgstr "இணக்கத்தன்மை"
 
 #: panel.ui:74
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "பிற நீட்டிப்புகளுடன் இணக்கத்தன்மையை வழங்க பல்வேறு விருப்பங்கள்."
 
 #: panel.ui:78
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "ஹைடோப்பார் நீட்டிப்பு"
 
 #: panel.ui:79
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr ""
+msgstr "மேலோட்டத்தில் மங்கலை முடக்காது, நிலையான மங்கலுடன் சிறப்பாகப் பயன்படுத்தப்படுகிறது."
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "சாளரத்தின் பெயர்"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "சாளரத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr ""
+"ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் "
+"தேர்ந்தெடுக்கவும்."
+
+#: applications.ui:27
+msgid ""
+"A list of the applications to blur, one per line. To get an application "
+"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
+"name here."
+msgstr ""
+"மங்கலாக்க வேண்டிய பயன்பாடுகளின் பட்டியல், வரிக்கு ஒன்று. பயன்பாட்டு வகுப்பின் பெயரைப் பெற, "
+"xorg இன் கீழ் நீங்கள் `xprop|grep WM_CLASS` ஐப் பயன்படுத்தி கடைசி பெயரை இங்கே ஒட்டலாம்."
