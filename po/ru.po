@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-08-20 22:52+0300\n"
+"PO-Revision-Date: 2022-08-25 13:51+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -233,6 +233,18 @@ msgstr ""
 "Делает работу расширения подробной в журналах, активируется, когда вам нужно "
 "сообщить о проблеме."
 
+#: general.ui:165
+msgid "Reset preferences"
+msgstr "Сброс настроек"
+
+#: general.ui:166
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr "Необратимо сбрасывает настройки Blur my Shell."
+
+#: general.ui:185
+msgid "Reset"
+msgstr "Сбросить"
+
 #: general.ui:189
 msgid "High performances"
 msgstr "Высокая производительность"
@@ -244,10 +256,6 @@ msgstr "По умолчанию"
 #: general.ui:191
 msgid "High quality"
 msgstr "Высокое качество"
-
-#: menu.ui:6
-msgid "Reset preferences"
-msgstr "Сбросить настройки"
 
 #: menu.ui:12
 msgid "Project page"
