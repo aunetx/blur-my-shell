@@ -72,7 +72,7 @@ var Applications = GObject.registerClass({
 
         // add initial applications
         this.preferences.applications.WHITELIST.forEach(
-            app_name => this.add_to_whitelist(app_name)
+            app => this.add_to_whitelist(app)
         );
         this.preferences.applications.BLACKLIST.forEach(
             app_name => this.add_to_blacklist(app_name)
@@ -99,8 +99,8 @@ var Applications = GObject.registerClass({
         }
     }
 
-    add_to_whitelist(app_name = null) {
-        let window_row = new WindowRow('whitelist', this, app_name);
+    add_to_whitelist(app = {}) {
+        let window_row = new WindowRow('whitelist', this, app.wm_class);
         this._whitelist.add(window_row);
     }
 

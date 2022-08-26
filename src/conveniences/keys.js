@@ -82,7 +82,7 @@ var Keys = [
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
             { type: Type.B, name: "enable-all" },
-            { type: Type.AS, name: "whitelist" },
+            { type: Type.ASD, name: "whitelist" },
             { type: Type.AS, name: "blacklist" },
         ]
     },

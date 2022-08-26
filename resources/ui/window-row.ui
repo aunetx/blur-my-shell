@@ -34,5 +34,20 @@
         </child>
       </object>
     </child>
+
+    <child>
+      <object class="AdwActionRow">
+        <property name="title" translatable="yes">Opacity</property>
+        <property name="subtitle" translatable="yes">The opacity of the selected window, useful if the application itself is opaque.</property>
+        <property name="activatable-widget">window_opacity</property>
+
+        <child>
+          <object class="GtkScale" id="window_opacity">
+            <property name="valign">center</property>
+            <property name="hexpand">true</property>
+          </object>
+        </child>
+      </object>
+    </child>
   </template>
 </interface>
