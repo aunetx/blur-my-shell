@@ -293,7 +293,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         );
 
         // if hacks are selected, force to repaint the window
-        if (this.prefs.HACKS_LEVEL >= 1) {
+        if (this.prefs.HACKS_LEVEL === 1 || this.prefs.HACKS_LEVEL === 2) {
             this._log("applications hack level 1 or 2");
 
             this.paint_signals.disconnect_all();

@@ -35,7 +35,7 @@
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
-            <summary>Level of hacks to use (from 0 to 2)</summary>
+            <summary>Level of hacks to use (from 0 to 3, 3 disabling clipped redraws entirely)</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
