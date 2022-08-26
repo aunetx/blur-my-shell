@@ -1,6 +1,6 @@
 'use strict';
 
-const { St, Shell, Gio, Gtk } = imports.gi;
+const { St, Shell, Gio, Gtk, Meta, Clutter } = imports.gi;
 const Main = imports.ui.main;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -73,6 +73,10 @@ class Extension {
         this._applications_blur = new Applications.ApplicationsBlur(...init());
         this._screenshot_blur = new Screenshot.ScreenshotBlur(...init());
 
+        // maybe disable clipped redraw
+
+        this._update_clipped_redraws();
+
         // connect each component to preferences change
 
         this._connect_to_settings();
@@ -138,6 +142,10 @@ class Extension {
         });
         this._connections = [];
 
+        // remove the clipped redraws flag
+
+        this._reenable_clipped_redraws();
+
         // remove the extension from GJS's global
 
         delete global.blur_my_shell;
@@ -147,14 +155,39 @@ class Extension {
         this._prefs = null;
     }
 
-    /// Restart the extension
-    restart() {
+    /// Restart the extension.
+    _restart() {
         this._log("restarting...");
 
         this.disable();
         this.enable();
 
         this._log("restarted.");
+    }
+
+    /// Add or remove the clutter debug flag to disable clipped redraws.
+    /// This will entirely fix the blur effect, but should not be used except if
+    /// the user really needs it, as clipped redraws are a huge performance
+    /// boost for the compositor.
+    _update_clipped_redraws() {
+        if (this._prefs.HACKS_LEVEL === 3)
+            this._disable_clipped_redraws();
+        else
+            this._reenable_clipped_redraws();
+    }
+
+    /// Add the Clutter debug flag.
+    _disable_clipped_redraws() {
+        Meta.add_clutter_debug_flags(
+            null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+        );
+    }
+
+    /// Remove the Clutter debug flag.
+    _reenable_clipped_redraws() {
+        Meta.remove_clutter_debug_flags(
+            null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+        );
     }
 
     /// Enables every component needed, should be called when the shell is
@@ -219,7 +252,7 @@ class Extension {
 
         // restart the extension when hacks level is changed, easier than
         // restarting individual components and should not happen often either
-        this._prefs.HACKS_LEVEL_changed(_ => this.restart());
+        this._prefs.HACKS_LEVEL_changed(_ => this._restart());
 
         // connect each component to use the proper sigma/brightness/color
 
