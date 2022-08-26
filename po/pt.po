@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: Vander <vander.azevedo88@gmail.com>\n"
+"Last-Translator: Paulo Vinícius Bettio <paulovinicius.bettio@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -432,8 +432,7 @@ msgstr "Desfoque estático"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
-"Utiliza uma imagem desfocada estática. Maior desempenho e estabilidade."
+msgstr "Utiliza uma imagem desfocada estática. Maior desempenho e estabilidade."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
