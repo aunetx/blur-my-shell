@@ -302,7 +302,11 @@ var ApplicationsBlur = class ApplicationsBlur {
             this.paint_signals.disconnect_all();
         }
 
+        // insert the blurred widget
         window_actor.insert_child_at_index(blur_actor, 0);
+
+        // set the window actor's opacity
+        this.set_window_opacity(window_actor, this.prefs.applications.OPACITY);
 
         // register the blur actor/effect
         blur_actor['blur_provider_pid'] = pid;
@@ -327,6 +331,14 @@ var ApplicationsBlur = class ApplicationsBlur {
                 }
             }
         );
+    }
+
+    /// Set the opacity of the window actor that sits on top of the blur effect.
+    set_window_opacity(window_actor, opacity) {
+        window_actor.get_children().forEach(child => {
+            if (child.name !== "blur-actor")
+                child.opacity = opacity;
+        });
     }
 
     // Compute the offset constraints for a blur actor relative to the size and
@@ -385,25 +397,21 @@ var ApplicationsBlur = class ApplicationsBlur {
     remove_blur(pid) {
         this._log(`removing blur for pid ${pid}`);
 
-        // global.window_group is null when restarting the shell, causing an
-        // innocent crash
-        if (global.window_group == null)
-            return;
-
-
         let meta_window = this.window_map.get(pid);
         // disconnect needed signals and untrack window
         if (meta_window) {
             this.window_map.delete(pid);
+            let window_actor = meta_window.get_compositor_private();
 
             // remove blur actor and untrack it
             let blur_actor = this.blur_actor_map.get(pid);
             if (blur_actor) {
                 this.blur_actor_map.delete(pid);
 
-                let window_actor = meta_window.get_compositor_private();
-                if (window_actor)
+                if (window_actor) {
+                    this.set_window_opacity(window_actor, 255);
                     window_actor.remove_child(blur_actor);
+                }
             }
         }
     }
@@ -419,6 +427,16 @@ var ApplicationsBlur = class ApplicationsBlur {
 
         this.connections.disconnect_all();
         this.paint_signals.disconnect_all();
+    }
+
+    /// Update the opacity of all window actors.
+    set_opacity() {
+        let opacity = this.prefs.applications.OPACITY;
+
+        this.window_map.forEach(((meta_window, _pid) => {
+            let window_actor = meta_window.get_compositor_private();
+            this.set_window_opacity(window_actor, opacity);
+        }));
     }
 
     /// Updates each blur effect to use new sigma value
