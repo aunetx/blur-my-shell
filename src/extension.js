@@ -350,6 +350,14 @@ class Extension {
             }
         });
 
+        // application opacity changed
+        this._prefs.applications.OPACITY_changed(_ => {
+            if (this._prefs.applications.BLUR)
+                this._applications_blur.set_opacity(
+                    this._prefs.applications.OPACITY
+                );
+        });
+
         // application enable-all changed
         this._prefs.applications.ENABLE_ALL_changed(_ => {
             if (this._prefs.applications.BLUR)
