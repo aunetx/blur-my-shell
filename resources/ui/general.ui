@@ -228,7 +228,7 @@ This option will entirely disable clipped redraws from GNOME shell, and may impa
       <item translatable="yes">High performances</item>
       <item translatable="yes">Default</item>
       <item translatable="yes">High quality</item>
-      <item translatable="yes">No artefacts</item>
+      <item translatable="yes">No artefact</item>
     </items>
   </object>
 </interface>

@@ -8,7 +8,9 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Applications blur (beta)</property>
-        <property name="description" translatable="yes">Add blur to the applications. This is still a beta functionnality, is quite buggy and is only applied to the apps that ask it, or to the ones set in the whitelist below.</property>
+        <property name="description" translatable="yes">Add blur to the applications. This is still a beta functionnality.
+To get the best results possible, make sure to choose option “No artefact” in the “General → Hack level” preference.
+        </property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
