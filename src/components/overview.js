@@ -64,6 +64,7 @@ var OverviewBlur = class OverviewBlur {
         this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
         this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
 
+        const w_m = global.workspace_manager;
         const outer_this = this;
 
         // create a blurred background actor for each monitor during a workspace
@@ -71,6 +72,17 @@ var OverviewBlur = class OverviewBlur {
         wac_proto._prepareWorkspaceSwitch = function (...params) {
             outer_this._log("prepare workspace switch");
             outer_this._original_PrepareSwitch.apply(this, params);
+
+            // this permits to show the blur behind windows that are on
+            // workspaces on the left and right
+            if (outer_this.prefs.applications.BLUR) {
+                let ws_index = w_m.get_active_workspace_index();
+                [ws_index - 1, ws_index + 1].forEach(
+                    i => w_m.get_workspace_by_index(i)?.list_windows().forEach(
+                        window => window.get_compositor_private().show()
+                    )
+                );
+            }
 
             Main.layoutManager.monitors.forEach(monitor => {
                 if (
@@ -98,6 +110,15 @@ var OverviewBlur = class OverviewBlur {
         wac_proto._finishWorkspaceSwitch = function (...params) {
             outer_this._log("finish workspace switch");
             outer_this._original_FinishSwitch.apply(this, params);
+
+            // this hides windows that are not on the current workspace
+            if (outer_this.prefs.applications.BLUR)
+                for (let i = 0; i < w_m.get_n_workspaces(); i++) {
+                    if (i != w_m.get_active_workspace_index())
+                        w_m.get_workspace_by_index(i)?.list_windows().forEach(
+                            window => window.get_compositor_private().hide()
+                        );
+                }
 
             outer_this._workspace_switch_bg_actors.forEach(actor => {
                 actor.destroy();
