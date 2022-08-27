@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
 "PO-Revision-Date: 2022-05-29 12:18+0000\n"
 "Last-Translator: Rali Boińskx <me@rlgh.eu>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -30,41 +30,59 @@ msgstr "Rozmazywanie aplikacji (beta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"Dodaje efekt rozmazania do aplikacji. Ta opcja jest obecnie w fazie beta, "
-"zawiera błędy i działa jedynie dla aplikacji które o nią poproszą lub dla "
-"tych dodanych do listy poniżej."
 
-#: applications.ui:26
+#: applications.ui:28
+msgid "Opacity"
+msgstr ""
+
+#: applications.ui:29
+msgid ""
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
+msgstr ""
+
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr ""
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+
+#: applications.ui:66
 msgid "Enable all by default"
 msgstr ""
 
-#: applications.ui:27
+#: applications.ui:67
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
 msgstr ""
 
-#: applications.ui:43
+#: applications.ui:84
 msgid "Whitelist"
 msgstr "Biała lista"
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
 msgstr ""
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
 msgstr ""
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
 msgstr ""
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
 msgstr ""
 
@@ -154,7 +172,7 @@ msgstr "Rozmazywanie Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Rozmazuje tło rozszerzenia Dash to Dock, jeśli jest włączone."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "Nadpisz tło"
 
@@ -216,17 +234,18 @@ msgstr "Poziom wykombinowania"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"Zmienia zachowanie efektu dynamicznego rozmazywania. Bardzo zalecana jest "
-"domyślna wartość."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -234,35 +253,47 @@ msgstr ""
 "Sprawia, że rozszerzenie wypisuje swoje działanie w logach; aktywuj jeśli "
 "chcesz zgłosić problem."
 
-#: general.ui:189
-msgid "High performances"
-msgstr "Wysoka wydajność"
-
-#: general.ui:190
-msgid "Default"
-msgstr "Domyślne"
-
-#: general.ui:191
-msgid "High quality"
-msgstr "Wysoka jakość"
-
-#: menu.ui:6
+#: general.ui:167
 msgid "Reset preferences"
 msgstr ""
 
-#: menu.ui:12
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr ""
+
+#: general.ui:187
+msgid "Reset"
+msgstr ""
+
+#: general.ui:228
+msgid "High performances"
+msgstr "Wysoka wydajność"
+
+#: general.ui:229
+msgid "Default"
+msgstr "Domyślne"
+
+#: general.ui:230
+msgid "High quality"
+msgstr "Wysoka jakość"
+
+#: general.ui:231
+msgid "No artefact"
+msgstr ""
+
+#: menu.ui:6
 msgid "Project page"
 msgstr "Strona projektu"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr "Zgłoś problem"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr "Licencja"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr "Przekaż darowiznę"
 
@@ -374,27 +405,33 @@ msgstr ""
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Wyłącza rozmazywanie paska podczas przechodzenia do ekranu podglądu."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr ""
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr "Kompatybilność"
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Różne opcje zachowania kompatybilności z innymi rozszerzeniami."
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr "Rozszerzenie Hidetopbar"
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Nie wyłącza rozmazywania w ekranie podglądu; opcja najbardziej przydatna "
@@ -411,6 +448,22 @@ msgstr ""
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr ""
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "Dodaje efekt rozmazania do aplikacji. Ta opcja jest obecnie w fazie beta, "
+#~ "zawiera błędy i działa jedynie dla aplikacji które o nią poproszą lub dla "
+#~ "tych dodanych do listy poniżej."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "Zmienia zachowanie efektu dynamicznego rozmazywania. Bardzo zalecana jest "
+#~ "domyślna wartość."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "
