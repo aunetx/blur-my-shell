@@ -139,6 +139,11 @@ var ApplicationsBlur = class ApplicationsBlur {
             && ((enable_all && !blacklist.includes(window_wm_class))
                 || (!enable_all && whitelist.includes(window_wm_class))
             )
+            && [
+                Meta.FrameType.NORMAL,
+                Meta.FrameType.DIALOG,
+                Meta.FrameType.MODAL_DIALOG
+            ].includes(meta_window.get_frame_type())
         ) {
             this._log(`application ${pid} listed, blurring it`);
 
