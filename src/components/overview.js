@@ -75,7 +75,9 @@ var OverviewBlur = class OverviewBlur {
 
             // this permits to show the blur behind windows that are on
             // workspaces on the left and right
-            if (outer_this.prefs.applications.BLUR) {
+            if (
+                outer_this.prefs.applications.BLUR
+            ) {
                 let ws_index = w_m.get_active_workspace_index();
                 [ws_index - 1, ws_index + 1].forEach(
                     i => w_m.get_workspace_by_index(i)?.list_windows().forEach(
@@ -112,7 +114,9 @@ var OverviewBlur = class OverviewBlur {
             outer_this._original_FinishSwitch.apply(this, params);
 
             // this hides windows that are not on the current workspace
-            if (outer_this.prefs.applications.BLUR)
+            if (
+                outer_this.prefs.applications.BLUR
+            )
                 for (let i = 0; i < w_m.get_n_workspaces(); i++) {
                     if (i != w_m.get_active_workspace_index())
                         w_m.get_workspace_by_index(i)?.list_windows().forEach(

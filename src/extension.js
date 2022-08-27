@@ -391,6 +391,12 @@ class Extension {
                 );
         });
 
+        // application blur-on-overview changed
+        this._prefs.applications.BLUR_ON_OVERVIEW_changed(_ => {
+            if (this._prefs.applications.BLUR)
+                this._applications_blur.connect_to_overview();
+        });
+
         // application enable-all changed
         this._prefs.applications.ENABLE_ALL_changed(_ => {
             if (this._prefs.applications.BLUR)

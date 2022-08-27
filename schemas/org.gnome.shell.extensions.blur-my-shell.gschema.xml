@@ -297,6 +297,11 @@
             <default>230</default>
             <summary>Opacity of the window actor on top of the blur effect</summary>
         </key>
+        <!-- BLUR ON OVERVIEW -->
+        <key type="b" name="blur-on-overview">
+            <default>false</default>
+            <summary>Wether or not to blur applications on the overview</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>
