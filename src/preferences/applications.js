@@ -16,6 +16,7 @@ var Applications = GObject.registerClass({
         'blur',
         'customize',
         'opacity',
+        'blur_on_overview',
         'enable_all',
         'whitelist',
         'add_window_whitelist',
@@ -34,6 +35,10 @@ var Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'opacity', this._opacity, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'blur-on-overview', this._blur_on_overview, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
