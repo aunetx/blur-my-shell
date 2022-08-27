@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
 "PO-Revision-Date: 2022-08-23 16:15+0000\n"
 "Last-Translator: K.B.Dharun Krishna <kbdharunkrishna@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,43 +29,59 @@ msgstr "பயன்பாடுகள் மங்கலாக்குதல�
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"பயன்பாடுகளில் மங்கலைச் சேர்க்கவும். இது இன்னும் ஒரு பீட்டா செயல்பாடாகும், மிகவும் தரமற்றதாக "
-"உள்ளது மற்றும் அதைக் கேட்கும் பயன்பாடுகள் அல்லது கீழே உள்ள அனுமதிப்பட்டியலில் "
-"அமைக்கப்பட்டுள்ளவற்றுக்கு மட்டுமே இது பொருந்தும்."
 
-#: applications.ui:26
+#: applications.ui:28
+msgid "Opacity"
+msgstr ""
+
+#: applications.ui:29
+msgid ""
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
+msgstr ""
+
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr ""
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+
+#: applications.ui:66
 msgid "Enable all by default"
 msgstr "முன்னிருப்பாக அனைத்தையும் இயக்கு"
 
-#: applications.ui:27
+#: applications.ui:67
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
 msgstr ""
-"முன்னிருப்பாக அனைத்து சாளரங்களுக்கும் பின்னால் மங்கலைச் சேர்க்கிறது. "
-"செயல்திறன் மற்றும் நிலைத்தன்மை சிக்கல்கள் காரணமாக பரிந்துரைக்கப்படவில்லை."
 
-#: applications.ui:26
+#: applications.ui:84
 msgid "Whitelist"
 msgstr "அனுமதிப்பட்டியல்"
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
 msgstr "மங்கலாக்க வேண்டிய சாளரங்களின் பட்டியல்."
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
 msgstr "சாளரத்தைச் சேர்க்கவும்"
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
 msgstr "பிளாக்லிஸ்ட்"
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
 msgstr "மங்கலாக்கப்படக் கூடாத சாளரங்களின் பட்டியல்."
 
@@ -152,7 +168,7 @@ msgstr "டேஷ் டு டாக் மங்கல்"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "டாஷ் டு டாக் நீட்டிப்பு பயன்படுத்தப்பட்டால் அதன் பின்புலத்தை மங்கலாக்குங்கள்."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "பின்னணியை மேலெழுதவும்"
 
@@ -211,17 +227,18 @@ msgstr "ஹேக் லெவல்"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"டைனமிக் மங்கலான விளைவின் நடத்தையை மாற்றுகிறது. இயல்புநிலை மதிப்பு மிகவும் "
-"பரிந்துரைக்கப்படுகிறது."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "பிழைத்திருத்தம் செய்"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -229,21 +246,33 @@ msgstr ""
 "பதிவுகளில் நீட்டிப்பை வாய்மொழியாக மாற்றுகிறது, சிக்கலைப் புகாரளிக்க வேண்டியிருக்கும் "
 "போது செயல்படுத்தவும்."
 
-#: general.ui:189
+#: general.ui:167
+msgid "Reset preferences"
+msgstr "விருப்பங்களை மீட்டமைக்கவும்"
+
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr ""
+
+#: general.ui:187
+msgid "Reset"
+msgstr ""
+
+#: general.ui:228
 msgid "High performances"
 msgstr "உயர் செயல்திறன்"
 
-#: general.ui:190
+#: general.ui:229
 msgid "Default"
 msgstr "இயல்புநிலை"
 
-#: general.ui:191
+#: general.ui:230
 msgid "High quality"
 msgstr "உயர் தரம்"
 
-#: menu.ui:6
-msgid "Reset preferences"
-msgstr "விருப்பங்களை மீட்டமைக்கவும்"
+#: general.ui:231
+msgid "No artefact"
+msgstr ""
 
 #: menu.ui:6
 msgid "Project page"
@@ -365,27 +394,33 @@ msgstr "நிலையான மங்கலான படத்தைப் ப
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "மேலோட்டப் பார்வையை உள்ளிடும்போது பேனலில் இருந்து மங்கலானதை முடக்கும்."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr "ஒரு சாளரம் அருகில் இருக்கும்போது முடக்கவும்"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
-msgstr "ஒரு சாளரம் அதன் அருகில் இருக்கும்போது பேனலில் இருந்து மங்கலானதை முடக்குகிறது."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr ""
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr "இணக்கத்தன்மை"
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr "பிற நீட்டிப்புகளுடன் இணக்கத்தன்மையை வழங்க பல்வேறு விருப்பங்கள்."
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr "ஹைடோப்பார் நீட்டிப்பு"
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr "மேலோட்டத்தில் மங்கலை முடக்காது, நிலையான மங்கலுடன் சிறப்பாகப் பயன்படுத்தப்படுகிறது."
 
@@ -399,15 +434,40 @@ msgstr "சாளரத்தைத் தேர்ந்தெடுக்க�
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
-"ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் "
-"தேர்ந்தெடுக்கவும்."
+msgstr "ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் தேர்ந்தெடுக்கவும்."
 
-#: applications.ui:27
-msgid ""
-"A list of the applications to blur, one per line. To get an application "
-"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
-"name here."
-msgstr ""
-"மங்கலாக்க வேண்டிய பயன்பாடுகளின் பட்டியல், வரிக்கு ஒன்று. பயன்பாட்டு வகுப்பின் பெயரைப் பெற, "
-"xorg இன் கீழ் நீங்கள் `xprop|grep WM_CLASS` ஐப் பயன்படுத்தி கடைசி பெயரை இங்கே ஒட்டலாம்."
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "பயன்பாடுகளில் மங்கலைச் சேர்க்கவும். இது இன்னும் ஒரு பீட்டா செயல்பாடாகும், மிகவும் "
+#~ "தரமற்றதாக உள்ளது மற்றும் அதைக் கேட்கும் பயன்பாடுகள் அல்லது கீழே உள்ள அனுமதிப்பட்டியலில் "
+#~ "அமைக்கப்பட்டுள்ளவற்றுக்கு மட்டுமே இது பொருந்தும்."
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default. Not recommended because of "
+#~ "performance and stability issues."
+#~ msgstr ""
+#~ "முன்னிருப்பாக அனைத்து சாளரங்களுக்கும் பின்னால் மங்கலைச் சேர்க்கிறது. செயல்திறன் மற்றும் "
+#~ "நிலைத்தன்மை சிக்கல்கள் காரணமாக பரிந்துரைக்கப்படவில்லை."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "டைனமிக் மங்கலான விளைவின் நடத்தையை மாற்றுகிறது. இயல்புநிலை மதிப்பு மிகவும் "
+#~ "பரிந்துரைக்கப்படுகிறது."
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr ""
+#~ "ஒரு சாளரம் அதன் அருகில் இருக்கும்போது பேனலில் இருந்து மங்கலானதை முடக்குகிறது."
+
+#~ msgid ""
+#~ "A list of the applications to blur, one per line. To get an application "
+#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
+#~ "last name here."
+#~ msgstr ""
+#~ "மங்கலாக்க வேண்டிய பயன்பாடுகளின் பட்டியல், வரிக்கு ஒன்று. பயன்பாட்டு வகுப்பின் பெயரைப் "
+#~ "பெற, xorg இன் கீழ் நீங்கள் `xprop|grep WM_CLASS` ஐப் பயன்படுத்தி கடைசி பெயரை இங்கே "
+#~ "ஒட்டலாம்."

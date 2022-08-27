@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
 "PO-Revision-Date: 2022-07-26 16:23+0000\n"
 "Last-Translator: vikdevelop <super-vik1@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/blur-"
@@ -29,41 +29,59 @@ msgstr "Rozostření aplikací (beta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"Přidejte do aplikací rozmazání pozadí. Toto je stále beta funkce, je poměrně "
-"chybová a vztahuje se pouze na aplikace, které to vyžadují, nebo na ty, "
-"které jsou nastaveny v seznamu povolených níže."
 
-#: applications.ui:26
+#: applications.ui:28
+msgid "Opacity"
+msgstr ""
+
+#: applications.ui:29
+msgid ""
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
+msgstr ""
+
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr ""
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+
+#: applications.ui:66
 msgid "Enable all by default"
 msgstr ""
 
-#: applications.ui:27
+#: applications.ui:67
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
 msgstr ""
 
-#: applications.ui:43
+#: applications.ui:84
 msgid "Whitelist"
 msgstr "Seznam povolených"
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
 msgstr ""
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
 msgstr ""
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
 msgstr ""
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
 msgstr ""
 
@@ -153,7 +171,7 @@ msgstr "Dash do rozmazaného doku"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Rozmazat pozadí rozšíření Dash to Dock, pokud je použito."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "Přepsat pozadí"
 
@@ -213,17 +231,18 @@ msgstr "Úroveň hackování"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"Změní chování efektu dynamického rozostření. Výchozí hodnota je velmi "
-"doporučená."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "Ladit"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -231,35 +250,47 @@ msgstr ""
 "Rozšíření se v protokolech zobrazí jako slovní, aktivuje se, když "
 "potřebujete nahlásit problém."
 
-#: general.ui:189
-msgid "High performances"
-msgstr "Vysoké výkony"
-
-#: general.ui:190
-msgid "Default"
-msgstr "Výchozí"
-
-#: general.ui:191
-msgid "High quality"
-msgstr "Vysoká kvalita"
-
-#: menu.ui:6
+#: general.ui:167
 msgid "Reset preferences"
 msgstr ""
 
-#: menu.ui:12
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr ""
+
+#: general.ui:187
+msgid "Reset"
+msgstr ""
+
+#: general.ui:228
+msgid "High performances"
+msgstr "Vysoké výkony"
+
+#: general.ui:229
+msgid "Default"
+msgstr "Výchozí"
+
+#: general.ui:230
+msgid "High quality"
+msgstr "Vysoká kvalita"
+
+#: general.ui:231
+msgid "No artefact"
+msgstr ""
+
+#: menu.ui:6
 msgid "Project page"
 msgstr "Stránka projektu"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr "Nahlásit chybu"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr "Licence"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr "Podpořit"
 
@@ -370,27 +401,33 @@ msgstr "Používá statický rozmazaný obraz, je výkonnější a stabilnějš�
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Zakáže rozmazání panelu při vstupu do přehledu."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr "Zakázat, když je okno v blízkosti"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
-msgstr "Zakáže rozmazání obrazu, když je v jeho blízkosti okno."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr ""
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr "Kompatibilita"
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Různé možnosti pro zajištění kompatibility s jinými rozšířeními."
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr "Rozšíření Skrýt horní lištu"
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Nevypíná rozostření v přehledu, nejlépe se používá se statickým rozostřením."
@@ -406,6 +443,25 @@ msgstr ""
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr ""
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "Přidejte do aplikací rozmazání pozadí. Toto je stále beta funkce, je "
+#~ "poměrně chybová a vztahuje se pouze na aplikace, které to vyžadují, nebo "
+#~ "na ty, které jsou nastaveny v seznamu povolených níže."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "Změní chování efektu dynamického rozostření. Výchozí hodnota je velmi "
+#~ "doporučená."
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr "Zakáže rozmazání obrazu, když je v jeho blízkosti okno."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

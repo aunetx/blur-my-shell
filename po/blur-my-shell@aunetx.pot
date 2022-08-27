@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: applications.ui:5
@@ -27,38 +27,59 @@ msgstr ""
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
 
-#: applications.ui:26
+#: applications.ui:28
+msgid "Opacity"
+msgstr ""
+
+#: applications.ui:29
+msgid ""
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
+msgstr ""
+
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr ""
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+
+#: applications.ui:66
 msgid "Enable all by default"
 msgstr ""
 
-#: applications.ui:27
+#: applications.ui:67
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
 msgstr ""
 
-#: applications.ui:43
+#: applications.ui:84
 msgid "Whitelist"
 msgstr ""
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
 msgstr ""
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
 msgstr ""
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
 msgstr ""
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
 msgstr ""
 
@@ -139,7 +160,7 @@ msgstr ""
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr ""
 
@@ -193,57 +214,64 @@ msgstr ""
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr ""
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
 
-#: general.ui:165
+#: general.ui:167
 msgid "Reset preferences"
 msgstr ""
 
-#: general.ui:166
+#: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr ""
 
-#: general.ui:185
+#: general.ui:187
 msgid "Reset"
 msgstr ""
 
-#: general.ui:189
+#: general.ui:228
 msgid "High performances"
 msgstr ""
 
-#: general.ui:190
+#: general.ui:229
 msgid "Default"
 msgstr ""
 
-#: general.ui:191
+#: general.ui:230
 msgid "High quality"
 msgstr ""
 
-#: menu.ui:12
+#: general.ui:231
+msgid "No artefact"
+msgstr ""
+
+#: menu.ui:6
 msgid "Project page"
 msgstr ""
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr ""
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr ""
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr ""
 
@@ -349,27 +377,33 @@ msgstr ""
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr ""
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr ""
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr ""
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 
