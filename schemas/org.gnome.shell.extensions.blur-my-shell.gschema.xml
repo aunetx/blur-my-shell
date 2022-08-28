@@ -314,7 +314,7 @@
         </key>
         <!-- BLACKLIST -->
         <key type="as" name="blacklist">
-            <default>[]</default>
+            <default>["Plank"]</default>
             <summary>List of applications not to blur</summary>
         </key>
     </schema>
