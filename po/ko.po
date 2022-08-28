@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-28 10:33+0000\n"
+"PO-Revision-Date: 2022-08-30 21:21+0000\n"
 "Last-Translator: Park Seonu <cotwo0139@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
@@ -202,29 +202,30 @@ msgstr "블러 환경 설정"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr ""
+msgstr "글로벌 블러 환경설정, 모든 컴포넌트에서 기본값으로 사용됩니다."
 
 #: general.ui:117
 msgid "Performances"
-msgstr ""
+msgstr "성능"
 
 #: general.ui:118
 msgid "Various options to tweak the performances."
-msgstr ""
+msgstr "성능을 조정하는 다양한 옵션들."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "색상과 노이즈 효과"
 
 #: general.ui:123
 msgid ""
 "Permits to disable globally the use of noise and color effects, this may "
 "improve performances for low-end graphic."
-msgstr ""
+msgstr "노이즈 및 색상 효과의 사용을 전역적으로 비활성화할 수 있습니다. 이는 저사양 "
+"그래픽 환경에서의 성능을 향상시킬 수 있습니다."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr ""
+msgstr "성능 수준"
 
 #: general.ui:136
 msgid ""
