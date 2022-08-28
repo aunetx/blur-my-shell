@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: Park Seonu <cotwo0139@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,36 +34,44 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"어플리케이션에 블러를 추가합니다. 이 기능은 아직 베타입니다. \n"
+"최상의 결과를 얻으려면, 설정의 \"일반 → 개선 방식\" 을 \"아티펙트 없음\" "
+"으로 선택해야 합니다.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "불투명도"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr ""
+msgstr "블러 효과 위의 창의 불투명도 값이 높을수록 더 읽기 쉽습니다."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "오버뷰 모드 블러"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"오버뷰 모드의 모든 작업 영역에 블러 효과가 제대로 표시되도록 합니다.\n"
+"이로 인해 일부 지연 또는 성능 문제가 발생할 수 있습니다."
 
 #: applications.ui:66
 msgid "Enable all by default"
-msgstr ""
+msgstr "기본적으로 모두 활성화"
 
 #: applications.ui:67
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"블러 효과를 기본적으로 모든 창에 추가합니다.\n"
+"성능 및 안정성 문제로 인해 권장하지 않습니다."
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -71,122 +79,126 @@ msgstr "화이트리스트"
 
 #: applications.ui:85
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "블러 효과를 추가할 창의 목록."
 
 #: applications.ui:103 applications.ui:140
 msgid "Add Window"
-msgstr ""
+msgstr "창 추가"
 
 #: applications.ui:121
 msgid "Blacklist"
-msgstr ""
+msgstr "블랙리스트"
 
 #: applications.ui:122
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "블러 효과를 추가하지 않을 창 목록."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "속성 사용자 정의"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
-msgstr ""
+msgstr "일반 페이지에서 설정한 속성 대신 사용자 정의된 블러 속성을 사용합니다."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "시그마"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "블러 효과의 강도."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr ""
+msgstr "밝기"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr ""
+msgstr "블러 효과의 밝기, 높은 값은 텍스트를 읽기 어렵게 만들 수 있습니다."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "색상"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
-msgstr ""
+msgstr "블러의 색상을 변경합니다, 색상의 불투명도는 블러 효과의 혼합되는 정도를 "
+"설정합니다."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "노이즈 값"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
-msgstr ""
+msgstr "블러 효과에 추가할 노이즈의 양으로, 대비가 낮은 화면이나 미적 목적에 "
+"유용합니다."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "노이즈 밝기"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "블러 효과에 추가될 노이즈의 밝기."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "알림"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
-msgstr ""
+msgstr "노이즈 및 색상은 이와 같이 동적으로 흐리게 처리된 구성 요소에서 활성화할 수 "
+"없습니다."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "대시보드"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Dash to Dock 블러"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr ""
+msgstr "Dash to Dock 확장 프로그램이 사용되는 경우 배경을 흐리게 처리합니다."
 
 #: dash.ui:26 panel.ui:56
 msgid "Override background"
-msgstr ""
+msgstr "배경 오버라이드"
 
 #: dash.ui:27
 msgid ""
 "Makes the background semi-transparent, disable this to use Dash to Dock "
 "preferences instead."
-msgstr ""
+msgstr "배경을 반투명하게 만들고 Dash to Dock 기본 설정을 대신 사용하려면 이 옵션을 "
+"비활성화합니다."
 
 #: dash.ui:41 panel.ui:41
 msgid "Disable in overview"
-msgstr ""
+msgstr "오버뷰 모드에서 비활성화"
 
 #: dash.ui:42
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
+msgstr "Dash to Dock 이 오버뷰 모드에 들어가면 블러 효과를 비활성화합니다."
 
 #: general.ui:5
 msgid "General"
-msgstr ""
+msgstr "일반"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr ""
+msgstr "블러 환경 설정"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
