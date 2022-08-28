@@ -28,6 +28,7 @@ To get the best results possible, make sure to choose option “No artefact” i
             <property name="title" translatable="yes">Opacity</property>
             <property name="subtitle" translatable="yes">The opacity of the window on top of the blur effect, a higher value will be more legible.</property>
             <property name="activatable-widget">opacity</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
             <child>
               <object class="GtkScale" id="opacity_scale">
