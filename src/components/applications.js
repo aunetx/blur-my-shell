@@ -142,16 +142,15 @@ var ApplicationsBlur = class ApplicationsBlur {
             );
         }
 
-        // update the offset constraints when the window size changes
+        // update the position and size when the window size changes
         this.connections.connect(meta_window, 'size-changed', () => {
             if (this.blur_actor_map.has(pid)) {
-                let offset = this.compute_offset(meta_window);
+                let allocation = this.compute_allocation(meta_window);
                 let blur_actor = this.blur_actor_map.get(pid);
-                let constraints = blur_actor.get_constraints();
-                blur_actor.x = offset.x;
-                blur_actor.y = offset.y;
-                constraints[0].offset = offset.width;
-                constraints[1].offset = offset.height;
+                blur_actor.x = allocation.x;
+                blur_actor.y = allocation.y;
+                blur_actor.width = allocation.width;
+                blur_actor.height = allocation.height;
             }
         });
 
@@ -414,44 +413,40 @@ var ApplicationsBlur = class ApplicationsBlur {
         });
     }
 
-    // Compute the offset constraints for a blur actor relative to the size and
-    // position of the target window
-    compute_offset(meta_window) {
+    /// Compute the size and position for a blur actor.
+    /// On wayland, it seems like we need to divide by the scale to get the
+    /// correct result.
+    compute_allocation(meta_window) {
+        const is_wayland = Meta.is_wayland_compositor();
+        const monitor_index = meta_window.get_monitor();
+        const scale = is_wayland
+            ? Main.layoutManager.monitors[monitor_index].geometry_scale
+            : 1;
+
         let frame = meta_window.get_frame_rect();
         let buffer = meta_window.get_buffer_rect();
+
         return {
-            x: frame.x - buffer.x,
-            y: frame.y - buffer.y,
-            width: frame.width - buffer.width,
-            height: frame.height - buffer.height
+            x: (frame.x - buffer.x) / scale,
+            y: (frame.y - buffer.y) / scale,
+            width: frame.width / scale,
+            height: frame.height / scale
         };
     }
 
     /// Returns a new already blurred widget, configured to follow the size and
     /// position of its target window.
     create_blur_actor(meta_window, window_actor, blur_effect) {
-        // create the constraints in size and position to its target window
-        let offset = this.compute_offset(meta_window);
+        // compute the size and position
+        let allocation = this.compute_allocation(meta_window);
 
-        let constraint_width = new Clutter.BindConstraint({
-            source: window_actor,
-            coordinate: Clutter.BindCoordinate.WIDTH,
-            offset: offset.width
+        // create the actor
+        let blur_actor = new Clutter.Actor({
+            x: allocation.x,
+            y: allocation.y,
+            width: allocation.width,
+            height: allocation.height
         });
-        let constraint_height = new Clutter.BindConstraint({
-            source: window_actor,
-            coordinate: Clutter.BindCoordinate.HEIGHT,
-            offset: offset.height
-        });
-
-        // create the actor and add the constraints
-        let blur_actor = new Clutter.Actor();
-        blur_actor.add_constraint(constraint_width);
-        blur_actor.add_constraint(constraint_height);
-
-        // set position
-        blur_actor.x = offset.x;
-        blur_actor.y = offset.y;
 
         // add the effect
         blur_actor.add_effect_with_name('blur-effect', blur_effect);
