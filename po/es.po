@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,26 +34,36 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Añadir desenfoque a las aplicaciones. Esto es todavía una funcionalidad beta."
+"\n"
+"Para obtener los mejores resultados posibles, asegúrese de elegir la opción "
+"\"Sin artefactos\" en la preferencia \"General → Nivel de desenfoque\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Opacidad"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"La opacidad de la ventana sobre el efecto de desenfoque, un valor más alto "
+"será más legible."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Desenfoque en la vista general"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Fuerza a que el desenfoque se muestre correctamente en todos los espacios de "
+"trabajo en la vista general.\n"
+"Esto puede causar algunos problemas de latencia o rendimiento."
 
 #: applications.ui:66
 msgid "Enable all by default"
@@ -64,6 +74,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Añade desenfoque detrás de todas las ventanas por defecto.\n"
+"No se recomienda por problemas de rendimiento y estabilidad."
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -238,6 +250,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Cambia el comportamiento del efecto de desenfoque dinámico.\n"
+"El valor predeterminado es muy recomendable, a menos que use el desenfoque "
+"de aplicación, en cuyo caso es mejor \"Sin artefacto\".\n"
+"Esta opción desactivará por completo los redibujos recortados del shell de "
+"Gnome, y puede afectar al rendimiento de forma significativa, pero arreglará "
+"por completo el efecto de desenfoque."
 
 #: general.ui:151
 msgid "Debug"
@@ -257,11 +275,11 @@ msgstr "Restablecer preferencias"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Restablece las preferencias de Blur my Shell de forma irreversible."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Restablecer"
 
 #: general.ui:228
 msgid "High performances"
@@ -277,7 +295,7 @@ msgstr "Alta calidad"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Sin artefacto"
 
 #: menu.ui:6
 msgid "Project page"
@@ -410,6 +428,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Sobrescribe el fondo del panel para usar uno transparente.\n"
+"Recomendado a menos que quiera personalizar su tema de Gnome."
 
 #: panel.ui:64
 msgid "Disable when a window is near"
@@ -418,6 +438,7 @@ msgstr "Desactivar cuando una ventana está cerca"
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
+"Desactiva la transparencia del panel cuando una ventana está cerca de él."
 
 #: panel.ui:82
 msgid "Compatibility"
