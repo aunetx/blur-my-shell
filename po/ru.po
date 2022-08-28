@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-25 13:51+0300\n"
+"PO-Revision-Date: 2022-08-28 13:45+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -34,26 +34,34 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Добавляет размытие к приложениям. Это все еще бета-функционал.\n"
+"Чтобы получить наилучшие результаты, убедитесь, что выбрали опцию \"Без "
+"артефактов\" в настройке \"Общие → Уровень взлома\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Непрозрачность"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Непрозрачность окна поверх эффекта размытия, более высокое значение будет "
+"более четким."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Размытие в Обзоре"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Заставляет размытие правильно отображаться на всех рабочих столах в Обзоре.\n"
+"Это может вызвать некоторые задержки или проблемы с производительностью."
 
 #: applications.ui:66
 msgid "Enable all by default"
@@ -64,6 +72,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"По умолчанию добавляет размытие для всех окон.\n"
+"Не рекомендуется из-за проблем с производительностью и стабильностью."
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -237,6 +247,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Изменяет поведение эффекта динамического размытия.\n"
+"Значение по умолчанию очень рекомендуется, если только вы не используете "
+"размытие приложений, в этом случае лучше выбрать \"Без артефактов\".\n"
+"Эта опция полностью отключает обрезанные перерисовки из оболочки GNOME, что "
+"может значительно повлиять на производительность, но полностью исправляет "
+"эффект размытия."
 
 #: general.ui:151
 msgid "Debug"
@@ -276,7 +292,7 @@ msgstr "Высокое качество"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Без артефактов"
 
 #: menu.ui:6
 msgid "Project page"
@@ -408,6 +424,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Переопределяет фон верхней панели, чтобы использовать прозрачный фон.\n"
+"Рекомендуется, если вы не хотите настраивать тему GNOME."
 
 #: panel.ui:64
 msgid "Disable when a window is near"
@@ -416,6 +434,7 @@ msgstr "Отключить, когда рядом находится окно"
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
+"Отключает прозрачность верхней панели, когда рядом с ней находится окно."
 
 #: panel.ui:82
 msgid "Compatibility"
