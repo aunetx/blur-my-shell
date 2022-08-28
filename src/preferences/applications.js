@@ -4,9 +4,26 @@ const { Adw, GLib, GObject, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
 const { WindowRow } = Me.imports.preferences.window_row;
+
+
+const make_array = prefs_group => {
+    let list_box = prefs_group
+        .get_first_child()
+        .get_last_child()
+        .get_first_child();
+
+    let elements = [];
+    let i = 0;
+    let element = list_box.get_row_at_index(i);
+    while (element) {
+        elements.push(element);
+        i++;
+        element = list_box.get_row_at_index(i);
+    }
+
+    return elements;
+};
 
 
 var Applications = GObject.registerClass({
@@ -24,10 +41,10 @@ var Applications = GObject.registerClass({
         'add_window_blacklist'
     ],
 }, class Applications extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
+    constructor(preferences) {
+        super({});
 
-        this.preferences = new Prefs(Keys);
+        this.preferences = preferences;
 
         this.preferences.applications.settings.bind(
             'blur', this._blur, 'state',
@@ -62,16 +79,6 @@ var Applications = GObject.registerClass({
             this._whitelist.visible = false;
         this._blacklist.visible = !this._whitelist.visible;
 
-        // the Gtk.ListBox which contains the widgets
-        this._whitelist_elements = this._whitelist
-            .get_first_child()
-            .get_last_child()
-            .get_first_child();
-        this._blacklist_elements = this._blacklist
-            .get_first_child()
-            .get_last_child()
-            .get_first_child();
-
         // listen to app addition
         this._add_window_whitelist.connect('clicked',
             _ => this.add_to_whitelist()
@@ -81,32 +88,51 @@ var Applications = GObject.registerClass({
         );
 
         // add initial applications
+        this.add_widgets_from_lists();
+
+        this.preferences.connect('reset', _ => {
+            this.remove_all_widgets();
+            this.add_widgets_from_lists();
+        });
+    }
+
+    // A way to retriew the whitelist widgets.
+    get _whitelist_elements() {
+        return make_array(this._whitelist);
+    }
+
+    // A way to retriew the blacklist widgets.
+    get _blacklist_elements() {
+        return make_array(this._blacklist);
+    }
+
+    add_widgets_from_lists() {
         this.preferences.applications.WHITELIST.forEach(
             app_name => this.add_to_whitelist(app_name)
         );
+
         this.preferences.applications.BLACKLIST.forEach(
             app_name => this.add_to_blacklist(app_name)
         );
+
     }
 
     close_all_expanded() {
-        let i = 0;
-        let element_w = this._whitelist_elements.get_row_at_index(i);
-        while (element_w) {
-            element_w.set_expanded(false);
+        this._whitelist_elements.forEach(
+            element => element.set_expanded(false)
+        );
+        this._blacklist_elements.forEach(
+            element => element.set_expanded(false)
+        );
+    }
 
-            i += 1;
-            element_w = this._whitelist_elements.get_row_at_index(i);
-        }
-
-        let j = 0;
-        let element_b = this._blacklist_elements.get_row_at_index(i);
-        while (element_b) {
-            element_b.set_expanded(false);
-
-            i += 1;
-            element_b = this._blacklist_elements.get_row_at_index(i);
-        }
+    remove_all_widgets() {
+        this._whitelist_elements.forEach(
+            element => this._whitelist.remove(element)
+        );
+        this._blacklist_elements.forEach(
+            element => this._blacklist.remove(element)
+        );
     }
 
     add_to_whitelist(app_name = null) {
@@ -120,33 +146,17 @@ var Applications = GObject.registerClass({
     }
 
     update_whitelist_titles() {
-        let i = 0;
-        let element = this._whitelist_elements.get_row_at_index(i);
-        let titles = [];
-        while (element) {
-            let title = element._window_class.buffer.text;
-            if (title != "")
-                titles.push(title);
-
-            i += 1;
-            element = this._whitelist_elements.get_row_at_index(i);
-        }
+        let titles = this._whitelist_elements
+            .map(element => element._window_class.buffer.text)
+            .filter(title => title != "");
 
         this.preferences.applications.WHITELIST = titles;
     }
 
     update_blacklist_titles() {
-        let i = 0;
-        let element = this._blacklist_elements.get_row_at_index(i);
-        let titles = [];
-        while (element) {
-            let title = element._window_class.buffer.text;
-            if (title != "")
-                titles.push(title);
-
-            i += 1;
-            element = this._blacklist_elements.get_row_at_index(i);
-        }
+        let titles = this._blacklist_elements
+            .map(element => element._window_class.buffer.text)
+            .filter(title => title != "");
 
         this.preferences.applications.BLACKLIST = titles;
     }
