@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-24 13:52+0000\n"
+"PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,26 +34,37 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Aggiunge la sfocatura alle applicazioni. Si tratta ancora di una "
+"funzionalità beta.\n"
+"Per ottenere i migliori risultati possibili, assicuratevi di scegliere "
+"l'opzione \"Nessun artefatto\" nelle preferenze \"Generale → Livello hack\"."
+"\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Opacità"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"L'opacità della finestra sopra l'effetto di sfocatura; un valore più alto "
+"sarà più leggibile."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Sfocatura nella panoramica"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Forza la sfocatura a essere visualizzata correttamente su tutti gli spazi di "
+"lavoro nella panoramica.\n"
+"Ciò può causare problemi di latenza o di prestazioni."
 
 #: applications.ui:66
 msgid "Enable all by default"
@@ -64,6 +75,9 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Aggiunge la sfocatura dietro tutte le finestre per impostazione predefinita."
+"\n"
+"Sconsigliato per problemi di prestazioni e stabilità."
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -239,6 +253,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Modifica il comportamento dell'effetto di sfocatura dinamica.\n"
+"Il valore predefinito è molto consigliato, a meno che non si utilizzi la "
+"sfocatura delle applicazioni, nel qual caso è meglio \"Nessun artefatto\".\n"
+"Questa opzione disabilita completamente i ridisegni ritagliati dalla shell "
+"di GNOME e può avere un impatto significativo sulle prestazioni, ma risolve "
+"completamente l'effetto di sfocatura."
 
 #: general.ui:151
 msgid "Debug"
@@ -258,11 +278,11 @@ msgstr "Ripristina le preferenze"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Resetta le preferenze di Blur my Shell in modo irreversibile."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Resettare"
 
 #: general.ui:228
 msgid "High performances"
@@ -278,7 +298,7 @@ msgstr "Alta qualità"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Nessun artefatto"
 
 #: menu.ui:6
 msgid "Project page"
@@ -411,6 +431,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Sovrascrive lo sfondo del pannello per utilizzarne uno trasparente.\n"
+"Consigliato a meno che non si voglia personalizzare il tema di GNOME."
 
 #: panel.ui:64
 msgid "Disable when a window is near"
@@ -418,7 +440,7 @@ msgstr "Disattiva quando una finestra è vicina"
 
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Disattiva la trasparenza del pannello quando una finestra è vicina."
 
 #: panel.ui:82
 msgid "Compatibility"
