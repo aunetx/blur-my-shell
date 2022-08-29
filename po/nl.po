@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"PO-Revision-Date: 2022-08-30 21:21+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -37,7 +37,7 @@ msgstr ""
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Ondoorzichtigheid"
 
 #: applications.ui:29
 msgid ""
@@ -47,7 +47,7 @@ msgstr ""
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Vervaging in overzicht"
 
 #: applications.ui:51
 msgid ""
@@ -261,11 +261,11 @@ msgstr "Voorkeuren opnieuw instellen"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Herstelt voorkeuren van Blur my Shell onomkeerbaar."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Resetten"
 
 #: general.ui:228
 msgid "High performances"
@@ -281,7 +281,7 @@ msgstr "Hoge kwaliteit"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Geen artefact"
 
 #: menu.ui:6
 msgid "Project page"
