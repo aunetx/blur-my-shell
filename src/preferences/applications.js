@@ -41,8 +41,9 @@ var Applications = GObject.registerClass({
         'add_window_blacklist'
     ],
 }, class Applications extends Adw.PreferencesPage {
-    constructor(preferences) {
+    constructor(preferences, preferences_window) {
         super({});
+        this._preferences_window = preferences_window;
 
         this.preferences = preferences;
 
@@ -75,11 +76,12 @@ var Applications = GObject.registerClass({
             GObject.BindingFlags.DEFAULT
         );
 
+        // make sure that blacklist / whitelist is correctly hidden
         if (this._enable_all.active)
             this._whitelist.visible = false;
         this._blacklist.visible = !this._whitelist.visible;
 
-        // listen to app addition
+        // listen to app row addition
         this._add_window_whitelist.connect('clicked',
             _ => this.add_to_whitelist()
         );
@@ -117,7 +119,7 @@ var Applications = GObject.registerClass({
 
     }
 
-    close_all_expanded() {
+    close_all_expanded_rows() {
         this._whitelist_elements.forEach(
             element => element.set_expanded(false)
         );
