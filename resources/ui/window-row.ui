@@ -36,4 +36,8 @@
       </object>
     </child>
   </template>
+
+  <object class="AdwToast" id="picking_failure_toast">
+    <property name="title">Could not pick window, make sure that the extension is enabled.</property>
+  </object>
 </interface>

@@ -36,7 +36,7 @@ function fillPreferencesWindow(window) {
     window.add(new Panel(preferences));
     window.add(new Overview(preferences));
     window.add(new Dash(preferences));
-    window.add(new Applications(preferences));
+    window.add(new Applications(preferences, window));
     window.add(new Other(preferences));
 
     window.search_enabled = true;

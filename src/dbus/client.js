@@ -24,6 +24,22 @@ function pick() {
     );
 }
 
+/// Connect to DBus 'picking' signal, which will be emitted when the inspector
+/// is picking a window.
+function on_picking(cb) {
+    const id = Gio.DBus.session.signal_subscribe(
+        bus_name,
+        iface_name,
+        'picking',
+        obj_path,
+        null,
+        Gio.DBusSignalFlags.NONE,
+        _ => {
+            cb();
+            Gio.DBus.session.signal_unsubscribe(id);
+        }
+    );
+}
 
 /// Connect to DBus 'picked' signal, which will be emitted when a window is
 /// picked.
