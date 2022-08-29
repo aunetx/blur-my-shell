@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-06-02 19:09+0000\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
+"PO-Revision-Date: 2022-08-23 16:15+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
 "my-shell/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -29,43 +29,61 @@ msgstr "Toepassingen vervagen (bèta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
-msgstr ""
-"Vervaging toevoegen aan toepassingen. Deze functionaliteit is nog niet "
-"stabiel, en is wordt alleen toegepast op toepassingen die er om vragen of in "
-"de lijst hieronder staan."
-
-#: applications.ui:26
-msgid "Enable all by default"
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
 
-#: applications.ui:27
+#: applications.ui:28
+msgid "Opacity"
+msgstr ""
+
+#: applications.ui:29
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
 msgstr ""
 
-#: applications.ui:43
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr ""
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+
+#: applications.ui:66
+msgid "Enable all by default"
+msgstr "Alle standaard inschakelen"
+
+#: applications.ui:67
+msgid ""
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+
+#: applications.ui:84
 msgid "Whitelist"
-msgstr "Whitelist"
+msgstr "Witte lijst"
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Een lijst van vensters om te vervagen."
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
-msgstr ""
+msgstr "Venster toevoegen"
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
-msgstr ""
+msgstr "Zwarte lijst"
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Een lijst van vensters om niet te vervagen."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -156,7 +174,7 @@ msgstr ""
 "De achtergrond van de Dash to Dock-uitbreiding vervagen, als deze wordt "
 "gebruikt."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "Achtergrond overschrijven"
 
@@ -218,17 +236,18 @@ msgstr "Hack-niveau"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"Het gedrag van het dynamische vervagingseffect aanpassen. De standaardwaarde "
-"wordt sterk aangeraden."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "Foutopsporing"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -236,35 +255,47 @@ msgstr ""
 "De logboeken van de uitbreiding uitgebreider maken, activeer wanneer u een "
 "probleem gaat melden."
 
-#: general.ui:189
+#: general.ui:167
+msgid "Reset preferences"
+msgstr "Voorkeuren opnieuw instellen"
+
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr ""
+
+#: general.ui:187
+msgid "Reset"
+msgstr ""
+
+#: general.ui:228
 msgid "High performances"
 msgstr "Hoge prestaties"
 
-#: general.ui:190
+#: general.ui:229
 msgid "Default"
 msgstr "Standaard"
 
-#: general.ui:191
+#: general.ui:230
 msgid "High quality"
 msgstr "Hoge kwaliteit"
 
-#: menu.ui:6
-msgid "Reset preferences"
+#: general.ui:231
+msgid "No artefact"
 msgstr ""
 
-#: menu.ui:12
+#: menu.ui:6
 msgid "Project page"
 msgstr "Projectpagina"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr "Een probleem melden"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr "Licentie"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr "Doneren"
 
@@ -379,28 +410,33 @@ msgstr ""
 "De vervaging van het paneel uitschakelen wanneer het overzicht wordt "
 "geactiveerd."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr "Uitschakelen wanneer een venster dichtbij is"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
-"Vervaging van het paneel uitschakelen wanneer een venster dichtbij komt."
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr "Compatibiliteit"
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Verschillende opties voor compatibiliteit met andere uitbreidingen."
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar-uitbreiding"
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "De vervaging in het overzicht niet uitschakelen, best samen gebruikt met "
@@ -408,15 +444,42 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Vensternaam"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Venster selecteren"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Kies een venster of selecteer deze bij hun klassenaam."
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "Vervaging toevoegen aan toepassingen. Deze functionaliteit is nog niet "
+#~ "stabiel, en wordt alleen toegepast op toepassingen die er om vragen of in "
+#~ "de lijst hieronder staan."
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default. Not recommended because of "
+#~ "performance and stability issues."
+#~ msgstr ""
+#~ "Past standaard vervaging toe achter alle vensters. Niet aanbevolen "
+#~ "vanwege prestatie- en stabiliteitsproblemen."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "Het gedrag van het dynamische vervagingseffect aanpassen. De "
+#~ "standaardwaarde wordt sterk aangeraden."
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr ""
+#~ "Vervaging van het paneel uitschakelen wanneer een venster dichtbij komt."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

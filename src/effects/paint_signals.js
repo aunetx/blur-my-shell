@@ -29,6 +29,24 @@ var PaintSignals = class PaintSignals {
             } catch (e) { }
         });
 
+        // remove the actor from buffer when it is destroyed
+        if (
+            actor.connect &&
+            (
+                !(actor instanceof GObject.Object) ||
+                GObject.signal_lookup('destroy', actor)
+            )
+        )
+            this.connections.connect(actor, 'destroy', () => {
+                this.buffer.forEach(infos => {
+                    if (infos.actor === actor) {
+                        // remove from buffer
+                        let index = this.buffer.indexOf(infos);
+                        this.buffer.splice(index, 1);
+                    }
+                });
+            });
+
         this.buffer.push(infos);
     }
 

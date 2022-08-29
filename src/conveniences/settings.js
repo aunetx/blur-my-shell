@@ -1,6 +1,7 @@
 'use strict';
 
 const { Gio, GLib } = imports.gi;
+const Signals = imports.signals;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 
@@ -153,6 +154,8 @@ var Prefs = class Prefs {
                 component[property_name + '_reset']();
             });
         });
+
+        this.emit('reset', true);
     }
 
     /// From the gschema name, returns the name of the associated property on
@@ -178,3 +181,5 @@ var Prefs = class Prefs {
         });
     }
 };
+
+Signals.addSignalMethods(Prefs.prototype);

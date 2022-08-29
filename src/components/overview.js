@@ -70,55 +70,85 @@ var OverviewBlur = class OverviewBlur {
         // update backgrounds when the component is enabled
         this.update_backgrounds();
 
-        this.enabled = true;
 
         // part for the workspace animation switch
 
-        // store original workspace switching methods for restoring them on
-        // disable()
-        this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
-        this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
+        // make sure not to do this part if the extension was enabled prior, as
+        // the functions would call themselves and cause infinite recursion
+        if (!this.enabled) {
+            // store original workspace switching methods for restoring them on
+            // disable()
+            this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
+            this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
 
-        const outer_this = this;
+            const w_m = global.workspace_manager;
+            const outer_this = this;
 
-        // create a blurred background actor for each monitor during a workspace
-        // switch
-        wac_proto._prepareWorkspaceSwitch = function (...params) {
-            outer_this._log("prepare workspace switch");
-            outer_this._original_PrepareSwitch.apply(this, params);
+            // create a blurred background actor for each monitor during a workspace
+            // switch
+            wac_proto._prepareWorkspaceSwitch = function (...params) {
+                outer_this._log("prepare workspace switch");
+                outer_this._original_PrepareSwitch.apply(this, params);
 
-            Main.layoutManager.monitors.forEach(monitor => {
+                // this permits to show the blur behind windows that are on
+                // workspaces on the left and right
                 if (
-                    !(
-                        Meta.prefs_get_workspaces_only_on_primary() &&
-                        (monitor !== Main.layoutManager.primaryMonitor)
-                    )
+                    outer_this.prefs.applications.BLUR
                 ) {
-                    const bg_actor = outer_this.create_background_actor(
-                        monitor
+                    let ws_index = w_m.get_active_workspace_index();
+                    [ws_index - 1, ws_index + 1].forEach(
+                        i => w_m.get_workspace_by_index(i)?.list_windows().forEach(
+                            window => window.get_compositor_private().show()
+                        )
                     );
-
-                    Main.uiGroup.insert_child_above(
-                        bg_actor,
-                        global.window_group
-                    );
-
-                    // store the actors so that we can delete them later
-                    outer_this._workspace_switch_bg_actors.push(bg_actor);
                 }
-            });
-        };
 
-        // remove the workspace-switch actors when the switch is done
-        wac_proto._finishWorkspaceSwitch = function (...params) {
-            outer_this._log("finish workspace switch");
-            outer_this._original_FinishSwitch.apply(this, params);
+                Main.layoutManager.monitors.forEach(monitor => {
+                    if (
+                        !(
+                            Meta.prefs_get_workspaces_only_on_primary() &&
+                            (monitor !== Main.layoutManager.primaryMonitor)
+                        )
+                    ) {
+                        const bg_actor = outer_this.create_background_actor(
+                            monitor
+                        );
 
-            outer_this._workspace_switch_bg_actors.forEach(actor => {
-                actor.destroy();
-            });
-            outer_this._workspace_switch_bg_actors = [];
-        };
+                        Main.uiGroup.insert_child_above(
+                            bg_actor,
+                            global.window_group
+                        );
+
+                        // store the actors so that we can delete them later
+                        outer_this._workspace_switch_bg_actors.push(bg_actor);
+                    }
+                });
+            };
+
+            // remove the workspace-switch actors when the switch is done
+            wac_proto._finishWorkspaceSwitch = function (...params) {
+                outer_this._log("finish workspace switch");
+                outer_this._original_FinishSwitch.apply(this, params);
+
+                // this hides windows that are not on the current workspace
+                if (
+                    outer_this.prefs.applications.BLUR
+                )
+                    for (let i = 0; i < w_m.get_n_workspaces(); i++) {
+                        if (i != w_m.get_active_workspace_index())
+                            w_m.get_workspace_by_index(i)?.list_windows().forEach(
+                                window => window.get_compositor_private().hide()
+                            );
+                    }
+
+                outer_this._workspace_switch_bg_actors.forEach(actor => {
+                    actor.destroy();
+                });
+                outer_this._workspace_switch_bg_actors = [];
+            };
+        }
+
+        this.enabled = true;
     }
 
     update_backgrounds() {
@@ -270,15 +300,19 @@ var OverviewBlur = class OverviewBlur {
         Main.uiGroup.remove_style_class_name("bms-overview-components-light");
         Main.uiGroup.remove_style_class_name("bms-overview-components-dark");
 
+        // make sure to absolutely not do this if the component was not enabled
+        // prior, as this would cause infinite recursion
+        if (this.enabled) {
+            // restore original behavior
+            if (this._original_PrepareSwitch)
+                wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
+            if (this._original_FinishSwitch)
+                wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
+        }
+
         this.effects = [];
         this.connections.disconnect_all();
         this.enabled = false;
-
-        // restore original behavior
-        if (this._original_PrepareSwitch && this._original_FinishSwitch) {
-            wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
-            wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
-        }
     }
 
     _log(str) {

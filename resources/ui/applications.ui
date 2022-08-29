@@ -8,7 +8,9 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Applications blur (beta)</property>
-        <property name="description" translatable="yes">Add blur to the applications. This is still a beta functionnality, is quite buggy and is only applied to the apps that ask it, or to the ones set in the whitelist below.</property>
+        <property name="description" translatable="yes">Add blur to the applications. This is still a beta functionnality.
+To get the best results possible, make sure to choose option “No artefact” in the “General → Hack level” preference.
+        </property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
@@ -18,6 +20,45 @@
         <child>
           <object class="CustomizeRow" id="customize">
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Opacity</property>
+            <property name="subtitle" translatable="yes">The opacity of the window on top of the blur effect, a higher value will be more legible.</property>
+            <property name="activatable-widget">opacity</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="opacity_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">0</property>
+                <property name="adjustment">opacity</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blur on overview</property>
+            <property name="subtitle" translatable="yes">Forces the blur to be properly shown on all workspaces on overview.
+This may cause some latency or performance issues.</property>
+            <property name="activatable-widget">blur_on_overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="blur_on_overview">
+                <property name="valign">center</property>
+              </object>
+            </child>
           </object>
         </child>
 
@@ -113,4 +154,10 @@ Not recommended because of performance and stability issues.</property>
       </object>
     </child>
   </template>
+
+  <object class="GtkAdjustment" id="opacity">
+    <property name="lower">25</property>
+    <property name="upper">255</property>
+    <property name="step-increment">1</property>
+  </object>
 </interface>

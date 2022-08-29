@@ -4,8 +4,6 @@ const { Adw, GLib, GObject, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
 
 
 var Other = GObject.registerClass({
@@ -22,30 +20,32 @@ var Other = GObject.registerClass({
         'window_list_customize',
     ],
 }, class Overview extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
+    constructor(preferences) {
+        super({});
 
-        const Preferences = new Prefs(Keys);
+        this.preferences = preferences;
 
-        Preferences.lockscreen.settings.bind(
+        this.preferences.lockscreen.settings.bind(
             'blur', this._lockscreen_blur, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._lockscreen_customize.connect_to(Preferences.lockscreen);
+        this._lockscreen_customize.connect_to(this.preferences.lockscreen);
 
-        Preferences.screenshot.settings.bind(
+        this.preferences.screenshot.settings.bind(
             'blur', this._screenshot_blur, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._screenshot_customize.connect_to(Preferences.screenshot);
+        this._screenshot_customize.connect_to(this.preferences.screenshot);
 
-        Preferences.window_list.settings.bind(
+        this.preferences.window_list.settings.bind(
             'blur', this._window_list_blur, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._window_list_customize.connect_to(Preferences.window_list, false);
+        this._window_list_customize.connect_to(
+            this.preferences.window_list, false
+        );
     }
 });

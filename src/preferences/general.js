@@ -4,8 +4,6 @@ const { Adw, GLib, GObject, Gio } = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
 const { CustomizeRow } = Me.imports.preferences.customize_row;
 
 
@@ -27,26 +25,26 @@ var General = GObject.registerClass({
         'reset'
     ],
 }, class General extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
+    constructor(preferences) {
+        super({});
 
-        const Preferences = new Prefs(Keys);
+        this.preferences = preferences;
 
-        CustomizeRow.prototype.connect_to.call(this, Preferences);
+        CustomizeRow.prototype.connect_to.call(this, this.preferences);
 
-        Preferences.settings.bind(
+        this.preferences.settings.bind(
             'color-and-noise', this._color_and_noise, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.settings.bind(
+        this.preferences.settings.bind(
             'hacks-level', this._hack_level, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.settings.bind(
+        this.preferences.settings.bind(
             'debug', this._debug, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._reset.connect('clicked', _ => Preferences.reset());
+        this._reset.connect('clicked', _ => this.preferences.reset());
     }
 });

@@ -35,7 +35,7 @@
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
-            <summary>Level of hacks to use (from 0 to 2)</summary>
+            <summary>Level of hacks to use (from 0 to 3, 3 disabling clipped redraws entirely)</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
@@ -264,7 +264,7 @@
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
-            <default>false</default>
+            <default>true</default>
             <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
         </key>
         <!-- SIGMA -->
@@ -274,7 +274,7 @@
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
-            <default>0.6</default>
+            <default>1.</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
         <!-- COLOR -->
@@ -292,6 +292,16 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
+        <!-- OPACITY -->
+        <key type="i" name="opacity">
+            <default>230</default>
+            <summary>Opacity of the window actor on top of the blur effect</summary>
+        </key>
+        <!-- BLUR ON OVERVIEW -->
+        <key type="b" name="blur-on-overview">
+            <default>false</default>
+            <summary>Wether or not to blur applications on the overview</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>
@@ -304,7 +314,7 @@
         </key>
         <!-- BLACKLIST -->
         <key type="as" name="blacklist">
-            <default>[]</default>
+            <default>["Plank"]</default>
             <summary>List of applications not to blur</summary>
         </key>
     </schema>

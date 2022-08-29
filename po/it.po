@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-06-04 09:00+0000\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
+"PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -29,43 +29,75 @@ msgstr "Sfocatura applicazioni (beta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"Aggiungi sfocatura alle applicazioni. Questa è ancora una funzionalità beta, "
-"è piuttosto buggata e viene applicata solo alle app che lo richiedono o a "
-"quelle impostate nella whitelist di seguito."
+"Aggiunge la sfocatura alle applicazioni. Si tratta ancora di una "
+"funzionalità beta.\n"
+"Per ottenere i migliori risultati possibili, assicuratevi di scegliere "
+"l'opzione \"Nessun artefatto\" nelle preferenze \"Generale → Livello hack\"."
+"\n"
+"        "
 
-#: applications.ui:26
-msgid "Enable all by default"
-msgstr ""
+#: applications.ui:28
+msgid "Opacity"
+msgstr "Opacità"
 
-#: applications.ui:27
+#: applications.ui:29
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
 msgstr ""
+"L'opacità della finestra sopra l'effetto di sfocatura; un valore più alto "
+"sarà più leggibile."
 
-#: applications.ui:43
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr "Sfocatura nella panoramica"
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+"Forza la sfocatura a essere visualizzata correttamente su tutti gli spazi di "
+"lavoro nella panoramica.\n"
+"Ciò può causare problemi di latenza o di prestazioni."
+
+#: applications.ui:66
+msgid "Enable all by default"
+msgstr "Abilita tutto per impostazione predefinita"
+
+#: applications.ui:67
+msgid ""
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+"Aggiunge la sfocatura dietro tutte le finestre per impostazione predefinita."
+"\n"
+"Sconsigliato per problemi di prestazioni e stabilità."
+
+#: applications.ui:84
 msgid "Whitelist"
 msgstr "Whitelist"
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Un elenco di finestre da sfocare."
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
-msgstr ""
+msgstr "Aggiungi finestra"
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
-msgstr ""
+msgstr "Blacklist"
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Un elenco di finestre da non sfocare."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -154,7 +186,7 @@ msgstr "Sfocatura Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Sfoca lo sfondo dell'estensione Dash to Dock, se utilizzata."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "Sovrascrivi sfondo"
 
@@ -215,17 +247,24 @@ msgstr "Suggerimenti per le prestazioni"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"Modifica il comportamento dell'effetto di sfocatura dinamica. Il valore di "
-"default è molto raccomandato."
+"Modifica il comportamento dell'effetto di sfocatura dinamica.\n"
+"Il valore predefinito è molto consigliato, a meno che non si utilizzi la "
+"sfocatura delle applicazioni, nel qual caso è meglio \"Nessun artefatto\".\n"
+"Questa opzione disabilita completamente i ridisegni ritagliati dalla shell "
+"di GNOME e può avere un impatto significativo sulle prestazioni, ma risolve "
+"completamente l'effetto di sfocatura."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "Debug"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -233,35 +272,47 @@ msgstr ""
 "Rendi dettagliata l'estensione nei registri di sistema, abilitalo per "
 "segnalare un problema."
 
-#: general.ui:189
+#: general.ui:167
+msgid "Reset preferences"
+msgstr "Ripristina le preferenze"
+
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr "Resetta le preferenze di Blur my Shell in modo irreversibile."
+
+#: general.ui:187
+msgid "Reset"
+msgstr "Resettare"
+
+#: general.ui:228
 msgid "High performances"
 msgstr "Alte prestazioni"
 
-#: general.ui:190
+#: general.ui:229
 msgid "Default"
 msgstr "Predefinito"
 
-#: general.ui:191
+#: general.ui:230
 msgid "High quality"
 msgstr "Alta qualità"
 
-#: menu.ui:6
-msgid "Reset preferences"
-msgstr ""
+#: general.ui:231
+msgid "No artefact"
+msgstr "Nessun artefatto"
 
-#: menu.ui:12
+#: menu.ui:6
 msgid "Project page"
 msgstr "Pagina del progetto"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr "Segnala un bug"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr "Licenza"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr "Donazione"
 
@@ -375,27 +426,35 @@ msgstr "Utilizza un'immagine sfocata statica, più performante e stabile."
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Disattiva la sfocatura dal pannello quando si accede alla panoramica."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+"Sovrascrive lo sfondo del pannello per utilizzarne uno trasparente.\n"
+"Consigliato a meno che non si voglia personalizzare il tema di GNOME."
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr "Disattiva quando una finestra è vicina"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
-msgstr "Disattiva la sfocatura dal pannello quando una finestra è vicina."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr "Disattiva la trasparenza del pannello quando una finestra è vicina."
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr "Compatibilità"
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Varie opzioni per fornire compatibilità con altre estensioni."
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr "Estensione Hidetopbar"
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Non disabilita la sfocatura nella panoramica, meglio utilizzata con la "
@@ -403,15 +462,41 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Nome finestra"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Seleziona finestra"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Scegli una finestra o selezionala in base al nome della sua classe."
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "Aggiungi sfocatura alle applicazioni. Questa è ancora una funzionalità "
+#~ "beta, è piuttosto buggata e viene applicata solo alle app che lo "
+#~ "richiedono o a quelle impostate nella whitelist di seguito."
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default. Not recommended because of "
+#~ "performance and stability issues."
+#~ msgstr ""
+#~ "Aggiunge sfocatura dietro tutte le finestre per impostazione predefinita. "
+#~ "Non consigliato a causa di problemi di prestazioni e stabilità."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "Modifica il comportamento dell'effetto di sfocatura dinamica. Il valore "
+#~ "di default è molto raccomandato."
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr "Disattiva la sfocatura dal pannello quando una finestra è vicina."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

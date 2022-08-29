@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-06-01 22:15+0000\n"
+"POT-Creation-Date: 2022-08-27 21:07+0200\n"
+"PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -29,43 +29,73 @@ msgstr "Desenfoque de las aplicaciones (beta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Add blur to the applications. This is still a beta functionnality.\n"
+"To get the best results possible, make sure to choose option “No artefact” "
+"in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"Añadir desenfoque a las aplicaciones. Esto es todavía una funcionalidad "
-"beta, tiene bastantes errores y sólo se aplica a las aplicaciones que lo "
-"piden, o a las que se establecen en la lista blanca de abajo."
+"Añadir desenfoque a las aplicaciones. Esto es todavía una funcionalidad beta."
+"\n"
+"Para obtener los mejores resultados posibles, asegúrese de elegir la opción "
+"\"Sin artefactos\" en la preferencia \"General → Nivel de desenfoque\".\n"
+"        "
 
-#: applications.ui:26
-msgid "Enable all by default"
-msgstr ""
+#: applications.ui:28
+msgid "Opacity"
+msgstr "Opacidad"
 
-#: applications.ui:27
+#: applications.ui:29
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
 msgstr ""
+"La opacidad de la ventana sobre el efecto de desenfoque, un valor más alto "
+"será más legible."
 
-#: applications.ui:43
+#: applications.ui:50
+msgid "Blur on overview"
+msgstr "Desenfoque en la vista general"
+
+#: applications.ui:51
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+"Fuerza a que el desenfoque se muestre correctamente en todos los espacios de "
+"trabajo en la vista general.\n"
+"Esto puede causar algunos problemas de latencia o rendimiento."
+
+#: applications.ui:66
+msgid "Enable all by default"
+msgstr "Activar todo por defecto"
+
+#: applications.ui:67
+msgid ""
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+"Añade desenfoque detrás de todas las ventanas por defecto.\n"
+"No se recomienda por problemas de rendimiento y estabilidad."
+
+#: applications.ui:84
 msgid "Whitelist"
 msgstr "Lista blanca"
 
-#: applications.ui:44
+#: applications.ui:85
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Una lista de ventanas para desenfocar."
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:103 applications.ui:140
 msgid "Add Window"
-msgstr ""
+msgstr "Añadir ventana"
 
-#: applications.ui:80
+#: applications.ui:121
 msgid "Blacklist"
-msgstr ""
+msgstr "Lista negra"
 
-#: applications.ui:81
+#: applications.ui:122
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Una lista de ventanas para no difuminar."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -154,7 +184,7 @@ msgstr "Desenfoque de Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Desenfoca el fondo de la extensión Dash to Dock, si se usa."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "Sobrescribir el fondo"
 
@@ -214,17 +244,24 @@ msgstr "Nivel de hack"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of dynamic blur effect.\n"
+"Default value is very recommended, unless you use application blur in which "
+"case “No artefact” is better.\n"
+"This option will entirely disable clipped redraws from GNOME shell, and may "
+"impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"Cambia el comportamiento del efecto de desenfoque dinámico. El valor "
-"predeterminado es muy recomendable."
+"Cambia el comportamiento del efecto de desenfoque dinámico.\n"
+"El valor predeterminado es muy recomendable, a menos que use el desenfoque "
+"de aplicación, en cuyo caso es mejor \"Sin artefacto\".\n"
+"Esta opción desactivará por completo los redibujos recortados del shell de "
+"Gnome, y puede afectar al rendimiento de forma significativa, pero arreglará "
+"por completo el efecto de desenfoque."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "Depurar"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -232,35 +269,47 @@ msgstr ""
 "Hace que la extensión sea verbosa en los registros, se activa cuando se "
 "necesita informar de un problema."
 
-#: general.ui:189
+#: general.ui:167
+msgid "Reset preferences"
+msgstr "Restablecer preferencias"
+
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr "Restablece las preferencias de Blur my Shell de forma irreversible."
+
+#: general.ui:187
+msgid "Reset"
+msgstr "Restablecer"
+
+#: general.ui:228
 msgid "High performances"
 msgstr "Altos rendimientos"
 
-#: general.ui:190
+#: general.ui:229
 msgid "Default"
 msgstr "Predeterminado"
 
-#: general.ui:191
+#: general.ui:230
 msgid "High quality"
 msgstr "Alta calidad"
 
-#: menu.ui:6
-msgid "Reset preferences"
-msgstr ""
+#: general.ui:231
+msgid "No artefact"
+msgstr "Sin artefacto"
 
-#: menu.ui:12
+#: menu.ui:6
 msgid "Project page"
 msgstr "Página del proyecto"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr "Informar de un error"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr "Licencia"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr "Donar"
 
@@ -374,28 +423,37 @@ msgstr "Usa una imagen borrosa estática, más potente y estable."
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Desactiva el desenfoque del panel al entrar en la vista general."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+"Sobrescribe el fondo del panel para usar uno transparente.\n"
+"Recomendado a menos que quiera personalizar su tema de Gnome."
+
+#: panel.ui:64
 msgid "Disable when a window is near"
 msgstr "Desactivar cuando una ventana está cerca"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
-msgstr "Desactiva el desenfoque del panel cuando una ventana está cerca de el."
+#: panel.ui:65
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr ""
+"Desactiva la transparencia del panel cuando una ventana está cerca de él."
 
-#: panel.ui:73
+#: panel.ui:82
 msgid "Compatibility"
 msgstr "Compatibilidad"
 
-#: panel.ui:74
+#: panel.ui:83
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 "Varias opciones para proporcionar compatibilidad con otras extensiones."
 
-#: panel.ui:78
+#: panel.ui:88
 msgid "Hidetopbar extension"
 msgstr "Extensión Hidetopbar"
 
-#: panel.ui:79
+#: panel.ui:89
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "No desactiva el desenfoque en la vista general, se usa mejor con el "
@@ -403,15 +461,42 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Nombre de la ventana"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Seleccionar ventana"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Elija una ventana o selecciónela por su nombre de clase."
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "Añadir desenfoque a las aplicaciones. Esto es todavía una funcionalidad "
+#~ "beta, tiene bastantes errores y sólo se aplica a las aplicaciones que lo "
+#~ "piden, o a las que se establecen en la lista blanca de abajo."
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default. Not recommended because of "
+#~ "performance and stability issues."
+#~ msgstr ""
+#~ "Añade desenfoque detrás de todas las ventanas por defecto. No se "
+#~ "recomienda por problemas de rendimiento y estabilidad."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "Cambia el comportamiento del efecto de desenfoque dinámico. El valor "
+#~ "predeterminado es muy recomendable."
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr ""
+#~ "Desactiva el desenfoque del panel cuando una ventana está cerca de el."
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

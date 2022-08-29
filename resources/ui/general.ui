@@ -133,7 +133,9 @@
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Hack level</property>
-            <property name="subtitle" translatable="yes">Changes the behaviour of dynamic blur effect. Default value is very recommended.</property>
+            <property name="subtitle" translatable="yes">Changes the behaviour of dynamic blur effect.
+Default value is very recommended, unless you use application blur in which case “No artefact” is better.
+This option will entirely disable clipped redraws from GNOME shell, and may impact performances significantly but will entirely fix the blur effect.</property>
             <property name="activatable-widget">hack_level</property>
             <child>
               <object class="GtkDropDown" id="hack_level">
@@ -226,6 +228,7 @@
       <item translatable="yes">High performances</item>
       <item translatable="yes">Default</item>
       <item translatable="yes">High quality</item>
+      <item translatable="yes">No artefact</item>
     </items>
   </object>
 </interface>
