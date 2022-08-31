@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-07-26 16:23+0000\n"
+"PO-Revision-Date: 2022-09-02 01:23+0000\n"
 "Last-Translator: vikdevelop <super-vik1@protonmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,36 +34,46 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Přidejte do aplikací rozostření. Jedná se stále beta funkci.\n"
+"Chcete-li získat co nejlepší výsledky, vyberte možnost „Žádný artefakt“ v "
+"předvolbě „Obecné → Úroveň hackování“.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Neprůhlednost"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Neprůhlednost okna v horní části efektu rozmazání, vyšší hodnota bude "
+"čitelnější."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Rozostření v přehledu"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Vynutí správné zobrazení rozmazání na všech pracovních plochách v přehledu.\n"
+"To může způsobit určité zpoždění nebo problémy s výkonem."
 
 #: applications.ui:66
 msgid "Enable all by default"
-msgstr ""
+msgstr "Ve výchozím nastavení povolit vše"
 
 #: applications.ui:67
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Ve výchozím nastavení přidá rozmazání za všechna okna.\n"
+"Nedoporučuje se kvůli problémům s výkonem a stabilitou."
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -71,19 +81,19 @@ msgstr "Seznam povolených"
 
 #: applications.ui:85
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Seznam oken k rozmazání."
 
 #: applications.ui:103 applications.ui:140
 msgid "Add Window"
-msgstr ""
+msgstr "Přidat okno"
 
 #: applications.ui:121
 msgid "Blacklist"
-msgstr ""
+msgstr "Černá listina"
 
 #: applications.ui:122
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Seznam oken, která se nemají rozmazávat."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -237,6 +247,11 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Změní chování efektu dynamického rozostření.\n"
+"Výchozí hodnota je velmi doporučená, pokud nepoužíváte aplikační rozostření, "
+"v takovém případě je lepší \"Bez artefaktu\".\n"
+"Tato volba zcela zakáže oříznuté překreslování ze shellu GNOME a může mít "
+"značný dopad na výkon, ale zcela opraví efekt rozmazání."
 
 #: general.ui:151
 msgid "Debug"
@@ -252,15 +267,15 @@ msgstr ""
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr ""
+msgstr "Resetovat předvolby"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Nevratně resetuje předvolby funkce Blur my Shell."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Resetovat"
 
 #: general.ui:228
 msgid "High performances"
@@ -276,7 +291,7 @@ msgstr "Vysoká kvalita"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Žádný artefakt"
 
 #: menu.ui:6
 msgid "Project page"
@@ -406,6 +421,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Přepište pozadí panelu na průhledné.\n"
+"Doporučujeme, pokud si nechcete přizpůsobit téma GNOME."
 
 #: panel.ui:64
 msgid "Disable when a window is near"
@@ -413,7 +430,7 @@ msgstr "Zakázat, když je okno v blízkosti"
 
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Zakáže průhlednost panelu, pokud se v jeho blízkosti nachází okno."
 
 #: panel.ui:82
 msgid "Compatibility"
@@ -434,15 +451,15 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Název okna"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Vybrat okno"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Vyberte okno nebo jej vyberte podle názvu třídy."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality, is "
