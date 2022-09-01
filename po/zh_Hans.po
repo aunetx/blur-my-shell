@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"PO-Revision-Date: 2022-09-02 01:23+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,26 +34,31 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"为应用程序添加模糊。这仍然是一个测试版功能。\n"
+"为了获得可能的最佳结果，请确保在“常规→黑客级别”首选项中选择“无伪影”选项。\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "不透明度"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr ""
+msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "概述上的模糊"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"强制模糊在概览的所有工作区上正确显示。\n"
+"这可能会导致一些延迟或性能问题。"
 
 #: applications.ui:66
 msgid "Enable all by default"
@@ -64,6 +69,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"默认情况下，在所有窗口后面添加模糊。\n"
+"由于性能和稳定性问题，不建议这样做。"
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -222,6 +229,10 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"更改动态模糊效果的行为。\n"
+"非常推荐使用默认值，除非您使用应用程序模糊，在这种情况下，“无伪影”更好。\n"
+"此选项将完全禁用从 GNOME shell "
+"剪切的重绘，并且可能会显著影响性能，但会完全修复模糊效果。"
 
 #: general.ui:151
 msgid "Debug"
@@ -239,11 +250,11 @@ msgstr "重置首选项"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "不可逆转地重置 Blur my Shell 的首选项。"
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "重置"
 
 #: general.ui:228
 msgid "High performances"
@@ -259,7 +270,7 @@ msgstr "高品质"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "无伪影"
 
 #: menu.ui:6
 msgid "Project page"
@@ -384,6 +395,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"覆盖面板的背景以使用透明面板。\n"
+"建议使用，除非你想自定义 GNOME 主题。"
 
 #: panel.ui:64
 msgid "Disable when a window is near"
@@ -391,7 +404,7 @@ msgstr "当窗口接近时禁用"
 
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "当窗口靠近面板时禁用面板的透明度。"
 
 #: panel.ui:82
 msgid "Compatibility"
