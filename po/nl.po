@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-08-30 21:21+0000\n"
+"PO-Revision-Date: 2022-09-07 21:22+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/nl/>\n"
@@ -34,6 +34,10 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Voegt vervanging toe aan toepassingen. Dit is nog bèta-functionaliteit.\n"
+"Zorg ervoor dat ‘Algemeen’ → ‘Hack-niveau’ is ingesteld op ‘Geen artefacten’ "
+"voor de beste resultaten.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -44,6 +48,8 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"De ondoorzichtigheid van het venster boven het vervagingseffect. Een hogere "
+"waarde zal vensters beter leesbaar maken."
 
 #: applications.ui:50
 msgid "Blur on overview"
@@ -54,6 +60,9 @@ msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Forceert dat de vervaging correct wordt weergegeven op alle werkbladen in "
+"het overzicht. \n"
+"Dit kan vertraging of prestatieproblemen veroorzaken."
 
 #: applications.ui:66
 msgid "Enable all by default"
@@ -64,6 +73,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Voegt standaard vervaging achter alle vensters toe.\n"
+"Niet aanbevolen vanwege prestatie- of stabiliteitsproblemen."
 
 #: applications.ui:84
 msgid "Whitelist"
@@ -242,6 +253,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Past het gedrag van het dynamische vervagingseffect aan.\n"
+"Standaardwaarde wordt zeer aanbevolen, tenzij u gebruik maakt van "
+"toepassingsvervaging. In dit geval is ‘Geen artefacten’ beter.\n"
+"Deze optie zal gedeeltelijke schermupdates volledig uitschakelen. Dit zal de "
+"prestaties aanzienlijk verslechteren, maar zorgt er ook voor dat het "
+"vervagingseffect perfect werkt."
 
 #: general.ui:151
 msgid "Debug"
@@ -415,6 +432,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Vervangt de paneelachtergrond met een doorzichtige versie.\n"
+"Aanbevolen tenzij u uw GNOME-thema wilt personaliseren."
 
 #: panel.ui:64
 msgid "Disable when a window is near"
@@ -423,6 +442,8 @@ msgstr "Uitschakelen wanneer een venster dichtbij is"
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
+"Schakelt de doorzichtigheid van het paneel uit wanneer een venster in de "
+"buurt komt."
 
 #: panel.ui:82
 msgid "Compatibility"
