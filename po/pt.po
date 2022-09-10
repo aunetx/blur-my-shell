@@ -2,19 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the blur-my-shell@aunetx package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Natália Mendes Carlos <natalia.mncl@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: pt\n"
+"PO-Revision-Date: 2022-09-10 15:39-0300\n"
+"Last-Translator: Natália Mendes Carlos <natalia.mncl@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <natalia.mncl@gmail.com>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 41.0\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -31,26 +34,33 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Adiciona o desfoque às aplicações. É ainda uma funcionalidade beta.\n"
+"Para obter os melhores resultados possíveis, escolha a opção \"Sem "
+"artefato\" em \"Geral→ nível Hack\" preferência."
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Opacidade"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"A opacidade da janela com o efeito de desfoque, um valor maior será legível."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Desfoque geral"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Força o desfoque a ser propriamente mostrado em todo o espaço de trabalho "
+"por um todo.\n"
+"Isso pode causar lentidão relativa à performance."
 
 #: applications.ui:26
 msgid "Enable all by default"
@@ -61,6 +71,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Adiciona desfoque por trás de todas as janelas por padrão.\n"
+"Não é recomendada por conta de problemas com estabilidade e performance."
 
 #: applications.ui:43
 msgid "Whitelist"
@@ -235,6 +247,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Mudanças no comportamento do efeito de desfoque dinâmico.\n"
+"Valor padrão é fortemente recomendado, a menos que você use a aplicação de "
+"desfoque, caso em que \"Sem artefato\" é melhor.\n"
+"Essa opção desabilitará completamente imagens recortadas do GNOME shell, o "
+"que pode impactar na performance significativamente, mas concertará o efeito "
+"de desfoque."
 
 #: general.ui:149
 msgid "Debug"
@@ -255,10 +273,11 @@ msgstr "Redefinir preferências"
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr ""
+"Desfaz as preferências de desfoque do Blur-my-Shell de maneira irreversível."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Redefinir"
 
 #: general.ui:189
 msgid "High performances"
@@ -274,7 +293,7 @@ msgstr "Alta qualidade"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Sem artefato"
 
 #: menu.ui:12
 msgid "Project page"
@@ -408,6 +427,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Anula o plano de fundo de painel com outro transparente.\n"
+"Recomendado a menos que você queira customizar o tema do seu GNOME."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
@@ -415,7 +436,7 @@ msgstr "Desativar quando uma janela estiver próxima"
 
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Desabilita a transparência do painel quando uma janela está próxima"
 
 #: panel.ui:73
 msgid "Compatibility"
