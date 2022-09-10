@@ -506,11 +506,13 @@ var PanelBlur = class PanelBlur {
 
         // get all the windows in the active workspace that are visible
         const workspace = global.workspace_manager.get_active_workspace();
-        const windows = workspace.list_windows().filter(meta_window => {
-            return meta_window.showing_on_its_workspace()
-                && !meta_window.is_hidden()
-                && meta_window.get_window_type() !== Meta.WindowType.DESKTOP;
-        });
+        const windows = workspace.list_windows().filter(meta_window =>
+            meta_window.showing_on_its_workspace()
+            && !meta_window.is_hidden()
+            && meta_window.get_window_type() !== Meta.WindowType.DESKTOP
+            // exclude Desktop Icons NG
+            && meta_window.get_gtk_application_id() !== "com.rastersoft.ding"
+        );
 
         // check if at least one window is near enough to each panel and act
         // accordingly
