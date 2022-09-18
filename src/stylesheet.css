@@ -26,10 +26,9 @@
 }
 
 .bms-overview-components-light .search-entry {
-    padding: 10px;
     color: white;
     background-color: rgba(200, 200, 200, 0.2);
-    border: 0;
+    border-color: transparent;
     box-shadow: none;
 }
 
@@ -82,10 +81,9 @@
 }
 
 .bms-overview-components-dark .search-entry {
-    padding: 10px;
     color: white;
     background-color: rgba(100, 100, 100, 0.35);
-    border: 0;
+    border-color: transparent;
     box-shadow: none;
 }
 
