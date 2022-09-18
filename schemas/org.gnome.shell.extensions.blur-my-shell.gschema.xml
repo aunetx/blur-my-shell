@@ -135,10 +135,10 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
-        <!-- DIALOG OPACITY -->
-        <key type="d" name="dialog-opacity">
-            <default>0.0</default>
-            <summary>Opacity of the appfolder dialog to use</summary>
+        <!-- STYLE DIALOGS -->
+        <key type="i" name="style-dialogs">
+            <default>1</default>
+            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 light, 2 dark)</summary>
         </key>
     </schema>
 

@@ -292,10 +292,11 @@ class Extension {
             }
         });
 
-        // changed dialog opacity
-        this._prefs.appfolder.DIALOG_OPACITY_changed(() => {
-            if (this._prefs.appfolder.BLUR)
+        // appfolder dialogs style changed
+        this._prefs.appfolder.STYLE_DIALOGS_changed(() => {
+            if (this._prefs.appfolder.BLUR) {
                 this._appfolder_blur.blur_appfolders();
+            }
         });
 
 

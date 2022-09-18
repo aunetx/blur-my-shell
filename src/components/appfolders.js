@@ -170,13 +170,25 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(blur_effect);
 
-            // change appfolder dialog opacity
-
-            let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
-
-            icon._dialog._viewBox.set_style_class_name(
-                `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
-            );
+            switch (this.prefs.appfolder.STYLE_DIALOGS) {
+                case 1:
+                    this._log("set appfolder dialogs light classname");
+                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-dark");
+                    icon._dialog._viewBox.add_style_class_name("appfolder-dialogs-light");
+                    break;
+    
+                case 2:
+                    this._log("set appfolder dialogs dark classname");
+                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-light");
+                    icon._dialog._viewBox.add_style_class_name("appfolder-dialogs-dark");
+                    break;
+    
+                default:
+                    this._log("remove appfolder dialogs classname");
+                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-light");
+                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-dark");
+                    break;
+            }
 
             // finally override the builtin functions
 
@@ -241,12 +253,10 @@ var AppFoldersBlur = class AppFoldersBlur {
 
         appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
-                let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
-
                 icon._dialog.remove_effect_by_name("appfolder-blur");
-                icon._dialog._viewBox.remove_style_class_name(
-                    `transparent-app-folder-dialogs-${opacity}`
-                );
+                icon._dialog._viewBox.remove_style_class_name("blurred-appfolders");
+                icon._dialog._viewBox.remove_style_class_name("bms-appfolder-dialogs-light");
+                icon._dialog._viewBox.remove_style_class_name("bms-appfolder-dialogs-dark");
             }
         });
 
