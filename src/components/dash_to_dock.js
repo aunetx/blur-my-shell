@@ -239,10 +239,10 @@ var DashBlur = class DashBlur {
 
         if (this.prefs.dash_to_dock.UNBLUR_IN_OVERVIEW) {
             this.connections.connect(
-                Main.overview, 'shown', this.hide.bind(this)
+                Main.overview, 'showing', this.hide.bind(this)
             );
             this.connections.connect(
-                Main.overview, 'hiding', this.show.bind(this)
+                Main.overview, 'hidden', this.show.bind(this)
             );
         }
     };
