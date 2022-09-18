@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-09-18 04:41+0000\n"
-"Last-Translator: saulo marcos <sullo152@gmail.com>\n"
+"PO-Revision-Date: 2022-09-19 04:15+0000\n"
+"Last-Translator: José Victor Dias Rodrigues <zoldyakopersonal@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -48,18 +48,21 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"A opacidade da janela  em cima do efeito de desfoque com um valor maior "
-"ficará mais legível"
+"A opacidade da janela em cima do efeito de desfoque, com um valor maior "
+"ficará mais legível."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr ""
+msgstr "Desfoque no panorama de atividades"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Força o desfoque a ser mostrado corretamente em todos os espaços de "
+"trabalhos no panorama de atividade.\n"
+"Isso pode causar latência ou problemas de performance."
 
 #: applications.ui:26
 msgid "Enable all by default"
@@ -70,6 +73,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Adiciona desfoque atrás de todas as janelas por padrão.\n"
+"Não é recomendado por causa de problemas com performance e estabilidade."
 
 #: applications.ui:43
 msgid "Whitelist"
@@ -244,6 +249,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
+"Muda o comportamento do desfoque dinâmico.\n"
+"O valor padrão é altamente recomendado, a menos que você use o desfoque de "
+"aplicativo que no caso \"Sem artefatos\" é melhor.\n"
+"Essa opção vai completamente desativar o redesenho pelo shell do GNOME, e "
+"isso pode ter impactos significativos na performance mas vai concertar o "
+"problema com o efeito de desfoque."
 
 #: general.ui:149
 msgid "Debug"
@@ -263,11 +274,11 @@ msgstr "Redefinir preferências"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Redefina as preferências do \"Blur my Shell\" irreversivelmente."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Redefinir"
 
 #: general.ui:189
 msgid "High performances"
@@ -283,7 +294,7 @@ msgstr "Alta qualidade"
 
 #: general.ui:231
 msgid "No artefact"
-msgstr ""
+msgstr "Sem artefato"
 
 #: menu.ui:12
 msgid "Project page"
@@ -417,6 +428,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Sobrescreva o plano de fundo do painel para usar um painel transparente.\n"
+"Recomendado a menos que você queira customizar o seu tema do GNOME."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
@@ -424,7 +437,7 @@ msgstr "Desativar quando uma janela estiver próxima"
 
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Desativa a transparência quando uma janela esta perto do painel."
 
 #: panel.ui:73
 msgid "Compatibility"
