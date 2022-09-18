@@ -24,7 +24,7 @@
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Overview components style</property>
-            <property name="subtitle" translatable="yes">The semi-transparent style for the dash, search entry/results, and applications folders.</property>
+            <property name="subtitle" translatable="yes">The semi-transparent style for the dash, search entry/results, and application folders.</property>
             <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">overview_style_components</property>
 
@@ -41,8 +41,8 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Applications folder blur</property>
-        <property name="description" translatable="yes">Makes the background of folder icons blurred.</property>
+        <property name="title" translatable="yes">Application folder blur</property>
+        <property name="description" translatable="yes">Makes the background of application folder dialogs blurred.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="appfolder_blur">
             <property name="valign">center</property>
@@ -57,8 +57,8 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Applications folder dialogs style</property>
-            <property name="subtitle" translatable="yes">The semi-transparent style for the applications folder dialogs.</property>
+            <property name="title" translatable="yes">Application folder dialogs style</property>
+            <property name="subtitle" translatable="yes">The semi-transparent style for the application folder dialogs.</property>
             <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">appfolder_style_dialogs</property>
 
