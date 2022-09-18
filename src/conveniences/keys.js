@@ -40,7 +40,7 @@ var Keys = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
-            { type: Type.D, name: "dialog-opacity" },
+            { type: Type.I, name: "style-dialogs" },
         ]
     },
     {

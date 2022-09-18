@@ -57,21 +57,15 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Dialog opacity</property>
-            <property name="subtitle" translatable="yes">The opacity of the applications folder popup.</property>
-            <property name="activatable-widget">appfolder_dialog_opacity_scale</property>
+            <property name="title" translatable="yes">Applications folder dialogs style</property>
+            <property name="subtitle" translatable="yes">The semi-transparent style for the applications folder dialogs.</property>
             <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_style_dialogs</property>
 
             <child>
-              <object class="GtkScale" id="appfolder_dialog_opacity_scale">
+              <object class="GtkDropDown" id="appfolder_style_dialogs">
                 <property name="valign">center</property>
-                <property name="hexpand">true</property>
-                <property name="width-request">200px</property>
-                <property name="draw-value">true</property>
-                <property name="value-pos">right</property>
-                <property name="orientation">horizontal</property>
-                <property name="digits">2</property>
-                <property name="adjustment">appfolder_dialog_opacity</property>
+                <property name="model">appfolder_style_dialogs_model</property>
               </object>
             </child>
           </object>
@@ -88,9 +82,11 @@
     </items>
   </object>
 
-  <object class="GtkAdjustment" id="appfolder_dialog_opacity">
-    <property name="lower">0.0</property>
-    <property name="upper">1.0</property>
-    <property name="step-increment">0.01</property>
+  <object class="GtkStringList" id="appfolder_style_dialogs_model">
+    <items>
+      <item translatable="yes">Do not style</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+    </items>
   </object>
 </interface>
