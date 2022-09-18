@@ -260,8 +260,8 @@ var PanelBlur = class PanelBlur {
         //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
         //
         // This does not entirely fix this bug (shadows caused by windows
-        // still cause artefacts), but it prevents the shadows of the panel
-        // buttons to cause artefacts on the panel itself
+        // still cause artifacts), but it prevents the shadows of the panel
+        // buttons to cause artifacts on the panel itself
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
