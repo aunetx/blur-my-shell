@@ -552,14 +552,41 @@ var PanelBlur = class PanelBlur {
     /// Choose wether or not the panel background should be overriden, in
     /// respect to its argument and the `override-background` setting.
     set_should_override_panel(actors, should_override) {
+        let panel = actors.widgets.panel;
         if (
             this.prefs.panel.OVERRIDE_BACKGROUND
             &&
             should_override
-        )
-            actors.widgets.panel.add_style_class_name('transparent-panel');
-        else
-            actors.widgets.panel.remove_style_class_name('transparent-panel');
+        ) {
+            switch (this.prefs.panel.STYLE_PANEL) {
+                case 1:
+                    this._log("set panel light classname");
+                    panel.remove_style_class_name('transparent-panel');
+                    panel.remove_style_class_name('dark-panel');
+                    panel.add_style_class_name('light-panel');
+                    break;
+
+                case 2:
+                    this._log("set panel dark classname");
+                    panel.remove_style_class_name('transparent-panel');
+                    panel.remove_style_class_name('light-panel');
+                    panel.add_style_class_name('dark-panel');
+                    break;
+
+                default:
+                    this._log("set panel transparent classname");
+                    panel.remove_style_class_name('light-panel');
+                    panel.remove_style_class_name('dark-panel');
+                    panel.add_style_class_name('transparent-panel');
+                    break;
+            }
+        }
+        else {
+            this._log("remove panel classname");
+            panel.remove_style_class_name('transparent-panel');
+            panel.remove_style_class_name('light-panel');
+            panel.remove_style_class_name('dark-panel');
+        }
     }
 
     /// Fixes a bug where the blur is washed away when changing the sigma, or

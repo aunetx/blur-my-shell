@@ -194,6 +194,11 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
+        <!-- STYLE PANEL -->
+        <key type="i" name="style-panel">
+            <default>0</default>
+            <summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark)</summary>
+        </key>
         <!-- UNBLUR DYNAMICALLY -->
         <key type="b" name="override-background-dynamically">
             <default>false</default>

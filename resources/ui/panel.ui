@@ -54,10 +54,25 @@
         <child>
           <object class="AdwExpanderRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
-            <property name="subtitle" translatable="yes">Override the background of the panel to use a transparent one.
+            <property name="subtitle" translatable="yes">Override the background of the panel to use a transparent or semi-transparent one.
 Recommended unless you want to customize your GNOME theme.</property>
             <property name="show-enable-switch">true</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Background style</property>
+                <property name="subtitle" translatable="yes">The transparent/semi-transparent style for the panel background.</property>
+                <property name="activatable-widget">style_panel</property>
+
+                <child>
+                  <object class="GtkDropDown" id="style_panel">
+                    <property name="valign">center</property>
+                    <property name="model">style_panel_model</property>
+                  </object>
+                </child>
+              </object>
+            </child>
 
             <child>
               <object class="AdwActionRow">
@@ -100,4 +115,12 @@ Recommended unless you want to customize your GNOME theme.</property>
       </object>
     </child>
   </template>
+
+  <object class="GtkStringList" id="style_panel_model">
+    <items>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+    </items>
+  </object>
 </interface>

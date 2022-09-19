@@ -15,6 +15,7 @@ var Panel = GObject.registerClass({
         'static_blur',
         'unblur_in_overview',
         'override_background',
+        'style_panel',
         'override_background_dynamically',
         'hidetopbar_compatibility'
     ],
@@ -39,6 +40,10 @@ var Panel = GObject.registerClass({
         this.preferences.panel.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'style-panel', this._style_panel, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(

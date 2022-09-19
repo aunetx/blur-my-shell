@@ -17,6 +17,16 @@
 }
 
 /*
+* Style the panel with a light color when it has the class
+* `.light-panel`
+*/
+
+#panel.light-panel {
+    background-color: rgba(200, 200, 200, 0.2);
+    transition-duration: 500ms;
+}
+
+/*
 * Style the overview components with a light color, when the UI group has class
 * `.bms-overview-components-light`
 */
@@ -69,6 +79,16 @@
     background-color: rgba(200, 200, 200, 0.2);
     border: 0;
     box-shadow: none;
+}
+
+/*
+* Style the panel with a dark color when it has the class
+* `.dark-panel`
+*/
+
+#panel.dark-panel {
+    background-color: rgba(100, 100, 100, 0.35);
+    transition-duration: 500ms;
 }
 
 /*
