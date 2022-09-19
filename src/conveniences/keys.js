@@ -55,6 +55,7 @@ var Keys = [
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },
         ]
     },

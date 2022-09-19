@@ -335,6 +335,12 @@ class Extension {
                 this._panel_blur.connect_to_windows_and_overview();
         });
 
+        // panel style changed
+        this._prefs.panel.STYLE_PANEL_changed(() => {
+            if (this._prefs.panel.BLUR)
+                this._panel_blur.connect_to_windows_and_overview();
+        });
+
         // panel background's dynamic overriding toggled on/off
         this._prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
             if (this._prefs.panel.BLUR)
