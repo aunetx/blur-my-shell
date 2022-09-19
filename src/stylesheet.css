@@ -56,9 +56,23 @@
     background-color: transparent;
 }
 
+.bms-overview-components-light .app-folder .overview-icon {
+    border-color: transparent;
+}
+
 .bms-overview-components-light .app-folder:hover .overview-icon,
 .bms-overview-components-light .app-folder:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.2);
+}
+
+.bms-overview-components-light .app-folder:active .overview-icon,
+.bms-overview-components-light .app-folder:focus:hover .overview-icon,
+.bms-overview-components-light .app-folder:drop .overview-icon {
+    background-color: rgba(230, 230, 230, 0.25);
+}
+
+.bms-overview-components-light .app-folder:focus:active .overview-icon {
+    background-color: rgba(230, 230, 230, 0.3);
 }
 
 .bms-overview-components-light .dash-background {
@@ -121,9 +135,23 @@
     background-color: transparent;
 }
 
+.bms-overview-components-dark .app-folder .overview-icon {
+    border-color: transparent;
+}
+
 .bms-overview-components-dark .app-folder:hover .overview-icon,
 .bms-overview-components-dark .app-folder:focus .overview-icon {
     background-color: rgba(120, 120, 120, 0.35);
+}
+
+.bms-overview-components-dark .app-folder:active .overview-icon,
+.bms-overview-components-dark .app-folder:focus:hover .overview-icon,
+.bms-overview-components-dark .app-folder:drop .overview-icon {
+    background-color: rgba(120, 120, 120, 0.4);
+}
+
+.bms-overview-components-dark .app-folder:focus:active .overview-icon {
+    background-color: rgba(120, 120, 120, 0.45);
 }
 
 .bms-overview-components-dark .dash-background {
