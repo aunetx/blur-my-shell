@@ -372,6 +372,12 @@ class Extension {
                 this._dash_to_dock_blur.update_background();
         });
 
+        // dash-to-dock style changed
+        this._prefs.dash_to_dock.STYLE_DASH_TO_DOCK_changed(() => {
+            if (this._prefs.dash_to_dock.BLUR)
+                this._dash_to_dock_blur.update_background();
+        });
+
         // dash-to-dock blur's overview connection toggled on/off
         this._prefs.dash_to_dock.UNBLUR_IN_OVERVIEW_changed(() => {
             if (this._prefs.dash_to_dock.BLUR)

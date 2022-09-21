@@ -12,7 +12,7 @@
     background-color: transparent !important;
 }
 
-.blurred-dash .dash-background {
+.transparent-dash .dash-background {
     background-color: transparent !important;
 }
 
@@ -27,13 +27,18 @@
 }
 
 /*
+* Style Dash to Dock with a light color when it has the class
+* `.light-dash`
+*/
+
+.light-dash .dash-background {
+    background-color: rgba(200, 200, 200, 0.2) !important;
+}
+
+/*
 * Style the overview components with a light color, when the UI group has class
 * `.bms-overview-components-light`
 */
-
-.bms-overview-components-light .blurred-dash .dash-background {
-    background-color: rgba(200, 200, 200, 0.2) !important;
-}
 
 .bms-overview-components-light .search-entry {
     color: white;
@@ -106,13 +111,18 @@
 }
 
 /*
+* Style Dash to Dock with a dark color when it has the class
+* `.dark-dash`
+*/
+
+.dark-dash .dash-background {
+    background-color: rgba(100, 100, 100, 0.35) !important;
+}
+
+/*
 * Style the overview components with a dark color, when the UI group has class
 * `.bms-overview-components-dark`
 */
-
-.bms-overview-components-dark .blurred-dash .dash-background {
-    background-color: rgba(100, 100, 100, 0.35) !important;
-}
 
 .bms-overview-components-dark .search-entry {
     color: white;
@@ -154,7 +164,7 @@
     background-color: rgba(120, 120, 120, 0.45);
 }
 
-.bms-overview-components-dark .dash-background {
+.bms-overview-components-dark .dash-background{
     background-color: rgba(100, 100, 100, 0.35);
 }
 
