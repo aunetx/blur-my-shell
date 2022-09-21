@@ -27,7 +27,9 @@ class DashInfos {
             this._log("removing blur from dash");
             this.dash.get_parent().remove_child(this.background_parent);
             this.dash._background.style = this.old_style;
-            this.dash.remove_style_class_name('blurred-dash');
+            this.dash.remove_style_class_name('light-dash');
+            this.dash.remove_style_class_name('dark-dash');
+            this.dash.remove_style_class_name('transparent-dash');
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
@@ -40,12 +42,35 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'override-background', () => {
             this.dash._background.style = null;
-            this.dash.set_style_class_name('blurred-dash');
+            switch (this.prefs.dash_to_dock.STYLE_DASH_TO_DOCK) {
+                case 1:
+                    this._log("set dash to dock light classname");
+                    this.dash.remove_style_class_name('transparent-dash');
+                    this.dash.remove_style_class_name('dark-dash');
+                    this.dash.set_style_class_name('light-dash');
+                    break;
+
+                case 2:
+                    this._log("set dash to dock dark classname");
+                    this.dash.remove_style_class_name('transparent-dash');
+                    this.dash.remove_style_class_name('light-dash');
+                    this.dash.set_style_class_name('dark-dash');
+                    break;
+
+                default:
+                    this._log("set dash to dock transparent classname");
+                    this.dash.remove_style_class_name('light-dash');
+                    this.dash.remove_style_class_name('dark-dash');
+                    this.dash.set_style_class_name('transparent-dash');
+                    break;
+            }
         });
 
         dash_blur.connections.connect(dash_blur, 'reset-background', () => {
             this.dash._background.style = this.old_style;
-            this.dash.remove_style_class_name('blurred-dash');
+            this.dash.remove_style_class_name('light-dash');
+            this.dash.remove_style_class_name('dark-dash');
+            this.dash.remove_style_class_name('transparent-dash');
         });
 
         dash_blur.connections.connect(dash_blur, 'show', () => {

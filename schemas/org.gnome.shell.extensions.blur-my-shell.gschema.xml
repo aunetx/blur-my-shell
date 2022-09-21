@@ -253,6 +253,11 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
+        <!-- STYLE DASH TO DOCK -->
+        <key type="i" name="style-dash-to-dock">
+            <default>1</default>
+            <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark)</summary>
+        </key>
         <!-- UNBLUR IN OVERVIEW -->
         <key type="b" name="unblur-in-overview">
             <default>false</default>
