@@ -80,7 +80,8 @@
     background-color: rgba(230, 230, 230, 0.3);
 }
 
-.bms-overview-components-light .dash-background {
+/* This shouldn't apply to Dash to Dock */
+.bms-overview-components-light StBoxLayout > StWidget > #dash > .dash-background {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
@@ -164,7 +165,8 @@
     background-color: rgba(120, 120, 120, 0.45);
 }
 
-.bms-overview-components-dark .dash-background{
+/* This shouldn't apply to Dash to Dock */
+.bms-overview-components-dark StBoxLayout > StWidget > #dash > .dash-background{
     background-color: rgba(100, 100, 100, 0.35);
 }
 
