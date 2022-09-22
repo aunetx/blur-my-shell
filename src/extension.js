@@ -101,6 +101,10 @@ class Extension {
                 this._overview_blur.enable();
         } catch (e) { }
         try {
+            if (this._prefs.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
+                this._dash_to_dock_blur.enable();
+        } catch (e) { }
+        try {
             if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
                 this._panel_blur.enable();
         } catch (e) { }
@@ -198,9 +202,8 @@ class Extension {
         if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
             this._panel_blur.enable();
 
-        if (this._prefs.dash_to_dock.BLUR) {
+        if (this._prefs.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
             this._dash_to_dock_blur.enable();
-        }
 
         if (this._prefs.overview.BLUR && !this._overview_blur.enabled)
             this._overview_blur.enable();
