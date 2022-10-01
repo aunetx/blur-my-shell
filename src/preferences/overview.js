@@ -16,7 +16,7 @@ var Overview = GObject.registerClass({
 
         'appfolder_blur',
         'appfolder_customize',
-        'appfolder_dialog_opacity'
+        'appfolder_style_dialogs'
     ],
 }, class Overview extends Adw.PreferencesPage {
     constructor(preferences) {
@@ -40,7 +40,7 @@ var Overview = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.appfolder.settings.bind(
-            'dialog-opacity', this._appfolder_dialog_opacity, 'value',
+            'style-dialogs', this._appfolder_style_dialogs, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
 

@@ -10,6 +10,14 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
+const OVERVIEW_COMPONENTS_STYLE = [
+    "",
+    "overview-components-light",
+    "overview-components-dark",
+    "overview-components-transparent"
+];
+
+
 var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -228,26 +236,13 @@ var OverviewBlur = class OverviewBlur {
     /// Updates the classname to style overview components with semi-transparent
     /// backgrounds.
     update_components_classname() {
-        let group = Main.uiGroup;
-        switch (this.prefs.overview.STYLE_COMPONENTS) {
-            case 1:
-                this._log("set overview components light classname");
-                group.remove_style_class_name("bms-overview-components-dark");
-                group.add_style_class_name("bms-overview-components-light");
-                break;
+        OVERVIEW_COMPONENTS_STYLE.forEach(
+            style => Main.uiGroup.remove_style_class_name(style)
+        );
 
-            case 2:
-                this._log("set overview components dark classname");
-                group.remove_style_class_name("bms-overview-components-light");
-                group.add_style_class_name("bms-overview-components-dark");
-                break;
-
-            default:
-                this._log("remove overview components classname");
-                group.remove_style_class_name("bms-overview-components-light");
-                group.remove_style_class_name("bms-overview-components-dark");
-                break;
-        }
+        Main.uiGroup.add_style_class_name(
+            OVERVIEW_COMPONENTS_STYLE[this.prefs.overview.STYLE_COMPONENTS]
+        );
     }
     
     toogle_actors_visibility() {
@@ -297,8 +292,9 @@ var OverviewBlur = class OverviewBlur {
             }
         });
         Main.uiGroup.remove_style_class_name("blurred-overview");
-        Main.uiGroup.remove_style_class_name("bms-overview-components-light");
-        Main.uiGroup.remove_style_class_name("bms-overview-components-dark");
+        OVERVIEW_COMPONENTS_STYLE.forEach(
+            style => Main.uiGroup.remove_style_class_name(style)
+        );
 
         // make sure to absolutely not do this if the component was not enabled
         // prior, as this would cause infinite recursion

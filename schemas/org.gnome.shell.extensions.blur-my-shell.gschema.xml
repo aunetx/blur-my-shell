@@ -94,7 +94,7 @@
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>1</default>
-            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark)</summary>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent)</summary>
         </key>
     </schema>
 
@@ -135,10 +135,10 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
-        <!-- DIALOG OPACITY -->
-        <key type="d" name="dialog-opacity">
-            <default>0.0</default>
-            <summary>Opacity of the appfolder dialog to use</summary>
+        <!-- STYLE DIALOGS -->
+        <key type="i" name="style-dialogs">
+            <default>1</default>
+            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark)</summary>
         </key>
     </schema>
 
@@ -194,6 +194,11 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
+        <!-- STYLE PANEL -->
+        <key type="i" name="style-panel">
+            <default>0</default>
+            <summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark)</summary>
+        </key>
         <!-- UNBLUR DYNAMICALLY -->
         <key type="b" name="override-background-dynamically">
             <default>false</default>
@@ -247,6 +252,11 @@
         <key type="b" name="override-background">
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
+        </key>
+        <!-- STYLE DASH TO DOCK -->
+        <key type="i" name="style-dash-to-dock">
+            <default>1</default>
+            <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark)</summary>
         </key>
         <!-- UNBLUR IN OVERVIEW -->
         <key type="b" name="unblur-in-overview">

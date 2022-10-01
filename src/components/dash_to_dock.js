@@ -7,6 +7,12 @@ const Signals = imports.signals;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const { PaintSignals } = Me.imports.effects.paint_signals;
 
+const DASH_STYLES = [
+    "transparent-dash",
+    "light-dash",
+    "dark-dash"
+];
+
 
 /// This type of object is created for every dash found, and talks to the main
 /// DashBlur thanks to signals.
@@ -27,7 +33,10 @@ class DashInfos {
             this._log("removing blur from dash");
             this.dash.get_parent().remove_child(this.background_parent);
             this.dash._background.style = this.old_style;
-            this.dash.remove_style_class_name('blurred-dash');
+
+            DASH_STYLES.forEach(
+                style => this.dash.remove_style_class_name(style)
+            );
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
@@ -40,12 +49,22 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'override-background', () => {
             this.dash._background.style = null;
-            this.dash.set_style_class_name('blurred-dash');
+
+            DASH_STYLES.forEach(
+                style => this.dash.remove_style_class_name(style)
+            );
+
+            this.dash.set_style_class_name(
+                DASH_STYLES[this.prefs.dash_to_dock.STYLE_DASH_TO_DOCK]
+            );
         });
 
         dash_blur.connections.connect(dash_blur, 'reset-background', () => {
             this.dash._background.style = this.old_style;
-            this.dash.remove_style_class_name('blurred-dash');
+
+            DASH_STYLES.forEach(
+                style => this.dash.remove_style_class_name(style)
+            );
         });
 
         dash_blur.connections.connect(dash_blur, 'show', () => {
@@ -75,6 +94,7 @@ var DashBlur = class DashBlur {
         this.brightness = this.prefs.dash_to_dock.CUSTOMIZE
             ? this.prefs.dash_to_dock.BRIGHTNESS
             : this.prefs.BRIGHTNESS;
+        this.enabled = false;
     }
 
     enable() {
@@ -88,6 +108,8 @@ var DashBlur = class DashBlur {
 
         this.blur_existing_dashes();
         this.connect_to_overview();
+
+        this.enabled = true;
     }
 
     // Finds all existing dashes on every monitor, and call `try_blur` on them
@@ -169,8 +191,8 @@ var DashBlur = class DashBlur {
         //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
         //
         // This does not entirely fix this bug (shadows caused by windows
-        // still cause artefacts), but it prevents the shadows of the panel
-        // buttons to cause artefacts on the panel itself
+        // still cause artifacts), but it prevents the shadows of the panel
+        // buttons to cause artifacts on the panel itself
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
@@ -239,10 +261,10 @@ var DashBlur = class DashBlur {
 
         if (this.prefs.dash_to_dock.UNBLUR_IN_OVERVIEW) {
             this.connections.connect(
-                Main.overview, 'shown', this.hide.bind(this)
+                Main.overview, 'showing', this.hide.bind(this)
             );
             this.connections.connect(
-                Main.overview, 'hiding', this.show.bind(this)
+                Main.overview, 'hidden', this.show.bind(this)
             );
         }
     };
@@ -278,6 +300,8 @@ var DashBlur = class DashBlur {
 
         this.dashes = [];
         this.connections.disconnect_all();
+
+        this.enabled = false;
     }
 
     show() {

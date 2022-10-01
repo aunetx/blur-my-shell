@@ -10,6 +10,13 @@ const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 
+const PANEL_STYLES = [
+    "transparent-panel",
+    "light-panel",
+    "dark-panel"
+];
+
+
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -135,6 +142,8 @@ var PanelBlur = class PanelBlur {
         }
 
         let monitor = this.find_monitor_for(panel);
+        if (!monitor)
+            return;
 
         let background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
@@ -260,8 +269,8 @@ var PanelBlur = class PanelBlur {
         //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
         //
         // This does not entirely fix this bug (shadows caused by windows
-        // still cause artefacts), but it prevents the shadows of the panel
-        // buttons to cause artefacts on the panel itself
+        // still cause artifacts), but it prevents the shadows of the panel
+        // buttons to cause artifacts on the panel itself
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
@@ -313,6 +322,8 @@ var PanelBlur = class PanelBlur {
         let panel_box = actors.widgets.panel_box;
         let background = actors.widgets.background;
         let monitor = this.find_monitor_for(panel);
+        if (!monitor)
+            return;
 
         let [width, height] = panel_box.get_size();
         background.width = width;
@@ -506,11 +517,13 @@ var PanelBlur = class PanelBlur {
 
         // get all the windows in the active workspace that are visible
         const workspace = global.workspace_manager.get_active_workspace();
-        const windows = workspace.list_windows().filter(meta_window => {
-            return meta_window.showing_on_its_workspace()
-                && !meta_window.is_hidden()
-                && meta_window.get_window_type() !== Meta.WindowType.DESKTOP;
-        });
+        const windows = workspace.list_windows().filter(meta_window =>
+            meta_window.showing_on_its_workspace()
+            && !meta_window.is_hidden()
+            && meta_window.get_window_type() !== Meta.WindowType.DESKTOP
+            // exclude Desktop Icons NG
+            && meta_window.get_gtk_application_id() !== "com.rastersoft.ding"
+        );
 
         // check if at least one window is near enough to each panel and act
         // accordingly
@@ -550,14 +563,18 @@ var PanelBlur = class PanelBlur {
     /// Choose wether or not the panel background should be overriden, in
     /// respect to its argument and the `override-background` setting.
     set_should_override_panel(actors, should_override) {
+        let panel = actors.widgets.panel;
+
+        PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
+
         if (
             this.prefs.panel.OVERRIDE_BACKGROUND
             &&
             should_override
         )
-            actors.widgets.panel.add_style_class_name('transparent-panel');
-        else
-            actors.widgets.panel.remove_style_class_name('transparent-panel');
+            panel.add_style_class_name(
+                PANEL_STYLES[this.prefs.panel.STYLE_PANEL]
+            );
     }
 
     /// Fixes a bug where the blur is washed away when changing the sigma, or
