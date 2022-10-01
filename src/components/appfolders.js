@@ -11,6 +11,13 @@ const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const FRAME_UPDATE_PERIOD = 16;
 
+const DIALOGS_STYLES = [
+    "",
+    "appfolder-dialogs-transparent",
+    "appfolder-dialogs-light",
+    "appfolder-dialogs-dark"
+];
+
 let original_zoomAndFadeIn = null;
 let original_zoomAndFadeOut = null;
 let sigma;
@@ -170,25 +177,13 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(blur_effect);
 
-            switch (this.prefs.appfolder.STYLE_DIALOGS) {
-                case 1:
-                    this._log("set appfolder dialogs light classname");
-                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-dark");
-                    icon._dialog._viewBox.add_style_class_name("appfolder-dialogs-light");
-                    break;
-    
-                case 2:
-                    this._log("set appfolder dialogs dark classname");
-                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-light");
-                    icon._dialog._viewBox.add_style_class_name("appfolder-dialogs-dark");
-                    break;
-    
-                default:
-                    this._log("remove appfolder dialogs classname");
-                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-light");
-                    icon._dialog._viewBox.remove_style_class_name("appfolder-dialogs-dark");
-                    break;
-            }
+            DIALOGS_STYLES.forEach(
+                style => icon._dialog._viewBox.remove_style_class_name(style)
+            );
+
+            icon._dialog._viewBox.add_style_class_name(
+                DIALOGS_STYLES[this.prefs.appfolder.STYLE_DIALOGS]
+            );
 
             // finally override the builtin functions
 
@@ -254,9 +249,9 @@ var AppFoldersBlur = class AppFoldersBlur {
         appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
                 icon._dialog.remove_effect_by_name("appfolder-blur");
-                icon._dialog._viewBox.remove_style_class_name("blurred-appfolders");
-                icon._dialog._viewBox.remove_style_class_name("bms-appfolder-dialogs-light");
-                icon._dialog._viewBox.remove_style_class_name("bms-appfolder-dialogs-dark");
+                DIALOGS_STYLES.forEach(
+                    s => icon._dialog._viewBox.remove_style_class_name(s)
+                );
             }
         });
 

@@ -101,7 +101,8 @@ class Extension {
                 this._overview_blur.enable();
         } catch (e) { }
         try {
-            if (this._prefs.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
+            if (this._prefs.dash_to_dock.BLUR
+                && !this._dash_to_dock_blur.enabled)
                 this._dash_to_dock_blur.enable();
         } catch (e) { }
         try {
@@ -297,9 +298,8 @@ class Extension {
 
         // appfolder dialogs style changed
         this._prefs.appfolder.STYLE_DIALOGS_changed(() => {
-            if (this._prefs.appfolder.BLUR) {
+            if (this._prefs.appfolder.BLUR)
                 this._appfolder_blur.blur_appfolders();
-            }
         });
 
 

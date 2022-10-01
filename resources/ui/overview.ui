@@ -79,12 +79,14 @@
       <item translatable="yes">Do not style</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
+      <item translatable="yes">Transparent</item>
     </items>
   </object>
 
   <object class="GtkStringList" id="appfolder_style_dialogs_model">
     <items>
       <item translatable="yes">Do not style</item>
+      <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
     </items>

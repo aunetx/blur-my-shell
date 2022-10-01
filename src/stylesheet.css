@@ -1,92 +1,231 @@
-/*
-* Makes transparent some backgrounds, in order to see the blur behind.
-* The panel, workspace separator and dash-to-dock (if set) are targeted.
-*/
+/*** PANEL ***/
 
+/*
+* `.transparent-panel`
+*/
 #panel.transparent-panel {
     background: transparent;
     transition-duration: 500ms;
 }
 
-.blurred-overview .workspace-animation {
-    background-color: transparent !important;
-}
-
-.transparent-dash .dash-background {
-    background-color: transparent !important;
+/*
+* `.dark-panel`
+*/
+#panel.dark-panel {
+    background-color: rgba(100, 100, 100, 0.35);
+    transition-duration: 500ms;
 }
 
 /*
-* Style the panel with a light color when it has the class
 * `.light-panel`
 */
-
 #panel.light-panel {
     background-color: rgba(200, 200, 200, 0.2);
     transition-duration: 500ms;
 }
 
+
+/*** DASH ***/
+
 /*
-* Style Dash to Dock with a light color when it has the class
+* `.transparent-dash`
+*/
+.transparent-dash .dash-background {
+    background-color: transparent !important;
+}
+
+/*
 * `.light-dash`
 */
-
 .light-dash .dash-background {
     background-color: rgba(200, 200, 200, 0.2) !important;
 }
 
 /*
-* Style the overview components with a light color, when the UI group has class
-* `.bms-overview-components-light`
+* `.dark-dash`
+*/
+.dark-dash .dash-background {
+    background-color: rgba(100, 100, 100, 0.35) !important;
+}
+
+
+/*** OVERVIEW ***/
+
+/*
+* Add transparency to the workspace animation (between workspaces)
+*/
+.blurred-overview .workspace-animation {
+    background-color: transparent !important;
+}
+
+
+/*
+* `.overview-components-transparent`
 */
 
-.bms-overview-components-light .search-entry {
+.overview-components-transparent .search-entry {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.overview-components-transparent .search-entry .search-entry-icon {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.overview-components-transparent .search-section-content,
+.overview-components-transparent .app-folder .overview-icon {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* prevents the extension from interfering with Just Perfection */
+.overview-components-transparent.just-perfection .search-section-content {
+    background-color: transparent;
+}
+
+.overview-components-transparent .app-folder .overview-icon {
+    border-color: transparent;
+}
+
+.overview-components-transparent .app-folder:hover .overview-icon,
+.overview-components-transparent .app-folder:focus .overview-icon {
+    background-color: rgba(230, 230, 230, 0.08);
+}
+
+.overview-components-transparent .app-folder:active .overview-icon,
+.overview-components-transparent .app-folder:focus:hover .overview-icon,
+.overview-components-transparent .app-folder:drop .overview-icon {
+    background-color: rgba(230, 230, 230, 0.12);
+}
+
+.overview-components-transparent .app-folder:focus:active .overview-icon {
+    background-color: rgba(230, 230, 230, 0.15);
+}
+
+/* this shouldn't apply to Dash to Dock */
+.overview-components-transparent StBoxLayout>StWidget>#dash>.dash-background {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/*
+* `.overview-components-light`
+*/
+
+.overview-components-light .search-entry {
     color: white;
     background-color: rgba(200, 200, 200, 0.2);
     border-color: transparent;
     box-shadow: none;
 }
 
-.bms-overview-components-light .search-entry .search-entry-icon {
+.overview-components-light .search-entry .search-entry-icon {
     color: rgba(255, 255, 255, 0.65);
 }
 
-.bms-overview-components-light .search-section-content,
-.bms-overview-components-light .app-folder .overview-icon {
+.overview-components-light .search-section-content,
+.overview-components-light .app-folder .overview-icon {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
 /* prevents the extension from interfering with Just Perfection */
-.bms-overview-components-light.just-perfection .search-section-content {
+.overview-components-light.just-perfection .search-section-content {
     background-color: transparent;
 }
 
-.bms-overview-components-light .app-folder .overview-icon {
+.overview-components-light .app-folder .overview-icon {
     border-color: transparent;
 }
 
-.bms-overview-components-light .app-folder:hover .overview-icon,
-.bms-overview-components-light .app-folder:focus .overview-icon {
+.overview-components-light .app-folder:hover .overview-icon,
+.overview-components-light .app-folder:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.2);
 }
 
-.bms-overview-components-light .app-folder:active .overview-icon,
-.bms-overview-components-light .app-folder:focus:hover .overview-icon,
-.bms-overview-components-light .app-folder:drop .overview-icon {
+.overview-components-light .app-folder:active .overview-icon,
+.overview-components-light .app-folder:focus:hover .overview-icon,
+.overview-components-light .app-folder:drop .overview-icon {
     background-color: rgba(230, 230, 230, 0.25);
 }
 
-.bms-overview-components-light .app-folder:focus:active .overview-icon {
+.overview-components-light .app-folder:focus:active .overview-icon {
     background-color: rgba(230, 230, 230, 0.3);
 }
 
-/* This shouldn't apply to Dash to Dock */
-.bms-overview-components-light StBoxLayout > StWidget > #dash > .dash-background {
+/* this shouldn't apply to Dash to Dock */
+.overview-components-light StBoxLayout>StWidget>#dash>.dash-background {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
+
 /*
-* Style the appfolder dialogs with a light color when it has class
+* `.overview-components-dark`
+*/
+
+.overview-components-dark .search-entry {
+    color: white;
+    background-color: rgba(100, 100, 100, 0.35);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.overview-components-dark .search-entry .search-entry-icon {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.overview-components-dark .search-section-content,
+.overview-components-dark .app-folder .overview-icon {
+    background-color: rgba(100, 100, 100, 0.35);
+}
+
+/* prevents the extension from interfering with Just Perfection */
+.overview-components-dark.just-perfection .search-section-content {
+    background-color: transparent;
+}
+
+.overview-components-dark .app-folder .overview-icon {
+    border-color: transparent;
+}
+
+.overview-components-dark .app-folder:hover .overview-icon,
+.overview-components-dark .app-folder:focus .overview-icon {
+    background-color: rgba(120, 120, 120, 0.35);
+}
+
+.overview-components-dark .app-folder:active .overview-icon,
+.overview-components-dark .app-folder:focus:hover .overview-icon,
+.overview-components-dark .app-folder:drop .overview-icon {
+    background-color: rgba(120, 120, 120, 0.4);
+}
+
+.overview-components-dark .app-folder:focus:active .overview-icon {
+    background-color: rgba(120, 120, 120, 0.45);
+}
+
+/* this shouldn't apply to Dash to Dock */
+.overview-components-dark StBoxLayout>StWidget>#dash>.dash-background {
+    background-color: rgba(100, 100, 100, 0.35);
+}
+
+
+/*** APPFOLDER DIALOG ***/
+
+/*
+* `.appfolder-dialogs-transparent`
+*/
+
+.appfolder-dialogs-transparent {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.appfolder-dialogs-transparent .folder-name-entry {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    box-shadow: none;
+}
+
+/*
 * `.appfolder-dialogs-light`
 */
 
@@ -101,77 +240,8 @@
     box-shadow: none;
 }
 
-/*
-* Style the panel with a dark color when it has the class
-* `.dark-panel`
-*/
-
-#panel.dark-panel {
-    background-color: rgba(100, 100, 100, 0.35);
-    transition-duration: 500ms;
-}
 
 /*
-* Style Dash to Dock with a dark color when it has the class
-* `.dark-dash`
-*/
-
-.dark-dash .dash-background {
-    background-color: rgba(100, 100, 100, 0.35) !important;
-}
-
-/*
-* Style the overview components with a dark color, when the UI group has class
-* `.bms-overview-components-dark`
-*/
-
-.bms-overview-components-dark .search-entry {
-    color: white;
-    background-color: rgba(100, 100, 100, 0.35);
-    border-color: transparent;
-    box-shadow: none;
-}
-
-.bms-overview-components-dark .search-entry .search-entry-icon {
-    color: rgba(255, 255, 255, 0.65);
-}
-
-.bms-overview-components-dark .search-section-content,
-.bms-overview-components-dark .app-folder .overview-icon {
-    background-color: rgba(100, 100, 100, 0.35);
-}
-
-/* prevents the extension from interfering with Just Perfection */
-.bms-overview-components-dark.just-perfection .search-section-content {
-    background-color: transparent;
-}
-
-.bms-overview-components-dark .app-folder .overview-icon {
-    border-color: transparent;
-}
-
-.bms-overview-components-dark .app-folder:hover .overview-icon,
-.bms-overview-components-dark .app-folder:focus .overview-icon {
-    background-color: rgba(120, 120, 120, 0.35);
-}
-
-.bms-overview-components-dark .app-folder:active .overview-icon,
-.bms-overview-components-dark .app-folder:focus:hover .overview-icon,
-.bms-overview-components-dark .app-folder:drop .overview-icon {
-    background-color: rgba(120, 120, 120, 0.4);
-}
-
-.bms-overview-components-dark .app-folder:focus:active .overview-icon {
-    background-color: rgba(120, 120, 120, 0.45);
-}
-
-/* This shouldn't apply to Dash to Dock */
-.bms-overview-components-dark StBoxLayout > StWidget > #dash > .dash-background{
-    background-color: rgba(100, 100, 100, 0.35);
-}
-
-/*
-* Style the appfolder dialogs with a dark color when it has class
 * `.appfolder-dialogs-dark`
 */
 
