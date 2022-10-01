@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-27 21:07+0200\n"
+"POT-Creation-Date: 2022-10-01 17:42+0200\n"
 "PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -29,17 +29,11 @@ msgstr "Sfocatura applicazioni (beta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality.\n"
-"To get the best results possible, make sure to choose option “No artefact” "
-"in the “General → Hack level” preference.\n"
+"Adds blur to the applications. This is still beta functionality.\n"
+"To get the best results possible, make sure to choose the option “No "
+"artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Aggiunge la sfocatura alle applicazioni. Si tratta ancora di una "
-"funzionalità beta.\n"
-"Per ottenere i migliori risultati possibili, assicuratevi di scegliere "
-"l'opzione \"Nessun artefatto\" nelle preferenze \"Generale → Livello hack\"."
-"\n"
-"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -53,11 +47,11 @@ msgstr ""
 "L'opacità della finestra sopra l'effetto di sfocatura; un valore più alto "
 "sarà più leggibile."
 
-#: applications.ui:50
+#: applications.ui:51
 msgid "Blur on overview"
 msgstr "Sfocatura nella panoramica"
 
-#: applications.ui:51
+#: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -66,36 +60,36 @@ msgstr ""
 "lavoro nella panoramica.\n"
 "Ciò può causare problemi di latenza o di prestazioni."
 
-#: applications.ui:66
+#: applications.ui:67
 msgid "Enable all by default"
 msgstr "Abilita tutto per impostazione predefinita"
 
-#: applications.ui:67
+#: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"Aggiunge la sfocatura dietro tutte le finestre per impostazione predefinita."
-"\n"
+"Aggiunge la sfocatura dietro tutte le finestre per impostazione "
+"predefinita.\n"
 "Sconsigliato per problemi di prestazioni e stabilità."
 
-#: applications.ui:84
+#: applications.ui:85
 msgid "Whitelist"
 msgstr "Whitelist"
 
-#: applications.ui:85
+#: applications.ui:86
 msgid "A list of windows to blur."
 msgstr "Un elenco di finestre da sfocare."
 
-#: applications.ui:103 applications.ui:140
+#: applications.ui:104 applications.ui:141
 msgid "Add Window"
 msgstr "Aggiungi finestra"
 
-#: applications.ui:121
+#: applications.ui:122
 msgid "Blacklist"
 msgstr "Blacklist"
 
-#: applications.ui:122
+#: applications.ui:123
 msgid "A list of windows not to blur."
 msgstr "Un elenco di finestre da non sfocare."
 
@@ -192,20 +186,38 @@ msgstr "Sovrascrivi sfondo"
 
 #: dash.ui:27
 msgid ""
-"Makes the background semi-transparent, disable this to use Dash to Dock "
-"preferences instead."
+"Makes the background either transparent or semi-transparent, disable this to "
+"use Dash to Dock preferences instead."
 msgstr ""
-"Rende lo sfondo semitrasparente, disabilitalo per utilizzare invece le "
-"preferenze Dash to Dock."
 
-#: dash.ui:41 panel.ui:41
+#: dash.ui:33 panel.ui:64
+msgid "Background style"
+msgstr ""
+
+#: dash.ui:34
+msgid "The transparent/semi-transparent style for the dock background."
+msgstr ""
+
+#: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
 msgstr "Disattiva in panoramica"
 
-#: dash.ui:42
+#: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Disattiva la sfocatura da Dash to Dock quando si accede alla panoramica."
+
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+msgid "Transparent"
+msgstr ""
+
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+msgid "Light"
+msgstr "Chiaro"
+
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+msgid "Dark"
+msgstr "Scuro"
 
 #: general.ui:5
 msgid "General"
@@ -222,12 +234,12 @@ msgstr ""
 "tutti i componenti."
 
 #: general.ui:117
-msgid "Performances"
-msgstr "Prestazioni"
+msgid "Performance"
+msgstr ""
 
 #: general.ui:118
-msgid "Various options to tweak the performances."
-msgstr "Varie opzioni per modificare le prestazioni."
+msgid "Various options to tweak the performance."
+msgstr ""
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -235,11 +247,9 @@ msgstr "Effetti di colore e rumore"
 
 #: general.ui:123
 msgid ""
-"Permits to disable globally the use of noise and color effects, this may "
-"improve performances for low-end graphic."
+"Globally disables noise and color effects which may improve performance on "
+"low-end systems."
 msgstr ""
-"Consente di disabilitare globalmente l'uso del rumore e degli effetti "
-"colore, questo può migliorare le prestazioni per la grafica di fascia bassa."
 
 #: general.ui:135
 msgid "Hack level"
@@ -247,18 +257,12 @@ msgstr "Suggerimenti per le prestazioni"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect.\n"
-"Default value is very recommended, unless you use application blur in which "
-"case “No artefact” is better.\n"
-"This option will entirely disable clipped redraws from GNOME shell, and may "
-"impact performances significantly but will entirely fix the blur effect."
+"Changes the behaviour of the dynamic blur effect.\n"
+"The default value is highly recommended unless you use application blur, in "
+"which case “No artifact” is better.\n"
+"This option will entirely disable clipped redraws in GNOME shell, and may "
+"impact performance significantly but will completely fix the blur effect."
 msgstr ""
-"Modifica il comportamento dell'effetto di sfocatura dinamica.\n"
-"Il valore predefinito è molto consigliato, a meno che non si utilizzi la "
-"sfocatura delle applicazioni, nel qual caso è meglio \"Nessun artefatto\".\n"
-"Questa opzione disabilita completamente i ridisegni ritagliati dalla shell "
-"di GNOME e può avere un impatto significativo sulle prestazioni, ma risolve "
-"completamente l'effetto di sfocatura."
 
 #: general.ui:151
 msgid "Debug"
@@ -297,8 +301,8 @@ msgid "High quality"
 msgstr "Alta qualità"
 
 #: general.ui:231
-msgid "No artefact"
-msgstr "Nessun artefatto"
+msgid "No artifact"
+msgstr ""
 
 #: menu.ui:6
 msgid "Project page"
@@ -369,38 +373,28 @@ msgstr "Panoramica stile componenti"
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
-"applications folders."
+"application folders."
 msgstr ""
-"Lo stile semitrasparente per la dash, la voce/risultati di ricerca e le "
-"cartelle delle applicazioni."
 
 #: overview.ui:44
-msgid "Applications folder blur"
-msgstr "Sfocatura della cartella delle applicazioni"
+msgid "Application folder blur"
+msgstr ""
 
 #: overview.ui:45
-msgid "Makes the background of folder icons blurred."
-msgstr "Rende sfocato lo sfondo delle icone delle cartelle."
+msgid "Makes the background of application folder dialogs blurred."
+msgstr ""
 
 #: overview.ui:60
-msgid "Dialog opacity"
-msgstr "Opacità di dialogo"
+msgid "Application folder dialogs style"
+msgstr ""
 
 #: overview.ui:61
-msgid "The opacity of the applications folder popup."
-msgstr "L'opacità del popup della cartella delle applicazioni."
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr ""
 
-#: overview.ui:85
+#: overview.ui:79 overview.ui:88
 msgid "Do not style"
 msgstr "Non dare stile"
-
-#: overview.ui:86
-msgid "Light"
-msgstr "Chiaro"
-
-#: overview.ui:87
-msgid "Dark"
-msgstr "Scuro"
 
 #: panel.ui:5
 msgid "Panel"
@@ -428,33 +422,36 @@ msgstr "Disattiva la sfocatura dal pannello quando si accede alla panoramica."
 
 #: panel.ui:57
 msgid ""
-"Override the background of the panel to use a transparent one.\n"
+"Override the background of the panel to use a transparent or semi-"
+"transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Sovrascrive lo sfondo del pannello per utilizzarne uno trasparente.\n"
-"Consigliato a meno che non si voglia personalizzare il tema di GNOME."
 
-#: panel.ui:64
+#: panel.ui:65
+msgid "The transparent/semi-transparent style for the panel background."
+msgstr ""
+
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Disattiva quando una finestra è vicina"
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Disattiva la trasparenza del pannello quando una finestra è vicina."
 
-#: panel.ui:82
+#: panel.ui:97
 msgid "Compatibility"
 msgstr "Compatibilità"
 
-#: panel.ui:83
+#: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Varie opzioni per fornire compatibilità con altre estensioni."
 
-#: panel.ui:88
+#: panel.ui:103
 msgid "Hidetopbar extension"
 msgstr "Estensione Hidetopbar"
 
-#: panel.ui:89
+#: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Non disabilita la sfocatura nella panoramica, meglio utilizzata con la "
@@ -471,6 +468,85 @@ msgstr "Seleziona finestra"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "Scegli una finestra o selezionala in base al nome della sua classe."
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality.\n"
+#~ "To get the best results possible, make sure to choose option “No "
+#~ "artefact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Aggiunge la sfocatura alle applicazioni. Si tratta ancora di una "
+#~ "funzionalità beta.\n"
+#~ "Per ottenere i migliori risultati possibili, assicuratevi di scegliere "
+#~ "l'opzione \"Nessun artefatto\" nelle preferenze \"Generale → Livello "
+#~ "hack\".\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Makes the background semi-transparent, disable this to use Dash to Dock "
+#~ "preferences instead."
+#~ msgstr ""
+#~ "Rende lo sfondo semitrasparente, disabilitalo per utilizzare invece le "
+#~ "preferenze Dash to Dock."
+
+#~ msgid "Performances"
+#~ msgstr "Prestazioni"
+
+#~ msgid "Various options to tweak the performances."
+#~ msgstr "Varie opzioni per modificare le prestazioni."
+
+#~ msgid ""
+#~ "Permits to disable globally the use of noise and color effects, this may "
+#~ "improve performances for low-end graphic."
+#~ msgstr ""
+#~ "Consente di disabilitare globalmente l'uso del rumore e degli effetti "
+#~ "colore, questo può migliorare le prestazioni per la grafica di fascia "
+#~ "bassa."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect.\n"
+#~ "Default value is very recommended, unless you use application blur in "
+#~ "which case “No artefact” is better.\n"
+#~ "This option will entirely disable clipped redraws from GNOME shell, and "
+#~ "may impact performances significantly but will entirely fix the blur "
+#~ "effect."
+#~ msgstr ""
+#~ "Modifica il comportamento dell'effetto di sfocatura dinamica.\n"
+#~ "Il valore predefinito è molto consigliato, a meno che non si utilizzi la "
+#~ "sfocatura delle applicazioni, nel qual caso è meglio \"Nessun "
+#~ "artefatto\".\n"
+#~ "Questa opzione disabilita completamente i ridisegni ritagliati dalla "
+#~ "shell di GNOME e può avere un impatto significativo sulle prestazioni, ma "
+#~ "risolve completamente l'effetto di sfocatura."
+
+#~ msgid "No artefact"
+#~ msgstr "Nessun artefatto"
+
+#~ msgid ""
+#~ "The semi-transparent style for the dash, search entry/results, and "
+#~ "applications folders."
+#~ msgstr ""
+#~ "Lo stile semitrasparente per la dash, la voce/risultati di ricerca e le "
+#~ "cartelle delle applicazioni."
+
+#~ msgid "Applications folder blur"
+#~ msgstr "Sfocatura della cartella delle applicazioni"
+
+#~ msgid "Makes the background of folder icons blurred."
+#~ msgstr "Rende sfocato lo sfondo delle icone delle cartelle."
+
+#~ msgid "Dialog opacity"
+#~ msgstr "Opacità di dialogo"
+
+#~ msgid "The opacity of the applications folder popup."
+#~ msgstr "L'opacità del popup della cartella delle applicazioni."
+
+#~ msgid ""
+#~ "Override the background of the panel to use a transparent one.\n"
+#~ "Recommended unless you want to customize your GNOME theme."
+#~ msgstr ""
+#~ "Sovrascrive lo sfondo del pannello per utilizzarne uno trasparente.\n"
+#~ "Consigliato a meno che non si voglia personalizzare il tema di GNOME."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality, is "
