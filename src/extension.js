@@ -101,6 +101,11 @@ class Extension {
                 this._overview_blur.enable();
         } catch (e) { }
         try {
+            if (this._prefs.dash_to_dock.BLUR
+                && !this._dash_to_dock_blur.enabled)
+                this._dash_to_dock_blur.enable();
+        } catch (e) { }
+        try {
             if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
                 this._panel_blur.enable();
         } catch (e) { }
@@ -198,9 +203,8 @@ class Extension {
         if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
             this._panel_blur.enable();
 
-        if (this._prefs.dash_to_dock.BLUR) {
+        if (this._prefs.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
             this._dash_to_dock_blur.enable();
-        }
 
         if (this._prefs.overview.BLUR && !this._overview_blur.enabled)
             this._overview_blur.enable();
@@ -292,8 +296,8 @@ class Extension {
             }
         });
 
-        // changed dialog opacity
-        this._prefs.appfolder.DIALOG_OPACITY_changed(() => {
+        // appfolder dialogs style changed
+        this._prefs.appfolder.STYLE_DIALOGS_changed(() => {
             if (this._prefs.appfolder.BLUR)
                 this._appfolder_blur.blur_appfolders();
         });
@@ -334,6 +338,12 @@ class Extension {
                 this._panel_blur.connect_to_windows_and_overview();
         });
 
+        // panel style changed
+        this._prefs.panel.STYLE_PANEL_changed(() => {
+            if (this._prefs.panel.BLUR)
+                this._panel_blur.connect_to_windows_and_overview();
+        });
+
         // panel background's dynamic overriding toggled on/off
         this._prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
             if (this._prefs.panel.BLUR)
@@ -361,6 +371,12 @@ class Extension {
 
         // dash-to-dock override background toggled on/off
         this._prefs.dash_to_dock.OVERRIDE_BACKGROUND_changed(() => {
+            if (this._prefs.dash_to_dock.BLUR)
+                this._dash_to_dock_blur.update_background();
+        });
+
+        // dash-to-dock style changed
+        this._prefs.dash_to_dock.STYLE_DASH_TO_DOCK_changed(() => {
             if (this._prefs.dash_to_dock.BLUR)
                 this._dash_to_dock_blur.update_background();
         });

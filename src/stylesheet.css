@@ -1,513 +1,257 @@
-/*
-* Makes transparent some backgrounds, in order to see the blur behind.
-* The panel, workspace separator and dash-to-dock (if set) are targeted.
-*/
+/*** PANEL ***/
 
+/*
+* `.transparent-panel`
+*/
 #panel.transparent-panel {
     background: transparent;
     transition-duration: 500ms;
 }
 
+/*
+* `.dark-panel`
+*/
+#panel.dark-panel {
+    background-color: rgba(100, 100, 100, 0.35);
+    transition-duration: 500ms;
+}
+
+/*
+* `.light-panel`
+*/
+#panel.light-panel {
+    background-color: rgba(200, 200, 200, 0.2);
+    transition-duration: 500ms;
+}
+
+
+/*** DASH ***/
+
+/*
+* `.transparent-dash`
+*/
+.transparent-dash .dash-background {
+    background-color: transparent !important;
+}
+
+/*
+* `.light-dash`
+*/
+.light-dash .dash-background {
+    background-color: rgba(200, 200, 200, 0.2) !important;
+}
+
+/*
+* `.dark-dash`
+*/
+.dark-dash .dash-background {
+    background-color: rgba(100, 100, 100, 0.35) !important;
+}
+
+
+/*** OVERVIEW ***/
+
+/*
+* Add transparency to the workspace animation (between workspaces)
+*/
 .blurred-overview .workspace-animation {
     background-color: transparent !important;
 }
 
-.blurred-dash .dash-background {
-    background-color: transparent !important;
-}
 
 /*
-* Style the overview components with a light color, when the UI group has class
-* `.bms-overview-components-light`
+* `.overview-components-transparent`
 */
 
-.bms-overview-components-light .blurred-dash .dash-background {
-    background-color: rgba(200, 200, 200, 0.2) !important;
-}
-
-.bms-overview-components-light .search-entry {
-    padding: 10px;
+.overview-components-transparent .search-entry {
     color: white;
-    background-color: rgba(200, 200, 200, 0.2);
-    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: transparent;
     box-shadow: none;
 }
 
-.bms-overview-components-light .search-entry .search-entry-icon {
+.overview-components-transparent .search-entry .search-entry-icon {
     color: rgba(255, 255, 255, 0.65);
 }
 
-.bms-overview-components-light .search-section-content,
-.bms-overview-components-light .app-folder .overview-icon {
+.overview-components-transparent .search-section-content,
+.overview-components-transparent .app-folder .overview-icon {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* prevents the extension from interfering with Just Perfection */
+.overview-components-transparent.just-perfection .search-section-content {
+    background-color: transparent;
+}
+
+.overview-components-transparent .app-folder .overview-icon {
+    border-color: transparent;
+}
+
+.overview-components-transparent .app-folder:hover .overview-icon,
+.overview-components-transparent .app-folder:focus .overview-icon {
+    background-color: rgba(230, 230, 230, 0.08);
+}
+
+.overview-components-transparent .app-folder:active .overview-icon,
+.overview-components-transparent .app-folder:focus:hover .overview-icon,
+.overview-components-transparent .app-folder:drop .overview-icon {
+    background-color: rgba(230, 230, 230, 0.12);
+}
+
+.overview-components-transparent .app-folder:focus:active .overview-icon {
+    background-color: rgba(230, 230, 230, 0.15);
+}
+
+/* this shouldn't apply to Dash to Dock */
+.overview-components-transparent StBoxLayout>StWidget>#dash>.dash-background {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/*
+* `.overview-components-light`
+*/
+
+.overview-components-light .search-entry {
+    color: white;
+    background-color: rgba(200, 200, 200, 0.2);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.overview-components-light .search-entry .search-entry-icon {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.overview-components-light .search-section-content,
+.overview-components-light .app-folder .overview-icon {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
 /* prevents the extension from interfering with Just Perfection */
-.bms-overview-components-light.just-perfection .search-section-content {
+.overview-components-light.just-perfection .search-section-content {
     background-color: transparent;
 }
 
-.bms-overview-components-light .app-folder:hover .overview-icon,
-.bms-overview-components-light .app-folder:focus .overview-icon {
+.overview-components-light .app-folder .overview-icon {
+    border-color: transparent;
+}
+
+.overview-components-light .app-folder:hover .overview-icon,
+.overview-components-light .app-folder:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.2);
 }
 
-.bms-overview-components-light .dash-background {
+.overview-components-light .app-folder:active .overview-icon,
+.overview-components-light .app-folder:focus:hover .overview-icon,
+.overview-components-light .app-folder:drop .overview-icon {
+    background-color: rgba(230, 230, 230, 0.25);
+}
+
+.overview-components-light .app-folder:focus:active .overview-icon {
+    background-color: rgba(230, 230, 230, 0.3);
+}
+
+/* this shouldn't apply to Dash to Dock */
+.overview-components-light StBoxLayout>StWidget>#dash>.dash-background {
     background-color: rgba(200, 200, 200, 0.2);
 }
 
+
 /*
-* Style the overview components with a dark color, when the UI group has class
-* `.bms-overview-components-dark`
+* `.overview-components-dark`
 */
 
-.bms-overview-components-dark .blurred-dash .dash-background {
-    background-color: rgba(100, 100, 100, 0.35) !important;
-}
-
-.bms-overview-components-dark .search-entry {
-    padding: 10px;
+.overview-components-dark .search-entry {
     color: white;
     background-color: rgba(100, 100, 100, 0.35);
-    border: 0;
+    border-color: transparent;
     box-shadow: none;
 }
 
-.bms-overview-components-dark .search-entry .search-entry-icon {
+.overview-components-dark .search-entry .search-entry-icon {
     color: rgba(255, 255, 255, 0.65);
 }
 
-.bms-overview-components-dark .search-section-content,
-.bms-overview-components-dark .app-folder .overview-icon {
+.overview-components-dark .search-section-content,
+.overview-components-dark .app-folder .overview-icon {
     background-color: rgba(100, 100, 100, 0.35);
 }
 
 /* prevents the extension from interfering with Just Perfection */
-.bms-overview-components-dark.just-perfection .search-section-content {
+.overview-components-dark.just-perfection .search-section-content {
     background-color: transparent;
 }
 
-.bms-overview-components-dark .app-folder:hover .overview-icon,
-.bms-overview-components-dark .app-folder:focus .overview-icon {
+.overview-components-dark .app-folder .overview-icon {
+    border-color: transparent;
+}
+
+.overview-components-dark .app-folder:hover .overview-icon,
+.overview-components-dark .app-folder:focus .overview-icon {
     background-color: rgba(120, 120, 120, 0.35);
 }
 
-.bms-overview-components-dark .dash-background {
+.overview-components-dark .app-folder:active .overview-icon,
+.overview-components-dark .app-folder:focus:hover .overview-icon,
+.overview-components-dark .app-folder:drop .overview-icon {
+    background-color: rgba(120, 120, 120, 0.4);
+}
+
+.overview-components-dark .app-folder:focus:active .overview-icon {
+    background-color: rgba(120, 120, 120, 0.45);
+}
+
+/* this shouldn't apply to Dash to Dock */
+.overview-components-dark StBoxLayout>StWidget>#dash>.dash-background {
     background-color: rgba(100, 100, 100, 0.35);
 }
 
-/* ! Generated from now on */
+
+/*** APPFOLDER DIALOG ***/
 
 /*
-* Generated styles for the app-folder dialogs background.
-*
-* python generator:
-*
-* for e in range(0,101):print(".transparent-app-folder-dialogs-"+str(e)+"\n{background-color:rgba(0,0,0,"+str(round(e/100,2))+");}")
-*
-* TODO change the preferences to simply have the choice [transparent|light|dark]
+* `.appfolder-dialogs-transparent`
 */
 
-.transparent-app-folder-dialogs-0 {
-    background-color: rgba(0, 0, 0, 0.0);
+.appfolder-dialogs-transparent {
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.transparent-app-folder-dialogs-1 {
-    background-color: rgba(0, 0, 0, 0.01);
+.appfolder-dialogs-transparent .folder-name-entry {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    box-shadow: none;
 }
 
-.transparent-app-folder-dialogs-2 {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
-.transparent-app-folder-dialogs-3 {
-    background-color: rgba(0, 0, 0, 0.03);
-}
-
-.transparent-app-folder-dialogs-4 {
-    background-color: rgba(0, 0, 0, 0.04);
-}
-
-.transparent-app-folder-dialogs-5 {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.transparent-app-folder-dialogs-6 {
-    background-color: rgba(0, 0, 0, 0.06);
-}
-
-.transparent-app-folder-dialogs-7 {
-    background-color: rgba(0, 0, 0, 0.07);
-}
-
-.transparent-app-folder-dialogs-8 {
-    background-color: rgba(0, 0, 0, 0.08);
-}
-
-.transparent-app-folder-dialogs-9 {
-    background-color: rgba(0, 0, 0, 0.09);
-}
-
-.transparent-app-folder-dialogs-10 {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.transparent-app-folder-dialogs-11 {
-    background-color: rgba(0, 0, 0, 0.11);
-}
-
-.transparent-app-folder-dialogs-12 {
-    background-color: rgba(0, 0, 0, 0.12);
-}
-
-.transparent-app-folder-dialogs-13 {
-    background-color: rgba(0, 0, 0, 0.13);
-}
-
-.transparent-app-folder-dialogs-14 {
-    background-color: rgba(0, 0, 0, 0.14);
-}
-
-.transparent-app-folder-dialogs-15 {
-    background-color: rgba(0, 0, 0, 0.15);
-}
-
-.transparent-app-folder-dialogs-16 {
-    background-color: rgba(0, 0, 0, 0.16);
-}
-
-.transparent-app-folder-dialogs-17 {
-    background-color: rgba(0, 0, 0, 0.17);
-}
-
-.transparent-app-folder-dialogs-18 {
-    background-color: rgba(0, 0, 0, 0.18);
-}
-
-.transparent-app-folder-dialogs-19 {
-    background-color: rgba(0, 0, 0, 0.19);
-}
-
-.transparent-app-folder-dialogs-20 {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.transparent-app-folder-dialogs-21 {
-    background-color: rgba(0, 0, 0, 0.21);
-}
-
-.transparent-app-folder-dialogs-22 {
-    background-color: rgba(0, 0, 0, 0.22);
-}
-
-.transparent-app-folder-dialogs-23 {
-    background-color: rgba(0, 0, 0, 0.23);
-}
-
-.transparent-app-folder-dialogs-24 {
-    background-color: rgba(0, 0, 0, 0.24);
-}
-
-.transparent-app-folder-dialogs-25 {
-    background-color: rgba(0, 0, 0, 0.25);
-}
-
-.transparent-app-folder-dialogs-26 {
-    background-color: rgba(0, 0, 0, 0.26);
-}
-
-.transparent-app-folder-dialogs-27 {
-    background-color: rgba(0, 0, 0, 0.27);
-}
-
-.transparent-app-folder-dialogs-28 {
-    background-color: rgba(0, 0, 0, 0.28);
-}
-
-.transparent-app-folder-dialogs-29 {
-    background-color: rgba(0, 0, 0, 0.29);
-}
-
-.transparent-app-folder-dialogs-30 {
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
-.transparent-app-folder-dialogs-31 {
-    background-color: rgba(0, 0, 0, 0.31);
-}
-
-.transparent-app-folder-dialogs-32 {
-    background-color: rgba(0, 0, 0, 0.32);
-}
-
-.transparent-app-folder-dialogs-33 {
-    background-color: rgba(0, 0, 0, 0.33);
-}
-
-.transparent-app-folder-dialogs-34 {
-    background-color: rgba(0, 0, 0, 0.34);
-}
-
-.transparent-app-folder-dialogs-35 {
-    background-color: rgba(0, 0, 0, 0.35);
-}
-
-.transparent-app-folder-dialogs-36 {
-    background-color: rgba(0, 0, 0, 0.36);
-}
-
-.transparent-app-folder-dialogs-37 {
-    background-color: rgba(0, 0, 0, 0.37);
-}
-
-.transparent-app-folder-dialogs-38 {
-    background-color: rgba(0, 0, 0, 0.38);
-}
-
-.transparent-app-folder-dialogs-39 {
-    background-color: rgba(0, 0, 0, 0.39);
-}
-
-.transparent-app-folder-dialogs-40 {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.transparent-app-folder-dialogs-41 {
-    background-color: rgba(0, 0, 0, 0.41);
-}
-
-.transparent-app-folder-dialogs-42 {
-    background-color: rgba(0, 0, 0, 0.42);
-}
-
-.transparent-app-folder-dialogs-43 {
-    background-color: rgba(0, 0, 0, 0.43);
-}
-
-.transparent-app-folder-dialogs-44 {
-    background-color: rgba(0, 0, 0, 0.44);
-}
-
-.transparent-app-folder-dialogs-45 {
-    background-color: rgba(0, 0, 0, 0.45);
-}
-
-.transparent-app-folder-dialogs-46 {
-    background-color: rgba(0, 0, 0, 0.46);
-}
-
-.transparent-app-folder-dialogs-47 {
-    background-color: rgba(0, 0, 0, 0.47);
-}
-
-.transparent-app-folder-dialogs-48 {
-    background-color: rgba(0, 0, 0, 0.48);
-}
+/*
+* `.appfolder-dialogs-light`
+*/
 
-.transparent-app-folder-dialogs-49 {
-    background-color: rgba(0, 0, 0, 0.49);
+.appfolder-dialogs-light {
+    background-color: rgba(200, 200, 200, 0.2);
 }
 
-.transparent-app-folder-dialogs-50 {
-    background-color: rgba(0, 0, 0, 0.5);
+.appfolder-dialogs-light .folder-name-entry {
+    color: white;
+    background-color: rgba(200, 200, 200, 0.2);
+    border: 0;
+    box-shadow: none;
 }
 
-.transparent-app-folder-dialogs-51 {
-    background-color: rgba(0, 0, 0, 0.51);
-}
-
-.transparent-app-folder-dialogs-52 {
-    background-color: rgba(0, 0, 0, 0.52);
-}
-
-.transparent-app-folder-dialogs-53 {
-    background-color: rgba(0, 0, 0, 0.53);
-}
-
-.transparent-app-folder-dialogs-54 {
-    background-color: rgba(0, 0, 0, 0.54);
-}
-
-.transparent-app-folder-dialogs-55 {
-    background-color: rgba(0, 0, 0, 0.55);
-}
-
-.transparent-app-folder-dialogs-56 {
-    background-color: rgba(0, 0, 0, 0.56);
-}
-
-.transparent-app-folder-dialogs-57 {
-    background-color: rgba(0, 0, 0, 0.57);
-}
-
-.transparent-app-folder-dialogs-58 {
-    background-color: rgba(0, 0, 0, 0.58);
-}
-
-.transparent-app-folder-dialogs-59 {
-    background-color: rgba(0, 0, 0, 0.59);
-}
-
-.transparent-app-folder-dialogs-60 {
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.transparent-app-folder-dialogs-61 {
-    background-color: rgba(0, 0, 0, 0.61);
-}
-
-.transparent-app-folder-dialogs-62 {
-    background-color: rgba(0, 0, 0, 0.62);
-}
-
-.transparent-app-folder-dialogs-63 {
-    background-color: rgba(0, 0, 0, 0.63);
-}
-
-.transparent-app-folder-dialogs-64 {
-    background-color: rgba(0, 0, 0, 0.64);
-}
-
-.transparent-app-folder-dialogs-65 {
-    background-color: rgba(0, 0, 0, 0.65);
-}
-
-.transparent-app-folder-dialogs-66 {
-    background-color: rgba(0, 0, 0, 0.66);
-}
-
-.transparent-app-folder-dialogs-67 {
-    background-color: rgba(0, 0, 0, 0.67);
-}
-
-.transparent-app-folder-dialogs-68 {
-    background-color: rgba(0, 0, 0, 0.68);
-}
-
-.transparent-app-folder-dialogs-69 {
-    background-color: rgba(0, 0, 0, 0.69);
-}
-
-.transparent-app-folder-dialogs-70 {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.transparent-app-folder-dialogs-71 {
-    background-color: rgba(0, 0, 0, 0.71);
-}
-
-.transparent-app-folder-dialogs-72 {
-    background-color: rgba(0, 0, 0, 0.72);
-}
-
-.transparent-app-folder-dialogs-73 {
-    background-color: rgba(0, 0, 0, 0.73);
-}
-
-.transparent-app-folder-dialogs-74 {
-    background-color: rgba(0, 0, 0, 0.74);
-}
 
-.transparent-app-folder-dialogs-75 {
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-.transparent-app-folder-dialogs-76 {
-    background-color: rgba(0, 0, 0, 0.76);
-}
-
-.transparent-app-folder-dialogs-77 {
-    background-color: rgba(0, 0, 0, 0.77);
-}
-
-.transparent-app-folder-dialogs-78 {
-    background-color: rgba(0, 0, 0, 0.78);
-}
-
-.transparent-app-folder-dialogs-79 {
-    background-color: rgba(0, 0, 0, 0.79);
-}
-
-.transparent-app-folder-dialogs-80 {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.transparent-app-folder-dialogs-81 {
-    background-color: rgba(0, 0, 0, 0.81);
-}
-
-.transparent-app-folder-dialogs-82 {
-    background-color: rgba(0, 0, 0, 0.82);
-}
-
-.transparent-app-folder-dialogs-83 {
-    background-color: rgba(0, 0, 0, 0.83);
-}
-
-.transparent-app-folder-dialogs-84 {
-    background-color: rgba(0, 0, 0, 0.84);
-}
-
-.transparent-app-folder-dialogs-85 {
-    background-color: rgba(0, 0, 0, 0.85);
-}
-
-.transparent-app-folder-dialogs-86 {
-    background-color: rgba(0, 0, 0, 0.86);
-}
-
-.transparent-app-folder-dialogs-87 {
-    background-color: rgba(0, 0, 0, 0.87);
-}
-
-.transparent-app-folder-dialogs-88 {
-    background-color: rgba(0, 0, 0, 0.88);
-}
-
-.transparent-app-folder-dialogs-89 {
-    background-color: rgba(0, 0, 0, 0.89);
-}
-
-.transparent-app-folder-dialogs-90 {
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
-.transparent-app-folder-dialogs-91 {
-    background-color: rgba(0, 0, 0, 0.91);
-}
-
-.transparent-app-folder-dialogs-92 {
-    background-color: rgba(0, 0, 0, 0.92);
-}
-
-.transparent-app-folder-dialogs-93 {
-    background-color: rgba(0, 0, 0, 0.93);
-}
-
-.transparent-app-folder-dialogs-94 {
-    background-color: rgba(0, 0, 0, 0.94);
-}
-
-.transparent-app-folder-dialogs-95 {
-    background-color: rgba(0, 0, 0, 0.95);
-}
-
-.transparent-app-folder-dialogs-96 {
-    background-color: rgba(0, 0, 0, 0.96);
-}
-
-.transparent-app-folder-dialogs-97 {
-    background-color: rgba(0, 0, 0, 0.97);
-}
-
-.transparent-app-folder-dialogs-98 {
-    background-color: rgba(0, 0, 0, 0.98);
-}
+/*
+* `.appfolder-dialogs-dark`
+*/
 
-.transparent-app-folder-dialogs-99 {
-    background-color: rgba(0, 0, 0, 0.99);
+.appfolder-dialogs-dark {
+    background-color: rgba(100, 100, 100, 0.35);
 }
 
-.transparent-app-folder-dialogs-100 {
-    background-color: rgba(0, 0, 0, 1.0);
+.appfolder-dialogs-dark .folder-name-entry {
+    color: white;
+    background-color: rgba(100, 100, 100, 0.35);
+    border: 0;
+    box-shadow: none;
 }

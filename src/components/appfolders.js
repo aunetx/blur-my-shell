@@ -11,6 +11,13 @@ const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const FRAME_UPDATE_PERIOD = 16;
 
+const DIALOGS_STYLES = [
+    "",
+    "appfolder-dialogs-transparent",
+    "appfolder-dialogs-light",
+    "appfolder-dialogs-dark"
+];
+
 let original_zoomAndFadeIn = null;
 let original_zoomAndFadeOut = null;
 let sigma;
@@ -170,12 +177,12 @@ var AppFoldersBlur = class AppFoldersBlur {
             icon._dialog.remove_effect_by_name("appfolder-blur");
             icon._dialog.add_effect(blur_effect);
 
-            // change appfolder dialog opacity
+            DIALOGS_STYLES.forEach(
+                style => icon._dialog._viewBox.remove_style_class_name(style)
+            );
 
-            let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
-
-            icon._dialog._viewBox.set_style_class_name(
-                `app-folder-dialog transparent-app-folder-dialogs-${opacity}`
+            icon._dialog._viewBox.add_style_class_name(
+                DIALOGS_STYLES[this.prefs.appfolder.STYLE_DIALOGS]
             );
 
             // finally override the builtin functions
@@ -189,8 +196,8 @@ var AppFoldersBlur = class AppFoldersBlur {
             //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
             //
             // This does not entirely fix this bug (shadows caused by windows
-            // still cause artefacts), but it prevents the shadows of the panel
-            // buttons to cause artefacts on the panel itself
+            // still cause artifacts), but it prevents the shadows of the panel
+            // buttons to cause artifacts on the panel itself
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
@@ -241,11 +248,9 @@ var AppFoldersBlur = class AppFoldersBlur {
 
         appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
-                let opacity = 100 * this.prefs.appfolder.DIALOG_OPACITY;
-
                 icon._dialog.remove_effect_by_name("appfolder-blur");
-                icon._dialog._viewBox.remove_style_class_name(
-                    `transparent-app-folder-dialogs-${opacity}`
+                DIALOGS_STYLES.forEach(
+                    s => icon._dialog._viewBox.remove_style_class_name(s)
                 );
             }
         });
