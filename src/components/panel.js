@@ -142,6 +142,8 @@ var PanelBlur = class PanelBlur {
         }
 
         let monitor = this.find_monitor_for(panel);
+        if (!monitor)
+            return;
 
         let background_parent = new St.Widget({
             name: 'topbar-blurred-background-parent',
@@ -320,6 +322,8 @@ var PanelBlur = class PanelBlur {
         let panel_box = actors.widgets.panel_box;
         let background = actors.widgets.background;
         let monitor = this.find_monitor_for(panel);
+        if (!monitor)
+            return;
 
         let [width, height] = panel_box.get_size();
         background.width = width;
