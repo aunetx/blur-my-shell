@@ -2,22 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the blur-my-shell@aunetx package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Natália Mendes Carlos <natalia.mncl@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-08-27 21:07+0200\n"
-"PO-Revision-Date: 2022-09-19 04:15+0000\n"
-"Last-Translator: José Victor Dias Rodrigues <zoldyakopersonal@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/pt/>\n"
-"Language: pt\n"
+"PO-Revision-Date: 2022-09-10 15:39-0300\n"
+"Last-Translator: Natália Mendes Carlos <natalia.mncl@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <natalia.mncl@gmail.com>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 41.0\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,10 +34,9 @@ msgid ""
 "in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Aplique desfoque em aplicativos. Esta função ainda esta em beta.\n"
-"Para conseguir os melhores resultados possíveis, tenha certeza de escolher a "
-"opção \"Sem artefatos\" na configuração em \"Geral → Hack level\"\n"
-"        "
+"Adiciona o desfoque às aplicações. É ainda uma funcionalidade beta.\n"
+"Para obter os melhores resultados possíveis, escolha a opção \"Sem "
+"artefato\" em \"Geral→ nível Hack\" preferência."
 
 #: applications.ui:28
 msgid "Opacity"
@@ -48,21 +47,20 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"A opacidade da janela em cima do efeito de desfoque, com um valor maior "
-"ficará mais legível."
+"A opacidade da janela com o efeito de desfoque, um valor maior será legível."
 
 #: applications.ui:50
 msgid "Blur on overview"
-msgstr "Desfoque no panorama de atividades"
+msgstr "Desfoque geral"
 
 #: applications.ui:51
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Força o desfoque a ser mostrado corretamente em todos os espaços de "
-"trabalhos no panorama de atividade.\n"
-"Isso pode causar latência ou problemas de performance."
+"Força o desfoque a ser propriamente mostrado em todo o espaço de trabalho "
+"por um todo.\n"
+"Isso pode causar lentidão relativa à performance."
 
 #: applications.ui:26
 msgid "Enable all by default"
@@ -73,8 +71,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"Adiciona desfoque atrás de todas as janelas por padrão.\n"
-"Não é recomendado por causa de problemas com performance e estabilidade."
+"Adiciona desfoque por trás de todas as janelas por padrão.\n"
+"Não é recomendada por conta de problemas com estabilidade e performance."
 
 #: applications.ui:43
 msgid "Whitelist"
@@ -249,12 +247,12 @@ msgid ""
 "This option will entirely disable clipped redraws from GNOME shell, and may "
 "impact performances significantly but will entirely fix the blur effect."
 msgstr ""
-"Muda o comportamento do desfoque dinâmico.\n"
-"O valor padrão é altamente recomendado, a menos que você use o desfoque de "
-"aplicativo que no caso \"Sem artefatos\" é melhor.\n"
-"Essa opção vai completamente desativar o redesenho pelo shell do GNOME, e "
-"isso pode ter impactos significativos na performance mas vai concertar o "
-"problema com o efeito de desfoque."
+"Mudanças no comportamento do efeito de desfoque dinâmico.\n"
+"Valor padrão é fortemente recomendado, a menos que você use a aplicação de "
+"desfoque, caso em que \"Sem artefato\" é melhor.\n"
+"Essa opção desabilitará completamente imagens recortadas do GNOME shell, o "
+"que pode impactar na performance significativamente, mas concertará o efeito "
+"de desfoque."
 
 #: general.ui:149
 msgid "Debug"
@@ -274,7 +272,8 @@ msgstr "Redefinir preferências"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr "Redefina as preferências do \"Blur my Shell\" irreversivelmente."
+msgstr ""
+"Desfaz as preferências de desfoque do Blur-my-Shell de maneira irreversível."
 
 #: general.ui:187
 msgid "Reset"
@@ -428,8 +427,8 @@ msgid ""
 "Override the background of the panel to use a transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Sobrescreva o plano de fundo do painel para usar um painel transparente.\n"
-"Recomendado a menos que você queira customizar o seu tema do GNOME."
+"Anula o plano de fundo de painel com outro transparente.\n"
+"Recomendado a menos que você queira customizar o tema do seu GNOME."
 
 #: panel.ui:56
 msgid "Disable when a window is near"
@@ -437,7 +436,7 @@ msgstr "Desativar quando uma janela estiver próxima"
 
 #: panel.ui:65
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr "Desativa a transparência quando uma janela esta perto do painel."
+msgstr "Desabilita a transparência do painel quando uma janela está próxima"
 
 #: panel.ui:73
 msgid "Compatibility"
