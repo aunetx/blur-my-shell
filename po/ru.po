@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-01 17:42+0200\n"
-"PO-Revision-Date: 2022-08-28 13:45+0300\n"
+"PO-Revision-Date: 2022-10-01 20:58+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,6 +34,10 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Добавляет размытие к приложениям. Это все еще бета-версия функции.\n"
+"Чтобы получить наилучшие результаты, убедитесь, что выбрали опцию \"Без "
+"артефактов\" в настройках \"Общие → Уровень взлома\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -187,14 +191,16 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Делает фон прозрачным или полупрозрачным, отключите его, чтобы вместо него "
+"использовать настройки Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "Стиль фона"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Прозрачный/полупрозрачный стиль для фона панели приложений."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
@@ -206,7 +212,7 @@ msgstr "Отключает размытие из Dash to Dock при входе 
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "Прозрачный"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -231,11 +237,11 @@ msgstr ""
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Производительность"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Различные опции для настройки производительности."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -246,6 +252,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Глобально отключает шумовые и цветовые эффекты, что может повысить "
+"производительность на системах низкого класса."
 
 #: general.ui:135
 msgid "Hack level"
@@ -259,6 +267,13 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Изменяет поведение эффекта динамического размытия.\n"
+"Настоятельно рекомендуется использовать значение по умолчанию, если вы не "
+"используете размытие приложений, в противном случае лучше выбрать значение "
+"\"Без артефактов\".\n"
+"Эта опция полностью отключает обрезанные перерисовки в оболочке GNOME, что "
+"может значительно повлиять на производительность, но полностью исправляет "
+"эффект размытия."
 
 #: general.ui:151
 msgid "Debug"
@@ -298,7 +313,7 @@ msgstr "Высокое качество"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Без артефактов"
 
 #: menu.ui:6
 msgid "Project page"
@@ -368,23 +383,23 @@ msgstr "Стилизация компонентов Обзора"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr ""
+msgstr "Полупрозрачный стиль для панели приложений, поиска и папок приложений."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Размытие папки приложений"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Делает фон диалоговых окон папок приложений размытым."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Стиль диалоговых окон папок приложений"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Полупрозрачный стиль для диалоговых окон папок приложений."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -422,10 +437,13 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Переопределяет фон верхней панели, чтобы использовать прозрачный или "
+"полупрозрачный фон.\n"
+"Рекомендуется, если вы не хотите настраивать тему GNOME."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "Прозрачный/полупрозрачный стиль для фона верхней панели."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
