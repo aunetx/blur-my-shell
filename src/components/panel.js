@@ -10,6 +10,13 @@ const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 
+const PANEL_STYLES = [
+    "transparent-panel",
+    "light-panel",
+    "dark-panel"
+];
+
+
 var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
@@ -260,8 +267,8 @@ var PanelBlur = class PanelBlur {
         //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
         //
         // This does not entirely fix this bug (shadows caused by windows
-        // still cause artefacts), but it prevents the shadows of the panel
-        // buttons to cause artefacts on the panel itself
+        // still cause artifacts), but it prevents the shadows of the panel
+        // buttons to cause artifacts on the panel itself
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
@@ -552,14 +559,18 @@ var PanelBlur = class PanelBlur {
     /// Choose wether or not the panel background should be overriden, in
     /// respect to its argument and the `override-background` setting.
     set_should_override_panel(actors, should_override) {
+        let panel = actors.widgets.panel;
+
+        PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
+
         if (
             this.prefs.panel.OVERRIDE_BACKGROUND
             &&
             should_override
         )
-            actors.widgets.panel.add_style_class_name('transparent-panel');
-        else
-            actors.widgets.panel.remove_style_class_name('transparent-panel');
+            panel.add_style_class_name(
+                PANEL_STYLES[this.prefs.panel.STYLE_PANEL]
+            );
     }
 
     /// Fixes a bug where the blur is washed away when changing the sigma, or

@@ -40,7 +40,7 @@ var Keys = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
-            { type: Type.D, name: "dialog-opacity" },
+            { type: Type.I, name: "style-dialogs" },
         ]
     },
     {
@@ -55,6 +55,7 @@ var Keys = [
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },
         ]
     },
@@ -70,6 +71,7 @@ var Keys = [
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-dash-to-dock" },
         ]
     },
     {

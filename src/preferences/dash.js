@@ -13,6 +13,7 @@ var Dash = GObject.registerClass({
         'blur',
         'customize',
         'override_background',
+        'style_dash_to_dock',
         'unblur_in_overview'
     ],
 }, class Dash extends Adw.PreferencesPage {
@@ -26,7 +27,12 @@ var Dash = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
-            'override-background', this._override_background, 'state',
+            'override-background',
+            this._override_background, 'enable-expansion',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_dock.settings.bind(
+            'style-dash-to-dock', this._style_dash_to_dock, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
