@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-27 21:07+0200\n"
+"POT-Creation-Date: 2022-10-01 17:42+0200\n"
 "PO-Revision-Date: 2022-08-28 10:33+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -31,15 +31,11 @@ msgstr "Flou d'applications (bêta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality.\n"
-"To get the best results possible, make sure to choose option “No artefact” "
-"in the “General → Hack level” preference.\n"
+"Adds blur to the applications. This is still beta functionality.\n"
+"To get the best results possible, make sure to choose the option “No "
+"artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Ajoute du flou aux applications. C'est une fonctionnalité bêta.\n"
-"Pour obtenir les meilleurs résultats possibles, choisissez l'option « Pas "
-"d'artéfact » dans l'onglet « General → Astuces de performances »\n"
-"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -53,11 +49,11 @@ msgstr ""
 "L'opacité de la fenêtre au dessus de l'effet de flou, une valeur plus haute "
 "sera plus lisible."
 
-#: applications.ui:50
+#: applications.ui:51
 msgid "Blur on overview"
 msgstr "Floute dans l'aperçu"
 
-#: applications.ui:51
+#: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -66,11 +62,11 @@ msgstr ""
 "l'aperçu.\n"
 "Cela peut causer des problèmes de latence ou de performance."
 
-#: applications.ui:66
+#: applications.ui:67
 msgid "Enable all by default"
 msgstr "Active tout par défaut"
 
-#: applications.ui:67
+#: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
@@ -78,23 +74,23 @@ msgstr ""
 "Ajoute du flou derrière toutes les fenêtres par défaut.\n"
 "Non recommandé en raison de problèmes de performance et de stabilité."
 
-#: applications.ui:84
+#: applications.ui:85
 msgid "Whitelist"
 msgstr "Liste blanche"
 
-#: applications.ui:85
+#: applications.ui:86
 msgid "A list of windows to blur."
 msgstr "Une liste d'applications à flouter."
 
-#: applications.ui:103 applications.ui:140
+#: applications.ui:104 applications.ui:141
 msgid "Add Window"
 msgstr "Ajouter une fenêtre"
 
-#: applications.ui:121
+#: applications.ui:122
 msgid "Blacklist"
 msgstr "Liste noire"
 
-#: applications.ui:122
+#: applications.ui:123
 msgid "A list of windows not to blur."
 msgstr "Une liste d'applications à ne pas flouter."
 
@@ -191,19 +187,37 @@ msgstr "Outrepasser le fond"
 
 #: dash.ui:27
 msgid ""
-"Makes the background semi-transparent, disable this to use Dash to Dock "
-"preferences instead."
+"Makes the background either transparent or semi-transparent, disable this to "
+"use Dash to Dock preferences instead."
 msgstr ""
-"Rend le fond semi-transparent, désactivez cela pour utiliser les préférences "
-"de Dash to Dock à la place."
 
-#: dash.ui:41 panel.ui:41
+#: dash.ui:33 panel.ui:64
+msgid "Background style"
+msgstr ""
+
+#: dash.ui:34
+msgid "The transparent/semi-transparent style for the dock background."
+msgstr ""
+
+#: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
 msgstr "Désactiver dans l'aperçu"
 
-#: dash.ui:42
+#: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Désactiver le flou de Dash to Dock lorsqu'on ouvre l'aperçu."
+
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+msgid "Transparent"
+msgstr ""
+
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+msgid "Light"
+msgstr "Clair"
+
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+msgid "Dark"
+msgstr "Foncé"
 
 #: general.ui:5
 msgid "General"
@@ -220,12 +234,12 @@ msgstr ""
 "composants par défaut."
 
 #: general.ui:117
-msgid "Performances"
-msgstr "Performances"
+msgid "Performance"
+msgstr ""
 
 #: general.ui:118
-msgid "Various options to tweak the performances."
-msgstr "Différentes options pour ajuster les performances."
+msgid "Various options to tweak the performance."
+msgstr ""
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -233,12 +247,9 @@ msgstr "Effets de bruit et de couleur"
 
 #: general.ui:123
 msgid ""
-"Permits to disable globally the use of noise and color effects, this may "
-"improve performances for low-end graphic."
+"Globally disables noise and color effects which may improve performance on "
+"low-end systems."
 msgstr ""
-"Permet de désactiver entièrement les effets de bruit et de couleur, cela "
-"peut améliorer légèrement les performances des terminaux les moins "
-"performants."
 
 #: general.ui:135
 msgid "Hack level"
@@ -246,18 +257,12 @@ msgstr "Astuces de performances"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect.\n"
-"Default value is very recommended, unless you use application blur in which "
-"case “No artefact” is better.\n"
-"This option will entirely disable clipped redraws from GNOME shell, and may "
-"impact performances significantly but will entirely fix the blur effect."
+"Changes the behaviour of the dynamic blur effect.\n"
+"The default value is highly recommended unless you use application blur, in "
+"which case “No artifact” is better.\n"
+"This option will entirely disable clipped redraws in GNOME shell, and may "
+"impact performance significantly but will completely fix the blur effect."
 msgstr ""
-"Change le comportement de l'effet de flou dynamique.\n"
-"La valeur par défaut est très recommandée, sauf si vous floutez les "
-"applications, auquel cas « Pas d'artefact » est meilleur.\n"
-"Cette option désactivera entièrement les repeintes partielles de GNOME "
-"shell, et pourrait impacter les performances mais réglera entièrement "
-"l'effet de flou."
 
 #: general.ui:151
 msgid "Debug"
@@ -296,8 +301,8 @@ msgid "High quality"
 msgstr "Haute qualité"
 
 #: general.ui:231
-msgid "No artefact"
-msgstr "Pas d'artéfact"
+msgid "No artifact"
+msgstr ""
 
 #: menu.ui:6
 msgid "Project page"
@@ -368,38 +373,28 @@ msgstr "Style des composants de l'aperçu"
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
-"applications folders."
+"application folders."
 msgstr ""
-"Le style semi-transparent à utiliser pour le dash, la barre et les résultats "
-"de recherche, et les dossier d'applications."
 
 #: overview.ui:44
-msgid "Applications folder blur"
-msgstr "Flou des dossiers d'applications"
+msgid "Application folder blur"
+msgstr ""
 
 #: overview.ui:45
-msgid "Makes the background of folder icons blurred."
-msgstr "Floute le fond des icônes de dossiers d'applications."
+msgid "Makes the background of application folder dialogs blurred."
+msgstr ""
 
 #: overview.ui:60
-msgid "Dialog opacity"
-msgstr "Opacité du dialogue"
+msgid "Application folder dialogs style"
+msgstr ""
 
 #: overview.ui:61
-msgid "The opacity of the applications folder popup."
-msgstr "L'opacité du fond de la fenêtre contextuelle."
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr ""
 
-#: overview.ui:85
+#: overview.ui:79 overview.ui:88
 msgid "Do not style"
 msgstr "Ne pas appliquer de thème"
-
-#: overview.ui:86
-msgid "Light"
-msgstr "Clair"
-
-#: overview.ui:87
-msgid "Dark"
-msgstr "Foncé"
 
 #: panel.ui:5
 msgid "Panel"
@@ -427,35 +422,38 @@ msgstr "Désactive le flou du panneau lorsqu'on est dans l'aperçu."
 
 #: panel.ui:57
 msgid ""
-"Override the background of the panel to use a transparent one.\n"
+"Override the background of the panel to use a transparent or semi-"
+"transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Passe outre le fond du panneau pour utiliser un fond transparent.\n"
-"Recommandé sauf si vous voulez personnaliser votre thème GNOME."
 
-#: panel.ui:64
+#: panel.ui:65
+msgid "The transparent/semi-transparent style for the panel background."
+msgstr ""
+
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Désactiver lorsqu'une fenêtre est proche"
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Désactive la transparence du panneau lorsqu'une fenêtre est proche."
 
-#: panel.ui:82
+#: panel.ui:97
 msgid "Compatibility"
 msgstr "Compatibilité"
 
-#: panel.ui:83
+#: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 "Des options diverses pour permettre de rester compatible avec d'autres "
 "extensions."
 
-#: panel.ui:88
+#: panel.ui:103
 msgid "Hidetopbar extension"
 msgstr "Extension Hidetopbar"
 
-#: panel.ui:89
+#: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Ne désactive pas le flou lorsqu'on est dans l'aperçu, à utiliser de "
@@ -472,6 +470,82 @@ msgstr "Choix de la fenêtre"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "Choisissez une fenêtre ou sélectionnez-la par son nom de classe."
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality.\n"
+#~ "To get the best results possible, make sure to choose option “No "
+#~ "artefact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Ajoute du flou aux applications. C'est une fonctionnalité bêta.\n"
+#~ "Pour obtenir les meilleurs résultats possibles, choisissez l'option « Pas "
+#~ "d'artéfact » dans l'onglet « General → Astuces de performances »\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Makes the background semi-transparent, disable this to use Dash to Dock "
+#~ "preferences instead."
+#~ msgstr ""
+#~ "Rend le fond semi-transparent, désactivez cela pour utiliser les "
+#~ "préférences de Dash to Dock à la place."
+
+#~ msgid "Performances"
+#~ msgstr "Performances"
+
+#~ msgid "Various options to tweak the performances."
+#~ msgstr "Différentes options pour ajuster les performances."
+
+#~ msgid ""
+#~ "Permits to disable globally the use of noise and color effects, this may "
+#~ "improve performances for low-end graphic."
+#~ msgstr ""
+#~ "Permet de désactiver entièrement les effets de bruit et de couleur, cela "
+#~ "peut améliorer légèrement les performances des terminaux les moins "
+#~ "performants."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect.\n"
+#~ "Default value is very recommended, unless you use application blur in "
+#~ "which case “No artefact” is better.\n"
+#~ "This option will entirely disable clipped redraws from GNOME shell, and "
+#~ "may impact performances significantly but will entirely fix the blur "
+#~ "effect."
+#~ msgstr ""
+#~ "Change le comportement de l'effet de flou dynamique.\n"
+#~ "La valeur par défaut est très recommandée, sauf si vous floutez les "
+#~ "applications, auquel cas « Pas d'artefact » est meilleur.\n"
+#~ "Cette option désactivera entièrement les repeintes partielles de GNOME "
+#~ "shell, et pourrait impacter les performances mais réglera entièrement "
+#~ "l'effet de flou."
+
+#~ msgid "No artefact"
+#~ msgstr "Pas d'artéfact"
+
+#~ msgid ""
+#~ "The semi-transparent style for the dash, search entry/results, and "
+#~ "applications folders."
+#~ msgstr ""
+#~ "Le style semi-transparent à utiliser pour le dash, la barre et les "
+#~ "résultats de recherche, et les dossier d'applications."
+
+#~ msgid "Applications folder blur"
+#~ msgstr "Flou des dossiers d'applications"
+
+#~ msgid "Makes the background of folder icons blurred."
+#~ msgstr "Floute le fond des icônes de dossiers d'applications."
+
+#~ msgid "Dialog opacity"
+#~ msgstr "Opacité du dialogue"
+
+#~ msgid "The opacity of the applications folder popup."
+#~ msgstr "L'opacité du fond de la fenêtre contextuelle."
+
+#~ msgid ""
+#~ "Override the background of the panel to use a transparent one.\n"
+#~ "Recommended unless you want to customize your GNOME theme."
+#~ msgstr ""
+#~ "Passe outre le fond du panneau pour utiliser un fond transparent.\n"
+#~ "Recommandé sauf si vous voulez personnaliser votre thème GNOME."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality, is "
