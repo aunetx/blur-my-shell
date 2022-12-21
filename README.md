@@ -112,7 +112,7 @@ This is a beta functionnality, however you can test it by either:
   - under Xorg, you can do it by typing `xprop -f _MUTTER_HINTS 8s -set _MUTTER_HINTS blur-provider=sigma:60,brightness:0.6`, and with the sigma and brightness you want
 - integrating it with your application if you're the developper
   - you must set the window's property `_MUTTER_HINTS` to `blur-provider=sigma:...,brightness:...`; if you do not set them the application will use default blurring settings from Blur my Shell
-  - for Electron applications, you can try building it with [Glasstron Clarity]([https://github.com/AryToNeX/Glasstron](https://www.npmjs.com/package/glasstron-clarity))
+  - for Electron applications, you can try building it with [Glasstron Clarity](https://www.npmjs.com/package/glasstron-clarity)
 
 ### Force overview blur update
 
