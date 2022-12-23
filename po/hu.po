@@ -35,8 +35,8 @@ msgid ""
 "        "
 msgstr ""
 "Elhomályosítja az alkalmazásokat. Ez még béta funkcionalitás.\n"
-"A legjobb eredmény elérése érdekében válaszd a "Nincs artifact"-ot "
-"az "Általános → Átalakítás szintje" beállításnál.\n"
+"A legjobb eredmény elérése érdekében válaszd a \"Nincs artifact\"-ot "
+"az \"Általános → Átalakítás szintje\" beállításnál.\n"
 "        "
 
 #: applications.ui:28
@@ -267,8 +267,8 @@ msgid ""
 msgstr ""
 "Megváltoztatja a dinamikus homályosítás hatás magatartását.\n"
 "Az alapértelmezett érték erősen javasolt, kivéve ha alkalmazás homályosítást használsz, "
-"mert akkor a "Nincs artifact" jobb.\n"
-"Ez a beállítás teljesen kikapcsolja a "clipped redraw"-kat a GNOME shell-ben, és "
+"mert akkor a \"Nincs artifact\" jobb.\n"
+"Ez a beállítás teljesen kikapcsolja a \"clipped redraw\"-kat a GNOME shell-ben, és "
 "jelentősen befolyásolhatja a teljesítményt, de teljesen kijavítja a homályosító hatást."
 
 #: general.ui:151
