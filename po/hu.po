@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 17:42+0200\n"
+"POT-Creation-Date: 2023-01-02 02:53+0100\n"
 "PO-Revision-Date: 2022-06-24 18:18+0000\n"
 "Last-Translator: Bence Turi <benceturi2@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -35,8 +35,8 @@ msgid ""
 "        "
 msgstr ""
 "Elhomályosítja az alkalmazásokat. Ez még béta funkcionalitás.\n"
-"A legjobb eredmény elérése érdekében válaszd a \"Nincs artifact\"-ot "
-"az \"Általános → Átalakítás szintje\" beállításnál.\n"
+"A legjobb eredmény elérése érdekében válaszd a \"Nincs artifact\"-ot az "
+"\"Általános → Átalakítás szintje\" beállításnál.\n"
 "        "
 
 #: applications.ui:28
@@ -60,7 +60,8 @@ msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Kényszeríti a homályosítás megjelenítését a munkaterületeken az áttekintés nézetben.\n"
+"Kényszeríti a homályosítás megjelenítését a munkaterületeken az áttekintés "
+"nézetben.\n"
 "Teljesítménybeli problémát okozhat."
 
 #: applications.ui:67
@@ -123,7 +124,8 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"A homályosítás fényereje. A magasabb érték nehezebbé teheti a szövegek olvasását."
+"A homályosítás fényereje. A magasabb érték nehezebbé teheti a szövegek "
+"olvasását."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
@@ -134,8 +136,8 @@ msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"A homályosítás színét módosítja. A szín opacitása szabályozza, hogy mennyire olvad "
-"a homályosításba."
+"A homályosítás színét módosítja. A szín opacitása szabályozza, hogy mennyire "
+"olvad a homályosításba."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
@@ -146,8 +148,8 @@ msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"A homályosítás zajszintje. Alacsony kontrasztú képernyőknél, vagy "
-"az esztétika miatt hasznos." 
+"A homályosítás zajszintje. Alacsony kontrasztú képernyőknél, vagy az "
+"esztétika miatt hasznos."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
@@ -179,7 +181,8 @@ msgstr "Dash to Dock homályosítása"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "A Dash to Dock kiegészítés használata esetén a hátterének elhomályosítása."
+msgstr ""
+"A Dash to Dock kiegészítés használata esetén a hátterének elhomályosítása."
 
 #: dash.ui:26 panel.ui:56
 msgid "Override background"
@@ -190,8 +193,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"A hátteret áttetszővé, vagy részben áttetszővé teszi. Kapcsold ki a "
-"Dash to Dock beállítások használatához."
+"A hátteret áttetszővé, vagy részben áttetszővé teszi. Kapcsold ki a Dash to "
+"Dock beállítások használatához."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
@@ -231,7 +234,9 @@ msgstr "Homályosítás beállításai"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr "Általános homályosítás beállítások. Minden komponens alapértelmezettként használja."
+msgstr ""
+"Általános homályosítás beállítások. Minden komponens alapértelmezettként "
+"használja."
 
 #: general.ui:117
 msgid "Performance"
@@ -250,8 +255,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
-"A zaj és szín hatásokat általánosan kikapcsolja, ami javíthatja a teljesítményt "
-"a gyengébb rendszereken."
+"A zaj és szín hatásokat általánosan kikapcsolja, ami javíthatja a "
+"teljesítményt a gyengébb rendszereken."
 
 #: general.ui:135
 msgid "Hack level"
@@ -266,10 +271,11 @@ msgid ""
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
 "Megváltoztatja a dinamikus homályosítás hatás magatartását.\n"
-"Az alapértelmezett érték erősen javasolt, kivéve ha alkalmazás homályosítást használsz, "
-"mert akkor a \"Nincs artifact\" jobb.\n"
-"Ez a beállítás teljesen kikapcsolja a \"clipped redraw\"-kat a GNOME shell-ben, és "
-"jelentősen befolyásolhatja a teljesítményt, de teljesen kijavítja a homályosító hatást."
+"Az alapértelmezett érték erősen javasolt, kivéve ha alkalmazás homályosítást "
+"használsz, mert akkor a \"Nincs artifact\" jobb.\n"
+"Ez a beállítás teljesen kikapcsolja a \"clipped redraw\"-kat a GNOME shell-"
+"ben, és jelentősen befolyásolhatja a teljesítményt, de teljesen kijavítja a "
+"homályosító hatást."
 
 #: general.ui:151
 msgid "Debug"
@@ -337,7 +343,9 @@ msgstr "Záróképernyő homályosítása"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "Megváltoztatja a záróképernyő homályosítását, hogy a kiegészítés beállításait használja."
+msgstr ""
+"Megváltoztatja a záróképernyő homályosítását, hogy a kiegészítés "
+"beállításait használja."
 
 #: other.ui:28
 msgid "Screenshot blur"
@@ -375,7 +383,8 @@ msgstr "Áttekintés nézet komponensek stílusa"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr "Áttetsző / részben áttetsző stílus a dash-hez, kereséshez / eredményekhez, "
+msgstr ""
+"Áttetsző / részben áttetsző stílus a dash-hez, kereséshez / eredményekhez, "
 "és az alkalmazás mappákhoz."
 
 #: overview.ui:44
@@ -392,7 +401,8 @@ msgstr "Alkalmazás mappa párbeszéd ablak stílusa"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr "Áttetsző / részben áttetsző stílus az alkalmazás mappa párbeszéd ablakához."
+msgstr ""
+"Áttetsző / részben áttetsző stílus az alkalmazás mappa párbeszéd ablakához."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -420,7 +430,8 @@ msgstr "Statikus homályosított képet használjon. Gyorsabb és stabilabb."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Kikapcsolja a felső panel homályosítását az áttekintés nézetbe lépéskor."
+msgstr ""
+"Kikapcsolja a felső panel homályosítását az áttekintés nézetbe lépéskor."
 
 #: panel.ui:57
 msgid ""
@@ -428,8 +439,8 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Felülírja a felső panel hátterét, hogy áttetszőt, vagy részben "
-"áttetszőt használjon.\n"
+"Felülírja a felső panel hátterét, hogy áttetszőt, vagy részben áttetszőt "
+"használjon.\n"
 "Ajánlott, kivéve, ha személyre akarod szabni a GNOME témád."
 
 #: panel.ui:65
@@ -450,7 +461,8 @@ msgstr "Kompatibilitás"
 
 #: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
-msgstr "Különböző beállítások más kiegészítések kompatibilitásának biztosításához."
+msgstr ""
+"Különböző beállítások más kiegészítések kompatibilitásának biztosításához."
 
 #: panel.ui:103
 msgid "Hidetopbar extension"
@@ -458,7 +470,9 @@ msgstr "Hidetopbar kiegészítés"
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr "Nem kapcsolja ki a homályosítást áttekintés nézetben. Statikus homályosítással a legjobb."
+msgstr ""
+"Nem kapcsolja ki a homályosítást áttekintés nézetben. Statikus "
+"homályosítással a legjobb."
 
 #: window-row.ui:4
 msgid "Window Name"
