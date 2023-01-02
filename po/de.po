@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2022-09-13 08:18+0000\n"
-"Last-Translator: waddle5 <github14@protonmail.com>\n"
+"PO-Revision-Date: 2023-01-03 14:52+0000\n"
+"Last-Translator: Davd Klkn <davdklkn@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,6 +34,11 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Fügt Anwendungen einen Unschärfe-Effekt hinzu. Derzeit noch in der Beta-"
+"Version.\n"
+"Um die bestmöglichen Resultate zu erzielen, wählen Sie die Option \"Keine "
+"Artefakte\" unter \"Allgemein → Hack Level\" aus.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -211,7 +216,7 @@ msgstr ""
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "Transparent"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -237,7 +242,7 @@ msgstr ""
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Leistung"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
@@ -304,7 +309,7 @@ msgstr "Hohe Qualität"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Keine Artefakte"
 
 #: menu.ui:6
 msgid "Project page"
