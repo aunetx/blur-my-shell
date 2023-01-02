@@ -74,6 +74,11 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
+.overview-components-transparent .search-section-content {
+    border: none;
+    box-shadow: none;
+}
+
 .overview-components-transparent .search-section-content,
 .overview-components-transparent .app-folder .overview-icon {
     background-color: rgba(0, 0, 0, 0);
@@ -121,6 +126,11 @@
 
 .overview-components-light .search-entry .search-entry-icon {
     color: rgba(255, 255, 255, 0.65);
+}
+
+.overview-components-light .search-section-content {
+    border: none;
+    box-shadow: none;
 }
 
 .overview-components-light .search-section-content,
@@ -173,6 +183,11 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
+.overview-components-dark .search-section-content {
+    border: none;
+    box-shadow: none;
+}
+
 .overview-components-dark .search-section-content,
 .overview-components-dark .app-folder .overview-icon {
     background-color: rgba(100, 100, 100, 0.35);
@@ -216,6 +231,8 @@
 
 .appfolder-dialogs-transparent {
     background-color: rgba(0, 0, 0, 0);
+    border: none;
+    box-shadow: none;
 }
 
 .appfolder-dialogs-transparent .folder-name-entry {
@@ -231,6 +248,8 @@
 
 .appfolder-dialogs-light {
     background-color: rgba(200, 200, 200, 0.2);
+    border: none;
+    box-shadow: none;
 }
 
 .appfolder-dialogs-light .folder-name-entry {
@@ -247,6 +266,8 @@
 
 .appfolder-dialogs-dark {
     background-color: rgba(100, 100, 100, 0.35);
+    border: none;
+    box-shadow: none;
 }
 
 .appfolder-dialogs-dark .folder-name-entry {
