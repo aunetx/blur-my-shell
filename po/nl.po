@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-10-01 17:42+0200\n"
-"PO-Revision-Date: 2022-09-07 21:22+0000\n"
+"PO-Revision-Date: 2022-12-31 15:51+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Toepassingen"
+msgstr "Apps"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Toepassingen vervagen (bèta)"
+msgstr "Apps vervagen (bèta)"
 
 #: applications.ui:11
 msgid ""
@@ -34,6 +34,10 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Voegt vervaging toe aan apps. Dit is nog bèta-functionaliteit.\n"
+"Om de best mogelijke resultaten te krijgen, zorg ervoor dat u de optie ‘Geen "
+"artefacten’ kiest in de voorkeur ‘Algemeen → Hackniveau’.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -190,14 +194,16 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Maakt de achtergrond doorzichtig of halfdoorzichtig, schakel dit uit om in "
+"plaats hiervan voorkeuren van Dash to Dock te gebruiken."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "Achtergrondstijl"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "De (half)doorzichtige stijl voor de dock-achtergrond."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
@@ -211,7 +217,7 @@ msgstr ""
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "Doorzichtig"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -237,11 +243,11 @@ msgstr ""
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Prestaties"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Verscheidene opties om te prestaties af te stellen."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -252,6 +258,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Schakelt ruis en kleureffecten globaal uit voor betere prestaties op "
+"zwakkere systemen."
 
 #: general.ui:135
 msgid "Hack level"
@@ -265,6 +273,12 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Verandert het gedrag van het dynamische vervagingseffect.\n"
+"De standaardwaarde wordt sterk aanbevolen tenzij u app-vervaging gebruikt, "
+"in welk geval ‘Geen artefact’ beter is.\n"
+"Deze optie schakelt gedeeltelijke updates in GNOME shell volledig uit en kan "
+"de prestaties aanzienlijk beïnvloeden, maar zal het vervagingseffect correct "
+"laten werken."
 
 #: general.ui:151
 msgid "Debug"
@@ -304,7 +318,7 @@ msgstr "Hoge kwaliteit"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Geen artefacten"
 
 #: menu.ui:6
 msgid "Project page"
@@ -374,23 +388,23 @@ msgstr "Stijl van overzichtscomponenten"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr ""
+msgstr "De halfdoorzichtige stijl voor de dash, zoekelementen en app-mappen."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Vervaging van app-map"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Vervaagt de achtergrond van app-mapdialogen."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Dialoogstijl van app-map"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "De halfdoorzichtige stijl voor de app-mapdialogen."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -429,10 +443,13 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Overschrijft de achtergrond van het paneel met een (half)doorzichtige "
+"variant.\n"
+"Aanbevolen tenzij u uw GNOME-thema wilt aanpassen."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "De (half)doorzichtige stijl voor de paneelachtergrond."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
