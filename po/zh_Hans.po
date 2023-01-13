@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-01-13 03:52+0000\n"
+"PO-Revision-Date: 2023-01-14 06:51+0000\n"
 "Last-Translator: Ujhhgtg <feyxiexzf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
@@ -181,7 +181,7 @@ msgstr ""
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "背景样式"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
@@ -197,7 +197,7 @@ msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "透明"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -221,7 +221,7 @@ msgstr "全局模糊首选项，默认被所有组件使用。"
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "性能"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
@@ -356,7 +356,7 @@ msgstr ""
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "应用程序文件夹模糊"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
