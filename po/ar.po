@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2022-05-27 11:40+0000\n"
-"Last-Translator: fawaz006 <fawaz27000@hotmail.com>\n"
+"PO-Revision-Date: 2023-01-15 13:52+0000\n"
+"Last-Translator: Ali Aljishi <ahj696@hotmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.13-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -28,7 +28,7 @@ msgstr "التطبيقات"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "ضبابية التطبيقات (تجريبي)"
+msgstr "تضبيب التطبيقات (تجريبي)"
 
 #: applications.ui:11
 msgid ""
@@ -37,36 +37,44 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"يضبِّب التطبيقات. لا يزال هذا الخيار تجريبًّا.\n"
+"عليك اختيار الإعداد «بلا أثر» في تفضيل «عام ← مستوى التعديل» لتحصل على أفضل "
+"النتائج.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "العتمة"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr ""
+msgstr "عتمة النافذة أعلى تأثيرِ التضبيب. ستكون القيم العليا أوضح."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "ضبِّب النظرة العامَّة"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"يفرض تضبيب كلِّ مساحات العمل في النظرة العامَّة.\n"
+"قد يسبِّب مشاكل في الأداء أو زمن الوصول."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "مكِّن الكلَّ مبدئيًّا"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"يضيف التضبيب خلف كلِّ النوافذ مبدئيًّا.\n"
+"لا يُستحسن لأنه يسبِّب مشاكل في الأداء والثبات."
 
 #: applications.ui:85
 msgid "Whitelist"
@@ -74,36 +82,36 @@ msgstr "القائمة البيضاء"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "قائمة النوافذ التي تضبَّب."
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "أضِف نافذةً"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "القائمة السوداء"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "قائمة النوافذ التي لا تضبَّب."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "تخصيص الخصائص"
+msgstr "خصِّص الخصائص"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
-msgstr "أستخدام خصائص الضبابية المخصصة، بدلاً من تلك المعينة في الصفحة العامة."
+msgstr "استخدم خصائص تضبيب مخصَّصة، بدلًا من تلك المعيَّنة في صفحة «عام»."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "سيجما"
+msgstr "سِجما"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "شدة الضبابية."
+msgstr "شدَّة التضبيب."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
@@ -113,7 +121,7 @@ msgstr "السطوع"
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr "سطوع الضبابية، القيمة العالية قد تجعل النص أكثر صعوبة في القراءة."
+msgstr "سطوع التضبيب، تصعِّب القيم العليا قراءة النصوص."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
@@ -123,77 +131,80 @@ msgstr "اللون"
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
-msgstr ""
+msgstr "يغيِّر لون التضبيب، تتحكَّم عتمة اللون في امتزاجه مع تأثير التضبيب."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "مقدار الضجيج"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"مقدار الضجيج المضاف لتأثير التضبيب. مفيد للشاشات متدنيِّة التباين لأسباب "
+"جماليَّة."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "إضاءة الضجيج"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "إضاءة الضجيج المضاف لتأثير التضبيب."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "ملاحظة"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
-msgstr ""
+msgstr "لا يمكن تفعيل الضجيج واللون على المكوِّنات المضبَّبة ديناميكيًّا، كهذا."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "المشغل"
+msgstr "شَرطة"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "ضبابية Dash to Dock"
+msgstr "تضبيب Dash to Dock"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "تعتيم خلفية الأضافة Dash to Dock، إذا تم استخدامها."
+msgstr "ضبِّب خلفيَّة امتداد Dash to Dock إن كان مستخدمًا."
 
 #: dash.ui:26 panel.ui:56
 msgid "Override background"
-msgstr "تجاوز الخلفية"
+msgstr "تجاوز الخلفيَّة"
 
 #: dash.ui:27
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"يجعل الخلفيَّة شفَّافةً أو شبه شفَّافة. عطِّل هذا لتستخدم تفضيل Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "أسلوب الخلفيَّة"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "أسلوب خلفيَّة المرسى الشفَّاف أو شبه الشفَّاف."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
-msgstr "تعطيل في overview"
+msgstr "عطِّل في النظرة العامَّة"
 
 #: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "تعطيل الضبابية من Dash to Dock عند الدخول إلى overview."
+msgstr "يعطِّل تضبيب Dash to Dock في النظرة العامَّة."
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "شفَّاف"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -209,33 +220,35 @@ msgstr "عام"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "تفضيلات الضبابية"
+msgstr "تفضيلات التضبيب"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr "تفضيلات الضبابية العامة، تُستخدم بواسطة جميع المكونات افتراضيًا."
+msgstr "التفضيلات العامَّة للتضبيب. تستخدمها كل المكوِّنات مبدئيًّا."
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "الأداء"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "خيارات عدَّة لتطويع الأداء."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "تأثيرات اللون والضجيج"
 
 #: general.ui:123
 msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"يعطِّل تأثيرات الضجيج واللون عموميًّا. قد يحسِّن هذا الأداء في الأنظمة ضعيفة "
+"العتاد."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "مستوى الاختراق"
+msgstr "مستوى التعديل"
 
 #: general.ui:136
 msgid ""
@@ -245,36 +258,41 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"يغيِّر تصرُّف تأثير التضبيب الديناميكيِّ.\n"
+"تُستحسن القيمة المبدئيَّة حالما لم تستخدم تضبيب التطبيقات، حيث أنَّ «بلا أثر»"
+" أفضل حينها.\n"
+"سيعطِّل هذا الخيار إعادة الرسم المقصوصة في صدفة جنوم تمامًا، وقد يؤثِّر على "
+"الأداء بشكل معتبر، ولكنَّه سيُصلح تأثير التضبيب كليًّا."
 
 #: general.ui:151
 msgid "Debug"
-msgstr "تصحيح الأخطاء"
+msgstr "التنقيح"
 
 #: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr "يجعل الامتداد مطولًا في سجلات ، وينشط عندما تحتاج إلى الإبلاغ عن مشكلة."
+msgstr "يطنِّب الامتداد في السجلَّات، فعِّله إذا أردت التبليغ عن علَّة."
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr ""
+msgstr "صفِّر التفضيلات"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "يصفِّر تفضيلات «ضبِّب صدفتي» نهائيًّا."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "صفِّر"
 
 #: general.ui:228
 msgid "High performances"
-msgstr "أداء عالي"
+msgstr "التأديات العالية"
 
 #: general.ui:229
 msgid "Default"
-msgstr "الافتراضي"
+msgstr "مبدئيٌّ"
 
 #: general.ui:230
 msgid "High quality"
@@ -282,7 +300,7 @@ msgstr "جودة عالية"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "بلا أثر"
 
 #: menu.ui:6
 msgid "Project page"
@@ -290,15 +308,15 @@ msgstr "صفحة المشروع"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "الإبلاغ عن خلل"
+msgstr "بلِّغ عن علَّة"
 
 #: menu.ui:14
 msgid "License"
-msgstr "الرخصة"
+msgstr "الترخيص"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "تبرع"
+msgstr "تبرَّع"
 
 #: other.ui:5
 msgid "Other"
@@ -306,69 +324,69 @@ msgstr "آخر"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "ضبابية قُفْل الشاشة"
+msgstr "تضبيب شاشة القفل"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "قم بتغيير ضبابية شاشة القُفْل لاستخدام تفضيلات هذا الامتداد."
+msgstr "غيِّر تضبيب شاشة القفل لتستخدم تفضيل هذا الامتداد."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "ضبابية لقطة شاشة"
+msgstr "تضبيب لقطة شاشة"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "أضف ضبابية إلى خلفية محدد النافذة في واجهة لقطة الشاشة."
+msgstr "ضبِّب خلفيَّة محدِّد النوافذ في واجهة لقطة الشاشة."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "تمويه امتداد قائمة النوافذ"
+msgstr "تضبيب امتداد قائمة-النوافذ"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "اجعل امتداد قائمة النوافذ ضبابي، إذا تم استخدامه."
+msgstr "ضبِّب امتداد قائمة-النوافذ إن كان مستخدمًا."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "النظرة العامة"
+msgstr "النظرة العامَّة"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "ضبابية الخلفية"
+msgstr "تضبيب الخلفية"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr "أضف ضبابية إلى خلفية الملخص باستخدام الخلفية."
+msgstr "ضبِّب خلفيَّة النظرة العامَّة باستخدام صورة خلفيَّة الشاشة."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "نظرة عامة على نمط المكونات"
+msgstr "أسلوب مكوِّنات النظرة العامَّة"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr ""
+msgstr "الأسلوب الشبه شفَّاف للشَّرطة ومدخلات\\نتائج البحث ومجلَّدات التطبيقات."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "تضبيب مجلَّد التطبيق"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "يضبِّب خلفيَّة مربعات حوار مجلَّد التطبيق."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "أسلوب مربَّعات حوار مجلَّد التطبيق"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "الأسلوب الشبه شفَّاف لمربَّعات حوار مجلَّد التطبيق."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr "لا تصمم"
+msgstr "لا تطبِّق الأسلوب"
 
 #: panel.ui:5
 msgid "Panel"
@@ -376,23 +394,23 @@ msgstr "لوحة"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "ضبابية الوحة"
+msgstr "تضبيب اللوحة"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "تغير ضبابية اللوحة العلوية باستخدام صورة الخلفية."
+msgstr "ضبِّب اللوحة العليا باستخدام صورة الخلفيَّة."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "ضبابية ثابتة"
+msgstr "تضبيب ثابت"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "يستخدم صورة ثابتة ضبابية وأكثر أداءً واستقرارًا."
+msgstr "يستخدم صورةً بتضبيب ثابت، يؤدِّي هذا لاستقرار وأداء أفضل."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "تعطيل التمويه من اللوحة عند الدخول إلى النظرة العامة."
+msgstr "يعطِّل تضبيب اللوحة في النظرة العامَّة."
 
 #: panel.ui:57
 msgid ""
@@ -400,18 +418,20 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"تجاوَز خلفيَّة اللوحة لتستخدم خلفيَّةً شفَّافةً أو شبه شفَّافة.\n"
+"يُستحسن إلا ما إذا أردت تخصيص سمة جنوم."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "أسلوب خلفيَّة اللوحة الشفَّاف\\شبه الشفَّاف."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "عطِّل إذا اقتربت نافذة"
 
 #: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "يعطِّل شفافيَّة اللوحة عند اقتراب نافذة منها."
 
 #: panel.ui:97
 msgid "Compatibility"
@@ -419,28 +439,28 @@ msgstr "التوافق"
 
 #: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
-msgstr "خيارات متنوعة لتوفير التوافق مع الأضافات الأخرى."
+msgstr "خيارات عدَّة للتوافق مع الامتدادات الأخرى."
 
 #: panel.ui:103
 msgid "Hidetopbar extension"
-msgstr "تمديد Hidetopbar"
+msgstr "امتداد Hidetopbar"
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"لا يعطل الضبابية في النظرة العامة، وأفضل استخدام له مع الضبابية الثابت."
+"لا يعطِّل التضبيب في النظرة العامَّة، الأفضل استخدامه مع التضبيب الثابت."
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "اسم النافذة"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "حدِّد نافذةً"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "اختر نافذة أو حدِّدها باستخدام اسم صنفها."
 
 #~ msgid ""
 #~ "Makes the background semi-transparent, disable this to use Dash to Dock "
