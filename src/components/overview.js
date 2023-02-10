@@ -149,6 +149,9 @@ var OverviewBlur = class OverviewBlur {
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
             if (actor.constructor.name === 'Meta_BackgroundActor') {
                 Main.layoutManager.overviewGroup.remove_child(actor);
+                actor.get_effects().forEach(effect => {
+                    actor.remove_effect(effect);
+                });
                 actor.destroy();
             }
         });
