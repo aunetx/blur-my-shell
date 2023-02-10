@@ -146,8 +146,14 @@ var ScreenshotBlur = class ScreenshotBlur {
 
     remove() {
         Main.screenshotUI._windowSelectors.forEach(actor => {
-            if (actor._blur_actor)
-                actor.remove_child(actor._blur_actor);
+            if (actor._blur_actor) {
+                let b_a = actor._blur_actor;
+                actor.remove_child(b_a);
+                b_a.get_effects().forEach(effect => {
+                    b_a.remove_effect(effect);
+                });
+                b_a.destroy();
+            }
         });
         this.effects = [];
     }
