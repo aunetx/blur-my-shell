@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-01-22 12:01+0000\n"
-"Last-Translator: Henrique Claranhan <henrique.claranhan@outlook.com>\n"
+"PO-Revision-Date: 2025-04-06 17:36+0000\n"
+"Last-Translator: Vander <vander.azevedo88@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 #, fuzzy
@@ -736,8 +736,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
-"O estilo transparente/semitransparente para o plano de fundo do painel."
+msgstr "O estilo transparente/semitransparente para o plano de fundo do painel."
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
