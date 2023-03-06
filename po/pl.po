@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-02-01 21:01+0000\n"
-"Last-Translator: Karol Lademan <karol@lademan.dev>\n"
+"PO-Revision-Date: 2023-03-06 16:36+0000\n"
+"Last-Translator: Andus <resres2007@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -195,7 +195,7 @@ msgstr "Styl tła"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Przezroczysty/półprzezroczysty styl tła docka."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
@@ -209,7 +209,7 @@ msgstr ""
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "Przezroczysty"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
