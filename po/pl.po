@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-03-06 16:36+0000\n"
+"PO-Revision-Date: 2023-03-07 17:41+0000\n"
 "Last-Translator: Andus <resres2007@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
@@ -35,6 +35,10 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Dodaje rozmazania do aplikacji. To wciąż jest funkcja beta.\n"
+"By dostać najlepsze rezultaty, upewnij się żeby wybrać opcje \"Brak "
+"artefaktu\" w preferencji \"Generalne → Poziom hackowania\"\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -188,6 +192,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Sprawia, że tło jest przezroczyste lub półprzezroczyste, wyłącz tę opcję, "
+"aby zamiast tego użyć preferencji Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
@@ -235,11 +241,11 @@ msgstr ""
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Wydajność"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Różne opcje w celu poprawy wydajności."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -250,6 +256,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Globalnie wyłącza efekty szumu i kolorów. Może poprawić wydajność na "
+"urządzeniach o niskiej wydajności."
 
 #: general.ui:135
 msgid "Hack level"
@@ -263,6 +271,11 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Zmienia zachowanie dynamicznego efektu rozmazania.\n"
+"W większości przypadków zalecane jest pozostawienie domyślnej wartości. W "
+"przypadku rozmazania aplikacji zalecana jest opcja \"bez artefaktów\".\n"
+"Ta opcja wyłączy całkowicie częściowe przerysowania w GNOME i może znacznie "
+"wpłynąć na wydajność, ale całkowicie naprawi efekt rozmazania."
 
 #: general.ui:151
 msgid "Debug"
@@ -302,7 +315,7 @@ msgstr "Wysoka jakość"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Bez artefaktów"
 
 #: menu.ui:6
 msgid "Project page"
@@ -373,22 +386,23 @@ msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"Półprzezroczysty styl dasha, pola/wyników wyszukiwania i folderów aplikacji."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Rozmycie folderów aplikacji"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Tworzy efekt rozmycia na tle folderów aplikacji."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Styl dialogów folderów aplikacji"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Półprzezroczysty styl dialogów folderów aplikacji."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -396,15 +410,15 @@ msgstr "Nie styluj"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "Pasek"
+msgstr "Panel"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "Rozmazywanie paska"
+msgstr "Rozmazywanie panelu"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Rozmazuje górny pasek korzystając z obrazka tapety."
+msgstr "Rozmazuje górny panel korzystając z obrazka tapety."
 
 #: panel.ui:26
 msgid "Static blur"
@@ -417,7 +431,7 @@ msgstr ""
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Wyłącza rozmazywanie paska podczas przechodzenia do ekranu podglądu."
+msgstr "Wyłącza rozmazywanie panelu podczas przechodzenia do ekranu podglądu."
 
 #: panel.ui:57
 msgid ""
@@ -425,10 +439,12 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Zastępuje tło panelu przezroczystym lub półprzezroczystym.\n"
+"Zalecane, chyba że chcesz dostosować swój motyw powłoki GNOME."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "Pprzezroczysty/półprzezroczysty styl tła panelu."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
