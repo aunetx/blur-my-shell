@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-03-05 13:41+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/tr/>\n"
-"Language: tr\n"
+"PO-Revision-Date: 2023-02-22 11:35+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ka/>\n"
+"Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.16-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Uygulamalar"
+msgstr "აპლიკაციები"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Uygulama bulanıklığı (beta)"
+msgstr ""
 
 #: applications.ui:11
 msgid ""
@@ -37,19 +37,17 @@ msgstr ""
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr "Matlık"
+msgstr "_გაუმჭვირვალობა"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"Bulanıklaştırma efektinin üstündeki pencerenin matlığı, daha yüksek bir "
-"değer daha okunaklı olacaktır."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr "Genel görünümde bulanıklık"
+msgstr ""
 
 #: applications.ui:52
 msgid ""
@@ -69,7 +67,7 @@ msgstr ""
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr "Beyaz Liste"
+msgstr "თეთრი სია"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
@@ -77,11 +75,11 @@ msgstr ""
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr "Pencere Ekle"
+msgstr "ფანჯრის დამატება"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "შავი სია"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
@@ -89,94 +87,84 @@ msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "Özellikleri özelleştir"
+msgstr "თვისებების მორგება"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Genel sayfasında ayarlananlar yerine özelleştirilmiş bulanıklık "
-"özelliklerini kullanır."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "Sigma"
+msgstr "სიგმა"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "Bulanıklık yoğunluğu."
+msgstr "დაბინდვის ინტენსივობა."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "Parlaklık"
+msgstr "სიკაშკაშე"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Bulanıklık efektinin parlaklığı, yüksek bir değer metnin okunmasını "
-"zorlaştırabilir."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "Renk"
+msgstr "ფერი"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Bulanıklığın rengini değiştirir. Rengin opaklığı, bulanıklık efektiyle ne "
-"kadar karıştırılacağını kontrol eder."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Pürüz miktarı"
+msgstr "ხმაურის ოდენობა"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"Bulanıklık efektinin pürüz miktarı, düşük kontrastlı ekranlarda veya estetik "
-"amaçlar için yararlıdır."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Pürüz hafifliği"
+msgstr "ხმაურის სიმსუბუქე"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "Bulanıklık efektine eklenen pürüzün hafifliği."
+msgstr ""
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "Dikkat"
+msgstr "გაფრთხილება"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"Bunun gibi dinamik olarak bulanıklaştırılmış bileşenlerde gürültü ve renk "
-"etkinleştirilemez."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "Rıhtım"
+msgstr "პანელი"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Dash to Dock bulanıklığı"
+msgstr ""
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Kullanılıyorsa, Dash to Dock uzantısının arka planını bulanıklaştır."
+msgstr ""
 
 #: dash.ui:26 panel.ui:56
 msgid "Override background"
-msgstr "Arkaplanı geçersiz kıl"
+msgstr "ფონის გადაფარვა"
 
 #: dash.ui:27
 msgid ""
@@ -186,7 +174,7 @@ msgstr ""
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr "Arka plan biçemi"
+msgstr "ფონის სტილი"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
@@ -194,49 +182,47 @@ msgstr ""
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
-msgstr "Genel görünümde devre dışı bırak"
+msgstr ""
 
 #: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Genel bakışa geçişte Dash to Dock bulanıklığını devre dışı bırakır."
+msgstr ""
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr "Şeffaf"
+msgstr "გამჭვირვალე"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
-msgstr "Aydınlık"
+msgstr "ღია"
 
 #: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
 msgid "Dark"
-msgstr "Karanlık"
+msgstr "ბნელი"
 
 #: general.ui:5
 msgid "General"
-msgstr "Genel"
+msgstr "მთავარი"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "Bulanıklık tercihleri"
+msgstr ""
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
-"Varsayılan olarak tüm bileşenler tarafından kullanılan genel bulanıklık "
-"tercihleri."
 
 #: general.ui:117
 msgid "Performance"
-msgstr "Performans"
+msgstr "წარმადობა"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr "Performansı ayarlamak için çeşitli seçenekler."
+msgstr ""
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "Renk ve pürüz efektleri"
+msgstr ""
 
 #: general.ui:123
 msgid ""
@@ -246,7 +232,7 @@ msgstr ""
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Hack seviyesi"
+msgstr ""
 
 #: general.ui:136
 msgid ""
@@ -259,15 +245,13 @@ msgstr ""
 
 #: general.ui:151
 msgid "Debug"
-msgstr "Hata ayıklama"
+msgstr "გამართვა"
 
 #: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"Uzantının detaylı günlük kaydını yapar, bir sorunu bildirmeniz gerektiğinde "
-"etkinleştirin."
 
 #: general.ui:167
 msgid "Reset preferences"
@@ -279,88 +263,83 @@ msgstr ""
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "თავიდან"
 
 #: general.ui:228
 msgid "High performances"
-msgstr "Yüksek performans"
+msgstr "მაღალი წარმადობა"
 
 #: general.ui:229
 msgid "Default"
-msgstr "Varsayılan"
+msgstr "ნაგულისხმები"
 
 #: general.ui:230
 msgid "High quality"
-msgstr "Yüksek kalite"
+msgstr "მაღალი ხარისხი"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "არტეფაქტის გარეშე"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr "Proje sayfası"
+msgstr "პროექტის გვერდი"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "Sorun bildir"
+msgstr "შეცდომის პატაკი"
 
 #: menu.ui:14
 msgid "License"
-msgstr "Lisans"
+msgstr "ლიცენზია"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "Bağış"
+msgstr "შემოწირულობა"
 
 #: other.ui:5
 msgid "Other"
-msgstr "Diğer"
+msgstr "სხვა"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "Kilit ekranı bulanıklığı"
+msgstr "ჩაკეტილი ეკრანის დაბინდვა"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
-"Bu uzantının tercihlerini kullanmak için kilit ekranının bulanıklığını "
-"değiştirin."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "Ekran görüntüsü bulanıklığı"
+msgstr ""
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"Ekran görüntüsü kullanıcı arayüzünde pencere seçicinin arka planına "
-"bulanıklık ekleyin."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "Pencere listesi uzantısı bulanıklığı"
+msgstr ""
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "Kullanılıyorsa, window-list uzantısını bulanık hale getirin."
+msgstr ""
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "Genel Görünüm"
+msgstr "მიმოხილვა"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "Arkaplan bulanıklığı"
+msgstr "ფონის დაბინდვა"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Duvar kağıdı resmini kullanarak genel bakış arka planına bulanıklık ekleyin."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "Genel görünüm bileşen stili"
+msgstr ""
 
 #: overview.ui:27
 msgid ""
@@ -386,31 +365,31 @@ msgstr ""
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr "Stil yapma"
+msgstr ""
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "Panel"
+msgstr "ზოლი"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "Panel bulanıklığı"
+msgstr ""
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Arka plan görüntüsünü kullanarak üst paneli bulanıklaştırın."
+msgstr ""
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "Statik bulanıklık"
+msgstr ""
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "Statik bulanık bir görüntü kullanır, daha performanslı ve kararlıdır."
+msgstr ""
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Genel görünüme girerken panelden bulanıklığı kaldırır."
+msgstr ""
 
 #: panel.ui:57
 msgid ""
@@ -425,7 +404,7 @@ msgstr ""
 
 #: panel.ui:79
 msgid "Disable when a window is near"
-msgstr "Bir pencere yakınken devre dışı bırak"
+msgstr ""
 
 #: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
@@ -433,99 +412,28 @@ msgstr ""
 
 #: panel.ui:97
 msgid "Compatibility"
-msgstr "Uyumluluk"
+msgstr "თავსებადობა"
 
 #: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
-msgstr "Diğer uzantılarla uyumluluğu sağlamak için çeşitli seçenekler."
+msgstr ""
 
 #: panel.ui:103
 msgid "Hidetopbar extension"
-msgstr "Hidetopbar uzantısı"
+msgstr ""
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"Genel görünümde bulanıklığı devre dışı bırakmaz, en iyi statik bulanıklıkla "
-"kullanılır."
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "ფანჯრის სახელი"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "ფანჯრის არჩევა"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr ""
-
-#~ msgid ""
-#~ "Makes the background semi-transparent, disable this to use Dash to Dock "
-#~ "preferences instead."
-#~ msgstr ""
-#~ "Arka planı yarı saydam yapar, Dash to Dock tercihlerini kullanmak için "
-#~ "bunu devre dışı bırakın."
-
-#~ msgid "Performances"
-#~ msgstr "Performans"
-
-#~ msgid "Various options to tweak the performances."
-#~ msgstr "Performansı ayarlamak için çeşitli seçenekler."
-
-#~ msgid ""
-#~ "Permits to disable globally the use of noise and color effects, this may "
-#~ "improve performances for low-end graphic."
-#~ msgstr ""
-#~ "Gürültü ve renk efektlerinin kullanımını genel olarak devre dışı "
-#~ "bırakmaya izin verir; bu, düşük kaliteli grafikler için performansları "
-#~ "iyileştirebilir."
-
-#~ msgid ""
-#~ "The semi-transparent style for the dash, search entry/results, and "
-#~ "applications folders."
-#~ msgstr ""
-#~ "Rıhtım, arama girişi/sonuçları ve uygulama klasörleri için yarı saydam "
-#~ "stil."
-
-#~ msgid "Applications folder blur"
-#~ msgstr "Uygulama klasörü bulanıklığı"
-
-#~ msgid "Makes the background of folder icons blurred."
-#~ msgstr "Klasör simgelerinin arka planını bulanıklaştırır."
-
-#~ msgid "Dialog opacity"
-#~ msgstr "İletişim penceresi opaklığı"
-
-#~ msgid "The opacity of the applications folder popup."
-#~ msgstr "Uygulama klasörü açılır penceresinin opaklığı."
-
-#~ msgid ""
-#~ "Add blur to the applications. This is still a beta functionnality, is "
-#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
-#~ "set in the whitelist below."
-#~ msgstr ""
-#~ "Uygulamalara bulanıklık ekleyin. Bu hâlâ bir beta işlevidir, oldukça "
-#~ "sorunludur ve yalnızca bunu isteyen uygulamalara veya aşağıdaki beyaz "
-#~ "listede belirtilenlere uygulanır."
-
-#~ msgid ""
-#~ "Changes the behaviour of dynamic blur effect. Default value is very "
-#~ "recommended."
-#~ msgstr ""
-#~ "Dinamik bulanıklık efektinin davranışını değiştirir. Varsayılan değer "
-#~ "şiddetle tavsiye edilir."
-
-#~ msgid "Disables the blur from the panel when a window is near it."
-#~ msgstr ""
-#~ "Yakınında bir pencere olduğunda paneldeki bulanıklığı devre dışı bırakır."
-
-#~ msgid ""
-#~ "A list of the applications to blur, one per line. To get an application "
-#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
-#~ "last name here."
-#~ msgstr ""
-#~ "Her satırda bir tane olacak şekilde bulanıklaştırılacak uygulamaların "
-#~ "listesi. Bir uygulamanın sınıf adını almak için xorg altında `xprop|grep "
-#~ "WM_CLASS` komutunu kullanabilir ve son ismi buraya yapıştırabilirsiniz."

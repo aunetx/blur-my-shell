@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-01-03 14:52+0000\n"
-"Last-Translator: Davd Klkn <davdklkn@gmail.com>\n"
+"PO-Revision-Date: 2023-03-19 21:38+0000\n"
+"Last-Translator: Jan Schröder <jannomag@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -196,14 +196,16 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Macht den Hintergrund entweder transparent oder semitransparent. "
+"Deaktivieren um stattdessen die Dash to Dock Einstellungen zu verwenden"
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "Hintergrundstil"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Transparenz/Semitransparenz Stil für den Dock Hintergrund."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
@@ -246,7 +248,7 @@ msgstr "Leistung"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Verschiedene Optionen um die Performance anzupassen."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -257,6 +259,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Deaktiviert Rausch und Farb-Effekte global, um die Performance "
+"leistungsschwachen Systemen möglicherweise zu verbessern."
 
 #: general.ui:135
 msgid "Hack level"
@@ -270,6 +274,12 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Ändert das Verhalten des dynamischen Weichzeichnungseffekts.\n"
+"Der Standardwert wird dringend empfohlen, es sei denn, Sie verwenden "
+"Anwendungsunschärfe, in diesem Fall ist „Kein Artefakt“ besser.\n"
+"Diese Option deaktiviert vollständig die abgeschnittenen Neuzeichnungen in "
+"der GNOME-Shell und kann die Leistung erheblich beeinträchtigen, behebt "
+"jedoch vollständig Probleme mit dem Weichzeichnungseffekt."
 
 #: general.ui:151
 msgid "Debug"
@@ -382,22 +392,24 @@ msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"Der halbtransparente Stil für das Dash, Suchfeld/-ergebnisse und die "
+"Anwendungsordner."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Unschärfe des Anwendungsordners"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Macht den Hintergrund des Anwendungsordnerdialoges unscharf."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Stil der Anwendungsordnerdialoge"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Der halbtransparente Stil des Anwendungsordnerdialogs."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -434,6 +446,9 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Überschreibt den Hintergrund des Panels um ihn (halb-)transparent zu machen."
+"\n"
+"Empfohlen sofern du dein GNOME Thema bearbeiten möchtest."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
