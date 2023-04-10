@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2024-08-20 13:09+0000\n"
-"Last-Translator: Alex <alex.kobrys@gmail.com>\n"
+"PO-Revision-Date: 2025-04-06 17:36+0000\n"
+"Last-Translator: chtholine <oleg123qwe@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -533,8 +533,7 @@ msgstr "Розмиття знімку екрана"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
-"Додавання розмиття до фону виділеного вікна в інтерфейсі знімку екрана."
+msgstr "Додавання розмиття до фону виділеного вікна в інтерфейсі знімку екрана."
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
