@@ -7,14 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 17:42+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"PO-Revision-Date: 2023-03-05 13:41+0000\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,17 +37,19 @@ msgstr ""
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Matlık"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Bulanıklaştırma efektinin üstündeki pencerenin matlığı, daha yüksek bir "
+"değer daha okunaklı olacaktır."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "Genel görünümde bulanıklık"
 
 #: applications.ui:52
 msgid ""
@@ -72,7 +77,7 @@ msgstr ""
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "Pencere Ekle"
 
 #: applications.ui:122
 msgid "Blacklist"
@@ -181,7 +186,7 @@ msgstr ""
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "Arka plan biçemi"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
@@ -197,7 +202,7 @@ msgstr "Genel bakışa geçişte Dash to Dock bulanıklığını devre dışı b
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "Şeffaf"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -223,11 +228,11 @@ msgstr ""
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Performans"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Performansı ayarlamak için çeşitli seçenekler."
 
 #: general.ui:122
 msgid "Color and noise effects"

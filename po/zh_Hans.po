@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 17:42+0200\n"
-"PO-Revision-Date: 2022-09-02 01:23+0000\n"
-"Last-Translator: yangyangdaji <1504305527@qq.com>\n"
+"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"PO-Revision-Date: 2023-01-17 08:53+0000\n"
+"Last-Translator: Ujhhgtg <feyxiexzf@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,6 +34,9 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"对应用程序添加模糊效果。这是一个仍处于测试阶段的功能。\n"
+"若想获得最佳效果，记得将 Hack 级别设置为\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -174,11 +177,11 @@ msgstr "覆盖背景"
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
-msgstr ""
+msgstr "使背景透明或半透明，禁用此选项以改用 Dash to Dock 的首选项。"
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "背景样式"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
@@ -194,7 +197,7 @@ msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "透明"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -218,7 +221,7 @@ msgstr "全局模糊首选项，默认被所有组件使用。"
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "性能"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
@@ -353,7 +356,7 @@ msgstr ""
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "应用程序文件夹模糊"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."

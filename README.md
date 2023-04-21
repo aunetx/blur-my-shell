@@ -11,6 +11,20 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
 
 [<img src="https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/multi-auto.svg" align="right">](https://hosted.weblate.org/engage/blur-my-shell/)
 
+---
+
+***Notice***
+
+I (aunetx) am currently quite busy and I won't be able to do a lot of changes in this extension for the following months (probably until fall 2023)... You can consider this extension in low maintenance mode, I will still do important releases (for GNOME 44 etc) but no new features for the moment, and I won't be able to reply to every openend issue (even though I read them all in case).
+
+Especially, consider the application blur to be in alpha state, because it is even broken for me so I don't think it works for anybody else... If someone wants to spend time fixing it, I will gladly merge pull requests. The dash-to-dock blur seems quite broken too, although I don't even know to what extent.
+
+I am deeply sorry about all the problems that may arise, do not hesitate to open pull requests if needed and I will try to find motivation to answer them at some point :)
+
+Sincerely, Aurélien
+
+---
+
 Functionalities:
 
 - apply a blur effect to different components of the shell:
@@ -112,7 +126,7 @@ This is a beta functionnality, however you can test it by either:
   - under Xorg, you can do it by typing `xprop -f _MUTTER_HINTS 8s -set _MUTTER_HINTS blur-provider=sigma:60,brightness:0.6`, and with the sigma and brightness you want
 - integrating it with your application if you're the developper
   - you must set the window's property `_MUTTER_HINTS` to `blur-provider=sigma:...,brightness:...`; if you do not set them the application will use default blurring settings from Blur my Shell
-  - for Electron applications, you can try building it with [Glasstron](https://github.com/AryToNeX/Glasstron)
+  - for Electron applications, you can try building it with [Glasstron Clarity](https://www.npmjs.com/package/glasstron-clarity)
 
 ### Force overview blur update
 

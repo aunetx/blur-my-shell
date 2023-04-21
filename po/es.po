@@ -7,9 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-01 17:42+0200\n"
-"PO-Revision-Date: 2022-08-28 10:33+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
+"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"PO-Revision-Date: 2023-01-15 13:52+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted.weblate"
+".org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -34,6 +35,10 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Añade desenfoque a las aplicaciones. Esta funcionalidad aún está en beta.\n"
+"Para obtener los mejores resultados posibles, asegúrese de elegir la opción "
+"\"Sin artefactos\" en las preferencias \"General → Nivel de hackeo\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -188,14 +193,18 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Hace que el fondo sea transparente o semitransparente; desactívelo para usar "
+"las preferencias de Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "Estilo del fondo"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr ""
+"El estilo transparente/semitransparente para el fondo de la barra de "
+"aplicaciones."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
@@ -207,7 +216,7 @@ msgstr "Desactiva el desenfoque de Dash a Dock al entrar en la vista general."
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
 msgid "Transparent"
-msgstr ""
+msgstr "Transparente"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
 msgid "Light"
@@ -233,11 +242,11 @@ msgstr ""
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Rendimiento"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Varias opciones para mejorar el rendimiento."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -248,6 +257,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Desactiva globalmente los efectos de ruido y color, lo que puede mejorar el "
+"rendimiento en sistemas de gama baja."
 
 #: general.ui:135
 msgid "Hack level"
@@ -261,6 +272,12 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Cambia el comportamiento del efecto del desenfoque dinámico.\n"
+"El valor predeterminado es altamente recomendado a menos que use desenfoque "
+"de aplicación, en cuyo caso \"Sin artefactos\" es mejor.\n"
+"Esta opción desactivará por completo los redibujados recortados en el shell "
+"de GNOME, y puede afectar significativamente al rendimiento, pero arreglará "
+"por completo el efecto de desenfoque."
 
 #: general.ui:151
 msgid "Debug"
@@ -300,7 +317,7 @@ msgstr "Alta calidad"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Sin artefactos"
 
 #: menu.ui:6
 msgid "Project page"
@@ -373,22 +390,26 @@ msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"El estilo semitransparente para el guión, la entrada de búsqueda/resultados "
+"y las carpetas de aplicaciones."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Desenfoque de la carpeta de la aplicación"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr ""
+"Difumina el fondo de los cuadros de diálogo de las carpetas de aplicaciones."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Estilo de los diálogos de las carpetas de las aplicaciones"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
+"El estilo semitransparente para los diálogos de la carpeta de la aplicación."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -424,10 +445,12 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Anula el fondo del panel para usar uno transparente o semitransparente.\n"
+"Recomendado a menos que quieras personalizar tu tema de GNOME."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "El estilo transparente/semitransparente para el fondo del panel."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
