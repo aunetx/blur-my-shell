@@ -140,6 +140,7 @@ gsettings set org.gnome.desktop.background picture-opacity 99 && gsettings set o
 
 The current extension supports these GNOME Shell versions:
 
+- 44 -- `master` branch
 - 43 -- `master` branch
 - 42 -- `master` branch
 
