@@ -121,6 +121,7 @@ Recommended unless you want to customize your GNOME theme.</property>
       <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
+      <item translatable="yes">Contrasted</item>
     </items>
   </object>
 </interface>
