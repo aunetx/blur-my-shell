@@ -169,4 +169,4 @@ And lastly, thank you, kind visitor -- this is a fun project to manage :)
 
 ## License
 
-This program is distributed under the terms of the GNU General Public License, version 2 or later.
+This program is distributed under the terms of the GNU General Public License, version 3 or later.
