@@ -8,24 +8,21 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-03-29 01:43+0000\n"
-"Last-Translator: \"Artur O.\" <commander.alchemy@gmail.com>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/sv/>\n"
-"Language: sv\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Applikationer"
+msgstr ""
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Applikation oskärpa (beta)"
+msgstr ""
 
 #: applications.ui:11
 msgid ""
@@ -34,149 +31,115 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Lägger oskärpa till applikationer. Detta är fortfarande beta funktionalitet."
-"\n"
-"För bästa resultat, se till att välja \"Ingen artefakt\" under \"Generella "
-"inställningar → Hack nivå\"\n"
-"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr "Opacitet"
+msgstr ""
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"Fönstrets opacitet efter oskärpa effekten har applicerats, ett högre värde "
-"gör fönstret mer läsbart."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr "Oskärpa på översikt"
+msgstr ""
 
 #: applications.ui:52
-#, fuzzy
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Tvingar oskärpan att visas korrekt på alla arbetsytor på översikt.\n"
-"Detta kan orsaka vissa latens- eller prestandaproblem."
 
 #: applications.ui:67
-#, fuzzy
 msgid "Enable all by default"
-msgstr "Aktivera alla som standard"
+msgstr ""
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"Lägger till oskärpa bakom alla fönster som standard.\n"
-"Rekommenderas inte på grund av prestanda och stabilitetsproblem."
 
 #: applications.ui:85
-#, fuzzy
 msgid "Whitelist"
-msgstr "Vitlista"
+msgstr ""
 
 #: applications.ui:86
-#, fuzzy
 msgid "A list of windows to blur."
-msgstr "En lista över fönster som ska suddas ut."
+msgstr ""
 
 #: applications.ui:104 applications.ui:141
-#, fuzzy
 msgid "Add Window"
-msgstr "Lägg till fönster"
+msgstr ""
 
 #: applications.ui:122
-#, fuzzy
 msgid "Blacklist"
-msgstr "Svartlista"
+msgstr ""
 
 #: applications.ui:123
-#, fuzzy
 msgid "A list of windows not to blur."
-msgstr "En lista över fönster som inte ska suddas ut."
+msgstr ""
 
 #: customize-row.ui:4
-#, fuzzy
 msgid "Customize properties"
-msgstr "Anpassa egenskaper"
+msgstr ""
 
 #: customize-row.ui:5
-#, fuzzy
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Använder anpassade egenskaper för oskärpa i stället för de som anges på "
-"sidan Allmänt."
 
 #: customize-row.ui:10 general.ui:15
-#, fuzzy
 msgid "Sigma"
-msgstr "Sigma"
+msgstr ""
 
 #: customize-row.ui:11 general.ui:16
-#, fuzzy
 msgid "The intensity of the blur."
-msgstr "Oskärpans intensitet."
+msgstr ""
 
 #: customize-row.ui:31 general.ui:35
-#, fuzzy
 msgid "Brightness"
-msgstr "Ljusstyrka"
+msgstr ""
 
 #: customize-row.ui:32 general.ui:36
-#, fuzzy
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Ljusstyrkan på oskärpa effekten, ett högt värde kan göra texten svårare att "
-"läsa."
 
 #: customize-row.ui:52 general.ui:55
-#, fuzzy
 msgid "Color"
-msgstr "Färg"
+msgstr ""
 
 #: customize-row.ui:53 general.ui:56
-#, fuzzy
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Ändrar färgen på oskärpan. Färgens opacitet styr hur mycket den blandas in i "
-"oskärpa effekten."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Brusmängd"
+msgstr ""
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"Mängden brus som ska läggas till i oskärpa effekten, användbart på skärmar "
-"med låg kontrast eller för estetiska ändamål."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Brus-ljustyrka"
+msgstr ""
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "Brusets ljushet till oskärpa effekten."
+msgstr ""
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "Notis"
+msgstr ""
 
 #: customize-row.ui:114
 msgid ""
