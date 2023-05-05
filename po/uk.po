@@ -1,0 +1,480 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the blur-my-shell@aunetx package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: blur-my-shell@aunetx\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"PO-Revision-Date: 2023-04-12 13:48+0000\n"
+"Last-Translator: chtholine <oleg123qwe@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/uk/>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.17-dev\n"
+
+#: applications.ui:5
+msgid "Applications"
+msgstr "Застосунки"
+
+#: applications.ui:10
+msgid "Applications blur (beta)"
+msgstr "Розмиття застосунків (бета)"
+
+#: applications.ui:11
+msgid ""
+"Adds blur to the applications. This is still beta functionality.\n"
+"To get the best results possible, make sure to choose the option “No "
+"artifact” in the “General → Hack level” preference.\n"
+"        "
+msgstr ""
+"Надає розмиття застосункам. Це все ще бета-версія функції.\n"
+"Щоб отримати найкращі результати, переконайтеся, що ви вибрали опцію \"Без "
+"артефактів\" у налаштуваннях \"Загальні → Рівень злому\".\n"
+"        "
+
+#: applications.ui:28
+msgid "Opacity"
+msgstr "Непрозорість"
+
+#: applications.ui:29
+msgid ""
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
+msgstr ""
+"Непрозорість вікна поверх ефекту розмиття, більше значення буде більш чітким."
+
+#: applications.ui:51
+msgid "Blur on overview"
+msgstr "Розмиття при огляді"
+
+#: applications.ui:52
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+"Примушує коректно відображати розмиття на всіх робочих областях огляду.\n"
+"Це може спричинити деякі затримки або проблеми з продуктивністю."
+
+#: applications.ui:67
+msgid "Enable all by default"
+msgstr "Застосувати для всіх за замовчуванням"
+
+#: applications.ui:68
+msgid ""
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+"Додає розмиття за всіма вікнами за замовчуванням.\n"
+"Не рекомендується через проблеми з продуктивністю та стабільністю."
+
+#: applications.ui:85
+msgid "Whitelist"
+msgstr "Білий список"
+
+#: applications.ui:86
+msgid "A list of windows to blur."
+msgstr "Список вікон для розмиття."
+
+#: applications.ui:104 applications.ui:141
+msgid "Add Window"
+msgstr "Додати вікно"
+
+#: applications.ui:122
+msgid "Blacklist"
+msgstr "Чорний список"
+
+#: applications.ui:123
+msgid "A list of windows not to blur."
+msgstr "Список вікон без розмиття."
+
+#: customize-row.ui:4
+msgid "Customize properties"
+msgstr "Налаштування властивостей"
+
+#: customize-row.ui:5
+msgid ""
+"Uses customized blur properties, instead of the ones set in the General page."
+msgstr ""
+"Використовує користувацькі параметри замість встановлених на сторінці "
+"Загальні."
+
+#: customize-row.ui:10 general.ui:15
+msgid "Sigma"
+msgstr "Сигма"
+
+#: customize-row.ui:11 general.ui:16
+msgid "The intensity of the blur."
+msgstr "Інтенсивність розмиття."
+
+#: customize-row.ui:31 general.ui:35
+msgid "Brightness"
+msgstr "Яскравість"
+
+#: customize-row.ui:32 general.ui:36
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"Яскравість ефекту розмиття, високе значення може ускладнити читабельність."
+
+#: customize-row.ui:52 general.ui:55
+msgid "Color"
+msgstr "Колір"
+
+#: customize-row.ui:53 general.ui:56
+msgid ""
+"Changes the color of the blur. The opacity of the color controls how much it "
+"is blended into the blur effect."
+msgstr ""
+"Змінює колір розмиття. Непрозорість кольору визначає, наскільки він "
+"зливається з ефектом розмиття."
+
+#: customize-row.ui:71 general.ui:73
+msgid "Noise amount"
+msgstr "Рівень шуму"
+
+#: customize-row.ui:72 general.ui:74
+msgid ""
+"The amount of noise to add to the blur effect, useful on low-contrast "
+"screens or for aesthetic purpose."
+msgstr ""
+"Рівень шуму для ефекту розмиття, корисний на екранах із низьким контрастом "
+"або в естетичних цілях."
+
+#: customize-row.ui:92 general.ui:94
+msgid "Noise lightness"
+msgstr "Легкість шуму"
+
+#: customize-row.ui:93 general.ui:95
+msgid "The lightness of the noise added to the blur effect."
+msgstr "Легкість шуму доданого до ефекту розмиття."
+
+#: customize-row.ui:113
+msgid "Notice"
+msgstr "Увага"
+
+#: customize-row.ui:114
+msgid ""
+"Noise and color can't be activated on dynamically blurred components, such "
+"as this one."
+msgstr ""
+"Шум і колір не можна активувати на динамічно розмитих компонентах, таких як "
+"цей."
+
+#: dash.ui:5
+msgid "Dash"
+msgstr "Панель застосунків"
+
+#: dash.ui:10
+msgid "Dash to Dock blur"
+msgstr "Розмиття Dash to Dock"
+
+#: dash.ui:11
+msgid "Blur the background of the Dash to Dock extension, if it is used."
+msgstr "Розмиття фону розширення Dash to Dock при використанні."
+
+#: dash.ui:26 panel.ui:56
+msgid "Override background"
+msgstr "Перевизначення фону"
+
+#: dash.ui:27
+msgid ""
+"Makes the background either transparent or semi-transparent, disable this to "
+"use Dash to Dock preferences instead."
+msgstr ""
+"Робить фон прозорим або напівпрозорим, вимкніть цю опцію, щоб "
+"використовувати параметри Dash to Dock."
+
+#: dash.ui:33 panel.ui:64
+msgid "Background style"
+msgstr "Стиль фону"
+
+#: dash.ui:34
+msgid "The transparent/semi-transparent style for the dock background."
+msgstr "Прозорий/напівпрозорий стиль для фону Dash to Dock."
+
+#: dash.ui:50 panel.ui:41
+msgid "Disable in overview"
+msgstr "Вимкнути в огляді"
+
+#: dash.ui:51
+msgid "Disables the blur from Dash to Dock when entering the overview."
+msgstr "Вимикає розмиття Dash to Dock при вході в огляд."
+
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+msgid "Transparent"
+msgstr "Прозорий"
+
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+msgid "Light"
+msgstr "Cвітлий"
+
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+msgid "Dark"
+msgstr "Темний"
+
+#: general.ui:5
+msgid "General"
+msgstr "Загальні"
+
+#: general.ui:10
+msgid "Blur preferences"
+msgstr "Налаштування розмиття"
+
+#: general.ui:11
+msgid "Global blur preferences, used by all components by default."
+msgstr ""
+"Глобальні налаштування розмиття, що використовуються всіма компонентами за "
+"замовчуванням."
+
+#: general.ui:117
+msgid "Performance"
+msgstr "Продуктивність"
+
+#: general.ui:118
+msgid "Various options to tweak the performance."
+msgstr "Опції налаштування продуктивності."
+
+#: general.ui:122
+msgid "Color and noise effects"
+msgstr "Кольорові та шумові ефекти"
+
+#: general.ui:123
+msgid ""
+"Globally disables noise and color effects which may improve performance on "
+"low-end systems."
+msgstr ""
+"Глобально вимикає шумові та кольорові ефекти, що може покращити "
+"продуктивність на малопотужних системах."
+
+#: general.ui:135
+msgid "Hack level"
+msgstr "Рівень злому"
+
+#: general.ui:136
+msgid ""
+"Changes the behaviour of the dynamic blur effect.\n"
+"The default value is highly recommended unless you use application blur, in "
+"which case “No artifact” is better.\n"
+"This option will entirely disable clipped redraws in GNOME shell, and may "
+"impact performance significantly but will completely fix the blur effect."
+msgstr ""
+"Змінює поведінку ефекту динамічного розмиття.\n"
+"Наполегливо рекомендується залишити значення за замовчуванням. При "
+"використанні розмиття додатків краще вибрати \"Без артефактів\".\n"
+"Цей параметр повністю вимкне обрізані перемальовування у оболонці GNOME, що "
+"може суттєво вплинути на продуктивність, але повністю виправить ефект "
+"розмиття."
+
+#: general.ui:151
+msgid "Debug"
+msgstr "Налагодження"
+
+#: general.ui:152
+msgid ""
+"Makes the extension verbose in logs, activate when you need to report an "
+"issue."
+msgstr ""
+"Робить розширення докладним у логах, активується, коли потрібно повідомити "
+"про проблему."
+
+#: general.ui:167
+msgid "Reset preferences"
+msgstr "Скинути налаштування"
+
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr "Необоротно скидає налаштування Blur my Shell."
+
+#: general.ui:187
+msgid "Reset"
+msgstr "Скидання"
+
+#: general.ui:228
+msgid "High performances"
+msgstr "Висока продуктивність"
+
+#: general.ui:229
+msgid "Default"
+msgstr "За замовчуванням"
+
+#: general.ui:230
+msgid "High quality"
+msgstr "Висока якість"
+
+#: general.ui:231
+msgid "No artifact"
+msgstr "Відсутність артефакту"
+
+#: menu.ui:6
+msgid "Project page"
+msgstr "Сторінка проекту"
+
+#: menu.ui:10
+msgid "Report a Bug"
+msgstr "Повідомити про помилку"
+
+#: menu.ui:14
+msgid "License"
+msgstr "Ліцензія"
+
+#: menu.ui:18
+msgid "Donate"
+msgstr "Подяка"
+
+#: other.ui:5
+msgid "Other"
+msgstr "Інше"
+
+#: other.ui:10
+msgid "Lockscreen blur"
+msgstr "Розмиття екрана блокування"
+
+#: other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+"Зміна розмиття екрана блокування для використання налаштувань цього "
+"розширення."
+
+#: other.ui:28
+msgid "Screenshot blur"
+msgstr "Розмиття знімку екрана"
+
+#: other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr "Додавання розмиття до фону виділеного вікна в інтерфейсі знімку екрана."
+
+#: other.ui:46
+msgid "Window list extension blur"
+msgstr "Розмиття розширення Window List"
+
+#: other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "Розмиття розширення Window List при його використанні."
+
+#: overview.ui:5
+msgid "Overview"
+msgstr "Огляд"
+
+#: overview.ui:10
+msgid "Background blur"
+msgstr "Розмиття фону"
+
+#: overview.ui:11
+msgid "Add blur to the overview background, using the wallpaper picture."
+msgstr "Розмиття фону огляду, використовуючи зображення шпалер."
+
+#: overview.ui:26
+msgid "Overview components style"
+msgstr "Стиль компонентів огляду"
+
+#: overview.ui:27
+msgid ""
+"The semi-transparent style for the dash, search entry/results, and "
+"application folders."
+msgstr ""
+"Напівпрозорий стиль для панелі застосунків, пошуку та папок застосунків."
+
+#: overview.ui:44
+msgid "Application folder blur"
+msgstr "Розмиття папки застосунків"
+
+#: overview.ui:45
+msgid "Makes the background of application folder dialogs blurred."
+msgstr "Розмиття фону папок застосунків."
+
+#: overview.ui:60
+msgid "Application folder dialogs style"
+msgstr "Стиль діалогових вікон папок застосунків"
+
+#: overview.ui:61
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr "Напівпрозорий стиль для діалогових вікон папок застосунків."
+
+#: overview.ui:79 overview.ui:88
+msgid "Do not style"
+msgstr "Не стилізувати"
+
+#: panel.ui:5
+msgid "Panel"
+msgstr "Верхня панель"
+
+#: panel.ui:10
+msgid "Panel blur"
+msgstr "Розмиття верхньої панелі"
+
+#: panel.ui:11
+msgid "Blur the top panel using the background image."
+msgstr "Розмиття верхньої панелі за допомогою фонового зображення."
+
+#: panel.ui:26
+msgid "Static blur"
+msgstr "Статичне розмиття"
+
+#: panel.ui:27
+msgid "Uses a static blurred image, more performant and stable."
+msgstr ""
+"Використання статичного розмитого зображення, більш продуктивне та стабільне."
+
+#: panel.ui:42
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Вимикає розмиття верхньої панелі під час входу в огляд."
+
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent or semi-"
+"transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+"Замінює тло панелі на прозоре або напівпрозоре.\n"
+"Рекомендується, якщо ви не хочете змінювати тему GNOME."
+
+#: panel.ui:65
+msgid "The transparent/semi-transparent style for the panel background."
+msgstr "Прозорий/напівпрозорий стиль для фону верхньої панелі."
+
+#: panel.ui:79
+msgid "Disable when a window is near"
+msgstr "Вимкнути, коли вікно поруч"
+
+#: panel.ui:80
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr "Вимикнення прозорості панелі, коли біля неї знаходиться вікно."
+
+#: panel.ui:97
+msgid "Compatibility"
+msgstr "Сумісність"
+
+#: panel.ui:98
+msgid "Various options to provide compatibility with other extensions."
+msgstr "Опції для забезпечення сумісності з іншими розширеннями."
+
+#: panel.ui:103
+msgid "Hidetopbar extension"
+msgstr "Розширення Hidetopbar"
+
+#: panel.ui:104
+msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
+"Не вимикає розмиття в огляді, найкраще використовувати зі статичним "
+"розмиттям."
+
+#: window-row.ui:4
+msgid "Window Name"
+msgstr "Назва вікна"
+
+#: window-row.ui:8
+msgid "Select window"
+msgstr "Обрати вікно"
+
+#: window-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr "Виберіть вікно або знайдіть за назвою класу."
