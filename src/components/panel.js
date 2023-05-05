@@ -13,7 +13,8 @@ const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 const PANEL_STYLES = [
     "transparent-panel",
     "light-panel",
-    "dark-panel"
+    "dark-panel",
+    "contrasted-panel"
 ];
 
 
