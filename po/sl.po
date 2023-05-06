@@ -8,21 +8,25 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-05-07 07:50+0000\n"
+"Last-Translator: Oman Luka <oman.lukec@gmail.com>\n"
+"Language-Team: Slovenian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Aplikacije"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "Zamegljenost aplikacij (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -31,36 +35,46 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Aplikacijam doda zamegljenost. Ta funkcionalnost je še vedno v fazi beta.\n"
+"Za najboljše rezultate izberite med možnostmi \"Splošno → Stopnja "
+"prilagajanja\" opcijo \"Brez tujkov\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Motnost"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Motnost okna, ki gradi na učinku zameglitve, višja vrednost bo bolj zaznavna."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "Moten predogled"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Prisili zamegljenost, da je pravilno prikazana na vseh delovnih površinah v "
+"pregledu.\n"
+"To lahko povzroči počasnejše prikazovanje elementov ali težave z delovanjem."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "Privzeto omogoči vse"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Privzeto doda zamegljenost na vsa prikazana okna.\n"
+"Zaradi težav z zmogljivostjo in stabilnostjo tega ne možnosti ne priporočamo."
 
 #: applications.ui:85
 msgid "Whitelist"
