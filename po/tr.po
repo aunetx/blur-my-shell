@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-05-14 21:51+0000\n"
+"PO-Revision-Date: 2023-05-22 23:48+0000\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr "Beyaz Liste"
+msgstr "Beyaz liste"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
@@ -185,7 +185,7 @@ msgstr "Kullanılıyorsa, Dash to Dock uzantısının arka planını bulanıkla�
 
 #: dash.ui:26 panel.ui:56
 msgid "Override background"
-msgstr "Arkaplanı geçersiz kıl"
+msgstr "Arka planı geçersiz kıl"
 
 #: dash.ui:27
 msgid ""
@@ -370,7 +370,7 @@ msgstr "Genel Görünüm"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "Arkaplan bulanıklığı"
+msgstr "Arka plan bulanıklığı"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
