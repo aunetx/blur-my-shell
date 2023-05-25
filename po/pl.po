@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-03-07 17:41+0000\n"
-"Last-Translator: Andus <resres2007@gmail.com>\n"
+"PO-Revision-Date: 2023-05-26 16:49+0000\n"
+"Last-Translator: Karol Lademan <karol@lademan.dev>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -35,9 +35,9 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Dodaje rozmazania do aplikacji. To wciąż jest funkcja beta.\n"
-"By dostać najlepsze rezultaty, upewnij się żeby wybrać opcje \"Brak "
-"artefaktu\" w preferencji \"Generalne → Poziom hackowania\"\n"
+"Dodaje efekt rozmazania do aplikacji. Funkcja jest wciąż w fazie beta.\n"
+"Aby uzyskać najlepsze rezultaty wybierz opcję \"bez artefaktów\" w sekcji "
+"\"Ogólne → Poziom hakowania\".\n"
 "        "
 
 #: applications.ui:28
@@ -192,8 +192,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"Sprawia, że tło jest przezroczyste lub półprzezroczyste, wyłącz tę opcję, "
-"aby zamiast tego użyć preferencji Dash to Dock."
+"Sprawia, że tło jest przezroczyste lub półprzezroczyste, wyłącz tę opcję aby "
+"zamiast tego używać preferencji rozszerzenia Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
@@ -201,7 +201,7 @@ msgstr "Styl tła"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr "Przezroczysty/półprzezroczysty styl tła docka."
+msgstr "(Pół)przezroczysty styl tła docka."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
