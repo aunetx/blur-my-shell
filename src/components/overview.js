@@ -168,7 +168,9 @@ var OverviewBlur = class OverviewBlur {
     create_background_actor(monitor) {
         let bg_actor = new Meta.BackgroundActor;
         let background = Main.layoutManager._backgroundGroup.get_child_at_index(
-            Main.layoutManager.monitors.length - monitor.index - 1
+            (Main.layoutManager.monitors.length - monitor.index - 1) *
+                (Main.layoutManager._backgroundGroup.get_children().length /
+                    Main.layoutManager.monitors.length)
         );
 
         if (!background) {
