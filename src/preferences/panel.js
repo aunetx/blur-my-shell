@@ -17,7 +17,8 @@ var Panel = GObject.registerClass({
         'override_background',
         'style_panel',
         'override_background_dynamically',
-        'hidetopbar_compatibility'
+        'hidetopbar_compatibility',
+        'dtp_blur_original_panel'
     ],
 }, class Panel extends Adw.PreferencesPage {
     constructor(preferences) {
@@ -56,6 +57,10 @@ var Panel = GObject.registerClass({
 
         this.preferences.hidetopbar.settings.bind(
             'compatibility', this._hidetopbar_compatibility, 'state',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_panel.settings.bind(
+            'blur-original-panel', this._dtp_blur_original_panel, 'state',
             Gio.SettingsBindFlags.DEFAULT
         );
     }

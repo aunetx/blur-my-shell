@@ -114,6 +114,8 @@ var PanelBlur = class PanelBlur {
             !global.dashToPanel.panels
                 .map(p => p.panel)
                 .includes(Main.panel)
+            &&
+            this.prefs.dash_to_panel.BLUR_ORIGINAL_PANEL
         )
             this.maybe_blur_panel(Main.panel);
     };

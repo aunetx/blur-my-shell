@@ -52,6 +52,7 @@
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
+        <child name='dash-to-panel' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-panel'></child>
     </schema>
 
     <!-- OVERVIEW -->
@@ -452,6 +453,15 @@
         <key type="b" name="compatibility">
             <default>false</default>
             <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
+        </key>
+    </schema>
+
+    <!-- DASH TO PANEL -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-panel" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-panel/">
+        <!-- COMPATIBILITY -->
+        <key type="b" name="blur-original-panel">
+            <default>true</default>
+            <summary>Boolean, whether to blur the original panel (if option selected) with Dash to Panel</summary>
         </key>
     </schema>
 </schemalist>
