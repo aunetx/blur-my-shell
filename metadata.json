@@ -12,5 +12,9 @@
     "original-authors": [
         "me@aunetx.dev"
     ],
-    "version": 46
+    "donations": {
+        "github": "aunetx",
+        "kofi": "aunetx"
+    },
+    "version": 47
 }
