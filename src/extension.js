@@ -471,6 +471,15 @@ class Extension {
         });
 
 
+        // ---------- DASH TO PANEL ----------
+
+        // toggled on/off
+        this._prefs.dash_to_panel.BLUR_ORIGINAL_PANEL_changed(() => {
+            if (this._prefs.panel.BLUR)
+                this._panel_blur.reset();
+        });
+
+
         // ---------- SCREENSHOT ----------
 
         // toggled on/off
