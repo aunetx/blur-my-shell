@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-04-12 13:48+0000\n"
+"PO-Revision-Date: 2023-05-29 10:50+0000\n"
 "Last-Translator: Jörn Weigend <das.jott@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 4.18-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -248,7 +248,7 @@ msgstr "Leistung"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr "Verschiedene Optionen zur Leistungsoptimierung."
+msgstr "Diverse Optionen, um die Leistung zu optimieren."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -452,7 +452,7 @@ msgstr ""
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "Halb-/Transparenter Stil für Leisten-Hintergrund."
+msgstr "Der transparente/halbtransparente Stil für den Panel-Hintergrund."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
