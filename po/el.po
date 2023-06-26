@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Konstantinos Polychronidis <loveisfoss@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/el/>\n"
 "Language: el\n"
@@ -675,8 +675,7 @@ msgstr "Απενεργοποίηση όταν ένα παράθυρο είναι
 
 #: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
-"Απενεργοποιεί τη διαφάνεια του πάνελ όταν ένα παράθυρο είναι κοντά του."
+msgstr "Απενεργοποιεί τη διαφάνεια του πάνελ όταν ένα παράθυρο είναι κοντά του."
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
