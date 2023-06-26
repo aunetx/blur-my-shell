@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"Last-Translator: Konstantinos Polychronidis <loveisfoss@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sv/>\n"
 "Language: sv\n"
@@ -707,8 +707,7 @@ msgstr "Inaktiverar genomskinligheten för panelen när ett fönster är nära d
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
-"Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
+msgstr "Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
