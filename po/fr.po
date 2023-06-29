@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: \"J. Lavoie\" <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2023-07-01 12:50+0000\n"
+"Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -487,17 +487,19 @@ msgstr ""
 
 #: panel.ui:118
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Flouter le panneau original lorsque Dash to Panel est utilisé"
 
 #: panel.ui:119
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Floute le panneau original de Dash to Panel, si l'option est activée dans "
+"les paramètres de l'extension."
 
 #: panel.ui:138
 msgid "Contrasted"
-msgstr ""
+msgstr "Contrasté"
 
 #: window-row.ui:4
 msgid "Window Name"
