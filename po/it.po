@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -34,8 +34,8 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Aggiunge sfocatura alle applicazioni. Questa è ancora una funzionalità beta."
-"\n"
+"Aggiunge sfocatura alle applicazioni. Questa è ancora una funzionalità "
+"beta.\n"
 "Per ottenere i migliori risultati possibili, assicurati di scegliere "
 "l'opzione \"Nessun artefatto\" nella preferenza \"Generale → Livello di "
 "hack\".\n"
@@ -75,8 +75,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"Aggiunge la sfocatura dietro tutte le finestre per impostazione predefinita."
-"\n"
+"Aggiunge la sfocatura dietro tutte le finestre per impostazione "
+"predefinita.\n"
 "Sconsigliato per problemi di prestazioni e stabilità."
 
 #: applications.ui:85
@@ -215,15 +215,15 @@ msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Disattiva la sfocatura da Dash to Dock quando si accede alla panoramica."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr "Trasparente"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr "Chiaro"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr "Scuro"
 
@@ -481,6 +481,20 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Non disabilita la sfocatura nella panoramica, meglio utilizzata con la "
 "sfocatura statica."
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr ""
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
