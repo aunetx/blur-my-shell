@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: saulo marcos <sullo152@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -211,15 +211,15 @@ msgstr "Desativar na visão geral"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Desativa o desfoque do Dash to Dock ao entrar na visão geral."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr "Transparente"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr "Claro"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr "Escuro"
 
@@ -432,7 +432,8 @@ msgstr "Desfoque estático"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "Utiliza uma imagem desfocada estática. Maior desempenho e estabilidade."
+msgstr ""
+"Utiliza uma imagem desfocada estática. Maior desempenho e estabilidade."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
@@ -450,7 +451,8 @@ msgstr ""
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "O estilo transparente/semitransparente para o plano de fundo do painel."
+msgstr ""
+"O estilo transparente/semitransparente para o plano de fundo do painel."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
@@ -477,6 +479,20 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Não desativa o desfoque na visão geral. Funciona melhor com o desfoque "
 "estático."
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr ""
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"

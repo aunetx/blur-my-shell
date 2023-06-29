@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: Rali Boińskx <me@rlgh.eu>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -213,15 +213,15 @@ msgstr ""
 "Wyłącza rozmazywanie rozszerzenia Dash to Dock podczas przechodzenia do "
 "ekranu podglądu."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr "Przezroczysty"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr "Lekki"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr "Ciemny"
 
@@ -471,6 +471,20 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Nie wyłącza rozmazywania w ekranie podglądu; opcja najbardziej przydatna "
 "przy rozmazywaniu statycznym."
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr ""
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"

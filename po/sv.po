@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: \"Artur O.\" <commander.alchemy@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -34,8 +34,8 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Lägger oskärpa till applikationer. Detta är fortfarande beta funktionalitet."
-"\n"
+"Lägger oskärpa till applikationer. Detta är fortfarande beta "
+"funktionalitet.\n"
 "För bästa resultat, se till att välja \"Ingen artefakt\" under \"Allmänt → "
 "Hack nivå\".\n"
 "        "
@@ -210,15 +210,15 @@ msgstr "Inaktivera i översiktsläget"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Inaktiverar oskärpan från Dash to Dock när du går in i översiktsläget."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr "Transparent"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr "Ljust"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr "Mörkt"
 
@@ -430,7 +430,8 @@ msgstr "Använder en statisk suddig bild, mer presterande och stabil."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
+msgstr ""
+"Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
 
 #: panel.ui:57
 msgid ""
@@ -471,6 +472,20 @@ msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Inaktiverar inte oskärpan i översiktsläget, fungerar bäst med statisk "
 "oskärpa."
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr ""
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"

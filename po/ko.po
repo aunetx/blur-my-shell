@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -124,8 +124,9 @@ msgstr "색상"
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
-msgstr "블러의 색상을 변경합니다, 색상의 불투명도는 블러 효과의 혼합되는 정도를 "
-"설정합니다."
+msgstr ""
+"블러의 색상을 변경합니다, 색상의 불투명도는 블러 효과의 혼합되는 정도를 설정"
+"합니다."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
@@ -135,8 +136,9 @@ msgstr "노이즈 값"
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
-msgstr "블러 효과에 추가할 노이즈의 양으로, 대비가 낮은 화면이나 미적 목적에 "
-"유용합니다."
+msgstr ""
+"블러 효과에 추가할 노이즈의 양으로, 대비가 낮은 화면이나 미적 목적에 유용합니"
+"다."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
@@ -154,7 +156,8 @@ msgstr "알림"
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
-msgstr "노이즈 및 색상은 이와 같이 동적으로 흐리게 처리된 구성 요소에서 활성화할 수 "
+msgstr ""
+"노이즈 및 색상은 이와 같이 동적으로 흐리게 처리된 구성 요소에서 활성화할 수 "
 "없습니다."
 
 #: dash.ui:5
@@ -195,15 +198,15 @@ msgstr "오버뷰 모드에서 비활성화"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Dash to Dock 이 오버뷰 모드에 들어가면 블러 효과를 비활성화합니다."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr ""
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr ""
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr ""
 
@@ -431,6 +434,20 @@ msgstr ""
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr ""
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
 msgstr ""
 
 #: window-row.ui:4
