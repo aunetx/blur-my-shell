@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2022-08-30 21:21+0000\n"
-"Last-Translator: Park Seonu <cotwo0139@gmail.com>\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"PO-Revision-Date: 2023-06-29 14:17+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
 "Language: ko\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -198,15 +198,15 @@ msgstr "오버뷰 모드에서 비활성화"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Dash to Dock 이 오버뷰 모드에 들어가면 블러 효과를 비활성화합니다."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr ""
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr ""
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr ""
 
@@ -434,6 +434,20 @@ msgstr ""
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
+msgstr ""
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr ""
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
 msgstr ""
 
 #: window-row.ui:4

@@ -112,6 +112,20 @@ Recommended unless you want to customize your GNOME theme.</property>
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blur original panel with Dash to Panel</property>
+            <property name="subtitle" translatable="yes">Enables the blurring of the original panel with Dash to Panel, if selected in the extension's options.</property>
+            <property name="activatable-widget">dtp_blur_original_panel</property>
+
+            <child>
+              <object class="GtkSwitch" id="dtp_blur_original_panel">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>
@@ -121,6 +135,7 @@ Recommended unless you want to customize your GNOME theme.</property>
       <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
+      <item translatable="yes">Contrasted</item>
     </items>
   </object>
 </interface>

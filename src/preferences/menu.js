@@ -12,7 +12,11 @@ function addMenu(window) {
     builder.add_from_file(`${Me.path}/ui/menu.ui`);
     let menu_util = builder.get_object('menu_util');
     window.add(menu_util);
-    addMenuToHeader(window, builder);
+    try {
+        addMenuToHeader(window, builder);
+    } catch (error) {
+        // could not add menu... not so bad
+    }
     window.remove(menu_util);
 }
 

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-02 02:53+0100\n"
-"PO-Revision-Date: 2023-01-15 13:52+0000\n"
-"Last-Translator: Ali Aljishi <ahj696@hotmail.com>\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"PO-Revision-Date: 2023-06-29 14:17+0000\n"
+"Last-Translator: fawaz006 <fawaz27000@hotmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.18.1\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -183,8 +183,7 @@ msgstr "تجاوز الخلفيَّة"
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
-msgstr ""
-"يجعل الخلفيَّة شفَّافةً أو شبه شفَّافة. عطِّل هذا لتستخدم تفضيل Dash to Dock."
+msgstr "يجعل الخلفيَّة شفَّافةً أو شبه شفَّافة. عطِّل هذا لتستخدم تفضيل Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
@@ -202,15 +201,15 @@ msgstr "عطِّل في النظرة العامَّة"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "يعطِّل تضبيب Dash to Dock في النظرة العامَّة."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:121
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
 msgstr "شفَّاف"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:122
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
 msgstr "فاتح"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:123
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
 msgstr "داكن"
 
@@ -259,8 +258,8 @@ msgid ""
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
 "يغيِّر تصرُّف تأثير التضبيب الديناميكيِّ.\n"
-"تُستحسن القيمة المبدئيَّة حالما لم تستخدم تضبيب التطبيقات، حيث أنَّ «بلا أثر»"
-" أفضل حينها.\n"
+"تُستحسن القيمة المبدئيَّة حالما لم تستخدم تضبيب التطبيقات، حيث أنَّ «بلا أثر» "
+"أفضل حينها.\n"
 "سيعطِّل هذا الخيار إعادة الرسم المقصوصة في صدفة جنوم تمامًا، وقد يؤثِّر على "
 "الأداء بشكل معتبر، ولكنَّه سيُصلح تأثير التضبيب كليًّا."
 
@@ -447,8 +446,21 @@ msgstr "امتداد Hidetopbar"
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
+msgstr "لا يعطِّل التضبيب في النظرة العامَّة، الأفضل استخدامه مع التضبيب الثابت."
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
 msgstr ""
-"لا يعطِّل التضبيب في النظرة العامَّة، الأفضل استخدامه مع التضبيب الثابت."
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
