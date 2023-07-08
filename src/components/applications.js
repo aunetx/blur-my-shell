@@ -44,6 +44,7 @@ var ApplicationsBlur = class ApplicationsBlur {
         );
 
         this.connect_to_overview();
+        // overview position Main.overview._overview._controls._workspacesDisplay._workspacesViews[0]._workspaces[1]._windows[0].get_transformed_position()
     }
 
     /// Connect to the overview being opened/closed to force the blur being
@@ -52,33 +53,35 @@ var ApplicationsBlur = class ApplicationsBlur {
         this.connections.disconnect_all_for(Main.overview);
 
         if (this.prefs.applications.BLUR_ON_OVERVIEW) {
-            // when the overview is opened, show every window actors (which
-            // allows the blur to be shown too)
+            // when the overview is opened, add blur to every window preview
+            // that has its window actor blurred (we can copy the blur effect)
             this.connections.connect(
                 Main.overview, 'showing',
-                _ => this.window_map.forEach((meta_window, _pid) => {
-                    let window_actor = meta_window.get_compositor_private();
-                    window_actor.show();
-                })
-            );
+                _ => {
+                    // hide window picker blur (because transformation makes the
+                    // blur be out of place)
+                    this.blur_actor_map.forEach((blur_actor, _pid) => {
+                        blur_actor.hide();
+                    });
+
+                    // show window preview blur
+                    Main.overview._overview._controls._workspacesDisplay._workspacesViews.forEach(workspace_view =>
+                        workspace_view._workspaces.forEach(workspace =>
+                            workspace._windows.forEach(window_preview => {
+                                let window_actor = window_preview._windowActor;
+                                let pid = window_actor.blur_provider_pid;
+                            })
+                        )
+                    );
+                });
 
             // when the overview is closed, hide every actor that is not on the
             // current workspace (to mimic the original behaviour)
             this.connections.connect(
                 Main.overview, 'hidden',
-                _ => {
-                    let active_workspace =
-                        global.workspace_manager.get_active_workspace();
-
-                    this.window_map.forEach((meta_window, _pid) => {
-                        let window_actor = meta_window.get_compositor_private();
-
-                        if (
-                            meta_window.get_workspace() !== active_workspace
-                        )
-                            window_actor.hide();
-                    });
-                }
+                _ => this.blur_actor_map.forEach((blur_actor, _pid) => {
+                    blur_actor.show();
+                })
             );
         }
     }
@@ -349,10 +352,6 @@ var ApplicationsBlur = class ApplicationsBlur {
         // insert the blurred widget
         window_actor.insert_child_at_index(blur_actor, 0);
 
-        // make sure window is blurred in overview
-        if (this.prefs.applications.BLUR_ON_OVERVIEW)
-            this.enforce_window_visibility_on_overview_for(window_actor);
-
         // set the window actor's opacity
         this.set_window_opacity(window_actor, this.prefs.applications.OPACITY);
 
@@ -372,34 +371,10 @@ var ApplicationsBlur = class ApplicationsBlur {
             'notify::visible',
             window_actor => {
                 let pid = window_actor.blur_provider_pid;
-                if (window_actor.visible) {
+                if (window_actor.visible && !Main.overview.visible) {
                     this.blur_actor_map.get(pid).show();
                 } else {
                     this.blur_actor_map.get(pid).hide();
-                }
-            }
-        );
-    }
-
-    /// Makes sure that, when the overview is visible, the window actor will
-    /// stay visible no matter what.
-    /// We can instead hide the last child of the window actor, which will
-    /// improve performances without hiding the blur effect.
-    enforce_window_visibility_on_overview_for(window_actor) {
-        this.connections.connect(window_actor, 'notify::visible',
-            _ => {
-                if (this.prefs.applications.BLUR_ON_OVERVIEW) {
-                    if (
-                        !window_actor.visible
-                        && Main.overview.visible
-                    ) {
-                        window_actor.show();
-                        window_actor.get_last_child().hide();
-                    }
-                    else if (
-                        window_actor.visible
-                    )
-                        window_actor.get_last_child().show();
                 }
             }
         );
