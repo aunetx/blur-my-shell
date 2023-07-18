@@ -177,7 +177,7 @@ msgstr "Панель приложений"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Размытие \"Dash to Dock\""
+msgstr "Размытие Dash to Dock"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
@@ -358,7 +358,7 @@ msgstr ""
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "Размытие расширения \"Window List\""
+msgstr "Размытие расширения Window List"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
@@ -465,7 +465,7 @@ msgstr "Различные опции для обеспечения совмес
 
 #: panel.ui:103
 msgid "Hidetopbar extension"
-msgstr "Расширение \"Hidetopbar\""
+msgstr "Расширение Hidetopbar"
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
