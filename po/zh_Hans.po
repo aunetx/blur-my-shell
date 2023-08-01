@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: 2023-07-09 09:47+0000\n"
-"Last-Translator: Dee <dongfengweixiao@hotmail.com>\n"
+"PO-Revision-Date: 2023-08-02 23:07+0000\n"
+"Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -249,6 +249,10 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"更改动态模糊效果的行为。\n"
+"强烈建议使用默认值，除非您使用应用程序模糊，在这种情况下“无阴影”更好。\n"
+"此选项将完全禁用 GNOME shell "
+"中的剪切重绘，并且可能会显着影响性能，但会完全修复模糊效果。"
 
 #: general.ui:151
 msgid "Debug"
@@ -286,7 +290,7 @@ msgstr "高品质"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "无阴影"
 
 #: menu.ui:6
 msgid "Project page"
@@ -352,7 +356,7 @@ msgstr "概览界面组件风格"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr ""
+msgstr "破折号、搜索条目/结果和应用程序文件夹的半透明样式。"
 
 #: overview.ui:44
 msgid "Application folder blur"
@@ -360,15 +364,15 @@ msgstr "应用程序文件夹模糊"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "使应用程序文件夹对话框的背景模糊。"
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "应用程序文件夹对话框样式"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "应用程序文件夹对话框的半透明样式。"
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
@@ -404,10 +408,12 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"覆盖面板的背景以使用透明或半透明背景。\n"
+"除非您想自定义 GNOME 主题，否则推荐使用。"
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "面板背景的透明/半透明样式。"
 
 #: panel.ui:79
 msgid "Disable when a window is near"
@@ -435,17 +441,18 @@ msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。
 
 #: panel.ui:118
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "使用 Dash to Panel 模糊原始面板"
 
 #: panel.ui:119
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
-msgstr ""
+msgstr "如果在扩展程序的选项中选择了“Dash to Panel”，则可以使用“Dash to "
+"Panel”对原始面板进行模糊处理。"
 
 #: panel.ui:138
 msgid "Contrasted"
-msgstr ""
+msgstr "对比"
 
 #: window-row.ui:4
 msgid "Window Name"
