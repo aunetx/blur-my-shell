@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: arctize <patrick.wicki96@gmail.com>\n"
+"PO-Revision-Date: 2023-07-05 14:47+0000\n"
+"Last-Translator: Jörn Weigend <das.jott@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -486,17 +486,19 @@ msgstr ""
 
 #: panel.ui:118
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Original Panel mit Dash to Panel unscharf machen"
 
 #: panel.ui:119
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Ermöglicht das Unschärfen des original Panels mit Dash to Panel, falls in "
+"den Extension-Einstellungen ausgewählt."
 
 #: panel.ui:138
 msgid "Contrasted"
-msgstr ""
+msgstr "In Kontrast"
 
 #: window-row.ui:4
 msgid "Window Name"
