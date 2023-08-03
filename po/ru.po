@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2023-07-18 12:45+0300\n"
+"Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -177,7 +177,7 @@ msgstr "Панель приложений"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Размытие \"Dash to Dock\""
+msgstr "Размытие Dash to Dock"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
@@ -358,7 +358,7 @@ msgstr ""
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "Размытие расширения \"Window List\""
+msgstr "Размытие расширения Window List"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
@@ -465,7 +465,7 @@ msgstr "Различные опции для обеспечения совмес
 
 #: panel.ui:103
 msgid "Hidetopbar extension"
-msgstr "Расширение \"Hidetopbar\""
+msgstr "Расширение Hidetopbar"
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
@@ -475,17 +475,18 @@ msgstr ""
 
 #: panel.ui:118
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Размытие исходной панели с Dash to Panel"
 
 #: panel.ui:119
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
-msgstr ""
+msgstr "Включает размытие исходной панели с Dash to Panel, если это выбрано "
+"в опциях расширения."
 
 #: panel.ui:138
 msgid "Contrasted"
-msgstr ""
+msgstr "Контрастный"
 
 #: window-row.ui:4
 msgid "Window Name"
