@@ -1,6 +1,6 @@
 'use strict';
 
-const { Shell, Gio, Meta } = imports.gi;
+const { Shell, Gio, Meta, GLib } = imports.gi;
 const Main = imports.ui.main;
 
 const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
@@ -39,6 +39,21 @@ var OverviewBlur = class OverviewBlur {
             _ => {
                 this._log("updated background");
                 this.update_backgrounds();
+            }
+        );
+
+        // connect to the overview being opened (fix a bug with blur being gray
+        // with multipe monitors under wayland)
+        this.connections.connect(
+            Main.overview,
+            'shown',
+            _ => {
+                if (
+                    GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
+                    Main.layoutManager.monitors.length > 1
+                ) {
+                    this.toogle_actors_visibility();
+                }
             }
         );
 
@@ -232,6 +247,15 @@ var OverviewBlur = class OverviewBlur {
         Main.uiGroup.add_style_class_name(
             OVERVIEW_COMPONENTS_STYLE[this.prefs.overview.STYLE_COMPONENTS]
         );
+    }
+    
+    toogle_actors_visibility() {
+        Main.layoutManager.overviewGroup.get_children().forEach(child => {
+            if (child.constructor.name === 'Meta_BackgroundActor') {
+                child.hide();
+                child.show();
+            }
+        });
     }
 
     set_sigma(s) {
