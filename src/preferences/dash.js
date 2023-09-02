@@ -1,14 +1,16 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import * as Adw from 'gi://Adw';
+import * as GLib from 'gi://GLib';
+import * as GObject from 'gi://GObject';
+import * as Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
+import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 
-var Dash = GObject.registerClass({
+export var Dash = GObject.registerClass({
     GTypeName: 'Dash',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'dash.ui'])}`,
+    Template: `file://${GLib.build_filenamev([ExtensionPreferences.path, 'ui', 'dash.ui'])}`,
     InternalChildren: [
         'blur',
         'customize',

@@ -21,7 +21,7 @@ const get_shader_source = _ => {
     }
 };
 
-var NoiseEffect = new GObject.registerClass({
+export var NoiseEffect = new GObject.registerClass({
     GTypeName: "NoiseEffect",
     Properties: {
         'noise': GObject.ParamSpec.double(

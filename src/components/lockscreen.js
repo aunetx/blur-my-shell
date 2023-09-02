@@ -1,7 +1,7 @@
 'use strict';
 
 const { St, Shell } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 const Background = imports.ui.background;
 const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
 
@@ -21,7 +21,7 @@ const original_updateBackgroundEffects =
     UnlockDialog.prototype._updateBackgroundEffects;
 
 
-var LockscreenBlur = class LockscreenBlur {
+export var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;

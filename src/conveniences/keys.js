@@ -6,7 +6,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const { Type } = Me.imports.conveniences.settings;
 
 // This lists the preferences keys
-var Keys = [
+export var Keys = [
     {
         component: "general", schemas: [
             { type: Type.I, name: "sigma" },

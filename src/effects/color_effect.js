@@ -30,7 +30,7 @@ const get_shader_source = _ => {
 ///
 /// GJS Doc:
 /// https://gjs-docs.gnome.org/clutter10~10_api/clutter.shadereffect
-var ColorEffect = new GObject.registerClass({
+export var ColorEffect = new GObject.registerClass({
     GTypeName: "ColorEffect",
     Properties: {
         'red': GObject.ParamSpec.double(

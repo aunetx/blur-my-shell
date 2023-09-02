@@ -1,14 +1,14 @@
 'use strict';
 
 const { Shell, Gio, Meta } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
 const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
 
 
-var ScreenshotBlur = class ScreenshotBlur {
+export var ScreenshotBlur = class ScreenshotBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.effects = [];

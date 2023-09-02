@@ -1,7 +1,7 @@
 'use strict';
 
 const { St, Shell, GLib } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 const Signals = imports.signals;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -82,7 +82,7 @@ class DashInfos {
     }
 }
 
-var DashBlur = class DashBlur {
+export var DashBlur = class DashBlur {
     constructor(connections, prefs) {
         this.dashes = [];
         this.connections = connections;

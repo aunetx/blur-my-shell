@@ -1,7 +1,7 @@
 'use strict';
 
 const { St, Shell, Meta, Gio, GLib } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const { PaintSignals } = Me.imports.effects.paint_signals;
@@ -18,7 +18,7 @@ const PANEL_STYLES = [
 ];
 
 
-var PanelBlur = class PanelBlur {
+export var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.window_signal_ids = new Map();

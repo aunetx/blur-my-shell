@@ -1,7 +1,7 @@
 'use strict';
 
 const { Gio, GLib } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 const LookingGlass = imports.ui.lookingGlass;
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
@@ -15,7 +15,7 @@ const load_file = path => {
 
 const iface = load_file(Me.dir.get_path() + '/dbus/iface.xml');
 
-var ApplicationsService = class ApplicationsService {
+export var ApplicationsService = class ApplicationsService {
     constructor() {
         this.DBusImpl = Gio.DBusExportedObject.wrapJSObject(iface, this);
     }
