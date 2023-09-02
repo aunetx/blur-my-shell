@@ -1,15 +1,20 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio, Gtk } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import * as Adw from 'gi://Adw';
+import * as GLib from 'gi://GLib';
+import * as GObject from 'gi://GObject';
+import * as Gio from 'gi://Gio';
+import * as Gtk from 'gi://Gtk';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { pick, on_picking, on_picked } = Me.imports.dbus.client;
+import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+
+import { pick, on_picking, on_picked } from './dbus/client.js';
 
 
-var WindowRow = GObject.registerClass({
+
+export var WindowRow = GObject.registerClass({
     GTypeName: 'WindowRow',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'window-row.ui'])}`,
+    Template: `file://${GLib.build_filenamev([ExtensionPreferences.path, 'ui', 'window-row.ui'])}`,
     InternalChildren: [
         'window_picker',
         'window_class',

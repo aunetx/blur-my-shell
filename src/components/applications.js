@@ -1,13 +1,13 @@
 'use strict';
 
 const { Shell, Clutter, Meta, GLib } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 const { PaintSignals } = Me.imports.effects.paint_signals;
 const { ApplicationsService } = Me.imports.dbus.services;
 
-var ApplicationsBlur = class ApplicationsBlur {
+export var ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;

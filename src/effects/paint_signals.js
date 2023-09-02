@@ -3,7 +3,7 @@
 const { GObject, Clutter } = imports.gi;
 
 
-var PaintSignals = class PaintSignals {
+export var PaintSignals = class PaintSignals {
     constructor(connections) {
         this.buffer = [];
         this.connections = connections;
@@ -73,7 +73,7 @@ var PaintSignals = class PaintSignals {
     }
 };
 
-var EmitPaintSignal = GObject.registerClass({
+export var EmitPaintSignal = GObject.registerClass({
     GTypeName: 'EmitPaintSignal',
     Signals: {
         'update-blur': {

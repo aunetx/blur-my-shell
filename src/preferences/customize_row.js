@@ -1,11 +1,15 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio, Gtk } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import * as Adw from 'gi://Adw';
+import * as GLib from 'gi://GLib';
+import * as GObject from 'gi://GObject';
+import * as Gio from 'gi://Gio';
+import * as Gtk from 'gi://Gtk';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+
+import { Prefs } from './conveniences/settings.js';
+import { Keys } from './conveniences/keys.js';
 
 
 /// Given a component (described by its preferences node), a gschema key and
@@ -32,9 +36,9 @@ let bind_color = function (component, key, widget) {
     parse_color();
 };
 
-var CustomizeRow = GObject.registerClass({
+export var CustomizeRow = GObject.registerClass({
     GTypeName: 'CustomizeRow',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'customize-row.ui'])}`,
+    Template: `file://${GLib.build_filenamev([ExtensionPreferences.path, 'ui', 'customize-row.ui'])}`,
     InternalChildren: [
         'sigma',
         'brightness',

@@ -1,7 +1,7 @@
 'use strict';
 
 const { Shell, Gio, Meta } = imports.gi;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
 const wac_proto = WorkspaceAnimationController.prototype;
@@ -18,7 +18,7 @@ const OVERVIEW_COMPONENTS_STYLE = [
 ];
 
 
-var OverviewBlur = class OverviewBlur {
+export var OverviewBlur = class OverviewBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.effects = [];
@@ -172,7 +172,7 @@ var OverviewBlur = class OverviewBlur {
             .filter((child) => child instanceof Meta.BackgroundActor);
         let background =
             background_group[
-                Main.layoutManager.monitors.length - monitor.index - 1
+            Main.layoutManager.monitors.length - monitor.index - 1
             ];
 
         if (!background) {

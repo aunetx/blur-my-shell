@@ -1,15 +1,18 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import * as Adw from 'gi://Adw';
+import * as GLib from 'gi://GLib';
+import * as GObject from 'gi://GObject';
+import * as Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { CustomizeRow } = Me.imports.preferences.customize_row;
+import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+
+import { CustomizeRow } from './preferences/customize_row.js';
 
 
-var General = GObject.registerClass({
+export var General = GObject.registerClass({
     GTypeName: 'General',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'general.ui'])}`,
+    Template: `file://${GLib.build_filenamev([ExtensionPreferences.path, 'ui', 'general.ui'])}`,
     InternalChildren: [
         'sigma',
         'brightness',
