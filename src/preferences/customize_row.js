@@ -100,26 +100,26 @@ export var CustomizeRow = GObject.registerClass({
             if (color_and_noise instanceof Gtk.Switch) {
                 // bind its state to dynamically toggle the notice and rows
                 color_and_noise.bind_property(
-                    'state', this._color_row, 'visible',
+                    'active', this._color_row, 'visible',
                     GObject.BindingFlags.SYNC_CREATE
                 );
                 color_and_noise.bind_property(
-                    'state', this._noise_amount_row, 'visible',
+                    'active', this._noise_amount_row, 'visible',
                     GObject.BindingFlags.SYNC_CREATE
                 );
                 color_and_noise.bind_property(
-                    'state', this._noise_lightness_row, 'visible',
+                    'active', this._noise_lightness_row, 'visible',
                     GObject.BindingFlags.SYNC_CREATE
                 );
                 color_and_noise.bind_property(
-                    'state', this._noise_color_notice, 'visible',
+                    'active', this._noise_color_notice, 'visible',
                     GObject.BindingFlags.INVERT_BOOLEAN
                 );
 
                 // only way to get the correct state when first opening the
                 // window...
                 setTimeout(_ => {
-                    let is_visible = color_and_noise.state;
+                    let is_visible = color_and_noise.active;
                     this._color_row.visible = is_visible;
                     this._noise_amount_row.visible = is_visible;
                     this._noise_lightness_row.visible = is_visible;

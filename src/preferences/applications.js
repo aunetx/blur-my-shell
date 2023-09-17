@@ -49,7 +49,7 @@ export var Applications = GObject.registerClass({
         this.preferences = preferences;
 
         this.preferences.applications.settings.bind(
-            'blur', this._blur, 'state',
+            'blur', this._blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
@@ -57,11 +57,11 @@ export var Applications = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
-            'blur-on-overview', this._blur_on_overview, 'state',
+            'blur-on-overview', this._blur_on_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
-            'enable-all', this._enable_all, 'state',
+            'enable-all', this._enable_all, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 

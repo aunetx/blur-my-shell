@@ -23,7 +23,7 @@ export var Dash = GObject.registerClass({
         this.preferences = preferences;
 
         this.preferences.dash_to_dock.settings.bind(
-            'blur', this._blur, 'state',
+            'blur', this._blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
@@ -36,7 +36,7 @@ export var Dash = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
-            'unblur-in-overview', this._unblur_in_overview, 'state',
+            'unblur-in-overview', this._unblur_in_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
