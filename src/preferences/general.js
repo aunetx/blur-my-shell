@@ -34,7 +34,7 @@ export var General = GObject.registerClass({
         CustomizeRow.prototype.connect_to.call(this, preferences, preferences);
 
         this.preferences.settings.bind(
-            'color-and-noise', this._color_and_noise, 'state',
+            'color-and-noise', this._color_and_noise, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.settings.bind(
@@ -42,7 +42,7 @@ export var General = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.settings.bind(
-            'debug', this._debug, 'state',
+            'debug', this._debug, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 

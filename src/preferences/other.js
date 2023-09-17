@@ -26,21 +26,21 @@ export var Other = GObject.registerClass({
         this.preferences = preferences;
 
         this.preferences.lockscreen.settings.bind(
-            'blur', this._lockscreen_blur, 'state',
+            'blur', this._lockscreen_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         this._lockscreen_customize.connect_to(this.preferences, this.preferences.lockscreen);
 
         this.preferences.screenshot.settings.bind(
-            'blur', this._screenshot_blur, 'state',
+            'blur', this._screenshot_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         this._screenshot_customize.connect_to(this.preferences, this.preferences.screenshot);
 
         this.preferences.window_list.settings.bind(
-            'blur', this._window_list_blur, 'state',
+            'blur', this._window_list_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 

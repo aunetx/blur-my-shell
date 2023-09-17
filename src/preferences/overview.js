@@ -25,7 +25,7 @@ export var Overview = GObject.registerClass({
         this.preferences = preferences;
 
         this.preferences.overview.settings.bind(
-            'blur', this._overview_blur, 'state',
+            'blur', this._overview_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.overview.settings.bind(
@@ -36,7 +36,7 @@ export var Overview = GObject.registerClass({
         this._overview_customize.connect_to(this.preferences, this.preferences.overview);
 
         this.preferences.appfolder.settings.bind(
-            'blur', this._appfolder_blur, 'state',
+            'blur', this._appfolder_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.appfolder.settings.bind(
