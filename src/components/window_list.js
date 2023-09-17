@@ -1,13 +1,11 @@
 'use strict';
 
-const { St, Shell, Meta, Gio } = imports.gi;
-const Main = imports.ui.main;
+import Shell from 'gi://Shell';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const { PaintSignals } = Me.imports.effects.paint_signals;
+import { PaintSignals } from '../effects/paint_signals.js';
 
-
-var WindowListBlur = class WindowListBlur {
+export var WindowListBlur = class WindowListBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;

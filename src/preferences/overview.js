@@ -1,14 +1,14 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
 
-
-var Overview = GObject.registerClass({
+export var Overview = GObject.registerClass({
     GTypeName: 'Overview',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'overview.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/overview.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'overview_blur',
         'overview_customize',
@@ -33,7 +33,7 @@ var Overview = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._overview_customize.connect_to(this.preferences.overview);
+        this._overview_customize.connect_to(this.preferences, this.preferences.overview);
 
         this.preferences.appfolder.settings.bind(
             'blur', this._appfolder_blur, 'state',
@@ -44,6 +44,6 @@ var Overview = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._appfolder_customize.connect_to(this.preferences.appfolder, false);
+        this._appfolder_customize.connect_to(this.preferences, this.preferences.appfolder, false);
     }
 });

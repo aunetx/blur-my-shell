@@ -1,15 +1,18 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio, Gtk } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import Gtk from 'gi://Gtk';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { pick, on_picking, on_picked } = Me.imports.dbus.client;
+import { pick, on_picking, on_picked } from '../dbus/client.js';
 
 
-var WindowRow = GObject.registerClass({
+
+export var WindowRow = GObject.registerClass({
     GTypeName: 'WindowRow',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'window-row.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/window-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'window_picker',
         'window_class',

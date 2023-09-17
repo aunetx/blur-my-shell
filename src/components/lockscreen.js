@@ -1,13 +1,13 @@
 'use strict';
 
-const { St, Shell } = imports.gi;
-const Main = imports.ui.main;
-const Background = imports.ui.background;
-const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
+import St from 'gi://St';
+import Shell from 'gi://Shell';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Background from 'resource:///org/gnome/shell/ui/background.js';
+import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
-const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
+import { ColorEffect } from '../effects/color_effect.js';
+import { NoiseEffect } from '../effects/noise_effect.js';
 
 let sigma;
 let brightness;
@@ -21,7 +21,7 @@ const original_updateBackgroundEffects =
     UnlockDialog.prototype._updateBackgroundEffects;
 
 
-var LockscreenBlur = class LockscreenBlur {
+export var LockscreenBlur = class LockscreenBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.prefs = prefs;
@@ -78,13 +78,13 @@ var LockscreenBlur = class LockscreenBlur {
         let color_effect = new ColorEffect({
             name: 'color',
             color: color
-        });
+        }, this.prefs);
 
         let noise_effect = new NoiseEffect({
             name: 'noise',
             noise: noise,
             lightness: lightness
-        });
+        }, this.prefs);
 
         widget.add_effect(color_effect);
         widget.add_effect(noise_effect);

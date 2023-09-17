@@ -1,14 +1,14 @@
 'use strict';
 
-const { Shell, Gio, Meta } = imports.gi;
-const Main = imports.ui.main;
+import Shell from 'gi://Shell';
+import Meta from 'gi://Meta';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
-const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
+import { ColorEffect } from '../effects/color_effect.js';
+import { NoiseEffect } from '../effects/noise_effect.js';
 
 
-var ScreenshotBlur = class ScreenshotBlur {
+export var ScreenshotBlur = class ScreenshotBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.effects = [];
@@ -95,7 +95,7 @@ var ScreenshotBlur = class ScreenshotBlur {
             color: this.prefs.screenshot.CUSTOMIZE
                 ? this.prefs.screenshot.COLOR
                 : this.prefs.COLOR
-        });
+        }, this.prefs);
 
         let noise_effect = new NoiseEffect({
             noise: this.prefs.screenshot.CUSTOMIZE
@@ -104,7 +104,7 @@ var ScreenshotBlur = class ScreenshotBlur {
             lightness: this.prefs.screenshot.CUSTOMIZE
                 ? this.prefs.screenshot.NOISE_LIGHTNESS
                 : this.prefs.NOISE_LIGHTNESS
-        });
+        }, this.prefs);
 
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);

@@ -1,16 +1,13 @@
 'use strict';
 
-const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Shell from 'gi://Shell';
 
 
-const SHADER_PATH = GLib.build_filenamev(
-    [Me.path, 'effects', 'color_effect.glsl']
-);
+const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'color_effect.glsl', GLib.UriFlags.NONE))[0];
+
 
 const get_shader_source = _ => {
     try {
@@ -30,7 +27,7 @@ const get_shader_source = _ => {
 ///
 /// GJS Doc:
 /// https://gjs-docs.gnome.org/clutter10~10_api/clutter.shadereffect
-var ColorEffect = new GObject.registerClass({
+export var ColorEffect = new GObject.registerClass({
     GTypeName: "ColorEffect",
     Properties: {
         'red': GObject.ParamSpec.double(
@@ -67,21 +64,21 @@ var ColorEffect = new GObject.registerClass({
         ),
     }
 }, class ColorShader extends Clutter.ShaderEffect {
-    _init(params) {
+    constructor(params, prefs) {        
+        // initialize without color as a parameter
+
+        let _color = params.color;
+        delete params.color;
+
+        super(params);
+        
         this._red = null;
         this._green = null;
         this._blue = null;
         this._blend = null;
 
         this._static = true;
-        this._prefs = new Prefs(Keys);
-
-        // initialize without color as a parameter
-
-        let _color = params.color;
-        delete params.color;
-
-        super._init(params);
+        this._prefs = prefs;
 
         // set shader source
 
