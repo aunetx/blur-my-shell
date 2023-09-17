@@ -1,12 +1,11 @@
 'use strict';
 
-const { Gio, GLib } = imports.gi;
+import GLib from 'gi://GLib';
+
 const Signals = imports.signals;
 
-const ExtensionUtils = imports.misc.extensionUtils;
-
 /// An enum non-extensively describing the type of gsettings key.
-var Type = {
+export var Type = {
     B: 'Boolean',
     I: 'Integer',
     D: 'Double',
@@ -26,9 +25,9 @@ var Type = {
 ///
 /// Each {type, name} object represents a gsettings key, which must be created
 /// in the gschemas.xml file of the extension.
-var Prefs = class Prefs {
-    constructor(keys) {
-        let settings = this.settings = ExtensionUtils.getSettings();
+export var Prefs = class Prefs {
+    constructor(keys, settings) {
+        this.settings = settings;
         this.keys = keys;
 
         this.keys.forEach(bundle => {

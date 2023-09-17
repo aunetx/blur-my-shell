@@ -1,21 +1,21 @@
 'use strict';
 
-const { Gio, GLib } = imports.gi;
-const Main = imports.ui.main;
-const LookingGlass = imports.ui.lookingGlass;
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as LookingGlass from 'resource:///org/gnome/shell/ui/lookingGlass.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-
+const decoder = new TextDecoder();
 const load_file = path => {
     const [, buffer] = GLib.file_get_contents(path);
-    const contents = imports.byteArray.toString(buffer);
+    const contents = decoder.decode(buffer);
     GLib.free(buffer);
     return contents;
 };
 
-const iface = load_file(Me.dir.get_path() + '/dbus/iface.xml');
+const iface = load_file(GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'iface.xml', GLib.UriFlags.NONE))[0]);
 
-var ApplicationsService = class ApplicationsService {
+export var ApplicationsService = class ApplicationsService {
     constructor() {
         this.DBusImpl = Gio.DBusExportedObject.wrapJSObject(iface, this);
     }

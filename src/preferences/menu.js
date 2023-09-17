@@ -1,15 +1,16 @@
 'use strict';
 
-const { Gdk, Gtk, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Gdk from 'gi://Gdk';
+import Gtk from 'gi://Gtk';
+import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
 
-const Me = ExtensionUtils.getCurrentExtension();
 
-function addMenu(window) {
+export function addMenu(window) {
     const builder = new Gtk.Builder();
 
     // add a dummy page and remove it immediately, to access headerbar
-    builder.add_from_file(`${Me.path}/ui/menu.ui`);
+    builder.add_from_file(GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, '../ui/menu.ui', GLib.UriFlags.NONE))[0]);
     let menu_util = builder.get_object('menu_util');
     window.add(menu_util);
     try {

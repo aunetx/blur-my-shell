@@ -1,12 +1,9 @@
 'use strict';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const { Type } = Me.imports.conveniences.settings;
+import { Type } from './settings.js';
 
 // This lists the preferences keys
-var Keys = [
+export var Keys = [
     {
         component: "general", schemas: [
             { type: Type.I, name: "sigma" },

@@ -1,9 +1,9 @@
 'use strict';
 
-const GObject = imports.gi.GObject;
+import GObject from 'gi://GObject';
 
 /// An object to easily manage signals.
-var Connections = class Connections {
+export var Connections = class Connections {
     constructor() {
         this.buffer = [];
     }

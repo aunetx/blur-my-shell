@@ -1,14 +1,14 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
 
-
-var Dash = GObject.registerClass({
+export var Dash = GObject.registerClass({
     GTypeName: 'Dash',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'dash.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/dash.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
         'customize',
@@ -40,6 +40,6 @@ var Dash = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._customize.connect_to(this.preferences.dash_to_dock, false);
+        this._customize.connect_to(this.preferences, this.preferences.dash_to_dock, false);
     }
 });

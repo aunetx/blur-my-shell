@@ -1,22 +1,23 @@
 'use strict';
 
-const { St, Shell, Gio, Gtk, Meta, Clutter } = imports.gi;
-const Main = imports.ui.main;
+import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const { Connections } = Me.imports.conveniences.connections;
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import { Connections } from './conveniences/connections.js';
+import { Prefs } from './conveniences/settings.js';
+import { Keys } from './conveniences/keys.js';
 
-const Panel = Me.imports.components.panel;
-const Overview = Me.imports.components.overview;
-const DashToDock = Me.imports.components.dash_to_dock;
-const Lockscreen = Me.imports.components.lockscreen;
-const AppFolders = Me.imports.components.appfolders;
-const WindowList = Me.imports.components.window_list;
-const Applications = Me.imports.components.applications;
-const Screenshot = Me.imports.components.screenshot;
+import { PanelBlur } from './components/panel.js';
+import { OverviewBlur } from './components/overview.js';
+import { DashBlur } from './components/dash_to_dock.js';
+import { LockscreenBlur } from './components/lockscreen.js';
+import { AppFoldersBlur } from './components/appfolders.js';
+import { WindowListBlur } from './components/window_list.js';
+import { ApplicationsBlur } from './components/applications.js';
+import { ScreenshotBlur } from './components/screenshot.js';
 
 // This lists the components that need to be connected in order to either use
 // general sigma/brightness or their own.
@@ -27,9 +28,7 @@ const INDEPENDENT_COMPONENTS = [
 
 
 /// The main extension class, created when the GNOME Shell is loaded.
-class Extension {
-    constructor() { }
-
+export default class BlurMyShell extends Extension {
     /// Enables the extension
     enable() {
         // add the extension to global to make it accessible to other extensions
@@ -40,7 +39,7 @@ class Extension {
         // create a Prefs instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
 
-        this._prefs = new Prefs(Keys);
+        this._prefs = new Prefs(Keys, this.getSettings());
 
         this._log("enabling extension...");
 
@@ -64,14 +63,14 @@ class Extension {
             return [connection, this._prefs];
         };
 
-        this._panel_blur = new Panel.PanelBlur(...init());
-        this._dash_to_dock_blur = new DashToDock.DashBlur(...init());
-        this._overview_blur = new Overview.OverviewBlur(...init());
-        this._lockscreen_blur = new Lockscreen.LockscreenBlur(...init());
-        this._appfolder_blur = new AppFolders.AppFoldersBlur(...init());
-        this._window_list_blur = new WindowList.WindowListBlur(...init());
-        this._applications_blur = new Applications.ApplicationsBlur(...init());
-        this._screenshot_blur = new Screenshot.ScreenshotBlur(...init());
+        this._panel_blur = new PanelBlur(...init());
+        this._dash_to_dock_blur = new DashBlur(...init());
+        this._overview_blur = new OverviewBlur(...init());
+        this._lockscreen_blur = new LockscreenBlur(...init());
+        this._appfolder_blur = new AppFoldersBlur(...init());
+        this._window_list_blur = new WindowListBlur(...init());
+        this._applications_blur = new ApplicationsBlur(...init());
+        this._screenshot_blur = new ScreenshotBlur(...init());
 
         // maybe disable clipped redraw
 
@@ -642,10 +641,4 @@ class Extension {
         if (this._prefs.DEBUG)
             log(`[Blur my Shell > extension]    ${str}`);
     }
-}
-
-
-// Called on gnome-shell loading, even if extension is deactivated
-function init() {
-    return new Extension();
 }

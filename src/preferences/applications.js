@@ -1,10 +1,11 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { WindowRow } = Me.imports.preferences.window_row;
+import { WindowRow } from './window_row.js';
 
 
 const make_array = prefs_group => {
@@ -26,9 +27,9 @@ const make_array = prefs_group => {
 };
 
 
-var Applications = GObject.registerClass({
+export var Applications = GObject.registerClass({
     GTypeName: 'Applications',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'applications.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/applications.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
         'customize',
@@ -64,7 +65,7 @@ var Applications = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._customize.connect_to(this.preferences.applications, false);
+        this._customize.connect_to(this.preferences, this.preferences.applications, false);
 
         // connect 'enable all' button to whitelist/blacklist visibility
         this._enable_all.bind_property(
