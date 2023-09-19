@@ -1,14 +1,14 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
 
-
-var Panel = GObject.registerClass({
+export var Panel = GObject.registerClass({
     GTypeName: 'Panel',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'panel.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/panel.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
         'customize',
@@ -27,15 +27,15 @@ var Panel = GObject.registerClass({
         this.preferences = preferences;
 
         this.preferences.panel.settings.bind(
-            'blur', this._blur, 'state',
+            'blur', this._blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(
-            'static-blur', this._static_blur, 'state',
+            'static-blur', this._static_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(
-            'unblur-in-overview', this._unblur_in_overview, 'state',
+            'unblur-in-overview', this._unblur_in_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(
@@ -49,18 +49,18 @@ var Panel = GObject.registerClass({
         );
         this.preferences.panel.settings.bind(
             'override-background-dynamically',
-            this._override_background_dynamically, 'state',
+            this._override_background_dynamically, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._customize.connect_to(this.preferences.panel, this._static_blur);
+        this._customize.connect_to(this.preferences, this.preferences.panel, this._static_blur);
 
         this.preferences.hidetopbar.settings.bind(
-            'compatibility', this._hidetopbar_compatibility, 'state',
+            'compatibility', this._hidetopbar_compatibility, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_panel.settings.bind(
-            'blur-original-panel', this._dtp_blur_original_panel, 'state',
+            'blur-original-panel', this._dtp_blur_original_panel, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
     }

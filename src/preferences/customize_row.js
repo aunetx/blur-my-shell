@@ -1,11 +1,10 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio, Gtk } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
+import Gtk from 'gi://Gtk';
 
 
 /// Given a component (described by its preferences node), a gschema key and
@@ -32,9 +31,9 @@ let bind_color = function (component, key, widget) {
     parse_color();
 };
 
-var CustomizeRow = GObject.registerClass({
+export var CustomizeRow = GObject.registerClass({
     GTypeName: 'CustomizeRow',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'customize-row.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/customize-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'sigma',
         'brightness',
@@ -57,7 +56,7 @@ var CustomizeRow = GObject.registerClass({
     /// a widget; and permits selecting weather or not we want to show the color
     /// and noise buttons to the user. If it is a widget, it means we need to
     /// dynamically update their visibility, according to the widget's state.
-    connect_to(component_prefs, color_and_noise = true) {
+    connect_to(prefs, component_prefs, color_and_noise = true) {
         let s = component_prefs.settings;
 
         // is not fired if in General page
@@ -101,26 +100,26 @@ var CustomizeRow = GObject.registerClass({
             if (color_and_noise instanceof Gtk.Switch) {
                 // bind its state to dynamically toggle the notice and rows
                 color_and_noise.bind_property(
-                    'state', this._color_row, 'visible',
+                    'active', this._color_row, 'visible',
                     GObject.BindingFlags.SYNC_CREATE
                 );
                 color_and_noise.bind_property(
-                    'state', this._noise_amount_row, 'visible',
+                    'active', this._noise_amount_row, 'visible',
                     GObject.BindingFlags.SYNC_CREATE
                 );
                 color_and_noise.bind_property(
-                    'state', this._noise_lightness_row, 'visible',
+                    'active', this._noise_lightness_row, 'visible',
                     GObject.BindingFlags.SYNC_CREATE
                 );
                 color_and_noise.bind_property(
-                    'state', this._noise_color_notice, 'visible',
+                    'active', this._noise_color_notice, 'visible',
                     GObject.BindingFlags.INVERT_BOOLEAN
                 );
 
                 // only way to get the correct state when first opening the
                 // window...
                 setTimeout(_ => {
-                    let is_visible = color_and_noise.state;
+                    let is_visible = color_and_noise.active;
                     this._color_row.visible = is_visible;
                     this._noise_amount_row.visible = is_visible;
                     this._noise_lightness_row.visible = is_visible;
@@ -141,25 +140,23 @@ var CustomizeRow = GObject.registerClass({
             this._noise_color_notice.visible = true;
         }
 
-        const Preferences = new Prefs(Keys);
-
         // now we bind the color-and-noise preference to the sensitivity of the
         // associated widgets, this will grey them out if the user choose not to
         // have color and noise enabled
         // note: I would love to bind to the visibility instead, but this part
         //       is already dirty enough, it would look like I obfuscate my code
         //       intentionally... (I am not)
-        Preferences.settings.bind(
+        prefs.settings.bind(
             'color-and-noise',
             this._color_row, 'sensitive',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.settings.bind(
+        prefs.settings.bind(
             'color-and-noise',
             this._noise_amount_row, 'sensitive',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.settings.bind(
+        prefs.settings.bind(
             'color-and-noise',
             this._noise_lightness_row, 'sensitive',
             Gio.SettingsBindFlags.DEFAULT

@@ -1,10 +1,10 @@
 'use strict';
 
-const { Shell, GLib, Clutter } = imports.gi;
-const Main = imports.ui.main;
+import Shell from 'gi://Shell';
+import Clutter from 'gi://Clutter';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const { PaintSignals } = Me.imports.effects.paint_signals;
+import { PaintSignals } from '../effects/paint_signals.js';
 const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
@@ -123,7 +123,7 @@ let _zoomAndFadeOut = function () {
 };
 
 
-var AppFoldersBlur = class AppFoldersBlur {
+export var AppFoldersBlur = class AppFoldersBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.paint_signals = new PaintSignals(connections);
