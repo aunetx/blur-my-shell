@@ -166,13 +166,16 @@ export var OverviewBlur = class OverviewBlur {
     }
 
     create_background_actor(monitor) {
-        let bg_actor = new Meta.BackgroundActor;
+        let bg_actor = new Meta.BackgroundActor({
+            meta_display: global.display,
+            monitor: monitor.index
+        });
         let background_group = Main.layoutManager._backgroundGroup
             .get_children()
             .filter((child) => child instanceof Meta.BackgroundActor);
         let background =
             background_group[
-            Main.layoutManager.monitors.length - monitor.index - 1
+                Main.layoutManager.monitors.length - monitor.index - 1
             ];
 
         if (!background) {
@@ -180,7 +183,9 @@ export var OverviewBlur = class OverviewBlur {
             return bg_actor;
         }
 
-        bg_actor.set_content(background.get_content());
+        bg_actor.content.set({
+            background: background.get_content().background
+        });
 
         let blur_effect = new Shell.BlurEffect({
             brightness: this.prefs.overview.CUSTOMIZE

@@ -156,7 +156,10 @@ export var PanelBlur = class PanelBlur {
         });
 
         let background = this.prefs.panel.STATIC_BLUR
-            ? new Meta.BackgroundActor
+            ? new Meta.BackgroundActor({
+                meta_display: global.display,
+                monitor: monitor.index
+            })
             : new St.Widget;
 
         background_parent.add_child(background);
@@ -244,7 +247,10 @@ export var PanelBlur = class PanelBlur {
 
         // create new background actor
         actors.widgets.background = is_static
-            ? new Meta.BackgroundActor
+            ? new Meta.BackgroundActor({
+                meta_display: global.display,
+                monitor: this.find_monitor_for(actors.widgets.panel).index
+            })
             : new St.Widget;
 
         // change blur mode
@@ -316,7 +322,9 @@ export var PanelBlur = class PanelBlur {
                 - this.find_monitor_for(actors.widgets.panel).index - 1
             );
             if (bg)
-                actors.widgets.background.set_content(bg.get_content());
+                actors.widgets.background.content.set({
+                    background: bg.get_content().background
+                });
             else
                 this._log("could not get background for panel");
         }
