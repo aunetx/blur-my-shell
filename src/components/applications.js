@@ -1,5 +1,3 @@
-'use strict';
-
 import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
@@ -8,10 +6,10 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { PaintSignals } from '../effects/paint_signals.js';
 import { ApplicationsService } from '../dbus/services.js';
 
-export var ApplicationsBlur = class ApplicationsBlur {
-    constructor(connections, prefs) {
+export const ApplicationsBlur = class ApplicationsBlur {
+    constructor(connections, settings) {
         this.connections = connections;
-        this.prefs = prefs;
+        this.settings = settings;
         this.paint_signals = new PaintSignals(connections);
 
         // stores every blurred window
@@ -52,7 +50,7 @@ export var ApplicationsBlur = class ApplicationsBlur {
     connect_to_overview() {
         this.connections.disconnect_all_for(Main.overview);
 
-        if (this.prefs.applications.BLUR_ON_OVERVIEW) {
+        if (this.settings.applications.BLUR_ON_OVERVIEW) {
             // when the overview is opened, show every window actors (which
             // allows the blur to be shown too)
             this.connections.connect(
@@ -168,9 +166,9 @@ export var ApplicationsBlur = class ApplicationsBlur {
         let mutter_hint = meta_window.get_mutter_hints();
         let window_wm_class = meta_window.get_wm_class();
 
-        let enable_all = this.prefs.applications.ENABLE_ALL;
-        let whitelist = this.prefs.applications.WHITELIST;
-        let blacklist = this.prefs.applications.BLACKLIST;
+        let enable_all = this.settings.applications.ENABLE_ALL;
+        let whitelist = this.settings.applications.WHITELIST;
+        let blacklist = this.settings.applications.BLACKLIST;
 
         this._log(`checking blur for ${pid}`);
 
@@ -191,12 +189,12 @@ export var ApplicationsBlur = class ApplicationsBlur {
 
             let brightness, sigma;
 
-            if (this.prefs.applications.CUSTOMIZE) {
-                brightness = this.prefs.applications.BRIGHTNESS;
-                sigma = this.prefs.applications.SIGMA;
+            if (this.settings.applications.CUSTOMIZE) {
+                brightness = this.settings.applications.BRIGHTNESS;
+                sigma = this.settings.applications.SIGMA;
             } else {
-                brightness = this.prefs.BRIGHTNESS;
-                sigma = this.prefs.SIGMA;
+                brightness = this.settings.BRIGHTNESS;
+                sigma = this.settings.SIGMA;
             }
 
             this.update_blur(pid, window_actor, meta_window, brightness, sigma);
@@ -244,12 +242,12 @@ export var ApplicationsBlur = class ApplicationsBlur {
     parse_xprop(property) {
         // set brightness and sigma to default values
         let brightness, sigma;
-        if (this.prefs.applications.CUSTOMIZE) {
-            brightness = this.prefs.applications.BRIGHTNESS;
-            sigma = this.prefs.applications.SIGMA;
+        if (this.settings.applications.CUSTOMIZE) {
+            brightness = this.settings.applications.BRIGHTNESS;
+            sigma = this.settings.applications.SIGMA;
         } else {
-            brightness = this.prefs.BRIGHTNESS;
-            sigma = this.prefs.SIGMA;
+            brightness = this.settings.BRIGHTNESS;
+            sigma = this.settings.SIGMA;
         }
 
         // get the argument of the property
@@ -338,7 +336,7 @@ export var ApplicationsBlur = class ApplicationsBlur {
         );
 
         // if hacks are selected, force to repaint the window
-        if (this.prefs.HACKS_LEVEL === 1 || this.prefs.HACKS_LEVEL === 2) {
+        if (this.settings.HACKS_LEVEL === 1 || this.settings.HACKS_LEVEL === 2) {
             this._log("applications hack level 1 or 2");
 
             this.paint_signals.disconnect_all();
@@ -351,11 +349,11 @@ export var ApplicationsBlur = class ApplicationsBlur {
         window_actor.insert_child_at_index(blur_actor, 0);
 
         // make sure window is blurred in overview
-        if (this.prefs.applications.BLUR_ON_OVERVIEW)
+        if (this.settings.applications.BLUR_ON_OVERVIEW)
             this.enforce_window_visibility_on_overview_for(window_actor);
 
         // set the window actor's opacity
-        this.set_window_opacity(window_actor, this.prefs.applications.OPACITY);
+        this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
 
         // register the blur actor/effect
         blur_actor['blur_provider_pid'] = pid;
@@ -389,7 +387,7 @@ export var ApplicationsBlur = class ApplicationsBlur {
     enforce_window_visibility_on_overview_for(window_actor) {
         this.connections.connect(window_actor, 'notify::visible',
             _ => {
-                if (this.prefs.applications.BLUR_ON_OVERVIEW) {
+                if (this.settings.applications.BLUR_ON_OVERVIEW) {
                     if (
                         !window_actor.visible
                         && Main.overview.visible
@@ -505,7 +503,7 @@ export var ApplicationsBlur = class ApplicationsBlur {
 
     /// Update the opacity of all window actors.
     set_opacity() {
-        let opacity = this.prefs.applications.OPACITY;
+        let opacity = this.settings.applications.OPACITY;
 
         this.window_map.forEach(((meta_window, _pid) => {
             let window_actor = meta_window.get_compositor_private();
@@ -536,7 +534,7 @@ export var ApplicationsBlur = class ApplicationsBlur {
     set_noise_lightness(l) { }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > applications] ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > applications] ${str}`);
     }
 };

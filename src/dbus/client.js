@@ -1,5 +1,3 @@
-'use strict';
-
 import Gio from 'gi://Gio';
 
 const bus_name = 'org.gnome.Shell';

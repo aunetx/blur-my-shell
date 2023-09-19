@@ -1,5 +1,3 @@
-'use strict';
-
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
@@ -8,7 +6,7 @@ import Gio from 'gi://Gio';
 import { CustomizeRow } from './customize_row.js';
 
 
-export var General = GObject.registerClass({
+export const General = GObject.registerClass({
     GTypeName: 'General',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/general.ui', GLib.UriFlags.NONE),
     InternalChildren: [

@@ -1,22 +1,19 @@
-'use strict';
-
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as LookingGlass from 'resource:///org/gnome/shell/ui/lookingGlass.js';
 
-const decoder = new TextDecoder();
-const load_file = path => {
-    const [, buffer] = GLib.file_get_contents(path);
-    const contents = decoder.decode(buffer);
-    GLib.free(buffer);
-    return contents;
-};
 
-const iface = load_file(GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'iface.xml', GLib.UriFlags.NONE))[0]);
-
-export var ApplicationsService = class ApplicationsService {
+export const ApplicationsService = class ApplicationsService {
     constructor() {
+        let decoder = new TextDecoder();
+        let path = GLib.filename_from_uri(GLib.uri_resolve_relative(
+            import.meta.url, 'iface.xml', GLib.UriFlags.NONE)
+        )[0];
+        let [, buffer] = GLib.file_get_contents(path);
+        let iface = decoder.decode(buffer);
+        GLib.free(buffer);
+
         this.DBusImpl = Gio.DBusExportedObject.wrapJSObject(iface, this);
     }
 
@@ -85,7 +82,7 @@ export var ApplicationsService = class ApplicationsService {
             Gio.DBus.session,
             '/dev/aunetx/BlurMyShell'
         );
-    }
+    };
 
     unexport() {
         this.DBusImpl.unexport();

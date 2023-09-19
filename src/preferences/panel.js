@@ -1,12 +1,10 @@
-'use strict';
-
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
 
-export var Panel = GObject.registerClass({
+export const Panel = GObject.registerClass({
     GTypeName: 'Panel',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/panel.ui', GLib.UriFlags.NONE),
     InternalChildren: [

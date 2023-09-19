@@ -1,12 +1,10 @@
-'use strict';
-
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
 
-export var Dash = GObject.registerClass({
+export const Dash = GObject.registerClass({
     GTypeName: 'Dash',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/dash.ui', GLib.UriFlags.NONE),
     InternalChildren: [

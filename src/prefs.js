@@ -1,10 +1,8 @@
-'use strict';
-
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-import { Prefs } from './conveniences/settings.js';
+import { Settings } from './conveniences/settings.js';
 import { Keys } from './conveniences/keys.js';
 
 import { addMenu } from './preferences/menu.js';
@@ -29,7 +27,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         addMenu(window);
 
-        const preferences = new Prefs(Keys, this.getSettings());
+        const preferences = new Settings(Keys, this.getSettings());
 
         window.add(new General(preferences));
         window.add(new Panel(preferences));

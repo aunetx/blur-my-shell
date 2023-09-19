@@ -1,5 +1,3 @@
-'use strict';
-
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
@@ -13,7 +11,7 @@ const get_shader_source = _ => {
     try {
         return Shell.get_file_contents_utf8_sync(SHADER_PATH);
     } catch (e) {
-        log(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
+        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
         return null;
     }
 };
@@ -27,7 +25,7 @@ const get_shader_source = _ => {
 ///
 /// GJS Doc:
 /// https://gjs-docs.gnome.org/clutter10~10_api/clutter.shadereffect
-export var ColorEffect = new GObject.registerClass({
+export const ColorEffect = new GObject.registerClass({
     GTypeName: "ColorEffect",
     Properties: {
         'red': GObject.ParamSpec.double(
@@ -64,21 +62,21 @@ export var ColorEffect = new GObject.registerClass({
         ),
     }
 }, class ColorShader extends Clutter.ShaderEffect {
-    constructor(params, prefs) {        
+    constructor(params, settings) {
         // initialize without color as a parameter
 
         let _color = params.color;
         delete params.color;
 
         super(params);
-        
+
         this._red = null;
         this._green = null;
         this._blue = null;
         this._blend = null;
 
         this._static = true;
-        this._prefs = prefs;
+        this._settings = settings;
 
         // set shader source
 
@@ -164,7 +162,7 @@ export var ColorEffect = new GObject.registerClass({
     update_enabled() {
         this.set_enabled(
             this.blend > 0 &&
-            this._prefs.COLOR_AND_NOISE &&
+            this._settings.COLOR_AND_NOISE &&
             this._static
         );
     }

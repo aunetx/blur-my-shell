@@ -1,5 +1,3 @@
-'use strict';
-
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
@@ -10,7 +8,7 @@ import { pick, on_picking, on_picked } from '../dbus/client.js';
 
 
 
-export var WindowRow = GObject.registerClass({
+export const WindowRow = GObject.registerClass({
     GTypeName: 'WindowRow',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/window-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
@@ -99,7 +97,7 @@ export var WindowRow = GObject.registerClass({
         on_picked(wm_class => {
             if (should_take_answer) {
                 if (wm_class == 'window-not-found') {
-                    log("Can't pick window from here");
+                    console.warn("Can't pick window from here");
                     return;
                 }
                 this._window_class.buffer.text = wm_class;

@@ -1,5 +1,3 @@
-'use strict';
-
 import St from 'gi://St';
 import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -19,14 +17,14 @@ const DASH_STYLES = [
 ///
 /// This allows to dynamically track the created dashes for each screen.
 class DashInfos {
-    constructor(dash_blur, dash, background_parent, effect, prefs) {
+    constructor(dash_blur, dash, background_parent, effect, settings) {
         // the parent DashBlur object, to communicate
         this.dash_blur = dash_blur;
         // the blurred dash
         this.dash = dash;
         this.background_parent = background_parent;
         this.effect = effect;
-        this.prefs = prefs;
+        this.settings = settings;
         this.old_style = this.dash._background.style;
 
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
@@ -55,7 +53,7 @@ class DashInfos {
             );
 
             this.dash.set_style_class_name(
-                DASH_STYLES[this.prefs.dash_to_dock.STYLE_DASH_TO_DOCK]
+                DASH_STYLES[this.settings.dash_to_dock.STYLE_DASH_TO_DOCK]
             );
         });
 
@@ -77,23 +75,23 @@ class DashInfos {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > dash]         ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > dash]         ${str}`);
     }
 }
 
-export var DashBlur = class DashBlur {
-    constructor(connections, prefs) {
+export const DashBlur = class DashBlur {
+    constructor(connections, settings) {
         this.dashes = [];
         this.connections = connections;
-        this.prefs = prefs;
+        this.settings = settings;
         this.paint_signals = new PaintSignals(connections);
-        this.sigma = this.prefs.dash_to_dock.CUSTOMIZE
-            ? this.prefs.dash_to_dock.SIGMA
-            : this.prefs.SIGMA;
-        this.brightness = this.prefs.dash_to_dock.CUSTOMIZE
-            ? this.prefs.dash_to_dock.BRIGHTNESS
-            : this.prefs.BRIGHTNESS;
+        this.sigma = this.settings.dash_to_dock.CUSTOMIZE
+            ? this.settings.dash_to_dock.SIGMA
+            : this.settings.SIGMA;
+        this.brightness = this.settings.dash_to_dock.CUSTOMIZE
+            ? this.settings.dash_to_dock.BRIGHTNESS
+            : this.settings.BRIGHTNESS;
         this.enabled = false;
     }
 
@@ -196,7 +194,7 @@ export var DashBlur = class DashBlur {
         //
         // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-        if (this.prefs.HACKS_LEVEL === 1) {
+        if (this.settings.HACKS_LEVEL === 1) {
             this._log("dash hack level 1");
             this.paint_signals.disconnect_all();
 
@@ -212,7 +210,7 @@ export var DashBlur = class DashBlur {
                         'enter-event', 'leave-event', 'button-press-event'
                     ], rp);
                 } catch (e) {
-                    this._log(`${e}, continuing`);
+                    this._warn(`${e}, continuing`);
                 }
             });
 
@@ -224,7 +222,7 @@ export var DashBlur = class DashBlur {
                         'enter-event', 'leave-event', 'button-press-event'
                     ], rp);
                 } catch (e) {
-                    this._log(`${e}, continuing`);
+                    this._warn(`${e}, continuing`);
                 }
             });
 
@@ -235,7 +233,7 @@ export var DashBlur = class DashBlur {
             ], rp);
 
             this.connections.connect(dash, 'leave-event', rp);
-        } else if (this.prefs.HACKS_LEVEL === 2) {
+        } else if (this.settings.HACKS_LEVEL === 2) {
             this._log("dash hack level 2");
 
             this.paint_signals.connect(background, effect);
@@ -245,7 +243,7 @@ export var DashBlur = class DashBlur {
 
         // create infos
         let infos = new DashInfos(
-            this, dash, background_parent, effect, this.prefs
+            this, dash, background_parent, effect, this.settings
         );
 
         // update the background
@@ -259,7 +257,7 @@ export var DashBlur = class DashBlur {
     connect_to_overview() {
         this.connections.disconnect_all_for(Main.overview);
 
-        if (this.prefs.dash_to_dock.UNBLUR_IN_OVERVIEW) {
+        if (this.settings.dash_to_dock.UNBLUR_IN_OVERVIEW) {
             this.connections.connect(
                 Main.overview, 'showing', this.hide.bind(this)
             );
@@ -272,7 +270,7 @@ export var DashBlur = class DashBlur {
     /// Updates the background to either remove it or not, according to the
     /// user preferences.
     update_background() {
-        if (this.prefs.dash_to_dock.OVERRIDE_BACKGROUND)
+        if (this.settings.dash_to_dock.OVERRIDE_BACKGROUND)
             this.emit('override-background', true);
         else
             this.emit('reset-background', true);
@@ -312,8 +310,12 @@ export var DashBlur = class DashBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > dash manager] ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > dash manager] ${str}`);
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > dash manager] ${str}`);
     }
 };
 

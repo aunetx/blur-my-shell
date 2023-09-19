@@ -1,14 +1,12 @@
-'use strict';
-
 import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
 
-export var WindowListBlur = class WindowListBlur {
-    constructor(connections, prefs) {
+export const WindowListBlur = class WindowListBlur {
+    constructor(connections, settings) {
         this.connections = connections;
-        this.prefs = prefs;
+        this.settings = settings;
         this.paint_signals = new PaintSignals(connections);
         this.effects = [];
     }
@@ -47,12 +45,12 @@ export var WindowListBlur = class WindowListBlur {
 
             let blur_effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
-                sigma: this.prefs.window_list.CUSTOMIZE
-                    ? this.prefs.window_list.SIGMA
-                    : this.prefs.SIGMA,
-                brightness: this.prefs.window_list.CUSTOMIZE
-                    ? this.prefs.window_list.BRIGHTNESS
-                    : this.prefs.BRIGHTNESS,
+                sigma: this.settings.window_list.CUSTOMIZE
+                    ? this.settings.window_list.SIGMA
+                    : this.settings.SIGMA,
+                brightness: this.settings.window_list.CUSTOMIZE
+                    ? this.settings.window_list.BRIGHTNESS
+                    : this.settings.BRIGHTNESS,
                 mode: Shell.BlurMode.BACKGROUND
             });
 
@@ -81,12 +79,12 @@ export var WindowListBlur = class WindowListBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.prefs.HACKS_LEVEL === 1) {
+            if (this.settings.HACKS_LEVEL === 1) {
                 this._log("window list hack level 1");
 
                 this.paint_signals.connect(child, blur_effect);
 
-            } else if (this.prefs.HACKS_LEVEL === 2) {
+            } else if (this.settings.HACKS_LEVEL === 2) {
                 this._log("window list hack level 2");
 
                 this.paint_signals.connect(child, blur_effect);
@@ -139,9 +137,9 @@ export var WindowListBlur = class WindowListBlur {
 
     show() {
         this.set_sigma(
-            this.prefs.window_list.CUSTOMIZE
-                ? this.prefs.window_list.SIGMA
-                : this.prefs.SIGMA
+            this.settings.window_list.CUSTOMIZE
+                ? this.settings.window_list.SIGMA
+                : this.settings.SIGMA
         );
     }
 
@@ -157,7 +155,7 @@ export var WindowListBlur = class WindowListBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > window list]  ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > window list]  ${str}`);
     }
 };

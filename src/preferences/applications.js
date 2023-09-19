@@ -1,5 +1,3 @@
-'use strict';
-
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
@@ -27,7 +25,7 @@ const make_array = prefs_group => {
 };
 
 
-export var Applications = GObject.registerClass({
+export const Applications = GObject.registerClass({
     GTypeName: 'Applications',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/applications.ui', GLib.UriFlags.NONE),
     InternalChildren: [

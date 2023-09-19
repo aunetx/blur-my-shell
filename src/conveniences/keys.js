@@ -1,9 +1,7 @@
-'use strict';
-
 import { Type } from './settings.js';
 
 // This lists the preferences keys
-export var Keys = [
+export const Keys = [
     {
         component: "general", schemas: [
             { type: Type.I, name: "sigma" },
