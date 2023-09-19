@@ -1,5 +1,3 @@
-'use strict';
-
 import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -8,11 +6,11 @@ import { ColorEffect } from '../effects/color_effect.js';
 import { NoiseEffect } from '../effects/noise_effect.js';
 
 
-export var ScreenshotBlur = class ScreenshotBlur {
-    constructor(connections, prefs) {
+export const ScreenshotBlur = class ScreenshotBlur {
+    constructor(connections, settings) {
         this.connections = connections;
         this.effects = [];
-        this.prefs = prefs;
+        this.settings = settings;
     }
 
     enable() {
@@ -74,7 +72,7 @@ export var ScreenshotBlur = class ScreenshotBlur {
         );
 
         if (!background) {
-            this._log("could not get background for screenshot's window selector");
+            this._warn("could not get background for screenshot's window selector");
             return bg_actor;
         }
 
@@ -83,12 +81,12 @@ export var ScreenshotBlur = class ScreenshotBlur {
         });
 
         let blur_effect = new Shell.BlurEffect({
-            brightness: this.prefs.screenshot.CUSTOMIZE
-                ? this.prefs.screenshot.BRIGHTNESS
-                : this.prefs.BRIGHTNESS,
-            sigma: this.prefs.screenshot.CUSTOMIZE
-                ? this.prefs.screenshot.SIGMA
-                : this.prefs.SIGMA
+            brightness: this.settings.screenshot.CUSTOMIZE
+                ? this.settings.screenshot.BRIGHTNESS
+                : this.settings.BRIGHTNESS,
+            sigma: this.settings.screenshot.CUSTOMIZE
+                ? this.settings.screenshot.SIGMA
+                : this.settings.SIGMA
                 * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
@@ -97,19 +95,19 @@ export var ScreenshotBlur = class ScreenshotBlur {
         blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = new ColorEffect({
-            color: this.prefs.screenshot.CUSTOMIZE
-                ? this.prefs.screenshot.COLOR
-                : this.prefs.COLOR
-        }, this.prefs);
+            color: this.settings.screenshot.CUSTOMIZE
+                ? this.settings.screenshot.COLOR
+                : this.settings.COLOR
+        }, this.settings);
 
         let noise_effect = new NoiseEffect({
-            noise: this.prefs.screenshot.CUSTOMIZE
-                ? this.prefs.screenshot.NOISE_AMOUNT
-                : this.prefs.NOISE_AMOUNT,
-            lightness: this.prefs.screenshot.CUSTOMIZE
-                ? this.prefs.screenshot.NOISE_LIGHTNESS
-                : this.prefs.NOISE_LIGHTNESS
-        }, this.prefs);
+            noise: this.settings.screenshot.CUSTOMIZE
+                ? this.settings.screenshot.NOISE_AMOUNT
+                : this.settings.NOISE_AMOUNT,
+            lightness: this.settings.screenshot.CUSTOMIZE
+                ? this.settings.screenshot.NOISE_LIGHTNESS
+                : this.settings.NOISE_LIGHTNESS
+        }, this.settings);
 
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);
@@ -165,7 +163,11 @@ export var ScreenshotBlur = class ScreenshotBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > screenshot]   ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > screenshot]   ${str}`);
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > screenshot]   ${str}`);
     }
 };

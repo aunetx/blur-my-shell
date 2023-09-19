@@ -1,5 +1,3 @@
-'use strict';
-
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
@@ -12,12 +10,12 @@ const get_shader_source = _ => {
     try {
         return Shell.get_file_contents_utf8_sync(SHADER_PATH);
     } catch (e) {
-        log(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
+        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
         return null;
     }
 };
 
-export var NoiseEffect = new GObject.registerClass({
+export const NoiseEffect = new GObject.registerClass({
     GTypeName: "NoiseEffect",
     Properties: {
         'noise': GObject.ParamSpec.double(
@@ -38,14 +36,14 @@ export var NoiseEffect = new GObject.registerClass({
         ),
     }
 }, class NoiseShader extends Clutter.ShaderEffect {
-    constructor(params, prefs) {
+    constructor(params, settings) {
         super(params);
 
         this._noise = null;
         this._lightness = null;
 
         this._static = true;
-        this._prefs = prefs;
+        this._settings = settings;
 
         // set shader source
         this._source = get_shader_source();
@@ -83,7 +81,7 @@ export var NoiseEffect = new GObject.registerClass({
     update_enabled() {
         this.set_enabled(
             this.noise > 0 &&
-            this._prefs.COLOR_AND_NOISE &&
+            this._settings.COLOR_AND_NOISE &&
             this._static
         );
     }

@@ -1,12 +1,10 @@
-'use strict';
-
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
 
-export var Other = GObject.registerClass({
+export const Other = GObject.registerClass({
     GTypeName: 'Other',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/other.ui', GLib.UriFlags.NONE),
     InternalChildren: [

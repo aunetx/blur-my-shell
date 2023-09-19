@@ -1,5 +1,3 @@
-'use strict';
-
 import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -18,11 +16,11 @@ const OVERVIEW_COMPONENTS_STYLE = [
 ];
 
 
-export var OverviewBlur = class OverviewBlur {
-    constructor(connections, prefs) {
+export const OverviewBlur = class OverviewBlur {
+    constructor(connections, settings) {
         this.connections = connections;
         this.effects = [];
-        this.prefs = prefs;
+        this.settings = settings;
         this._workspace_switch_bg_actors = [];
         this.enabled = false;
     }
@@ -86,7 +84,7 @@ export var OverviewBlur = class OverviewBlur {
                 // this permits to show the blur behind windows that are on
                 // workspaces on the left and right
                 if (
-                    outer_this.prefs.applications.BLUR
+                    outer_this.settings.applications.BLUR
                 ) {
                     let ws_index = w_m.get_active_workspace_index();
                     [ws_index - 1, ws_index + 1].forEach(
@@ -125,7 +123,7 @@ export var OverviewBlur = class OverviewBlur {
 
                 // this hides windows that are not on the current workspace
                 if (
-                    outer_this.prefs.applications.BLUR
+                    outer_this.settings.applications.BLUR
                 )
                     for (let i = 0; i < w_m.get_n_workspaces(); i++) {
                         if (i != w_m.get_active_workspace_index())
@@ -175,11 +173,11 @@ export var OverviewBlur = class OverviewBlur {
             .filter((child) => child instanceof Meta.BackgroundActor);
         let background =
             background_group[
-                Main.layoutManager.monitors.length - monitor.index - 1
+            Main.layoutManager.monitors.length - monitor.index - 1
             ];
 
         if (!background) {
-            this._log("could not get background for overview");
+            this._warn("could not get background for overview");
             return bg_actor;
         }
 
@@ -188,12 +186,12 @@ export var OverviewBlur = class OverviewBlur {
         });
 
         let blur_effect = new Shell.BlurEffect({
-            brightness: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.BRIGHTNESS
-                : this.prefs.BRIGHTNESS,
-            sigma: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.SIGMA
-                : this.prefs.SIGMA
+            brightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.BRIGHTNESS
+                : this.settings.BRIGHTNESS,
+            sigma: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.SIGMA
+                : this.settings.SIGMA
                 * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
@@ -202,19 +200,19 @@ export var OverviewBlur = class OverviewBlur {
         blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = new ColorEffect({
-            color: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.COLOR
-                : this.prefs.COLOR
-        }, this.prefs);
+            color: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.COLOR
+                : this.settings.COLOR
+        }, this.settings);
 
         let noise_effect = new NoiseEffect({
-            noise: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.NOISE_AMOUNT
-                : this.prefs.NOISE_AMOUNT,
-            lightness: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.NOISE_LIGHTNESS
-                : this.prefs.NOISE_LIGHTNESS
-        }, this.prefs);
+            noise: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_AMOUNT
+                : this.settings.NOISE_AMOUNT,
+            lightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_LIGHTNESS
+                : this.settings.NOISE_LIGHTNESS
+        }, this.settings);
 
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);
@@ -235,7 +233,7 @@ export var OverviewBlur = class OverviewBlur {
         );
 
         Main.uiGroup.add_style_class_name(
-            OVERVIEW_COMPONENTS_STYLE[this.prefs.overview.STYLE_COMPONENTS]
+            OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS]
         );
     }
 
@@ -297,7 +295,11 @@ export var OverviewBlur = class OverviewBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > overview]     ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > overview]     ${str}`);
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > overview]     ${str}`);
     }
 };
