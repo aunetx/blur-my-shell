@@ -1,12 +1,14 @@
 'use strict';
 
-const { St, Shell, Meta, Gio, GLib } = imports.gi;
-const Main = imports.ui.main;
+import St from 'gi://St';
+import Shell from 'gi://Shell';
+import Meta from 'gi://Meta';
+import Mtk from 'gi://Mtk';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const { PaintSignals } = Me.imports.effects.paint_signals;
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
-const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
+import { PaintSignals } from '../effects/paint_signals.js';
+import { ColorEffect } from '../effects/color_effect.js';
+import { NoiseEffect } from '../effects/noise_effect.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 
@@ -18,7 +20,7 @@ const PANEL_STYLES = [
 ];
 
 
-var PanelBlur = class PanelBlur {
+export var PanelBlur = class PanelBlur {
     constructor(connections, prefs) {
         this.connections = connections;
         this.window_signal_ids = new Map();
@@ -154,7 +156,10 @@ var PanelBlur = class PanelBlur {
         });
 
         let background = this.prefs.panel.STATIC_BLUR
-            ? new Meta.BackgroundActor
+            ? new Meta.BackgroundActor({
+                meta_display: global.display,
+                monitor: monitor.index
+            })
             : new St.Widget;
 
         background_parent.add_child(background);
@@ -182,7 +187,7 @@ var PanelBlur = class PanelBlur {
             color: this.prefs.panel.CUSTOMIZE
                 ? this.prefs.panel.COLOR
                 : this.prefs.COLOR
-        });
+        }, this.prefs);
 
         let noise = new NoiseEffect({
             noise: this.prefs.panel.CUSTOMIZE
@@ -191,7 +196,7 @@ var PanelBlur = class PanelBlur {
             lightness: this.prefs.panel.CUSTOMIZE
                 ? this.prefs.panel.NOISE_LIGHTNESS
                 : this.prefs.NOISE_LIGHTNESS
-        });
+        }, this.prefs);
 
         let paint_signals = new PaintSignals(this.connections);
 
@@ -242,7 +247,10 @@ var PanelBlur = class PanelBlur {
 
         // create new background actor
         actors.widgets.background = is_static
-            ? new Meta.BackgroundActor
+            ? new Meta.BackgroundActor({
+                meta_display: global.display,
+                monitor: this.find_monitor_for(actors.widgets.panel).index
+            })
             : new St.Widget;
 
         // change blur mode
@@ -314,7 +322,9 @@ var PanelBlur = class PanelBlur {
                 - this.find_monitor_for(actors.widgets.panel).index - 1
             );
             if (bg)
-                actors.widgets.background.set_content(bg.get_content());
+                actors.widgets.background.content.set({
+                    background: bg.get_content().background
+                });
             else
                 this._log("could not get background for panel");
         }
@@ -361,7 +371,7 @@ var PanelBlur = class PanelBlur {
     /// there might be a pre-existing function in GLib already
     find_monitor_for(actor) {
         let extents = actor.get_transformed_extents();
-        let rect = new Meta.Rectangle({
+        let rect = new Mtk.Rectangle({
             x: extents.get_x(),
             y: extents.get_y(),
             width: extents.get_width(),

@@ -1,15 +1,16 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { CustomizeRow } = Me.imports.preferences.customize_row;
+import { CustomizeRow } from './customize_row.js';
 
 
-var General = GObject.registerClass({
+export var General = GObject.registerClass({
     GTypeName: 'General',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'general.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/general.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'sigma',
         'brightness',
@@ -30,10 +31,10 @@ var General = GObject.registerClass({
 
         this.preferences = preferences;
 
-        CustomizeRow.prototype.connect_to.call(this, this.preferences);
+        CustomizeRow.prototype.connect_to.call(this, preferences, preferences);
 
         this.preferences.settings.bind(
-            'color-and-noise', this._color_and_noise, 'state',
+            'color-and-noise', this._color_and_noise, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.settings.bind(
@@ -41,7 +42,7 @@ var General = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.settings.bind(
-            'debug', this._debug, 'state',
+            'debug', this._debug, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 

@@ -1,16 +1,12 @@
 'use strict';
 
-const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Shell from 'gi://Shell';
 
 
-const SHADER_PATH = GLib.build_filenamev(
-    [Me.path, 'effects', 'noise_effect.glsl']
-);
+const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'noise_effect.glsl', GLib.UriFlags.NONE))[0];
 
 const get_shader_source = _ => {
     try {
@@ -21,7 +17,7 @@ const get_shader_source = _ => {
     }
 };
 
-var NoiseEffect = new GObject.registerClass({
+export var NoiseEffect = new GObject.registerClass({
     GTypeName: "NoiseEffect",
     Properties: {
         'noise': GObject.ParamSpec.double(
@@ -42,14 +38,14 @@ var NoiseEffect = new GObject.registerClass({
         ),
     }
 }, class NoiseShader extends Clutter.ShaderEffect {
-    _init(params) {
+    constructor(params, prefs) {
+        super(params);
+
         this._noise = null;
         this._lightness = null;
 
         this._static = true;
-        this._prefs = new Prefs(Keys);
-
-        super._init(params);
+        this._prefs = prefs;
 
         // set shader source
         this._source = get_shader_source();

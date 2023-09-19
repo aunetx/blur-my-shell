@@ -1,14 +1,14 @@
 'use strict';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const Me = ExtensionUtils.getCurrentExtension();
 
-
-var Other = GObject.registerClass({
+export var Other = GObject.registerClass({
     GTypeName: 'Other',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'other.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/other.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'lockscreen_blur',
         'lockscreen_customize',
@@ -26,26 +26,26 @@ var Other = GObject.registerClass({
         this.preferences = preferences;
 
         this.preferences.lockscreen.settings.bind(
-            'blur', this._lockscreen_blur, 'state',
+            'blur', this._lockscreen_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._lockscreen_customize.connect_to(this.preferences.lockscreen);
+        this._lockscreen_customize.connect_to(this.preferences, this.preferences.lockscreen);
 
         this.preferences.screenshot.settings.bind(
-            'blur', this._screenshot_blur, 'state',
+            'blur', this._screenshot_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._screenshot_customize.connect_to(this.preferences.screenshot);
+        this._screenshot_customize.connect_to(this.preferences, this.preferences.screenshot);
 
         this.preferences.window_list.settings.bind(
-            'blur', this._window_list_blur, 'state',
+            'blur', this._window_list_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         this._window_list_customize.connect_to(
-            this.preferences.window_list, false
+            this.preferences, this.preferences.window_list, false
         );
     }
 });

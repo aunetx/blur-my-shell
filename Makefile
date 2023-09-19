@@ -51,7 +51,7 @@ test-shell: install
 
 
 test-prefs: install
-	gnome-extensions prefs blur-my-shell@aunetx
+	gnome-extensions prefs $(UUID)
 
 
 remove:
