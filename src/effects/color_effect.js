@@ -64,7 +64,6 @@ export const ColorEffect = new GObject.registerClass({
 }, class ColorShader extends Clutter.ShaderEffect {
     constructor(params, settings) {
         // initialize without color as a parameter
-
         let _color = params.color;
         delete params.color;
 
@@ -79,14 +78,11 @@ export const ColorEffect = new GObject.registerClass({
         this._settings = settings;
 
         // set shader source
-
         this._source = get_shader_source();
-
         if (this._source)
             this.set_shader_source(this._source);
 
         // set shader color
-
         if (_color)
             this.color = _color;
 

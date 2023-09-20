@@ -81,6 +81,7 @@ export const NoiseEffect = new GObject.registerClass({
     update_enabled() {
         this.set_enabled(
             this.noise > 0 &&
+            // FIXME this._settings can be undefined (and often is)
             this._settings.COLOR_AND_NOISE &&
             this._static
         );

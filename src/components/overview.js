@@ -102,7 +102,7 @@ export const OverviewBlur = class OverviewBlur {
                         )
                     ) {
                         const bg_actor = outer_this.create_background_actor(
-                            monitor
+                            monitor, true
                         );
 
                         Main.uiGroup.insert_child_above(
@@ -132,6 +132,10 @@ export const OverviewBlur = class OverviewBlur {
                             );
                     }
 
+                outer_this.effects = outer_this.effects.filter(
+                    effects_group => !effects_group.is_transition
+                );
+
                 outer_this._workspace_switch_bg_actors.forEach(actor => {
                     actor.destroy();
                 });
@@ -154,7 +158,7 @@ export const OverviewBlur = class OverviewBlur {
 
         // add new backgrounds
         Main.layoutManager.monitors.forEach(monitor => {
-            const bg_actor = this.create_background_actor(monitor);
+            const bg_actor = this.create_background_actor(monitor, false);
 
             Main.layoutManager.overviewGroup.insert_child_at_index(
                 bg_actor,
@@ -163,7 +167,7 @@ export const OverviewBlur = class OverviewBlur {
         });
     }
 
-    create_background_actor(monitor) {
+    create_background_actor(monitor, is_transition) {
         let bg_actor = new Meta.BackgroundActor({
             meta_display: global.display,
             monitor: monitor.index
@@ -217,7 +221,7 @@ export const OverviewBlur = class OverviewBlur {
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);
         bg_actor.add_effect(blur_effect);
-        this.effects.push({ blur_effect, color_effect, noise_effect });
+        this.effects.push({ blur_effect, color_effect, noise_effect, is_transition });
 
         bg_actor.set_x(monitor.x);
         bg_actor.set_y(monitor.y);
