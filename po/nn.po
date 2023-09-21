@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-09-22 20:02+0000\n"
+"Last-Translator: Daniel Svindseth <daniel@svindseth.net>\n"
+"Language-Team: Norwegian Nynorsk <https://hosted.weblate.org/projects/"
+"blur-my-shell/blur-my-shell/nn/>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Program"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "Programtilslør (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -31,30 +34,38 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Legg tilslør til programma. Dette er framleis ein beta-funksjon\n"
+"For best resultat, pass på å vel «ingen artifakt» under «Generelt → Hack-"
+"nivå»\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Opasitet"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Opasiteten til vindauget over tilsløreffekten, ein høgare verdi gjer "
+"vindauget meir tydeleg."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "Tilslør i oversikta"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Tvingar tilsløret til å visast korrekt på alle arbeidsplassar i oversikta.\n"
+"Dette kan føre til noko ventetid eller ytingsproblem."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "Aktiver alle som standard"
 
 #: applications.ui:68
 msgid ""
