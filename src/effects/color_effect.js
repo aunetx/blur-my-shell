@@ -156,6 +156,10 @@ export const ColorEffect = new GObject.registerClass({
     }
 
     update_enabled() {
+        // don't anything if this._settings is undefined (when calling super)
+        if (this._settings === undefined)
+            return;
+
         this.set_enabled(
             this.blend > 0 &&
             this._settings.COLOR_AND_NOISE &&
