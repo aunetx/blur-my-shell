@@ -45,6 +45,11 @@ export const NoiseEffect = new GObject.registerClass({
         this._static = true;
         this._settings = settings;
 
+        if (params.noise)
+            this.noise = params.noise;
+        if (params.lightness)
+            this.lightness = params.lightness;
+
         // set shader source
         this._source = get_shader_source();
         if (this._source)
@@ -79,9 +84,12 @@ export const NoiseEffect = new GObject.registerClass({
     }
 
     update_enabled() {
+        // don't anything if this._settings is undefined (when calling super)
+        if (this._settings === undefined)
+            return;
+
         this.set_enabled(
             this.noise > 0 &&
-            // FIXME this._settings can be undefined (and often is)
             this._settings.COLOR_AND_NOISE &&
             this._static
         );

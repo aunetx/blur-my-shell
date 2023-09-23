@@ -96,16 +96,25 @@ export default class BlurMyShell extends Extension {
         try {
             if (this._settings.overview.BLUR && !this._overview_blur.enabled)
                 this._overview_blur.enable();
-        } catch (e) { }
+        } catch (e) {
+            this._log("Could not enable overview blur directly");
+            this._log(e);
+        }
         try {
             if (this._settings.dash_to_dock.BLUR
                 && !this._dash_to_dock_blur.enabled)
                 this._dash_to_dock_blur.enable();
-        } catch (e) { }
+        } catch (e) {
+            this._log("Could not enable dash-to-dock blur directly");
+            this._log(e);
+        }
         try {
             if (this._settings.panel.BLUR && !this._panel_blur.enabled)
                 this._panel_blur.enable();
-        } catch (e) { }
+        } catch (e) {
+            this._log("Could not enable panel blur directly");
+            this._log(e);
+        }
     }
 
     /// Disables the extension
