@@ -355,6 +355,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // set the window actor's opacity
         this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
 
+        this.connections.connect(
+            window_actor,
+            'notify::opacity',
+            _ => this.set_window_opacity(window_actor, this.settings.applications.OPACITY)
+        );
+
         // register the blur actor/effect
         blur_actor['blur_provider_pid'] = pid;
         this.blur_actor_map.set(pid, blur_actor);
@@ -407,7 +413,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Set the opacity of the window actor that sits on top of the blur effect.
     set_window_opacity(window_actor, opacity) {
         window_actor.get_children().forEach(child => {
-            if (child.name !== "blur-actor")
+            if (child.name !== "blur-actor" && child.opacity != opacity)
                 child.opacity = opacity;
         });
     }
@@ -418,7 +424,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
     compute_allocation(meta_window) {
         const is_wayland = Meta.is_wayland_compositor();
         const monitor_index = meta_window.get_monitor();
-        const scale = is_wayland
+        // check if the window is using wayland, or xwayland/xorg for rendering
+        const scale = is_wayland && meta_window.get_client_type() == 0
             ? Main.layoutManager.monitors[monitor_index].geometry_scale
             : 1;
 
