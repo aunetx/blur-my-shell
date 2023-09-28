@@ -7,14 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"PO-Revision-Date: 2023-08-19 04:19+0000\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -26,43 +29,72 @@ msgstr "Uygulama bulanıklığı (beta)"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Adds blur to the applications. This is still beta functionality.\n"
+"To get the best results possible, make sure to choose the option “No "
+"artifact” in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"Uygulamalara bulanıklık ekleyin. Bu hâlâ bir beta işlevidir, oldukça "
-"sorunludur ve yalnızca bunu isteyen uygulamalara veya aşağıdaki beyaz "
-"listede belirtilenlere uygulanır."
+"Uygulamalara bulanıklık ekler. Bu hala beta işlevselliğidir.\n"
+"Mümkün olan en iyi sonuçları elde etmek için, \"Genel → Hack düzeyi\" "
+"tercihinde \"Artefakt yok\" seçeneğini seçtiğinizden emin olun.\n"
+"        "
 
-#: applications.ui:26
-msgid "Enable all by default"
-msgstr ""
+#: applications.ui:28
+msgid "Opacity"
+msgstr "Matlık"
 
-#: applications.ui:27
+#: applications.ui:29
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
 msgstr ""
+"Bulanıklaştırma etkisinin üstündeki pencerenin matlığı, daha yüksek değer "
+"daha okunaklı olacaktır."
 
-#: applications.ui:26
+#: applications.ui:51
+msgid "Blur on overview"
+msgstr "Genel görünümde bulanıklık"
+
+#: applications.ui:52
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+"Bulanıklığın genel görünümdeki tüm çalışma alanlarında düzgün şekilde "
+"gösterilmesini zorlar.\n"
+"Bu, bazı gecikme veya performans sorunlarına neden olabilir."
+
+#: applications.ui:67
+msgid "Enable all by default"
+msgstr "Öntanımlı olarak tümünü etkinleştir"
+
+#: applications.ui:68
+msgid ""
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+"Öntanımlı olarak tüm pencerelerin arkasına bulanıklık ekler.\n"
+"Performans ve kararlılık sorunları nedeniyle önerilmez."
+
+#: applications.ui:85
 msgid "Whitelist"
-msgstr "Beyaz Liste"
+msgstr "Beyaz liste"
 
-#: applications.ui:44
+#: applications.ui:86
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Bulanıklaştırılacak pencerelerin listesi."
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "Pencere Ekle"
 
-#: applications.ui:80
+#: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "Kara liste"
 
-#: applications.ui:81
+#: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Bulanıklaştırılmaması gereken pencerelerin listesi."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -92,7 +124,7 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Bulanıklık efektinin parlaklığı, yüksek bir değer metnin okunmasını "
+"Bulanıklık etkisinin parlaklığı, yüksek değer metnin okunmasını "
 "zorlaştırabilir."
 
 #: customize-row.ui:52 general.ui:55
@@ -104,28 +136,28 @@ msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Bulanıklığın rengini değiştirir. Rengin opaklığı, bulanıklık efektiyle ne "
-"kadar karıştırılacağını kontrol eder."
+"Bulanıklığın rengini değiştirir. Rengin matlığı, bulanıklık etkisiyle ne "
+"kadar karıştırılacağını denetler."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Pürüz miktarı"
+msgstr "Gürültü miktarı"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"Bulanıklık efektinin pürüz miktarı, düşük kontrastlı ekranlarda veya estetik "
-"amaçlar için yararlıdır."
+"Bulanıklık etkisinin gürültü miktarı, düşük karşıtlıklı ekranlarda veya "
+"estetik amaçlar için yararlıdır."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Pürüz hafifliği"
+msgstr "Gürültü hafifliği"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "Bulanıklık efektine eklenen pürüzün hafifliği."
+msgstr "Bulanıklık etkisine eklenen gürültünün hafifliği."
 
 #: customize-row.ui:113
 msgid "Notice"
@@ -151,25 +183,45 @@ msgstr "Dash to Dock bulanıklığı"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Kullanılıyorsa, Dash to Dock uzantısının arka planını bulanıklaştır."
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
-msgstr "Arkaplanı geçersiz kıl"
+msgstr "Arka planı geçersiz kıl"
 
 #: dash.ui:27
 msgid ""
-"Makes the background semi-transparent, disable this to use Dash to Dock "
-"preferences instead."
+"Makes the background either transparent or semi-transparent, disable this to "
+"use Dash to Dock preferences instead."
 msgstr ""
-"Arka planı yarı saydam yapar, Dash to Dock tercihlerini kullanmak için bunu "
-"devre dışı bırakın."
+"Arka planını saydam veya yarı saydam hale getirir, Dash to Dock kullanmak "
+"için bunu devre dışı bırakın."
 
-#: dash.ui:41 panel.ui:41
+#: dash.ui:33 panel.ui:64
+msgid "Background style"
+msgstr "Arka plan biçemi"
+
+#: dash.ui:34
+msgid "The transparent/semi-transparent style for the dock background."
+msgstr "Rıhtım arka planı için saydam/yarı saydam biçem."
+
+#: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
 msgstr "Genel görünümde devre dışı bırak"
 
-#: dash.ui:42
+#: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Genel bakışa geçişte Dash to Dock bulanıklığını devre dışı bırakır."
+
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+msgid "Transparent"
+msgstr "Saydam"
+
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+msgid "Light"
+msgstr "Açık"
+
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+msgid "Dark"
+msgstr "Koyu"
 
 #: general.ui:5
 msgid "General"
@@ -186,42 +238,49 @@ msgstr ""
 "tercihleri."
 
 #: general.ui:117
-msgid "Performances"
+msgid "Performance"
 msgstr "Performans"
 
 #: general.ui:118
-msgid "Various options to tweak the performances."
+msgid "Various options to tweak the performance."
 msgstr "Performansı ayarlamak için çeşitli seçenekler."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "Renk ve pürüz efektleri"
+msgstr "Renk ve gürültü etkileri"
 
 #: general.ui:123
 msgid ""
-"Permits to disable globally the use of noise and color effects, this may "
-"improve performances for low-end graphic."
+"Globally disables noise and color effects which may improve performance on "
+"low-end systems."
 msgstr ""
-"Gürültü ve renk efektlerinin kullanımını genel olarak devre dışı bırakmaya "
-"izin verir; bu, düşük kaliteli grafikler için performansları iyileştirebilir."
+"Düşük özellikli sistemlerde performansı artırabilecek gürültü ve renk "
+"etkilerini küresel olarak devre dışı bırakır."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Hack seviyesi"
+msgstr "Hack düzeyi"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
+"Changes the behaviour of the dynamic blur effect.\n"
+"The default value is highly recommended unless you use application blur, in "
+"which case “No artifact” is better.\n"
+"This option will entirely disable clipped redraws in GNOME shell, and may "
+"impact performance significantly but will completely fix the blur effect."
 msgstr ""
-"Dinamik bulanıklık efektinin davranışını değiştirir. Varsayılan değer "
-"şiddetle tavsiye edilir."
+"Dinamik bulanıklaştırma etkisinin davranışını değiştirir.\n"
+"Uygulama bulanıklığı kullanmadığınız sürece öntanımlı değer şiddetle tavsiye "
+"edilir, bu durumda \"Artifakt Yok\" daha iyidir.\n"
+"Bu seçenek GNOME kabuğunda kırpılmış yeniden çizimleri tamamen devre dışı "
+"bırakır ve performansı önemli ölçüde etkileyebilir, ancak bulanıklık "
+"etkisini tamamen düzeltir."
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "Hata ayıklama"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -229,21 +288,33 @@ msgstr ""
 "Uzantının detaylı günlük kaydını yapar, bir sorunu bildirmeniz gerektiğinde "
 "etkinleştirin."
 
-#: general.ui:189
+#: general.ui:167
+msgid "Reset preferences"
+msgstr "Tercihleri sıfırla"
+
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr "Blur my Shell tercihlerini geri döndürülemez şekilde sıfırlar."
+
+#: general.ui:187
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: general.ui:228
 msgid "High performances"
 msgstr "Yüksek performans"
 
-#: general.ui:190
+#: general.ui:229
 msgid "Default"
 msgstr "Varsayılan"
 
-#: general.ui:191
+#: general.ui:230
 msgid "High quality"
 msgstr "Yüksek kalite"
 
-#: menu.ui:6
-msgid "Reset preferences"
-msgstr ""
+#: general.ui:231
+msgid "No artifact"
+msgstr "Artefakt yok"
 
 #: menu.ui:6
 msgid "Project page"
@@ -251,7 +322,7 @@ msgstr "Proje sayfası"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "Sorun bildir"
+msgstr "Hata Raporla"
 
 #: menu.ui:14
 msgid "License"
@@ -299,7 +370,7 @@ msgstr "Genel Görünüm"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "Arkaplan bulanıklığı"
+msgstr "Arka plan bulanıklığı"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
@@ -308,42 +379,35 @@ msgstr ""
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "Genel görünüm bileşen stili"
+msgstr "Genel görünüm bileşen biçemi"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
-"applications folders."
+"application folders."
 msgstr ""
-"Rıhtım, arama girişi/sonuçları ve uygulama klasörleri için yarı saydam stil."
+"Gösterge paneli, arama girişi/sonuçları ve uygulama klasörleri için yarı "
+"saydam biçem."
 
 #: overview.ui:44
-msgid "Applications folder blur"
+msgid "Application folder blur"
 msgstr "Uygulama klasörü bulanıklığı"
 
 #: overview.ui:45
-msgid "Makes the background of folder icons blurred."
-msgstr "Klasör simgelerinin arka planını bulanıklaştırır."
+msgid "Makes the background of application folder dialogs blurred."
+msgstr "Uygulama klasörü iletişim kutusunun arka planını bulanıklaştırır."
 
 #: overview.ui:60
-msgid "Dialog opacity"
-msgstr "İletişim penceresi opaklığı"
+msgid "Application folder dialogs style"
+msgstr "Uygulama klasörü iletişim kutuları biçemi"
 
 #: overview.ui:61
-msgid "The opacity of the applications folder popup."
-msgstr "Uygulama klasörü açılır penceresinin opaklığı."
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr "Uygulama klasörü iletişim iletişimi için yarı saydam biçem."
 
-#: overview.ui:85
+#: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr "Stil yapma"
-
-#: overview.ui:86
-msgid "Light"
-msgstr "Aydınlık"
-
-#: overview.ui:87
-msgid "Dark"
-msgstr "Karanlık"
+msgstr "Biçem yapma"
 
 #: panel.ui:5
 msgid "Panel"
@@ -369,51 +433,139 @@ msgstr "Statik bulanık bir görüntü kullanır, daha performanslı ve kararlı
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Genel görünüme girerken panelden bulanıklığı kaldırır."
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent or semi-"
+"transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+"Saydam veya yarı saydam bir arka plan kullanmak için panelin arka planını "
+"geçersiz kıl.\n"
+"GNOME temanızı özelleştirmek istemiyorsanız önerilir."
+
+#: panel.ui:65
+msgid "The transparent/semi-transparent style for the panel background."
+msgstr "Panel arka planı için saydam/yarı saydam biçem."
+
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Bir pencere yakınken devre dışı bırak"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
-msgstr ""
-"Yakınında bir pencere olduğunda paneldeki bulanıklığı devre dışı bırakır."
+#: panel.ui:80
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr "Bir pencere yakındayken panelin saydamlığını devre dışı bırakır."
 
-#: panel.ui:73
+#: panel.ui:97
 msgid "Compatibility"
 msgstr "Uyumluluk"
 
-#: panel.ui:74
+#: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Diğer uzantılarla uyumluluğu sağlamak için çeşitli seçenekler."
 
-#: panel.ui:78
+#: panel.ui:103
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar uzantısı"
 
-#: panel.ui:79
+#: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Genel görünümde bulanıklığı devre dışı bırakmaz, en iyi statik bulanıklıkla "
 "kullanılır."
 
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr "Dash to Panel ile özgün paneli bulanıklaştır"
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr ""
+"Uzantının seçeneklerinde seçilirse Dash to Panel ile özgün panelin "
+"bulanıklaştırılmasını etkinleştirir."
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr "Zıt"
+
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Pencere Adı"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Pencere seç"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Bir pencere seç veya sınıf adına göre seç."
 
-#: applications.ui:27
-msgid ""
-"A list of the applications to blur, one per line. To get an application "
-"class name, under xorg you can use `xprop|grep WM_CLASS` and paste the last "
-"name here."
-msgstr ""
-"Her satırda bir tane olacak şekilde bulanıklaştırılacak uygulamaların "
-"listesi. Bir uygulamanın sınıf adını almak için xorg altında `xprop|grep "
-"WM_CLASS` komutunu kullanabilir ve son ismi buraya yapıştırabilirsiniz."
+#~ msgid ""
+#~ "Makes the background semi-transparent, disable this to use Dash to Dock "
+#~ "preferences instead."
+#~ msgstr ""
+#~ "Arka planı yarı saydam yapar, Dash to Dock tercihlerini kullanmak için "
+#~ "bunu devre dışı bırakın."
+
+#~ msgid "Performances"
+#~ msgstr "Performans"
+
+#~ msgid "Various options to tweak the performances."
+#~ msgstr "Performansı ayarlamak için çeşitli seçenekler."
+
+#~ msgid ""
+#~ "Permits to disable globally the use of noise and color effects, this may "
+#~ "improve performances for low-end graphic."
+#~ msgstr ""
+#~ "Gürültü ve renk efektlerinin kullanımını genel olarak devre dışı "
+#~ "bırakmaya izin verir; bu, düşük kaliteli grafikler için performansları "
+#~ "iyileştirebilir."
+
+#~ msgid ""
+#~ "The semi-transparent style for the dash, search entry/results, and "
+#~ "applications folders."
+#~ msgstr ""
+#~ "Rıhtım, arama girişi/sonuçları ve uygulama klasörleri için yarı saydam "
+#~ "stil."
+
+#~ msgid "Applications folder blur"
+#~ msgstr "Uygulama klasörü bulanıklığı"
+
+#~ msgid "Makes the background of folder icons blurred."
+#~ msgstr "Klasör simgelerinin arka planını bulanıklaştırır."
+
+#~ msgid "Dialog opacity"
+#~ msgstr "İletişim penceresi opaklığı"
+
+#~ msgid "The opacity of the applications folder popup."
+#~ msgstr "Uygulama klasörü açılır penceresinin opaklığı."
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "Uygulamalara bulanıklık ekleyin. Bu hâlâ bir beta işlevidir, oldukça "
+#~ "sorunludur ve yalnızca bunu isteyen uygulamalara veya aşağıdaki beyaz "
+#~ "listede belirtilenlere uygulanır."
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr ""
+#~ "Dinamik bulanıklık efektinin davranışını değiştirir. Varsayılan değer "
+#~ "şiddetle tavsiye edilir."
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr ""
+#~ "Yakınında bir pencere olduğunda paneldeki bulanıklığı devre dışı bırakır."
+
+#~ msgid ""
+#~ "A list of the applications to blur, one per line. To get an application "
+#~ "class name, under xorg you can use `xprop|grep WM_CLASS` and paste the "
+#~ "last name here."
+#~ msgstr ""
+#~ "Her satırda bir tane olacak şekilde bulanıklaştırılacak uygulamaların "
+#~ "listesi. Bir uygulamanın sınıf adını almak için xorg altında `xprop|grep "
+#~ "WM_CLASS` komutunu kullanabilir ve son ismi buraya yapıştırabilirsiniz."

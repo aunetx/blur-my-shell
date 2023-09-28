@@ -35,7 +35,7 @@
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
-            <summary>Level of hacks to use (from 0 to 2)</summary>
+            <summary>Level of hacks to use (from 0 to 3, 3 disabling clipped redraws entirely)</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
@@ -52,6 +52,7 @@
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
+        <child name='dash-to-panel' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-panel'></child>
     </schema>
 
     <!-- OVERVIEW -->
@@ -94,7 +95,7 @@
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>1</default>
-            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark)</summary>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent)</summary>
         </key>
     </schema>
 
@@ -135,10 +136,10 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
-        <!-- DIALOG OPACITY -->
-        <key type="d" name="dialog-opacity">
-            <default>0.0</default>
-            <summary>Opacity of the appfolder dialog to use</summary>
+        <!-- STYLE DIALOGS -->
+        <key type="i" name="style-dialogs">
+            <default>1</default>
+            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark)</summary>
         </key>
     </schema>
 
@@ -194,6 +195,11 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
+        <!-- STYLE PANEL -->
+        <key type="i" name="style-panel">
+            <default>0</default>
+            <summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark, 3 contrasted)</summary>
+        </key>
         <!-- UNBLUR DYNAMICALLY -->
         <key type="b" name="override-background-dynamically">
             <default>false</default>
@@ -248,6 +254,11 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
+        <!-- STYLE DASH TO DOCK -->
+        <key type="i" name="style-dash-to-dock">
+            <default>1</default>
+            <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark)</summary>
+        </key>
         <!-- UNBLUR IN OVERVIEW -->
         <key type="b" name="unblur-in-overview">
             <default>false</default>
@@ -264,7 +275,7 @@
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
-            <default>false</default>
+            <default>true</default>
             <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
         </key>
         <!-- SIGMA -->
@@ -274,7 +285,7 @@
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
-            <default>0.6</default>
+            <default>1.</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
         <!-- COLOR -->
@@ -292,6 +303,16 @@
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
         </key>
+        <!-- OPACITY -->
+        <key type="i" name="opacity">
+            <default>230</default>
+            <summary>Opacity of the window actor on top of the blur effect</summary>
+        </key>
+        <!-- BLUR ON OVERVIEW -->
+        <key type="b" name="blur-on-overview">
+            <default>false</default>
+            <summary>Wether or not to blur applications on the overview</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>
@@ -304,7 +325,7 @@
         </key>
         <!-- BLACKLIST -->
         <key type="as" name="blacklist">
-            <default>[]</default>
+            <default>["Plank"]</default>
             <summary>List of applications not to blur</summary>
         </key>
     </schema>
@@ -432,6 +453,15 @@
         <key type="b" name="compatibility">
             <default>false</default>
             <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
+        </key>
+    </schema>
+
+    <!-- DASH TO PANEL -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-panel" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-panel/">
+        <!-- COMPATIBILITY -->
+        <key type="b" name="blur-original-panel">
+            <default>true</default>
+            <summary>Boolean, whether to blur the original panel (if option selected) with Dash to Panel</summary>
         </key>
     </schema>
 </schemalist>

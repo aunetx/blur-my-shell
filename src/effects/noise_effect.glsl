@@ -6,7 +6,9 @@ float PHI = 1.61803398874989484820459;
 float SEED = 24;
 
 float noise_gen(in vec2 xy) {
-    return fract(tan(distance(xy * PHI, xy) * SEED) * xy.x);
+    float r = fract(tan(distance(xy * PHI, xy) * SEED) * xy.x);
+    r = r != r ? 0.0 : r;
+    return r;
 }
 
 void main() {

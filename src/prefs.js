@@ -1,43 +1,41 @@
-'use strict';
+import Gdk from 'gi://Gdk';
+import Gtk from 'gi://Gtk';
+import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-const { Adw, Gdk, GLib, Gtk, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
+import { Settings } from './conveniences/settings.js';
+import { Keys } from './conveniences/keys.js';
 
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
-
-const Preferences = new Prefs(Keys);
-
-const { addMenu } = Me.imports.preferences.menu;
-const { CustomizeRow } = Me.imports.preferences.customize_row;
-const { WindowRow } = Me.imports.preferences.window_row;
-const { General } = Me.imports.preferences.general;
-const { Panel } = Me.imports.preferences.panel;
-const { Overview } = Me.imports.preferences.overview;
-const { Dash } = Me.imports.preferences.dash;
-const { Applications } = Me.imports.preferences.applications;
-const { Other } = Me.imports.preferences.other;
+import { addMenu } from './preferences/menu.js';
+import { General } from './preferences/general.js';
+import { Panel } from './preferences/panel.js';
+import { Overview } from './preferences/overview.js';
+import { Dash } from './preferences/dash.js';
+import { Applications } from './preferences/applications.js';
+import { Other } from './preferences/other.js';
 
 
-function init() {
-    ExtensionUtils.initTranslations(Me.metadata.uuid);
+export default class BlurMyShellPreferences extends ExtensionPreferences {
+    constructor(metadata) {
+        super(metadata);
 
-    // load the icon theme
-    let iconPath = Me.dir.get_child("icons").get_path();
-    let iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
-    iconTheme.add_search_path(iconPath);
-}
+        // load the icon theme
+        let iconPath = this.dir.get_child("icons").get_path();
+        let iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
+        iconTheme.add_search_path(iconPath);
+    }
 
-function fillPreferencesWindow(window) {
-    addMenu(window);
+    fillPreferencesWindow(window) {
+        addMenu(window);
 
-    window.add(new General);
-    window.add(new Panel);
-    window.add(new Overview);
-    window.add(new Dash);
-    window.add(new Applications);
-    window.add(new Other);
+        const preferences = new Settings(Keys, this.getSettings());
 
-    window.search_enabled = true;
+        window.add(new General(preferences));
+        window.add(new Panel(preferences));
+        window.add(new Overview(preferences));
+        window.add(new Dash(preferences));
+        window.add(new Applications(preferences, window));
+        window.add(new Other(preferences));
+
+        window.search_enabled = true;
+    }
 }

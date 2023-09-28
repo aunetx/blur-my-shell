@@ -8,24 +8,25 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ko/>\n"
-"Language: ko\n"
+"PO-Revision-Date: 2023-08-09 18:48+0000\n"
+"Last-Translator: Heki <linuxheki-accounts+hosted-weblate@proton.me>\n"
+"Language-Team: Slovenian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/sl/>\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.1\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "어플리케이션"
+msgstr "Aplikacije"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "어플리케이션 블러 (베타)"
+msgstr "Zamegljenost aplikacij (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -34,215 +35,230 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Aplikacijam doda zameglitev. Ta funkcionalnost je še vedno v fazi beta.\n"
+"Za najboljše rezultate izberite med možnostmi \"Splošno → Stopnja "
+"prilagajanja\" opcijo \"Brez tujkov\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr "불투명도"
+msgstr "Motnost"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr "블러 효과 위의 창의 불투명도 값이 높을수록 더 읽기 쉽습니다."
+msgstr ""
+"Motnost okna, ki gradi na učinku zameglitve, višja vrednost bo bolj zaznavna."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr "오버뷰 모드 블러"
+msgstr "Moten predogled"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"오버뷰 모드의 모든 작업 영역에 블러 효과가 제대로 표시되도록 합니다.\n"
-"이로 인해 일부 지연 또는 성능 문제가 발생할 수 있습니다."
+"Prisili zameglitev, da je pravilno prikazana na vseh delovnih površinah v "
+"pregledu.\n"
+"To lahko povzroči počasnejše prikazovanje elementov ali težave z delovanjem."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr "기본적으로 모두 활성화"
+msgstr "Privzeto omogoči vse"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"블러 효과를 기본적으로 모든 창에 추가합니다.\n"
-"성능 및 안정성 문제로 인해 권장하지 않습니다."
+"Privzeto doda zameglitev na vsa prikazana okna.\n"
+"Zaradi težav z zmogljivostjo in stabilnostjo tega ne možnosti ne priporočamo."
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr "화이트리스트"
+msgstr "Seznam dovoljenih"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr "블러 효과를 추가할 창의 목록."
+msgstr "Seznam oken, ki jih bomo zameglili."
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr "창 추가"
+msgstr "Dodaj okno"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr "블랙리스트"
+msgstr "Seznam izločenih"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr "블러 효과를 추가하지 않을 창 목록."
+msgstr "Seznam oken, ki jih ne bomo zameglili."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "속성 사용자 정의"
+msgstr "Prilagodite lastnosti"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
-msgstr "일반 페이지에서 설정한 속성 대신 사용자 정의된 블러 속성을 사용합니다."
+msgstr ""
+"Namesto lastnosti zameglitve, ki so nastavljena na strani \"Splošno\" "
+"uporabi prilagojene lastnosti."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "시그마"
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "블러 효과의 강도."
+msgstr "Jakost zameglitve."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "밝기"
+msgstr "Svetlost"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr "블러 효과의 밝기, 높은 값은 텍스트를 읽기 어렵게 만들 수 있습니다."
+msgstr ""
+"Svetlost efekta zameglitve, višja vrednost lahko povzroči, da je besedilo "
+"težje berljivo."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "색상"
+msgstr "Barva"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"블러의 색상을 변경합니다, 색상의 불투명도는 블러 효과의 혼합되는 정도를 설정"
-"합니다."
+"Spremeni barvo zameglitve. Prosojnost barve nadzoruje, kako je vključena v "
+"efekt zameglitve."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "노이즈 값"
+msgstr "Količina šuma"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"블러 효과에 추가할 노이즈의 양으로, 대비가 낮은 화면이나 미적 목적에 유용합니"
-"다."
+"Količina šuma, ki je dodan efektu zameglitve; uporabno za estetski namen na "
+"ekranih z nizkim kontrastom."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "노이즈 밝기"
+msgstr "Svetlost šuma"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "블러 효과에 추가될 노이즈의 밝기."
+msgstr "Svetlost šuma, ki je dodan efektu zameglitve."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "알림"
+msgstr "Zaznamek"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"노이즈 및 색상은 이와 같이 동적으로 흐리게 처리된 구성 요소에서 활성화할 수 "
-"없습니다."
+"Šum in barva ne moreta biti aktivirana na dinamično zamegljenihi delih, kot "
+"te slednji."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "대시보드"
+msgstr "Nadzorna plošča"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Dash to Dock 블러"
+msgstr "Zameglitev razširitve \"Dash to Dock\""
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Dash to Dock 확장 프로그램이 사용되는 경우 배경을 흐리게 처리합니다."
+msgstr "Zameglitev ozadja razširitve \"Dash to Dock\", če je uporabljena."
 
 #: dash.ui:26 panel.ui:56
 msgid "Override background"
-msgstr "배경 오버라이드"
+msgstr "Prepiši ozadje"
 
 #: dash.ui:27
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Napravi ozadje bodisi prozorno ali polprozorno, onemogočite, da uporabite "
+"možnosti nastavljene pri razširitvi \"Dash to Dock\"."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
-msgstr ""
+msgstr "Stil ozadja"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Prozoren ali polprozoren stil ozadja vrstice."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
-msgstr "오버뷰 모드에서 비활성화"
+msgstr "Onemogoči v pregledu"
 
 #: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Dash to Dock 이 오버뷰 모드에 들어가면 블러 효과를 비활성화합니다."
+msgstr "Onemogoči zameglitev \"Dash do Dock\" razširitve pri vstopu v pregled."
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
 msgid "Transparent"
-msgstr ""
+msgstr "Prozoren"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
-msgstr ""
+msgstr "Svetel"
 
 #: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
-msgstr ""
+msgstr "Temen"
 
 #: general.ui:5
 msgid "General"
-msgstr "일반"
+msgstr "Splošen"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "블러 환경 설정"
+msgstr "Lastnosti zameglitve"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr "글로벌 블러 환경설정, 모든 컴포넌트에서 기본값으로 사용됩니다."
+msgstr ""
+"Globalne nastavitve zameglitve, ki jih privzeto uporabljajo vse komponente."
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Zmogljivost"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Različne možnosti za prilagoditev delovanja."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "색상과 노이즈 효과"
+msgstr "Učinki barve in šuma"
 
 #: general.ui:123
 msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Globalno onemogoči učinke šuma in barve, kar lahko izboljša zmogljivost v "
+"sistemih nižje zmogljivosti."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "성능 수준"
+msgstr "Stopnja trikov"
 
 #: general.ui:136
 msgid ""
@@ -252,154 +268,167 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Spremeni obnašanje učinka dinamične zameglitve.\n"
+"Priporočamo privzeto vrednost, razen če uporabljate zameglitev aplikacije; v "
+"tem primeru je boljša možnost »Brez tujkov«.\n"
+"Ta možnost bo v celoti onemogočila motnje v ponovnem nalaganju lupine GNOME, "
+"lahko vpliva na zmogljivost, vendar bo popolnoma popravila učinek "
+"zamegljenosti."
 
 #: general.ui:151
 msgid "Debug"
-msgstr ""
+msgstr "Razhroščevanje"
 
 #: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"Povzroči številne zapise razširitve v dnevnikih; aktivirati, kadar želite "
+"prijaviti napako."
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr ""
+msgstr "Ponastavi nastavitve"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Nepovratno povrne nastavitve razširitve \"Blur my Shell\"."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Ponastavi"
 
 #: general.ui:228
 msgid "High performances"
-msgstr ""
+msgstr "Visoka zmogljivost"
 
 #: general.ui:229
 msgid "Default"
-msgstr ""
+msgstr "Privzeto"
 
 #: general.ui:230
 msgid "High quality"
-msgstr ""
+msgstr "Visoka kvaliteta"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Brez tujkov"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "Projektna stran"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "Javi napako"
 
 #: menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "Licenca"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "Podari"
 
 #: other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "Drugo"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "Zameglitev prijavnega okna"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
+"Spremeni zameglitev prijavnega okna tako, da uporablja nastavitve razširitve."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "Zameglitev zaslonske slike"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
+"Dodaj zameglitev v ozadnje izbirnika okna v grafičnem vmesniku zaslonske "
+"slike."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "Seznam oken, ki naj jih zamegli"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "Če je v uporabi, zamegli seznam oken razširitev."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "Pregled"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "Zameglitev ozadnja"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr ""
+msgstr "Zamegli ozadje v pregledu, pri čemer uporabi sliko ozadja."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "Stil komponente pregleda"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"Delno prosojen stil plošče, iskalnega vnosa/rezultatov in mape z "
+"aplikacijami."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Zamegljenost mape aplikacij"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Naredi ozadje mape aplikacij zamegljen."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Stil dialogov mape aplikacij"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Delno prosojen stil dialogov mape aplikacij."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr ""
+msgstr "Ne oblikuj"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "Plošča"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "Zamegljenost plošče"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "Zamegli vrhnjo plošo z uporabo slike ozadja."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr ""
+msgstr "Statična zameglitev"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
+msgstr "Uporabi statično zamegljeno sliko; boljša zmogljivost in stabilnost."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
+msgstr "Onemogoči zameglitev plošče ko vstopamo v pregled."
 
 #: panel.ui:57
 msgid ""
@@ -407,88 +436,63 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Preglasite ozadje plošče, če želite uporabiti prozorno ali polprosojno.\n"
+"Priporočeno, razen če želite prilagoditi svojo temo GNOME."
 
 #: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "Prozoren/polprosojen slog za ozadje plošče."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Onemogoči, ko je v okolici okno"
 
 #: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Onemogoči prosojnost plošče, ko je blizu nje okno."
 
 #: panel.ui:97
 msgid "Compatibility"
-msgstr ""
+msgstr "Združljivost"
 
 #: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
+"Različne možnosti za zagotavljanje združljivosti z drugimi razširitvami."
 
 #: panel.ui:103
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Razširitev \"HideTopBar\""
 
 #: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
+"Ne onemogoči zameglitve pregleda, najbolj uporabno s statično zameglitvijo."
 
 #: panel.ui:118
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Zamegli prvotno ploščo z Dash to Panel"
 
 #: panel.ui:119
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Omogoča zameglitev izvirne plošče z Dash to Panel, če je izbrana v možnostih "
+"razširitve."
 
 #: panel.ui:138
 msgid "Contrasted"
-msgstr ""
+msgstr "Kontrastno"
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Ime okna"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Izberi okno"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
-
-#~ msgid ""
-#~ "Add blur to the applications. This is still a beta functionnality.\n"
-#~ "To get the best results possible, make sure to choose option “No "
-#~ "artefact” in the “General → Hack level” preference.\n"
-#~ "        "
-#~ msgstr ""
-#~ "어플리케이션에 블러를 추가합니다. 이 기능은 아직 베타입니다. \n"
-#~ "최상의 결과를 얻으려면, 설정의 \"일반 → 개선 방식\" 을 \"아티펙트 없음\" "
-#~ "으로 선택해야 합니다.\n"
-#~ "        "
-
-#~ msgid ""
-#~ "Makes the background semi-transparent, disable this to use Dash to Dock "
-#~ "preferences instead."
-#~ msgstr ""
-#~ "배경을 반투명하게 만들고 Dash to Dock 기본 설정을 대신 사용하려면 이 옵션"
-#~ "을 비활성화합니다."
-
-#~ msgid "Performances"
-#~ msgstr "성능"
-
-#~ msgid "Various options to tweak the performances."
-#~ msgstr "성능을 조정하는 다양한 옵션들."
-
-#~ msgid ""
-#~ "Permits to disable globally the use of noise and color effects, this may "
-#~ "improve performances for low-end graphic."
-#~ msgstr ""
-#~ "노이즈 및 색상 효과의 사용을 전역적으로 비활성화할 수 있습니다. 이는 저사"
-#~ "양 그래픽 환경에서의 성능을 향상시킬 수 있습니다."
+msgstr "Izberi okno ali ga označi z uporabo njegovega razreda."

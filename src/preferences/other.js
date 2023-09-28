@@ -1,16 +1,12 @@
-'use strict';
-
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
 
-var Other = GObject.registerClass({
+export const Other = GObject.registerClass({
     GTypeName: 'Other',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'other.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/other.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'lockscreen_blur',
         'lockscreen_customize',
@@ -22,30 +18,32 @@ var Other = GObject.registerClass({
         'window_list_customize',
     ],
 }, class Overview extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
+    constructor(preferences) {
+        super({});
 
-        const Preferences = new Prefs(Keys);
+        this.preferences = preferences;
 
-        Preferences.lockscreen.settings.bind(
-            'blur', this._lockscreen_blur, 'state',
+        this.preferences.lockscreen.settings.bind(
+            'blur', this._lockscreen_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._lockscreen_customize.connect_to(Preferences.lockscreen);
+        this._lockscreen_customize.connect_to(this.preferences, this.preferences.lockscreen);
 
-        Preferences.screenshot.settings.bind(
-            'blur', this._screenshot_blur, 'state',
+        this.preferences.screenshot.settings.bind(
+            'blur', this._screenshot_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._screenshot_customize.connect_to(Preferences.screenshot);
+        this._screenshot_customize.connect_to(this.preferences, this.preferences.screenshot);
 
-        Preferences.window_list.settings.bind(
-            'blur', this._window_list_blur, 'state',
+        this.preferences.window_list.settings.bind(
+            'blur', this._window_list_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._window_list_customize.connect_to(Preferences.window_list, false);
+        this._window_list_customize.connect_to(
+            this.preferences, this.preferences.window_list, false
+        );
     }
 });

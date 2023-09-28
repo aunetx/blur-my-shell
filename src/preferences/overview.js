@@ -1,16 +1,12 @@
-'use strict';
-
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
 
-var Overview = GObject.registerClass({
+export const Overview = GObject.registerClass({
     GTypeName: 'Overview',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'overview.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/overview.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'overview_blur',
         'overview_customize',
@@ -18,34 +14,34 @@ var Overview = GObject.registerClass({
 
         'appfolder_blur',
         'appfolder_customize',
-        'appfolder_dialog_opacity'
+        'appfolder_style_dialogs'
     ],
 }, class Overview extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
+    constructor(preferences) {
+        super({});
 
-        const Preferences = new Prefs(Keys);
+        this.preferences = preferences;
 
-        Preferences.overview.settings.bind(
-            'blur', this._overview_blur, 'state',
+        this.preferences.overview.settings.bind(
+            'blur', this._overview_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.overview.settings.bind(
+        this.preferences.overview.settings.bind(
             'style-components', this._overview_style_components, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._overview_customize.connect_to(Preferences.overview);
+        this._overview_customize.connect_to(this.preferences, this.preferences.overview);
 
-        Preferences.appfolder.settings.bind(
-            'blur', this._appfolder_blur, 'state',
+        this.preferences.appfolder.settings.bind(
+            'blur', this._appfolder_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.appfolder.settings.bind(
-            'dialog-opacity', this._appfolder_dialog_opacity, 'value',
+        this.preferences.appfolder.settings.bind(
+            'style-dialogs', this._appfolder_style_dialogs, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._appfolder_customize.connect_to(Preferences.appfolder, false);
+        this._appfolder_customize.connect_to(this.preferences, this.preferences.appfolder, false);
     }
 });

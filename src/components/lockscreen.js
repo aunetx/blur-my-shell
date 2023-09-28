@@ -1,13 +1,11 @@
-'use strict';
+import St from 'gi://St';
+import Shell from 'gi://Shell';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Background from 'resource:///org/gnome/shell/ui/background.js';
+import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-const { St, Shell } = imports.gi;
-const Main = imports.ui.main;
-const Background = imports.ui.background;
-const UnlockDialog = imports.ui.unlockDialog.UnlockDialog;
-
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
-const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
+import { ColorEffect } from '../effects/color_effect.js';
+import { NoiseEffect } from '../effects/noise_effect.js';
 
 let sigma;
 let brightness;
@@ -21,30 +19,30 @@ const original_updateBackgroundEffects =
     UnlockDialog.prototype._updateBackgroundEffects;
 
 
-var LockscreenBlur = class LockscreenBlur {
-    constructor(connections, prefs) {
+export const LockscreenBlur = class LockscreenBlur {
+    constructor(connections, settings) {
         this.connections = connections;
-        this.prefs = prefs;
+        this.settings = settings;
     }
 
     enable() {
         this._log("blurring lockscreen");
 
-        brightness = this.prefs.lockscreen.CUSTOMIZE
-            ? this.prefs.lockscreen.BRIGHTNESS
-            : this.prefs.BRIGHTNESS;
-        sigma = this.prefs.lockscreen.CUSTOMIZE
-            ? this.prefs.lockscreen.SIGMA
-            : this.prefs.SIGMA;
-        color = this.prefs.lockscreen.CUSTOMIZE
-            ? this.prefs.lockscreen.COLOR
-            : this.prefs.COLOR;
-        noise = this.prefs.lockscreen.CUSTOMIZE
-            ? this.prefs.lockscreen.NOISE_AMOUNT
-            : this.prefs.NOISE_AMOUNT;
-        lightness = this.prefs.lockscreen.CUSTOMIZE
-            ? this.prefs.lockscreen.NOISE_LIGHTNESS
-            : this.prefs.NOISE_LIGHTNESS;
+        brightness = this.settings.lockscreen.CUSTOMIZE
+            ? this.settings.lockscreen.BRIGHTNESS
+            : this.settings.BRIGHTNESS;
+        sigma = this.settings.lockscreen.CUSTOMIZE
+            ? this.settings.lockscreen.SIGMA
+            : this.settings.SIGMA;
+        color = this.settings.lockscreen.CUSTOMIZE
+            ? this.settings.lockscreen.COLOR
+            : this.settings.COLOR;
+        noise = this.settings.lockscreen.CUSTOMIZE
+            ? this.settings.lockscreen.NOISE_AMOUNT
+            : this.settings.NOISE_AMOUNT;
+        lightness = this.settings.lockscreen.CUSTOMIZE
+            ? this.settings.lockscreen.NOISE_LIGHTNESS
+            : this.settings.NOISE_LIGHTNESS;
 
         this.update_lockscreen();
     }
@@ -78,13 +76,13 @@ var LockscreenBlur = class LockscreenBlur {
         let color_effect = new ColorEffect({
             name: 'color',
             color: color
-        });
+        }, this.settings);
 
         let noise_effect = new NoiseEffect({
             name: 'noise',
             noise: noise,
             lightness: lightness
-        });
+        }, this.settings);
 
         widget.add_effect(color_effect);
         widget.add_effect(noise_effect);
@@ -165,7 +163,7 @@ var LockscreenBlur = class LockscreenBlur {
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > lockscreen]   ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > lockscreen]   ${str}`);
     }
 };

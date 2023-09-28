@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-20 15:00+0200\n"
-"PO-Revision-Date: 2022-08-23 16:15+0000\n"
+"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"PO-Revision-Date: 2023-08-02 23:07+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -29,40 +29,66 @@ msgstr "应用程序模糊（实验性）"
 
 #: applications.ui:11
 msgid ""
-"Add blur to the applications. This is still a beta functionnality, is quite "
-"buggy and is only applied to the apps that ask it, or to the ones set in the "
-"whitelist below."
+"Adds blur to the applications. This is still beta functionality.\n"
+"To get the best results possible, make sure to choose the option “No "
+"artifact” in the “General → Hack level” preference.\n"
+"        "
 msgstr ""
-"为应用程序添加模糊。这仍然是一个实验性功能并存在一些问题，只对要求启用该功能"
-"的应用或者在下方白名单中指定的应用启动。"
+"对应用程序添加模糊效果。这是一个仍处于测试阶段的功能。\n"
+"若想获得最佳效果，记得将 Hack 级别设置为\n"
+"        "
 
-#: applications.ui:26
+#: applications.ui:28
+msgid "Opacity"
+msgstr "不透明度"
+
+#: applications.ui:29
+msgid ""
+"The opacity of the window on top of the blur effect, a higher value will be "
+"more legible."
+msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
+
+#: applications.ui:51
+msgid "Blur on overview"
+msgstr "概述上的模糊"
+
+#: applications.ui:52
+msgid ""
+"Forces the blur to be properly shown on all workspaces on overview.\n"
+"This may cause some latency or performance issues."
+msgstr ""
+"强制模糊在概览的所有工作区上正确显示。\n"
+"这可能会导致一些延迟或性能问题。"
+
+#: applications.ui:67
 msgid "Enable all by default"
 msgstr "默认全部启用"
 
-#: applications.ui:27
+#: applications.ui:68
 msgid ""
-"Adds blur behind all windows by default. Not recommended because of "
-"performance and stability issues."
-msgstr "默认情况下在所有窗口后面添加模糊。由于性能和稳定性问题，不推荐使用。"
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+"默认情况下，在所有窗口后面添加模糊。\n"
+"由于性能和稳定性问题，不建议这样做。"
 
-#: applications.ui:43
+#: applications.ui:85
 msgid "Whitelist"
 msgstr "白名单"
 
-#: applications.ui:44
+#: applications.ui:86
 msgid "A list of windows to blur."
 msgstr "要模糊的窗口列表。"
 
-#: applications.ui:62 applications.ui:99
+#: applications.ui:104 applications.ui:141
 msgid "Add Window"
 msgstr "添加窗口"
 
-#: applications.ui:80
+#: applications.ui:122
 msgid "Blacklist"
 msgstr "黑名单"
 
-#: applications.ui:81
+#: applications.ui:123
 msgid "A list of windows not to blur."
 msgstr "不模糊的窗口列表。"
 
@@ -143,23 +169,43 @@ msgstr "Dash to Dock 模糊"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
 
-#: dash.ui:26
+#: dash.ui:26 panel.ui:56
 msgid "Override background"
 msgstr "覆盖背景"
 
 #: dash.ui:27
 msgid ""
-"Makes the background semi-transparent, disable this to use Dash to Dock "
-"preferences instead."
-msgstr "让背景半透明。禁用此选项以使用 Dash to Dock 的选项。"
+"Makes the background either transparent or semi-transparent, disable this to "
+"use Dash to Dock preferences instead."
+msgstr "使背景透明或半透明，禁用此选项以改用 Dash to Dock 的首选项。"
 
-#: dash.ui:41 panel.ui:41
+#: dash.ui:33 panel.ui:64
+msgid "Background style"
+msgstr "背景样式"
+
+#: dash.ui:34
+msgid "The transparent/semi-transparent style for the dock background."
+msgstr "Dock 背景的透明/半透明样式。"
+
+#: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
 msgstr "在总览中禁用"
 
-#: dash.ui:42
+#: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
+
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+msgid "Transparent"
+msgstr "透明"
+
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+msgid "Light"
+msgstr "亮色"
+
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+msgid "Dark"
+msgstr "暗色"
 
 #: general.ui:5
 msgid "General"
@@ -174,12 +220,12 @@ msgid "Global blur preferences, used by all components by default."
 msgstr "全局模糊首选项，默认被所有组件使用。"
 
 #: general.ui:117
-msgid "Performances"
+msgid "Performance"
 msgstr "性能"
 
 #: general.ui:118
-msgid "Various options to tweak the performances."
-msgstr "用来增强性能的选项。"
+msgid "Various options to tweak the performance."
+msgstr "用于调整性能的各种选项。"
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -187,9 +233,9 @@ msgstr "颜色及噪声效果"
 
 #: general.ui:123
 msgid ""
-"Permits to disable globally the use of noise and color effects, this may "
-"improve performances for low-end graphic."
-msgstr "允许全局禁用噪声和颜色效果，可能会在低端图形设备上增强性能。"
+"Globally disables noise and color effects which may improve performance on "
+"low-end systems."
+msgstr "全局禁用噪声和颜色效果，这可能会提高低端系统的性能。"
 
 #: general.ui:135
 msgid "Hack level"
@@ -197,49 +243,68 @@ msgstr "Hack 级别"
 
 #: general.ui:136
 msgid ""
-"Changes the behaviour of dynamic blur effect. Default value is very "
-"recommended."
-msgstr "更改动态模糊效果的行为。默认选项是被强烈推荐的。"
+"Changes the behaviour of the dynamic blur effect.\n"
+"The default value is highly recommended unless you use application blur, in "
+"which case “No artifact” is better.\n"
+"This option will entirely disable clipped redraws in GNOME shell, and may "
+"impact performance significantly but will completely fix the blur effect."
+msgstr ""
+"更改动态模糊效果的行为。\n"
+"强烈建议使用默认值，除非您使用应用程序模糊，在这种情况下“无阴影”更好。\n"
+"此选项将完全禁用 GNOME shell "
+"中的剪切重绘，并且可能会显着影响性能，但会完全修复模糊效果。"
 
-#: general.ui:149
+#: general.ui:151
 msgid "Debug"
 msgstr "调试"
 
-#: general.ui:150
+#: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr "让扩展输出详细日志，在提交缺陷时启用此选项。"
 
-#: general.ui:189
-msgid "High performances"
-msgstr "高性能"
-
-#: general.ui:190
-msgid "Default"
-msgstr "默认"
-
-#: general.ui:191
-msgid "High quality"
-msgstr "高品质"
-
-#: menu.ui:6
+#: general.ui:167
 msgid "Reset preferences"
 msgstr "重置首选项"
 
-#: menu.ui:12
+#: general.ui:168
+msgid "Resets preferences of Blur my Shell irreversibly."
+msgstr "不可逆转地重置 Blur my Shell 的首选项。"
+
+#: general.ui:187
+msgid "Reset"
+msgstr "重置"
+
+#: general.ui:228
+msgid "High performances"
+msgstr "高性能"
+
+#: general.ui:229
+msgid "Default"
+msgstr "默认"
+
+#: general.ui:230
+msgid "High quality"
+msgstr "高品质"
+
+#: general.ui:231
+msgid "No artifact"
+msgstr "无阴影"
+
+#: menu.ui:6
 msgid "Project page"
 msgstr "项目页面"
 
-#: menu.ui:16
+#: menu.ui:10
 msgid "Report a Bug"
 msgstr "报告问题"
 
-#: menu.ui:20
+#: menu.ui:14
 msgid "License"
 msgstr "许可证"
 
-#: menu.ui:24
+#: menu.ui:18
 msgid "Donate"
 msgstr "捐助"
 
@@ -290,36 +355,28 @@ msgstr "概览界面组件风格"
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
-"applications folders."
-msgstr "Dash、搜索框/搜索结果和应用文件夹的半透明风格。"
+"application folders."
+msgstr "破折号、搜索条目/结果和应用程序文件夹的半透明样式。"
 
 #: overview.ui:44
-msgid "Applications folder blur"
-msgstr "应用文件夹模糊"
+msgid "Application folder blur"
+msgstr "应用程序文件夹模糊"
 
 #: overview.ui:45
-msgid "Makes the background of folder icons blurred."
-msgstr "模糊文件夹图标的背景。"
+msgid "Makes the background of application folder dialogs blurred."
+msgstr "使应用程序文件夹对话框的背景模糊。"
 
 #: overview.ui:60
-msgid "Dialog opacity"
-msgstr "对话框不透明度"
+msgid "Application folder dialogs style"
+msgstr "应用程序文件夹对话框样式"
 
 #: overview.ui:61
-msgid "The opacity of the applications folder popup."
-msgstr "应用文件夹右键菜单的不透明度。"
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr "应用程序文件夹对话框的半透明样式。"
 
-#: overview.ui:85
+#: overview.ui:79 overview.ui:88
 msgid "Do not style"
 msgstr "原始风格"
-
-#: overview.ui:86
-msgid "Light"
-msgstr "亮色"
-
-#: overview.ui:87
-msgid "Dark"
-msgstr "暗色"
 
 #: panel.ui:5
 msgid "Panel"
@@ -345,29 +402,57 @@ msgstr "使用静态的模糊图片，性能更好且更稳定。"
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "进入概览界面时禁用面板模糊。"
 
-#: panel.ui:56
+#: panel.ui:57
+msgid ""
+"Override the background of the panel to use a transparent or semi-"
+"transparent one.\n"
+"Recommended unless you want to customize your GNOME theme."
+msgstr ""
+"覆盖面板的背景以使用透明或半透明背景。\n"
+"除非您想自定义 GNOME 主题，否则推荐使用。"
+
+#: panel.ui:65
+msgid "The transparent/semi-transparent style for the panel background."
+msgstr "面板背景的透明/半透明样式。"
+
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "当窗口接近时禁用"
 
-#: panel.ui:57
-msgid "Disables the blur from the panel when a window is near it."
-msgstr "当有窗口接近时，禁用面板的模糊。"
+#: panel.ui:80
+msgid "Disables the transparency of the panel when a window is near it."
+msgstr "当窗口靠近面板时禁用面板的透明度。"
 
-#: panel.ui:73
+#: panel.ui:97
 msgid "Compatibility"
 msgstr "兼容性"
 
-#: panel.ui:74
+#: panel.ui:98
 msgid "Various options to provide compatibility with other extensions."
 msgstr "提供与其它扩展兼容性的一些选项。"
 
-#: panel.ui:78
+#: panel.ui:103
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar 扩展"
 
-#: panel.ui:79
+#: panel.ui:104
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"
+
+#: panel.ui:118
+msgid "Blur original panel with Dash to Panel"
+msgstr "使用 Dash to Panel 模糊原始面板"
+
+#: panel.ui:119
+msgid ""
+"Enables the blurring of the original panel with Dash to Panel, if selected "
+"in the extension's options."
+msgstr "如果在扩展程序的选项中选择了“Dash to Panel”，则可以使用“Dash to "
+"Panel”对原始面板进行模糊处理。"
+
+#: panel.ui:138
+msgid "Contrasted"
+msgstr "对比"
 
 #: window-row.ui:4
 msgid "Window Name"
@@ -380,6 +465,95 @@ msgstr "选择窗口"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "挑选一个窗口或通过其类别名称选择它。"
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality.\n"
+#~ "To get the best results possible, make sure to choose option “No "
+#~ "artefact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "为应用程序添加模糊。这仍然是一个测试版功能。\n"
+#~ "为了获得可能的最佳结果，请确保在“常规→黑客级别”首选项中选择“无伪影”选"
+#~ "项。\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Makes the background semi-transparent, disable this to use Dash to Dock "
+#~ "preferences instead."
+#~ msgstr "让背景半透明。禁用此选项以使用 Dash to Dock 的选项。"
+
+#~ msgid "Performances"
+#~ msgstr "性能"
+
+#~ msgid "Various options to tweak the performances."
+#~ msgstr "用来增强性能的选项。"
+
+#~ msgid ""
+#~ "Permits to disable globally the use of noise and color effects, this may "
+#~ "improve performances for low-end graphic."
+#~ msgstr "允许全局禁用噪声和颜色效果，可能会在低端图形设备上增强性能。"
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect.\n"
+#~ "Default value is very recommended, unless you use application blur in "
+#~ "which case “No artefact” is better.\n"
+#~ "This option will entirely disable clipped redraws from GNOME shell, and "
+#~ "may impact performances significantly but will entirely fix the blur "
+#~ "effect."
+#~ msgstr ""
+#~ "更改动态模糊效果的行为。\n"
+#~ "非常推荐使用默认值，除非您使用应用程序模糊，在这种情况下，“无伪影”更好。\n"
+#~ "此选项将完全禁用从 GNOME shell 剪切的重绘，并且可能会显著影响性能，但会完"
+#~ "全修复模糊效果。"
+
+#~ msgid "No artefact"
+#~ msgstr "无伪影"
+
+#~ msgid ""
+#~ "The semi-transparent style for the dash, search entry/results, and "
+#~ "applications folders."
+#~ msgstr "Dash、搜索框/搜索结果和应用文件夹的半透明风格。"
+
+#~ msgid "Applications folder blur"
+#~ msgstr "应用文件夹模糊"
+
+#~ msgid "Makes the background of folder icons blurred."
+#~ msgstr "模糊文件夹图标的背景。"
+
+#~ msgid "Dialog opacity"
+#~ msgstr "对话框不透明度"
+
+#~ msgid "The opacity of the applications folder popup."
+#~ msgstr "应用文件夹右键菜单的不透明度。"
+
+#~ msgid ""
+#~ "Override the background of the panel to use a transparent one.\n"
+#~ "Recommended unless you want to customize your GNOME theme."
+#~ msgstr ""
+#~ "覆盖面板的背景以使用透明面板。\n"
+#~ "建议使用，除非你想自定义 GNOME 主题。"
+
+#~ msgid ""
+#~ "Add blur to the applications. This is still a beta functionnality, is "
+#~ "quite buggy and is only applied to the apps that ask it, or to the ones "
+#~ "set in the whitelist below."
+#~ msgstr ""
+#~ "为应用程序添加模糊。这仍然是一个实验性功能并存在一些问题，只对要求启用该功"
+#~ "能的应用或者在下方白名单中指定的应用启动。"
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default. Not recommended because of "
+#~ "performance and stability issues."
+#~ msgstr ""
+#~ "默认情况下在所有窗口后面添加模糊。由于性能和稳定性问题，不推荐使用。"
+
+#~ msgid ""
+#~ "Changes the behaviour of dynamic blur effect. Default value is very "
+#~ "recommended."
+#~ msgstr "更改动态模糊效果的行为。默认选项是被强烈推荐的。"
+
+#~ msgid "Disables the blur from the panel when a window is near it."
+#~ msgstr "当有窗口接近时，禁用面板的模糊。"
 
 #~ msgid ""
 #~ "A list of the applications to blur, one per line. To get an application "

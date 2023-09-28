@@ -12,6 +12,7 @@
           <object class="GtkBox" id="window_selector">
             <property name="valign">center</property>
             <property name="hexpand">true</property>
+            <property name="width-request">175px</property>
             <style>
               <class name="linked" />
             </style>
@@ -50,4 +51,8 @@
       </object>
     </child>
   </template>
+
+  <object class="AdwToast" id="picking_failure_toast">
+    <property name="title">Could not pick window, make sure that the extension is enabled.</property>
+  </object>
 </interface>

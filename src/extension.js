@@ -1,22 +1,21 @@
-'use strict';
+import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const { St, Shell, Gio, Gtk } = imports.gi;
-const Main = imports.ui.main;
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
+import { Connections } from './conveniences/connections.js';
+import { Settings } from './conveniences/settings.js';
+import { Keys } from './conveniences/keys.js';
 
-const { Connections } = Me.imports.conveniences.connections;
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
-
-const Panel = Me.imports.components.panel;
-const Overview = Me.imports.components.overview;
-const DashToDock = Me.imports.components.dash_to_dock;
-const Lockscreen = Me.imports.components.lockscreen;
-const AppFolders = Me.imports.components.appfolders;
-const WindowList = Me.imports.components.window_list;
-const Applications = Me.imports.components.applications;
-const Screenshot = Me.imports.components.screenshot;
+import { PanelBlur } from './components/panel.js';
+import { OverviewBlur } from './components/overview.js';
+import { DashBlur } from './components/dash_to_dock.js';
+import { LockscreenBlur } from './components/lockscreen.js';
+import { AppFoldersBlur } from './components/appfolders.js';
+import { WindowListBlur } from './components/window_list.js';
+import { ApplicationsBlur } from './components/applications.js';
+import { ScreenshotBlur } from './components/screenshot.js';
 
 // This lists the components that need to be connected in order to either use
 // general sigma/brightness or their own.
@@ -27,9 +26,7 @@ const INDEPENDENT_COMPONENTS = [
 
 
 /// The main extension class, created when the GNOME Shell is loaded.
-class Extension {
-    constructor() { }
-
+export default class BlurMyShell extends Extension {
     /// Enables the extension
     enable() {
         // add the extension to global to make it accessible to other extensions
@@ -37,10 +34,10 @@ class Extension {
 
         global.blur_my_shell = this;
 
-        // create a Prefs instance, to manage extension's preferences
+        // create a Settings instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
 
-        this._prefs = new Prefs(Keys);
+        this._settings = new Settings(Keys, this.getSettings());
 
         this._log("enabling extension...");
 
@@ -61,17 +58,21 @@ class Extension {
             // store it to keeps track of them globally
             this._connections.push(connection);
 
-            return [connection, this._prefs];
+            return [connection, this._settings];
         };
 
-        this._panel_blur = new Panel.PanelBlur(...init());
-        this._dash_to_dock_blur = new DashToDock.DashBlur(...init());
-        this._overview_blur = new Overview.OverviewBlur(...init());
-        this._lockscreen_blur = new Lockscreen.LockscreenBlur(...init());
-        this._appfolder_blur = new AppFolders.AppFoldersBlur(...init());
-        this._window_list_blur = new WindowList.WindowListBlur(...init());
-        this._applications_blur = new Applications.ApplicationsBlur(...init());
-        this._screenshot_blur = new Screenshot.ScreenshotBlur(...init());
+        this._panel_blur = new PanelBlur(...init());
+        this._dash_to_dock_blur = new DashBlur(...init());
+        this._overview_blur = new OverviewBlur(...init());
+        this._lockscreen_blur = new LockscreenBlur(...init());
+        this._appfolder_blur = new AppFoldersBlur(...init());
+        this._window_list_blur = new WindowListBlur(...init());
+        this._applications_blur = new ApplicationsBlur(...init());
+        this._screenshot_blur = new ScreenshotBlur(...init());
+
+        // maybe disable clipped redraw
+
+        this._update_clipped_redraws();
 
         // connect each component to preferences change
 
@@ -93,13 +94,27 @@ class Extension {
         // try to enable the components as soon as possible anyway, this way the
         // overview may load before the user sees it
         try {
-            if (this._prefs.overview.BLUR && !this._overview_blur.enabled)
+            if (this._settings.overview.BLUR && !this._overview_blur.enabled)
                 this._overview_blur.enable();
-        } catch (e) { }
+        } catch (e) {
+            this._log("Could not enable overview blur directly");
+            this._log(e);
+        }
         try {
-            if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
+            if (this._settings.dash_to_dock.BLUR
+                && !this._dash_to_dock_blur.enabled)
+                this._dash_to_dock_blur.enable();
+        } catch (e) {
+            this._log("Could not enable dash-to-dock blur directly");
+            this._log(e);
+        }
+        try {
+            if (this._settings.panel.BLUR && !this._panel_blur.enabled)
                 this._panel_blur.enable();
-        } catch (e) { }
+        } catch (e) {
+            this._log("Could not enable panel blur directly");
+            this._log(e);
+        }
     }
 
     /// Disables the extension
@@ -129,7 +144,7 @@ class Extension {
 
         // make sure no settings change can re-enable them
 
-        this._prefs.disconnect_all_settings();
+        this._settings.disconnect_all_settings();
 
         // force disconnecting every signal, even if component crashed
 
@@ -138,17 +153,21 @@ class Extension {
         });
         this._connections = [];
 
+        // remove the clipped redraws flag
+
+        this._reenable_clipped_redraws();
+
         // remove the extension from GJS's global
 
         delete global.blur_my_shell;
 
         this._log("extension disabled.");
 
-        this._prefs = null;
+        this._settings = null;
     }
 
-    /// Restart the extension
-    restart() {
+    /// Restart the extension.
+    _restart() {
         this._log("restarting...");
 
         this.disable();
@@ -157,34 +176,58 @@ class Extension {
         this._log("restarted.");
     }
 
+    /// Add or remove the clutter debug flag to disable clipped redraws.
+    /// This will entirely fix the blur effect, but should not be used except if
+    /// the user really needs it, as clipped redraws are a huge performance
+    /// boost for the compositor.
+    _update_clipped_redraws() {
+        if (this._settings.HACKS_LEVEL === 3)
+            this._disable_clipped_redraws();
+        else
+            this._reenable_clipped_redraws();
+    }
+
+    /// Add the Clutter debug flag.
+    _disable_clipped_redraws() {
+        Meta.add_clutter_debug_flags(
+            null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+        );
+    }
+
+    /// Remove the Clutter debug flag.
+    _reenable_clipped_redraws() {
+        Meta.remove_clutter_debug_flags(
+            null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+        );
+    }
+
     /// Enables every component needed, should be called when the shell is
     /// entirely loaded as the `enable` methods interact with it.
     _enable_components() {
         // enable each component if needed, and if it is not already enabled
 
-        if (this._prefs.panel.BLUR && !this._panel_blur.enabled)
+        if (this._settings.panel.BLUR && !this._panel_blur.enabled)
             this._panel_blur.enable();
 
-        if (this._prefs.dash_to_dock.BLUR) {
+        if (this._settings.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
             this._dash_to_dock_blur.enable();
-        }
 
-        if (this._prefs.overview.BLUR && !this._overview_blur.enabled)
+        if (this._settings.overview.BLUR && !this._overview_blur.enabled)
             this._overview_blur.enable();
 
-        if (this._prefs.lockscreen.BLUR)
+        if (this._settings.lockscreen.BLUR)
             this._lockscreen_blur.enable();
 
-        if (this._prefs.appfolder.BLUR)
+        if (this._settings.appfolder.BLUR)
             this._appfolder_blur.enable();
 
-        if (this._prefs.applications.BLUR)
+        if (this._settings.applications.BLUR)
             this._applications_blur.enable();
 
-        if (this._prefs.window_list.BLUR)
+        if (this._settings.window_list.BLUR)
             this._window_list_blur.enable();
 
-        if (this._prefs.screenshot.BLUR)
+        if (this._settings.screenshot.BLUR)
             this._screenshot_blur.enable();
 
         this._log("all components enabled.");
@@ -195,22 +238,22 @@ class Extension {
 
         // global blur values changed, update everybody
 
-        this._prefs.SIGMA_changed(() => {
+        this._settings.SIGMA_changed(() => {
             this._update_sigma();
         });
-        this._prefs.BRIGHTNESS_changed(() => {
+        this._settings.BRIGHTNESS_changed(() => {
             this._update_brightness();
         });
-        this._prefs.COLOR_changed(() => {
+        this._settings.COLOR_changed(() => {
             this._update_color();
         });
-        this._prefs.NOISE_AMOUNT_changed(() => {
+        this._settings.NOISE_AMOUNT_changed(() => {
             this._update_noise_amount();
         });
-        this._prefs.NOISE_LIGHTNESS_changed(() => {
+        this._settings.NOISE_LIGHTNESS_changed(() => {
             this._update_noise_lightness();
         });
-        this._prefs.COLOR_AND_NOISE_changed(() => {
+        this._settings.COLOR_AND_NOISE_changed(() => {
             // both updating noise amount and color calls `update_enabled` on
             // each color and noise effects
             this._update_noise_amount();
@@ -219,7 +262,7 @@ class Extension {
 
         // restart the extension when hacks level is changed, easier than
         // restarting individual components and should not happen often either
-        this._prefs.HACKS_LEVEL_changed(_ => this.restart());
+        this._settings.HACKS_LEVEL_changed(_ => this._restart());
 
         // connect each component to use the proper sigma/brightness/color
 
@@ -232,8 +275,8 @@ class Extension {
         // ---------- OVERVIEW ----------
 
         // toggled on/off
-        this._prefs.overview.BLUR_changed(() => {
-            if (this._prefs.overview.BLUR) {
+        this._settings.overview.BLUR_changed(() => {
+            if (this._settings.overview.BLUR) {
                 this._overview_blur.enable();
             } else {
                 this._overview_blur.disable();
@@ -241,8 +284,8 @@ class Extension {
         });
 
         // overview components style changed
-        this._prefs.overview.STYLE_COMPONENTS_changed(() => {
-            if (this._prefs.overview.BLUR) {
+        this._settings.overview.STYLE_COMPONENTS_changed(() => {
+            if (this._settings.overview.BLUR) {
                 this._overview_blur.update_components_classname();
             }
         });
@@ -251,17 +294,17 @@ class Extension {
         // ---------- APPFOLDER ----------
 
         // toggled on/off
-        this._prefs.appfolder.BLUR_changed(() => {
-            if (this._prefs.appfolder.BLUR) {
+        this._settings.appfolder.BLUR_changed(() => {
+            if (this._settings.appfolder.BLUR) {
                 this._appfolder_blur.enable();
             } else {
                 this._appfolder_blur.disable();
             }
         });
 
-        // changed dialog opacity
-        this._prefs.appfolder.DIALOG_OPACITY_changed(() => {
-            if (this._prefs.appfolder.BLUR)
+        // appfolder dialogs style changed
+        this._settings.appfolder.STYLE_DIALOGS_changed(() => {
+            if (this._settings.appfolder.BLUR)
                 this._appfolder_blur.blur_appfolders();
         });
 
@@ -269,41 +312,47 @@ class Extension {
         // ---------- PANEL ----------
 
         // toggled on/off
-        this._prefs.panel.BLUR_changed(() => {
-            if (this._prefs.panel.BLUR) {
+        this._settings.panel.BLUR_changed(() => {
+            if (this._settings.panel.BLUR) {
                 this._panel_blur.enable();
             } else {
                 this._panel_blur.disable();
             }
         });
 
-        this._prefs.COLOR_AND_NOISE_changed(() => {
+        this._settings.COLOR_AND_NOISE_changed(() => {
             // permits making sure that the blur is not washed out when disabling
             // the other effects
-            if (this._prefs.panel.BLUR)
+            if (this._settings.panel.BLUR)
                 this._panel_blur.invalidate_all_blur();
         });
 
         // static blur toggled on/off
-        this._prefs.panel.STATIC_BLUR_changed(() => {
-            if (this._prefs.panel.BLUR)
+        this._settings.panel.STATIC_BLUR_changed(() => {
+            if (this._settings.panel.BLUR)
                 this._panel_blur.update_all_blur_type();
         });
 
         // panel blur's overview connection toggled on/off
-        this._prefs.panel.UNBLUR_IN_OVERVIEW_changed(() => {
+        this._settings.panel.UNBLUR_IN_OVERVIEW_changed(() => {
             this._panel_blur.connect_to_windows_and_overview();
         });
 
         // panel override background toggled on/off
-        this._prefs.panel.OVERRIDE_BACKGROUND_changed(() => {
-            if (this._prefs.panel.BLUR)
+        this._settings.panel.OVERRIDE_BACKGROUND_changed(() => {
+            if (this._settings.panel.BLUR)
+                this._panel_blur.connect_to_windows_and_overview();
+        });
+
+        // panel style changed
+        this._settings.panel.STYLE_PANEL_changed(() => {
+            if (this._settings.panel.BLUR)
                 this._panel_blur.connect_to_windows_and_overview();
         });
 
         // panel background's dynamic overriding toggled on/off
-        this._prefs.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
-            if (this._prefs.panel.BLUR)
+        this._settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
+            if (this._settings.panel.BLUR)
                 this._panel_blur.connect_to_windows_and_overview();
         });
 
@@ -311,8 +360,8 @@ class Extension {
         // ---------- DASH TO DOCK ----------
 
         // toggled on/off
-        this._prefs.dash_to_dock.BLUR_changed(() => {
-            if (this._prefs.dash_to_dock.BLUR) {
+        this._settings.dash_to_dock.BLUR_changed(() => {
+            if (this._settings.dash_to_dock.BLUR) {
                 this._dash_to_dock_blur.enable();
             } else {
                 this._dash_to_dock_blur.disable();
@@ -321,20 +370,26 @@ class Extension {
 
         // TODO implement static blur for dash
         // static blur toggled on/off
-        this._prefs.dash_to_dock.STATIC_BLUR_changed(() => {
-            //if (this._prefs.dash_to_dock.BLUR)
+        this._settings.dash_to_dock.STATIC_BLUR_changed(() => {
+            //if (this._settings.dash_to_dock.BLUR)
             //    this._dash_to_dock_blur.change_blur_type();
         });
 
         // dash-to-dock override background toggled on/off
-        this._prefs.dash_to_dock.OVERRIDE_BACKGROUND_changed(() => {
-            if (this._prefs.dash_to_dock.BLUR)
+        this._settings.dash_to_dock.OVERRIDE_BACKGROUND_changed(() => {
+            if (this._settings.dash_to_dock.BLUR)
+                this._dash_to_dock_blur.update_background();
+        });
+
+        // dash-to-dock style changed
+        this._settings.dash_to_dock.STYLE_DASH_TO_DOCK_changed(() => {
+            if (this._settings.dash_to_dock.BLUR)
                 this._dash_to_dock_blur.update_background();
         });
 
         // dash-to-dock blur's overview connection toggled on/off
-        this._prefs.dash_to_dock.UNBLUR_IN_OVERVIEW_changed(() => {
-            if (this._prefs.dash_to_dock.BLUR)
+        this._settings.dash_to_dock.UNBLUR_IN_OVERVIEW_changed(() => {
+            if (this._settings.dash_to_dock.BLUR)
                 this._dash_to_dock_blur.connect_to_overview();
         });
 
@@ -342,34 +397,48 @@ class Extension {
         // ---------- APPLICATIONS ----------
 
         // toggled on/off
-        this._prefs.applications.BLUR_changed(() => {
-            if (this._prefs.applications.BLUR) {
+        this._settings.applications.BLUR_changed(() => {
+            if (this._settings.applications.BLUR) {
                 this._applications_blur.enable();
             } else {
                 this._applications_blur.disable();
             }
         });
 
+        // application opacity changed
+        this._settings.applications.OPACITY_changed(_ => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.set_opacity(
+                    this._settings.applications.OPACITY
+                );
+        });
+
+        // application blur-on-overview changed
+        this._settings.applications.BLUR_ON_OVERVIEW_changed(_ => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.connect_to_overview();
+        });
+
         // application enable-all changed
-        this._prefs.applications.ENABLE_ALL_changed(_ => {
-            if (this._prefs.applications.BLUR)
+        this._settings.applications.ENABLE_ALL_changed(_ => {
+            if (this._settings.applications.BLUR)
                 this._applications_blur.update_all_windows();
         });
 
         // application whitelist changed
-        this._prefs.applications.WHITELIST_changed(_ => {
+        this._settings.applications.WHITELIST_changed(_ => {
             if (
-                this._prefs.applications.BLUR
-                && !this._prefs.applications.ENABLE_ALL
+                this._settings.applications.BLUR
+                && !this._settings.applications.ENABLE_ALL
             )
                 this._applications_blur.update_all_windows();
         });
 
         // application blacklist changed
-        this._prefs.applications.BLACKLIST_changed(_ => {
+        this._settings.applications.BLACKLIST_changed(_ => {
             if (
-                this._prefs.applications.BLUR
-                && this._prefs.applications.ENABLE_ALL
+                this._settings.applications.BLUR
+                && this._settings.applications.ENABLE_ALL
             )
                 this._applications_blur.update_all_windows();
         });
@@ -378,8 +447,8 @@ class Extension {
         // ---------- LOCKSCREEN ----------
 
         // toggled on/off
-        this._prefs.lockscreen.BLUR_changed(() => {
-            if (this._prefs.lockscreen.BLUR) {
+        this._settings.lockscreen.BLUR_changed(() => {
+            if (this._settings.lockscreen.BLUR) {
                 this._lockscreen_blur.enable();
             } else {
                 this._lockscreen_blur.disable();
@@ -390,8 +459,8 @@ class Extension {
         // ---------- WINDOW LIST ----------
 
         // toggled on/off
-        this._prefs.window_list.BLUR_changed(() => {
-            if (this._prefs.window_list.BLUR) {
+        this._settings.window_list.BLUR_changed(() => {
+            if (this._settings.window_list.BLUR) {
                 this._window_list_blur.enable();
             } else {
                 this._window_list_blur.disable();
@@ -402,17 +471,26 @@ class Extension {
         // ---------- HIDETOPBAR ----------
 
         // toggled on/off
-        this._prefs.hidetopbar.COMPATIBILITY_changed(() => {
+        this._settings.hidetopbar.COMPATIBILITY_changed(() => {
             // no need to verify if it is enabled or not, it is done anyway
             this._panel_blur.connect_to_windows_and_overview();
+        });
+
+
+        // ---------- DASH TO PANEL ----------
+
+        // toggled on/off
+        this._settings.dash_to_panel.BLUR_ORIGINAL_PANEL_changed(() => {
+            if (this._settings.panel.BLUR)
+                this._panel_blur.reset();
         });
 
 
         // ---------- SCREENSHOT ----------
 
         // toggled on/off
-        this._prefs.screenshot.BLUR_changed(() => {
-            if (this._prefs.screenshot.BLUR) {
+        this._settings.screenshot.BLUR_changed(() => {
+            if (this._settings.screenshot.BLUR) {
                 this._screenshot_blur.enable();
             } else {
                 this._screenshot_blur.disable();
@@ -428,64 +506,64 @@ class Extension {
     _connect_to_individual_settings(name) {
         // get component and preferences needed
         let component = this['_' + name + '_blur'];
-        let component_prefs = this._prefs[name];
+        let component_settings = this._settings[name];
 
         // general values switch is toggled
-        component_prefs.CUSTOMIZE_changed(() => {
-            if (component_prefs.CUSTOMIZE) {
-                component.set_sigma(component_prefs.SIGMA);
-                component.set_brightness(component_prefs.BRIGHTNESS);
-                component.set_color(component_prefs.COLOR);
-                component.set_noise_amount(component_prefs.NOISE_AMOUNT);
-                component.set_noise_lightness(component_prefs.NOISE_LIGHTNESS);
+        component_settings.CUSTOMIZE_changed(() => {
+            if (component_settings.CUSTOMIZE) {
+                component.set_sigma(component_settings.SIGMA);
+                component.set_brightness(component_settings.BRIGHTNESS);
+                component.set_color(component_settings.COLOR);
+                component.set_noise_amount(component_settings.NOISE_AMOUNT);
+                component.set_noise_lightness(component_settings.NOISE_LIGHTNESS);
             }
             else {
-                component.set_sigma(this._prefs.SIGMA);
-                component.set_brightness(this._prefs.BRIGHTNESS);
-                component.set_color(this._prefs.COLOR);
-                component.set_noise_amount(this._prefs.NOISE_AMOUNT);
-                component.set_noise_lightness(this._prefs.NOISE_LIGHTNESS);
+                component.set_sigma(this._settings.SIGMA);
+                component.set_brightness(this._settings.BRIGHTNESS);
+                component.set_color(this._settings.COLOR);
+                component.set_noise_amount(this._settings.NOISE_AMOUNT);
+                component.set_noise_lightness(this._settings.NOISE_LIGHTNESS);
             }
         });
 
         // sigma is changed
-        component_prefs.SIGMA_changed(() => {
-            if (component_prefs.CUSTOMIZE)
-                component.set_sigma(component_prefs.SIGMA);
+        component_settings.SIGMA_changed(() => {
+            if (component_settings.CUSTOMIZE)
+                component.set_sigma(component_settings.SIGMA);
             else
-                component.set_sigma(this._prefs.SIGMA);
+                component.set_sigma(this._settings.SIGMA);
         });
 
         // brightness is changed
-        component_prefs.BRIGHTNESS_changed(() => {
-            if (component_prefs.CUSTOMIZE)
-                component.set_brightness(component_prefs.BRIGHTNESS);
+        component_settings.BRIGHTNESS_changed(() => {
+            if (component_settings.CUSTOMIZE)
+                component.set_brightness(component_settings.BRIGHTNESS);
             else
-                component.set_brightness(this._prefs.BRIGHTNESS);
+                component.set_brightness(this._settings.BRIGHTNESS);
         });
 
         // color is changed
-        component_prefs.COLOR_changed(() => {
-            if (component_prefs.CUSTOMIZE)
-                component.set_color(component_prefs.COLOR);
+        component_settings.COLOR_changed(() => {
+            if (component_settings.CUSTOMIZE)
+                component.set_color(component_settings.COLOR);
             else
-                component.set_color(this._prefs.COLOR);
+                component.set_color(this._settings.COLOR);
         });
 
         // noise amount is changed
-        component_prefs.NOISE_AMOUNT_changed(() => {
-            if (component_prefs.CUSTOMIZE)
-                component.set_noise_amount(component_prefs.NOISE_AMOUNT);
+        component_settings.NOISE_AMOUNT_changed(() => {
+            if (component_settings.CUSTOMIZE)
+                component.set_noise_amount(component_settings.NOISE_AMOUNT);
             else
-                component.set_noise_amount(this._prefs.NOISE_AMOUNT);
+                component.set_noise_amount(this._settings.NOISE_AMOUNT);
         });
 
         // noise lightness is changed
-        component_prefs.NOISE_LIGHTNESS_changed(() => {
-            if (component_prefs.CUSTOMIZE)
-                component.set_noise_lightness(component_prefs.NOISE_LIGHTNESS);
+        component_settings.NOISE_LIGHTNESS_changed(() => {
+            if (component_settings.CUSTOMIZE)
+                component.set_noise_lightness(component_settings.NOISE_LIGHTNESS);
             else
-                component.set_noise_lightness(this._prefs.NOISE_LIGHTNESS);
+                component.set_noise_lightness(this._settings.NOISE_LIGHTNESS);
         });
     }
 
@@ -494,14 +572,14 @@ class Extension {
         INDEPENDENT_COMPONENTS.forEach(name => {
             // get component and preferences needed
             let component = this['_' + name + '_blur'];
-            let component_prefs = this._prefs[name];
+            let component_settings = this._settings[name];
 
             // update sigma accordingly
-            if (component_prefs.CUSTOMIZE) {
-                component.set_sigma(component_prefs.SIGMA);
+            if (component_settings.CUSTOMIZE) {
+                component.set_sigma(component_settings.SIGMA);
             }
             else {
-                component.set_sigma(this._prefs.SIGMA);
+                component.set_sigma(this._settings.SIGMA);
             }
         });
     }
@@ -511,13 +589,13 @@ class Extension {
         INDEPENDENT_COMPONENTS.forEach(name => {
             // get component and preferences needed
             let component = this['_' + name + '_blur'];
-            let component_prefs = this._prefs[name];
+            let component_settings = this._settings[name];
 
             // update brightness accordingly
-            if (component_prefs.CUSTOMIZE)
-                component.set_brightness(component_prefs.BRIGHTNESS);
+            if (component_settings.CUSTOMIZE)
+                component.set_brightness(component_settings.BRIGHTNESS);
             else
-                component.set_brightness(this._prefs.BRIGHTNESS);
+                component.set_brightness(this._settings.BRIGHTNESS);
         });
     }
 
@@ -526,13 +604,13 @@ class Extension {
         INDEPENDENT_COMPONENTS.forEach(name => {
             // get component and preferences needed
             let component = this['_' + name + '_blur'];
-            let component_prefs = this._prefs[name];
+            let component_settings = this._settings[name];
 
             // update color accordingly
-            if (component_prefs.CUSTOMIZE)
-                component.set_color(component_prefs.COLOR);
+            if (component_settings.CUSTOMIZE)
+                component.set_color(component_settings.COLOR);
             else
-                component.set_color(this._prefs.COLOR);
+                component.set_color(this._settings.COLOR);
         });
     }
 
@@ -541,13 +619,13 @@ class Extension {
         INDEPENDENT_COMPONENTS.forEach(name => {
             // get component and preferences needed
             let component = this['_' + name + '_blur'];
-            let component_prefs = this._prefs[name];
+            let component_settings = this._settings[name];
 
             // update color accordingly
-            if (component_prefs.CUSTOMIZE)
-                component.set_noise_amount(component_prefs.NOISE_AMOUNT);
+            if (component_settings.CUSTOMIZE)
+                component.set_noise_amount(component_settings.NOISE_AMOUNT);
             else
-                component.set_noise_amount(this._prefs.NOISE_AMOUNT);
+                component.set_noise_amount(this._settings.NOISE_AMOUNT);
         });
     }
 
@@ -556,24 +634,18 @@ class Extension {
         INDEPENDENT_COMPONENTS.forEach(name => {
             // get component and preferences needed
             let component = this['_' + name + '_blur'];
-            let component_prefs = this._prefs[name];
+            let component_settings = this._settings[name];
 
             // update color accordingly
-            if (component_prefs.CUSTOMIZE)
-                component.set_noise_lightness(component_prefs.NOISE_LIGHTNESS);
+            if (component_settings.CUSTOMIZE)
+                component.set_noise_lightness(component_settings.NOISE_LIGHTNESS);
             else
-                component.set_noise_lightness(this._prefs.NOISE_LIGHTNESS);
+                component.set_noise_lightness(this._settings.NOISE_LIGHTNESS);
         });
     }
 
     _log(str) {
-        if (this._prefs.DEBUG)
-            log(`[Blur my Shell > extension]    ${str}`);
+        if (this._settings.DEBUG)
+            console.log(`[Blur my Shell > extension]    ${str}`);
     }
-}
-
-
-// Called on gnome-shell loading, even if extension is deactivated
-function init() {
-    return new Extension();
 }

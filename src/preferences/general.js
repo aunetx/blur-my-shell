@@ -1,17 +1,14 @@
-'use strict';
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 
-const { Adw, GLib, GObject, Gio } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
-const { CustomizeRow } = Me.imports.preferences.customize_row;
+import { CustomizeRow } from './customize_row.js';
 
 
-var General = GObject.registerClass({
+export const General = GObject.registerClass({
     GTypeName: 'General',
-    Template: `file://${GLib.build_filenamev([Me.path, 'ui', 'general.ui'])}`,
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/general.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'sigma',
         'brightness',
@@ -27,26 +24,26 @@ var General = GObject.registerClass({
         'reset'
     ],
 }, class General extends Adw.PreferencesPage {
-    constructor(props = {}) {
-        super(props);
+    constructor(preferences) {
+        super({});
 
-        const Preferences = new Prefs(Keys);
+        this.preferences = preferences;
 
-        CustomizeRow.prototype.connect_to.call(this, Preferences);
+        CustomizeRow.prototype.connect_to.call(this, preferences, preferences);
 
-        Preferences.settings.bind(
-            'color-and-noise', this._color_and_noise, 'state',
+        this.preferences.settings.bind(
+            'color-and-noise', this._color_and_noise, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.settings.bind(
+        this.preferences.settings.bind(
             'hacks-level', this._hack_level, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
-        Preferences.settings.bind(
-            'debug', this._debug, 'state',
+        this.preferences.settings.bind(
+            'debug', this._debug, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._reset.connect('clicked', _ => Preferences.reset());
+        this._reset.connect('clicked', _ => this.preferences.reset());
     }
 });

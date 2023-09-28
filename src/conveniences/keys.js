@@ -1,12 +1,7 @@
-'use strict';
-
-const ExtensionUtils = imports.misc.extensionUtils;
-const Me = ExtensionUtils.getCurrentExtension();
-
-const { Type } = Me.imports.conveniences.settings;
+import { Type } from './settings.js';
 
 // This lists the preferences keys
-var Keys = [
+export const Keys = [
     {
         component: "general", schemas: [
             { type: Type.I, name: "sigma" },
@@ -40,7 +35,7 @@ var Keys = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
-            { type: Type.D, name: "dialog-opacity" },
+            { type: Type.I, name: "style-dialogs" },
         ]
     },
     {
@@ -55,6 +50,7 @@ var Keys = [
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },
         ]
     },
@@ -70,6 +66,7 @@ var Keys = [
             { type: Type.B, name: "static-blur" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-dash-to-dock" },
         ]
     },
     {
@@ -81,6 +78,8 @@ var Keys = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
+            { type: Type.I, name: "opacity" },
+            { type: Type.B, name: "blur-on-overview" },
             { type: Type.B, name: "enable-all" },
             { type: Type.ASD, name: "whitelist" },
             { type: Type.AS, name: "blacklist" },
@@ -122,6 +121,11 @@ var Keys = [
     {
         component: "hidetopbar", schemas: [
             { type: Type.B, name: "compatibility" },
+        ]
+    },
+    {
+        component: "dash-to-panel", schemas: [
+            { type: Type.B, name: "blur-original-panel" },
         ]
     },
 ];

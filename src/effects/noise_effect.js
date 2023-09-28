@@ -1,27 +1,21 @@
-'use strict';
-
-const { GLib, GObject, Gio, Clutter, Shell } = imports.gi;
-const ExtensionUtils = imports.misc.extensionUtils;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const { Prefs } = Me.imports.conveniences.settings;
-const { Keys } = Me.imports.conveniences.keys;
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
+import Shell from 'gi://Shell';
 
 
-const SHADER_PATH = GLib.build_filenamev(
-    [Me.path, 'effects', 'noise_effect.glsl']
-);
+const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'noise_effect.glsl', GLib.UriFlags.NONE))[0];
 
 const get_shader_source = _ => {
     try {
         return Shell.get_file_contents_utf8_sync(SHADER_PATH);
     } catch (e) {
-        log(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
+        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
         return null;
     }
 };
 
-var NoiseEffect = new GObject.registerClass({
+export const NoiseEffect = new GObject.registerClass({
     GTypeName: "NoiseEffect",
     Properties: {
         'noise': GObject.ParamSpec.double(
@@ -42,14 +36,19 @@ var NoiseEffect = new GObject.registerClass({
         ),
     }
 }, class NoiseShader extends Clutter.ShaderEffect {
-    _init(params) {
+    constructor(params, settings) {
+        super(params);
+
         this._noise = null;
         this._lightness = null;
 
         this._static = true;
-        this._prefs = new Prefs(Keys);
+        this._settings = settings;
 
-        super._init(params);
+        if (params.noise)
+            this.noise = params.noise;
+        if (params.lightness)
+            this.lightness = params.lightness;
 
         // set shader source
         this._source = get_shader_source();
@@ -85,9 +84,13 @@ var NoiseEffect = new GObject.registerClass({
     }
 
     update_enabled() {
+        // don't anything if this._settings is undefined (when calling super)
+        if (this._settings === undefined)
+            return;
+
         this.set_enabled(
             this.noise > 0 &&
-            this._prefs.COLOR_AND_NOISE &&
+            this._settings.COLOR_AND_NOISE &&
             this._static
         );
     }

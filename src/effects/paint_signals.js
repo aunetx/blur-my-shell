@@ -1,9 +1,8 @@
-'use strict';
+import GObject from 'gi://GObject';
+import Clutter from 'gi://Clutter';
 
-const { GObject, Clutter } = imports.gi;
 
-
-var PaintSignals = class PaintSignals {
+export const PaintSignals = class PaintSignals {
     constructor(connections) {
         this.buffer = [];
         this.connections = connections;
@@ -28,6 +27,24 @@ var PaintSignals = class PaintSignals {
                 else counter--;
             } catch (e) { }
         });
+
+        // remove the actor from buffer when it is destroyed
+        if (
+            actor.connect &&
+            (
+                !(actor instanceof GObject.Object) ||
+                GObject.signal_lookup('destroy', actor)
+            )
+        )
+            this.connections.connect(actor, 'destroy', () => {
+                this.buffer.forEach(infos => {
+                    if (infos.actor === actor) {
+                        // remove from buffer
+                        let index = this.buffer.indexOf(infos);
+                        this.buffer.splice(index, 1);
+                    }
+                });
+            });
 
         this.buffer.push(infos);
     }
@@ -55,7 +72,7 @@ var PaintSignals = class PaintSignals {
     }
 };
 
-var EmitPaintSignal = GObject.registerClass({
+export const EmitPaintSignal = GObject.registerClass({
     GTypeName: 'EmitPaintSignal',
     Signals: {
         'update-blur': {

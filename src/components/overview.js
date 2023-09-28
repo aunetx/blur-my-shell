@@ -1,20 +1,26 @@
-'use strict';
+import Shell from 'gi://Shell';
+import Meta from 'gi://Meta';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const { Shell, Gio, Meta } = imports.gi;
-const Main = imports.ui.main;
-
-const { WorkspaceAnimationController } = imports.ui.workspaceAnimation;
+import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
 
-const Me = imports.misc.extensionUtils.getCurrentExtension();
-const ColorEffect = Me.imports.effects.color_effect.ColorEffect;
-const NoiseEffect = Me.imports.effects.noise_effect.NoiseEffect;
+import { ColorEffect } from '../effects/color_effect.js';
+import { NoiseEffect } from '../effects/noise_effect.js';
 
-var OverviewBlur = class OverviewBlur {
-    constructor(connections, prefs) {
+const OVERVIEW_COMPONENTS_STYLE = [
+    "",
+    "overview-components-light",
+    "overview-components-dark",
+    "overview-components-transparent"
+];
+
+
+export const OverviewBlur = class OverviewBlur {
+    constructor(connections, settings) {
         this.connections = connections;
         this.effects = [];
-        this.prefs = prefs;
+        this.settings = settings;
         this._workspace_switch_bg_actors = [];
         this.enabled = false;
     }
@@ -55,55 +61,89 @@ var OverviewBlur = class OverviewBlur {
         // update backgrounds when the component is enabled
         this.update_backgrounds();
 
-        this.enabled = true;
 
         // part for the workspace animation switch
 
-        // store original workspace switching methods for restoring them on
-        // disable()
-        this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
-        this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
+        // make sure not to do this part if the extension was enabled prior, as
+        // the functions would call themselves and cause infinite recursion
+        if (!this.enabled) {
+            // store original workspace switching methods for restoring them on
+            // disable()
+            this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
+            this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
 
-        const outer_this = this;
+            const w_m = global.workspace_manager;
+            const outer_this = this;
 
-        // create a blurred background actor for each monitor during a workspace
-        // switch
-        wac_proto._prepareWorkspaceSwitch = function (...params) {
-            outer_this._log("prepare workspace switch");
-            outer_this._original_PrepareSwitch.apply(this, params);
+            // create a blurred background actor for each monitor during a workspace
+            // switch
+            wac_proto._prepareWorkspaceSwitch = function (...params) {
+                outer_this._log("prepare workspace switch");
+                outer_this._original_PrepareSwitch.apply(this, params);
 
-            Main.layoutManager.monitors.forEach(monitor => {
+                // this permits to show the blur behind windows that are on
+                // workspaces on the left and right
                 if (
-                    !(
-                        Meta.prefs_get_workspaces_only_on_primary() &&
-                        (monitor !== Main.layoutManager.primaryMonitor)
-                    )
+                    outer_this.settings.applications.BLUR
                 ) {
-                    const bg_actor = outer_this.create_background_actor(
-                        monitor
+                    let ws_index = w_m.get_active_workspace_index();
+                    [ws_index - 1, ws_index + 1].forEach(
+                        i => w_m.get_workspace_by_index(i)?.list_windows().forEach(
+                            window => window.get_compositor_private().show()
+                        )
                     );
-
-                    Main.uiGroup.insert_child_above(
-                        bg_actor,
-                        global.window_group
-                    );
-
-                    // store the actors so that we can delete them later
-                    outer_this._workspace_switch_bg_actors.push(bg_actor);
                 }
-            });
-        };
 
-        // remove the workspace-switch actors when the switch is done
-        wac_proto._finishWorkspaceSwitch = function (...params) {
-            outer_this._log("finish workspace switch");
-            outer_this._original_FinishSwitch.apply(this, params);
+                Main.layoutManager.monitors.forEach(monitor => {
+                    if (
+                        !(
+                            Meta.prefs_get_workspaces_only_on_primary() &&
+                            (monitor !== Main.layoutManager.primaryMonitor)
+                        )
+                    ) {
+                        const bg_actor = outer_this.create_background_actor(
+                            monitor, true
+                        );
 
-            outer_this._workspace_switch_bg_actors.forEach(actor => {
-                actor.destroy();
-            });
-            outer_this._workspace_switch_bg_actors = [];
-        };
+                        Main.uiGroup.insert_child_above(
+                            bg_actor,
+                            global.window_group
+                        );
+
+                        // store the actors so that we can delete them later
+                        outer_this._workspace_switch_bg_actors.push(bg_actor);
+                    }
+                });
+            };
+
+            // remove the workspace-switch actors when the switch is done
+            wac_proto._finishWorkspaceSwitch = function (...params) {
+                outer_this._log("finish workspace switch");
+                outer_this._original_FinishSwitch.apply(this, params);
+
+                // this hides windows that are not on the current workspace
+                if (
+                    outer_this.settings.applications.BLUR
+                )
+                    for (let i = 0; i < w_m.get_n_workspaces(); i++) {
+                        if (i != w_m.get_active_workspace_index())
+                            w_m.get_workspace_by_index(i)?.list_windows().forEach(
+                                window => window.get_compositor_private().hide()
+                            );
+                    }
+
+                outer_this.effects = outer_this.effects.filter(
+                    effects_group => !effects_group.is_transition
+                );
+
+                outer_this._workspace_switch_bg_actors.forEach(actor => {
+                    actor.destroy();
+                });
+                outer_this._workspace_switch_bg_actors = [];
+            };
+        }
+
+        this.enabled = true;
     }
 
     update_backgrounds() {
@@ -118,7 +158,7 @@ var OverviewBlur = class OverviewBlur {
 
         // add new backgrounds
         Main.layoutManager.monitors.forEach(monitor => {
-            const bg_actor = this.create_background_actor(monitor);
+            const bg_actor = this.create_background_actor(monitor, false);
 
             Main.layoutManager.overviewGroup.insert_child_at_index(
                 bg_actor,
@@ -127,26 +167,35 @@ var OverviewBlur = class OverviewBlur {
         });
     }
 
-    create_background_actor(monitor) {
-        let bg_actor = new Meta.BackgroundActor;
-        let background = Main.layoutManager._backgroundGroup.get_child_at_index(
+    create_background_actor(monitor, is_transition) {
+        let bg_actor = new Meta.BackgroundActor({
+            meta_display: global.display,
+            monitor: monitor.index
+        });
+        let background_group = Main.layoutManager._backgroundGroup
+            .get_children()
+            .filter((child) => child instanceof Meta.BackgroundActor);
+        let background =
+            background_group[
             Main.layoutManager.monitors.length - monitor.index - 1
-        );
+            ];
 
         if (!background) {
-            this._log("could not get background for overview");
+            this._warn("could not get background for overview");
             return bg_actor;
         }
 
-        bg_actor.set_content(background.get_content());
+        bg_actor.content.set({
+            background: background.get_content().background
+        });
 
         let blur_effect = new Shell.BlurEffect({
-            brightness: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.BRIGHTNESS
-                : this.prefs.BRIGHTNESS,
-            sigma: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.SIGMA
-                : this.prefs.SIGMA
+            brightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.BRIGHTNESS
+                : this.settings.BRIGHTNESS,
+            sigma: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.SIGMA
+                : this.settings.SIGMA
                 * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
@@ -155,24 +204,24 @@ var OverviewBlur = class OverviewBlur {
         blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = new ColorEffect({
-            color: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.COLOR
-                : this.prefs.COLOR
-        });
+            color: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.COLOR
+                : this.settings.COLOR
+        }, this.settings);
 
         let noise_effect = new NoiseEffect({
-            noise: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.NOISE_AMOUNT
-                : this.prefs.NOISE_AMOUNT,
-            lightness: this.prefs.overview.CUSTOMIZE
-                ? this.prefs.overview.NOISE_LIGHTNESS
-                : this.prefs.NOISE_LIGHTNESS
-        });
+            noise: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_AMOUNT
+                : this.settings.NOISE_AMOUNT,
+            lightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_LIGHTNESS
+                : this.settings.NOISE_LIGHTNESS
+        }, this.settings);
 
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);
         bg_actor.add_effect(blur_effect);
-        this.effects.push({ blur_effect, color_effect, noise_effect });
+        this.effects.push({ blur_effect, color_effect, noise_effect, is_transition });
 
         bg_actor.set_x(monitor.x);
         bg_actor.set_y(monitor.y);
@@ -183,26 +232,13 @@ var OverviewBlur = class OverviewBlur {
     /// Updates the classname to style overview components with semi-transparent
     /// backgrounds.
     update_components_classname() {
-        let group = Main.uiGroup;
-        switch (this.prefs.overview.STYLE_COMPONENTS) {
-            case 1:
-                this._log("set overview components light classname");
-                group.remove_style_class_name("bms-overview-components-dark");
-                group.add_style_class_name("bms-overview-components-light");
-                break;
+        OVERVIEW_COMPONENTS_STYLE.forEach(
+            style => Main.uiGroup.remove_style_class_name(style)
+        );
 
-            case 2:
-                this._log("set overview components dark classname");
-                group.remove_style_class_name("bms-overview-components-light");
-                group.add_style_class_name("bms-overview-components-dark");
-                break;
-
-            default:
-                this._log("remove overview components classname");
-                group.remove_style_class_name("bms-overview-components-light");
-                group.remove_style_class_name("bms-overview-components-dark");
-                break;
-        }
+        Main.uiGroup.add_style_class_name(
+            OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS]
+        );
     }
 
     set_sigma(s) {
@@ -243,22 +279,31 @@ var OverviewBlur = class OverviewBlur {
             }
         });
         Main.uiGroup.remove_style_class_name("blurred-overview");
-        Main.uiGroup.remove_style_class_name("bms-overview-components-light");
-        Main.uiGroup.remove_style_class_name("bms-overview-components-dark");
+        OVERVIEW_COMPONENTS_STYLE.forEach(
+            style => Main.uiGroup.remove_style_class_name(style)
+        );
+
+        // make sure to absolutely not do this if the component was not enabled
+        // prior, as this would cause infinite recursion
+        if (this.enabled) {
+            // restore original behavior
+            if (this._original_PrepareSwitch)
+                wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
+            if (this._original_FinishSwitch)
+                wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
+        }
 
         this.effects = [];
         this.connections.disconnect_all();
         this.enabled = false;
-
-        // restore original behavior
-        if (this._original_PrepareSwitch && this._original_FinishSwitch) {
-            wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
-            wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
-        }
     }
 
     _log(str) {
-        if (this.prefs.DEBUG)
-            log(`[Blur my Shell > overview]     ${str}`);
+        if (this.settings.DEBUG)
+            console.log(`[Blur my Shell > overview]     ${str}`);
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > overview]     ${str}`);
     }
 };
