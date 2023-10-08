@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: Rali Boińskx <me@rlgh.eu>\n"
+"PO-Revision-Date: 2023-10-09 17:03+0000\n"
+"Last-Translator: Voyteck <voyteck@tutanota.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -192,8 +192,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"Sprawia, że tło jest przezroczyste lub półprzezroczyste, wyłącz tę opcję aby "
-"zamiast tego używać preferencji rozszerzenia Dash to Dock."
+"Sprawia, że tło staje się przezroczyste lub półprzezroczyste, wyłącz tę "
+"opcję aby zamiast tego używać preferencji rozszerzenia Dash to Dock."
 
 #: dash.ui:33 panel.ui:64
 msgid "Background style"
@@ -448,7 +448,7 @@ msgstr "Pprzezroczysty/półprzezroczysty styl tła panelu."
 
 #: panel.ui:79
 msgid "Disable when a window is near"
-msgstr "Wyłącz, gdy okno znajduje się w pobliżu"
+msgstr "Wyłącz, gdy jakieś okno znajduje się w pobliżu"
 
 #: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
@@ -474,17 +474,19 @@ msgstr ""
 
 #: panel.ui:118
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Rozmaż oryginalny panel z Dash to Panel"
 
 #: panel.ui:119
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Włącza rozmazanie oryginalnego panelu z Dash to Panel, jeśli zaznaczono w "
+"opcjach rozszerzenia."
 
 #: panel.ui:138
 msgid "Contrasted"
-msgstr ""
+msgstr "Kontrastowy"
 
 #: window-row.ui:4
 msgid "Window Name"
