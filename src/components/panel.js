@@ -19,10 +19,11 @@ const PANEL_STYLES = [
 
 
 export const PanelBlur = class PanelBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.window_signal_ids = new Map();
         this.settings = settings;
+        this.effects_manager = effects_manager;
         this.actors_list = [];
         this.enabled = false;
     }
@@ -165,7 +166,7 @@ export const PanelBlur = class PanelBlur {
         // insert background parent
         panel_box.insert_child_at_index(background_parent, 0);
 
-        let blur = new Shell.BlurEffect({
+        let blur = this.effects_manager.new_blur_effect({
             brightness: this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
@@ -181,13 +182,13 @@ export const PanelBlur = class PanelBlur {
         // store the scale in the effect in order to retrieve it in set_sigma
         blur.scale = monitor.geometry_scale;
 
-        let color = new ColorEffect({
+        let color = this.effects_manager.new_color_effect({
             color: this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.COLOR
                 : this.settings.COLOR
         }, this.settings);
 
-        let noise = new NoiseEffect({
+        let noise = this.effects_manager.new_noise_effect({
             noise: this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.NOISE_AMOUNT
                 : this.settings.NOISE_AMOUNT,
@@ -239,9 +240,9 @@ export const PanelBlur = class PanelBlur {
 
         // reset widgets to right state
         actors.widgets.background_parent.remove_child(actors.widgets.background);
-        actors.widgets.background.remove_effect(actors.effects.blur);
-        actors.widgets.background.remove_effect(actors.effects.color);
-        actors.widgets.background.remove_effect(actors.effects.noise);
+        this.effects_manager.remove(actors.effects.blur);
+        this.effects_manager.remove(actors.effects.color);
+        this.effects_manager.remove(actors.effects.noise);
 
         // create new background actor
         actors.widgets.background = is_static
@@ -654,8 +655,17 @@ export const PanelBlur = class PanelBlur {
                     actors.widgets.background_parent
                 );
             } catch (e) { }
-
         });
+
+        // destroy every blurred background left, necessary after sleep
+        Main.panel?.get_parent()?.get_children()?.forEach(
+            child => {
+                if (child.name === 'topbar-blurred-background-parent') {
+                    child.destroy_all_children();
+                    child.destroy();
+                }
+            }
+        );
 
         this.actors_list = [];
 

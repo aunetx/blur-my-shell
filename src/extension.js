@@ -4,6 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
 import { Settings } from './conveniences/settings.js';
 import { Keys } from './conveniences/keys.js';
@@ -31,26 +32,24 @@ export default class BlurMyShell extends Extension {
     enable() {
         // add the extension to global to make it accessible to other extensions
         // create it first as it is very useful when debugging crashes
-
         global.blur_my_shell = this;
 
         // create a Settings instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
-
         this._settings = new Settings(Keys, this.getSettings());
 
         this._log("enabling extension...");
 
         // create main extension Connections instance
-
         this._connection = new Connections;
 
         // store it in a global array
-
         this._connections = [this._connection];
 
-        // create an instance of each component, with its associated Connections
+        // create a global effects manager (to prevent RAM bleeding)
+        this._effects_manager = new EffectsManager(this._connection);
 
+        // create an instance of each component, with its associated Connections
         let init = _ => {
             // create a Connections instance, to manage signals
             let connection = new Connections;
@@ -58,7 +57,7 @@ export default class BlurMyShell extends Extension {
             // store it to keeps track of them globally
             this._connections.push(connection);
 
-            return [connection, this._settings];
+            return [connection, this._settings, this._effects_manager];
         };
 
         this._panel_blur = new PanelBlur(...init());
@@ -71,11 +70,9 @@ export default class BlurMyShell extends Extension {
         this._screenshot_blur = new ScreenshotBlur(...init());
 
         // maybe disable clipped redraw
-
         this._update_clipped_redraws();
 
         // connect each component to preferences change
-
         this._connect_to_settings();
 
         // enable every component
@@ -122,7 +119,6 @@ export default class BlurMyShell extends Extension {
         this._log("disabling extension...");
 
         // disable every component
-
         this._panel_blur.disable();
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
@@ -133,7 +129,6 @@ export default class BlurMyShell extends Extension {
         this._screenshot_blur.disable();
 
         // untrack them
-
         this._panel_blur = null;
         this._dash_to_dock_blur = null;
         this._overview_blur = null;
@@ -143,22 +138,18 @@ export default class BlurMyShell extends Extension {
         this._applications_blur = null;
 
         // make sure no settings change can re-enable them
-
         this._settings.disconnect_all_settings();
 
         // force disconnecting every signal, even if component crashed
-
         this._connections.forEach((connections) => {
             connections.disconnect_all();
         });
         this._connections = [];
 
         // remove the clipped redraws flag
-
         this._reenable_clipped_redraws();
 
         // remove the extension from GJS's global
-
         delete global.blur_my_shell;
 
         this._log("extension disabled.");
@@ -265,7 +256,6 @@ export default class BlurMyShell extends Extension {
         this._settings.HACKS_LEVEL_changed(_ => this._restart());
 
         // connect each component to use the proper sigma/brightness/color
-
         INDEPENDENT_COMPONENTS.forEach(component => {
             this._connect_to_individual_settings(component);
         });
