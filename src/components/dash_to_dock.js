@@ -81,10 +81,11 @@ class DashInfos {
 }
 
 export const DashBlur = class DashBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, effects_manager) {
         this.dashes = [];
         this.connections = connections;
         this.settings = settings;
+        this.effects_manager = effects_manager;
         this.paint_signals = new PaintSignals(connections);
         this.sigma = this.settings.dash_to_dock.CUSTOMIZE
             ? this.settings.dash_to_dock.SIGMA
@@ -144,7 +145,7 @@ export const DashBlur = class DashBlur {
     // Blurs the dash and returns a `DashInfos` containing its information
     blur_dash_from(dash, dash_container) {
         // the effect to be applied
-        let effect = new Shell.BlurEffect({
+        let effect = this.effects_manager.new_blur_effect({
             brightness: this.brightness,
             sigma: this.sigma,
             mode: Shell.BlurMode.BACKGROUND
