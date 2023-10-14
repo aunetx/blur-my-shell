@@ -8,17 +8,20 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-29 16:20+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-10-15 09:03+0000\n"
+"Last-Translator: ilovethensa <Ambulance1581@tuta.io>\n"
+"Language-Team: Bulgarian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/bg/>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Програми"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
@@ -31,6 +34,11 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Добавя замъгляване към приложенията. Това все още е функционалност в бета "
+"версия.\n"
+"За да получите най-добрите възможни резултати, уверете се, че сте избрали "
+"опцията 'Без артефакти' в настройките 'Общи → Ниво на хак'.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
@@ -41,6 +49,8 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Прозрачността на прозореца над размазващият ефект - по-висока стойност ще "
+"направи текста по-четлив."
 
 #: applications.ui:51
 msgid "Blur on overview"
@@ -51,6 +61,9 @@ msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Принуждава замъгляването да бъде правилно показано на всички работни "
+"пространства на прегледа.\n"
+"Това може да доведе до латентност или проблеми с производителността."
 
 #: applications.ui:67
 msgid "Enable all by default"
@@ -61,6 +74,8 @@ msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Добавя размазване зад всички прозорци по подразбиране.\n"
+"Не се препоръчва поради проблеми с производителността и стабилността."
 
 #: applications.ui:85
 msgid "Whitelist"
@@ -118,6 +133,8 @@ msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Променя цвета на размазването. Прозрачността на цвета контролира колко се "
+"смесва в размазания ефект."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
@@ -128,6 +145,8 @@ msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"Количеството шум, което се добавя към размазващия ефект, е полезно на екрани "
+"с нисък контраст или за целите на естетика."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
@@ -191,11 +210,11 @@ msgstr ""
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
 msgid "Light"
-msgstr ""
+msgstr "Светло"
 
 #: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
 msgid "Dark"
-msgstr ""
+msgstr "Тъмно"
 
 #: general.ui:5
 msgid "General"
@@ -239,6 +258,12 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Променя поведението на динамичния ефект на размазване. \n"
+"Стойността по подразбиране се препоръчва, освен ако използвате размазване в "
+"приложение, в което случай \"Без артефакт\" е по-добро решение. \n"
+"Тази опция изключва изцяло отново рисунките в GNOME Shell и може да окаже "
+"значително влияние върху производителността, но напълно ще реши ефекта на "
+"размазване."
 
 #: general.ui:151
 msgid "Debug"
@@ -249,6 +274,9 @@ msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"Увеличава подробността на записите на разширението в журналите. Активирайте "
+"тази настройка, когато имате нужда да докладвате проблем или грешка с "
+"разширението."
 
 #: general.ui:167
 msgid "Reset preferences"
