@@ -664,11 +664,15 @@ export const PanelBlur = class PanelBlur {
 
         this.actors_list.forEach(actors => {
             this.set_should_override_panel(actors, false);
+            this.effects_manager.remove(actors.effects.noise);
+            this.effects_manager.remove(actors.effects.color);
+            this.effects_manager.remove(actors.effects.blur);
             try {
                 actors.widgets.panel_box.remove_child(
                     actors.widgets.background_parent
                 );
             } catch (e) { }
+            actors.widgets.background_parent?.destroy();
         });
 
         this.destroy_blur_effects();

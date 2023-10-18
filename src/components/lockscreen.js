@@ -71,12 +71,12 @@ export const LockscreenBlur = class LockscreenBlur {
         // store the scale in the effect in order to retrieve later
         blur_effect.scale = monitor.geometry_scale;
 
-        let color_effect = this.effects_manager.new_color_effect({
+        let color_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_color_effect({
             name: 'color',
             color: color
         }, this.settings);
 
-        let noise_effect = this.effects_manager.new_noise_effect({
+        let noise_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_noise_effect({
             name: 'noise',
             noise: noise,
             lightness: lightness
@@ -99,8 +99,8 @@ export const LockscreenBlur = class LockscreenBlur {
 
     _updateBackgroundEffects() {
         for (const widget of this._backgroundGroup) {
-            const color_effect = widget.get_effect('blur');
-            const noise_effect = widget.get_effect('blur');
+            const color_effect = widget.get_effect('color');
+            const noise_effect = widget.get_effect('noise');
             const blur_effect = widget.get_effect('blur');
 
             if (color_effect)
