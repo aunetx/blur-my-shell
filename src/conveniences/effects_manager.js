@@ -12,14 +12,20 @@ export const EffectsManager = class EffectsManager {
     }
 
     connect_to_destroy(effect) {
-        this.connections.connect(effect, 'notify::parent', _ => {
-            let parent = effect.get_parent();
+        effect.old_actor = effect.get_actor();
+        if (effect.old_actor)
+            effect.old_actor_id = effect.old_actor.connect('destroy', _ => {
+                this.remove(effect);
+            });
 
-            if (effect.old_parent && parent != effect.old_parent)
-                effect.old_parent.disconnect(effect.old_parent_id);
+        this.connections.connect(effect, 'notify::actor', _ => {
+            let actor = effect.get_actor();
 
-            if (parent) {
-                this.connections.connect(parent, 'destroy', _ => {
+            if (effect.old_actor && actor != effect.old_actor)
+                effect.old_actor.disconnect(effect.old_actor_id);
+
+            if (actor) {
+                effect.old_actor_id = actor.connect('destroy', _ => {
                     this.remove(effect);
                 });
             }
@@ -54,6 +60,10 @@ export const EffectsManager = class EffectsManager {
 
     remove(effect) {
         effect.get_actor()?.remove_effect(effect);
+        if (effect.old_actor)
+            effect.old_actor.disconnect(effect.old_actor_id);
+        delete effect.old_actor;
+        delete effect.old_actor_id;
 
         let index = this.used.indexOf(effect);
         if (index >= 0) {
