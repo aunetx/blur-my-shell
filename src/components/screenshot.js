@@ -2,15 +2,13 @@ import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
-
 
 export const ScreenshotBlur = class ScreenshotBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.effects = [];
         this.settings = settings;
+        this.effects_manager = effects_manager;
     }
 
     enable() {
@@ -94,13 +92,13 @@ export const ScreenshotBlur = class ScreenshotBlur {
         // store the scale in the effect in order to retrieve it in set_sigma
         blur_effect.scale = monitor.geometry_scale;
 
-        let color_effect = new ColorEffect({
+        let color_effect = this.effects_manager.new_color_effect({
             color: this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.COLOR
                 : this.settings.COLOR
         }, this.settings);
 
-        let noise_effect = new NoiseEffect({
+        let noise_effect = this.effects_manager.new_noise_effect({
             noise: this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.NOISE_AMOUNT
                 : this.settings.NOISE_AMOUNT,
@@ -149,8 +147,10 @@ export const ScreenshotBlur = class ScreenshotBlur {
 
     remove() {
         Main.screenshotUI._windowSelectors.forEach(actor => {
-            if (actor._blur_actor)
+            if (actor._blur_actor) {
                 actor.remove_child(actor._blur_actor);
+                actor._blur_actor.destroy();
+            }
         });
         this.effects = [];
     }

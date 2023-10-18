@@ -6,8 +6,9 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { PaintSignals } from '../effects/paint_signals.js';
 import { ApplicationsService } from '../dbus/services.js';
 
+
 export const ApplicationsBlur = class ApplicationsBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, _) {
         this.connections = connections;
         this.settings = settings;
         this.paint_signals = new PaintSignals(connections);

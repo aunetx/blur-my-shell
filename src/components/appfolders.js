@@ -7,7 +7,6 @@ const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
-const FRAME_UPDATE_PERIOD = 16;
 
 const DIALOGS_STYLES = [
     "",
@@ -122,7 +121,7 @@ let _zoomAndFadeOut = function () {
 
 
 export const AppFoldersBlur = class AppFoldersBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, _) {
         this.connections = connections;
         this.paint_signals = new PaintSignals(connections);
         this.settings = settings;
