@@ -2,9 +2,6 @@ import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
-
 
 export const ScreenshotBlur = class ScreenshotBlur {
     constructor(connections, settings, effects_manager) {
@@ -81,7 +78,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
             background: background.get_content().background
         });
 
-        let blur_effect = this.effects_manager.new_blur_effect({
+        let blur_effect = new Shell.BlurEffect({
             brightness: this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
@@ -150,8 +147,10 @@ export const ScreenshotBlur = class ScreenshotBlur {
 
     remove() {
         Main.screenshotUI._windowSelectors.forEach(actor => {
-            if (actor._blur_actor)
+            if (actor._blur_actor) {
                 actor.remove_child(actor._blur_actor);
+                actor._blur_actor.destroy();
+            }
         });
         this.effects = [];
     }

@@ -5,11 +5,8 @@ import Mtk from 'gi://Mtk';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
-
 const PANEL_STYLES = [
     "transparent-panel",
     "light-panel",
@@ -166,7 +163,7 @@ export const PanelBlur = class PanelBlur {
         // insert background parent
         panel_box.insert_child_at_index(background_parent, 0);
 
-        let blur = this.effects_manager.new_blur_effect({
+        let blur = new Shell.BlurEffect({
             brightness: this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
@@ -643,6 +640,23 @@ export const PanelBlur = class PanelBlur {
         });
     }
 
+    // destroy every blurred background left, necessary after sleep
+    destroy_blur_effects() {
+        Main.panel?.get_parent()?.get_children().forEach(
+            child => {
+                if (child.name === 'topbar-blurred-background-parent') {
+                    child.get_children().forEach(meta_background_actor => {
+                        meta_background_actor.get_effects().forEach(effect => {
+                            this.effects_manager.remove(effect);
+                        });
+                    });
+                    child.destroy_all_children();
+                    child.destroy();
+                }
+            }
+        );
+    }
+
     disable() {
         this._log("removing blur from top panel");
 
@@ -657,15 +671,7 @@ export const PanelBlur = class PanelBlur {
             } catch (e) { }
         });
 
-        // destroy every blurred background left, necessary after sleep
-        Main.panel?.get_parent()?.get_children()?.forEach(
-            child => {
-                if (child.name === 'topbar-blurred-background-parent') {
-                    child.destroy_all_children();
-                    child.destroy();
-                }
-            }
-        );
+        this.destroy_blur_effects();
 
         this.actors_list = [];
 

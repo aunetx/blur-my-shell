@@ -1,4 +1,3 @@
-import Shell from 'gi://Shell';
 import { ColorEffect } from '../effects/color_effect.js';
 import { NoiseEffect } from '../effects/noise_effect.js';
 
@@ -8,7 +7,6 @@ export const EffectsManager = class EffectsManager {
     constructor(connections) {
         this.connections = connections;
         this.used = [];
-        this.blur_effects = [];
         this.color_effects = [];
         this.noise_effects = [];
     }
@@ -26,19 +24,6 @@ export const EffectsManager = class EffectsManager {
                 });
             }
         });
-    }
-
-    new_blur_effect(params) {
-        let effect;
-        if (this.blur_effects.length > 0) {
-            effect = this.blur_effects.splice(0, 1)[0];
-            effect.set(params);
-        } else
-            effect = new Shell.BlurEffect;
-
-        this.used.push(effect);
-        this.connect_to_destroy(effect);
-        return effect;
     }
 
     new_color_effect(params, settings) {
@@ -74,9 +59,7 @@ export const EffectsManager = class EffectsManager {
         if (index >= 0) {
             this.used.splice(index, 1);
 
-            if (effect instanceof Shell.BlurEffect)
-                this.blur_effects.push(effect);
-            else if (effect instanceof ColorEffect)
+            if (effect instanceof ColorEffect)
                 this.color_effects.push(effect);
             else if (effect instanceof NoiseEffect)
                 this.noise_effects.push(effect);
@@ -87,7 +70,6 @@ export const EffectsManager = class EffectsManager {
         this.used.forEach(effect => { this.remove(effect); });
         [
             this.used,
-            this.blur_effects,
             this.color_effects,
             this.noise_effects
         ].forEach(array => {
