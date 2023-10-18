@@ -4,9 +4,6 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
-
 let sigma;
 let brightness;
 let color;
@@ -20,9 +17,10 @@ const original_updateBackgroundEffects =
 
 
 export const LockscreenBlur = class LockscreenBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.settings = settings;
+        this.effects_manager = effects_manager;
     }
 
     enable() {
@@ -73,12 +71,12 @@ export const LockscreenBlur = class LockscreenBlur {
         // store the scale in the effect in order to retrieve later
         blur_effect.scale = monitor.geometry_scale;
 
-        let color_effect = new ColorEffect({
+        let color_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_color_effect({
             name: 'color',
             color: color
         }, this.settings);
 
-        let noise_effect = new NoiseEffect({
+        let noise_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_noise_effect({
             name: 'noise',
             noise: noise,
             lightness: lightness
@@ -101,8 +99,8 @@ export const LockscreenBlur = class LockscreenBlur {
 
     _updateBackgroundEffects() {
         for (const widget of this._backgroundGroup) {
-            const color_effect = widget.get_effect('blur');
-            const noise_effect = widget.get_effect('blur');
+            const color_effect = widget.get_effect('color');
+            const noise_effect = widget.get_effect('noise');
             const blur_effect = widget.get_effect('blur');
 
             if (color_effect)

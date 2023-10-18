@@ -3,8 +3,9 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
 
+
 export const WindowListBlur = class WindowListBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, _) {
         this.connections = connections;
         this.settings = settings;
         this.paint_signals = new PaintSignals(connections);

@@ -81,7 +81,7 @@ class DashInfos {
 }
 
 export const DashBlur = class DashBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, _) {
         this.dashes = [];
         this.connections = connections;
         this.settings = settings;

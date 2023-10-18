@@ -5,9 +5,6 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
 
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
-
 const OVERVIEW_COMPONENTS_STYLE = [
     "",
     "overview-components-light",
@@ -17,10 +14,11 @@ const OVERVIEW_COMPONENTS_STYLE = [
 
 
 export const OverviewBlur = class OverviewBlur {
-    constructor(connections, settings) {
+    constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.effects = [];
         this.settings = settings;
+        this.effects_manager = effects_manager;
         this._workspace_switch_bg_actors = [];
         this.enabled = false;
     }
@@ -75,8 +73,8 @@ export const OverviewBlur = class OverviewBlur {
             const w_m = global.workspace_manager;
             const outer_this = this;
 
-            // create a blurred background actor for each monitor during a workspace
-            // switch
+            // create a blurred background actor for each monitor during a
+            // workspace switch
             wac_proto._prepareWorkspaceSwitch = function (...params) {
                 outer_this._log("prepare workspace switch");
                 outer_this._original_PrepareSwitch.apply(this, params);
@@ -148,13 +146,7 @@ export const OverviewBlur = class OverviewBlur {
 
     update_backgrounds() {
         // remove every old background
-        Main.layoutManager.overviewGroup.get_children().forEach(actor => {
-            if (actor.constructor.name === 'Meta_BackgroundActor') {
-                Main.layoutManager.overviewGroup.remove_child(actor);
-                actor.destroy();
-            }
-        });
-        this.effects = [];
+        this.remove_background_actors();
 
         // add new backgrounds
         Main.layoutManager.monitors.forEach(monitor => {
@@ -203,13 +195,13 @@ export const OverviewBlur = class OverviewBlur {
         // store the scale in the effect in order to retrieve it in set_sigma
         blur_effect.scale = monitor.geometry_scale;
 
-        let color_effect = new ColorEffect({
+        let color_effect = this.effects_manager.new_color_effect({
             color: this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.COLOR
                 : this.settings.COLOR
         }, this.settings);
 
-        let noise_effect = new NoiseEffect({
+        let noise_effect = this.effects_manager.new_noise_effect({
             noise: this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.NOISE_AMOUNT
                 : this.settings.NOISE_AMOUNT,
@@ -271,13 +263,22 @@ export const OverviewBlur = class OverviewBlur {
         });
     }
 
-    disable() {
-        this._log("removing blur from overview");
+    remove_background_actors() {
         Main.layoutManager.overviewGroup.get_children().forEach(actor => {
             if (actor.constructor.name === 'Meta_BackgroundActor') {
+                actor.get_effects().forEach(effect => {
+                    this.effects_manager.remove(effect);
+                });
                 Main.layoutManager.overviewGroup.remove_child(actor);
+                actor.destroy();
             }
         });
+        this.effects = [];
+    }
+
+    disable() {
+        this._log("removing blur from overview");
+        this.remove_background_actors();
         Main.uiGroup.remove_style_class_name("blurred-overview");
         OVERVIEW_COMPONENTS_STYLE.forEach(
             style => Main.uiGroup.remove_style_class_name(style)
@@ -293,7 +294,6 @@ export const OverviewBlur = class OverviewBlur {
                 wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
         }
 
-        this.effects = [];
         this.connections.disconnect_all();
         this.enabled = false;
     }
