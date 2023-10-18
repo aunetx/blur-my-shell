@@ -6,11 +6,11 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { PaintSignals } from '../effects/paint_signals.js';
 import { ApplicationsService } from '../dbus/services.js';
 
+
 export const ApplicationsBlur = class ApplicationsBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings, _) {
         this.connections = connections;
         this.settings = settings;
-        this.effects_manager = effects_manager;
         this.paint_signals = new PaintSignals(connections);
 
         // stores every blurred window
@@ -324,7 +324,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
     /// Add the blur effect to the window.
     create_blur_effect(pid, window_actor, meta_window, brightness, sigma) {
-        let blur_effect = this.effects_manager.new_blur_effect({
+        let blur_effect = new Shell.BlurEffect({
             sigma: sigma,
             brightness: brightness,
             mode: Shell.BlurMode.BACKGROUND

@@ -3,11 +3,11 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
 
+
 export const WindowListBlur = class WindowListBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings, _) {
         this.connections = connections;
         this.settings = settings;
-        this.effects_manager = effects_manager;
         this.paint_signals = new PaintSignals(connections);
         this.effects = [];
     }
@@ -44,7 +44,7 @@ export const WindowListBlur = class WindowListBlur {
         ) {
             this._log("found window list to blur");
 
-            let blur_effect = this.effects_manager.new_blur_effect({
+            let blur_effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
                 sigma: this.settings.window_list.CUSTOMIZE
                     ? this.settings.window_list.SIGMA
@@ -107,10 +107,7 @@ export const WindowListBlur = class WindowListBlur {
             child.style === "background:transparent;"
         ) {
             child.style = null;
-
-            let blur_effect = child.get_effect("window-list-blur");
-            if (blur_effect)
-                this.effects_manager.remove(blur_effect);
+            child.remove_effect_by_name('window-list-blur');
 
             child._windowList.get_children().forEach(
                 child => child.get_child_at_index(0).set_style(null)

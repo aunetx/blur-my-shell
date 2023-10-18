@@ -4,9 +4,6 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
-
 let sigma;
 let brightness;
 let color;
@@ -65,7 +62,7 @@ export const LockscreenBlur = class LockscreenBlur {
             height: monitor.height,
         });
 
-        let blur_effect = this.effects_manager.new_blur_effect({
+        let blur_effect = new Shell.BlurEffect({
             name: 'blur',
             sigma: sigma,
             brightness: brightness

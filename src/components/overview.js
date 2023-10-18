@@ -5,9 +5,6 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
 
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
-
 const OVERVIEW_COMPONENTS_STYLE = [
     "",
     "overview-components-light",
@@ -76,8 +73,8 @@ export const OverviewBlur = class OverviewBlur {
             const w_m = global.workspace_manager;
             const outer_this = this;
 
-            // create a blurred background actor for each monitor during a workspace
-            // switch
+            // create a blurred background actor for each monitor during a
+            // workspace switch
             wac_proto._prepareWorkspaceSwitch = function (...params) {
                 outer_this._log("prepare workspace switch");
                 outer_this._original_PrepareSwitch.apply(this, params);
@@ -184,7 +181,7 @@ export const OverviewBlur = class OverviewBlur {
             background: background.get_content().background
         });
 
-        let blur_effect = this.effects_manager.new_blur_effect({
+        let blur_effect = new Shell.BlurEffect({
             brightness: this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
