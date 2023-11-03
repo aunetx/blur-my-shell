@@ -9,7 +9,6 @@ const transparent = Clutter.Color.from_pixel(0x00000000);
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 
 const DIALOGS_STYLES = [
-    "",
     "appfolder-dialogs-transparent",
     "appfolder-dialogs-light",
     "appfolder-dialogs-dark"
@@ -178,12 +177,12 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 style => icon._dialog._viewBox.remove_style_class_name(style)
             );
 
-            icon._dialog._viewBox.add_style_class_name(
-                DIALOGS_STYLES[this.settings.appfolder.STYLE_DIALOGS]
-            );
+            if (this.settings.appfolder.STYLE_DIALOGS > 0)
+                icon._dialog._viewBox.add_style_class_name(
+                    DIALOGS_STYLES[this.settings.appfolder.STYLE_DIALOGS - 1]
+                );
 
             // finally override the builtin functions
-
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
 
