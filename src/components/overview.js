@@ -6,7 +6,6 @@ import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/wor
 const wac_proto = WorkspaceAnimationController.prototype;
 
 const OVERVIEW_COMPONENTS_STYLE = [
-    "",
     "overview-components-light",
     "overview-components-dark",
     "overview-components-transparent"
@@ -228,9 +227,10 @@ export const OverviewBlur = class OverviewBlur {
             style => Main.uiGroup.remove_style_class_name(style)
         );
 
-        Main.uiGroup.add_style_class_name(
-            OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS]
-        );
+        if (this.settings.overview.STYLE_COMPONENTS > 0)
+            Main.uiGroup.add_style_class_name(
+                OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS - 1]
+            );
     }
 
     set_sigma(s) {
