@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: 2023-07-11 05:53+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -182,7 +182,7 @@ msgstr "Dash to Dock oskärpa"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Sudda bakgrunden på Dash to Dock-tilläget om den används."
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "Åsidosätt bakgrund"
 
@@ -194,7 +194,7 @@ msgstr ""
 "Gör bakgrunden antingen genomskinlig eller halvgenomskinlig. Inaktivera "
 "detta för att istället använda Dash to Dock-inställningarna."
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "Bakgrundsstil"
 
@@ -210,15 +210,15 @@ msgstr "Inaktivera i översiktsläget"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Inaktiverar oskärpan från Dash to Dock när du går in i översiktsläget."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparent"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Ljust"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Mörkt"
 
@@ -433,7 +433,16 @@ msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 "Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -443,41 +452,41 @@ msgstr ""
 "halvtransparent sådan.\n"
 "Rekommenderas om man inte vill anpassa GNOME-temat."
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Transparensens/halvtransparensens stil för panelbakgrunden."
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "Inaktivera när ett fönster är nära"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Inaktiverar genomskinligheten för panelen när ett fönster är nära den."
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "Kompatibilitet"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Olika alternativ för kompatibilitet med andra tillägg."
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-tillägg"
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Inaktiverar inte oskärpan i översiktsläget, fungerar bäst med statisk "
 "oskärpa."
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "Blurra originalpanelen med Dash to Panel"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -485,7 +494,7 @@ msgstr ""
 "Aktiverar blurrighet av originalpanelen med Dash to Panel, om det är valt i "
 "tilläggets alternativ."
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "Kontrasterad"
 

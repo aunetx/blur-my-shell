@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: 2023-08-02 23:07+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -169,7 +169,7 @@ msgstr "Dash to Dock 模糊"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "覆盖背景"
 
@@ -179,7 +179,7 @@ msgid ""
 "use Dash to Dock preferences instead."
 msgstr "使背景透明或半透明，禁用此选项以改用 Dash to Dock 的首选项。"
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "背景样式"
 
@@ -195,15 +195,15 @@ msgstr "在总览中禁用"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "透明"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "亮色"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "暗色"
 
@@ -251,8 +251,8 @@ msgid ""
 msgstr ""
 "更改动态模糊效果的行为。\n"
 "强烈建议使用默认值，除非您使用应用程序模糊，在这种情况下“无阴影”更好。\n"
-"此选项将完全禁用 GNOME shell "
-"中的剪切重绘，并且可能会显着影响性能，但会完全修复模糊效果。"
+"此选项将完全禁用 GNOME shell 中的剪切重绘，并且可能会显着影响性能，但会完全修"
+"复模糊效果。"
 
 #: general.ui:151
 msgid "Debug"
@@ -402,7 +402,16 @@ msgstr "使用静态的模糊图片，性能更好且更稳定。"
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "进入概览界面时禁用面板模糊。"
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -411,46 +420,47 @@ msgstr ""
 "覆盖面板的背景以使用透明或半透明背景。\n"
 "除非您想自定义 GNOME 主题，否则推荐使用。"
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "面板背景的透明/半透明样式。"
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "当窗口接近时禁用"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "当窗口靠近面板时禁用面板的透明度。"
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "兼容性"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr "提供与其它扩展兼容性的一些选项。"
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar 扩展"
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "使用 Dash to Panel 模糊原始面板"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
-msgstr "如果在扩展程序的选项中选择了“Dash to Panel”，则可以使用“Dash to "
-"Panel”对原始面板进行模糊处理。"
+msgstr ""
+"如果在扩展程序的选项中选择了“Dash to Panel”，则可以使用“Dash to Panel”对原始"
+"面板进行模糊处理。"
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "对比"
 

@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: 2023-07-08 07:49+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,7 +185,7 @@ msgstr ""
 "De achtergrond van de Dash to Dock-uitbreiding vervagen, als deze wordt "
 "gebruikt."
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "Achtergrond overschrijven"
 
@@ -197,7 +197,7 @@ msgstr ""
 "Maakt de achtergrond doorzichtig of halfdoorzichtig, schakel dit uit om in "
 "plaats hiervan voorkeuren van Dash to Dock te gebruiken."
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "Achtergrondstijl"
 
@@ -215,15 +215,15 @@ msgstr ""
 "De vervaging van Dash to Dock uitschakelen wanneer het overzicht wordt "
 "geactiveerd."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Doorzichtig"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Licht"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Donker"
 
@@ -437,7 +437,16 @@ msgstr ""
 "De vervaging van het paneel uitschakelen wanneer het overzicht wordt "
 "geactiveerd."
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -447,43 +456,43 @@ msgstr ""
 "variant.\n"
 "Aanbevolen tenzij u uw GNOME-thema wilt aanpassen."
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "De (half)doorzichtige stijl voor de paneelachtergrond."
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "Uitschakelen wanneer een venster dichtbij is"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 "Schakelt de doorzichtigheid van het paneel uit wanneer een venster in de "
 "buurt komt."
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "Compatibiliteit"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Verschillende opties voor compatibiliteit met andere uitbreidingen."
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar-uitbreiding"
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "De vervaging in het overzicht niet uitschakelen, best samen gebruikt met "
 "statische vervaging."
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "Origineel paneel met Dash to Panel vervagen"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -491,7 +500,7 @@ msgstr ""
 "Staat het vervagen van het originele paneel door Dash to Panel toe, indien "
 "geselecteerd in de voorkeuren van de uitbreiding."
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "Gecontrasteerd"
 

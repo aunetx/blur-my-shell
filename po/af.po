@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-09 14:30+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Leon Goto <deklerkleon5@gmail.com>\n"
 "Language-Team: Afrikaans\n"
@@ -34,8 +34,8 @@ msgid ""
 "        "
 msgstr ""
 "Voeg vervaging by die apps. Dit is steeds 'n beta-funksionaliteit.\n"
-"Om die beste resultate moontlik te kry, kies die opsie “Geen artefak” "
-"in die “Algemeen → Kuberkrakervlak” voorkeur.\n"
+"Om die beste resultate moontlik te kry, kies die opsie “Geen artefak” in die "
+"“Algemeen → Kuberkrakervlak” voorkeur.\n"
 "        "
 
 #: applications.ui:28
@@ -47,8 +47,8 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"Die ondeursigtigheid van die venster bo-op die vervaag effek. 'n Hoër "
-"waarde sal meer leesbaar wees."
+"Die ondeursigtigheid van die venster bo-op die vervaag effek. 'n Hoër waarde "
+"sal meer leesbaar wees."
 
 #: applications.ui:51
 msgid "Blur on overview"
@@ -59,7 +59,8 @@ msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Dwing die vervaging om behoorlik op alle werkspasies op oorsig gewys te word. \n"
+"Dwing die vervaging om behoorlik op alle werkspasies op oorsig gewys te "
+"word. \n"
 "Dit kan vertragings- of prestasieprobleme veroorsaak."
 
 #: applications.ui:67
@@ -102,8 +103,8 @@ msgstr "Pas eienskappe aan"
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Gebruik pasgemaakte vervaag-eienskappe in plaas van dié wat op die Algemene"
-"blad gestel is."
+"Gebruik pasgemaakte vervaag-eienskappe in plaas van dié wat op die "
+"Algemeneblad gestel is."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
@@ -146,8 +147,8 @@ msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"Die hoeveelheid geraas om by die vervaag effek te voeg. Nuttig op lae kontras "
-"skerms of vir estetiese doeleindes."
+"Die hoeveelheid geraas om by die vervaag effek te voeg. Nuttig op lae "
+"kontras skerms of vir estetiese doeleindes."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
@@ -166,8 +167,8 @@ msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"Geraas en kleur kan nie op dinamies vervaagde komponente geaktiveer word nie; "
-"soos hierdie een."
+"Geraas en kleur kan nie op dinamies vervaagde komponente geaktiveer word "
+"nie; soos hierdie een."
 
 #: dash.ui:5
 msgid "Dash"
@@ -180,9 +181,10 @@ msgstr "Dash to Dock vervaging"
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
-"Vervaag die agtergrond van die Dash to Dock uitbreiding, indien dit gebruik word."
+"Vervaag die agtergrond van die Dash to Dock uitbreiding, indien dit gebruik "
+"word."
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "Oorskryf agtergrond"
 
@@ -194,7 +196,7 @@ msgstr ""
 "Maak die agtergrond óf deursigtig óf half-deursigtig. Deaktiveer dit om "
 "eerder Dash to Dock voorkeure te gebruik."
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "Agtergrond styl"
 
@@ -211,15 +213,15 @@ msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Deaktiveer die vervaag van Dash to Dock wanneer die oorsig binnegegaan word."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Deursigtig"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Lig"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Donker"
 
@@ -253,7 +255,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
-"Deaktiveer geraas- en kleur-effekte wat werkverrigting op lae-end stelsels kan verbeter."
+"Deaktiveer geraas- en kleur-effekte wat werkverrigting op lae-end stelsels "
+"kan verbeter."
 
 #: general.ui:135
 msgid "Hack level"
@@ -282,8 +285,8 @@ msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"Maak 'n uitgebeide register van logs. Aktiveer wanneer jy 'n "
-"probleem moet aanmeld."
+"Maak 'n uitgebeide register van logs. Aktiveer wanneer jy 'n probleem moet "
+"aanmeld."
 
 #: general.ui:167
 msgid "Reset preferences"
@@ -339,7 +342,9 @@ msgstr "Vervaging van sluitskerm"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "Verander die vervaging van die sluitskerm om hierdie uitbreiding se voorkeure te gebruik."
+msgstr ""
+"Verander die vervaging van die sluitskerm om hierdie uitbreiding se "
+"voorkeure te gebruik."
 
 #: other.ui:28
 msgid "Screenshot blur"
@@ -369,8 +374,7 @@ msgstr "Agtergrondvervaging"
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Voeg vervaag by die oorsig-agtergrond deur die "
-"muurpapierprentjie te gebruik."
+"Voeg vervaag by die oorsig-agtergrond deur die muurpapierprentjie te gebruik."
 
 #: overview.ui:26
 msgid "Overview components style"
@@ -380,8 +384,9 @@ msgstr "Styl van oorsigkomponente"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr "Die half-deursigtige styl vir die dash, "
-"soekinskrywing/resultate en app-vouers."
+msgstr ""
+"Die half-deursigtige styl vir die dash, soekinskrywing/resultate en app-"
+"vouers."
 
 #: overview.ui:44
 msgid "Application folder blur"
@@ -421,59 +426,68 @@ msgstr "Statiese vervaging"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
-"Gebruik 'n statiese vervaagde beeld, dit is meer werksaam en stabiel."
+msgstr "Gebruik 'n statiese vervaagde beeld, dit is meer werksaam en stabiel."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 "Deaktiveer die vervaging op die paneel wanneer die oorsig oopgemaak word."
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Oorskryf die agtergrond van die paneel om 'n deursigtige of half-" "deursigtige een te gebruik.\n"
+"Oorskryf die agtergrond van die paneel om 'n deursigtige of half-deursigtige "
+"een te gebruik.\n"
 "Aanbeveel tensy jy jou GNOME-tema wil aanpas."
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Die (half-)deursigtige styl vir die paneelagtergrond."
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "Deaktiveer wanneer 'n venster naby is"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 "Deaktiveer die deursigtigheid van die paneel wanneer 'n venster naby is."
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "Verenigbaarheid"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Verskeie opsies om verenigbaarheid met ander uitbreidings te bied."
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-uitbreiding"
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"Deaktiveer nie die vervaging in oorsig nie, verkieslik gebruik saam "
-"met statiese vervaging."
+"Deaktiveer nie die vervaging in oorsig nie, verkieslik gebruik saam met "
+"statiese vervaging."
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "Vervaag oorspronklike paneel met Dash to Panel"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -481,7 +495,7 @@ msgstr ""
 "Aktiveer die vervaging van die oorspronklike paneel met Dash to Panel, "
 "indien gekies in die uitbreidingvoorkeure."
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "Gekontrasteer"
 

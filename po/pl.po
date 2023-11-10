@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: 2023-10-09 17:03+0000\n"
 "Last-Translator: Voyteck <voyteck@tutanota.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -183,7 +183,7 @@ msgstr "Rozmazywanie Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Rozmazuje tło rozszerzenia Dash to Dock, jeśli jest włączone."
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "Nadpisz tło"
 
@@ -195,7 +195,7 @@ msgstr ""
 "Sprawia, że tło staje się przezroczyste lub półprzezroczyste, wyłącz tę "
 "opcję aby zamiast tego używać preferencji rozszerzenia Dash to Dock."
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "Styl tła"
 
@@ -213,15 +213,15 @@ msgstr ""
 "Wyłącza rozmazywanie rozszerzenia Dash to Dock podczas przechodzenia do "
 "ekranu podglądu."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Przezroczysty"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Lekki"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Ciemny"
 
@@ -433,7 +433,16 @@ msgstr ""
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Wyłącza rozmazywanie panelu podczas przechodzenia do ekranu podglądu."
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -442,41 +451,41 @@ msgstr ""
 "Zastępuje tło panelu przezroczystym lub półprzezroczystym.\n"
 "Zalecane, chyba że chcesz dostosować swój motyw powłoki GNOME."
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Pprzezroczysty/półprzezroczysty styl tła panelu."
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "Wyłącz, gdy jakieś okno znajduje się w pobliżu"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Wyłącza przezroczystość panelu, gdy w jego pobliżu znajduje się okno."
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "Kompatybilność"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Różne opcje zachowania kompatybilności z innymi rozszerzeniami."
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "Rozszerzenie Hidetopbar"
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Nie wyłącza rozmazywania w ekranie podglądu; opcja najbardziej przydatna "
 "przy rozmazywaniu statycznym."
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "Rozmaż oryginalny panel z Dash to Panel"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -484,7 +493,7 @@ msgstr ""
 "Włącza rozmazanie oryginalnego panelu z Dash to Panel, jeśli zaznaczono w "
 "opcjach rozszerzenia."
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "Kontrastowy"
 

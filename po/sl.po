@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: 2023-08-09 18:48+0000\n"
 "Last-Translator: Heki <linuxheki-accounts+hosted-weblate@proton.me>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -183,7 +183,7 @@ msgstr "Zameglitev razširitve \"Dash to Dock\""
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Zameglitev ozadja razširitve \"Dash to Dock\", če je uporabljena."
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "Prepiši ozadje"
 
@@ -195,7 +195,7 @@ msgstr ""
 "Napravi ozadje bodisi prozorno ali polprozorno, onemogočite, da uporabite "
 "možnosti nastavljene pri razširitvi \"Dash to Dock\"."
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "Stil ozadja"
 
@@ -211,15 +211,15 @@ msgstr "Onemogoči v pregledu"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Onemogoči zameglitev \"Dash do Dock\" razširitve pri vstopu v pregled."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Prozoren"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Svetel"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Temen"
 
@@ -430,7 +430,16 @@ msgstr "Uporabi statično zamegljeno sliko; boljša zmogljivost in stabilnost."
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Onemogoči zameglitev plošče ko vstopamo v pregled."
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -439,41 +448,41 @@ msgstr ""
 "Preglasite ozadje plošče, če želite uporabiti prozorno ali polprosojno.\n"
 "Priporočeno, razen če želite prilagoditi svojo temo GNOME."
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Prozoren/polprosojen slog za ozadje plošče."
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "Onemogoči, ko je v okolici okno"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Onemogoči prosojnost plošče, ko je blizu nje okno."
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "Združljivost"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 "Različne možnosti za zagotavljanje združljivosti z drugimi razširitvami."
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "Razširitev \"HideTopBar\""
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Ne onemogoči zameglitve pregleda, najbolj uporabno s statično zameglitvijo."
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "Zamegli prvotno ploščo z Dash to Panel"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -481,7 +490,7 @@ msgstr ""
 "Omogoča zameglitev izvirne plošče z Dash to Panel, če je izbrana v možnostih "
 "razširitve."
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "Kontrastno"
 

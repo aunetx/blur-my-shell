@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-29 16:20+0200\n"
+"POT-Creation-Date: 2023-11-10 18:47+0100\n"
 "PO-Revision-Date: 2023-07-01 12:51+0000\n"
 "Last-Translator: Ali Aljishi <ahj696@hotmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -175,7 +175,7 @@ msgstr "تضبيب Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "ضبِّب خلفيَّة امتداد Dash to Dock إن كان مستخدمًا."
 
-#: dash.ui:26 panel.ui:56
+#: dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "تجاوز الخلفيَّة"
 
@@ -185,7 +185,7 @@ msgid ""
 "use Dash to Dock preferences instead."
 msgstr "يجعل الخلفيَّة شفَّافةً أو شبه شفَّافة. عطِّل هذا لتستخدم تفضيل Dash to Dock."
 
-#: dash.ui:33 panel.ui:64
+#: dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "أسلوب الخلفيَّة"
 
@@ -201,15 +201,15 @@ msgstr "عطِّل في النظرة العامَّة"
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "يعطِّل تضبيب Dash to Dock في النظرة العامَّة."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:135
+#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "شفَّاف"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:136
+#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "فاتح"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:137
+#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "داكن"
 
@@ -411,7 +411,16 @@ msgstr "يستخدم صورةً بتضبيب ثابت، يؤدِّي هذا لا
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "يعطِّل تضبيب اللوحة في النظرة العامَّة."
 
+#: panel.ui:56
+msgid "Force light text"
+msgstr ""
+
 #: panel.ui:57
+msgid ""
+"Use a light text for the panel, useful when using gnome-shell's light theme."
+msgstr ""
+
+#: panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -420,39 +429,39 @@ msgstr ""
 "تجاوَز خلفيَّة اللوحة لتستخدم خلفيَّةً شفَّافةً أو شبه شفَّافة.\n"
 "يُستحسن إلا ما إذا أردت تخصيص سمة جنوم."
 
-#: panel.ui:65
+#: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "أسلوب خلفيَّة اللوحة الشفَّاف\\شبه الشفَّاف."
 
-#: panel.ui:79
+#: panel.ui:94
 msgid "Disable when a window is near"
 msgstr "عطِّل إذا اقتربت نافذة"
 
-#: panel.ui:80
+#: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "يعطِّل شفافيَّة اللوحة عند اقتراب نافذة منها."
 
-#: panel.ui:97
+#: panel.ui:112
 msgid "Compatibility"
 msgstr "التوافق"
 
-#: panel.ui:98
+#: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
 msgstr "خيارات عدَّة للتوافق مع الامتدادات الأخرى."
 
-#: panel.ui:103
+#: panel.ui:118
 msgid "Hidetopbar extension"
 msgstr "امتداد Hidetopbar"
 
-#: panel.ui:104
+#: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr "لا يعطِّل التضبيب في النظرة العامَّة، الأفضل استخدامه مع التضبيب الثابت."
 
-#: panel.ui:118
+#: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
 msgstr "ضبِّب اللوح الأصل باستخدام Dash to Panel"
 
-#: panel.ui:119
+#: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -460,7 +469,7 @@ msgstr ""
 "يمكِّن تضبيب اللوح الأصل باستخدام Dash to Panel، وهذا إن اختير في خيارات "
 "الامتداد."
 
-#: panel.ui:138
+#: panel.ui:153
 msgid "Contrasted"
 msgstr "متباين"
 
