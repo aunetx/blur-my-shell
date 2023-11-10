@@ -190,6 +190,11 @@
             <default>true</default>
             <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
         </key>
+        <!-- FORCE LIGHT TEXT -->
+        <key type="b" name="force-light-text">
+            <default>false</default>
+            <summary>Boolean, whether or not to force the panel to have light text, useful when using light theme</summary>
+        </key>
         <!-- OVERRIDE BACKGROUND -->
         <key type="b" name="override-background">
             <default>true</default>

@@ -332,3 +332,97 @@
     border: 0;
     box-shadow: none;
 }
+
+
+/*** PANEL LIGHT TEXT ***/
+
+/*
+* `.panel-light-text`, adapted from gnome-shell-light.css
+*/
+
+#panel.panel-light-text .panel-button,
+#panel.panel-light-text .panel-button.clock-display,
+#panel.panel-light-text .netSpeedLabel {
+    color: #f6f5f4;
+    box-shadow: none;
+}
+
+#panel.panel-light-text .panel-button:active,
+#panel.panel-light-text .panel-button:focus,
+#panel.panel-light-text .panel-button:checked,
+#panel.panel-light-text .panel-button.clock-display:active .clock,
+#panel.panel-light-text .panel-button.clock-display:focus .clock,
+#panel.panel-light-text .panel-button.clock-display:checked .clock {
+    box-shadow: inset 0 0 0 100px rgba(246, 245, 244, 0.25);
+}
+
+#panel.panel-light-text .panel-button:active:hover,
+#panel.panel-light-text .panel-button:focus:hover,
+#panel.panel-light-text .panel-button:checked:hover,
+#panel.panel-light-text .panel-button.clock-display:active:hover,
+#panel.panel-light-text .panel-button.clock-display:focus:hover,
+#panel.panel-light-text .panel-button.clock-display:checked:hover,
+#panel.panel-light-text .panel-button.clock-display:active .clock:hover,
+#panel.panel-light-text .panel-button.clock-display:focus .clock:hover,
+#panel.panel-light-text .panel-button.clock-display:checked .clock:hover {
+    box-shadow: inset 0 0 0 100px rgba(246, 245, 244, 0.35);
+}
+
+#panel.panel-light-text .panel-button:hover,
+#panel.panel-light-text .panel-button.clock-display:hover,
+#panel.panel-light-text .panel-button.clock-display:hover .clock {
+    box-shadow: inset 0 0 0 100px rgba(246, 245, 244, 0.2);
+}
+
+#panel.panel-light-text .panel-button#panelActivities .workspace-dot {
+    background-color: #f6f5f4;
+}
+
+#panel.panel-light-text .panel-button.clock-display:active,
+#panel.panel-light-text .panel-button.clock-display:focus,
+#panel.panel-light-text .panel-button.clock-display:checked,
+#panel.panel-light-text .panel-button.clock-display:hover {
+    box-shadow: none !important;
+}
+
+#panel.panel-light-text .panel-button.screen-recording-indicator {
+    color: #f6f5f4;
+    box-shadow: inset 0 0 0 100px rgba(192, 28, 40, 0.8);
+}
+
+#panel.panel-light-text .panel-button.screen-recording-indicator:active,
+#panel.panel-light-text .panel-button.screen-recording-indicator:focus,
+#panel.panel-light-text .panel-button.screen-recording-indicator:checked {
+    box-shadow: inset 0 0 0 100px #c01c28;
+}
+
+#panel.panel-light-text .panel-button.screen-recording-indicator:active:hover,
+#panel.panel-light-text .panel-button.screen-recording-indicator:focus:hover,
+#panel.panel-light-text .panel-button.screen-recording-indicator:checked:hover {
+    box-shadow: inset 0 0 0 100px rgba(192, 28, 40, 0.95);
+}
+
+#panel.panel-light-text .panel-button.screen-recording-indicator:hover {
+    box-shadow: inset 0 0 0 100px rgba(192, 28, 40, 0.9);
+}
+
+#panel.panel-light-text .panel-button.screen-sharing-indicator {
+    color: #282828;
+    box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.8);
+}
+
+#panel.panel-light-text .panel-button.screen-sharing-indicator:active,
+#panel.panel-light-text .panel-button.screen-sharing-indicator:focus,
+#panel.panel-light-text .panel-button.screen-sharing-indicator:checked {
+    box-shadow: inset 0 0 0 100px #ff7800;
+}
+
+#panel.panel-light-text .panel-button.screen-sharing-indicator:active:hover,
+#panel.panel-light-text .panel-button.screen-sharing-indicator:focus:hover,
+#panel.panel-light-text .panel-button.screen-sharing-indicator:checked:hover {
+    box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.95);
+}
+
+#panel.panel-light-text .panel-button.screen-sharing-indicator:hover {
+    box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.9);
+}

@@ -328,6 +328,12 @@ export default class BlurMyShell extends Extension {
             this._panel_blur.connect_to_windows_and_overview();
         });
 
+        // force light text toggled on/off
+        this._settings.panel.FORCE_LIGHT_TEXT_changed(() => {
+            if (this._settings.panel.BLUR)
+                this._panel_blur.update_light_text_classname();
+        });
+
         // panel override background toggled on/off
         this._settings.panel.OVERRIDE_BACKGROUND_changed(() => {
             if (this._settings.panel.BLUR)

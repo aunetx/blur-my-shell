@@ -12,6 +12,7 @@ export const Panel = GObject.registerClass({
         'customize',
         'static_blur',
         'unblur_in_overview',
+        'force_light_text',
         'override_background',
         'style_panel',
         'override_background_dynamically',
@@ -34,6 +35,10 @@ export const Panel = GObject.registerClass({
         );
         this.preferences.panel.settings.bind(
             'unblur-in-overview', this._unblur_in_overview, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'force-light-text', this._force_light_text, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(
