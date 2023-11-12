@@ -330,7 +330,7 @@
         </key>
         <!-- BLACKLIST -->
         <key type="as" name="blacklist">
-            <default>["Plank"]</default>
+            <default>["Plank","com.desktop.ding"]</default>
             <summary>List of applications not to blur</summary>
         </key>
     </schema>

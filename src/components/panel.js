@@ -543,6 +543,7 @@ export const PanelBlur = class PanelBlur {
             && meta_window.get_window_type() !== Meta.WindowType.DESKTOP
             // exclude Desktop Icons NG
             && meta_window.get_gtk_application_id() !== "com.rastersoft.ding"
+            && meta_window.get_gtk_application_id() !== "com.desktop.ding"
         );
 
         // check if at least one window is near enough to each panel and act
