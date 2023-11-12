@@ -67,14 +67,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
             this.connections.connect(
                 Main.overview, 'hidden',
                 _ => {
-                    let active_workspace =
-                        global.workspace_manager.get_active_workspace();
-
                     this.window_map.forEach((meta_window, _pid) => {
                         let window_actor = meta_window.get_compositor_private();
 
                         if (
-                            meta_window.get_workspace() !== active_workspace
+                            !meta_window.get_workspace().active
                         )
                             window_actor.hide();
                     });
