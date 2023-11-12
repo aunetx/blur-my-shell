@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-07-03 11:52+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@users.noreply.hosted."
-"weblate.org>\n"
+"PO-Revision-Date: 2023-11-14 18:03+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -441,12 +440,14 @@ msgstr "Desactiva el desenfoque del panel al entrar en la vista general."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Forzar el texto claro"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Utiliza un texto claro para el panel, útil cuando se utiliza el tema claro "
+"de gnome-shell."
 
 #: panel.ui:72
 msgid ""
