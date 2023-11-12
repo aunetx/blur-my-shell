@@ -15,12 +15,20 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
 
 ***Notice***
 
-I (aunetx) am currently quite busy and I won't be able to do a lot of changes in this extension for the following months (probably until fall 2023)... You can consider this extension in low maintenance mode, I will still do important releases (for GNOME 44 etc) but no new features for the moment, and I won't be able to reply to every openend issue (even though I read them all in case).
+I (aunetx) have not been able to do a lot of changes to the extension recently because of my studies, work and general state of mind. It is all getting a little easier now, and so I started working on the extension a little bit more. However, there are some major issues with this extension that I do not have the manpower to tackle.
 
-Especially, consider the application blur to be in alpha state, because it is even broken for me so I don't think it works for anybody else... If someone wants to spend time fixing it, I will gladly merge pull requests. The dash-to-dock blur seems quite broken too, although I don't even know to what extent.
+Quite specifically,
+- everything that is related to multi-monitor usage cannot be tested by myself as I only have one screen (and that accounts to a LOT of bugs: #40, #94, #23, #288, #298, #370, #274 (maybe?), #345, #408, #233, #465, #363, #469, #476, #486, #496, #457, ...); or monitor in portait mode (#177).\
+  By the way, there are **A LOT** of tips in order to get multi-monitor setups more or less working in the issues thread, you can take a look if you need help!
+- I find a lot of bugs that are related to extensions touching at the panel hard to be tested because I don't use dash-to-panel (and such extensions), and more generally everything I do concerning the panel makes the implementation dirtier and less bug-proof (that concerns for example #294, #244, #243, ...)
+- dash-to-dock is really unstable in term of API (because I treat the implementation of external extensions as an API, that's the only way I can do anything interesting), and so its blurring implementation is not working very well (that concerns for example #231, #440, ...)
+- everything related to COSMIC, Pop_os!, ... cannot be either tested or fixed, because I am on Fedora and the extensions/themes really are not compatible with stock GNOME (for example, #256, #117, #474, #276, ...)
+- curved corners for the blur. Now that is THE bug, and this is one I cannot do anything about, because... that's not a blur-my-shell bug, and even hardly a GNOME bug: it's just that curved blur effect are not implemented yet in GNOME, and so I can't use it (for example: #8, #248, #336, #183, #383, ...)
+- application blur is improving, but still subject to important bugs that I cannot list here as they are changing constantly. I disabled it in default for new users because it visibly causes major problems with multi-monitor setups
 
-I am deeply sorry about all the problems that may arise, do not hesitate to open pull requests if needed and I will try to find motivation to answer them at some point :)
+As you can see, there are some areas that really *need* work, and on which I *cannot* work. So, I will gladly accept any help in order to fix them, and specially carefully tested pull requests! I will try to tackle most of these issues at some point anyway, but (especially for multi-monitor things and Pop_os! bugs) that may take a lot of time if I am alone.
 
+Thank you still for using this extension,\
 Sincerely, Aurélien
 
 ---
