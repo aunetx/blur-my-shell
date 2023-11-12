@@ -602,7 +602,7 @@ export const PanelBlur = class PanelBlur {
     /// enabling/disabling other effects.
     invalidate_blur(actors) {
         if (this.settings.panel.STATIC_BLUR && actors.widgets.background)
-            actors.widgets.background.get_content().invalidate();
+            actors.widgets.background.get_content()?.invalidate();
     }
 
     invalidate_all_blur() {
