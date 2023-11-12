@@ -40,4 +40,8 @@
   <object class="AdwToast" id="picking_failure_toast">
     <property name="title">Could not pick window, make sure that the extension is enabled.</property>
   </object>
+
+  <object class="AdwToast" id="window_not_found_toast">
+    <property name="title">Could not pick window from here, does not seem like a valid window.</property>
+  </object>
 </interface>

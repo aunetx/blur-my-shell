@@ -7,14 +7,14 @@ import Gtk from 'gi://Gtk';
 import { pick, on_picking, on_picked } from '../dbus/client.js';
 
 
-
 export const WindowRow = GObject.registerClass({
     GTypeName: 'WindowRow',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/window-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'window_picker',
         'window_class',
-        'picking_failure_toast'
+        'picking_failure_toast',
+        'window_not_found_toast'
     ],
 }, class WindowRow extends Adw.ExpanderRow {
     constructor(list, app_page, app_name) {
@@ -88,7 +88,7 @@ export const WindowRow = GObject.registerClass({
                 if (remove_if_failed)
                     this._remove_row();
             }
-        }, 15);
+        }, 250);
 
         on_picking(_ =>
             has_responded = true
@@ -98,6 +98,9 @@ export const WindowRow = GObject.registerClass({
             if (should_take_answer) {
                 if (wm_class == 'window-not-found') {
                     console.warn("Can't pick window from here");
+                    this._app_page._preferences_window.add_toast(
+                        this._window_not_found_toast
+                    );
                     return;
                 }
                 this._window_class.buffer.text = wm_class;

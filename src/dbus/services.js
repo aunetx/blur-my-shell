@@ -66,6 +66,9 @@ export const ApplicationsService = class ApplicationsService {
                 actor = target.get_parent();
 
             if (!actor.toString().includes('WindowActor'))
+                actor = actor.get_parent();
+
+            if (!actor.toString().includes('WindowActor'))
                 return send_picked_signal('window-not-found');
 
             send_picked_signal(
