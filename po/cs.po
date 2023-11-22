@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-07-01 12:51+0000\n"
+"PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: vikdevelop <super-vik1@protonmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -431,12 +431,14 @@ msgstr "Zakáže rozmazání panelu při vstupu do přehledu."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Vynutit světlý text"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Použít světlý text pro panel, užitečné při používání světlého motivu Gnome "
+"Shell."
 
 #: panel.ui:72
 msgid ""

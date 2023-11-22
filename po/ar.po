@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-07-01 12:51+0000\n"
+"PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: Ali Aljishi <ahj696@hotmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -413,12 +413,12 @@ msgstr "يعطِّل تضبيب اللوحة في النظرة العامَّة.
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "اجعل النصوص فاتحةً"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
-msgstr ""
+msgstr "اجعل نصوص اللوحة فاتحةً، وذلك أحسن إن أنت تستخدم سمة جنوم الفاتحة."
 
 #: panel.ui:72
 msgid ""

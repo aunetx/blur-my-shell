@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-07-03 11:52+0000\n"
+"PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -444,12 +444,14 @@ msgstr "Disattiva la sfocatura dal pannello quando si accede alla panoramica."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Forza il testo chiaro"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Utilizza un testo chiaro per il pannello, utile quando si utilizza il tema "
+"chiaro di gnome-shell."
 
 #: panel.ui:72
 msgid ""
