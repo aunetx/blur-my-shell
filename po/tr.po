@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-08-19 04:19+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"PO-Revision-Date: 2023-12-06 18:11+0000\n"
+"Last-Translator: Taylan Tatlı <taylantatli90@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -435,12 +435,14 @@ msgstr "Genel görünüme girerken panelden bulanıklığı kaldırır."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Açık metni zorla"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Panel için açık renkli yazı kullan, gnome-shell'in aydınlık temasını "
+"kullanırken yararlıdır."
 
 #: panel.ui:72
 msgid ""
