@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-08-02 23:07+0000\n"
-"Last-Translator: yangyangdaji <1504305527@qq.com>\n"
+"PO-Revision-Date: 2023-12-08 08:05+0000\n"
+"Last-Translator: Ys413 <2020172007@stu.mdjnu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -404,12 +404,12 @@ msgstr "进入概览界面时禁用面板模糊。"
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "强制浅色文本"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
-msgstr ""
+msgstr "为面板使用浅色文本，在使用 gnome-shell 的浅色主题时非常有用。"
 
 #: panel.ui:72
 msgid ""
