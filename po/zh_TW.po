@@ -35,7 +35,7 @@ msgid ""
 "        "
 msgstr ""
 "對應用曾是增加模糊效果（仍然屬於測試階段）\n"
-"如果想取得最佳效果，記得將一般設定的 Hack level 設為 No\n"
+"如果想取得最佳效果，記得將一般設定的 Hack level 設為 No artifact\n"
 "        "
 
 #: applications.ui:28
