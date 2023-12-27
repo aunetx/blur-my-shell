@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2023-12-27 10:40+0000\n"
+"Last-Translator: ily yuna <ilyuna@outlook.it>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Aplikasi"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "Blur Aplikasi (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -31,205 +34,229 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Menambahkan blur ke aplikasi, Ini masih fungsi beta\n"
+"Untuk mendapatkan hasil terbaik, pastikan untuk memilih opsi \"Tidak ada "
+"artefak\" dalam preferensi \"General → Hack level\".\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Kegelapan"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Kegelapan jendela di atas efek kabur, nilai yang lebih tinggi akan lebih "
+"mudah dilihat."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "Blur pada ringkasan"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Memaksa blurnya untuk ditampilkan dengan benar pada semua ruang kerja pada "
+"semua ruang kerja.\n"
+"Ini dapat menyebabkan beberapa latensi atau masalah kinerja."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "Aktifkan semua secara bawaan"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Tambah blur dibelakang semua jendela secara default.\n"
+"Tidak dianjurkan karena masalah kinerja dan stabilitas."
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr ""
+msgstr "Daftar putih"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "Daftar dari jendela-jendela untuk tidak di blur."
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "Tambah jendela"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "Daftar Hitam"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "Daftar dari jendela-jendela untuk tidak di blur."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "Kustomisasi properti"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
+"Menggunakan sifat blur yang disesuaikan, bukan yang diaturkan di halaman "
+"umum."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "Intensitas blur."
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr ""
+msgstr "Kecerahan"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"Kecerahan efek buram, nilai tinggi mungkin membuat teks lebih sulit dibaca."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "Warna"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Mengubah warna blur. Kegelapan dari kontrol warna berapa banyak itu dicampur "
+"ke efek blur."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Jumlah kebisingan"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"Jumlah kebisingan untuk ditambah ke efek blur, berguna pada layar kontras "
+"rendah atau untuk tujuan estetika."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "Cahaya kebisingan"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "Cahaya dari kebisingan ditambah ke efek blur."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Notice"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"Kebisingan dan warna tidak dapat diaktifkan pada komponen blur dinamis, "
+"seperti yang ini."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "Dash"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Blur Dash to Dock"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr ""
+msgstr "Blur latar belakang dari ekstensi Dash to Dock, jika digunakan."
 
 #: dash.ui:26 panel.ui:71
 msgid "Override background"
-msgstr ""
+msgstr "Override latar belakang"
 
 #: dash.ui:27
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Membuat latar belakang baik transparan atau semi-transparan, matikan ini "
+"untuk menggunakan Dash ke preferensi Dock."
 
 #: dash.ui:33 panel.ui:79
 msgid "Background style"
-msgstr ""
+msgstr "Gaya latar belakang"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Gaya transparan/semi-transparan untuk latar belakang dock."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
-msgstr ""
+msgstr "Matikan di ruang kerja"
 
 #: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
+msgstr "Mematikan blur dari Dash to Dock ketika memasuk ruang kerja."
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
-msgstr ""
+msgstr "Transparensi"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
-msgstr ""
+msgstr "Cahaya"
 
 #: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
-msgstr ""
+msgstr "Gelap"
 
 #: general.ui:5
 msgid "General"
-msgstr ""
+msgstr "Umum"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr ""
+msgstr "Preferensi blur"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
-msgstr ""
+msgstr "Preferensi global blur, digunakan semua komponen secara default."
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Kinerja"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Berbagai opsi untuk mengubah kinerja."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Efek-efek warna dan kebisingan"
 
 #: general.ui:123
 msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Secara global menonaktifkan kebisingan dan efek warna yang dapat "
+"meningkatkan kinerja pada sistem low-end."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr ""
+msgstr "Tingkat Hack"
 
 #: general.ui:136
 msgid ""
@@ -239,163 +266,176 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Mengubah perila efek blur dinamis\n"
+"Nilai default sangat dianjurkan kecuali anda menggunakan blur aplikasi, "
+"dalam kasus mana \"Tidak ada artefak\" lebih baik.\n"
+"Pilihan ini akan sepenuhnya menonaktifkan penarikan klip di shell GNOME, dan "
+"dapat mempengaruhi kinerja secara signifikan tetapi akan memperbaiki efek "
+"blur."
 
 #: general.ui:151
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"Membuat ekstensi bertele-tele, nyalakan jika kau harus membuat laporan "
+"masalah."
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr ""
+msgstr "Mengatur ulang preferensi"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Mengatur ulang preferensi Blur my Shell secara irreversibly."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Mengatur ulang"
 
 #: general.ui:228
 msgid "High performances"
-msgstr ""
+msgstr "Performa tinggi"
 
 #: general.ui:229
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 #: general.ui:230
 msgid "High quality"
-msgstr ""
+msgstr "Kualitas tinggi"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Tidak ada artefak"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "Halaman proyek"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "Laporkan Bug"
 
 #: menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "Lisensi"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "Donasi"
 
 #: other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "Lainnya"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "Blur layar kunci"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
+msgstr "Ganti blur dari layar kunci untuk memakai preferensinya ekstensi ini."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "Blur tangkapan layar"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
+msgstr "Tambah blur ke latar belakang dari pemilih jendela di UI screenshot."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "Daftar jendela blur ekstensi"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "Membuat daftar ekstensi window-list blurred, jika digunakan."
 
 #: overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "Ruang kerja"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "Blur latar belakang"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
+"Tambahkan blur ke latar belakang ruang kerja, menggunakan gambar latar "
+"belakang."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "Gaya komponen ruang kerja"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"Gaya semi-transparan untuk dash, entri/hasil pencarian, dan folder aplikasi."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Folder aplikasi blur"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Membuat latar belakang dari dialog folder aplikasi blurred."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Gaya dialog folder aplikasi"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Gaya semi-transparan untuk dialog folder aplikasi."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr ""
+msgstr "Jangan kasih gaya"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "Panel"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "Blur panel"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "Blur panel atas menggunakan gambar latar belakang."
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr ""
+msgstr "Blur statis"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
+msgstr "Menggunakan gambar keblur statis, lebih berkinerja dan stabil."
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
+msgstr "Mematikan blur dari panel ketika memasuk ruang kerja."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Paksa teks terang"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Gunakan teks terang untuk panel, berguna ketika menggunakan tema cahaya "
+"gnome-shell."
 
 #: panel.ui:72
 msgid ""
@@ -403,57 +443,64 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Override latar belakang panel untuk menggunakan yang transparan atau semi "
+"transparan.\n"
+"Direkomendasikan kecuali Anda ingin menyesuaikan tema GNOME Anda."
 
 #: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "Gaya transparensi/semi-transparensi untuk background panelnya."
 
 #: panel.ui:94
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Matikan ketika ada jendela dekat"
 
 #: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Mematikan transparansi dari panel ketika jendela didekatnya."
 
 #: panel.ui:112
 msgid "Compatibility"
-msgstr ""
+msgstr "Kompatibilitas"
 
 #: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "Opsi-opsi untuk menyediakan kompatibilitas dengan ekstensi lain."
 
 #: panel.ui:118
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Ekstensi Hidetopbar"
 
 #: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
+"Tidak mematikan blur di ruang kerja, paling baik digunakan dengan blur "
+"statis."
 
 #: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Blur panel original dengan Dash to Panel"
 
 #: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Menyalakan blurring dari panel original dengan Dash to panel, jika di "
+"nyalakan di opsi ekstensinya."
 
 #: panel.ui:153
 msgid "Contrasted"
-msgstr ""
+msgstr "Kontras"
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Nama jendela"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Pilih jendela"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Pilih jendela atau pilih berdasarkan nama kelasnya."
