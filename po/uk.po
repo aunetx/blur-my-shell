@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-11-09 00:37+0000\n"
-"Last-Translator: Vlad Hud <vladkoo@skiff.com>\n"
+"PO-Revision-Date: 2024-01-01 15:09+0000\n"
+"Last-Translator: Сергій <sergiy.goncharuk.1@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -431,12 +431,14 @@ msgstr "Вимикає розмиття верхньої панелі під ч�
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Примусово висвітлити текст"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Використання світлого тексту для панелі стане у пригоді, якщо ви "
+"використовуєте світлу тему gnome-shell."
 
 #: panel.ui:72
 msgid ""
