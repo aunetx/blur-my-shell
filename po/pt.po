@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: saulo marcos <sullo152@gmail.com>\n"
+"PO-Revision-Date: 2023-12-21 14:08+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -441,12 +441,13 @@ msgstr "Desativa o desfoque do painel quando entrar na visão geral."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Forçar texto leve"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Use um texto leve para o painel, útil ao usar o tema de luz do gnome-shell."
 
 #: panel.ui:72
 msgid ""
@@ -491,17 +492,19 @@ msgstr ""
 
 #: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Desfoque o painel original com Dash to Panel"
 
 #: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Ativa o desfoque do painel original com Dash to Panel, se for selecionado "
+"nas opções da extensão."
 
 #: panel.ui:153
 msgid "Contrasted"
-msgstr ""
+msgstr "Contrastado"
 
 #: window-row.ui:4
 msgid "Window Name"

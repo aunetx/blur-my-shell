@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-07-05 14:47+0000\n"
-"Last-Translator: Jörn Weigend <das.jott@gmail.com>\n"
+"PO-Revision-Date: 2024-02-03 21:01+0000\n"
+"Last-Translator: theParceville <progamernini@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -442,12 +442,14 @@ msgstr "Deaktiviert die Unschärfe des Panels beim Aufrufen der Übersicht."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Hellen Text erzwingen"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Verwende einen hellen Text für das Panel, nützlich in Kombination mit dem "
+"hellen Thema der Gnome-Shell."
 
 #: panel.ui:72
 msgid ""

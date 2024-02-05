@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-10-09 17:03+0000\n"
-"Last-Translator: Voyteck <voyteck@tutanota.com>\n"
+"PO-Revision-Date: 2024-01-31 00:01+0000\n"
+"Last-Translator: r5jyhte <ioulykttr@proton.me>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -435,12 +435,14 @@ msgstr "Wyłącza rozmazywanie panelu podczas przechodzenia do ekranu podglądu.
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Wymuś jasny tekst"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Używaj jasnego tekstu paneli, przydatne gdy używany jest jasny styl "
+"środowiska gnome."
 
 #: panel.ui:72
 msgid ""
