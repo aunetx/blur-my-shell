@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-09-24 14:02+0000\n"
-"Last-Translator: lebao3105 <bao12345yocoo@gmail.com>\n"
+"PO-Revision-Date: 2024-02-15 17:01+0000\n"
+"Last-Translator: Lê Hoàng Lân <lanlehoang957@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/vi/>\n"
 "Language: vi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -28,7 +28,6 @@ msgid "Applications blur (beta)"
 msgstr "Làm mờ ứng dụng (beta)"
 
 #: applications.ui:11
-#, fuzzy
 msgid ""
 "Adds blur to the applications. This is still beta functionality.\n"
 "To get the best results possible, make sure to choose the option “No "
@@ -49,6 +48,7 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Độ mờ của cửa sổ trên hiệu ứng làm mờ, giá trị cao hơn sẽ dễ dàng đọc hơn."
 
 #: applications.ui:51
 msgid "Blur on overview"
@@ -108,7 +108,7 @@ msgstr ""
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "Sigma"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
@@ -150,13 +150,12 @@ msgstr ""
 "tương phản thấp hoặc nhằm mục đích thẩm mỹ."
 
 #: customize-row.ui:92 general.ui:94
-#, fuzzy
 msgid "Noise lightness"
-msgstr "Độ ồn nhẹ"
+msgstr "Độ nhẹ nhiễu"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "Mức độ nhẹ của độ nhiễu được thêm vào hiệu ứng làm mờ."
 
 #: customize-row.ui:113
 msgid "Notice"
@@ -246,7 +245,7 @@ msgstr "Những tùy chọn khác nhau để tinh chỉnh phần hiệu năng."
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "Màu và hiệu ứng nhiễu"
 
 #: general.ui:123
 msgid ""
