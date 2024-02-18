@@ -8,25 +8,21 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2024-02-09 11:30+0000\n"
-"Last-Translator: Fernando Lopes <118869201+plasmus777@users.noreply.github."
-"com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/pt_BR/>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Aplicativos"
+msgstr ""
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Desfoque de aplicativos (beta)"
+msgstr ""
 
 #: applications.ui:11
 msgid ""
@@ -35,232 +31,205 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Adiciona desfoque aos aplicativos. Esta funcionalidade ainda está em estágio "
-"beta.\n"
-"Para obter os melhores resultados possíveis, certifique-se de escolher a "
-"opção \"Nenhum artefato\" na preferência \"Geral → Nível de Modificação\".\n"
-"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr "Opacidade"
+msgstr ""
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"A opacidade da janela em cima do efeito de desfoque, um valor mais alto será "
-"mais legível."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr "Desfoque na visão geral"
+msgstr ""
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Força o desfoque a ser exibido corretamente em todos os espaços de trabalho "
-"na visão geral.\n"
-"Isso pode causar alguns problemas de latência ou desempenho."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr "Habilitar tudo por padrão"
+msgstr ""
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"Adiciona desfoque atrás de todas as janelas por padrão.\n"
-"Não recomendado devido a problemas de desempenho e estabilidade."
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr "Lista branca"
+msgstr ""
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr "Uma lista de janelas para desfocar."
+msgstr ""
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr "Adicionar Janela"
+msgstr ""
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr "Lista negra"
+msgstr ""
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr "Uma lista de janelas para não desfocar."
+msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "Personalizar propriedades"
+msgstr ""
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Usa propriedades de desfoque personalizadas, em vez das definidas na página "
-"Geral."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "Sigma"
+msgstr ""
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "A intensidade do desfoque."
+msgstr ""
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "Brilho"
+msgstr ""
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"O brilho do efeito de desfoque, um valor alto pode tornar o texto mais "
-"difícil de ler."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "Cor"
+msgstr ""
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Altera a cor do desfoque. A opacidade da cor controla o quanto ela é "
-"misturada ao efeito de desfoque."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Quantidade de ruído"
+msgstr ""
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"A quantidade de ruído para adicionar ao efeito de desfoque, útil em telas de "
-"baixo contraste ou para fins estéticos."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Leveza do ruído"
+msgstr ""
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "A leveza do ruído adicionado ao efeito de desfoque."
+msgstr ""
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "Aviso"
+msgstr ""
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"O ruído e a cor não podem ser ativados em componentes desfocados "
-"dinamicamente, como este."
 
 #: dash.ui:5
 msgid "Dash"
-msgstr "Dash"
+msgstr ""
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Desfoque do Dash to Dock"
+msgstr ""
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Desfoque o plano de fundo da extensão Dash to Dock, se for usada."
+msgstr ""
 
 #: dash.ui:26 panel.ui:71
 msgid "Override background"
-msgstr "Substituir plano de fundo"
+msgstr ""
 
 #: dash.ui:27
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"Torna o plano de fundo transparente ou semitransparente, desabilite isso "
-"para usar as preferências do Dash to Dock."
 
 #: dash.ui:33 panel.ui:79
 msgid "Background style"
-msgstr "Estilo de plano de fundo"
+msgstr ""
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr "O estilo transparente/semitransparente para o fundo da doca."
+msgstr ""
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
-msgstr "Desativar na visão geral"
+msgstr ""
 
 #: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Desativa o desfoque do Dash to Dock ao entrar na visão geral."
+msgstr ""
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
-msgstr "Transparente"
+msgstr ""
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
-msgstr "Claro"
+msgstr ""
 
 #: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
-msgstr "Escuro"
+msgstr ""
 
 #: general.ui:5
 msgid "General"
-msgstr "Geral"
+msgstr ""
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr "Preferências de desfoque"
+msgstr ""
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
-"Preferências de desfoque globais, usadas por todos os componentes por padrão."
 
 #: general.ui:117
 msgid "Performance"
-msgstr "Desempenho"
+msgstr ""
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr "Várias opções para ajustar o desempenho."
+msgstr ""
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr "Efeitos de cor e ruído"
+msgstr ""
 
 #: general.ui:123
 msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
-"Globalmente desativa os efeitos de ruído e cor que podem melhorar o "
-"desempenho em sistemas mais fracos."
 
 #: general.ui:135
 msgid "Hack level"
-msgstr "Nível de modificação"
+msgstr ""
 
 #: general.ui:136
 msgid ""
@@ -270,183 +239,163 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
-"Altera o comportamento do efeito de desfoque dinâmico.\n"
-"O valor padrão é altamente recomendado, a menos que você use o desfoque do "
-"aplicativo, caso em que \"Nenhum artefato\" é melhor.\n"
-"Essa opção desabilitará totalmente os redesenhos cortados no shell do GNOME "
-"e poderá afetar significativamente o desempenho, mas corrigirá completamente "
-"o efeito de desfoque."
 
 #: general.ui:151
 msgid "Debug"
-msgstr "Depuração"
+msgstr ""
 
 #: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"Torna a extensão detalhada nos logs, ative quando você precisa relatar um "
-"problema."
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr "Redefinir preferências"
+msgstr ""
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr "Redefine as preferências do Blur my Shell de forma irreversível."
+msgstr ""
 
 #: general.ui:187
 msgid "Reset"
-msgstr "Redefinir"
+msgstr ""
 
 #: general.ui:228
 msgid "High performances"
-msgstr "Altos desempenhos"
+msgstr ""
 
 #: general.ui:229
 msgid "Default"
-msgstr "Padrão"
+msgstr ""
 
 #: general.ui:230
 msgid "High quality"
-msgstr "Alta qualidade"
+msgstr ""
 
 #: general.ui:231
 msgid "No artifact"
-msgstr "Nenhum artefato"
+msgstr ""
 
 #: menu.ui:6
 msgid "Project page"
-msgstr "Página do projeto"
+msgstr ""
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr "Relatar um Bug"
+msgstr ""
 
 #: menu.ui:14
 msgid "License"
-msgstr "Licença"
+msgstr ""
 
 #: menu.ui:18
 msgid "Donate"
-msgstr "Doar"
+msgstr ""
 
 #: other.ui:5
 msgid "Other"
-msgstr "Outro"
+msgstr ""
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr "Desfoque da tela de bloqueio"
+msgstr ""
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
-"Altere o desfoque da tela de bloqueio para usar as preferências desta "
-"extensão."
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr "Desfoque da captura de tela"
+msgstr ""
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"Adicione desfoque ao plano de fundo do seletor de janela na interface do "
-"usuário da captura de tela."
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr "Desfoque da extensão da lista de janelas"
+msgstr ""
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "Torne a extensão da lista de janelas desfocada, se for usada."
+msgstr ""
 
 #: overview.ui:5
 msgid "Overview"
-msgstr "Visão geral"
+msgstr ""
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr "Desfoque do plano de fundo"
+msgstr ""
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Adicione desfoque ao plano de fundo da visão geral, usando a imagem do papel "
-"de parede."
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr "Estilo dos componentes da visão geral"
+msgstr ""
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
-"O estilo semitransparente para o dash, entrada/resultados de pesquisa e "
-"pastas de aplicativos."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr "Desfoque da pasta do aplicativo"
+msgstr ""
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr ""
-"Torna o plano de fundo das caixas de diálogo da pasta do aplicativo borrado."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr "Estilo de caixas de diálogo da pasta do aplicativo"
+msgstr ""
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
-"O estilo semitransparente para as caixas de diálogo da pasta do aplicativo."
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr "Não estilizar"
+msgstr ""
 
 #: panel.ui:5
 msgid "Panel"
-msgstr "Painel"
+msgstr ""
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr "Desfoque do painel"
+msgstr ""
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Desfoque o painel superior usando a imagem de fundo."
+msgstr ""
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr "Desfoque estático"
+msgstr ""
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr "Usa uma imagem estática desfocada, mais eficiente e estável."
+msgstr ""
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Desativa o desfoque do painel ao entrar na visão geral."
+msgstr ""
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr "Forçar texto claro"
+msgstr ""
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
-"Aplique um texto claro para o painel, útil ao usar o tema claro do gnome-"
-"shell."
 
 #: panel.ui:72
 msgid ""
@@ -454,63 +403,57 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Substitua o plano de fundo do painel para usar um transparente ou "
-"semitransparente.\n"
-"Recomendado, a menos que você queira personalizar seu tema GNOME."
 
 #: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "O estilo transparente/semitransparente para o fundo do painel."
+msgstr ""
 
 #: panel.ui:94
 msgid "Disable when a window is near"
-msgstr "Desativar quando uma janela está próxima"
+msgstr ""
 
 #: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr "Desativa a transparência do painel quando uma janela está perto dele."
+msgstr ""
 
 #: panel.ui:112
 msgid "Compatibility"
-msgstr "Compatibilidade"
+msgstr ""
 
 #: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
-msgstr "Várias opções para fornecer compatibilidade com outras extensões."
+msgstr ""
 
 #: panel.ui:118
 msgid "Hidetopbar extension"
-msgstr "Extensão Hidetopbar"
+msgstr ""
 
 #: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"Não desativa o desfoque na visão geral, melhor usado com desfoque estático."
 
 #: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
-msgstr "Desfoque o painel original com Dash to Panel"
+msgstr ""
 
 #: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
-"Habilita o desfoque do painel original com Dash to Panel, se selecionado nas "
-"opções da extensão."
 
 #: panel.ui:153
 msgid "Contrasted"
-msgstr "Contrastado"
+msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr "Nome da Janela"
+msgstr ""
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr "Selecionar janela"
+msgstr ""
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr "Escolha uma janela ou selecione-a pelo nome da classe."
+msgstr ""
