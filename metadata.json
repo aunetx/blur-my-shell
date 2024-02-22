@@ -15,5 +15,9 @@
         "github": "aunetx",
         "kofi": "aunetx"
     },
+    "session-modes": [
+        "user", 
+        "unlock-dialog"
+    ],
     "version": 55
 }
