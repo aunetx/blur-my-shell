@@ -269,6 +269,11 @@
             <default>false</default>
             <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
         </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="radius">
+            <default>0</default>
+            <summary>Radius for corner rounding effect</summary>
+        </key>
     </schema>
 
     <!-- APPLICATIONS -->

@@ -22,6 +22,36 @@
         </child>
 
         <child>
+          <object class="AdwExpanderRow" id="static_blur">
+            <property name="title" translatable="yes">Static blur</property>
+            <property name="subtitle" translatable="yes">Uses a static blurred image, can be used with rounding effect.</property>
+            <property name="show-enable-switch">true</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Round corner radius</property>
+                <property name="subtitle" translatable="yes">The radius for the rounding effect.</property>
+                <property name="activatable-widget">radius_scale</property>
+
+                <child>
+                  <object class="GtkScale" id="radius_scale">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="width-request">200px</property>
+                    <property name="draw-value">true</property>
+                    <property name="value-pos">right</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="digits">0</property>
+                    <property name="adjustment">radius</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwExpanderRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
             <property name="subtitle" translatable="yes">Makes the background either transparent or semi-transparent, disable this to use Dash to Dock preferences instead.</property>
@@ -69,5 +99,11 @@
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
     </items>
+  </object>
+
+  <object class="GtkAdjustment" id="radius">
+    <property name="lower">0</property>
+    <property name="upper">40</property>
+    <property name="step-increment">1</property>
   </object>
 </interface>
