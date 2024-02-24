@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
-"shell/blur-my-shell/nb_NO/>\n"
+"PO-Revision-Date: 2024-02-19 16:02+0000\n"
+"Last-Translator: Lynx <isakbrunhenriksen@gmail.com>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"blur-my-shell/blur-my-shell/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.5-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -36,56 +36,67 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Legger til dimming til programmer. Dette har fortsatt beta funksjonalitet.\n"
+"For å få de beste resultatene mulig, sørg for å velge valgmuligheten \"Ingen "
+"artefact\" under \"General - Hack level\" preferansjer.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "Gjennomsiktighet"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Vinduets gjennomsiktighet oppå uklarhets effekten, en høyere verdi vil være "
+"mer leselig."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "Tilslør på oversikt"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"Tvinger tilsløringen til å være vist sikkelig på alle arbeidsområder på "
+"oversikt.\n"
+"Dette kan årsake noe \"latency\" eller ytelsesproblemer."
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "Aktiver alle av standard"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"Legger til tilsløring bak alle vinduer av standard.\n"
+"Ikke anbefalt pågrunn av ytelses og stabilitetsproblemer."
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr "Hvitliste"
+msgstr "Hviteliste"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "En liste av vinduer å tilsløre."
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "Legg til vindu"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "Svarteliste"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "En liste av vinduer å ikke tilsløre."
 
 #: customize-row.ui:4
 msgid "Customize properties"
@@ -188,14 +199,16 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Gjør bakgrunnen enten gjennomsiktig eller semi-gjennomsiktig, deaktiver "
+"denne for å bruke Dash til Dock preferanser i stedet."
 
 #: dash.ui:33 panel.ui:79
 msgid "Background style"
-msgstr ""
+msgstr "Bakgrunnsstil"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Den gjennomsiktige/semi-gjennomsiktige stilen for dock bakgrunnen."
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
@@ -208,7 +221,7 @@ msgstr "Skrur av tilsløring fra Dash til dokk når oversikten åpnes."
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
-msgstr ""
+msgstr "Gjennomsiktig"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
@@ -233,11 +246,11 @@ msgstr "Tilsløringsinnstillinger som brukes av alle komponenter som forvalg."
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "Ytelse"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Forskjellige opsjoner for å finpusse ytelse."
 
 #: general.ui:122
 msgid "Color and noise effects"
@@ -248,6 +261,8 @@ msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"Globalt deaktiverer støy og farge effekter som kan forbedre ytelse på low-"
+"end systemer."
 
 #: general.ui:135
 msgid "Hack level"
@@ -261,6 +276,11 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"Ender oppførselen til den dynamiske tilsløringseffekten.\n"
+"Standard verdien er høyt anbefalt hvis du ikke skal bruke programtilsløring, "
+"i så fall er \"Ingen artefakt\" bedre.\n"
+"Denne opsjonen vil fullstendig deaktivere beskårne omtegninger i GNOME "
+"shell, og kan påvirke ytelse kraftig, men vil helt fikse tilsløringseffekten."
 
 #: general.ui:151
 msgid "Debug"
@@ -277,15 +297,15 @@ msgstr ""
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr ""
+msgstr "Nullstille preferanser"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Nullstiller preferanser av Blur my Shell irreversibelt."
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "Nullstill"
 
 #: general.ui:228
 #, fuzzy
@@ -302,7 +322,7 @@ msgstr "Høy kvalitet"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "Ingen artefakt"
 
 #: menu.ui:6
 msgid "Project page"
@@ -373,22 +393,24 @@ msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"Den semi-gjennomsiktige stilen for dashet, søkeoppføriong/resultater, og "
+"program mapper."
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Program mappe tilsløring"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Gjør bakgrunnen av program mappe-dialoger tilslørt."
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Program mappe-dialogs stil"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Den semi-gjennomsiktige stilen for program mappe-dialoger."
 
 #: overview.ui:79 overview.ui:88
 #, fuzzy
@@ -423,12 +445,13 @@ msgstr "Skrur av tilsløring fra panelet når oversikten åpnes."
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Tving lys text"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Bruk en lys tekst for panelet, nyttig når du bruker gnome-shellets lys tema."
 
 #: panel.ui:72
 msgid ""
@@ -439,15 +462,15 @@ msgstr ""
 
 #: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "Den gjennomsiktige/semi-gjennomsiktige stilen for panel bakgrunnen."
 
 #: panel.ui:94
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Deaktiver når et vindu er nært"
 
 #: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "Deaktiver gjennomsiktigheten av panelet når et vindu er nært."
 
 #: panel.ui:112
 msgid "Compatibility"
@@ -469,13 +492,15 @@ msgstr ""
 
 #: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Tilslør det originalet panelet med Dash to Panel"
 
 #: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Aktiverer tilsløringen av det originalet panelet med Dash to Panel, hvis "
+"valgt i utvidelsens opsjoner."
 
 #: panel.ui:153
 msgid "Contrasted"
@@ -483,15 +508,15 @@ msgstr ""
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "Vindu navn"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "Velg vindu"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "Velg et vindu eller velg det av dens klassenavn."
 
 #, fuzzy
 #~ msgid ""
