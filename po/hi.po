@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-11-12 10:14+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-02-25 23:02+0000\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "एप्लीकेशन"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "एप्लीकेशन का धुंधलापन (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -31,205 +34,230 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"एप्लिकेशन में धुंधलापन जोड़ें. यह अभी भी beta कार्यक्षमता है.\n"
+"सर्वोत्तम संभव परिणाम प्राप्त करने के लिए, \"जनरल → हैक स्तर\" प्राथमिकता में"
+" \"कोई पुरावशेष नहीं\" विकल्प चुनना सुनिश्चित करें।\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "अपारदर्शिता"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"धुंधले प्रभाव के शीर्ष पर विंडो की अपारदर्शिता, उच्चतर मान अधिक सुपाठ्य होगा।"
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "अवलोकन पर धुंधलापन"
 
 #: applications.ui:52
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"अवलोकन में सभी कार्यस्थानों पर धुंधलापन ठीक से दिखाने के लिए बाध्य करता है।\n"
+"इससे कुछ विलंबता या प्रदर्शन संबंधी समस्याएं हो सकती हैं।"
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "सभी को डिफ़ॉल्ट रूप से सक्षम करें"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
+"डिफ़ॉल्ट रूप से सभी विंडो के पीछे धुंधलापन जोड़ता है।\n"
+"प्रदर्शन और स्थिरता संबंधी समस्याओं के कारण अनुशंसित नहीं है।"
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr ""
+msgstr "श्वेतसूची"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "धुंधली करने के लिए विंडोज़ की सूची।"
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "विंडो जोड़ें"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "काली सूची"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "धुंधली न होने वाली विंडोज़ की सूची।"
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "प्रापर्टी को अनुकूलित करें"
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
+"सामान्य पृष्ठ में सेट किए गए गुणों के बजाय अनुकूलित धुंधला गुणों का उपयोग "
+"करता है।"
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr ""
+msgstr "सिग्मा"
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "धुंधलेपन की तीव्रता।"
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr ""
+msgstr "चमक"
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr ""
+msgstr "धुंधले प्रभाव की चमक, उच्च मान से पाठ को पढ़ना कठिन हो सकता है।"
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr ""
+msgstr "रंग"
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"धुंधलेपन का रंग बदलता है. रंग की अपारदर्शिता यह नियंत्रित करती है कि वह "
+"धुंधला प्रभाव में कितना मिश्रित हो गया है।"
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "शोर की मात्रा"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"धुंधला प्रभाव में जोड़ने के लिए शोर की मात्रा, कम-कंट्रास्ट स्क्रीन पर या "
+"सौंदर्य प्रयोजन के लिए उपयोगी है।"
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "शोर का हल्कापन"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "शोर के हल्केपन ने धुंधले प्रभाव को और बढ़ा दिया।"
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "सूचना"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"शोर और रंग को इस जैसे गतिशील रूप से धुंधले घटकों पर सक्रिय नहीं किया जा सकता "
+"है।"
 
 #: dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "Dash"
 
 #: dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Dash to Dock का धुंधलापन"
 
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
+"यदि Dash to Dock एक्सटेंशन का उपयोग किया जाता है तो उसकी पृष्ठभूमि को धुंधला "
+"कर दें।"
 
 #: dash.ui:26 panel.ui:71
 msgid "Override background"
-msgstr ""
+msgstr "पृष्ठभूमि को ओवरराइड करें"
 
 #: dash.ui:27
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"पृष्ठभूमि को पारदर्शी या अर्ध-पारदर्शी बनाता है, इसके बजाय Dash to Dock "
+"प्राथमिकताओं का उपयोग करने के लिए इसे अक्षम करें।"
 
 #: dash.ui:33 panel.ui:79
 msgid "Background style"
-msgstr ""
+msgstr "पृष्ठभूमि शैली"
 
 #: dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Dock पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
 #: dash.ui:50 panel.ui:41
 msgid "Disable in overview"
-msgstr ""
+msgstr "अवलोकन में अक्षम करें"
 
 #: dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
+msgstr "अवलोकन दर्ज करते समय Dash to Dock तक धुंधलापन अक्षम कर देता है।"
 
 #: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
-msgstr ""
+msgstr "पारदर्शी"
 
 #: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
-msgstr ""
+msgstr "हल्का"
 
 #: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
-msgstr ""
+msgstr "गहरा"
 
 #: general.ui:5
 msgid "General"
-msgstr ""
+msgstr "जनरल"
 
 #: general.ui:10
 msgid "Blur preferences"
-msgstr ""
+msgstr "धुंधलेपन की प्राथमिकताएँ"
 
 #: general.ui:11
 msgid "Global blur preferences, used by all components by default."
 msgstr ""
+"वैश्विक धुंधलापन की प्राथमिकताएँ, डिफ़ॉल्ट रूप से सभी घटकों द्वारा उपयोग की "
+"जाती हैं।"
 
 #: general.ui:117
 msgid "Performance"
-msgstr ""
+msgstr "प्रदर्शन"
 
 #: general.ui:118
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "प्रदर्शन को बेहतर बनाने के लिए विभिन्न विकल्प।"
 
 #: general.ui:122
 msgid "Color and noise effects"
-msgstr ""
+msgstr "रंग और शोर प्रभाव"
 
 #: general.ui:123
 msgid ""
 "Globally disables noise and color effects which may improve performance on "
 "low-end systems."
 msgstr ""
+"विश्व स्तर पर शोर और रंग प्रभावों को अक्षम करता है जो निम्न-स्तरीय सिस्टम पर "
+"प्रदर्शन में सुधार कर सकता है।"
 
 #: general.ui:135
 msgid "Hack level"
-msgstr ""
+msgstr "हैक स्तर"
 
 #: general.ui:136
 msgid ""
@@ -239,163 +267,175 @@ msgid ""
 "This option will entirely disable clipped redraws in GNOME shell, and may "
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
+"गतिशील धुंधला प्रभाव का व्यवहार बदलता है।\n"
+"जब तक आप एप्लिकेशन ब्लर का उपयोग नहीं करते हैं, तब तक डिफ़ॉल्ट मान की अत्यधि"
+"क अनुशंसा की जाती है, ऐसी स्थिति में \"कोई पुरावशेष नहीं\" बेहतर है।\n"
+"यह विकल्प GNOME shell में क्लिप्ड रिड्रॉ को पूरी तरह से अक्षम कर देगा, और "
+"प्रदर्शन को महत्वपूर्ण रूप से प्रभावित कर सकता है लेकिन धुंधला प्रभाव को पूरी"
+" तरह से ठीक कर देगा।"
 
 #: general.ui:151
 msgid "Debug"
-msgstr ""
+msgstr "डिबग"
 
 #: general.ui:152
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"लॉग में एक्सटेंशन को वर्बोज़ बनाता है, जब आपको किसी समस्या की रिपोर्ट करने की"
+" आवश्यकता होती है तो सक्रिय करें।"
 
 #: general.ui:167
 msgid "Reset preferences"
-msgstr ""
+msgstr "प्राथमिकताएं रीसेट करें"
 
 #: general.ui:168
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Blur my Shell की प्राथमिकताओं को अपरिवर्तनीय रूप से रीसेट करता है।"
 
 #: general.ui:187
 msgid "Reset"
-msgstr ""
+msgstr "रीसेट"
 
 #: general.ui:228
 msgid "High performances"
-msgstr ""
+msgstr "उच्च प्रदर्शन"
 
 #: general.ui:229
 msgid "Default"
-msgstr ""
+msgstr "डिफ़ॉल्ट"
 
 #: general.ui:230
 msgid "High quality"
-msgstr ""
+msgstr "उच्च गुणवत्ता"
 
 #: general.ui:231
 msgid "No artifact"
-msgstr ""
+msgstr "कोई पुरावशेष नहीं"
 
 #: menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "प्रोजेक्ट पेज"
 
 #: menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "बग रिपोर्ट करें"
 
 #: menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "लाइसेंस"
 
 #: menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "दान करें"
 
 #: other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "अन्य"
 
 #: other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "लॉक स्क्रीन का धुंधलापन"
 
 #: other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
+"इस एक्सटेंशन प्राथमिकताओं का उपयोग करने के लिए लॉक स्क्रीन का धुंधलापन बदलें।"
 
 #: other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "स्क्रीनशॉट का धुंधलापन"
 
 #: other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
+msgstr "स्क्रीनशॉट UI में विंडो चयनकर्ता की पृष्ठभूमि में धुंधलापन जोड़ें।"
 
 #: other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "विंडो सूची एक्सटेंशन का धुंधलापन"
 
 #: other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "यदि विंडो-सूची एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
 
 #: overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "अवलोकन"
 
 #: overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "पृष्ठभूमि का धुंधलापन"
 
 #: overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr ""
+msgstr "वॉलपेपर चित्र का उपयोग करके, अवलोकन पृष्ठभूमि में धुंधलापन जोड़ें।"
 
 #: overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "अवलोकन घटक शैली"
 
 #: overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"डैश, खोज प्रविष्टि/परिणाम और एप्लिकेशन फ़ोल्डर के लिए अर्ध-पारदर्शी शैली।"
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "एप्लिकेशन फ़ोल्डर का धुंधलापन"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "एप्लिकेशन फ़ोल्डर संवाद की पृष्ठभूमि को धुंधला करें।"
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "एप्लिकेशन फ़ोल्डर संवाद शैली"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "एप्लिकेशन फ़ोल्डर संवादों के लिए अर्ध-पारदर्शी शैली।"
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
-msgstr ""
+msgstr "स्टाइल मत करो"
 
 #: panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "पैनल"
 
 #: panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "पैनल का धुंधलापन"
 
 #: panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "पृष्ठभूमि छवि का उपयोग करके शीर्ष पैनल को धुंधला करें।"
 
 #: panel.ui:26
 msgid "Static blur"
-msgstr ""
+msgstr "स्थिर धुंधलापन"
 
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
+msgstr "एक स्थिर धुंधली छवि का उपयोग करता है, अधिक प्रदर्शनशील और स्थिर।"
 
 #: panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
+msgstr "अवलोकन दर्ज करते समय पैनल से धुंधलापन अक्षम कर देता है।"
 
 #: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "बलपूर्वक हल्के टेक्स्ट लागू करें"
 
 #: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"पैनल के लिए हल्के टेक्स्ट का उपयोग करें, जो gnome-shell की लाइट थीम का उपयोग "
+"करते समय उपयोगी होता है।"
 
 #: panel.ui:72
 msgid ""
@@ -403,57 +443,64 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"पारदर्शी या अर्ध-पारदर्शी का उपयोग करने के लिए पैनल की पृष्ठभूमि को ओवरराइड "
+"करें।\n"
+"अनुशंसित जब तक आप अपनी GNOME थीम को अनुकूलित नहीं करना चाहते।"
 
 #: panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "पैनल पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
 #: panel.ui:94
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "जब कोई विंडो निकट हो तो अक्षम करें"
 
 #: panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "जब कोई विंडो इसके निकट हो तो पैनल की पारदर्शिता अक्षम हो जाती है।"
 
 #: panel.ui:112
 msgid "Compatibility"
-msgstr ""
+msgstr "अनुकूलता"
 
 #: panel.ui:113
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "अन्य एक्सटेंशन के साथ अनुकूलता प्रदान करने के लिए विभिन्न विकल्प।"
 
 #: panel.ui:118
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Hidetopbar एक्सटेंशन"
 
 #: panel.ui:119
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
+"अवलोकन में धुंधलापन अक्षम नहीं करता, स्थिर धुंधलापन के साथ सबसे अच्छा उपयोग "
+"किया जाता है।"
 
 #: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Dash to Panel के साथ मूल पैनल को धुंधला करें"
 
 #: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"यदि एक्सटेंशन के विकल्पों में चयन किया गया है, तो Dash to Panel के साथ मूल पै"
+"नल को धुंधला करने में सक्षम बनाता है।"
 
 #: panel.ui:153
 msgid "Contrasted"
-msgstr ""
+msgstr "विषम"
 
 #: window-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "विंडो का नाम"
 
 #: window-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "विंडो चुनें"
 
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "एक विंडो चुनें या उसके क्लासनाम से उसका चयन करें।"
