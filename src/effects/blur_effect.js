@@ -39,7 +39,7 @@ export const BlurEffect = new GObject.registerClass({
             `sigma`,
             `Blur sigma`,
             GObject.ParamFlags.READWRITE,
-            0.0, 200.0,
+            0.0, 2000.0,
             200.0,
         ),
         'brightness': GObject.ParamSpec.double(
@@ -70,18 +70,18 @@ export const BlurEffect = new GObject.registerClass({
         this._direction = null;
 
         this._static = true;
-        this._settings = settings;  
+        this._settings = settings;
 
         if (params.width)
             this.width = params.width;
         if (params.height)
-            this.height = params.height; 
+            this.height = params.height;
         if (params.sigma)
-            this.sigma = params.sigma;  
+            this.sigma = params.sigma;
         if (params.brightness)
-            this.brightness = params.brightness;  
+            this.brightness = params.brightness;
         if (params.direction)
-            this.direction = params.direction;    
+            this.direction = params.direction;
 
         // set shader source
         this._source = get_shader_source();
@@ -118,11 +118,15 @@ export const BlurEffect = new GObject.registerClass({
     }
 
     set sigma(value) {
-        value = 30*value/200;
+        value = 30 * value / 200;
         if (this._sigma !== value) {
+            this.set_enabled(
+                value > 0
+            );
+
             this._sigma = value;
 
-            this.set_uniform_value('radius', parseFloat(this._sigma-1e-6));
+            this.set_uniform_value('radius', parseFloat(this._sigma - 1e-6));
         }
     }
 
@@ -134,7 +138,7 @@ export const BlurEffect = new GObject.registerClass({
         if (this._brightness !== value) {
             this._brightness = value;
 
-            this.set_uniform_value('brightness', parseFloat(this._brightness-1e-6));
+            this.set_uniform_value('brightness', parseFloat(this._brightness - 1e-6));
         }
     }
 

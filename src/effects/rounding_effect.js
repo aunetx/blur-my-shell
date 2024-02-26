@@ -52,14 +52,14 @@ export const RoundingEffect = new GObject.registerClass({
         this._radius = null;
 
         this._static = true;
-        this._settings = settings;  
+        this._settings = settings;
 
         if (params.width)
             this.width = params.width;
         if (params.height)
-            this.height = params.height; 
+            this.height = params.height;
         if (params.radius)
-            this.radius = params.radius;    
+            this.radius = params.radius;
 
         // set shader source
         this._source = get_shader_source();
