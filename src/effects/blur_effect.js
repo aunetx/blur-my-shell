@@ -2,6 +2,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
 import Shell from 'gi://Shell';
+//import Cogl from 'gi://Cogl';
 
 const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'blur_effect.glsl', GLib.UriFlags.NONE))[0];
 
@@ -18,20 +19,12 @@ const get_shader_source = _ => {
 export const BlurEffect = new GObject.registerClass({
     GTypeName: "BlurEffect",
     Properties: {
-        'width': GObject.ParamSpec.double(
-            `width`,
-            `Width`,
-            `Actor width`,
+        'pixel_step': GObject.ParamSpec.double(
+            `pixel_step`,
+            `Pixel step`,
+            `Pixel step`,
             GObject.ParamFlags.READWRITE,
-            0.0, Number.MAX_SAFE_INTEGER,
-            0.0,
-        ),
-        'height': GObject.ParamSpec.double(
-            `height`,
-            `Height`,
-            `Actor height`,
-            GObject.ParamFlags.READWRITE,
-            0.0, Number.MAX_SAFE_INTEGER,
+            0.0, 1.0,
             0.0,
         ),
         'sigma': GObject.ParamSpec.double(
@@ -63,8 +56,7 @@ export const BlurEffect = new GObject.registerClass({
     constructor(params, settings) {
         super(params);
 
-        this._width = null;
-        this._height = null;
+        this._pixel_step = null;
         this._sigma = null;
         this._brightness = null;
         this._direction = null;
@@ -72,16 +64,16 @@ export const BlurEffect = new GObject.registerClass({
         this._static = true;
         this._settings = settings;
 
-        if (params.width)
-            this.width = params.width;
-        if (params.height)
-            this.height = params.height;
+        this._tex = null;
+
+        if (params.pixel_step)
+            this.pixel_step = params.pixel_step;
         if (params.sigma)
-            this.sigma = params.sigma;
+            this.sigma = params.sigma;  
         if (params.brightness)
-            this.brightness = params.brightness;
+            this.brightness = params.brightness;  
         if (params.direction)
-            this.direction = params.direction;
+            this.direction = params.direction;    
 
         // set shader source
         this._source = get_shader_source();
@@ -89,27 +81,15 @@ export const BlurEffect = new GObject.registerClass({
             this.set_shader_source(this._source);
     }
 
-    get width() {
-        return this._width;
+    get pixel_step() {
+        return this._pixel_step;
     }
 
-    set width(value) {
-        if (this._width !== value) {
-            this._width = value;
+    set pixel_step(value) {
+        if (this._pixel_step !== value) {
+            this._pixel_step = value;
 
-            this.set_uniform_value('width', this._width);
-        }
-    }
-
-    get height() {
-        return this._height;
-    }
-
-    set height(value) {
-        if (this._height !== value) {
-            this._height = value;
-
-            this.set_uniform_value('height', this._height);
+            this.set_uniform_value('pixel_step', parseFloat(this._pixel_step-1e-6));
         }
     }
 
@@ -118,15 +98,10 @@ export const BlurEffect = new GObject.registerClass({
     }
 
     set sigma(value) {
-        value = 30 * value / 200;
         if (this._sigma !== value) {
-            this.set_enabled(
-                value > 0
-            );
-
             this._sigma = value;
 
-            this.set_uniform_value('radius', parseFloat(this._sigma - 1e-6));
+            this.set_uniform_value('sigma', parseFloat(this._sigma-1e-6));
         }
     }
 
@@ -138,7 +113,7 @@ export const BlurEffect = new GObject.registerClass({
         if (this._brightness !== value) {
             this._brightness = value;
 
-            this.set_uniform_value('brightness', parseFloat(this._brightness - 1e-6));
+            this.set_uniform_value('brightness', parseFloat(this._brightness-1e-6));
         }
     }
 
@@ -156,6 +131,28 @@ export const BlurEffect = new GObject.registerClass({
 
 
     vfunc_paint_target(paint_node = null, paint_context = null) {
+        /*let tex = this.get_pipeline().get_layer_texture(0);
+        if(tex !== null) {
+            this._tex = tex;
+        }
+        console.log("blur original texture width, height: ", this._tex.get_width(), this._tex.get_height());
+        
+        let data = new Uint8Array(this._tex.get_width()*this._tex.get_height()*24);
+        this._tex.get_data(Cogl.PixelFormat.RGB_888, this._tex.get_width()*24, data);
+
+        let new_tex_img = new Clutter.Image();
+        new_tex_img.set_data(
+            data,
+            Cogl.PixelFormat.RGB_888,
+            this._tex.get_width(), this._tex.get_height(), this._tex.get_width()*24
+        );
+        
+
+        this.get_pipeline().set_layer_texture(0,new_tex);
+
+        //Invalid uniform of type 'CoglTexture2D' for name 'tex'
+        //this.set_uniform_value("tex", this._tex);
+        */
         this.set_uniform_value("tex", 0);
 
         if (paint_node && paint_context)

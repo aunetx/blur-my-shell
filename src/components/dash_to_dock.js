@@ -63,13 +63,15 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
             this.effects[0].sigma = this.dash_blur.sigma;
-            if (this.dash_blur.is_static)
+            if (this.dash_blur.is_static) {
                 this.effects[1].sigma = this.dash_blur.sigma;
+                this.dash_blur.update_size();
+            }
         });
 
         dash_blur.connections.connect(dash_blur, 'update-brightness', () => {
             this.effects[0].brightness = this.dash_blur.brightness;
-            if (this.dash_blur.is_static)
+            if (this.dash_blur.is_static) 
                 this.effects[1].brightness = this.dash_blur.brightness;
         });
 
@@ -120,48 +122,60 @@ class DashInfos {
                     Main.layoutManager.monitors.length
                     - find_monitor_for(this.dash).index - 1
                 );
-                if (bg && bg.get_content()) {
+                if (bg) {
                     this.background.content.set({
                         background: bg.get_content().background
                     });
                     this._log('bg set');
-                } else
+                } else {
                     this._warn("could not get background for dash-to-dock");
+                }
             }
         });
 
         dash_blur.connections.connect(dash_blur, 'update-size', () => {
-            this.background.width = this.dash_background.width;
-            this.background.height = this.dash_background.height;
-
             if (this.dash_blur.is_static) {
                 var x, y;
                 [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
+                
+                //Offset
+                var x_o, y_o, w_o, h_o;
+                [x_o, y_o, w_o, h_o] = this.get_offset(
+                    this.dash_blur.sigma, 
+                    x, 
+                    y,
+                    this.dash_background.width,
+                    this.dash_background.height
+                );
+                //console.log("blur offset [x_o, y_o, w_o, h_o]: ", x_o, y_o, w_o, h_o);
+                //console.log("blur ", x, y, this.dash_background.width, this.dash_background.height);
+                //console.log("blur ", x+x_o, y+y_o, this.dash_background.width+w_o, this.dash_background.height+h_o);
 
                 if (this.dash_container.get_style_class_name().includes("left")) {
                     this.background.x = 0;
                 } else {
-                    this.background.x = -x;
+                    this.background.x = -(x+x_o);
                 }
 
                 if (this.dash_container.get_style_class_name().includes("top")) {
                     this.background.y = 0;
                 } else {
-                    this.background.y = -y;
+                    this.background.y = -(y+y_o);
                 }
 
-                this.effects.forEach((effect) => {
-                    effect.width = this.dash_background.width;
-                });
+                this.effects[0].pixel_step = 1.0 / (this.dash_background.height+h_o);
+                this.effects[1].pixel_step = 1.0 / (this.dash_background.width+w_o);
 
-                this.effects.forEach((effect) => {
-                    effect.height = this.dash_background.height;
-                });
+                this.effects[2].width = this.dash_background.width;
+                this.effects[2].height = this.dash_background.height;
 
-                this.background.set_clip(x, y, this.dash_background.width, this.dash_background.height);
+                this.background.set_clip(x+x_o, y+y_o, this.dash_background.width+w_o, this.dash_background.height+h_o);
             } else {
-                this.background.y = this.dash_background.y;
+                this.background.width = this.dash_background.width;
+                this.background.height = this.dash_background.height;
+
                 this.background.x = this.dash_background.x;
+                this.background.y = this.dash_background.y;
             }
         });
 
@@ -182,10 +196,10 @@ class DashInfos {
 
         let monitor = find_monitor_for(dash_container);
 
-        if (dash_container.get_style_class_name().includes("top")) {
+        if (dash_container.get_style_class_name().includes("top")) {            
             x = (monitor.width - dash_background.width) / 2;
             y = dash_background.y;
-        } else if (dash_container.get_style_class_name().includes("bottom")) {
+        } else if (dash_container.get_style_class_name().includes("bottom")) {            
             x = (monitor.width - dash_background.width) / 2;
             y = monitor.height - dash_container.height;
         } else if (dash_container.get_style_class_name().includes("left")) {
@@ -199,14 +213,55 @@ class DashInfos {
         return [x, y];
     }
 
+    get_offset(sigma, x, y, w, h) {
+        var x_o, y_o, w_o, h_o;
+
+        let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
+            Main.layoutManager.monitors.length
+            - find_monitor_for(this.dash).index - 1
+        );
+        if (!bg) {
+            this._warn("could not get background for dash-to-dock");
+            return [0, 0, 0, 0];
+        }
+
+        x_o = -sigma;
+        y_o = -sigma;
+        w_o = sigma*2;
+        h_o = sigma*2;
+
+        if (x-sigma < 0) {
+            x_o = -x;
+        }
+        if (y-sigma < 0) {
+            y_o = -y;
+        }
+        if (x+x_o+w+sigma*2 > bg.width) {
+            w_o = bg.width - (x+x_o+w);
+        }
+        if (x-sigma < 0) {
+            w_o = w_o - sigma + x;
+        }
+        if (y+y_o+h+sigma*2 > bg.height) {
+            h_o = bg.height - (y+y_o+h);
+        }
+        if (y-sigma < 0) {
+            h_o = h_o - sigma + y;
+        }
+        this._warn("[sigma, x, y, w, h]: "+sigma+", "+x+", "+y+", "+ w+", "+h);
+        this._warn("[bg.width, bg.height]: "+bg.width+", "+bg.height);
+        this._warn("[x_o, y_o, w_o, h_o]: "+x_o+", "+y_o+", "+ w_o+", "+h_o);
+        return [0, 0, 0, 0];
+        //return [x_o, y_o, w_o, h_o];
+    }
+
     _log(str) {
         if (this.settings.DEBUG)
             console.log(`[Blur my Shell > dash]         ${str}`);
     }
 
     _warn(str) {
-        if (this.settings.DEBUG)
-            console.warn(`[Blur my Shell > dash]         ${str}`);
+        console.warn(`[Blur my Shell > dash] ${str}`);
     }
 }
 
@@ -287,7 +342,7 @@ export const DashBlur = class DashBlur {
         let dash_background = dash.get_children().find(child => {
             return child.get_style_class_name() === 'dash-background';
         });
-
+        
         let [background, effects] = this.add_blur(dash, dash_background, dash_container);
 
         this.update_size();
@@ -302,18 +357,18 @@ export const DashBlur = class DashBlur {
             this.update_size();
             this.update_wallpaper();
         });
-
+        
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
 
         // create infos
         let infos = new DashInfos(
-            this,
-            dash,
+            this, 
+            dash, 
             dash_container,
             dash_background,
-            background,
-            background_parent,
+            background, 
+            background_parent, 
             effects
         );
 
@@ -345,15 +400,13 @@ export const DashBlur = class DashBlur {
         // the effects to be applied
         if (this.is_static) {
             let effect_vert = new BlurEffect({
-                width: dash_background.width,
-                height: dash_background.height,
+                pixel_step: 1.0 / dash_background.height,
                 sigma: this.sigma,
                 brightness: this.brightness,
                 direction: 0
             });
             let effect_hor = new BlurEffect({
-                width: dash_background.width,
-                height: dash_background.height,
+                pixel_step: 1.0 / dash_background.width,
                 sigma: this.sigma,
                 brightness: this.brightness,
                 direction: 1

@@ -1,61 +1,44 @@
 uniform sampler2D tex;
-uniform int width;
-uniform int height;
+uniform float sigma;
+uniform float pixel_step;
 uniform int dir;
-uniform float radius;
 uniform float brightness;
 
-float radius_band = 5;
-int band = int(radius / radius_band);
-int elements;
-float[31] weights;
-
-/*
-** initWeights gets executed on every pixel instance of the shader. Because of the parallel execution of the main instances every pixel instance gets a copy of the global variables,
-** which also means that those instances can't change the value of the global variable.
-*/
-
-void initWeights() {
-    if (band == 1) {
-        elements = 11;
-        weights = float[](0.0877142386894625, 0.08571761885514498, 0.0799963364506413, 0.07129680990889681, 0.06068342691594618, 0.049325341222694934, 0.03828865390084329, 0.02838377126232145, 0.020094171210084107, 0.013585327059749568, 0.008771423868946249, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    } else if (band == 2) {
-        elements = 16;
-        weights = float[](0.0586256816448148, 0.058028782785674825, 0.056274303376764534, 0.05346725712469989, 0.04977104899549517, 0.04539173617000566, 0.0405590622531167, 0.035506685021076116, 0.030453938115135727, 0.025591038213833354, 0.02106897757449955, 0.016994567929708503, 0.01343036777015676, 0.010398646009483488, 0.007888179673460876, 0.005862568164481478, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    } else if (band == 3) {
-        elements = 21;
-        weights = float[](0.0440280172323652, 0.043775299669453475, 0.04302581720435111, 0.04180508663519469, 0.040154028951265845, 0.038126692151510426, 0.03578731597266526, 0.033206960669429846, 0.03045994590950288, 0.02762034683326305, 0.024758773555951772, 0.021939621342538233, 0.019218926584070265, 0.016642904755081178, 0.014247187103581744, 0.01205671868468385, 0.01008623604931275, 0.00834121139372131, 0.006819132478725233, 0.005510983716277974, 0.004402801723236519, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    } else if (band == 4) {
-        elements = 26;
-        weights = float[](0.035251311548426645, 0.03512167985428671, 0.03473563797921578, 0.034101641135581943, 0.03323343864771841, 0.032149578233677256, 0.030872747420843664, 0.02942898474365488, 0.02784679898571322, 0.026156237964777153, 0.02438794909471392, 0.022572272253890677, 0.0207384015755935, 0.01891364702785695, 0.017122819549254917, 0.01538775559811883, 0.013726988815983374, 0.012155568634473212, 0.010685018534585205, 0.009323420668711375, 0.00807560893439296, 0.006943449478165318, 0.005926186022712806, 0.00502082725973912, 0.004222554657282778, 0.0035251311548426634, 0.0, 0.0, 0.0, 0.0, 0.0);
-    } else if (band == 5) {
-        elements = 31;
-        weights = float[](0.02939238997940825, 0.0293172877821358, 0.02909313061808605, 0.028723337500726337, 0.02821351026143142, 0.02757129236128949, 0.026806178255796353, 0.025929279956616785, 0.024953058808301565, 0.023891031518258905, 0.022757460108256487, 0.02156703567869248, 0.020334565697082033, 0.019074673963800762, 0.017801521513017445, 0.01652855553153197, 0.015268291990392636, 0.014032136157813015, 0.012830243573388909, 0.011671422487248699, 0.010563077271987156, 0.009511190959338476, 0.008520343885258975, 0.007593764480959185, 0.0067334075441362, 0.005940054871217317, 0.0052134329221157774, 0.004552342206966415, 0.003954793303635894, 0.0034181448028725646, 0.0029392389979408244);
-    } else { // default
-        elements = 6;
-        weights = float[](0.1742497602122148, 0.15891767006870802, 0.12055138079000842, 0.07606277909668431, 0.03991831391727037, 0.017424976021221478, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-    }
-}
-
-vec2 step_size = vec2((mod(radius, radius_band) / 15.0 + 1.0) / (4 / 3 * float(width)), (mod(radius, radius_band) / 15.0 + 1.0) / (4 / 3 * float(height)));
-
-vec2 direction = vec2(dir, (1.0 - dir));
-
 void main(void) {
-    vec2 pos = cogl_tex_coord_in[0].xy;
+    vec2 uv = cogl_tex_coord_in[0].xy;
+    vec2 direction = vec2(dir, (1.0-dir));
 
-    if (radius == 0.0) {
-        cogl_color_out = texture2D(tex, pos);
-    } else {
-        initWeights();
+    vec3 gauss_coefficient;
+    gauss_coefficient.x = 1.0 / (sqrt (2.0 * 3.14159265) * sigma);
+    gauss_coefficient.y = exp (-0.5 / (sigma * sigma));
+    gauss_coefficient.z = gauss_coefficient.y * gauss_coefficient.y;
 
-        cogl_color_out = texture2D(tex, pos) * weights[0];
-        for (int t = 1; t < elements; t++) {
-            cogl_color_out += texture2D(tex, pos + t * step_size * direction) * weights[t];
-            cogl_color_out += texture2D(tex, pos - t * step_size * direction) * weights[t];
-        }
+    float gauss_coefficient_total = gauss_coefficient.x;
 
-        cogl_color_out.a = 1.0;
+    vec4 ret = texture2D (tex, uv) * gauss_coefficient.x;
+    gauss_coefficient.xy *= gauss_coefficient.yz;
+
+    int n_steps = int (ceil (1.5 * sigma)) * 2;
+
+    for (int i = 1; i <= n_steps; i += 2) {
+        float coefficient_subtotal = gauss_coefficient.x;
+        gauss_coefficient.xy *= gauss_coefficient.yz;
+        coefficient_subtotal += gauss_coefficient.x;
+        
+        float gauss_ratio = gauss_coefficient.x / coefficient_subtotal;
+        
+        float foffset = float (i) + gauss_ratio;
+        vec2 offset = direction * foffset * pixel_step;
+        
+        ret += texture2D (tex, uv + offset) * coefficient_subtotal;
+        ret += texture2D (tex, uv - offset) * coefficient_subtotal;
+        
+        gauss_coefficient_total += 2.0 * coefficient_subtotal;
+        gauss_coefficient.xy *= gauss_coefficient.yz;
+    }
+    cogl_color_out = ret / gauss_coefficient_total;
+
+    if(dir==1) {
         cogl_color_out.rgb *= brightness;
     }
 }
