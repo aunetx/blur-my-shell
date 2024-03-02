@@ -136,7 +136,7 @@ class DashInfos {
         dash_blur.connections.connect(dash_blur, 'update-size', () => {
             if (this.dash_blur.is_static) {
                 var x, y;
-                [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
+                [x, y] = this.get_dash_position(this.dash_container, this.dash_background, this.dash);
                 
                 //Offset
                 var x_o, y_o, w_o, h_o;
@@ -151,25 +151,26 @@ class DashInfos {
                 //console.log("blur ", x, y, this.dash_background.width, this.dash_background.height);
                 //console.log("blur ", x+x_o, y+y_o, this.dash_background.width+w_o, this.dash_background.height+h_o);
 
-                if (this.dash_container.get_style_class_name().includes("left")) {
-                    this.background.x = 0;
-                } else {
-                    this.background.x = -(x+x_o);
-                }
+                this.background.x = -(x + x_o);
+                this.background.y = -(y + y_o);
 
-                if (this.dash_container.get_style_class_name().includes("top")) {
-                    this.background.y = 0;
-                } else {
-                    this.background.y = -(y+y_o);
-                }
-
-                this.effects[0].pixel_step = 1.0 / (this.dash_background.height+h_o);
-                this.effects[1].pixel_step = 1.0 / (this.dash_background.width+w_o);
+                this.effects[0].pixel_step = 1.0 / (this.dash_background.height + h_o);
+                this.effects[1].pixel_step = 1.0 / (this.dash_background.width + w_o);
 
                 this.effects[2].width = this.dash_background.width;
                 this.effects[2].height = this.dash_background.height;
 
-                this.background.set_clip(x+x_o, y+y_o, this.dash_background.width+w_o, this.dash_background.height+h_o);
+                let dash_box = this.dash_container._slider.get_child();
+
+                if (dash_container.get_style_class_name().includes("top")) {
+                    this.background.set_clip(x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                } else if (dash_container.get_style_class_name().includes("bottom")) {
+                    this.background.set_clip(x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                } else if (dash_container.get_style_class_name().includes("left")) {
+                    this.background.set_clip(x + this.dash.x + this.dash_background.x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                } else if (dash_container.get_style_class_name().includes("right")) {
+                    this.background.set_clip(x + this.dash.x + this.dash_background.x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                }
             } else {
                 this.background.width = this.dash_background.width;
                 this.background.height = this.dash_background.height;
@@ -191,24 +192,28 @@ class DashInfos {
         });
     }
 
-    get_dash_position(dash_container, dash_background) {
+    get_dash_position(dash_container, dash_background, dash) {
         var x, y;
 
         let monitor = find_monitor_for(dash_container);
+        let dash_box = dash_container._slider.get_child();
 
         if (dash_container.get_style_class_name().includes("top")) {            
             x = (monitor.width - dash_background.width) / 2;
-            y = dash_background.y;
+            y = dash_box.y;
         } else if (dash_container.get_style_class_name().includes("bottom")) {            
             x = (monitor.width - dash_background.width) / 2;
             y = monitor.height - dash_container.height;
         } else if (dash_container.get_style_class_name().includes("left")) {
-            x = dash_background.x;
-            y = (monitor.height - dash_background.height + Main.panel.height) / 2;
+            x = dash_box.x;
+            y = dash_container.y + dash_container._slider.y;
         } else if (dash_container.get_style_class_name().includes("right")) {
             x = monitor.width - dash_container.width;
-            y = (monitor.height - dash_background.height + Main.panel.height) / 2;
+            y = dash_container.y + dash_container._slider.y;
         }
+
+        //console.log("blur dash_container.width, dash_background.x: ", dash_container.width, dash_background.x);
+        //console.log("blur dash_container.y, dash_container._slider.y: ", dash_container.y, dash_container._slider.y);
 
         return [x, y];
     }
@@ -248,9 +253,7 @@ class DashInfos {
         if (y-sigma < 0) {
             h_o = h_o - sigma + y;
         }
-        this._warn("[sigma, x, y, w, h]: "+sigma+", "+x+", "+y+", "+ w+", "+h);
-        this._warn("[bg.width, bg.height]: "+bg.width+", "+bg.height);
-        this._warn("[x_o, y_o, w_o, h_o]: "+x_o+", "+y_o+", "+ w_o+", "+h_o);
+        
         return [0, 0, 0, 0];
         //return [x_o, y_o, w_o, h_o];
     }
@@ -357,6 +360,26 @@ export const DashBlur = class DashBlur {
             this.update_size();
             this.update_wallpaper();
         });
+        this.connections.connect(dash_container, 'notify::width', _ => {
+            this.update_size();
+            this.update_wallpaper();
+        });
+        this.connections.connect(dash_container, 'notify::height', _ => {
+            this.update_size();
+            this.update_wallpaper();
+        });
+        this.connections.connect(dash_container, 'notify::y', _ => {
+            this.update_size();
+            this.update_wallpaper();
+        });
+        this.connections.connect(dash_container, 'notify::x', _ => {
+            this.update_size();
+            this.update_wallpaper();
+        });
+        /*this.connections.connect(dash_container._slider, 'notify::y', _ => {
+            this.update_size();
+            this.update_wallpaper();
+        });*/
         
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
