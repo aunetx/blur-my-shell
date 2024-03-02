@@ -122,7 +122,7 @@ class DashInfos {
                     Main.layoutManager.monitors.length
                     - find_monitor_for(this.dash).index - 1
                 );
-                if (bg) {
+                if (bg && bg.get_content()) {
                     this.background.content.set({
                         background: bg.get_content().background
                     });
