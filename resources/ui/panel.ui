@@ -17,7 +17,8 @@
 
         <child>
           <object class="CustomizeRow" id="customize">
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
           </object>
         </child>
 
@@ -26,7 +27,8 @@
             <property name="title" translatable="yes">Static blur</property>
             <property name="subtitle" translatable="yes">Uses a static blurred image, more performant and stable.</property>
             <property name="activatable-widget">static_blur</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="GtkSwitch" id="static_blur">
@@ -38,25 +40,11 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Disable in overview</property>
-            <property name="subtitle" translatable="yes">Disables the blur from the panel when entering the overview.</property>
-            <property name="activatable-widget">unblur_in_overview</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
-
-            <child>
-              <object class="GtkSwitch" id="unblur_in_overview">
-                <property name="valign">center</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
-        <child>
-          <object class="AdwActionRow">
             <property name="title" translatable="yes">Force light text</property>
             <property name="subtitle" translatable="yes">Use a light text for the panel, useful when using gnome-shell's light theme.</property>
             <property name="activatable-widget">force_light_text</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="GtkSwitch" id="force_light_text">
@@ -72,7 +60,8 @@
             <property name="subtitle" translatable="yes">Override the background of the panel to use a transparent or semi-transparent one.
 Recommended unless you want to customize your GNOME theme.</property>
             <property name="show-enable-switch">true</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="AdwActionRow">
@@ -104,6 +93,22 @@ Recommended unless you want to customize your GNOME theme.</property>
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="subtitle" translatable="yes">Disables the blur from the panel when entering the overview.</property>
+            <property name="activatable-widget">unblur_in_overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="unblur_in_overview">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
 
@@ -118,7 +123,8 @@ Recommended unless you want to customize your GNOME theme.</property>
             <property name="title" translatable="yes">Hidetopbar extension</property>
             <property name="subtitle" translatable="yes">Does not disable the blur in overview, best used with static blur.</property>
             <property name="activatable-widget">hidetopbar_compatibility</property>
-            <property name="sensitive" bind-source="unblur_in_overview" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="unblur_in_overview" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="GtkSwitch" id="hidetopbar_compatibility">

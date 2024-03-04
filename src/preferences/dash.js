@@ -11,7 +11,7 @@ export const Dash = GObject.registerClass({
         'blur',
         'customize',
         'static_blur',
-        'radius',
+        'corner_radius',
         'override_background',
         'style_dash_to_dock',
         'unblur_in_overview'
@@ -28,12 +28,12 @@ export const Dash = GObject.registerClass({
         );
         this.preferences.dash_to_dock.settings.bind(
             'static-blur',
-            this._static_blur, 'enable-expansion',
+            this._static_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
-            'radius',
-            this._radius, 'value',
+            'corner-radius',
+            this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(

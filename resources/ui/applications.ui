@@ -19,7 +19,8 @@ To get the best results possible, make sure to choose the option â€œNo artifactâ
 
         <child>
           <object class="CustomizeRow" id="customize">
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
           </object>
         </child>
 
@@ -27,8 +28,9 @@ To get the best results possible, make sure to choose the option â€œNo artifactâ
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Opacity</property>
             <property name="subtitle" translatable="yes">The opacity of the window on top of the blur effect, a higher value will be more legible.</property>
-            <property name="activatable-widget">opacity</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">opacity_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="GtkScale" id="opacity_scale">
@@ -52,7 +54,8 @@ To get the best results possible, make sure to choose the option â€œNo artifactâ
             <property name="subtitle" translatable="yes">Forces the blur to be properly shown on all workspaces on overview.
 This may cause some latency or performance issues.</property>
             <property name="activatable-widget">blur_on_overview</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="GtkSwitch" id="blur_on_overview">
@@ -68,7 +71,8 @@ This may cause some latency or performance issues.</property>
             <property name="subtitle" translatable="yes">Adds blur behind all windows by default.
 Not recommended because of performance and stability issues.</property>
             <property name="activatable-widget">enable_all</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
 
             <child>
               <object class="GtkSwitch" id="enable_all">

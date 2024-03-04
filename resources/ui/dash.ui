@@ -8,8 +8,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Dash to Dock blur</property>
-        <property name="description" translatable="yes">Blur the background of the Dash to Dock
-          extension, if it is used.</property>
+        <property name="description" translatable="yes">Blur the background of the Dash to Dock extension, if it is used.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
@@ -24,32 +23,41 @@
         </child>
 
         <child>
-          <object class="AdwExpanderRow" id="static_blur">
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Static blur</property>
-            <property name="subtitle" translatable="yes">Uses a static blurred image, can be used
-              with rounding effect.</property>
-            <property name="show-enable-switch">true</property>
+            <property name="subtitle" translatable="yes">Uses a static blurred image, can be used with rounding effect.</property>
+            <property name="activatable-widget">static_blur</property>
             <property name="sensitive" bind-source="blur" bind-property="state"
               bind-flags="sync-create" />
 
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Round corner radius</property>
-                <property name="subtitle" translatable="yes">The radius for the rounding effect.</property>
-                <property name="activatable-widget">radius_scale</property>
+              <object class="GtkSwitch" id="static_blur">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
 
-                <child>
-                  <object class="GtkScale" id="radius_scale">
-                    <property name="valign">center</property>
-                    <property name="hexpand">true</property>
-                    <property name="width-request">200px</property>
-                    <property name="draw-value">true</property>
-                    <property name="value-pos">right</property>
-                    <property name="orientation">horizontal</property>
-                    <property name="digits">0</property>
-                    <property name="adjustment">radius</property>
-                  </object>
-                </child>
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Rounded corner radius</property>
+            <property name="subtitle" translatable="yes">The radius for the rounding effect. Only available with static blur.</property>
+            <property name="activatable-widget">corner_radius_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state"
+              bind-flags="sync-create" />
+            <property name="sensitive" bind-source="static_blur" bind-property="state"
+              bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="corner_radius_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">0</property>
+                <property name="adjustment">corner_radius</property>
               </object>
             </child>
           </object>
@@ -58,8 +66,7 @@
         <child>
           <object class="AdwExpanderRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
-            <property name="subtitle" translatable="yes">Makes the background either transparent or
-              semi-transparent, disable this to use Dash to Dock preferences instead.</property>
+            <property name="subtitle" translatable="yes">Makes the background either transparent or semi-transparent, disable this to use Dash to Dock preferences instead.</property>
             <property name="show-enable-switch">true</property>
             <property name="sensitive" bind-source="blur" bind-property="state"
               bind-flags="sync-create" />
@@ -85,8 +92,7 @@
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Disable in overview</property>
-            <property name="subtitle" translatable="yes">Disables the blur from Dash to Dock when
-              entering the overview.</property>
+            <property name="subtitle" translatable="yes">Disables the blur from Dash to Dock when entering the overview.</property>
             <property name="activatable-widget">unblur_in_overview</property>
             <property name="sensitive" bind-source="blur" bind-property="state"
               bind-flags="sync-create" />
@@ -110,9 +116,9 @@
     </items>
   </object>
 
-  <object class="GtkAdjustment" id="radius">
+  <object class="GtkAdjustment" id="corner_radius">
     <property name="lower">0</property>
-    <property name="upper">40</property>
+    <property name="upper">50</property>
     <property name="step-increment">1</property>
   </object>
 </interface>

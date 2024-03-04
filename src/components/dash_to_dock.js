@@ -71,11 +71,13 @@ class DashInfos {
             this.effect.brightness = this.dash_blur.brightness;
         });
 
-        dash_blur.connections.connect(dash_blur, 'update-radius', () => {
+        dash_blur.connections.connect(dash_blur, 'update-corner-radius', () => {
             if (this.dash_blur.is_static) {
                 let monitor = find_monitor_for(this.dash);
-                let radius = this.dash_blur.radius * monitor.geometry_scale;
-                this.effect.radius = Math.min(radius, Math.min(this.effect.width/2, this.effect.height/2));
+                let corner_radius = this.dash_blur.corner_radius * monitor.geometry_scale;
+                this.effect.corner_radius = Math.min(
+                    corner_radius, this.effect.width / 2, this.effect.height / 2
+                );
             }
         });
 
@@ -123,7 +125,7 @@ class DashInfos {
                     this.background.content.set({
                         background: bg.get_content().background
                     });
-                    this._log('bg set');
+                    this._log('wallpaper updated');
                 } else {
                     this._warn("could not get background for dash-to-dock");
                 }
@@ -140,9 +142,7 @@ class DashInfos {
                 this.effect.width = this.dash_background.width;
                 this.effect.height = this.dash_background.height;
 
-                this.dash_blur.set_radius(this.dash_blur.radius);
-
-                let dash_box = this.dash_container._slider.get_child();
+                this.dash_blur.set_corner_radius(this.dash_blur.corner_radius);
 
                 if (dash_container.get_style_class_name().includes("top")) {
                     this.background.set_clip(x, y + this.dash.y + this.dash_background.y, this.dash_background.width, this.dash_background.height);
@@ -181,10 +181,10 @@ class DashInfos {
         let monitor = find_monitor_for(dash_container);
         let dash_box = dash_container._slider.get_child();
 
-        if (dash_container.get_style_class_name().includes("top")) {            
+        if (dash_container.get_style_class_name().includes("top")) {
             x = (monitor.width - dash_background.width) / 2;
             y = dash_box.y;
-        } else if (dash_container.get_style_class_name().includes("bottom")) {            
+        } else if (dash_container.get_style_class_name().includes("bottom")) {
             x = (monitor.width - dash_background.width) / 2;
             y = monitor.height - dash_container.height;
         } else if (dash_container.get_style_class_name().includes("left")) {
@@ -220,7 +220,7 @@ export const DashBlur = class DashBlur {
         this.brightness = this.settings.dash_to_dock.CUSTOMIZE
             ? this.settings.dash_to_dock.BRIGHTNESS
             : this.settings.BRIGHTNESS;
-        this.radius = this.settings.dash_to_dock.RADIUS;
+        this.corner_radius = this.settings.dash_to_dock.CORNER_RADIUS;
         this.is_static = this.settings.dash_to_dock.STATIC_BLUR;
         this.enabled = false;
     }
@@ -288,7 +288,7 @@ export const DashBlur = class DashBlur {
         let dash_background = dash.get_children().find(child => {
             return child.get_style_class_name() === 'dash-background';
         });
-        
+
         let [background, effect] = this.add_blur(dash, dash_background, dash_container);
 
         this.update_wallpaper();
@@ -319,18 +319,18 @@ export const DashBlur = class DashBlur {
             this.update_wallpaper();
             this.update_size();
         });
-        
+
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
 
         // create infos
         let infos = new DashInfos(
-            this, 
-            dash, 
+            this,
+            dash,
             dash_container,
             dash_background,
-            background, 
-            background_parent, 
+            background,
+            background_parent,
             effect
         );
 
@@ -361,15 +361,15 @@ export const DashBlur = class DashBlur {
 
         // the effect to be applied
         if (this.is_static) {
-            let radius = this.radius * monitor.geometry_scale;
-            radius = Math.min(radius, Math.min(dash_background.width/2, dash_background.height/2));
-            
+            let corner_radius = this.corner_radius * monitor.geometry_scale;
+            corner_radius = Math.min(corner_radius, dash_background.width / 2, dash_background.height / 2);
+
             let effect_static = new BlurEffect({
-                sigma: this.sigma,
+                sigma: this.sigma * monitor.geometry_scale,
                 brightness: this.brightness,
                 width: dash_background.width,
                 height: dash_background.height,
-                radius: radius
+                corner_radius: corner_radius
             });
 
             // connect to every background change (even without changing image)
@@ -505,9 +505,9 @@ export const DashBlur = class DashBlur {
         this.emit('update-brightness', true);
     }
 
-    set_radius(radius) {
-        this.radius = radius;
-        this.emit('update-radius', true);
+    set_corner_radius(radius) {
+        this.corner_radius = radius;
+        this.emit('update-corner-radius', true);
     }
 
     // not implemented for dynamic blur

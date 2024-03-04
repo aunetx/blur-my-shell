@@ -50,10 +50,10 @@ export const BlurEffect = new GObject.registerClass({
             0.0, Number.MAX_SAFE_INTEGER,
             0.0,
         ),
-        'radius': GObject.ParamSpec.double(
-            `radius`,
-            `Radius`,
-            `Radius`,
+        'corner_radius': GObject.ParamSpec.double(
+            `corner_radius`,
+            `Corner Radius`,
+            `Corner Radius`,
             GObject.ParamFlags.READWRITE,
             0, Number.MAX_SAFE_INTEGER,
             0,
@@ -82,7 +82,7 @@ export const BlurEffect = new GObject.registerClass({
         this._brightness = null;
         this._width = null;
         this._height = null;
-        this._radius = null;
+        this._corner_radius = null;
 
         this._static = true;
         this._settings = settings;
@@ -94,15 +94,15 @@ export const BlurEffect = new GObject.registerClass({
         this._chained_effect = null;
 
         if (params.sigma)
-            this.sigma = params.sigma;  
+            this.sigma = params.sigma;
         if (params.brightness)
-            this.brightness = params.brightness; 
+            this.brightness = params.brightness;
         if (params.width)
             this.width = params.width;
         if (params.height)
             this.height = params.height;
-        if (params.radius)
-            this.radius = params.radius;
+        if (params.corner_radius)
+            this.corner_radius = params.corner_radius;
         if (params.direction)
             this.direction = params.direction;
 
@@ -120,9 +120,9 @@ export const BlurEffect = new GObject.registerClass({
         if (this._sigma !== value) {
             this._sigma = value;
 
-            this.set_uniform_value('sigma', parseFloat(this._sigma-1e-6));
+            this.set_uniform_value('sigma', parseFloat(this._sigma - 1e-6));
 
-            if(this._chained_effect) {
+            if (this._chained_effect) {
                 this._chained_effect.sigma = value;
             }
         }
@@ -136,9 +136,9 @@ export const BlurEffect = new GObject.registerClass({
         if (this._brightness !== value) {
             this._brightness = value;
 
-            this.set_uniform_value('brightness', parseFloat(this._brightness-1e-6));
+            this.set_uniform_value('brightness', parseFloat(this._brightness - 1e-6));
 
-            if(this._chained_effect) {
+            if (this._chained_effect) {
                 this._chained_effect.brightness = value;
             }
         }
@@ -154,7 +154,7 @@ export const BlurEffect = new GObject.registerClass({
 
             this.set_uniform_value('width', parseFloat(this._width - 1e-6));
 
-            if(this._chained_effect) {
+            if (this._chained_effect) {
                 this._chained_effect.width = value;
             }
         }
@@ -170,24 +170,24 @@ export const BlurEffect = new GObject.registerClass({
 
             this.set_uniform_value('height', parseFloat(this._height - 1e-6));
 
-            if(this._chained_effect) {
+            if (this._chained_effect) {
                 this._chained_effect.height = value;
             }
         }
     }
 
-    get radius() {
-        return this._radius;
+    get corner_radius() {
+        return this._corner_radius;
     }
 
-    set radius(value) {
-        if (this._radius !== value) {
-            this._radius = value;
+    set corner_radius(value) {
+        if (this._corner_radius !== value) {
+            this._corner_radius = value;
 
-            this.set_uniform_value('radius', parseFloat(this._radius - 1e-6));
+            this.set_uniform_value('corner_radius', parseFloat(this._corner_radius - 1e-6));
 
-            if(this._chained_effect) {
-                this._chained_effect.radius = value;
+            if (this._chained_effect) {
+                this._chained_effect.corner_radius = value;
             }
         }
     }
@@ -209,13 +209,13 @@ export const BlurEffect = new GObject.registerClass({
     vfunc_set_actor(actor) {
         super.vfunc_set_actor(actor);
 
-        if(this._direction == 0) {
+        if (this._direction == 0) {
             this._chained_effect = new BlurEffect({
                 sigma: this.sigma,
                 brightness: this.brightness,
                 width: this.width,
                 height: this.height,
-                radius: this.radius,
+                corner_radius: this.corner_radius,
                 direction: 1
             });
             actor.add_effect(this._chained_effect);
@@ -224,7 +224,7 @@ export const BlurEffect = new GObject.registerClass({
 
     vfunc_paint_target(paint_node = null, paint_context = null) {
         this.set_uniform_value("tex", 0);
-        this.set_uniform_value('dir', this._direction);
+        this.set_uniform_value("dir", this._direction);
 
         if (paint_node && paint_context)
             super.vfunc_paint_target(paint_node, paint_context);
