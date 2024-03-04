@@ -1,12 +1,40 @@
 uniform sampler2D tex;
 uniform float sigma;
-uniform float pixel_step;
 uniform int dir;
 uniform float brightness;
+uniform float radius;
+uniform float width;
+uniform float height;
+
+float circleBounds(vec2 p, vec2 center, float clip_radius) {
+    vec2 delta = p - center;
+    float dist_squared = dot(delta, delta);
+
+    float outer_radius = clip_radius + 0.5;
+    if (dist_squared >= (outer_radius * outer_radius))
+        return 0.0;
+
+    float inner_radius = clip_radius - 0.5;
+    if (dist_squared <= (inner_radius * inner_radius))
+        return 1.0;
+
+    return outer_radius - sqrt(dist_squared);
+}
+
+vec4 shapeCorner(vec4 pixel, vec2 p, vec2 center, float clip_radius) {
+    float alpha = circleBounds(p, center, clip_radius);
+    return vec4(pixel.rgb * alpha, min(alpha, pixel.a));
+}
 
 void main(void) {
     vec2 uv = cogl_tex_coord_in[0].xy;
     vec2 direction = vec2(dir, (1.0-dir));
+
+    float pixel_step;
+    if (dir == 0)
+        pixel_step = 1.0 / height;
+    else
+        pixel_step = 1.0 / width;
 
     vec3 gauss_coefficient;
     gauss_coefficient.x = 1.0 / (sqrt (2.0 * 3.14159265) * sigma);
@@ -36,9 +64,34 @@ void main(void) {
         gauss_coefficient_total += 2.0 * coefficient_subtotal;
         gauss_coefficient.xy *= gauss_coefficient.yz;
     }
-    cogl_color_out = ret / gauss_coefficient_total;
+    vec4 outColor = ret / gauss_coefficient_total;
 
-    if(dir==1) {
-        cogl_color_out.rgb *= brightness;
+    // apply brightness and rounding on the second pass (dir==0 comes last)
+    if (dir == 0) {
+        vec2 pos = uv * vec2(width, height);
+
+        // left side
+        if (pos.x < radius) {
+            // top left corner
+            if (pos.y < radius) {
+                outColor = shapeCorner(outColor, pos, vec2(radius + 2., radius + 2.), radius);
+            // bottom left corner
+            } else if (pos.y > height - radius) {
+                outColor = shapeCorner(outColor, pos, vec2(radius + 2., height - radius - 1.), radius);
+            }
+        // right side
+        } else if (pos.x > width - radius) {
+            // top right corner
+            if (pos.y < radius) {
+                outColor = shapeCorner(outColor, pos, vec2(width - radius - 1., radius + 2.), radius);
+            // bottom right corner
+            } else if (pos.y > height - radius) {
+                outColor = shapeCorner(outColor, pos, vec2(width - radius - 1., height - radius - 1.), radius);
+            }
+        }
+
+        outColor.rgb *= brightness;
     }
+
+    cogl_color_out = outColor;
 }

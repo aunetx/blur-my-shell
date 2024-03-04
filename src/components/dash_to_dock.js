@@ -7,7 +7,6 @@ const Signals = imports.signals;
 
 import { PaintSignals } from '../effects/paint_signals.js';
 import { BlurEffect } from '../effects/blur_effect.js';
-import { RoundingEffect } from '../effects/rounding_effect.js';
 
 const DASH_STYLES = [
     "transparent-dash",
@@ -38,7 +37,7 @@ function find_monitor_for(actor) {
 ///
 /// This allows to dynamically track the created dashes for each screen.
 class DashInfos {
-    constructor(dash_blur, dash, dash_container, dash_background, background, background_parent, effects) {
+    constructor(dash_blur, dash, dash_container, dash_background, background, background_parent, effect) {
         // the parent DashBlur object, to communicate
         this.dash_blur = dash_blur;
         this.dash_container = dash_container;
@@ -47,7 +46,7 @@ class DashInfos {
         this.dash_background = dash_background;
         this.background_parent = background_parent;
         this.background = background;
-        this.effects = effects;
+        this.effect = effect;
         this.settings = dash_blur.settings;
         this.old_style = this.dash._background.style;
 
@@ -62,23 +61,21 @@ class DashInfos {
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
-            this.effects[0].sigma = this.dash_blur.sigma;
+            this.effect.sigma = this.dash_blur.sigma;
             if (this.dash_blur.is_static) {
-                this.effects[1].sigma = this.dash_blur.sigma;
                 this.dash_blur.update_size();
             }
         });
 
         dash_blur.connections.connect(dash_blur, 'update-brightness', () => {
-            this.effects[0].brightness = this.dash_blur.brightness;
-            if (this.dash_blur.is_static) 
-                this.effects[1].brightness = this.dash_blur.brightness;
+            this.effect.brightness = this.dash_blur.brightness;
         });
 
         dash_blur.connections.connect(dash_blur, 'update-radius', () => {
             if (this.dash_blur.is_static) {
                 let monitor = find_monitor_for(this.dash);
-                this.effects[2].radius = this.dash_blur.radius * monitor.geometry_scale;
+                let radius = this.dash_blur.radius * monitor.geometry_scale;
+                this.effect.radius = Math.min(radius, Math.min(this.effect.width/2, this.effect.height/2));
             }
         });
 
@@ -106,14 +103,14 @@ class DashInfos {
             if (this.dash_blur.is_static)
                 this.background_parent.show();
             else
-                this.effects[0].sigma = this.dash_blur.sigma;
+                this.effect.sigma = this.dash_blur.sigma;
         });
 
         dash_blur.connections.connect(dash_blur, 'hide', () => {
             if (this.dash_blur.is_static)
                 this.background_parent.hide();
             else
-                this.effects[0].sigma = 0;
+                this.effect.sigma = 0;
         });
 
         dash_blur.connections.connect(dash_blur, 'update-wallpaper', () => {
@@ -135,59 +132,45 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'update-size', () => {
             if (this.dash_blur.is_static) {
-                var x, y;
-                [x, y] = this.get_dash_position(this.dash_container, this.dash_background, this.dash);
-                
-                //Offset
-                var x_o, y_o, w_o, h_o;
-                [x_o, y_o, w_o, h_o] = this.get_offset(
-                    this.dash_blur.sigma, 
-                    x, 
-                    y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-                //console.log("blur offset [x_o, y_o, w_o, h_o]: ", x_o, y_o, w_o, h_o);
-                //console.log("blur ", x, y, this.dash_background.width, this.dash_background.height);
-                //console.log("blur ", x+x_o, y+y_o, this.dash_background.width+w_o, this.dash_background.height+h_o);
+                let [x, y] = this.get_dash_position(this.dash_container, this.dash_background, this.dash);
 
-                this.background.x = -(x + x_o);
-                this.background.y = -(y + y_o);
+                this.background.x = -x;
+                this.background.y = -y;
 
-                this.effects[0].pixel_step = 1.0 / (this.dash_background.height + h_o);
-                this.effects[1].pixel_step = 1.0 / (this.dash_background.width + w_o);
+                this.effect.width = this.dash_background.width;
+                this.effect.height = this.dash_background.height;
 
-                this.effects[2].width = this.dash_background.width;
-                this.effects[2].height = this.dash_background.height;
+                this.dash_blur.set_radius(this.dash_blur.radius);
 
                 let dash_box = this.dash_container._slider.get_child();
 
                 if (dash_container.get_style_class_name().includes("top")) {
-                    this.background.set_clip(x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                    this.background.set_clip(x, y + this.dash.y + this.dash_background.y, this.dash_background.width, this.dash_background.height);
                 } else if (dash_container.get_style_class_name().includes("bottom")) {
-                    this.background.set_clip(x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                    this.background.set_clip(x, y + this.dash.y + this.dash_background.y, this.dash_background.width, this.dash_background.height);
                 } else if (dash_container.get_style_class_name().includes("left")) {
-                    this.background.set_clip(x + this.dash.x + this.dash_background.x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                    this.background.set_clip(x + this.dash.x + this.dash_background.x, y + this.dash.y + this.dash_background.y, this.dash_background.width, this.dash_background.height);
                 } else if (dash_container.get_style_class_name().includes("right")) {
-                    this.background.set_clip(x + this.dash.x + this.dash_background.x + x_o, y + this.dash.y + this.dash_background.y + y_o, this.dash_background.width + w_o, this.dash_background.height + h_o);
+                    this.background.set_clip(x + this.dash.x + this.dash_background.x, y + this.dash.y + this.dash_background.y, this.dash_background.width, this.dash_background.height);
                 }
             } else {
                 this.background.width = this.dash_background.width;
                 this.background.height = this.dash_background.height;
 
                 this.background.x = this.dash_background.x;
-                this.background.y = this.dash_background.y;
+                this.background.y = this.dash_background.y + this.dash.y;
             }
         });
 
         dash_blur.connections.connect(dash_blur, 'change-blur-type', () => {
             this.background_parent.remove_child(this.background);
-            this.effects.forEach((effect) => {
-                effect.get_actor()?.remove_effect(effect);
-            });
-            let [background, effects] = this.dash_blur.add_blur(this.dash, this.dash_background, this.dash_container);
+            if (this.effect.chained_effect)
+                this.effect.get_actor()?.remove_effect(this.effect.chained_effect);
+            this.effect.get_actor()?.remove_effect(this.effect);
+
+            let [background, effect] = this.dash_blur.add_blur(this.dash, this.dash_background, this.dash_container);
             this.background = background;
-            this.effects = effects;
+            this.effect = effect;
             this.background_parent.add_child(this.background);
         });
     }
@@ -206,56 +189,13 @@ class DashInfos {
             y = monitor.height - dash_container.height;
         } else if (dash_container.get_style_class_name().includes("left")) {
             x = dash_box.x;
-            y = dash_container.y + dash_container._slider.y;
+            y = dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
         } else if (dash_container.get_style_class_name().includes("right")) {
             x = monitor.width - dash_container.width;
-            y = dash_container.y + dash_container._slider.y;
+            y = dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
         }
-
-        //console.log("blur dash_container.width, dash_background.x: ", dash_container.width, dash_background.x);
-        //console.log("blur dash_container.y, dash_container._slider.y: ", dash_container.y, dash_container._slider.y);
 
         return [x, y];
-    }
-
-    get_offset(sigma, x, y, w, h) {
-        var x_o, y_o, w_o, h_o;
-
-        let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
-            Main.layoutManager.monitors.length
-            - find_monitor_for(this.dash).index - 1
-        );
-        if (!bg) {
-            this._warn("could not get background for dash-to-dock");
-            return [0, 0, 0, 0];
-        }
-
-        x_o = -sigma;
-        y_o = -sigma;
-        w_o = sigma*2;
-        h_o = sigma*2;
-
-        if (x-sigma < 0) {
-            x_o = -x;
-        }
-        if (y-sigma < 0) {
-            y_o = -y;
-        }
-        if (x+x_o+w+sigma*2 > bg.width) {
-            w_o = bg.width - (x+x_o+w);
-        }
-        if (x-sigma < 0) {
-            w_o = w_o - sigma + x;
-        }
-        if (y+y_o+h+sigma*2 > bg.height) {
-            h_o = bg.height - (y+y_o+h);
-        }
-        if (y-sigma < 0) {
-            h_o = h_o - sigma + y;
-        }
-        
-        return [0, 0, 0, 0];
-        //return [x_o, y_o, w_o, h_o];
     }
 
     _log(str) {
@@ -296,6 +236,9 @@ export const DashBlur = class DashBlur {
 
         this.blur_existing_dashes();
         this.connect_to_overview();
+
+        this.update_wallpaper();
+        this.update_size();
 
         this.enabled = true;
     }
@@ -346,40 +289,36 @@ export const DashBlur = class DashBlur {
             return child.get_style_class_name() === 'dash-background';
         });
         
-        let [background, effects] = this.add_blur(dash, dash_background, dash_container);
+        let [background, effect] = this.add_blur(dash, dash_background, dash_container);
 
-        this.update_size();
         this.update_wallpaper();
+        this.update_size();
 
         // updates size and position on change
         this.connections.connect(dash, 'notify::width', _ => {
-            this.update_size();
             this.update_wallpaper();
+            this.update_size();
         });
         this.connections.connect(dash, 'notify::height', _ => {
-            this.update_size();
             this.update_wallpaper();
+            this.update_size();
         });
         this.connections.connect(dash_container, 'notify::width', _ => {
-            this.update_size();
             this.update_wallpaper();
+            this.update_size();
         });
         this.connections.connect(dash_container, 'notify::height', _ => {
-            this.update_size();
             this.update_wallpaper();
+            this.update_size();
         });
         this.connections.connect(dash_container, 'notify::y', _ => {
-            this.update_size();
             this.update_wallpaper();
+            this.update_size();
         });
         this.connections.connect(dash_container, 'notify::x', _ => {
-            this.update_size();
             this.update_wallpaper();
+            this.update_size();
         });
-        /*this.connections.connect(dash_container._slider, 'notify::y', _ => {
-            this.update_size();
-            this.update_wallpaper();
-        });*/
         
         background_parent.add_child(background);
         dash.get_parent().insert_child_at_index(background_parent, 0);
@@ -392,7 +331,7 @@ export const DashBlur = class DashBlur {
             dash_background,
             background, 
             background_parent, 
-            effects
+            effect
         );
 
         // update the background
@@ -414,30 +353,23 @@ export const DashBlur = class DashBlur {
             : new St.Widget({
                 name: 'dash-blurred-background',
                 style_class: 'dash-blurred-background',
-                x: 0,
-                y: dash_container._slider.y,
+                x: dash_background.x,
+                y: dash_background.y + dash.y,
                 width: dash_background.width,
                 height: dash_background.height,
             });
 
-        // the effects to be applied
+        // the effect to be applied
         if (this.is_static) {
-            let effect_vert = new BlurEffect({
-                pixel_step: 1.0 / dash_background.height,
+            let radius = this.radius * monitor.geometry_scale;
+            radius = Math.min(radius, Math.min(dash_background.width/2, dash_background.height/2));
+            
+            let effect_static = new BlurEffect({
                 sigma: this.sigma,
                 brightness: this.brightness,
-                direction: 0
-            });
-            let effect_hor = new BlurEffect({
-                pixel_step: 1.0 / dash_background.width,
-                sigma: this.sigma,
-                brightness: this.brightness,
-                direction: 1
-            });
-            let effect_round = new RoundingEffect({
                 width: dash_background.width,
                 height: dash_background.height,
-                radius: this.radius * monitor.geometry_scale
+                radius: radius
             });
 
             // connect to every background change (even without changing image)
@@ -449,11 +381,9 @@ export const DashBlur = class DashBlur {
                 _ => this.update_wallpaper()
             );
 
-            background.add_effect(effect_round);
-            background.add_effect(effect_vert);
-            background.add_effect(effect_hor);
+            background.add_effect(effect_static);
 
-            return [background, [effect_vert, effect_hor, effect_round]];
+            return [background, effect_static];
         } else {
             let effect = new Shell.BlurEffect({
                 brightness: this.brightness,
@@ -520,15 +450,17 @@ export const DashBlur = class DashBlur {
                 this.paint_signals.disconnect_all();
             }
 
-            return [background, [effect]];
+            return [background, effect];
         }
     }
 
     change_blur_type() {
         this.is_static = this.settings.dash_to_dock.STATIC_BLUR;
         this.emit('change-blur-type', true);
-        this.update_size();
+
         this.update_wallpaper();
+        this.update_background();
+        this.update_size();
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly

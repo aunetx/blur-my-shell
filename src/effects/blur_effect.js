@@ -2,7 +2,6 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
 import Shell from 'gi://Shell';
-//import Cogl from 'gi://Cogl';
 
 const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'blur_effect.glsl', GLib.UriFlags.NONE))[0];
 
@@ -19,14 +18,6 @@ const get_shader_source = _ => {
 export const BlurEffect = new GObject.registerClass({
     GTypeName: "BlurEffect",
     Properties: {
-        'pixel_step': GObject.ParamSpec.double(
-            `pixel_step`,
-            `Pixel step`,
-            `Pixel step`,
-            GObject.ParamFlags.READWRITE,
-            0.0, 1.0,
-            0.0,
-        ),
         'sigma': GObject.ParamSpec.double(
             `sigma`,
             `sigma`,
@@ -43,54 +34,82 @@ export const BlurEffect = new GObject.registerClass({
             0.0, 1.0,
             0.6,
         ),
-        'direction': GObject.ParamSpec.double(
+        'width': GObject.ParamSpec.double(
+            `width`,
+            `Width`,
+            `Width`,
+            GObject.ParamFlags.READWRITE,
+            0.0, Number.MAX_SAFE_INTEGER,
+            0.0,
+        ),
+        'height': GObject.ParamSpec.double(
+            `height`,
+            `Height`,
+            `Height`,
+            GObject.ParamFlags.READWRITE,
+            0.0, Number.MAX_SAFE_INTEGER,
+            0.0,
+        ),
+        'radius': GObject.ParamSpec.double(
+            `radius`,
+            `Radius`,
+            `Radius`,
+            GObject.ParamFlags.READWRITE,
+            0, Number.MAX_SAFE_INTEGER,
+            0,
+        ),
+        'direction': GObject.ParamSpec.int(
             `direction`,
             `Direction`,
-            `Blur direction`,
+            `Direction`,
             GObject.ParamFlags.READWRITE,
-            0.0, 1.0,
-            0.0,
+            0, 1,
+            0,
+        ),
+        'chained_effect': GObject.ParamSpec.object(
+            `chained_effect`,
+            `Chained Effect`,
+            `Chained Effect`,
+            GObject.ParamFlags.READABLE,
+            GObject.Object,
         ),
     }
 }, class BlurEffect extends Clutter.ShaderEffect {
     constructor(params, settings) {
         super(params);
 
-        this._pixel_step = null;
         this._sigma = null;
         this._brightness = null;
-        this._direction = null;
+        this._width = null;
+        this._height = null;
+        this._radius = null;
 
         this._static = true;
         this._settings = settings;
 
         this._tex = null;
 
-        if (params.pixel_step)
-            this.pixel_step = params.pixel_step;
+        this._direction = 0;
+
+        this._chained_effect = null;
+
         if (params.sigma)
             this.sigma = params.sigma;  
         if (params.brightness)
-            this.brightness = params.brightness;  
+            this.brightness = params.brightness; 
+        if (params.width)
+            this.width = params.width;
+        if (params.height)
+            this.height = params.height;
+        if (params.radius)
+            this.radius = params.radius;
         if (params.direction)
-            this.direction = params.direction;    
+            this.direction = params.direction;
 
         // set shader source
         this._source = get_shader_source();
         if (this._source)
             this.set_shader_source(this._source);
-    }
-
-    get pixel_step() {
-        return this._pixel_step;
-    }
-
-    set pixel_step(value) {
-        if (this._pixel_step !== value) {
-            this._pixel_step = value;
-
-            this.set_uniform_value('pixel_step', parseFloat(this._pixel_step-1e-6));
-        }
     }
 
     get sigma() {
@@ -102,6 +121,10 @@ export const BlurEffect = new GObject.registerClass({
             this._sigma = value;
 
             this.set_uniform_value('sigma', parseFloat(this._sigma-1e-6));
+
+            if(this._chained_effect) {
+                this._chained_effect.sigma = value;
+            }
         }
     }
 
@@ -114,6 +137,58 @@ export const BlurEffect = new GObject.registerClass({
             this._brightness = value;
 
             this.set_uniform_value('brightness', parseFloat(this._brightness-1e-6));
+
+            if(this._chained_effect) {
+                this._chained_effect.brightness = value;
+            }
+        }
+    }
+
+    get width() {
+        return this._width;
+    }
+
+    set width(value) {
+        if (this._width !== value) {
+            this._width = value;
+
+            this.set_uniform_value('width', parseFloat(this._width - 1e-6));
+
+            if(this._chained_effect) {
+                this._chained_effect.width = value;
+            }
+        }
+    }
+
+    get height() {
+        return this._height;
+    }
+
+    set height(value) {
+        if (this._height !== value) {
+            this._height = value;
+
+            this.set_uniform_value('height', parseFloat(this._height - 1e-6));
+
+            if(this._chained_effect) {
+                this._chained_effect.height = value;
+            }
+        }
+    }
+
+    get radius() {
+        return this._radius;
+    }
+
+    set radius(value) {
+        if (this._radius !== value) {
+            this._radius = value;
+
+            this.set_uniform_value('radius', parseFloat(this._radius - 1e-6));
+
+            if(this._chained_effect) {
+                this._chained_effect.radius = value;
+            }
         }
     }
 
@@ -124,36 +199,32 @@ export const BlurEffect = new GObject.registerClass({
     set direction(value) {
         if (this._direction !== value) {
             this._direction = value;
-
-            this.set_uniform_value('dir', this._direction);
         }
     }
 
+    get chained_effect() {
+        return this._chained_effect;
+    }
+
+    vfunc_set_actor(actor) {
+        super.vfunc_set_actor(actor);
+
+        if(this._direction == 0) {
+            this._chained_effect = new BlurEffect({
+                sigma: this.sigma,
+                brightness: this.brightness,
+                width: this.width,
+                height: this.height,
+                radius: this.radius,
+                direction: 1
+            });
+            actor.add_effect(this._chained_effect);
+        }
+    }
 
     vfunc_paint_target(paint_node = null, paint_context = null) {
-        /*let tex = this.get_pipeline().get_layer_texture(0);
-        if(tex !== null) {
-            this._tex = tex;
-        }
-        console.log("blur original texture width, height: ", this._tex.get_width(), this._tex.get_height());
-        
-        let data = new Uint8Array(this._tex.get_width()*this._tex.get_height()*24);
-        this._tex.get_data(Cogl.PixelFormat.RGB_888, this._tex.get_width()*24, data);
-
-        let new_tex_img = new Clutter.Image();
-        new_tex_img.set_data(
-            data,
-            Cogl.PixelFormat.RGB_888,
-            this._tex.get_width(), this._tex.get_height(), this._tex.get_width()*24
-        );
-        
-
-        this.get_pipeline().set_layer_texture(0,new_tex);
-
-        //Invalid uniform of type 'CoglTexture2D' for name 'tex'
-        //this.set_uniform_value("tex", this._tex);
-        */
         this.set_uniform_value("tex", 0);
+        this.set_uniform_value('dir', this._direction);
 
         if (paint_node && paint_context)
             super.vfunc_paint_target(paint_node, paint_context);
