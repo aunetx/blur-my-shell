@@ -53,11 +53,7 @@ class DashInfos {
         dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
             this._log("removing blur from dash");
             this.dash.get_parent().remove_child(this.background_parent);
-            this.dash._background.style = this.old_style;
-
-            DASH_STYLES.forEach(
-                style => this.dash.remove_style_class_name(style)
-            );
+            this.remove_style();
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
@@ -82,24 +78,14 @@ class DashInfos {
         });
 
         dash_blur.connections.connect(dash_blur, 'override-background', () => {
-            this.dash._background.style = null;
-
-            DASH_STYLES.forEach(
-                style => this.dash.remove_style_class_name(style)
-            );
+            this.remove_style();
 
             this.dash.set_style_class_name(
                 DASH_STYLES[this.settings.dash_to_dock.STYLE_DASH_TO_DOCK]
             );
         });
 
-        dash_blur.connections.connect(dash_blur, 'reset-background', () => {
-            this.dash._background.style = this.old_style;
-
-            DASH_STYLES.forEach(
-                style => this.dash.remove_style_class_name(style)
-            );
-        });
+        dash_blur.connections.connect(dash_blur, 'reset-background', () => this.remove_style());
 
         dash_blur.connections.connect(dash_blur, 'show', () => {
             if (this.dash_blur.is_static)
@@ -175,7 +161,15 @@ class DashInfos {
         });
     }
 
-    get_dash_position(dash_container, dash_background, dash) {
+    remove_style() {
+        this.dash._background.style = this.old_style;
+
+        DASH_STYLES.forEach(
+            style => this.dash.remove_style_class_name(style)
+        );
+    }
+
+    get_dash_position(dash_container, dash_background) {
         var x, y;
 
         let monitor = find_monitor_for(dash_container);
