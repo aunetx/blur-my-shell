@@ -359,7 +359,7 @@ export const DashBlur = class DashBlur {
             corner_radius = Math.min(corner_radius, dash_background.width / 2, dash_background.height / 2);
 
             let effect_static = new BlurEffect({
-                sigma: this.sigma * monitor.geometry_scale,
+                radius: 2 * this.sigma * monitor.geometry_scale,
                 brightness: this.brightness,
                 width: dash_background.width,
                 height: dash_background.height,

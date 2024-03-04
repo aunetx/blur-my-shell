@@ -18,10 +18,10 @@ const get_shader_source = _ => {
 export const BlurEffect = new GObject.registerClass({
     GTypeName: "BlurEffect",
     Properties: {
-        'sigma': GObject.ParamSpec.double(
-            `sigma`,
-            `sigma`,
-            `Blur sigma`,
+        'radius': GObject.ParamSpec.double(
+            `radius`,
+            `Radius`,
+            `Blur radius`,
             GObject.ParamFlags.READWRITE,
             0.0, 2000.0,
             200.0,
@@ -112,18 +112,19 @@ export const BlurEffect = new GObject.registerClass({
             this.set_shader_source(this._source);
     }
 
-    get sigma() {
-        return this._sigma;
+    get radius() {
+        return this._radius;
     }
 
-    set sigma(value) {
-        if (this._sigma !== value) {
-            this._sigma = value;
+    set radius(value) {
+        if (this._radius !== value) {
+            this._radius = value;
 
-            this.set_uniform_value('sigma', parseFloat(this._sigma - 1e-6));
+            // like Clutter, we use the assumption radius = 2*sigma
+            this.set_uniform_value('sigma', parseFloat(this._radius / 2 - 1e-6));
 
             if (this._chained_effect) {
-                this._chained_effect.sigma = value;
+                this._chained_effect.radius = value;
             }
         }
     }
@@ -211,7 +212,7 @@ export const BlurEffect = new GObject.registerClass({
 
         if (this._direction == 0) {
             this._chained_effect = new BlurEffect({
-                sigma: this.sigma,
+                radius: this.radius,
                 brightness: this.brightness,
                 width: this.width,
                 height: this.height,
