@@ -57,10 +57,11 @@ class DashInfos {
         });
 
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
-            this.effect.sigma = this.dash_blur.sigma;
             if (this.dash_blur.is_static) {
                 this.dash_blur.update_size();
-            }
+                this.effect.radius = 2 * this.dash_blur.sigma * this.effect.scale;
+            } else
+                this.effect.sigma = this.dash_blur.sigma * this.effect.scale;
         });
 
         dash_blur.connections.connect(dash_blur, 'update-brightness', () => {
@@ -91,7 +92,7 @@ class DashInfos {
             if (this.dash_blur.is_static)
                 this.background_parent.show();
             else
-                this.effect.sigma = this.dash_blur.sigma;
+                this.effect.sigma = this.dash_blur.sigma * this.effect.scale;
         });
 
         dash_blur.connections.connect(dash_blur, 'hide', () => {
@@ -366,6 +367,9 @@ export const DashBlur = class DashBlur {
                 corner_radius: corner_radius
             });
 
+            // store the scale in the effect in order to retrieve it in set_sigma
+            effect_static.scale = monitor.geometry_scale;
+
             // connect to every background change (even without changing image)
             // FIXME this signal is fired very often, so we should find another one
             //       fired only when necessary (but that still catches all cases)
@@ -381,9 +385,12 @@ export const DashBlur = class DashBlur {
         } else {
             let effect = new Shell.BlurEffect({
                 brightness: this.brightness,
-                sigma: this.sigma,
+                sigma: this.sigma * monitor.geometry_scale,
                 mode: Shell.BlurMode.BACKGROUND
             });
+
+            // store the scale in the effect in order to retrieve it in set_sigma
+            effect.scale = monitor.geometry_scale;
 
             background.add_effect(effect);
 
