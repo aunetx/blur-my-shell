@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <!-- GENERAL -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell" path="/org/gnome/shell/extensions/blur-my-shell/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell"
+        path="/org/gnome/shell/extensions/blur-my-shell/">
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Global sigma (gaussian blur radius) to use</summary>
+            <summary>Global gaussian sigma to use</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -56,7 +57,8 @@
     </schema>
 
     <!-- OVERVIEW -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.overview" path="/org/gnome/shell/extensions/blur-my-shell/overview/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.overview"
+        path="/org/gnome/shell/extensions/blur-my-shell/overview/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -70,7 +72,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -100,7 +102,8 @@
     </schema>
 
     <!-- APPFOLDER -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.appfolder" path="/org/gnome/shell/extensions/blur-my-shell/appfolder/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.appfolder"
+        path="/org/gnome/shell/extensions/blur-my-shell/appfolder/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -114,7 +117,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -144,7 +147,8 @@
     </schema>
 
     <!-- PANEL -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.panel" path="/org/gnome/shell/extensions/blur-my-shell/panel/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.panel"
+        path="/org/gnome/shell/extensions/blur-my-shell/panel/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -158,7 +162,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -213,7 +217,8 @@
     </schema>
 
     <!-- DASH TO DOCK -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-dock" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-dock"
+        path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>false</default>
@@ -227,7 +232,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -269,10 +274,16 @@
             <default>false</default>
             <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
         </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>12</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
     </schema>
 
     <!-- APPLICATIONS -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.applications" path="/org/gnome/shell/extensions/blur-my-shell/applications/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.applications"
+        path="/org/gnome/shell/extensions/blur-my-shell/applications/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>false</default>
@@ -286,7 +297,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -336,7 +347,8 @@
     </schema>
 
     <!-- SCREENSHOT -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.screenshot" path="/org/gnome/shell/extensions/blur-my-shell/screenshot/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.screenshot"
+        path="/org/gnome/shell/extensions/blur-my-shell/screenshot/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -350,7 +362,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -375,7 +387,8 @@
     </schema>
 
     <!-- LOCKSCREEN -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.lockscreen" path="/org/gnome/shell/extensions/blur-my-shell/lockscreen/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.lockscreen"
+        path="/org/gnome/shell/extensions/blur-my-shell/lockscreen/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -389,7 +402,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -414,7 +427,8 @@
     </schema>
 
     <!-- WINDOW LIST -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.window-list" path="/org/gnome/shell/extensions/blur-my-shell/window-list/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.window-list"
+        path="/org/gnome/shell/extensions/blur-my-shell/window-list/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -428,7 +442,7 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Sigma (gaussian blur radius) to use for the blur effect</summary>
+            <summary>Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
@@ -453,7 +467,8 @@
     </schema>
 
     <!-- HIDETOPBAR -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.hidetopbar" path="/org/gnome/shell/extensions/blur-my-shell/hidetopbar/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.hidetopbar"
+        path="/org/gnome/shell/extensions/blur-my-shell/hidetopbar/">
         <!-- COMPATIBILITY -->
         <key type="b" name="compatibility">
             <default>false</default>
@@ -462,7 +477,8 @@
     </schema>
 
     <!-- DASH TO PANEL -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-panel" path="/org/gnome/shell/extensions/blur-my-shell/dash-to-panel/">
+    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-panel"
+        path="/org/gnome/shell/extensions/blur-my-shell/dash-to-panel/">
         <!-- COMPATIBILITY -->
         <key type="b" name="blur-original-panel">
             <default>true</default>

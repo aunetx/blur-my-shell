@@ -10,6 +10,8 @@ export const Dash = GObject.registerClass({
     InternalChildren: [
         'blur',
         'customize',
+        'static_blur',
+        'corner_radius',
         'override_background',
         'style_dash_to_dock',
         'unblur_in_overview'
@@ -22,6 +24,16 @@ export const Dash = GObject.registerClass({
 
         this.preferences.dash_to_dock.settings.bind(
             'blur', this._blur, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_dock.settings.bind(
+            'static-blur',
+            this._static_blur, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_dock.settings.bind(
+            'corner-radius',
+            this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(

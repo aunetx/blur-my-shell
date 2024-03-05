@@ -68,6 +68,7 @@ export const Keys = [
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-dash-to-dock" },
+            { type: Type.I, name: "corner-radius" },
         ]
     },
     {

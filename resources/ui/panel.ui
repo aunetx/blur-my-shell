@@ -38,21 +38,6 @@
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Disable in overview</property>
-            <property name="subtitle" translatable="yes">Disables the blur from the panel when entering the overview.</property>
-            <property name="activatable-widget">unblur_in_overview</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
-
-            <child>
-              <object class="GtkSwitch" id="unblur_in_overview">
-                <property name="valign">center</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
-        <child>
-          <object class="AdwActionRow">
             <property name="title" translatable="yes">Force light text</property>
             <property name="subtitle" translatable="yes">Use a light text for the panel, useful when using gnome-shell's light theme.</property>
             <property name="activatable-widget">force_light_text</property>
@@ -100,6 +85,21 @@ Recommended unless you want to customize your GNOME theme.</property>
                     <property name="valign">center</property>
                   </object>
                 </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="subtitle" translatable="yes">Disables the blur from the panel when entering the overview.</property>
+            <property name="activatable-widget">unblur_in_overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="unblur_in_overview">
+                <property name="valign">center</property>
               </object>
             </child>
           </object>

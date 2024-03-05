@@ -364,11 +364,16 @@ export default class BlurMyShell extends Extension {
             }
         });
 
-        // TODO implement static blur for dash
         // static blur toggled on/off
         this._settings.dash_to_dock.STATIC_BLUR_changed(() => {
-            //if (this._settings.dash_to_dock.BLUR)
-            //    this._dash_to_dock_blur.change_blur_type();
+            if (this._settings.dash_to_dock.BLUR)
+                this._dash_to_dock_blur.change_blur_type();
+        });
+
+        // dash-to-dock corner radius changed
+        this._settings.dash_to_dock.CORNER_RADIUS_changed(() => {
+            if (this._settings.dash_to_dock.STATIC_BLUR)
+                this._dash_to_dock_blur.set_corner_radius(this._settings.dash_to_dock.CORNER_RADIUS);
         });
 
         // dash-to-dock override background toggled on/off
