@@ -16,8 +16,8 @@
         "kofi": "aunetx"
     },
     "session-modes": [
-        "user", 
+        "user",
         "unlock-dialog"
     ],
-    "version": 55
+    "version": 56
 }
