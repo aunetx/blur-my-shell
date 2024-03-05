@@ -121,7 +121,7 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'update-size', () => {
             if (this.dash_blur.is_static) {
-                let [x, y] = this.get_dash_position(this.dash_container, this.dash_background, this.dash);
+                let [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
 
                 this.background.x = -x;
                 this.background.y = -y;
@@ -291,19 +291,15 @@ export const DashBlur = class DashBlur {
 
         // updates size and position on change
         this.connections.connect(dash, 'notify::width', _ => {
-            this.update_wallpaper();
             this.update_size();
         });
         this.connections.connect(dash, 'notify::height', _ => {
-            this.update_wallpaper();
             this.update_size();
         });
         this.connections.connect(dash_container, 'notify::width', _ => {
-            this.update_wallpaper();
             this.update_size();
         });
         this.connections.connect(dash_container, 'notify::height', _ => {
-            this.update_wallpaper();
             this.update_size();
         });
         this.connections.connect(dash_container, 'notify::y', _ => {
@@ -355,20 +351,18 @@ export const DashBlur = class DashBlur {
             });
 
         // the effect to be applied
+        let effect;
         if (this.is_static) {
             let corner_radius = this.corner_radius * monitor.geometry_scale;
             corner_radius = Math.min(corner_radius, dash_background.width / 2, dash_background.height / 2);
 
-            let effect_static = new BlurEffect({
+            effect = new BlurEffect({
                 radius: 2 * this.sigma * monitor.geometry_scale,
                 brightness: this.brightness,
                 width: dash_background.width,
                 height: dash_background.height,
                 corner_radius: corner_radius
             });
-
-            // store the scale in the effect in order to retrieve it in set_sigma
-            effect_static.scale = monitor.geometry_scale;
 
             // connect to every background change (even without changing image)
             // FIXME this signal is fired very often, so we should find another one
@@ -378,21 +372,12 @@ export const DashBlur = class DashBlur {
                 'notify',
                 _ => this.update_wallpaper()
             );
-
-            background.add_effect(effect_static);
-
-            return [background, effect_static];
         } else {
-            let effect = new Shell.BlurEffect({
+            effect = new Shell.BlurEffect({
                 brightness: this.brightness,
                 sigma: this.sigma * monitor.geometry_scale,
                 mode: Shell.BlurMode.BACKGROUND
             });
-
-            // store the scale in the effect in order to retrieve it in set_sigma
-            effect.scale = monitor.geometry_scale;
-
-            background.add_effect(effect);
 
             // HACK
             //
@@ -450,9 +435,14 @@ export const DashBlur = class DashBlur {
             } else {
                 this.paint_signals.disconnect_all();
             }
-
-            return [background, effect];
         }
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        effect.scale = monitor.geometry_scale;
+
+        background.add_effect(effect);
+
+        return [background, effect];
     }
 
     change_blur_type() {
