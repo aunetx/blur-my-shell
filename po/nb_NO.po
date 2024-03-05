@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2024-02-25 23:02+0000\n"
 "Last-Translator: Lynx <isakbrunhenriksen@gmail.com>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
+"shell/blur-my-shell/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,11 +183,27 @@ msgstr "Dash til dokk-tilsløring"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Tilslør bakgrunnen til Dash til dokk-utvidelsen, hvis den benyttes."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Statisk tilsløring"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Overstyr bakgrunn"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -195,31 +211,31 @@ msgstr ""
 "Gjør bakgrunnen enten gjennomsiktig eller semi-gjennomsiktig, deaktiver "
 "denne for å bruke Dash til Dock preferanser i stedet."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Bakgrunnsstil"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Den gjennomsiktige/semi-gjennomsiktige stilen for dock bakgrunnen."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "Skru av i oversikten"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Skrur av tilsløring fra Dash til dokk når oversikten åpnes."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Gjennomsiktig"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Lys"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Mørk"
 
@@ -416,29 +432,21 @@ msgstr "Paneltilsløring"
 msgid "Blur the top panel using the background image."
 msgstr "Tilslør topp-panelet med bakgrunnsbildet."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Statisk tilsløring"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Bruker et statisk tilslørt bilde. Gir bedre ytelse og stabilitet."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "Skrur av tilsløring fra panelet når oversikten åpnes."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "Tving lys text"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Bruk en lys tekst for panelet, nyttig når du bruker gnome-shellets lys tema."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -448,17 +456,21 @@ msgstr ""
 "gjennomsiktig en.\n"
 "Anbefalt hvis du ikke vil tilpasse GNOME temaet ditt."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Den gjennomsiktige/semi-gjennomsiktige stilen for panel bakgrunnen."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Deaktiver når et vindu er nært"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Deaktiver gjennomsiktigheten av panelet når et vindu er nært."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Skrur av tilsløring fra panelet når oversikten åpnes."
 
 #: panel.ui:112
 msgid "Compatibility"

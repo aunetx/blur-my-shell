@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: Leon de Klerk <deklerkleon5@gmail.com>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -185,11 +185,27 @@ msgstr ""
 "Vervaag die agtergrond van die Dash to Dock uitbreiding, indien dit gebruik "
 "word."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Statiese vervaging"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Oorskryf agtergrond"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -197,32 +213,32 @@ msgstr ""
 "Maak die agtergrond óf deursigtig óf half-deursigtig. Deaktiveer dit om "
 "eerder Dash to Dock voorkeure te gebruik."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Agtergrond styl"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Die (half-)deursigtige styl vir die dock agtergrond."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "Deaktiveer in oorsig"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Deaktiveer die vervaag van Dash to Dock wanneer die oorsig binnegegaan word."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Deursigtig"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Lig"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Donker"
 
@@ -421,31 +437,22 @@ msgstr "Paneelvervaging"
 msgid "Blur the top panel using the background image."
 msgstr "Vervaag die boonste paneel met die agtergrondprent."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Statiese vervaging"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Gebruik 'n statiese vervaagde beeld, dit is meer werksaam en stabiel."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
-"Deaktiveer die vervaging op die paneel wanneer die oorsig oopgemaak word."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "Forseer ligte teks"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Gebruik 'n ligte teks vir die paneel, nuttig wanneer gnome-shell se ligte "
 "tema gebruik word."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -455,18 +462,23 @@ msgstr ""
 "een te gebruik.\n"
 "Aanbeveel tensy jy jou GNOME-tema wil aanpas."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Die (half-)deursigtige styl vir die paneelagtergrond."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Deaktiveer wanneer 'n venster naby is"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 "Deaktiveer die deursigtigheid van die paneel wanneer 'n venster naby is."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr ""
+"Deaktiveer die vervaging op die paneel wanneer die oorsig oopgemaak word."
 
 #: panel.ui:112
 msgid "Compatibility"

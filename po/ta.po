@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2023-11-16 17:06+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -178,11 +178,27 @@ msgstr "டேஷ் டு டாக் மங்கல்"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "டாஷ் டு டாக் நீட்டிப்பு பயன்படுத்தப்பட்டால் அதன் பின்புலத்தை மங்கலாக்குங்கள்."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "நிலையான தெளிவின்மை"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "பின்னணியை மேலெழுதவும்"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -190,31 +206,31 @@ msgstr ""
 "பின்னணியை வெளிப்படையானதாகவோ அல்லது அரை-வெளிப்படையாகவோ மாற்றுகிறது, அதற்குப் பதிலாக "
 "டாஷ் டு டாக் விருப்பங்களைப் பயன்படுத்த இதை முடக்கவும்."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "பின்னணி நடை"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "கப்பல்துறை பின்னணிக்கான வெளிப்படையான/அரை-வெளிப்படையான பாணி."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "மேலோட்டத்தில் முடக்கு"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "மேலோட்டத்தை உள்ளிடும்போது டாஷ் முதல் டாக் வரை மங்கலை முடக்குகிறது."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "வெளிப்படை"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "ஒளி"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "இருள்"
 
@@ -409,30 +425,22 @@ msgstr "பேனல் தெளிவின்மை"
 msgid "Blur the top panel using the background image."
 msgstr "பின்னணி படத்தைப் பயன்படுத்தி மேல் பேனலை மங்கலாக்குங்கள்."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "நிலையான தெளிவின்மை"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, அதிக செயல்திறன் மற்றும் நிலையானது."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "மேலோட்டப் பார்வையை உள்ளிடும்போது பேனலில் இருந்து மங்கலானதை முடக்கும்."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "ஒளி உரையை கட்டாயப்படுத்துங்கள்"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
-"பேனலுக்கு ஒளி உரையைப் பயன்படுத்தவும், gnome-ஷெல்லின் ஒளி தோற்றம் "
-"பயன்படுத்தும் போது பயனுள்ளதாக இருக்கும்."
+"பேனலுக்கு ஒளி உரையைப் பயன்படுத்தவும், gnome-ஷெல்லின் ஒளி தோற்றம் பயன்படுத்தும் போது "
+"பயனுள்ளதாக இருக்கும்."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -442,17 +450,21 @@ msgstr ""
 "மேலெழுதவும். \n"
 "உங்கள் GNOME தோற்றம் தனிப்பயனாக்க விரும்பினால் தவிர பரிந்துரைக்கப்படுகிறது."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "பேனல் பின்னணிக்கான வெளிப்படையான/அரை-வெளிப்படையான பாணி."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "ஒரு சாளரம் அருகில் இருக்கும்போது முடக்கவும்"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "சாளரம் அருகில் இருக்கும்போது பேனலின் வெளிப்படைத்தன்மையை முடக்குகிறது."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "மேலோட்டப் பார்வையை உள்ளிடும்போது பேனலில் இருந்து மங்கலானதை முடக்கும்."
 
 #: panel.ui:112
 msgid "Compatibility"

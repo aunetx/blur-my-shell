@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2024-02-15 17:01+0000\n"
 "Last-Translator: Lê Hoàng Lân <lanlehoang957@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -182,11 +182,27 @@ msgstr "Làm mờ Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Làm mờ nền của extension Dash to Dock, nếu được sử dụng."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Làm mờ tĩnh"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Ghi đề nền"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -194,31 +210,31 @@ msgstr ""
 "Làm cho nền trong suốt hoặc nửa trong suốt, tắt cái này để dùng cài đặt của "
 "Dash to Dock thay vào đó."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Kiểu nền"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Kiểu trong suốt/nửa trong suốt cho nền dock."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "Tắt ở Overview"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Tắt hiệu ứng mờ cho Dash to Dock khi mở Overview."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Trong suốt"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Sáng"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Tối"
 
@@ -410,29 +426,21 @@ msgstr ""
 msgid "Blur the top panel using the background image."
 msgstr "Làm mờ thanh trên cùng nhờ hình nền"
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Làm mờ tĩnh"
-
 #: panel.ui:27
 #, fuzzy
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Sử dụng hình ảnh mờ tĩnh, hiệu suất cao hơn và ổn định hơn."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "Không làm mờ thanh panel khi vào chế độ xem tổng quan."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr ""
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -441,17 +449,21 @@ msgstr ""
 "Ghi đè nền của thanh panel để sử dụng nền trong suốt hoặc bán trong suốt.\n"
 "Được khuyên dùng trừ khi bạn muốn tùy chỉnh chủ đề GNOME của mình."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Kiểu trong suốt/bán trong suốt cho nền thanh panel."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Tắt khi một cửa sổ ở gần"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Tắt trong suốt thanh panel khi một cửa sổ ở gần nó."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Không làm mờ thanh panel khi vào chế độ xem tổng quan."
 
 #: panel.ui:112
 msgid "Compatibility"

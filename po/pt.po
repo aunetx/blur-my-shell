@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2023-12-21 14:08+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -183,11 +183,27 @@ msgstr "Desfoque do Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Desfoca o plano de fundo da extensão Dash to Dock, caso seja usado."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Desfoque estático"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Sobrepor plano de fundo"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -195,31 +211,31 @@ msgstr ""
 "Torna o plano de fundo transparente ou semitransparente, desative isso para "
 "usar as preferências do Dash to Dock."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Estilo do plano de fundo"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "O estilo transparente/semitransparente para o plano de fundo do dock."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "Desativar na visão geral"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Desativa o desfoque do Dash to Dock ao entrar na visão geral."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparente"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Claro"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Escuro"
 
@@ -426,30 +442,22 @@ msgstr "Desfoque do painel"
 msgid "Blur the top panel using the background image."
 msgstr "Desfoca o painel superior utilizando a imagem de fundo."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Desfoque estático"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr ""
 "Utiliza uma imagem desfocada estática. Maior desempenho e estabilidade."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "Desativa o desfoque do painel quando entrar na visão geral."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "Forçar texto leve"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Use um texto leve para o painel, útil ao usar o tema de luz do gnome-shell."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -459,18 +467,22 @@ msgstr ""
 "semitransparente.\n"
 "Recomendado, a menos que você queira personalizar seu tema GNOME."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr ""
 "O estilo transparente/semitransparente para o plano de fundo do painel."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Desativar quando uma janela estiver próxima"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Desabilita a transparência do painel quando uma janela está próxima."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Desativa o desfoque do painel quando entrar na visão geral."
 
 #: panel.ui:112
 msgid "Compatibility"

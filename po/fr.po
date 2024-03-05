@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -185,11 +185,27 @@ msgstr "Flou de Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Floute le fond de l'extension Dash to Dock, si elle est installée."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Flou statique"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Outrepasser le fond"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -197,33 +213,33 @@ msgstr ""
 "Rend le fond soit transparent ou semi-transparent, désactivez ceci pour que "
 "les préférences Dash to Dock soit utilisées."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Style du fond"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr ""
 "Le style transparent/semi-transparent pour le fond de la barre "
 "d'applications."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "Désactiver dans l'aperçu"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Désactiver le flou de Dash to Dock lorsqu'on ouvre l'aperçu."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparent"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Clair"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Foncé"
 
@@ -427,31 +443,22 @@ msgstr "Flou de la barre supérieure"
 msgid "Blur the top panel using the background image."
 msgstr "Floute la barre supérieure en utilisant l'image de fond d'écran."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Flou statique"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Utilise une image statique, plus stable et performant."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
-"Désactive le flou du de la barre supérieure lorsqu'on est dans l'aperçu."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "Forcer un texte clair"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Utilise un texte clair pour le panneau, utile lorsque l'on utilise le thème "
 "clair the GNOME Shell."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -461,20 +468,25 @@ msgstr ""
 "transparent.\n"
 "Recommandé à moins que vous vouliez personnaliser votre thème GNOME."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr ""
 "Le style transparent/semi-transparent pour le fond de la barre supérieure."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Désactiver lorsqu'une fenêtre est proche"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 "Désactive la transparence de la barre supérieure lorsqu'une fenêtre est "
 "proche."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr ""
+"Désactive le flou du de la barre supérieure lorsqu'on est dans l'aperçu."
 
 #: panel.ui:112
 msgid "Compatibility"

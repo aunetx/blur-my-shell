@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -182,11 +182,27 @@ msgstr "Dash to Dock oskärpa"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Sudda bakgrunden på Dash to Dock-tilläget om den används."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Statisk oskärpa"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Åsidosätt bakgrund"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -194,31 +210,31 @@ msgstr ""
 "Gör bakgrunden antingen genomskinlig eller halvgenomskinlig. Inaktivera "
 "detta för att istället använda Dash to Dock-inställningarna."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Bakgrundsstil"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Den transparenta/semi-transparenta stilen för dock-bakgrunden."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "Inaktivera i översiktsläget"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Inaktiverar oskärpan från Dash to Dock när du går in i översiktsläget."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparent"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Ljust"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Mörkt"
 
@@ -420,31 +436,22 @@ msgstr "Paneloskärpa"
 msgid "Blur the top panel using the background image."
 msgstr "Gör den övre panelen suddig genom att använda bakgrundsbilden."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Statisk oskärpa"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Använder en statisk suddig bild, mer presterande och stabil."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
-"Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "Tvinga ljus text"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Använd en ljus text för panelen, användbart när du använder gnome-shell "
 "ljusa tema."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -454,17 +461,22 @@ msgstr ""
 "halvtransparent sådan.\n"
 "Rekommenderas om man inte vill anpassa GNOME-temat."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Transparensens/halvtransparensens stil för panelbakgrunden."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Inaktivera när ett fönster är nära"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Inaktiverar genomskinligheten för panelen när ett fönster är nära den."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr ""
+"Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
 
 #: panel.ui:112
 msgid "Compatibility"

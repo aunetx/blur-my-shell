@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-12 10:14+0100\n"
+"POT-Creation-Date: 2024-03-05 14:23+0100\n"
 "PO-Revision-Date: 2024-02-03 21:01+0000\n"
 "Last-Translator: theParceville <progamernini@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -187,11 +187,27 @@ msgstr ""
 "Den Hintergrund der Dash to Dock-Erweiterung unscharf machen, sofern diese "
 "verwendet wird."
 
-#: dash.ui:26 panel.ui:71
+#: dash.ui:27 panel.ui:26
+msgid "Static blur"
+msgstr "Statische Unschärfe"
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+
+#: dash.ui:42
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:43
+msgid "The radius for the rounding effect. Only available with static blur."
+msgstr ""
+
+#: dash.ui:65 panel.ui:56
 msgid "Override background"
 msgstr "Hintergrund überschreiben"
 
-#: dash.ui:27
+#: dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -199,32 +215,32 @@ msgstr ""
 "Macht den Hintergrund transparent oder halbtransparent. Deaktivieren um "
 "stattdessen Dash to Dock Einstellungen zu verwenden."
 
-#: dash.ui:33 panel.ui:79
+#: dash.ui:72 panel.ui:64
 msgid "Background style"
 msgstr "Hintergrundstil"
 
-#: dash.ui:34
+#: dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Transparenz/Semitransparenz Stil für den Dock Hintergrund."
 
-#: dash.ui:50 panel.ui:41
+#: dash.ui:89 panel.ui:95
 msgid "Disable in overview"
 msgstr "In der Übersicht deaktivieren"
 
-#: dash.ui:51
+#: dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Deaktiviert die Unschärfe von Dash to Dock beim Aufrufen der Übersicht."
 
-#: dash.ui:68 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparent"
 
-#: dash.ui:69 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Hell"
 
-#: dash.ui:70 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Dunkel"
 
@@ -427,31 +443,23 @@ msgstr "Panel Unschärfe"
 msgid "Blur the top panel using the background image."
 msgstr "Das obere Panel mit Hilfe des Hintergrundbildes unscharf machen."
 
-#: panel.ui:26
-msgid "Static blur"
-msgstr "Statische Unschärfe"
-
 #: panel.ui:27
 msgid "Uses a static blurred image, more performant and stable."
 msgstr ""
 "Verwendet ein statisches unscharfes Bild. Leistungsfähiger und stabiler."
 
-#: panel.ui:42
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "Deaktiviert die Unschärfe des Panels beim Aufrufen der Übersicht."
-
-#: panel.ui:56
+#: panel.ui:41
 msgid "Force light text"
 msgstr "Hellen Text erzwingen"
 
-#: panel.ui:57
+#: panel.ui:42
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Verwende einen hellen Text für das Panel, nützlich in Kombination mit dem "
 "hellen Thema der Gnome-Shell."
 
-#: panel.ui:72
+#: panel.ui:57
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -461,19 +469,23 @@ msgstr ""
 "machen.\n"
 "Empfohlen sofern du dein GNOME Thema bearbeiten möchtest."
 
-#: panel.ui:80
+#: panel.ui:65
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Der transparente/halbtransparente Stil für den Panel-Hintergrund."
 
-#: panel.ui:94
+#: panel.ui:79
 msgid "Disable when a window is near"
 msgstr "Deaktiviert wenn ein Fenster in der Nähe ist"
 
-#: panel.ui:95
+#: panel.ui:80
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 "Deaktiviert die Transparenz des Panels, wenn sich ein Fenster in der Nähe "
 "befindet."
+
+#: panel.ui:96
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "Deaktiviert die Unschärfe des Panels beim Aufrufen der Übersicht."
 
 #: panel.ui:112
 msgid "Compatibility"
