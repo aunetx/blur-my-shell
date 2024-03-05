@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 14:23+0100\n"
-"PO-Revision-Date: 2023-11-14 18:03+0000\n"
+"PO-Revision-Date: 2024-03-06 14:01+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -193,14 +193,18 @@ msgstr "Sfocatura statica"
 #: dash.ui:28
 msgid "Uses a static blurred image, can be used with rounding effect."
 msgstr ""
+"Utilizza un'immagine statica sfocata, può essere utilizzata con effetto "
+"arrotondato."
 
 #: dash.ui:42
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "Raggio dell'angolo arrotondato"
 
 #: dash.ui:43
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
+"Il raggio per l'effetto di arrotondamento. Disponibile solo con sfocatura "
+"statica."
 
 #: dash.ui:65 panel.ui:56
 msgid "Override background"
