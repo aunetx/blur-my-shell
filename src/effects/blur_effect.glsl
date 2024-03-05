@@ -58,10 +58,20 @@ void main(void) {
         float foffset = float(i) + gauss_ratio;
         vec2 offset = direction * foffset * pixel_step;
 
+        /*
+        if (all(lessThanEqual(uv + offset, vec2(1., 1.)))) {
+            ret += texture2D(tex, uv + offset) * coefficient_subtotal;
+            gauss_coefficient_total += coefficient_subtotal;
+        }
+        if (all(greaterThanEqual(uv - offset, vec2(0., 0.)))) {
+            ret += texture2D(tex, uv - offset) * coefficient_subtotal;
+            gauss_coefficient_total += coefficient_subtotal;
+        }
+        */
         ret += texture2D(tex, uv + offset) * coefficient_subtotal;
         ret += texture2D(tex, uv - offset) * coefficient_subtotal;
+        gauss_coefficient_total += 2. * coefficient_subtotal;
 
-        gauss_coefficient_total += 2.0 * coefficient_subtotal;
         gauss_coefficient.xy *= gauss_coefficient.yz;
     }
     vec4 outColor = ret / gauss_coefficient_total;
