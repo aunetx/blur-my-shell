@@ -170,10 +170,9 @@ export const PanelBlur = class PanelBlur {
             brightness: this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: this.settings.panel.CUSTOMIZE
+            sigma: (this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.SIGMA
-                : this.settings.SIGMA
-                * monitor.geometry_scale,
+                : this.settings.SIGMA) * monitor.geometry_scale,
             mode: this.settings.panel.STATIC_BLUR
                 ? Shell.BlurMode.ACTOR
                 : Shell.BlurMode.BACKGROUND

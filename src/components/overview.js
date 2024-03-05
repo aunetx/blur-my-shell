@@ -184,10 +184,9 @@ export const OverviewBlur = class OverviewBlur {
             brightness: this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: this.settings.overview.CUSTOMIZE
+            sigma: (this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.SIGMA
-                : this.settings.SIGMA
-                * monitor.geometry_scale,
+                : this.settings.SIGMA) * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
 
