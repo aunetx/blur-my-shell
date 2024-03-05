@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 14:23+0100\n"
-"PO-Revision-Date: 2023-11-14 18:03+0000\n"
+"PO-Revision-Date: 2024-03-06 14:01+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -192,14 +192,18 @@ msgstr "Flou statique"
 #: dash.ui:28
 msgid "Uses a static blurred image, can be used with rounding effect."
 msgstr ""
+"Utilise une image statique à flouter, peut être utilisé en adéquation avec "
+"un arrondi des bords."
 
 #: dash.ui:42
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "Rayon de l'arrondi du coin"
 
 #: dash.ui:43
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
+"Le rayon de l'effet d'arrondi du coin. N'est disponible qu'avec un flou "
+"statique."
 
 #: dash.ui:65 panel.ui:56
 msgid "Override background"
