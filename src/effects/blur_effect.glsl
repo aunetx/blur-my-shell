@@ -51,9 +51,9 @@ void main(void) {
 
     float pixel_step;
     if (dir == 0)
-        pixel_step = 1.0 / (height);
+        pixel_step = 1.0 / height;
     else
-        pixel_step = 1.0 / (width);
+        pixel_step = 1.0 / width;
 
     vec3 gauss_coefficient;
     gauss_coefficient.x = 1.0 / (sqrt(2.0 * 3.14159265) * sigma);

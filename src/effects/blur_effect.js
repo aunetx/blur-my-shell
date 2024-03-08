@@ -2,11 +2,8 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
 import Shell from 'gi://Shell';
-import Cogl from 'gi://Cogl';
-import GdkPixbuf from 'gi://GdkPixbuf';
 
 const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'blur_effect.glsl', GLib.UriFlags.NONE))[0];
-const TEXTURE_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'blur_effect.png', GLib.UriFlags.NONE))[0];
 
 const get_shader_source = _ => {
     try {
@@ -88,8 +85,6 @@ export const BlurEffect = new GObject.registerClass({
 
         this._static = true;
         this._settings = settings;
-
-        this._tex = null;
 
         this._direction = 0;
 
