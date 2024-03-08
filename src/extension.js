@@ -323,6 +323,12 @@ export default class BlurMyShell extends Extension {
                 this._panel_blur.update_all_blur_type();
         });
 
+        // corner radius changed
+        this._settings.panel.CORNER_RADIUS_changed(() => {
+            if (this._settings.panel.STATIC_BLUR)
+                this._panel_blur.set_corner_radius(this._settings.panel.CORNER_RADIUS);
+        });
+
         // panel blur's overview connection toggled on/off
         this._settings.panel.UNBLUR_IN_OVERVIEW_changed(() => {
             this._panel_blur.connect_to_windows_and_overview();

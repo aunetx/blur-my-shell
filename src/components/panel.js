@@ -5,6 +5,7 @@ import Mtk from 'gi://Mtk';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
+import { BlurEffect } from '../effects/blur_effect.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 const PANEL_STYLES = [
@@ -138,6 +139,8 @@ export const PanelBlur = class PanelBlur {
 
     /// Blur a panel
     blur_panel(panel) {
+        let is_static = this.settings.panel.STATIC_BLUR;
+
         let panel_box = panel.get_parent();
         let is_dtp_panel = false;
         if (!panel_box.name) {
@@ -154,33 +157,12 @@ export const PanelBlur = class PanelBlur {
             x: 0, y: 0, width: 0, height: 0
         });
 
-        let background = this.settings.panel.STATIC_BLUR
-            ? new Meta.BackgroundActor({
-                meta_display: global.display,
-                monitor: monitor.index
-            })
-            : new St.Widget;
+        let [background, blur] = this.add_blur(panel_box, monitor);
 
         background_parent.add_child(background);
 
         // insert background parent
         panel_box.insert_child_at_index(background_parent, 0);
-
-        let blur = new Shell.BlurEffect({
-            brightness: this.settings.panel.CUSTOMIZE
-                ? this.settings.panel.BRIGHTNESS
-                : this.settings.BRIGHTNESS,
-            sigma: this.settings.panel.CUSTOMIZE
-                ? this.settings.panel.SIGMA
-                : this.settings.SIGMA
-                * monitor.geometry_scale,
-            mode: this.settings.panel.STATIC_BLUR
-                ? Shell.BlurMode.ACTOR
-                : Shell.BlurMode.BACKGROUND
-        });
-
-        // store the scale in the effect in order to retrieve it in set_sigma
-        blur.scale = monitor.geometry_scale;
 
         let color = this.effects_manager.new_color_effect({
             color: this.settings.panel.CUSTOMIZE
@@ -231,6 +213,52 @@ export const PanelBlur = class PanelBlur {
         );
     }
 
+    add_blur(panel_box, monitor) {
+        let is_static = this.settings.panel.STATIC_BLUR;
+
+        let background = is_static
+            ? new Meta.BackgroundActor({
+                meta_display: global.display,
+                monitor: monitor.index
+            })
+            : new St.Widget;
+
+        let blur;
+
+        if (is_static) {
+            let corner_radius = this.settings.panel.CORNER_RADIUS * monitor.geometry_scale;
+            corner_radius = Math.min(corner_radius, panel_box.width / 2, panel_box.height / 2);
+
+            blur = new BlurEffect({
+                radius: this.settings.panel.CUSTOMIZE
+                    ? 2 * this.settings.panel.SIGMA * monitor.geometry_scale
+                    : 2 * this.settings.SIGMA * monitor.geometry_scale,
+                brightness: this.settings.panel.CUSTOMIZE
+                    ? this.settings.panel.BRIGHTNESS
+                    : this.settings.BRIGHTNESS,
+                width: panel_box.width,
+                height: panel_box.height,
+                corner_radius: corner_radius
+            });
+        } else {
+            blur = new Shell.BlurEffect({
+                brightness: this.settings.panel.CUSTOMIZE
+                    ? this.settings.panel.BRIGHTNESS
+                    : this.settings.BRIGHTNESS,
+                sigma: this.settings.panel.CUSTOMIZE
+                    ? this.settings.panel.SIGMA * monitor.geometry_scale
+                    : this.settings.SIGMA * monitor.geometry_scale
+                    * monitor.geometry_scale,
+                mode: Shell.BlurMode.BACKGROUND
+            });
+        }
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        blur.scale = monitor.geometry_scale;
+
+        return [background, blur];
+    }
+
     update_all_blur_type() {
         this.actors_list.forEach(actors => this.change_blur_type(actors));
     }
@@ -240,20 +268,19 @@ export const PanelBlur = class PanelBlur {
 
         // reset widgets to right state
         actors.widgets.background_parent.remove_child(actors.widgets.background);
+
+        if (actors.effects.blur.chained_effect)
+            actors.effects.blur.get_actor()?.remove_effect(actors.effects.blur.chained_effect);
         this.effects_manager.remove(actors.effects.blur);
         this.effects_manager.remove(actors.effects.color);
         this.effects_manager.remove(actors.effects.noise);
 
-        // create new background actor
-        actors.widgets.background = is_static
-            ? new Meta.BackgroundActor({
-                meta_display: global.display,
-                monitor: this.find_monitor_for(actors.widgets.panel).index
-            })
-            : new St.Widget;
-
         // change blur mode
-        actors.effects.blur.set_mode(is_static ? 0 : 1);
+        let panel_box = actors.widgets.panel.get_parent();
+        let [background, blur] = this.add_blur(panel_box, this.find_monitor_for(actors.widgets.panel));
+
+        actors.widgets.background = background;
+        actors.effects.blur = blur;
 
         // disable other effects if the blur is dynamic, as they makes it opaque
         actors.effects.color._static = is_static;
@@ -338,8 +365,6 @@ export const PanelBlur = class PanelBlur {
             return;
 
         let [width, height] = panel_box.get_size();
-        background.width = width;
-        background.height = height;
 
         // if static blur, need to clip the background
         if (this.settings.panel.STATIC_BLUR) {
@@ -351,13 +376,20 @@ export const PanelBlur = class PanelBlur {
             let x = p_x + p_p_x - monitor.x;
             let y = p_y + p_p_y - monitor.y;
 
-            background.set_clip(x, y, width, height);
             background.x = -x;
             background.y = -y;
+            
+            actors.effects.blur.width = width;
+            actors.effects.blur.height = height;
 
+            background.set_clip(x, y, width, height);
+            
             // fixes a bug where the blur is washed away when changing the sigma
             this.invalidate_blur(actors);
         } else {
+            background.width = width;
+            background.height = height;
+
             background.x = panel.x;
             background.y = panel.y;
         }
@@ -609,9 +641,24 @@ export const PanelBlur = class PanelBlur {
         this.actors_list.forEach(actors => this.invalidate_blur(actors));
     }
 
+    set_corner_radius(radius) {
+        if (this.settings.panel.STATIC_BLUR) {
+            this.actors_list.forEach(actors => {
+                let corner_radius = radius * actors.effects.blur.scale;
+                actors.effects.blur.corner_radius = Math.min(
+                    corner_radius, actors.effects.blur.width / 2, actors.effects.blur.height / 2
+                );
+            });
+        }
+    }
+
     set_sigma(s) {
         this.actors_list.forEach(actors => {
-            actors.effects.blur.sigma = s * actors.effects.blur.scale;
+            this.update_size(actors);
+            if (this.settings.panel.STATIC_BLUR)
+                actors.effects.blur.radius = 2 * s * actors.effects.blur.scale;
+            else
+                actors.effects.blur.sigma = s * actors.effects.blur.scale;
             this.invalidate_blur(actors);
         });
     }
