@@ -26,15 +26,34 @@ vec4 shapeCorner(vec4 pixel, vec2 p, vec2 center, float clip_radius) {
     return vec4(pixel.rgb * alpha, min(alpha, pixel.a));
 }
 
+vec4 getTexture(vec2 uv) {
+    if(uv.x < 2. / width)
+        uv.x = 2. / width;
+
+    if(uv.y < 2. / height)
+        uv.y = 2. / height;
+
+    if(uv.x > 1. - 3. / width)
+        uv.x = 1. - 3. / width;
+
+    if(uv.y > 1. - 3. / height)
+        uv.y = 1. - 3. / height;
+
+    return texture2D(tex, uv);
+}
+
 void main(void) {
     vec2 uv = cogl_tex_coord_in[0].xy;
+
+    vec2 pos = uv * vec2(width, height);
+
     vec2 direction = vec2(dir, (1.0 - dir));
 
     float pixel_step;
     if (dir == 0)
-        pixel_step = 1.0 / height;
+        pixel_step = 1.0 / (height);
     else
-        pixel_step = 1.0 / width;
+        pixel_step = 1.0 / (width);
 
     vec3 gauss_coefficient;
     gauss_coefficient.x = 1.0 / (sqrt(2.0 * 3.14159265) * sigma);
@@ -43,7 +62,7 @@ void main(void) {
 
     float gauss_coefficient_total = gauss_coefficient.x;
 
-    vec4 ret = texture2D(tex, uv) * gauss_coefficient.x;
+    vec4 ret = getTexture(uv) * gauss_coefficient.x;
     gauss_coefficient.xy *= gauss_coefficient.yz;
 
     int n_steps = int(ceil(1.5 * sigma)) * 2;
@@ -58,8 +77,8 @@ void main(void) {
         float foffset = float(i) + gauss_ratio;
         vec2 offset = direction * foffset * pixel_step;
 
-        ret += texture2D(tex, uv + offset) * coefficient_subtotal;
-        ret += texture2D(tex, uv - offset) * coefficient_subtotal;
+        ret += getTexture(uv + offset) * coefficient_subtotal;
+        ret += getTexture(uv - offset) * coefficient_subtotal;
 
         gauss_coefficient_total += 2.0 * coefficient_subtotal;
         gauss_coefficient.xy *= gauss_coefficient.yz;
@@ -68,8 +87,6 @@ void main(void) {
 
     // apply brightness and rounding on the second pass (dir==0 comes last)
     if (dir == 0) {
-        vec2 pos = uv * vec2(width, height);
-
         // left side
         if (pos.x < corner_radius) {
             // top left corner
