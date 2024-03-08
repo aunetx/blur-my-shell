@@ -82,10 +82,9 @@ export const ScreenshotBlur = class ScreenshotBlur {
             brightness: this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: this.settings.screenshot.CUSTOMIZE
+            sigma: (this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.SIGMA
-                : this.settings.SIGMA
-                * monitor.geometry_scale,
+                : this.settings.SIGMA) * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
 

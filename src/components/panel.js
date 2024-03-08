@@ -230,9 +230,9 @@ export const PanelBlur = class PanelBlur {
             corner_radius = Math.min(corner_radius, panel_box.width / 2, panel_box.height / 2);
 
             blur = new BlurEffect({
-                radius: this.settings.panel.CUSTOMIZE
-                    ? 2 * this.settings.panel.SIGMA * monitor.geometry_scale
-                    : 2 * this.settings.SIGMA * monitor.geometry_scale,
+                radius: 2 * (this.settings.panel.CUSTOMIZE
+                    ? this.settings.panel.SIGMA
+                    : this.settings.SIGMA) * monitor.geometry_scale,
                 brightness: this.settings.panel.CUSTOMIZE
                     ? this.settings.panel.BRIGHTNESS
                     : this.settings.BRIGHTNESS,
@@ -245,9 +245,9 @@ export const PanelBlur = class PanelBlur {
                 brightness: this.settings.panel.CUSTOMIZE
                     ? this.settings.panel.BRIGHTNESS
                     : this.settings.BRIGHTNESS,
-                sigma: this.settings.panel.CUSTOMIZE
-                    ? this.settings.panel.SIGMA * monitor.geometry_scale
-                    : this.settings.SIGMA * monitor.geometry_scale
+                sigma: (this.settings.panel.CUSTOMIZE
+                    ? this.settings.panel.SIGMA
+                    : this.settings.SIGMA) * monitor.geometry_scale
                     * monitor.geometry_scale,
                 mode: Shell.BlurMode.BACKGROUND
             });
