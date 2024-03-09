@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 14:23+0100\n"
-"PO-Revision-Date: 2023-11-16 17:06+0000\n"
+"PO-Revision-Date: 2024-03-09 14:01+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -185,14 +185,16 @@ msgstr "நிலையான தெளிவின்மை"
 #: dash.ui:28
 msgid "Uses a static blurred image, can be used with rounding effect."
 msgstr ""
+"நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, வட்டமிடுதல் விளைவுடன் "
+"பயன்படுத்தலாம்."
 
 #: dash.ui:42
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "வட்டமான மூலை ஆரம்"
 
 #: dash.ui:43
 msgid "The radius for the rounding effect. Only available with static blur."
-msgstr ""
+msgstr "சுற்று விளைவுக்கான ஆரம். நிலையான மங்கலத்துடன் மட்டுமே கிடைக்கும்."
 
 #: dash.ui:65 panel.ui:56
 msgid "Override background"
