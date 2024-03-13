@@ -200,11 +200,11 @@ msgstr ""
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
 
-#: dash.ui:65 panel.ui:56
+#: dash.ui:65 panel.ui:56 dash.ui:26 panel.ui:71
 msgid "Override background"
 msgstr "Háttér felülírása"
 
-#: dash.ui:66
+#: dash.ui:66 dash.ui:27
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -212,31 +212,31 @@ msgstr ""
 "A hátteret áttetszővé, vagy részben áttetszővé teszi. Kapcsold ki a Dash to "
 "Dock beállítások használatához."
 
-#: dash.ui:72 panel.ui:64
+#: dash.ui:72 panel.ui:64 dash.ui:33 panel.ui:79
 msgid "Background style"
 msgstr "Háttér stílus"
 
-#: dash.ui:73
+#: dash.ui:73 dash.ui:34
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "A dokk hátterének áttetsző / részben áttetsző stílusa."
 
-#: dash.ui:89 panel.ui:95
+#: dash.ui:89 panel.ui:95 dash.ui:50 panel.ui:41
 msgid "Disable in overview"
 msgstr "Kikapcsolás áttekintés nézetben"
 
-#: dash.ui:90
+#: dash.ui:90 dash.ui:51
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Áttekintés nézetben kikapcsolja a Dash to Dock homályosítását."
 
-#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150 dash.ui:68
 msgid "Transparent"
 msgstr "Áttetsző"
 
-#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151 dash.ui:69
 msgid "Light"
 msgstr "Világos"
 
-#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152 dash.ui:70
 msgid "Dark"
 msgstr "Sötét"
 
@@ -437,16 +437,18 @@ msgstr "A felső panel homályosítása a háttérkép használatával."
 msgid "Uses a static blurred image, more performant and stable."
 msgstr "Statikus homályosított képet használjon. Gyorsabb és stabilabb."
 
-#: panel.ui:41
+#: panel.ui:56
 msgid "Force light text"
-msgstr ""
+msgstr "Kényszerített világos szöveg"
 
-#: panel.ui:42
+#: panel.ui:57
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Világos szöveg használata a panelhez, hasznos, gnome-shell világos téma "
+"használatakor."
 
-#: panel.ui:57
+#: panel.ui:57 panel.ui:72
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -456,19 +458,19 @@ msgstr ""
 "használjon.\n"
 "Ajánlott, kivéve, ha személyre akarod szabni a GNOME témád."
 
-#: panel.ui:65
+#: panel.ui:65 panel.ui:80
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "A felső panel hátterének áttetsző / részben áttetsző stílusa."
 
-#: panel.ui:79
+#: panel.ui:79 panel.ui:94
 msgid "Disable when a window is near"
 msgstr "Kikapcsolás, ha ablak van a közelben"
 
-#: panel.ui:80
+#: panel.ui:80 panel.ui:95
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Kikapcsolja a panel áttetszőségét, ha ablak van a közelében."
 
-#: panel.ui:96
+#: panel.ui:96 panel.ui:42
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 "Kikapcsolja a felső panel homályosítását az áttekintés nézetbe lépéskor."
@@ -494,17 +496,19 @@ msgstr ""
 
 #: panel.ui:133
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Az eredeti panel elmosása a Dash to Panel segítségével"
 
 #: panel.ui:134
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Engedélyezi az eredeti panel elmosását a Dash to Panel segítségével, ha a "
+"bővítmény beállításaiban be van jelölve."
 
 #: panel.ui:153
 msgid "Contrasted"
-msgstr ""
+msgstr "Kontrasztos"
 
 #: window-row.ui:4
 msgid "Window Name"

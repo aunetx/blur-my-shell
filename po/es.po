@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-05 14:23+0100\n"
-"PO-Revision-Date: 2023-11-14 18:03+0000\n"
+"PO-Revision-Date: 2024-03-09 14:01+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -190,14 +190,17 @@ msgstr "Desenfoque estático"
 #: dash.ui:28
 msgid "Uses a static blurred image, can be used with rounding effect."
 msgstr ""
+"Utiliza una imagen estática para difuminar, se puede utilizar junto con "
+"bordes redondeados."
 
 #: dash.ui:42
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "Radio para la esquina redondeada"
 
 #: dash.ui:43
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
+"El radio para el efecto de redondeo. Sólo disponible con desenfoque estático."
 
 #: dash.ui:65 panel.ui:56
 msgid "Override background"
