@@ -6,7 +6,7 @@
     ],
     "url": "https://github.com/aunetx/gnome-shell-extension-blur-my-shell",
     "uuid": "blur-my-shell@aunetx",
-    "gettext-domain": "blur-my-shell",
+    "gettext-domain": "blur-my-shell@aunetx",
     "settings-schema": "org.gnome.shell.extensions.blur-my-shell",
     "original-authors": [
         "me@aunetx.dev"
