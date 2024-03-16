@@ -11,6 +11,7 @@ export const Panel = GObject.registerClass({
         'blur',
         'customize',
         'static_blur',
+        'corner_radius',
         'unblur_in_overview',
         'force_light_text',
         'override_background',
@@ -31,6 +32,10 @@ export const Panel = GObject.registerClass({
         );
         this.preferences.panel.settings.bind(
             'static-blur', this._static_blur, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(

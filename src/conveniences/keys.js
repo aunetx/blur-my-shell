@@ -53,6 +53,7 @@ export const Keys = [
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },
+            { type: Type.I, name: "corner-radius" },
         ]
     },
     {

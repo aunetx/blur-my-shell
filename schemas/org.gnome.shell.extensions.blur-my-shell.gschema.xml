@@ -214,6 +214,11 @@
             <default>false</default>
             <summary>Boolean, whether to disable blur from this component when a window is close to the panel</summary>
         </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>12</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
     </schema>
 
     <!-- DASH TO DOCK -->

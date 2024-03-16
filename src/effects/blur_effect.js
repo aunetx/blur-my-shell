@@ -5,7 +5,6 @@ import Shell from 'gi://Shell';
 
 const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'blur_effect.glsl', GLib.UriFlags.NONE))[0];
 
-
 const get_shader_source = _ => {
     try {
         return Shell.get_file_contents_utf8_sync(SHADER_PATH);
@@ -87,8 +86,6 @@ export const BlurEffect = new GObject.registerClass({
         this._static = true;
         this._settings = settings;
 
-        this._tex = null;
-
         this._direction = 0;
 
         this._chained_effect = null;
@@ -153,7 +150,7 @@ export const BlurEffect = new GObject.registerClass({
         if (this._width !== value) {
             this._width = value;
 
-            this.set_uniform_value('width', parseFloat(this._width - 1e-6));
+            this.set_uniform_value('width', parseFloat(this._width + 3.0 - 1e-6));
 
             if (this._chained_effect) {
                 this._chained_effect.width = value;
@@ -169,7 +166,7 @@ export const BlurEffect = new GObject.registerClass({
         if (this._height !== value) {
             this._height = value;
 
-            this.set_uniform_value('height', parseFloat(this._height - 1e-6));
+            this.set_uniform_value('height', parseFloat(this._height + 3.0 - 1e-6));
 
             if (this._chained_effect) {
                 this._chained_effect.height = value;
@@ -219,7 +216,8 @@ export const BlurEffect = new GObject.registerClass({
                 corner_radius: this.corner_radius,
                 direction: 1
             });
-            actor.add_effect(this._chained_effect);
+            if(actor !== null)
+                actor.add_effect(this._chained_effect);
         }
     }
 
