@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 14:23+0100\n"
+"POT-Creation-Date: 2024-03-16 12:52+0100\n"
 "PO-Revision-Date: 2024-01-01 15:09+0000\n"
 "Last-Translator: Сергій <sergiy.goncharuk.1@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -186,22 +186,25 @@ msgid "Static blur"
 msgstr "Статичне розмиття"
 
 #: dash.ui:28
-msgid "Uses a static blurred image, can be used with rounding effect."
-msgstr ""
-
-#: dash.ui:42
-msgid "Rounded corner radius"
+msgid ""
+"Uses a static blurred image, can be used with rounding effect.\n"
+"<b>Important notice:</b> with this activated, you should not use a big sigma "
+"value as it will deteriorate performances."
 msgstr ""
 
 #: dash.ui:43
+msgid "Rounded corner radius"
+msgstr ""
+
+#: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
 
-#: dash.ui:65 panel.ui:56
+#: dash.ui:66 panel.ui:56
 msgid "Override background"
 msgstr "Перевизначення фону"
 
-#: dash.ui:66
+#: dash.ui:67
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -209,31 +212,31 @@ msgstr ""
 "Робить фон прозорим або напівпрозорим, вимкніть цю опцію, щоб "
 "використовувати параметри Dash to Dock."
 
-#: dash.ui:72 panel.ui:64
+#: dash.ui:73 panel.ui:64
 msgid "Background style"
 msgstr "Стиль фону"
 
-#: dash.ui:73
+#: dash.ui:74
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Прозорий/напівпрозорий стиль для фону Dash to Dock."
 
-#: dash.ui:89 panel.ui:95
+#: dash.ui:90 panel.ui:95
 msgid "Disable in overview"
 msgstr "Вимкнути в огляді"
 
-#: dash.ui:90
+#: dash.ui:91
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Вимикає розмиття Dash to Dock при вході в огляд."
 
-#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Прозорий"
 
-#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Cвітлий"
 
-#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Темний"
 

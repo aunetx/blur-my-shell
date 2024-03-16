@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 14:23+0100\n"
+"POT-Creation-Date: 2024-03-16 12:52+0100\n"
 "PO-Revision-Date: 2024-03-06 14:01+0000\n"
 "Last-Translator: vikdevelop <super-vik1@protonmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -186,25 +186,26 @@ msgid "Static blur"
 msgstr "Statické rozmazání"
 
 #: dash.ui:28
-msgid "Uses a static blurred image, can be used with rounding effect."
+msgid ""
+"Uses a static blurred image, can be used with rounding effect.\n"
+"<b>Important notice:</b> with this activated, you should not use a big sigma "
+"value as it will deteriorate performances."
 msgstr ""
-"Používá statický rozostřený obrázek, může být použito pomocí efektu "
-"zaokrouhlení."
 
-#: dash.ui:42
+#: dash.ui:43
 msgid "Rounded corner radius"
 msgstr "Zaoblený poloměr rohu"
 
-#: dash.ui:43
+#: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
 "Poloměr pro efekt zaokrouhlení. Dostupné pouze pomocí statického rozostření.."
 
-#: dash.ui:65 panel.ui:56
+#: dash.ui:66 panel.ui:56
 msgid "Override background"
 msgstr "Přepsat pozadí"
 
-#: dash.ui:66
+#: dash.ui:67
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -212,31 +213,31 @@ msgstr ""
 "Nastaví pozadí jako průhledné nebo poloprůhledné, pokud chcete místo toho "
 "použít předvolby Dash to Dock, zakažte tuto funkci."
 
-#: dash.ui:72 panel.ui:64
+#: dash.ui:73 panel.ui:64
 msgid "Background style"
 msgstr "Styl pozadí"
 
-#: dash.ui:73
+#: dash.ui:74
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Průhledný/poloprůhledný styl pozadí doku."
 
-#: dash.ui:89 panel.ui:95
+#: dash.ui:90 panel.ui:95
 msgid "Disable in overview"
 msgstr "Zakázat v přehledu"
 
-#: dash.ui:90
+#: dash.ui:91
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Zakáže rozmazání z Dashe do doku při vstupu do přehledu."
 
-#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparentní"
 
-#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Světlý"
 
-#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Tmavý"
 
@@ -520,6 +521,11 @@ msgstr "Vybrat okno"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "Vyberte okno nebo jej vyberte podle názvu třídy."
+
+#~ msgid "Uses a static blurred image, can be used with rounding effect."
+#~ msgstr ""
+#~ "Používá statický rozostřený obrázek, může být použito pomocí efektu "
+#~ "zaokrouhlení."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality.\n"

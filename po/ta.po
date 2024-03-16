@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 14:23+0100\n"
+"POT-Creation-Date: 2024-03-16 12:52+0100\n"
 "PO-Revision-Date: 2024-03-09 14:01+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,24 +183,25 @@ msgid "Static blur"
 msgstr "நிலையான தெளிவின்மை"
 
 #: dash.ui:28
-msgid "Uses a static blurred image, can be used with rounding effect."
+msgid ""
+"Uses a static blurred image, can be used with rounding effect.\n"
+"<b>Important notice:</b> with this activated, you should not use a big sigma "
+"value as it will deteriorate performances."
 msgstr ""
-"நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, வட்டமிடுதல் விளைவுடன் "
-"பயன்படுத்தலாம்."
 
-#: dash.ui:42
+#: dash.ui:43
 msgid "Rounded corner radius"
 msgstr "வட்டமான மூலை ஆரம்"
 
-#: dash.ui:43
+#: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr "சுற்று விளைவுக்கான ஆரம். நிலையான மங்கலத்துடன் மட்டுமே கிடைக்கும்."
 
-#: dash.ui:65 panel.ui:56
+#: dash.ui:66 panel.ui:56
 msgid "Override background"
 msgstr "பின்னணியை மேலெழுதவும்"
 
-#: dash.ui:66
+#: dash.ui:67
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -208,31 +209,31 @@ msgstr ""
 "பின்னணியை வெளிப்படையானதாகவோ அல்லது அரை-வெளிப்படையாகவோ மாற்றுகிறது, அதற்குப் பதிலாக "
 "டாஷ் டு டாக் விருப்பங்களைப் பயன்படுத்த இதை முடக்கவும்."
 
-#: dash.ui:72 panel.ui:64
+#: dash.ui:73 panel.ui:64
 msgid "Background style"
 msgstr "பின்னணி நடை"
 
-#: dash.ui:73
+#: dash.ui:74
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "கப்பல்துறை பின்னணிக்கான வெளிப்படையான/அரை-வெளிப்படையான பாணி."
 
-#: dash.ui:89 panel.ui:95
+#: dash.ui:90 panel.ui:95
 msgid "Disable in overview"
 msgstr "மேலோட்டத்தில் முடக்கு"
 
-#: dash.ui:90
+#: dash.ui:91
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "மேலோட்டத்தை உள்ளிடும்போது டாஷ் முதல் டாக் வரை மங்கலை முடக்குகிறது."
 
-#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "வெளிப்படை"
 
-#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "ஒளி"
 
-#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "இருள்"
 
@@ -510,6 +511,10 @@ msgstr "சாளரத்தைத் தேர்ந்தெடுக்க�
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் தேர்ந்தெடுக்கவும்."
+
+#~ msgid "Uses a static blurred image, can be used with rounding effect."
+#~ msgstr ""
+#~ "நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, வட்டமிடுதல் விளைவுடன் பயன்படுத்தலாம்."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality.\n"

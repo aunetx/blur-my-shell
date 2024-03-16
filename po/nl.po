@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 14:23+0100\n"
+"POT-Creation-Date: 2024-03-16 12:52+0100\n"
 "PO-Revision-Date: 2024-03-06 14:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/nl/>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,26 +190,27 @@ msgid "Static blur"
 msgstr "Statische vervaging"
 
 #: dash.ui:28
-msgid "Uses a static blurred image, can be used with rounding effect."
+msgid ""
+"Uses a static blurred image, can be used with rounding effect.\n"
+"<b>Important notice:</b> with this activated, you should not use a big sigma "
+"value as it will deteriorate performances."
 msgstr ""
-"Gebruikt een statisch vervaagd beeld, kan worden gebruikt met "
-"afrondings­effect."
 
-#: dash.ui:42
+#: dash.ui:43
 msgid "Rounded corner radius"
 msgstr "Straal voor afgeronde hoeken"
 
-#: dash.ui:43
+#: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
 "De straal voor het afrondings­effect. Alleen beschikbaar met statische "
 "vervaging."
 
-#: dash.ui:65 panel.ui:56
+#: dash.ui:66 panel.ui:56
 msgid "Override background"
 msgstr "Achtergrond overschrijven"
 
-#: dash.ui:66
+#: dash.ui:67
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -217,33 +218,33 @@ msgstr ""
 "Maakt de achtergrond doorzichtig of halfdoorzichtig, schakel dit uit om in "
 "plaats hiervan voorkeuren van Dash to Dock te gebruiken."
 
-#: dash.ui:72 panel.ui:64
+#: dash.ui:73 panel.ui:64
 msgid "Background style"
 msgstr "Achtergrondstijl"
 
-#: dash.ui:73
+#: dash.ui:74
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "De (half)doorzichtige stijl voor de dock-achtergrond."
 
-#: dash.ui:89 panel.ui:95
+#: dash.ui:90 panel.ui:95
 msgid "Disable in overview"
 msgstr "Uitschakelen in overzicht"
 
-#: dash.ui:90
+#: dash.ui:91
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "De vervaging van Dash to Dock uitschakelen wanneer het overzicht wordt "
 "geactiveerd."
 
-#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Doorzichtig"
 
-#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Licht"
 
-#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Donker"
 
@@ -533,6 +534,11 @@ msgstr "Venster selecteren"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "Kies een venster of selecteer deze bij hun klassenaam."
+
+#~ msgid "Uses a static blurred image, can be used with rounding effect."
+#~ msgstr ""
+#~ "Gebruikt een statisch vervaagd beeld, kan worden gebruikt met afrondings­"
+#~ "effect."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality.\n"

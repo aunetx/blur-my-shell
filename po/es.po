@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 14:23+0100\n"
+"POT-Creation-Date: 2024-03-16 12:52+0100\n"
 "PO-Revision-Date: 2024-03-09 14:01+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -188,25 +188,26 @@ msgid "Static blur"
 msgstr "Desenfoque estático"
 
 #: dash.ui:28
-msgid "Uses a static blurred image, can be used with rounding effect."
+msgid ""
+"Uses a static blurred image, can be used with rounding effect.\n"
+"<b>Important notice:</b> with this activated, you should not use a big sigma "
+"value as it will deteriorate performances."
 msgstr ""
-"Utiliza una imagen estática para difuminar, se puede utilizar junto con "
-"bordes redondeados."
 
-#: dash.ui:42
+#: dash.ui:43
 msgid "Rounded corner radius"
 msgstr "Radio para la esquina redondeada"
 
-#: dash.ui:43
+#: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
 "El radio para el efecto de redondeo. Sólo disponible con desenfoque estático."
 
-#: dash.ui:65 panel.ui:56
+#: dash.ui:66 panel.ui:56
 msgid "Override background"
 msgstr "Sobrescribir el fondo"
 
-#: dash.ui:66
+#: dash.ui:67
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -214,33 +215,33 @@ msgstr ""
 "Hace que el fondo sea transparente o semitransparente; desactívelo para usar "
 "las preferencias de Dash to Dock."
 
-#: dash.ui:72 panel.ui:64
+#: dash.ui:73 panel.ui:64
 msgid "Background style"
 msgstr "Estilo del fondo"
 
-#: dash.ui:73
+#: dash.ui:74
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr ""
 "El estilo transparente/semitransparente para el fondo de la barra de "
 "aplicaciones."
 
-#: dash.ui:89 panel.ui:95
+#: dash.ui:90 panel.ui:95
 msgid "Disable in overview"
 msgstr "Desactivar en la vista general"
 
-#: dash.ui:90
+#: dash.ui:91
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Desactiva el desenfoque de Dash a Dock al entrar en la vista general."
 
-#: dash.ui:107 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
 msgid "Transparent"
 msgstr "Transparente"
 
-#: dash.ui:108 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
 msgid "Light"
 msgstr "Claro"
 
-#: dash.ui:109 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
 msgid "Dark"
 msgstr "Oscuro"
 
@@ -532,6 +533,11 @@ msgstr "Seleccionar ventana"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "Elija una ventana o selecciónela por su nombre de clase."
+
+#~ msgid "Uses a static blurred image, can be used with rounding effect."
+#~ msgstr ""
+#~ "Utiliza una imagen estática para difuminar, se puede utilizar junto con "
+#~ "bordes redondeados."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality.\n"
