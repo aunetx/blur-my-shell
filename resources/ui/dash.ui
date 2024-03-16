@@ -25,7 +25,8 @@
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Static blur</property>
-            <property name="subtitle" translatable="yes">Uses a static blurred image, can be used with rounding effect.</property>
+            <property name="subtitle" translatable="yes">Uses a static blurred image, can be used with rounding effect.
+&lt;b&gt;Important notice:&lt;/b&gt; with this activated, you should not use a big sigma value as it will deteriorate performances.</property>
             <property name="activatable-widget">static_blur</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
