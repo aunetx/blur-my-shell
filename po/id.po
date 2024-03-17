@@ -193,19 +193,19 @@ msgid ""
 "value as it will deteriorate performances."
 msgstr ""
 
-#: dash.ui:43
+#: dash.ui:42
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "Radius sudut yang dibulatkan"
 
-#: dash.ui:44
+#: dash.ui:43
 msgid "The radius for the rounding effect. Only available with static blur."
-msgstr ""
+msgstr "Radius untuk efek pembulatan. Hanya tersedia dengan buram statik."
 
-#: dash.ui:66 panel.ui:56
+#: dash.ui:66 panel.ui:56 dash.ui:65
 msgid "Override background"
 msgstr "Override latar belakang"
 
-#: dash.ui:67
+#: dash.ui:67 dash.ui:66
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -213,31 +213,31 @@ msgstr ""
 "Membuat latar belakang baik transparan atau semi-transparan, matikan ini "
 "untuk menggunakan Dash ke preferensi Dock."
 
-#: dash.ui:73 panel.ui:64
+#: dash.ui:73 panel.ui:64 dash.ui:72
 msgid "Background style"
 msgstr "Gaya latar belakang"
 
-#: dash.ui:74
+#: dash.ui:74 dash.ui:73
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Gaya transparan/semi-transparan untuk latar belakang dock."
 
-#: dash.ui:90 panel.ui:95
+#: dash.ui:90 panel.ui:95 dash.ui:89
 msgid "Disable in overview"
 msgstr "Matikan di ruang kerja"
 
-#: dash.ui:91
+#: dash.ui:91 dash.ui:90
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Mematikan blur dari Dash to Dock ketika memasuk ruang kerja."
 
-#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
+#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150 dash.ui:107
 msgid "Transparent"
 msgstr "Transparensi"
 
-#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
+#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151 dash.ui:108
 msgid "Light"
 msgstr "Cahaya"
 
-#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
+#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152 dash.ui:109
 msgid "Dark"
 msgstr "Gelap"
 
@@ -519,3 +519,9 @@ msgstr "Pilih jendela"
 #: window-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr "Pilih jendela atau pilih berdasarkan nama kelasnya."
+
+#: dash.ui:28
+msgid "Uses a static blurred image, can be used with rounding effect."
+msgstr ""
+"Penggunaan sebuah gambar statik yang diblur, dapat digunakan dengan efek "
+"rounding."
