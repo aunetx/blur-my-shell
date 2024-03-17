@@ -3,7 +3,6 @@ import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
-import * as LoginManager from 'resource:///org/gnome/shell/misc/loginManager.js';
 
 import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
@@ -89,14 +88,6 @@ export default class BlurMyShell extends Extension {
             this._enable_components();
         }
 
-        // prevent the blur from disappearing when going to sleep
-        this.about_to_suspend = false;
-        LoginManager.getLoginManager().connectObject('prepare-for-sleep',
-            (_, aboutToSuspend) => {
-                this.about_to_suspend = aboutToSuspend;
-            }, this);
-
-
         // try to enable the components as soon as possible anyway, this way the
         // overview may load before the user sees it
         try {
@@ -132,6 +123,7 @@ export default class BlurMyShell extends Extension {
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._appfolder_blur.disable();
+        this._lockscreen_blur.disable();
         this._window_list_blur.disable();
         this._applications_blur.disable();
         this._screenshot_blur.disable();
@@ -141,19 +133,10 @@ export default class BlurMyShell extends Extension {
         this._dash_to_dock_blur = null;
         this._overview_blur = null;
         this._appfolder_blur = null;
+        this._lockscreen_blur = null;
         this._window_list_blur = null;
         this._applications_blur = null;
-
-        // special case for the lockscreen blur, which should not be disabled when going to sleep
-        if (this.about_to_suspend)
-            this._log("going to sleep, lockscreen blur removal is inhibited");
-        else {
-            this._lockscreen_blur.disable();
-            this._lockscreen_blur = null;
-        }
-
-        // disconnect LoginManager, we shall reconnect when reenabling anyway
-        LoginManager.getLoginManager().disconnectObject(this);
+        this._screenshot_blur = null;
 
         // make sure no settings change can re-enable them
         this._settings.disconnect_all_settings();
@@ -168,8 +151,7 @@ export default class BlurMyShell extends Extension {
         this._reenable_clipped_redraws();
 
         // remove the extension from GJS's global
-        if (!this.about_to_suspend)
-            delete global.blur_my_shell;
+        delete global.blur_my_shell;
 
         this._log("extension disabled.");
 
