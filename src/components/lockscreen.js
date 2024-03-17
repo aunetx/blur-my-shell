@@ -21,6 +21,7 @@ export const LockscreenBlur = class LockscreenBlur {
         this.connections = connections;
         this.settings = settings;
         this.effects_manager = effects_manager;
+        this.enabled = false;
     }
 
     enable() {
@@ -43,6 +44,8 @@ export const LockscreenBlur = class LockscreenBlur {
             : this.settings.NOISE_LIGHTNESS;
 
         this.update_lockscreen();
+
+        this.enabled = true;
     }
 
     update_lockscreen() {
@@ -158,6 +161,8 @@ export const LockscreenBlur = class LockscreenBlur {
             original_updateBackgroundEffects;
 
         this.connections.disconnect_all();
+
+        this.enabled = false;
     }
 
     _log(str) {

@@ -28,7 +28,7 @@ const INDEPENDENT_COMPONENTS = [
 
 /// The main extension class, created when the GNOME Shell is loaded.
 export default class BlurMyShell extends Extension {
-    /// Enables the extension
+    /// Enables the extension.
     enable() {
         // add the extension to global to make it accessible to other extensions
         // create it first as it is very useful when debugging crashes
@@ -69,11 +69,29 @@ export default class BlurMyShell extends Extension {
         this._applications_blur = new ApplicationsBlur(...init());
         this._screenshot_blur = new ScreenshotBlur(...init());
 
-        // maybe disable clipped redraw
-        this._update_clipped_redraws();
-
         // connect each component to preferences change
         this._connect_to_settings();
+
+        // enable the lockscreen blur, only one important in both `user` session and `unlock-dialog`
+        if (this._settings.lockscreen.BLUR && !this._lockscreen_blur.enabled)
+            this._lockscreen_blur.enable();
+
+        // ensure we take the correct action for the current session mode
+        this._user_session_mode_enabled = false;
+        this._on_session_mode_changed(Main.sessionMode);
+
+        // watch for changes to the session mode
+        this._connection.connect(Main.sessionMode, 'updated',
+            _ => this._on_session_mode_changed(Main.sessionMode)
+        );
+    }
+
+    /// Enables the components related to the user session (everything except lockscreen blur).
+    _enable_user_session() {
+        this._log("changing mode to user session...");
+
+        // maybe disable clipped redraw
+        this._update_clipped_redraws();
 
         // enable every component
         // if the shell is still starting up, wait for it to be entirely loaded;
@@ -112,21 +130,34 @@ export default class BlurMyShell extends Extension {
             this._log("Could not enable panel blur directly");
             this._log(e);
         }
+
+        // tells the extension we have enabled the user session components, so that we do not
+        // disable them later if they were not even enabled to begin with
+        this._user_session_mode_enabled = true;
     }
 
-    /// Disables the extension
+    /// Disables the extension.
+    ///
+    /// This extension needs to use the 'unlock-dialog' session mode in order to change the blur on
+    /// the lockscreen. We have kind of two states of enablement for this extension:
+    /// - the 'enabled' state, which means that we have created the necessary components (which only
+    ///   are js objects) and enabled the lockscreen blur (which means swapping two functions from
+    ///   the `UnlockDialog` constructor with our ones;
+    /// - the 'user session enabled` mode, which means that we are in the 'enabled' mode AND we are
+    ///   in the user mode, and so we enable all the other components that we created before.
+    /// We switch from one state to the other thanks to `this._on_session_mode_changed`, and we
+    /// track wether or not we are in the user mode with `this._user_session_mode_enabled` (because
+    /// `this._on_session_mode_changed` might be called multiple times while in the user session
+    /// mode, typically when going back from simple lockscreen and not sleep mode).
     disable() {
         this._log("disabling extension...");
 
-        // disable every component
-        this._panel_blur.disable();
-        this._dash_to_dock_blur.disable();
-        this._overview_blur.disable();
-        this._appfolder_blur.disable();
+        // disable every component from user session mode
+        if (this._user_session_mode_enabled)
+            this._disable_user_session();
+
+        // disable lockscreen blur too
         this._lockscreen_blur.disable();
-        this._window_list_blur.disable();
-        this._applications_blur.disable();
-        this._screenshot_blur.disable();
 
         // untrack them
         this._panel_blur = null;
@@ -158,14 +189,50 @@ export default class BlurMyShell extends Extension {
         this._settings = null;
     }
 
-    /// Restart the extension.
+    /// Disables the components related to the user session (everything except lockscreen blur).
+    _disable_user_session() {
+        this._log("disabling user session mode...");
+
+        // disable every component except lockscreen blur
+        this._panel_blur.disable();
+        this._dash_to_dock_blur.disable();
+        this._overview_blur.disable();
+        this._appfolder_blur.disable();
+        this._window_list_blur.disable();
+        this._applications_blur.disable();
+        this._screenshot_blur.disable();
+
+        // remove the clipped redraws flag
+        this._reenable_clipped_redraws();
+
+        // tells the extension we have disabled the user session components, so that we do not
+        // disable them later again if they were already disabled
+        this._user_session_mode_enabled = false;
+    }
+
+    /// Restarts the components related to the user session.
     _restart() {
         this._log("restarting...");
 
-        this.disable();
-        this.enable();
+        this._disable_user_session();
+        this._enable_user_session();
 
         this._log("restarted.");
+    }
+
+    /// Changes the extension to operate either on 'user' mode or 'unlock-dialog' mode, switching
+    /// from one to the other means enabling/disabling every component except lockscreen blur.
+    _on_session_mode_changed(session) {
+        if (session.currentMode === 'user' || session.parentMode === 'user') {
+            if (!this._user_session_mode_enabled)
+                // we need to activate everything
+                this._enable_user_session();
+        }
+        else if (session.currentMode === 'unlock-dialog') {
+            if (this._user_session_mode_enabled)
+                // we need to disable the components related to the user session mode
+                this._disable_user_session();
+        }
     }
 
     /// Add or remove the clutter debug flag to disable clipped redraws.
@@ -193,7 +260,7 @@ export default class BlurMyShell extends Extension {
         );
     }
 
-    /// Enables every component needed, should be called when the shell is
+    /// Enables every component from the user session needed, should be called when the shell is
     /// entirely loaded as the `enable` methods interact with it.
     _enable_components() {
         // enable each component if needed, and if it is not already enabled
@@ -206,9 +273,6 @@ export default class BlurMyShell extends Extension {
 
         if (this._settings.overview.BLUR && !this._overview_blur.enabled)
             this._overview_blur.enable();
-
-        if (this._settings.lockscreen.BLUR)
-            this._lockscreen_blur.enable();
 
         if (this._settings.appfolder.BLUR)
             this._appfolder_blur.enable();

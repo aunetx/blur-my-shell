@@ -8,6 +8,10 @@
     "uuid": "blur-my-shell@aunetx",
     "gettext-domain": "blur-my-shell@aunetx",
     "settings-schema": "org.gnome.shell.extensions.blur-my-shell",
+    "session-modes": [
+        "unlock-dialog",
+        "user"
+    ],
     "original-authors": [
         "me@aunetx.dev"
     ],
