@@ -149,6 +149,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
             if (actor._blur_actor) {
                 actor.remove_child(actor._blur_actor);
                 actor._blur_actor.destroy();
+                delete actor._blur_actor;
             }
         });
         this.effects = [];

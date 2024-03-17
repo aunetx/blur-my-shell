@@ -160,6 +160,7 @@ export const OverviewBlur = class OverviewBlur {
 
     create_background_actor(monitor, is_transition) {
         let bg_actor = new Meta.BackgroundActor({
+            name: "blur-my-shell_background_actor",
             meta_display: global.display,
             monitor: monitor.index
         });
@@ -263,13 +264,15 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     remove_background_actors() {
-        Main.layoutManager.overviewGroup.get_children().forEach(actor => {
-            if (actor.constructor.name === 'Meta_BackgroundActor') {
-                actor.get_effects().forEach(effect => {
+        Main.layoutManager.overviewGroup.get_children().forEach(child => {
+            if (child instanceof Meta.BackgroundActor
+                && child.get_name() == "blur-my-shell_background_actor"
+            ) {
+                child.get_effects().forEach(effect => {
                     this.effects_manager.remove(effect);
                 });
-                Main.layoutManager.overviewGroup.remove_child(actor);
-                actor.destroy();
+                Main.layoutManager.overviewGroup.remove_child(child);
+                child.destroy();
             }
         });
         this.effects = [];
