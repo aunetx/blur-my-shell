@@ -1,6 +1,8 @@
 import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
@@ -15,39 +17,16 @@ const OVERVIEW_COMPONENTS_STYLE = [
 export const OverviewBlur = class OverviewBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
-        this.effects = [];
         this.settings = settings;
         this.effects_manager = effects_manager;
         this._workspace_switch_bg_actors = [];
+        this._bgManagers = [];
+        this.background_group = new Meta.BackgroundGroup({ name: 'bms-overview-backgroundgroup' });
         this.enabled = false;
     }
 
     enable() {
         this._log("blurring overview");
-
-        // connect to every background change (even without changing image)
-        // FIXME this signal is fired very often, so we should find another one
-        //       fired only when necessary (but that still catches all cases)
-        this.connections.connect(
-            Main.layoutManager._backgroundGroup,
-            'notify',
-            _ => {
-                this._log("updated background");
-                this.update_backgrounds();
-            }
-        );
-
-        // connect to monitors change
-        this.connections.connect(
-            Main.layoutManager,
-            'monitors-changed',
-            _ => {
-                if (Main.screenShield && !Main.screenShield.locked) {
-                    this._log("changed monitors");
-                    this.update_backgrounds();
-                }
-            }
-        );
 
         // add css class name for workspace-switch background
         Main.uiGroup.add_style_class_name("blurred-overview");
@@ -58,6 +37,10 @@ export const OverviewBlur = class OverviewBlur {
         // update backgrounds when the component is enabled
         this.update_backgrounds();
 
+        // connect to monitors change
+        this.connections.connect(Main.layoutManager, 'monitors-changed',
+            _ => this.update_backgrounds()
+        );
 
         // part for the workspace animation switch
 
@@ -129,10 +112,6 @@ export const OverviewBlur = class OverviewBlur {
                             );
                     }
 
-                outer_this.effects = outer_this.effects.filter(
-                    effects_group => !effects_group.is_transition
-                );
-
                 outer_this._workspace_switch_bg_actors.forEach(actor => {
                     actor.destroy();
                 });
@@ -146,21 +125,71 @@ export const OverviewBlur = class OverviewBlur {
     update_backgrounds() {
         // remove every old background
         this.remove_background_actors();
+        // create new backgrounds
+        for (let i = 0; i < Main.layoutManager.monitors.length; i++)
+            this.create_background(i);
+        // add the container widget to the overview group
+        Main.layoutManager.overviewGroup.insert_child_at_index(this.background_group, 0);
+    }
 
-        // add new backgrounds
-        Main.layoutManager.monitors.forEach(monitor => {
-            const bg_actor = this.create_background_actor(monitor, false);
-
-            Main.layoutManager.overviewGroup.insert_child_at_index(
-                bg_actor,
-                monitor.index
-            );
+    create_background(monitor_index) {
+        let monitor = Main.layoutManager.monitors[monitor_index];
+        let widget = new St.Widget({
+            style_class: 'bms-overview-blurred-background',
+            x: monitor.x,
+            y: monitor.y,
+            width: monitor.width,
+            height: monitor.height
         });
+
+        let blur_effect = new Shell.BlurEffect({
+            name: 'blur_effect',
+            brightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.BRIGHTNESS
+                : this.settings.BRIGHTNESS,
+            sigma: (this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.SIGMA
+                : this.settings.SIGMA) * monitor.geometry_scale,
+            mode: Shell.BlurMode.ACTOR
+        });
+
+        // store the scale in the effect in order to retrieve it in set_sigma
+        blur_effect.scale = monitor.geometry_scale;
+
+        let color_effect = this.effects_manager.new_color_effect({
+            name: 'color_effect',
+            color: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.COLOR
+                : this.settings.COLOR
+        }, this.settings);
+
+        let noise_effect = this.effects_manager.new_noise_effect({
+            name: 'noise_effect',
+            noise: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_AMOUNT
+                : this.settings.NOISE_AMOUNT,
+            lightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_LIGHTNESS
+                : this.settings.NOISE_LIGHTNESS
+        }, this.settings);
+
+        widget.add_effect(color_effect);
+        widget.add_effect(noise_effect);
+        widget.add_effect(blur_effect);
+
+        let bgManager = new Background.BackgroundManager({
+            container: widget,
+            monitorIndex: monitor_index,
+            controlPosition: false,
+        });
+        this._bgManagers.push(bgManager);
+
+        this.background_group.add_child(widget);
     }
 
     create_background_actor(monitor, is_transition) {
         let bg_actor = new Meta.BackgroundActor({
-            name: "blur-my-shell_background_actor",
+            name: "bms_background_actor",
             meta_display: global.display,
             monitor: monitor.index
         });
@@ -212,7 +241,6 @@ export const OverviewBlur = class OverviewBlur {
         bg_actor.add_effect(color_effect);
         bg_actor.add_effect(noise_effect);
         bg_actor.add_effect(blur_effect);
-        this.effects.push({ blur_effect, color_effect, noise_effect, is_transition });
 
         bg_actor.set_x(monitor.x);
         bg_actor.set_y(monitor.y);
@@ -231,6 +259,19 @@ export const OverviewBlur = class OverviewBlur {
             Main.uiGroup.add_style_class_name(
                 OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS - 1]
             );
+    }
+
+    get effects() {
+        let effects_list = [];
+        this._bgManagers.forEach(bgManager => {
+            effects_obj = {};
+            let widget = bgManager.backgroundActor.get_parent();
+            widget.get_effects().forEach(effect => {
+                effects_obj[effect.get_name()] = effect;
+            });
+            effects_list.push(effects_obj);
+        });
+        return effects_list;
     }
 
     set_sigma(s) {
@@ -264,22 +305,26 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     remove_background_actors() {
-        Main.layoutManager.overviewGroup.get_children().forEach(child => {
-            if (child instanceof Meta.BackgroundActor
-                && child.get_name() == "blur-my-shell_background_actor"
-            ) {
-                child.get_effects().forEach(effect => {
-                    this.effects_manager.remove(effect);
-                });
-                Main.layoutManager.overviewGroup.remove_child(child);
-                child.destroy();
-            }
+        this._bgManagers.forEach(bgManager => {
+            let widget = bgManager.backgroundActor.get_parent();
+            widget.get_effects().forEach(effect => {
+                this.effects_manager.remove(effect);
+            });
+            this.background_group.remove_child(widget);
+            bgManager.destroy();
         });
-        this.effects = [];
+
+        Main.layoutManager.overviewGroup.get_children().forEach(child => {
+            if (child.get_name() == 'bms-overview-backgroundgroup')
+                Main.layoutManager.overviewGroup.remove_child(child);
+        });
+
+        this._bgManagers = [];
     }
 
     disable() {
         this._log("removing blur from overview");
+
         this.remove_background_actors();
         Main.uiGroup.remove_style_class_name("blurred-overview");
         OVERVIEW_COMPONENTS_STYLE.forEach(
