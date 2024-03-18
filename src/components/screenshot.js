@@ -1,41 +1,23 @@
 import Shell from 'gi://Shell';
-import Meta from 'gi://Meta';
+import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
 
 export const ScreenshotBlur = class ScreenshotBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
-        this.effects = [];
         this.settings = settings;
+        this.screenshot_background_managers = [];
         this.effects_manager = effects_manager;
     }
 
     enable() {
         this._log("blurring screenshot's window selector");
 
-        // connect to every background change (even without changing image)
-        // FIXME this signal is fired very often, so we should find another one
-        //       fired only when necessary (but that still catches all cases)
-        this.connections.connect(
-            Main.layoutManager._backgroundGroup,
-            'notify',
-            _ => {
-                this._log("updated background for screenshot's window selector");
-                this.update_backgrounds();
-            }
-        );
-
         // connect to monitors change
-        this.connections.connect(
-            Main.layoutManager,
-            'monitors-changed',
-            _ => {
-                if (Main.screenShield && !Main.screenShield.locked) {
-                    this._log("changed monitors for screenshot's window selector");
-                    this.update_backgrounds();
-                }
-            }
+        this.connections.connect(Main.layoutManager, 'monitors-changed',
+            _ => this.update_backgrounds()
         );
 
         // update backgrounds when the component is enabled
@@ -44,46 +26,57 @@ export const ScreenshotBlur = class ScreenshotBlur {
 
     update_backgrounds() {
         // remove every old background
-        this.remove();
-
-        // add new backgrounds
+        this.remove_background_actors();
+        // create new backgrounds for the screenshot window selector
         for (let i = 0; i < Main.screenshotUI._windowSelectors.length; i++) {
-            const actor = Main.screenshotUI._windowSelectors[i];
-            const monitor = Main.layoutManager.monitors[i];
+            const window_selector = Main.screenshotUI._windowSelectors[i];
+            this.create_background(
+                window_selector._monitorIndex, this.screenshot_background_managers, window_selector
+            );
 
-            if (!monitor)
-                continue;
+            // prevent old `BackgroundActor` from being accessed, which creates a whole bug of logs
+            this.connections.connect(window_selector.get_parent(), 'destroy', _ => {
+                this.screenshot_background_managers.forEach(background_manager => {
+                    let widget = background_manager.backgroundActor.get_parent();
+                    let parent = widget?.get_parent();
 
-            const bg_actor = this.create_background_actor(monitor);
-            actor.insert_child_at_index(bg_actor, 0);
-            actor._blur_actor = bg_actor;
+                    if (parent == window_selector) {
+                        widget.get_effects().forEach(effect => {
+                            this.effects_manager.remove(effect);
+                        });
+                        parent.remove_child(widget);
+                    }
+                    background_manager.destroy();
+                });
+
+                window_selector.get_children().forEach(child => {
+                    if (child.get_name() == 'bms-screenshot-blurred-widget')
+                        window_selector.remove_child(child);
+                });
+
+                let index = this.screenshot_background_managers.indexOf(window_selector);
+                this.screenshot_background_managers.splice(index, 1);
+            });
         }
     }
 
-    create_background_actor(monitor) {
-        let bg_actor = new Meta.BackgroundActor({
-            meta_display: global.display,
-            monitor: monitor.index
-        });
-        let background = Main.layoutManager._backgroundGroup.get_child_at_index(
-            Main.layoutManager.monitors.length - monitor.index - 1
-        );
-
-        if (!background) {
-            this._warn("could not get background for screenshot's window selector");
-            return bg_actor;
-        }
-
-        bg_actor.content.set({
-            background: background.get_content().background
+    create_background(monitor_index, background_managers, background_group) {
+        let monitor = Main.layoutManager.monitors[monitor_index];
+        let widget = new St.Widget({
+            name: 'bms-screenshot-blurred-widget',
+            x: monitor.x,
+            y: monitor.y,
+            width: monitor.width,
+            height: monitor.height
         });
 
         let blur_effect = new Shell.BlurEffect({
-            brightness: this.settings.screenshot.CUSTOMIZE
-                ? this.settings.screenshot.BRIGHTNESS
+            name: 'blur_effect',
+            brightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: (this.settings.screenshot.CUSTOMIZE
-                ? this.settings.screenshot.SIGMA
+            sigma: (this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.SIGMA
                 : this.settings.SIGMA) * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
@@ -92,31 +85,52 @@ export const ScreenshotBlur = class ScreenshotBlur {
         blur_effect.scale = monitor.geometry_scale;
 
         let color_effect = this.effects_manager.new_color_effect({
-            color: this.settings.screenshot.CUSTOMIZE
-                ? this.settings.screenshot.COLOR
+            name: 'color_effect',
+            color: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.COLOR
                 : this.settings.COLOR
         }, this.settings);
 
         let noise_effect = this.effects_manager.new_noise_effect({
-            noise: this.settings.screenshot.CUSTOMIZE
-                ? this.settings.screenshot.NOISE_AMOUNT
+            name: 'noise_effect',
+            noise: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_AMOUNT
                 : this.settings.NOISE_AMOUNT,
-            lightness: this.settings.screenshot.CUSTOMIZE
-                ? this.settings.screenshot.NOISE_LIGHTNESS
+            lightness: this.settings.overview.CUSTOMIZE
+                ? this.settings.overview.NOISE_LIGHTNESS
                 : this.settings.NOISE_LIGHTNESS
         }, this.settings);
 
-        bg_actor.add_effect(color_effect);
-        bg_actor.add_effect(noise_effect);
-        bg_actor.add_effect(blur_effect);
-        this.effects.push({ blur_effect, color_effect, noise_effect });
+        widget.add_effect(color_effect);
+        widget.add_effect(noise_effect);
+        widget.add_effect(blur_effect);
 
-        return bg_actor;
+        let bgManager = new Background.BackgroundManager({
+            container: widget,
+            monitorIndex: monitor_index,
+            controlPosition: false,
+        });
+
+        background_managers.push(bgManager);
+        background_group.insert_child_at_index(widget, 0);
+    }
+
+    get effects() {
+        let effects_list = [];
+        this.screenshot_background_managers.forEach(background_manager => {
+            let effects_obj = {};
+            let widget = background_manager.backgroundActor.get_parent();
+            widget.get_effects().forEach(effect => {
+                effects_obj[effect.get_name()] = effect;
+            });
+            effects_list.push(effects_obj);
+        });
+        return effects_list;
     }
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s * effect.blur_effect;
+            effect.blur_effect.sigma = s * effect.blur_effect.scale;
         });
     }
 
@@ -144,21 +158,30 @@ export const ScreenshotBlur = class ScreenshotBlur {
         });
     }
 
-    remove() {
-        Main.screenshotUI._windowSelectors.forEach(actor => {
-            if (actor._blur_actor) {
-                actor.remove_child(actor._blur_actor);
-                actor._blur_actor.destroy();
-                delete actor._blur_actor;
-            }
+    remove_background_actors() {
+        this.screenshot_background_managers.forEach(background_manager => {
+            let widget = background_manager.backgroundActor.get_parent();
+            widget?.get_effects().forEach(effect => {
+                this.effects_manager.remove(effect);
+            });
+            widget?.get_parent()?.remove_child(widget);
+            background_manager.destroy();
         });
-        this.effects = [];
+
+        Main.screenshotUI._windowSelectors.forEach(window_selector =>
+            window_selector.get_children().forEach(child => {
+                if (child.get_name() == 'bms-screenshot-blurred-widget')
+                    window_selector.remove_child(child);
+            })
+        );
+
+        this.screenshot_background_managers = [];
     }
 
     disable() {
         this._log("removing blur from screenshot's window selector");
 
-        this.remove();
+        this.remove_background_actors();
         this.connections.disconnect_all();
     }
 
