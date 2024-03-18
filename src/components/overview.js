@@ -19,9 +19,14 @@ export const OverviewBlur = class OverviewBlur {
         this.connections = connections;
         this.settings = settings;
         this.effects_manager = effects_manager;
-        this._workspace_switch_bg_actors = [];
-        this._bgManagers = [];
-        this.background_group = new Meta.BackgroundGroup({ name: 'bms-overview-backgroundgroup' });
+        this.overview_background_managers = [];
+        this.overview_background_group = new Meta.BackgroundGroup(
+            { name: 'bms-overview-backgroundgroup' }
+        );
+        this.animation_background_managers = [];
+        this.animation_background_group = new Meta.BackgroundGroup(
+            { name: 'bms-animation-backgroundgroup' }
+        );
         this.enabled = false;
     }
 
@@ -74,26 +79,22 @@ export const OverviewBlur = class OverviewBlur {
                     );
                 }
 
-                Main.layoutManager.monitors.forEach(monitor => {
+                for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
                     if (
                         !(
                             Meta.prefs_get_workspaces_only_on_primary() &&
-                            (monitor !== Main.layoutManager.primaryMonitor)
+                            (i !== Main.layoutManager.primaryMonitor.index)
                         )
                     ) {
-                        const bg_actor = outer_this.create_background_actor(
-                            monitor, true
-                        );
+                        outer_this.create_background(i, outer_this.animation_background_managers,
+                            outer_this.animation_background_group);
 
                         Main.uiGroup.insert_child_above(
-                            bg_actor,
+                            outer_this.animation_background_group,
                             global.window_group
                         );
-
-                        // store the actors so that we can delete them later
-                        outer_this._workspace_switch_bg_actors.push(bg_actor);
                     }
-                });
+                }
             };
 
             // remove the workspace-switch actors when the switch is done
@@ -112,10 +113,21 @@ export const OverviewBlur = class OverviewBlur {
                             );
                     }
 
-                outer_this._workspace_switch_bg_actors.forEach(actor => {
-                    actor.destroy();
+                outer_this.animation_background_managers.forEach(background_manager => {
+                    let widget = background_manager.backgroundActor.get_parent();
+                    widget.get_effects().forEach(effect => {
+                        outer_this.effects_manager.remove(effect);
+                    });
+                    outer_this.animation_background_group.remove_child(widget);
+                    background_manager.destroy();
                 });
-                outer_this._workspace_switch_bg_actors = [];
+
+                Main.uiGroup.get_children().forEach(child => {
+                    if (child.get_name() == 'bms-animation-backgroundgroup')
+                        Main.uiGroup.remove_child(child);
+                });
+
+                outer_this.animation_background_managers = [];
             };
         }
 
@@ -125,17 +137,19 @@ export const OverviewBlur = class OverviewBlur {
     update_backgrounds() {
         // remove every old background
         this.remove_background_actors();
-        // create new backgrounds
+        // create new backgrounds for the overview
         for (let i = 0; i < Main.layoutManager.monitors.length; i++)
-            this.create_background(i);
+            this.create_background(
+                i, this.overview_background_managers,
+                this.overview_background_group
+            );
         // add the container widget to the overview group
-        Main.layoutManager.overviewGroup.insert_child_at_index(this.background_group, 0);
+        Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
     }
 
-    create_background(monitor_index) {
+    create_background(monitor_index, background_managers, background_group) {
         let monitor = Main.layoutManager.monitors[monitor_index];
         let widget = new St.Widget({
-            style_class: 'bms-overview-blurred-background',
             x: monitor.x,
             y: monitor.y,
             width: monitor.width,
@@ -182,70 +196,9 @@ export const OverviewBlur = class OverviewBlur {
             monitorIndex: monitor_index,
             controlPosition: false,
         });
-        this._bgManagers.push(bgManager);
 
-        this.background_group.add_child(widget);
-    }
-
-    create_background_actor(monitor, is_transition) {
-        let bg_actor = new Meta.BackgroundActor({
-            name: "bms_background_actor",
-            meta_display: global.display,
-            monitor: monitor.index
-        });
-        let background_group = Main.layoutManager._backgroundGroup
-            .get_children()
-            .filter((child) => child instanceof Meta.BackgroundActor);
-        let background =
-            background_group[
-            Main.layoutManager.monitors.length - monitor.index - 1
-            ];
-
-        if (!background) {
-            this._warn("could not get background for overview");
-            return bg_actor;
-        }
-
-        bg_actor.content.set({
-            background: background.get_content().background
-        });
-
-        let blur_effect = new Shell.BlurEffect({
-            brightness: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.BRIGHTNESS
-                : this.settings.BRIGHTNESS,
-            sigma: (this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.SIGMA
-                : this.settings.SIGMA) * monitor.geometry_scale,
-            mode: Shell.BlurMode.ACTOR
-        });
-
-        // store the scale in the effect in order to retrieve it in set_sigma
-        blur_effect.scale = monitor.geometry_scale;
-
-        let color_effect = this.effects_manager.new_color_effect({
-            color: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.COLOR
-                : this.settings.COLOR
-        }, this.settings);
-
-        let noise_effect = this.effects_manager.new_noise_effect({
-            noise: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.NOISE_AMOUNT
-                : this.settings.NOISE_AMOUNT,
-            lightness: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.NOISE_LIGHTNESS
-                : this.settings.NOISE_LIGHTNESS
-        }, this.settings);
-
-        bg_actor.add_effect(color_effect);
-        bg_actor.add_effect(noise_effect);
-        bg_actor.add_effect(blur_effect);
-
-        bg_actor.set_x(monitor.x);
-        bg_actor.set_y(monitor.y);
-
-        return bg_actor;
+        background_managers.push(bgManager);
+        background_group.add_child(widget);
     }
 
     /// Updates the classname to style overview components with semi-transparent
@@ -263,9 +216,9 @@ export const OverviewBlur = class OverviewBlur {
 
     get effects() {
         let effects_list = [];
-        this._bgManagers.forEach(bgManager => {
-            effects_obj = {};
-            let widget = bgManager.backgroundActor.get_parent();
+        this.overview_background_managers.forEach(background_manager => {
+            let effects_obj = {};
+            let widget = background_manager.backgroundActor.get_parent();
             widget.get_effects().forEach(effect => {
                 effects_obj[effect.get_name()] = effect;
             });
@@ -305,13 +258,13 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     remove_background_actors() {
-        this._bgManagers.forEach(bgManager => {
-            let widget = bgManager.backgroundActor.get_parent();
+        this.overview_background_managers.forEach(background_manager => {
+            let widget = background_manager.backgroundActor.get_parent();
             widget.get_effects().forEach(effect => {
                 this.effects_manager.remove(effect);
             });
-            this.background_group.remove_child(widget);
-            bgManager.destroy();
+            this.overview_background_group.remove_child(widget);
+            background_manager.destroy();
         });
 
         Main.layoutManager.overviewGroup.get_children().forEach(child => {
@@ -319,7 +272,7 @@ export const OverviewBlur = class OverviewBlur {
                 Main.layoutManager.overviewGroup.remove_child(child);
         });
 
-        this._bgManagers = [];
+        this.overview_background_managers = [];
     }
 
     disable() {
