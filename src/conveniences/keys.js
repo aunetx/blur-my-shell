@@ -83,7 +83,7 @@ export const Keys = [
             { type: Type.I, name: "opacity" },
             { type: Type.B, name: "blur-on-overview" },
             { type: Type.B, name: "enable-all" },
-            { type: Type.AS, name: "whitelist" },
+            { type: Type.ASD, name: "whitelist" },
             { type: Type.AS, name: "blacklist" },
         ]
     },
