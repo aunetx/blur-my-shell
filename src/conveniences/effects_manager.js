@@ -37,6 +37,7 @@ export const EffectsManager = class EffectsManager {
         if (this.color_effects.length > 0) {
             effect = this.color_effects.splice(0, 1)[0];
             effect.set(params);
+            effect._settings = settings;
         } else
             effect = new ColorEffect(params, settings);
 
@@ -50,6 +51,7 @@ export const EffectsManager = class EffectsManager {
         if (this.noise_effects.length > 0) {
             effect = this.noise_effects.splice(0, 1)[0];
             effect.set(params);
+            effect._settings = settings;
         } else
             effect = new NoiseEffect(params, settings);
 

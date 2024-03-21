@@ -1,11 +1,10 @@
-import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
-import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
+
+import { create_background } from '../conveniences/blur_creator.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
     "overview-components-light",
@@ -86,8 +85,12 @@ export const OverviewBlur = class OverviewBlur {
                             (i !== Main.layoutManager.primaryMonitor.index)
                         )
                     ) {
-                        outer_this.create_background(i, outer_this.animation_background_managers,
-                            outer_this.animation_background_group);
+                        create_background(
+                            i, outer_this.animation_background_managers,
+                            outer_this.animation_background_group, outer_this.settings,
+                            outer_this.settings.overview, outer_this.effects_manager,
+                            'bms-animation-blurred-widget'
+                        );
 
                         Main.uiGroup.insert_child_above(
                             outer_this.animation_background_group,
@@ -139,66 +142,14 @@ export const OverviewBlur = class OverviewBlur {
         this.remove_background_actors();
         // create new backgrounds for the overview
         for (let i = 0; i < Main.layoutManager.monitors.length; i++)
-            this.create_background(
+            create_background(
                 i, this.overview_background_managers,
-                this.overview_background_group
+                this.overview_background_group, this.settings,
+                this.settings.overview, this.effects_manager,
+                'bms-overview-blurred-widget'
             );
         // add the container widget to the overview group
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
-    }
-
-    create_background(monitor_index, background_managers, background_group) {
-        let monitor = Main.layoutManager.monitors[monitor_index];
-        let widget = new St.Widget({
-            x: monitor.x,
-            y: monitor.y,
-            width: monitor.width,
-            height: monitor.height
-        });
-
-        let blur_effect = new Shell.BlurEffect({
-            name: 'blur_effect',
-            brightness: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.BRIGHTNESS
-                : this.settings.BRIGHTNESS,
-            sigma: (this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.SIGMA
-                : this.settings.SIGMA) * monitor.geometry_scale,
-            mode: Shell.BlurMode.ACTOR
-        });
-
-        // store the scale in the effect in order to retrieve it in set_sigma
-        blur_effect.scale = monitor.geometry_scale;
-
-        let color_effect = this.effects_manager.new_color_effect({
-            name: 'color_effect',
-            color: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.COLOR
-                : this.settings.COLOR
-        }, this.settings);
-
-        let noise_effect = this.effects_manager.new_noise_effect({
-            name: 'noise_effect',
-            noise: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.NOISE_AMOUNT
-                : this.settings.NOISE_AMOUNT,
-            lightness: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.NOISE_LIGHTNESS
-                : this.settings.NOISE_LIGHTNESS
-        }, this.settings);
-
-        widget.add_effect(color_effect);
-        widget.add_effect(noise_effect);
-        widget.add_effect(blur_effect);
-
-        let bgManager = new Background.BackgroundManager({
-            container: widget,
-            monitorIndex: monitor_index,
-            controlPosition: false,
-        });
-
-        background_managers.push(bgManager);
-        background_group.add_child(widget);
     }
 
     /// Updates the classname to style overview components with semi-transparent

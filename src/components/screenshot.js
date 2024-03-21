@@ -1,7 +1,6 @@
-import Shell from 'gi://Shell';
-import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as Background from 'resource:///org/gnome/shell/ui/background.js';
+
+import { create_background } from '../conveniences/blur_creator.js';
 
 
 export const ScreenshotBlur = class ScreenshotBlur {
@@ -30,8 +29,11 @@ export const ScreenshotBlur = class ScreenshotBlur {
         // create new backgrounds for the screenshot window selector
         for (let i = 0; i < Main.screenshotUI._windowSelectors.length; i++) {
             const window_selector = Main.screenshotUI._windowSelectors[i];
-            this.create_background(
-                window_selector._monitorIndex, this.screenshot_background_managers, window_selector
+            create_background(
+                window_selector._monitorIndex, this.screenshot_background_managers,
+                window_selector, this.settings,
+                this.settings.overview, this.effects_manager,
+                'bms-screenshot-blurred-widget'
             );
 
             // prevent old `BackgroundActor` from being accessed, which creates a whole bug of logs
@@ -58,61 +60,6 @@ export const ScreenshotBlur = class ScreenshotBlur {
                 this.screenshot_background_managers.splice(index, 1);
             });
         }
-    }
-
-    create_background(monitor_index, background_managers, background_group) {
-        let monitor = Main.layoutManager.monitors[monitor_index];
-        let widget = new St.Widget({
-            name: 'bms-screenshot-blurred-widget',
-            x: monitor.x,
-            y: monitor.y,
-            width: monitor.width,
-            height: monitor.height
-        });
-
-        let blur_effect = new Shell.BlurEffect({
-            name: 'blur_effect',
-            brightness: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.BRIGHTNESS
-                : this.settings.BRIGHTNESS,
-            sigma: (this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.SIGMA
-                : this.settings.SIGMA) * monitor.geometry_scale,
-            mode: Shell.BlurMode.ACTOR
-        });
-
-        // store the scale in the effect in order to retrieve it in set_sigma
-        blur_effect.scale = monitor.geometry_scale;
-
-        let color_effect = this.effects_manager.new_color_effect({
-            name: 'color_effect',
-            color: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.COLOR
-                : this.settings.COLOR
-        }, this.settings);
-
-        let noise_effect = this.effects_manager.new_noise_effect({
-            name: 'noise_effect',
-            noise: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.NOISE_AMOUNT
-                : this.settings.NOISE_AMOUNT,
-            lightness: this.settings.overview.CUSTOMIZE
-                ? this.settings.overview.NOISE_LIGHTNESS
-                : this.settings.NOISE_LIGHTNESS
-        }, this.settings);
-
-        widget.add_effect(color_effect);
-        widget.add_effect(noise_effect);
-        widget.add_effect(blur_effect);
-
-        let bgManager = new Background.BackgroundManager({
-            container: widget,
-            monitorIndex: monitor_index,
-            controlPosition: false,
-        });
-
-        background_managers.push(bgManager);
-        background_group.insert_child_at_index(widget, 0);
     }
 
     get effects() {
