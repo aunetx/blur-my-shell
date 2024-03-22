@@ -22,7 +22,7 @@ export const create_background = function (
     });
 
     let blur_effect = new Shell.BlurEffect({
-        name: 'blur_effect',
+        name: 'blur',
         brightness: local_settings.CUSTOMIZE
             ? local_settings.BRIGHTNESS
             : global_settings.BRIGHTNESS,
@@ -36,14 +36,14 @@ export const create_background = function (
     blur_effect.scale = monitor.geometry_scale;
 
     let color_effect = effects_manager.new_color_effect({
-        name: 'color_effect',
+        name: 'color',
         color: local_settings.CUSTOMIZE
             ? local_settings.COLOR
             : global_settings.COLOR
     }, global_settings);
 
     let noise_effect = effects_manager.new_noise_effect({
-        name: 'noise_effect',
+        name: 'noise',
         noise: local_settings.CUSTOMIZE
             ? local_settings.NOISE_AMOUNT
             : global_settings.NOISE_AMOUNT,
@@ -64,4 +64,6 @@ export const create_background = function (
 
     background_managers.push(bgManager);
     background_group.insert_child_at_index(widget, 0);
+
+    return widget;
 };

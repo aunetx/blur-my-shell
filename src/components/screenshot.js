@@ -32,7 +32,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
             create_background(
                 window_selector._monitorIndex, this.screenshot_background_managers,
                 window_selector, this.settings,
-                this.settings.overview, this.effects_manager,
+                this.settings.screenshot, this.effects_manager,
                 'bms-screenshot-blurred-widget'
             );
 
@@ -77,31 +77,31 @@ export const ScreenshotBlur = class ScreenshotBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s * effect.blur_effect.scale;
+            effect.blur.sigma = s * effect.blur.scale;
         });
     }
 
     set_brightness(b) {
         this.effects.forEach(effect => {
-            effect.blur_effect.brightness = b;
+            effect.blur.brightness = b;
         });
     }
 
     set_color(c) {
         this.effects.forEach(effect => {
-            effect.color_effect.color = c;
+            effect.color.color = c;
         });
     }
 
     set_noise_amount(n) {
         this.effects.forEach(effect => {
-            effect.noise_effect.noise = n;
+            effect.noise.noise = n;
         });
     }
 
     set_noise_lightness(l) {
         this.effects.forEach(effect => {
-            effect.noise_effect.lightness = l;
+            effect.noise.lightness = l;
         });
     }
 
