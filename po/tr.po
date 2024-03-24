@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2024-03-17 16:08+0000\n"
+"PO-Revision-Date: 2024-03-19 00:01+0000\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
@@ -201,6 +201,7 @@ msgstr "Yuvarlatılmış köşe yarı çapı"
 #: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
+"Yuvarlama efekti yarıçapı. Yalnızca statik bulanıklık ile kullanılabilir."
 
 #: dash.ui:66 panel.ui:56
 msgid "Override background"
