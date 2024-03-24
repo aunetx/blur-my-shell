@@ -324,7 +324,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Add the blur effect to the window.
     create_blur_effect(pid, window_actor, meta_window, brightness, sigma) {
         let blur_effect = new Shell.BlurEffect({
-            sigma: sigma,
+            radius: sigma * 2,
             brightness: brightness,
             mode: Shell.BlurMode.BACKGROUND
         });
@@ -465,7 +465,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Updates the blur effect by overwriting its sigma and brightness values.
     update_blur_effect(blur_actor, brightness, sigma) {
         let effect = blur_actor.get_effect('blur-effect');
-        effect.sigma = sigma;
+        effect.radius = sigma * 2;
         effect.brightness = brightness;
     }
 

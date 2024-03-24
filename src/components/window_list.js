@@ -24,7 +24,7 @@ export const WindowListBlur = class WindowListBlur {
         // if is window-list
         this.connections.connect(
             Main.layoutManager.uiGroup,
-            'actor-added',
+            'child-added',
             (_, child) => this.try_blur(child)
         );
 
@@ -46,9 +46,9 @@ export const WindowListBlur = class WindowListBlur {
 
             let blur_effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
-                sigma: this.settings.window_list.CUSTOMIZE
-                    ? this.settings.window_list.SIGMA
-                    : this.settings.SIGMA,
+                radius: (this.settings.window_list.CUSTOMIZE
+                        ? this.settings.window_list.SIGMA
+                        : this.settings.SIGMA) * 2,
                 brightness: this.settings.window_list.CUSTOMIZE
                     ? this.settings.window_list.BRIGHTNESS
                     : this.settings.BRIGHTNESS,
@@ -65,7 +65,7 @@ export const WindowListBlur = class WindowListBlur {
 
             this.connections.connect(
                 child._windowList,
-                'actor-added',
+                'child-added',
                 (_, window) => this.blur_window_button(window)
             );
 
@@ -117,7 +117,7 @@ export const WindowListBlur = class WindowListBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s;
+            effect.blur_effect.radius = s * 2;
         });
     }
 

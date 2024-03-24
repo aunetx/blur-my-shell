@@ -185,9 +185,9 @@ export const OverviewBlur = class OverviewBlur {
             brightness: this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: (this.settings.overview.CUSTOMIZE
+            radius: (this.settings.overview.CUSTOMIZE
                 ? this.settings.overview.SIGMA
-                : this.settings.SIGMA) * monitor.geometry_scale,
+                : this.settings.SIGMA) * 2 * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
 
@@ -235,7 +235,7 @@ export const OverviewBlur = class OverviewBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s * effect.blur_effect.scale;
+            effect.blur_effect.radius = s * 2 * effect.blur_effect.scale;
         });
     }
 
