@@ -121,7 +121,6 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
-.overview-components-transparent .workspace-thumbnail,
 .overview-components-transparent .overview-tile,
 .overview-components-transparent .overview-icon,
 .overview-components-transparent .list-search-result,
@@ -133,6 +132,7 @@
     background-color: transparent;
 }
 
+.overview-components-transparent .workspace-thumbnail,
 .overview-components-transparent .search-section-content,
 .overview-components-transparent .overview-tile.app-folder,
 .overview-components-transparent .page-navigation-arrow,
@@ -214,7 +214,6 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
-.overview-components-light .workspace-thumbnail,
 .overview-components-light .overview-tile,
 .overview-components-light .overview-icon,
 .overview-components-light .list-search-result,
@@ -226,6 +225,7 @@
     background-color: transparent;
 }
 
+.overview-components-light .workspace-thumbnail,
 .overview-components-light .search-section-content,
 .overview-components-light .overview-tile.app-folder,
 .overview-components-light .page-navigation-arrow,
@@ -307,7 +307,6 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
-.overview-components-dark .workspace-thumbnail,
 .overview-components-dark .overview-tile,
 .overview-components-dark .overview-icon,
 .overview-components-dark .list-search-result,
@@ -319,6 +318,7 @@
     background-color: transparent;
 }
 
+.overview-components-dark .workspace-thumbnail,
 .overview-components-dark .search-section-content,
 .overview-components-dark .overview-tile.app-folder,
 .overview-components-dark .page-navigation-arrow,
