@@ -82,9 +82,9 @@ export const ScreenshotBlur = class ScreenshotBlur {
             brightness: this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: (this.settings.screenshot.CUSTOMIZE
+            radius: (this.settings.screenshot.CUSTOMIZE
                 ? this.settings.screenshot.SIGMA
-                : this.settings.SIGMA) * monitor.geometry_scale,
+                : this.settings.SIGMA) * 2 * monitor.geometry_scale,
             mode: Shell.BlurMode.ACTOR
         });
 
@@ -116,7 +116,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur_effect.sigma = s * effect.blur_effect;
+            effect.blur_effect.radius = s * 2 * effect.blur_effect;
         });
     }
 

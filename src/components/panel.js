@@ -170,9 +170,9 @@ export const PanelBlur = class PanelBlur {
             brightness: this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.BRIGHTNESS
                 : this.settings.BRIGHTNESS,
-            sigma: (this.settings.panel.CUSTOMIZE
+            radius: (this.settings.panel.CUSTOMIZE
                 ? this.settings.panel.SIGMA
-                : this.settings.SIGMA) * monitor.geometry_scale,
+                : this.settings.SIGMA) * 2 * monitor.geometry_scale,
             mode: this.settings.panel.STATIC_BLUR
                 ? Shell.BlurMode.ACTOR
                 : Shell.BlurMode.BACKGROUND
@@ -438,10 +438,10 @@ export const PanelBlur = class PanelBlur {
             }
 
             // manage windows at their creation/removal
-            this.connections.connect(global.window_group, 'actor-added',
+            this.connections.connect(global.window_group, 'child-added',
                 this.on_window_actor_added.bind(this)
             );
-            this.connections.connect(global.window_group, 'actor-removed',
+            this.connections.connect(global.window_group, 'child-removed',
                 this.on_window_actor_removed.bind(this)
             );
 
@@ -610,7 +610,7 @@ export const PanelBlur = class PanelBlur {
 
     set_sigma(s) {
         this.actors_list.forEach(actors => {
-            actors.effects.blur.sigma = s * actors.effects.blur.scale;
+            actors.effects.blur.radius = s * 2 * actors.effects.blur.scale;
             this.invalidate_blur(actors);
         });
     }

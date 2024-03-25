@@ -59,9 +59,8 @@ class DashInfos {
         dash_blur.connections.connect(dash_blur, 'update-sigma', () => {
             if (this.dash_blur.is_static) {
                 this.dash_blur.update_size();
-                this.effect.radius = 2 * this.dash_blur.sigma * this.effect.scale;
-            } else
-                this.effect.sigma = this.dash_blur.sigma * this.effect.scale;
+            }
+            this.effect.radius = 2 * this.dash_blur.sigma * this.effect.scale;
         });
 
         dash_blur.connections.connect(dash_blur, 'update-brightness', () => {
@@ -92,14 +91,14 @@ class DashInfos {
             if (this.dash_blur.is_static)
                 this.background_parent.show();
             else
-                this.effect.sigma = this.dash_blur.sigma * this.effect.scale;
+                this.effect.radius = this.dash_blur.sigma * 2 * this.effect.scale;
         });
 
         dash_blur.connections.connect(dash_blur, 'hide', () => {
             if (this.dash_blur.is_static)
                 this.background_parent.hide();
             else
-                this.effect.sigma = 0;
+                this.effect.radius = 0;
         });
 
         dash_blur.connections.connect(dash_blur, 'update-wallpaper', () => {
@@ -221,7 +220,7 @@ export const DashBlur = class DashBlur {
     }
 
     enable() {
-        this.connections.connect(Main.uiGroup, 'actor-added', (_, actor) => {
+        this.connections.connect(Main.uiGroup, 'child-added', (_, actor) => {
             if (
                 (actor.get_name() === "dashtodockContainer") &&
                 (actor.constructor.name === 'DashToDock')
@@ -375,7 +374,7 @@ export const DashBlur = class DashBlur {
         } else {
             effect = new Shell.BlurEffect({
                 brightness: this.brightness,
-                sigma: this.sigma * monitor.geometry_scale,
+                radius: this.sigma * 2 * monitor.geometry_scale,
                 mode: Shell.BlurMode.BACKGROUND
             });
 
