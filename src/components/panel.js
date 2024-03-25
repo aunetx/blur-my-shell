@@ -410,6 +410,9 @@ export const PanelBlur = class PanelBlur {
                 this.connections.connect(
                     appDisplay, 'hide', this.show.bind(this)
                 );
+                this.connections.connect(
+                    Main.overview, 'hidden', this.show.bind(this)
+                );
             }
 
         }
