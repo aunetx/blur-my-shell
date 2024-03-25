@@ -148,13 +148,14 @@ gsettings set org.gnome.desktop.background picture-opacity 99 && gsettings set o
 
 The current extension supports these GNOME Shell versions:
 
-- 45 -- `master` branch
+- 46 -- `master` branch
 
-Blur my Shell supports older GNOME Shell versions, with versions 29 and 47:
+Blur my Shell supports older GNOME Shell versions, with different version tags:
 
+- 45 -- version 58, `v58` tag
 - 44 -- version 47, `v47` tag
 - 43 -- version 47, `v47` tag
-- 42 -- version 29, `v47` tag
+- 42 -- version 29, `v29` tag
 - 41 -- version 29, `v29` tag
 - 40 -- version 29, `v29` tag
 
