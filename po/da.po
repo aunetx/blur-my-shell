@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-03-25 22:58+0000\n"
+"Last-Translator: Dennis Dupont <dupont@et-eller-andet.dk>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Applikationer"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "Slør applikationer (beta)"
 
 #: applications.ui:11
 msgid ""
@@ -31,6 +34,10 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"Tilføjer gennemsigtighed til programmerne. Denne funktion er stadig i beta.\n"
+"For at få det bedste resultat, så vælg indstillingen \"Ingen artefakter\" "
+"under \"Generelt → Hack level\" præferencerne.\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
