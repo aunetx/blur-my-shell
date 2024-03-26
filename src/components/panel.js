@@ -320,7 +320,7 @@ export const PanelBlur = class PanelBlur {
                 - this.find_monitor_for(actors.widgets.panel).index - 1
             );
             if (bg && bg.get_content())
-                actors.widgets.background.content.set({
+                actors.widgets.background.content?.set({
                     background: bg.get_content().background
                 });
             else
