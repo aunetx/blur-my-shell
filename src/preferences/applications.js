@@ -32,6 +32,7 @@ export const Applications = GObject.registerClass({
         'blur',
         'customize',
         'opacity',
+        'dynamic_opacity',
         'blur_on_overview',
         'enable_all',
         'whitelist',
@@ -52,6 +53,10 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'opacity', this._opacity, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'dynamic-opacity', this._dynamic_opacity, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
