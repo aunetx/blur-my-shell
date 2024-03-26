@@ -37,11 +37,11 @@ let _zoomAndFadeIn = function () {
 
     let blur_effect = this.get_effect("appfolder-blur");
 
-    blur_effect.sigma = 0;
+    blur_effect.radius = 0;
     blur_effect.brightness = 1.0;
     Tweener.addTween(blur_effect,
         {
-            sigma: sigma,
+            radius: sigma * 2,
             brightness: brightness,
             time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
             transition: 'easeOutQuad'
@@ -85,7 +85,7 @@ let _zoomAndFadeOut = function () {
     let blur_effect = this.get_effect("appfolder-blur");
     Tweener.addTween(blur_effect,
         {
-            sigma: 0,
+            radius: 0,
             brightness: 1.0,
             time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
             transition: 'easeInQuad'
@@ -165,7 +165,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
 
             let blur_effect = new Shell.BlurEffect({
                 name: "appfolder-blur",
-                sigma: sigma,
+                radius: sigma * 2,
                 brightness: brightness,
                 mode: Shell.BlurMode.BACKGROUND
             });

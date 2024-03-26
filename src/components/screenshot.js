@@ -77,7 +77,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
 
     set_sigma(s) {
         this.effects.forEach(effect => {
-            effect.blur.sigma = s * effect.blur.scale;
+            effect.blur.sigma = s * 2 * effect.blur.scale;
         });
     }
 

@@ -479,6 +479,12 @@ export default class BlurMyShell extends Extension {
                 );
         });
 
+        // application dynamic-opacity changed
+        this._settings.applications.DYNAMIC_OPACITY_changed(_ => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.init_dynamic_opacity();
+        });
+
         // application blur-on-overview changed
         this._settings.applications.BLUR_ON_OVERVIEW_changed(_ => {
             if (this._settings.applications.BLUR)

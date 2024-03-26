@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2023-12-08 08:05+0000\n"
-"Last-Translator: Ys413 <2020172007@stu.mdjnu.edu.cn>\n"
+"PO-Revision-Date: 2024-03-23 19:01+0000\n"
+"Last-Translator: Colgrave <hanqixu.blogs@simplelogin.co>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -174,19 +174,22 @@ msgid "Static blur"
 msgstr "静态模糊"
 
 #: dash.ui:28
+#, fuzzy
 msgid ""
 "Uses a static blurred image, can be used with rounding effect.\n"
 "<b>Important notice:</b> with this activated, you should not use a big sigma "
 "value as it will deteriorate performances."
 msgstr ""
+"使用静态模糊图像，可与圆角效果一起使用。\n"
+"<b>重要提示：</b>激活此功能后，不应使用较大的西格玛值，否则会降低性能。"
 
 #: dash.ui:43
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "圆角弧度"
 
 #: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
-msgstr ""
+msgstr "圆角效果的半径。仅适用于静态模糊。"
 
 #: dash.ui:66 panel.ui:56
 msgid "Override background"

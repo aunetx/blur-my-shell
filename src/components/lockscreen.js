@@ -67,7 +67,7 @@ export const LockscreenBlur = class LockscreenBlur {
 
         let blur_effect = new Shell.BlurEffect({
             name: 'blur',
-            sigma: sigma,
+            radius: sigma * 2,
             brightness: brightness
         });
 
@@ -121,7 +121,7 @@ export const LockscreenBlur = class LockscreenBlur {
             if (blur_effect) {
                 blur_effect.set({
                     brightness: brightness,
-                    sigma: sigma * blur_effect.scale,
+                    radius: sigma * 2 * blur_effect.scale,
                 });
             }
         }

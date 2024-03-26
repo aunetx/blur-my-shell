@@ -13,8 +13,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.settings = settings;
         this.paint_signals = new PaintSignals(connections);
 
-        this.mutter_gsettings = new Gio.Settings({ schema: 'org.gnome.mutter' });
-
         // stores every blurred window
         this.window_map = new Map();
         // stores every blur actor
@@ -27,6 +25,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // export dbus service for preferences
         this.service = new ApplicationsService;
         this.service.export();
+
+        this.mutter_gsettings = new Gio.Settings({ schema: 'org.gnome.mutter' });
 
         // blur already existing windows
         this.update_all_windows();
@@ -45,7 +45,43 @@ export const ApplicationsBlur = class ApplicationsBlur {
             }
         );
 
+        // update window blur when focus is changed
+        this.focused_window_pid = null;
+        this.init_dynamic_opacity();
+        this.connections.connect(
+            global.display,
+            'focus-window',
+            (_meta_display, meta_window, _p0) => {
+                if (meta_window && meta_window.blur_provider_pid != this.focused_window_pid) {
+                    this._log(`focus changed to pid ${meta_window.blur_provider_pid}`);
+                    if (this.focused_window_pid) {
+                        let focused_window = this.window_map.get(this.focused_window_pid);
+                        if (focused_window)
+                            this.set_focus_for_window(focused_window, false);
+                    }
+                    this.set_focus_for_window(meta_window);
+                }
+            }
+        );
+
         this.connect_to_overview();
+    }
+
+    /// Initializes the dynamic opacity for windows, without touching to the connections.
+    /// This is used both when enabling the component, and when changing the dynamic-opacity pref.
+    init_dynamic_opacity() {
+        if (this.settings.applications.DYNAMIC_OPACITY) {
+            // make the currently focused window solid
+            if (global.display.focus_window)
+                this.set_focus_for_window(global.display.focus_window);
+        } else {
+            // remove old focused window if the pref was changed
+            if (this.focused_window_pid) {
+                let focused_window = this.window_map.get(this.focused_window_pid);
+                if (focused_window)
+                    this.set_focus_for_window(focused_window, false);
+            }
+        }
     }
 
     /// Connect to the overview being opened/closed to force the blur being
@@ -60,7 +96,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 Main.overview, 'showing',
                 _ => this.window_map.forEach((meta_window, _pid) => {
                     let window_actor = meta_window.get_compositor_private();
-                    window_actor.show();
+                    window_actor?.show();
                 })
             );
 
@@ -324,7 +360,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Add the blur effect to the window.
     create_blur_effect(pid, window_actor, meta_window, brightness, sigma) {
         let blur_effect = new Shell.BlurEffect({
-            sigma: sigma,
+            radius: sigma * 2,
             brightness: brightness,
             mode: Shell.BlurMode.BACKGROUND
         });
@@ -352,24 +388,26 @@ export const ApplicationsBlur = class ApplicationsBlur {
         if (this.settings.applications.BLUR_ON_OVERVIEW)
             this.enforce_window_visibility_on_overview_for(window_actor);
 
+        // register the blur actor/effect
+        blur_actor['blur_provider_pid'] = pid;
+        this.blur_actor_map.set(pid, blur_actor);
+        this.window_map.set(pid, meta_window);
+
         // set the window actor's opacity
         this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
 
         this.connections.connect(
             window_actor,
             'notify::opacity',
-            _ => this.set_window_opacity(window_actor, this.settings.applications.OPACITY)
+            _ => {
+                if (this.focused_window_pid != pid)
+                    this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
+            }
         );
 
-        // register the blur actor/effect
-        blur_actor['blur_provider_pid'] = pid;
-        this.blur_actor_map.set(pid, blur_actor);
-        this.window_map.set(pid, meta_window);
-
         // hide the blur if window is invisible
-        if (!window_actor.visible) {
+        if (!window_actor.visible)
             blur_actor.hide();
-        }
 
         // hide the blur if window becomes invisible
         this.connections.connect(
@@ -384,6 +422,25 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 }
             }
         );
+    }
+
+    set_focus_for_window(meta_window, focus = true) {
+        if (!this.settings.applications.DYNAMIC_OPACITY)
+            focus = false;
+        let pid = meta_window.blur_provider_pid;
+        let blur_actor = this.blur_actor_map.get(pid);
+        if (!blur_actor)
+            return;
+
+        let window_actor = meta_window.get_compositor_private();
+        if (focus) {
+            blur_actor.hide();
+            this.set_window_opacity(window_actor, 255);
+            this.focused_window_pid = pid;
+        } else {
+            blur_actor.show();
+            this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
+        }
     }
 
     /// Makes sure that, when the overview is visible, the window actor will
@@ -412,7 +469,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
     /// Set the opacity of the window actor that sits on top of the blur effect.
     set_window_opacity(window_actor, opacity) {
-        window_actor.get_children().forEach(child => {
+        window_actor?.get_children().forEach(child => {
             if (child.name !== "blur-actor" && child.opacity != opacity)
                 child.opacity = opacity;
         });
@@ -465,7 +522,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Updates the blur effect by overwriting its sigma and brightness values.
     update_blur_effect(blur_actor, brightness, sigma) {
         let effect = blur_actor.get_effect('blur-effect');
-        effect.sigma = sigma;
+        effect.radius = sigma * 2;
         effect.brightness = brightness;
     }
 
@@ -515,9 +572,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
     set_opacity() {
         let opacity = this.settings.applications.OPACITY;
 
-        this.window_map.forEach(((meta_window, _pid) => {
-            let window_actor = meta_window.get_compositor_private();
-            this.set_window_opacity(window_actor, opacity);
+        this.window_map.forEach(((meta_window, pid) => {
+            if (pid != this.focused_window_pid) {
+                let window_actor = meta_window.get_compositor_private();
+                this.set_window_opacity(window_actor, opacity);
+            }
         }));
     }
 
@@ -527,7 +586,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     // xprop behaviour
     set_sigma(s) {
         this.blur_actor_map.forEach((actor, _) => {
-            actor.get_effect('blur-effect').set_sigma(s);
+            actor.get_effect('blur-effect').set_radius(s * 2);
         });
     }
 

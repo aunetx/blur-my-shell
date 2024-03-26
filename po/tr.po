@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2023-12-06 18:11+0000\n"
-"Last-Translator: Taylan Tatlı <taylantatli90@gmail.com>\n"
+"PO-Revision-Date: 2024-03-19 00:01+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
@@ -196,11 +196,12 @@ msgstr ""
 
 #: dash.ui:43
 msgid "Rounded corner radius"
-msgstr ""
+msgstr "Yuvarlatılmış köşe yarı çapı"
 
 #: dash.ui:44
 msgid "The radius for the rounding effect. Only available with static blur."
 msgstr ""
+"Yuvarlama efekti yarıçapı. Yalnızca statik bulanıklık ile kullanılabilir."
 
 #: dash.ui:66 panel.ui:56
 msgid "Override background"

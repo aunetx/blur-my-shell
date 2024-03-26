@@ -68,7 +68,7 @@
 }
 
 
-/*** DASH ***/
+/*** DASH-TO-DOCK ***/
 
 /*
 * `.transparent-dash`
@@ -107,7 +107,6 @@
 */
 
 .overview-components-transparent .workspace-thumbnail {
-    background-color: rgba(0, 0, 0, 0);
     border: 1px solid rgba(100, 100, 100, 0.35);
 }
 
@@ -122,52 +121,88 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
-.overview-components-transparent .search-section-content {
-    border: none;
-    box-shadow: none;
-}
-
-.overview-components-transparent .search-section-content,
-.overview-components-transparent .app-folder .overview-icon {
-    background-color: rgba(0, 0, 0, 0);
-}
-
+.overview-components-transparent .overview-tile,
+.overview-components-transparent .overview-icon,
+.overview-components-transparent .list-search-result,
+.overview-components-transparent .search-provider-icon,
 /* prevents the extension from interfering with Just Perfection */
-.overview-components-transparent.just-perfection .search-section-content {
+.overview-components-transparent.just-perfection .search-section-content,
+/* remove the rectangular background from the dash */
+.overview-components-transparent #dash .overview-tile,
+.overview-components-transparent #dashtopanelScrollview .overview-tile {
     background-color: transparent;
 }
 
-.overview-components-transparent .app-folder .overview-icon {
-    border-color: transparent;
-}
-
-.overview-components-transparent .app-folder:hover .overview-icon,
-.overview-components-transparent .app-folder:focus .overview-icon {
-    background-color: rgba(230, 230, 230, 0.08);
-}
-
-.overview-components-transparent .app-folder:active .overview-icon,
-.overview-components-transparent .app-folder:focus:hover .overview-icon,
-.overview-components-transparent .app-folder:drop .overview-icon {
-    background-color: rgba(230, 230, 230, 0.12);
-}
-
-.overview-components-transparent .app-folder:focus:active .overview-icon {
-    background-color: rgba(230, 230, 230, 0.15);
-}
-
+.overview-components-transparent .workspace-thumbnail,
+.overview-components-transparent .search-section-content,
+.overview-components-transparent .overview-tile.app-folder,
+.overview-components-transparent .page-navigation-arrow,
+.overview-components-transparent .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
 .overview-components-transparent StBoxLayout>StWidget>#dash>.dash-background {
     background-color: rgba(0, 0, 0, 0);
 }
 
+.overview-components-transparent .overview-tile:hover,
+.overview-components-transparent .overview-tile:focus,
+.overview-components-transparent .overview-tile:selected,
+.overview-components-transparent .overview-tile:highlighted,
+.overview-components-transparent .list-search-result:hover,
+.overview-components-transparent .list-search-result:focus,
+.overview-components-transparent .list-search-result:selected,
+.overview-components-transparent .list-search-result:highlighted,
+.overview-components-transparent .search-provider-icon:hover,
+.overview-components-transparent .search-provider-icon:focus,
+.overview-components-transparent .page-navigation-arrow:hover,
+.overview-components-transparent .page-navigation-arrow:focus,
+.overview-components-transparent .app-folder-dialog .icon-button:hover,
+.overview-components-transparent .app-folder-dialog .icon-button:focus,
+.overview-components-transparent #dash .overview-tile:hover .overview-icon,
+.overview-components-transparent #dash .overview-tile:focus .overview-icon,
+.overview-components-transparent #dash .show-apps:hover .overview-icon,
+.overview-components-transparent #dash .show-apps:focus .overview-icon {
+    background-color: rgba(230, 230, 230, 0.08);
+}
+
+.overview-components-transparent .overview-tile:active,
+.overview-components-transparent .overview-tile:focus:hover,
+.overview-components-transparent .overview-tile:drop,
+.overview-components-transparent .overview-tile:selected:hover,
+.overview-components-transparent .overview-tile:highlighted:hover,
+.overview-components-transparent .list-search-result:active,
+.overview-components-transparent .list-search-result:focus:hover,
+.overview-components-transparent .list-search-result:selected:hover,
+.overview-components-transparent .list-search-result:highlighted:hover,
+.overview-components-transparent .search-provider-icon:active,
+.overview-components-transparent .search-provider-icon:focus:hover,
+.overview-components-transparent .page-navigation-arrow:active,
+.overview-components-transparent .page-navigation-arrow:focus:hover,
+.overview-components-transparent .app-folder-dialog .icon-button:active,
+.overview-components-transparent .app-folder-dialog .icon-button:focus:hover,
+.overview-components-transparent #dash .overview-tile:active .overview-icon,
+.overview-components-transparent #dash .overview-tile:focus:hover .overview-icon,
+.overview-components-transparent #dash .overview-tile:drop .overview-icon,
+.overview-components-transparent #dash .show-apps:checked .overview-icon {
+    background-color: rgba(230, 230, 230, 0.12);
+}
+
+.overview-components-transparent .overview-tile:focus:active,
+.overview-components-transparent .overview-tile:selected:active,
+.overview-components-transparent .overview-tile:highlighted:active,
+.overview-components-transparent .list-search-result:focus:active,
+.overview-components-transparent .list-search-result:selected:active,
+.overview-components-transparent .list-search-result:highlighted:active,
+.overview-components-transparent .search-provider-icon:focus:active,
+.overview-components-transparent .page-navigation-arrow:focus:active,
+.overview-components-transparent .app-folder-dialog .icon-button:focus:active,
+.overview-components-transparent #dash .show-apps:checked .overview-icon:hover {
+    background-color: rgba(230, 230, 230, 0.15);
+}
+
+
 /*
 * `.overview-components-light`
 */
-
-.overview-components-light .workspace-thumbnail {
-    background-color: rgba(200, 200, 200, 0.2);
-}
 
 .overview-components-light .search-entry {
     color: white;
@@ -180,53 +215,88 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
-.overview-components-light .search-section-content {
-    border: none;
-    box-shadow: none;
-}
-
-.overview-components-light .search-section-content,
-.overview-components-light .app-folder .overview-icon {
-    background-color: rgba(200, 200, 200, 0.2);
-}
-
+.overview-components-light .overview-tile,
+.overview-components-light .overview-icon,
+.overview-components-light .list-search-result,
+.overview-components-light .search-provider-icon,
 /* prevents the extension from interfering with Just Perfection */
-.overview-components-light.just-perfection .search-section-content {
+.overview-components-light.just-perfection .search-section-content,
+/* remove the rectangular background from the dash */
+.overview-components-light #dash .overview-tile,
+.overview-components-light #dashtopanelScrollview .overview-tile {
     background-color: transparent;
 }
 
-.overview-components-light .app-folder .overview-icon {
-    border-color: transparent;
-}
-
-.overview-components-light .app-folder:hover .overview-icon,
-.overview-components-light .app-folder:focus .overview-icon {
-    background-color: rgba(230, 230, 230, 0.2);
-}
-
-.overview-components-light .app-folder:active .overview-icon,
-.overview-components-light .app-folder:focus:hover .overview-icon,
-.overview-components-light .app-folder:drop .overview-icon {
-    background-color: rgba(230, 230, 230, 0.25);
-}
-
-.overview-components-light .app-folder:focus:active .overview-icon {
-    background-color: rgba(230, 230, 230, 0.3);
-}
-
+.overview-components-light .workspace-thumbnail,
+.overview-components-light .search-section-content,
+.overview-components-light .overview-tile.app-folder,
+.overview-components-light .page-navigation-arrow,
+.overview-components-light .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
 .overview-components-light StBoxLayout>StWidget>#dash>.dash-background {
     background-color: rgba(200, 200, 200, 0.2);
+}
+
+.overview-components-light .overview-tile:hover,
+.overview-components-light .overview-tile:focus,
+.overview-components-light .overview-tile:selected,
+.overview-components-light .overview-tile:highlighted,
+.overview-components-light .list-search-result:hover,
+.overview-components-light .list-search-result:focus,
+.overview-components-light .list-search-result:selected,
+.overview-components-light .list-search-result:highlighted,
+.overview-components-light .search-provider-icon:hover,
+.overview-components-light .search-provider-icon:focus,
+.overview-components-light .page-navigation-arrow:hover,
+.overview-components-light .page-navigation-arrow:focus,
+.overview-components-light .app-folder-dialog .icon-button:hover,
+.overview-components-light .app-folder-dialog .icon-button:focus,
+.overview-components-light #dash .overview-tile:hover .overview-icon,
+.overview-components-light #dash .overview-tile:focus .overview-icon,
+.overview-components-light #dash .show-apps:hover .overview-icon,
+.overview-components-light #dash .show-apps:focus .overview-icon {
+    background-color: rgba(230, 230, 230, 0.2);
+}
+
+.overview-components-light .overview-tile:active,
+.overview-components-light .overview-tile:focus:hover,
+.overview-components-light .overview-tile:drop,
+.overview-components-light .overview-tile:selected:hover,
+.overview-components-light .overview-tile:highlighted:hover,
+.overview-components-light .list-search-result:active,
+.overview-components-light .list-search-result:focus:hover,
+.overview-components-light .list-search-result:selected:hover,
+.overview-components-light .list-search-result:highlighted:hover,
+.overview-components-light .search-provider-icon:active,
+.overview-components-light .search-provider-icon:focus:hover,
+.overview-components-light .page-navigation-arrow:active,
+.overview-components-light .page-navigation-arrow:focus:hover,
+.overview-components-light .app-folder-dialog .icon-button:active,
+.overview-components-light .app-folder-dialog .icon-button:focus:hover,
+.overview-components-light #dash .overview-tile:active .overview-icon,
+.overview-components-light #dash .overview-tile:focus:hover .overview-icon,
+.overview-components-light #dash .overview-tile:drop .overview-icon,
+.overview-components-light #dash .show-apps:checked .overview-icon {
+    background-color: rgba(230, 230, 230, 0.25);
+}
+
+.overview-components-light .overview-tile:focus:active,
+.overview-components-light .overview-tile:selected:active,
+.overview-components-light .overview-tile:highlighted:active,
+.overview-components-light .list-search-result:focus:active,
+.overview-components-light .list-search-result:selected:active,
+.overview-components-light .list-search-result:highlighted:active,
+.overview-components-light .search-provider-icon:focus:active,
+.overview-components-light .page-navigation-arrow:focus:active,
+.overview-components-light .app-folder-dialog .icon-button:focus:active,
+.overview-components-light #dash .show-apps:checked .overview-icon:hover {
+    background-color: rgba(230, 230, 230, 0.3);
 }
 
 
 /*
 * `.overview-components-dark`
 */
-
-.overview-components-dark .workspace-thumbnail {
-    background-color: rgba(100, 100, 100, 0.35);
-}
 
 .overview-components-dark .search-entry {
     color: white;
@@ -239,43 +309,82 @@
     color: rgba(255, 255, 255, 0.65);
 }
 
-.overview-components-dark .search-section-content {
-    border: none;
-    box-shadow: none;
-}
-
-.overview-components-dark .search-section-content,
-.overview-components-dark .app-folder .overview-icon {
-    background-color: rgba(100, 100, 100, 0.35);
-}
-
+.overview-components-dark .overview-tile,
+.overview-components-dark .overview-icon,
+.overview-components-dark .list-search-result,
+.overview-components-dark .search-provider-icon,
 /* prevents the extension from interfering with Just Perfection */
-.overview-components-dark.just-perfection .search-section-content {
+.overview-components-dark.just-perfection .search-section-content,
+/* remove the rectangular background from the dash */
+.overview-components-dark #dash .overview-tile,
+.overview-components-dark #dashtopanelScrollview .overview-tile {
     background-color: transparent;
 }
 
-.overview-components-dark .app-folder .overview-icon {
-    border-color: transparent;
-}
-
-.overview-components-dark .app-folder:hover .overview-icon,
-.overview-components-dark .app-folder:focus .overview-icon {
-    background-color: rgba(120, 120, 120, 0.35);
-}
-
-.overview-components-dark .app-folder:active .overview-icon,
-.overview-components-dark .app-folder:focus:hover .overview-icon,
-.overview-components-dark .app-folder:drop .overview-icon {
-    background-color: rgba(120, 120, 120, 0.4);
-}
-
-.overview-components-dark .app-folder:focus:active .overview-icon {
-    background-color: rgba(120, 120, 120, 0.45);
-}
-
+.overview-components-dark .workspace-thumbnail,
+.overview-components-dark .search-section-content,
+.overview-components-dark .overview-tile.app-folder,
+.overview-components-dark .page-navigation-arrow,
+.overview-components-dark .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
 .overview-components-dark StBoxLayout>StWidget>#dash>.dash-background {
     background-color: rgba(100, 100, 100, 0.35);
+}
+
+.overview-components-dark .overview-tile:hover,
+.overview-components-dark .overview-tile:focus,
+.overview-components-dark .overview-tile:selected,
+.overview-components-dark .overview-tile:highlighted,
+.overview-components-dark .list-search-result:hover,
+.overview-components-dark .list-search-result:focus,
+.overview-components-dark .list-search-result:selected,
+.overview-components-dark .list-search-result:highlighted,
+.overview-components-dark .search-provider-icon:hover,
+.overview-components-dark .search-provider-icon:focus,
+.overview-components-dark .page-navigation-arrow:hover,
+.overview-components-dark .page-navigation-arrow:focus,
+.overview-components-dark .app-folder-dialog .icon-button:hover,
+.overview-components-dark .app-folder-dialog .icon-button:focus,
+.overview-components-dark #dash .overview-tile:hover .overview-icon,
+.overview-components-dark #dash .overview-tile:focus .overview-icon,
+.overview-components-dark #dash .show-apps:hover .overview-icon,
+.overview-components-dark #dash .show-apps:focus .overview-icon {
+    background-color: rgba(120, 120, 120, 0.35);
+}
+
+.overview-components-dark .overview-tile:active,
+.overview-components-dark .overview-tile:focus:hover,
+.overview-components-dark .overview-tile:drop,
+.overview-components-dark .overview-tile:selected:hover,
+.overview-components-dark .overview-tile:highlighted:hover,
+.overview-components-dark .list-search-result:active,
+.overview-components-dark .list-search-result:focus:hover,
+.overview-components-dark .list-search-result:selected:hover,
+.overview-components-dark .list-search-result:highlighted:hover,
+.overview-components-dark .search-provider-icon:active,
+.overview-components-dark .search-provider-icon:focus:hover,
+.overview-components-dark .page-navigation-arrow:active,
+.overview-components-dark .page-navigation-arrow:focus:hover,
+.overview-components-dark .app-folder-dialog .icon-button:active,
+.overview-components-dark .app-folder-dialog .icon-button:focus:hover,
+.overview-components-dark #dash .overview-tile:active .overview-icon,
+.overview-components-dark #dash .overview-tile:focus:hover .overview-icon,
+.overview-components-dark #dash .overview-tile:drop .overview-icon,
+.overview-components-dark #dash .show-apps:checked .overview-icon {
+    background-color: rgba(120, 120, 120, 0.4);
+}
+
+.overview-components-dark .overview-tile:focus:active,
+.overview-components-dark .overview-tile:selected:active,
+.overview-components-dark .overview-tile:highlighted:active,
+.overview-components-dark .list-search-result:focus:active,
+.overview-components-dark .list-search-result:selected:active,
+.overview-components-dark .list-search-result:highlighted:active,
+.overview-components-dark .search-provider-icon:focus:active,
+.overview-components-dark .page-navigation-arrow:focus:active,
+.overview-components-dark .app-folder-dialog .icon-button:focus:active,
+.overview-components-dark #dash .show-apps:checked .overview-icon:hover {
+    background-color: rgba(120, 120, 120, 0.45);
 }
 
 

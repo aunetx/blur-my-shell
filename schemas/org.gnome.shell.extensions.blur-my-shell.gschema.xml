@@ -324,6 +324,11 @@
             <default>230</default>
             <summary>Opacity of the window actor on top of the blur effect</summary>
         </key>
+        <!-- DYNAMIC OPACITY -->
+        <key type="b" name="dynamic-opacity">
+            <default>true</default>
+            <summary>Wether or not to make the focused window opaque</summary>
+        </key>
         <!-- BLUR ON OVERVIEW -->
         <key type="b" name="blur-on-overview">
             <default>false</default>
