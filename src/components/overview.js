@@ -37,6 +37,21 @@ export const OverviewBlur = class OverviewBlur {
             }
         );
 
+        // connect to the overview being opened (fix a bug with blur being gray
+        // with multipe monitors under wayland)
+        this.connections.connect(
+            Main.overview,
+            'showing',
+            _ => {
+                if (
+                    GLib.getenv('XDG_SESSION_TYPE') == "wayland" &&
+                    Main.layoutManager.monitors.length > 1
+                ) {
+                    this.update_backgrounds();
+                }
+            }
+        );
+
         // connect to monitors change
         this.connections.connect(
             Main.layoutManager,
