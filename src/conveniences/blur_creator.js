@@ -26,9 +26,9 @@ export const create_background = function (
         brightness: local_settings.CUSTOMIZE
             ? local_settings.BRIGHTNESS
             : global_settings.BRIGHTNESS,
-        sigma: (local_settings.CUSTOMIZE
+        radius: (local_settings.CUSTOMIZE
             ? local_settings.SIGMA
-            : global_settings.SIGMA) * monitor.geometry_scale,
+            : global_settings.SIGMA) * 2 * monitor.geometry_scale,
         mode: Shell.BlurMode.ACTOR
     });
 
