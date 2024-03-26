@@ -128,7 +128,8 @@
 /* prevents the extension from interfering with Just Perfection */
 .overview-components-transparent.just-perfection .search-section-content,
 /* remove the rectangular background from the dash */
-.overview-components-transparent #dash .overview-tile {
+.overview-components-transparent #dash .overview-tile,
+.overview-components-transparent #dashtopanelScrollview .overview-tile {
     background-color: transparent;
 }
 
@@ -221,7 +222,8 @@
 /* prevents the extension from interfering with Just Perfection */
 .overview-components-light.just-perfection .search-section-content,
 /* remove the rectangular background from the dash */
-.overview-components-light #dash .overview-tile {
+.overview-components-light #dash .overview-tile,
+.overview-components-light #dashtopanelScrollview .overview-tile {
     background-color: transparent;
 }
 
@@ -314,7 +316,8 @@
 /* prevents the extension from interfering with Just Perfection */
 .overview-components-dark.just-perfection .search-section-content,
 /* remove the rectangular background from the dash */
-.overview-components-dark #dash .overview-tile {
+.overview-components-dark #dash .overview-tile,
+.overview-components-dark #dashtopanelScrollview .overview-tile {
     background-color: transparent;
 }
 
