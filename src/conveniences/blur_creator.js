@@ -3,6 +3,9 @@ import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
+import { BlurEffect } from '../effects/blur_effect.js';
+import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
+
 export const create_background = function (
     monitor_index,
     background_managers,
@@ -21,7 +24,7 @@ export const create_background = function (
         height: monitor.height
     });
 
-    let blur_effect = new Shell.BlurEffect({
+    /*let blur_effect = new BlurEffect({
         name: 'blur',
         brightness: local_settings.CUSTOMIZE
             ? local_settings.BRIGHTNESS
@@ -29,7 +32,20 @@ export const create_background = function (
         radius: (local_settings.CUSTOMIZE
             ? local_settings.SIGMA
             : global_settings.SIGMA) * 2 * monitor.geometry_scale,
-        mode: Shell.BlurMode.ACTOR
+        width: monitor.width,
+        height: monitor.height,
+        corner_radius: 0
+    });*/
+    let blur_effect = new MonteCarloBlurEffect({
+        name: 'blur',
+        brightness: local_settings.CUSTOMIZE
+            ? local_settings.BRIGHTNESS
+            : global_settings.BRIGHTNESS,
+        iterations: 5,
+        radius: 2.,
+        width: monitor.width,
+        height: monitor.height,
+        use_base_pixel: false
     });
 
     // store the scale in the effect in order to retrieve it in set_sigma
