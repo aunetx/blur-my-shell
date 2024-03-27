@@ -375,17 +375,10 @@ export default class BlurMyShell extends Extension {
             }
         });
 
-        this._settings.COLOR_AND_NOISE_changed(() => {
-            // permits making sure that the blur is not washed out when disabling
-            // the other effects
-            if (this._settings.panel.BLUR)
-                this._panel_blur.invalidate_all_blur();
-        });
-
-        // static blur toggled on/off
+        // static blur toggled on/off, really we can just reload the blur at this point
         this._settings.panel.STATIC_BLUR_changed(() => {
             if (this._settings.panel.BLUR)
-                this._panel_blur.update_all_blur_type();
+                this._panel_blur.reset();
         });
 
         // panel blur's overview connection toggled on/off
