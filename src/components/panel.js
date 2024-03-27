@@ -518,25 +518,9 @@ export const PanelBlur = class PanelBlur {
             );
     }
 
-    /// Fixes a bug where the blur is washed away when changing the sigma, or
-    /// enabling/disabling other effects.
-    invalidate_blur(actors) {
-        // TODO see if we can remove this ugly thing
-        if (this.settings.panel.STATIC_BLUR && actors.widgets.background)
-            actors.widgets.background.get_children().forEach(
-                child => child.get_content()?.invalidate()
-            );
-    }
-
-    invalidate_all_blur() {
-        // TODO idem
-        this.actors_list.forEach(actors => this.invalidate_blur(actors));
-    }
-
     set_sigma(s) {
         this.actors_list.forEach(actors => {
             actors.effects.blur.radius = s * 2 * actors.effects.blur.scale;
-            this.invalidate_blur(actors);
         });
     }
 
