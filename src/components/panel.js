@@ -258,8 +258,6 @@ export const PanelBlur = class PanelBlur {
             return;
 
         let [width, height] = panel_box.get_size();
-        background.width = width;
-        background.height = height;
 
         // if static blur, need to clip the background
         if (actors.static_blur) {
@@ -272,16 +270,13 @@ export const PanelBlur = class PanelBlur {
             let y = p_y + p_p_y - monitor.y;
 
             background.set_clip(x, y, width, height);
-            this._log(`background clip ${x}, ${y}, ${width}, ${height}`);
             background.x = -x;
             background.y = -y;
-            this._log(`background x ${-x} ; y ${y}`);
-
-            // fixes a bug where the blur is washed away when changing the sigma
-            //this.invalidate_blur(actors);
         } else {
             background.x = panel.x;
             background.y = panel.y;
+            background.width = width;
+            background.height = height;
         }
 
         // update the monitor panel is on
