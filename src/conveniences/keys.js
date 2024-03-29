@@ -4,6 +4,7 @@ import { Type } from './settings.js';
 export const Keys = [
     {
         component: "general", schemas: [
+            { type: Type.PIPELINES, name: "pipelines" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },

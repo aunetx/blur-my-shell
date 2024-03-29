@@ -9,7 +9,8 @@ export const Type = {
     D: 'Double',
     S: 'String',
     C: 'Color',
-    AS: 'StringArray'
+    AS: 'StringArray',
+    PIPELINES: 'Pipelines'
 };
 
 /// An object to get and manage the gsettings preferences.
@@ -118,6 +119,99 @@ export const Settings = class Settings {
                             }
                         });
                         break;
+
+                    case Type.PIPELINES:
+                        Object.defineProperty(component, property_name, {
+                            get() {
+                                let pips = component_settings.get_value(key.name).deep_unpack();
+                                Object.keys(pips).forEach(pipeline_name => {
+                                    pips[pipeline_name];
+                                    let effects = pips[pipeline_name];
+                                    effects.forEach(effect => {
+                                        if (!('type' in effect)) {
+                                            this._warn('impossible to get pipelines, effect has not type, resetting');
+                                            component[property_name + '_reset']();
+                                            return;
+                                        }
+                                        let type = effect.type.deep_unpack();
+                                        if (typeof type !== 'string') {
+                                            this._warn('impossible to get pipelines, effect type is not a string, resetting');
+                                            component[property_name + '_reset']();
+                                            return;
+                                        }
+                                        let params = {};
+                                        if ('params' in effect)
+                                            params = effect.params.deep_unpack();
+                                        if (!(params && typeof params === 'object' && params.constructor === Object)) {
+                                            this._warn('impossible to get pipelines, effect params is not an object, resetting');
+                                            component[property_name + '_reset']();
+                                            return;
+                                        }
+                                        Object.keys(params).forEach(param_key => {
+                                            params[param_key] = params[param_key].deep_unpack();
+                                        });
+                                        effect.type = type;
+                                        effect.params = params;
+                                    });
+                                });
+                                return pips;
+                            },
+                            set(pips) {
+                                let pipelines = {};
+                                Object.keys(pips).forEach(pipeline_name => {
+                                    let effects = pips[pipeline_name];
+                                    if (!Array.isArray(effects)) {
+                                        this._warn('impossible to set pipelines, effects is not an array');
+                                        return;
+                                    }
+                                    let gvariant_effects = [];
+                                    effects.forEach(effect => {
+                                        if (!(effect instanceof Object)) {
+                                            this._warn('impossible to set pipelines, effect is not an object');
+                                            return;
+                                        }
+                                        if (!('type' in effect)) {
+                                            this._warn('impossible to set pipelines, effect has not type');
+                                            return;
+                                        }
+                                        if (typeof effect.type !== 'string') {
+                                            this._warn('impossible to set pipelines, effect type is not a string');
+                                            return;
+                                        }
+                                        let gvariant_type = GLib.Variant.new_string(effect.type);
+                                        let params = {};
+                                        if ('params' in effect) {
+                                            params = effect.params;
+                                        }
+                                        let gvariant_params = {};
+                                        Object.keys(params).forEach(param_key => {
+                                            let param = params[param_key];
+                                            if (typeof param === 'boolean')
+                                                gvariant_params[param_key] = GLib.Variant.new_boolean(param);
+                                            else if (typeof param === 'number') {
+                                                if (Number.isInteger(param))
+                                                    gvariant_params[param_key] = GLib.Variant.new_int32(param);
+                                                else
+                                                    gvariant_params[param_key] = GLib.Variant.new_double(param);
+                                            } else if (typeof param === 'string')
+                                                gvariant_params[param_key] = GLib.Variant.new_string(param);
+                                            else if (Array.isArray(param) && param.lenght == 4)
+                                                gvariant_params[param_key] = new GLib.Variant("(dddd)", param);
+                                            else
+                                                this._warn('impossible to set pipeline, effect parameter type is unknown');
+                                        });
+                                        gvariant_effects.push({
+                                            type: gvariant_type,
+                                            params: new GLib.Variant("a{sv}", gvariant_params)
+                                        });
+                                    });
+                                    pipelines[pipeline_name] = gvariant_effects;
+                                });
+                                let val = new GLib.Variant("a{saa{sv}}", pipelines);
+                                component_settings.set_value(key.name, val);
+                            }
+                        });
+                        break;
                 }
 
                 component[property_name + '_reset'] = function () {
@@ -176,6 +270,10 @@ export const Settings = class Settings {
                 component[property_name + '_disconnect']();
             });
         });
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > settings]     ${str}`);
     }
 };
 

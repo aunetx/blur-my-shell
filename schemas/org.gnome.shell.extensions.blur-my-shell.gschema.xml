@@ -3,6 +3,23 @@
     <!-- GENERAL -->
     <schema id="org.gnome.shell.extensions.blur-my-shell"
         path="/org/gnome/shell/extensions/blur-my-shell/">
+        <!-- PIPELINES -->
+        <key type="a{saa{sv}}" name="pipelines">
+            <default> <![CDATA[
+                {
+                    'default': [
+                        {
+                            'type': <'gaussian_blur'>,
+                            'params': <{
+                                'radius': <30>,
+                                'brightness': <0.6>
+                            }>
+                        }
+                    ]
+                }
+            ]]></default>
+            <summary>A dictionnary describing the different pipelines and their effects.</summary>
+        </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
