@@ -6,7 +6,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 const Signals = imports.signals;
 
 import { PaintSignals } from '../effects/paint_signals.js';
-import { BlurEffect } from '../effects/blur_effect.js';
+import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 
 const DASH_STYLES = [
     "transparent-dash",
@@ -355,7 +355,7 @@ export const DashBlur = class DashBlur {
             let corner_radius = this.corner_radius * monitor.geometry_scale;
             corner_radius = Math.min(corner_radius, dash_background.width / 2, dash_background.height / 2);
 
-            effect = new BlurEffect({
+            effect = new GaussianBlurEffect({
                 radius: 2 * this.sigma * monitor.geometry_scale,
                 brightness: this.brightness,
                 width: dash_background.width,

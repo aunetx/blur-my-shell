@@ -4,7 +4,7 @@ import Clutter from 'gi://Clutter';
 import Shell from 'gi://Shell';
 
 
-const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'color_effect.glsl', GLib.UriFlags.NONE))[0];
+const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'color.glsl', GLib.UriFlags.NONE))[0];
 
 
 const get_shader_source = _ => {
@@ -61,8 +61,8 @@ export const ColorEffect = new GObject.registerClass({
             0.4,
         ),
     }
-}, class ColorShader extends Clutter.ShaderEffect {
-    constructor(params, settings) {
+}, class ColorEffect extends Clutter.ShaderEffect {
+    constructor(params) {
         // initialize without color as a parameter
         let _color = params.color;
         delete params.color;
@@ -74,9 +74,6 @@ export const ColorEffect = new GObject.registerClass({
         this._blue = null;
         this._blend = null;
 
-        this._static = true;
-        this._settings = settings;
-
         // set shader source
         this._source = get_shader_source();
         if (this._source)
@@ -85,8 +82,6 @@ export const ColorEffect = new GObject.registerClass({
         // set shader color
         if (_color)
             this.color = _color;
-
-        this.update_enabled();
     }
 
     get red() {
@@ -134,8 +129,8 @@ export const ColorEffect = new GObject.registerClass({
             this._blend = value;
 
             this.set_uniform_value('blend', parseFloat(this._blend - 1e-6));
+            this.set_enabled(this.blend > 0);
         }
-        this.update_enabled();
     }
 
     set color(rgba) {
@@ -154,19 +149,6 @@ export const ColorEffect = new GObject.registerClass({
     set(params) {
         this.color = params.color;
     }
-
-    update_enabled() {
-        // don't anything if this._settings is undefined (when calling super)
-        if (this._settings === undefined)
-            return;
-
-        this.set_enabled(
-            this.blend > 0 &&
-            this._settings.COLOR_AND_NOISE &&
-            this._static
-        );
-    }
-
 
     vfunc_paint_target(paint_node = null, paint_context = null) {
         this.set_uniform_value("tex", 0);

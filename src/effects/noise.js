@@ -4,7 +4,7 @@ import Clutter from 'gi://Clutter';
 import Shell from 'gi://Shell';
 
 
-const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'noise_effect.glsl', GLib.UriFlags.NONE))[0];
+const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'noise.glsl', GLib.UriFlags.NONE))[0];
 
 const get_shader_source = _ => {
     try {
@@ -35,15 +35,12 @@ export const NoiseEffect = new GObject.registerClass({
             0.4,
         ),
     }
-}, class NoiseShader extends Clutter.ShaderEffect {
-    constructor(params, settings) {
+}, class NoiseEffect extends Clutter.ShaderEffect {
+    constructor(params) {
         super(params);
 
         this._noise = null;
         this._lightness = null;
-
-        this._static = true;
-        this._settings = settings;
 
         if (params.noise)
             this.noise = params.noise;
@@ -54,8 +51,6 @@ export const NoiseEffect = new GObject.registerClass({
         this._source = get_shader_source();
         if (this._source)
             this.set_shader_source(this._source);
-
-        this.update_enabled();
     }
 
     get noise() {
@@ -67,8 +62,8 @@ export const NoiseEffect = new GObject.registerClass({
             this._noise = value;
 
             this.set_uniform_value('noise', parseFloat(this._noise - 1e-6));
+            this.set_enabled(this.noise > 0. && this.lightness != 1);
         }
-        this.update_enabled();
     }
 
     get lightness() {
@@ -80,21 +75,9 @@ export const NoiseEffect = new GObject.registerClass({
             this._lightness = value;
 
             this.set_uniform_value('lightness', parseFloat(this._lightness - 1e-6));
+            this.set_enabled(this.noise > 0. && this.lightness != 1);
         }
     }
-
-    update_enabled() {
-        // don't anything if this._settings is undefined (when calling super)
-        if (this._settings === undefined)
-            return;
-
-        this.set_enabled(
-            this.noise > 0 &&
-            this._settings.COLOR_AND_NOISE &&
-            this._static
-        );
-    }
-
 
     vfunc_paint_target(paint_node = null, paint_context = null) {
         this.set_uniform_value("tex", 0);

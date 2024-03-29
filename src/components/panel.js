@@ -567,12 +567,13 @@ export const PanelBlur = class PanelBlur {
     destroy_blur(actors) {
         this.set_should_override_panel(actors, false);
 
-        this.effects_manager.remove(actors.effects.blur);
         if (actors.static_blur) {
-            this.effects_manager.remove(actors.effects.noise);
-            this.effects_manager.remove(actors.effects.color);
+            actors.widgets.background.get_effects().forEach(
+                effect => this.effects_manager.remove(effect)
+            );
             actors.bg_manager.destroy();
-        }
+        } else
+            this.effects_manager.remove(actors.effects.blur);
 
         try {
             actors.widgets.panel_box.remove_child(

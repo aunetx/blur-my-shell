@@ -28,7 +28,7 @@ void main() {
         rv.x = rand(r);
         rv.y = rand(r);
         vec2 new_uv = uv + rv * p;
-        if (new_uv.x >= 0.005 && new_uv.y >= 0.005 && new_uv.x <= .995 && new_uv.y <= .995) {
+        if (new_uv.x > 2. / width && new_uv.y > 2. / height && new_uv.x < 1. - 3. / width && new_uv.y < 1. - 3. / height) {
             c += texture2D(tex, new_uv);
             count += 1;
         }

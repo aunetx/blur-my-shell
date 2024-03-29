@@ -1,5 +1,8 @@
-import { ColorEffect } from '../effects/color_effect.js';
-import { NoiseEffect } from '../effects/noise_effect.js';
+import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
+import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
+import { ColorEffect } from '../effects/color.js';
+import { NoiseEffect } from '../effects/noise.js';
+import { CornerEffect } from '../effects/corner.js';
 
 
 /// An object to manage effects (by not destroying them all the time)
@@ -7,8 +10,11 @@ export const EffectsManager = class EffectsManager {
     constructor(connections) {
         this.connections = connections;
         this.used = [];
+        this.gaussian_blur_effects = [];
+        this.monte_carlo_blur_effects = [];
         this.color_effects = [];
         this.noise_effects = [];
+        this.corner_effects = [];
     }
 
     connect_to_destroy(effect) {
@@ -32,28 +38,65 @@ export const EffectsManager = class EffectsManager {
         });
     }
 
-    new_color_effect(params, settings) {
+    new_gaussian_blur_effect(params) {
         let effect;
-        if (this.color_effects.length > 0) {
-            effect = this.color_effects.splice(0, 1)[0];
+        if (this.gaussian_blur_effects.length > 0) {
+            effect = this.gaussian_blur_effects.splice(0, 1)[0];
             effect.set(params);
-            effect._settings = settings;
         } else
-            effect = new ColorEffect(params, settings);
+            effect = new GaussianBlurEffect(params);
 
         this.used.push(effect);
         this.connect_to_destroy(effect);
         return effect;
     }
 
-    new_noise_effect(params, settings) {
+    new_monte_carlo_blur_effect(params) {
+        let effect;
+        if (this.monte_carlo_blur_effects.length > 0) {
+            effect = this.monte_carlo_blur_effects.splice(0, 1)[0];
+            effect.set(params);
+        } else
+            effect = new MonteCarloBlurEffect(params);
+
+        this.used.push(effect);
+        this.connect_to_destroy(effect);
+        return effect;
+    }
+
+    new_color_effect(params) {
+        let effect;
+        if (this.color_effects.length > 0) {
+            effect = this.color_effects.splice(0, 1)[0];
+            effect.set(params);
+        } else
+            effect = new ColorEffect(params);
+
+        this.used.push(effect);
+        this.connect_to_destroy(effect);
+        return effect;
+    }
+
+    new_noise_effect(params) {
         let effect;
         if (this.noise_effects.length > 0) {
             effect = this.noise_effects.splice(0, 1)[0];
             effect.set(params);
-            effect._settings = settings;
         } else
-            effect = new NoiseEffect(params, settings);
+            effect = new NoiseEffect(params);
+
+        this.used.push(effect);
+        this.connect_to_destroy(effect);
+        return effect;
+    }
+
+    new_corner_effect(params) {
+        let effect;
+        if (this.corner_effects.length > 0) {
+            effect = this.corner_effects.splice(0, 1)[0];
+            effect.set(params);
+        } else
+            effect = new CornerEffect(params);
 
         this.used.push(effect);
         this.connect_to_destroy(effect);
@@ -71,10 +114,16 @@ export const EffectsManager = class EffectsManager {
         if (index >= 0) {
             this.used.splice(index, 1);
 
-            if (effect instanceof ColorEffect)
+            if (effect instanceof GaussianBlurEffect)
+                this.gaussian_blur_effects.push(effect);
+            else if (effect instanceof MonteCarloBlurEffect)
+                this.monte_carlo_blur_effects.push(effect);
+            else if (effect instanceof ColorEffect)
                 this.color_effects.push(effect);
             else if (effect instanceof NoiseEffect)
                 this.noise_effects.push(effect);
+            else if (effect instanceof CornerEffect)
+                this.corner_effects.push(effect);
         }
     }
 
@@ -82,8 +131,11 @@ export const EffectsManager = class EffectsManager {
         this.used.forEach(effect => { this.remove(effect); });
         [
             this.used,
+            this.gaussian_blur_effects,
+            this.monte_carlo_blur_effects,
             this.color_effects,
-            this.noise_effects
+            this.noise_effects,
+            this.corner_effects
         ].forEach(array => {
             array.splice(0, array.length);
         });
