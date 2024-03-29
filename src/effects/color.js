@@ -34,7 +34,7 @@ export const ColorEffect = new GObject.registerClass({
             `Red value in shader`,
             GObject.ParamFlags.READWRITE,
             0.0, 1.0,
-            0.4,
+            0.0,
         ),
         'green': GObject.ParamSpec.double(
             `green`,
@@ -42,7 +42,7 @@ export const ColorEffect = new GObject.registerClass({
             `Green value in shader`,
             GObject.ParamFlags.READWRITE,
             0.0, 1.0,
-            0.4,
+            0.0,
         ),
         'blue': GObject.ParamSpec.double(
             `blue`,
@@ -50,7 +50,7 @@ export const ColorEffect = new GObject.registerClass({
             `Blue value in shader`,
             GObject.ParamFlags.READWRITE,
             0.0, 1.0,
-            0.4,
+            0.0,
         ),
         'blend': GObject.ParamSpec.double(
             `blend`,
@@ -58,16 +58,14 @@ export const ColorEffect = new GObject.registerClass({
             `Amount of blending between the colors`,
             GObject.ParamFlags.READWRITE,
             0.0, 1.0,
-            0.4,
+            0.0,
         ),
     }
 }, class ColorEffect extends Clutter.ShaderEffect {
     constructor(params) {
         // initialize without color as a parameter
-        let _color = params.color;
-        delete params.color;
-
-        super(params);
+        const { color, ...parent_params } = params;
+        super(parent_params);
 
         this._red = null;
         this._green = null;
@@ -80,8 +78,11 @@ export const ColorEffect = new GObject.registerClass({
             this.set_shader_source(this._source);
 
         // set shader color
-        if (_color)
-            this.color = _color;
+        this.color = 'color' in params ? color : this.default_params.color;
+    }
+
+    get default_params() {
+        return { color: [0.0, 0.0, 0.0, 0.0] };
     }
 
     get red() {

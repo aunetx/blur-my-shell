@@ -25,7 +25,7 @@ export const CornerEffect = new GObject.registerClass({
             `Corner Radius`,
             GObject.ParamFlags.READWRITE,
             0, Number.MAX_SAFE_INTEGER,
-            0,
+            12,
         ),
         'width': GObject.ParamSpec.double(
             `width`,
@@ -52,16 +52,9 @@ export const CornerEffect = new GObject.registerClass({
         this._width = null;
         this._height = null;
 
-        this._direction = 0;
-
-        this._chained_effect = null;
-
-        if (params.radius)
-            this.radius = params.radius;
-        if (params.width)
-            this.width = params.width;
-        if (params.height)
-            this.height = params.height;
+        this.radius = 'radius' in params ? params.radius : this.default_params.radius;
+        this.width = 'width' in params ? params.width : this.default_params.width;
+        this.height = 'height' in params ? params.height : this.default_params.height;
 
         // set shader source
         this._source = get_shader_source();
@@ -70,6 +63,10 @@ export const CornerEffect = new GObject.registerClass({
 
         const theme_context = St.ThemeContext.get_for_stage(global.stage);
         theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
+    }
+
+    get default_params() {
+        return { radius: 12, width: 0, height: 0 };
     }
 
     get radius() {

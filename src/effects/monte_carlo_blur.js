@@ -25,7 +25,7 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
             `Blur radius`,
             GObject.ParamFlags.READWRITE,
             0.0, 2000.0,
-            200.0,
+            2.0,
         ),
         'iterations': GObject.ParamSpec.int(
             `iterations`,
@@ -33,7 +33,7 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
             `Blur iterations`,
             GObject.ParamFlags.READWRITE,
             0, 64,
-            16,
+            5,
         ),
         'brightness': GObject.ParamSpec.double(
             `brightness`,
@@ -78,18 +78,12 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
         this._height = null;
         this._use_base_pixel = null;
 
-        if (params.radius)
-            this.radius = params.radius;
-        if (params.iterations)
-            this.iterations = params.iterations;
-        if (params.brightness)
-            this.brightness = params.brightness;
-        if (params.width)
-            this.width = params.width;
-        if (params.height)
-            this.height = params.height;
-        if (params.use_base_pixel)
-            this.use_base_pixel = params.use_base_pixel;
+        this.radius = 'radius' in params ? params.radius : this.default_params.radius;
+        this.iterations = 'iterations' in params ? params.iterations : this.default_params.iterations;
+        this.brightness = 'brightness' in params ? params.brightness : this.default_params.brightness;
+        this.width = 'width' in params ? params.width : this.default_params.width;
+        this.height = 'height' in params ? params.height : this.default_params.height;
+        this.use_base_pixel = 'use_base_pixel' in params ? params.use_base_pixel : this.default_params.use_base_pixel;
 
         // set shader source
         this._source = get_shader_source();
@@ -105,6 +99,13 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
             this
         );
 
+    }
+
+    get default_params() {
+        return {
+            radius: 2., iterations: 5, brightness: .6,
+            width: 0, height: 0, direction: 0, use_base_pixel: false
+        };
     }
 
     get radius() {

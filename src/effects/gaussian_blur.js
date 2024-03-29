@@ -25,7 +25,7 @@ export const GaussianBlurEffect = new GObject.registerClass({
             `Blur radius`,
             GObject.ParamFlags.READWRITE,
             0.0, 2000.0,
-            200.0,
+            30.0,
         ),
         'brightness': GObject.ParamSpec.double(
             `brightness`,
@@ -75,21 +75,15 @@ export const GaussianBlurEffect = new GObject.registerClass({
         this._brightness = null;
         this._width = null;
         this._height = null;
-
-        this._direction = 0;
+        this._direction = null;
 
         this._chained_effect = null;
 
-        if (params.radius)
-            this.radius = params.radius;
-        if (params.brightness)
-            this.brightness = params.brightness;
-        if (params.width)
-            this.width = params.width;
-        if (params.height)
-            this.height = params.height;
-        if (params.direction)
-            this.direction = params.direction;
+        this.radius = 'radius' in params ? params.radius : this.default_params.radius;
+        this.brightness = 'brightness' in params ? params.brightness : this.default_params.brightness;
+        this.width = 'width' in params ? params.width : this.default_params.width;
+        this.height = 'height' in params ? params.height : this.default_params.height;
+        this.direction = 'direction' in params ? params.direction : this.default_params.direction;
 
         // set shader source
         this._source = get_shader_source();
@@ -104,6 +98,10 @@ export const GaussianBlurEffect = new GObject.registerClass({
             ),
             this
         );
+    }
+
+    get default_params() {
+        return { radius: 30, brightness: .6, width: 0, height: 0, direction: 0 };
     }
 
     get radius() {

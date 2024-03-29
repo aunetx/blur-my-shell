@@ -42,15 +42,17 @@ export const NoiseEffect = new GObject.registerClass({
         this._noise = null;
         this._lightness = null;
 
-        if (params.noise)
-            this.noise = params.noise;
-        if (params.lightness)
-            this.lightness = params.lightness;
+        this.noise = 'noise' in params ? params.noise : this.default_params.noise;
+        this.lightness = 'lightness' in params ? params.lightness : this.default_params.lightness;
 
         // set shader source
         this._source = get_shader_source();
         if (this._source)
             this.set_shader_source(this._source);
+    }
+
+    get default_params() {
+        return { noise: 0.4, lightness: 0.4 };
     }
 
     get noise() {
