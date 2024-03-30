@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2024-03-23 19:01+0000\n"
+"PO-Revision-Date: 2024-03-31 19:01+0000\n"
 "Last-Translator: Colgrave <hanqixu.blogs@simplelogin.co>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
@@ -174,7 +174,6 @@ msgid "Static blur"
 msgstr "静态模糊"
 
 #: dash.ui:28
-#, fuzzy
 msgid ""
 "Uses a static blurred image, can be used with rounding effect.\n"
 "<b>Important notice:</b> with this activated, you should not use a big sigma "
