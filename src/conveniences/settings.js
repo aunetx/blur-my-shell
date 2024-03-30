@@ -241,18 +241,23 @@ export const Settings = class Settings {
                         break;
                 }
 
+
                 component[property_name + '_reset'] = function () {
                     return component_settings.reset(key.name);
                 };
 
+                component[property_name + '_signal_ids'] = [];
                 component[property_name + '_changed'] = function (cb) {
-                    return component_settings.connect('changed::' + key.name, cb);
+                    component[property_name + '_signal_ids'].push(
+                        component_settings.connect('changed::' + key.name, cb)
+                    );
                 };
 
                 component[property_name + '_disconnect'] = function () {
-                    return component_settings.disconnect.apply(
-                        component_settings, arguments
+                    component[property_name + '_signal_ids'].forEach(
+                        id => component_settings.disconnect(id)
                     );
+                    component[property_name + '_signal_ids'] = [];
                 };
             });
         });

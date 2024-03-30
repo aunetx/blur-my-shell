@@ -89,7 +89,9 @@ export class PipelinesManager extends Signals.EventEmitter {
         }
     }
 
-    destroy() { }
+    destroy() {
+        this._settings.PIPELINES_disconnect();
+    }
 
     _warn(str) {
         console.warn(`[Blur my Shell > pipelines]    ${str}`);
