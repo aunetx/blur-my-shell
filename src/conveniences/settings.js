@@ -139,6 +139,19 @@ export const Settings = class Settings {
                                             component[property_name + '_reset']();
                                             return;
                                         }
+
+                                        if (!('id' in effect)) {
+                                            this._warn('impossible to get pipelines, effect has not id, resetting');
+                                            component[property_name + '_reset']();
+                                            return;
+                                        }
+                                        let id = effect.id.deep_unpack();
+                                        if (typeof id !== 'string') {
+                                            this._warn('impossible to get pipelines, effect id is not a string, resetting');
+                                            component[property_name + '_reset']();
+                                            return;
+                                        }
+
                                         let params = {};
                                         if ('params' in effect)
                                             params = effect.params.deep_unpack();
@@ -150,7 +163,9 @@ export const Settings = class Settings {
                                         Object.keys(params).forEach(param_key => {
                                             params[param_key] = params[param_key].deep_unpack();
                                         });
+
                                         effect.type = type;
+                                        effect.id = id;
                                         effect.params = params;
                                     });
                                 });
@@ -170,6 +185,7 @@ export const Settings = class Settings {
                                             this._warn('impossible to set pipelines, effect is not an object');
                                             return;
                                         }
+
                                         if (!('type' in effect)) {
                                             this._warn('impossible to set pipelines, effect has not type');
                                             return;
@@ -178,7 +194,16 @@ export const Settings = class Settings {
                                             this._warn('impossible to set pipelines, effect type is not a string');
                                             return;
                                         }
-                                        let gvariant_type = GLib.Variant.new_string(effect.type);
+
+                                        if (!('id' in effect)) {
+                                            this._warn('impossible to set pipelines, effect has not id');
+                                            return;
+                                        }
+                                        if (typeof effect.id !== 'string') {
+                                            this._warn('impossible to set pipelines, effect id is not a string');
+                                            return;
+                                        }
+
                                         let params = {};
                                         if ('params' in effect) {
                                             params = effect.params;
@@ -200,8 +225,10 @@ export const Settings = class Settings {
                                             else
                                                 this._warn('impossible to set pipeline, effect parameter type is unknown');
                                         });
+
                                         gvariant_effects.push({
-                                            type: gvariant_type,
+                                            type: GLib.Variant.new_string(effect.type),
+                                            id: GLib.Variant.new_string(effect.id),
                                             params: new GLib.Variant("a{sv}", gvariant_params)
                                         });
                                     });

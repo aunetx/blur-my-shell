@@ -10,6 +10,7 @@
                     'default': [
                         {
                             'type': <'gaussian_blur'>,
+                            'id': <'000000000000'>,
                             'params': <{
                                 'radius': <30>,
                                 'brightness': <0.6>

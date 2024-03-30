@@ -4,6 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
 import { Settings } from './conveniences/settings.js';
@@ -48,6 +49,9 @@ export default class BlurMyShell extends Extension {
 
         // create a global effects manager (to prevent RAM bleeding)
         this._effects_manager = new EffectsManager(this._connection);
+
+        // create a global pipelines manager, that helps talking with preferences
+        this._pipelines_manager = new PipelinesManager(this._settings);
 
         // create an instance of each component, with its associated Connections
         let init = _ => {
