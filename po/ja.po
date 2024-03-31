@@ -8,21 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-04-02 00:01+0000\n"
+"Last-Translator: Syuugo <pub@s1204.me>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "アプリ"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr ""
+msgstr "blurのアプリ(ベータ)"
 
 #: applications.ui:11
 msgid ""
@@ -31,10 +34,14 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
+"アプリにぼかしを追加します。これはまだベータ機能です。\n"
+"最大限の結果を得るには、設定の「一般 → ハック "
+"レベル」で「アーティファクトなし」オプションを選択してください。\n"
+"        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr ""
+msgstr "不透明度"
 
 #: applications.ui:29
 msgid ""
@@ -44,7 +51,7 @@ msgstr ""
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "全体像をぼかす"
 
 #: applications.ui:52
 msgid ""
@@ -54,7 +61,7 @@ msgstr ""
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "規定で全て有効"
 
 #: applications.ui:68
 msgid ""
@@ -64,19 +71,19 @@ msgstr ""
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr ""
+msgstr "ホワイトリスト"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr ""
+msgstr "ぼかすウィンドウの一覧。"
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr ""
+msgstr "ウィンドウの追加"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "ブラックリスト"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
