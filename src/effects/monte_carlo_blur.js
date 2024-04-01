@@ -187,7 +187,7 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
     vfunc_set_actor(actor) {
         if (this._actor_connection_size_id) {
             let old_actor = this.get_actor();
-            old_actor?.disconnect(this._actor_connection_id);
+            old_actor?.disconnect(this._actor_connection_size_id);
         }
         if (actor) {
             this.width = actor.width;

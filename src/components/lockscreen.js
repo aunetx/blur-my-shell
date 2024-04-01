@@ -4,11 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-let sigma;
-let brightness;
-let color;
-let noise;
-let lightness;
+import { Pipeline } from '../conveniences/pipeline.js';
 
 const original_createBackground =
     UnlockDialog.prototype._createBackground;
@@ -26,22 +22,6 @@ export const LockscreenBlur = class LockscreenBlur {
 
     enable() {
         this._log("blurring lockscreen");
-
-        brightness = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.BRIGHTNESS
-            : this.settings.BRIGHTNESS;
-        sigma = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.SIGMA
-            : this.settings.SIGMA;
-        color = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.COLOR
-            : this.settings.COLOR;
-        noise = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.NOISE_AMOUNT
-            : this.settings.NOISE_AMOUNT;
-        lightness = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.NOISE_LIGHTNESS
-            : this.settings.NOISE_LIGHTNESS;
 
         this.update_lockscreen();
 
@@ -65,29 +45,10 @@ export const LockscreenBlur = class LockscreenBlur {
             height: monitor.height,
         });
 
-        let blur_effect = new Shell.BlurEffect({
-            name: 'blur',
-            radius: sigma * 2,
-            brightness: brightness
-        });
-
-        // store the scale in the effect in order to retrieve later
-        blur_effect.scale = monitor.geometry_scale;
-
-        let color_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_color_effect({
-            name: 'color',
-            color: color
-        }, this.settings);
-
-        let noise_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_noise_effect({
-            name: 'noise',
-            noise: noise,
-            lightness: lightness
-        }, this.settings);
-
-        widget.add_effect(color_effect);
-        widget.add_effect(noise_effect);
-        widget.add_effect(blur_effect);
+        const pipeline = new Pipeline(
+            global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager
+        );
+        pipeline.attach_pipeline_to_actor(widget, 'pipeline_000000000000');
 
         let bgManager = new Background.BackgroundManager({
             container: widget,
@@ -100,57 +61,13 @@ export const LockscreenBlur = class LockscreenBlur {
         this._backgroundGroup.add_child(widget);
     }
 
-    _updateBackgroundEffects() {
-        for (const widget of this._backgroundGroup) {
-            const color_effect = widget.get_effect('color');
-            const noise_effect = widget.get_effect('noise');
-            const blur_effect = widget.get_effect('blur');
+    _updateBackgroundEffects() { }
 
-            if (color_effect)
-                color_effect.set({
-                    color: color
-                });
-
-            if (noise_effect) {
-                noise_effect.set({
-                    noise: noise,
-                    lightness: lightness,
-                });
-            }
-
-            if (blur_effect) {
-                blur_effect.set({
-                    brightness: brightness,
-                    radius: sigma * 2 * blur_effect.scale,
-                });
-            }
-        }
-    }
-
-    set_sigma(s) {
-        sigma = s;
-        this.update_lockscreen();
-    }
-
-    set_brightness(b) {
-        brightness = b;
-        this.update_lockscreen();
-    }
-
-    set_color(c) {
-        color = c;
-        this.update_lockscreen();
-    }
-
-    set_noise_amount(n) {
-        noise = n;
-        this.update_lockscreen();
-    }
-
-    set_noise_lightness(l) {
-        lightness = l;
-        this.update_lockscreen();
-    }
+    set_sigma(s) { }
+    set_brightness(b) { }
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from lockscreen");

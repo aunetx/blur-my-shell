@@ -184,7 +184,7 @@ export const GaussianBlurEffect = new GObject.registerClass({
     vfunc_set_actor(actor) {
         if (this._actor_connection_size_id) {
             let old_actor = this.get_actor();
-            old_actor?.disconnect(this._actor_connection_id);
+            old_actor?.disconnect(this._actor_connection_size_id);
         }
         if (actor) {
             this.width = actor.width;
@@ -199,14 +199,17 @@ export const GaussianBlurEffect = new GObject.registerClass({
 
         super.vfunc_set_actor(actor);
 
-        if (this._direction == 0) {
-            this._chained_effect = new GaussianBlurEffect({
-                radius: this.radius,
-                brightness: this.brightness,
-                width: this.width,
-                height: this.height,
-                direction: 1
-            });
+        if (this.direction == 0) {
+            if (this.chained_effect)
+                this._chained_effect.get_actor()?.remove_effect(this._chained_effect);
+            else
+                this._chained_effect = new GaussianBlurEffect({
+                    radius: this.radius,
+                    brightness: this.brightness,
+                    width: this.width,
+                    height: this.height,
+                    direction: 1
+                });
             if (actor !== null)
                 actor.add_effect(this._chained_effect);
         }

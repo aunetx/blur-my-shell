@@ -4,7 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
 
-import { create_background } from '../conveniences/blur_creator.js';
+import { Pipeline } from '../conveniences/pipeline.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
     "overview-components-light",
@@ -85,11 +85,14 @@ export const OverviewBlur = class OverviewBlur {
                             (i !== Main.layoutManager.primaryMonitor.index)
                         )
                     ) {
-                        create_background(
+                        const pipeline = new Pipeline(
+                            outer_this.effects_manager,
+                            global.blur_my_shell._pipelines_manager,
+                            'pipeline_000000000000'
+                        );
+                        pipeline.create_background_with_effects(
                             i, outer_this.animation_background_managers,
-                            outer_this.animation_background_group, outer_this.settings,
-                            outer_this.settings.overview, outer_this.effects_manager,
-                            'bms-animation-blurred-widget'
+                            outer_this.animation_background_group, 'bms-animation-blurred-widget'
                         );
 
                         Main.uiGroup.insert_child_above(
@@ -117,11 +120,10 @@ export const OverviewBlur = class OverviewBlur {
                     }
 
                 outer_this.animation_background_managers.forEach(background_manager => {
-                    let widget = background_manager.backgroundActor.get_parent();
-                    widget.get_effects().forEach(effect => {
-                        outer_this.effects_manager.remove(effect);
-                    });
-                    outer_this.animation_background_group.remove_child(widget);
+                    background_manager._bms_pipeline.destroy();
+                    outer_this.animation_background_group.remove_child(
+                        background_manager.backgroundActor.get_parent()
+                    );
                     background_manager.destroy();
                 });
 
@@ -141,13 +143,17 @@ export const OverviewBlur = class OverviewBlur {
         // remove every old background
         this.remove_background_actors();
         // create new backgrounds for the overview
-        for (let i = 0; i < Main.layoutManager.monitors.length; i++)
-            create_background(
-                i, this.overview_background_managers,
-                this.overview_background_group, this.settings,
-                this.settings.overview, this.effects_manager,
-                'bms-overview-blurred-widget'
+        for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
+            const pipeline = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                'pipeline_000000000000'
             );
+            pipeline.create_background_with_effects(
+                i, this.overview_background_managers,
+                this.overview_background_group, 'bms-overview-blurred-widget'
+            );
+        }
         // add the container widget to the overview group
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
     }
@@ -165,56 +171,18 @@ export const OverviewBlur = class OverviewBlur {
             );
     }
 
-    get effects() {
-        let effects_list = [];
-        this.overview_background_managers.forEach(background_manager => {
-            let effects_obj = {};
-            let widget = background_manager.backgroundActor.get_parent();
-            widget.get_effects().forEach(effect => {
-                effects_obj[effect.get_name()] = effect;
-            });
-            effects_list.push(effects_obj);
-        });
-        return effects_list;
-    }
-
-    set_sigma(s) {
-        this.effects.forEach(effect => {
-            effect.blur.sigma = s * 2 * effect.blur.scale;
-        });
-    }
-
-    set_brightness(b) {
-        this.effects.forEach(effect => {
-            effect.blur.brightness = b;
-        });
-    }
-
-    set_color(c) {
-        this.effects.forEach(effect => {
-            effect.color.color = c;
-        });
-    }
-
-    set_noise_amount(n) {
-        this.effects.forEach(effect => {
-            effect.noise.noise = n;
-        });
-    }
-
-    set_noise_lightness(l) {
-        this.effects.forEach(effect => {
-            effect.noise.lightness = l;
-        });
-    }
+    set_sigma(s) { }
+    set_brightness(b) { }
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     remove_background_actors() {
         this.overview_background_managers.forEach(background_manager => {
-            let widget = background_manager.backgroundActor.get_parent();
-            widget.get_effects().forEach(effect => {
-                this.effects_manager.remove(effect);
-            });
-            this.overview_background_group.remove_child(widget);
+            background_manager._bms_pipeline.destroy();
+            this.overview_background_group.remove_child(
+                background_manager.backgroundActor.get_parent()
+            );
             background_manager.destroy();
         });
 

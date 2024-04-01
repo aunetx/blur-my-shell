@@ -5,7 +5,8 @@ import Mtk from 'gi://Mtk';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
-import { create_background } from '../conveniences/blur_creator.js';
+
+import { Pipeline } from '../conveniences/pipeline.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 const PANEL_STYLES = [
@@ -138,11 +139,14 @@ export const PanelBlur = class PanelBlur {
         let static_blur = this.settings.panel.STATIC_BLUR;
         if (static_blur) {
             let bg_manager_list = [];
-            background = create_background(
+            const pipeline = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                'pipeline_000000000000'
+            );
+            background = pipeline.create_background_with_effects(
                 monitor.index, bg_manager_list,
-                background_group, this.settings,
-                this.settings.panel, this.effects_manager,
-                'bms-panel-blurred-widget'
+                background_group, 'bms-panel-blurred-widget'
             );
             bg_manager = bg_manager_list[0];
         }
@@ -245,7 +249,7 @@ export const PanelBlur = class PanelBlur {
         this.connections.connect(
             panel,
             'destroy',
-            _ => this.destroy_blur(actors)
+            _ => this.destroy_blur(actors, false)
         );
     }
 
@@ -564,23 +568,26 @@ export const PanelBlur = class PanelBlur {
         });
     }
 
-    destroy_blur(actors) {
+    destroy_blur(actors, destroy_panel) {
         this.set_should_override_panel(actors, false);
 
         if (actors.static_blur) {
-            actors.widgets.background.get_effects().forEach(
-                effect => this.effects_manager.remove(effect)
-            );
-            actors.bg_manager.destroy();
+            actors.bg_manager._bms_pipeline.destroy();
+            if (destroy_panel) {
+                actors.widgets.background_group.remove_child(
+                    actors.bg_manager.backgroundActor.get_parent()
+                );
+                actors.bg_manager.destroy();
+            }
         } else
             this.effects_manager.remove(actors.effects.blur);
 
-        try {
+        if (destroy_panel) {
             actors.widgets.panel_box.remove_child(
                 actors.widgets.background_group
             );
-        } catch (e) { }
-        actors.widgets.background.destroy();
+            actors.widgets.background.destroy();
+        }
 
         let index = this.actors_list.indexOf(actors);
         if (index >= 0)
@@ -591,7 +598,7 @@ export const PanelBlur = class PanelBlur {
     force_destroy_blur_effects() {
         Main.panel?.get_parent()?.get_children().forEach(
             child => {
-                if (child.name === 'bms-panel-blurred-widget') {
+                if (child.name === 'bms-panel-backgroundgroup') {
                     child.get_children().forEach(meta_background_actor => {
                         meta_background_actor.get_effects().forEach(effect => {
                             this.effects_manager.remove(effect);
@@ -611,7 +618,7 @@ export const PanelBlur = class PanelBlur {
 
         this.update_light_text_classname(true);
 
-        this.actors_list.forEach(actors => this.destroy_blur(actors));
+        this.actors_list.forEach(actors => this.destroy_blur(actors, true));
         this.actors_list = [];
 
         this.force_destroy_blur_effects();
