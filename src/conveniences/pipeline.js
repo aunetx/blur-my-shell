@@ -2,26 +2,42 @@ import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
-
+/// A `Pipeline` object is a handy way to manage the effects attached to an actor. It only manages
+/// one actor at a time (so blurring multiple widgets will need multiple `Pipeline`), and is
+/// linked to a `pipeline_id` that has been (hopefully) defined in the settings.
+///
+/// It communicates with the settings through the `PipelinesManager` object, and receives different
+/// signals (with `pipeline_id` being an unique string):
+/// - `pipeline_id::pipeline-changed`, handing a new pipeline descriptor object, when the pipeline
+///   has been changed enough that it needs to rebuild the effects configuration
+/// - `pipeline_id::pipeline-destroyed`, handing a new pipeline descriptor object, when the pipeline
+///   has been destroyed; thus making the `Pipeline` change its id to `pipeline_default`
+///
+/// And each effect, with an unique `id`, is connected to the `PipelinesManager` for the signals:
+/// - `pipeline_id::effect-'id'-key-removed`, handing the key that was removed
+/// - `pipeline_id::effect-'id'-key-updated`, handing the key that was changed and its new value
+/// - `pipeline_id::effect-'id'-key-added`, handing the key that was added and its value
 export const Pipeline = class Pipeline {
-    constructor(effects_manager, pipelines_manager, pipeline_id = null) {
+    constructor(effects_manager, pipelines_manager, pipeline_id, actor = null) {
         this.effects_manager = effects_manager;
         this.pipelines_manager = pipelines_manager;
-        this.pipeline_id = pipeline_id;
         this.effects = [];
-        this.actor = null;
+        this.set_pipeline_id(pipeline_id);
+        this.attach_pipeline_to_actor(actor);
     }
 
+    /// Create a background linked to the monitor with index `monitor_index`, with a
+    /// `BackgroundManager` that is appended to the list `background_managers`. The background actor
+    /// will be given the name `widget_name` and inserted into the given `background_group`.
     create_background_with_effects(
         monitor_index,
         background_managers,
         background_group,
         widget_name
     ) {
-        if (this.actor)
-            this.unattach_pipeline_from_actor();
-
         let monitor = Main.layoutManager.monitors[monitor_index];
+
+        // create the new actor
         this.actor = new St.Widget({
             name: widget_name,
             x: monitor.x,
@@ -30,8 +46,11 @@ export const Pipeline = class Pipeline {
             height: monitor.height
         });
 
+        // remove the effects, wether or not we attach the pipeline to the actor: if they are fired
+        // while the actor has changed, this could go bad
+        this.remove_all_effects();
         if (this.pipeline_id)
-            this.attach_pipeline_to_actor(this.actor, this.pipeline_id);
+            this.attach_pipeline_to_actor(this.actor);
 
         let bg_manager = new Background.BackgroundManager({
             container: this.actor,
@@ -46,63 +65,81 @@ export const Pipeline = class Pipeline {
         return this.actor;
     };
 
-    attach_pipeline_to_actor(actor, pipeline_id) {
-        if (this.actor)
-            this.unattach_pipeline_from_actor();
+    /// Set the pipeline id, correctly connecting the `Pipeline` object to listen the pipelines
+    /// manager for pipeline-wide changes. This does not update the effects in consequence, call
+    /// `change_pipeline_to` instead if you want to reconstruct the effects too.
+    set_pipeline_id(pipeline_id) {
+        // disconnect ancient signals
+        this.remove_connections();
 
-        this.actor = actor;
+        // change the id
         this.pipeline_id = pipeline_id;
-
-        // attach the pipeline
-        let pipeline = this.pipelines_manager._pipelines[pipeline_id];
-        if (!pipeline) {
-            this._warn(`could not attach pipeline to actor, pipeline "${pipeline_id}" not found`);
-            return;
-        }
-        this.update_effects_from_pipeline(pipeline);
 
         // connect to settings changes
         this._pipeline_changed_id = this.pipelines_manager.connect(
-            pipeline_id + '::pipeline-changed',
+            this.pipeline_id + '::pipeline-changed',
             (_, new_pipeline) => this.update_effects_from_pipeline(new_pipeline)
         );
+        // TODO change this to have a defined behaviour (maybe change id to 'pipeline_default')
         this._pipeline_destroyed_id = this.pipelines_manager.connect(
-            pipeline_id + '::pipeline-destroyed',
-            _ => this.destroy()
+            this.pipeline_id + '::pipeline-destroyed',
+            _ => /*this.destroy()*/ true
         );
     }
 
-    remove_effects_from_actor() {
-        this.effects.forEach(effect => {
-            this.effects_manager.remove(effect);
-            [
-                effect._effect_key_removed_id,
-                effect._effect_key_updated_id,
-                effect._effect_key_added_id
-            ].forEach(
-                id => this.pipelines_manager.disconnect(id)
-            );
-        });
-        this.effects = [];
+    /// Disconnect the signals for the pipeline changes. Please note that the signals related to the
+    /// effects are stored with them and removed with `remove_all_effects`.
+    remove_connections() {
+        if (this._pipeline_changed_id)
+            this.pipelines_manager.disconnect(this._pipeline_changed_id);
+        if (this._pipeline_destroyed_id)
+            this.pipelines_manager.disconnect(this._pipeline_destroyed_id);
+        this._pipeline_changed_id = null;
+        this._pipeline_destroyed_id = null;
     }
 
-    update_effects_from_pipeline(pipeline) {
-        this.remove_effects_from_actor();
+    /// Attach a Pipeline object with `pipeline_id` already set to an actor.
+    attach_pipeline_to_actor(actor) {
+        // set the actor
+        this.actor = actor;
+        if (!actor)
+            return;
 
+        // attach the pipeline
+        let pipeline = this.pipelines_manager._pipelines[this.pipeline_id];
+        if (!pipeline) {
+            this._warn(`could not attach pipeline to actor, pipeline "${this.pipeline_id}" not found`);
+            return;
+        }
+
+        // update the effects
+        this.update_effects_from_pipeline(pipeline);
+    }
+
+    /// Update the effects from the given pipeline object, the hard way.
+    update_effects_from_pipeline(pipeline) {
+        // remove all effects
+        this.remove_all_effects();
+
+        // build the new effects to be added
         pipeline.effects.forEach(effect => {
             if ('new_' + effect.type + '_effect' in this.effects_manager)
-                this.add_effect_to_actor(effect);
+                this.build_effect(effect);
             else
                 this._warn(`could not add effect to actor, effect "${effect.type}" not found`);
         });
         this.effects.reverse();
+
+        // add the effects to the actor
         if (this.actor)
             this.effects.forEach(effect => this.actor.add_effect(effect));
         else
             this._warn(`could not add effect to actor, actor does not exist anymore`);
     }
 
-    add_effect_to_actor(effect_infos) {
+    /// Given an `effect_infos` object containing the effect type, id and params, build an effect
+    /// and append it to the effects list
+    build_effect(effect_infos) {
         let effect = this.effects_manager['new_' + effect_infos.type + '_effect'](effect_infos.params);
         this.effects.push(effect);
 
@@ -121,19 +158,33 @@ export const Pipeline = class Pipeline {
         );
     }
 
-    unattach_pipeline_from_actor() {
-        this.remove_effects_from_actor();
-        this.actor = null;
+    /// Remove every effect from the actor it is attached to. Please note that they are not
+    /// destroyed, but rather stored (thanks to the `EffectManager` class) to be reused later.
+    remove_all_effects() {
+        this.effects.forEach(effect => {
+            this.effects_manager.remove(effect);
+            [
+                effect._effect_key_removed_id,
+                effect._effect_key_updated_id,
+                effect._effect_key_added_id
+            ].forEach(
+                id => this.pipelines_manager.disconnect(id)
+            );
+        });
+        this.effects = [];
     }
 
+    /// Change the pipeline id, and update the effects according to this change.
+    change_pipeline_to(pipeline_id) {
+        this.set_pipeline_id(pipeline_id);
+        this.attach_pipeline_to_actor(this.actor);
+    }
+
+    /// Resets the `Pipeline` object to a sane state, removing every effect and signal.
     destroy() {
-        this.unattach_pipeline_from_actor();
-        if (this._pipeline_changed_id)
-            this.pipelines_manager.disconnect(this._pipeline_changed_id);
-        if (this._pipeline_destroyed_id)
-            this.pipelines_manager.disconnect(this._pipeline_destroyed_id);
-        this._pipeline_changed_id = null;
-        this._pipeline_destroyed_id = null;
+        this.remove_all_effects();
+        this.remove_connections();
+        this.actor = null;
         this.pipeline_id = null;
     }
 

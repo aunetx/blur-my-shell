@@ -7,7 +7,7 @@
         <key type="a{sa{sv}}" name="pipelines">
             <default> <![CDATA[
                 {
-                    'pipeline_000000000000': {
+                    'pipeline_default': {
                         'name': <'default'>,
                         'effects': <[
                             <{
@@ -84,6 +84,11 @@
         <key type="b" name="blur">
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -175,6 +180,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -244,6 +254,11 @@
         <key type="b" name="blur">
             <default>false</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -380,6 +395,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -419,6 +439,11 @@
         <key type="b" name="blur">
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">

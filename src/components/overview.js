@@ -85,10 +85,11 @@ export const OverviewBlur = class OverviewBlur {
                             (i !== Main.layoutManager.primaryMonitor.index)
                         )
                     ) {
+                        // TODO use another pipeline for the animation
                         const pipeline = new Pipeline(
                             outer_this.effects_manager,
                             global.blur_my_shell._pipelines_manager,
-                            'pipeline_000000000000'
+                            outer_this.settings.overview.PIPELINE
                         );
                         pipeline.create_background_with_effects(
                             i, outer_this.animation_background_managers,
@@ -147,7 +148,7 @@ export const OverviewBlur = class OverviewBlur {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                'pipeline_000000000000'
+                this.settings.overview.PIPELINE
             );
             pipeline.create_background_with_effects(
                 i, this.overview_background_managers,

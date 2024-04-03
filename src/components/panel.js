@@ -142,7 +142,7 @@ export const PanelBlur = class PanelBlur {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                'pipeline_000000000000'
+                this.settings.panel.PIPELINE
             );
             background = pipeline.create_background_with_effects(
                 monitor.index, bg_manager_list,
@@ -520,6 +520,15 @@ export const PanelBlur = class PanelBlur {
             panel.add_style_class_name(
                 PANEL_STYLES[this.settings.panel.STYLE_PANEL]
             );
+    }
+
+    update_pipeline() {
+        this.actors_list.forEach(actors => {
+            if (actors.static_blur)
+                actors.bg_manager._bms_pipeline.change_pipeline_to(
+                    this.settings.panel.PIPELINE
+                );
+        });
     }
 
     set_sigma(s) {

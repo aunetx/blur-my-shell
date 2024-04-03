@@ -31,7 +31,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                'pipeline_000000000000'
+                this.settings.screenshot.PIPELINE
             );
             pipeline.create_background_with_effects(
                 window_selector._monitorIndex, this.screenshot_background_managers,
@@ -67,6 +67,14 @@ export const ScreenshotBlur = class ScreenshotBlur {
     set_color(c) { }
     set_noise_amount(n) { }
     set_noise_lightness(l) { }
+
+    update_pipeline() {
+        this.screenshot_background_managers.forEach(background_manager =>
+            background_manager._bms_pipeline.change_pipeline_to(
+                this.settings.screenshot.PIPELINE
+            )
+        );
+    }
 
     remove_background_actors() {
         this.screenshot_background_managers.forEach(background_manager => {

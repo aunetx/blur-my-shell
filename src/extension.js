@@ -106,9 +106,8 @@ export default class BlurMyShell extends Extension {
                 'startup-complete',
                 this._enable_components.bind(this)
             );
-        } else {
+        } else
             this._enable_components();
-        }
 
         // try to enable the components as soon as possible anyway, this way the
         // overview may load before the user sees it
@@ -335,18 +334,22 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.overview.BLUR_changed(() => {
-            if (this._settings.overview.BLUR) {
+            if (this._settings.overview.BLUR)
                 this._overview_blur.enable();
-            } else {
+            else
                 this._overview_blur.disable();
-            }
+        });
+
+        // overview pipeline changed
+        this._settings.overview.PIPELINE_changed(() => {
+            if (this._settings.overview.BLUR)
+                this._overview_blur.update_backgrounds();
         });
 
         // overview components style changed
         this._settings.overview.STYLE_COMPONENTS_changed(() => {
-            if (this._settings.overview.BLUR) {
+            if (this._settings.overview.BLUR)
                 this._overview_blur.update_components_classname();
-            }
         });
 
 
@@ -354,11 +357,10 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.appfolder.BLUR_changed(() => {
-            if (this._settings.appfolder.BLUR) {
+            if (this._settings.appfolder.BLUR)
                 this._appfolder_blur.enable();
-            } else {
+            else
                 this._appfolder_blur.disable();
-            }
         });
 
         // appfolder dialogs style changed
@@ -372,11 +374,16 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.panel.BLUR_changed(() => {
-            if (this._settings.panel.BLUR) {
+            if (this._settings.panel.BLUR)
                 this._panel_blur.enable();
-            } else {
+            else
                 this._panel_blur.disable();
-            }
+        });
+
+        // panel pipeline changed
+        this._settings.panel.PIPELINE_changed(() => {
+            if (this._settings.panel.BLUR)
+                this._panel_blur.update_pipeline();
         });
 
         // static blur toggled on/off, really we can just reload the blur at this point
@@ -419,11 +426,10 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.dash_to_dock.BLUR_changed(() => {
-            if (this._settings.dash_to_dock.BLUR) {
+            if (this._settings.dash_to_dock.BLUR)
                 this._dash_to_dock_blur.enable();
-            } else {
+            else
                 this._dash_to_dock_blur.disable();
-            }
         });
 
         // static blur toggled on/off
@@ -461,11 +467,10 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.applications.BLUR_changed(() => {
-            if (this._settings.applications.BLUR) {
+            if (this._settings.applications.BLUR)
                 this._applications_blur.enable();
-            } else {
+            else
                 this._applications_blur.disable();
-            }
         });
 
         // application opacity changed
@@ -517,11 +522,16 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.lockscreen.BLUR_changed(() => {
-            if (this._settings.lockscreen.BLUR) {
+            if (this._settings.lockscreen.BLUR)
                 this._lockscreen_blur.enable();
-            } else {
+            else
                 this._lockscreen_blur.disable();
-            }
+        });
+
+        // lockscreen pipeline changed
+        this._settings.lockscreen.PIPELINE_changed(() => {
+            if (this._settings.lockscreen.BLUR)
+                this._lockscreen_blur.update_lockscreen();
         });
 
 
@@ -529,11 +539,10 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.window_list.BLUR_changed(() => {
-            if (this._settings.window_list.BLUR) {
+            if (this._settings.window_list.BLUR)
                 this._window_list_blur.enable();
-            } else {
+            else
                 this._window_list_blur.disable();
-            }
         });
 
 
@@ -559,11 +568,16 @@ export default class BlurMyShell extends Extension {
 
         // toggled on/off
         this._settings.screenshot.BLUR_changed(() => {
-            if (this._settings.screenshot.BLUR) {
+            if (this._settings.screenshot.BLUR)
                 this._screenshot_blur.enable();
-            } else {
+            else
                 this._screenshot_blur.disable();
-            }
+        });
+
+        // screenshot pipeline changed
+        this._settings.screenshot.PIPELINE_changed(() => {
+            if (this._settings.screenshot.BLUR)
+                this._screenshot_blur.update_pipeline();
         });
     }
 
@@ -644,12 +658,10 @@ export default class BlurMyShell extends Extension {
             let component_settings = this._settings[name];
 
             // update sigma accordingly
-            if (component_settings.CUSTOMIZE) {
+            if (component_settings.CUSTOMIZE)
                 component.set_sigma(component_settings.SIGMA);
-            }
-            else {
+            else
                 component.set_sigma(this._settings.SIGMA);
-            }
         });
     }
 

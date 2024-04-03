@@ -18,6 +18,7 @@ export const Keys = [
     {
         component: "overview", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
@@ -42,6 +43,7 @@ export const Keys = [
     {
         component: "panel", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
@@ -92,6 +94,7 @@ export const Keys = [
     {
         component: "lockscreen", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
@@ -114,6 +117,7 @@ export const Keys = [
     {
         component: "screenshot", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
