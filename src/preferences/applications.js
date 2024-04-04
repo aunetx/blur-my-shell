@@ -114,7 +114,7 @@ export const Applications = GObject.registerClass({
 
     add_widgets_from_lists() {
         this.preferences.applications.WHITELIST.forEach(
-            app_name => this.add_to_whitelist(app_name)
+            app => this.add_to_whitelist(app)
         );
 
         this.preferences.applications.BLACKLIST.forEach(
@@ -141,8 +141,8 @@ export const Applications = GObject.registerClass({
         );
     }
 
-    add_to_whitelist(app_name = null) {
-        let window_row = new WindowRow('whitelist', this, app_name);
+    add_to_whitelist(app = {}) {
+        let window_row = new WindowRow('whitelist', this, app.wm_class);
         this._whitelist.add(window_row);
     }
 

@@ -206,20 +206,52 @@ export const ApplicationsBlur = class ApplicationsBlur {
         let whitelist = this.settings.applications.WHITELIST;
         let blacklist = this.settings.applications.BLACKLIST;
 
+        // the element describing the window in whitelist, or undefined
+        let whitelist_element = whitelist.find(
+            element => element.wm_class == window_wm_class
+        );
+        // verify we are dealing with a real window
+        let is_a_window = [
+            Meta.FrameType.NORMAL,
+            Meta.FrameType.DIALOG,
+            Meta.FrameType.MODAL_DIALOG
+        ].includes(meta_window.get_frame_type())
+
         this._log(`checking blur for ${pid}`);
 
-        // either the window is included in whitelist
-        if (window_wm_class !== ""
-            && ((enable_all && !blacklist.includes(window_wm_class))
-                || (!enable_all && whitelist.includes(window_wm_class))
-            )
-            && [
-                Meta.FrameType.NORMAL,
-                Meta.FrameType.DIALOG,
-                Meta.FrameType.MODAL_DIALOG
-            ].includes(meta_window.get_frame_type())
+        // either the window is included in whitelist or not blacklisted
+        if (
+            window_wm_class !== ""
+            && !enable_all
+            && whitelist_element
+            && is_a_window
         ) {
-            this._log(`application ${pid} listed, blurring it`);
+            this._log(`application ${pid} whitelisted, blurring it`);
+
+            // get blur effect parameters
+
+            let brightness, sigma;
+
+            if (this.prefs.applications.CUSTOMIZE) {
+                brightness = this.prefs.applications.BRIGHTNESS;
+                sigma = this.prefs.applications.SIGMA;
+            } else {
+                brightness = this.prefs.BRIGHTNESS;
+                sigma = this.prefs.SIGMA;
+            }
+
+            this.set_opacity(window_actor, whitelist_element.opacity);
+
+            this.update_blur(pid, window_actor, meta_window, brightness, sigma);
+        }
+
+        // or enable_all is on, and application is not on blacklist
+        else if (
+            enable_all
+            && !(window_wm_class !== "" && blacklist.includes(window_wm_class))
+            && is_a_window
+        ) {
+            this._log(`application ${pid} not blacklisted, blurring it`);
 
             // get blur effect parameters
 
@@ -254,6 +286,13 @@ export const ApplicationsBlur = class ApplicationsBlur {
         else if (this.blur_actor_map.has(pid)) {
             this.remove_blur(pid);
         }
+    }
+
+    set_opacity(window_actor, opacity) {
+        window_actor.get_children().forEach(child => {
+            if (child.name !== "blur-actor")
+                child.opacity = opacity;
+        });
     }
 
     /// When given the xprop property, returns the brightness and sigma values
@@ -507,6 +546,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         // create the actor
         let blur_actor = new Clutter.Actor({
+            name: 'blur-actor',
             x: allocation.x,
             y: allocation.y,
             width: allocation.width,

@@ -340,8 +340,8 @@
             <summary>Wether or not to blur all applications by default</summary>
         </key>
         <!-- WHITELIST -->
-        <key type="as" name="whitelist">
-            <default>[]</default>
+        <key type="aa{sd}" name="whitelist">
+            <default>{}</default>
             <summary>List of applications to blur</summary>
         </key>
         <!-- BLACKLIST -->
