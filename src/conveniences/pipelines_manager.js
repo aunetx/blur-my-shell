@@ -80,7 +80,6 @@ export class PipelinesManager {
             // if we find a pipeline that does not exist anymore, signal it
             if (!(pipeline_id in this.pipelines)) {
                 this.emit(pipeline_id + '::pipeline-destroyed');
-                this._warn(pipeline_id + '::pipeline-destroyed');
                 continue;
             }
 
@@ -104,7 +103,7 @@ export class PipelinesManager {
                                 pipeline_id + '::effect-' + id + '-key-removed', key
                             );
                         // if a key was updated, we emit to tell the effect to change its value
-                        else if (old_effect.params[key] != new_effect.params[key])
+                        else if (!old_effect.params[key] || old_effect.params[key] != new_effect.params[key])
                             this.emit(
                                 pipeline_id + '::effect-' + id + '-key-updated', key, new_effect.params[key]
                             );
