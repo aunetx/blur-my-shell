@@ -3,7 +3,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
-import { WindowRow } from './window_row.js';
+import { ApplicationRow } from './applications_management/application_row.js';
 
 
 const make_array = prefs_group => {
@@ -142,12 +142,12 @@ export const Applications = GObject.registerClass({
     }
 
     add_to_whitelist(app_name = null) {
-        let window_row = new WindowRow('whitelist', this, app_name);
+        let window_row = new ApplicationRow('whitelist', this, app_name);
         this._whitelist.add(window_row);
     }
 
     add_to_blacklist(app_name = null) {
-        let window_row = new WindowRow('blacklist', this, app_name);
+        let window_row = new ApplicationRow('blacklist', this, app_name);
         this._blacklist.add(window_row);
     }
 

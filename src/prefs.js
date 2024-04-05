@@ -15,7 +15,7 @@ import { Applications } from './preferences/applications.js';
 import { Other } from './preferences/other.js';
 
 import './preferences/customize_row.js';
-import './preferences/pipeline_choose_row.js';
+import './preferences/pipelines_management/pipeline_choose_row.js';
 
 
 export default class BlurMyShellPreferences extends ExtensionPreferences {

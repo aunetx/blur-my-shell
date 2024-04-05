@@ -4,12 +4,12 @@ import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 
 import { EffectRow } from './effect_row.js';
-import { SUPPORTED_EFFECT } from '../conveniences/effects_manager.js';
+import { SUPPORTED_EFFECT } from '../../conveniences/effects_manager.js';
 
 
 export const EffectsDialog = GObject.registerClass({
     GTypeName: 'EffectsDialog',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/effects-dialog.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/effects-dialog.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         "add_effect",
         "effects_list"

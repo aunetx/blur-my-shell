@@ -2,8 +2,8 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
-import { PipelineGroup } from './pipeline_group.js';
-import { EffectsDialog } from './effects_dialog.js';
+import { PipelineGroup } from './pipelines_management/pipeline_group.js';
+import { EffectsDialog } from './pipelines_management/effects_dialog.js';
 
 
 export const Pipelines = GObject.registerClass({

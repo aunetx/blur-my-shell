@@ -6,7 +6,7 @@ import Gtk from 'gi://Gtk';
 
 export const PipelineChooseRow = GObject.registerClass({
     GTypeName: 'PipelineChooseRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/pipeline-choose-row.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipeline-choose-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'pipeline_choose',
         'pipeline_model',

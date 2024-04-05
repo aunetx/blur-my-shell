@@ -2,7 +2,7 @@ import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 
-import { SUPPORTED_EFFECT } from '../conveniences/effects_manager.js';
+import { SUPPORTED_EFFECT } from '../../conveniences/effects_manager.js';
 
 
 export const EffectRow = GObject.registerClass({

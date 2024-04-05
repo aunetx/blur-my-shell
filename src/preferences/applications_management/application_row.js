@@ -4,19 +4,19 @@ import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 import Gtk from 'gi://Gtk';
 
-import { pick, on_picking, on_picked } from '../dbus/client.js';
+import { pick, on_picking, on_picked } from '../../dbus/client.js';
 
 
-export const WindowRow = GObject.registerClass({
-    GTypeName: 'WindowRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/window-row.ui', GLib.UriFlags.NONE),
+export const ApplicationRow = GObject.registerClass({
+    GTypeName: 'ApplicationRow',
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/application-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'window_picker',
         'window_class',
         'picking_failure_toast',
         'window_not_found_toast'
     ],
-}, class WindowRow extends Adw.ExpanderRow {
+}, class ApplicationRow extends Adw.ExpanderRow {
     constructor(list, app_page, app_name) {
         super({});
         this._list = list;

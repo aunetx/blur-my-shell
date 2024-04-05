@@ -6,7 +6,7 @@ import Gtk from 'gi://Gtk';
 
 export const PipelineGroup = GObject.registerClass({
     GTypeName: 'PipelineGroup',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/pipeline-group.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipeline-group.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         "title",
         "manage_effects"
