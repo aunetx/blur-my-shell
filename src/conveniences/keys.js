@@ -1,7 +1,7 @@
 import { Type } from './settings.js';
 
 // This lists the preferences keys
-export const Keys = [
+export const KEYS = [
     {
         component: "general", schemas: [
             { type: Type.PIPELINES, name: "pipelines" },

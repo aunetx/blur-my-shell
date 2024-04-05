@@ -2,7 +2,7 @@ import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 
-import { SUPPORTED_EFFECT } from '../../conveniences/effects_manager.js';
+import { SUPPORTED_EFFECTS } from '../../effects/effects.js';
 
 
 export const EffectRow = GObject.registerClass({
@@ -17,9 +17,9 @@ export const EffectRow = GObject.registerClass({
         this.pipeline_id = effects_dialog.pipeline_id;
         this.pipelines_manager = effects_dialog.pipelines_manager;
 
-        if (effect.type in SUPPORTED_EFFECT) {
-            this.set_title(SUPPORTED_EFFECT[effect.type].name);
-            this.set_subtitle(SUPPORTED_EFFECT[effect.type].description);
+        if (effect.type in SUPPORTED_EFFECTS) {
+            this.set_title(SUPPORTED_EFFECTS[effect.type].name);
+            this.set_subtitle(SUPPORTED_EFFECTS[effect.type].description);
             this.populate_options();
         }
         else {
@@ -75,7 +75,7 @@ export const EffectRow = GObject.registerClass({
     }
 
     populate_options() {
-        const editable_params = SUPPORTED_EFFECT[this.effect.type].editable_params;
+        const editable_params = SUPPORTED_EFFECTS[this.effect.type].editable_params;
         for (const param_key in editable_params) {
             let param = editable_params[param_key];
             let row;
@@ -163,7 +163,7 @@ export const EffectRow = GObject.registerClass({
         if ('params' in gsettings_effect && key in gsettings_effect.params)
             return gsettings_effect.params[key];
         else
-            return SUPPORTED_EFFECT[this.effect.type].class.default_params[key];
+            return SUPPORTED_EFFECTS[this.effect.type].class.default_params[key];
     }
 
     set_effect_param(key, value) {

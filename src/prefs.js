@@ -4,7 +4,7 @@ import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/
 
 import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { Settings } from './conveniences/settings.js';
-import { Keys } from './conveniences/keys.js';
+import { KEYS } from './conveniences/keys.js';
 
 import { addMenu } from './preferences/menu.js';
 import { Pipelines } from './preferences/pipelines.js';
@@ -31,7 +31,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         addMenu(window);
 
-        const preferences = new Settings(Keys, this.getSettings());
+        const preferences = new Settings(KEYS, this.getSettings());
         const pipelines_manager = new PipelinesManager(preferences);
 
         const pipelines_page = new Pipelines(preferences, pipelines_manager, window);

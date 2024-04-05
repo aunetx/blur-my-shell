@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { EffectRow } from './effect_row.js';
-import { SUPPORTED_EFFECT } from '../../conveniences/effects_manager.js';
+import { SUPPORTED_EFFECTS } from '../../effects/effects.js';
 
 
 export const EffectsDialog = GObject.registerClass({
@@ -46,9 +46,9 @@ export const EffectsDialog = GObject.registerClass({
             });
             page.add(group);
 
-            for (const effect_type in SUPPORTED_EFFECT) {
+            for (const effect_type in SUPPORTED_EFFECTS) {
                 let action_row = new Adw.ActionRow({
-                    title: SUPPORTED_EFFECT[effect_type].name
+                    title: SUPPORTED_EFFECTS[effect_type].name
                 });
                 let select_button = new Gtk.Button({
                     'icon-name': 'select-row-symbolic',

@@ -8,7 +8,7 @@ import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
 import { Settings } from './conveniences/settings.js';
-import { Keys } from './conveniences/keys.js';
+import { KEYS } from './conveniences/keys.js';
 
 import { PanelBlur } from './components/panel.js';
 import { OverviewBlur } from './components/overview.js';
@@ -37,7 +37,7 @@ export default class BlurMyShell extends Extension {
 
         // create a Settings instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG
-        this._settings = new Settings(Keys, this.getSettings());
+        this._settings = new Settings(KEYS, this.getSettings());
 
         this._log("enabling extension...");
 
