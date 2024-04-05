@@ -167,8 +167,11 @@ export const Pipeline = class Pipeline {
                 effect._effect_key_updated_id,
                 effect._effect_key_added_id
             ].forEach(
-                id => this.pipelines_manager.disconnect(id)
+                id => { if (id) this.pipelines_manager.disconnect(id); }
             );
+            delete effect._effect_key_removed_id;
+            delete effect._effect_key_updated_id;
+            delete effect._effect_key_added_id;
         });
         this.effects = [];
     }
