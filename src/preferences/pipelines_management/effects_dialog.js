@@ -31,7 +31,7 @@ export const EffectsDialog = GObject.registerClass({
             this.update_rows_insensitive_mover(effect_row);
         });
 
-        this._add_effect.connect('clicked', _ => {
+        this._add_effect.connect('clicked', () => {
             let dialog = new Adw.Dialog({
                 presentation_mode: Adw.DialogPresentationMode.BOTTOM_SHEET,
                 follows_content_size: true
@@ -61,7 +61,7 @@ export const EffectsDialog = GObject.registerClass({
                 select_button.add_css_class('flat');
                 action_row.add_suffix(select_button);
                 action_row.set_activatable_widget(select_button);
-                select_button.connect('clicked', _ => {
+                select_button.connect('clicked', () => {
                     this.append_effect(effect_type);
                     dialog.close();
                 });

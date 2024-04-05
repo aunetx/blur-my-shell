@@ -26,7 +26,7 @@ export const PipelineGroup = GObject.registerClass({
         this._title.set_text(pipeline.name);
         this._title.connect(
             'changed',
-            _ => pipelines_manager.rename_pipeline(pipeline_id, this._title.get_text())
+            () => pipelines_manager.rename_pipeline(pipeline_id, this._title.get_text())
         );
 
         // the bin containing the actions
@@ -45,7 +45,7 @@ export const PipelineGroup = GObject.registerClass({
             });
             remove_button.add_css_class('destructive-action');
             prefix_bin.append(remove_button);
-            remove_button.connect('clicked', _ => pipelines_manager.delete_pipeline(pipeline_id));
+            remove_button.connect('clicked', () => pipelines_manager.delete_pipeline(pipeline_id));
         }
         // add a 'duplicate' button
         let duplicate_button = new Gtk.Button({
@@ -56,11 +56,11 @@ export const PipelineGroup = GObject.registerClass({
             'margin-bottom': 6
         });
         prefix_bin.append(duplicate_button);
-        duplicate_button.connect('clicked', _ => pipelines_manager.duplicate_pipeline(pipeline_id));
+        duplicate_button.connect('clicked', () => pipelines_manager.duplicate_pipeline(pipeline_id));
 
         this._manage_effects.connect(
             'clicked',
-            _ => pipelines_page.open_effects_dialog(pipeline_id)
+            () => pipelines_page.open_effects_dialog(pipeline_id)
         );
     }
 });

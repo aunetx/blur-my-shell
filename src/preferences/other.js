@@ -65,6 +65,6 @@ export const Other = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._reset.connect('clicked', _ => this.preferences.reset());
+        this._reset.connect('clicked', () => this.preferences.reset());
     }
 });

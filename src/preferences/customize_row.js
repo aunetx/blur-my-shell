@@ -10,7 +10,7 @@ import Gtk from 'gi://Gtk';
 let bind_color = function (component, key, widget) {
     let property_name = key.replaceAll('-', '_').toUpperCase();
 
-    let parse_color = _ => {
+    let parse_color = () => {
         let [r, g, b, a] = component[property_name];
         let w = widget.rgba;
         w.red = r;
@@ -21,7 +21,7 @@ let bind_color = function (component, key, widget) {
     };
     component.settings.connect('changed::' + key, parse_color);
 
-    widget.connect('color-set', _ => {
+    widget.connect('color-set', () => {
         let c = widget.rgba;
         component[property_name] = [c.red, c.green, c.blue, c.alpha];
     });
@@ -116,7 +116,7 @@ export const CustomizeRow = GObject.registerClass({
 
                 // only way to get the correct state when first opening the
                 // window...
-                setTimeout(_ => {
+                setTimeout(() => {
                     let is_visible = color_and_noise.active;
                     this._color_row.visible = is_visible;
                     this._noise_amount_row.visible = is_visible;

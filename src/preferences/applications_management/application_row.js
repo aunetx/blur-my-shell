@@ -36,7 +36,7 @@ export const ApplicationRow = GObject.registerClass({
         action_row.add_prefix(remove_button);
 
         // connect the button to the whitelist / blacklist removal
-        remove_button.connect('clicked', _ => this._remove_row());
+        remove_button.connect('clicked', () => this._remove_row());
 
         // bind row title to text buffer
         this._window_class.buffer.bind_property(
@@ -54,11 +54,11 @@ export const ApplicationRow = GObject.registerClass({
         }
 
         // pick a window when the picker button is clicked
-        this._window_picker.connect('clicked', _ => this._do_pick_window());
+        this._window_picker.connect('clicked', () => this._do_pick_window());
 
         // update list on text buffer change
         this._window_class.connect('changed',
-            _ => this._update_rows_titles()
+            () => this._update_rows_titles()
         );
     }
 
@@ -74,7 +74,7 @@ export const ApplicationRow = GObject.registerClass({
         // a mechanism to know if the extension is listening correcly
         let has_responded = false;
         let should_take_answer = true;
-        setTimeout(_ => {
+        setTimeout(() => {
             if (!has_responded) {
                 // show toast about failure
                 this._app_page._preferences_window.add_toast(
@@ -90,7 +90,7 @@ export const ApplicationRow = GObject.registerClass({
             }
         }, 250);
 
-        on_picking(_ =>
+        on_picking(() =>
             has_responded = true
         );
 

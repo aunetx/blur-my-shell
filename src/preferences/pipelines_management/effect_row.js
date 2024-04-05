@@ -57,8 +57,8 @@ export const EffectRow = GObject.registerClass({
         move_bin.append(this._move_up_button);
         move_bin.append(this._move_down_button);
 
-        this._move_up_button.connect('clicked', _ => effects_dialog.move_row_by(this, -1));
-        this._move_down_button.connect('clicked', _ => effects_dialog.move_row_by(this, +1));
+        this._move_up_button.connect('clicked', () => effects_dialog.move_row_by(this, -1));
+        this._move_down_button.connect('clicked', () => effects_dialog.move_row_by(this, +1));
 
         let remove_button = new Gtk.Button({
             'icon-name': 'remove-row-symbolic',
@@ -71,7 +71,7 @@ export const EffectRow = GObject.registerClass({
         prefix_bin.append(remove_button);
         remove_button.add_css_class('destructive-action');
 
-        remove_button.connect('clicked', _ => effects_dialog.remove_row(this));
+        remove_button.connect('clicked', () => effects_dialog.remove_row(this));
     }
 
     populate_options() {
@@ -90,7 +90,7 @@ export const EffectRow = GObject.registerClass({
                     });
                     row.adjustment.set_value(this.get_effect_param(param_key));
                     row.adjustment.connect(
-                        'value-changed', _ => this.set_effect_param(param_key, row.adjustment.value)
+                        'value-changed', () => this.set_effect_param(param_key, row.adjustment.value)
                     );
                     break;
 
@@ -111,7 +111,7 @@ export const EffectRow = GObject.registerClass({
                     row.add_suffix(scale);
                     scale.adjustment.set_value(this.get_effect_param(param_key));
                     scale.adjustment.connect(
-                        'value-changed', _ => this.set_effect_param(param_key, scale.adjustment.value)
+                        'value-changed', () => this.set_effect_param(param_key, scale.adjustment.value)
                     );
                     break;
 
@@ -119,7 +119,7 @@ export const EffectRow = GObject.registerClass({
                     row = new Adw.SwitchRow;
                     row.set_active(this.get_effect_param(param_key));
                     row.connect(
-                        'notify::active', _ => this.set_effect_param(param_key, row.active)
+                        'notify::active', () => this.set_effect_param(param_key, row.active)
                     );
                     break;
 
@@ -139,7 +139,7 @@ export const EffectRow = GObject.registerClass({
                     color_button.set_rgba(c);
                     // update on on 'color-set'
                     color_button.connect(
-                        'color-set', _ => {
+                        'color-set', () => {
                             let c = color_button.get_rgba();
                             this.set_effect_param(param_key, [c.red, c.green, c.blue, c.alpha]);
                         }

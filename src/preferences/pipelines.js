@@ -27,12 +27,12 @@ export const Pipelines = GObject.registerClass({
 
         this._add_pipeline.connect(
             "clicked",
-            _ => this.pipelines_manager.create_pipeline("New pipeline")
+            () => this.pipelines_manager.create_pipeline("New pipeline")
         );
 
         this.pipelines_manager.connect(
             "pipeline-created",
-            (_, id, pipeline) => this.add_pipeline(id, true)
+            (_obj, id, _pipeline) => this.add_pipeline(id, true)
         );
     }
 
@@ -44,12 +44,12 @@ export const Pipelines = GObject.registerClass({
 
         let pipeline_destroyed_id = this.pipelines_manager.connect(
             pipeline_id + "::pipeline-destroyed",
-            _ => this.remove_pipeline(pipeline_id)
+            () => this.remove_pipeline(pipeline_id)
         );
 
         let pipeline_renamed_id = this.pipelines_manager.connect(
             pipeline_id + "::pipeline-renamed",
-            (_, name) => this.rename_pipeline(pipeline_id, name)
+            (_obj, name) => this.rename_pipeline(pipeline_id, name)
         );
 
         this.pipelines_map.set(pipeline_id, {
@@ -61,7 +61,7 @@ export const Pipelines = GObject.registerClass({
         // scroll to the bottom of the page
         if (scroll_to_bottom) {
             this.window.set_visible_page(this);
-            setTimeout(_ => {
+            setTimeout(() => {
                 const scroll_adjustment = this.get_first_child().get_vadjustment();
                 scroll_adjustment.value = scroll_adjustment.get_upper();
             }, 10);

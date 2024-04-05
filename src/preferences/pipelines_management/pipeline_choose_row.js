@@ -34,7 +34,7 @@ export const PipelineChooseRow = GObject.registerClass({
         // TODO fix the expression not being re-evaluated other than by setting it again
         this.pipelines_manager.connect(
             'pipeline-names-changed',
-            _ => this._pipeline_choose.expression = new Gtk.ClosureExpression(
+            () => this._pipeline_choose.expression = new Gtk.ClosureExpression(
                 GObject.TYPE_STRING,
                 string_object => {
                     const pipeline_id = string_object.get_string();
@@ -46,7 +46,7 @@ export const PipelineChooseRow = GObject.registerClass({
             )
         );
 
-        this.preferences.PIPELINE_changed(_ => {
+        this.preferences.PIPELINE_changed(() => {
             for (let i = 0; i < this._pipeline_model.n_items; i++) {
                 const pipeline_id = this._pipeline_model.get_string(i);
                 if (pipeline_id == this.preferences.PIPELINE)
@@ -56,10 +56,10 @@ export const PipelineChooseRow = GObject.registerClass({
 
         this.pipelines_manager.connect(
             'pipeline-list-changed',
-            _ => this.create_pipelines_list()
+            () => this.create_pipelines_list()
         );
 
-        this._pipeline_choose.connect('notify::selected', _ => {
+        this._pipeline_choose.connect('notify::selected', () => {
             if (!this._pipeline_choose.selected_item)
                 return;
             const pipeline_id = this._pipeline_choose.selected_item.get_string();
@@ -73,7 +73,7 @@ export const PipelineChooseRow = GObject.registerClass({
 
         this._pipeline_edit.connect(
             'clicked',
-            _ => pipelines_page.open_effects_dialog(this.preferences.PIPELINE)
+            () => pipelines_page.open_effects_dialog(this.preferences.PIPELINE)
         );
     }
 

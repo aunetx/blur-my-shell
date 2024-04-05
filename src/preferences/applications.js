@@ -87,16 +87,16 @@ export const Applications = GObject.registerClass({
 
         // listen to app row addition
         this._add_window_whitelist.connect('clicked',
-            _ => this.add_to_whitelist()
+            () => this.add_to_whitelist()
         );
         this._add_window_blacklist.connect('clicked',
-            _ => this.add_to_blacklist()
+            () => this.add_to_blacklist()
         );
 
         // add initial applications
         this.add_widgets_from_lists();
 
-        this.preferences.connect('reset', _ => {
+        this.preferences.connect('reset', () => {
             this.remove_all_widgets();
             this.add_widgets_from_lists();
         });
