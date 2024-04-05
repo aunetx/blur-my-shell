@@ -5,15 +5,16 @@ import { ColorEffect } from '../effects/color.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 
+// TODO add gettext translations for the effects / parameters name and description
 export const SUPPORTED_EFFECTS = {
     native_gaussian_blur: {
         class: NativeBlurEffect,
         name: "Native gaussian blur",
-        description: "An optimized blur effect that blend together the pixels around the origin, within a given radius.",
+        description: "An optimized blur effect that smoothly blends pixels within a given radius.",
         editable_params: {
             radius: {
                 name: "Radius",
-                description: "The intensity of the blur effect. The bigger it is, the slower it will be.",
+                description: "The intensity of the blur effect.",
                 type: "float",
                 min: 0.,
                 max: 200.,
@@ -22,7 +23,7 @@ export const SUPPORTED_EFFECTS = {
             },
             brightness: {
                 name: "Brightness",
-                description: "The brightness of the effect.",
+                description: "The brightness of the blur effect, a high value might make the text harder to read.",
                 type: "float",
                 min: 0.,
                 max: 1.,
@@ -35,7 +36,7 @@ export const SUPPORTED_EFFECTS = {
     gaussian_blur: {
         class: GaussianBlurEffect,
         name: "Gaussian blur",
-        description: "A basic blur effect that blend together the pixels around the origin, within a given radius.",
+        description: "A blur effect that smoothly blends pixels within a given radius. This effect is more precise, but way less optimized.",
         editable_params: {
             radius: {
                 name: "Radius",
@@ -48,7 +49,7 @@ export const SUPPORTED_EFFECTS = {
             },
             brightness: {
                 name: "Brightness",
-                description: "The brightness of the effect.",
+                description: "The brightness of the blur effect, a high value might make the text harder to read.",
                 type: "float",
                 min: 0.,
                 max: 1.,
@@ -65,7 +66,7 @@ export const SUPPORTED_EFFECTS = {
         editable_params: {
             radius: {
                 name: "Radius",
-                description: "The maximum step to go search the next pixel.",
+                description: "The maximum travel distance for each step in the random walk. A higher value will make the blur more randomized.",
                 type: "float",
                 min: 0.,
                 max: 10.,
@@ -74,7 +75,7 @@ export const SUPPORTED_EFFECTS = {
             },
             iterations: {
                 name: "Iterations",
-                description: "The number of iterations. The more there are, the more even the blur is.",
+                description: "The number of iterations. The more there are, the smoother the blur is.",
                 type: "integer",
                 min: 0,
                 max: 50,
@@ -82,7 +83,7 @@ export const SUPPORTED_EFFECTS = {
             },
             brightness: {
                 name: "Brightness",
-                description: "The brightness of the effect.",
+                description: "The brightness of the blur effect, a high value might make the text harder to read.",
                 type: "float",
                 min: 0.,
                 max: 1.,
@@ -104,7 +105,7 @@ export const SUPPORTED_EFFECTS = {
         editable_params: {
             color: {
                 name: "Color",
-                description: "The color to blend in. The blending amount is controled by the alpha value of the color.",
+                description: "The color to blend in. The blending amount is controled by the opacity of the color.",
                 type: "rgba"
             }
         }
@@ -126,7 +127,7 @@ export const SUPPORTED_EFFECTS = {
             },
             lightness: {
                 name: "Lightness",
-                description: "The luminosity of the noise. A setting of '0.5' will make the effect transparent.",
+                description: "The luminosity of the noise. A setting of '1.0' will make the effect transparent.",
                 type: "float",
                 min: 0.,
                 max: 2.,
@@ -139,7 +140,7 @@ export const SUPPORTED_EFFECTS = {
     corner: {
         class: CornerEffect,
         name: "Corner",
-        description: "An effect that draws a corner. Add it last not to have the other effects perturb the corner.",
+        description: "An effect that draws corners. Add it last not to have the other effects perturb the corners.",
         editable_params: {
             radius: {
                 name: "Radius",

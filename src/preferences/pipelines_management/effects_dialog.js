@@ -79,11 +79,12 @@ export const EffectsDialog = GObject.registerClass({
         };
         this.pipelines_manager.update_pipeline_effects(
             this.pipeline_id,
-            [effect, ...this.pipelines_manager.pipelines[this.pipeline_id].effects]
+            [...this.pipelines_manager.pipelines[this.pipeline_id].effects, effect]
         );
 
         const effect_row = new EffectRow(effect, this);
         this._effects_list.add(effect_row);
+        this.move_row_by(effect_row, 0);
         this.update_rows_insensitive_mover(effect_row);
     }
 
