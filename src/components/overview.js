@@ -84,23 +84,11 @@ export const OverviewBlur = class OverviewBlur {
                             Meta.prefs_get_workspaces_only_on_primary() &&
                             (i !== Main.layoutManager.primaryMonitor.index)
                         )
-                    ) {
-                        // TODO use another pipeline for the animation
-                        const pipeline = new Pipeline(
-                            outer_this.effects_manager,
-                            global.blur_my_shell._pipelines_manager,
-                            outer_this.settings.overview.PIPELINE
-                        );
-                        pipeline.create_background_with_effects(
-                            i, outer_this.animation_background_managers,
-                            outer_this.animation_background_group, 'bms-animation-blurred-widget'
-                        );
-
+                    )
                         Main.uiGroup.insert_child_above(
                             outer_this.animation_background_group,
                             global.window_group
                         );
-                    }
                 }
             };
 
@@ -120,14 +108,6 @@ export const OverviewBlur = class OverviewBlur {
                             );
                     }
 
-                outer_this.animation_background_managers.forEach(background_manager => {
-                    background_manager._bms_pipeline.destroy();
-                    outer_this.animation_background_group.remove_child(
-                        background_manager.backgroundActor.get_parent()
-                    );
-                    background_manager.destroy();
-                });
-
                 Main.uiGroup.get_children().forEach(child => {
                     if (child.get_name() == 'bms-animation-backgroundgroup')
                         Main.uiGroup.remove_child(child);
@@ -143,19 +123,29 @@ export const OverviewBlur = class OverviewBlur {
     update_backgrounds() {
         // remove every old background
         this.remove_background_actors();
-        // create new backgrounds for the overview
+        // create new backgrounds for the overview and the animation
         for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
-            const pipeline = new Pipeline(
+            const pipeline_overview = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
                 this.settings.overview.PIPELINE
             );
-            pipeline.create_background_with_effects(
+            pipeline_overview.create_background_with_effects(
                 i, this.overview_background_managers,
                 this.overview_background_group, 'bms-overview-blurred-widget'
             );
+
+            const pipeline_animation = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                this.settings.overview.PIPELINE
+            );
+            pipeline_animation.create_background_with_effects(
+                i, this.animation_background_managers,
+                this.animation_background_group, 'bms-animation-blurred-widget'
+            );
         }
-        // add the container widget to the overview group
+        // add the container widget for the overview only to the overview group
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
     }
 
@@ -187,12 +177,21 @@ export const OverviewBlur = class OverviewBlur {
             background_manager.destroy();
         });
 
+        this.animation_background_managers.forEach(background_manager => {
+            background_manager._bms_pipeline.destroy();
+            this.animation_background_group.remove_child(
+                background_manager.backgroundActor.get_parent()
+            );
+            background_manager.destroy();
+        });
+
         Main.layoutManager.overviewGroup.get_children().forEach(child => {
             if (child.get_name() == 'bms-overview-backgroundgroup')
                 Main.layoutManager.overviewGroup.remove_child(child);
         });
 
         this.overview_background_managers = [];
+        this.animation_background_managers = [];
     }
 
     disable() {
