@@ -431,8 +431,10 @@ export const ApplicationsBlur = class ApplicationsBlur {
             focus = false;
         let pid = meta_window.blur_provider_pid;
         let blur_actor = this.blur_actor_map.get(pid);
-        if (!blur_actor)
+        if (!blur_actor) {
+            this.focused_window_pid = null;
             return;
+        }
 
         let window_actor = meta_window.get_compositor_private();
         if (focus) {
