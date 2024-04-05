@@ -19,7 +19,9 @@ export const EffectsManager = class EffectsManager {
                         ...SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
                     });
                 } else
-                    effect = new SUPPORTED_EFFECTS[effect_name].class(params);
+                    effect = new SUPPORTED_EFFECTS[effect_name].class({
+                        ...SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
+                    });
 
                 this.used.push(effect);
                 this.connect_to_destroy(effect);

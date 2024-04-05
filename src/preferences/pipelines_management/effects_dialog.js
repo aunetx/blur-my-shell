@@ -35,7 +35,7 @@ export const EffectsDialog = GObject.registerClass({
         this._add_effect.connect('clicked', () => {
             let dialog = new Adw.Dialog({
                 presentation_mode: Adw.DialogPresentationMode.BOTTOM_SHEET,
-                follows_content_size: true
+                content_width: 450
             });
 
             let page = new Adw.PreferencesPage;
@@ -48,7 +48,8 @@ export const EffectsDialog = GObject.registerClass({
 
             for (const effect_type in SUPPORTED_EFFECTS) {
                 let action_row = new Adw.ActionRow({
-                    title: SUPPORTED_EFFECTS[effect_type].name
+                    title: SUPPORTED_EFFECTS[effect_type].name,
+                    subtitle: SUPPORTED_EFFECTS[effect_type].description
                 });
                 let select_button = new Gtk.Button({
                     'icon-name': 'select-row-symbolic',

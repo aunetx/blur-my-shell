@@ -108,7 +108,12 @@ export const Pipeline = class Pipeline {
         let pipeline = this.pipelines_manager.pipelines[this.pipeline_id];
         if (!pipeline) {
             this._warn(`could not attach pipeline to actor, pipeline "${this.pipeline_id}" not found`);
-            return;
+            // do not recurse...
+            if ("pipeline_default" in this.pipelines_manager.pipelines) {
+                this.set_pipeline_id("pipeline_default");
+                pipeline = this.pipelines_manager.pipelines["pipeline_default"];
+            } else
+                return;
         }
 
         // update the effects

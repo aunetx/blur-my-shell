@@ -11,7 +11,7 @@
                         'name': <'default'>,
                         'effects': <[
                             <{
-                                'type': <'gaussian_blur'>,
+                                'type': <'native_gaussian_blur'>,
                                 'id': <'effect_000000000000'>,
                                 'params': <{
                                     'radius': <30>,

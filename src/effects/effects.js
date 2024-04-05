@@ -1,3 +1,4 @@
+import { NativeBlurEffect } from '../effects/shell_gaussian_blur.js';
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
@@ -5,6 +6,32 @@ import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 
 export const SUPPORTED_EFFECTS = {
+    native_gaussian_blur: {
+        class: NativeBlurEffect,
+        name: "Native gaussian blur",
+        description: "An optimized blur effect that blend together the pixels around the origin, within a given radius.",
+        editable_params: {
+            radius: {
+                name: "Radius",
+                description: "The intensity of the blur effect. The bigger it is, the slower it will be.",
+                type: "float",
+                min: 0.,
+                max: 200.,
+                increment: 1.,
+                digits: 0
+            },
+            brightness: {
+                name: "Brightness",
+                description: "The brightness of the effect.",
+                type: "float",
+                min: 0.,
+                max: 1.,
+                increment: 0.01,
+                digits: 2
+            },
+        }
+    },
+
     gaussian_blur: {
         class: GaussianBlurEffect,
         name: "Gaussian blur",
