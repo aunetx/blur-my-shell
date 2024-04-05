@@ -16,7 +16,7 @@
         </property>
 
         <child>
-          <object class="CustomizeRow" id="overview_customize">
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
             <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
           </object>
         </child>

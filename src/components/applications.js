@@ -52,6 +52,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
             global.display,
             'focus-window',
             (_meta_display, meta_window, _p0) => {
+                // FIXME if a window is selected and not set to be blurred, the other windows lose
+                // this behaviour
                 if (meta_window && meta_window.blur_provider_pid != this.focused_window_pid) {
                     this._log(`focus changed to pid ${meta_window.blur_provider_pid}`);
                     if (this.focused_window_pid) {

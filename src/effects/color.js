@@ -1,20 +1,10 @@
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
-import Shell from 'gi://Shell';
 
+import * as utils from '../conveniences/utils.js';
+const Shell = await utils.import_in_shell_only('gi://Shell');
+const SHADER_FILENAME = 'color.glsl';
 
-const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'color.glsl', GLib.UriFlags.NONE))[0];
-
-
-const get_shader_source = _ => {
-    try {
-        return Shell.get_file_contents_utf8_sync(SHADER_PATH);
-    } catch (e) {
-        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
-        return null;
-    }
-};
 
 /// New Clutter Shader Effect that simply mixes a color in, the class applies
 /// the GLSL shader programmed into vfunc_get_static_shader_source and applies
@@ -73,15 +63,15 @@ export const ColorEffect = new GObject.registerClass({
         this._blend = null;
 
         // set shader source
-        this._source = get_shader_source();
+        this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
         if (this._source)
             this.set_shader_source(this._source);
 
         // set shader color
-        this.color = 'color' in params ? color : this.default_params.color;
+        this.color = 'color' in params ? color : this.constructor.default_params.color;
     }
 
-    get default_params() {
+    static get default_params() {
         return { color: [0.0, 0.0, 0.0, 0.0] };
     }
 

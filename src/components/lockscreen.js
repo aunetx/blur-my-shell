@@ -48,7 +48,7 @@ export const LockscreenBlur = class LockscreenBlur {
         // FIXME the old effects are not destroyed... quite bad
         new Pipeline(
             global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager,
-            this.settings.lockscreen.PIPELINE, widget
+            global.blur_my_shell._settings.lockscreen.PIPELINE, widget
         );
 
         let bgManager = new Background.BackgroundManager({

@@ -1,20 +1,11 @@
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
-import Shell from 'gi://Shell';
-import St from 'gi://St';
 
-const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'corner.glsl', GLib.UriFlags.NONE))[0];
+import * as utils from '../conveniences/utils.js';
+const St = await utils.import_in_shell_only('gi://St');
+const Shell = await utils.import_in_shell_only('gi://Shell');
+const SHADER_FILENAME = 'corner.glsl';
 
-
-const get_shader_source = _ => {
-    try {
-        return Shell.get_file_contents_utf8_sync(SHADER_PATH);
-    } catch (e) {
-        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
-        return null;
-    }
-};
 
 export const CornerEffect = new GObject.registerClass({
     GTypeName: "CornerEffect",
@@ -52,12 +43,12 @@ export const CornerEffect = new GObject.registerClass({
         this._width = null;
         this._height = null;
 
-        this.radius = 'radius' in params ? params.radius : this.default_params.radius;
-        this.width = 'width' in params ? params.width : this.default_params.width;
-        this.height = 'height' in params ? params.height : this.default_params.height;
+        this.radius = 'radius' in params ? params.radius : this.constructor.default_params.radius;
+        this.width = 'width' in params ? params.width : this.constructor.default_params.width;
+        this.height = 'height' in params ? params.height : this.constructor.default_params.height;
 
         // set shader source
-        this._source = get_shader_source();
+        this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
         if (this._source)
             this.set_shader_source(this._source);
 
@@ -65,7 +56,7 @@ export const CornerEffect = new GObject.registerClass({
         theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
     }
 
-    get default_params() {
+    static get default_params() {
         return { radius: 12, width: 0, height: 0 };
     }
 

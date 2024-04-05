@@ -25,7 +25,8 @@ function addMenuToHeader(window, builder) {
     const pages_stack = page.get_parent(); // AdwViewStack
     const content_stack = pages_stack.get_parent().get_parent(); // GtkStack
     const preferences = content_stack.get_parent(); // GtkBox
-    const headerbar = preferences.get_first_child(); // AdwHeaderBar
+    const headerbar = preferences.get_first_child().get_next_sibling()
+        .get_first_child().get_first_child().get_first_child(); // AdwHeaderBar
     headerbar.pack_start(builder.get_object('info_menu'));
 
     // setup menu actions

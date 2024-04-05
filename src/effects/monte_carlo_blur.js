@@ -1,20 +1,11 @@
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
-import Shell from 'gi://Shell';
-import St from 'gi://St';
 
-const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'monte_carlo_blur.glsl', GLib.UriFlags.NONE))[0];
+import * as utils from '../conveniences/utils.js';
+const St = await utils.import_in_shell_only('gi://St');
+const Shell = await utils.import_in_shell_only('gi://Shell');
+const SHADER_FILENAME = 'monte_carlo_blur.glsl';
 
-
-const get_shader_source = _ => {
-    try {
-        return Shell.get_file_contents_utf8_sync(SHADER_PATH);
-    } catch (e) {
-        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
-        return null;
-    }
-};
 
 export const MonteCarloBlurEffect = new GObject.registerClass({
     GTypeName: "MonteCarloBlurEffect",
@@ -78,15 +69,15 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
         this._height = null;
         this._use_base_pixel = null;
 
-        this.radius = 'radius' in params ? params.radius : this.default_params.radius;
-        this.iterations = 'iterations' in params ? params.iterations : this.default_params.iterations;
-        this.brightness = 'brightness' in params ? params.brightness : this.default_params.brightness;
-        this.width = 'width' in params ? params.width : this.default_params.width;
-        this.height = 'height' in params ? params.height : this.default_params.height;
-        this.use_base_pixel = 'use_base_pixel' in params ? params.use_base_pixel : this.default_params.use_base_pixel;
+        this.radius = 'radius' in params ? params.radius : this.constructor.default_params.radius;
+        this.iterations = 'iterations' in params ? params.iterations : this.constructor.default_params.iterations;
+        this.brightness = 'brightness' in params ? params.brightness : this.constructor.default_params.brightness;
+        this.width = 'width' in params ? params.width : this.constructor.default_params.width;
+        this.height = 'height' in params ? params.height : this.constructor.default_params.height;
+        this.use_base_pixel = 'use_base_pixel' in params ? params.use_base_pixel : this.constructor.default_params.use_base_pixel;
 
         // set shader source
-        this._source = get_shader_source();
+        this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
         if (this._source)
             this.set_shader_source(this._source);
 
@@ -101,10 +92,10 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
 
     }
 
-    get default_params() {
+    static get default_params() {
         return {
             radius: 2., iterations: 5, brightness: .6,
-            width: 0, height: 0, direction: 0, use_base_pixel: false
+            width: 0, height: 0, use_base_pixel: false
         };
     }
 

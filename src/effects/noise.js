@@ -1,19 +1,10 @@
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
-import Shell from 'gi://Shell';
 
+import * as utils from '../conveniences/utils.js';
+const Shell = await utils.import_in_shell_only('gi://Shell');
+const SHADER_FILENAME = 'noise.glsl';
 
-const SHADER_PATH = GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, 'noise.glsl', GLib.UriFlags.NONE))[0];
-
-const get_shader_source = _ => {
-    try {
-        return Shell.get_file_contents_utf8_sync(SHADER_PATH);
-    } catch (e) {
-        console.warn(`[Blur my Shell] error loading shader from ${SHADER_PATH}: ${e}`);
-        return null;
-    }
-};
 
 export const NoiseEffect = new GObject.registerClass({
     GTypeName: "NoiseEffect",
@@ -42,16 +33,16 @@ export const NoiseEffect = new GObject.registerClass({
         this._noise = null;
         this._lightness = null;
 
-        this.noise = 'noise' in params ? params.noise : this.default_params.noise;
-        this.lightness = 'lightness' in params ? params.lightness : this.default_params.lightness;
+        this.noise = 'noise' in params ? params.noise : this.constructor.default_params.noise;
+        this.lightness = 'lightness' in params ? params.lightness : this.constructor.default_params.lightness;
 
         // set shader source
-        this._source = get_shader_source();
+        this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
         if (this._source)
             this.set_shader_source(this._source);
     }
 
-    get default_params() {
+    static get default_params() {
         return { noise: 0.4, lightness: 0.4 };
     }
 

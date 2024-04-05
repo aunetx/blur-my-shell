@@ -16,7 +16,7 @@
         </property>
 
         <child>
-          <object class="CustomizeRow" id="customize">
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
           </object>
         </child>

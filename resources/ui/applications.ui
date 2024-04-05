@@ -110,7 +110,7 @@ Not recommended because of performance and stability issues.</property>
                 <child>
                   <object class="GtkImage">
                     <property name="margin-end">6</property>
-                    <property name="icon-name">add-window-symbolic</property>
+                    <property name="icon-name">add-row-symbolic</property>
                   </object>
                 </child>
                 <child>

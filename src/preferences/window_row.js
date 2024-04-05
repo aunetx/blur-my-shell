@@ -25,7 +25,7 @@ export const WindowRow = GObject.registerClass({
         // add a 'remove' button before the text
         let action_row = this.child.get_first_child().get_first_child();
         let remove_button = new Gtk.Button({
-            'icon-name': 'remove-window-symbolic',
+            'icon-name': 'remove-row-symbolic',
             'width-request': 38,
             'height-request': 38,
             'margin-top': 6,

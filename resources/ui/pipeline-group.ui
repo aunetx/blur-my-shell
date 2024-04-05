@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="PipelineGroup" parent="AdwPreferencesGroup">
+    <child>
+      <object class="AdwEntryRow" id="title">
+        <property name="title" translatable="yes">Pipeline name</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwActionRow">
+        <property name="title" translatable="yes">Effects</property>
+        <property name="activatable-widget">manage_effects</property>
+
+        <child>
+          <object class="GtkButton" id="manage_effects">
+            <property name="valign">center</property>
+            <property name="label" translatable="yes">Manage effects</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -8,7 +8,7 @@ import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 ///
 /// It communicates with the settings through the `PipelinesManager` object, and receives different
 /// signals (with `pipeline_id` being an unique string):
-/// - `pipeline_id::pipeline-changed`, handing a new pipeline descriptor object, when the pipeline
+/// - `pipeline_id::pipeline-updated`, handing a new pipeline descriptor object, when the pipeline
 ///   has been changed enough that it needs to rebuild the effects configuration
 /// - `pipeline_id::pipeline-destroyed`, handing a new pipeline descriptor object, when the pipeline
 ///   has been destroyed; thus making the `Pipeline` change its id to `pipeline_default`
@@ -77,13 +77,12 @@ export const Pipeline = class Pipeline {
 
         // connect to settings changes
         this._pipeline_changed_id = this.pipelines_manager.connect(
-            this.pipeline_id + '::pipeline-changed',
+            this.pipeline_id + '::pipeline-updated',
             (_, new_pipeline) => this.update_effects_from_pipeline(new_pipeline)
         );
-        // TODO change this to have a defined behaviour (maybe change id to 'pipeline_default')
         this._pipeline_destroyed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::pipeline-destroyed',
-            _ => /*this.destroy()*/ true
+            _ => this.change_pipeline_to("pipeline_default")
         );
     }
 
@@ -106,7 +105,7 @@ export const Pipeline = class Pipeline {
             return;
 
         // attach the pipeline
-        let pipeline = this.pipelines_manager._pipelines[this.pipeline_id];
+        let pipeline = this.pipelines_manager.pipelines[this.pipeline_id];
         if (!pipeline) {
             this._warn(`could not attach pipeline to actor, pipeline "${this.pipeline_id}" not found`);
             return;
@@ -146,7 +145,7 @@ export const Pipeline = class Pipeline {
         // connect to settings changes
         effect._effect_key_removed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-removed',
-            (_, key) => effect[key] = effect.default_params[key]
+            (_, key) => effect[key] = effect.constructor.default_params[key]
         );
         effect._effect_key_updated_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-updated',

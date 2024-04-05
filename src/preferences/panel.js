@@ -9,7 +9,7 @@ export const Panel = GObject.registerClass({
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/panel.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
-        'customize',
+        'pipeline_choose_row',
         'static_blur',
         'unblur_in_overview',
         'force_light_text',
@@ -20,15 +20,22 @@ export const Panel = GObject.registerClass({
         'dtp_blur_original_panel'
     ],
 }, class Panel extends Adw.PreferencesPage {
-    constructor(preferences) {
+    constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
         this.preferences = preferences;
+        this.pipelines_manager = pipelines_manager;
+        this.pipelines_page = pipelines_page;
 
         this.preferences.panel.settings.bind(
             'blur', this._blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+
+        this._pipeline_choose_row.initialize(
+            this.preferences.panel, this.pipelines_manager, this.pipelines_page
+        );
+
         this.preferences.panel.settings.bind(
             'static-blur', this._static_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
@@ -55,9 +62,6 @@ export const Panel = GObject.registerClass({
             this._override_background_dynamically, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        this._customize.connect_to(this.preferences, this.preferences.panel, this._static_blur);
-
         this.preferences.hidetopbar.settings.bind(
             'compatibility', this._hidetopbar_compatibility, 'active',
             Gio.SettingsBindFlags.DEFAULT

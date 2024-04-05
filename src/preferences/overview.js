@@ -9,7 +9,7 @@ export const Overview = GObject.registerClass({
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/overview.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'overview_blur',
-        'overview_customize',
+        'pipeline_choose_row',
         'overview_style_components',
 
         'appfolder_blur',
@@ -17,21 +17,26 @@ export const Overview = GObject.registerClass({
         'appfolder_style_dialogs'
     ],
 }, class Overview extends Adw.PreferencesPage {
-    constructor(preferences) {
+    constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
         this.preferences = preferences;
+        this.pipelines_manager = pipelines_manager;
+        this.pipelines_page = pipelines_page;
 
         this.preferences.overview.settings.bind(
             'blur', this._overview_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+
+        this._pipeline_choose_row.initialize(
+            this.preferences.overview, this.pipelines_manager, this.pipelines_page
+        );
+
         this.preferences.overview.settings.bind(
             'style-components', this._overview_style_components, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        this._overview_customize.connect_to(this.preferences, this.preferences.overview);
 
         this.preferences.appfolder.settings.bind(
             'blur', this._appfolder_blur, 'active',
