@@ -2,6 +2,7 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { EffectRow } from './effect_row.js';
 import { SUPPORTED_EFFECT } from '../../conveniences/effects_manager.js';
@@ -23,7 +24,7 @@ export const EffectsDialog = GObject.registerClass({
 
         let pipeline = pipelines_manager.pipelines[pipeline_id];
 
-        this.set_title(pipeline.name.length > 0 ? `Effects for ${pipeline.name}` : "Effects");
+        this.set_title(pipeline.name.length > 0 ? _(`Effects for "${pipeline.name}"`) : _("Effects"));
 
         pipeline.effects.forEach(effect => {
             const effect_row = new EffectRow(effect, this);
@@ -41,7 +42,7 @@ export const EffectsDialog = GObject.registerClass({
             dialog.set_child(page);
 
             let group = new Adw.PreferencesGroup({
-                title: "Select effect to add"
+                title: _("Select effect to add")
             });
             page.add(group);
 

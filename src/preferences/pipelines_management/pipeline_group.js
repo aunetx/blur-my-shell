@@ -2,6 +2,7 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 
 export const PipelineGroup = GObject.registerClass({
@@ -19,7 +20,7 @@ export const PipelineGroup = GObject.registerClass({
         this._pipelines_page = pipelines_page;
 
         // set the description
-        this.set_description(`Pipeline id: "${pipeline_id}"`);
+        this.set_description(_(`Pipeline id: "${pipeline_id}"`));
 
         // set the title and connect it to the text entry
         this.set_title(pipeline.name.length > 0 ? pipeline.name : " ");

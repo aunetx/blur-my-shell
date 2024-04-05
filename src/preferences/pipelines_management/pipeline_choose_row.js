@@ -2,6 +2,7 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 
 export const PipelineChooseRow = GObject.registerClass({
@@ -19,30 +20,21 @@ export const PipelineChooseRow = GObject.registerClass({
 
         this.create_pipelines_list();
 
-        const expression = new Gtk.ClosureExpression(
-            GObject.TYPE_STRING,
-            string_object => {
-                const pipeline_id = string_object.get_string();
-                if (pipeline_id == 'create_new')
-                    return "Create new pipeline";
-                return this.pipelines_manager.pipelines[pipeline_id].name;
-            },
-            []
-        );
+        const closure_func = string_object => {
+            const pipeline_id = string_object.get_string();
+            if (pipeline_id == 'create_new')
+                return _("Create new pipeline");
+            return this.pipelines_manager.pipelines[pipeline_id].name;
+        };
+
+        const expression = new Gtk.ClosureExpression(GObject.TYPE_STRING, closure_func, []);
         this._pipeline_choose.expression = expression;
 
         // TODO fix the expression not being re-evaluated other than by setting it again
         this.pipelines_manager.connect(
             'pipeline-names-changed',
             () => this._pipeline_choose.expression = new Gtk.ClosureExpression(
-                GObject.TYPE_STRING,
-                string_object => {
-                    const pipeline_id = string_object.get_string();
-                    if (pipeline_id == 'create_new')
-                        return "Create new pipeline";
-                    return this.pipelines_manager.pipelines[pipeline_id].name;
-                },
-                []
+                GObject.TYPE_STRING, closure_func, []
             )
         );
 
@@ -64,7 +56,7 @@ export const PipelineChooseRow = GObject.registerClass({
                 return;
             const pipeline_id = this._pipeline_choose.selected_item.get_string();
             if (pipeline_id == 'create_new') {
-                const id = this.pipelines_manager.create_pipeline("New pipeline");
+                const id = this.pipelines_manager.create_pipeline(_("New pipeline"));
                 this.preferences.PIPELINE = id;
             }
             else

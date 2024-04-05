@@ -1,6 +1,7 @@
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { PipelineGroup } from './pipelines_management/pipeline_group.js';
 import { EffectsDialog } from './pipelines_management/effects_dialog.js';
@@ -27,7 +28,7 @@ export const Pipelines = GObject.registerClass({
 
         this._add_pipeline.connect(
             "clicked",
-            () => this.pipelines_manager.create_pipeline("New pipeline")
+            () => this.pipelines_manager.create_pipeline(_("New pipeline"))
         );
 
         this.pipelines_manager.connect(
