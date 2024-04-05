@@ -8,14 +8,19 @@
     </child>
 
     <child>
-      <object class="AdwActionRow">
-        <property name="title" translatable="yes">Effects</property>
+      <object class="AdwActionRow" id="effects_description_row">
         <property name="activatable-widget">manage_effects</property>
 
         <child>
           <object class="GtkButton" id="manage_effects">
             <property name="valign">center</property>
-            <property name="label" translatable="yes">Manage effects</property>
+            <property name="child">
+              <object class="AdwButtonContent">
+                <property name="icon-name">edit-row-symbolic</property>
+                <property name="label" translatable="yes">Manage effects</property>
+                <property name="use-underline">True</property>
+              </object>
+            </property>
           </object>
         </child>
       </object>

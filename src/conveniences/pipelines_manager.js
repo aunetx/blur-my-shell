@@ -52,9 +52,9 @@ export class PipelinesManager {
             return;
         }
         if (emit_update_signal) {
-            this.emit(id + '::pipeline-updated');
             this.pipelines[id].effects = [...effects];
             this.settings.PIPELINES = this.pipelines;
+            this.emit(id + '::pipeline-updated');
         } else {
             this.settings.PIPELINES = this.pipelines;
             this.pipelines[id].effects = [...effects];

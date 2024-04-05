@@ -4,12 +4,15 @@ import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { SUPPORTED_EFFECTS } from '../../effects/effects.js';
+
 
 export const PipelineGroup = GObject.registerClass({
     GTypeName: 'PipelineGroup',
     Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipeline-group.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         "title",
+        "effects_description_row",
         "manage_effects"
     ],
 }, class PipelineGroup extends Adw.PreferencesGroup {
@@ -18,6 +21,7 @@ export const PipelineGroup = GObject.registerClass({
 
         this._pipelines_manager = pipelines_manager;
         this._pipelines_page = pipelines_page;
+        this._pipeline_id = pipeline_id;
 
         // set the description
         this.set_description(_(`Pipeline id: "${pipeline_id}"`));
@@ -59,9 +63,35 @@ export const PipelineGroup = GObject.registerClass({
         prefix_bin.append(duplicate_button);
         duplicate_button.connect('clicked', () => pipelines_manager.duplicate_pipeline(pipeline_id));
 
+        this.update_effects_description_row();
+        this._pipelines_manager.connect(
+            pipeline_id + '::pipeline-updated',
+            () => this.update_effects_description_row()
+        );
+
         this._manage_effects.connect(
             'clicked',
             () => pipelines_page.open_effects_dialog(pipeline_id)
         );
+    }
+
+    update_effects_description_row() {
+        const effects = this._pipelines_manager.pipelines[this._pipeline_id].effects;
+
+        if (effects.length == 0)
+            this._effects_description_row.set_title(_("No effect"));
+        else if (effects.length == 1)
+            this._effects_description_row.set_title(_("1 effect"));
+        else
+            this._effects_description_row.set_title(_(`${effects.length} effects`));
+
+        let subtitle = "";
+        effects.forEach(effect => {
+            if (effect.type in SUPPORTED_EFFECTS)
+                subtitle += _(`${SUPPORTED_EFFECTS[effect.type].name}, `);
+            else
+                subtitle += _("Unknown effect, ");
+        });
+        this._effects_description_row.set_subtitle(subtitle.slice(0, -2));
     }
 });
