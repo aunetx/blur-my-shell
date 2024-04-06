@@ -127,7 +127,7 @@ export const PanelBlur = class PanelBlur {
             panel_box = panel_box.get_parent();
         }
 
-        let monitor = this.find_monitor_for(panel);
+        let monitor = Main.layoutManager.findMonitorForActor(panel);
         if (!monitor)
             return;
 
@@ -257,7 +257,7 @@ export const PanelBlur = class PanelBlur {
         let panel = actors.widgets.panel;
         let panel_box = actors.widgets.panel_box;
         let background = actors.widgets.background;
-        let monitor = this.find_monitor_for(panel);
+        let monitor = Main.layoutManager.findMonitorForActor(panel);
         if (!monitor)
             return;
 
@@ -284,23 +284,7 @@ export const PanelBlur = class PanelBlur {
         }
 
         // update the monitor panel is on
-        actors.monitor = this.find_monitor_for(panel);
-    }
-
-    /// An helper function to find the monitor in which an actor is situated,
-    /// there might be a pre-existing function in GLib already
-    find_monitor_for(actor) {
-        let extents = actor.get_transformed_extents();
-        let rect = new Mtk.Rectangle({
-            x: extents.get_x(),
-            y: extents.get_y(),
-            width: extents.get_width(),
-            height: extents.get_height(),
-        });
-
-        let index = global.display.get_monitor_index_for_rect(rect);
-
-        return Main.layoutManager.monitors[index];
+        actors.monitor = Main.layoutManager.findMonitorForActor(panel);
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly

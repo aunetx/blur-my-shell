@@ -1,7 +1,4 @@
-import St from 'gi://St';
-import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
@@ -10,6 +7,8 @@ const original_createBackground =
     UnlockDialog.prototype._createBackground;
 const original_updateBackgroundEffects =
     UnlockDialog.prototype._updateBackgroundEffects;
+const original_updateBackgrounds =
+    UnlockDialog.prototype._updateBackgrounds;
 
 
 export const LockscreenBlur = class LockscreenBlur {
@@ -33,36 +32,40 @@ export const LockscreenBlur = class LockscreenBlur {
             this._createBackground;
         UnlockDialog.prototype._updateBackgroundEffects =
             this._updateBackgroundEffects;
+        UnlockDialog.prototype._updateBackgrounds =
+            this._updateBackgrounds;
     }
 
-    _createBackground(monitorIndex) {
-        let monitor = Main.layoutManager.monitors[monitorIndex];
-        let widget = new St.Widget({
-            style_class: "screen-shield-background",
-            x: monitor.x,
-            y: monitor.y,
-            width: monitor.width,
-            height: monitor.height,
-        });
-
-        // FIXME the old effects are not destroyed... quite bad
-        new Pipeline(
+    _createBackground(monitor_index) {
+        let pipeline = new Pipeline(
             global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager,
-            global.blur_my_shell._settings.lockscreen.PIPELINE, widget
+            global.blur_my_shell._settings.lockscreen.PIPELINE
         );
 
-        let bgManager = new Background.BackgroundManager({
-            container: widget,
-            monitorIndex,
-            controlPosition: false,
-        });
-
-        this._bgManagers.push(bgManager);
-
-        this._backgroundGroup.add_child(widget);
+        pipeline.create_background_with_effects(
+            monitor_index,
+            this._bgManagers,
+            this._backgroundGroup,
+            "screen-shield-background"
+        );
     }
 
-    _updateBackgroundEffects() { }
+    _updateBackgroundEffects() {
+        this._updateBackgrounds();
+    }
+
+    _updateBackgrounds() {
+        for (let i = 0; i < this._bgManagers.length; i++) {
+            this._bgManagers[i]._bms_pipeline.destroy();
+            this._bgManagers[i].destroy();
+        }
+
+        this._bgManagers = [];
+        this._backgroundGroup.destroy_all_children();
+
+        for (let i = 0; i < Main.layoutManager.monitors.length; i++)
+            this._createBackground(i);
+    }
 
     set_sigma(s) { }
     set_brightness(b) { }
@@ -77,6 +80,8 @@ export const LockscreenBlur = class LockscreenBlur {
             original_createBackground;
         UnlockDialog.prototype._updateBackgroundEffects =
             original_updateBackgroundEffects;
+        UnlockDialog.prototype._updateBackgrounds =
+            original_updateBackgrounds;
 
         this.connections.disconnect_all();
 

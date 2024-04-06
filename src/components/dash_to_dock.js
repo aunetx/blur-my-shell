@@ -15,23 +15,6 @@ const DASH_STYLES = [
 ];
 
 
-// An helper function to find the monitor in which an actor is situated,
-/// there might be a pre-existing function in GLib already
-function find_monitor_for(actor) {
-    let extents = actor.get_transformed_extents();
-    let rect = new Mtk.Rectangle({
-        x: extents.get_x(),
-        y: extents.get_y(),
-        width: extents.get_width(),
-        height: extents.get_height(),
-    });
-
-    let index = global.display.get_monitor_index_for_rect(rect);
-
-    return Main.layoutManager.monitors[index];
-}
-
-
 /// This type of object is created for every dash found, and talks to the main
 /// DashBlur thanks to signals.
 ///
@@ -69,7 +52,7 @@ class DashInfos {
 
         dash_blur.connections.connect(dash_blur, 'update-corner-radius', () => {
             if (this.dash_blur.is_static) {
-                let monitor = find_monitor_for(this.dash);
+                let monitor = Main.layoutManager.findMonitorForActor(this.dash);
                 let corner_radius = this.dash_blur.corner_radius * monitor.geometry_scale;
                 this.effect.corner_radius = Math.min(
                     corner_radius, this.effect.width / 2, this.effect.height / 2
@@ -105,7 +88,7 @@ class DashInfos {
             if (this.dash_blur.is_static) {
                 let bg = Main.layoutManager._backgroundGroup.get_child_at_index(
                     Main.layoutManager.monitors.length
-                    - find_monitor_for(this.dash).index - 1
+                    - Main.layoutManager.findIndexForActor(this.dash) - 1
                 );
                 if (bg && bg.get_content()) {
                     this.background.content.set({
@@ -172,7 +155,7 @@ class DashInfos {
     get_dash_position(dash_container, dash_background) {
         var x, y;
 
-        let monitor = find_monitor_for(dash_container);
+        let monitor = Main.layoutManager.findMonitorForActor(dash_container);
         let dash_box = dash_container._slider.get_child();
 
         if (dash_container.get_style_class_name().includes("top")) {
@@ -332,7 +315,7 @@ export const DashBlur = class DashBlur {
     }
 
     add_blur(dash, dash_background, dash_container) {
-        let monitor = find_monitor_for(dash);
+        let monitor = Main.layoutManager.findMonitorForActor(dash);
 
         // dash background widget
         let background = this.is_static
