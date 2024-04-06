@@ -55,7 +55,7 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
             `Use base pixel`,
             `Use base pixel`,
             GObject.ParamFlags.READWRITE,
-            false,
+            true,
         ),
     }
 }, class MonteCarloBlurEffect extends Clutter.ShaderEffect {
@@ -95,7 +95,7 @@ export const MonteCarloBlurEffect = new GObject.registerClass({
     static get default_params() {
         return {
             radius: 2., iterations: 5, brightness: .6,
-            width: 0, height: 0, use_base_pixel: false
+            width: 0, height: 0, use_base_pixel: true
         };
     }
 

@@ -149,6 +149,16 @@ export const SUPPORTED_EFFECTS = {
                 min: 0,
                 max: 50,
                 increment: 1,
+            },
+            corners_top: {
+                name: "Top corners",
+                description: "Whether or not to round the top corners.",
+                type: "boolean"
+            },
+            corners_bottom: {
+                name: "Bottom corners",
+                description: "Whether or not to round the bottom corners.",
+                type: "boolean"
             }
         }
     }

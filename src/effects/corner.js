@@ -1,5 +1,6 @@
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
+import GLib from 'gi://GLib';
 
 import * as utils from '../conveniences/utils.js';
 const St = await utils.import_in_shell_only('gi://St');
@@ -34,6 +35,30 @@ export const CornerEffect = new GObject.registerClass({
             0.0, Number.MAX_SAFE_INTEGER,
             0.0,
         ),
+        'corners_top': GObject.ParamSpec.boolean(
+            `corners_top`,
+            `Round top corners`,
+            `Round top corners`,
+            GObject.ParamFlags.READWRITE,
+            true,
+        ),
+        'corners_bottom': GObject.ParamSpec.boolean(
+            `corners_bottom`,
+            `Round bottom corners`,
+            `Round bottom corners`,
+            GObject.ParamFlags.READWRITE,
+            true,
+        ),
+        // FIXME this works but it logs an error, because I'm not a double...
+        // I don't want to fiddle with GVariants again
+        'clip': GObject.ParamSpec.double(
+            `clip`,
+            `Clip`,
+            `Clip`,
+            GObject.ParamFlags.READWRITE,
+            0.0, Number.MAX_SAFE_INTEGER,
+            0.0,
+        ),
     }
 }, class CornerEffect extends Clutter.ShaderEffect {
     constructor(params) {
@@ -42,10 +67,20 @@ export const CornerEffect = new GObject.registerClass({
         this._radius = null;
         this._width = null;
         this._height = null;
+        this._corners_top = null;
+        this._corners_bottom = null;
+
+        this._clip_x0 = null;
+        this._clip_y0 = null;
+        this._clip_width = null;
+        this._clip_height = null;
 
         this.radius = 'radius' in params ? params.radius : this.constructor.default_params.radius;
         this.width = 'width' in params ? params.width : this.constructor.default_params.width;
         this.height = 'height' in params ? params.height : this.constructor.default_params.height;
+        this.height = 'corners_top' in params ? params.corners_top : this.constructor.default_params.corners_top;
+        this.height = 'corners_bottom' in params ? params.corners_bottom : this.constructor.default_params.corners_bottom;
+        this.clip = 'clip' in params ? params.clip : this.constructor.default_params.clip;
 
         // set shader source
         this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -57,7 +92,11 @@ export const CornerEffect = new GObject.registerClass({
     }
 
     static get default_params() {
-        return { radius: 12, width: 0, height: 0 };
+        return {
+            radius: 12, width: 0, height: 0,
+            corners_top: true, corners_bottom: true,
+            clip: [0, 0, -1, -1]
+        };
     }
 
     get radius() {
@@ -74,9 +113,13 @@ export const CornerEffect = new GObject.registerClass({
 
     update_radius() {
         const theme_context = St.ThemeContext.get_for_stage(global.stage);
-        const radius = Math.min(
-            this.radius * theme_context.scale_factor, this.width / 2, this.height / 2
+        let radius = Math.min(
+            this.radius * theme_context.scale_factor,
+            this.width / 2, this.height / 2
         );
+        if (this._clip_width >= 0 || this._clip_height >= 0)
+            radius = Math.min(radius, this._clip_width / 2, this._clip_height / 2);
+
         this.set_uniform_value('radius', parseFloat(radius - 1e-6));
     }
 
@@ -106,11 +149,53 @@ export const CornerEffect = new GObject.registerClass({
         }
     }
 
+    get corners_top() {
+        return this._corners_top;
+    }
+
+    set corners_top(value) {
+        if (this._corners_top !== value) {
+            this._corners_top = value;
+
+            this.set_uniform_value('corners_top', this._corners_top ? 1 : 0);
+        }
+    }
+
+    get corners_bottom() {
+        return this._corners_bottom;
+    }
+
+    set corners_bottom(value) {
+        if (this._corners_bottom !== value) {
+            this._corners_bottom = value;
+
+            this.set_uniform_value('corners_bottom', this._corners_bottom ? 1 : 0);
+        }
+    }
+
+    get clip() {
+        return [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height];
+    }
+
+    set clip(value) {
+        [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = value;
+        this.set_uniform_value('clip_x0', parseFloat(this._clip_x0 - 1e-6));
+        this.set_uniform_value('clip_y0', parseFloat(this._clip_y0 - 1e-6));
+        this.set_uniform_value('clip_width', parseFloat(this._clip_width + 3 - 1e-6));
+        this.set_uniform_value('clip_height', parseFloat(this._clip_height + 3 - 1e-6));
+        this.update_radius();
+    }
+
     vfunc_set_actor(actor) {
         if (this._actor_connection_size_id) {
             let old_actor = this.get_actor();
-            old_actor?.disconnect(this._actor_connection_id);
+            old_actor?.disconnect(this._actor_connection_size_id);
         }
+        if (this._actor_connection_clip_rect_id) {
+            let old_actor = this.get_actor();
+            old_actor?.disconnect(this._actor_connection_clip_rect_id);
+        }
+
         if (actor) {
             this.width = actor.width;
             this.height = actor.height;
@@ -118,9 +203,16 @@ export const CornerEffect = new GObject.registerClass({
                 this.width = actor.width;
                 this.height = actor.height;
             });
+
+            this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+            this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
+                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+            });
         }
-        else
+        else {
             this._actor_connection_size_id = null;
+            this._actor_connection_clip_rect_id = null;
+        }
 
         super.vfunc_set_actor(actor);
     }
