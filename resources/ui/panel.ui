@@ -19,10 +19,11 @@
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Blur type</property>
             <property name="subtitle" translatable="yes">The dynamic blur is slower and only compatible with a gaussian blur effect.</property>
+            <property name="activatable-widget">blur_mode_choose</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="blur_mode_choose">
                 <property name="valign">center</property>
                 <property name="hexpand">false</property>
                 <style>
@@ -62,6 +63,48 @@
         <child>
           <object class="PipelineChooseRow" id="pipeline_choose_row">
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="sigma_row">
+            <property name="title" translatable="yes">Sigma</property>
+            <property name="subtitle" translatable="yes">The intensity of the blur.</property>
+            <property name="activatable-widget">sigma_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="sigma_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="digits">1</property>
+                <property name="adjustment">sigma</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="brightness_row">
+            <property name="title" translatable="yes">Brightness</property>
+            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+            <property name="activatable-widget">brightness_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="brightness_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="digits">2</property>
+                <property name="adjustment">brightness</property>
+              </object>
+            </child>
           </object>
         </child>
 
@@ -181,5 +224,17 @@ Recommended unless you want to customize your GNOME theme.</property>
       <item translatable="yes">Dark</item>
       <item translatable="yes">Contrasted</item>
     </items>
+  </object>
+
+  <object class="GtkAdjustment" id="sigma">
+    <property name="lower">0</property>
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="brightness">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.01</property>
   </object>
 </interface>

@@ -1,12 +1,11 @@
 import St from 'gi://St';
-import Shell from 'gi://Shell';
 import Meta from 'gi://Meta';
-import Mtk from 'gi://Mtk';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../effects/paint_signals.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
+import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 const PANEL_STYLES = [
@@ -151,21 +150,12 @@ export const PanelBlur = class PanelBlur {
             bg_manager = bg_manager_list[0];
         }
         else {
-            // do essentially the same actions than `create_background` for dynamic blur
-            background = new St.Widget({ name: 'bms-panel-blurred-widget' });
-            background_group.add_child(background, 0);
-
-            let blur = new Shell.BlurEffect({
-                brightness: this.settings.panel.CUSTOMIZE
-                    ? this.settings.panel.BRIGHTNESS
-                    : this.settings.BRIGHTNESS,
-                radius: (this.settings.panel.CUSTOMIZE
-                    ? this.settings.panel.SIGMA
-                    : this.settings.SIGMA) * 2 * monitor.geometry_scale,
-                mode: Shell.BlurMode.BACKGROUND
-            });
-            blur.scale = monitor.geometry_scale;
-            background.add_effect(blur);
+            let bg_manager_list = [];
+            const pipeline = new DummyPipeline(this.effects_manager, this.settings.panel);
+            background = pipeline.create_background_with_effect(
+                bg_manager_list, background_group, 'bms-panel-blurred-widget'
+            );
+            bg_manager = bg_manager_list[0];
 
             let paint_signals = new PaintSignals(this.connections);
 
@@ -184,7 +174,7 @@ export const PanelBlur = class PanelBlur {
                     this._log("panel hack level 1");
                     paint_signals.disconnect_all();
 
-                    let rp = () => { blur.queue_repaint(); };
+                    let rp = () => { pipeline.repaint_effect(); };
 
                     this.connections.connect(panel, [
                         'enter-event', 'leave-event', 'button-press-event'
@@ -196,10 +186,11 @@ export const PanelBlur = class PanelBlur {
                         ], rp);
                     });
                 } else if (this.settings.HACKS_LEVEL === 2) {
+                    // TODO set as default, as it is so much better than levels 1 and 2...
                     this._log("panel hack level 2");
                     paint_signals.disconnect_all();
 
-                    paint_signals.connect(background, blur);
+                    paint_signals.connect(background, pipeline.effect);
                 } else {
                     paint_signals.disconnect_all();
                 }
@@ -209,14 +200,9 @@ export const PanelBlur = class PanelBlur {
         // insert the background group to the panel box
         panel_box.insert_child_at_index(background_group, 0);
 
-        // contains blur, noise and color for static effect, else only blur
-        let effects = {};
-        background.get_effects().forEach(effect => effects[effect.get_name()] = effect);
-
         // the object that is used to remembering each elements that is linked to the blur effect
         let actors = {
             widgets: { panel, panel_box, background, background_group },
-            effects,
             static_blur,
             monitor,
             bg_manager,
@@ -507,49 +493,20 @@ export const PanelBlur = class PanelBlur {
     }
 
     update_pipeline() {
-        this.actors_list.forEach(actors => {
-            if (actors.static_blur)
-                actors.bg_manager._bms_pipeline.change_pipeline_to(
-                    this.settings.panel.PIPELINE
-                );
-        });
+        this.actors_list.forEach(actors =>
+            actors.bg_manager._bms_pipeline.change_pipeline_to(
+                this.settings.panel.PIPELINE
+            )
+        );
     }
 
-    set_sigma(s) {
-        this.actors_list.forEach(actors => {
-            actors.effects.blur.radius = s * 2 * actors.effects.blur.scale;
-        });
-    }
-
-    set_brightness(b) {
-        this.actors_list.forEach(actors => {
-            actors.effects.blur.brightness = b;
-        });
-    }
-
-    set_color(c) {
-        this.actors_list.forEach(actors => {
-            if (actors.static_blur)
-                actors.effects.color.color = c;
-        });
-    }
-
-    set_noise_amount(n) {
-        this.actors_list.forEach(actors => {
-            if (actors.static_blur)
-                actors.effects.noise.noise = n;
-        });
-    }
-
-    set_noise_lightness(l) {
-        this.actors_list.forEach(actors => {
-            if (actors.static_blur)
-                actors.effects.noise.lightness = l;
-        });
-    }
+    set_sigma(s) { }
+    set_brightness(b) { }
+    set_color(c) { }
+    set_noise_amount(n) { }
+    set_noise_lightness(l) { }
 
     show() {
-        // TODO verify that replacing background_parent with background is OK
         this.actors_list.forEach(actors => {
             actors.widgets.background.show();
         });
@@ -561,26 +518,16 @@ export const PanelBlur = class PanelBlur {
         });
     }
 
-    destroy_blur(actors, destroy_panel) {
+    destroy_blur(actors, panel_not_already_destroyed) {
         this.set_should_override_panel(actors, false);
 
-        if (actors.static_blur) {
-            actors.bg_manager._bms_pipeline.destroy();
-            if (destroy_panel) {
-                actors.widgets.background_group.remove_child(
-                    actors.bg_manager.backgroundActor.get_parent()
-                );
-                actors.bg_manager.destroy();
-            }
-        } else
-            this.effects_manager.remove(actors.effects.blur);
+        if (panel_not_already_destroyed)
+            actors.widgets.panel_box.remove_child(actors.widgets.background_group);
 
-        if (destroy_panel) {
-            actors.widgets.panel_box.remove_child(
-                actors.widgets.background_group
-            );
-            actors.widgets.background.destroy();
-        }
+        actors.bg_manager._bms_pipeline.destroy();
+        actors.bg_manager.destroy();
+        actors.widgets.background_group.destroy_all_children();
+        actors.widgets.background_group.destroy();
 
         let index = this.actors_list.indexOf(actors);
         if (index >= 0)

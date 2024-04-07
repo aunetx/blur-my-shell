@@ -29,6 +29,7 @@ export const Pipeline = class Pipeline {
     /// Create a background linked to the monitor with index `monitor_index`, with a
     /// `BackgroundManager` that is appended to the list `background_managers`. The background actor
     /// will be given the name `widget_name` and inserted into the given `background_group`.
+    /// Note: exposed to public API.
     create_background_with_effects(
         monitor_index,
         background_managers,
@@ -182,12 +183,14 @@ export const Pipeline = class Pipeline {
     }
 
     /// Change the pipeline id, and update the effects according to this change.
+    /// Note: exposed to public API.
     change_pipeline_to(pipeline_id) {
         this.set_pipeline_id(pipeline_id);
         this.attach_pipeline_to_actor(this.actor);
     }
 
     /// Resets the `Pipeline` object to a sane state, removing every effect and signal.
+    /// Note: exposed to public API.
     destroy() {
         this.remove_all_effects();
         this.remove_connections();

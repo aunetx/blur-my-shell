@@ -25,8 +25,9 @@ export const SUPPORTED_EFFECTS = {
                 description: "The intensity of the blur effect.",
                 type: "float",
                 min: 0.,
-                max: 200.,
-                increment: 1.,
+                max: 100.,
+                increment: 1.0,
+                big_increment: 10.,
                 digits: 0
             },
             brightness: {
@@ -36,6 +37,7 @@ export const SUPPORTED_EFFECTS = {
                 min: 0.,
                 max: 1.,
                 increment: 0.01,
+                big_increment: 0.1,
                 digits: 2
             },
         }
@@ -51,9 +53,10 @@ export const SUPPORTED_EFFECTS = {
                 description: "The intensity of the blur effect. The bigger it is, the slower it will be.",
                 type: "float",
                 min: 0.,
-                max: 200.,
-                increment: 1.,
-                digits: 0
+                max: 100.,
+                increment: .1,
+                big_increment: 10.,
+                digits: 1
             },
             brightness: {
                 name: "Brightness",
@@ -62,6 +65,7 @@ export const SUPPORTED_EFFECTS = {
                 min: 0.,
                 max: 1.,
                 increment: 0.01,
+                big_increment: 0.1,
                 digits: 2
             },
         }
@@ -79,6 +83,7 @@ export const SUPPORTED_EFFECTS = {
                 min: 0.,
                 max: 10.,
                 increment: 0.01,
+                big_increment: 0.1,
                 digits: 2
             },
             iterations: {
@@ -96,6 +101,7 @@ export const SUPPORTED_EFFECTS = {
                 min: 0.,
                 max: 1.,
                 increment: 0.01,
+                big_increment: 0.1,
                 digits: 2
             },
             use_base_pixel: {
@@ -131,6 +137,7 @@ export const SUPPORTED_EFFECTS = {
                 min: 0.,
                 max: 1.,
                 increment: 0.01,
+                big_increment: 0.1,
                 digits: 2
             },
             lightness: {
@@ -140,6 +147,7 @@ export const SUPPORTED_EFFECTS = {
                 min: 0.,
                 max: 2.,
                 increment: 0.01,
+                big_increment: 0.1,
                 digits: 2
             }
         }

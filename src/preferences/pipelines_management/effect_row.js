@@ -101,13 +101,21 @@ export const EffectRow = GObject.registerClass({
                         hexpand: true,
                         width_request: 200,
                         draw_value: true,
+                        value_pos: Gtk.PositionType.RIGHT,
                         digits: param.digits,
                         adjustment: new Gtk.Adjustment({
                             lower: param.min,
                             upper: param.max,
-                            step_increment: param.increment
+                            step_increment: param.increment,
+                            page_increment: param.big_increment
                         })
                     });
+                    // TODO check if it's a good idea to set the default parameter, as the "good"
+                    // value really change depending on the user wallpaper... if so, do for dynamic
+                    // blur too
+                    scale.add_mark(
+                        this.get_default_effect_param(param_key), Gtk.PositionType.BOTTOM, null
+                    );
                     row.add_suffix(scale);
                     scale.adjustment.set_value(this.get_effect_param(param_key));
                     scale.adjustment.connect(
@@ -163,7 +171,11 @@ export const EffectRow = GObject.registerClass({
         if ('params' in gsettings_effect && key in gsettings_effect.params)
             return gsettings_effect.params[key];
         else
-            return SUPPORTED_EFFECTS[this.effect.type].class.default_params[key];
+            return this.get_default_effect_param(key);
+    }
+
+    get_default_effect_param(key) {
+        return SUPPORTED_EFFECTS[this.effect.type].class.default_params[key];
     }
 
     set_effect_param(key, value) {

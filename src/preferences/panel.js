@@ -12,6 +12,10 @@ export const Panel = GObject.registerClass({
         'pipeline_choose_row',
         'mode_static',
         'mode_dynamic',
+        'sigma_row',
+        'sigma',
+        'brightness_row',
+        'brightness',
         'unblur_in_overview',
         'force_light_text',
         'override_background',
@@ -37,15 +41,23 @@ export const Panel = GObject.registerClass({
             this.preferences.panel, this.pipelines_manager, this.pipelines_page
         );
 
-        this._mode_static.set_active(this.preferences.panel.STATIC_BLUR);
-        this._mode_dynamic.set_active(!this.preferences.panel.STATIC_BLUR);
+        this.change_blur_mode(this.preferences.panel.STATIC_BLUR, true);
+
         this._mode_static.connect('toggled',
             () => this.preferences.panel.STATIC_BLUR = this._mode_static.active
         );
         this.preferences.panel.STATIC_BLUR_changed(
-            () => this._mode_static.set_active(this.preferences.panel.STATIC_BLUR)
+            () => this.change_blur_mode(this.preferences.panel.STATIC_BLUR, false)
         );
 
+        this.preferences.panel.settings.bind(
+            'sigma', this._sigma, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'brightness', this._brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
         this.preferences.panel.settings.bind(
             'unblur-in-overview', this._unblur_in_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
@@ -76,5 +88,15 @@ export const Panel = GObject.registerClass({
             'blur-original-panel', this._dtp_blur_original_panel, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+    }
+
+    change_blur_mode(is_static_blur, first_run) {
+        this._mode_static.set_active(is_static_blur);
+        if (first_run)
+            this._mode_dynamic.set_active(!is_static_blur);
+
+        this._pipeline_choose_row.set_visible(is_static_blur);
+        this._sigma_row.set_visible(!is_static_blur);
+        this._brightness_row.set_visible(!is_static_blur);
     }
 });
