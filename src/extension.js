@@ -104,7 +104,7 @@ export default class BlurMyShell extends Extension {
             this._connection.connect(
                 Main.layoutManager,
                 'startup-complete',
-                this._enable_components.bind(this)
+                _ => this._enable_components()
             );
         } else
             this._enable_components();

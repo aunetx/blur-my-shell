@@ -143,7 +143,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
         }
 
         this.connections.connect(
-            appDisplay, 'view-loaded', this.blur_appfolders.bind(this)
+            appDisplay, 'view-loaded', _ => this.blur_appfolders()
         );
     }
 

@@ -174,7 +174,7 @@ export const PanelBlur = class PanelBlur {
                     this._log("panel hack level 1");
                     paint_signals.disconnect_all();
 
-                    let rp = () => { pipeline.repaint_effect(); };
+                    let rp = () => pipeline.repaint_effect();
 
                     this.connections.connect(panel, [
                         'enter-event', 'leave-event', 'button-press-event'
@@ -288,22 +288,22 @@ export const PanelBlur = class PanelBlur {
         ) {
             if (!this.settings.hidetopbar.COMPATIBILITY) {
                 this.connections.connect(
-                    Main.overview, 'showing', this.hide.bind(this)
+                    Main.overview, 'showing', _ => this.hide()
                 );
                 this.connections.connect(
-                    Main.overview, 'hidden', this.show.bind(this)
+                    Main.overview, 'hidden', _ => this.show()
                 );
             } else {
                 let appDisplay = Main.overview._overview._controls._appDisplay;
 
                 this.connections.connect(
-                    appDisplay, 'show', this.hide.bind(this)
+                    appDisplay, 'show', _ => this.hide()
                 );
                 this.connections.connect(
-                    appDisplay, 'hide', this.show.bind(this)
+                    appDisplay, 'hide', _ => this.show()
                 );
                 this.connections.connect(
-                    Main.overview, 'hidden', this.show.bind(this)
+                    Main.overview, 'hidden', _ => this.show()
                 );
             }
 
@@ -317,12 +317,12 @@ export const PanelBlur = class PanelBlur {
         ) {
             // connect to overview opening/closing
             this.connections.connect(Main.overview, ['showing', 'hiding'],
-                this.update_visibility.bind(this)
+                _ => this.update_visibility()
             );
 
             // connect to session mode update
             this.connections.connect(Main.sessionMode, 'updated',
-                this.update_visibility.bind(this)
+                _ => this.update_visibility()
             );
 
             // manage already-existing windows
@@ -342,7 +342,7 @@ export const PanelBlur = class PanelBlur {
 
             // connect to a workspace change
             this.connections.connect(global.window_manager, 'switch-workspace',
-                this.update_visibility.bind(this)
+                _ => this.update_visibility()
             );
 
             // perform early update
