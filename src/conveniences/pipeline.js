@@ -8,15 +8,15 @@ import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 ///
 /// It communicates with the settings through the `PipelinesManager` object, and receives different
 /// signals (with `pipeline_id` being an unique string):
-/// - `pipeline_id::pipeline-updated`, handing a new pipeline descriptor object, when the pipeline
+/// - `'pipeline_id'::pipeline-updated`, handing a new pipeline descriptor object, when the pipeline
 ///   has been changed enough that it needs to rebuild the effects configuration
-/// - `pipeline_id::pipeline-destroyed`, handing a new pipeline descriptor object, when the pipeline
-///   has been destroyed; thus making the `Pipeline` change its id to `pipeline_default`
+/// - `'pipeline_id'::pipeline-destroyed`, when the pipeline has been destroyed; thus making the
+///   `Pipeline` change its id to `pipeline_default`
 ///
 /// And each effect, with an unique `id`, is connected to the `PipelinesManager` for the signals:
-/// - `pipeline_id::effect-'id'-key-removed`, handing the key that was removed
-/// - `pipeline_id::effect-'id'-key-updated`, handing the key that was changed and its new value
-/// - `pipeline_id::effect-'id'-key-added`, handing the key that was added and its value
+/// - `'pipeline_id'::effect-'id'-key-removed`, handing the key that was removed
+/// - `'pipeline_id'::effect-'id'-key-updated`, handing the key that was changed and its new value
+/// - `'pipeline_id'::effect-'id'-key-added`, handing the key that was added and its value
 export const Pipeline = class Pipeline {
     constructor(effects_manager, pipelines_manager, pipeline_id, actor = null) {
         this.effects_manager = effects_manager;
