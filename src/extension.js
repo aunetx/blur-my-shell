@@ -380,16 +380,16 @@ export default class BlurMyShell extends Extension {
                 this._panel_blur.disable();
         });
 
-        // panel pipeline changed
-        this._settings.panel.PIPELINE_changed(() => {
-            if (this._settings.panel.BLUR)
-                this._panel_blur.update_pipeline();
-        });
-
         // static blur toggled on/off, really we can just reload the blur at this point
         this._settings.panel.STATIC_BLUR_changed(() => {
             if (this._settings.panel.BLUR)
                 this._panel_blur.reset();
+        });
+
+        // panel pipeline changed
+        this._settings.panel.PIPELINE_changed(() => {
+            if (this._settings.panel.BLUR)
+                this._panel_blur.update_pipeline();
         });
 
         // panel blur's overview connection toggled on/off
@@ -436,6 +436,12 @@ export default class BlurMyShell extends Extension {
         this._settings.dash_to_dock.STATIC_BLUR_changed(() => {
             if (this._settings.dash_to_dock.BLUR)
                 this._dash_to_dock_blur.change_blur_type();
+        });
+
+        // overview pipeline changed
+        this._settings.overview.PIPELINE_changed(() => {
+            if (this._settings.overview.BLUR)
+                this._overview_blur.update_backgrounds();
         });
 
         // dash-to-dock corner radius changed
