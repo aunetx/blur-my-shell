@@ -439,9 +439,9 @@ export default class BlurMyShell extends Extension {
         });
 
         // overview pipeline changed
-        this._settings.overview.PIPELINE_changed(() => {
-            if (this._settings.overview.BLUR)
-                this._overview_blur.update_backgrounds();
+        this._settings.dash_to_dock.PIPELINE_changed(() => {
+            if (this._settings.dash_to_dock.BLUR)
+                this._dash_to_dock_blur.update_pipeline();
         });
 
         // dash-to-dock corner radius changed

@@ -44,6 +44,7 @@ class DashInfos {
         dash_blur.connections.connect(dash_blur, 'hide', () => this.background_group.hide());
         dash_blur.connections.connect(dash_blur, 'update-size', () => this.update_size());
         dash_blur.connections.connect(dash_blur, 'change-blur-type', () => this.change_blur_type());
+        dash_blur.connections.connect(dash_blur, 'update-pipeline', () => this.update_pipeline());
     }
 
     override_style() {
@@ -86,6 +87,12 @@ class DashInfos {
         this.dash.get_parent().insert_child_at_index(this.background_group, 0);
 
         this.update_size();
+    }
+
+    update_pipeline() {
+        this.bg_manager._bms_pipeline.change_pipeline_to(
+            this.settings.dash_to_dock.PIPELINE
+        );
     }
 
     update_size() {
@@ -365,7 +372,7 @@ export const DashBlur = class DashBlur {
 
     change_blur_type() {
         this.is_static = this.settings.dash_to_dock.STATIC_BLUR;
-        this.emit('change-blur-type', true);
+        this.emit('change-blur-type');
 
         this.update_background();
     }
@@ -389,20 +396,24 @@ export const DashBlur = class DashBlur {
     update_background() {
         this._log("updating background");
         if (this.settings.dash_to_dock.OVERRIDE_BACKGROUND)
-            this.emit('override-style', true);
+            this.emit('override-style');
         else
-            this.emit('remove-style', true);
+            this.emit('remove-style');
+    }
+
+    update_pipeline() {
+        this.emit('update-pipeline');
     }
 
     update_size() {
-        this.emit('update-size', true);
+        this.emit('update-size');
     }
 
     show() {
-        this.emit('show', true);
+        this.emit('show');
     }
     hide() {
-        this.emit('hide', true);
+        this.emit('hide');
     }
 
     set_sigma(s) { }
@@ -415,7 +426,7 @@ export const DashBlur = class DashBlur {
     disable() {
         this._log("removing blur from dashes");
 
-        this.emit('remove-dashes', true);
+        this.emit('remove-dashes');
 
         this.dashes = [];
         this.connections.disconnect_all();
