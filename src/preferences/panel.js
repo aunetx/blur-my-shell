@@ -10,7 +10,8 @@ export const Panel = GObject.registerClass({
     InternalChildren: [
         'blur',
         'pipeline_choose_row',
-        'static_blur',
+        'mode_static',
+        'mode_dynamic',
         'unblur_in_overview',
         'force_light_text',
         'override_background',
@@ -36,10 +37,15 @@ export const Panel = GObject.registerClass({
             this.preferences.panel, this.pipelines_manager, this.pipelines_page
         );
 
-        this.preferences.panel.settings.bind(
-            'static-blur', this._static_blur, 'active',
-            Gio.SettingsBindFlags.DEFAULT
+        this._mode_static.set_active(this.preferences.panel.STATIC_BLUR);
+        this._mode_dynamic.set_active(!this.preferences.panel.STATIC_BLUR);
+        this._mode_static.connect('toggled',
+            () => this.preferences.panel.STATIC_BLUR = this._mode_static.active
         );
+        this.preferences.panel.STATIC_BLUR_changed(
+            () => this._mode_static.set_active(this.preferences.panel.STATIC_BLUR)
+        );
+
         this.preferences.panel.settings.bind(
             'unblur-in-overview', this._unblur_in_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT

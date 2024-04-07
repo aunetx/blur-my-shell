@@ -1,4 +1,5 @@
-import { NativeBlurEffect } from '../effects/shell_gaussian_blur.js';
+import { NativeDynamicBlurEffect } from '../effects/native_dynamic_gaussian_blur.js';
+import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.js';
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
@@ -7,12 +8,19 @@ import { CornerEffect } from '../effects/corner.js';
 
 // TODO add gettext translations for the effects / parameters name and description
 export const SUPPORTED_EFFECTS = {
-    native_gaussian_blur: {
-        class: NativeBlurEffect,
+    native_dynamic_gaussian_blur: {
+        class: NativeDynamicBlurEffect,
+        name: "Native gaussian blur",
+        description: "An optimized blur effect that smoothly blends pixels within a given radius.",
+        hide_from_effects_list: true
+    },
+
+    native_static_gaussian_blur: {
+        class: NativeStaticBlurEffect,
         name: "Native gaussian blur",
         description: "An optimized blur effect that smoothly blends pixels within a given radius.",
         editable_params: {
-            radius: {
+            unscaled_radius: {
                 name: "Radius",
                 description: "The intensity of the blur effect.",
                 type: "float",

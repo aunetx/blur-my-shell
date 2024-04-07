@@ -16,23 +16,52 @@
         </property>
 
         <child>
-          <object class="PipelineChooseRow" id="pipeline_choose_row">
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blur type</property>
+            <property name="subtitle" translatable="yes">The dynamic blur is slower and only compatible with a gaussian blur effect.</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkBox">
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <style>
+                  <class name="linked" />
+                </style>
+
+                <child>
+                  <object class="GtkToggleButton" id="mode_static">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="group">mode_dynamic</property>
+                    <property name="child">
+                      <object class="AdwButtonContent">
+                        <property name="icon-name">static-mode-symbolic</property>
+                        <property name="label" translatable="yes">Static</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="mode_dynamic">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="child">
+                      <object class="AdwButtonContent">
+                        <property name="icon-name">dynamic-mode-symbolic</property>
+                        <property name="label" translatable="yes">Dynamic</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
 
         <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Static blur</property>
-            <property name="subtitle" translatable="yes">Uses a static blurred image, more performant and stable.</property>
-            <property name="activatable-widget">static_blur</property>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
-
-            <child>
-              <object class="GtkSwitch" id="static_blur">
-                <property name="valign">center</property>
-              </object>
-            </child>
           </object>
         </child>
 

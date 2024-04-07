@@ -47,6 +47,9 @@ export const EffectsDialog = GObject.registerClass({
             page.add(group);
 
             for (const effect_type in SUPPORTED_EFFECTS) {
+                if (SUPPORTED_EFFECTS[effect_type].hide_from_effects_list)
+                    continue;
+
                 let action_row = new Adw.ActionRow({
                     title: SUPPORTED_EFFECTS[effect_type].name,
                     subtitle: SUPPORTED_EFFECTS[effect_type].description
