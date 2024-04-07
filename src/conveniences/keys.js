@@ -61,6 +61,7 @@ export const KEYS = [
     {
         component: "dash-to-dock", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
@@ -106,6 +107,7 @@ export const KEYS = [
     {
         component: "window-list", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
