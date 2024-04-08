@@ -137,7 +137,7 @@ export const GaussianBlurEffect = new GObject.registerClass({
         if (this._width !== value) {
             this._width = value;
 
-            this.set_uniform_value('width', parseFloat(this._width + 4.0 - 1e-6));
+            this.set_uniform_value('width', parseFloat(this._width + 3.0 - 1e-6));
 
             if (this._chained_effect)
                 this._chained_effect.width = value;
@@ -152,7 +152,7 @@ export const GaussianBlurEffect = new GObject.registerClass({
         if (this._height !== value) {
             this._height = value;
 
-            this.set_uniform_value('height', parseFloat(this._height + 4.0 - 1e-6));
+            this.set_uniform_value('height', parseFloat(this._height + 3.0 - 1e-6));
 
             if (this._chained_effect)
                 this._chained_effect.height = value;

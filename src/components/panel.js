@@ -2,7 +2,7 @@ import St from 'gi://St';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../effects/paint_signals.js';
+import { PaintSignals } from '../conveniences/paint_signals.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';

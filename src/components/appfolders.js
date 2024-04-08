@@ -2,7 +2,7 @@ import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../effects/paint_signals.js';
+import { PaintSignals } from '../conveniences/paint_signals.js';
 const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);

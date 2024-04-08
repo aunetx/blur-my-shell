@@ -3,6 +3,7 @@ import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.j
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
+import { PixelizeEffect } from './pixelize.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 
@@ -121,6 +122,22 @@ export const SUPPORTED_EFFECTS = {
                 name: "Color",
                 description: "The color to blend in. The blending amount is controled by the opacity of the color.",
                 type: "rgba"
+            }
+        }
+    },
+
+    pixelize: {
+        class: PixelizeEffect,
+        name: "Pixelize",
+        description: "An effect that pixelizes the image.",
+        editable_params: {
+            divider: {
+                name: "Divider",
+                description: "How much to scale down the image.",
+                type: "integer",
+                min: 1,
+                max: 50,
+                increment: 1
             }
         }
     },

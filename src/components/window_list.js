@@ -1,7 +1,7 @@
 import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../effects/paint_signals.js';
+import { PaintSignals } from '../conveniences/paint_signals.js';
 
 
 export const WindowListBlur = class WindowListBlur {
@@ -47,8 +47,8 @@ export const WindowListBlur = class WindowListBlur {
             let blur_effect = new Shell.BlurEffect({
                 name: 'window-list-blur',
                 radius: (this.settings.window_list.CUSTOMIZE
-                        ? this.settings.window_list.SIGMA
-                        : this.settings.SIGMA) * 2,
+                    ? this.settings.window_list.SIGMA
+                    : this.settings.SIGMA) * 2,
                 brightness: this.settings.window_list.CUSTOMIZE
                     ? this.settings.window_list.BRIGHTNESS
                     : this.settings.BRIGHTNESS,
