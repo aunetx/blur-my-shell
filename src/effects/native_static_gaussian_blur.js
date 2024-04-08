@@ -4,8 +4,13 @@ import * as utils from '../conveniences/utils.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 
-// in preferences (no Shell), simply return the `default_params` object
-export const NativeStaticBlurEffect = Shell ?
+const DEFAULT_PARAMS = {
+    unscaled_radius: 30, brightness: 0.6
+};
+
+
+export const NativeStaticBlurEffect = utils.IS_IN_PREFERENCES ?
+    { default_params: DEFAULT_PARAMS } :
     new GObject.registerClass({
         GTypeName: "NativeStaticBlurEffect"
     }, class NativeStaticBlurEffect extends Shell.BlurEffect {
@@ -24,6 +29,10 @@ export const NativeStaticBlurEffect = Shell ?
             );
         }
 
+        static get default_params() {
+            return DEFAULT_PARAMS;
+        }
+
         get unscaled_radius() {
             return this._unscaled_radius;
         }
@@ -32,9 +41,4 @@ export const NativeStaticBlurEffect = Shell ?
             this._unscaled_radius = value;
             this.radius = value * this._theme_context.scale_factor;
         }
-
-        static get default_params() {
-            return { unscaled_radius: 30, brightness: 0.6 };
-        }
-    }) :
-    { default_params: { unscaled_radius: 30, brightness: 0.6 } };
+    });

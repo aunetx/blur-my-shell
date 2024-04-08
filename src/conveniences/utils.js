@@ -1,14 +1,15 @@
 import GLib from 'gi://GLib';
 
+export const IS_IN_PREFERENCES = typeof global === 'undefined';
+
 // Taken from https://github.com/Schneegans/Burn-My-Windows/blob/main/src/utils.js
 // This method can be used to import a module in the GNOME Shell process only. This
 // is useful if you want to use a module in extension.js, but not in the preferences
 // process. This method returns null if it is called in the preferences process.
 export async function import_in_shell_only(module) {
-    if (typeof global !== 'undefined') {
-        return (await import(module)).default;
-    }
-    return null;
+    if (IS_IN_PREFERENCES)
+        return null;
+    return (await import(module)).default;
 }
 
 export const get_shader_source = (Shell, shader_filename, self_uri) => {
