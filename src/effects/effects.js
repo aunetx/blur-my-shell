@@ -7,13 +7,38 @@ import { PixelizeEffect } from './pixelize.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 
+export const EFFECTS_GROUPS = {
+    blur_effects: {
+        name: "Blur effects",
+        contains: [
+            "native_static_gaussian_blur",
+            "gaussian_blur",
+            "monte_carlo_blur"
+        ]
+    },
+    // TODO find a better name
+    texture_effects: {
+        name: "Texture effects",
+        contains: [
+            "pixelize",
+            "noise",
+            "color"
+        ]
+    },
+    shape_effects: {
+        name: "Shape effects",
+        contains: [
+            "corner"
+        ]
+    },
+};
+
 // TODO add gettext translations for the effects / parameters name and description
 export const SUPPORTED_EFFECTS = {
     native_dynamic_gaussian_blur: {
         class: NativeDynamicBlurEffect,
         name: "Native gaussian blur",
-        description: "An optimized blur effect that smoothly blends pixels within a given radius.",
-        hide_from_effects_list: true
+        description: "An optimized blur effect that smoothly blends pixels within a given radius."
     },
 
     native_static_gaussian_blur: {

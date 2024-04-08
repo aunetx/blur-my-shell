@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { EffectRow } from './effect_row.js';
-import { SUPPORTED_EFFECTS } from '../../effects/effects.js';
+import { EFFECTS_GROUPS, SUPPORTED_EFFECTS } from '../../effects/effects.js';
 
 
 export const EffectsDialog = GObject.registerClass({
@@ -32,22 +32,29 @@ export const EffectsDialog = GObject.registerClass({
             this.update_rows_insensitive_mover(effect_row);
         });
 
-        this._add_effect.connect('clicked', () => {
-            let dialog = new Adw.Dialog({
-                presentation_mode: Adw.DialogPresentationMode.BOTTOM_SHEET,
-                content_width: 450
-            });
+        this.build_effects_chooser();
+        this._add_effect.connect('clicked', () => this.effects_chooser_dialog.present(this));
+    }
 
-            let page = new Adw.PreferencesPage;
-            dialog.set_child(page);
+    build_effects_chooser() {
+        this.effects_chooser_dialog = new Adw.Dialog({
+            presentation_mode: Adw.DialogPresentationMode.BOTTOM_SHEET,
+            content_width: 450
+        });
+
+        let page = new Adw.PreferencesPage;
+        this.effects_chooser_dialog.set_child(page);
+
+        for (const effects_group in EFFECTS_GROUPS) {
+            const group_infos = EFFECTS_GROUPS[effects_group];
 
             let group = new Adw.PreferencesGroup({
-                title: _("Select effect to add")
+                title: group_infos.name
             });
             page.add(group);
 
-            for (const effect_type in SUPPORTED_EFFECTS) {
-                if (SUPPORTED_EFFECTS[effect_type].hide_from_effects_list)
+            for (const effect_type of group_infos.contains) {
+                if (!(effect_type in SUPPORTED_EFFECTS))
                     continue;
 
                 let action_row = new Adw.ActionRow({
@@ -68,12 +75,10 @@ export const EffectsDialog = GObject.registerClass({
                 action_row.set_activatable_widget(select_button);
                 select_button.connect('clicked', () => {
                     this.append_effect(effect_type);
-                    dialog.close();
+                    this.effects_chooser_dialog.close();
                 });
             }
-
-            dialog.present(this);
-        });
+        }
     }
 
     append_effect(effect_type) {
