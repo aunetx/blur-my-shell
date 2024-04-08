@@ -34,17 +34,36 @@ class DashInfos {
         this.settings = dash_blur.settings;
         this.old_style = this.dash._background.style;
 
-        dash_blur.connections.connect(dash_blur, 'remove-dashes', () => {
-            this.remove_style();
-            this.destroy_dash();
-        });
-        dash_blur.connections.connect(dash_blur, 'override-style', () => this.override_style());
-        dash_blur.connections.connect(dash_blur, 'remove-style', () => this.remove_style());
-        dash_blur.connections.connect(dash_blur, 'show', () => this.background_group.show());
-        dash_blur.connections.connect(dash_blur, 'hide', () => this.background_group.hide());
-        dash_blur.connections.connect(dash_blur, 'update-size', () => this.update_size());
-        dash_blur.connections.connect(dash_blur, 'change-blur-type', () => this.change_blur_type());
-        dash_blur.connections.connect(dash_blur, 'update-pipeline', () => this.update_pipeline());
+        this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur());
+        this.dash_blur_connections_ids = [];
+        this.dash_blur_connections_ids.push(
+            this.dash_blur.connect('remove-dashes', () => this.remove_dash_blur()),
+            this.dash_blur.connect('override-style', () => this.override_style()),
+            this.dash_blur.connect('remove-style', () => this.remove_style()),
+            this.dash_blur.connect('show', () => this.background_group.show()),
+            this.dash_blur.connect('hide', () => this.background_group.hide()),
+            this.dash_blur.connect('update-size', () => this.update_size()),
+            this.dash_blur.connect('change-blur-type', () => this.change_blur_type()),
+            this.dash_blur.connect('update-pipeline', () => this.update_pipeline())
+        );
+    }
+
+    remove_dash_blur() {
+        // remove the style and destroy the effects
+        this.remove_style();
+        this.destroy_dash();
+
+        // remove the dash infos from their list
+        const dash_infos_index = this.dash_blur.dashes.indexOf(this);
+        if (dash_infos_index >= 0)
+            this.dash_blur.dashes.splice(dash_infos_index, 1);
+
+        // disconnect everything
+        this.dash_blur_connections_ids.forEach(id => { if (id) this.dash_blur.disconnect(id); });
+        this.dash_blur_connections_ids = [];
+        if (this.dash_destroy_id)
+            this.dash.disconnect(this.dash_destroy_id);
+        this.dash_destroy_id = null;
     }
 
     override_style() {
