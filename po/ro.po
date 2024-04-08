@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2024-03-20 18:01+0000\n"
-"Last-Translator: 004matteos <mattsoho17@gmail.com>\n"
+"PO-Revision-Date: 2024-04-09 17:01+0000\n"
+"Last-Translator: ThinkRoot <social@crism.ro>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ro/>\n"
 "Language: ro\n"
@@ -49,6 +49,8 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Opacitatea ferestrei peste efectul de estompare, o valoare mai mare va fi "
+"mai lizibilă."
 
 #: applications.ui:51
 msgid "Blur on overview"
@@ -62,7 +64,7 @@ msgstr ""
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr ""
+msgstr "Activați totul în mod implicit"
 
 #: applications.ui:68
 msgid ""
@@ -101,6 +103,8 @@ msgstr ""
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
+"Utilizează proprietățile de estompare personalizate, în locul celor setate "
+"în pagina General."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
@@ -119,6 +123,8 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"Luminozitatea efectului de estompare; o valoare ridicată poate face ca "
+"textul să fie mai greu de citit."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
@@ -132,31 +138,35 @@ msgstr ""
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr ""
+msgstr "Nivelul de zgomot"
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
+"Nivelul de zgomot care se adaugă la efectul de estompare, util pe ecranele "
+"cu contrast redus sau în scop estetic."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr ""
+msgstr "Gradul de luminozitate a zgomotului"
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr ""
+msgstr "Gradul de luminozitate al zgomotului sporește efectul de neclaritate."
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr ""
+msgstr "Notă"
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
+"Zgomotul și culoarea nu pot fi activate pe componentele estompate dinamic, "
+"cum ar fi aceasta."
 
 #: dash.ui:5
 msgid "Dash"
@@ -169,6 +179,7 @@ msgstr ""
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
+"Estompează fundalul extensiei Dash to Dock, dacă aceasta este utilizată."
 
 #: dash.ui:27 panel.ui:26
 msgid "Static blur"
