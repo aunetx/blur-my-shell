@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
 "PO-Revision-Date: 2024-04-09 17:01+0000\n"
-"Last-Translator: ThinkRoot <social@crism.ro>\n"
+"Last-Translator: 004matteos <mattsoho17@gmail.com>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ro/>\n"
 "Language: ro\n"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr ""
+msgstr "Blurarea sețiunii \"Overview\""
 
 #: applications.ui:52
 msgid ""
@@ -97,7 +97,7 @@ msgstr "Lista ferestrelor ce nu vor fi blurate."
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr ""
+msgstr "Personalizează proprietățiile"
 
 #: customize-row.ui:5
 msgid ""
@@ -135,6 +135,8 @@ msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
+"Schimbă culoarea efectului de blur. Opacitatea culorii controlează cat de "
+"mult este amestecată cu efectul de blur."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
