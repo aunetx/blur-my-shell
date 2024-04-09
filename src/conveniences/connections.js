@@ -53,6 +53,7 @@ export const Connections = class Connections {
                     this.buffer.splice(index, 1);
                 }
             });
+            infos.destroy_id = destroy_id;
         }
 
         this.buffer.push(infos);
@@ -66,10 +67,12 @@ export const Connections = class Connections {
         );
 
         // remove each of them
-        actor_connections.forEach((connection) => {
+        actor_connections.forEach(connection => {
             // disconnect
             try {
                 connection.actor.disconnect(connection.id);
+                if ('destroy_id' in connection)
+                    connection.actor.disconnect(connection.destroy_id);
             } catch (e) {
                 this._warn(`error removing connection: ${e}; continuing`);
             }
@@ -82,10 +85,12 @@ export const Connections = class Connections {
 
     /// Disconnect every connection for each actor.
     disconnect_all() {
-        this.buffer.forEach((connection) => {
+        this.buffer.forEach(connection => {
             // disconnect
             try {
                 connection.actor.disconnect(connection.id);
+                if ('destroy_id' in connection)
+                    connection.actor.disconnect(connection.destroy_id);
             } catch (e) {
                 this._warn(`error removing connection: ${e}; continuing`);
             }

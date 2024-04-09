@@ -150,12 +150,10 @@ export const PanelBlur = class PanelBlur {
             bg_manager = bg_manager_list[0];
         }
         else {
-            let bg_manager_list = [];
             const pipeline = new DummyPipeline(this.effects_manager, this.settings.panel);
-            background = pipeline.create_background_with_effect(
+            [background, bg_manager] = pipeline.create_background_with_effect(
                 bg_manager_list, background_group, 'bms-panel-blurred-widget'
             );
-            bg_manager = bg_manager_list[0];
 
             let paint_signals = new PaintSignals(this.connections);
 

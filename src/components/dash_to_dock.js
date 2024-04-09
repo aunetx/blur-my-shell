@@ -319,15 +319,13 @@ export const DashBlur = class DashBlur {
             bg_manager = bg_manager_list[0];
         }
         else {
-            let bg_manager_list = [];
             const pipeline = new DummyPipeline(
                 global.blur_my_shell._effects_manager,
                 this.settings.dash_to_dock
             );
-            background = pipeline.create_background_with_effect(
+            [background, bg_manager] = pipeline.create_background_with_effect(
                 bg_manager_list, background_group, 'bms-dash-blurred-widget'
             );
-            bg_manager = bg_manager_list[0];
 
             paint_signals = new PaintSignals(this.connections);
 

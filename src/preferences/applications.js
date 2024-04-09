@@ -30,7 +30,8 @@ export const Applications = GObject.registerClass({
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/applications.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
-        'customize',
+        'sigma',
+        'brightness',
         'opacity',
         'dynamic_opacity',
         'blur_on_overview',
@@ -67,8 +68,14 @@ export const Applications = GObject.registerClass({
             'enable-all', this._enable_all, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        this._customize.connect_to(this.preferences, this.preferences.applications, false);
+        this.preferences.applications.settings.bind(
+            'sigma', this._sigma, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'brightness', this._brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
 
         // connect 'enable all' button to whitelist/blacklist visibility
         this._enable_all.bind_property(

@@ -12,7 +12,6 @@ export const DummyPipeline = class DummyPipeline {
     }
 
     create_background_with_effect(
-        background_managers,
         background_group,
         widget_name
     ) {
@@ -26,10 +25,9 @@ export const DummyPipeline = class DummyPipeline {
         bg_manager.backgroundActor = this.actor;
         bg_manager._bms_pipeline = this;
 
-        background_managers.push(bg_manager);
         background_group.insert_child_at_index(this.actor, 0);
 
-        return this.actor;
+        return [this.actor, bg_manager];
     };
 
     attach_effect_to_actor(actor) {
