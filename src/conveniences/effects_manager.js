@@ -34,7 +34,7 @@ export const EffectsManager = class EffectsManager {
         effect.old_actor = effect.get_actor();
         if (effect.old_actor)
             effect.old_actor_id = effect.old_actor.connect('destroy', _ => {
-                this.remove(effect);
+                this.remove(effect, true);
             });
 
         this.connections.connect(effect, 'notify::actor', _ => {
@@ -43,16 +43,17 @@ export const EffectsManager = class EffectsManager {
             if (effect.old_actor && actor != effect.old_actor)
                 effect.old_actor.disconnect(effect.old_actor_id);
 
-            if (actor) {
+            if (actor && actor != effect.old_actor) {
                 effect.old_actor_id = actor.connect('destroy', _ => {
-                    this.remove(effect);
+                    this.remove(effect, true);
                 });
             }
         });
     }
 
-    remove(effect) {
-        effect.get_actor()?.remove_effect(effect);
+    remove(effect, actor_already_destroyed = false) {
+        if (!actor_already_destroyed)
+            effect.get_actor()?.remove_effect(effect);
         if (effect.old_actor)
             effect.old_actor.disconnect(effect.old_actor_id);
         delete effect.old_actor;

@@ -15,7 +15,8 @@ export const Other = GObject.registerClass({
         'screenshot_pipeline_choose_row',
 
         'window_list_blur',
-        'window_list_customize',
+        'window_list_sigma',
+        'window_list_brightness',
 
         'hack_level',
         'debug',
@@ -51,9 +52,13 @@ export const Other = GObject.registerClass({
             'blur', this._window_list_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        this._window_list_customize.connect_to(
-            this.preferences, this.preferences.window_list, false
+        this.preferences.window_list.settings.bind(
+            'sigma', this._window_list_sigma, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.window_list.settings.bind(
+            'brightness', this._window_list_brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
         );
 
         this.preferences.settings.bind(

@@ -32,7 +32,6 @@ export const DummyPipeline = class DummyPipeline {
         return this.actor;
     };
 
-    /// Attach a Pipeline object with `pipeline_id` already set to an actor.
     attach_effect_to_actor(actor) {
         // set the actor
         this.actor = actor;
