@@ -62,12 +62,6 @@ export const ScreenshotBlur = class ScreenshotBlur {
         }
     }
 
-    set_sigma(s) { }
-    set_brightness(b) { }
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
-
     update_pipeline() {
         this.screenshot_background_managers.forEach(background_manager =>
             background_manager._bms_pipeline.change_pipeline_to(

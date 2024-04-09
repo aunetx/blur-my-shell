@@ -434,12 +434,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
     }
 
-    set_sigma(s) { }
-    set_brightness(b) { }
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
-
     disable() {
         this._log("removing blur from applications...");
 

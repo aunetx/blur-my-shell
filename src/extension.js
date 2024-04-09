@@ -19,13 +19,6 @@ import { WindowListBlur } from './components/window_list.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
 
-// This lists the components that need to be connected in order to either use
-// general sigma/brightness or their own.
-const INDEPENDENT_COMPONENTS = [
-    "overview", "appfolder", "panel", "dash_to_dock", "applications",
-    "lockscreen", "window_list", "screenshot"
-];
-
 
 /// The main extension class, created when the GNOME Shell is loaded.
 export default class BlurMyShell extends Extension {
@@ -54,7 +47,7 @@ export default class BlurMyShell extends Extension {
         this._pipelines_manager = new PipelinesManager(this._settings);
 
         // create an instance of each component, with its associated Connections
-        let init = _ => {
+        let init = () => {
             // create a Connections instance, to manage signals
             let connection = new Connections;
 
@@ -86,7 +79,7 @@ export default class BlurMyShell extends Extension {
 
         // watch for changes to the session mode
         this._connection.connect(Main.sessionMode, 'updated',
-            _ => this._on_session_mode_changed(Main.sessionMode)
+            () => this._on_session_mode_changed(Main.sessionMode)
         );
     }
 
@@ -104,7 +97,7 @@ export default class BlurMyShell extends Extension {
             this._connection.connect(
                 Main.layoutManager,
                 'startup-complete',
-                _ => this._enable_components()
+                () => this._enable_components()
             );
         } else
             this._enable_components();
@@ -294,41 +287,10 @@ export default class BlurMyShell extends Extension {
 
     /// Updates needed things in each component when a preference changed
     _connect_to_settings() {
-
-        // global blur values changed, update everybody
-
-        this._settings.SIGMA_changed(() => {
-            this._update_sigma();
-        });
-        this._settings.BRIGHTNESS_changed(() => {
-            this._update_brightness();
-        });
-        this._settings.COLOR_changed(() => {
-            this._update_color();
-        });
-        this._settings.NOISE_AMOUNT_changed(() => {
-            this._update_noise_amount();
-        });
-        this._settings.NOISE_LIGHTNESS_changed(() => {
-            this._update_noise_lightness();
-        });
-        this._settings.COLOR_AND_NOISE_changed(() => {
-            // both updating noise amount and color calls `update_enabled` on
-            // each color and noise effects
-            this._update_noise_amount();
-            this._update_color();
-        });
-
         // restart the extension when hacks level is changed, easier than
         // restarting individual components and should not happen often either
-        this._settings.HACKS_LEVEL_changed(_ => this._restart());
+        this._settings.HACKS_LEVEL_changed(() => this._restart());
 
-        // connect each component to use the proper sigma/brightness/color
-        INDEPENDENT_COMPONENTS.forEach(component => {
-            this._connect_to_individual_settings(component);
-        });
-
-        // other component's preferences changed
 
         // ---------- OVERVIEW ----------
 
@@ -361,6 +323,22 @@ export default class BlurMyShell extends Extension {
                 this._appfolder_blur.enable();
             else
                 this._appfolder_blur.disable();
+        });
+
+        // appfolder sigma changed
+        this._settings.appfolder.SIGMA_changed(() => {
+            if (this._settings.appfolder.BLUR)
+                this._appfolder_blur.set_sigma(
+                    this._settings.appfolder.SIGMA
+                );
+        });
+
+        // appfolder brightness changed
+        this._settings.appfolder.BRIGHTNESS_changed(() => {
+            if (this._settings.appfolder.BLUR)
+                this._appfolder_blur.set_brightness(
+                    this._settings.appfolder.BRIGHTNESS
+                );
         });
 
         // appfolder dialogs style changed
@@ -444,12 +422,6 @@ export default class BlurMyShell extends Extension {
                 this._dash_to_dock_blur.update_pipeline();
         });
 
-        // dash-to-dock corner radius changed
-        this._settings.dash_to_dock.CORNER_RADIUS_changed(() => {
-            if (this._settings.dash_to_dock.STATIC_BLUR)
-                this._dash_to_dock_blur.set_corner_radius(this._settings.dash_to_dock.CORNER_RADIUS);
-        });
-
         // dash-to-dock override background toggled on/off
         this._settings.dash_to_dock.OVERRIDE_BACKGROUND_changed(() => {
             if (this._settings.dash_to_dock.BLUR)
@@ -480,7 +452,7 @@ export default class BlurMyShell extends Extension {
         });
 
         // application opacity changed
-        this._settings.applications.OPACITY_changed(_ => {
+        this._settings.applications.OPACITY_changed(() => {
             if (this._settings.applications.BLUR)
                 this._applications_blur.set_opacity(
                     this._settings.applications.OPACITY
@@ -488,25 +460,25 @@ export default class BlurMyShell extends Extension {
         });
 
         // application dynamic-opacity changed
-        this._settings.applications.DYNAMIC_OPACITY_changed(_ => {
+        this._settings.applications.DYNAMIC_OPACITY_changed(() => {
             if (this._settings.applications.BLUR)
                 this._applications_blur.init_dynamic_opacity();
         });
 
         // application blur-on-overview changed
-        this._settings.applications.BLUR_ON_OVERVIEW_changed(_ => {
+        this._settings.applications.BLUR_ON_OVERVIEW_changed(() => {
             if (this._settings.applications.BLUR)
                 this._applications_blur.connect_to_overview();
         });
 
         // application enable-all changed
-        this._settings.applications.ENABLE_ALL_changed(_ => {
+        this._settings.applications.ENABLE_ALL_changed(() => {
             if (this._settings.applications.BLUR)
                 this._applications_blur.update_all_windows();
         });
 
         // application whitelist changed
-        this._settings.applications.WHITELIST_changed(_ => {
+        this._settings.applications.WHITELIST_changed(() => {
             if (
                 this._settings.applications.BLUR
                 && !this._settings.applications.ENABLE_ALL
@@ -515,7 +487,7 @@ export default class BlurMyShell extends Extension {
         });
 
         // application blacklist changed
-        this._settings.applications.BLACKLIST_changed(_ => {
+        this._settings.applications.BLACKLIST_changed(() => {
             if (
                 this._settings.applications.BLUR
                 && this._settings.applications.ENABLE_ALL
@@ -584,150 +556,6 @@ export default class BlurMyShell extends Extension {
         this._settings.screenshot.PIPELINE_changed(() => {
             if (this._settings.screenshot.BLUR)
                 this._screenshot_blur.update_pipeline();
-        });
-    }
-
-    /// Select the component by its name and connect it to its preferences
-    /// changes for general values, sigma and brightness.
-    ///
-    /// Doing this in such a way is less accessible but prevents a lot of
-    /// boilerplate and headaches.
-    _connect_to_individual_settings(name) {
-        // get component and preferences needed
-        let component = this['_' + name + '_blur'];
-        let component_settings = this._settings[name];
-
-        // general values switch is toggled
-        component_settings.CUSTOMIZE_changed(() => {
-            if (component_settings.CUSTOMIZE) {
-                component.set_sigma(component_settings.SIGMA);
-                component.set_brightness(component_settings.BRIGHTNESS);
-                component.set_color(component_settings.COLOR);
-                component.set_noise_amount(component_settings.NOISE_AMOUNT);
-                component.set_noise_lightness(component_settings.NOISE_LIGHTNESS);
-            }
-            else {
-                component.set_sigma(this._settings.SIGMA);
-                component.set_brightness(this._settings.BRIGHTNESS);
-                component.set_color(this._settings.COLOR);
-                component.set_noise_amount(this._settings.NOISE_AMOUNT);
-                component.set_noise_lightness(this._settings.NOISE_LIGHTNESS);
-            }
-        });
-
-        // sigma is changed
-        component_settings.SIGMA_changed(() => {
-            if (component_settings.CUSTOMIZE)
-                component.set_sigma(component_settings.SIGMA);
-            else
-                component.set_sigma(this._settings.SIGMA);
-        });
-
-        // brightness is changed
-        component_settings.BRIGHTNESS_changed(() => {
-            if (component_settings.CUSTOMIZE)
-                component.set_brightness(component_settings.BRIGHTNESS);
-            else
-                component.set_brightness(this._settings.BRIGHTNESS);
-        });
-
-        // color is changed
-        component_settings.COLOR_changed(() => {
-            if (component_settings.CUSTOMIZE)
-                component.set_color(component_settings.COLOR);
-            else
-                component.set_color(this._settings.COLOR);
-        });
-
-        // noise amount is changed
-        component_settings.NOISE_AMOUNT_changed(() => {
-            if (component_settings.CUSTOMIZE)
-                component.set_noise_amount(component_settings.NOISE_AMOUNT);
-            else
-                component.set_noise_amount(this._settings.NOISE_AMOUNT);
-        });
-
-        // noise lightness is changed
-        component_settings.NOISE_LIGHTNESS_changed(() => {
-            if (component_settings.CUSTOMIZE)
-                component.set_noise_lightness(component_settings.NOISE_LIGHTNESS);
-            else
-                component.set_noise_lightness(this._settings.NOISE_LIGHTNESS);
-        });
-    }
-
-    /// Update each component's sigma value
-    _update_sigma() {
-        INDEPENDENT_COMPONENTS.forEach(name => {
-            // get component and preferences needed
-            let component = this['_' + name + '_blur'];
-            let component_settings = this._settings[name];
-
-            // update sigma accordingly
-            if (component_settings.CUSTOMIZE)
-                component.set_sigma(component_settings.SIGMA);
-            else
-                component.set_sigma(this._settings.SIGMA);
-        });
-    }
-
-    /// Update each component's brightness value
-    _update_brightness() {
-        INDEPENDENT_COMPONENTS.forEach(name => {
-            // get component and preferences needed
-            let component = this['_' + name + '_blur'];
-            let component_settings = this._settings[name];
-
-            // update brightness accordingly
-            if (component_settings.CUSTOMIZE)
-                component.set_brightness(component_settings.BRIGHTNESS);
-            else
-                component.set_brightness(this._settings.BRIGHTNESS);
-        });
-    }
-
-    /// Update each component's color value
-    _update_color() {
-        INDEPENDENT_COMPONENTS.forEach(name => {
-            // get component and preferences needed
-            let component = this['_' + name + '_blur'];
-            let component_settings = this._settings[name];
-
-            // update color accordingly
-            if (component_settings.CUSTOMIZE)
-                component.set_color(component_settings.COLOR);
-            else
-                component.set_color(this._settings.COLOR);
-        });
-    }
-
-    /// Update each component's noise amount value
-    _update_noise_amount() {
-        INDEPENDENT_COMPONENTS.forEach(name => {
-            // get component and preferences needed
-            let component = this['_' + name + '_blur'];
-            let component_settings = this._settings[name];
-
-            // update color accordingly
-            if (component_settings.CUSTOMIZE)
-                component.set_noise_amount(component_settings.NOISE_AMOUNT);
-            else
-                component.set_noise_amount(this._settings.NOISE_AMOUNT);
-        });
-    }
-
-    /// Update each component's noise lightness value
-    _update_noise_lightness() {
-        INDEPENDENT_COMPONENTS.forEach(name => {
-            // get component and preferences needed
-            let component = this['_' + name + '_blur'];
-            let component_settings = this._settings[name];
-
-            // update color accordingly
-            if (component_settings.CUSTOMIZE)
-                component.set_noise_lightness(component_settings.NOISE_LIGHTNESS);
-            else
-                component.set_noise_lightness(this._settings.NOISE_LIGHTNESS);
         });
     }
 

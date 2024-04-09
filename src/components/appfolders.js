@@ -216,11 +216,6 @@ export const AppFoldersBlur = class AppFoldersBlur {
             this.blur_appfolders();
     }
 
-    // not implemented for dynamic blur
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
-
     disable() {
         this._log("removing blur from appfolders");
 

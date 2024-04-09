@@ -152,7 +152,7 @@ export const PanelBlur = class PanelBlur {
         else {
             const pipeline = new DummyPipeline(this.effects_manager, this.settings.panel);
             [background, bg_manager] = pipeline.create_background_with_effect(
-                bg_manager_list, background_group, 'bms-panel-blurred-widget'
+                background_group, 'bms-panel-blurred-widget'
             );
 
             let paint_signals = new PaintSignals(this.connections);
@@ -497,12 +497,6 @@ export const PanelBlur = class PanelBlur {
             )
         );
     }
-
-    set_sigma(s) { }
-    set_brightness(b) { }
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
 
     show() {
         this.actors_list.forEach(actors => {

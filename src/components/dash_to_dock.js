@@ -324,7 +324,7 @@ export const DashBlur = class DashBlur {
                 this.settings.dash_to_dock
             );
             [background, bg_manager] = pipeline.create_background_with_effect(
-                bg_manager_list, background_group, 'bms-dash-blurred-widget'
+                background_group, 'bms-dash-blurred-widget'
             );
 
             paint_signals = new PaintSignals(this.connections);
@@ -435,13 +435,6 @@ export const DashBlur = class DashBlur {
     hide() {
         this.emit('hide');
     }
-
-    set_sigma(s) { }
-    set_brightness(b) { }
-    set_corner_radius(r) { }
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from dashes");
