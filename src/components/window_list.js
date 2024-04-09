@@ -101,6 +101,7 @@ export const WindowListBlur = class WindowListBlur {
         );
     }
 
+    // IMPORTANT: do never call this in a mutable `this.pipelines.forEach`
     destroy_blur(pipeline, actor_destroyed = false) {
         if (!actor_destroyed) {
             this.remove_style(pipeline.actor);
@@ -143,7 +144,8 @@ export const WindowListBlur = class WindowListBlur {
     disable() {
         this._log("removing blur from window list");
 
-        this.pipelines.forEach(pipeline => this.destroy_blur(pipeline));
+        const immutable_pipelines_list = [...this.pipelines];
+        immutable_pipelines_list.forEach(pipeline => this.destroy_blur(pipeline));
 
         this.pipelines = [];
         this.connections.disconnect_all();

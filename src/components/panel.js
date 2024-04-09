@@ -235,7 +235,7 @@ export const PanelBlur = class PanelBlur {
         this.connections.connect(
             panel,
             'destroy',
-            _ => this.destroy_blur(actors, false)
+            _ => this.destroy_blur(actors, true)
         );
     }
 
@@ -518,37 +518,25 @@ export const PanelBlur = class PanelBlur {
         });
     }
 
-    destroy_blur(actors, panel_not_already_destroyed) {
+    // IMPORTANT: do never call this in a mutable `this.actors_list.forEach`
+    destroy_blur(actors, panel_already_destroyed) {
         this.set_should_override_panel(actors, false);
 
-        if (panel_not_already_destroyed)
-            actors.widgets.panel_box.remove_child(actors.widgets.background_group);
-
         actors.bg_manager._bms_pipeline.destroy();
+
+        if (panel_already_destroyed)
+            actors.bg_manager.backgroundActor = null;
         actors.bg_manager.destroy();
-        actors.widgets.background_group.destroy_all_children();
-        actors.widgets.background_group.destroy();
+
+        if (!panel_already_destroyed) {
+            actors.widgets.panel_box.remove_child(actors.widgets.background_group);
+            actors.widgets.background_group.destroy_all_children();
+            actors.widgets.background_group.destroy();
+        }
 
         let index = this.actors_list.indexOf(actors);
         if (index >= 0)
             this.actors_list.splice(index, 1);
-    }
-
-    // destroy every blurred background left, necessary after sleep
-    force_destroy_blur_effects() {
-        Main.panel?.get_parent()?.get_children().forEach(
-            child => {
-                if (child.name === 'bms-panel-backgroundgroup') {
-                    child.get_children().forEach(meta_background_actor => {
-                        meta_background_actor.get_effects().forEach(effect => {
-                            this.effects_manager.remove(effect);
-                        });
-                    });
-                    child.destroy_all_children();
-                    child.destroy();
-                }
-            }
-        );
     }
 
     disable() {
@@ -558,10 +546,9 @@ export const PanelBlur = class PanelBlur {
 
         this.update_light_text_classname(true);
 
-        this.actors_list.forEach(actors => this.destroy_blur(actors, true));
+        const immutable_actors_list = [...this.actors_list];
+        immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
         this.actors_list = [];
-
-        this.force_destroy_blur_effects();
 
         this.connections.disconnect_all();
 

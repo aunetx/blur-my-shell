@@ -51,9 +51,14 @@ export const EffectsManager = class EffectsManager {
         });
     }
 
+    // IMPORTANT: do never call this in a mutable `this.used.forEach`
     remove(effect, actor_already_destroyed = false) {
         if (!actor_already_destroyed)
-            effect.get_actor()?.remove_effect(effect);
+            try {
+                effect.get_actor()?.remove_effect(effect);
+            } catch (e) {
+                this._warn(`could not remove the effect, continuing: ${e}`);
+            }
         if (effect.old_actor)
             effect.old_actor.disconnect(effect.old_actor_id);
         delete effect.old_actor;
@@ -71,9 +76,14 @@ export const EffectsManager = class EffectsManager {
     }
 
     destroy_all() {
-        this.used.forEach(effect => { this.remove(effect); });
+        const immutable_used_list = [...this.used];
+        immutable_used_list.forEach(effect => this.remove(effect));
         Object.keys(SUPPORTED_EFFECTS).forEach(effect_name => {
             this[effect_name + '_effects'].splice(0, this[effect_name + '_effects'].length);
         });
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > effects mng]  ${str}`);
     }
 };

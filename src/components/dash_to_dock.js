@@ -34,7 +34,7 @@ class DashInfos {
         this.settings = dash_blur.settings;
         this.old_style = this.dash._background.style;
 
-        this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur());
+        this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur(false));
         this.dash_blur_connections_ids = [];
         this.dash_blur_connections_ids.push(
             this.dash_blur.connect('remove-dashes', () => this.remove_dash_blur()),
@@ -48,10 +48,11 @@ class DashInfos {
         );
     }
 
-    remove_dash_blur() {
+    // IMPORTANT: do never call this in a mutable `this.dash_blur.forEach`
+    remove_dash_blur(dash_not_already_destroyed = true) {
         // remove the style and destroy the effects
         this.remove_style();
-        this.destroy_dash();
+        this.destroy_dash(dash_not_already_destroyed);
 
         // remove the dash infos from their list
         const dash_infos_index = this.dash_blur.dashes.indexOf(this);
@@ -82,12 +83,14 @@ class DashInfos {
         );
     }
 
-    destroy_dash() {
+    destroy_dash(dash_not_already_destroyed = true) {
+        if (!dash_not_already_destroyed)
+            this.bg_manager.backgroundActor = null;
+
         this.paint_signals?.disconnect_all();
         this.dash.get_parent().remove_child(this.background_group);
         this.bg_manager._bms_pipeline.destroy();
         this.bg_manager.destroy();
-        this.background_group.destroy_all_children();
         this.background_group.destroy();
     }
 
