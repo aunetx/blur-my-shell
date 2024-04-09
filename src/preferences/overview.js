@@ -13,7 +13,8 @@ export const Overview = GObject.registerClass({
         'overview_style_components',
 
         'appfolder_blur',
-        'appfolder_customize',
+        'appfolder_sigma',
+        'appfolder_brightness',
         'appfolder_style_dialogs'
     ],
 }, class Overview extends Adw.PreferencesPage {
@@ -43,10 +44,16 @@ export const Overview = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.appfolder.settings.bind(
+            'sigma', this._appfolder_sigma, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.appfolder.settings.bind(
+            'brightness', this._appfolder_brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.appfolder.settings.bind(
             'style-dialogs', this._appfolder_style_dialogs, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        this._appfolder_customize.connect_to(this.preferences, this.preferences.appfolder, false);
     }
 });

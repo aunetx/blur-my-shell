@@ -131,12 +131,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
     enable() {
         this._log("blurring appfolders");
 
-        brightness = this.settings.appfolder.CUSTOMIZE
-            ? this.settings.appfolder.BRIGHTNESS
-            : this.settings.BRIGHTNESS;
-        sigma = this.settings.appfolder.CUSTOMIZE
-            ? this.settings.appfolder.SIGMA
-            : this.settings.SIGMA;
+        brightness = this.settings.appfolder.BRIGHTNESS;
+        sigma = this.settings.appfolder.SIGMA;
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
 

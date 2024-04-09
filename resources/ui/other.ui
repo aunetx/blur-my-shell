@@ -52,7 +52,7 @@
         </property>
 
         <child>
-          <object class="AdwActionRow" id="window_list_sigma_row">
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Sigma</property>
             <property name="subtitle" translatable="yes">The intensity of the blur.</property>
             <property name="activatable-widget">window_list_sigma_scale</property>
@@ -73,7 +73,7 @@
         </child>
 
         <child>
-          <object class="AdwActionRow" id="window_list_brightness_row">
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Brightness</property>
             <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
             <property name="activatable-widget">window_list_brightness_scale</property>

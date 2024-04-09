@@ -18,7 +18,7 @@ To get the best results possible, make sure to choose the option â€œNo artifactâ
         </property>
 
         <child>
-          <object class="AdwActionRow" id="sigma_row">
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Sigma</property>
             <property name="subtitle" translatable="yes">The intensity of the blur.</property>
             <property name="activatable-widget">sigma_scale</property>
@@ -39,7 +39,7 @@ To get the best results possible, make sure to choose the option â€œNo artifactâ
         </child>
 
         <child>
-          <object class="AdwActionRow" id="brightness_row">
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Brightness</property>
             <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
             <property name="activatable-widget">brightness_scale</property>

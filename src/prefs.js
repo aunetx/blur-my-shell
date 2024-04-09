@@ -14,7 +14,6 @@ import { Dash } from './preferences/dash.js';
 import { Applications } from './preferences/applications.js';
 import { Other } from './preferences/other.js';
 
-import './preferences/customize_row.js';
 import './preferences/pipelines_management/pipeline_choose_row.js';
 
 
