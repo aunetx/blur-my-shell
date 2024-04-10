@@ -283,9 +283,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// we are not focused anymore). It automatically removes the ancient focus.
     /// With `focus=false`, just remove the focus from said window (which can still be null).
     set_focus_for_window(meta_window, focus = true) {
-        if (!this.settings.applications.DYNAMIC_OPACITY)
-            focus = false;
-
         let blur_actor = null;
         let window_actor = null;
         let new_pid = null;
@@ -305,7 +302,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             // set new focused window pid
             this.focused_window_pid = new_pid;
             // if we have blur, hide it and make the window opaque
-            if (blur_actor) {
+            if (this.settings.applications.DYNAMIC_OPACITY && blur_actor) {
                 blur_actor.hide();
                 this.set_window_opacity(window_actor, 255);
             }

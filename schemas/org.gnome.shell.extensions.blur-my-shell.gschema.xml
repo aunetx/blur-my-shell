@@ -382,7 +382,7 @@
         </key>
         <!-- OPACITY -->
         <key type="i" name="opacity">
-            <default>230</default>
+            <default>215</default>
             <summary>Opacity of the window actor on top of the blur effect</summary>
         </key>
         <!-- DYNAMIC OPACITY -->
