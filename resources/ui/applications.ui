@@ -9,8 +9,7 @@
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Applications blur</property>
         <property name="description" translatable="yes">Adds blur to the applications.
-To get the best results possible, although with reduced performances, you can choose the option “No artifact” in the “Other → Hack level” tab.
-        </property>
+To get the best results possible, although with reduced performances, you can choose the option “No artifact” in the “Other → Hack level” tab.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>

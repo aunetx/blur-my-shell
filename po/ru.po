@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:32+0200\n"
+"POT-Creation-Date: 2024-04-11 00:33+0200\n"
 "PO-Revision-Date: 2024-03-17 16:08+0000\n"
 "Last-Translator: Aleksandr Melman <alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -51,14 +51,14 @@ msgid "The intensity of the blur effect."
 msgstr ""
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
-#: src/effects/effects.js:125 resources/ui/applications.ui:43
+#: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Яркость"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
-#: src/effects/effects.js:126 resources/ui/applications.ui:44
+#: src/effects/effects.js:126 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -225,27 +225,26 @@ msgstr ""
 msgid ""
 "Adds blur to the applications.\n"
 "To get the best results possible, although with reduced performances, you "
-"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
-"        "
+"can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "Сигма"
 
-#: resources/ui/applications.ui:23 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "Интенсивность размытия."
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:63
 msgid "Opacity"
 msgstr "Непрозрачность"
 
-#: resources/ui/applications.ui:65
+#: resources/ui/applications.ui:64
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -253,21 +252,21 @@ msgstr ""
 "Непрозрачность окна поверх эффекта размытия, более высокое значение будет "
 "более четким."
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:85
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/applications.ui:87
+#: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:100
 msgid "Blur on overview"
 msgstr "Размытие в Обзоре"
 
-#: resources/ui/applications.ui:102
+#: resources/ui/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -275,31 +274,31 @@ msgstr ""
 "Заставляет размытие правильно отображаться на всех рабочих столах в Обзоре.\n"
 "Это может вызвать некоторые задержки или проблемы с производительностью."
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:116
 msgid "Enable all by default"
 msgstr "Включить для всех по умолчанию"
 
-#: resources/ui/applications.ui:118
+#: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:134
+#: resources/ui/applications.ui:133
 msgid "Whitelist"
 msgstr "Белый список"
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "A list of windows to blur."
 msgstr "Список окон для размытия."
 
-#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
+#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
 msgid "Add Window"
 msgstr "Добавить окно"
 
-#: resources/ui/applications.ui:171
+#: resources/ui/applications.ui:170
 msgid "Blacklist"
 msgstr "Черный список"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "A list of windows not to blur."
 msgstr "Список окон, которые не нужно размывать."
 

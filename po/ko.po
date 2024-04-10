@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:32+0200\n"
+"POT-Creation-Date: 2024-04-11 00:33+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -50,14 +50,14 @@ msgid "The intensity of the blur effect."
 msgstr ""
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
-#: src/effects/effects.js:125 resources/ui/applications.ui:43
+#: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "밝기"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
-#: src/effects/effects.js:126 resources/ui/applications.ui:44
+#: src/effects/effects.js:126 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -222,47 +222,46 @@ msgstr ""
 msgid ""
 "Adds blur to the applications.\n"
 "To get the best results possible, although with reduced performances, you "
-"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
-"        "
+"can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "시그마"
 
-#: resources/ui/applications.ui:23 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "블러 효과의 강도."
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:63
 msgid "Opacity"
 msgstr "불투명도"
 
-#: resources/ui/applications.ui:65
+#: resources/ui/applications.ui:64
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr "블러 효과 위의 창의 불투명도 값이 높을수록 더 읽기 쉽습니다."
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:85
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/applications.ui:87
+#: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:100
 msgid "Blur on overview"
 msgstr "오버뷰 모드 블러"
 
-#: resources/ui/applications.ui:102
+#: resources/ui/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -270,31 +269,31 @@ msgstr ""
 "오버뷰 모드의 모든 작업 영역에 블러 효과가 제대로 표시되도록 합니다.\n"
 "이로 인해 일부 지연 또는 성능 문제가 발생할 수 있습니다."
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:116
 msgid "Enable all by default"
 msgstr "기본적으로 모두 활성화"
 
-#: resources/ui/applications.ui:118
+#: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:134
+#: resources/ui/applications.ui:133
 msgid "Whitelist"
 msgstr "화이트리스트"
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "A list of windows to blur."
 msgstr "블러 효과를 추가할 창의 목록."
 
-#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
+#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
 msgid "Add Window"
 msgstr "창 추가"
 
-#: resources/ui/applications.ui:171
+#: resources/ui/applications.ui:170
 msgid "Blacklist"
 msgstr "블랙리스트"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "A list of windows not to blur."
 msgstr "블러 효과를 추가하지 않을 창 목록."
 
