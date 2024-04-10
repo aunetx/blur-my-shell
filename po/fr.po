@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:04+0200\n"
-"PO-Revision-Date: 2024-03-17 16:08+0000\n"
+"PO-Revision-Date: 2024-04-10 22:30+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
@@ -23,33 +23,35 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Effets de flou"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Effets de texture"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Effets de forme"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Flou gaussien natif"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Un effet de flou optimisé qui mixe les pixels dans un certain rayon de "
+"manière lisse."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Rayon"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "L'intensité du flou."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:43
@@ -71,52 +73,60 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Flou gaussien"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Un effet de flou qui mixe les pixels dans un certain rayon de manière lisse. "
+"Cet effet est plus précis, mais bien moins optimisé."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "L'intensité du flou. Plus elle est haute, plus l'effet sera lent."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Flou de Monte Carlo"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Un effet de flou qui imite une marche aléatoire, en choisissant des pixels "
+"de plus en plus loin de son origine et en les mixant ensemble."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"La distance parcourue maximal pour chaque pas dans la marche aléatoire. Une "
+"valeur plus haute rendra le flou plus aléatoire."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Itérations"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Le nombre d'itérations. Plus il y en a, plus le flou sera lisse."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Utiliser le pixel de départ"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Compte ou non le pixel d'origine dans le flou. S'il est compté, l'image sera "
+"plus lisible."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -124,83 +134,93 @@ msgstr "Couleur"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Un effet qui mixe une couleur dans la pipeline."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"La couleur à mixer. La valeur de mixage est contrôlée par l'opacité de la "
+"couleur."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pixellisation"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Un effet qui pixelise l'image."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Diviseur"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Par combien la résolution de l'image sera réduite."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Bruit"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Un effet qui ajoute un bruit aléatoire. Si un effet plus organique est "
+"voulu, préférez le flou de Monte Carlo."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "La quantité de bruit à ajouter."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Luminosité"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"La luminosité du bruit. Un paramètre de « 1.0 » sera équivalent à un effet "
+"transparent."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Coin"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Un effet qui dessine des coins. Ajoutez-le en dernier afin qu'il ne soit pas "
+"perturbé par les autres effets."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"Le rayon du coin. Les applications GNOME utilisent un rayon de 12 px par "
+"défaut."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Coins du haut"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Arrondir ou non les coins du haut."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Coins du bas"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Arrondir ou non les coins du bas."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -260,13 +280,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:86
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Fenêtre ciblée opaque"
 
 #: resources/ui/applications.ui:87
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Rend la fenêtre utilisée opaque et les autres floutées, ce qui aide pour la "
+"lisibilité."
 
 #: resources/ui/applications.ui:101
 msgid "Blur on overview"
@@ -327,20 +349,22 @@ msgstr "Floute le fond de l'extension Dash to Dock, si elle est installée."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Type de flou"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Le flou dynamique est plus lent et seulement compatible avec un flou "
+"gaussien."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statique"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamique"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -389,11 +413,11 @@ msgstr "Foncé"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Effets"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Ajouter un effet"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -462,6 +486,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Change le comportement de l'effet de flou dynamique. La valeur par défaut "
+"est très recommandée.\n"
+"L'option « Pas d’artefacts » désactivera entièrement les actualisations "
+"saccadées dans GNOME shell, et impactera les performances de votre "
+"ordinateur de manière significative."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -637,33 +666,36 @@ msgstr "Contrasté"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "La pipeline utilisée par le composant."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Nom de la pipeline"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Gérer les effets"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Pipelines"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Chaque composant utilise une pipeline, qui peut être choisi dans l'onglet "
+"correspondant. Vous pouvez ici créer, modifier et supprimer les pipelines et "
+"leurs effets."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Ajouter une pipeline"
 
 #~ msgid "Customize properties"
 #~ msgstr "Éditer les paramètres"
