@@ -4,6 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+import { update_from_old_settings } from './conveniences/settings_updater.js';
 import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
@@ -27,6 +28,10 @@ export default class BlurMyShell extends Extension {
         // add the extension to global to make it accessible to other extensions
         // create it first as it is very useful when debugging crashes
         global.blur_my_shell = this;
+
+        // update from old settings
+        // we will keep this for some months, and remove it once afterwards
+        update_from_old_settings(this.getSettings());
 
         // create a Settings instance, to manage extension's preferences
         // it needs to be loaded before logging, as it checks for DEBUG

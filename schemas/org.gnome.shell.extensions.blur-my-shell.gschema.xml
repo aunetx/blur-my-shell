@@ -3,6 +3,11 @@
     <!-- GENERAL -->
     <schema id="org.gnome.shell.extensions.blur-my-shell"
         path="/org/gnome/shell/extensions/blur-my-shell/">
+        <!-- SETTINGS VERSION -->
+        <key type="i" name="settings-version">
+            <default>1</default>
+            <summary>The version of the settings to update from.</summary>
+        </key>
         <!-- PIPELINES -->
         <key type="a{sa{sv}}" name="pipelines">
             <default> <![CDATA[

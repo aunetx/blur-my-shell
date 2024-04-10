@@ -2,6 +2,7 @@ import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { update_from_old_settings } from './conveniences/settings_updater.js';
 import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { Settings } from './conveniences/settings.js';
 import { KEYS } from './conveniences/keys.js';
@@ -29,6 +30,10 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
 
     fillPreferencesWindow(window) {
         addMenu(window);
+
+        // update from old settings
+        // we will keep this for some months, and remove it once afterwards
+        update_from_old_settings(this.getSettings());
 
         const preferences = new Settings(KEYS, this.getSettings());
         const pipelines_manager = new PipelinesManager(preferences);
