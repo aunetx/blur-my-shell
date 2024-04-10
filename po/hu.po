@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:04+0200\n"
+"POT-Creation-Date: 2024-04-11 00:32+0200\n"
 "PO-Revision-Date: 2023-06-29 14:17+0000\n"
 "Last-Translator: istvan-derda <istvan.derda@mailbox.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -217,20 +217,16 @@ msgid "Applications"
 msgstr "Alkalmazások"
 
 #: resources/ui/applications.ui:10
-msgid "Applications blur (beta)"
-msgstr "Alkalmazások homályosítása (béta)"
+msgid "Applications blur"
+msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
-"Adds blur to the applications. This is still beta functionality.\n"
-"To get the best results possible, make sure to choose the option “No "
-"artifact” in the “General → Hack level” preference.\n"
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
-"Elhomályosítja az alkalmazásokat. Ez egyelőre béta funkció.\n"
-"A legjobb eredmény elérése érdekében válaszd a \"Nincs artifact\"-ot az "
-"\"Általános → Átalakítás szintje\" beállításnál.\n"
-"        "
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -284,30 +280,26 @@ msgid "Enable all by default"
 msgstr "Elhomályosítás az összes ablaknál"
 
 #: resources/ui/applications.ui:118
-msgid ""
-"Adds blur behind all windows by default.\n"
-"Not recommended because of performance and stability issues."
+msgid "Adds blur behind all windows by default."
 msgstr ""
-"Minden ablak homályosítása alapértelmezésként.\n"
-"Teljesítménybeli és stabilitási problémák miatt nem javasolt."
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr "Fehérlista"
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr "Elhomályosítandó ablakok listája."
 
-#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr "Ablak hozzáadása"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr "Feketelista"
 
-#: resources/ui/applications.ui:173
+#: resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr "Nem elhomályosítandó ablakok listája."
 
@@ -650,6 +642,27 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
+
+#~ msgid "Applications blur (beta)"
+#~ msgstr "Alkalmazások homályosítása (béta)"
+
+#~ msgid ""
+#~ "Adds blur to the applications. This is still beta functionality.\n"
+#~ "To get the best results possible, make sure to choose the option “No "
+#~ "artifact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Elhomályosítja az alkalmazásokat. Ez egyelőre béta funkció.\n"
+#~ "A legjobb eredmény elérése érdekében válaszd a \"Nincs artifact\"-ot az "
+#~ "\"Általános → Átalakítás szintje\" beállításnál.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default.\n"
+#~ "Not recommended because of performance and stability issues."
+#~ msgstr ""
+#~ "Minden ablak homályosítása alapértelmezésként.\n"
+#~ "Teljesítménybeli és stabilitási problémák miatt nem javasolt."
 
 #~ msgid "Customize properties"
 #~ msgstr "Beállítások testreszabása"

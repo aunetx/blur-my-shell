@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:04+0200\n"
+"POT-Creation-Date: 2024-04-11 00:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -213,14 +213,14 @@ msgid "Applications"
 msgstr ""
 
 #: resources/ui/applications.ui:10
-msgid "Applications blur (beta)"
+msgid "Applications blur"
 msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
-"Adds blur to the applications. This is still beta functionality.\n"
-"To get the best results possible, make sure to choose the option “No "
-"artifact” in the “General → Hack level” preference.\n"
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
 
@@ -271,28 +271,26 @@ msgid "Enable all by default"
 msgstr ""
 
 #: resources/ui/applications.ui:118
-msgid ""
-"Adds blur behind all windows by default.\n"
-"Not recommended because of performance and stability issues."
+msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr ""
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr ""
 
-#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr ""
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr ""
 
-#: resources/ui/applications.ui:173
+#: resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr ""
 

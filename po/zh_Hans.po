@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:04+0200\n"
+"POT-Creation-Date: 2024-04-11 00:32+0200\n"
 "PO-Revision-Date: 2024-03-31 19:01+0000\n"
 "Last-Translator: Colgrave <hanqixu.blogs@simplelogin.co>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -215,19 +215,16 @@ msgid "Applications"
 msgstr "应用程序"
 
 #: resources/ui/applications.ui:10
-msgid "Applications blur (beta)"
-msgstr "应用程序模糊（实验性）"
+msgid "Applications blur"
+msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
-"Adds blur to the applications. This is still beta functionality.\n"
-"To get the best results possible, make sure to choose the option “No "
-"artifact” in the “General → Hack level” preference.\n"
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
-"对应用程序添加模糊效果。这是一个仍处于测试阶段的功能。\n"
-"若想获得最佳效果，记得将 Hack 级别设置为\n"
-"        "
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -278,30 +275,26 @@ msgid "Enable all by default"
 msgstr "默认全部启用"
 
 #: resources/ui/applications.ui:118
-msgid ""
-"Adds blur behind all windows by default.\n"
-"Not recommended because of performance and stability issues."
+msgid "Adds blur behind all windows by default."
 msgstr ""
-"默认情况下，在所有窗口后面添加模糊。\n"
-"由于性能和稳定性问题，不建议这样做。"
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr "白名单"
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr "要模糊的窗口列表。"
 
-#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr "添加窗口"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr "黑名单"
 
-#: resources/ui/applications.ui:173
+#: resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr "不模糊的窗口列表。"
 
@@ -630,6 +623,26 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
+
+#~ msgid "Applications blur (beta)"
+#~ msgstr "应用程序模糊（实验性）"
+
+#~ msgid ""
+#~ "Adds blur to the applications. This is still beta functionality.\n"
+#~ "To get the best results possible, make sure to choose the option “No "
+#~ "artifact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "对应用程序添加模糊效果。这是一个仍处于测试阶段的功能。\n"
+#~ "若想获得最佳效果，记得将 Hack 级别设置为\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default.\n"
+#~ "Not recommended because of performance and stability issues."
+#~ msgstr ""
+#~ "默认情况下，在所有窗口后面添加模糊。\n"
+#~ "由于性能和稳定性问题，不建议这样做。"
 
 #~ msgid "Customize properties"
 #~ msgstr "自定义属性"

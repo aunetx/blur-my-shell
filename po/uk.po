@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:04+0200\n"
+"POT-Creation-Date: 2024-04-11 00:32+0200\n"
 "PO-Revision-Date: 2024-01-01 15:09+0000\n"
 "Last-Translator: Сергій <sergiy.goncharuk.1@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -217,20 +217,16 @@ msgid "Applications"
 msgstr "Застосунки"
 
 #: resources/ui/applications.ui:10
-msgid "Applications blur (beta)"
-msgstr "Розмиття застосунків (бета)"
+msgid "Applications blur"
+msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
-"Adds blur to the applications. This is still beta functionality.\n"
-"To get the best results possible, make sure to choose the option “No "
-"artifact” in the “General → Hack level” preference.\n"
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
-"Надає розмиття застосункам. Це все ще бета-версія функції.\n"
-"Щоб отримати найкращі результати, переконайтеся, що ви вибрали опцію \"Без "
-"артефактів\" у налаштуваннях \"Загальні → Рівень злому\".\n"
-"        "
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -282,30 +278,26 @@ msgid "Enable all by default"
 msgstr "Застосувати для всіх за замовчуванням"
 
 #: resources/ui/applications.ui:118
-msgid ""
-"Adds blur behind all windows by default.\n"
-"Not recommended because of performance and stability issues."
+msgid "Adds blur behind all windows by default."
 msgstr ""
-"Додає розмиття за всіма вікнами за замовчуванням.\n"
-"Не рекомендується через проблеми з продуктивністю та стабільністю."
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr "Білий список"
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr "Список вікон для розмиття."
 
-#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr "Додати вікно"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr "Чорний список"
 
-#: resources/ui/applications.ui:173
+#: resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr "Список вікон без розмиття."
 
@@ -646,6 +638,27 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
+
+#~ msgid "Applications blur (beta)"
+#~ msgstr "Розмиття застосунків (бета)"
+
+#~ msgid ""
+#~ "Adds blur to the applications. This is still beta functionality.\n"
+#~ "To get the best results possible, make sure to choose the option “No "
+#~ "artifact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Надає розмиття застосункам. Це все ще бета-версія функції.\n"
+#~ "Щоб отримати найкращі результати, переконайтеся, що ви вибрали опцію "
+#~ "\"Без артефактів\" у налаштуваннях \"Загальні → Рівень злому\".\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default.\n"
+#~ "Not recommended because of performance and stability issues."
+#~ msgstr ""
+#~ "Додає розмиття за всіма вікнами за замовчуванням.\n"
+#~ "Не рекомендується через проблеми з продуктивністю та стабільністю."
 
 #~ msgid "Customize properties"
 #~ msgstr "Налаштування властивостей"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:04+0200\n"
+"POT-Creation-Date: 2024-04-11 00:32+0200\n"
 "PO-Revision-Date: 2024-04-10 22:30+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -238,20 +238,16 @@ msgid "Applications"
 msgstr "Aplicaciones"
 
 #: resources/ui/applications.ui:10
-msgid "Applications blur (beta)"
-msgstr "Desenfoque de las aplicaciones (beta)"
+msgid "Applications blur"
+msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
-"Adds blur to the applications. This is still beta functionality.\n"
-"To get the best results possible, make sure to choose the option “No "
-"artifact” in the “General → Hack level” preference.\n"
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
-"Añade desenfoque a las aplicaciones. Esta funcionalidad aún está en beta.\n"
-"Para obtener los mejores resultados posibles, asegúrese de elegir la opción "
-"\"Sin artefactos\" en las preferencias \"General → Nivel de hackeo\".\n"
-"        "
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -307,30 +303,26 @@ msgid "Enable all by default"
 msgstr "Activar todo por defecto"
 
 #: resources/ui/applications.ui:118
-msgid ""
-"Adds blur behind all windows by default.\n"
-"Not recommended because of performance and stability issues."
+msgid "Adds blur behind all windows by default."
 msgstr ""
-"Añade desenfoque detrás de todas las ventanas por defecto.\n"
-"No se recomienda por problemas de rendimiento y estabilidad."
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr "Lista blanca"
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr "Una lista de ventanas para desenfocar."
 
-#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr "Añadir ventana"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr "Lista negra"
 
-#: resources/ui/applications.ui:173
+#: resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr "Una lista de ventanas para no difuminar."
 
@@ -683,6 +675,29 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
+
+#~ msgid "Applications blur (beta)"
+#~ msgstr "Desenfoque de las aplicaciones (beta)"
+
+#~ msgid ""
+#~ "Adds blur to the applications. This is still beta functionality.\n"
+#~ "To get the best results possible, make sure to choose the option “No "
+#~ "artifact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Añade desenfoque a las aplicaciones. Esta funcionalidad aún está en "
+#~ "beta.\n"
+#~ "Para obtener los mejores resultados posibles, asegúrese de elegir la "
+#~ "opción \"Sin artefactos\" en las preferencias \"General → Nivel de "
+#~ "hackeo\".\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default.\n"
+#~ "Not recommended because of performance and stability issues."
+#~ msgstr ""
+#~ "Añade desenfoque detrás de todas las ventanas por defecto.\n"
+#~ "No se recomienda por problemas de rendimiento y estabilidad."
 
 #~ msgid "Customize properties"
 #~ msgstr "Personalizar propiedades"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:04+0200\n"
+"POT-Creation-Date: 2024-04-11 00:32+0200\n"
 "PO-Revision-Date: 2024-03-20 18:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/blur-"
@@ -217,20 +217,16 @@ msgid "Applications"
 msgstr "Apps"
 
 #: resources/ui/applications.ui:10
-msgid "Applications blur (beta)"
-msgstr "Apps vervagen (bèta)"
+msgid "Applications blur"
+msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
-"Adds blur to the applications. This is still beta functionality.\n"
-"To get the best results possible, make sure to choose the option “No "
-"artifact” in the “General → Hack level” preference.\n"
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
-"Voegt vervaging toe aan apps. Dit is nog bèta-functionaliteit.\n"
-"Om de best mogelijke resultaten te krijgen, zorg ervoor dat u de optie ‘Geen "
-"artefacten’ kiest in de voorkeur ‘Algemeen → Hackniveau’.\n"
-"        "
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -284,30 +280,26 @@ msgid "Enable all by default"
 msgstr "Alle standaard inschakelen"
 
 #: resources/ui/applications.ui:118
-msgid ""
-"Adds blur behind all windows by default.\n"
-"Not recommended because of performance and stability issues."
+msgid "Adds blur behind all windows by default."
 msgstr ""
-"Voegt standaard vervaging achter alle vensters toe.\n"
-"Niet aanbevolen vanwege prestatie- of stabiliteitsproblemen."
 
-#: resources/ui/applications.ui:135
+#: resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr "Witte lijst"
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr "Een lijst van vensters om te vervagen."
 
-#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr "Venster toevoegen"
 
-#: resources/ui/applications.ui:172
+#: resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr "Zwarte lijst"
 
-#: resources/ui/applications.ui:173
+#: resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr "Een lijst van vensters om niet te vervagen."
 
@@ -657,6 +649,27 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
+
+#~ msgid "Applications blur (beta)"
+#~ msgstr "Apps vervagen (bèta)"
+
+#~ msgid ""
+#~ "Adds blur to the applications. This is still beta functionality.\n"
+#~ "To get the best results possible, make sure to choose the option “No "
+#~ "artifact” in the “General → Hack level” preference.\n"
+#~ "        "
+#~ msgstr ""
+#~ "Voegt vervaging toe aan apps. Dit is nog bèta-functionaliteit.\n"
+#~ "Om de best mogelijke resultaten te krijgen, zorg ervoor dat u de optie "
+#~ "‘Geen artefacten’ kiest in de voorkeur ‘Algemeen → Hackniveau’.\n"
+#~ "        "
+
+#~ msgid ""
+#~ "Adds blur behind all windows by default.\n"
+#~ "Not recommended because of performance and stability issues."
+#~ msgstr ""
+#~ "Voegt standaard vervaging achter alle vensters toe.\n"
+#~ "Niet aanbevolen vanwege prestatie- of stabiliteitsproblemen."
 
 #~ msgid "Customize properties"
 #~ msgstr "Eigenschappen aanpassen"
