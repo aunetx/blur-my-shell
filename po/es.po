@@ -54,14 +54,14 @@ msgstr "La intensidad del efecto de desenfoque."
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
-#: resources/ui/panel.ui:92
+#: resources/ui/panel.ui:92 resources/ui/applications.ui:43
 msgid "Brightness"
 msgstr "Brillo"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
 #: src/effects/effects.js:126 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
-#: resources/ui/panel.ui:93
+#: resources/ui/panel.ui:93 resources/ui/applications.ui:44
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
@@ -250,21 +250,21 @@ msgstr ""
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
-#: resources/ui/panel.ui:71
+#: resources/ui/panel.ui:71 resources/ui/applications.ui:22
 msgid "Sigma"
 msgstr "Sigma"
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
-#: resources/ui/panel.ui:72
+#: resources/ui/panel.ui:72 resources/ui/applications.ui:23
 msgid "The intensity of the blur."
 msgstr "La intensidad del desenfoque."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:63 resources/ui/applications.ui:64
 msgid "Opacity"
 msgstr "Opacidad"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:64 resources/ui/applications.ui:65
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -272,11 +272,11 @@ msgstr ""
 "La opacidad de la ventana sobre el efecto de desenfoque, un valor más alto "
 "será más legible."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:85 resources/ui/applications.ui:86
 msgid "Opaque focused window"
 msgstr "Ventana enfocada opaca"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:86 resources/ui/applications.ui:87
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -284,11 +284,11 @@ msgstr ""
 "Hace que la ventana enfocada sea opaca y las demás borrosas, ayudando con la "
 "legibilidad."
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:100 resources/ui/applications.ui:101
 msgid "Blur on overview"
 msgstr "Desenfoque en la vista general"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:101 resources/ui/applications.ui:102
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -297,31 +297,37 @@ msgstr ""
 "trabajo en la vista general.\n"
 "Esto puede causar algunos problemas de latencia o rendimiento."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:116 resources/ui/applications.ui:117
 msgid "Enable all by default"
 msgstr "Activar todo por defecto"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:117 resources/ui/applications.ui:118
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:133 resources/ui/applications.ui:134
+#: resources/ui/applications.ui:135
 msgid "Whitelist"
 msgstr "Lista blanca"
 
-#: resources/ui/applications.ui:134
+#: resources/ui/applications.ui:134 resources/ui/applications.ui:135
+#: resources/ui/applications.ui:136
 msgid "A list of windows to blur."
 msgstr "Una lista de ventanas para desenfocar."
 
 #: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
+#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
 msgid "Add Window"
 msgstr "Añadir ventana"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:170 resources/ui/applications.ui:171
+#: resources/ui/applications.ui:172
 msgid "Blacklist"
 msgstr "Lista negra"
 
-#: resources/ui/applications.ui:171
+#: resources/ui/applications.ui:171 resources/ui/applications.ui:172
+#: resources/ui/applications.ui:173
 msgid "A list of windows not to blur."
 msgstr "Una lista de ventanas para no difuminar."
 
@@ -476,6 +482,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Cambia el comportamiento del efecto de desenfoque dinámico. El valor por "
+"defecto es muy recomendable.\n"
+"La opción \"Sin artefacto\" deshabilitará por completo los redibujados "
+"recortados en el shell de GNOME, e impactará significativamente en el "
+"rendimiento de su ordenador."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -647,11 +658,11 @@ msgstr "Contrastado"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "El conducto que se utilizará con este componente."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
@@ -659,7 +670,7 @@ msgstr ""
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Gestionar los efectos"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
@@ -675,28 +686,37 @@ msgstr ""
 msgid "Add Pipeline"
 msgstr ""
 
-#~ msgid "Applications blur (beta)"
-#~ msgstr "Desenfoque de las aplicaciones (beta)"
+#: resources/ui/applications.ui:10
+msgid "Applications blur (beta)"
+msgstr "Desenfoque de las aplicaciones (beta)"
 
-#~ msgid ""
-#~ "Adds blur to the applications. This is still beta functionality.\n"
-#~ "To get the best results possible, make sure to choose the option “No "
-#~ "artifact” in the “General → Hack level” preference.\n"
-#~ "        "
-#~ msgstr ""
-#~ "Añade desenfoque a las aplicaciones. Esta funcionalidad aún está en "
-#~ "beta.\n"
-#~ "Para obtener los mejores resultados posibles, asegúrese de elegir la "
-#~ "opción \"Sin artefactos\" en las preferencias \"General → Nivel de "
-#~ "hackeo\".\n"
-#~ "        "
+#: resources/ui/applications.ui:11
+msgid ""
+"Adds blur to the applications. This is still beta functionality.\n"
+"To get the best results possible, make sure to choose the option “No "
+"artifact” in the “General → Hack level” preference.\n"
+"        "
+msgstr ""
+"Añade desenfoque a las aplicaciones. Esta funcionalidad aún está en beta.\n"
+"Para obtener los mejores resultados posibles, asegúrese de elegir la opción "
+"\"Sin artefactos\" en las preferencias \"General → Nivel de hackeo\".\n"
+"        "
 
-#~ msgid ""
-#~ "Adds blur behind all windows by default.\n"
-#~ "Not recommended because of performance and stability issues."
-#~ msgstr ""
-#~ "Añade desenfoque detrás de todas las ventanas por defecto.\n"
-#~ "No se recomienda por problemas de rendimiento y estabilidad."
+#: resources/ui/applications.ui:118
+msgid ""
+"Adds blur behind all windows by default.\n"
+"Not recommended because of performance and stability issues."
+msgstr ""
+"Añade desenfoque detrás de todas las ventanas por defecto.\n"
+"No se recomienda por problemas de rendimiento y estabilidad."
+
+#: resources/ui/applications.ui:11
+msgid ""
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
+"        "
+msgstr ""
 
 #~ msgid "Customize properties"
 #~ msgstr "Personalizar propiedades"
