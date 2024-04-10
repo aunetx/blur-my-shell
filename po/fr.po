@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-10 22:30+0000\n"
+"PO-Revision-Date: 2024-04-10 22:38+0000\n"
 "Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
@@ -248,6 +248,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Ajoute du flou aux applications.\n"
+"Pour obtenir les meilleurs résultats possible, mais avec des performances "
+"réduites, vous pouvez choisir l'option « Pas d'artefacts » dans l'onglet « "
+"Autres → Astuces de performances »."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -304,7 +308,7 @@ msgstr "Active tout par défaut"
 
 #: resources/ui/applications.ui:117 resources/ui/applications.ui:118
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Ajoute du flou derrière toutes les fenêtres par défaut."
 
 #: resources/ui/applications.ui:133 resources/ui/applications.ui:134
 msgid "Whitelist"
@@ -696,6 +700,11 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
+"Ajoute du flou aux applications.\n"
+"Afin d'obtenir les meilleurs résultats possibles, mais avec des performances "
+"réduites, vous pouvez choisir l'option « Pas d'artefacts » dans l'ongler « "
+"Autres → Astuces de performance ».\n"
+"        "
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Flou des applications (bêta)"
