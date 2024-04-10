@@ -7,9 +7,9 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Applications blur (beta)</property>
-        <property name="description" translatable="yes">Adds blur to the applications. This is still beta functionality.
-To get the best results possible, make sure to choose the option “No artifact” in the “General → Hack level” preference.
+        <property name="title" translatable="yes">Applications blur</property>
+        <property name="description" translatable="yes">Adds blur to the applications.
+To get the best results possible, although with reduced performances, you can choose the option “No artifact” in the “Other → Hack level” tab.
         </property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
@@ -115,8 +115,7 @@ This may cause some latency or performance issues.</property>
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Enable all by default</property>
-            <property name="subtitle" translatable="yes">Adds blur behind all windows by default.
-Not recommended because of performance and stability issues.</property>
+            <property name="subtitle" translatable="yes">Adds blur behind all windows by default.</property>
             <property name="activatable-widget">enable_all</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
