@@ -26,6 +26,12 @@ export const Pipelines = GObject.registerClass({
         for (let pipeline_id in this.pipelines_manager.pipelines)
             this.add_pipeline(pipeline_id, false);
 
+        this.preferences.connect('reset', _ => {
+            this.pipelines_map.forEach((_infos, pid) => this.remove_pipeline(pid));
+            for (let pipeline_id in this.pipelines_manager.pipelines)
+                this.add_pipeline(pipeline_id, false);
+        });
+
         this._add_pipeline.connect(
             "clicked",
             () => this.pipelines_manager.create_pipeline(_("New pipeline"))

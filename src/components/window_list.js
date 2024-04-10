@@ -83,11 +83,7 @@ export const WindowListBlur = class WindowListBlur {
             if (this.settings.HACKS_LEVEL === 1) {
                 this._log("window list hack level 1");
 
-                this.paint_signals.connect(actor, pipeline.effect);
-
-            } else if (this.settings.HACKS_LEVEL === 2) {
-                this._log("window list hack level 2");
-
+                this.paint_signals.disconnect_all_for_actor(actor);
                 this.paint_signals.connect(actor, pipeline.effect);
             } else {
                 this.paint_signals.disconnect_all_for_actor(actor);

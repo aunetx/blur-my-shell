@@ -227,13 +227,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
             window_actor, 'bms-application-blurred-widget'
         );
 
-        // TODO set bg_manager
         meta_window.blur_actor = blur_actor;
         meta_window.bg_manager = bg_manager;
 
         // if hacks are selected, force to repaint the window
-        if (this.settings.HACKS_LEVEL === 1 || this.settings.HACKS_LEVEL === 2) {
-            this._log("applications hack level 1 or 2");
+        if (this.settings.HACKS_LEVEL === 1) {
+            this._log("hack level 1");
 
             this.paint_signals.disconnect_all_for_actor(blur_actor);
             this.paint_signals.connect(blur_actor, pipeline.effect);

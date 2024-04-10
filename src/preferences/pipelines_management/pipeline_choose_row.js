@@ -26,7 +26,10 @@ export const PipelineChooseRow = GObject.registerClass({
             const pipeline_id = string_object.get_string();
             if (pipeline_id == 'create_new')
                 return _("Create new pipeline");
-            return this.pipelines_manager.pipelines[pipeline_id].name;
+            if (pipeline_id in this.pipelines_manager.pipelines)
+                return this.pipelines_manager.pipelines[pipeline_id].name;
+            else
+                return "";
         };
 
         const expression = new Gtk.ClosureExpression(GObject.TYPE_STRING, closure_func, []);
@@ -68,6 +71,12 @@ export const PipelineChooseRow = GObject.registerClass({
     on_settings_pipeline_changed() {
         for (let i = 0; i < this._pipeline_model.n_items; i++) {
             const pipeline_id = this._pipeline_model.get_string(i);
+            // if we have more pipelines than we should have: rebuild...
+            // that is the case when resetting the preferences for example
+            if (!(pipeline_id in this.pipelines_manager)) {
+                this.create_pipelines_list();
+                return;
+            }
             if (pipeline_id == this.preferences.PIPELINE)
                 this._pipeline_choose.set_selected(i);
         }

@@ -29,8 +29,7 @@ export default class BlurMyShell extends Extension {
         // create it first as it is very useful when debugging crashes
         global.blur_my_shell = this;
 
-        // update from old settings
-        // we will keep this for some months, and remove it once afterwards
+        // update from old settings, very important for hacks level specifically
         update_from_old_settings(this.getSettings());
 
         // create a Settings instance, to manage extension's preferences
@@ -241,7 +240,7 @@ export default class BlurMyShell extends Extension {
     /// the user really needs it, as clipped redraws are a huge performance
     /// boost for the compositor.
     _update_clipped_redraws() {
-        if (this._settings.HACKS_LEVEL === 3)
+        if (this._settings.HACKS_LEVEL === 2)
             this._disable_clipped_redraws();
         else
             this._reenable_clipped_redraws();

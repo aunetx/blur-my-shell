@@ -170,24 +170,8 @@ export const PanelBlur = class PanelBlur {
             {
                 if (this.settings.HACKS_LEVEL === 1) {
                     this._log("panel hack level 1");
+
                     paint_signals.disconnect_all();
-
-                    let rp = () => pipeline.repaint_effect();
-
-                    this.connections.connect(panel, [
-                        'enter-event', 'leave-event', 'button-press-event'
-                    ], rp);
-
-                    panel.get_children().forEach(child => {
-                        this.connections.connect(child, [
-                            'enter-event', 'leave-event', 'button-press-event'
-                        ], rp);
-                    });
-                } else if (this.settings.HACKS_LEVEL === 2) {
-                    // TODO set as default, as it is so much better than levels 1 and 2...
-                    this._log("panel hack level 2");
-                    paint_signals.disconnect_all();
-
                     paint_signals.connect(background, pipeline.effect);
                 } else {
                     paint_signals.disconnect_all();

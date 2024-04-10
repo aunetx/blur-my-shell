@@ -31,8 +31,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         addMenu(window);
 
-        // update from old settings
-        // we will keep this for some months, and remove it once afterwards
+        // update from old settings, very important for hacks level specifically
         update_from_old_settings(this.getSettings());
 
         const preferences = new Settings(KEYS, this.getSettings());

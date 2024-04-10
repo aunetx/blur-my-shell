@@ -10,9 +10,16 @@ export function update_from_old_settings(gsettings) {
 
     if (old_version < CURRENT_SETTINGS_VERSION) {
         // set artifacts hacks to be 1 at most, as it should be suitable now that most big bugs have
-        // been resolved (and hacks to 3 especially will make GNOME Shell very slow)
+        // been resolved (and especially because hack levels to 2 now means disabling clipped
+        // redraws entirely, which is very much not what we want for users that update)
         if (preferences.HACKS_LEVEL > 1)
             preferences.HACKS_LEVEL = 1;
+
+        // enable dash-to-dock blurring, as most disabled it due to the lack of rounded corners; set
+        // it to static blur by default too and with transparent background
+        preferences.dash_to_dock.BLUR = true;
+        preferences.dash_to_dock.STATIC_BLUR = true;
+        preferences.dash_to_dock.STYLE_DASH_TO_DOCK = 0;
 
         // 'customize' has been removed: we merge the current used settings
         ['appfolder', 'panel', 'dash_to_dock', 'applications', 'window_list'].forEach(

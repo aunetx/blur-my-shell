@@ -340,47 +340,9 @@ export const DashBlur = class DashBlur {
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
             if (this.settings.HACKS_LEVEL === 1) {
-                this._log("dash hack level 1");
+                this._log("hack level 1");
+
                 paint_signals.disconnect_all();
-
-                let rp = () => pipeline.repaint_effect();
-
-                dash._box.get_children().forEach(icon => {
-                    try {
-                        let zone = icon.get_child_at_index(0);
-
-                        if (zone)
-                            this.connections.connect(zone, [
-                                'enter-event', 'leave-event', 'button-press-event'
-                            ], rp);
-                    } catch (e) {
-                        this._warn(`${e}, continuing`);
-                    }
-                });
-
-                this.connections.connect(dash._box, 'child-added', (_, child) => {
-                    try {
-                        let zone = child.get_child_at_index(0);
-
-                        if (zone)
-                            this.connections.connect(zone, [
-                                'enter-event', 'leave-event', 'button-press-event'
-                            ], rp);
-                    } catch (e) {
-                        this._warn(`${e}, continuing`);
-                    }
-                });
-
-                let show_apps = dash._showAppsIcon;
-
-                this.connections.connect(show_apps, [
-                    'enter-event', 'leave-event', 'button-press-event'
-                ], rp);
-
-                this.connections.connect(dash, 'leave-event', rp);
-            } else if (this.settings.HACKS_LEVEL === 2) {
-                this._log("dash hack level 2");
-
                 paint_signals.connect(background, pipeline.effect);
             } else {
                 paint_signals.disconnect_all();

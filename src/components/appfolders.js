@@ -148,8 +148,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
     blur_appfolders() {
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
-        if (this.settings.HACKS_LEVEL === 1 || this.settings.HACKS_LEVEL === 2)
-            this._log(`appfolders hack level ${this.settings.HACKS_LEVEL}`);
+        if (this.settings.HACKS_LEVEL === 1)
+            this._log("appfolders hack level 1");
 
         appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
@@ -195,7 +195,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.settings.HACKS_LEVEL === 1 || this.settings.HACKS_LEVEL === 2) {
+            if (this.settings.HACKS_LEVEL === 1) {
                 this.paint_signals.disconnect_all_for_actor(icon._dialog);
                 this.paint_signals.connect(icon._dialog, blur_effect);
             } else {
