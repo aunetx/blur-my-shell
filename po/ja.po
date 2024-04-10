@@ -8,25 +8,24 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2024-04-09 17:01+0000\n"
-"Last-Translator: 004matteos <mattsoho17@gmail.com>\n"
-"Language-Team: Romanian <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ro/>\n"
-"Language: ro\n"
+"PO-Revision-Date: 2024-04-02 00:01+0000\n"
+"Last-Translator: Syuugo <pub@s1204.me>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ja/>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
 #: applications.ui:5
 msgid "Applications"
-msgstr "Aplicații"
+msgstr "アプリ"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "Blur Aplicații (beta)"
+msgstr "blurのアプリ(ベータ)"
 
 #: applications.ui:11
 msgid ""
@@ -35,26 +34,24 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"Adaugă blur aplicațiilor. Această funcție este înca in beta. \n"
-"Pentru a obține cele mai bune rezultate posibile, selectează \"Fară "
-"artefacte\" în \"General -> Hack level\"\n"
+"アプリにぼかしを追加します。これはまだベータ機能です。\n"
+"最大限の結果を得るには、設定の「一般 → ハック "
+"レベル」で「アーティファクトなし」オプションを選択してください。\n"
 "        "
 
 #: applications.ui:28
 msgid "Opacity"
-msgstr "Opacitate"
+msgstr "不透明度"
 
 #: applications.ui:29
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"Opacitatea ferestrei peste efectul de estompare, o valoare mai mare va fi "
-"mai lizibilă."
 
 #: applications.ui:51
 msgid "Blur on overview"
-msgstr "Blurarea sețiunii \"Overview\""
+msgstr "全体像をぼかす"
 
 #: applications.ui:52
 msgid ""
@@ -64,111 +61,98 @@ msgstr ""
 
 #: applications.ui:67
 msgid "Enable all by default"
-msgstr "Activați totul în mod implicit"
+msgstr "規定で全て有効"
 
 #: applications.ui:68
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
 msgstr ""
-"Adaugă blur în spatele tuturor ferstrelor.\n"
-"Nu este recomandat deoarece poate cauza probleme de stabilitate și "
-"performanță."
 
 #: applications.ui:85
 msgid "Whitelist"
-msgstr ""
+msgstr "ホワイトリスト"
 
 #: applications.ui:86
 msgid "A list of windows to blur."
-msgstr "Lista ferestrelor ce vor fi blurate."
+msgstr "ぼかすウィンドウの一覧。"
 
 #: applications.ui:104 applications.ui:141
 msgid "Add Window"
-msgstr "Adaugă o fereastră"
+msgstr "ウィンドウの追加"
 
 #: applications.ui:122
 msgid "Blacklist"
-msgstr ""
+msgstr "ブラックリスト"
 
 #: applications.ui:123
 msgid "A list of windows not to blur."
-msgstr "Lista ferestrelor ce nu vor fi blurate."
+msgstr ""
 
 #: customize-row.ui:4
 msgid "Customize properties"
-msgstr "Personalizează proprietățiile"
+msgstr ""
 
 #: customize-row.ui:5
 msgid ""
 "Uses customized blur properties, instead of the ones set in the General page."
 msgstr ""
-"Utilizează proprietățile de estompare personalizate, în locul celor setate "
-"în pagina General."
 
 #: customize-row.ui:10 general.ui:15
 msgid "Sigma"
-msgstr "Sigma"
+msgstr ""
 
 #: customize-row.ui:11 general.ui:16
 msgid "The intensity of the blur."
-msgstr "Intensitatea efectului de blur."
+msgstr ""
 
 #: customize-row.ui:31 general.ui:35
 msgid "Brightness"
-msgstr "Luminozitate"
+msgstr ""
 
 #: customize-row.ui:32 general.ui:36
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Luminozitatea efectului de estompare; o valoare ridicată poate face ca "
-"textul să fie mai greu de citit."
 
 #: customize-row.ui:52 general.ui:55
 msgid "Color"
-msgstr "Culoare"
+msgstr ""
 
 #: customize-row.ui:53 general.ui:56
 msgid ""
 "Changes the color of the blur. The opacity of the color controls how much it "
 "is blended into the blur effect."
 msgstr ""
-"Schimbă culoarea efectului de blur. Opacitatea culorii controlează cat de "
-"mult este amestecată cu efectul de blur."
 
 #: customize-row.ui:71 general.ui:73
 msgid "Noise amount"
-msgstr "Nivelul de zgomot"
+msgstr ""
 
 #: customize-row.ui:72 general.ui:74
 msgid ""
 "The amount of noise to add to the blur effect, useful on low-contrast "
 "screens or for aesthetic purpose."
 msgstr ""
-"Nivelul de zgomot care se adaugă la efectul de estompare, util pe ecranele "
-"cu contrast redus sau în scop estetic."
 
 #: customize-row.ui:92 general.ui:94
 msgid "Noise lightness"
-msgstr "Gradul de luminozitate a zgomotului"
+msgstr ""
 
 #: customize-row.ui:93 general.ui:95
 msgid "The lightness of the noise added to the blur effect."
-msgstr "Gradul de luminozitate al zgomotului sporește efectul de neclaritate."
+msgstr ""
 
 #: customize-row.ui:113
 msgid "Notice"
-msgstr "Notă"
+msgstr ""
 
 #: customize-row.ui:114
 msgid ""
 "Noise and color can't be activated on dynamically blurred components, such "
 "as this one."
 msgstr ""
-"Zgomotul și culoarea nu pot fi activate pe componentele estompate dinamic, "
-"cum ar fi aceasta."
 
 #: dash.ui:5
 msgid "Dash"
@@ -181,7 +165,6 @@ msgstr ""
 #: dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
-"Estompează fundalul extensiei Dash to Dock, dacă aceasta este utilizată."
 
 #: dash.ui:27 panel.ui:26
 msgid "Static blur"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 12:52+0100\n"
-"PO-Revision-Date: 2024-03-17 12:01+0000\n"
+"PO-Revision-Date: 2024-03-28 17:02+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/hi/>\n"
@@ -25,7 +25,7 @@ msgstr "एप्लीकेशन"
 
 #: applications.ui:10
 msgid "Applications blur (beta)"
-msgstr "एप्लीकेशन का धुंधलापन (beta)"
+msgstr "एप्लीकेशन का धुंधलापन (बीटा)"
 
 #: applications.ui:11
 msgid ""
@@ -34,9 +34,9 @@ msgid ""
 "artifact” in the “General → Hack level” preference.\n"
 "        "
 msgstr ""
-"एप्लिकेशन में धुंधलापन जोड़ें. यह अभी भी beta कार्यक्षमता है.\n"
-"सर्वोत्तम संभव परिणाम प्राप्त करने के लिए, \"जनरल → हैक स्तर\" प्राथमिकता में \"कोई "
-"पुरावशेष नहीं\" विकल्प चुनना सुनिश्चित करें।\n"
+"एप्लिकेशन में धुंधलापन जोड़ें. यह अभी भी बीटा कार्यक्षमता है.\n"
+"सर्वोत्तम संभव परिणाम प्राप्त करने के लिए, \"जनरल → हैक स्तर\" प्राथमिकता में"
+" \"कोई पुरावशेष नहीं\" विकल्प चुनना सुनिश्चित करें।\n"
 "        "
 
 #: applications.ui:28
@@ -216,7 +216,7 @@ msgstr "पृष्ठभूमि शैली"
 
 #: dash.ui:74
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr "Dock पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
+msgstr "डॉक पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
 #: dash.ui:90 panel.ui:95
 msgid "Disable in overview"
@@ -284,10 +284,11 @@ msgid ""
 "impact performance significantly but will completely fix the blur effect."
 msgstr ""
 "गतिशील धुंधला प्रभाव का व्यवहार बदलता है।\n"
-"जब तक आप एप्लिकेशन ब्लर का उपयोग नहीं करते हैं, तब तक डिफ़ॉल्ट मान की अत्यधिक अनुशंसा की "
-"जाती है, ऐसी स्थिति में \"कोई पुरावशेष नहीं\" बेहतर है।\n"
-"यह विकल्प GNOME shell में क्लिप्ड रिड्रॉ को पूरी तरह से अक्षम कर देगा, और प्रदर्शन को "
-"महत्वपूर्ण रूप से प्रभावित कर सकता है लेकिन धुंधला प्रभाव को पूरी तरह से ठीक कर देगा।"
+"जब तक आप एप्लिकेशन ब्लर का उपयोग नहीं करते हैं, तब तक डिफ़ॉल्ट मान की अत्यधि"
+"क अनुशंसा की जाती है, ऐसी स्थिति में \"कोई पुरावशेष नहीं\" बेहतर है।\n"
+"यह विकल्प GNOME shell में क्लिप्ड पुनः आरेखण को पूरी तरह से अक्षम कर देगा, "
+"और प्रदर्शन को महत्वपूर्ण रूप से प्रभावित कर सकता है लेकिन धुंधला प्रभाव को "
+"पूरी तरह से ठीक कर देगा।"
 
 #: general.ui:151
 msgid "Debug"
@@ -393,23 +394,24 @@ msgstr "अवलोकन घटक शैली"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr "डैश, खोज प्रविष्टि/परिणाम और एप्लिकेशन फ़ोल्डर के लिए अर्ध-पारदर्शी शैली।"
+msgstr ""
+"डैश, खोज प्रविष्टि/परिणाम और एप्लिकेशन फोल्डर के लिए अर्ध-पारदर्शी शैली।"
 
 #: overview.ui:44
 msgid "Application folder blur"
-msgstr "एप्लिकेशन फ़ोल्डर का धुंधलापन"
+msgstr "एप्लिकेशन फोल्डर का धुंधलापन"
 
 #: overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr "एप्लिकेशन फ़ोल्डर संवाद की पृष्ठभूमि को धुंधला करें।"
+msgstr "एप्लिकेशन फोल्डर संवाद की पृष्ठभूमि को धुंधला करें।"
 
 #: overview.ui:60
 msgid "Application folder dialogs style"
-msgstr "एप्लिकेशन फ़ोल्डर संवाद शैली"
+msgstr "एप्लिकेशन फोल्डर संवाद शैली"
 
 #: overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr "एप्लिकेशन फ़ोल्डर संवादों के लिए अर्ध-पारदर्शी शैली।"
+msgstr "एप्लिकेशन फोल्डर संवादों के लिए अर्ध-पारदर्शी शैली।"
 
 #: overview.ui:79 overview.ui:88
 msgid "Do not style"
