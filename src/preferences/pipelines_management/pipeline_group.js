@@ -4,7 +4,7 @@ import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-import { SUPPORTED_EFFECTS } from '../../effects/effects.js';
+import { get_supported_effects } from '../../effects/effects.js';
 
 
 export const PipelineGroup = GObject.registerClass({
@@ -18,6 +18,8 @@ export const PipelineGroup = GObject.registerClass({
 }, class PipelineGroup extends Adw.PreferencesGroup {
     constructor(pipelines_manager, pipeline_id, pipeline, pipelines_page) {
         super({});
+
+        this.SUPPORTED_EFFECTS = get_supported_effects(_);
 
         this._pipelines_manager = pipelines_manager;
         this._pipelines_page = pipelines_page;
@@ -87,8 +89,8 @@ export const PipelineGroup = GObject.registerClass({
 
         let subtitle = "";
         effects.forEach(effect => {
-            if (effect.type in SUPPORTED_EFFECTS)
-                subtitle += _(`${SUPPORTED_EFFECTS[effect.type].name}, `);
+            if (effect.type in this.SUPPORTED_EFFECTS)
+                subtitle += _(`${this.SUPPORTED_EFFECTS[effect.type].name}, `);
             else
                 subtitle += _("Unknown effect, ");
         });

@@ -1,12 +1,13 @@
-import { SUPPORTED_EFFECTS } from '../effects/effects.js';
+import { get_supported_effects } from '../effects/effects.js';
 
 /// An object to manage effects (by not destroying them all the time)
 export const EffectsManager = class EffectsManager {
     constructor(connections) {
         this.connections = connections;
         this.used = [];
+        this.SUPPORTED_EFFECTS = get_supported_effects();
 
-        Object.keys(SUPPORTED_EFFECTS).forEach(effect_name => {
+        Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
             // init the arrays containing each unused effect
             this[effect_name + '_effects'] = [];
 
@@ -16,11 +17,11 @@ export const EffectsManager = class EffectsManager {
                 if (this[effect_name + '_effects'].length > 0) {
                     effect = this[effect_name + '_effects'].splice(0, 1)[0];
                     effect.set({
-                        ...SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
+                        ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
                     });
                 } else
-                    effect = new SUPPORTED_EFFECTS[effect_name].class({
-                        ...SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
+                    effect = new this.SUPPORTED_EFFECTS[effect_name].class({
+                        ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
                     });
 
                 this.used.push(effect);
@@ -68,8 +69,8 @@ export const EffectsManager = class EffectsManager {
         if (index >= 0) {
             this.used.splice(index, 1);
 
-            Object.keys(SUPPORTED_EFFECTS).forEach(effect_name => {
-                if (effect instanceof SUPPORTED_EFFECTS[effect_name].class)
+            Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
+                if (effect instanceof this.SUPPORTED_EFFECTS[effect_name].class)
                     this[effect_name + '_effects'].push(effect);
             });
         }
@@ -78,7 +79,7 @@ export const EffectsManager = class EffectsManager {
     destroy_all() {
         const immutable_used_list = [...this.used];
         immutable_used_list.forEach(effect => this.remove(effect));
-        Object.keys(SUPPORTED_EFFECTS).forEach(effect_name => {
+        Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
             this[effect_name + '_effects'].splice(0, this[effect_name + '_effects'].length);
         });
     }

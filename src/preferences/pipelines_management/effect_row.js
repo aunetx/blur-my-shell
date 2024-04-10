@@ -1,8 +1,9 @@
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-import { SUPPORTED_EFFECTS } from '../../effects/effects.js';
+import { get_supported_effects } from '../../effects/effects.js';
 
 
 export const EffectRow = GObject.registerClass({
@@ -12,14 +13,16 @@ export const EffectRow = GObject.registerClass({
     constructor(effect, effects_dialog) {
         super({});
 
+        this.SUPPORTED_EFFECTS = get_supported_effects(_);
+
         this.effect = effect;
         this.effects_dialog = effects_dialog;
         this.pipeline_id = effects_dialog.pipeline_id;
         this.pipelines_manager = effects_dialog.pipelines_manager;
 
-        if (effect.type in SUPPORTED_EFFECTS) {
-            this.set_title(SUPPORTED_EFFECTS[effect.type].name);
-            this.set_subtitle(SUPPORTED_EFFECTS[effect.type].description);
+        if (effect.type in this.SUPPORTED_EFFECTS) {
+            this.set_title(this.SUPPORTED_EFFECTS[effect.type].name);
+            this.set_subtitle(this.SUPPORTED_EFFECTS[effect.type].description);
             this.populate_options();
         }
         else {
@@ -75,7 +78,7 @@ export const EffectRow = GObject.registerClass({
     }
 
     populate_options() {
-        const editable_params = SUPPORTED_EFFECTS[this.effect.type].editable_params;
+        const editable_params = this.SUPPORTED_EFFECTS[this.effect.type].editable_params;
         for (const param_key in editable_params) {
             let param = editable_params[param_key];
             let row;
@@ -175,7 +178,7 @@ export const EffectRow = GObject.registerClass({
     }
 
     get_default_effect_param(key) {
-        return SUPPORTED_EFFECTS[this.effect.type].class.default_params[key];
+        return this.SUPPORTED_EFFECTS[this.effect.type].class.default_params[key];
     }
 
     set_effect_param(key, value) {

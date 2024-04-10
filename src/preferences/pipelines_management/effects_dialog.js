@@ -5,8 +5,7 @@ import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { EffectRow } from './effect_row.js';
-import { EFFECTS_GROUPS, SUPPORTED_EFFECTS } from '../../effects/effects.js';
-
+import { get_effects_groups, get_supported_effects } from '../../effects/effects.js';
 
 export const EffectsDialog = GObject.registerClass({
     GTypeName: 'EffectsDialog',
@@ -18,6 +17,9 @@ export const EffectsDialog = GObject.registerClass({
 }, class EffectsDialog extends Adw.PreferencesDialog {
     constructor(pipelines_manager, pipeline_id) {
         super({});
+
+        this.EFFECTS_GROUPS = get_effects_groups(_);
+        this.SUPPORTED_EFFECTS = get_supported_effects(_);
 
         this.pipelines_manager = pipelines_manager;
         this.pipeline_id = pipeline_id;
@@ -45,8 +47,8 @@ export const EffectsDialog = GObject.registerClass({
         let page = new Adw.PreferencesPage;
         this.effects_chooser_dialog.set_child(page);
 
-        for (const effects_group in EFFECTS_GROUPS) {
-            const group_infos = EFFECTS_GROUPS[effects_group];
+        for (const effects_group in this.EFFECTS_GROUPS) {
+            const group_infos = this.EFFECTS_GROUPS[effects_group];
 
             let group = new Adw.PreferencesGroup({
                 title: group_infos.name
@@ -54,12 +56,12 @@ export const EffectsDialog = GObject.registerClass({
             page.add(group);
 
             for (const effect_type of group_infos.contains) {
-                if (!(effect_type in SUPPORTED_EFFECTS))
+                if (!(effect_type in this.SUPPORTED_EFFECTS))
                     continue;
 
                 let action_row = new Adw.ActionRow({
-                    title: SUPPORTED_EFFECTS[effect_type].name,
-                    subtitle: SUPPORTED_EFFECTS[effect_type].description
+                    title: this.SUPPORTED_EFFECTS[effect_type].name,
+                    subtitle: this.SUPPORTED_EFFECTS[effect_type].description
                 });
                 let select_button = new Gtk.Button({
                     'icon-name': 'select-row-symbolic',
