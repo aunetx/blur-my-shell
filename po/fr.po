@@ -56,14 +56,14 @@ msgstr "L'intensité du flou."
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
-#: resources/ui/panel.ui:92
+#: resources/ui/panel.ui:92 resources/ui/applications.ui:43
 msgid "Brightness"
 msgstr "Luminosité"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
 #: src/effects/effects.js:126 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
-#: resources/ui/panel.ui:93
+#: resources/ui/panel.ui:93 resources/ui/applications.ui:44
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
@@ -240,7 +240,7 @@ msgstr "Applications"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Flou des applications"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -251,21 +251,21 @@ msgstr ""
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
-#: resources/ui/panel.ui:71
+#: resources/ui/panel.ui:71 resources/ui/applications.ui:22
 msgid "Sigma"
 msgstr "Sigma"
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
-#: resources/ui/panel.ui:72
+#: resources/ui/panel.ui:72 resources/ui/applications.ui:23
 msgid "The intensity of the blur."
 msgstr "L'intensité du flou."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:63 resources/ui/applications.ui:64
 msgid "Opacity"
 msgstr "Opacité"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:64 resources/ui/applications.ui:65
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -273,11 +273,11 @@ msgstr ""
 "L'opacité de la fenêtre au dessus de l'effet de flou, une valeur plus haute "
 "sera plus lisible."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:85 resources/ui/applications.ui:86
 msgid "Opaque focused window"
 msgstr "Fenêtre ciblée opaque"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:86 resources/ui/applications.ui:87
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -285,11 +285,11 @@ msgstr ""
 "Rend la fenêtre utilisée opaque et les autres floutées, ce qui aide pour la "
 "lisibilité."
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:100 resources/ui/applications.ui:101
 msgid "Blur on overview"
 msgstr "Floute dans l'aperçu"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:101 resources/ui/applications.ui:102
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -298,31 +298,32 @@ msgstr ""
 "mode aperçu.\n"
 "Cela peut causer des problèmes de latence ou de performance."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:116 resources/ui/applications.ui:117
 msgid "Enable all by default"
 msgstr "Active tout par défaut"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:117 resources/ui/applications.ui:118
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:133 resources/ui/applications.ui:134
 msgid "Whitelist"
 msgstr "Liste blanche"
 
-#: resources/ui/applications.ui:134
+#: resources/ui/applications.ui:134 resources/ui/applications.ui:135
 msgid "A list of windows to blur."
 msgstr "Une liste de fenêtres à flouter."
 
 #: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:153 resources/ui/applications.ui:190
 msgid "Add Window"
 msgstr "Ajouter une fenêtre"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:170 resources/ui/applications.ui:171
 msgid "Blacklist"
 msgstr "Liste noire"
 
-#: resources/ui/applications.ui:171
+#: resources/ui/applications.ui:171 resources/ui/applications.ui:172
 msgid "A list of windows not to blur."
 msgstr "Une liste d'applications à ne pas flouter."
 
@@ -687,6 +688,14 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "Ajouter une pipeline"
+
+#: resources/ui/applications.ui:11
+msgid ""
+"Adds blur to the applications.\n"
+"To get the best results possible, although with reduced performances, you "
+"can choose the option “No artifact” in the “Other → Hack level” tab.\n"
+"        "
+msgstr ""
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Flou des applications (bêta)"
