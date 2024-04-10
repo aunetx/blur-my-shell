@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-10 22:30+0000\n"
+"PO-Revision-Date: 2024-04-10 22:38+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -239,7 +239,7 @@ msgstr "Aplicaciones"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Las aplicaciones se desenfocan"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -247,6 +247,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Añade desenfoque a las aplicaciones.\n"
+"Para obtener los mejores resultados posibles, aunque con prestaciones "
+"reducidas, puede elegir la opción \"Sin artefacto\" en la pestaña \"Otros → "
+"Nivel de hack\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -303,7 +307,7 @@ msgstr "Activar todo por defecto"
 
 #: resources/ui/applications.ui:117 resources/ui/applications.ui:118
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Agrega desenfoque detrás de todas las ventanas de forma predeterminada."
 
 #: resources/ui/applications.ui:133 resources/ui/applications.ui:134
 #: resources/ui/applications.ui:135
