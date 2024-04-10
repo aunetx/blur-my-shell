@@ -1,15 +1,16 @@
-import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../effects/paint_signals.js';
+import { PaintSignals } from '../conveniences/paint_signals.js';
+import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 
 
 export const WindowListBlur = class WindowListBlur {
-    constructor(connections, settings, _) {
+    constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.settings = settings;
         this.paint_signals = new PaintSignals(connections);
-        this.effects = [];
+        this.effects_manager = effects_manager;
+        this.pipelines = [];
     }
 
     enable() {
@@ -37,36 +38,35 @@ export const WindowListBlur = class WindowListBlur {
         });
     }
 
-    try_blur(child) {
+    try_blur(actor) {
         if (
-            child.constructor.name === "WindowList" &&
-            child.style !== "background:transparent;"
+            actor.constructor.name === "WindowList" &&
+            actor.style !== "background:transparent;"
         ) {
             this._log("found window list to blur");
 
-            let blur_effect = new Shell.BlurEffect({
-                name: 'window-list-blur',
-                radius: (this.settings.window_list.CUSTOMIZE
-                        ? this.settings.window_list.SIGMA
-                        : this.settings.SIGMA) * 2,
-                brightness: this.settings.window_list.CUSTOMIZE
-                    ? this.settings.window_list.BRIGHTNESS
-                    : this.settings.BRIGHTNESS,
-                mode: Shell.BlurMode.BACKGROUND
-            });
+            const pipeline = new DummyPipeline(
+                this.effects_manager, this.settings.window_list
+            );
+            pipeline.attach_effect_to_actor(actor);
+            this.pipelines.push(pipeline);
 
-            child.set_style("background:transparent;");
-            child.add_effect(blur_effect);
-            this.effects.push({ blur_effect });
+            actor.set_style("background:transparent;");
 
-            child._windowList.get_children().forEach(
-                window => this.blur_window_button(window)
+            actor._windowList.get_children().forEach(
+                window => this.style_window_button(window)
             );
 
             this.connections.connect(
-                child._windowList,
+                actor._windowList,
                 'child-added',
-                (_, window) => this.blur_window_button(window)
+                (_, window) => this.style_window_button(window)
+            );
+
+            this.connections.connect(
+                actor,
+                'destroy',
+                _ => this.destroy_blur(pipeline, true)
             );
 
 
@@ -83,75 +83,61 @@ export const WindowListBlur = class WindowListBlur {
             if (this.settings.HACKS_LEVEL === 1) {
                 this._log("window list hack level 1");
 
-                this.paint_signals.connect(child, blur_effect);
-
-            } else if (this.settings.HACKS_LEVEL === 2) {
-                this._log("window list hack level 2");
-
-                this.paint_signals.connect(child, blur_effect);
+                this.paint_signals.disconnect_all_for_actor(actor);
+                this.paint_signals.connect(actor, pipeline.effect);
             } else {
-                this.paint_signals.disconnect_all();
+                this.paint_signals.disconnect_all_for_actor(actor);
             }
         }
     }
 
-    blur_window_button(window) {
+    style_window_button(window) {
         window.get_child_at_index(0).set_style(
             "box-shadow:none; background-color:rgba(0,0,0,0.2); border-radius:5px;"
         );
     }
 
-    try_remove_blur(child) {
-        if (
-            child.constructor.name === "WindowList" &&
-            child.style === "background:transparent;"
-        ) {
-            child.style = null;
-            child.remove_effect_by_name('window-list-blur');
+    // IMPORTANT: do never call this in a mutable `this.pipelines.forEach`
+    destroy_blur(pipeline, actor_destroyed = false) {
+        if (!actor_destroyed) {
+            this.remove_style(pipeline.actor);
+            this.paint_signals.disconnect_all_for_actor(pipeline.actor);
+        }
 
-            child._windowList.get_children().forEach(
+        pipeline.destroy();
+
+        let index = this.pipelines.indexOf(pipeline);
+        if (index >= 0)
+            this.pipelines.splice(pipeline, 1);
+    }
+
+    remove_style(actor) {
+        if (
+            actor.constructor.name === "WindowList" &&
+            actor.style === "background:transparent;"
+        ) {
+            actor.style = null;
+            actor._windowList.get_children().forEach(
                 child => child.get_child_at_index(0).set_style(null)
             );
         }
     }
 
-    set_sigma(s) {
-        this.effects.forEach(effect => {
-            effect.blur_effect.radius = s * 2;
-        });
-    }
-
-    set_brightness(b) {
-        this.effects.forEach(effect => {
-            effect.blur_effect.brightness = b;
-        });
-    }
-
-    // not implemented for dynamic blur
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
-
     hide() {
-        this.set_sigma(0);
+        this.pipelines.forEach(pipeline => pipeline.effect?.set_enabled(false));
     }
 
     show() {
-        this.set_sigma(
-            this.settings.window_list.CUSTOMIZE
-                ? this.settings.window_list.SIGMA
-                : this.settings.SIGMA
-        );
+        this.pipelines.forEach(pipeline => pipeline.effect?.set_enabled(true));
     }
 
     disable() {
         this._log("removing blur from window list");
 
-        Main.layoutManager.uiGroup.get_children().forEach(
-            child => this.try_remove_blur(child)
-        );
+        const immutable_pipelines_list = [...this.pipelines];
+        immutable_pipelines_list.forEach(pipeline => this.destroy_blur(pipeline));
 
-        this.effects = [];
+        this.pipelines = [];
         this.connections.disconnect_all();
     }
 

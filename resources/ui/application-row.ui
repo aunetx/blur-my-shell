@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="blur-my-shell@aunetx">
-  <template class="WindowRow" parent="AdwExpanderRow">
+  <template class="ApplicationRow" parent="AdwExpanderRow">
     <property name="title" translatable="yes">Window Name</property>
 
     <child>

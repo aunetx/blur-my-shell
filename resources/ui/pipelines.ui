@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="Pipelines" parent="AdwPreferencesPage">
+    <property name="name">pipelines</property>
+    <property name="title" translatable="yes">Pipelines</property>
+    <property name="icon-name">pipelines-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="description" translatable="yes">Each component uses a pipeline, which can be chosen in the corresponding tab. Here you can create, modify and delete the pipelines and their effects.</property>
+
+        <property name="header-suffix">
+          <object class="GtkButton" id="add_pipeline">
+            <property name="halign">start</property>
+            <property name="valign">center</property>
+            <property name="margin-start">12</property>
+            <child>
+              <object class="GtkBox">
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="margin-end">6</property>
+                    <property name="icon-name">list-add-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label" translatable="yes">Add Pipeline</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+            </style>
+          </object>
+        </property>
+      </object>
+    </child>
+
+  </template>
+</interface>

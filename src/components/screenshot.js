@@ -1,7 +1,6 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { create_background } from '../conveniences/blur_creator.js';
-
+import { Pipeline } from '../conveniences/pipeline.js';
 
 export const ScreenshotBlur = class ScreenshotBlur {
     constructor(connections, settings, effects_manager) {
@@ -29,11 +28,14 @@ export const ScreenshotBlur = class ScreenshotBlur {
         // create new backgrounds for the screenshot window selector
         for (let i = 0; i < Main.screenshotUI._windowSelectors.length; i++) {
             const window_selector = Main.screenshotUI._windowSelectors[i];
-            create_background(
+            const pipeline = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                this.settings.screenshot.PIPELINE
+            );
+            pipeline.create_background_with_effects(
                 window_selector._monitorIndex, this.screenshot_background_managers,
-                window_selector, this.settings,
-                this.settings.screenshot, this.effects_manager,
-                'bms-screenshot-blurred-widget'
+                window_selector, 'bms-screenshot-blurred-widget'
             );
 
             // prevent old `BackgroundActor` from being accessed, which creates a whole bug of logs
@@ -43,9 +45,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
                     let parent = widget?.get_parent();
 
                     if (parent == window_selector) {
-                        widget.get_effects().forEach(effect => {
-                            this.effects_manager.remove(effect);
-                        });
+                        background_manager._bms_pipeline.destroy();
                         parent.remove_child(widget);
                     }
                     background_manager.destroy();
@@ -62,55 +62,18 @@ export const ScreenshotBlur = class ScreenshotBlur {
         }
     }
 
-    get effects() {
-        let effects_list = [];
-        this.screenshot_background_managers.forEach(background_manager => {
-            let effects_obj = {};
-            let widget = background_manager.backgroundActor.get_parent();
-            widget.get_effects().forEach(effect => {
-                effects_obj[effect.get_name()] = effect;
-            });
-            effects_list.push(effects_obj);
-        });
-        return effects_list;
-    }
-
-    set_sigma(s) {
-        this.effects.forEach(effect => {
-            effect.blur.sigma = s * 2 * effect.blur.scale;
-        });
-    }
-
-    set_brightness(b) {
-        this.effects.forEach(effect => {
-            effect.blur.brightness = b;
-        });
-    }
-
-    set_color(c) {
-        this.effects.forEach(effect => {
-            effect.color.color = c;
-        });
-    }
-
-    set_noise_amount(n) {
-        this.effects.forEach(effect => {
-            effect.noise.noise = n;
-        });
-    }
-
-    set_noise_lightness(l) {
-        this.effects.forEach(effect => {
-            effect.noise.lightness = l;
-        });
+    update_pipeline() {
+        this.screenshot_background_managers.forEach(background_manager =>
+            background_manager._bms_pipeline.change_pipeline_to(
+                this.settings.screenshot.PIPELINE
+            )
+        );
     }
 
     remove_background_actors() {
         this.screenshot_background_managers.forEach(background_manager => {
+            background_manager._bms_pipeline.destroy();
             let widget = background_manager.backgroundActor.get_parent();
-            widget?.get_effects().forEach(effect => {
-                this.effects_manager.remove(effect);
-            });
             widget?.get_parent()?.remove_child(widget);
             background_manager.destroy();
         });

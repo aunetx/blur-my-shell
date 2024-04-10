@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="EffectsDialog" parent="AdwPreferencesDialog">
+    <property name="title" translatable="yes">Effects</property>
+    <property name="presentation-mode">ADW_DIALOG_BOTTOM_SHEET</property>
+    <property name="content-width">600</property>
+    <property name="content-height">480</property>
+
+    <child>
+      <object class="AdwPreferencesPage">
+        <child>
+          <object class="AdwPreferencesGroup" id="effects_list">
+            <property name="title">Effects list</property>
+            <property name="description">Effect on the top will be applied first.</property>
+
+            <property name="header-suffix">
+              <object class="GtkButton" id="add_effect">
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="margin-end">6</property>
+                        <property name="icon-name">list-add-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Add Effect</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="circular" />
+                  <class name="suggested-action" />
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

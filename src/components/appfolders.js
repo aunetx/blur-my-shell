@@ -2,7 +2,7 @@ import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../effects/paint_signals.js';
+import { PaintSignals } from '../conveniences/paint_signals.js';
 const Tweener = imports.tweener.tweener;
 
 const transparent = Clutter.Color.from_pixel(0x00000000);
@@ -120,6 +120,8 @@ let _zoomAndFadeOut = function () {
 
 
 export const AppFoldersBlur = class AppFoldersBlur {
+    // we do not use the effects manager and dummy pipelines here because we
+    // really want to manage our sigma value ourself during the transition
     constructor(connections, settings, _) {
         this.connections = connections;
         this.paint_signals = new PaintSignals(connections);
@@ -129,12 +131,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
     enable() {
         this._log("blurring appfolders");
 
-        brightness = this.settings.appfolder.CUSTOMIZE
-            ? this.settings.appfolder.BRIGHTNESS
-            : this.settings.BRIGHTNESS;
-        sigma = this.settings.appfolder.CUSTOMIZE
-            ? this.settings.appfolder.SIGMA
-            : this.settings.SIGMA;
+        brightness = this.settings.appfolder.BRIGHTNESS;
+        sigma = this.settings.appfolder.SIGMA;
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
@@ -143,15 +141,15 @@ export const AppFoldersBlur = class AppFoldersBlur {
         }
 
         this.connections.connect(
-            appDisplay, 'view-loaded', this.blur_appfolders.bind(this)
+            appDisplay, 'view-loaded', _ => this.blur_appfolders()
         );
     }
 
     blur_appfolders() {
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
-        if (this.settings.HACKS_LEVEL === 1 || this.settings.HACKS_LEVEL === 2)
-            this._log(`appfolders hack level ${this.settings.HACKS_LEVEL}`);
+        if (this.settings.HACKS_LEVEL === 1)
+            this._log("appfolders hack level 1");
 
         appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
@@ -197,7 +195,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.settings.HACKS_LEVEL === 1 || this.settings.HACKS_LEVEL === 2) {
+            if (this.settings.HACKS_LEVEL === 1) {
                 this.paint_signals.disconnect_all_for_actor(icon._dialog);
                 this.paint_signals.connect(icon._dialog, blur_effect);
             } else {
@@ -217,11 +215,6 @@ export const AppFoldersBlur = class AppFoldersBlur {
         if (this.settings.appfolder.BLUR)
             this.blur_appfolders();
     }
-
-    // not implemented for dynamic blur
-    set_color(c) { }
-    set_noise_amount(n) { }
-    set_noise_lightness(l) { }
 
     disable() {
         this._log("removing blur from appfolders");

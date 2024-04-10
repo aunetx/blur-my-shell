@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="PipelineChooseRow" parent="AdwActionRow">
+    <property name="title" translatable="yes">Pipeline</property>
+    <property name="subtitle" translatable="yes">The pipeline to be used with this component.</property>
+    <property name="activatable-widget">pipeline_choose</property>
+
+    <child>
+      <object class="GtkBox">
+        <property name="valign">center</property>
+        <property name="hexpand">false</property>
+        <style>
+          <class name="linked" />
+        </style>
+
+        <child>
+          <object class="GtkDropDown" id="pipeline_choose">
+            <property name="valign">center</property>
+            <property name="hexpand">true</property>
+            <property name="model">
+              <object class="GtkStringList" id="pipeline_model">
+                <items>
+                </items>
+              </object>
+            </property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkButton" id="pipeline_edit">
+            <property name="valign">center</property>
+            <property name="hexpand">true</property>
+            <property name="icon-name">edit-row-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

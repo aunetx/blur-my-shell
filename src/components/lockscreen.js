@@ -1,19 +1,14 @@
-import St from 'gi://St';
-import Shell from 'gi://Shell';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-let sigma;
-let brightness;
-let color;
-let noise;
-let lightness;
+import { Pipeline } from '../conveniences/pipeline.js';
 
 const original_createBackground =
     UnlockDialog.prototype._createBackground;
 const original_updateBackgroundEffects =
     UnlockDialog.prototype._updateBackgroundEffects;
+const original_updateBackgrounds =
+    UnlockDialog.prototype._updateBackgrounds;
 
 
 export const LockscreenBlur = class LockscreenBlur {
@@ -27,22 +22,6 @@ export const LockscreenBlur = class LockscreenBlur {
     enable() {
         this._log("blurring lockscreen");
 
-        brightness = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.BRIGHTNESS
-            : this.settings.BRIGHTNESS;
-        sigma = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.SIGMA
-            : this.settings.SIGMA;
-        color = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.COLOR
-            : this.settings.COLOR;
-        noise = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.NOISE_AMOUNT
-            : this.settings.NOISE_AMOUNT;
-        lightness = this.settings.lockscreen.CUSTOMIZE
-            ? this.settings.lockscreen.NOISE_LIGHTNESS
-            : this.settings.NOISE_LIGHTNESS;
-
         this.update_lockscreen();
 
         this.enabled = true;
@@ -53,103 +32,39 @@ export const LockscreenBlur = class LockscreenBlur {
             this._createBackground;
         UnlockDialog.prototype._updateBackgroundEffects =
             this._updateBackgroundEffects;
+        UnlockDialog.prototype._updateBackgrounds =
+            this._updateBackgrounds;
     }
 
-    _createBackground(monitorIndex) {
-        let monitor = Main.layoutManager.monitors[monitorIndex];
-        let widget = new St.Widget({
-            style_class: "screen-shield-background",
-            x: monitor.x,
-            y: monitor.y,
-            width: monitor.width,
-            height: monitor.height,
-        });
+    _createBackground(monitor_index) {
+        let pipeline = new Pipeline(
+            global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager,
+            global.blur_my_shell._settings.lockscreen.PIPELINE
+        );
 
-        let blur_effect = new Shell.BlurEffect({
-            name: 'blur',
-            radius: sigma * 2,
-            brightness: brightness
-        });
-
-        // store the scale in the effect in order to retrieve later
-        blur_effect.scale = monitor.geometry_scale;
-
-        let color_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_color_effect({
-            name: 'color',
-            color: color
-        }, this.settings);
-
-        let noise_effect = global.blur_my_shell._lockscreen_blur.effects_manager.new_noise_effect({
-            name: 'noise',
-            noise: noise,
-            lightness: lightness
-        }, this.settings);
-
-        widget.add_effect(color_effect);
-        widget.add_effect(noise_effect);
-        widget.add_effect(blur_effect);
-
-        let bgManager = new Background.BackgroundManager({
-            container: widget,
-            monitorIndex,
-            controlPosition: false,
-        });
-
-        this._bgManagers.push(bgManager);
-
-        this._backgroundGroup.add_child(widget);
+        pipeline.create_background_with_effects(
+            monitor_index,
+            this._bgManagers,
+            this._backgroundGroup,
+            "screen-shield-background"
+        );
     }
 
     _updateBackgroundEffects() {
-        for (const widget of this._backgroundGroup) {
-            const color_effect = widget.get_effect('color');
-            const noise_effect = widget.get_effect('noise');
-            const blur_effect = widget.get_effect('blur');
+        this._updateBackgrounds();
+    }
 
-            if (color_effect)
-                color_effect.set({
-                    color: color
-                });
-
-            if (noise_effect) {
-                noise_effect.set({
-                    noise: noise,
-                    lightness: lightness,
-                });
-            }
-
-            if (blur_effect) {
-                blur_effect.set({
-                    brightness: brightness,
-                    radius: sigma * 2 * blur_effect.scale,
-                });
-            }
+    _updateBackgrounds() {
+        for (let i = 0; i < this._bgManagers.length; i++) {
+            this._bgManagers[i]._bms_pipeline.destroy();
+            this._bgManagers[i].destroy();
         }
-    }
 
-    set_sigma(s) {
-        sigma = s;
-        this.update_lockscreen();
-    }
+        this._bgManagers = [];
+        this._backgroundGroup.destroy_all_children();
 
-    set_brightness(b) {
-        brightness = b;
-        this.update_lockscreen();
-    }
-
-    set_color(c) {
-        color = c;
-        this.update_lockscreen();
-    }
-
-    set_noise_amount(n) {
-        noise = n;
-        this.update_lockscreen();
-    }
-
-    set_noise_lightness(l) {
-        lightness = l;
-        this.update_lockscreen();
+        for (let i = 0; i < Main.layoutManager.monitors.length; i++)
+            this._createBackground(i);
     }
 
     disable() {
@@ -159,6 +74,8 @@ export const LockscreenBlur = class LockscreenBlur {
             original_createBackground;
         UnlockDialog.prototype._updateBackgroundEffects =
             original_updateBackgroundEffects;
+        UnlockDialog.prototype._updateBackgrounds =
+            original_updateBackgrounds;
 
         this.connections.disconnect_all();
 

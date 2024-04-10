@@ -3,7 +3,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
-import { WindowRow } from './window_row.js';
+import { ApplicationRow } from './applications_management/application_row.js';
 
 
 const make_array = prefs_group => {
@@ -30,7 +30,8 @@ export const Applications = GObject.registerClass({
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/applications.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
-        'customize',
+        'sigma',
+        'brightness',
         'opacity',
         'dynamic_opacity',
         'blur_on_overview',
@@ -67,8 +68,14 @@ export const Applications = GObject.registerClass({
             'enable-all', this._enable_all, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        this._customize.connect_to(this.preferences, this.preferences.applications, false);
+        this.preferences.applications.settings.bind(
+            'sigma', this._sigma, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'brightness', this._brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
 
         // connect 'enable all' button to whitelist/blacklist visibility
         this._enable_all.bind_property(
@@ -87,16 +94,16 @@ export const Applications = GObject.registerClass({
 
         // listen to app row addition
         this._add_window_whitelist.connect('clicked',
-            _ => this.add_to_whitelist()
+            () => this.add_to_whitelist()
         );
         this._add_window_blacklist.connect('clicked',
-            _ => this.add_to_blacklist()
+            () => this.add_to_blacklist()
         );
 
         // add initial applications
         this.add_widgets_from_lists();
 
-        this.preferences.connect('reset', _ => {
+        this.preferences.connect('reset', () => {
             this.remove_all_widgets();
             this.add_widgets_from_lists();
         });
@@ -142,12 +149,12 @@ export const Applications = GObject.registerClass({
     }
 
     add_to_whitelist(app_name = null) {
-        let window_row = new WindowRow('whitelist', this, app_name);
+        let window_row = new ApplicationRow('whitelist', this, app_name);
         this._whitelist.add(window_row);
     }
 
     add_to_blacklist(app_name = null) {
-        let window_row = new WindowRow('blacklist', this, app_name);
+        let window_row = new ApplicationRow('blacklist', this, app_name);
         this._blacklist.add(window_row);
     }
 

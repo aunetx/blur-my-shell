@@ -3,6 +3,52 @@
     <!-- GENERAL -->
     <schema id="org.gnome.shell.extensions.blur-my-shell"
         path="/org/gnome/shell/extensions/blur-my-shell/">
+        <!-- SETTINGS VERSION -->
+        <key type="i" name="settings-version">
+            <default>1</default>
+            <summary>The version of the settings to update from.</summary>
+        </key>
+        <!-- PIPELINES -->
+        <key type="a{sa{sv}}" name="pipelines">
+            <default> <![CDATA[
+                {
+                    'pipeline_default': {
+                        'name': <'Default'>,
+                        'effects': <[
+                            <{
+                                'type': <'native_static_gaussian_blur'>,
+                                'id': <'effect_000000000000'>,
+                                'params': <{
+                                    'radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_default_rounded': {
+                        'name': <'Default rounded'>,
+                        'effects': <[
+                            <{
+                                'type': <'native_static_gaussian_blur'>,
+                                'id': <'effect_000000000001'>,
+                                'params': <{
+                                    'radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>,
+                            <{
+                                'type': <'corner'>,
+                                'id': <'effect_000000000002'>,
+                                'params': <{
+                                    'radius': <24>
+                                }>
+                            }>
+                        ]>
+                    }
+                }
+            ]]></default>
+            <summary>A dictionnary describing the different pipelines and their effects.</summary>
+        </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
@@ -36,7 +82,7 @@
         <!-- HACKS LEVEL -->
         <key type="i" name="hacks-level">
             <default>1</default>
-            <summary>Level of hacks to use (from 0 to 3, 3 disabling clipped redraws entirely)</summary>
+            <summary>Level of hacks to use (from 0 to 2, 2 disabling clipped redraws entirely)</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
@@ -63,6 +109,11 @@
         <key type="b" name="blur">
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -154,6 +205,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -221,8 +277,13 @@
         path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
         <!-- BLUR -->
         <key type="b" name="blur">
-            <default>false</default>
+            <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default_rounded"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -266,7 +327,7 @@
         </key>
         <!-- STYLE DASH TO DOCK -->
         <key type="i" name="style-dash-to-dock">
-            <default>1</default>
+            <default>0</default>
             <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark)</summary>
         </key>
         <!-- UNBLUR IN OVERVIEW -->
@@ -321,7 +382,7 @@
         </key>
         <!-- OPACITY -->
         <key type="i" name="opacity">
-            <default>230</default>
+            <default>215</default>
             <summary>Opacity of the window actor on top of the blur effect</summary>
         </key>
         <!-- DYNAMIC OPACITY -->
@@ -358,6 +419,11 @@
         <key type="b" name="blur">
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -399,6 +465,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -438,6 +509,11 @@
         <key type="b" name="blur">
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
