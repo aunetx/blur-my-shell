@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 12:52+0100\n"
+"POT-Creation-Date: 2024-04-11 00:04+0200\n"
 "PO-Revision-Date: 2024-01-31 00:01+0000\n"
 "Last-Translator: r5jyhte <ioulykttr@proton.me>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -20,15 +20,207 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 5.4-dev\n"
 
-#: applications.ui:5
+#: src/effects/effects.js:15
+msgid "Blur effects"
+msgstr ""
+
+#: src/effects/effects.js:23
+msgid "Texture effects"
+msgstr ""
+
+#: src/effects/effects.js:31
+msgid "Shape effects"
+msgstr ""
+
+#: src/effects/effects.js:47
+msgid "Native gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:48
+msgid ""
+"An optimized blur effect that smoothly blends pixels within a given radius."
+msgstr ""
+
+#: src/effects/effects.js:51 src/effects/effects.js:79
+#: src/effects/effects.js:107 src/effects/effects.js:206
+msgid "Radius"
+msgstr ""
+
+#: src/effects/effects.js:52
+msgid "The intensity of the blur effect."
+msgstr ""
+
+#: src/effects/effects.js:61 src/effects/effects.js:89
+#: src/effects/effects.js:125 resources/ui/applications.ui:43
+#: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
+#: resources/ui/panel.ui:92
+msgid "Brightness"
+msgstr "Jasność"
+
+#: src/effects/effects.js:62 src/effects/effects.js:90
+#: src/effects/effects.js:126 resources/ui/applications.ui:44
+#: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
+#: resources/ui/panel.ui:93
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"Jasność efektu rozmazania, wyższa wartość może utrudnić czytanie tekstu."
+
+#: src/effects/effects.js:75
+msgid "Gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:76
+msgid ""
+"A blur effect that smoothly blends pixels within a given radius. This effect "
+"is more precise, but way less optimized."
+msgstr ""
+
+#: src/effects/effects.js:80
+msgid ""
+"The intensity of the blur effect. The bigger it is, the slower it will be."
+msgstr ""
+
+#: src/effects/effects.js:103
+msgid "Monte Carlo blur"
+msgstr ""
+
+#: src/effects/effects.js:104
+msgid ""
+"A blur effect that mimics a random walk, by picking pixels further and "
+"further away from its origin and mixing them all together."
+msgstr ""
+
+#: src/effects/effects.js:108
+msgid ""
+"The maximum travel distance for each step in the random walk. A higher value "
+"will make the blur more randomized."
+msgstr ""
+
+#: src/effects/effects.js:117
+msgid "Iterations"
+msgstr ""
+
+#: src/effects/effects.js:118
+msgid "The number of iterations. The more there are, the smoother the blur is."
+msgstr ""
+
+#: src/effects/effects.js:135
+msgid "Use base pixel"
+msgstr ""
+
+#: src/effects/effects.js:136
+msgid ""
+"Whether or not the original pixel is counted for the blur. If it is, the "
+"image will be more legible."
+msgstr ""
+
+#: src/effects/effects.js:144 src/effects/effects.js:149
+msgid "Color"
+msgstr "Kolor"
+
+#: src/effects/effects.js:145
+msgid "An effect that blends a color into the pipeline."
+msgstr ""
+
+#: src/effects/effects.js:150
+msgid ""
+"The color to blend in. The blending amount is controled by the opacity of "
+"the color."
+msgstr ""
+
+#: src/effects/effects.js:158
+msgid "Pixelize"
+msgstr ""
+
+#: src/effects/effects.js:159
+msgid "An effect that pixelizes the image."
+msgstr ""
+
+#: src/effects/effects.js:162
+msgid "Divider"
+msgstr ""
+
+#: src/effects/effects.js:163
+msgid "How much to scale down the image."
+msgstr ""
+
+#: src/effects/effects.js:174 src/effects/effects.js:178
+msgid "Noise"
+msgstr ""
+
+#: src/effects/effects.js:175
+msgid ""
+"An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
+"organic effect if needed."
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "The amount of noise to add."
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Lightness"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid ""
+"The luminosity of the noise. A setting of '1.0' will make the effect "
+"transparent."
+msgstr ""
+
+#: src/effects/effects.js:202
+msgid "Corner"
+msgstr ""
+
+#: src/effects/effects.js:203
+msgid ""
+"An effect that draws corners. Add it last not to have the other effects "
+"perturb the corners."
+msgstr ""
+
+#: src/effects/effects.js:207
+msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
+msgstr ""
+
+#: src/effects/effects.js:214
+msgid "Top corners"
+msgstr ""
+
+#: src/effects/effects.js:215
+msgid "Whether or not to round the top corners."
+msgstr ""
+
+#: src/effects/effects.js:219
+msgid "Bottom corners"
+msgstr ""
+
+#: src/effects/effects.js:220
+msgid "Whether or not to round the bottom corners."
+msgstr ""
+
+#: resources/ui/application-row.ui:4
+msgid "Window Name"
+msgstr "Nazwa okna"
+
+#: resources/ui/application-row.ui:8
+msgid "Select window"
+msgstr "Wybierz okno"
+
+#: resources/ui/application-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr "Wybierz okno lub zaznacz je po nazwie klasy."
+
+#: resources/ui/applications.ui:5
 msgid "Applications"
 msgstr "Aplikacje"
 
-#: applications.ui:10
+#: resources/ui/applications.ui:10
 msgid "Applications blur (beta)"
 msgstr "Rozmazywanie aplikacji (beta)"
 
-#: applications.ui:11
+#: resources/ui/applications.ui:11
 msgid ""
 "Adds blur to the applications. This is still beta functionality.\n"
 "To get the best results possible, make sure to choose the option “No "
@@ -40,11 +232,23 @@ msgstr ""
 "\"Ogólne → Poziom hakowania\".\n"
 "        "
 
-#: applications.ui:28
+#: resources/ui/applications.ui:22 resources/ui/dash.ui:71
+#: resources/ui/other.ui:56 resources/ui/overview.ui:54
+#: resources/ui/panel.ui:71
+msgid "Sigma"
+msgstr "Sigma"
+
+#: resources/ui/applications.ui:23 resources/ui/dash.ui:72
+#: resources/ui/other.ui:57 resources/ui/overview.ui:55
+#: resources/ui/panel.ui:72
+msgid "The intensity of the blur."
+msgstr "Intensywność rozmazania."
+
+#: resources/ui/applications.ui:64
 msgid "Opacity"
 msgstr "Nieprzeźroczystość"
 
-#: applications.ui:29
+#: resources/ui/applications.ui:65
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -52,11 +256,21 @@ msgstr ""
 "Nieprzeźroczystość okna, na które dodano rozmycie, większa wartość będzie "
 "bardziej czytelna."
 
-#: applications.ui:51
+#: resources/ui/applications.ui:86
+msgid "Opaque focused window"
+msgstr ""
+
+#: resources/ui/applications.ui:87
+msgid ""
+"Makes the focused window opaque and the other ones blurred, helping with "
+"legibility."
+msgstr ""
+
+#: resources/ui/applications.ui:101
 msgid "Blur on overview"
 msgstr "Rozmycie widoku podglądu"
 
-#: applications.ui:52
+#: resources/ui/applications.ui:102
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -65,11 +279,11 @@ msgstr ""
 "podglądu.\n"
 "Może powodować problemy z opóźnieniem lub wydajnością."
 
-#: applications.ui:67
+#: resources/ui/applications.ui:117
 msgid "Enable all by default"
 msgstr "Włącz domyślnie"
 
-#: applications.ui:68
+#: resources/ui/applications.ui:118
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
@@ -77,136 +291,60 @@ msgstr ""
 "Dodaje domślnie rozmycie za wszystkimi oknami.\n"
 "Niepolecane z powodu na problemy z wydajnością i stabilnością."
 
-#: applications.ui:85
+#: resources/ui/applications.ui:135
 msgid "Whitelist"
 msgstr "Biała lista"
 
-#: applications.ui:86
+#: resources/ui/applications.ui:136
 msgid "A list of windows to blur."
 msgstr "Lista okien do rozmycia."
 
-#: applications.ui:104 applications.ui:141
+#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
 msgid "Add Window"
 msgstr "Dodaj okno"
 
-#: applications.ui:122
+#: resources/ui/applications.ui:172
 msgid "Blacklist"
 msgstr "Czarna lista"
 
-#: applications.ui:123
+#: resources/ui/applications.ui:173
 msgid "A list of windows not to blur."
 msgstr "Lista okien bez rozmycia."
 
-#: customize-row.ui:4
-msgid "Customize properties"
-msgstr "Dostosuj parametry"
-
-#: customize-row.ui:5
-msgid ""
-"Uses customized blur properties, instead of the ones set in the General page."
-msgstr ""
-"Wykorzystuje dostosowane przez użytkownika parametry, zamiast tych "
-"ustawionych na stronie Ogólne."
-
-#: customize-row.ui:10 general.ui:15
-msgid "Sigma"
-msgstr "Sigma"
-
-#: customize-row.ui:11 general.ui:16
-msgid "The intensity of the blur."
-msgstr "Intensywność rozmazania."
-
-#: customize-row.ui:31 general.ui:35
-msgid "Brightness"
-msgstr "Jasność"
-
-#: customize-row.ui:32 general.ui:36
-msgid ""
-"The brightness of the blur effect, a high value might make the text harder "
-"to read."
-msgstr ""
-"Jasność efektu rozmazania, wyższa wartość może utrudnić czytanie tekstu."
-
-#: customize-row.ui:52 general.ui:55
-msgid "Color"
-msgstr "Kolor"
-
-#: customize-row.ui:53 general.ui:56
-msgid ""
-"Changes the color of the blur. The opacity of the color controls how much it "
-"is blended into the blur effect."
-msgstr ""
-"Zmienia kolor rozmazania. Nieprzeźroczystość koloru kontroluje jak bardzo "
-"wmieszany jest on w efekt rozmazania."
-
-#: customize-row.ui:71 general.ui:73
-msgid "Noise amount"
-msgstr "Ilość szumu"
-
-#: customize-row.ui:72 general.ui:74
-msgid ""
-"The amount of noise to add to the blur effect, useful on low-contrast "
-"screens or for aesthetic purpose."
-msgstr ""
-"Ilość szumu do wmieszania w efekt rozmazania; opcja przydatna na ekranach o "
-"niskim kontraście lub ze względów estetycznych."
-
-#: customize-row.ui:92 general.ui:94
-msgid "Noise lightness"
-msgstr "Lekkość szumu"
-
-#: customize-row.ui:93 general.ui:95
-msgid "The lightness of the noise added to the blur effect."
-msgstr "Lekkość efektu szumu wmieszanego w efekt rozmazania."
-
-#: customize-row.ui:113
-msgid "Notice"
-msgstr "Uwaga"
-
-#: customize-row.ui:114
-msgid ""
-"Noise and color can't be activated on dynamically blurred components, such "
-"as this one."
-msgstr ""
-"Szum oraz kolor nie mogą być aktywowane na dynamicznie rozmazywanych "
-"komponentach, na przykład tym."
-
-#: dash.ui:5
+#: resources/ui/dash.ui:5
 msgid "Dash"
 msgstr "Dash"
 
-#: dash.ui:10
+#: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
 msgstr "Rozmazywanie Dash to Dock"
 
-#: dash.ui:11
+#: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Rozmazuje tło rozszerzenia Dash to Dock, jeśli jest włączone."
 
-#: dash.ui:27 panel.ui:26
-msgid "Static blur"
-msgstr "Rozmazywanie statyczne"
+#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr ""
 
-#: dash.ui:28
+#: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
-"Uses a static blurred image, can be used with rounding effect.\n"
-"<b>Important notice:</b> with this activated, you should not use a big sigma "
-"value as it will deteriorate performances."
+"The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
 
-#: dash.ui:43
-msgid "Rounded corner radius"
+#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
+msgid "Static"
 msgstr ""
 
-#: dash.ui:44
-msgid "The radius for the rounding effect. Only available with static blur."
+#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
+msgid "Dynamic"
 msgstr ""
 
-#: dash.ui:66 panel.ui:56
+#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
 msgstr "Nadpisz tło"
 
-#: dash.ui:67
+#: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -214,93 +352,120 @@ msgstr ""
 "Sprawia, że tło staje się przezroczyste lub półprzezroczyste, wyłącz tę "
 "opcję aby zamiast tego używać preferencji rozszerzenia Dash to Dock."
 
-#: dash.ui:73 panel.ui:64
+#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
 msgstr "Styl tła"
 
-#: dash.ui:74
+#: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "(Pół)przezroczysty styl tła docka."
 
-#: dash.ui:90 panel.ui:95
+#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
 msgstr "Wyłączone w ekranie podglądu"
 
-#: dash.ui:91
+#: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Wyłącza rozmazywanie rozszerzenia Dash to Dock podczas przechodzenia do "
 "ekranu podglądu."
 
-#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
+#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
 msgstr "Przezroczysty"
 
-#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
+#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
 msgstr "Lekki"
 
-#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
+#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
 msgstr "Ciemny"
 
-#: general.ui:5
-msgid "General"
-msgstr "Ogólne"
-
-#: general.ui:10
-msgid "Blur preferences"
-msgstr "Preferencje rozmazywania"
-
-#: general.ui:11
-msgid "Global blur preferences, used by all components by default."
+#: resources/ui/effects-dialog.ui:4
+msgid "Effects"
 msgstr ""
-"Globalne preferencje rozmazywania, wykorzystywane domyślnie przez wszystkie "
-"komponenty."
 
-#: general.ui:117
+#: resources/ui/effects-dialog.ui:32
+msgid "Add Effect"
+msgstr ""
+
+#: resources/ui/menu.ui:6
+msgid "Project page"
+msgstr "Strona projektu"
+
+#: resources/ui/menu.ui:10
+msgid "Report a Bug"
+msgstr "Zgłoś problem"
+
+#: resources/ui/menu.ui:14
+msgid "License"
+msgstr "Licencja"
+
+#: resources/ui/menu.ui:18
+msgid "Donate"
+msgstr "Przekaż darowiznę"
+
+#: resources/ui/other.ui:5
+msgid "Other"
+msgstr "Inne"
+
+#: resources/ui/other.ui:10
+msgid "Lockscreen blur"
+msgstr "Rozmazywanie ekranu zablokowania"
+
+#: resources/ui/other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+"Sprawia, że rozmazywanie ekranu zablokowania wykorzystuje preferencje tego "
+"rozszerzenia."
+
+#: resources/ui/other.ui:28
+msgid "Screenshot blur"
+msgstr "Rozmazywanie podczas zrzucania ekranu"
+
+#: resources/ui/other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+"Dodaje efekt rozmazania do tła wyboru okien w interfejsie zrzutów ekranu."
+
+#: resources/ui/other.ui:46
+msgid "Window list extension blur"
+msgstr "Rozmazywanie Window List"
+
+#: resources/ui/other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr ""
+"Sprawia, że rozszerzenie Window List jest rozmazane, jeśli jest używane."
+
+#: resources/ui/other.ui:101
 msgid "Performance"
 msgstr "Wydajność"
 
-#: general.ui:118
+#: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
 msgstr "Różne opcje w celu poprawy wydajności."
 
-#: general.ui:122
-msgid "Color and noise effects"
-msgstr "Efekty koloru i szumu"
-
-#: general.ui:123
-msgid ""
-"Globally disables noise and color effects which may improve performance on "
-"low-end systems."
-msgstr ""
-"Globalnie wyłącza efekty szumu i kolorów. Może poprawić wydajność na "
-"urządzeniach o niskiej wydajności."
-
-#: general.ui:135
+#: resources/ui/other.ui:106
 msgid "Hack level"
 msgstr "Poziom hakowania"
 
-#: general.ui:136
+#: resources/ui/other.ui:107
 msgid ""
-"Changes the behaviour of the dynamic blur effect.\n"
-"The default value is highly recommended unless you use application blur, in "
-"which case “No artifact” is better.\n"
-"This option will entirely disable clipped redraws in GNOME shell, and may "
-"impact performance significantly but will completely fix the blur effect."
+"Changes the behaviour of the dynamic blur effect. The default value is "
+"highly recommended.\n"
+"The “No artifact” option will entirely disable clipped redraws in GNOME "
+"shell, and will impact your computer performances significantly."
 msgstr ""
-"Zmienia zachowanie dynamicznego efektu rozmazania.\n"
-"W większości przypadków zalecane jest pozostawienie domyślnej wartości. W "
-"przypadku rozmazania aplikacji zalecana jest opcja \"bez artefaktów\".\n"
-"Ta opcja wyłączy całkowicie częściowe przerysowania w GNOME i może znacznie "
-"wpłynąć na wydajność, ale całkowicie naprawi efekt rozmazania."
 
-#: general.ui:151
+#: resources/ui/other.ui:121
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: general.ui:152
+#: resources/ui/other.ui:122
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -308,154 +473,97 @@ msgstr ""
 "Sprawia, że rozszerzenie wypisuje swoje działanie w logach; aktywuj jeśli "
 "chcesz zgłosić problem."
 
-#: general.ui:167
+#: resources/ui/other.ui:137
 msgid "Reset preferences"
 msgstr "Zresetuj ustawienia"
 
-#: general.ui:168
+#: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "Resetuje ustawienia Blur my Shell bezpowrotnie."
 
-#: general.ui:187
+#: resources/ui/other.ui:157
 msgid "Reset"
 msgstr "Resetuj"
 
-#: general.ui:228
+#: resources/ui/other.ui:186
 msgid "High performances"
 msgstr "Wysoka wydajność"
 
-#: general.ui:229
+#: resources/ui/other.ui:187
 msgid "Default"
 msgstr "Domyślne"
 
-#: general.ui:230
-msgid "High quality"
-msgstr "Wysoka jakość"
-
-#: general.ui:231
+#: resources/ui/other.ui:188
 msgid "No artifact"
 msgstr "Bez artefaktów"
 
-#: menu.ui:6
-msgid "Project page"
-msgstr "Strona projektu"
-
-#: menu.ui:10
-msgid "Report a Bug"
-msgstr "Zgłoś problem"
-
-#: menu.ui:14
-msgid "License"
-msgstr "Licencja"
-
-#: menu.ui:18
-msgid "Donate"
-msgstr "Przekaż darowiznę"
-
-#: other.ui:5
-msgid "Other"
-msgstr "Inne"
-
-#: other.ui:10
-msgid "Lockscreen blur"
-msgstr "Rozmazywanie ekranu zablokowania"
-
-#: other.ui:11
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
-"Sprawia, że rozmazywanie ekranu zablokowania wykorzystuje preferencje tego "
-"rozszerzenia."
-
-#: other.ui:28
-msgid "Screenshot blur"
-msgstr "Rozmazywanie podczas zrzucania ekranu"
-
-#: other.ui:29
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
-"Dodaje efekt rozmazania do tła wyboru okien w interfejsie zrzutów ekranu."
-
-#: other.ui:46
-msgid "Window list extension blur"
-msgstr "Rozmazywanie Window List"
-
-#: other.ui:47
-msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
-"Sprawia, że rozszerzenie Window List jest rozmazane, jeśli jest używane."
-
-#: overview.ui:5
+#: resources/ui/overview.ui:5
 msgid "Overview"
 msgstr "Podgląd"
 
-#: overview.ui:10
+#: resources/ui/overview.ui:10
 msgid "Background blur"
 msgstr "Rozmywanie tła"
 
-#: overview.ui:11
+#: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "Dodaje efekt rozmazania do tła podglądu, korzystając z obrazka tapety."
 
-#: overview.ui:26
+#: resources/ui/overview.ui:26
 msgid "Overview components style"
 msgstr "Styl komponentów podglądu"
 
-#: overview.ui:27
+#: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
 "Półprzezroczysty styl dasha, pola/wyników wyszukiwania i folderów aplikacji."
 
-#: overview.ui:44
+#: resources/ui/overview.ui:44
 msgid "Application folder blur"
 msgstr "Rozmycie folderów aplikacji"
 
-#: overview.ui:45
+#: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr "Tworzy efekt rozmycia na tle folderów aplikacji."
 
-#: overview.ui:60
+#: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
 msgstr "Styl dialogów folderów aplikacji"
 
-#: overview.ui:61
+#: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr "Półprzezroczysty styl dialogów folderów aplikacji."
 
-#: overview.ui:79 overview.ui:88
+#: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
 msgstr "Nie styluj"
 
-#: panel.ui:5
+#: resources/ui/panel.ui:5
 msgid "Panel"
 msgstr "Panel"
 
-#: panel.ui:10
+#: resources/ui/panel.ui:10
 msgid "Panel blur"
 msgstr "Rozmazywanie panelu"
 
-#: panel.ui:11
+#: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
 msgstr "Rozmazuje górny panel korzystając z obrazka tapety."
 
-#: panel.ui:27
-msgid "Uses a static blurred image, more performant and stable."
-msgstr ""
-"Używa statycznego rozmazanego obrazka, opcja bardziej stabilna i wydajna."
-
-#: panel.ui:41
+#: resources/ui/panel.ui:113
 msgid "Force light text"
 msgstr "Wymuś jasny tekst"
 
-#: panel.ui:42
+#: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Używaj jasnego tekstu paneli, przydatne gdy używany jest jasny styl "
 "środowiska gnome."
 
-#: panel.ui:57
+#: resources/ui/panel.ui:129
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -464,45 +572,45 @@ msgstr ""
 "Zastępuje tło panelu przezroczystym lub półprzezroczystym.\n"
 "Zalecane, chyba że chcesz dostosować swój motyw powłoki GNOME."
 
-#: panel.ui:65
+#: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Pprzezroczysty/półprzezroczysty styl tła panelu."
 
-#: panel.ui:79
+#: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
 msgstr "Wyłącz, gdy jakieś okno znajduje się w pobliżu"
 
-#: panel.ui:80
+#: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Wyłącza przezroczystość panelu, gdy w jego pobliżu znajduje się okno."
 
-#: panel.ui:96
+#: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Wyłącza rozmazywanie panelu podczas przechodzenia do ekranu podglądu."
 
-#: panel.ui:112
+#: resources/ui/panel.ui:184
 msgid "Compatibility"
 msgstr "Kompatybilność"
 
-#: panel.ui:113
+#: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Różne opcje zachowania kompatybilności z innymi rozszerzeniami."
 
-#: panel.ui:118
+#: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
 msgstr "Rozszerzenie Hidetopbar"
 
-#: panel.ui:119
+#: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Nie wyłącza rozmazywania w ekranie podglądu; opcja najbardziej przydatna "
 "przy rozmazywaniu statycznym."
 
-#: panel.ui:133
+#: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
 msgstr "Rozmaż oryginalny panel z Dash to Panel"
 
-#: panel.ui:134
+#: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -510,21 +618,126 @@ msgstr ""
 "Włącza rozmazanie oryginalnego panelu z Dash to Panel, jeśli zaznaczono w "
 "opcjach rozszerzenia."
 
-#: panel.ui:153
+#: resources/ui/panel.ui:225
 msgid "Contrasted"
 msgstr "Kontrastowy"
 
-#: window-row.ui:4
-msgid "Window Name"
-msgstr "Nazwa okna"
+#: resources/ui/pipeline-choose-row.ui:4
+msgid "Pipeline"
+msgstr ""
 
-#: window-row.ui:8
-msgid "Select window"
-msgstr "Wybierz okno"
+#: resources/ui/pipeline-choose-row.ui:5
+msgid "The pipeline to be used with this component."
+msgstr ""
 
-#: window-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "Wybierz okno lub zaznacz je po nazwie klasy."
+#: resources/ui/pipeline-group.ui:6
+msgid "Pipeline name"
+msgstr ""
+
+#: resources/ui/pipeline-group.ui:20
+msgid "Manage effects"
+msgstr ""
+
+#: resources/ui/pipelines.ui:5
+msgid "Pipelines"
+msgstr ""
+
+#: resources/ui/pipelines.ui:10
+msgid ""
+"Each component uses a pipeline, which can be chosen in the corresponding "
+"tab. Here you can create, modify and delete the pipelines and their effects."
+msgstr ""
+
+#: resources/ui/pipelines.ui:29
+msgid "Add Pipeline"
+msgstr ""
+
+#~ msgid "Customize properties"
+#~ msgstr "Dostosuj parametry"
+
+#~ msgid ""
+#~ "Uses customized blur properties, instead of the ones set in the General "
+#~ "page."
+#~ msgstr ""
+#~ "Wykorzystuje dostosowane przez użytkownika parametry, zamiast tych "
+#~ "ustawionych na stronie Ogólne."
+
+#~ msgid ""
+#~ "Changes the color of the blur. The opacity of the color controls how much "
+#~ "it is blended into the blur effect."
+#~ msgstr ""
+#~ "Zmienia kolor rozmazania. Nieprzeźroczystość koloru kontroluje jak bardzo "
+#~ "wmieszany jest on w efekt rozmazania."
+
+#~ msgid "Noise amount"
+#~ msgstr "Ilość szumu"
+
+#~ msgid ""
+#~ "The amount of noise to add to the blur effect, useful on low-contrast "
+#~ "screens or for aesthetic purpose."
+#~ msgstr ""
+#~ "Ilość szumu do wmieszania w efekt rozmazania; opcja przydatna na ekranach "
+#~ "o niskim kontraście lub ze względów estetycznych."
+
+#~ msgid "Noise lightness"
+#~ msgstr "Lekkość szumu"
+
+#~ msgid "The lightness of the noise added to the blur effect."
+#~ msgstr "Lekkość efektu szumu wmieszanego w efekt rozmazania."
+
+#~ msgid "Notice"
+#~ msgstr "Uwaga"
+
+#~ msgid ""
+#~ "Noise and color can't be activated on dynamically blurred components, "
+#~ "such as this one."
+#~ msgstr ""
+#~ "Szum oraz kolor nie mogą być aktywowane na dynamicznie rozmazywanych "
+#~ "komponentach, na przykład tym."
+
+#~ msgid "Static blur"
+#~ msgstr "Rozmazywanie statyczne"
+
+#~ msgid "General"
+#~ msgstr "Ogólne"
+
+#~ msgid "Blur preferences"
+#~ msgstr "Preferencje rozmazywania"
+
+#~ msgid "Global blur preferences, used by all components by default."
+#~ msgstr ""
+#~ "Globalne preferencje rozmazywania, wykorzystywane domyślnie przez "
+#~ "wszystkie komponenty."
+
+#~ msgid "Color and noise effects"
+#~ msgstr "Efekty koloru i szumu"
+
+#~ msgid ""
+#~ "Globally disables noise and color effects which may improve performance "
+#~ "on low-end systems."
+#~ msgstr ""
+#~ "Globalnie wyłącza efekty szumu i kolorów. Może poprawić wydajność na "
+#~ "urządzeniach o niskiej wydajności."
+
+#~ msgid ""
+#~ "Changes the behaviour of the dynamic blur effect.\n"
+#~ "The default value is highly recommended unless you use application blur, "
+#~ "in which case “No artifact” is better.\n"
+#~ "This option will entirely disable clipped redraws in GNOME shell, and may "
+#~ "impact performance significantly but will completely fix the blur effect."
+#~ msgstr ""
+#~ "Zmienia zachowanie dynamicznego efektu rozmazania.\n"
+#~ "W większości przypadków zalecane jest pozostawienie domyślnej wartości. W "
+#~ "przypadku rozmazania aplikacji zalecana jest opcja \"bez artefaktów\".\n"
+#~ "Ta opcja wyłączy całkowicie częściowe przerysowania w GNOME i może "
+#~ "znacznie wpłynąć na wydajność, ale całkowicie naprawi efekt rozmazania."
+
+#~ msgid "High quality"
+#~ msgstr "Wysoka jakość"
+
+#~ msgid "Uses a static blurred image, more performant and stable."
+#~ msgstr ""
+#~ "Używa statycznego rozmazanego obrazka, opcja bardziej stabilna i wydajna."
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality.\n"

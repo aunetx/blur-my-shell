@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 12:52+0100\n"
+"POT-Creation-Date: 2024-04-11 00:04+0200\n"
 "PO-Revision-Date: 2024-03-09 14:01+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
@@ -19,15 +19,206 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: applications.ui:5
+#: src/effects/effects.js:15
+msgid "Blur effects"
+msgstr ""
+
+#: src/effects/effects.js:23
+msgid "Texture effects"
+msgstr ""
+
+#: src/effects/effects.js:31
+msgid "Shape effects"
+msgstr ""
+
+#: src/effects/effects.js:47
+msgid "Native gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:48
+msgid ""
+"An optimized blur effect that smoothly blends pixels within a given radius."
+msgstr ""
+
+#: src/effects/effects.js:51 src/effects/effects.js:79
+#: src/effects/effects.js:107 src/effects/effects.js:206
+msgid "Radius"
+msgstr ""
+
+#: src/effects/effects.js:52
+msgid "The intensity of the blur effect."
+msgstr ""
+
+#: src/effects/effects.js:61 src/effects/effects.js:89
+#: src/effects/effects.js:125 resources/ui/applications.ui:43
+#: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
+#: resources/ui/panel.ui:92
+msgid "Brightness"
+msgstr "பிரகாசம்"
+
+#: src/effects/effects.js:62 src/effects/effects.js:90
+#: src/effects/effects.js:126 resources/ui/applications.ui:44
+#: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
+#: resources/ui/panel.ui:93
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr "மங்கலான விளைவின் பிரகாசம், அதிக மதிப்பு உரையைப் படிக்க கடினமாக்கலாம்."
+
+#: src/effects/effects.js:75
+msgid "Gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:76
+msgid ""
+"A blur effect that smoothly blends pixels within a given radius. This effect "
+"is more precise, but way less optimized."
+msgstr ""
+
+#: src/effects/effects.js:80
+msgid ""
+"The intensity of the blur effect. The bigger it is, the slower it will be."
+msgstr ""
+
+#: src/effects/effects.js:103
+msgid "Monte Carlo blur"
+msgstr ""
+
+#: src/effects/effects.js:104
+msgid ""
+"A blur effect that mimics a random walk, by picking pixels further and "
+"further away from its origin and mixing them all together."
+msgstr ""
+
+#: src/effects/effects.js:108
+msgid ""
+"The maximum travel distance for each step in the random walk. A higher value "
+"will make the blur more randomized."
+msgstr ""
+
+#: src/effects/effects.js:117
+msgid "Iterations"
+msgstr ""
+
+#: src/effects/effects.js:118
+msgid "The number of iterations. The more there are, the smoother the blur is."
+msgstr ""
+
+#: src/effects/effects.js:135
+msgid "Use base pixel"
+msgstr ""
+
+#: src/effects/effects.js:136
+msgid ""
+"Whether or not the original pixel is counted for the blur. If it is, the "
+"image will be more legible."
+msgstr ""
+
+#: src/effects/effects.js:144 src/effects/effects.js:149
+msgid "Color"
+msgstr "நிறம்"
+
+#: src/effects/effects.js:145
+msgid "An effect that blends a color into the pipeline."
+msgstr ""
+
+#: src/effects/effects.js:150
+msgid ""
+"The color to blend in. The blending amount is controled by the opacity of "
+"the color."
+msgstr ""
+
+#: src/effects/effects.js:158
+msgid "Pixelize"
+msgstr ""
+
+#: src/effects/effects.js:159
+msgid "An effect that pixelizes the image."
+msgstr ""
+
+#: src/effects/effects.js:162
+msgid "Divider"
+msgstr ""
+
+#: src/effects/effects.js:163
+msgid "How much to scale down the image."
+msgstr ""
+
+#: src/effects/effects.js:174 src/effects/effects.js:178
+msgid "Noise"
+msgstr ""
+
+#: src/effects/effects.js:175
+msgid ""
+"An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
+"organic effect if needed."
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "The amount of noise to add."
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Lightness"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid ""
+"The luminosity of the noise. A setting of '1.0' will make the effect "
+"transparent."
+msgstr ""
+
+#: src/effects/effects.js:202
+msgid "Corner"
+msgstr ""
+
+#: src/effects/effects.js:203
+msgid ""
+"An effect that draws corners. Add it last not to have the other effects "
+"perturb the corners."
+msgstr ""
+
+#: src/effects/effects.js:207
+msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
+msgstr ""
+
+#: src/effects/effects.js:214
+msgid "Top corners"
+msgstr ""
+
+#: src/effects/effects.js:215
+msgid "Whether or not to round the top corners."
+msgstr ""
+
+#: src/effects/effects.js:219
+msgid "Bottom corners"
+msgstr ""
+
+#: src/effects/effects.js:220
+msgid "Whether or not to round the bottom corners."
+msgstr ""
+
+#: resources/ui/application-row.ui:4
+msgid "Window Name"
+msgstr "சாளரத்தின் பெயர்"
+
+#: resources/ui/application-row.ui:8
+msgid "Select window"
+msgstr "சாளரத்தைத் தேர்ந்தெடுக்கவும்"
+
+#: resources/ui/application-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr "ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் தேர்ந்தெடுக்கவும்."
+
+#: resources/ui/applications.ui:5
 msgid "Applications"
 msgstr "பயன்பாடுகள்"
 
-#: applications.ui:10
+#: resources/ui/applications.ui:10
 msgid "Applications blur (beta)"
 msgstr "பயன்பாடுகள் மங்கலாக்குதல் (பீட்டா)"
 
-#: applications.ui:11
+#: resources/ui/applications.ui:11
 msgid ""
 "Adds blur to the applications. This is still beta functionality.\n"
 "To get the best results possible, make sure to choose the option “No "
@@ -39,11 +230,23 @@ msgstr ""
 "\"ஆர்ட்டிஃபாக்ட் இல்லை\" என்ற விருப்பத்தைத் தேர்வுசெய்யவும்.\n"
 "        "
 
-#: applications.ui:28
+#: resources/ui/applications.ui:22 resources/ui/dash.ui:71
+#: resources/ui/other.ui:56 resources/ui/overview.ui:54
+#: resources/ui/panel.ui:71
+msgid "Sigma"
+msgstr "சிக்மா"
+
+#: resources/ui/applications.ui:23 resources/ui/dash.ui:72
+#: resources/ui/other.ui:57 resources/ui/overview.ui:55
+#: resources/ui/panel.ui:72
+msgid "The intensity of the blur."
+msgstr "மங்கலின் தீவிரம்."
+
+#: resources/ui/applications.ui:64
 msgid "Opacity"
 msgstr "ஒளிபுகாநிலை"
 
-#: applications.ui:29
+#: resources/ui/applications.ui:65
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -51,11 +254,21 @@ msgstr ""
 "மங்கலான விளைவின் மேல் உள்ள சாளரத்தின் ஒளிபுகாநிலை, அதிக மதிப்பு இன்னும் தெளிவாகத் "
 "தெரியும்."
 
-#: applications.ui:51
+#: resources/ui/applications.ui:86
+msgid "Opaque focused window"
+msgstr ""
+
+#: resources/ui/applications.ui:87
+msgid ""
+"Makes the focused window opaque and the other ones blurred, helping with "
+"legibility."
+msgstr ""
+
+#: resources/ui/applications.ui:101
 msgid "Blur on overview"
 msgstr "மேலோட்டப் பார்வையில் மங்கலாக்கு"
 
-#: applications.ui:52
+#: resources/ui/applications.ui:102
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -63,11 +276,11 @@ msgstr ""
 "மேலோட்டத்தில் அனைத்து பணியிடங்களிலும் மங்கலானது சரியாகக் காட்டப்பட வேண்டும்.\n"
 "இது சில தாமதம் அல்லது செயல்திறன் சிக்கல்களை ஏற்படுத்தலாம்."
 
-#: applications.ui:67
+#: resources/ui/applications.ui:117
 msgid "Enable all by default"
 msgstr "முன்னிருப்பாக அனைத்தையும் இயக்கு"
 
-#: applications.ui:68
+#: resources/ui/applications.ui:118
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
@@ -75,133 +288,60 @@ msgstr ""
 "முன்னிருப்பாக எல்லா சாளரங்களுக்கும் பின்னால் மங்கலைச் சேர்க்கிறது.\n"
 "செயல்திறன் மற்றும் நிலைப்புத்தன்மை பிரச்சனைகள் காரணமாக பரிந்துரைக்கப்படவில்லை."
 
-#: applications.ui:85
+#: resources/ui/applications.ui:135
 msgid "Whitelist"
 msgstr "அனுமதிப்பட்டியல்"
 
-#: applications.ui:86
+#: resources/ui/applications.ui:136
 msgid "A list of windows to blur."
 msgstr "மங்கலாக்க வேண்டிய சாளரங்களின் பட்டியல்."
 
-#: applications.ui:104 applications.ui:141
+#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
 msgid "Add Window"
 msgstr "சாளரத்தைச் சேர்க்கவும்"
 
-#: applications.ui:122
+#: resources/ui/applications.ui:172
 msgid "Blacklist"
 msgstr "பிளாக்லிஸ்ட்"
 
-#: applications.ui:123
+#: resources/ui/applications.ui:173
 msgid "A list of windows not to blur."
 msgstr "மங்கலாக்கப்படக் கூடாத சாளரங்களின் பட்டியல்."
 
-#: customize-row.ui:4
-msgid "Customize properties"
-msgstr "பண்புகளைத் தனிப்பயனாக்குங்கள்"
-
-#: customize-row.ui:5
-msgid ""
-"Uses customized blur properties, instead of the ones set in the General page."
-msgstr ""
-"பொதுப் பக்கத்தில் அமைக்கப்படுவதற்குப் பதிலாக தனிப்பயனாக்கப்பட்ட மங்கலான பண்புகளைப் "
-"பயன்படுத்துகிறது."
-
-#: customize-row.ui:10 general.ui:15
-msgid "Sigma"
-msgstr "சிக்மா"
-
-#: customize-row.ui:11 general.ui:16
-msgid "The intensity of the blur."
-msgstr "மங்கலின் தீவிரம்."
-
-#: customize-row.ui:31 general.ui:35
-msgid "Brightness"
-msgstr "பிரகாசம்"
-
-#: customize-row.ui:32 general.ui:36
-msgid ""
-"The brightness of the blur effect, a high value might make the text harder "
-"to read."
-msgstr "மங்கலான விளைவின் பிரகாசம், அதிக மதிப்பு உரையைப் படிக்க கடினமாக்கலாம்."
-
-#: customize-row.ui:52 general.ui:55
-msgid "Color"
-msgstr "நிறம்"
-
-#: customize-row.ui:53 general.ui:56
-msgid ""
-"Changes the color of the blur. The opacity of the color controls how much it "
-"is blended into the blur effect."
-msgstr ""
-"மங்கலின் நிறத்தை மாற்றுகிறது. வண்ணத்தின் ஒளிபுகாநிலை, அது மங்கலான விளைவுடன் எவ்வளவு "
-"கலக்கப்படுகிறது என்பதைக் கட்டுப்படுத்துகிறது."
-
-#: customize-row.ui:71 general.ui:73
-msgid "Noise amount"
-msgstr "சத்தம் அளவு"
-
-#: customize-row.ui:72 general.ui:74
-msgid ""
-"The amount of noise to add to the blur effect, useful on low-contrast "
-"screens or for aesthetic purpose."
-msgstr ""
-"மங்கலான விளைவைச் சேர்க்கும் சத்தத்தின் அளவு, குறைந்த-கான்ட்ராஸ்ட் திரைகளில் அல்லது அழகியல் "
-"நோக்கத்திற்காக பயனுள்ளதாக இருக்கும்."
-
-#: customize-row.ui:92 general.ui:94
-msgid "Noise lightness"
-msgstr "இரைச்சல் லேசான தன்மை"
-
-#: customize-row.ui:93 general.ui:95
-msgid "The lightness of the noise added to the blur effect."
-msgstr "சத்தத்தின் லேசான தன்மை மங்கலான விளைவைக் கூட்டியது."
-
-#: customize-row.ui:113
-msgid "Notice"
-msgstr "அறிவிப்பு"
-
-#: customize-row.ui:114
-msgid ""
-"Noise and color can't be activated on dynamically blurred components, such "
-"as this one."
-msgstr "இது போன்ற மாறும் மங்கலான கூறுகளில் இரைச்சல் மற்றும் வண்ணத்தை செயல்படுத்த முடியாது."
-
-#: dash.ui:5
+#: resources/ui/dash.ui:5
 msgid "Dash"
 msgstr "கோடு"
 
-#: dash.ui:10
+#: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
 msgstr "டேஷ் டு டாக் மங்கல்"
 
-#: dash.ui:11
+#: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "டாஷ் டு டாக் நீட்டிப்பு பயன்படுத்தப்பட்டால் அதன் பின்புலத்தை மங்கலாக்குங்கள்."
 
-#: dash.ui:27 panel.ui:26
-msgid "Static blur"
-msgstr "நிலையான தெளிவின்மை"
-
-#: dash.ui:28
-msgid ""
-"Uses a static blurred image, can be used with rounding effect.\n"
-"<b>Important notice:</b> with this activated, you should not use a big sigma "
-"value as it will deteriorate performances."
+#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
+msgid "Blur type"
 msgstr ""
 
-#: dash.ui:43
-msgid "Rounded corner radius"
-msgstr "வட்டமான மூலை ஆரம்"
+#: resources/ui/dash.ui:21 resources/ui/panel.ui:21
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect."
+msgstr ""
 
-#: dash.ui:44
-msgid "The radius for the rounding effect. Only available with static blur."
-msgstr "சுற்று விளைவுக்கான ஆரம். நிலையான மங்கலத்துடன் மட்டுமே கிடைக்கும்."
+#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
+msgid "Static"
+msgstr ""
 
-#: dash.ui:66 panel.ui:56
+#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr ""
+
+#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
 msgstr "பின்னணியை மேலெழுதவும்"
 
-#: dash.ui:67
+#: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -209,90 +349,114 @@ msgstr ""
 "பின்னணியை வெளிப்படையானதாகவோ அல்லது அரை-வெளிப்படையாகவோ மாற்றுகிறது, அதற்குப் பதிலாக "
 "டாஷ் டு டாக் விருப்பங்களைப் பயன்படுத்த இதை முடக்கவும்."
 
-#: dash.ui:73 panel.ui:64
+#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
 msgstr "பின்னணி நடை"
 
-#: dash.ui:74
+#: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "கப்பல்துறை பின்னணிக்கான வெளிப்படையான/அரை-வெளிப்படையான பாணி."
 
-#: dash.ui:90 panel.ui:95
+#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
 msgstr "மேலோட்டத்தில் முடக்கு"
 
-#: dash.ui:91
+#: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "மேலோட்டத்தை உள்ளிடும்போது டாஷ் முதல் டாக் வரை மங்கலை முடக்குகிறது."
 
-#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
+#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
 msgstr "வெளிப்படை"
 
-#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
+#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
 msgstr "ஒளி"
 
-#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
+#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
 msgstr "இருள்"
 
-#: general.ui:5
-msgid "General"
-msgstr "பொது"
-
-#: general.ui:10
-msgid "Blur preferences"
-msgstr "மங்கலான விருப்பத்தேர்வுகள்"
-
-#: general.ui:11
-msgid "Global blur preferences, used by all components by default."
+#: resources/ui/effects-dialog.ui:4
+msgid "Effects"
 msgstr ""
-"உலகளாவிய மங்கலான விருப்பத்தேர்வுகள், இயல்பாகவே அனைத்து கூறுகளாலும் பயன்படுத்தப்படுகின்றன."
 
-#: general.ui:117
+#: resources/ui/effects-dialog.ui:32
+msgid "Add Effect"
+msgstr ""
+
+#: resources/ui/menu.ui:6
+msgid "Project page"
+msgstr "திட்டப் பக்கம்"
+
+#: resources/ui/menu.ui:10
+msgid "Report a Bug"
+msgstr "பிழையைப் புகாரளிக்கவும்"
+
+#: resources/ui/menu.ui:14
+msgid "License"
+msgstr "உரிமம்"
+
+#: resources/ui/menu.ui:18
+msgid "Donate"
+msgstr "நன்கொடையளி"
+
+#: resources/ui/other.ui:5
+msgid "Other"
+msgstr "மற்றவை"
+
+#: resources/ui/other.ui:10
+msgid "Lockscreen blur"
+msgstr "லாக்ஸ்கிரீன் மங்கலானது"
+
+#: resources/ui/other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr "இந்த நீட்டிப்பு விருப்பங்களைப் பயன்படுத்த பூட்டுத் திரையின் மங்கலை மாற்றவும்."
+
+#: resources/ui/other.ui:28
+msgid "Screenshot blur"
+msgstr "ஸ்கிரீன்ஷாட் மங்கலானது"
+
+#: resources/ui/other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr "ஸ்கிரீன்ஷாட் UI இல் சாளரத் தேர்வியின் பின்னணியில் மங்கலைச் சேர்க்கவும்."
+
+#: resources/ui/other.ui:46
+msgid "Window list extension blur"
+msgstr "சாளர பட்டியல் நீட்டிப்பு மங்கலானது"
+
+#: resources/ui/other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "சாளரப் பட்டியல் நீட்டிப்பைப் பயன்படுத்தினால், அதை மங்கலாக்கவும்."
+
+#: resources/ui/other.ui:101
 msgid "Performance"
 msgstr "செயலாக்கம்"
 
-#: general.ui:118
+#: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
 msgstr "செயல்திறனை மாற்றுவதற்கான பல்வேறு விருப்பங்கள்."
 
-#: general.ui:122
-msgid "Color and noise effects"
-msgstr "நிறம் மற்றும் இரைச்சல் விளைவுகள்"
-
-#: general.ui:123
-msgid ""
-"Globally disables noise and color effects which may improve performance on "
-"low-end systems."
-msgstr ""
-"உலகளவில் சத்தம் மற்றும் வண்ண விளைவுகளை முடக்குகிறது, இது குறைந்த-இறுதி அமைப்புகளில் "
-"செயல்திறனை மேம்படுத்தலாம்."
-
-#: general.ui:135
+#: resources/ui/other.ui:106
 msgid "Hack level"
 msgstr "ஹேக் லெவல்"
 
-#: general.ui:136
+#: resources/ui/other.ui:107
 msgid ""
-"Changes the behaviour of the dynamic blur effect.\n"
-"The default value is highly recommended unless you use application blur, in "
-"which case “No artifact” is better.\n"
-"This option will entirely disable clipped redraws in GNOME shell, and may "
-"impact performance significantly but will completely fix the blur effect."
+"Changes the behaviour of the dynamic blur effect. The default value is "
+"highly recommended.\n"
+"The “No artifact” option will entirely disable clipped redraws in GNOME "
+"shell, and will impact your computer performances significantly."
 msgstr ""
-"டைனமிக் மங்கலான விளைவின் நடத்தையை மாற்றுகிறது. \n"
-"நீங்கள் பயன்பாட்டு மங்கலைப் பயன்படுத்தாத வரை, இயல்புநிலை மதிப்பு மிகவும் "
-"பரிந்துரைக்கப்படுகிறது, இதில் \"கலைப்பொருள் இல்லை\" என்பது சிறந்தது. \n"
-"இந்த விருப்பம் GNOME ஷெல்லில் கிளிப் செய்யப்பட்ட ரீடிராக்களை முழுவதுமாக முடக்கும், மேலும் "
-"செயல்திறனை கணிசமாக பாதிக்கலாம் ஆனால் மங்கலான விளைவை முழுமையாக சரி செய்யும்."
 
-#: general.ui:151
+#: resources/ui/other.ui:121
 msgid "Debug"
 msgstr "பிழைத்திருத்தம் செய்"
 
-#: general.ui:152
+#: resources/ui/other.ui:122
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -300,95 +464,47 @@ msgstr ""
 "பதிவுகளில் நீட்டிப்பை வாய்மொழியாக மாற்றுகிறது, சிக்கலைப் புகாரளிக்க வேண்டியிருக்கும் "
 "போது செயல்படுத்தவும்."
 
-#: general.ui:167
+#: resources/ui/other.ui:137
 msgid "Reset preferences"
 msgstr "விருப்பங்களை மீட்டமைக்கவும்"
 
-#: general.ui:168
+#: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "மங்கலான எனது ஷெல்லின் விருப்பங்களை மீளமுடியாமல் மீட்டமைக்கிறது."
 
-#: general.ui:187
+#: resources/ui/other.ui:157
 msgid "Reset"
 msgstr "மீட்டமைக்கவும்"
 
-#: general.ui:228
+#: resources/ui/other.ui:186
 msgid "High performances"
 msgstr "உயர் செயல்திறன்"
 
-#: general.ui:229
+#: resources/ui/other.ui:187
 msgid "Default"
 msgstr "இயல்புநிலை"
 
-#: general.ui:230
-msgid "High quality"
-msgstr "உயர் தரம்"
-
-#: general.ui:231
+#: resources/ui/other.ui:188
 msgid "No artifact"
 msgstr "கலைப்பொருள் இல்லை"
 
-#: menu.ui:6
-msgid "Project page"
-msgstr "திட்டப் பக்கம்"
-
-#: menu.ui:10
-msgid "Report a Bug"
-msgstr "பிழையைப் புகாரளிக்கவும்"
-
-#: menu.ui:14
-msgid "License"
-msgstr "உரிமம்"
-
-#: menu.ui:18
-msgid "Donate"
-msgstr "நன்கொடையளி"
-
-#: other.ui:5
-msgid "Other"
-msgstr "மற்றவை"
-
-#: other.ui:10
-msgid "Lockscreen blur"
-msgstr "லாக்ஸ்கிரீன் மங்கலானது"
-
-#: other.ui:11
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "இந்த நீட்டிப்பு விருப்பங்களைப் பயன்படுத்த பூட்டுத் திரையின் மங்கலை மாற்றவும்."
-
-#: other.ui:28
-msgid "Screenshot blur"
-msgstr "ஸ்கிரீன்ஷாட் மங்கலானது"
-
-#: other.ui:29
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "ஸ்கிரீன்ஷாட் UI இல் சாளரத் தேர்வியின் பின்னணியில் மங்கலைச் சேர்க்கவும்."
-
-#: other.ui:46
-msgid "Window list extension blur"
-msgstr "சாளர பட்டியல் நீட்டிப்பு மங்கலானது"
-
-#: other.ui:47
-msgid "Make the window-list extension blurred, if it is used."
-msgstr "சாளரப் பட்டியல் நீட்டிப்பைப் பயன்படுத்தினால், அதை மங்கலாக்கவும்."
-
-#: overview.ui:5
+#: resources/ui/overview.ui:5
 msgid "Overview"
 msgstr "கண்ணோட்டம்"
 
-#: overview.ui:10
+#: resources/ui/overview.ui:10
 msgid "Background blur"
 msgstr "பின்னணி தெளிவின்மை"
 
-#: overview.ui:11
+#: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "வால்பேப்பர் படத்தைப் பயன்படுத்தி மேலோட்டப் பின்னணியில் மங்கலைச் சேர்க்கவும்."
 
-#: overview.ui:26
+#: resources/ui/overview.ui:26
 msgid "Overview components style"
 msgstr "மேலோட்டக் கூறுகளின் பாணி"
 
-#: overview.ui:27
+#: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
@@ -396,54 +512,50 @@ msgstr ""
 "கோடு, தேடல் உள்ளீடு/முடிவுகள் மற்றும் பயன்பாட்டுக் கோப்புறைகளுக்கான அரை-வெளிப்படையான "
 "பாணி."
 
-#: overview.ui:44
+#: resources/ui/overview.ui:44
 msgid "Application folder blur"
 msgstr "பயன்பாட்டுக் கோப்புறை மங்கல்"
 
-#: overview.ui:45
+#: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr "பயன்பாட்டு கோப்புறை உரையாடலின் பின்னணியை மங்கலாக்கும்."
 
-#: overview.ui:60
+#: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
 msgstr "பயன்பாட்டு கோப்புறை உரையாடல்கள் நடை"
 
-#: overview.ui:61
+#: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr "பயன்பாட்டு கோப்புறை உரையாடல்களுக்கான அரை-வெளிப்படையான பாணி."
 
-#: overview.ui:79 overview.ui:88
+#: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
 msgstr "ஸ்டைல் வேண்டாம்"
 
-#: panel.ui:5
+#: resources/ui/panel.ui:5
 msgid "Panel"
 msgstr "பேனல்"
 
-#: panel.ui:10
+#: resources/ui/panel.ui:10
 msgid "Panel blur"
 msgstr "பேனல் தெளிவின்மை"
 
-#: panel.ui:11
+#: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
 msgstr "பின்னணி படத்தைப் பயன்படுத்தி மேல் பேனலை மங்கலாக்குங்கள்."
 
-#: panel.ui:27
-msgid "Uses a static blurred image, more performant and stable."
-msgstr "நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, அதிக செயல்திறன் மற்றும் நிலையானது."
-
-#: panel.ui:41
+#: resources/ui/panel.ui:113
 msgid "Force light text"
 msgstr "ஒளி உரையை கட்டாயப்படுத்துங்கள்"
 
-#: panel.ui:42
+#: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "பேனலுக்கு ஒளி உரையைப் பயன்படுத்தவும், gnome-ஷெல்லின் ஒளி தோற்றம் பயன்படுத்தும் போது "
 "பயனுள்ளதாக இருக்கும்."
 
-#: panel.ui:57
+#: resources/ui/panel.ui:129
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -453,64 +565,174 @@ msgstr ""
 "மேலெழுதவும். \n"
 "உங்கள் GNOME தோற்றம் தனிப்பயனாக்க விரும்பினால் தவிர பரிந்துரைக்கப்படுகிறது."
 
-#: panel.ui:65
+#: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "பேனல் பின்னணிக்கான வெளிப்படையான/அரை-வெளிப்படையான பாணி."
 
-#: panel.ui:79
+#: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
 msgstr "ஒரு சாளரம் அருகில் இருக்கும்போது முடக்கவும்"
 
-#: panel.ui:80
+#: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "சாளரம் அருகில் இருக்கும்போது பேனலின் வெளிப்படைத்தன்மையை முடக்குகிறது."
 
-#: panel.ui:96
+#: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "மேலோட்டப் பார்வையை உள்ளிடும்போது பேனலில் இருந்து மங்கலானதை முடக்கும்."
 
-#: panel.ui:112
+#: resources/ui/panel.ui:184
 msgid "Compatibility"
 msgstr "இணக்கத்தன்மை"
 
-#: panel.ui:113
+#: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
 msgstr "பிற நீட்டிப்புகளுடன் இணக்கத்தன்மையை வழங்க பல்வேறு விருப்பங்கள்."
 
-#: panel.ui:118
+#: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
 msgstr "ஹைடோப்பார் நீட்டிப்பு"
 
-#: panel.ui:119
+#: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr "மேலோட்டத்தில் மங்கலை முடக்காது, நிலையான மங்கலுடன் சிறப்பாகப் பயன்படுத்தப்படுகிறது."
 
-#: panel.ui:133
+#: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
 msgstr "Dash to Panel உடன் அசல் பேனலை மங்கலாக்கு"
 
-#: panel.ui:134
+#: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
 "நீட்டிப்பின் விருப்பங்களில் தேர்ந்தெடுக்கப்பட்டால், Dash to Panel உடன் அசல் பேனலை மங்கலாக்கும்."
 
-#: panel.ui:153
+#: resources/ui/panel.ui:225
 msgid "Contrasted"
 msgstr "மாறுபட்டது"
 
-#: window-row.ui:4
-msgid "Window Name"
-msgstr "சாளரத்தின் பெயர்"
+#: resources/ui/pipeline-choose-row.ui:4
+msgid "Pipeline"
+msgstr ""
 
-#: window-row.ui:8
-msgid "Select window"
-msgstr "சாளரத்தைத் தேர்ந்தெடுக்கவும்"
+#: resources/ui/pipeline-choose-row.ui:5
+msgid "The pipeline to be used with this component."
+msgstr ""
 
-#: window-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "ஒரு சாளரத்தைத் தேர்ந்தெடுக்கவும் அல்லது அதன் வகுப்புப் பெயரால் தேர்ந்தெடுக்கவும்."
+#: resources/ui/pipeline-group.ui:6
+msgid "Pipeline name"
+msgstr ""
+
+#: resources/ui/pipeline-group.ui:20
+msgid "Manage effects"
+msgstr ""
+
+#: resources/ui/pipelines.ui:5
+msgid "Pipelines"
+msgstr ""
+
+#: resources/ui/pipelines.ui:10
+msgid ""
+"Each component uses a pipeline, which can be chosen in the corresponding "
+"tab. Here you can create, modify and delete the pipelines and their effects."
+msgstr ""
+
+#: resources/ui/pipelines.ui:29
+msgid "Add Pipeline"
+msgstr ""
+
+#~ msgid "Customize properties"
+#~ msgstr "பண்புகளைத் தனிப்பயனாக்குங்கள்"
+
+#~ msgid ""
+#~ "Uses customized blur properties, instead of the ones set in the General "
+#~ "page."
+#~ msgstr ""
+#~ "பொதுப் பக்கத்தில் அமைக்கப்படுவதற்குப் பதிலாக தனிப்பயனாக்கப்பட்ட மங்கலான பண்புகளைப் "
+#~ "பயன்படுத்துகிறது."
+
+#~ msgid ""
+#~ "Changes the color of the blur. The opacity of the color controls how much "
+#~ "it is blended into the blur effect."
+#~ msgstr ""
+#~ "மங்கலின் நிறத்தை மாற்றுகிறது. வண்ணத்தின் ஒளிபுகாநிலை, அது மங்கலான விளைவுடன் எவ்வளவு "
+#~ "கலக்கப்படுகிறது என்பதைக் கட்டுப்படுத்துகிறது."
+
+#~ msgid "Noise amount"
+#~ msgstr "சத்தம் அளவு"
+
+#~ msgid ""
+#~ "The amount of noise to add to the blur effect, useful on low-contrast "
+#~ "screens or for aesthetic purpose."
+#~ msgstr ""
+#~ "மங்கலான விளைவைச் சேர்க்கும் சத்தத்தின் அளவு, குறைந்த-கான்ட்ராஸ்ட் திரைகளில் அல்லது "
+#~ "அழகியல் நோக்கத்திற்காக பயனுள்ளதாக இருக்கும்."
+
+#~ msgid "Noise lightness"
+#~ msgstr "இரைச்சல் லேசான தன்மை"
+
+#~ msgid "The lightness of the noise added to the blur effect."
+#~ msgstr "சத்தத்தின் லேசான தன்மை மங்கலான விளைவைக் கூட்டியது."
+
+#~ msgid "Notice"
+#~ msgstr "அறிவிப்பு"
+
+#~ msgid ""
+#~ "Noise and color can't be activated on dynamically blurred components, "
+#~ "such as this one."
+#~ msgstr ""
+#~ "இது போன்ற மாறும் மங்கலான கூறுகளில் இரைச்சல் மற்றும் வண்ணத்தை செயல்படுத்த முடியாது."
+
+#~ msgid "Static blur"
+#~ msgstr "நிலையான தெளிவின்மை"
+
+#~ msgid "Rounded corner radius"
+#~ msgstr "வட்டமான மூலை ஆரம்"
+
+#~ msgid "The radius for the rounding effect. Only available with static blur."
+#~ msgstr "சுற்று விளைவுக்கான ஆரம். நிலையான மங்கலத்துடன் மட்டுமே கிடைக்கும்."
+
+#~ msgid "General"
+#~ msgstr "பொது"
+
+#~ msgid "Blur preferences"
+#~ msgstr "மங்கலான விருப்பத்தேர்வுகள்"
+
+#~ msgid "Global blur preferences, used by all components by default."
+#~ msgstr ""
+#~ "உலகளாவிய மங்கலான விருப்பத்தேர்வுகள், இயல்பாகவே அனைத்து கூறுகளாலும் "
+#~ "பயன்படுத்தப்படுகின்றன."
+
+#~ msgid "Color and noise effects"
+#~ msgstr "நிறம் மற்றும் இரைச்சல் விளைவுகள்"
+
+#~ msgid ""
+#~ "Globally disables noise and color effects which may improve performance "
+#~ "on low-end systems."
+#~ msgstr ""
+#~ "உலகளவில் சத்தம் மற்றும் வண்ண விளைவுகளை முடக்குகிறது, இது குறைந்த-இறுதி அமைப்புகளில் "
+#~ "செயல்திறனை மேம்படுத்தலாம்."
+
+#~ msgid ""
+#~ "Changes the behaviour of the dynamic blur effect.\n"
+#~ "The default value is highly recommended unless you use application blur, "
+#~ "in which case “No artifact” is better.\n"
+#~ "This option will entirely disable clipped redraws in GNOME shell, and may "
+#~ "impact performance significantly but will completely fix the blur effect."
+#~ msgstr ""
+#~ "டைனமிக் மங்கலான விளைவின் நடத்தையை மாற்றுகிறது. \n"
+#~ "நீங்கள் பயன்பாட்டு மங்கலைப் பயன்படுத்தாத வரை, இயல்புநிலை மதிப்பு மிகவும் "
+#~ "பரிந்துரைக்கப்படுகிறது, இதில் \"கலைப்பொருள் இல்லை\" என்பது சிறந்தது. \n"
+#~ "இந்த விருப்பம் GNOME ஷெல்லில் கிளிப் செய்யப்பட்ட ரீடிராக்களை முழுவதுமாக முடக்கும், "
+#~ "மேலும் செயல்திறனை கணிசமாக பாதிக்கலாம் ஆனால் மங்கலான விளைவை முழுமையாக சரி செய்யும்."
+
+#~ msgid "High quality"
+#~ msgstr "உயர் தரம்"
+
+#~ msgid "Uses a static blurred image, more performant and stable."
+#~ msgstr ""
+#~ "நிலையான மங்கலான படத்தைப் பயன்படுத்துகிறது, அதிக செயல்திறன் மற்றும் நிலையானது."
 
 #~ msgid "Uses a static blurred image, can be used with rounding effect."
 #~ msgstr ""

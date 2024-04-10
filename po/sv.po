@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 12:52+0100\n"
+"POT-Creation-Date: 2024-04-11 00:04+0200\n"
 "PO-Revision-Date: 2023-11-14 18:03+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -19,15 +19,208 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.2-dev\n"
 
-#: applications.ui:5
+#: src/effects/effects.js:15
+msgid "Blur effects"
+msgstr ""
+
+#: src/effects/effects.js:23
+msgid "Texture effects"
+msgstr ""
+
+#: src/effects/effects.js:31
+msgid "Shape effects"
+msgstr ""
+
+#: src/effects/effects.js:47
+msgid "Native gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:48
+msgid ""
+"An optimized blur effect that smoothly blends pixels within a given radius."
+msgstr ""
+
+#: src/effects/effects.js:51 src/effects/effects.js:79
+#: src/effects/effects.js:107 src/effects/effects.js:206
+msgid "Radius"
+msgstr ""
+
+#: src/effects/effects.js:52
+msgid "The intensity of the blur effect."
+msgstr ""
+
+#: src/effects/effects.js:61 src/effects/effects.js:89
+#: src/effects/effects.js:125 resources/ui/applications.ui:43
+#: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
+#: resources/ui/panel.ui:92
+msgid "Brightness"
+msgstr "Ljusstyrka"
+
+#: src/effects/effects.js:62 src/effects/effects.js:90
+#: src/effects/effects.js:126 resources/ui/applications.ui:44
+#: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
+#: resources/ui/panel.ui:93
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr ""
+"Ljusstyrkan på oskärpeeffekten, ett högt värde kan göra texten svårare att "
+"läsa."
+
+#: src/effects/effects.js:75
+msgid "Gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:76
+msgid ""
+"A blur effect that smoothly blends pixels within a given radius. This effect "
+"is more precise, but way less optimized."
+msgstr ""
+
+#: src/effects/effects.js:80
+msgid ""
+"The intensity of the blur effect. The bigger it is, the slower it will be."
+msgstr ""
+
+#: src/effects/effects.js:103
+msgid "Monte Carlo blur"
+msgstr ""
+
+#: src/effects/effects.js:104
+msgid ""
+"A blur effect that mimics a random walk, by picking pixels further and "
+"further away from its origin and mixing them all together."
+msgstr ""
+
+#: src/effects/effects.js:108
+msgid ""
+"The maximum travel distance for each step in the random walk. A higher value "
+"will make the blur more randomized."
+msgstr ""
+
+#: src/effects/effects.js:117
+msgid "Iterations"
+msgstr ""
+
+#: src/effects/effects.js:118
+msgid "The number of iterations. The more there are, the smoother the blur is."
+msgstr ""
+
+#: src/effects/effects.js:135
+msgid "Use base pixel"
+msgstr ""
+
+#: src/effects/effects.js:136
+msgid ""
+"Whether or not the original pixel is counted for the blur. If it is, the "
+"image will be more legible."
+msgstr ""
+
+#: src/effects/effects.js:144 src/effects/effects.js:149
+msgid "Color"
+msgstr "Färg"
+
+#: src/effects/effects.js:145
+msgid "An effect that blends a color into the pipeline."
+msgstr ""
+
+#: src/effects/effects.js:150
+msgid ""
+"The color to blend in. The blending amount is controled by the opacity of "
+"the color."
+msgstr ""
+
+#: src/effects/effects.js:158
+msgid "Pixelize"
+msgstr ""
+
+#: src/effects/effects.js:159
+msgid "An effect that pixelizes the image."
+msgstr ""
+
+#: src/effects/effects.js:162
+msgid "Divider"
+msgstr ""
+
+#: src/effects/effects.js:163
+msgid "How much to scale down the image."
+msgstr ""
+
+#: src/effects/effects.js:174 src/effects/effects.js:178
+msgid "Noise"
+msgstr ""
+
+#: src/effects/effects.js:175
+msgid ""
+"An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
+"organic effect if needed."
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "The amount of noise to add."
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Lightness"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid ""
+"The luminosity of the noise. A setting of '1.0' will make the effect "
+"transparent."
+msgstr ""
+
+#: src/effects/effects.js:202
+msgid "Corner"
+msgstr ""
+
+#: src/effects/effects.js:203
+msgid ""
+"An effect that draws corners. Add it last not to have the other effects "
+"perturb the corners."
+msgstr ""
+
+#: src/effects/effects.js:207
+msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
+msgstr ""
+
+#: src/effects/effects.js:214
+msgid "Top corners"
+msgstr ""
+
+#: src/effects/effects.js:215
+msgid "Whether or not to round the top corners."
+msgstr ""
+
+#: src/effects/effects.js:219
+msgid "Bottom corners"
+msgstr ""
+
+#: src/effects/effects.js:220
+msgid "Whether or not to round the bottom corners."
+msgstr ""
+
+#: resources/ui/application-row.ui:4
+msgid "Window Name"
+msgstr "Fönsternamn"
+
+#: resources/ui/application-row.ui:8
+msgid "Select window"
+msgstr "Välj fönster"
+
+#: resources/ui/application-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr "Välj ett fönster eller välj det efter klassnamnet."
+
+#: resources/ui/applications.ui:5
 msgid "Applications"
 msgstr "Applikationer"
 
-#: applications.ui:10
+#: resources/ui/applications.ui:10
 msgid "Applications blur (beta)"
 msgstr "Oskärpa för program (beta)"
 
-#: applications.ui:11
+#: resources/ui/applications.ui:11
 msgid ""
 "Adds blur to the applications. This is still beta functionality.\n"
 "To get the best results possible, make sure to choose the option “No "
@@ -40,11 +233,23 @@ msgstr ""
 "Hack nivå\".\n"
 "        "
 
-#: applications.ui:28
+#: resources/ui/applications.ui:22 resources/ui/dash.ui:71
+#: resources/ui/other.ui:56 resources/ui/overview.ui:54
+#: resources/ui/panel.ui:71
+msgid "Sigma"
+msgstr "Sigma"
+
+#: resources/ui/applications.ui:23 resources/ui/dash.ui:72
+#: resources/ui/other.ui:57 resources/ui/overview.ui:55
+#: resources/ui/panel.ui:72
+msgid "The intensity of the blur."
+msgstr "Oskärpans intensitet."
+
+#: resources/ui/applications.ui:64
 msgid "Opacity"
 msgstr "Opacitet"
 
-#: applications.ui:29
+#: resources/ui/applications.ui:65
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -52,11 +257,21 @@ msgstr ""
 "Fönstrets opacitet efter oskärpa effekten har applicerats, ett högre värde "
 "gör fönstret mer läsbart."
 
-#: applications.ui:51
+#: resources/ui/applications.ui:86
+msgid "Opaque focused window"
+msgstr ""
+
+#: resources/ui/applications.ui:87
+msgid ""
+"Makes the focused window opaque and the other ones blurred, helping with "
+"legibility."
+msgstr ""
+
+#: resources/ui/applications.ui:101
 msgid "Blur on overview"
 msgstr "Oskärpa på översiktsläget"
 
-#: applications.ui:52
+#: resources/ui/applications.ui:102
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -64,11 +279,11 @@ msgstr ""
 "Tvingar oskärpan att visas korrekt på alla arbetsytor på översiktsläget.\n"
 "Detta kan orsaka vissa latens- eller prestandaproblem."
 
-#: applications.ui:67
+#: resources/ui/applications.ui:117
 msgid "Enable all by default"
 msgstr "Aktivera alla som standard"
 
-#: applications.ui:68
+#: resources/ui/applications.ui:118
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
@@ -76,136 +291,60 @@ msgstr ""
 "Lägger till oskärpa bakom alla fönster som standard.\n"
 "Rekommenderas inte på grund av prestanda och stabilitetsproblem."
 
-#: applications.ui:85
+#: resources/ui/applications.ui:135
 msgid "Whitelist"
 msgstr "Vitlista"
 
-#: applications.ui:86
+#: resources/ui/applications.ui:136
 msgid "A list of windows to blur."
 msgstr "En lista över fönster som ska suddas ut."
 
-#: applications.ui:104 applications.ui:141
+#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
 msgid "Add Window"
 msgstr "Lägg till fönster"
 
-#: applications.ui:122
+#: resources/ui/applications.ui:172
 msgid "Blacklist"
 msgstr "Svartlista"
 
-#: applications.ui:123
+#: resources/ui/applications.ui:173
 msgid "A list of windows not to blur."
 msgstr "En lista över fönster som inte ska suddas ut."
 
-#: customize-row.ui:4
-msgid "Customize properties"
-msgstr "Anpassa egenskaper"
-
-#: customize-row.ui:5
-msgid ""
-"Uses customized blur properties, instead of the ones set in the General page."
-msgstr ""
-"Använder anpassade egenskaper för oskärpa i stället för de som anges på "
-"sidan Allmänt."
-
-#: customize-row.ui:10 general.ui:15
-msgid "Sigma"
-msgstr "Sigma"
-
-#: customize-row.ui:11 general.ui:16
-msgid "The intensity of the blur."
-msgstr "Oskärpans intensitet."
-
-#: customize-row.ui:31 general.ui:35
-msgid "Brightness"
-msgstr "Ljusstyrka"
-
-#: customize-row.ui:32 general.ui:36
-msgid ""
-"The brightness of the blur effect, a high value might make the text harder "
-"to read."
-msgstr ""
-"Ljusstyrkan på oskärpeeffekten, ett högt värde kan göra texten svårare att "
-"läsa."
-
-#: customize-row.ui:52 general.ui:55
-msgid "Color"
-msgstr "Färg"
-
-#: customize-row.ui:53 general.ui:56
-msgid ""
-"Changes the color of the blur. The opacity of the color controls how much it "
-"is blended into the blur effect."
-msgstr ""
-"Ändrar färgen på oskärpan. Färgens opacitet styr hur mycket den blandas in i "
-"oskärpeeffekten."
-
-#: customize-row.ui:71 general.ui:73
-msgid "Noise amount"
-msgstr "Brusmängd"
-
-#: customize-row.ui:72 general.ui:74
-msgid ""
-"The amount of noise to add to the blur effect, useful on low-contrast "
-"screens or for aesthetic purpose."
-msgstr ""
-"Mängden brus som ska läggas till i oskärpeeffekten, användbart på skärmar "
-"med låg kontrast eller för estetiska ändamål."
-
-#: customize-row.ui:92 general.ui:94
-msgid "Noise lightness"
-msgstr "Brus-ljustyrka"
-
-#: customize-row.ui:93 general.ui:95
-msgid "The lightness of the noise added to the blur effect."
-msgstr "Brusets ljushet till oskärpeeffekten."
-
-#: customize-row.ui:113
-msgid "Notice"
-msgstr "Notis"
-
-#: customize-row.ui:114
-msgid ""
-"Noise and color can't be activated on dynamically blurred components, such "
-"as this one."
-msgstr ""
-"Brus och färg kan inte aktiveras på dynamiskt suddade komponenter, som denna."
-
-#: dash.ui:5
+#: resources/ui/dash.ui:5
 msgid "Dash"
 msgstr "Dash"
 
-#: dash.ui:10
+#: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
 msgstr "Dash to Dock oskärpa"
 
-#: dash.ui:11
+#: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Sudda bakgrunden på Dash to Dock-tilläget om den används."
 
-#: dash.ui:27 panel.ui:26
-msgid "Static blur"
-msgstr "Statisk oskärpa"
+#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr ""
 
-#: dash.ui:28
+#: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
-"Uses a static blurred image, can be used with rounding effect.\n"
-"<b>Important notice:</b> with this activated, you should not use a big sigma "
-"value as it will deteriorate performances."
+"The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
 
-#: dash.ui:43
-msgid "Rounded corner radius"
+#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
+msgid "Static"
 msgstr ""
 
-#: dash.ui:44
-msgid "The radius for the rounding effect. Only available with static blur."
+#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
+msgid "Dynamic"
 msgstr ""
 
-#: dash.ui:66 panel.ui:56
+#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
 msgstr "Åsidosätt bakgrund"
 
-#: dash.ui:67
+#: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -213,91 +352,117 @@ msgstr ""
 "Gör bakgrunden antingen genomskinlig eller halvgenomskinlig. Inaktivera "
 "detta för att istället använda Dash to Dock-inställningarna."
 
-#: dash.ui:73 panel.ui:64
+#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
 msgstr "Bakgrundsstil"
 
-#: dash.ui:74
+#: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Den transparenta/semi-transparenta stilen för dock-bakgrunden."
 
-#: dash.ui:90 panel.ui:95
+#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
 msgstr "Inaktivera i översiktsläget"
 
-#: dash.ui:91
+#: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Inaktiverar oskärpan från Dash to Dock när du går in i översiktsläget."
 
-#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
+#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
 msgstr "Transparent"
 
-#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
+#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
 msgstr "Ljust"
 
-#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
+#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
 msgstr "Mörkt"
 
-#: general.ui:5
-msgid "General"
-msgstr "Allmänt"
-
-#: general.ui:10
-msgid "Blur preferences"
-msgstr "Oskärpa-inställningar"
-
-#: general.ui:11
-msgid "Global blur preferences, used by all components by default."
+#: resources/ui/effects-dialog.ui:4
+msgid "Effects"
 msgstr ""
-"Globala oskärpa-inställningar, används som standard av alla komponenter."
 
-#: general.ui:117
+#: resources/ui/effects-dialog.ui:32
+msgid "Add Effect"
+msgstr ""
+
+#: resources/ui/menu.ui:6
+msgid "Project page"
+msgstr "Projektsida"
+
+#: resources/ui/menu.ui:10
+msgid "Report a Bug"
+msgstr "Rapportera ett fel"
+
+#: resources/ui/menu.ui:14
+msgid "License"
+msgstr "Licens"
+
+#: resources/ui/menu.ui:18
+msgid "Donate"
+msgstr "Donera"
+
+#: resources/ui/other.ui:5
+msgid "Other"
+msgstr "Övrigt"
+
+#: resources/ui/other.ui:10
+msgid "Lockscreen blur"
+msgstr "Oskärpa på låsskärmen"
+
+#: resources/ui/other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr ""
+"Ändra oskärpan på låsskärmen så att den använder denna tilläggsinställning."
+
+#: resources/ui/other.ui:28
+msgid "Screenshot blur"
+msgstr "Screenshot-oskärpa"
+
+#: resources/ui/other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr ""
+"Lägg till oskärpa på bakgrunden för inställningsfönstret i "
+"skärmdumpgränssnittet."
+
+#: resources/ui/other.ui:46
+msgid "Window list extension blur"
+msgstr "Oskärpa för \"Window list\"-tilläget"
+
+#: resources/ui/other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "Gör \"window-list\"-tilläget oskarpt om det används."
+
+#: resources/ui/other.ui:101
 msgid "Performance"
 msgstr "Prestanda"
 
-#: general.ui:118
+#: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
 msgstr "Olika alternativ för att justera prestandan."
 
-#: general.ui:122
-msgid "Color and noise effects"
-msgstr "Färg- och bruseffekter"
-
-#: general.ui:123
-msgid ""
-"Globally disables noise and color effects which may improve performance on "
-"low-end systems."
-msgstr ""
-"Inaktiverar globalt brus- och färg-effekter, vilket kan förbättra prestandan "
-"på system med låg kapacitet."
-
-#: general.ui:135
+#: resources/ui/other.ui:106
 msgid "Hack level"
 msgstr "Hack nivå"
 
-#: general.ui:136
+#: resources/ui/other.ui:107
 msgid ""
-"Changes the behaviour of the dynamic blur effect.\n"
-"The default value is highly recommended unless you use application blur, in "
-"which case “No artifact” is better.\n"
-"This option will entirely disable clipped redraws in GNOME shell, and may "
-"impact performance significantly but will completely fix the blur effect."
+"Changes the behaviour of the dynamic blur effect. The default value is "
+"highly recommended.\n"
+"The “No artifact” option will entirely disable clipped redraws in GNOME "
+"shell, and will impact your computer performances significantly."
 msgstr ""
-"Ändrar beteendet för den dynamiska oskärpeeffekten.\n"
-"Standardvärdet rekommenderas starkt om du inte använder oskärpa för program, "
-"i vilket fall \"Ingen artifact\" skulle vara bättre.\n"
-"Denna inställning kommer att helt inaktivera clipped redraws i GNOME shell "
-"och kan ha en betydande inverkan på prestanda, men kommer helt att åtgärda "
-"oskärpeeffekten."
 
-#: general.ui:151
+#: resources/ui/other.ui:121
 msgid "Debug"
 msgstr "Felsökning"
 
-#: general.ui:152
+#: resources/ui/other.ui:122
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -305,101 +470,50 @@ msgstr ""
 "Gör tillägget detaljerat i loggarna, aktivera när du behöver rapportera ett "
 "problem."
 
-#: general.ui:167
+#: resources/ui/other.ui:137
 msgid "Reset preferences"
 msgstr "Återställ inställningar"
 
-#: general.ui:168
+#: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr ""
 "Återställer inställningarna för Blur my Shell på ett oåterkalleligt sätt."
 
-#: general.ui:187
+#: resources/ui/other.ui:157
 msgid "Reset"
 msgstr "Återställa"
 
-#: general.ui:228
+#: resources/ui/other.ui:186
 msgid "High performances"
 msgstr "Hög prestanda"
 
-#: general.ui:229
+#: resources/ui/other.ui:187
 msgid "Default"
 msgstr "Standard"
 
-#: general.ui:230
-msgid "High quality"
-msgstr "Hög kvalitet"
-
-#: general.ui:231
+#: resources/ui/other.ui:188
 msgid "No artifact"
 msgstr "Ingen artefakt"
 
-#: menu.ui:6
-msgid "Project page"
-msgstr "Projektsida"
-
-#: menu.ui:10
-msgid "Report a Bug"
-msgstr "Rapportera ett fel"
-
-#: menu.ui:14
-msgid "License"
-msgstr "Licens"
-
-#: menu.ui:18
-msgid "Donate"
-msgstr "Donera"
-
-#: other.ui:5
-msgid "Other"
-msgstr "Övrigt"
-
-#: other.ui:10
-msgid "Lockscreen blur"
-msgstr "Oskärpa på låsskärmen"
-
-#: other.ui:11
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
-"Ändra oskärpan på låsskärmen så att den använder denna tilläggsinställning."
-
-#: other.ui:28
-msgid "Screenshot blur"
-msgstr "Screenshot-oskärpa"
-
-#: other.ui:29
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
-"Lägg till oskärpa på bakgrunden för inställningsfönstret i "
-"skärmdumpgränssnittet."
-
-#: other.ui:46
-msgid "Window list extension blur"
-msgstr "Oskärpa för \"Window list\"-tilläget"
-
-#: other.ui:47
-msgid "Make the window-list extension blurred, if it is used."
-msgstr "Gör \"window-list\"-tilläget oskarpt om det används."
-
-#: overview.ui:5
+#: resources/ui/overview.ui:5
 msgid "Overview"
 msgstr "Översiktsläge"
 
-#: overview.ui:10
+#: resources/ui/overview.ui:10
 msgid "Background blur"
 msgstr "bakgrundsoskärpa"
 
-#: overview.ui:11
+#: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
 "Lägg till oskärpa i översiktlägets bakgrund genom att använda "
 "bakgrundsbilden."
 
-#: overview.ui:26
+#: resources/ui/overview.ui:26
 msgid "Overview components style"
 msgstr "Stil på översiktlägets komponent"
 
-#: overview.ui:27
+#: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
@@ -407,54 +521,50 @@ msgstr ""
 "Genomskicklighetens stil för dash, sökning, sökresultat och "
 "applikationsmappar."
 
-#: overview.ui:44
+#: resources/ui/overview.ui:44
 msgid "Application folder blur"
 msgstr "Oskärpa för applikationsmappar"
 
-#: overview.ui:45
+#: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr "Gör bakgrunden i dialoger för applikationsmappar suddig."
 
-#: overview.ui:60
+#: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
 msgstr "Stil för dialoger för applikationsmappar"
 
-#: overview.ui:61
+#: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr "Halvtransparensens stil för dialoger för applikationsmappar."
 
-#: overview.ui:79 overview.ui:88
+#: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
 msgstr "Styla inte"
 
-#: panel.ui:5
+#: resources/ui/panel.ui:5
 msgid "Panel"
 msgstr "Panel"
 
-#: panel.ui:10
+#: resources/ui/panel.ui:10
 msgid "Panel blur"
 msgstr "Paneloskärpa"
 
-#: panel.ui:11
+#: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
 msgstr "Gör den övre panelen suddig genom att använda bakgrundsbilden."
 
-#: panel.ui:27
-msgid "Uses a static blurred image, more performant and stable."
-msgstr "Använder en statisk suddig bild, mer presterande och stabil."
-
-#: panel.ui:41
+#: resources/ui/panel.ui:113
 msgid "Force light text"
 msgstr "Tvinga ljus text"
 
-#: panel.ui:42
+#: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Använd en ljus text för panelen, användbart när du använder gnome-shell "
 "ljusa tema."
 
-#: panel.ui:57
+#: resources/ui/panel.ui:129
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -464,46 +574,46 @@ msgstr ""
 "halvtransparent sådan.\n"
 "Rekommenderas om man inte vill anpassa GNOME-temat."
 
-#: panel.ui:65
+#: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Transparensens/halvtransparensens stil för panelbakgrunden."
 
-#: panel.ui:79
+#: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
 msgstr "Inaktivera när ett fönster är nära"
 
-#: panel.ui:80
+#: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Inaktiverar genomskinligheten för panelen när ett fönster är nära den."
 
-#: panel.ui:96
+#: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 "Inaktiverar oskärpa från panelen när man kommer in till översiktsläget."
 
-#: panel.ui:112
+#: resources/ui/panel.ui:184
 msgid "Compatibility"
 msgstr "Kompatibilitet"
 
-#: panel.ui:113
+#: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Olika alternativ för kompatibilitet med andra tillägg."
 
-#: panel.ui:118
+#: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-tillägg"
 
-#: panel.ui:119
+#: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Inaktiverar inte oskärpan i översiktsläget, fungerar bäst med statisk "
 "oskärpa."
 
-#: panel.ui:133
+#: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
 msgstr "Blurra originalpanelen med Dash to Panel"
 
-#: panel.ui:134
+#: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -511,18 +621,122 @@ msgstr ""
 "Aktiverar blurrighet av originalpanelen med Dash to Panel, om det är valt i "
 "tilläggets alternativ."
 
-#: panel.ui:153
+#: resources/ui/panel.ui:225
 msgid "Contrasted"
 msgstr "Kontrasterad"
 
-#: window-row.ui:4
-msgid "Window Name"
-msgstr "Fönsternamn"
+#: resources/ui/pipeline-choose-row.ui:4
+msgid "Pipeline"
+msgstr ""
 
-#: window-row.ui:8
-msgid "Select window"
-msgstr "Välj fönster"
+#: resources/ui/pipeline-choose-row.ui:5
+msgid "The pipeline to be used with this component."
+msgstr ""
 
-#: window-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "Välj ett fönster eller välj det efter klassnamnet."
+#: resources/ui/pipeline-group.ui:6
+msgid "Pipeline name"
+msgstr ""
+
+#: resources/ui/pipeline-group.ui:20
+msgid "Manage effects"
+msgstr ""
+
+#: resources/ui/pipelines.ui:5
+msgid "Pipelines"
+msgstr ""
+
+#: resources/ui/pipelines.ui:10
+msgid ""
+"Each component uses a pipeline, which can be chosen in the corresponding "
+"tab. Here you can create, modify and delete the pipelines and their effects."
+msgstr ""
+
+#: resources/ui/pipelines.ui:29
+msgid "Add Pipeline"
+msgstr ""
+
+#~ msgid "Customize properties"
+#~ msgstr "Anpassa egenskaper"
+
+#~ msgid ""
+#~ "Uses customized blur properties, instead of the ones set in the General "
+#~ "page."
+#~ msgstr ""
+#~ "Använder anpassade egenskaper för oskärpa i stället för de som anges på "
+#~ "sidan Allmänt."
+
+#~ msgid ""
+#~ "Changes the color of the blur. The opacity of the color controls how much "
+#~ "it is blended into the blur effect."
+#~ msgstr ""
+#~ "Ändrar färgen på oskärpan. Färgens opacitet styr hur mycket den blandas "
+#~ "in i oskärpeeffekten."
+
+#~ msgid "Noise amount"
+#~ msgstr "Brusmängd"
+
+#~ msgid ""
+#~ "The amount of noise to add to the blur effect, useful on low-contrast "
+#~ "screens or for aesthetic purpose."
+#~ msgstr ""
+#~ "Mängden brus som ska läggas till i oskärpeeffekten, användbart på skärmar "
+#~ "med låg kontrast eller för estetiska ändamål."
+
+#~ msgid "Noise lightness"
+#~ msgstr "Brus-ljustyrka"
+
+#~ msgid "The lightness of the noise added to the blur effect."
+#~ msgstr "Brusets ljushet till oskärpeeffekten."
+
+#~ msgid "Notice"
+#~ msgstr "Notis"
+
+#~ msgid ""
+#~ "Noise and color can't be activated on dynamically blurred components, "
+#~ "such as this one."
+#~ msgstr ""
+#~ "Brus och färg kan inte aktiveras på dynamiskt suddade komponenter, som "
+#~ "denna."
+
+#~ msgid "Static blur"
+#~ msgstr "Statisk oskärpa"
+
+#~ msgid "General"
+#~ msgstr "Allmänt"
+
+#~ msgid "Blur preferences"
+#~ msgstr "Oskärpa-inställningar"
+
+#~ msgid "Global blur preferences, used by all components by default."
+#~ msgstr ""
+#~ "Globala oskärpa-inställningar, används som standard av alla komponenter."
+
+#~ msgid "Color and noise effects"
+#~ msgstr "Färg- och bruseffekter"
+
+#~ msgid ""
+#~ "Globally disables noise and color effects which may improve performance "
+#~ "on low-end systems."
+#~ msgstr ""
+#~ "Inaktiverar globalt brus- och färg-effekter, vilket kan förbättra "
+#~ "prestandan på system med låg kapacitet."
+
+#~ msgid ""
+#~ "Changes the behaviour of the dynamic blur effect.\n"
+#~ "The default value is highly recommended unless you use application blur, "
+#~ "in which case “No artifact” is better.\n"
+#~ "This option will entirely disable clipped redraws in GNOME shell, and may "
+#~ "impact performance significantly but will completely fix the blur effect."
+#~ msgstr ""
+#~ "Ändrar beteendet för den dynamiska oskärpeeffekten.\n"
+#~ "Standardvärdet rekommenderas starkt om du inte använder oskärpa för "
+#~ "program, i vilket fall \"Ingen artifact\" skulle vara bättre.\n"
+#~ "Denna inställning kommer att helt inaktivera clipped redraws i GNOME "
+#~ "shell och kan ha en betydande inverkan på prestanda, men kommer helt att "
+#~ "åtgärda oskärpeeffekten."
+
+#~ msgid "High quality"
+#~ msgstr "Hög kvalitet"
+
+#~ msgid "Uses a static blurred image, more performant and stable."
+#~ msgstr "Använder en statisk suddig bild, mer presterande och stabil."

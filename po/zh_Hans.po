@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 12:52+0100\n"
+"POT-Creation-Date: 2024-04-11 00:04+0200\n"
 "PO-Revision-Date: 2024-03-31 19:01+0000\n"
 "Last-Translator: Colgrave <hanqixu.blogs@simplelogin.co>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -19,15 +19,206 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: applications.ui:5
+#: src/effects/effects.js:15
+msgid "Blur effects"
+msgstr ""
+
+#: src/effects/effects.js:23
+msgid "Texture effects"
+msgstr ""
+
+#: src/effects/effects.js:31
+msgid "Shape effects"
+msgstr ""
+
+#: src/effects/effects.js:47
+msgid "Native gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:48
+msgid ""
+"An optimized blur effect that smoothly blends pixels within a given radius."
+msgstr ""
+
+#: src/effects/effects.js:51 src/effects/effects.js:79
+#: src/effects/effects.js:107 src/effects/effects.js:206
+msgid "Radius"
+msgstr ""
+
+#: src/effects/effects.js:52
+msgid "The intensity of the blur effect."
+msgstr ""
+
+#: src/effects/effects.js:61 src/effects/effects.js:89
+#: src/effects/effects.js:125 resources/ui/applications.ui:43
+#: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
+#: resources/ui/panel.ui:92
+msgid "Brightness"
+msgstr "亮度"
+
+#: src/effects/effects.js:62 src/effects/effects.js:90
+#: src/effects/effects.js:126 resources/ui/applications.ui:44
+#: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
+#: resources/ui/panel.ui:93
+msgid ""
+"The brightness of the blur effect, a high value might make the text harder "
+"to read."
+msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
+
+#: src/effects/effects.js:75
+msgid "Gaussian blur"
+msgstr ""
+
+#: src/effects/effects.js:76
+msgid ""
+"A blur effect that smoothly blends pixels within a given radius. This effect "
+"is more precise, but way less optimized."
+msgstr ""
+
+#: src/effects/effects.js:80
+msgid ""
+"The intensity of the blur effect. The bigger it is, the slower it will be."
+msgstr ""
+
+#: src/effects/effects.js:103
+msgid "Monte Carlo blur"
+msgstr ""
+
+#: src/effects/effects.js:104
+msgid ""
+"A blur effect that mimics a random walk, by picking pixels further and "
+"further away from its origin and mixing them all together."
+msgstr ""
+
+#: src/effects/effects.js:108
+msgid ""
+"The maximum travel distance for each step in the random walk. A higher value "
+"will make the blur more randomized."
+msgstr ""
+
+#: src/effects/effects.js:117
+msgid "Iterations"
+msgstr ""
+
+#: src/effects/effects.js:118
+msgid "The number of iterations. The more there are, the smoother the blur is."
+msgstr ""
+
+#: src/effects/effects.js:135
+msgid "Use base pixel"
+msgstr ""
+
+#: src/effects/effects.js:136
+msgid ""
+"Whether or not the original pixel is counted for the blur. If it is, the "
+"image will be more legible."
+msgstr ""
+
+#: src/effects/effects.js:144 src/effects/effects.js:149
+msgid "Color"
+msgstr "颜色"
+
+#: src/effects/effects.js:145
+msgid "An effect that blends a color into the pipeline."
+msgstr ""
+
+#: src/effects/effects.js:150
+msgid ""
+"The color to blend in. The blending amount is controled by the opacity of "
+"the color."
+msgstr ""
+
+#: src/effects/effects.js:158
+msgid "Pixelize"
+msgstr ""
+
+#: src/effects/effects.js:159
+msgid "An effect that pixelizes the image."
+msgstr ""
+
+#: src/effects/effects.js:162
+msgid "Divider"
+msgstr ""
+
+#: src/effects/effects.js:163
+msgid "How much to scale down the image."
+msgstr ""
+
+#: src/effects/effects.js:174 src/effects/effects.js:178
+msgid "Noise"
+msgstr ""
+
+#: src/effects/effects.js:175
+msgid ""
+"An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
+"organic effect if needed."
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "The amount of noise to add."
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Lightness"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid ""
+"The luminosity of the noise. A setting of '1.0' will make the effect "
+"transparent."
+msgstr ""
+
+#: src/effects/effects.js:202
+msgid "Corner"
+msgstr ""
+
+#: src/effects/effects.js:203
+msgid ""
+"An effect that draws corners. Add it last not to have the other effects "
+"perturb the corners."
+msgstr ""
+
+#: src/effects/effects.js:207
+msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
+msgstr ""
+
+#: src/effects/effects.js:214
+msgid "Top corners"
+msgstr ""
+
+#: src/effects/effects.js:215
+msgid "Whether or not to round the top corners."
+msgstr ""
+
+#: src/effects/effects.js:219
+msgid "Bottom corners"
+msgstr ""
+
+#: src/effects/effects.js:220
+msgid "Whether or not to round the bottom corners."
+msgstr ""
+
+#: resources/ui/application-row.ui:4
+msgid "Window Name"
+msgstr "窗口名称"
+
+#: resources/ui/application-row.ui:8
+msgid "Select window"
+msgstr "选择窗口"
+
+#: resources/ui/application-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr "挑选一个窗口或通过其类别名称选择它。"
+
+#: resources/ui/applications.ui:5
 msgid "Applications"
 msgstr "应用程序"
 
-#: applications.ui:10
+#: resources/ui/applications.ui:10
 msgid "Applications blur (beta)"
 msgstr "应用程序模糊（实验性）"
 
-#: applications.ui:11
+#: resources/ui/applications.ui:11
 msgid ""
 "Adds blur to the applications. This is still beta functionality.\n"
 "To get the best results possible, make sure to choose the option “No "
@@ -38,21 +229,43 @@ msgstr ""
 "若想获得最佳效果，记得将 Hack 级别设置为\n"
 "        "
 
-#: applications.ui:28
+#: resources/ui/applications.ui:22 resources/ui/dash.ui:71
+#: resources/ui/other.ui:56 resources/ui/overview.ui:54
+#: resources/ui/panel.ui:71
+msgid "Sigma"
+msgstr "强度"
+
+#: resources/ui/applications.ui:23 resources/ui/dash.ui:72
+#: resources/ui/other.ui:57 resources/ui/overview.ui:55
+#: resources/ui/panel.ui:72
+msgid "The intensity of the blur."
+msgstr "模糊效果的强度。"
+
+#: resources/ui/applications.ui:64
 msgid "Opacity"
 msgstr "不透明度"
 
-#: applications.ui:29
+#: resources/ui/applications.ui:65
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
 
-#: applications.ui:51
+#: resources/ui/applications.ui:86
+msgid "Opaque focused window"
+msgstr ""
+
+#: resources/ui/applications.ui:87
+msgid ""
+"Makes the focused window opaque and the other ones blurred, helping with "
+"legibility."
+msgstr ""
+
+#: resources/ui/applications.ui:101
 msgid "Blur on overview"
 msgstr "概述上的模糊"
 
-#: applications.ui:52
+#: resources/ui/applications.ui:102
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -60,11 +273,11 @@ msgstr ""
 "强制模糊在概览的所有工作区上正确显示。\n"
 "这可能会导致一些延迟或性能问题。"
 
-#: applications.ui:67
+#: resources/ui/applications.ui:117
 msgid "Enable all by default"
 msgstr "默认全部启用"
 
-#: applications.ui:68
+#: resources/ui/applications.ui:118
 msgid ""
 "Adds blur behind all windows by default.\n"
 "Not recommended because of performance and stability issues."
@@ -72,359 +285,266 @@ msgstr ""
 "默认情况下，在所有窗口后面添加模糊。\n"
 "由于性能和稳定性问题，不建议这样做。"
 
-#: applications.ui:85
+#: resources/ui/applications.ui:135
 msgid "Whitelist"
 msgstr "白名单"
 
-#: applications.ui:86
+#: resources/ui/applications.ui:136
 msgid "A list of windows to blur."
 msgstr "要模糊的窗口列表。"
 
-#: applications.ui:104 applications.ui:141
+#: resources/ui/applications.ui:154 resources/ui/applications.ui:191
 msgid "Add Window"
 msgstr "添加窗口"
 
-#: applications.ui:122
+#: resources/ui/applications.ui:172
 msgid "Blacklist"
 msgstr "黑名单"
 
-#: applications.ui:123
+#: resources/ui/applications.ui:173
 msgid "A list of windows not to blur."
 msgstr "不模糊的窗口列表。"
 
-#: customize-row.ui:4
-msgid "Customize properties"
-msgstr "自定义属性"
-
-#: customize-row.ui:5
-msgid ""
-"Uses customized blur properties, instead of the ones set in the General page."
-msgstr "使用自定义的模糊属性，而不是在 常规 页面中指定的属性。"
-
-#: customize-row.ui:10 general.ui:15
-msgid "Sigma"
-msgstr "强度"
-
-#: customize-row.ui:11 general.ui:16
-msgid "The intensity of the blur."
-msgstr "模糊效果的强度。"
-
-#: customize-row.ui:31 general.ui:35
-msgid "Brightness"
-msgstr "亮度"
-
-#: customize-row.ui:32 general.ui:36
-msgid ""
-"The brightness of the blur effect, a high value might make the text harder "
-"to read."
-msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
-
-#: customize-row.ui:52 general.ui:55
-msgid "Color"
-msgstr "颜色"
-
-#: customize-row.ui:53 general.ui:56
-msgid ""
-"Changes the color of the blur. The opacity of the color controls how much it "
-"is blended into the blur effect."
-msgstr "更改模糊效果的颜色。颜色的不透明度决定了它将混合到模糊效果中的程度。"
-
-#: customize-row.ui:71 general.ui:73
-msgid "Noise amount"
-msgstr "噪声数量"
-
-#: customize-row.ui:72 general.ui:74
-msgid ""
-"The amount of noise to add to the blur effect, useful on low-contrast "
-"screens or for aesthetic purpose."
-msgstr "对模糊效果添加的噪声的数量，尤其在低对比度的屏幕上或美学效果有用。"
-
-#: customize-row.ui:92 general.ui:94
-msgid "Noise lightness"
-msgstr "噪声亮度"
-
-#: customize-row.ui:93 general.ui:95
-msgid "The lightness of the noise added to the blur effect."
-msgstr "对模糊效果添加的噪声的亮度。"
-
-#: customize-row.ui:113
-msgid "Notice"
-msgstr "注意"
-
-#: customize-row.ui:114
-msgid ""
-"Noise and color can't be activated on dynamically blurred components, such "
-"as this one."
-msgstr "噪声和颜色无法在动态模糊的组件上启用，比如当前这个。"
-
-#: dash.ui:5
+#: resources/ui/dash.ui:5
 msgid "Dash"
 msgstr "任务栏"
 
-#: dash.ui:10
+#: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
 msgstr "Dash to Dock 模糊"
 
-#: dash.ui:11
+#: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
 
-#: dash.ui:27 panel.ui:26
-msgid "Static blur"
-msgstr "静态模糊"
-
-#: dash.ui:28
-msgid ""
-"Uses a static blurred image, can be used with rounding effect.\n"
-"<b>Important notice:</b> with this activated, you should not use a big sigma "
-"value as it will deteriorate performances."
+#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
+msgid "Blur type"
 msgstr ""
-"使用静态模糊图像，可与圆角效果一起使用。\n"
-"<b>重要提示：</b>激活此功能后，不应使用较大的西格玛值，否则会降低性能。"
 
-#: dash.ui:43
-msgid "Rounded corner radius"
-msgstr "圆角弧度"
+#: resources/ui/dash.ui:21 resources/ui/panel.ui:21
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect."
+msgstr ""
 
-#: dash.ui:44
-msgid "The radius for the rounding effect. Only available with static blur."
-msgstr "圆角效果的半径。仅适用于静态模糊。"
+#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
+msgid "Static"
+msgstr ""
 
-#: dash.ui:66 panel.ui:56
+#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr ""
+
+#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
 msgstr "覆盖背景"
 
-#: dash.ui:67
+#: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr "使背景透明或半透明，禁用此选项以改用 Dash to Dock 的首选项。"
 
-#: dash.ui:73 panel.ui:64
+#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
 msgstr "背景样式"
 
-#: dash.ui:74
+#: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Dock 背景的透明/半透明样式。"
 
-#: dash.ui:90 panel.ui:95
+#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
 msgstr "在总览中禁用"
 
-#: dash.ui:91
+#: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
 
-#: dash.ui:108 overview.ui:82 overview.ui:89 panel.ui:150
+#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
 msgstr "透明"
 
-#: dash.ui:109 overview.ui:80 overview.ui:90 panel.ui:151
+#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
 msgstr "亮色"
 
-#: dash.ui:110 overview.ui:81 overview.ui:91 panel.ui:152
+#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
 msgstr "暗色"
 
-#: general.ui:5
-msgid "General"
-msgstr "常规"
+#: resources/ui/effects-dialog.ui:4
+msgid "Effects"
+msgstr ""
 
-#: general.ui:10
-msgid "Blur preferences"
-msgstr "模糊首选项"
+#: resources/ui/effects-dialog.ui:32
+msgid "Add Effect"
+msgstr ""
 
-#: general.ui:11
-msgid "Global blur preferences, used by all components by default."
-msgstr "全局模糊首选项，默认被所有组件使用。"
+#: resources/ui/menu.ui:6
+msgid "Project page"
+msgstr "项目页面"
 
-#: general.ui:117
+#: resources/ui/menu.ui:10
+msgid "Report a Bug"
+msgstr "报告问题"
+
+#: resources/ui/menu.ui:14
+msgid "License"
+msgstr "许可证"
+
+#: resources/ui/menu.ui:18
+msgid "Donate"
+msgstr "捐助"
+
+#: resources/ui/other.ui:5
+msgid "Other"
+msgstr "其它"
+
+#: resources/ui/other.ui:10
+msgid "Lockscreen blur"
+msgstr "锁屏界面模糊"
+
+#: resources/ui/other.ui:11
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr "更改锁屏的模糊效果以使用此扩展的首选项。"
+
+#: resources/ui/other.ui:28
+msgid "Screenshot blur"
+msgstr "截图界面模糊"
+
+#: resources/ui/other.ui:29
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr "为截图的窗口选择界面的背景添加模糊。"
+
+#: resources/ui/other.ui:46
+msgid "Window list extension blur"
+msgstr "应用程序列表效果"
+
+#: resources/ui/other.ui:47
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "模糊 window-list 扩展（如果启用）。"
+
+#: resources/ui/other.ui:101
 msgid "Performance"
 msgstr "性能"
 
-#: general.ui:118
+#: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
 msgstr "用于调整性能的各种选项。"
 
-#: general.ui:122
-msgid "Color and noise effects"
-msgstr "颜色及噪声效果"
-
-#: general.ui:123
-msgid ""
-"Globally disables noise and color effects which may improve performance on "
-"low-end systems."
-msgstr "全局禁用噪声和颜色效果，这可能会提高低端系统的性能。"
-
-#: general.ui:135
+#: resources/ui/other.ui:106
 msgid "Hack level"
 msgstr "Hack 级别"
 
-#: general.ui:136
+#: resources/ui/other.ui:107
 msgid ""
-"Changes the behaviour of the dynamic blur effect.\n"
-"The default value is highly recommended unless you use application blur, in "
-"which case “No artifact” is better.\n"
-"This option will entirely disable clipped redraws in GNOME shell, and may "
-"impact performance significantly but will completely fix the blur effect."
+"Changes the behaviour of the dynamic blur effect. The default value is "
+"highly recommended.\n"
+"The “No artifact” option will entirely disable clipped redraws in GNOME "
+"shell, and will impact your computer performances significantly."
 msgstr ""
-"更改动态模糊效果的行为。\n"
-"强烈建议使用默认值，除非您使用应用程序模糊，在这种情况下“无阴影”更好。\n"
-"此选项将完全禁用 GNOME shell 中的剪切重绘，并且可能会显着影响性能，但会完全修"
-"复模糊效果。"
 
-#: general.ui:151
+#: resources/ui/other.ui:121
 msgid "Debug"
 msgstr "调试"
 
-#: general.ui:152
+#: resources/ui/other.ui:122
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr "让扩展输出详细日志，在提交缺陷时启用此选项。"
 
-#: general.ui:167
+#: resources/ui/other.ui:137
 msgid "Reset preferences"
 msgstr "重置首选项"
 
-#: general.ui:168
+#: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "不可逆转地重置 Blur my Shell 的首选项。"
 
-#: general.ui:187
+#: resources/ui/other.ui:157
 msgid "Reset"
 msgstr "重置"
 
-#: general.ui:228
+#: resources/ui/other.ui:186
 msgid "High performances"
 msgstr "高性能"
 
-#: general.ui:229
+#: resources/ui/other.ui:187
 msgid "Default"
 msgstr "默认"
 
-#: general.ui:230
-msgid "High quality"
-msgstr "高品质"
-
-#: general.ui:231
+#: resources/ui/other.ui:188
 msgid "No artifact"
 msgstr "无阴影"
 
-#: menu.ui:6
-msgid "Project page"
-msgstr "项目页面"
-
-#: menu.ui:10
-msgid "Report a Bug"
-msgstr "报告问题"
-
-#: menu.ui:14
-msgid "License"
-msgstr "许可证"
-
-#: menu.ui:18
-msgid "Donate"
-msgstr "捐助"
-
-#: other.ui:5
-msgid "Other"
-msgstr "其它"
-
-#: other.ui:10
-msgid "Lockscreen blur"
-msgstr "锁屏界面模糊"
-
-#: other.ui:11
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "更改锁屏的模糊效果以使用此扩展的首选项。"
-
-#: other.ui:28
-msgid "Screenshot blur"
-msgstr "截图界面模糊"
-
-#: other.ui:29
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "为截图的窗口选择界面的背景添加模糊。"
-
-#: other.ui:46
-msgid "Window list extension blur"
-msgstr "应用程序列表效果"
-
-#: other.ui:47
-msgid "Make the window-list extension blurred, if it is used."
-msgstr "模糊 window-list 扩展（如果启用）。"
-
-#: overview.ui:5
+#: resources/ui/overview.ui:5
 msgid "Overview"
 msgstr "概览"
 
-#: overview.ui:10
+#: resources/ui/overview.ui:10
 msgid "Background blur"
 msgstr "背景模糊"
 
-#: overview.ui:11
+#: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "模糊概览界面的背景，使用壁纸图片。"
 
-#: overview.ui:26
+#: resources/ui/overview.ui:26
 msgid "Overview components style"
 msgstr "概览界面组件风格"
 
-#: overview.ui:27
+#: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr "破折号、搜索条目/结果和应用程序文件夹的半透明样式。"
 
-#: overview.ui:44
+#: resources/ui/overview.ui:44
 msgid "Application folder blur"
 msgstr "应用程序文件夹模糊"
 
-#: overview.ui:45
+#: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr "使应用程序文件夹对话框的背景模糊。"
 
-#: overview.ui:60
+#: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
 msgstr "应用程序文件夹对话框样式"
 
-#: overview.ui:61
+#: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr "应用程序文件夹对话框的半透明样式。"
 
-#: overview.ui:79 overview.ui:88
+#: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
 msgstr "原始风格"
 
-#: panel.ui:5
+#: resources/ui/panel.ui:5
 msgid "Panel"
 msgstr "面板"
 
-#: panel.ui:10
+#: resources/ui/panel.ui:10
 msgid "Panel blur"
 msgstr "面板模糊"
 
-#: panel.ui:11
+#: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
 msgstr "使用背景图片模糊顶部面板。"
 
-#: panel.ui:27
-msgid "Uses a static blurred image, more performant and stable."
-msgstr "使用静态的模糊图片，性能更好且更稳定。"
-
-#: panel.ui:41
+#: resources/ui/panel.ui:113
 msgid "Force light text"
 msgstr "强制浅色文本"
 
-#: panel.ui:42
+#: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr "为面板使用浅色文本，在使用 gnome-shell 的浅色主题时非常有用。"
 
-#: panel.ui:57
+#: resources/ui/panel.ui:129
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -433,43 +553,43 @@ msgstr ""
 "覆盖面板的背景以使用透明或半透明背景。\n"
 "除非您想自定义 GNOME 主题，否则推荐使用。"
 
-#: panel.ui:65
+#: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "面板背景的透明/半透明样式。"
 
-#: panel.ui:79
+#: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
 msgstr "当窗口接近时禁用"
 
-#: panel.ui:80
+#: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "当窗口靠近面板时禁用面板的透明度。"
 
-#: panel.ui:96
+#: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "进入概览界面时禁用面板模糊。"
 
-#: panel.ui:112
+#: resources/ui/panel.ui:184
 msgid "Compatibility"
 msgstr "兼容性"
 
-#: panel.ui:113
+#: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
 msgstr "提供与其它扩展兼容性的一些选项。"
 
-#: panel.ui:118
+#: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar 扩展"
 
-#: panel.ui:119
+#: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"
 
-#: panel.ui:133
+#: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
 msgstr "使用 Dash to Panel 模糊原始面板"
 
-#: panel.ui:134
+#: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -477,21 +597,127 @@ msgstr ""
 "如果在扩展程序的选项中选择了“Dash to Panel”，则可以使用“Dash to Panel”对原始"
 "面板进行模糊处理。"
 
-#: panel.ui:153
+#: resources/ui/panel.ui:225
 msgid "Contrasted"
 msgstr "对比"
 
-#: window-row.ui:4
-msgid "Window Name"
-msgstr "窗口名称"
+#: resources/ui/pipeline-choose-row.ui:4
+msgid "Pipeline"
+msgstr ""
 
-#: window-row.ui:8
-msgid "Select window"
-msgstr "选择窗口"
+#: resources/ui/pipeline-choose-row.ui:5
+msgid "The pipeline to be used with this component."
+msgstr ""
 
-#: window-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "挑选一个窗口或通过其类别名称选择它。"
+#: resources/ui/pipeline-group.ui:6
+msgid "Pipeline name"
+msgstr ""
+
+#: resources/ui/pipeline-group.ui:20
+msgid "Manage effects"
+msgstr ""
+
+#: resources/ui/pipelines.ui:5
+msgid "Pipelines"
+msgstr ""
+
+#: resources/ui/pipelines.ui:10
+msgid ""
+"Each component uses a pipeline, which can be chosen in the corresponding "
+"tab. Here you can create, modify and delete the pipelines and their effects."
+msgstr ""
+
+#: resources/ui/pipelines.ui:29
+msgid "Add Pipeline"
+msgstr ""
+
+#~ msgid "Customize properties"
+#~ msgstr "自定义属性"
+
+#~ msgid ""
+#~ "Uses customized blur properties, instead of the ones set in the General "
+#~ "page."
+#~ msgstr "使用自定义的模糊属性，而不是在 常规 页面中指定的属性。"
+
+#~ msgid ""
+#~ "Changes the color of the blur. The opacity of the color controls how much "
+#~ "it is blended into the blur effect."
+#~ msgstr ""
+#~ "更改模糊效果的颜色。颜色的不透明度决定了它将混合到模糊效果中的程度。"
+
+#~ msgid "Noise amount"
+#~ msgstr "噪声数量"
+
+#~ msgid ""
+#~ "The amount of noise to add to the blur effect, useful on low-contrast "
+#~ "screens or for aesthetic purpose."
+#~ msgstr "对模糊效果添加的噪声的数量，尤其在低对比度的屏幕上或美学效果有用。"
+
+#~ msgid "Noise lightness"
+#~ msgstr "噪声亮度"
+
+#~ msgid "The lightness of the noise added to the blur effect."
+#~ msgstr "对模糊效果添加的噪声的亮度。"
+
+#~ msgid "Notice"
+#~ msgstr "注意"
+
+#~ msgid ""
+#~ "Noise and color can't be activated on dynamically blurred components, "
+#~ "such as this one."
+#~ msgstr "噪声和颜色无法在动态模糊的组件上启用，比如当前这个。"
+
+#~ msgid "Static blur"
+#~ msgstr "静态模糊"
+
+#~ msgid ""
+#~ "Uses a static blurred image, can be used with rounding effect.\n"
+#~ "<b>Important notice:</b> with this activated, you should not use a big "
+#~ "sigma value as it will deteriorate performances."
+#~ msgstr ""
+#~ "使用静态模糊图像，可与圆角效果一起使用。\n"
+#~ "<b>重要提示：</b>激活此功能后，不应使用较大的西格玛值，否则会降低性能。"
+
+#~ msgid "Rounded corner radius"
+#~ msgstr "圆角弧度"
+
+#~ msgid "The radius for the rounding effect. Only available with static blur."
+#~ msgstr "圆角效果的半径。仅适用于静态模糊。"
+
+#~ msgid "General"
+#~ msgstr "常规"
+
+#~ msgid "Blur preferences"
+#~ msgstr "模糊首选项"
+
+#~ msgid "Global blur preferences, used by all components by default."
+#~ msgstr "全局模糊首选项，默认被所有组件使用。"
+
+#~ msgid "Color and noise effects"
+#~ msgstr "颜色及噪声效果"
+
+#~ msgid ""
+#~ "Globally disables noise and color effects which may improve performance "
+#~ "on low-end systems."
+#~ msgstr "全局禁用噪声和颜色效果，这可能会提高低端系统的性能。"
+
+#~ msgid ""
+#~ "Changes the behaviour of the dynamic blur effect.\n"
+#~ "The default value is highly recommended unless you use application blur, "
+#~ "in which case “No artifact” is better.\n"
+#~ "This option will entirely disable clipped redraws in GNOME shell, and may "
+#~ "impact performance significantly but will completely fix the blur effect."
+#~ msgstr ""
+#~ "更改动态模糊效果的行为。\n"
+#~ "强烈建议使用默认值，除非您使用应用程序模糊，在这种情况下“无阴影”更好。\n"
+#~ "此选项将完全禁用 GNOME shell 中的剪切重绘，并且可能会显着影响性能，但会完"
+#~ "全修复模糊效果。"
+
+#~ msgid "High quality"
+#~ msgstr "高品质"
+
+#~ msgid "Uses a static blurred image, more performant and stable."
+#~ msgstr "使用静态的模糊图片，性能更好且更稳定。"
 
 #~ msgid ""
 #~ "Add blur to the applications. This is still a beta functionnality.\n"
