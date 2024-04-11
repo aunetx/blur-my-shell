@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2024-08-20 13:09+0000\n"
+"PO-Revision-Date: 2025-04-06 17:37+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
-"Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/hi/>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -92,8 +92,8 @@ msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
-"एक धुंधला प्रभाव जो एक यादृच्छिक चाल की नकल करता है, पिक्सल को उसके मूल से दूर और आगे "
-"उठाकर और उन सभी को एक साथ मिलाकर।"
+"एक धुंधला प्रभाव जो एक यादृच्छिक चाल की नकल करता है, पिक्सल को उसके मूल से दूर और आगे उठा"
+"कर और उन सभी को एक साथ मिलाकर।"
 
 #: src/effects/effects.js:121
 msgid ""
@@ -181,7 +181,8 @@ msgstr "डाउनस्केल (उन्नत प्रभाव)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
-msgstr "एक प्रभाव जो छवि को छोटा कर देता है और उसे ऊपरी बाएं कोने पर रख देता है।"
+msgstr ""
+"एक प्रभाव जो छवि को छोटा कर देता है और उसे ऊपरी बाएं कोने पर रख देता है।"
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
@@ -232,8 +233,8 @@ msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
-"एक प्रभाव जो एक यादृच्छिक शोर जोड़ता है। यदि आवश्यक हो तो अधिक जैविक प्रभाव के लिए "
-"मोंटे कार्लो धुंधलेपन को प्राथमिकता दें।"
+"एक प्रभाव जो एक यादृच्छिक शोर जोड़ता है। यदि आवश्यक हो तो अधिक जैविक प्रभाव के लिए मोंटे"
+" कार्लो धुंधलेपन को प्राथमिकता दें।"
 
 #: src/effects/effects.js:268
 msgid "The amount of noise to add."
@@ -279,7 +280,8 @@ msgstr ""
 
 #: src/effects/effects.js:313
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr "कोने की त्रिज्या। GNOME ऐप्स तयशुदा रूप से 12 px के दायरे का उपयोग करते हैं।"
+msgstr ""
+"कोने की त्रिज्या। GNOME ऐप्स तयशुदा रूप से 12 px के दायरे का उपयोग करते हैं।"
 
 #: src/effects/effects.js:320
 msgid "Top corners"
@@ -324,8 +326,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "एप्लिकेशन में धुंधलापन जोडैं।\n"
-"सर्वोत्तम परिणाम प्राप्त करने के लिए, यद्यपि कम प्रदर्शन के साथ, आप “अन्य → हैक स्तर” टैब "
-"में “कोई विरूपण नहीं” विकल्प चुन सकते हैं।"
+"सर्वोत्तम परिणाम प्राप्त करने के लिए, यद्यपि कम प्रदर्शन के साथ, आप “अन्य → हैक स्तर” टैब में"
+" “कोई विरूपण नहीं” विकल्प चुन सकते हैं।"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -347,7 +349,8 @@ msgstr "अपारदर्शिता"
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr "धुंधले प्रभाव के शीर्ष पर विंडो की अपारदर्शिता, उच्चतर मान अधिक सुपाठ्य होगा।"
+msgstr ""
+"धुंधले प्रभाव के शीर्ष पर विंडो की अपारदर्शिता, उच्चतर मान अधिक सुपाठ्य होगा।"
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
@@ -439,8 +442,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"पृष्ठभूमि को पारदर्शी या अर्ध-पारदर्शी बनाता है, इसके बजाय Dash to Dock प्राथमिकताओं "
-"का उपयोग करने के लिए इसे अक्षम करें।"
+"पृष्ठभूमि को पारदर्शी या अर्ध-पारदर्शी बनाता है, इसके बजाय Dash to Dock प्राथमिकताओं का"
+" उपयोग करने के लिए इसे अक्षम करें।"
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
@@ -511,7 +514,8 @@ msgstr "लॉक स्क्रीन का धुंधलापन"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "इस एक्सटेंशन प्राथमिकताओं का उपयोग करने के लिए लॉक स्क्रीन का धुंधलापन बदलें।"
+msgstr ""
+"इस एक्सटेंशन प्राथमिकताओं का उपयोग करने के लिए लॉक स्क्रीन का धुंधलापन बदलें।"
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
@@ -535,7 +539,8 @@ msgstr "कवरफ्लो Alt-Tab एक्सटेंशन ब्लर"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr "यदि कवरफ्लो ऑल्ट-टैब एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
+msgstr ""
+"यदि कवरफ्लो ऑल्ट-टैब एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
 
 #: resources/ui/other.ui:118
 msgid "Performance"
@@ -616,7 +621,8 @@ msgstr "अवलोकन घटक शैली"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr "डैश, खोज प्रविष्टि/परिणाम और एप्लिकेशन फोल्डर के लिए अर्ध-पारदर्शी शैली।"
+msgstr ""
+"डैश, खोज प्रविष्टि/परिणाम और एप्लिकेशन फोल्डर के लिए अर्ध-पारदर्शी शैली।"
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
