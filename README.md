@@ -83,7 +83,7 @@ Blur my Shell is guaranteed to be compatible, in the sense of at least not to me
 
 ![Blurred Top Panel](https://user-images.githubusercontent.com/38633812/116588885-81bdea00-a935-11eb-9c80-c97716369b7c.png)
 
-![Screenshot from 2022-05-19 00-03-27](https://user-images.githubusercontent.com/31563930/169163355-7da05dbb-7d93-41fe-8c4d-770ffb7568af.png)
+![Preferences](https://github.com/aunetx/blur-my-shell/assets/31563930/8596bff3-5e4f-46b4-978f-0297a083df8a)
 
 ## Participate
 
