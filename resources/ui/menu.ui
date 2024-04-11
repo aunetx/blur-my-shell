@@ -30,7 +30,7 @@
 
   <object class="GtkMenuButton" id="info_menu">
     <property name="menu-model">info_menu_model</property>
-    <property name="icon-name">heart-filled-symbolic</property>
+    <property name="icon-name">heart-symbolic</property>
   </object>
 
   <object class="AdwPreferencesPage" id="menu_util"></object>
