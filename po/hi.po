@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-28 17:02+0000\n"
+"PO-Revision-Date: 2024-04-12 08:02+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
-"Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/hi/>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,33 +21,35 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "धुंधला प्रभाव"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "बनावट प्रभाव"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "आकार प्रभाव"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "मूल गॉसियन धुंधलापन"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"एक अनुकूलित धुंधला प्रभाव जो किसी दिए गए दायरे में पिक्सल को सहजता से मिश्रि"
+"त करता है।"
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "त्रिज्या"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "धुँधले प्रभाव की तीव्रता।"
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -67,52 +69,60 @@ msgstr "धुंधले प्रभाव की चमक, उच्च म
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "गॉसियन धुंधलापन"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"एक धुंधला प्रभाव जो किसी दिए गए दायरे में पिक्सल को सहजता से मिश्रित करता है।"
+" यह प्रभाव अधिक सटीक है, लेकिन कम अनुकूलित है।"
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "धुँधले प्रभाव की तीव्रता। यह जितना बड़ा होगा, उतना ही धीमा होगा।"
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "मोंटे कार्लो धुंधलापन"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"एक धुंधला प्रभाव जो एक यादृच्छिक चाल की नकल करता है, पिक्सल को उसके मूल से दू"
+"र और आगे उठाकर और उन सभी को एक साथ मिलाकर।"
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"यादृच्छिक चाल में प्रत्येक चरण के लिए अधिकतम यात्रा दूरी। अधिक मान धुंधलापन "
+"को और अधिक यादृच्छिक बना देगा।"
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "पुनरावृत्तियाँ"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "पुनरावृत्तियों की संख्या। जितने अधिक होंगे, धुंधलापन उतना ही सहज होगा।"
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "आधार पिक्सेल का उपयोग करें"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"मूल पिक्सल को धुंधलापन के लिए गिना जाता है या नहीं। यदि ऐसा है, तो छवि अधिक "
+"सुपाठ्य होगी।"
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -120,83 +130,91 @@ msgstr "रंग"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "एक प्रभाव जो किसी रंग को पाइपलाइन में मिला देता है।"
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"मिश्रण करने योग्य रंग। मिश्रण की मात्रा रंग की अपारदर्शिता द्वारा नियंत्रित "
+"होती है।"
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "पिक्सलाइज़ करें"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "एक प्रभाव जो छवि को पिक्सलाइज़ करता है।"
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "विभाजक"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "छवि को कितना छोटा करना है।"
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "शोर"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"एक प्रभाव जो एक यादृच्छिक शोर जोड़ता है। यदि आवश्यक हो तो अधिक जैविक प्रभाव "
+"के लिए मोंटे कार्लो धुंधलेपन को प्राथमिकता दें।"
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "जोड़ने योग्य शोर की मात्रा।"
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "हल्कापन"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "शोर की चमक। '1.0' की सेटिंग प्रभाव को पारदर्शी बना देगी।"
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "कोने"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"एक प्रभाव जो कोनों को खींचता है। इसे आखिरी में जोड़ें ताकि अन्य प्रभाव कोनों "
+"को परेशान न करें।"
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"कोने की त्रिज्या. GNOME ऐप्स डिफ़ॉल्ट रूप से 12 px के दायरे का उपयोग करते "
+"हैं।"
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "ऊपरी कोने"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "ऊपरी कोनों को गोल करना है या नहीं।"
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "निचले कोने"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "निचले कोनों को गोल करना है या नहीं।"
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -208,7 +226,7 @@ msgstr "विंडो चुनें"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr "एक विंडो चुनें या उसके क्लासनाम से उसका चयन करें।"
+msgstr "एक विंडो चुनें या उसके classname से उसका चयन करें।"
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
@@ -216,7 +234,7 @@ msgstr "एप्लीकेशन"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "एप्लिकेशन का धुंधलापन"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -224,6 +242,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"एप्लिकेशन में धुंधलापन जोडैं।\n"
+"सर्वोत्तम परिणाम प्राप्त करने के लिए, यद्यपि कम प्रदर्शन के साथ, आप \"अन्य → "
+"हैक स्तर\" टैब में \"कोई विरूपण नहीं\" विकल्प चुन सकते हैं।"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -249,13 +270,15 @@ msgstr "धुंधले प्रभाव के शीर्ष पर व�
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "अपारदर्शी केंद्रित विंडो"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"केंद्रित विंडो को अपारदर्शी और अन्य को धुंधला बनाता है, जिससे सुपाठ्यता में "
+"मदद मिलती है।"
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -275,7 +298,7 @@ msgstr "सभी को डिफ़ॉल्ट रूप से सक्ष�
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "डिफ़ॉल्ट रूप से सभी विंडो के पीछे धुंधलापन जोड़ता है।"
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -312,20 +335,20 @@ msgstr ""
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "धुंधला प्रकार"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
+msgstr "गतिशील धुंधलापन धीमा है और केवल गॉसियन धुंधला प्रभाव के साथ संगत है।"
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "स्थिर"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "गतिशील"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -372,15 +395,15 @@ msgstr "गहरा"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "प्रभाव"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "प्रभाव जोड़ें"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr "प्रोजेक्ट पेज"
+msgstr "परियोजना पेज"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
@@ -441,6 +464,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"गतिशील धुंधला प्रभाव का व्यवहार बदलता है। डिफ़ॉल्ट मान अत्यधिक अनुशंसित है।\n"
+"\"कोई विरूपण नहीं\" विकल्प GNOME शेल में क्लिप्ड पुनः आरेखण को पूरी तरह से "
+"अक्षम कर देगा, और आपके कंप्यूटर के प्रदर्शन को महत्वपूर्ण रूप से प्रभावित "
+"करेगा।"
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -451,8 +478,8 @@ msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"लॉग में एक्सटेंशन को वर्बोज़ बनाता है, जब आपको किसी समस्या की रिपोर्ट करने की आवश्यकता "
-"होती है तो सक्रिय करें।"
+"लॉग में एक्सटेंशन को वाचाल बनाता है, जब आपको किसी समस्या की रिपोर्ट करने की "
+"आवश्यकता होती है तो सक्रिय करें।"
 
 #: resources/ui/other.ui:137
 msgid "Reset preferences"
@@ -476,7 +503,7 @@ msgstr "डिफ़ॉल्ट"
 
 #: resources/ui/other.ui:188
 msgid "No artifact"
-msgstr "कोई पुरावशेष नहीं"
+msgstr "कोई विरूपण नहीं"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
@@ -518,7 +545,7 @@ msgstr "एप्लिकेशन फोल्डर संवादों क
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
-msgstr "स्टाइल मत करो"
+msgstr "स्टाइल मत करें"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
@@ -540,8 +567,8 @@ msgstr "बलपूर्वक हल्के टेक्स्ट लाग
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
-"पैनल के लिए हल्के टेक्स्ट का उपयोग करें, जो gnome-shell की लाइट थीम का उपयोग करते समय "
-"उपयोगी होता है।"
+"पैनल के लिए हल्के टेक्स्ट का उपयोग करें, जो gnome-shell की हल्की थीम का उपयो"
+"ग करते समय उपयोगी होता है।"
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -603,33 +630,35 @@ msgstr "विषम"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "पाइपलाइन"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "इस घटक के साथ उपयोग की जाने वाली पाइपलाइन।"
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "पाइपलाइन का नाम"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "प्रभाव प्रबंधित करें"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "पाइपलाइनें"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"प्रत्येक घटक एक पाइपलाइन का उपयोग करता है, जिसे संबंधित टैब में चुना जा सकता "
+"है। यहां आप पाइपलाइन और उनके प्रभावों को बना, संशोधित और हटा सकते हैं।"
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "पाइपलाइन जोड़ें"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "एप्लीकेशन का धुंधलापन (बीटा)"
