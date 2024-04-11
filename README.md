@@ -13,26 +13,6 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
 
 ---
 
-***Notice***
-
-I (aunetx) have not been able to do a lot of changes to the extension recently because of my studies, work and general state of mind. It is all getting a little easier now, and so I started working on the extension a little bit more. However, there are some major issues with this extension that I do not have the manpower to tackle.
-
-Quite specifically,
-- everything that is related to multi-monitor usage cannot be tested by myself as I only have one screen (and that accounts to a LOT of bugs: #40, #94, #23, #288, #298, #370, #274 (maybe?), #345, #408, #233, #465, #363, #469, #476, #486, #496, #457, ...); or monitor in portait mode (#177).\
-  By the way, there are **A LOT** of tips in order to get multi-monitor setups more or less working in the issues thread, you can take a look if you need help!
-- I find a lot of bugs that are related to extensions touching at the panel hard to be tested because I don't use dash-to-panel (and such extensions), and more generally everything I do concerning the panel makes the implementation dirtier and less bug-proof (that concerns for example #294, #244, #243, ...)
-- dash-to-dock is really unstable in term of API (because I treat the implementation of external extensions as an API, that's the only way I can do anything interesting), and so its blurring implementation is not working very well (that concerns for example #231, #440, ...)
-- everything related to COSMIC, Pop_os!, ... cannot be either tested or fixed, because I am on Fedora and the extensions/themes really are not compatible with stock GNOME (for example, #256, #117, #474, #276, ...)
-- curved corners for the blur. Now that is THE bug, and this is one I cannot do anything about, because... that's not a blur-my-shell bug, and even hardly a GNOME bug: it's just that curved blur effect are not implemented yet in GNOME, and so I can't use it (for example: #8, #248, #336, #183, #383, ...)
-- application blur is improving, but still subject to important bugs that I cannot list here as they are changing constantly. I disabled it in default for new users because it visibly causes major problems with multi-monitor setups
-
-As you can see, there are some areas that really *need* work, and on which I *cannot* work. So, I will gladly accept any help in order to fix them, and specially carefully tested pull requests! I will try to tackle most of these issues at some point anyway, but (especially for multi-monitor things and Pop_os! bugs) that may take a lot of time if I am alone.
-
-Thank you still for using this extension,\
-Sincerely, Aurélien
-
----
-
 Functionalities:
 
 - apply a blur effect to different components of the shell:
@@ -119,30 +99,6 @@ Just don't hesitate to open issues and pull requests, and sorry if I take some t
 If you want to sponsor me, well thank you very much!
 
 You can use either [GitHub Sponsors](https://github.com/sponsors/aunetx) or [Ko-fi](https://ko-fi.com/aunetx); and don't hesitate to ask for more specialized support if you need to!
-
-## Advanced
-
-### Application Blurring
-
-Blur my Shell now supports providing blur to applications (formerly [blur-provider](https://github.com/CorvetteCole/blur-provider)).
-
-This is a beta functionnality, however you can test it by either:
-
-- entering the application's class name in the whitelist in the preferences
-  - under Xorg, you can type `xprop|grep WM_CLASS`, click on the app and paste the last name on the whilelist field
-- setting the Mutter hint `blur-provider` to test it, it will be resetted when the session is closed
-  - under Xorg, you can do it by typing `xprop -f _MUTTER_HINTS 8s -set _MUTTER_HINTS blur-provider=sigma:60,brightness:0.6`, and with the sigma and brightness you want
-- integrating it with your application if you're the developper
-  - you must set the window's property `_MUTTER_HINTS` to `blur-provider=sigma:...,brightness:...`; if you do not set them the application will use default blurring settings from Blur my Shell
-  - for Electron applications, you can try building it with [Glasstron Clarity](https://www.npmjs.com/package/glasstron-clarity)
-
-### Force overview blur update
-
-In case you have problems with your dynamic timed wallpaper not being updated due to using third-party process to change the wallpaper, you can force the overview blur to be updated with the command:
-
-```sh
-gsettings set org.gnome.desktop.background picture-opacity 99 && gsettings set org.gnome.desktop.background picture-opacity 100
-```
 
 ## Versions support
 
