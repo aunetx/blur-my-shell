@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-17 16:08+0000\n"
+"PO-Revision-Date: 2024-04-12 22:50+0000\n"
 "Last-Translator: Aleksandr Melman <alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ru/>\n"
@@ -22,33 +22,35 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Эффекты размытия"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Эффекты текстур"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Эффекты фигур"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Нативное гауссово размытие"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Оптимизированный эффект размытия, который плавно смешивает пиксели в "
+"пределах заданного радиуса."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Радиус"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Интенсивность эффекта размытия."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -70,18 +72,22 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Гауссово размытие"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Эффект размытия, который плавно смешивает пиксели в пределах заданного "
+"радиуса. Этот эффект более точен, но гораздо менее оптимизирован."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Интенсивность эффекта размытия. Чем она больше, тем медленнее будет "
+"происходить эффект."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
@@ -149,17 +155,19 @@ msgstr ""
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Шум"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Эффект, добавляющий случайный шум. При необходимости предпочесть размытие "
+"Монте-Карло для более органичного эффекта."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Количество добавляемого шума."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
@@ -219,7 +227,7 @@ msgstr "Приложения"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Размытие приложений"
 
 #: resources/ui/applications.ui:11
 msgid ""
