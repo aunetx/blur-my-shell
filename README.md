@@ -15,7 +15,7 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
 
 - apply a blur effect to different components of the shell:
   - overview
-    - uses static blur only (see below to understand what it means)
+    - uses static blur only, [see here to understand what it means](https://github.com/aunetx/blur-my-shell#static-and-dynamic-blur)
     - you can choose the colour of the components of the overview, to integrate them better with the background
     - blurs the workspace separation too — useful with [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
   - panel — compatible with [Dash to Panel](https://github.com/home-sweet-gnome/dash-to-panel) and [Hide Top Bar](https://github.com/mlutfy/hidetopbar)
