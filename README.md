@@ -79,9 +79,9 @@ Blur my Shell is guaranteed to be compatible, in the sense of at least not to me
 
 ## Screenshots
 
-![Blurred Overview](https://user-images.githubusercontent.com/38633812/116588850-779beb80-a935-11eb-8f2f-81bcd46fe694.png)
+![overview](https://github.com/aunetx/blur-my-shell/assets/31563930/c3c78ade-a898-4881-8d3a-efa3c55f11f8)
 
-![Blurred Top Panel](https://user-images.githubusercontent.com/38633812/116588885-81bdea00-a935-11eb-9c80-c97716369b7c.png)
+![panel](https://github.com/aunetx/blur-my-shell/assets/31563930/c8c2c2d9-8dc2-41bd-8d94-d0f6ca01ceb9)
 
 ![Preferences](https://github.com/aunetx/blur-my-shell/assets/31563930/8596bff3-5e4f-46b4-978f-0297a083df8a)
 
