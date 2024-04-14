@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-19 00:01+0000\n"
+"PO-Revision-Date: 2024-04-15 11:01+0000\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
@@ -21,33 +21,35 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Bulanıklık etkileri"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Desen etkileri"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Şekil etkileri"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Yerel gauss bulanıklığı"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Belirli bir yarıçap içindeki pikselleri düzgünce karıştıran eniyilenmiş "
+"bulanıklık etkisi."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Yarıçap"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Bulanıklık etkisinin yoğunluğu."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -69,52 +71,60 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Gauss bulanıklığı"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Belirli yarıçap içindeki pikselleri düzgünce karıştıran bulanıklık etkisi. "
+"Bu etki daha hassastır, ancak çok daha az eniyilenmiştir."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "Bulanıklık etkisinin yoğunluğu. Ne kadar büyükse, o kadar yavaştır."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Monte Carlo bulanıklığı"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Rastgele yürüyüşü taklit eden bulanıklık etkisi, pikselleri kaynağından "
+"gittikçe daha uzağa seçerek ve hepsini birbirine karıştırır."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Rastgele yürüyüşteki her adım için azami seyahat mesafesi. Daha yüksek değer "
+"bulanıklığı daha rastgele hale getirir."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Yinelemeler"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Yineleme sayısı. Ne kadar çoksa, bulanıklık o kadar yumuşak olur."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Temel pikseli kullanın"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Özgün pikselin bulanıklık için sayılma durumu. Eğer sayılırsa, görüntü daha "
+"okunaklı olur."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -122,83 +132,88 @@ msgstr "Renk"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Bir rengi komut zinciri hattına karıştıran etki."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Karıştırılacak renk. Karıştırma miktarı rengin matlığı tarafından denetlenir."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pikselleştir"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Görüntüyü pikselleştiren etki."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Ayraç"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Görüntünün ne kadar küçültüleceği."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Gürültü"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Rastgele gürültü ekleyen etki. Gerekirse daha organik etki için Monte Carlo "
+"bulanıklığını yeğleyin."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Eklenecek gürültü miktarı."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Açıklık"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "Gürültünün renk parlaklığı. '1.0' ayarı etkiyi saydamlaştırır."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Köşe"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Köşeleri çizen etki. Diğer etkilerin köşeleri bozmaması için en son ekleyin."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"Köşenin yarıçapı. GNOME uygulamaları öntanımlı olarak 12 px yarıçap kullanır."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Üst köşeler"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Üst köşelerin yuvarlatılma durumu."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Alt köşeler"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Alt köşelerin yuvarlatılma durumu."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -218,7 +233,7 @@ msgstr "Uygulamalar"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Uygulama bulanıklığı"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -226,6 +241,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Uygulamalara bulanıklık ekler.\n"
+"Düşük başarımla da olsa mümkün olan en iyi sonuçlar için \"Diğer → Hack "
+"seviyesi\" sekmesinde \"Artefakt yok\" seçeneğini seçebilirsiniz."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -253,13 +271,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Mat odaklı pencere"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Odaklanılan pencereyi mat, diğerlerini bulanık hale getirerek okunabilirliği "
+"artırır."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -280,7 +300,7 @@ msgstr "Öntanımlı olarak tümünü etkinleştir"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Öntanımlı olarak tüm pencerelerin arkasına bulanıklık ekler."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -316,20 +336,22 @@ msgstr "Kullanılıyorsa, Dash to Dock uzantısının arka planını bulanıkla�
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Bulanıklık türü"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Dinamik bulanıklık daha yavaştır ve yalnızca gauss bulanıklık etkisiyle "
+"uyumludur."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Sabit"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamik"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -376,11 +398,11 @@ msgstr "Koyu"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Etkiler"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Etki Ekle"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -449,6 +471,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Dinamik bulanıklık etkisinin davranışını değiştirir. Öntanımlı değeri "
+"kullanmanız kesinlikle tavsiye edilir.\n"
+"\"Artifact yok\" seçeneği kırpılmış yeniden çizimleri tamamen devre dışı "
+"bırakır ve bilgisayarın başarımını önemli ölçüde etkiler."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -616,33 +642,36 @@ msgstr "Zıt"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Komut zinciri"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Bu bileşenle kullanılacak komut zinciri."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Komut zinciri adı"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Etkileri yönetin"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Komut zincirleri"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Her bileşen, ilgili sekmede seçilebilen bir komut zinciri kullanır. Burada "
+"komut zincirlerini ve etkilerini oluşturabilir, değiştirebilir ve "
+"silebilirsiniz."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Komut Zinciri Ekle"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Uygulama bulanıklığı (beta)"
