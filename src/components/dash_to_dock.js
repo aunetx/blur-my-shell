@@ -1,6 +1,6 @@
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-const Signals = imports.signals;
+import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
 
@@ -194,8 +194,9 @@ class DashInfos {
     }
 }
 
-export const DashBlur = class DashBlur {
+export const DashBlur = class DashBlur extends Signals.EventEmitter {
     constructor(connections, settings, _) {
+        super();
         this.dashes = [];
         this.connections = connections;
         this.settings = settings;
@@ -418,5 +419,3 @@ export const DashBlur = class DashBlur {
         console.warn(`[Blur my Shell > dash manager] ${str}`);
     }
 };
-
-Signals.addSignalMethods(DashBlur.prototype);
