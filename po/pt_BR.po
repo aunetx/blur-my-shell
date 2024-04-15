@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Lui Martinez Laskowski <luimlask@gmail.com>\n"
+"Last-Translator: sobeitnow0 <sobeitnow0@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -84,8 +84,7 @@ msgstr ""
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
-"A intensidade do efeito de desfoque. Quanto maior for, mais lento será."
+msgstr "A intensidade do efeito de desfoque. Quanto maior for, mais lento será."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
