@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-09 14:01+0000\n"
+"PO-Revision-Date: 2024-04-18 08:04+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,33 +21,34 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "மங்கலான விளைவுகள்"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "அமைப்பு விளைவுகள்"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "வடிவ விளைவுகள்"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "நேட்டிவ் காஸியன் மங்கல"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"கொடுக்கப்பட்ட ஆரத்திற்குள் பிக்சல்களை சீராக இணைக்கும் உகந்த மங்கலான விளைவு."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "ஆரம்"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "மங்கலான விளைவின் தீவிரம்."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -67,28 +68,33 @@ msgstr "மங்கலான விளைவின் பிரகாசம்,
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "காஸியன் தெளிவின்மை"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"கொடுக்கப்பட்ட ஆரத்திற்குள் பிக்சல்களை சீராக இணைக்கும் மங்கலான விளைவு. இந்த "
+"விளைவு மிகவும் துல்லியமானது, ஆனால் குறைவான உகந்ததாக உள்ளது."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"மங்கலான விளைவின் தீவிரம். அது பெரியதாக இருந்தால், அது மெதுவாக இருக்கும்."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "மான்டே கார்லோ மங்கல"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"பிக்சல்களை அதன் தோற்றத்திலிருந்து மேலும் தொலைவில் எடுத்து, அனைத்தையும் "
+"ஒன்றாகக் கலப்பதன் மூலம், சீரற்ற நடையைப் பிரதிபலிக்கும் மங்கலான விளைவு."
 
 #: src/effects/effects.js:108
 msgid ""
