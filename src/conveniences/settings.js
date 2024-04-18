@@ -1,5 +1,5 @@
 import GLib from 'gi://GLib';
-import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
+const Signals = imports.signals;
 
 /// An enum non-extensively describing the type of gsettings key.
 export const Type = {
@@ -23,9 +23,8 @@ export const Type = {
 ///
 /// Each {type, name} object represents a gsettings key, which must be created
 /// in the gschemas.xml file of the extension.
-export const Settings = class Settings extends Signals.EventEmitter {
+export const Settings = class Settings {
     constructor(keys, settings) {
-        super();
         this.settings = settings;
         this.keys = keys;
 
@@ -360,3 +359,5 @@ export const Settings = class Settings extends Signals.EventEmitter {
         console.warn(`[Blur my Shell > settings]     ${str}`);
     }
 };
+
+Signals.addSignalMethods(Settings.prototype);

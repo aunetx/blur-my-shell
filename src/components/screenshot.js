@@ -41,12 +41,14 @@ export const ScreenshotBlur = class ScreenshotBlur {
             // prevent old `BackgroundActor` from being accessed, which creates a whole bug of logs
             this.connections.connect(window_selector.get_parent(), 'destroy', _ => {
                 this.screenshot_background_managers.forEach(background_manager => {
-                    let widget = background_manager.backgroundActor.get_parent();
-                    let parent = widget?.get_parent();
+                    if (background_manager.backgroundActor) {
+                        let widget = background_manager.backgroundActor.get_parent();
+                        let parent = widget?.get_parent();
 
-                    if (parent == window_selector) {
-                        background_manager._bms_pipeline.destroy();
-                        parent.remove_child(widget);
+                        if (parent == window_selector) {
+                            background_manager._bms_pipeline.destroy();
+                            parent.remove_child(widget);
+                        }
                     }
                     background_manager.destroy();
                 });
@@ -73,8 +75,10 @@ export const ScreenshotBlur = class ScreenshotBlur {
     remove_background_actors() {
         this.screenshot_background_managers.forEach(background_manager => {
             background_manager._bms_pipeline.destroy();
-            let widget = background_manager.backgroundActor.get_parent();
-            widget?.get_parent()?.remove_child(widget);
+            if (background_manager.backgroundActor) {
+                let widget = background_manager.backgroundActor.get_parent();
+                widget?.get_parent()?.remove_child(widget);
+            }
             background_manager.destroy();
         });
 

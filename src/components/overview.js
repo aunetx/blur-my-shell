@@ -165,17 +165,19 @@ export const OverviewBlur = class OverviewBlur {
     remove_background_actors() {
         this.overview_background_managers.forEach(background_manager => {
             background_manager._bms_pipeline.destroy();
-            this.overview_background_group.remove_child(
-                background_manager.backgroundActor.get_parent()
-            );
+            if (background_manager.backgroundActor)
+                this.overview_background_group.remove_child(
+                    background_manager.backgroundActor.get_parent()
+                );
             background_manager.destroy();
         });
 
         this.animation_background_managers.forEach(background_manager => {
             background_manager._bms_pipeline.destroy();
-            this.animation_background_group.remove_child(
-                background_manager.backgroundActor.get_parent()
-            );
+            if (background_manager.backgroundActor)
+                this.animation_background_group.remove_child(
+                    background_manager.backgroundActor.get_parent()
+                );
             background_manager.destroy();
         });
 

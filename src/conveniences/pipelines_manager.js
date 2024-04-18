@@ -1,4 +1,4 @@
-import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
+const Signals = imports.signals;
 
 /// The `PipelinesManager` object permits to store the list of pipelines and their effects in
 /// memory. It is meant to *always* be in sync with the `org.gnome.shell.extensions.blur-my-shell`'s
@@ -28,9 +28,8 @@ import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 ///       new value
 ///     - `'pipeline_id'::effect-'effect_id'-key-added`, handing the key that was added and its
 ///       value
-export class PipelinesManager extends Signals.EventEmitter {
+export class PipelinesManager {
     constructor(settings) {
-        super();
         this.settings = settings;
         this.pipelines = this.settings.PIPELINES;
         this.settings.PIPELINES_changed(_ => this.on_pipeline_update());
@@ -165,3 +164,5 @@ export class PipelinesManager extends Signals.EventEmitter {
         console.warn(`[Blur my Shell > pipelines]    ${str}`);
     }
 }
+
+Signals.addSignalMethods(PipelinesManager.prototype);
