@@ -112,8 +112,6 @@ export const OverviewBlur = class OverviewBlur {
                     if (child.get_name() == 'bms-animation-backgroundgroup')
                         Main.uiGroup.remove_child(child);
                 });
-
-                outer_this.animation_background_managers = [];
             };
         }
 
@@ -163,29 +161,16 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     remove_background_actors() {
+        this.overview_background_group.remove_all_children();
+        this.animation_background_group.remove_all_children();
         this.overview_background_managers.forEach(background_manager => {
             background_manager._bms_pipeline.destroy();
-            if (background_manager.backgroundActor)
-                this.overview_background_group.remove_child(
-                    background_manager.backgroundActor.get_parent()
-                );
             background_manager.destroy();
         });
-
         this.animation_background_managers.forEach(background_manager => {
             background_manager._bms_pipeline.destroy();
-            if (background_manager.backgroundActor)
-                this.animation_background_group.remove_child(
-                    background_manager.backgroundActor.get_parent()
-                );
             background_manager.destroy();
         });
-
-        Main.layoutManager.overviewGroup.get_children().forEach(child => {
-            if (child.get_name() == 'bms-overview-backgroundgroup')
-                Main.layoutManager.overviewGroup.remove_child(child);
-        });
-
         this.overview_background_managers = [];
         this.animation_background_managers = [];
     }
