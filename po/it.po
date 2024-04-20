@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-17 12:01+0000\n"
+"PO-Revision-Date: 2024-04-15 11:01+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -21,33 +21,35 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Effetti di sfocatura"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Effetti texture"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Effetti di forma"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Sfocatura gaussiana nativa"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Un effetto di sfocatura ottimizzato che fonde uniformemente i pixel "
+"all'interno di un determinato raggio."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Raggio"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "L'intensità dell'effetto sfocato."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -69,52 +71,61 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Sfocatura gaussiana"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Un effetto sfocato che fonde uniformemente i pixel all'interno di un "
+"determinato raggio. Questo effetto è più preciso, ma molto meno ottimizzato."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "L'intensità dell'effetto sfocato. Più è grande, più sarà lento."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Sfocatura Montecarlo"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Un effetto sfocato che imita una passeggiata casuale, selezionando pixel "
+"sempre più lontani dalla sua origine e mescolandoli tutti insieme."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"La distanza massima percorsa per ogni passaggio nella passeggiata casuale. "
+"Un valore più alto renderà la sfocatura più casuale."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Iterazioni"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
+"Il numero di iterazioni. Più ce ne sono, più uniforme sarà la sfocatura."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Usa pixel di base"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Indica se il pixel originale viene conteggiato o meno per la sfocatura. Se "
+"lo è, l'immagine sarà più leggibile."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -122,83 +133,93 @@ msgstr "Colore"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Un effetto che fonde un colore in pipeline."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Il colore da sfumare. La quantità di fusione è controllata dall'opacità del "
+"colore."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pixelizza"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Un effetto che pixelizza l'immagine."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Divisore"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Quanto ridimensionare l'immagine."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Rumore"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Un effetto che aggiunge un rumore casuale. Se necessario, preferisci la "
+"sfocatura Monte Carlo per un effetto più organico."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "La quantità di rumore da aggiungere."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Leggerezza"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"La luminosità del rumore. Un'impostazione pari a '1.0' renderà l'effetto "
+"trasparente."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Angolo"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Un effetto che disegna angoli. Aggiungilo per ultimo per non far sì che gli "
+"altri effetti disturbino gli angoli."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"Il raggio dell'angolo. Le app GNOME utilizzano un raggio di 12 px per "
+"impostazione predefinita."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Angoli superiori"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Se arrotondare o meno gli angoli superiori."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Angoli inferiori"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Se arrotondare o meno gli angoli inferiori."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -218,7 +239,7 @@ msgstr "Applicazioni"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Sfocatura delle applicazioni"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -226,6 +247,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Aggiunge sfocatura alle applicazioni.\n"
+"Per ottenere i migliori risultati possibili, seppure con prestazioni "
+"ridotte, è possibile scegliere l'opzione “Nessun artefatto” nella scheda “"
+"Altro → Livello Hack”."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -253,13 +278,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Finestra focalizzata opaca"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Rende opaca la finestra focalizzata e sfocate le altre, aiutandone la "
+"leggibilità."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -281,6 +308,7 @@ msgstr "Abilita tutto per impostazione predefinita"
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
 msgstr ""
+"Aggiunge la sfocatura dietro tutte le finestre per impostazione predefinita."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -316,20 +344,22 @@ msgstr "Sfoca lo sfondo dell'estensione Dash to Dock, se utilizzata."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Tipo di sfocatura"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"La sfocatura dinamica è più lenta e compatibile solo con un effetto di "
+"sfocatura gaussiana."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statico"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamico"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -377,11 +407,11 @@ msgstr "Scuro"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Effetti"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Aggiungi effetto"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -450,6 +480,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Modifica il comportamento dell'effetto di sfocatura dinamica. Il valore "
+"predefinito è altamente raccomandato.\n"
+"L'opzione \"Nessun artefatto\" disabiliterà completamente i ridisegni "
+"ritagliati nella shell GNOME e avrà un impatto significativo sulle "
+"prestazioni del tuo computer."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -622,33 +657,36 @@ msgstr "Contrastato"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "La pipeline da utilizzare con questo componente."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Nome della pipeline"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Gestisci gli effetti"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Ogni componente utilizza una pipeline, che può essere scelta nella scheda "
+"corrispondente. Qui puoi creare, modificare ed eliminare le pipeline e i "
+"loro effetti."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Aggiungi pipeline"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Sfocatura applicazioni (beta)"

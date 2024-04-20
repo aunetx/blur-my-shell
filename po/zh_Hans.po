@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-31 19:01+0000\n"
-"Last-Translator: Colgrave <hanqixu.blogs@simplelogin.co>\n"
+"PO-Revision-Date: 2024-04-14 03:17+0000\n"
+"Last-Translator: 复予 <clonewith@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -21,33 +21,33 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "模糊效果"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "纹理效果"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "形状效果"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "本地高斯模糊"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
-msgstr ""
+msgstr "经过优化的模糊效果，平滑混合给定半径内的像素。"
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "半径"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "模糊效果的强度。"
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -67,52 +67,52 @@ msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "高斯模糊"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
-msgstr ""
+msgstr "一个可光滑混合给定半径内像素的模糊效果。这个效果更加细致，但优化程度较低。"
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "模糊效果的强度。数值越大越慢。"
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "蒙特卡洛模糊"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr ""
+msgstr "模仿随机行走的模糊效果，它选取距离原点越来越远的像素，并将其混合在一起。"
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
-msgstr ""
+msgstr "随机行走中，每一步的最大长度。数值更高则模糊越随机。"
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "迭代"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "迭代次数。数值越高，模糊效果越平滑。"
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "使用基础像素"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
-msgstr ""
+msgstr "是否将原有像素计入模糊。如果计入，图像会更清晰。"
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -120,83 +120,83 @@ msgstr "颜色"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "将颜色融入管线的效果。"
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
-msgstr ""
+msgstr "要融入的颜色。混合量由颜色透明度控制。"
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "像素化"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "将图片像素化的效果。"
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "分隔"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "缩小图像的程度。"
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "噪点"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
-msgstr ""
+msgstr "添加随机噪点的效果。若想要模糊更自然，更建议使用蒙特卡洛模糊。"
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "添加的噪点量。"
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "明亮度"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "噪点的光度。设置为“1.0”会使效果透明。"
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "边角"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
-msgstr ""
+msgstr "绘制边角的效果。请最后添加，以免其他效果影响边角。"
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "圆角半径。GNOME 应用默认使用 12 px 半径的圆角。"
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "顶部圆角"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "顶部是否显示圆角。"
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "底部圆角"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "底部是否显示圆角。"
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -216,7 +216,7 @@ msgstr "应用程序"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "应用程序模糊"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -224,6 +224,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"向应用程序添加模糊效果。\n"
+"为获得最佳可能效果（即使降低性能），你可以在“其他 → Hack "
+"级别”标签页选择“无阴影”选项。"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -249,13 +252,13 @@ msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "使聚焦窗口不透明"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
-msgstr ""
+msgstr "使聚焦窗口不透明并模糊其他窗口，以提高清晰度。"
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -275,7 +278,7 @@ msgstr "默认全部启用"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "默认在所有窗口后添加模糊。"
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -311,20 +314,20 @@ msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "模糊类型"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
+msgstr "动态模糊较慢，只与高斯模糊效果兼容。"
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "静态"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "动态"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -369,11 +372,11 @@ msgstr "暗色"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "效果"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "添加效果"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -438,6 +441,8 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"改变动态模糊效果的行为。强烈推荐使用默认值。\n"
+"“无阴影”选项会禁用 GNOME Shell 中的剪裁重绘，并会大幅影响电脑性能。"
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -595,33 +600,34 @@ msgstr "对比"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "管线"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "此组件使用的管线。"
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "管线名称"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "管理效果"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "管线"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
-msgstr ""
+msgstr "每个组件使用一个管线，可在对应的标签页选择。你在这里可以创建、更改并删除管线"
+"，以及更改其效果。"
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "添加管线"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "应用程序模糊（实验性）"

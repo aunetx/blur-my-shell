@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-17 16:08+0000\n"
+"PO-Revision-Date: 2024-04-13 23:01+0000\n"
 "Last-Translator: Aleksandr Melman <alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ru/>\n"
@@ -22,33 +22,35 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Эффекты размытия"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Эффекты текстур"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Эффекты фигур"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Нативное гауссово размытие"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Оптимизированный эффект размытия, который плавно смешивает пиксели в "
+"пределах заданного радиуса."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Радиус"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Интенсивность эффекта размытия."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -70,52 +72,62 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Гауссово размытие"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Эффект размытия, который плавно смешивает пиксели в пределах заданного "
+"радиуса. Этот эффект более точен, но гораздо менее оптимизирован."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Интенсивность эффекта размытия. Чем она больше, тем медленнее будет "
+"происходить эффект."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Размытие Монте-Карло"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Эффект размытия, который имитирует случайное движение, выбирая пиксели все "
+"дальше и дальше от своего источника и смешивая их вместе."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Максимальное расстояние для каждого шага в случайном движении. При большем "
+"значении размытие будет более случайным."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Итерации"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Количество итераций. Чем их больше, тем более плавным будет размытие."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Использовать исходный пиксель"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Учитывается ли исходный пиксель при размытии. Если да, то изображение будет "
+"более разборчивым."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -123,83 +135,91 @@ msgstr "Цвет"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Эффект, при котором цвет смешивается с каналом."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Цвет для смешивания. Величина смешивания регулируется непрозрачностью цвета."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Пикселизация"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Эффект, который пикселизирует изображение."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Разделитель"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Как сильно уменьшить масштаб изображения."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Шум"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Эффект, добавляющий случайный шум. При необходимости предпочесть размытие "
+"Монте-Карло для более органичного эффекта."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Количество добавляемого шума."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Светимость"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"Светимость шума. При установке значения \"1.0\" эффект станет прозрачным."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Угол"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Эффект, рисующий углы. Добавьте его последним, чтобы другие эффекты не "
+"нарушали углы."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"Радиус угла. В приложениях GNOME по умолчанию используется радиус 12 "
+"пикселей."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Верхние углы"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Закруглять или нет верхние углы."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Нижние углы"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Закруглять или нет нижние углы."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -219,7 +239,7 @@ msgstr "Приложения"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Размытие приложений"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -227,6 +247,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Добавляет размытие в приложения.\n"
+"Чтобы получить наилучшие результаты, хотя и с пониженной "
+"производительностью, вы можете выбрать опцию \"Без артефактов\" на вкладке "
+"\"Прочее → Уровень взлома\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -254,13 +278,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Непрозрачное сфокусированное окно"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Делает сфокусированное окно непрозрачным, а остальные - размытыми, что "
+"способствует разборчивости."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -280,7 +306,7 @@ msgstr "Включить для всех по умолчанию"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "По умолчанию добавляет размытие позади всех окон."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -316,20 +342,22 @@ msgstr "Размытие фона расширения Dash to Dock, если о
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Тип размытия"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Динамическое размытие работает медленнее и совместимо только с эффектом "
+"гауссова размытия."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Статическое"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Динамическое"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -376,11 +404,11 @@ msgstr "Темный"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Эффекты"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Добавить эффект"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -449,6 +477,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Изменяет поведение эффекта динамического размытия. Настоятельно "
+"рекомендуется использовать значение по умолчанию.\n"
+"Опция \"Без артефактов\" полностью отключит обрезанные перерисовки в "
+"оболочке GNOME и существенно повлияет на производительность вашего "
+"компьютера."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -614,33 +647,35 @@ msgstr "Контрастный"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Канал"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Канал, который будет использоваться с этим компонентом."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Имя канала"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Управление эффектами"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Каналы"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Каждый компонент использует канал, который можно выбрать на соответствующей "
+"вкладке. Здесь вы можете создавать, изменять и удалять каналы и их эффекты."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Добавить канал"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Размытие приложений (бета)"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-10 22:38+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2024-04-18 08:04+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -119,7 +119,7 @@ msgstr ""
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Usar píxel base"
 
 #: src/effects/effects.js:136
 msgid ""
@@ -135,13 +135,15 @@ msgstr "Color"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Un efecto que mezcla un color en el flujo."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"El color a mezclar. La cantidad de mezcla se controla mediante la opacidad "
+"del color."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
@@ -662,15 +664,15 @@ msgstr "Contrastado"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr "Pipeline"
+msgstr "Flujo"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr "El conducto que se utilizará con este componente."
+msgstr "Segmentación que se utilizará con este componente."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Nombre de la segmentación"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
@@ -678,17 +680,20 @@ msgstr "Gestionar los efectos"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Flujos"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Cada componente usa un flujo, que puede elegirse en la pestaña "
+"correspondiente. Aquí puede crear, modificar y eliminar los flujos y sus "
+"efectos."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Añadir flujo"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur (beta)"
@@ -721,6 +726,11 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab.\n"
 "        "
 msgstr ""
+"Añade desenfoque a las aplicaciones.\n"
+"Para obtener los mejores resultados posibles, aunque con rendimientos "
+"reducidos, puede elegir la opción \"Sin artefacto\" en la pestaña \"Otros → "
+"Nivel de hack\".\n"
+"        "
 
 #~ msgid "Customize properties"
 #~ msgstr "Personalizar propiedades"

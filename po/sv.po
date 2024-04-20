@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2023-11-14 18:03+0000\n"
-"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
+"PO-Revision-Date: 2024-04-12 08:02+0000\n"
+"Last-Translator: Andreas Florin <andreas.florin.1988@outlook.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sv/>\n"
 "Language: sv\n"
@@ -17,37 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "oskärpa effekt"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Textureffekter"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Formeffekter"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Native gaussisk oskärpa"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"En optimerad oskärpa effekt som smidigt blandar bildpunkter inom en given "
+"radie."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Radie"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intensiteten av oskärpa effekten."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -69,52 +71,63 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Gaussisk oskärpa"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"En oskärpa effekt som smidigt blandar bildpunkter inom en given radie. Denna "
+"effekt är mer exakt, men mycket mindre optimerad."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Intensiteten av oskärpa effekten. Ju större den är, desto långsammare blir "
+"den."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Monte Carlo oskärpa"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"En oskärpa effekt som efterliknar en slumpmässig promenad, genom att plocka "
+"bildpunkter längre och längre bort från dess ursprung och blanda dem alla "
+"tillsammans."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Det maximala avståndet för varje steg i den slumpmässiga promenaden. Ett "
+"högre värde gör oskärpan mer slumpmässig."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Iterationer"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Antalet iterationer. Ju fler det finns, desto jämnare blir oskärpan."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Använd bas bildpunkt"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Om bildpunkten räknas för oskärpan eller inte. Om så är fallet kommer bilden "
+"att bli mer läsbar."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -122,83 +135,89 @@ msgstr "Färg"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "En effekt som blandar en färg i pipelinen."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
-msgstr ""
+msgstr "Färgen som ska blandas i. Blandningsmängden styrs av färgens opacitet."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pixelisera"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "En effekt som pixeliserar bilden."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Avdelare"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Hur mycket man ska skala ner bilden."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Brus"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"En effekt som lägger till ett slumpmässigt brus. Föredrar Monte Carlo-"
+"oskärpan för en mer organisk effekt om det behövs."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Mängden brus att lägga till."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Ljushet"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"Ljusstyrkan i bruset. En inställning på '1.0' kommer att göra effekten "
+"transparent."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Hörn"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"En effekt som drar hörn. Lägg till det sist så att de andra effekterna inte "
+"stör hörnen."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "Hörnets radie. GNOME-appar använder en radie på 12 px som standard."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Topp hörn"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Om de översta hörnen ska rundas eller inte."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Nedre hörnen"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Om de nedre hörnen ska rundas eller inte."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -218,7 +237,7 @@ msgstr "Applikationer"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Applikations oskärpa"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -226,6 +245,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Lägger till oskärpa till applikationerna.\n"
+"För att få bästa möjliga resultat, men med minskade prestanda, kan du välja "
+"alternativet \"Ingen artefakt\" på fliken \"Annan → Hacknivå\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -253,13 +275,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Ogenomskinligt fokuserat fönster"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Gör det fokuserade fönstret ogenomskinligt och de andra suddiga, vilket "
+"hjälper till med läsbarheten."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -279,7 +303,7 @@ msgstr "Aktivera alla som standard"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Lägger till oskärpa bakom alla fönster som standard."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -315,20 +339,22 @@ msgstr "Sudda bakgrunden på Dash to Dock-tilläget om den används."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Oskärpe typ"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Den dynamiska oskärpan är långsammare och endast kompatibel med en gaussisk "
+"oskärpa effekt."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statisk"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamisk"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -375,11 +401,11 @@ msgstr "Mörkt"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Effekter"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Lägg till effekter"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -447,6 +473,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Ändrar beteendet för den dynamiska oskärpa effekten. Standardvärdet "
+"rekommenderas starkt.\n"
+"Alternativet \"Ingen artefakt\" kommer helt att inaktivera klippta "
+"omritningar i GNOME-skalet och kommer att påverka din dators prestanda "
+"avsevärt."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -617,33 +648,35 @@ msgstr "Kontrasterad"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Pipelinen som ska användas med denna komponent."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Pipeline namn"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Hantera effekter"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Pipelines"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Varje komponent använder en pipeline, som kan väljas på motsvarande flik. "
+"Här kan du skapa, ändra och ta bort pipelines och deras effekter."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Lägg till Pipeline"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Oskärpa för program (beta)"
