@@ -78,18 +78,21 @@ export const OverviewBlur = class OverviewBlur {
                     );
                 }
 
-                for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
-                    if (
-                        !(
+                Main.uiGroup.insert_child_above(
+                    outer_this.animation_background_group,
+                    global.window_group
+                );
+
+                outer_this.animation_background_managers.forEach(bg_manager => {
+                    if (bg_manager._bms_pipeline.actor)
+                        if (
                             Meta.prefs_get_workspaces_only_on_primary() &&
-                            (i !== Main.layoutManager.primaryMonitor.index)
+                            bg_manager._monitorIndex !== Main.layoutManager.primaryMonitor.index
                         )
-                    )
-                        Main.uiGroup.insert_child_above(
-                            outer_this.animation_background_group,
-                            global.window_group
-                        );
-                }
+                            bg_manager._bms_pipeline.actor.visible = false;
+                        else
+                            bg_manager._bms_pipeline.actor.visible = true;
+                });
             };
 
             // remove the workspace-switch actors when the switch is done
@@ -108,10 +111,7 @@ export const OverviewBlur = class OverviewBlur {
                             );
                     }
 
-                Main.uiGroup.get_children().forEach(child => {
-                    if (child.get_name() == 'bms-animation-backgroundgroup')
-                        Main.uiGroup.remove_child(child);
-                });
+                Main.uiGroup.remove_child(outer_this.animation_background_group);
             };
         }
 
