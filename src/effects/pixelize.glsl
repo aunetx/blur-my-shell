@@ -1,27 +1,39 @@
 uniform sampler2D tex;
-uniform int divider;
+int divider = 70;
 uniform float width;
 uniform float height;
 
-vec4 getTexture(vec2 uv) {
-    if (uv.x < 3. / width)
-        uv.x = 3. / width;
+#define CORRECTION 2.25
 
-    if (uv.y < 3. / height)
-        uv.y = 3. / height;
+vec4 getTextureByPosition(vec2 position) {
+    vec2 raw_position = position + vec2(CORRECTION, CORRECTION);
+    vec2 raw_uv = raw_position / vec2(width + 3., height + 3.);
 
-    if (uv.x > 1. - 3. / width)
-        uv.x = 1. - 3. / width;
-
-    if (uv.y > 1. - 3. / height)
-        uv.y = 1. - 3. / height;
-
-    return texture2D(tex, uv);
+    return texture2D(tex, raw_uv);
 }
 
 void main() {
-    vec2 uv = cogl_tex_coord0_in.st;
-    vec2 scaled_multiplier = vec2(width, height) / divider;
-    vec2 new_uv = 0.5 + floor((uv - 0.5) * scaled_multiplier) / scaled_multiplier;
-    cogl_color_out = getTexture(new_uv);
+    vec2 raw_uv = cogl_tex_coord0_in.st;
+    vec2 raw_position = raw_uv * vec2(width + 3., height + 3.);
+    vec2 corrected_position = raw_position - vec2(CORRECTION, CORRECTION);
+
+    vec2 multiplied_position = corrected_position * divider;
+
+    if (any(greaterThan(multiplied_position, vec2(width, height)))) {
+        discard;
+    }
+
+    vec4 color = vec4(0.);
+    int count = 0;
+    for (int i = 0; i < divider; i++) {
+        for (int j = 0; j < divider; j++) {
+            vec2 lookup_position = multiplied_position + vec2(i, j);
+            if (all(lessThan(lookup_position, vec2(width, height)))) {
+                color += getTextureByPosition(lookup_position);
+                count += 1;
+            }
+        }
+    }
+
+    cogl_color_out = color / count;
 }

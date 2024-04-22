@@ -4,24 +4,24 @@ import * as utils from '../conveniences/utils.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
-const SHADER_FILENAME = 'pixelize.glsl';
+const SHADER_FILENAME = 'upscale.glsl';
 const DEFAULT_PARAMS = {
-    divider: 8, width: 0, height: 0
+    factor: 4, width: 0, height: 0
 };
 
 
-export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
+export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
     { default_params: DEFAULT_PARAMS } :
     new GObject.registerClass({
-        GTypeName: "PixelizeEffect",
+        GTypeName: "UpscaleEffect",
         Properties: {
-            'divider': GObject.ParamSpec.int(
-                `divider`,
-                `Divider`,
-                `Divider`,
+            'factor': GObject.ParamSpec.int(
+                `factor`,
+                `Factor`,
+                `Factor`,
                 GObject.ParamFlags.READWRITE,
                 0, 64,
-                8,
+                4,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
@@ -40,15 +40,15 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
                 0.0,
             )
         }
-    }, class PixelizeEffect extends Clutter.ShaderEffect {
+    }, class UpscaleEffect extends Clutter.ShaderEffect {
         constructor(params) {
             super(params);
 
-            this._divider = null;
+            this._factor = null;
             this._width = null;
             this._height = null;
 
-            this.divider = 'divider' in params ? params.divider : this.constructor.default_params.divider;
+            this.factor = 'factor' in params ? params.factor : this.constructor.default_params.factor;
             this.width = 'width' in params ? params.width : this.constructor.default_params.width;
             this.height = 'height' in params ? params.height : this.constructor.default_params.height;
 
@@ -62,15 +62,15 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
             return DEFAULT_PARAMS;
         }
 
-        get divider() {
-            return this._divider;
+        get factor() {
+            return this._factor;
         }
 
-        set divider(value) {
-            if (this._divider !== value) {
-                this._divider = value;
+        set factor(value) {
+            if (this._factor !== value) {
+                this._factor = value;
 
-                this.set_uniform_value('divider', this._divider);
+                this.set_uniform_value('factor', this._factor);
             }
         }
 
@@ -120,7 +120,6 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
         vfunc_paint_target(paint_node = null, paint_context = null) {
             // force setting nearest-neighbour texture filtering
             this.get_pipeline().set_layer_filters(0, 9728, 9728);
-            this.get_pipeline().set_layer_wrap_mode(0, 33071);
 
             if (paint_node && paint_context)
                 super.vfunc_paint_target(paint_node, paint_context);

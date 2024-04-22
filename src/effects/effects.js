@@ -6,6 +6,7 @@ import { ColorEffect } from '../effects/color.js';
 import { PixelizeEffect } from './pixelize.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
+import { UpscaleEffect } from './upscale.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -23,6 +24,7 @@ export function get_effects_groups(_ = _ => "") {
             name: _("Texture effects"),
             contains: [
                 "pixelize",
+                "upscale",
                 "noise",
                 "color"
             ]
@@ -161,6 +163,22 @@ export function get_supported_effects(_ = () => "") {
                 divider: {
                     name: _("Divider"),
                     description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                }
+            }
+        },
+
+        upscale: {
+            class: UpscaleEffect,
+            name: _("Upscale"),
+            description: _("An effect that upscales the image."),
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale up the image."),
                     type: "integer",
                     min: 1,
                     max: 50,
