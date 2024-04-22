@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-02-03 21:01+0000\n"
-"Last-Translator: theParceville <progamernini@gmail.com>\n"
+"PO-Revision-Date: 2024-04-21 19:07+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,37 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Weichzeichner-Effekte"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Textureffekte"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Formeffekte"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Nativer Gaußscher Weichzeichner"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Ein optimierter Weichzeichner-Effekt, der Pixel innerhalb eines bestimmten "
+"Radius sanft überblendet."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Die Intensität des Weichzeichnereffekts."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -69,52 +71,65 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Gaußscher Weichzeichner"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Ein Weichzeichner-Effekt, der Pixel innerhalb eines bestimmten Radius sanft "
+"überblendet. Dieser Effekt ist präziser, aber weit weniger optimiert."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Die Intensität des Weichzeichnereffekts. Je größer er ist, desto langsamer "
+"wird er sein."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Monte-Carlo-Weichzeichner"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Ein Weichzeichner-Effekt, der eine zufällige Bewegung imitiert, indem er "
+"Pixel auswählt, die sich immer weiter von ihrem Ursprung entfernen, und "
+"diese miteinander vermischt."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Die maximale Entfernung für jeden Schritt im Zufallsgang. Ein höherer Wert "
+"macht die Weichzeichnung stärker zufällig."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Iterationen"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
+"Die Anzahl der Iterationen. Je mehr es sind, desto weicher ist die "
+"Weichzeichnung."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Basispixel verwenden"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Ob der ursprüngliche Pixel für das Weichzeichnen berücksichtigt wird oder "
+"nicht. Wenn dies der Fall ist, wird das Bild besser lesbar sein."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -122,83 +137,93 @@ msgstr "Farbe"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Ein Effekt, der eine Farbe in die Pipeline einblendet."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Die Farbe, die eingeblendet werden soll. Die Menge der Überblendung wird "
+"durch die Deckkraft der Farbe gesteuert."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Verpixeln"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Ein Effekt, der das Bild verpixelt."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Teiler"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Wie stark das Bild verkleinert werden soll."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Rauschen"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Ein Effekt, der ein zufälliges Rauschen hinzufügt. Bevorzugen Sie bei Bedarf "
+"den Monte-Carlo-Weichzeichner für einen organischeren Effekt."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Die Menge des hinzuzufügenden Rauschens."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Helligkeitsstufe"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"Die Leuchtkraft des Rauschens. Bei einer Einstellung von „1.0“ wird der "
+"Effekt transparent."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Ecke"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Ein Effekt, der Ecken zeichnet. Fügen Sie ihn zuletzt hinzu, damit die "
+"anderen Effekte die Ecken nicht stören."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"Der Radius der Ecke. GNOME-Apps verwenden standardmäßig einen Radius von 12 "
+"px."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Obere Ecken"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Ob die oberen Ecken abgerundet werden sollen oder nicht."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Untere Ecken"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Ob die unteren Ecken abgerundet werden sollen oder nicht."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -218,7 +243,7 @@ msgstr "Anwendungen"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Anwendungen weichzeichnen"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -226,6 +251,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Fügt den Anwendungen einen Weichzeichner hinzu.\n"
+"Um die bestmöglichen Ergebnisse zu erzielen, wenn auch mit verminderter "
+"Leistung, können Sie auf der Registerkarte „Andere → Hackstufe“ die Option „"
+"Keine Artefakte“ auswählen."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -253,13 +282,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Undurchsichtiges fokussiertes Fenster"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Macht das fokussierte Fenster undurchsichtig und die anderen unscharf, um "
+"die Lesbarkeit zu verbessern."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -280,7 +311,7 @@ msgstr "Standardmäßig alle aktivieren"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Fügt standardmäßig Unschärfe hinter allen Fenstern hinzu."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -318,20 +349,22 @@ msgstr ""
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Weichzeichnungsart"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Der dynamische Weichzeichner ist langsamer und nur mit einem Gaußschen "
+"Weichzeichner-Effekt kompatibel."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statisch"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamisch"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -379,11 +412,11 @@ msgstr "Dunkel"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Effekte"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Effekt hinzufügen"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -454,6 +487,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Ändert das Verhalten des dynamischen Weichzeichner-Effekts. Der Standardwert "
+"ist sehr empfehlenswert.\n"
+"Mit der Option „Kein Artefakt“ wird das beschnittene Neuzeichnen in der "
+"GNOME Shell vollständig deaktiviert, was die Leistung Ihres Computers "
+"erheblich beeinträchtigt."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -624,33 +662,36 @@ msgstr "In Kontrast"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Die Pipeline, die mit dieser Komponente verwendet werden soll."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Name der Pipeline"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Effekte verwalten"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Pipelines"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Jede Komponente verwendet eine Pipeline, die auf der entsprechenden "
+"Registerkarte ausgewählt werden kann. Hier können Sie die Pipelines und ihre "
+"Auswirkungen erstellen, ändern und löschen."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Pipeline hinzufügen"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Unschärfe für Anwendungen (beta)"
