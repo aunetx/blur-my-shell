@@ -4,16 +4,16 @@ import * as utils from '../conveniences/utils.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
-const SHADER_FILENAME = 'pixelize.glsl';
+const SHADER_FILENAME = 'downscale.glsl';
 const DEFAULT_PARAMS = {
-    divider: 8, width: 0, height: 0
+    divider: 8, downsampling_mode: 0, width: 0, height: 0
 };
 
 
-export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
+export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
     { default_params: DEFAULT_PARAMS } :
     new GObject.registerClass({
-        GTypeName: "PixelizeEffect",
+        GTypeName: "DownscaleEffect",
         Properties: {
             'divider': GObject.ParamSpec.int(
                 `divider`,
@@ -22,6 +22,14 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0, 64,
                 8,
+            ),
+            'downsampling_mode': GObject.ParamSpec.int(
+                `downsampling_mode`,
+                `Downsampling mode`,
+                `Downsampling mode`,
+                GObject.ParamFlags.READWRITE,
+                0, 2,
+                0,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
@@ -40,15 +48,17 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
                 0.0,
             )
         }
-    }, class PixelizeEffect extends Clutter.ShaderEffect {
+    }, class DownscaleEffect extends Clutter.ShaderEffect {
         constructor(params) {
             super(params);
 
             this._divider = null;
+            this._downsampling_mode = null;
             this._width = null;
             this._height = null;
 
             this.divider = 'divider' in params ? params.divider : this.constructor.default_params.divider;
+            this.downsampling_mode = 'downsampling_mode' in params ? params.downsampling_mode : this.constructor.default_params.downsampling_mode;
             this.width = 'width' in params ? params.width : this.constructor.default_params.width;
             this.height = 'height' in params ? params.height : this.constructor.default_params.height;
 
@@ -71,6 +81,18 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
                 this._divider = value;
 
                 this.set_uniform_value('divider', this._divider);
+            }
+        }
+
+        get downsampling_mode() {
+            return this._downsampling_mode;
+        }
+
+        set downsampling_mode(value) {
+            if (this._downsampling_mode !== value) {
+                this._downsampling_mode = value;
+
+                this.set_uniform_value('downsampling_mode', this._downsampling_mode);
             }
         }
 
@@ -120,7 +142,6 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
         vfunc_paint_target(paint_node = null, paint_context = null) {
             // force setting nearest-neighbour texture filtering
             this.get_pipeline().set_layer_filters(0, 9728, 9728);
-            this.get_pipeline().set_layer_wrap_mode(0, 33071);
 
             if (paint_node && paint_context)
                 super.vfunc_paint_target(paint_node, paint_context);

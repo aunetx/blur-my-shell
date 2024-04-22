@@ -3,9 +3,9 @@ import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.j
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
-import { PixelizeEffect } from './pixelize.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
+import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
@@ -23,7 +23,7 @@ export function get_effects_groups(_ = _ => "") {
         texture_effects: {
             name: _("Texture effects"),
             contains: [
-                "pixelize",
+                "downscale",
                 "upscale",
                 "noise",
                 "color"
@@ -155,17 +155,25 @@ export function get_supported_effects(_ = () => "") {
             }
         },
 
-        pixelize: {
-            class: PixelizeEffect,
-            name: _("Pixelize"),
-            description: _("An effect that pixelizes the image."),
+        downscale: {
+            class: DownscaleEffect,
+            name: _("Downscale"),
+            description: _("An effect that downscales the image."),
             editable_params: {
                 divider: {
-                    name: _("Divider"),
+                    name: _("Factor"),
                     description: _("How much to scale down the image."),
                     type: "integer",
                     min: 1,
                     max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("How to downsampling. 0 for boxcar, 1 for triangular, 2 for Dirac downsampling."),
+                    type: "integer",
+                    min: 0,
+                    max: 2,
                     increment: 1
                 }
             }

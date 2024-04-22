@@ -6,7 +6,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'upscale.glsl';
 const DEFAULT_PARAMS = {
-    factor: 4, width: 0, height: 0
+    factor: 8, width: 0, height: 0
 };
 
 
@@ -21,7 +21,7 @@ export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
                 `Factor`,
                 GObject.ParamFlags.READWRITE,
                 0, 64,
-                4,
+                8,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
