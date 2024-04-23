@@ -134,6 +134,15 @@ export const EffectRow = GObject.registerClass({
                     );
                     break;
 
+                case "dropdown":
+                    row = new Adw.ComboRow({ model: new Gtk.StringList });
+                    param.options.forEach(option => row.model.append(option));
+                    row.selected = this.get_effect_param(param_key);
+                    row.connect(
+                        'notify::selected', () => this.set_effect_param(param_key, row.selected)
+                    );
+                    break;
+
                 case "rgba":
                     row = new Adw.ActionRow;
                     let color_button = new Gtk.ColorButton({

@@ -7,6 +7,7 @@ import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
+import { DerivativeEffect } from './derivative.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -25,6 +26,7 @@ export function get_effects_groups(_ = _ => "") {
             contains: [
                 "downscale",
                 "upscale",
+                "derivative",
                 "noise",
                 "color"
             ]
@@ -170,11 +172,13 @@ export function get_supported_effects(_ = () => "") {
                 },
                 downsampling_mode: {
                     name: _("Downsampling mode"),
-                    description: _("How to downsampling. 0 for boxcar, 1 for triangular, 2 for Dirac downsampling."),
-                    type: "integer",
-                    min: 0,
-                    max: 2,
-                    increment: 1
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
                 }
             }
         },
@@ -191,6 +195,24 @@ export function get_supported_effects(_ = () => "") {
                     min: 1,
                     max: 50,
                     increment: 1
+                }
+            }
+        },
+
+        derivative: {
+            class: DerivativeEffect,
+            name: _("Derivative"),
+            description: _("Apply a spatial derivative, or a laplacian."),
+            editable_params: {
+                operation: {
+                    name: _("Operation"),
+                    description: _("The mathematical operation to apply."),
+                    type: "dropdown",
+                    options: [
+                        _("1-step derivative"),
+                        _("2-step derivative"),
+                        _("Laplacian")
+                    ]
                 }
             }
         },
