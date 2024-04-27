@@ -9,6 +9,8 @@ import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
 import { PixelizeEffect } from './pixelize.js';
 import { DerivativeEffect } from './derivative.js';
+import { RgbToHslEffect } from './rgb_to_hsl.js';
+import { HslToRgbEffect } from './hsl_to_rgb.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -30,7 +32,9 @@ export function get_effects_groups(_ = _ => "") {
                 "pixelize",
                 "derivative",
                 "noise",
-                "color"
+                "color",
+                "rgb_to_hsl",
+                "hsl_to_rgb"
             ]
         },
         shape_effects: {
@@ -271,6 +275,20 @@ export function get_supported_effects(_ = () => "") {
                     digits: 2
                 }
             }
+        },
+
+        rgb_to_hsl: {
+            class: RgbToHslEffect,
+            name: _("RGB to HSL"),
+            description: _("Converts the image from RGBA colorspace to HSLA."),
+            editable_params: {}
+        },
+
+        hsl_to_rgb: {
+            class: HslToRgbEffect,
+            name: _("HSL to RGB"),
+            description: _("Converts the image from HSLA colorspace to RGBA."),
+            editable_params: {}
         },
 
         corner: {
