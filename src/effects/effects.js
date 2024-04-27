@@ -7,6 +7,7 @@ import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
+import { PixelizeEffect } from './pixelize.js';
 import { DerivativeEffect } from './derivative.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
@@ -26,6 +27,7 @@ export function get_effects_groups(_ = _ => "") {
             contains: [
                 "downscale",
                 "upscale",
+                "pixelize",
                 "derivative",
                 "noise",
                 "color"
@@ -153,6 +155,32 @@ export function get_supported_effects(_ = () => "") {
                     name: _("Color"),
                     description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
                     type: "rgba"
+                }
+            }
+        },
+
+        pixelize: {
+            class: PixelizeEffect,
+            name: _("Pixelize"),
+            description: _("An effect that pixelizes the image."),
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
                 }
             }
         },
