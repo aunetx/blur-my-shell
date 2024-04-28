@@ -69,19 +69,7 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
         constructor(params) {
             super(params);
 
-            this._radius = null;
-            this._iterations = null;
-            this._brightness = null;
-            this._width = null;
-            this._height = null;
-            this._use_base_pixel = null;
-
-            this.radius = 'radius' in params ? params.radius : this.constructor.default_params.radius;
-            this.iterations = 'iterations' in params ? params.iterations : this.constructor.default_params.iterations;
-            this.brightness = 'brightness' in params ? params.brightness : this.constructor.default_params.brightness;
-            this.width = 'width' in params ? params.width : this.constructor.default_params.width;
-            this.height = 'height' in params ? params.height : this.constructor.default_params.height;
-            this.use_base_pixel = 'use_base_pixel' in params ? params.use_base_pixel : this.constructor.default_params.use_base_pixel;
+            utils.setup_params(this, params, DEFAULT_PARAMS);
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -97,10 +85,6 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
                 this
             );
 
-        }
-
-        static get default_params() {
-            return DEFAULT_PARAMS;
         }
 
         get radius() {
@@ -196,16 +180,5 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
                 this._actor_connection_size_id = null;
 
             super.vfunc_set_actor(actor);
-        }
-
-        vfunc_paint_target(paint_node = null, paint_context = null) {
-            //this.set_uniform_value("tex", 0);
-
-            if (paint_node && paint_context)
-                super.vfunc_paint_target(paint_node, paint_context);
-            else if (paint_node)
-                super.vfunc_paint_target(paint_node);
-            else
-                super.vfunc_paint_target();
         }
     });

@@ -8,7 +8,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const SHADER_FILENAME = 'gaussian_blur.glsl';
 const DEFAULT_PARAMS = {
     radius: 30, brightness: .6,
-    width: 0, height: 0, direction: 0
+    width: 0, height: 0, direction: 0, chained_effect: null
 };
 
 
@@ -69,19 +69,7 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
         constructor(params) {
             super(params);
 
-            this._radius = null;
-            this._brightness = null;
-            this._width = null;
-            this._height = null;
-            this._direction = null;
-
-            this._chained_effect = null;
-
-            this.radius = 'radius' in params ? params.radius : this.constructor.default_params.radius;
-            this.brightness = 'brightness' in params ? params.brightness : this.constructor.default_params.brightness;
-            this.width = 'width' in params ? params.width : this.constructor.default_params.width;
-            this.height = 'height' in params ? params.height : this.constructor.default_params.height;
-            this.direction = 'direction' in params ? params.direction : this.constructor.default_params.direction;
+            utils.setup_params(this, params, DEFAULT_PARAMS);
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -98,10 +86,6 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
             );
         }
 
-        static get default_params() {
-            return DEFAULT_PARAMS;
-        }
-
         get radius() {
             return this._radius;
         }
@@ -116,8 +100,8 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
                 this.set_uniform_value('sigma', parseFloat(this._radius * scale_factor / 2 - 1e-6));
                 this.set_enabled(this.radius > 0.);
 
-                if (this._chained_effect)
-                    this._chained_effect.radius = value;
+                if (this.chained_effect)
+                    this.chained_effect.radius = value;
             }
         }
 
@@ -131,8 +115,8 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('brightness', parseFloat(this._brightness - 1e-6));
 
-                if (this._chained_effect)
-                    this._chained_effect.brightness = value;
+                if (this.chained_effect)
+                    this.chained_effect.brightness = value;
             }
         }
 
@@ -146,8 +130,8 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('width', parseFloat(this._width + 3.0 - 1e-6));
 
-                if (this._chained_effect)
-                    this._chained_effect.width = value;
+                if (this.chained_effect)
+                    this.chained_effect.width = value;
             }
         }
 
@@ -161,8 +145,8 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('height', parseFloat(this._height + 3.0 - 1e-6));
 
-                if (this._chained_effect)
-                    this._chained_effect.height = value;
+                if (this.chained_effect)
+                    this.chained_effect.height = value;
             }
         }
 
@@ -177,6 +161,10 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
 
         get chained_effect() {
             return this._chained_effect;
+        }
+
+        set chained_effect(value) {
+            this._chained_effect = value;
         }
 
         vfunc_set_actor(actor) {
@@ -199,9 +187,9 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
 
             if (this.direction == 0) {
                 if (this.chained_effect)
-                    this._chained_effect.get_actor()?.remove_effect(this._chained_effect);
+                    this.chained_effect.get_actor()?.remove_effect(this.chained_effect);
                 else
-                    this._chained_effect = new GaussianBlurEffect({
+                    this.chained_effect = new GaussianBlurEffect({
                         radius: this.radius,
                         brightness: this.brightness,
                         width: this.width,
@@ -209,19 +197,13 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
                         direction: 1
                     });
                 if (actor !== null)
-                    actor.add_effect(this._chained_effect);
+                    actor.add_effect(this.chained_effect);
             }
         }
 
-        vfunc_paint_target(paint_node = null, paint_context = null) {
-            //this.set_uniform_value("tex", 0);
-            this.set_uniform_value("dir", this._direction);
+        vfunc_paint_target(paint_node, paint_context) {
+            this.set_uniform_value("dir", this.direction);
 
-            if (paint_node && paint_context)
-                super.vfunc_paint_target(paint_node, paint_context);
-            else if (paint_node)
-                super.vfunc_paint_target(paint_node);
-            else
-                super.vfunc_paint_target();
+            super.vfunc_paint_target(paint_node, paint_context);
         }
     });

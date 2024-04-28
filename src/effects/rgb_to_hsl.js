@@ -17,22 +17,11 @@ export const RgbToHslEffect = utils.IS_IN_PREFERENCES ?
         constructor(params) {
             super(params);
 
+            utils.setup_params(this, params, DEFAULT_PARAMS);
+
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
-        }
-
-        static get default_params() {
-            return DEFAULT_PARAMS;
-        }
-
-        vfunc_paint_target(paint_node = null, paint_context = null) {
-            if (paint_node && paint_context)
-                super.vfunc_paint_target(paint_node, paint_context);
-            else if (paint_node)
-                super.vfunc_paint_target(paint_node);
-            else
-                super.vfunc_paint_target();
         }
     });

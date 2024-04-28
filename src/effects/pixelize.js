@@ -40,15 +40,7 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
             this.upscale_effect = new UpscaleEffect({});
             this.downscale_effect = new DownscaleEffect({});
 
-            this._factor = null;
-            this._downsampling_mode = null;
-
-            this.factor = 'factor' in params ? params.factor : this.constructor.default_params.factor;
-            this.downsampling_mode = 'downsampling_mode' in params ? params.downsampling_mode : this.constructor.default_params.downsampling_mode;
-        }
-
-        static get default_params() {
-            return DEFAULT_PARAMS;
+            utils.setup_params(this, params, DEFAULT_PARAMS);
         }
 
         get factor() {
