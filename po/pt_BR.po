@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-16 12:01+0000\n"
-"Last-Translator: sobeitnow0 <sobeitnow0@gmail.com>\n"
+"PO-Revision-Date: 2024-04-29 20:07+0000\n"
+"Last-Translator: Fernando Lopes <118869201+plasmus777@users.noreply.github."
+"com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,28 +18,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Efeitos de desfoque"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Efeitos de textura"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Efeitos de forma"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Desfoque gaussiano nativo"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Um efeito de desfoque otimizado que combina pixels suavemente dentro de um "
+"determinado raio."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
@@ -86,13 +89,15 @@ msgstr "A intensidade do efeito de desfoque. Quanto maior for, mais lento será.
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Desfoque Monte Carlo"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Um efeito de desfoque que imita um passeio aleatório, escolhendo pixels cada "
+"vez mais longe de sua origem e misturando-os todos juntos."
 
 #: src/effects/effects.js:108
 msgid ""
@@ -112,7 +117,7 @@ msgstr "O número de iterações. Quanto mais houver, mais suave será o desfoqu
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Usar pixel base"
 
 #: src/effects/effects.js:136
 msgid ""
@@ -128,7 +133,7 @@ msgstr "Cor"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Um efeito que mistura uma cor no pipeline."
 
 #: src/effects/effects.js:150
 msgid ""
@@ -140,73 +145,79 @@ msgstr ""
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pixelizar"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Um efeito que pixeliza a imagem."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Divisor"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Quanto diminuir a imagem."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Ruído"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Um efeito que adiciona um ruído aleatório. Prefira o desfoque Monte Carlo "
+"para um efeito mais orgânico, se necessário."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "A quantidade de ruído a ser adicionada."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Luminosidade"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"A luminosidade do ruído. Uma configuração de '1.0' tornará o efeito "
+"transparente."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr "Canto."
+msgstr "Canto"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Um efeito que desenha cantos. Adicione-o por último para não perturbar os "
+"outros efeitos nos cantos."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "O raio do canto. Os aplicativos GNOME usam um raio de 12 px por padrão."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Cantos superiores"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Se deve ou não arredondar os cantos superiores."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Cantos inferiores"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Se deve ou não arredondar os cantos inferiores."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -226,7 +237,7 @@ msgstr "Aplicativos"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Desfocar aplicativos"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -234,6 +245,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Adiciona desfoque aos aplicativos.\n"
+"Para obter os melhores resultados possíveis, embora com performances "
+"reduzidas, você pode escolher a opção “Nenhum artefato” na aba “Outros → "
+"Nível de modificação”."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -261,13 +276,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Janela em foco opaca"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Torna a janela em foco opaca e as demais desfocadas, ajudando na "
+"legibilidade."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -288,7 +305,7 @@ msgstr "Habilitar tudo por padrão"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Adiciona desfoque atrás de todas as janelas por padrão."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -324,20 +341,22 @@ msgstr "Desfoque o plano de fundo da extensão Dash to Dock, se for usada."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Tipo de desfoque"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"O desfoque dinâmico é mais lento e compatível apenas com o efeito de "
+"desfoque gaussiano."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Estático"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinâmico"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -384,11 +403,11 @@ msgstr "Escuro"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Efeitos"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Adicionar Efeito"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -457,6 +476,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Altera o comportamento do efeito de desfoque dinâmico. O valor padrão é "
+"altamente recomendado.\n"
+"A opção “Nenhum artefato” desativará totalmente os redesenhos cortados no "
+"GNOME shell e afetará significativamente o desempenho do seu computador."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -626,33 +649,36 @@ msgstr "Contrastado"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "O pipeline a ser usado com este componente."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Nome do pipeline"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Gerenciar efeitos"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Pipelines"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Cada componente utiliza um pipeline, que pode ser escolhido na aba "
+"correspondente. Aqui você pode criar, modificar e excluir pipelines e seus "
+"efeitos."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Adicionar Pipeline"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Desfoque de aplicativos (beta)"
