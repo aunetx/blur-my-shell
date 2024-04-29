@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-18 08:04+0000\n"
+"PO-Revision-Date: 2024-04-25 09:07+0000\n"
 "Last-Translator: vikdevelop <super-vik1@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.1-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -33,21 +33,22 @@ msgstr "Tvarové efekty"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Nativní gaussovské rozostření"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Optimalizovaný efekt rozmazání který se hladce mísí pomocí daného poloměru."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Poloměr"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intenzita efektu rozmazání."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -69,13 +70,15 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Gaussianovo rozostření"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Efekt rozmazání, který plynule prolíná pixely v daném poloměru. Tento efekt "
+"je přesnější, ale mnohem méně optimalizovaný."
 
 #: src/effects/effects.js:80
 msgid ""
