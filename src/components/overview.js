@@ -27,6 +27,7 @@ export const OverviewBlur = class OverviewBlur {
             { name: 'bms-animation-backgroundgroup' }
         );
         this.enabled = false;
+        this.proto_patched = false;
     }
 
     enable() {
@@ -48,9 +49,9 @@ export const OverviewBlur = class OverviewBlur {
 
         // part for the workspace animation switch
 
-        // make sure not to do this part if the extension was enabled prior, as
+        // make sure not to do this part if the functions were patched prior, as
         // the functions would call themselves and cause infinite recursion
-        if (!this.enabled) {
+        if (!this.proto_patched) {
             // store original workspace switching methods for restoring them on
             // disable()
             this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
@@ -113,6 +114,8 @@ export const OverviewBlur = class OverviewBlur {
 
                 Main.uiGroup.remove_child(outer_this.animation_background_group);
             };
+
+            this.proto_patched = true;
         }
 
         this.enabled = true;
@@ -184,18 +187,19 @@ export const OverviewBlur = class OverviewBlur {
             style => Main.uiGroup.remove_style_class_name(style)
         );
 
-        // make sure to absolutely not do this if the component was not enabled
-        // prior, as this would cause infinite recursion
-        if (this.enabled) {
-            // restore original behavior
+        this.connections.disconnect_all();
+        this.enabled = false;
+    }
+
+    restore_patched_proto() {
+        if (this.proto_patched) {
             if (this._original_PrepareSwitch)
                 wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
             if (this._original_FinishSwitch)
                 wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
-        }
 
-        this.connections.disconnect_all();
-        this.enabled = false;
+            this.proto_patched = false;
+        }
     }
 
     _log(str) {

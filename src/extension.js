@@ -155,6 +155,7 @@ export default class BlurMyShell extends Extension {
         // disable every component from user session mode
         if (this._user_session_mode_enabled)
             this._disable_user_session();
+        this._overview_blur.restore_patched_proto();
 
         // disable lockscreen blur too
         this._lockscreen_blur.disable();
