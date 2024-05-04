@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-05-03 15:07+0000\n"
+"PO-Revision-Date: 2024-05-05 13:07+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/nl/>\n"
@@ -39,6 +39,8 @@ msgstr "Inheemse Gaussiaanse vervaging"
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Een geoptimaliseerd vervagings­effect dat pixels binnen een bepaalde straal "
+"vloeiend laat over­vloeien."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
@@ -76,11 +78,15 @@ msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Een vervagings­effect dat pixels binnen een bepaalde straal vloeiend laat "
+"overvloeien. Dit effect is nauwkeuriger, maar veel minder geoptimaliseerd."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"De intensiteit van het vervagings­effect. Hoe groter het is, hoe langzamer "
+"het zal zijn."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
@@ -91,12 +97,17 @@ msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Een vervagings­effect dat een willekeurige wandeling nabootst, door pixels "
+"steeds verder weg van de oorsprong te selecteren en ze allemaal samen te "
+"voegen."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"De maximale reis­afstand voor elke stap in de willekeurige wandeling. Een "
+"hogere waarde zorgt ervoor dat de vervaging willekeuriger wordt."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
@@ -105,6 +116,7 @@ msgstr "Iteraties"
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
+"Het aantal iteraties. Hoe meer er zijn, hoe vloeiender de onscherpte is."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
@@ -115,6 +127,8 @@ msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Of de originele pixel wel of niet wordt meegeteld voor de vervaging. Als dit "
+"het geval is, is de afbeelding beter leesbaar."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -122,13 +136,15 @@ msgstr "Kleur"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Een effect dat een kleur in de pĳplĳn mengt."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"De kleur die moet overvloeien. De hoeveelheid overvloeiing wordt bepaald "
+"door de dekking van de kleur."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
@@ -144,7 +160,7 @@ msgstr "Verdeler"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Hoeveel de afbeelding moet worden verkleind."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
@@ -155,6 +171,8 @@ msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Een effect dat een willekeurige ruis toevoegt. Geef indien nodig de voorkeur "
+"aan de Monte Carlo-vervaging voor een meer organisch effect."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
@@ -169,6 +187,8 @@ msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"De lichtheid van de ruis. Een instelling van ‘1,0’ maakt het effect "
+"transparant."
 
 #: src/effects/effects.js:202
 msgid "Corner"
@@ -179,10 +199,13 @@ msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Een effect dat hoeken tekent. Voeg het als laatste toe om te voorkomen dat "
+"de andere effecten de hoeken verstoren."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"De straal van de hoek. GNOME-apps gebruiken standaard een straal van 12 px."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
@@ -190,7 +213,7 @@ msgstr "Bovenste hoeken"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Of de bovenste hoeken wel of niet afgerond moeten worden."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
@@ -198,7 +221,7 @@ msgstr "Onderste hoeken"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Of de onderste hoeken wel of niet afgerond moeten worden."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -226,6 +249,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Voegt vervaging toe aan apps.\n"
+"Om de best mogelijke resultaten te krijgen, hoewel met verminderde "
+"prestaties, kunt u de optie ‘Geen artefact’ kiezen op het tabblad ‘Overig → "
+"Hackniveau’."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -260,6 +287,8 @@ msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Maakt het gefocuste venster ondoorzichtig en de anderen wazig, wat de "
+"leesbaarheid ten goede komt."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -280,7 +309,7 @@ msgstr "Alle standaard inschakelen"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Voegt standaard vervaging achter alle vensters toe."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -324,6 +353,8 @@ msgstr "Vervagings­type"
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"De dynamische vervaging is langzamer en alleen compatibel met een gaussiaans "
+"vervagings­effect."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
@@ -451,6 +482,11 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Verandert het gedrag van het dynamische vervagings­effect. De standaard­"
+"waarde wordt sterk aanbevolen.\n"
+"De optie ‘Geen artefact’ zal geknipte hertekeningen in de GNOME-shell "
+"volledig uitschakelen, en zal de prestaties van uw computer aanzienlijk "
+"beïnvloeden."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -625,7 +661,7 @@ msgstr "Pĳplĳn"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "De pĳplĳn die met dit onderdeel moet worden gebruikt."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
@@ -644,6 +680,9 @@ msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Elk component maakt gebruik van een pĳplĳn, die kan worden gekozen op het "
+"bĳbehorende tabblad. Hier kunt u de pĳplĳnen en hun effecten aanmaken, "
+"wĳzigen en verwĳderen."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
