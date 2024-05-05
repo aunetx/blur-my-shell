@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-04-06 17:37+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: spkki <Svend.b.t@hotmail.dk>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/da/>\n"
 "Language: da\n"
@@ -38,8 +38,7 @@ msgstr ""
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
-msgstr ""
-"En optimeret slørings effekt der glat blander pixels i en given radius."
+msgstr "En optimeret slørings effekt der glat blander pixels i en given radius."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
