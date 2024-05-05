@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-03-25 22:58+0000\n"
-"Last-Translator: Dennis Dupont <dupont@et-eller-andet.dk>\n"
+"PO-Revision-Date: 2024-05-06 17:07+0000\n"
+"Last-Translator: spkki <Svend.b.t@hotmail.dk>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/da/>\n"
 "Language: da\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.4-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Slørings effekter"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
@@ -38,23 +38,23 @@ msgstr ""
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
-msgstr ""
+msgstr "En optimeret slørings effekt der glat blander pixels i en given radius."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intensiteten af slørings effekten."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr ""
+msgstr "Lysstyrke"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
 #: src/effects/effects.js:126 resources/ui/applications.ui:43
