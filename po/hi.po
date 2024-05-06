@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-12 08:02+0000\n"
+"PO-Revision-Date: 2024-05-06 17:07+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/hi/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.4-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr "पुनरावृत्तियाँ"
+msgstr "पुनरावृत्तियां"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
@@ -197,8 +197,7 @@ msgstr ""
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
-"कोने की त्रिज्या. GNOME ऐप्स डिफ़ॉल्ट रूप से 12 px के दायरे का उपयोग करते "
-"हैं।"
+"कोने की त्रिज्या। GNOME ऐप्स तयशुदा रूप से 12 px के दायरे का उपयोग करते हैं।"
 
 #: src/effects/effects.js:214
 msgid "Top corners"
@@ -243,8 +242,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "एप्लिकेशन में धुंधलापन जोडैं।\n"
-"सर्वोत्तम परिणाम प्राप्त करने के लिए, यद्यपि कम प्रदर्शन के साथ, आप \"अन्य → "
-"हैक स्तर\" टैब में \"कोई विरूपण नहीं\" विकल्प चुन सकते हैं।"
+"सर्वोत्तम परिणाम प्राप्त करने के लिए, यद्यपि कम प्रदर्शन के साथ, आप “अन्य → "
+"हैक स्तर” टैब में “कोई विरूपण नहीं” विकल्प चुन सकते हैं।"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -294,11 +293,11 @@ msgstr ""
 
 #: resources/ui/applications.ui:116
 msgid "Enable all by default"
-msgstr "सभी को डिफ़ॉल्ट रूप से सक्षम करें"
+msgstr "सभी को तयशुदा रूप से सक्षम करें"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr "डिफ़ॉल्ट रूप से सभी विंडो के पीछे धुंधलापन जोड़ता है।"
+msgstr "तयशुदा रूप से सभी विंडो के पीछे धुंधलापन जोड़ता है।"
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -403,7 +402,7 @@ msgstr "प्रभाव जोड़ें"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr "परियोजना पेज"
+msgstr "परियोजना पृष्ठ"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
@@ -464,10 +463,9 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
-"गतिशील धुंधला प्रभाव का व्यवहार बदलता है। डिफ़ॉल्ट मान अत्यधिक अनुशंसित है।\n"
-"\"कोई विरूपण नहीं\" विकल्प GNOME शेल में क्लिप्ड पुनः आरेखण को पूरी तरह से "
-"अक्षम कर देगा, और आपके कंप्यूटर के प्रदर्शन को महत्वपूर्ण रूप से प्रभावित "
-"करेगा।"
+"गतिशील धुंधला प्रभाव का व्यवहार बदलता है। तयशुदा मान अत्यधिक अनुशंसित है।\n"
+"“कोई विरूपण नहीं” विकल्प GNOME शेल में क्लिप्ड पुनः आरेखण को पूरी तरह से अक्"
+"षम कर देगा, और आपके कंप्यूटर के प्रदर्शन को महत्वपूर्ण रूप से प्रभावित करेगा।"
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -499,7 +497,7 @@ msgstr "उच्च प्रदर्शन"
 
 #: resources/ui/other.ui:187
 msgid "Default"
-msgstr "डिफ़ॉल्ट"
+msgstr "तयशुदा"
 
 #: resources/ui/other.ui:188
 msgid "No artifact"
@@ -549,26 +547,26 @@ msgstr "स्टाइल मत करें"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr "पैनल"
+msgstr "फलक"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr "पैनल का धुंधलापन"
+msgstr "फलक का धुंधलापन"
 
 #: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "पृष्ठभूमि छवि का उपयोग करके शीर्ष पैनल को धुंधला करें।"
+msgstr "पृष्ठभूमि छवि का उपयोग करके शीर्ष फलक को धुंधला करें।"
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr "बलपूर्वक हल्के टेक्स्ट लागू करें"
+msgstr "बलपूर्वक हल्के पाठ लागू करें"
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
-"पैनल के लिए हल्के टेक्स्ट का उपयोग करें, जो gnome-shell की हल्की थीम का उपयो"
-"ग करते समय उपयोगी होता है।"
+"फलक के लिए हल्के पाठ का उपयोग करें, जो gnome-shell की हल्की थीम का उपयोग करते"
+" समय उपयोगी होता है।"
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -576,12 +574,13 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"पारदर्शी या अर्ध-पारदर्शी का उपयोग करने के लिए पैनल की पृष्ठभूमि को ओवरराइड करें।\n"
+"पारदर्शी या अर्ध-पारदर्शी का उपयोग करने के लिए फलक की पृष्ठभूमि को ओवरराइड "
+"करें।\n"
 "अनुशंसित जब तक आप अपनी GNOME थीम को अनुकूलित नहीं करना चाहते।"
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "पैनल पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
+msgstr "फलक पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
@@ -589,11 +588,11 @@ msgstr "जब कोई विंडो निकट हो तो अक्ष
 
 #: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr "जब कोई विंडो इसके निकट हो तो पैनल की पारदर्शिता अक्षम हो जाती है।"
+msgstr "जब कोई विंडो इसके निकट हो तो फलक की पारदर्शिता अक्षम हो जाती है।"
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "अवलोकन दर्ज करते समय पैनल से धुंधलापन अक्षम कर देता है।"
+msgstr "अवलोकन दर्ज करते समय फलक से धुंधलापन अक्षम कर देता है।"
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
@@ -614,15 +613,15 @@ msgstr ""
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
-msgstr "Dash to Panel के साथ मूल पैनल को धुंधला करें"
+msgstr "Dash to Panel के साथ मूल फलक को धुंधला करें"
 
 #: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
-"यदि एक्सटेंशन के विकल्पों में चयन किया गया है, तो Dash to Panel के साथ मूल पैनल को धुंधला "
-"करने में सक्षम बनाता है।"
+"यदि एक्सटेंशन के विकल्पों में चयन किया गया है, तो Dash to Panel के साथ मूल "
+"फलक को धुंधला करने में सक्षम बनाता है।"
 
 #: resources/ui/panel.ui:225
 msgid "Contrasted"
