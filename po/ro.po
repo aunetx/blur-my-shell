@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-09 17:01+0000\n"
-"Last-Translator: 004matteos <mattsoho17@gmail.com>\n"
+"PO-Revision-Date: 2024-05-09 14:07+0000\n"
+"Last-Translator: ThinkRoot <social@crism.ro>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ro/>\n"
 "Language: ro\n"
@@ -18,37 +18,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.4-rc\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Efecte de estompare"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Efecte de textură"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Efecte de formă"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Estomparea gaussiană nativă"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Un efect de estompare optimizat care estompează ușor pixelii pe o anumită "
+"rază."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Raza de acțiune"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intensitatea efectului de estompare."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -70,42 +72,52 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Estomparea gaussiană"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Un efect de estompare care estompează ușor pixelii pe o anumită rază. Acest "
+"efect este mai precis, dar mult mai puțin optimizat."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Intensitatea efectului de estompare. Cu cât este mai mare, cu atât va fi mai "
+"lent."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Estomparea Monte Carlo"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Un efect de estompare care imită o mișcare aleatorie, prin alegerea unor "
+"pixeli din ce în ce mai îndepărtați de la originea sa și amestecarea lor."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Distanța maximă de deplasare pentru fiecare pas din procesul de deplasare "
+"aleatorie. O valoare mai mare va face ca neclaritatea să fie mai aleatorie."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Iterații"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
+"Numărul de iterații. Cu cât sunt mai multe, cu atât este mai uniformă "
+"neclaritatea."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"

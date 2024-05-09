@@ -8,47 +8,49 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-01-31 00:01+0000\n"
-"Last-Translator: r5jyhte <ioulykttr@proton.me>\n"
+"PO-Revision-Date: 2024-05-03 15:07+0000\n"
+"Last-Translator: luk <lukasz.osadik@wp.pl>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Efekty rozmycia"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Efekty tekstur"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Efekty kształtów"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Natywne rozmycie gaussa"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Zoptymalizowany efekt rozmycia który gładko miesza kolory w podanym "
+"promieniu."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Promień"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Moc efektu rozmycia."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -69,52 +71,60 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Rozmycie gaussa"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Efekt rozmycia który gładko miesza kolory w podanym promieniu. Ten efekt "
+"jest dogładniejszy ale o o wiele mniej zoptymalizowany."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "Siła efektu rozmycia. Im większa tym wolniejsza."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Rozmycie Monte Carlo"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Efekt rozmycia udający losową drogę, przez wybieranie pikseli dalej i dalej "
+"od siębie i łączenie ich razem."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Maksymalny dystans każdego kroku losowej dorgi. Wyższa wartoś uczynie "
+"rozmycie bardziej losowym."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Iteracje"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Ilość iteracje. Im więcej, tym gładsze rozmycie."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Użyj bazowego piksela"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Czy oryginalny piksel ma być wliczany do rozmycia. Jeśli tak, obraz będzie "
+"bardziej czytelny."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -122,83 +132,89 @@ msgstr "Kolor"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Efekt który wtapia kolor w proces."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Kolor jest wmieszany. Moc wmieszania jest kontrolowane przez przezroczystość "
+"koloru."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pikseluj"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Efekt pikselizujący zdjęcie."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "Rozdzielacz"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Jak bardzo zmniejszyć zdjęcie."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Szum"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Efekt dodaje losowy szum. Wybierz rozmycie Monte Carlo jeśli potrzebujesz "
+"bardziej organicznego wyglądu."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Ilości szumu do dodania."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Lekkości"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "Jakości szumu. Ustawienie '1.0' uczyni go przezroczystym."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Róg"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Efek rysujący narożniki. Dodaj go na końcu aby inne efekty nie zaburzyły "
+"narożników."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "Promień narożników. Aplikacje GNOME domyślnie używają wartości 12px."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Górne narożniki"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Czy zaokrąglać górne narożniki."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Dolne narożniki"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Czy zaokrąglać dolne narożniki."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -218,7 +234,7 @@ msgstr "Aplikacje"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Rozmycie aplikacji"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -226,6 +242,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Dodaje rozmycie do aplikacji\n"
+"Dla najlepszych wyników, z zredukowaną wydajnością, możesz wybrać opcje "
+"\"Brak artefaktów\" w zakładce \"Inne -> Poziom hakowania\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -253,13 +272,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Przezroczystości okna na wierzchu"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Robi okno na wierzchu nie przezroczyste i rozmywa pozostałe, pomaga w "
+"czytelności."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -280,7 +301,7 @@ msgstr "Włącz domyślnie"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Domyślnie dodaje rozmycie do wszystkich okien w tle."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -316,20 +337,21 @@ msgstr "Rozmazuje tło rozszerzenia Dash to Dock, jeśli jest włączone."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Typ rozmycia"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Dynamiczne rozmycie jest wolniejsze i tylko kompatybilne z rozmyciem Gaussa."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statyczne"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dynamiczne"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -378,11 +400,11 @@ msgstr "Ciemny"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Efekty"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Dodaj efekt"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -451,6 +473,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Zmienia zachowanie dynamicznego efektu rozmycia. Domyślna wartości jest "
+"bardzo rekomendowana.\n"
+"Opcja \"Bez artefaktów\" kompletnie wyłączy przycięte przerysowanie w "
+"powłoce GNOME, i mocno wpłynie na wydajności twojego komputera."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -565,7 +591,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "Pprzezroczysty/półprzezroczysty styl tła panelu."
+msgstr "Przezroczysty/półprzezroczysty styl tła panelu."
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
@@ -615,33 +641,36 @@ msgstr "Kontrastowy"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Proces"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Proces użyty z tym komponentem."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Nazwa procesu"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Zarządzaj efektami"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Procesy"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Każdy komponent używa procesu, który może być wybrany w odpowiedniej "
+"zakładce. Tutaj możesz stworzyć, zmodyfikować i usunąć proces oraz jego "
+"efekty."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Dodaj proces"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Rozmazywanie aplikacji (beta)"
