@@ -65,10 +65,10 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 this.set_shader_source(this._source);
 
             // set shader color
-            this.color = 'color' in params ? color : this.constructor.default_params.color;
+            this.color = 'color' in params ? color : this.default_params.color;
         }
 
-        static get default_params() {
+        get default_params() {
             return DEFAULT_PARAMS;
         }
 
@@ -136,16 +136,5 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
         /// False set function, only cares about the color. Too hard to change.
         set(params) {
             this.color = params.color;
-        }
-
-        vfunc_paint_target(paint_node = null, paint_context = null) {
-            this.set_uniform_value("tex", 0);
-
-            if (paint_node && paint_context)
-                super.vfunc_paint_target(paint_node, paint_context);
-            else if (paint_node)
-                super.vfunc_paint_target(paint_node);
-            else
-                super.vfunc_paint_target();
         }
     });

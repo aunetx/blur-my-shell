@@ -3,9 +3,14 @@ import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.j
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
-import { PixelizeEffect } from './pixelize.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
+import { DownscaleEffect } from './downscale.js';
+import { UpscaleEffect } from './upscale.js';
+import { PixelizeEffect } from './pixelize.js';
+import { DerivativeEffect } from './derivative.js';
+import { RgbToHslEffect } from './rgb_to_hsl.js';
+import { HslToRgbEffect } from './hsl_to_rgb.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -22,9 +27,14 @@ export function get_effects_groups(_ = _ => "") {
         texture_effects: {
             name: _("Texture effects"),
             contains: [
+                "downscale",
+                "upscale",
                 "pixelize",
+                "derivative",
                 "noise",
-                "color"
+                "color",
+                "rgb_to_hsl",
+                "hsl_to_rgb"
             ]
         },
         shape_effects: {
@@ -158,13 +168,83 @@ export function get_supported_effects(_ = () => "") {
             name: _("Pixelize"),
             description: _("An effect that pixelizes the image."),
             editable_params: {
-                divider: {
-                    name: _("Divider"),
+                factor: {
+                    name: _("Factor"),
                     description: _("How much to scale down the image."),
                     type: "integer",
                     min: 1,
                     max: 50,
                     increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
+                }
+            }
+        },
+
+        downscale: {
+            class: DownscaleEffect,
+            name: _("Downscale"),
+            description: _("An effect that downscales the image."),
+            editable_params: {
+                divider: {
+                    name: _("Factor"),
+                    description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
+                }
+            }
+        },
+
+        upscale: {
+            class: UpscaleEffect,
+            name: _("Upscale"),
+            description: _("An effect that upscales the image."),
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale up the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                }
+            }
+        },
+
+        derivative: {
+            class: DerivativeEffect,
+            name: _("Derivative"),
+            description: _("Apply a spatial derivative, or a laplacian."),
+            editable_params: {
+                operation: {
+                    name: _("Operation"),
+                    description: _("The mathematical operation to apply."),
+                    type: "dropdown",
+                    options: [
+                        _("1-step derivative"),
+                        _("2-step derivative"),
+                        _("Laplacian")
+                    ]
                 }
             }
         },
@@ -195,6 +275,20 @@ export function get_supported_effects(_ = () => "") {
                     digits: 2
                 }
             }
+        },
+
+        rgb_to_hsl: {
+            class: RgbToHslEffect,
+            name: _("RGB to HSL"),
+            description: _("Converts the image from RGBA colorspace to HSLA."),
+            editable_params: {}
+        },
+
+        hsl_to_rgb: {
+            class: HslToRgbEffect,
+            name: _("HSL to RGB"),
+            description: _("Converts the image from HSLA colorspace to RGBA."),
+            editable_params: {}
         },
 
         corner: {

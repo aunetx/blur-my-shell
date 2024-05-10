@@ -1,12 +1,13 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
-const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
-const SHADER_FILENAME = 'pixelize.glsl';
+import { UpscaleEffect } from './upscale.js';
+import { DownscaleEffect } from './downscale.js';
+
 const DEFAULT_PARAMS = {
-    divider: 8, width: 0, height: 0
+    factor: 8, downsampling_mode: 0
 };
 
 
@@ -15,116 +16,69 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
     new GObject.registerClass({
         GTypeName: "PixelizeEffect",
         Properties: {
-            'divider': GObject.ParamSpec.int(
-                `divider`,
-                `Divider`,
-                `Divider`,
+            'factor': GObject.ParamSpec.int(
+                `factor`,
+                `Factor`,
+                `Factor`,
                 GObject.ParamFlags.READWRITE,
                 0, 64,
-                5,
+                8,
             ),
-            'width': GObject.ParamSpec.double(
-                `width`,
-                `Width`,
-                `Width`,
+            'downsampling_mode': GObject.ParamSpec.int(
+                `downsampling_mode`,
+                `Downsampling mode`,
+                `Downsampling mode`,
                 GObject.ParamFlags.READWRITE,
-                0.0, Number.MAX_SAFE_INTEGER,
-                0.0,
-            ),
-            'height': GObject.ParamSpec.double(
-                `height`,
-                `Height`,
-                `Height`,
-                GObject.ParamFlags.READWRITE,
-                0.0, Number.MAX_SAFE_INTEGER,
-                0.0,
+                0, 2,
+                0,
             )
         }
-    }, class PixelizeEffect extends Clutter.ShaderEffect {
+    }, class PixelizeEffect extends Clutter.Effect {
         constructor(params) {
-            super(params);
+            super();
 
-            this._divider = null;
-            this._width = null;
-            this._height = null;
+            this.upscale_effect = new UpscaleEffect({});
+            this.downscale_effect = new DownscaleEffect({});
 
-            this.divider = 'divider' in params ? params.divider : this.constructor.default_params.divider;
-            this.width = 'width' in params ? params.width : this.constructor.default_params.width;
-            this.height = 'height' in params ? params.height : this.constructor.default_params.height;
-
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+            utils.setup_params(this, params, DEFAULT_PARAMS);
         }
 
-        static get default_params() {
-            return DEFAULT_PARAMS;
+        get factor() {
+            // should be the same as `this.downscale_effect.divider`
+            return this.upscale_effect.factor;
         }
 
-        get divider() {
-            return this._width;
+        set factor(value) {
+            this.upscale_effect.factor = value;
+            this.downscale_effect.divider = value;
         }
 
-        set divider(value) {
-            if (this._divider !== value) {
-                this._divider = value;
-
-                this.set_uniform_value('divider', this._divider);
-            }
+        get downsampling_mode() {
+            return this.downscale_effect.downsampling_mode;
         }
 
-        get width() {
-            return this._width;
-        }
-
-        set width(value) {
-            if (this._width !== value) {
-                this._width = value;
-
-                this.set_uniform_value('width', parseFloat(this._width + 3.0 - 1e-6));
-            }
-        }
-
-        get height() {
-            return this._height;
-        }
-
-        set height(value) {
-            if (this._height !== value) {
-                this._height = value;
-
-                this.set_uniform_value('height', parseFloat(this._height + 3.0 - 1e-6));
-            }
+        set downsampling_mode(value) {
+            this.downscale_effect.downsampling_mode = value;
         }
 
         vfunc_set_actor(actor) {
-            if (this._actor_connection_size_id) {
-                let old_actor = this.get_actor();
-                old_actor?.disconnect(this._actor_connection_size_id);
-            }
+            // deattach effects from old actor
+            this.upscale_effect?.actor?.remove_effect(this.upscale_effect);
+            this.downscale_effect?.actor?.remove_effect(this.downscale_effect);
+            // attach effects to new actor
             if (actor) {
-                this.width = actor.width;
-                this.height = actor.height;
-                this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                    this.width = actor.width;
-                    this.height = actor.height;
-                });
+                if (this.upscale_effect)
+                    actor.add_effect(this.upscale_effect);
+                if (this.downscale_effect)
+                    actor.add_effect(this.downscale_effect);
             }
-            else
-                this._actor_connection_size_id = null;
 
             super.vfunc_set_actor(actor);
         }
 
-        vfunc_paint_target(paint_node = null, paint_context = null) {
-            //this.set_uniform_value("tex", 0);
-
-            if (paint_node && paint_context)
-                super.vfunc_paint_target(paint_node, paint_context);
-            else if (paint_node)
-                super.vfunc_paint_target(paint_node);
-            else
-                super.vfunc_paint_target();
+        vfunc_set_enabled(is_enabled) {
+            this.upscale_effect?.set_enabled(is_enabled);
+            this.downscale_effect?.set_enabled(is_enabled);
+            super.vfunc_set_enabled(is_enabled);
         }
     });

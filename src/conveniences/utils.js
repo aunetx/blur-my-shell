@@ -12,6 +12,22 @@ export async function import_in_shell_only(module) {
     return (await import(module)).default;
 }
 
+// In use for the effects, to prevent boilerplate code
+export function setup_params(outer_this, params, default_params) {
+    // define the this.default_params getter
+    Object.defineProperty(outer_this, 'default_params', {
+        get() { return default_params; }
+    });
+
+    // setup each parameter, either with the given or the default value
+    for (const params_name in default_params) {
+        outer_this["_" + params_name] = null;
+        outer_this[params_name] = params_name in params ?
+            params[params_name] :
+            default_params[params_name];
+    }
+};
+
 export const get_shader_source = (Shell, shader_filename, self_uri) => {
     if (!Shell)
         return;

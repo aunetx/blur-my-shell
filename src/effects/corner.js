@@ -71,23 +71,12 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
         constructor(params) {
             super(params);
 
-            this._radius = null;
-            this._width = null;
-            this._height = null;
-            this._corners_top = null;
-            this._corners_bottom = null;
-
             this._clip_x0 = null;
             this._clip_y0 = null;
             this._clip_width = null;
             this._clip_height = null;
 
-            this.radius = 'radius' in params ? params.radius : this.constructor.default_params.radius;
-            this.width = 'width' in params ? params.width : this.constructor.default_params.width;
-            this.height = 'height' in params ? params.height : this.constructor.default_params.height;
-            this.height = 'corners_top' in params ? params.corners_top : this.constructor.default_params.corners_top;
-            this.height = 'corners_bottom' in params ? params.corners_bottom : this.constructor.default_params.corners_bottom;
-            this.clip = 'clip' in params ? params.clip : this.constructor.default_params.clip;
+            utils.setup_params(this, params, DEFAULT_PARAMS);
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -96,10 +85,6 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
 
             const theme_context = St.ThemeContext.get_for_stage(global.stage);
             theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
-        }
-
-        static get default_params() {
-            return DEFAULT_PARAMS;
         }
 
         get radius() {
@@ -218,16 +203,5 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
             }
 
             super.vfunc_set_actor(actor);
-        }
-
-        vfunc_paint_target(paint_node = null, paint_context = null) {
-            //this.set_uniform_value("tex", 0);
-
-            if (paint_node && paint_context)
-                super.vfunc_paint_target(paint_node, paint_context);
-            else if (paint_node)
-                super.vfunc_paint_target(paint_node);
-            else
-                super.vfunc_paint_target();
         }
     });
