@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-18 08:04+0000\n"
+"PO-Revision-Date: 2024-05-24 10:35+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ta/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -101,24 +101,28 @@ msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"சீரற்ற நடையில் ஒவ்வொரு அடிக்கும் அதிகபட்ச பயண தூரம். அதிக மதிப்பு மங்கலை "
+"மேலும் சீரற்றதாக மாற்றும்."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "மறுமுறைகள்"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "மறுமுறைகளின் எண்ணிக்கை. அதிகமாக இருப்பதால், மங்கலானது மென்மையானது."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "அடிப்படை பிக்சலைப் பயன்படுத்தவும்"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"மங்கலுக்கு அசல் பிக்சல் கணக்கிடப்படுகிறதா இல்லையா. அது இருந்தால், படம் "
+"இன்னும் தெளிவாக இருக்கும்."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -126,7 +130,7 @@ msgstr "நிறம்"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "குழாயில் ஒரு நிறத்தை கலக்கும் விளைவு."
 
 #: src/effects/effects.js:150
 msgid ""
