@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-02 00:01+0000\n"
-"Last-Translator: Syuugo <pub@s1204.me>\n"
+"PO-Revision-Date: 2024-05-18 10:58+0000\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
 "Language: ja\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "ぼかし効果"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "テクスチャ効果"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "シェイプ効果"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "ネイティブガウスぼかし"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
-msgstr ""
+msgstr "指定された半径内のピクセルをなめらかに混ぜる、最適化されたぼかし効果。"
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "半径"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "ぼかし効果の強度。"
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr ""
+msgstr "明るさ"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
 #: src/effects/effects.js:126 resources/ui/applications.ui:43
@@ -63,26 +63,28 @@ msgstr ""
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr ""
+msgstr "ぼかし効果の明るさ。値が大きいほど、テキストが読みづらくなる可能性があります"
+"。"
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "ガウスぼかし"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
-msgstr ""
+msgstr "指定された半径内のピクセルをなめらかに混ぜる、ぼかし効果。この効果はより正確"
+"ですが、あまり最適化されていません。"
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "ぼかし効果の強度。値が大きいほど、低速になります。"
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "モンテカルロぼかし"
 
 #: src/effects/effects.js:104
 msgid ""
@@ -116,107 +118,109 @@ msgstr ""
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
-msgstr ""
+msgstr "色"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "パイプラインに色を混ぜる効果。"
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
-msgstr ""
+msgstr "混ぜる色。混ぜる量は、色の透明度で調整します。"
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "ピクセル化"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "画像をピクセル化する効果。"
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "ブロックサイズ"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "画像をどれくらい縮小するか。"
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "ノイズ"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
-msgstr ""
+msgstr "ランダムなノイズを追加する効果。自然な風合いが必要な場合、モンテカルロぼかし"
+"を使用してください。"
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "追加するノイズの量。"
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "明るさ"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "ノイズの明度。'1.0' を設定すると、効果が透明になります。"
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "角"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
-msgstr ""
+msgstr "角を描画する効果。角の部分に他の効果が適用されないよう、効果の一覧の末尾に追"
+"加してください。"
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "角の半径。GNOME アプリはデフォルトで 12 px の半径を使用します。"
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "上側の角"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "上側の角を丸めるかどうか。"
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "下側の角"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "下側の角を丸めるかどうか。"
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "ウィンドウの名前"
 
 #: resources/ui/application-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "ウィンドウを選択"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "ウィンドウをマウスポインターで選択するか、クラス名を指定して選択します。"
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
-msgstr "アプリ"
+msgstr "アプリケーション"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "アプリケーションのぼかし"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -224,18 +228,21 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"アプリケーションにぼかしを追加します。\n"
+"最高の結果を得るには、パフォーマンスは低下しますが、“その他 → ハックレベル” "
+"タブで “アーティファクトなし” のオプションを選択できます。"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
-msgstr ""
+msgstr "標準偏差"
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
-msgstr ""
+msgstr "ぼかしの強度。"
 
 #: resources/ui/applications.ui:63
 msgid "Opacity"
@@ -245,35 +252,40 @@ msgstr "不透明度"
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr ""
+msgstr "ブラー効果の上に表示されているウィンドウの透明度。値が大きいほど、読みやすく"
+"なります。"
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "アクティブウィンドウは不透明にする"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
-msgstr ""
+msgstr "アクティブウィンドウは不透明にし、そのほかのウィンドウはぼかしをかけることで"
+"、判読性を向上します。"
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
-msgstr "全体像をぼかす"
+msgstr "アクティビティ画面でぼかす"
 
 #: resources/ui/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"アクティビティ画面のすべてのワークスペースで、ぼかしが適切に表示されるよう強"
+"制します。\n"
+"これはレイテンシやパフォーマンスの不具合を引き起こす可能性があります。"
 
 #: resources/ui/applications.ui:116
 msgid "Enable all by default"
-msgstr "規定で全て有効"
+msgstr "デフォルトですべて有効にする"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "デフォルトですべてのウィンドウにぼかしを加えます。"
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -285,7 +297,7 @@ msgstr "ぼかすウィンドウの一覧。"
 
 #: resources/ui/applications.ui:152 resources/ui/applications.ui:189
 msgid "Add Window"
-msgstr "ウィンドウの追加"
+msgstr "ウィンドウを追加"
 
 #: resources/ui/applications.ui:170
 msgid "Blacklist"
@@ -293,141 +305,142 @@ msgstr "ブラックリスト"
 
 #: resources/ui/applications.ui:171
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "ぼかさないウィンドウの一覧。"
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "Dash"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Dash to Dock のぼかし"
 
 #: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr ""
+msgstr "Dash to Dock 拡張機能の背景をぼかします (使用中の場合)。"
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "ぼかしの種類"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
+msgstr "動的ぼかしは相対的に低速で、ガウスぼかし効果のみと互換性があります。"
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "静的"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "動的"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
-msgstr ""
+msgstr "背景を上書き"
 
 #: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
-msgstr ""
+msgstr "背景を透明または半透明のいずれかに変更します。Dash to Dock "
+"の設定を使用するには無効にします。"
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
-msgstr ""
+msgstr "背景のスタイル"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "ドックの背景に適用する透明/半透明のスタイル。"
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
-msgstr ""
+msgstr "アクティビティ画面では無効にする"
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr ""
+msgstr "アクティビティ画面を表示した際に、Dash to Dock のぼかしを無効にします。"
 
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
-msgstr ""
+msgstr "透明"
 
 #: resources/ui/dash.ui:168 resources/ui/overview.ui:116
 #: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
-msgstr ""
+msgstr "明るい"
 
 #: resources/ui/dash.ui:169 resources/ui/overview.ui:117
 #: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
-msgstr ""
+msgstr "暗い"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "効果"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "効果を追加"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "プロジェクトページ"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "バグを報告"
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "ライセンス"
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "寄付"
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "ロック画面のぼかし"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
+msgstr "この拡張機能で設定した内容をロック画面のぼかしに使うように変更します。"
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "スクリーンショットのぼかし"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
+msgstr "スクリーンショット機能のウィンドウ選択画面の背景に、ぼかしを追加します。"
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "Window List 拡張機能のぼかし"
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "Window List 拡張機能にぼかしを追加します (使用中の場合)。"
 
 #: resources/ui/other.ui:101
 msgid "Performance"
-msgstr ""
+msgstr "パフォーマンス"
 
 #: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "パフォーマンスを調整するための各種オプション。"
 
 #: resources/ui/other.ui:106
 msgid "Hack level"
-msgstr ""
+msgstr "ハックレベル"
 
 #: resources/ui/other.ui:107
 msgid ""
@@ -436,103 +449,108 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"動的ぼかし効果の動作を変更します。デフォルト値を強く推奨します。\n"
+"“アーティファクトなし” オプションは GNOME Shell の部分再描画機能を完全に無効"
+"化するため、コンピューターのパフォーマンスに大きく影響します。"
 
 #: resources/ui/other.ui:121
 msgid "Debug"
-msgstr ""
+msgstr "デバッグ"
 
 #: resources/ui/other.ui:122
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr ""
+msgstr "拡張機能に追加のログを出力させます。不具合を報告する場合に有効にしてください"
+"。"
 
 #: resources/ui/other.ui:137
 msgid "Reset preferences"
-msgstr ""
+msgstr "設定をリセット"
 
 #: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Blur my Shell の設定を完全にリセットします。"
 
 #: resources/ui/other.ui:157
 msgid "Reset"
-msgstr ""
+msgstr "リセット"
 
 #: resources/ui/other.ui:186
 msgid "High performances"
-msgstr ""
+msgstr "高パフォーマンス"
 
 #: resources/ui/other.ui:187
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: resources/ui/other.ui:188
 msgid "No artifact"
-msgstr ""
+msgstr "アーティファクトなし"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "アクティビティ画面"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "背景のぼかし"
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr ""
+msgstr "壁紙の画像を使用して、アクティビティ画面の背景にぼかしを追加します。"
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "アクティビティ画面のコンポーネントのスタイル"
 
 #: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr ""
+msgstr "Dash、検索欄/検索結果、アプリケーションフォルダーに適用する半透明のスタイル。"
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "アプリケーションフォルダーのぼかし"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "アプリケーションフォルダーダイアログの背景をぼかします。"
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "アプリケーションフォルダーダイアログのスタイル"
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "アプリケーションフォルダーダイアログに適用する半透明のスタイル。"
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
-msgstr ""
+msgstr "適用しない"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "パネル"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "パネルのぼかし"
 
 #: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "背景画像を使用して上部のパネルをぼかします。"
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr ""
+msgstr "明るいテキストを強制"
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
-msgstr ""
+msgstr "パネルに明るいテキストを使用します。GNOME Shell "
+"の明るいテーマを使用する場合に便利です。"
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -540,82 +558,88 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"パネルの背景を透明または半透明に上書きします。\n"
+"GNOME テーマをカスタマイズしたい場合以外は、有効にすることを推奨します。"
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "パネルの背景に適用する透明/半透明のスタイル。"
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "ウィンドウが近づいたら無効にする"
 
 #: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr ""
+msgstr "ウィンドウがパネルに近づいたら、パネルの透明度を無効にします。"
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
-msgstr ""
+msgstr "アクティビティ画面を表示した際に、パネルのぼかしを無効にします。"
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
-msgstr ""
+msgstr "互換性"
 
 #: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "他の拡張機能との互換性を提供するための各種オプション。"
 
 #: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Hide Top Bar 拡張機能"
 
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr ""
+msgstr "アクティビティ画面でぼかしを無効にしません。静的ぼかしを使う場合に最適です。"
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Dash to Panel 使用時、GNOME Shell 本来のパネルをぼかす"
 
 #: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Dash to Panel 使用時、GNOME Shell 本来のパネルのぼかしを有効にします (Dash "
+"to Panel のオプションで選択されている場合)。"
 
 #: resources/ui/panel.ui:225
 msgid "Contrasted"
-msgstr ""
+msgstr "コントラスト"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "パイプライン"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "このコンポーネントが使用するパイプライン。"
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "パイプラインの名前"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "効果を管理"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "パイプライン"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"各コンポーネントのタブから、そのコンポーネントが使用するパイプラインを選択で"
+"きます。ここでは、パイプラインとその効果の作成、変更、削除を行なえます。"
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "パイプラインを追加"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "blurのアプリ(ベータ)"
