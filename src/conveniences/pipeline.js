@@ -96,10 +96,20 @@ export const Pipeline = class Pipeline {
             this.pipelines_manager.disconnect(this._pipeline_destroyed_id);
         this._pipeline_changed_id = null;
         this._pipeline_destroyed_id = null;
+
+        if (this.actor && this.actor._bms_notify_mapped_id) {
+            this.actor.disconnect(this.actor._bms_notify_mapped_id);
+            delete this.actor._bms_notify_mapped_id;
+        }
     }
 
     /// Attach a Pipeline object with `pipeline_id` already set to an actor.
     attach_pipeline_to_actor(actor) {
+        if (this.actor && this.actor._bms_notify_mapped_id) {
+            this.actor.disconnect(this.actor._bms_notify_mapped_id);
+            delete this.actor._bms_notify_mapped_id;
+        }
+
         // set the actor
         this.actor = actor;
         if (!actor)
@@ -116,6 +126,11 @@ export const Pipeline = class Pipeline {
             } else
                 return;
         }
+
+        this.actor._bms_notify_mapped_id = this.actor.connect('notify::mapped', _ => {
+            if (this.actor.mapped && Main.layoutManager.monitors.length > 1)
+                setTimeout(_ => this.actor.queue_redraw(), 100);
+        });
 
         // update the effects
         this.update_effects_from_pipeline(pipeline);
