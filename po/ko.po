@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2023-06-29 14:17+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2024-05-29 10:09+0000\n"
+"Last-Translator: 오형진 <oh7199@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
 "Language: ko\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "텍스처 효과"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
@@ -33,7 +33,7 @@ msgstr ""
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "가우시안 블러"
 
 #: src/effects/effects.js:48
 msgid ""
@@ -82,7 +82,7 @@ msgstr ""
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "몬테 카를로 블러"
 
 #: src/effects/effects.js:104
 msgid ""
@@ -98,7 +98,7 @@ msgstr ""
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "반복"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
@@ -146,7 +146,7 @@ msgstr ""
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "노이즈"
 
 #: src/effects/effects.js:175
 msgid ""
