@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2024-06-21 08:51+0000\n"
+"PO-Revision-Date: 2025-04-06 17:36+0000\n"
 "Last-Translator: 오형진 <oh7199@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -73,9 +73,8 @@ msgstr ""
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
-msgstr ""
-"주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 블러 효과. 더 정밀하지만 최적화"
-"가 덜 되어 있습니다."
+msgstr "주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 블러 효과. 더 정밀하지만 "
+"최적화가 덜 되어 있습니다."
 
 #: src/effects/effects.js:92
 msgid ""
@@ -90,17 +89,15 @@ msgstr "몬테 카를로 블러"
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr ""
-"원점에서 더 멀리 떨어진 픽셀을 선택하고 이를 모두 혼합한 블러 효과. 랜덤 워"
-"크 원리를 사용했습니다."
+msgstr "원점에서 더 멀리 떨어진 픽셀을 선택하고 이를 모두 혼합한 블러 효과. 랜덤 "
+"워크 원리를 사용했습니다."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
-msgstr ""
-"랜덤 워크의 각 단계에 대한 최대 이동 거리. 값이 높을수록 랜덤으로 더 흐려집니"
-"다."
+msgstr "랜덤 워크의 각 단계에 대한 최대 이동 거리. 값이 높을수록 랜덤으로 더 "
+"흐려집니다."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
@@ -118,9 +115,8 @@ msgstr "기본 픽셀 사용"
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
-msgstr ""
-"원본 픽셀이 블러에 계산되는지 여부. 이 옵션을 선택하면 이미지의 가독성이 높아"
-"집니다."
+msgstr "원본 픽셀이 블러에 계산되는지 여부. 이 옵션을 선택하면 이미지의 가독성이 "
+"높아집니다."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
@@ -229,9 +225,8 @@ msgstr "노이즈"
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
-msgstr ""
-"무작위 노이즈를 추가하는 효과. 필요한 경우 보다 자연스러운 효과를 얻으려면 몬"
-"테 카를로 블러를 사용하는 것이 좋습니다."
+msgstr "무작위 노이즈를 추가하는 효과. 필요한 경우 보다 자연스러운 효과를 얻으려면 "
+"몬테 카를로 블러를 사용하는 것이 좋습니다."
 
 #: src/effects/effects.js:268
 msgid "The amount of noise to add."
@@ -271,8 +266,7 @@ msgstr "모서리"
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
-msgstr ""
-"모서리를 그리는 효과. 다른 효과에 의해 모서리에 엉망이 되지 않도록 마지막에 "
+msgstr "모서리를 그리는 효과. 다른 효과에 의해 모서리에 엉망이 되지 않도록 마지막에 "
 "추가하세요."
 
 #: src/effects/effects.js:313
@@ -322,8 +316,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "어플리케이션에 블러 효과를 추가합니다. \n"
-"\"기타 → 성능 수준\" 탭에서 \"아티팩트 없음\" 옵션을 선택하면 성능은 저하되더"
-"라도 최상의 결과를 얻을 수 있습니다."
+"\"기타 → 성능 수준\" 탭에서 \"아티팩트 없음\" 옵션을 선택하면 성능은 "
+"저하되더라도 최상의 결과를 얻을 수 있습니다."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -434,9 +428,8 @@ msgstr "배경 덮어쓰기"
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
-msgstr ""
-"배경을 투명 또는 반투명으로 설정하며, 이 기능을 비활성화하면 Dash to Dock 환"
-"경설정을 대신 사용할 수 있습니다."
+msgstr "배경을 투명 또는 반투명으로 설정하며, 이 기능을 비활성화하면 Dash to Dock "
+"환경설정을 대신 사용할 수 있습니다."
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
@@ -507,8 +500,7 @@ msgstr "잠금 화면 블러"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
-"이 확장 프로그램의 옵션을 사용하려면 잠금 화면의 블러 효과를 변경하세요."
+msgstr "이 확장 프로그램의 옵션을 사용하려면 잠금 화면의 블러 효과를 변경하세요."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
@@ -554,8 +546,8 @@ msgid ""
 "shell, and will impact your computer performances significantly."
 msgstr ""
 "동적 블러 효과의 동작을 변경합니다. 기본값을 사용하는 것이 좋습니다.\n"
-"\"아티팩트 없음\" 옵션은 그놈 셸에서 없앤 다시 그리기 기능을 완전히 비활성화"
-"해서, 컴퓨터 성능에 상당한 영향을 미칠 것입니다."
+"\"아티팩트 없음\" 옵션은 그놈 셸에서 없앤 다시 그리기 기능을 완전히 "
+"비활성화해서, 컴퓨터 성능에 상당한 영향을 미칠 것입니다."
 
 #: resources/ui/other.ui:138
 msgid "Debug"
@@ -565,8 +557,7 @@ msgstr "디버그"
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr ""
-"로그에 확장 프로그램 세부정보를 기록하고 문제를 보고해야 할 때 활성화하세요."
+msgstr "로그에 확장 프로그램 세부정보를 기록하고 문제를 보고해야 할 때 활성화하세요."
 
 #: resources/ui/other.ui:154
 msgid "Reset preferences"
@@ -653,8 +644,7 @@ msgstr "밝은 텍스트 적용"
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
-msgstr ""
-"패널에 밝은 텍스트를 사용합니다. 그놈 셸의 밝은 테마를 사용할 때 유용합니다."
+msgstr "패널에 밝은 텍스트를 사용합니다. 그놈 셸의 밝은 테마를 사용할 때 유용합니다."
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -695,9 +685,8 @@ msgstr "Hidetopbar 확장 프로그램"
 
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr ""
-"오버뷰에서 블러를 비활성화하지 마세요. 정적 블러와 함께 사용하는 것이 좋습니"
-"다."
+msgstr "오버뷰에서 블러를 비활성화하지 마세요. 정적 블러와 함께 사용하는 것이 "
+"좋습니다."
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
@@ -707,8 +696,7 @@ msgstr "Dash to Panel을 사용한 원본 패널 블러하기"
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
-msgstr ""
-"확장 프로그램의 옵션에서 선택한 경우, Dash to Panel로 원래 패널을 블러할 수 "
+msgstr "확장 프로그램의 옵션에서 선택한 경우, Dash to Panel로 원래 패널을 블러할 수 "
 "있습니다."
 
 #: resources/ui/panel.ui:225
@@ -740,8 +728,8 @@ msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
-"각 컴포넌트는 해당 탭에서 선택할 수 있는 파이프라인을 사용합니다. 여기에서 파"
-"이프라인과 해당 효과를 생성, 수정 및 삭제할 수 있습니다."
+"각 컴포넌트는 해당 탭에서 선택할 수 있는 파이프라인을 사용합니다. 여기에서 "
+"파이프라인과 해당 효과를 생성, 수정 및 삭제할 수 있습니다."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
