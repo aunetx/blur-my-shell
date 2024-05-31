@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-05-29 10:09+0000\n"
+"PO-Revision-Date: 2024-05-31 05:09+0000\n"
 "Last-Translator: 오형진 <oh7199@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "블러 효과"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
@@ -29,25 +29,25 @@ msgstr "텍스처 효과"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "형태 효과"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr "가우시안 블러"
+msgstr "네이티브 가우시안 블러"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
-msgstr ""
+msgstr "주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 최적화된 블러 효과."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "반경"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "블러 효과의 강도."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -63,22 +63,23 @@ msgstr "밝기"
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr "블러 효과의 밝기, 높은 값은 텍스트를 읽기 어렵게 만들 수 있습니다."
+msgstr "블러 효과의 밝기가 높을 경우, 텍스트를 읽기 어렵게 만들 수 있습니다."
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "가우시안 블러"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
-msgstr ""
+msgstr "주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 블러 효과. 이 효과는 더 "
+"정확하지만 최적화가 덜 되어 있습니다."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "블러 효과의 강도. 커질수록 속도가 느려집니다."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
@@ -88,13 +89,15 @@ msgstr "몬테 카를로 블러"
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr ""
+msgstr "원점에서 더 멀리 떨어진 픽셀을 선택하고 이를 모두 혼합하여 랜덤 워크를 "
+"모방한 블러 효과."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
-msgstr ""
+msgstr "랜덤 워크의 각 단계에 대한 최대 이동 거리. 값이 높을수록 블러가 더 "
+"랜덤화됩니다."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
@@ -102,11 +105,11 @@ msgstr "반복"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "반복 횟수. 반복 횟수가 많을수록 블러가 매끄럽습니다."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "기본 픽셀 사용"
 
 #: src/effects/effects.js:136
 msgid ""
@@ -120,29 +123,29 @@ msgstr "색상"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "파이프라인에 색상을 혼합하는 효과."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
-msgstr ""
+msgstr "혼합할 색상. 색의 불투명도에 의해 혼합량이 조절됩니다."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "픽셀화"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "이미지를 픽셀화하는 효과."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "축소 비율"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "이미지를 얼마나 축소할 것인지."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
@@ -156,11 +159,11 @@ msgstr ""
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "추가할 노이즈의 양."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "밝기"
 
 #: src/effects/effects.js:189
 msgid ""
@@ -176,27 +179,28 @@ msgstr ""
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
-msgstr ""
+msgstr "모서리를 그리는 효과. 다른 효과가 모서리에 영향을 주지 않도록 마지막에 "
+"추가합니다."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "모서리의 반경. GNOME 앱은 기본적으로 12픽셀 반경을 사용합니다."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "상단 모서리"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "상단 모서리 둥글게 만들기."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "하단 모서리"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "하단 모서리 둥글게 만들기."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
