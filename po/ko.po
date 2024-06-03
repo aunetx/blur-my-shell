@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-05-31 05:09+0000\n"
+"PO-Revision-Date: 2024-06-04 05:06+0000\n"
 "Last-Translator: 오형진 <oh7199@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
@@ -115,7 +115,8 @@ msgstr "기본 픽셀 사용"
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
-msgstr ""
+msgstr "원본 픽셀이 블러에 계산되는지 여부. 이 옵션을 선택하면 이미지의 가독성이 "
+"높아집니다."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
@@ -155,7 +156,8 @@ msgstr "노이즈"
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
-msgstr ""
+msgstr "무작위 노이즈를 추가하는 효과. 보다 유기적인 효과가 필요한 경우 몬테 카를로 "
+"블러를 사용하는 것이 좋습니다."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
@@ -169,11 +171,11 @@ msgstr "밝기"
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "노이즈의 밝기. '1.0'으로 설정하면 효과가 투명해집니다."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "모서리"
 
 #: src/effects/effects.js:203
 msgid ""
@@ -204,15 +206,15 @@ msgstr "하단 모서리 둥글게 만들기."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "윈도우 창 이름"
 
 #: resources/ui/application-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "윈도우 창 선택"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "윈도우 창을 선택하거나 클래스 이름으로 창을 선택합니다."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
@@ -220,7 +222,7 @@ msgstr "어플리케이션"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "어플리케이션 블러"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -228,6 +230,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"어플리케이션에 블러 효과를 추가합니다. \n"
+"\"기타 → 성능 수준\" 탭에서 \"아티팩트 없음\" 옵션을 선택하면 성능은 "
+"떨어지지만 최상의 결과를 얻을 수 있습니다."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -279,7 +284,7 @@ msgstr "기본적으로 모두 활성화"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "기본값으로 모든 윈도우 창에 블러를 추가합니다."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -315,24 +320,24 @@ msgstr "Dash to Dock 확장 프로그램이 사용되는 경우 배경을 흐리
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "블러 유형"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
+msgstr "동적 블러는 속도가 느리고 가우시안 블러 효과에만 호환됩니다."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "정적"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "동적"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
-msgstr "배경 오버라이드"
+msgstr "배경 덮어쓰기"
 
 #: resources/ui/dash.ui:114
 msgid ""
@@ -342,7 +347,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
-msgstr ""
+msgstr "배경 스타일"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
@@ -359,49 +364,49 @@ msgstr "Dash to Dock 이 오버뷰 모드에 들어가면 블러 효과를 비�
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
-msgstr ""
+msgstr "투명"
 
 #: resources/ui/dash.ui:168 resources/ui/overview.ui:116
 #: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
-msgstr ""
+msgstr "밝음"
 
 #: resources/ui/dash.ui:169 resources/ui/overview.ui:117
 #: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
-msgstr ""
+msgstr "어두움"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "효과"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "효과 추가"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "프로젝트 페이지"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "버그 제보"
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "라이선스"
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "후원"
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "기타"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "잠금 화면 블러"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
@@ -409,7 +414,7 @@ msgstr ""
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "스크린샷 블러"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
@@ -425,11 +430,11 @@ msgstr ""
 
 #: resources/ui/other.ui:101
 msgid "Performance"
-msgstr ""
+msgstr "성능"
 
 #: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "성능을 조정할 수 있는 다양한 옵션."
 
 #: resources/ui/other.ui:106
 msgid "Hack level"
