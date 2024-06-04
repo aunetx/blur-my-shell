@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-06-04 05:06+0000\n"
+"PO-Revision-Date: 2024-06-05 06:09+0000\n"
 "Last-Translator: 오형진 <oh7199@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
@@ -264,7 +264,8 @@ msgstr ""
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
-msgstr ""
+msgstr "초점이 맞춰진 윈도우 창은 불투명하게, 다른 윈도우 창은 블러해서 가독성을 "
+"높입니다."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -351,7 +352,7 @@ msgstr "배경 스타일"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "Dock 배경의 투명/반투명 스타일."
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
@@ -410,7 +411,7 @@ msgstr "잠금 화면 블러"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr ""
+msgstr "이 확장 프로그램의 기본 설정을 사용하려면 잠금 화면의 블러 효과를 변경합니다."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
@@ -450,7 +451,7 @@ msgstr ""
 
 #: resources/ui/other.ui:121
 msgid "Debug"
-msgstr ""
+msgstr "디버그"
 
 #: resources/ui/other.ui:122
 msgid ""
@@ -460,7 +461,7 @@ msgstr ""
 
 #: resources/ui/other.ui:137
 msgid "Reset preferences"
-msgstr ""
+msgstr "설정 초기화"
 
 #: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
@@ -468,15 +469,15 @@ msgstr ""
 
 #: resources/ui/other.ui:157
 msgid "Reset"
-msgstr ""
+msgstr "초기화"
 
 #: resources/ui/other.ui:186
 msgid "High performances"
-msgstr ""
+msgstr "높은 성능"
 
 #: resources/ui/other.ui:187
 msgid "Default"
-msgstr ""
+msgstr "기본값"
 
 #: resources/ui/other.ui:188
 msgid "No artifact"
@@ -484,11 +485,11 @@ msgstr ""
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "오버뷰"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "배경 블러"
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
