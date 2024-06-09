@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-06-01 07:45+0000\n"
+"PO-Revision-Date: 2024-06-10 02:09+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
@@ -100,11 +100,11 @@ msgstr ""
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "繰り返し"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "繰り返しの数。数が大きいほど、よりなめらかなぼかしになります。"
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
@@ -229,8 +229,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "アプリケーションにぼかしを追加します。\n"
-"最高の結果を得るには、パフォーマンスは低下しますが、“その他 → ハックレベル” "
-"タブで “アーティファクトなし” のオプションを選択できます。"
+"パフォーマンスは低下しますが、“その他 → ハックレベル” タブで "
+"“アーティファクトなし” のオプションを選択すると、最高の結果を得られます。"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
