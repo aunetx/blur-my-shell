@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-04-29 20:07+0000\n"
-"Last-Translator: Fernando Lopes <118869201+plasmus777@users.noreply.github."
-"com>\n"
+"PO-Revision-Date: 2024-06-20 11:09+0000\n"
+"Last-Translator: sobeitnow0 <sobeitnow0@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -133,7 +132,7 @@ msgstr "Cor"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr "Um efeito que mistura uma cor no pipeline."
+msgstr "Um efeito que mescla uma cor na sequência."
 
 #: src/effects/effects.js:150
 msgid ""
