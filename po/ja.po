@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-06-10 02:09+0000\n"
+"PO-Revision-Date: 2024-06-20 11:09+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -229,8 +229,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "アプリケーションにぼかしを追加します。\n"
-"パフォーマンスは低下しますが、“その他 → ハックレベル” タブで "
-"“アーティファクトなし” のオプションを選択すると、最高の結果を得られます。"
+"パフォーマンスは低下しますが、“その他 → ハックレベル”タブで“アーティファクト"
+"なし”のオプションを選択すると、最高の結果を得られます。"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -252,7 +252,7 @@ msgstr "不透明度"
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr "ブラー効果の上に表示されているウィンドウの透明度。値が大きいほど、読みやすく"
+msgstr "ぼかし効果の上に表示されているウィンドウの透明度。値が大きいほど、読みやすく"
 "なります。"
 
 #: resources/ui/applications.ui:85
@@ -450,8 +450,8 @@ msgid ""
 "shell, and will impact your computer performances significantly."
 msgstr ""
 "動的ぼかし効果の動作を変更します。デフォルト値を強く推奨します。\n"
-"“アーティファクトなし” オプションは GNOME Shell の部分再描画機能を完全に無効"
-"化するため、コンピューターのパフォーマンスに大きく影響します。"
+"“アーティファクトなし”オプションは GNOME Shell の部分再描画機能を完全に無効化"
+"するため、コンピューターのパフォーマンスに大きく影響します。"
 
 #: resources/ui/other.ui:121
 msgid "Debug"
