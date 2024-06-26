@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: José Victor Dias Rodrigues <zoldyakopersonal@gmail.com>\n"
+"Last-Translator: Lui Martinez Laskowski <luimlask@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -311,8 +311,7 @@ msgstr ""
 #: src/effects/effects.js:313
 #, fuzzy
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
-"O raio do canto. Os aplicativos GNOME usam um raio de 12 px por padrão."
+msgstr "O raio do canto. Os aplicativos GNOME usam um raio de 12 px por padrão."
 
 #: src/effects/effects.js:320
 #, fuzzy
