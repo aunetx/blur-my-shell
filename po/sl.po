@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2023-08-09 18:48+0000\n"
-"Last-Translator: Heki <linuxheki-accounts+hosted-weblate@proton.me>\n"
+"PO-Revision-Date: 2024-05-31 05:09+0000\n"
+"Last-Translator: Tvoja Mami <tvojamamiissus@gmail.com>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sl/>\n"
 "Language: sl\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "Učinki zameglitve"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "Učinki teksture"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "Učinki oblike"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
@@ -40,15 +40,17 @@ msgstr ""
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Optimiziran učinek zamegljenosti, ki gladko zlije slikovne pike v določenem "
+"polmeru."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "Polmer"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intenzivnost učinka zameglitve."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -70,22 +72,24 @@ msgstr ""
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "Gaussova zameglitev"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Učinek zamegljenosti, ki gladko zlije slikovne pike v danem polmeru. Ta "
+"učinek je natančnejši, vendar precej manj optimiziran."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "Intenzivnost učinka zameglitve. Večja kot je, počasneje bo."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Zameglitev Monte Carlo"
 
 #: src/effects/effects.js:104
 msgid ""
@@ -101,11 +105,11 @@ msgstr ""
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Iteracije"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Število Iteracij. Več kot jih je, bolj gladka bo zamegljitev."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
@@ -133,11 +137,11 @@ msgstr ""
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "Pikseliraj"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Učinek, ki pikselizira sliko."
 
 #: src/effects/effects.js:162
 msgid "Divider"
@@ -149,31 +153,33 @@ msgstr ""
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "Šum"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Učinek, ki doda naključen šum. Izberite Monte Carlo zameglitev za bolj "
+"naraven učinek, če je potrebno."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Količina šuma za dodajanje."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "Svetlost"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "Svetilnost šuma. Vrednost '1.0' naredi učinek prozoren."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "Kot"
 
 #: src/effects/effects.js:203
 msgid ""
@@ -183,23 +189,23 @@ msgstr ""
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "Polmer kota. GNOME aplikacije privzeto uporabljajo vrednost 12 px."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "Zgornji koti"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Ali zaokroži zgornje kote."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "Spodni koti"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Ali zaokroži spodnje kote."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -219,7 +225,7 @@ msgstr "Aplikacije"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Zameglitev aplikacij"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -227,6 +233,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Doda zameglitev aplikacijam.\n"
+"Za najboljše rezultate, čeprav z zmanjšano zmogljivostjo, lahko izberete "
+"možnost \"Brez artefakta\" v zavihku \"Drugo →\"Hack level\" \"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -280,7 +289,7 @@ msgstr "Privzeto omogoči vse"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "Privzeto doda zameglitev za vsemi okni."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -316,20 +325,22 @@ msgstr "Zameglitev ozadja razširitve \"Dash to Dock\", če je uporabljena."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Tip zameglitve"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"Dinamična zameglitev je počasnejša in združljiva le z gaussovim učinkom "
+"zameglitve."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statično"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamično"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -376,11 +387,11 @@ msgstr "Temen"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Učinki"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "Dodaj učinek"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -448,6 +459,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Spremeni vedenje učinka dinamične zameglitve. Privzeta vrednost je zelo "
+"priporočljiva.\n"
+"Možnost »Brez artefakta« bo v celoti onemogočila obrezane prerise v lupini "
+"GNOME in znatno vplivala na delovanje vašega računalnika."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -543,12 +558,14 @@ msgstr "Zamegli vrhnjo plošo z uporabo slike ozadja."
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr ""
+msgstr "Vsili svetlo besedilo"
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Uporabi sveltlo besedilo za ploščo, uporabno ko se uporablja svetla tema "
+"GNOMOve lupine."
 
 #: resources/ui/panel.ui:129
 msgid ""

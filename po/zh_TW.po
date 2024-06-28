@@ -8,32 +8,32 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2023-12-23 15:20+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2024-06-04 05:06+0000\n"
+"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/zh_TW/>\n"
+"blur-my-shell/blur-my-shell/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr ""
+msgstr "模糊效果"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr ""
+msgstr "紋理效果"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr ""
+msgstr "形狀效果"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "原生高斯模糊"
 
 #: src/effects/effects.js:48
 msgid ""
@@ -43,11 +43,11 @@ msgstr ""
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr ""
+msgstr "半徑"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "模糊效果的強度。"
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
@@ -67,7 +67,7 @@ msgstr "模糊效果的亮度，數值越高文字越難閱讀。"
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr ""
+msgstr "高斯模糊"
 
 #: src/effects/effects.js:76
 msgid ""
@@ -82,7 +82,7 @@ msgstr ""
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "蒙特卡羅模糊"
 
 #: src/effects/effects.js:104
 msgid ""
@@ -98,7 +98,7 @@ msgstr ""
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "迭代"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
@@ -106,7 +106,7 @@ msgstr ""
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "使用基礎像素"
 
 #: src/effects/effects.js:136
 msgid ""
@@ -130,7 +130,7 @@ msgstr ""
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "像素化"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
@@ -170,7 +170,7 @@ msgstr ""
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "角落"
 
 #: src/effects/effects.js:203
 msgid ""
@@ -216,7 +216,7 @@ msgstr "應用程式"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "應用程式模糊"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -311,7 +311,7 @@ msgstr "如果 Dash to Dock 擴充被使用，將其背景進行模糊。"
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "模糊類型"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
@@ -320,11 +320,11 @@ msgstr ""
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "靜態"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "動態"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -369,11 +369,11 @@ msgstr "深色"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "效果"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "新增效果"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -529,7 +529,7 @@ msgstr "使用背景圖片模糊頂部面板。"
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr ""
+msgstr "強制淺色文字"
 
 #: resources/ui/panel.ui:114
 msgid ""
@@ -607,7 +607,7 @@ msgstr ""
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "管理效果"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
