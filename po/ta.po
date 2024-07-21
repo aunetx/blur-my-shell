@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-05-24 10:35+0000\n"
+"PO-Revision-Date: 2024-07-21 17:09+0000\n"
 "Last-Translator: \"K.B.Dharun Krishna\" <kbdharunkrishna@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ta/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -137,76 +137,79 @@ msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"கலப்பதற்கான நிறம். கலப்பு அளவு நிறத்தின் ஒளிபுகாநிலையால் கட்டுப்படுத்தப்படுகிறது."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr ""
+msgstr "பிக்சலைஸ்"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "படத்தை பிக்சலைஸ் செய்யும் விளைவு."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr ""
+msgstr "பிரிப்பான்"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "படத்தை எவ்வளவு குறைக்க வேண்டும்."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr ""
+msgstr "சத்தம்"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"ஒரு சீரற்ற சத்தத்தை சேர்க்கும் விளைவு. தேவைப்பட்டால், அதிக கரிம விளைவுக்காக மான்டே கார்லோ மங்கலைப் பயன்படுத்தவும்."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "சேர்க்க வேண்டிய சத்தத்தின் அளவு."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr ""
+msgstr "லேசான தன்மை"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "சத்தத்தின் ஒளிர்வு. '1.0' அமைப்பானது, விளைவை வெளிப்படையானதாக மாற்றும்."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr ""
+msgstr "மூலை"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"மூலைகளை ஈர்க்கும் விளைவு. மற்ற விளைவுகள் மூலைகளைத் தொந்தரவு செய்யாதபடி கடைசியாகச் சேர்க்கவும்."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
+msgstr "மூலையின் ஆரம். GNOME பயன்பாடுகள் இயல்பாக 12 px ஆரம் பயன்படுத்துகின்றன."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr ""
+msgstr "மேல் மூலைகள்"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "மேல் மூலைகளைச் சுற்றி வளைக்க வேண்டுமா இல்லையா."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr ""
+msgstr "கீழ் மூலைகள்"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "கீழ் மூலைகளை வட்டமிட வேண்டுமா இல்லையா."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -226,7 +229,7 @@ msgstr "பயன்பாடுகள்"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "பயன்பாடுகள் மங்கலாகின்றன"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -234,6 +237,9 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"பயன்பாட்டில் மங்கலைச் சேர்க்கவும்.\n"
+"குறைந்த செயல்திறன் இருந்தாலும், சாத்தியமான சிறந்த முடிவுகளைப் பெற, \"பிற → ஹேக் லெவல்\" தாவலில் \"கலைப்பொருள் இல்லை"
+"\" என்ற விருப்பத்தை நீங்கள் தேர்வு செய்யலாம்."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -261,13 +267,14 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "ஒளிபுகா மையப்படுத்தப்பட்ட சாளரம்"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"ஃபோகஸ் செய்யப்பட்ட சாளரத்தை ஒளிபுகாதாக்குகிறது மற்றும் மற்றவற்றை மங்கலாக்குகிறது, தெளிவுக்கு உதவுகிறது."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -287,7 +294,7 @@ msgstr "முன்னிருப்பாக அனைத்தையும�
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "முன்னிருப்பாக அனைத்து சாளரங்களின் பின்னும் மங்கலைச் சேர்க்கிறது."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -323,20 +330,21 @@ msgstr "டாஷ் டு டாக் நீட்டிப்பு பய�
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "மங்கலான வகை"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"மாறும் மங்கலானது மெதுவாகவும், காஸியன் மங்கலான விளைவுடன் மட்டுமே இணக்கமாகவும் இருக்கும்."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "நிலையான"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "மாறும்"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -383,11 +391,11 @@ msgstr "இருள்"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "விளைவுகள்"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr ""
+msgstr "விளைவைச் சேர்க்கவும்"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -452,6 +460,9 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"மாறும் மங்கலான விளைவின் நடத்தையை மாற்றுகிறது. இயல்புநிலை மதிப்பு மிகவும் பரிந்துரைக்கப்படுகிறது.\n"
+"\"கலைப்பொருள் இல்லை\" விருப்பம் GNOME ஷெல்லில் கிளிப் செய்யப்பட்ட ரீடிராக்களை முழுவதுமாக முடக்கும், மேலும் உங்கள் "
+"கணினியின் செயல்திறனை கணிசமாக பாதிக்கும்."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
@@ -615,33 +626,35 @@ msgstr "மாறுபட்டது"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "குழாய்வரி"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "இந்த கூறுகளுடன் பயன்படுத்தப்படும் குழாய்வரி."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "குழாய்வரி பெயர்"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "விளைவுகளை நிர்வகிக்கவும்"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "குழாய்வரிகள்"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"ஒவ்வொரு கூறுகளும் குழாய்வறியைப் பயன்படுத்துகின்றன, அதை தொடர்புடைய தாவலில் தேர்ந்தெடுக்கலாம். இங்கே நீங்கள் குழாய்வறிகளையும் "
+"அவற்றின் விளைவுகளையும் உருவாக்கலாம், மாற்றலாம் மற்றும் நீக்கலாம்."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "பைப்லைனைச் சேர்க்கவும்"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "பயன்பாடுகள் மங்கலாக்குதல் (பீட்டா)"
