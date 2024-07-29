@@ -1,5 +1,6 @@
 import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
+import Cogl from 'gi://Cogl';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { adjustAnimationTime } from 'resource:///org/gnome/shell/misc/animationUtils.js';
 
@@ -7,7 +8,15 @@ import { PaintSignals } from '../conveniences/paint_signals.js';
 // TODO drop Tweener in favour of Clutter's `ease` (will need to extend the blur effect for it)
 const Tweener = imports.tweener.tweener;
 
-const transparent = Clutter.Color.from_pixel(0x00000000);
+// TODO: Drop GNOME 46 backwards compatibility
+const transparent = Clutter.Color ?
+    Clutter.Color.from_pixel(0x00000000) :
+    new Cogl.Color({
+        red: 0,
+        green: 0,
+        blue: 0,
+        alpha: 0
+    });
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 
 const DIALOGS_STYLES = [
