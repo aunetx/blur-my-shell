@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-05-21 18:02+0000\n"
+"PO-Revision-Date: 2024-08-03 10:09+0000\n"
 "Last-Translator: Troja <d.iwowi.b@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/be/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
@@ -104,18 +104,20 @@ msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Максімальная адлегласць перамяшчэння для кожнага кроку пры выпадковым руху. "
+"Больш высокае значэнне зробіць размыццё больш выпадковым."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr ""
+msgstr "Ітэрацыі"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Колькасць ітэрацый. Чым іх больш, тым больш гладкае размыццё."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr ""
+msgstr "Выкарыстоўвайце базавы піксель"
 
 #: src/effects/effects.js:136
 msgid ""
@@ -125,11 +127,11 @@ msgstr ""
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
-msgstr ""
+msgstr "Колер"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Эфект, які змешвае колер у працэсе."
 
 #: src/effects/effects.js:150
 msgid ""
