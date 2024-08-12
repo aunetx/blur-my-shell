@@ -17,6 +17,7 @@ import { DashBlur } from './components/dash_to_dock.js';
 import { LockscreenBlur } from './components/lockscreen.js';
 import { AppFoldersBlur } from './components/appfolders.js';
 import { WindowListBlur } from './components/window_list.js';
+import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
 
@@ -67,6 +68,7 @@ export default class BlurMyShell extends Extension {
         this._lockscreen_blur = new LockscreenBlur(...init());
         this._appfolder_blur = new AppFoldersBlur(...init());
         this._window_list_blur = new WindowListBlur(...init());
+        this._coverflow_alt_tab_blur = new CoverflowAltTabBlur(...init());
         this._applications_blur = new ApplicationsBlur(...init());
         this._screenshot_blur = new ScreenshotBlur(...init());
 
@@ -167,6 +169,7 @@ export default class BlurMyShell extends Extension {
         this._appfolder_blur = null;
         this._lockscreen_blur = null;
         this._window_list_blur = null;
+        this._coverflow_alt_tab_blur = null;
         this._applications_blur = null;
         this._screenshot_blur = null;
 
@@ -200,6 +203,7 @@ export default class BlurMyShell extends Extension {
         this._overview_blur.disable();
         this._appfolder_blur.disable();
         this._window_list_blur.disable();
+        this._coverflow_alt_tab_blur.disable();
         this._applications_blur.disable();
         this._screenshot_blur.disable();
 
@@ -283,6 +287,9 @@ export default class BlurMyShell extends Extension {
 
         if (this._settings.window_list.BLUR)
             this._window_list_blur.enable();
+
+        if (this._settings.coverflow_alt_tab.BLUR)
+            this._coverflow_alt_tab_blur.enable();
 
         if (this._settings.screenshot.BLUR)
             this._screenshot_blur.enable();
@@ -526,6 +533,17 @@ export default class BlurMyShell extends Extension {
                 this._window_list_blur.enable();
             else
                 this._window_list_blur.disable();
+        });
+
+
+        // ---------- COVERFLOW ALT-TAB ----------
+
+        // toggled on/off
+        this._settings.coverflow_alt_tab.BLUR_changed(() => {
+            if (this._settings.coverflow_alt_tab.BLUR)
+                this._coverflow_alt_tab_blur.enable();
+            else
+                this._coverflow_alt_tab_blur.disable();
         });
 
 
