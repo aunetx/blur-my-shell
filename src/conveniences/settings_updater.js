@@ -22,7 +22,7 @@ export function update_from_old_settings(gsettings) {
         preferences.dash_to_dock.STYLE_DASH_TO_DOCK = 0;
 
         // 'customize' has been removed: we merge the current used settings
-        ['appfolder', 'panel', 'dash_to_dock', 'applications', 'window_list'].forEach(
+        ['appfolder', 'panel', 'dash_to_dock', 'applications', 'window_list', 'coverflow_alt_tab'].forEach(
             component_name => {
                 const deprecated_component = deprecated_preferences[component_name];
                 const new_component = preferences[component_name];

@@ -95,6 +95,23 @@
       </object>
     </child>
 
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Coverflow Alt-Tab extension blur</property>
+        <property name="description" translatable="yes">Make the coverflow alt-tab extension blurred, if it is used.</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="coverflow_alt_tab_blur">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
+        <child>
+          <object class="PipelineChooseRow" id="coverflow_alt_tab_pipeline_choose_row">
+            <property name="sensitive" bind-source="coverflow_alt_tab_blur" bind-property="state" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
 
     <child>
       <object class="AdwPreferencesGroup">

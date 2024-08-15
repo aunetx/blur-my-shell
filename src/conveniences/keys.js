@@ -78,6 +78,12 @@ export const KEYS = [
         ]
     },
     {
+        component: "coverflow-alt-tab", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+        ]
+    },
+    {
         component: "screenshot", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
