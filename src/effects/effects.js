@@ -3,9 +3,14 @@ import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.j
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
-import { PixelizeEffect } from './pixelize.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
+import { DownscaleEffect } from './downscale.js';
+import { UpscaleEffect } from './upscale.js';
+import { PixelizeEffect } from './pixelize.js';
+import { DerivativeEffect } from './derivative.js';
+import { RgbToHslEffect } from './rgb_to_hsl.js';
+import { HslToRgbEffect } from './hsl_to_rgb.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -22,9 +27,14 @@ export function get_effects_groups(_ = _ => "") {
         texture_effects: {
             name: _("Texture effects"),
             contains: [
+                "downscale",
+                "upscale",
                 "pixelize",
+                "derivative",
                 "noise",
-                "color"
+                "color",
+                "rgb_to_hsl",
+                "hsl_to_rgb"
             ]
         },
         shape_effects: {
@@ -46,6 +56,7 @@ export function get_supported_effects(_ = () => "") {
             class: NativeStaticBlurEffect,
             name: _("Native gaussian blur"),
             description: _("An optimized blur effect that smoothly blends pixels within a given radius."),
+            is_advanced: false,
             editable_params: {
                 unscaled_radius: {
                     name: _("Radius"),
@@ -72,8 +83,9 @@ export function get_supported_effects(_ = () => "") {
 
         gaussian_blur: {
             class: GaussianBlurEffect,
-            name: _("Gaussian blur"),
+            name: _("Gaussian blur (advanced effect)"),
             description: _("A blur effect that smoothly blends pixels within a given radius. This effect is more precise, but way less optimized."),
+            is_advanced: true,
             editable_params: {
                 radius: {
                     name: _("Radius"),
@@ -102,6 +114,7 @@ export function get_supported_effects(_ = () => "") {
             class: MonteCarloBlurEffect,
             name: _("Monte Carlo blur"),
             description: _("A blur effect that mimics a random walk, by picking pixels further and further away from its origin and mixing them all together."),
+            is_advanced: false,
             editable_params: {
                 radius: {
                     name: _("Radius"),
@@ -143,6 +156,7 @@ export function get_supported_effects(_ = () => "") {
             class: ColorEffect,
             name: _("Color"),
             description: _("An effect that blends a color into the pipeline."),
+            is_advanced: false,
             // TODO make this RGB + blend
             editable_params: {
                 color: {
@@ -157,10 +171,65 @@ export function get_supported_effects(_ = () => "") {
             class: PixelizeEffect,
             name: _("Pixelize"),
             description: _("An effect that pixelizes the image."),
+            is_advanced: false,
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
+                }
+            }
+        },
+
+        downscale: {
+            class: DownscaleEffect,
+            name: _("Downscale (advanced effect)"),
+            description: _("An effect that downscales the image and put it on the top-left corner."),
+            is_advanced: true,
             editable_params: {
                 divider: {
-                    name: _("Divider"),
+                    name: _("Factor"),
                     description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
+                }
+            }
+        },
+
+        upscale: {
+            class: UpscaleEffect,
+            name: _("Upscale (advanced effect)"),
+            description: _("An effect that upscales the image from the top-left corner."),
+            is_advanced: true,
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale up the image."),
                     type: "integer",
                     min: 1,
                     max: 50,
@@ -169,10 +238,30 @@ export function get_supported_effects(_ = () => "") {
             }
         },
 
+        derivative: {
+            class: DerivativeEffect,
+            name: _("Derivative"),
+            description: _("Apply a spatial derivative, or a laplacian."),
+            is_advanced: false,
+            editable_params: {
+                operation: {
+                    name: _("Operation"),
+                    description: _("The mathematical operation to apply."),
+                    type: "dropdown",
+                    options: [
+                        _("1-step derivative"),
+                        _("2-step derivative"),
+                        _("Laplacian")
+                    ]
+                }
+            }
+        },
+
         noise: {
             class: NoiseEffect,
             name: _("Noise"),
             description: _("An effect that adds a random noise. Prefer the Monte Carlo blur for a more organic effect if needed."),
+            is_advanced: false,
             editable_params: {
                 noise: {
                     name: _("Noise"),
@@ -197,10 +286,27 @@ export function get_supported_effects(_ = () => "") {
             }
         },
 
+        rgb_to_hsl: {
+            class: RgbToHslEffect,
+            name: _("RGB to HSL (advanced effect)"),
+            description: _("Converts the image from RGBA colorspace to HSLA."),
+            is_advanced: true,
+            editable_params: {}
+        },
+
+        hsl_to_rgb: {
+            class: HslToRgbEffect,
+            name: _("HSL to RGB (advanced effect)"),
+            description: _("Converts the image from HSLA colorspace to RGBA."),
+            is_advanced: true,
+            editable_params: {}
+        },
+
         corner: {
             class: CornerEffect,
             name: _("Corner"),
             description: _("An effect that draws corners. Add it last not to have the other effects perturb the corners."),
+            is_advanced: false,
             editable_params: {
                 radius: {
                     name: _("Radius"),

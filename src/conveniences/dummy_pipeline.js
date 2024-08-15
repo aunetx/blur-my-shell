@@ -32,9 +32,12 @@ export const DummyPipeline = class DummyPipeline {
 
     attach_effect_to_actor(actor) {
         // set the actor
-        this.actor = actor;
-        if (!actor)
+        if (actor)
+            this.actor = actor;
+        else {
+            this.remove_pipeline_from_actor();
             return;
+        }
 
         // build the new effect to be added
         this.build_effect({
@@ -42,11 +45,23 @@ export const DummyPipeline = class DummyPipeline {
             brightness: this.settings.BRIGHTNESS,
         });
 
+        this.actor_destroy_id = this.actor.connect(
+            "destroy", () => this.remove_pipeline_from_actor()
+        );
+
         // add the effect to the actor
         if (this.actor)
             this.actor.add_effect(this.effect);
         else
             this._warn(`could not add effect to actor, actor does not exist anymore`);
+    }
+
+    remove_pipeline_from_actor() {
+        this.remove_effect();
+        if (this.actor && this.actor_destroy_id)
+            this.actor.disconnect(this.actor_destroy_id);
+        this.actor_destroy_id = null;
+        this.actor = null;
     }
 
     build_effect(params) {
@@ -69,7 +84,8 @@ export const DummyPipeline = class DummyPipeline {
     /// Remove every effect from the actor it is attached to. Please note that they are not
     /// destroyed, but rather stored (thanks to the `EffectManager` class) to be reused later.
     remove_effect() {
-        this.effects_manager.remove(this.effect);
+        if (this.effect)
+            this.effects_manager.remove(this.effect);
         this.effect = null;
 
         if (this._sigma_changed_id)
@@ -87,7 +103,7 @@ export const DummyPipeline = class DummyPipeline {
     /// Note: exposed to public API.
     destroy() {
         this.remove_effect();
-        this.actor = null;
+        this.remove_pipeline_from_actor();
     }
 
     _warn(str) {

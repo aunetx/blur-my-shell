@@ -79,6 +79,10 @@ export const EffectRow = GObject.registerClass({
 
     populate_options() {
         const editable_params = this.SUPPORTED_EFFECTS[this.effect.type].editable_params;
+
+        if (Object.keys(editable_params).length == 0)
+            this.enable_expansion = false;
+
         for (const param_key in editable_params) {
             let param = editable_params[param_key];
             let row;
@@ -131,6 +135,15 @@ export const EffectRow = GObject.registerClass({
                     row.set_active(this.get_effect_param(param_key));
                     row.connect(
                         'notify::active', () => this.set_effect_param(param_key, row.active)
+                    );
+                    break;
+
+                case "dropdown":
+                    row = new Adw.ComboRow({ model: new Gtk.StringList });
+                    param.options.forEach(option => row.model.append(option));
+                    row.selected = this.get_effect_param(param_key);
+                    row.connect(
+                        'notify::selected', () => this.set_effect_param(param_key, row.selected)
                     );
                     break;
 
