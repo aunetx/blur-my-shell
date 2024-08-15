@@ -8,55 +8,55 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-11 00:33+0200\n"
-"PO-Revision-Date: 2024-06-28 00:09+0000\n"
-"Last-Translator: Lui Martinez Laskowski <luimlask@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/pt_BR/>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2024-07-21 17:09+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Language-Team: Finnish <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/fi/>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.7-dev\n"
 
 #: src/effects/effects.js:15
 msgid "Blur effects"
-msgstr "Efeitos de desfoque"
+msgstr "Sumennuksen tehosteet"
 
 #: src/effects/effects.js:23
 msgid "Texture effects"
-msgstr "Efeitos de textura"
+msgstr "Rakennetehosteet"
 
 #: src/effects/effects.js:31
 msgid "Shape effects"
-msgstr "Efeitos de forma"
+msgstr "Muototehosteet"
 
 #: src/effects/effects.js:47
 msgid "Native gaussian blur"
-msgstr "Desfoque gaussiano nativo"
+msgstr "Alkuperäinen gaussinen sumeus"
 
 #: src/effects/effects.js:48
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
-"Um efeito de desfoque otimizado que combina pixels suavemente dentro de um "
-"determinado raio."
+"Optimoitu sumennustehoste, joka sekoittaa pikseleitä sujuvasti tietyllä "
+"säteellä."
 
 #: src/effects/effects.js:51 src/effects/effects.js:79
 #: src/effects/effects.js:107 src/effects/effects.js:206
 msgid "Radius"
-msgstr "Raio"
+msgstr "Säde"
 
 #: src/effects/effects.js:52
 msgid "The intensity of the blur effect."
-msgstr "A intensidade do efeito de desfoque."
+msgstr "Sumeustehosteen voimakkuus."
 
 #: src/effects/effects.js:61 src/effects/effects.js:89
 #: src/effects/effects.js:125 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr "Brilho"
+msgstr "Kirkkaus"
 
 #: src/effects/effects.js:62 src/effects/effects.js:90
 #: src/effects/effects.js:126 resources/ui/applications.ui:43
@@ -66,177 +66,175 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"O brilho do efeito de desfoque, um valor alto pode dificultar a leitura do "
-"texto."
+"Sumeustehosteen kirkkaus, korkea arvo saattaa tehdä tekstistä vaikeampaa "
+"lukea."
 
 #: src/effects/effects.js:75
 msgid "Gaussian blur"
-msgstr "Desfoque gaussiano"
+msgstr "Gaussin sumeus"
 
 #: src/effects/effects.js:76
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
-"Um efeito de desfoque que mescla suavemente os pixels dentro de um "
-"determinado raio. Esse efeito é mais preciso, porém menos otimizado."
+"Sumeustehoste, joka sekoittaa pikseleitä sujuvasti tietyllä säteellä. Tämä "
+"tehoste on tarkempi, mutta vähemmän optimoitu."
 
 #: src/effects/effects.js:80
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr "A intensidade do efeito de desfoque. Quanto maior for, mais lento será."
+msgstr "Sumeustehosteen voimakkuus. Mitä suurempi se on, sitä hitaampi se on."
 
 #: src/effects/effects.js:103
 msgid "Monte Carlo blur"
-msgstr "Desfoque Monte Carlo"
+msgstr "Monte Carlon sumennus"
 
 #: src/effects/effects.js:104
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
-"Um efeito de desfoque que funciona com um deslocamento aleatório, escolhendo "
-"pixels cada vez mais longe de sua origem e misturando-os todos juntos."
+"Sumeustehoste, joka jäljittelee satunnaista kävelyä poimimalla pikseleitä "
+"yhä kauemmaksi alkuperästään ja sekoittamalla ne kaikki yhteen."
 
 #: src/effects/effects.js:108
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
-"A distância máxima de deslocamento para cada passo no passeio. Um valor "
-"maior tornará o desfoque mais aleatório."
+"Satunnaisen kävelyn jokaisen askeleen enimmäismatka. Suurempi arvo tekee "
+"sumennuksen satunnaisemmaksi."
 
 #: src/effects/effects.js:117
 msgid "Iterations"
-msgstr "Iterações"
+msgstr "Toistukset"
 
 #: src/effects/effects.js:118
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "O número de iterações. Quanto mais houver, mais suave será o desfoque."
+msgstr "Toistojen määrä. Mitä enemmän niitä on, sitä tasaisempi sumennus on."
 
 #: src/effects/effects.js:135
 msgid "Use base pixel"
-msgstr "Usar pixel base"
+msgstr "Käytä peruspikseliä"
 
 #: src/effects/effects.js:136
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
-"Se o pixel original é contado ou não para o desfoque. Se for contado, a "
-"imagem será mais legível."
+"Otetaanko alkuperäinen pikseli huomioon sumennuksen yhteydessä. Jos on, "
+"kuvasta tulee paremmin luettava."
 
 #: src/effects/effects.js:144 src/effects/effects.js:149
 msgid "Color"
-msgstr "Cor"
+msgstr "Väri"
 
 #: src/effects/effects.js:145
 msgid "An effect that blends a color into the pipeline."
-msgstr "Um efeito que mescla uma cor na sequência."
+msgstr "Tehoste, joka sekoittaa värin putkilinjaan."
 
 #: src/effects/effects.js:150
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
-"A cor para mesclar. A quantidade de mesclagem é controlada pela opacidade da "
-"cor."
+"Väri, johon sekoitetaan. Sekoitusmäärää säätelee värin läpikuultamattomuus."
 
 #: src/effects/effects.js:158
 msgid "Pixelize"
-msgstr "Pixelizar"
+msgstr "Pikseloi"
 
 #: src/effects/effects.js:159
 msgid "An effect that pixelizes the image."
-msgstr "Um efeito que pixeliza a imagem."
+msgstr "Tehoste, joka pikselisoi kuvan."
 
 #: src/effects/effects.js:162
 msgid "Divider"
-msgstr "Divisor"
+msgstr "Jakaja"
 
 #: src/effects/effects.js:163
 msgid "How much to scale down the image."
-msgstr "Quanto diminuir a imagem."
+msgstr "Kuinka paljon kuvaa pienennetään."
 
 #: src/effects/effects.js:174 src/effects/effects.js:178
 msgid "Noise"
-msgstr "Ruído"
+msgstr "Kohina"
 
 #: src/effects/effects.js:175
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
-"Um efeito que adiciona um ruído aleatório. Prefira o desfoque Monte Carlo "
-"para um efeito mais orgânico, se necessário."
+"Satunnaista kohinaa lisäävä tehoste. Käytä Monte Carlo -sumutusta saadaksesi "
+"orgaanisemman tehosteen tarvittaessa."
 
 #: src/effects/effects.js:179
 msgid "The amount of noise to add."
-msgstr "A quantidade de ruído a ser adicionada."
+msgstr "Lisättävän kohinan määrä."
 
 #: src/effects/effects.js:188
 msgid "Lightness"
-msgstr "Luminosidade"
+msgstr "Vaaleus"
 
 #: src/effects/effects.js:189
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
-"A luminosidade do ruído. Uma configuração de '1.0' tornará o efeito "
-"transparente."
+msgstr "Kohinan kirkkaus. Asetus '1.0' tekee tehosteesta läpinäkyvän."
 
 #: src/effects/effects.js:202
 msgid "Corner"
-msgstr "Canto"
+msgstr "Kulma"
 
 #: src/effects/effects.js:203
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
-"Um efeito que desenha cantos. Adicione-o por último para não perturbar os "
-"outros efeitos nos cantos."
+"Tehoste, joka piirtää kulmia. Lisää se viimeisenä, jotta muut tehosteet "
+"eivät häiritse kulmia."
 
 #: src/effects/effects.js:207
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr "O raio do canto. Os aplicativos GNOME usam um raio de 12 px por padrão."
+msgstr ""
+"Kulman säde. GNOME-sovellukset käyttävät oletuksena 12 pikselin sädettä."
 
 #: src/effects/effects.js:214
 msgid "Top corners"
-msgstr "Cantos superiores"
+msgstr "Yläkulmat"
 
 #: src/effects/effects.js:215
 msgid "Whether or not to round the top corners."
-msgstr "Se deve ou não arredondar os cantos superiores."
+msgstr "Pyöristetäänkö yläkulmat vai ei."
 
 #: src/effects/effects.js:219
 msgid "Bottom corners"
-msgstr "Cantos inferiores"
+msgstr "Alakulmat"
 
 #: src/effects/effects.js:220
 msgid "Whether or not to round the bottom corners."
-msgstr "Se deve ou não arredondar os cantos inferiores."
+msgstr "Pyöristetäänkö alakulmat vai ei."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
-msgstr "Nome da Janela"
+msgstr "Ikkunan nimi"
 
 #: resources/ui/application-row.ui:8
 msgid "Select window"
-msgstr "Selecionar janela"
+msgstr "Valitse ikkuna"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr "Escolha uma janela ou selecione-a pelo nome da classe."
+msgstr "Valitse ikkuna tai valitse se luokan nimen perusteella."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
-msgstr "Aplicativos"
+msgstr "Sovellukset"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr "Desfocar aplicativos"
+msgstr ""
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -244,10 +242,6 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
-"Adiciona desfoque aos aplicativos.\n"
-"Para obter os melhores resultados possíveis, embora com performances "
-"reduzidas, você pode escolher a opção “Nenhuma imperfeição” na aba “Outros → "
-"Nível de modificação”."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -259,214 +253,206 @@ msgstr "Sigma"
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
-msgstr "A intensidade do desfoque."
+msgstr "Sumennuksen voimakkuus."
 
 #: resources/ui/applications.ui:63
 msgid "Opacity"
-msgstr "Opacidade"
+msgstr ""
 
 #: resources/ui/applications.ui:64
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"A opacidade da janela em cima do efeito de desfoque, um valor mais alto será "
-"mais legível."
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr "Janela em foco opaca"
+msgstr ""
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
-"Torna a janela em foco opaca e as demais desfocadas, ajudando na "
-"legibilidade."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
-msgstr "Desfoque na visão geral"
+msgstr "Sumennus yleiskatsauksessa"
 
 #: resources/ui/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Força o desfoque a ser exibido corretamente em todos os espaços de trabalho "
-"na visão geral.\n"
-"Isso pode causar alguns problemas de latência ou desempenho."
+"Pakottaa sumennuksen näyttämään oikein kaikissa yleiskatsauksen työtiloissa."
+"\n"
+"Tämä voi aiheuttaa viive- tai suorituskykyongelmia."
 
 #: resources/ui/applications.ui:116
 msgid "Enable all by default"
-msgstr "Habilitar tudo por padrão"
+msgstr "Ota kaikki käyttöön oletuksena"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr "Adiciona desfoque atrás de todas as janelas por padrão."
+msgstr "Lisää sumennus oletuksena kaikkien ikkunoiden taakse."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
-msgstr "Lista branca"
+msgstr "Valkoinen luettelo"
 
 #: resources/ui/applications.ui:134
 msgid "A list of windows to blur."
-msgstr "Uma lista de janelas para desfocar."
+msgstr "Luettelo sumennettavista ikkunoista."
 
 #: resources/ui/applications.ui:152 resources/ui/applications.ui:189
 msgid "Add Window"
-msgstr "Adicionar Janela"
+msgstr "Lisää ikkuna"
 
 #: resources/ui/applications.ui:170
 msgid "Blacklist"
-msgstr "Lista negra"
+msgstr "Musta luettelo"
 
 #: resources/ui/applications.ui:171
 msgid "A list of windows not to blur."
-msgstr "Uma lista de janelas para não desfocar."
+msgstr "Luettelo ikkunoista, joita ei sumenneta."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr "Dash"
+msgstr ""
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Desfoque do Dash to Dock"
+msgstr ""
 
 #: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Desfoque o plano de fundo da extensão Dash to Dock, se for usada."
+msgstr ""
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr "Tipo de desfoque"
+msgstr "Sumennuksen tyyppi"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
-"O desfoque dinâmico é mais lento e compatível apenas com o efeito de "
-"desfoque gaussiano."
+"Dynaaminen sumennus on hitaampi ja yhteensopiva vain Gaussin "
+"sumennustehosteen kanssa."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr "Estático"
+msgstr "Staattinen"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr "Dinâmico"
+msgstr "Dynaaminen"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
-msgstr "Substituir plano de fundo"
+msgstr "Korvaa tausta"
 
 #: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"Torna o plano de fundo transparente ou semitransparente, desabilite isso "
-"para usar as preferências do Dash to Dock."
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
-msgstr "Estilo de plano de fundo"
+msgstr "Taustan tyyli"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr "O estilo transparente/semitransparente para o fundo da doca."
+msgstr ""
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
-msgstr "Desativar na visão geral"
+msgstr "Poista käytöstä yleiskatsauksessa"
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Desativa o desfoque do Dash to Dock ao entrar na visão geral."
+msgstr ""
 
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
-msgstr "Transparente"
+msgstr "Läpinäkyvä"
 
 #: resources/ui/dash.ui:168 resources/ui/overview.ui:116
 #: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
-msgstr "Claro"
+msgstr "Vaalea"
 
 #: resources/ui/dash.ui:169 resources/ui/overview.ui:117
 #: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
-msgstr "Escuro"
+msgstr "Tumma"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr "Efeitos"
+msgstr "Tehosteet"
 
 #: resources/ui/effects-dialog.ui:32
 msgid "Add Effect"
-msgstr "Adicionar Efeito"
+msgstr "Lisää tehoste"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr "Página do projeto"
+msgstr "Projektin sivu"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr "Relatar um Bug"
+msgstr "Ilmoita virheestä"
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr "Licença"
+msgstr "Lisenssi"
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
-msgstr "Doar"
+msgstr "Lahjoita"
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr "Outro"
+msgstr "Muu"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr "Desfoque da tela de bloqueio"
+msgstr "Lukitusnäytön sumeus"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
-"Altere o desfoque da tela de bloqueio para usar as preferências desta "
-"extensão."
+"Muuta lukitusnäytön sumennusta käyttääksesi tämän laajennuksen asetuksia."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr "Desfoque da captura de tela"
+msgstr "Kuvakaappauksen sumeus"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"Adicione desfoque ao plano de fundo do seletor de janela na interface do "
-"usuário da captura de tela."
+"Lisää sumennus ikkunanvalitsimen taustaan kuvakaappauskäyttöliittymässä."
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
-msgstr "Desfoque da extensão da lista de janelas"
+msgstr "Ikkunaluettelon laajennuksen sumentaminen"
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "Torne a extensão da lista de janelas desfocada, se for usada."
+msgstr "Tekee ikkunaluettelolaajennuksen sumeaksi, jos sitä käytetään."
 
 #: resources/ui/other.ui:101
 msgid "Performance"
-msgstr "Desempenho"
+msgstr "Suorituskyky"
 
 #: resources/ui/other.ui:102
 msgid "Various options to tweak the performance."
-msgstr "Várias opções para ajustar o desempenho."
+msgstr "Vaihtoehdot suorituskyvyn säätämiseen."
 
 #: resources/ui/other.ui:106
 msgid "Hack level"
-msgstr "Nível de modificação"
+msgstr ""
 
 #: resources/ui/other.ui:107
 msgid ""
@@ -475,117 +461,103 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
-"Altera o comportamento do efeito de desfoque dinâmico. O valor padrão é "
-"altamente recomendado.\n"
-"A opção “Nenhuma imperfeição” desativará totalmente os redesenhos cortados "
-"no GNOME shell e afetará significativamente o desempenho do seu computador."
 
 #: resources/ui/other.ui:121
 msgid "Debug"
-msgstr "Depuração"
+msgstr ""
 
 #: resources/ui/other.ui:122
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"Torna a extensão detalhada nos logs, ative quando você precisa relatar um "
-"problema."
 
 #: resources/ui/other.ui:137
 msgid "Reset preferences"
-msgstr "Redefinir preferências"
+msgstr ""
 
 #: resources/ui/other.ui:138
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr "Redefine as preferências do Blur my Shell de forma irreversível."
+msgstr ""
 
 #: resources/ui/other.ui:157
 msgid "Reset"
-msgstr "Redefinir"
+msgstr ""
 
 #: resources/ui/other.ui:186
 msgid "High performances"
-msgstr "Altos desempenhos"
+msgstr ""
 
 #: resources/ui/other.ui:187
 msgid "Default"
-msgstr "Padrão"
+msgstr ""
 
 #: resources/ui/other.ui:188
 msgid "No artifact"
-msgstr "Nenhuma imperfeição"
+msgstr ""
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr "Visão geral"
+msgstr ""
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr "Desfoque do plano de fundo"
+msgstr ""
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Adicione desfoque ao plano de fundo da visão geral, usando a imagem do papel "
-"de parede."
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr "Estilo dos componentes da visão geral"
+msgstr ""
 
 #: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
-"O estilo semitransparente para o dash, entrada/resultados de pesquisa e "
-"pastas de aplicativos."
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr "Desfoque da pasta do aplicativo"
+msgstr ""
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
 msgstr ""
-"Torna o plano de fundo das caixas de diálogo da pasta do aplicativo borrado."
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr "Estilo de caixas de diálogo da pasta do aplicativo"
+msgstr ""
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
-"O estilo semitransparente para as caixas de diálogo da pasta do aplicativo."
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
-msgstr "Não estilizar"
+msgstr ""
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr "Painel"
+msgstr ""
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr "Desfoque do painel"
+msgstr ""
 
 #: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Desfoque o painel superior usando a imagem de fundo."
+msgstr ""
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr "Forçar texto claro"
+msgstr ""
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
-"Aplique um texto claro para o painel, útil ao usar o tema claro do gnome-"
-"shell."
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -593,216 +565,79 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Substitua o plano de fundo do painel para usar um transparente ou "
-"semitransparente.\n"
-"Recomendado, a menos que você queira personalizar seu tema GNOME."
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "O estilo transparente/semitransparente para o fundo do painel."
+msgstr ""
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
-msgstr "Desativar quando uma janela está próxima"
+msgstr ""
 
 #: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr "Desativa a transparência do painel quando uma janela está perto dele."
+msgstr ""
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Desativa o desfoque do painel ao entrar na visão geral."
+msgstr ""
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
-msgstr "Compatibilidade"
+msgstr ""
 
 #: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
-msgstr "Várias opções para fornecer compatibilidade com outras extensões."
+msgstr ""
 
 #: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
-msgstr "Extensão Hidetopbar"
+msgstr ""
 
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"Não desativa o desfoque na visão geral, melhor usado com desfoque estático."
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
-msgstr "Desfoque o painel original com Dash to Panel"
+msgstr ""
 
 #: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
-"Habilita o desfoque do painel original com Dash to Panel, se selecionado nas "
-"opções da extensão."
 
 #: resources/ui/panel.ui:225
 msgid "Contrasted"
-msgstr "Contrastado"
+msgstr ""
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr "Pipeline"
+msgstr ""
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr "O pipeline a ser usado com este componente."
+msgstr ""
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr "Nome do pipeline"
+msgstr ""
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr "Gerenciar efeitos"
+msgstr ""
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr "Pipelines"
+msgstr ""
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
-"Cada componente utiliza um pipeline, que pode ser escolhido na aba "
-"correspondente. Aqui você pode criar, modificar e excluir pipelines e seus "
-"efeitos."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr "Adicionar Pipeline"
-
-#~ msgid "Applications blur (beta)"
-#~ msgstr "Desfoque de aplicativos (beta)"
-
-#~ msgid ""
-#~ "Adds blur to the applications. This is still beta functionality.\n"
-#~ "To get the best results possible, make sure to choose the option “No "
-#~ "artifact” in the “General → Hack level” preference.\n"
-#~ "        "
-#~ msgstr ""
-#~ "Adiciona desfoque aos aplicativos. Esta funcionalidade ainda está em "
-#~ "estágio beta.\n"
-#~ "Para obter os melhores resultados possíveis, certifique-se de escolher a "
-#~ "opção \"Nenhum artefato\" na preferência \"Geral → Nível de "
-#~ "Modificação\".\n"
-#~ "        "
-
-#~ msgid ""
-#~ "Adds blur behind all windows by default.\n"
-#~ "Not recommended because of performance and stability issues."
-#~ msgstr ""
-#~ "Adiciona desfoque atrás de todas as janelas por padrão.\n"
-#~ "Não recomendado devido a problemas de desempenho e estabilidade."
-
-#~ msgid "Customize properties"
-#~ msgstr "Personalizar propriedades"
-
-#~ msgid ""
-#~ "Uses customized blur properties, instead of the ones set in the General "
-#~ "page."
-#~ msgstr ""
-#~ "Usa propriedades de desfoque personalizadas, em vez das definidas na "
-#~ "página Geral."
-
-#~ msgid ""
-#~ "Changes the color of the blur. The opacity of the color controls how much "
-#~ "it is blended into the blur effect."
-#~ msgstr ""
-#~ "Altera a cor do desfoque. A opacidade da cor controla o quanto ela é "
-#~ "misturada ao efeito de desfoque."
-
-#~ msgid "Noise amount"
-#~ msgstr "Quantidade de ruído"
-
-#~ msgid ""
-#~ "The amount of noise to add to the blur effect, useful on low-contrast "
-#~ "screens or for aesthetic purpose."
-#~ msgstr ""
-#~ "A quantidade de ruído para adicionar ao efeito de desfoque, útil em telas "
-#~ "de baixo contraste ou para fins estéticos."
-
-#~ msgid "Noise lightness"
-#~ msgstr "Leveza do ruído"
-
-#~ msgid "The lightness of the noise added to the blur effect."
-#~ msgstr "A leveza do ruído adicionado ao efeito de desfoque."
-
-#~ msgid "Notice"
-#~ msgstr "Aviso"
-
-#~ msgid ""
-#~ "Noise and color can't be activated on dynamically blurred components, "
-#~ "such as this one."
-#~ msgstr ""
-#~ "O ruído e a cor não podem ser ativados em componentes desfocados "
-#~ "dinamicamente, como este."
-
-#~ msgid "Static blur"
-#~ msgstr "Desfoque estático"
-
-#~ msgid ""
-#~ "Uses a static blurred image, can be used with rounding effect.\n"
-#~ "<b>Important notice:</b> with this activated, you should not use a big "
-#~ "sigma value as it will deteriorate performances."
-#~ msgstr ""
-#~ "Utiliza uma imagem estática desfocada que pode ser usada com um efeito "
-#~ "arredonando.\n"
-#~ "<b>Importante:</b> com isso ativado, um valor sigma alto não deverá ser "
-#~ "utilizado por conta de problemas de performance."
-
-#~ msgid "Rounded corner radius"
-#~ msgstr "Raio dos cantos arredondados"
-
-#~ msgid "The radius for the rounding effect. Only available with static blur."
-#~ msgstr ""
-#~ "Raio para o efeito arredondado. Disponível apenas para efeito de desfoque "
-#~ "estático."
-
-#~ msgid "General"
-#~ msgstr "Geral"
-
-#~ msgid "Blur preferences"
-#~ msgstr "Preferências de desfoque"
-
-#~ msgid "Global blur preferences, used by all components by default."
-#~ msgstr ""
-#~ "Preferências de desfoque globais, usadas por todos os componentes por "
-#~ "padrão."
-
-#~ msgid "Color and noise effects"
-#~ msgstr "Efeitos de cor e ruído"
-
-#~ msgid ""
-#~ "Globally disables noise and color effects which may improve performance "
-#~ "on low-end systems."
-#~ msgstr ""
-#~ "Globalmente desativa os efeitos de ruído e cor que podem melhorar o "
-#~ "desempenho em sistemas mais fracos."
-
-#~ msgid ""
-#~ "Changes the behaviour of the dynamic blur effect.\n"
-#~ "The default value is highly recommended unless you use application blur, "
-#~ "in which case “No artifact” is better.\n"
-#~ "This option will entirely disable clipped redraws in GNOME shell, and may "
-#~ "impact performance significantly but will completely fix the blur effect."
-#~ msgstr ""
-#~ "Altera o comportamento do efeito de desfoque dinâmico.\n"
-#~ "O valor padrão é altamente recomendado, a menos que você use o desfoque "
-#~ "do aplicativo, caso em que \"Nenhum artefato\" é melhor.\n"
-#~ "Essa opção desabilitará totalmente os redesenhos cortados no shell do "
-#~ "GNOME e poderá afetar significativamente o desempenho, mas corrigirá "
-#~ "completamente o efeito de desfoque."
-
-#~ msgid "High quality"
-#~ msgstr "Alta qualidade"
-
-#~ msgid "Uses a static blurred image, more performant and stable."
-#~ msgstr "Usa uma imagem estática desfocada, mais eficiente e estável."
+msgstr ""
