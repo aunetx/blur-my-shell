@@ -2,6 +2,7 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
+import Gio from 'gi://Gio';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { EffectRow } from './effect_row.js';
@@ -12,6 +13,7 @@ export const EffectsDialog = GObject.registerClass({
     Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/effects-dialog.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         "add_effect",
+        "add_effect_alt_menu",
         "effects_list"
     ],
 }, class EffectsDialog extends Adw.PreferencesDialog {
@@ -33,6 +35,25 @@ export const EffectsDialog = GObject.registerClass({
             this._effects_list.add(effect_row);
             this.update_rows_insensitive_mover(effect_row);
         });
+
+        // setup advanced effects chooser action
+        this.show_advanced_effects = false;
+        let action_group = new Gio.SimpleActionGroup();
+        this.insert_action_group('effects-dialog', action_group);
+        let advanced_effects_action = Gio.SimpleAction.new_stateful(
+            'advanced-effects-bool',
+            null,
+            GLib.Variant.new_boolean(this.show_advanced_effects)
+        );
+        advanced_effects_action.connect(
+            'change-state',
+            (_, state) => {
+                this.show_advanced_effects = state.get_boolean();
+                this.build_effects_chooser();
+                advanced_effects_action.set_state(state);
+            }
+        );
+        action_group.add_action(advanced_effects_action);
 
         this.build_effects_chooser();
         this._add_effect.connect('clicked', () => this.effects_chooser_dialog.present(this));
@@ -57,6 +78,9 @@ export const EffectsDialog = GObject.registerClass({
 
             for (const effect_type of group_infos.contains) {
                 if (!(effect_type in this.SUPPORTED_EFFECTS))
+                    continue;
+
+                if (!this.show_advanced_effects && this.SUPPORTED_EFFECTS[effect_type].is_advanced)
                     continue;
 
                 let action_row = new Adw.ActionRow({

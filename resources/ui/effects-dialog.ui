@@ -14,30 +14,50 @@
             <property name="description">Effect on the top will be applied first.</property>
 
             <property name="header-suffix">
-              <object class="GtkButton" id="add_effect">
-                <property name="halign">start</property>
-                <property name="valign">center</property>
+              <object class="GtkBox">
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <style>
+                  <class name="linked" />
+                </style>
                 <child>
-                  <object class="GtkBox">
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
+                  <object class="GtkButton" id="add_effect">
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
                     <child>
-                      <object class="GtkImage">
-                        <property name="margin-end">6</property>
-                        <property name="icon-name">list-add-symbolic</property>
+                      <object class="GtkBox">
+                        <property name="margin-start">12</property>
+                        <property name="margin-end">12</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="margin-end">6</property>
+                            <property name="icon-name">list-add-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Add Effect</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="label" translatable="yes">Add Effect</property>
-                      </object>
-                    </child>
+                    <style>
+                      <class name="circular" />
+                      <class name="suggested-action" />
+                    </style>
                   </object>
                 </child>
-                <style>
-                  <class name="circular" />
-                  <class name="suggested-action" />
-                </style>
+
+                <child>
+                  <object class="GtkMenuButton" id="add_effect_alt_menu">
+                    <property name="valign">center</property>
+                    <property name="icon-name">down-symbolic</property>
+                    <property name="menu-model">add_effect_alt_menu_model</property>
+                    <style>
+                      <class name="circular" />
+                    </style>
+                  </object>
+                </child>
               </object>
             </property>
           </object>
@@ -45,4 +65,13 @@
       </object>
     </child>
   </template>
+
+  <menu id="add_effect_alt_menu_model">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Include advanced effects</attribute>
+        <attribute name="action">effects-dialog.advanced-effects-bool</attribute>
+      </item>
+    </section>
+  </menu>
 </interface>

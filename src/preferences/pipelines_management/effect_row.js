@@ -79,6 +79,10 @@ export const EffectRow = GObject.registerClass({
 
     populate_options() {
         const editable_params = this.SUPPORTED_EFFECTS[this.effect.type].editable_params;
+
+        if (Object.keys(editable_params).length == 0)
+            this.enable_expansion = false;
+
         for (const param_key in editable_params) {
             let param = editable_params[param_key];
             let row;
