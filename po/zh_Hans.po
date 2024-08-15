@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:33+0200\n"
+"POT-Creation-Date: 2024-08-15 16:24+0200\n"
 "PO-Revision-Date: 2024-04-14 03:17+0000\n"
 "Last-Translator: 复予 <clonewith@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -19,45 +19,45 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: src/effects/effects.js:15
+#: src/effects/effects.js:20
 msgid "Blur effects"
 msgstr "模糊效果"
 
-#: src/effects/effects.js:23
+#: src/effects/effects.js:28
 msgid "Texture effects"
 msgstr "纹理效果"
 
-#: src/effects/effects.js:31
+#: src/effects/effects.js:41
 msgid "Shape effects"
 msgstr "形状效果"
 
-#: src/effects/effects.js:47
+#: src/effects/effects.js:57
 msgid "Native gaussian blur"
 msgstr "本地高斯模糊"
 
-#: src/effects/effects.js:48
+#: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr "经过优化的模糊效果，平滑混合给定半径内的像素。"
 
-#: src/effects/effects.js:51 src/effects/effects.js:79
-#: src/effects/effects.js:107 src/effects/effects.js:206
+#: src/effects/effects.js:62 src/effects/effects.js:91
+#: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
 msgstr "半径"
 
-#: src/effects/effects.js:52
+#: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
 msgstr "模糊效果的强度。"
 
-#: src/effects/effects.js:61 src/effects/effects.js:89
-#: src/effects/effects.js:125 resources/ui/applications.ui:42
+#: src/effects/effects.js:72 src/effects/effects.js:101
+#: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "亮度"
 
-#: src/effects/effects.js:62 src/effects/effects.js:90
-#: src/effects/effects.js:126 resources/ui/applications.ui:43
+#: src/effects/effects.js:73 src/effects/effects.js:102
+#: src/effects/effects.js:139 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -65,136 +65,223 @@ msgid ""
 "to read."
 msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
 
-#: src/effects/effects.js:75
-msgid "Gaussian blur"
-msgstr "高斯模糊"
+#: src/effects/effects.js:86
+msgid "Gaussian blur (advanced effect)"
+msgstr ""
 
-#: src/effects/effects.js:76
+#: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
-msgstr "一个可光滑混合给定半径内像素的模糊效果。这个效果更加细致，但优化程度较低。"
+msgstr ""
+"一个可光滑混合给定半径内像素的模糊效果。这个效果更加细致，但优化程度较低。"
 
-#: src/effects/effects.js:80
+#: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr "模糊效果的强度。数值越大越慢。"
 
-#: src/effects/effects.js:103
+#: src/effects/effects.js:115
 msgid "Monte Carlo blur"
 msgstr "蒙特卡洛模糊"
 
-#: src/effects/effects.js:104
+#: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr "模仿随机行走的模糊效果，它选取距离原点越来越远的像素，并将其混合在一起。"
+msgstr ""
+"模仿随机行走的模糊效果，它选取距离原点越来越远的像素，并将其混合在一起。"
 
-#: src/effects/effects.js:108
+#: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr "随机行走中，每一步的最大长度。数值更高则模糊越随机。"
 
-#: src/effects/effects.js:117
+#: src/effects/effects.js:130
 msgid "Iterations"
 msgstr "迭代"
 
-#: src/effects/effects.js:118
+#: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr "迭代次数。数值越高，模糊效果越平滑。"
 
-#: src/effects/effects.js:135
+#: src/effects/effects.js:148
 msgid "Use base pixel"
 msgstr "使用基础像素"
 
-#: src/effects/effects.js:136
+#: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr "是否将原有像素计入模糊。如果计入，图像会更清晰。"
 
-#: src/effects/effects.js:144 src/effects/effects.js:149
+#: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
 msgstr "颜色"
 
-#: src/effects/effects.js:145
+#: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."
 msgstr "将颜色融入管线的效果。"
 
-#: src/effects/effects.js:150
+#: src/effects/effects.js:164
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr "要融入的颜色。混合量由颜色透明度控制。"
 
-#: src/effects/effects.js:158
+#: src/effects/effects.js:172
 msgid "Pixelize"
 msgstr "像素化"
 
-#: src/effects/effects.js:159
+#: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
 msgstr "将图片像素化的效果。"
 
-#: src/effects/effects.js:162
-msgid "Divider"
-msgstr "分隔"
+#: src/effects/effects.js:177 src/effects/effects.js:204
+#: src/effects/effects.js:231
+msgid "Factor"
+msgstr ""
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
 msgstr "缩小图像的程度。"
 
-#: src/effects/effects.js:174 src/effects/effects.js:178
+#: src/effects/effects.js:185 src/effects/effects.js:212
+msgid "Downsampling mode"
+msgstr ""
+
+#: src/effects/effects.js:186 src/effects/effects.js:213
+msgid "The downsampling method that is used."
+msgstr ""
+
+#: src/effects/effects.js:189 src/effects/effects.js:216
+msgid "Boxcar"
+msgstr ""
+
+#: src/effects/effects.js:190 src/effects/effects.js:217
+msgid "Triangular"
+msgstr ""
+
+#: src/effects/effects.js:191 src/effects/effects.js:218
+msgid "Dirac"
+msgstr ""
+
+#: src/effects/effects.js:199
+msgid "Downscale (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:200
+msgid "An effect that downscales the image and put it on the top-left corner."
+msgstr ""
+
+#: src/effects/effects.js:226
+msgid "Upscale (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:227
+msgid "An effect that upscales the image from the top-left corner."
+msgstr ""
+
+#: src/effects/effects.js:232
+msgid "How much to scale up the image."
+msgstr ""
+
+#: src/effects/effects.js:243
+msgid "Derivative"
+msgstr ""
+
+#: src/effects/effects.js:244
+msgid "Apply a spatial derivative, or a laplacian."
+msgstr ""
+
+#: src/effects/effects.js:248
+msgid "Operation"
+msgstr ""
+
+#: src/effects/effects.js:249
+msgid "The mathematical operation to apply."
+msgstr ""
+
+#: src/effects/effects.js:252
+msgid "1-step derivative"
+msgstr ""
+
+#: src/effects/effects.js:253
+msgid "2-step derivative"
+msgstr ""
+
+#: src/effects/effects.js:254
+msgid "Laplacian"
+msgstr ""
+
+#: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
 msgstr "噪点"
 
-#: src/effects/effects.js:175
+#: src/effects/effects.js:263
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr "添加随机噪点的效果。若想要模糊更自然，更建议使用蒙特卡洛模糊。"
 
-#: src/effects/effects.js:179
+#: src/effects/effects.js:268
 msgid "The amount of noise to add."
 msgstr "添加的噪点量。"
 
-#: src/effects/effects.js:188
+#: src/effects/effects.js:277
 msgid "Lightness"
 msgstr "明亮度"
 
-#: src/effects/effects.js:189
+#: src/effects/effects.js:278
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr "噪点的光度。设置为“1.0”会使效果透明。"
 
-#: src/effects/effects.js:202
+#: src/effects/effects.js:291
+msgid "RGB to HSL (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:292
+msgid "Converts the image from RGBA colorspace to HSLA."
+msgstr ""
+
+#: src/effects/effects.js:299
+msgid "HSL to RGB (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:300
+msgid "Converts the image from HSLA colorspace to RGBA."
+msgstr ""
+
+#: src/effects/effects.js:307
 msgid "Corner"
 msgstr "边角"
 
-#: src/effects/effects.js:203
+#: src/effects/effects.js:308
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr "绘制边角的效果。请最后添加，以免其他效果影响边角。"
 
-#: src/effects/effects.js:207
+#: src/effects/effects.js:313
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "圆角半径。GNOME 应用默认使用 12 px 半径的圆角。"
 
-#: src/effects/effects.js:214
+#: src/effects/effects.js:320
 msgid "Top corners"
 msgstr "顶部圆角"
 
-#: src/effects/effects.js:215
+#: src/effects/effects.js:321
 msgid "Whether or not to round the top corners."
 msgstr "顶部是否显示圆角。"
 
-#: src/effects/effects.js:219
+#: src/effects/effects.js:325
 msgid "Bottom corners"
 msgstr "底部圆角"
 
-#: src/effects/effects.js:220
+#: src/effects/effects.js:326
 msgid "Whether or not to round the bottom corners."
 msgstr "底部是否显示圆角。"
 
@@ -225,8 +312,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "向应用程序添加模糊效果。\n"
-"为获得最佳可能效果（即使降低性能），你可以在“其他 → Hack "
-"级别”标签页选择“无阴影”选项。"
+"为获得最佳可能效果（即使降低性能），你可以在“其他 → Hack 级别”标签页选择“无阴"
+"影”选项。"
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -374,9 +461,13 @@ msgstr "暗色"
 msgid "Effects"
 msgstr "效果"
 
-#: resources/ui/effects-dialog.ui:32
+#: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
 msgstr "添加效果"
+
+#: resources/ui/effects-dialog.ui:72
+msgid "Include advanced effects"
+msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -422,19 +513,27 @@ msgstr "应用程序列表效果"
 msgid "Make the window-list extension blurred, if it is used."
 msgstr "模糊 window-list 扩展（如果启用）。"
 
+#: resources/ui/other.ui:100
+msgid "Coverflow Alt-Tab extension blur"
+msgstr ""
+
 #: resources/ui/other.ui:101
+msgid "Make the coverflow alt-tab extension blurred, if it is used."
+msgstr ""
+
+#: resources/ui/other.ui:118
 msgid "Performance"
 msgstr "性能"
 
-#: resources/ui/other.ui:102
+#: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
 msgstr "用于调整性能的各种选项。"
 
-#: resources/ui/other.ui:106
+#: resources/ui/other.ui:123
 msgid "Hack level"
 msgstr "Hack 级别"
 
-#: resources/ui/other.ui:107
+#: resources/ui/other.ui:124
 msgid ""
 "Changes the behaviour of the dynamic blur effect. The default value is "
 "highly recommended.\n"
@@ -444,37 +543,37 @@ msgstr ""
 "改变动态模糊效果的行为。强烈推荐使用默认值。\n"
 "“无阴影”选项会禁用 GNOME Shell 中的剪裁重绘，并会大幅影响电脑性能。"
 
-#: resources/ui/other.ui:121
+#: resources/ui/other.ui:138
 msgid "Debug"
 msgstr "调试"
 
-#: resources/ui/other.ui:122
+#: resources/ui/other.ui:139
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr "让扩展输出详细日志，在提交缺陷时启用此选项。"
 
-#: resources/ui/other.ui:137
+#: resources/ui/other.ui:154
 msgid "Reset preferences"
 msgstr "重置首选项"
 
-#: resources/ui/other.ui:138
+#: resources/ui/other.ui:155
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "不可逆转地重置 Blur my Shell 的首选项。"
 
-#: resources/ui/other.ui:157
+#: resources/ui/other.ui:174
 msgid "Reset"
 msgstr "重置"
 
-#: resources/ui/other.ui:186
+#: resources/ui/other.ui:203
 msgid "High performances"
 msgstr "高性能"
 
-#: resources/ui/other.ui:187
+#: resources/ui/other.ui:204
 msgid "Default"
 msgstr "默认"
 
-#: resources/ui/other.ui:188
+#: resources/ui/other.ui:205
 msgid "No artifact"
 msgstr "无阴影"
 
@@ -622,12 +721,19 @@ msgstr "管线"
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
-msgstr "每个组件使用一个管线，可在对应的标签页选择。你在这里可以创建、更改并删除管线"
-"，以及更改其效果。"
+msgstr ""
+"每个组件使用一个管线，可在对应的标签页选择。你在这里可以创建、更改并删除管"
+"线，以及更改其效果。"
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "添加管线"
+
+#~ msgid "Gaussian blur"
+#~ msgstr "高斯模糊"
+
+#~ msgid "Divider"
+#~ msgstr "分隔"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "应用程序模糊（实验性）"

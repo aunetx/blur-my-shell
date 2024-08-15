@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:33+0200\n"
+"POT-Creation-Date: 2024-08-15 16:24+0200\n"
 "PO-Revision-Date: 2024-06-21 08:51+0000\n"
 "Last-Translator: 오형진 <oh7199@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -19,45 +19,45 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.6-rc\n"
 
-#: src/effects/effects.js:15
+#: src/effects/effects.js:20
 msgid "Blur effects"
 msgstr "블러 효과"
 
-#: src/effects/effects.js:23
+#: src/effects/effects.js:28
 msgid "Texture effects"
 msgstr "텍스처 효과"
 
-#: src/effects/effects.js:31
+#: src/effects/effects.js:41
 msgid "Shape effects"
 msgstr "형태 효과"
 
-#: src/effects/effects.js:47
+#: src/effects/effects.js:57
 msgid "Native gaussian blur"
 msgstr "네이티브 가우시안 블러"
 
-#: src/effects/effects.js:48
+#: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr "주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 블러 효과."
 
-#: src/effects/effects.js:51 src/effects/effects.js:79
-#: src/effects/effects.js:107 src/effects/effects.js:206
+#: src/effects/effects.js:62 src/effects/effects.js:91
+#: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
 msgstr "반경"
 
-#: src/effects/effects.js:52
+#: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
 msgstr "블러 효과의 강도."
 
-#: src/effects/effects.js:61 src/effects/effects.js:89
-#: src/effects/effects.js:125 resources/ui/applications.ui:42
+#: src/effects/effects.js:72 src/effects/effects.js:101
+#: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "밝기"
 
-#: src/effects/effects.js:62 src/effects/effects.js:90
-#: src/effects/effects.js:126 resources/ui/applications.ui:43
+#: src/effects/effects.js:73 src/effects/effects.js:102
+#: src/effects/effects.js:139 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -65,142 +65,233 @@ msgid ""
 "to read."
 msgstr "블러 효과의 밝기가 높을 경우, 텍스트를 읽기 어려울 수 있습니다."
 
-#: src/effects/effects.js:75
-msgid "Gaussian blur"
-msgstr "가우시안 블러"
+#: src/effects/effects.js:86
+msgid "Gaussian blur (advanced effect)"
+msgstr ""
 
-#: src/effects/effects.js:76
+#: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
-msgstr "주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 블러 효과. 더 정밀하지만 "
-"최적화가 덜 되어 있습니다."
+msgstr ""
+"주어진 반경 내에서 픽셀을 매끄럽게 혼합하는 블러 효과. 더 정밀하지만 최적화"
+"가 덜 되어 있습니다."
 
-#: src/effects/effects.js:80
+#: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr "블러 효과의 강도. 커질수록 속도가 느려집니다."
 
-#: src/effects/effects.js:103
+#: src/effects/effects.js:115
 msgid "Monte Carlo blur"
 msgstr "몬테 카를로 블러"
 
-#: src/effects/effects.js:104
+#: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr "원점에서 더 멀리 떨어진 픽셀을 선택하고 이를 모두 혼합한 블러 효과. 랜덤 "
-"워크 원리를 사용했습니다."
+msgstr ""
+"원점에서 더 멀리 떨어진 픽셀을 선택하고 이를 모두 혼합한 블러 효과. 랜덤 워"
+"크 원리를 사용했습니다."
 
-#: src/effects/effects.js:108
+#: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
-msgstr "랜덤 워크의 각 단계에 대한 최대 이동 거리. 값이 높을수록 랜덤으로 더 "
-"흐려집니다."
+msgstr ""
+"랜덤 워크의 각 단계에 대한 최대 이동 거리. 값이 높을수록 랜덤으로 더 흐려집니"
+"다."
 
-#: src/effects/effects.js:117
+#: src/effects/effects.js:130
 msgid "Iterations"
 msgstr "반복"
 
-#: src/effects/effects.js:118
+#: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr "반복 횟수. 반복 횟수가 많을수록 블러가 매끄럽습니다."
 
-#: src/effects/effects.js:135
+#: src/effects/effects.js:148
 msgid "Use base pixel"
 msgstr "기본 픽셀 사용"
 
-#: src/effects/effects.js:136
+#: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
-msgstr "원본 픽셀이 블러에 계산되는지 여부. 이 옵션을 선택하면 이미지의 가독성이 "
-"높아집니다."
+msgstr ""
+"원본 픽셀이 블러에 계산되는지 여부. 이 옵션을 선택하면 이미지의 가독성이 높아"
+"집니다."
 
-#: src/effects/effects.js:144 src/effects/effects.js:149
+#: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
 msgstr "색상"
 
-#: src/effects/effects.js:145
+#: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."
 msgstr "파이프라인에 색상을 혼합하는 효과."
 
-#: src/effects/effects.js:150
+#: src/effects/effects.js:164
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr "혼합할 색상. 색의 불투명도에 의해 혼합량이 조절됩니다."
 
-#: src/effects/effects.js:158
+#: src/effects/effects.js:172
 msgid "Pixelize"
 msgstr "픽셀화"
 
-#: src/effects/effects.js:159
+#: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
 msgstr "이미지를 픽셀화하는 효과."
 
-#: src/effects/effects.js:162
-msgid "Divider"
-msgstr "축소 비율"
+#: src/effects/effects.js:177 src/effects/effects.js:204
+#: src/effects/effects.js:231
+msgid "Factor"
+msgstr ""
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
 msgstr "이미지를 얼마나 축소할 것인지."
 
-#: src/effects/effects.js:174 src/effects/effects.js:178
+#: src/effects/effects.js:185 src/effects/effects.js:212
+msgid "Downsampling mode"
+msgstr ""
+
+#: src/effects/effects.js:186 src/effects/effects.js:213
+msgid "The downsampling method that is used."
+msgstr ""
+
+#: src/effects/effects.js:189 src/effects/effects.js:216
+msgid "Boxcar"
+msgstr ""
+
+#: src/effects/effects.js:190 src/effects/effects.js:217
+msgid "Triangular"
+msgstr ""
+
+#: src/effects/effects.js:191 src/effects/effects.js:218
+msgid "Dirac"
+msgstr ""
+
+#: src/effects/effects.js:199
+msgid "Downscale (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:200
+msgid "An effect that downscales the image and put it on the top-left corner."
+msgstr ""
+
+#: src/effects/effects.js:226
+msgid "Upscale (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:227
+msgid "An effect that upscales the image from the top-left corner."
+msgstr ""
+
+#: src/effects/effects.js:232
+msgid "How much to scale up the image."
+msgstr ""
+
+#: src/effects/effects.js:243
+msgid "Derivative"
+msgstr ""
+
+#: src/effects/effects.js:244
+msgid "Apply a spatial derivative, or a laplacian."
+msgstr ""
+
+#: src/effects/effects.js:248
+msgid "Operation"
+msgstr ""
+
+#: src/effects/effects.js:249
+msgid "The mathematical operation to apply."
+msgstr ""
+
+#: src/effects/effects.js:252
+msgid "1-step derivative"
+msgstr ""
+
+#: src/effects/effects.js:253
+msgid "2-step derivative"
+msgstr ""
+
+#: src/effects/effects.js:254
+msgid "Laplacian"
+msgstr ""
+
+#: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
 msgstr "노이즈"
 
-#: src/effects/effects.js:175
+#: src/effects/effects.js:263
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
-msgstr "무작위 노이즈를 추가하는 효과. 필요한 경우 보다 자연스러운 효과를 얻으려면 "
-"몬테 카를로 블러를 사용하는 것이 좋습니다."
+msgstr ""
+"무작위 노이즈를 추가하는 효과. 필요한 경우 보다 자연스러운 효과를 얻으려면 몬"
+"테 카를로 블러를 사용하는 것이 좋습니다."
 
-#: src/effects/effects.js:179
+#: src/effects/effects.js:268
 msgid "The amount of noise to add."
 msgstr "추가할 노이즈의 양."
 
-#: src/effects/effects.js:188
+#: src/effects/effects.js:277
 msgid "Lightness"
 msgstr "밝기"
 
-#: src/effects/effects.js:189
+#: src/effects/effects.js:278
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr "노이즈의 밝기. '1.0'으로 설정하면 효과가 투명해집니다."
 
-#: src/effects/effects.js:202
+#: src/effects/effects.js:291
+msgid "RGB to HSL (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:292
+msgid "Converts the image from RGBA colorspace to HSLA."
+msgstr ""
+
+#: src/effects/effects.js:299
+msgid "HSL to RGB (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:300
+msgid "Converts the image from HSLA colorspace to RGBA."
+msgstr ""
+
+#: src/effects/effects.js:307
 msgid "Corner"
 msgstr "모서리"
 
-#: src/effects/effects.js:203
+#: src/effects/effects.js:308
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
-msgstr "모서리를 그리는 효과. 다른 효과에 의해 모서리에 엉망이 되지 않도록 마지막에 "
+msgstr ""
+"모서리를 그리는 효과. 다른 효과에 의해 모서리에 엉망이 되지 않도록 마지막에 "
 "추가하세요."
 
-#: src/effects/effects.js:207
+#: src/effects/effects.js:313
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "모서리의 반경. 그놈 앱은 기본적으로 12픽셀 반경을 사용합니다."
 
-#: src/effects/effects.js:214
+#: src/effects/effects.js:320
 msgid "Top corners"
 msgstr "상단 모서리"
 
-#: src/effects/effects.js:215
+#: src/effects/effects.js:321
 msgid "Whether or not to round the top corners."
 msgstr "상단 모서리 둥글게 만들기."
 
-#: src/effects/effects.js:219
+#: src/effects/effects.js:325
 msgid "Bottom corners"
 msgstr "하단 모서리"
 
-#: src/effects/effects.js:220
+#: src/effects/effects.js:326
 msgid "Whether or not to round the bottom corners."
 msgstr "하단 모서리 둥글게 만들기."
 
@@ -231,8 +322,8 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 "어플리케이션에 블러 효과를 추가합니다. \n"
-"\"기타 → 성능 수준\" 탭에서 \"아티팩트 없음\" 옵션을 선택하면 성능은 "
-"저하되더라도 최상의 결과를 얻을 수 있습니다."
+"\"기타 → 성능 수준\" 탭에서 \"아티팩트 없음\" 옵션을 선택하면 성능은 저하되더"
+"라도 최상의 결과를 얻을 수 있습니다."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -343,8 +434,9 @@ msgstr "배경 덮어쓰기"
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
-msgstr "배경을 투명 또는 반투명으로 설정하며, 이 기능을 비활성화하면 Dash to Dock "
-"환경설정을 대신 사용할 수 있습니다."
+msgstr ""
+"배경을 투명 또는 반투명으로 설정하며, 이 기능을 비활성화하면 Dash to Dock 환"
+"경설정을 대신 사용할 수 있습니다."
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
@@ -381,9 +473,13 @@ msgstr "어두움"
 msgid "Effects"
 msgstr "효과"
 
-#: resources/ui/effects-dialog.ui:32
+#: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
 msgstr "효과 추가"
+
+#: resources/ui/effects-dialog.ui:72
+msgid "Include advanced effects"
+msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -411,7 +507,8 @@ msgstr "잠금 화면 블러"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "이 확장 프로그램의 옵션을 사용하려면 잠금 화면의 블러 효과를 변경하세요."
+msgstr ""
+"이 확장 프로그램의 옵션을 사용하려면 잠금 화면의 블러 효과를 변경하세요."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
@@ -429,19 +526,27 @@ msgstr "윈도우 리스트 확장 프로그램 블러"
 msgid "Make the window-list extension blurred, if it is used."
 msgstr "윈도우 리스트 확장 프로그램을 사용하는 경우 블러시킵니다."
 
+#: resources/ui/other.ui:100
+msgid "Coverflow Alt-Tab extension blur"
+msgstr ""
+
 #: resources/ui/other.ui:101
+msgid "Make the coverflow alt-tab extension blurred, if it is used."
+msgstr ""
+
+#: resources/ui/other.ui:118
 msgid "Performance"
 msgstr "성능"
 
-#: resources/ui/other.ui:102
+#: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
 msgstr "성능을 조정할 수 있는 다양한 옵션."
 
-#: resources/ui/other.ui:106
+#: resources/ui/other.ui:123
 msgid "Hack level"
 msgstr "성능 수준"
 
-#: resources/ui/other.ui:107
+#: resources/ui/other.ui:124
 msgid ""
 "Changes the behaviour of the dynamic blur effect. The default value is "
 "highly recommended.\n"
@@ -449,40 +554,41 @@ msgid ""
 "shell, and will impact your computer performances significantly."
 msgstr ""
 "동적 블러 효과의 동작을 변경합니다. 기본값을 사용하는 것이 좋습니다.\n"
-"\"아티팩트 없음\" 옵션은 그놈 셸에서 없앤 다시 그리기 기능을 완전히 "
-"비활성화해서, 컴퓨터 성능에 상당한 영향을 미칠 것입니다."
+"\"아티팩트 없음\" 옵션은 그놈 셸에서 없앤 다시 그리기 기능을 완전히 비활성화"
+"해서, 컴퓨터 성능에 상당한 영향을 미칠 것입니다."
 
-#: resources/ui/other.ui:121
+#: resources/ui/other.ui:138
 msgid "Debug"
 msgstr "디버그"
 
-#: resources/ui/other.ui:122
+#: resources/ui/other.ui:139
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
-msgstr "로그에 확장 프로그램 세부정보를 기록하고 문제를 보고해야 할 때 활성화하세요."
+msgstr ""
+"로그에 확장 프로그램 세부정보를 기록하고 문제를 보고해야 할 때 활성화하세요."
 
-#: resources/ui/other.ui:137
+#: resources/ui/other.ui:154
 msgid "Reset preferences"
 msgstr "환경설정 재설정"
 
-#: resources/ui/other.ui:138
+#: resources/ui/other.ui:155
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "Blur my Shell의 환경 설정을 되돌릴 수 없게 재설정합니다."
 
-#: resources/ui/other.ui:157
+#: resources/ui/other.ui:174
 msgid "Reset"
 msgstr "재설정"
 
-#: resources/ui/other.ui:186
+#: resources/ui/other.ui:203
 msgid "High performances"
 msgstr "높은 성능"
 
-#: resources/ui/other.ui:187
+#: resources/ui/other.ui:204
 msgid "Default"
 msgstr "기본값"
 
-#: resources/ui/other.ui:188
+#: resources/ui/other.ui:205
 msgid "No artifact"
 msgstr "아티팩트 없음"
 
@@ -547,7 +653,8 @@ msgstr "밝은 텍스트 적용"
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
-msgstr "패널에 밝은 텍스트를 사용합니다. 그놈 셸의 밝은 테마를 사용할 때 유용합니다."
+msgstr ""
+"패널에 밝은 텍스트를 사용합니다. 그놈 셸의 밝은 테마를 사용할 때 유용합니다."
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -588,8 +695,9 @@ msgstr "Hidetopbar 확장 프로그램"
 
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
-msgstr "오버뷰에서 블러를 비활성화하지 마세요. 정적 블러와 함께 사용하는 것이 "
-"좋습니다."
+msgstr ""
+"오버뷰에서 블러를 비활성화하지 마세요. 정적 블러와 함께 사용하는 것이 좋습니"
+"다."
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
@@ -599,7 +707,8 @@ msgstr "Dash to Panel을 사용한 원본 패널 블러하기"
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
-msgstr "확장 프로그램의 옵션에서 선택한 경우, Dash to Panel로 원래 패널을 블러할 수 "
+msgstr ""
+"확장 프로그램의 옵션에서 선택한 경우, Dash to Panel로 원래 패널을 블러할 수 "
 "있습니다."
 
 #: resources/ui/panel.ui:225
@@ -631,12 +740,18 @@ msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
-"각 컴포넌트는 해당 탭에서 선택할 수 있는 파이프라인을 사용합니다. 여기에서 "
-"파이프라인과 해당 효과를 생성, 수정 및 삭제할 수 있습니다."
+"각 컴포넌트는 해당 탭에서 선택할 수 있는 파이프라인을 사용합니다. 여기에서 파"
+"이프라인과 해당 효과를 생성, 수정 및 삭제할 수 있습니다."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "파이프라인 추가"
+
+#~ msgid "Gaussian blur"
+#~ msgstr "가우시안 블러"
+
+#~ msgid "Divider"
+#~ msgstr "축소 비율"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "어플리케이션 블러 (베타)"

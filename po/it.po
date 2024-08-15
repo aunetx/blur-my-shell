@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:33+0200\n"
+"POT-Creation-Date: 2024-08-15 16:24+0200\n"
 "PO-Revision-Date: 2024-04-15 11:01+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -19,47 +19,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.5-dev\n"
 
-#: src/effects/effects.js:15
+#: src/effects/effects.js:20
 msgid "Blur effects"
 msgstr "Effetti di sfocatura"
 
-#: src/effects/effects.js:23
+#: src/effects/effects.js:28
 msgid "Texture effects"
 msgstr "Effetti texture"
 
-#: src/effects/effects.js:31
+#: src/effects/effects.js:41
 msgid "Shape effects"
 msgstr "Effetti di forma"
 
-#: src/effects/effects.js:47
+#: src/effects/effects.js:57
 msgid "Native gaussian blur"
 msgstr "Sfocatura gaussiana nativa"
 
-#: src/effects/effects.js:48
+#: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
 "Un effetto di sfocatura ottimizzato che fonde uniformemente i pixel "
 "all'interno di un determinato raggio."
 
-#: src/effects/effects.js:51 src/effects/effects.js:79
-#: src/effects/effects.js:107 src/effects/effects.js:206
+#: src/effects/effects.js:62 src/effects/effects.js:91
+#: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
 msgstr "Raggio"
 
-#: src/effects/effects.js:52
+#: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
 msgstr "L'intensità dell'effetto sfocato."
 
-#: src/effects/effects.js:61 src/effects/effects.js:89
-#: src/effects/effects.js:125 resources/ui/applications.ui:42
+#: src/effects/effects.js:72 src/effects/effects.js:101
+#: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Luminosità"
 
-#: src/effects/effects.js:62 src/effects/effects.js:90
-#: src/effects/effects.js:126 resources/ui/applications.ui:43
+#: src/effects/effects.js:73 src/effects/effects.js:102
+#: src/effects/effects.js:139 resources/ui/applications.ui:43
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -69,11 +69,11 @@ msgstr ""
 "La luminosità dell'effetto sfocato, un valore elevato potrebbe rendere il "
 "testo più difficile da leggere."
 
-#: src/effects/effects.js:75
-msgid "Gaussian blur"
-msgstr "Sfocatura gaussiana"
+#: src/effects/effects.js:86
+msgid "Gaussian blur (advanced effect)"
+msgstr ""
 
-#: src/effects/effects.js:76
+#: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
@@ -81,16 +81,16 @@ msgstr ""
 "Un effetto sfocato che fonde uniformemente i pixel all'interno di un "
 "determinato raggio. Questo effetto è più preciso, ma molto meno ottimizzato."
 
-#: src/effects/effects.js:80
+#: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr "L'intensità dell'effetto sfocato. Più è grande, più sarà lento."
 
-#: src/effects/effects.js:103
+#: src/effects/effects.js:115
 msgid "Monte Carlo blur"
 msgstr "Sfocatura Montecarlo"
 
-#: src/effects/effects.js:104
+#: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
@@ -98,7 +98,7 @@ msgstr ""
 "Un effetto sfocato che imita una passeggiata casuale, selezionando pixel "
 "sempre più lontani dalla sua origine e mescolandoli tutti insieme."
 
-#: src/effects/effects.js:108
+#: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
@@ -106,20 +106,20 @@ msgstr ""
 "La distanza massima percorsa per ogni passaggio nella passeggiata casuale. "
 "Un valore più alto renderà la sfocatura più casuale."
 
-#: src/effects/effects.js:117
+#: src/effects/effects.js:130
 msgid "Iterations"
 msgstr "Iterazioni"
 
-#: src/effects/effects.js:118
+#: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
 "Il numero di iterazioni. Più ce ne sono, più uniforme sarà la sfocatura."
 
-#: src/effects/effects.js:135
+#: src/effects/effects.js:148
 msgid "Use base pixel"
 msgstr "Usa pixel di base"
 
-#: src/effects/effects.js:136
+#: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
@@ -127,15 +127,15 @@ msgstr ""
 "Indica se il pixel originale viene conteggiato o meno per la sfocatura. Se "
 "lo è, l'immagine sarà più leggibile."
 
-#: src/effects/effects.js:144 src/effects/effects.js:149
+#: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
 msgstr "Colore"
 
-#: src/effects/effects.js:145
+#: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."
 msgstr "Un effetto che fonde un colore in pipeline."
 
-#: src/effects/effects.js:150
+#: src/effects/effects.js:164
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
@@ -143,27 +143,96 @@ msgstr ""
 "Il colore da sfumare. La quantità di fusione è controllata dall'opacità del "
 "colore."
 
-#: src/effects/effects.js:158
+#: src/effects/effects.js:172
 msgid "Pixelize"
 msgstr "Pixelizza"
 
-#: src/effects/effects.js:159
+#: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
 msgstr "Un effetto che pixelizza l'immagine."
 
-#: src/effects/effects.js:162
-msgid "Divider"
-msgstr "Divisore"
+#: src/effects/effects.js:177 src/effects/effects.js:204
+#: src/effects/effects.js:231
+msgid "Factor"
+msgstr ""
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
 msgstr "Quanto ridimensionare l'immagine."
 
-#: src/effects/effects.js:174 src/effects/effects.js:178
+#: src/effects/effects.js:185 src/effects/effects.js:212
+msgid "Downsampling mode"
+msgstr ""
+
+#: src/effects/effects.js:186 src/effects/effects.js:213
+msgid "The downsampling method that is used."
+msgstr ""
+
+#: src/effects/effects.js:189 src/effects/effects.js:216
+msgid "Boxcar"
+msgstr ""
+
+#: src/effects/effects.js:190 src/effects/effects.js:217
+msgid "Triangular"
+msgstr ""
+
+#: src/effects/effects.js:191 src/effects/effects.js:218
+msgid "Dirac"
+msgstr ""
+
+#: src/effects/effects.js:199
+msgid "Downscale (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:200
+msgid "An effect that downscales the image and put it on the top-left corner."
+msgstr ""
+
+#: src/effects/effects.js:226
+msgid "Upscale (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:227
+msgid "An effect that upscales the image from the top-left corner."
+msgstr ""
+
+#: src/effects/effects.js:232
+msgid "How much to scale up the image."
+msgstr ""
+
+#: src/effects/effects.js:243
+msgid "Derivative"
+msgstr ""
+
+#: src/effects/effects.js:244
+msgid "Apply a spatial derivative, or a laplacian."
+msgstr ""
+
+#: src/effects/effects.js:248
+msgid "Operation"
+msgstr ""
+
+#: src/effects/effects.js:249
+msgid "The mathematical operation to apply."
+msgstr ""
+
+#: src/effects/effects.js:252
+msgid "1-step derivative"
+msgstr ""
+
+#: src/effects/effects.js:253
+msgid "2-step derivative"
+msgstr ""
+
+#: src/effects/effects.js:254
+msgid "Laplacian"
+msgstr ""
+
+#: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
 msgstr "Rumore"
 
-#: src/effects/effects.js:175
+#: src/effects/effects.js:263
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -171,15 +240,15 @@ msgstr ""
 "Un effetto che aggiunge un rumore casuale. Se necessario, preferisci la "
 "sfocatura Monte Carlo per un effetto più organico."
 
-#: src/effects/effects.js:179
+#: src/effects/effects.js:268
 msgid "The amount of noise to add."
 msgstr "La quantità di rumore da aggiungere."
 
-#: src/effects/effects.js:188
+#: src/effects/effects.js:277
 msgid "Lightness"
 msgstr "Leggerezza"
 
-#: src/effects/effects.js:189
+#: src/effects/effects.js:278
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -187,11 +256,27 @@ msgstr ""
 "La luminosità del rumore. Un'impostazione pari a '1.0' renderà l'effetto "
 "trasparente."
 
-#: src/effects/effects.js:202
+#: src/effects/effects.js:291
+msgid "RGB to HSL (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:292
+msgid "Converts the image from RGBA colorspace to HSLA."
+msgstr ""
+
+#: src/effects/effects.js:299
+msgid "HSL to RGB (advanced effect)"
+msgstr ""
+
+#: src/effects/effects.js:300
+msgid "Converts the image from HSLA colorspace to RGBA."
+msgstr ""
+
+#: src/effects/effects.js:307
 msgid "Corner"
 msgstr "Angolo"
 
-#: src/effects/effects.js:203
+#: src/effects/effects.js:308
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -199,25 +284,25 @@ msgstr ""
 "Un effetto che disegna angoli. Aggiungilo per ultimo per non far sì che gli "
 "altri effetti disturbino gli angoli."
 
-#: src/effects/effects.js:207
+#: src/effects/effects.js:313
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
 "Il raggio dell'angolo. Le app GNOME utilizzano un raggio di 12 px per "
 "impostazione predefinita."
 
-#: src/effects/effects.js:214
+#: src/effects/effects.js:320
 msgid "Top corners"
 msgstr "Angoli superiori"
 
-#: src/effects/effects.js:215
+#: src/effects/effects.js:321
 msgid "Whether or not to round the top corners."
 msgstr "Se arrotondare o meno gli angoli superiori."
 
-#: src/effects/effects.js:219
+#: src/effects/effects.js:325
 msgid "Bottom corners"
 msgstr "Angoli inferiori"
 
-#: src/effects/effects.js:220
+#: src/effects/effects.js:326
 msgid "Whether or not to round the bottom corners."
 msgstr "Se arrotondare o meno gli angoli inferiori."
 
@@ -249,8 +334,8 @@ msgid ""
 msgstr ""
 "Aggiunge sfocatura alle applicazioni.\n"
 "Per ottenere i migliori risultati possibili, seppure con prestazioni "
-"ridotte, è possibile scegliere l'opzione “Nessun artefatto” nella scheda “"
-"Altro → Livello Hack”."
+"ridotte, è possibile scegliere l'opzione “Nessun artefatto” nella scheda "
+"“Altro → Livello Hack”."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -409,9 +494,13 @@ msgstr "Scuro"
 msgid "Effects"
 msgstr "Effetti"
 
-#: resources/ui/effects-dialog.ui:32
+#: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
 msgstr "Aggiungi effetto"
+
+#: resources/ui/effects-dialog.ui:72
+msgid "Include advanced effects"
+msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -461,19 +550,27 @@ msgstr "Sfocatura estensione dell'elenco delle finestre"
 msgid "Make the window-list extension blurred, if it is used."
 msgstr "Rendi sfocata l'estensione dell'elenco di finestre, se utilizzata."
 
+#: resources/ui/other.ui:100
+msgid "Coverflow Alt-Tab extension blur"
+msgstr ""
+
 #: resources/ui/other.ui:101
+msgid "Make the coverflow alt-tab extension blurred, if it is used."
+msgstr ""
+
+#: resources/ui/other.ui:118
 msgid "Performance"
 msgstr "Prestazioni"
 
-#: resources/ui/other.ui:102
+#: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
 msgstr "Varie opzioni per modificare le prestazioni."
 
-#: resources/ui/other.ui:106
+#: resources/ui/other.ui:123
 msgid "Hack level"
 msgstr "Suggerimenti per le prestazioni"
 
-#: resources/ui/other.ui:107
+#: resources/ui/other.ui:124
 msgid ""
 "Changes the behaviour of the dynamic blur effect. The default value is "
 "highly recommended.\n"
@@ -486,11 +583,11 @@ msgstr ""
 "ritagliati nella shell GNOME e avrà un impatto significativo sulle "
 "prestazioni del tuo computer."
 
-#: resources/ui/other.ui:121
+#: resources/ui/other.ui:138
 msgid "Debug"
 msgstr "Debug"
 
-#: resources/ui/other.ui:122
+#: resources/ui/other.ui:139
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -498,27 +595,27 @@ msgstr ""
 "Rendi dettagliata l'estensione nei registri di sistema, abilitalo per "
 "segnalare un problema."
 
-#: resources/ui/other.ui:137
+#: resources/ui/other.ui:154
 msgid "Reset preferences"
 msgstr "Ripristina le preferenze"
 
-#: resources/ui/other.ui:138
+#: resources/ui/other.ui:155
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "Resetta le preferenze di Blur my Shell in modo irreversibile."
 
-#: resources/ui/other.ui:157
+#: resources/ui/other.ui:174
 msgid "Reset"
 msgstr "Resettare"
 
-#: resources/ui/other.ui:186
+#: resources/ui/other.ui:203
 msgid "High performances"
 msgstr "Alte prestazioni"
 
-#: resources/ui/other.ui:187
+#: resources/ui/other.ui:204
 msgid "Default"
 msgstr "Predefinito"
 
-#: resources/ui/other.ui:188
+#: resources/ui/other.ui:205
 msgid "No artifact"
 msgstr "Nessun artefatto"
 
@@ -687,6 +784,12 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "Aggiungi pipeline"
+
+#~ msgid "Gaussian blur"
+#~ msgstr "Sfocatura gaussiana"
+
+#~ msgid "Divider"
+#~ msgstr "Divisore"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Sfocatura applicazioni (beta)"
