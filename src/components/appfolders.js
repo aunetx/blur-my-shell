@@ -1,6 +1,7 @@
 import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { adjustAnimationTime } from 'resource:///org/gnome/shell/misc/animationUtils.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
 // TODO drop Tweener in favour of Clutter's `ease` (will need to extend the blur effect for it)
@@ -44,7 +45,7 @@ let _zoomAndFadeIn = function () {
         {
             radius: sigma * 2,
             brightness: brightness,
-            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
+            time: adjustAnimationTime(FOLDER_DIALOG_ANIMATION_TIME / 1000),
             transition: 'easeOutQuad'
         }
     );
@@ -88,7 +89,7 @@ let _zoomAndFadeOut = function () {
         {
             radius: 0,
             brightness: 1.0,
-            time: FOLDER_DIALOG_ANIMATION_TIME / 1000,
+            time: adjustAnimationTime(FOLDER_DIALOG_ANIMATION_TIME / 1000),
             transition: 'easeInQuad'
         }
     );
