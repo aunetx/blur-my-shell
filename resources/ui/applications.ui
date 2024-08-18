@@ -181,7 +181,7 @@ This may cause some latency or performance issues.</property>
                 <child>
                   <object class="GtkImage">
                     <property name="margin-end">6</property>
-                    <property name="icon-name">list-add-symbolic</property>
+                    <property name="icon-name">add-row-symbolic</property>
                   </object>
                 </child>
                 <child>
