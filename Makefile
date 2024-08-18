@@ -1,5 +1,6 @@
 NAME = blur-my-shell
 UUID = $(NAME)@aunetx
+VM_PATH = ~/Projects/shared/extensions
 
 .PHONY: build install pot test-shell test-prefs remove clean
 
@@ -52,6 +53,10 @@ test-shell: install
 
 test-prefs: install
 	gnome-extensions prefs $(UUID)
+
+
+test-vm: build
+	unzip build/$(UUID).shell-extension.zip -d $(VM_PATH)/$(UUID)
 
 
 remove:
