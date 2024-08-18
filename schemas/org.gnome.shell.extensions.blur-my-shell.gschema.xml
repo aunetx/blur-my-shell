@@ -149,7 +149,8 @@
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>1</default>
-            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent)</summary>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3
+                transparent)</summary>
         </key>
     </schema>
 
@@ -390,6 +391,11 @@
         <key type="b" name="dynamic-opacity">
             <default>true</default>
             <summary>Wether or not to make the focused window opaque</summary>
+        </key>
+        <!-- OPAQUE FULLSCREEN WINDOW -->
+        <key type="b" name="opaque-fullscreen-window">
+            <default>false</default>
+            <summary>Wether or not to make fullscreen windows opaque</summary>
         </key>
         <!-- BLUR ON OVERVIEW -->
         <key type="b" name="blur-on-overview">

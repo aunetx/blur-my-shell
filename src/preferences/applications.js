@@ -34,6 +34,7 @@ export const Applications = GObject.registerClass({
         'brightness',
         'opacity',
         'dynamic_opacity',
+        'opaque_fullscreen_window',
         'blur_on_overview',
         'enable_all',
         'whitelist',
@@ -58,6 +59,10 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'dynamic-opacity', this._dynamic_opacity, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'opaque-fullscreen-window', this._opaque_fullscreen_window, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(

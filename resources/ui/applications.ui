@@ -97,6 +97,21 @@ To get the best results possible, although with reduced performances, you can ch
 
         <child>
           <object class="AdwActionRow">
+            <property name="title" translatable="yes">Opaque fullscreen window</property>
+            <property name="subtitle" translatable="yes">Makes fullscreen windows opaque, helping with legibility.</property>
+            <property name="activatable-widget">opaque_fullscreen_window</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="opaque_fullscreen_window">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Blur on overview</property>
             <property name="subtitle" translatable="yes">Forces the blur to be properly shown on all workspaces on overview.
 This may cause some latency or performance issues.</property>
