@@ -237,16 +237,18 @@ export const PanelBlur = class PanelBlur {
             // sometimes yields NaN (probably when the actor is not fully
             // positionned yet)
             let [p_x, p_y] = panel_box.get_position();
-            let x = p_x +  (width - panel.width)/2;
-            let y = p_y +  (height - panel.height)/2;
+            let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
+            let x =  p_x + p_p_x - monitor.x + (width - panel.width)/2;
+            let y =  p_y + p_p_y - monitor.y + (height - panel.height)/2;
+            
             background.set_clip(x, y, panel.width, panel.height);
             background.x = (width - panel.width)/2 - x;
             background.y = (height - panel.height)/2 - y;
         } else {
-            background.x = panel_box.x;
-            background.y = panel_box.y;
-            background.width = width;
-            background.height = height;
+            background.x = panel.x;
+            background.y = panel.y;
+            background.width = panel.width;
+            background.height = panel.height;
         }
 
         // update the monitor panel is on
