@@ -8,47 +8,49 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-01-01 15:09+0000\n"
-"Last-Translator: Сергій <sergiy.goncharuk.1@gmail.com>\n"
+"PO-Revision-Date: 2024-08-20 13:09+0000\n"
+"Last-Translator: Alex <alex.kobrys@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.7\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Ефекти розмиття"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Ефекти текстур"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Ефекти фігур"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Нативне гаусове розмиття"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Оптимізований ефект розмиття, який плавно змішує пікселі в межах заданого "
+"радіусу."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
-msgstr ""
+msgstr "Радіус"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Інтенсивність ефекту розмиття."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
@@ -69,52 +71,62 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Розмиття за Гаусом (розширений ефект)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Ефект розмиття, що плавно змішує пікселі в межах заданого радіусу. Цей ефект "
+"точніший, але набагато менш оптимізований."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Інтенсивність ефекту розмиття. Чим вона більша, тим повільніше "
+"відбуватиметься ефект."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Розмиття Монте-Карло"
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Ефект розмиття, що імітує випадковий рух, обираючи пікселі все далі і далі "
+"від свого джерела та змішуючи їх разом."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Максимальна відстань для кожного кроку у випадковому русі. За більшого "
+"значення розмиття буде більш випадковим."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr ""
+msgstr "Ітерації"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Кількість ітерацій. Чим їх більше, тим плавнішим буде розмиття."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr ""
+msgstr "Використовувати вихідний піксель"
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Чи враховується вихідний піксель під час розмиття. Якщо так, то зображення "
+"буде більш розбірливим."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
@@ -122,168 +134,178 @@ msgstr "Колір"
 
 #: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Ефект, коли колір змішується з каналом."
 
 #: src/effects/effects.js:164
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Колір для змішування. Розмір змішування регулюється непрозорістю кольору."
 
 #: src/effects/effects.js:172
 msgid "Pixelize"
-msgstr ""
+msgstr "Пікселізація"
 
 #: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Ефект, який пікселює зображення."
 
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Фактор"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Як сильно зменшити масштаб зображення."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Режим зниження дискретизації"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Метод зниження дискретизації, який використовується."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "Прямокутний"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "Трикутний"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "Функція Дірака"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Зниження масштабу (просунутий ефект)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
+"Ефект, який знижує масштаб зображення і розміщує його у верхньому лівому "
+"куті."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Збільшення масштабу (просунутий ефект)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
+"Ефект, який збільшує масштаб зображення, починаючи з верхнього лівого кута."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Наскільки збільшити масштаб зображення."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "Похідна"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Застосувати просторову похідну або лаплаціан."
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "Операція"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Математична операція, яку потрібно застосувати."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "1-ступенева похідна"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "2-ступенева похідна"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "Лаплаціан"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
-msgstr ""
+msgstr "Шум"
 
 #: src/effects/effects.js:263
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Ефект, що додає випадковий шум. За потреби, віддати перевагу розмиттю Монте-"
+"Карло для досягнення більш органічного ефекту."
 
 #: src/effects/effects.js:268
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Кількість доданого шуму."
 
 #: src/effects/effects.js:277
 msgid "Lightness"
-msgstr ""
+msgstr "Світлість"
 
 #: src/effects/effects.js:278
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "Яскравість шуму. Налаштування \"1.0\" зробить ефект прозорим."
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB в HSL (просунутий ефект)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Перетворює зображення з колірного простору RGBA в HSLA."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL в RGB (просунутий ефект)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Перетворює зображення з колірного простору HSLA в RGBA."
 
 #: src/effects/effects.js:307
 msgid "Corner"
-msgstr ""
+msgstr "Кут"
 
 #: src/effects/effects.js:308
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
+"Ефект, що малює кути. Додавайте його останнім, щоб інші ефекти не заважали "
+"кутам."
 
 #: src/effects/effects.js:313
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
+"Радіус кута. Застосунки GNOME за замовчуванням використовують радіус 12 "
+"пікселів."
 
 #: src/effects/effects.js:320
 msgid "Top corners"
-msgstr ""
+msgstr "Верхні кути"
 
 #: src/effects/effects.js:321
 msgid "Whether or not to round the top corners."
-msgstr ""
+msgstr "Чи округлювати верхні кути."
 
 #: src/effects/effects.js:325
 msgid "Bottom corners"
-msgstr ""
+msgstr "Нижні кути"
 
 #: src/effects/effects.js:326
 msgid "Whether or not to round the bottom corners."
-msgstr ""
+msgstr "Чи округлювати нижні кути."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -303,7 +325,7 @@ msgstr "Застосунки"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Розмиття застосунків"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -311,6 +333,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Додає розмиття до застосунків.\n"
+"Для досягнення найкращих результатів, хоча з зниженими показниками "
+"продуктивності, ви можете вибрати опцію \"Без артефактів\" на вкладці \"Інше "
+"→ Рівень злому\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -337,13 +363,15 @@ msgstr ""
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Непрозоре активне вікно"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"Робить активне вікно непрозорим, а інші – розмитими, що покращує "
+"читабельність."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
@@ -363,7 +391,7 @@ msgstr "Застосувати для всіх за замовчуванням"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "За замовчуванням додає розмиття за всіма вікнами."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -399,20 +427,20 @@ msgstr "Розмиття фону розширення Dash to Dock при ви�
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Тип розмиття"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
+msgstr "Динамічне розмиття є повільнішим і сумісне лише з гауссовим розмиттям."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Статичне"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Динамічне"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -459,15 +487,15 @@ msgstr "Темний"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Ефекти"
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr ""
+msgstr "Додати ефект"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Включити просунуті ефекти"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -518,11 +546,12 @@ msgstr "Розмиття розширення Window List при його вик
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Розмиття для розширення Coverflow Alt-Tab"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
 msgstr ""
+"Зробити розширення Coverflow Alt-Tab розмитим, якщо воно використовується."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
@@ -543,6 +572,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Змінює поведінку ефекту динамічного розмиття. Значення за замовчуванням "
+"настійно рекомендується.\n"
+"Опція \"Без артефактів\" повністю вимкне обрізання перерисовок у GNOME Shell "
+"і значно вплине на продуктивність вашого комп'ютера."
 
 #: resources/ui/other.ui:138
 msgid "Debug"
@@ -707,33 +740,36 @@ msgstr "Контрастне"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Канал"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Канал, який буде використовуватися з цим компонентом."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Ім'я каналу"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Управління ефектами"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Канали"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Кожен компонент використовує канал, який можна вибрати на відповідній "
+"вкладці. Тут ви можете створювати, змінювати та видаляти канали і їхні "
+"ефекти."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Додати канал"
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Розмиття застосунків (бета)"
