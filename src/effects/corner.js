@@ -76,7 +76,7 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
             this._clip_width = null;
             this._clip_height = null;
 
-            utils.setup_params(this, params, DEFAULT_PARAMS);
+            utils.setup_params(this, params);
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -85,6 +85,10 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
 
             const theme_context = St.ThemeContext.get_for_stage(global.stage);
             theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
+        }
+
+        static get default_params() {
+            return DEFAULT_PARAMS;
         }
 
         get radius() {

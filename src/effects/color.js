@@ -65,10 +65,10 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 this.set_shader_source(this._source);
 
             // set shader color
-            this.color = 'color' in params ? color : this.default_params.color;
+            this.color = 'color' in params ? color : this.constructor.default_params.color;
         }
 
-        get default_params() {
+        static get default_params() {
             return DEFAULT_PARAMS;
         }
 

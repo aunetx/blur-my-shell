@@ -25,7 +25,11 @@ export const NativeDynamicBlurEffect = utils.IS_IN_PREFERENCES ?
                 this
             );
 
-            utils.setup_params(this, params, DEFAULT_PARAMS);
+            utils.setup_params(this, params);
+        }
+
+        static get default_params() {
+            return DEFAULT_PARAMS;
         }
 
         get unscaled_radius() {
@@ -36,4 +40,4 @@ export const NativeDynamicBlurEffect = utils.IS_IN_PREFERENCES ?
             this._unscaled_radius = value;
             this.radius = value * this._theme_context.scale_factor;
         }
-    }); 
+    });

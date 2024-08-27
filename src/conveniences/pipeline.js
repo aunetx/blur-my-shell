@@ -166,7 +166,7 @@ export const Pipeline = class Pipeline {
         // connect to settings changes
         effect._effect_key_removed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-removed',
-            (_, key) => effect[key] = effect.default_params[key]
+            (_, key) => effect[key] = effect.constructor.default_params[key]
         );
         effect._effect_key_updated_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-updated',

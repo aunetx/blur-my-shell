@@ -44,12 +44,16 @@ export const DerivativeEffect = utils.IS_IN_PREFERENCES ?
         constructor(params) {
             super(params);
 
-            utils.setup_params(this, params, DEFAULT_PARAMS);
+            utils.setup_params(this, params);
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
+        }
+
+        static get default_params() {
+            return DEFAULT_PARAMS;
         }
 
         get operation() {

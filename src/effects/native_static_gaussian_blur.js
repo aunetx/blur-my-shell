@@ -25,7 +25,11 @@ export const NativeStaticBlurEffect = utils.IS_IN_PREFERENCES ?
                 this
             );
 
-            utils.setup_params(this, params, DEFAULT_PARAMS);
+            utils.setup_params(this, params);
+        }
+
+        static get default_params() {
+            return DEFAULT_PARAMS;
         }
 
         get unscaled_radius() {
