@@ -57,8 +57,8 @@ export const PanelBlur = class PanelBlur {
         // update the classname if the panel to have or have not light text
         this.update_light_text_classname();
 
-        // connect to monitors change
-        this.connections.connect(Main.layoutManager, 'monitors-changed',
+        // connect to workareas change
+        this.connections.connect(global.display, 'workareas-changed',
             _ => this.reset()
         );
 
@@ -225,25 +225,25 @@ export const PanelBlur = class PanelBlur {
         let panel = actors.widgets.panel;
         let panel_box = actors.widgets.panel_box;
         let background = actors.widgets.background;
-        let monitor = Main.layoutManager.findMonitorForActor(panel);
-        if (!monitor)
-            return;
-
         let [width, height] = panel_box.get_size();
 
         // if static blur, need to clip the background
         if (actors.static_blur) {
+            let monitor = Main.layoutManager.findMonitorForActor(panel);
+            if (!monitor)
+                return;
+
             // an alternative to panel.get_transformed_position, because it
             // sometimes yields NaN (probably when the actor is not fully
             // positionned yet)
             let [p_x, p_y] = panel_box.get_position();
             let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
-            let x =  p_x + p_p_x - monitor.x + (width - panel.width)/2;
-            let y =  p_y + p_p_y - monitor.y + (height - panel.height)/2;
-            
+            let x = p_x + p_p_x - monitor.x + (width - panel.width) / 2;
+            let y = p_y + p_p_y - monitor.y + (height - panel.height) / 2;
+
             background.set_clip(x, y, panel.width, panel.height);
-            background.x = (width - panel.width)/2 - x;
-            background.y = (height - panel.height)/2 - y;
+            background.x = (width - panel.width) / 2 - x;
+            background.y = (height - panel.height) / 2 - y;
         } else {
             background.x = panel.x;
             background.y = panel.y;
