@@ -35,7 +35,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
             );
             pipeline.create_background_with_effects(
                 window_selector._monitorIndex, this.screenshot_background_managers,
-                window_selector, 'bms-screenshot-blurred-widget'
+                window_selector, 'bms-screenshot-blurred-widget', false
             );
 
             // prevent old `BackgroundActor` from being accessed, which creates a whole bug of logs
