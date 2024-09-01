@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-08-29 07:09+0000\n"
+"PO-Revision-Date: 2024-09-02 02:09+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -264,19 +264,19 @@ msgstr ""
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB naar HSL (geavanceerd effect)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Converteert de afbeelding van RGBA-kleurruimte naar HSLA."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL naar RGB (geavanceerd effect)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Converteert de afbeelding van HSLA-kleurruimte naar RGBA."
 
 #: src/effects/effects.js:307
 msgid "Corner"
@@ -507,7 +507,7 @@ msgstr "Effect toevoegen"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Geavanceerde effecten tonen"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -557,11 +557,11 @@ msgstr "De uitbreiding Window List vervagen, als deze wordt gebruikt."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Coverflow Alt-Tab vervagen"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Vervaag de uitbreiding Coverflow Alt-Tab, indien gebruikt."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
