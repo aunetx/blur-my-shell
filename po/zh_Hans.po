@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-04-14 03:17+0000\n"
-"Last-Translator: 复予 <clonewith@qq.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/zh_Hans/>\n"
+"PO-Revision-Date: 2024-09-02 02:09+0000\n"
+"Last-Translator: Cryo <cryo@disroot.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -67,7 +67,7 @@ msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "高斯模糊（高级效果）"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -141,7 +141,7 @@ msgstr "将图片像素化的效果。"
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "因素"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
@@ -149,19 +149,19 @@ msgstr "缩小图像的程度。"
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "降采样模式"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "使用的降采样方法。"
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "棚车"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "三角形"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
