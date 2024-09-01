@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2023-12-28 12:09+0000\n"
-"Last-Translator: ily yuna <ilyuna@outlook.it>\n"
+"PO-Revision-Date: 2024-09-02 02:09+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/id/>\n"
 "Language: id\n"
@@ -17,37 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Efek buram"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Efek tekstur"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Efek bentuk"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Keburaman gaussian bawaan"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Efek keburaman yang dioptimalkan, yang memadukan piksel secara mulus dalam "
+"radius tertentu."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intensitas efek keburaman."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
@@ -68,18 +70,20 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Keburaman Gaussian (efek lanjutan)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Efek buram yang membaurkan piksel secara mulus dalam radius tertentu. Efek "
+"ini lebih tepat, tetapi kurang dioptimalkan."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "Intensitas efek keburaman. Semakin besar, semakin lambat efeknya."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
