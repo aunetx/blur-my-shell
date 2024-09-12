@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-06-20 11:09+0000\n"
+"PO-Revision-Date: 2024-09-04 15:09+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7.2-rc\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -69,7 +69,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "ガウスぼかし (高度な効果)"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -143,7 +143,7 @@ msgstr "画像をピクセル化する効果。"
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "係数"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
@@ -151,11 +151,11 @@ msgstr "画像をどれくらい縮小するか。"
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "ダウンサンプリングモード"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "使用するダウンサンプリングの方法。"
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
@@ -171,23 +171,23 @@ msgstr ""
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "ダウンスケール (高度な効果)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
-msgstr ""
+msgstr "画像をダウンスケールして左上の角に配置する効果。"
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "アップスケール (高度な効果)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "画像をアップスケールして左上の角に配置する効果。"
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "画像をどれくらい拡大するか。"
 
 #: src/effects/effects.js:243
 msgid "Derivative"
@@ -199,11 +199,11 @@ msgstr ""
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "演算"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "適用する数学演算。"
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
@@ -245,19 +245,19 @@ msgstr "ノイズの明度。'1.0' を設定すると、効果が透明になり
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB を HSL に変換 (高度な効果)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "画像の色空間を RGBA から HSLA に変換します。"
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL を RGB に変換 (高度な効果)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "画像の色空間を HSLA から RGBA に変換します。"
 
 #: src/effects/effects.js:307
 msgid "Corner"
@@ -482,7 +482,7 @@ msgstr "効果を追加"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "高度な効果を含める"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -531,11 +531,11 @@ msgstr "Window List 拡張機能にぼかしを追加します (使用中の場�
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Coverflow Alt-Tab 拡張機能のぼかし"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Coverflow Alt-Tab 拡張機能にぼかしを追加します (使用中の場合)。"
 
 #: resources/ui/other.ui:118
 msgid "Performance"

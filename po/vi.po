@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-02-15 17:01+0000\n"
-"Last-Translator: Lê Hoàng Lân <lanlehoang957@gmail.com>\n"
+"PO-Revision-Date: 2024-08-21 15:09+0000\n"
+"Last-Translator: NguyenDaoGiaCat <nguyendaogiacat@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/vi/>\n"
 "Language: vi\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Hiệu ứng mờ"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Hiệu ứng kết cấu"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
@@ -43,11 +43,11 @@ msgstr ""
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
-msgstr ""
+msgstr "Độ"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Cường độ của hiệu ứng mờ"
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
@@ -78,7 +78,7 @@ msgstr ""
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "Cường độ của hiệu ứng mờ. Cường độ càng cao sẽ càng chậm"
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
@@ -134,7 +134,7 @@ msgstr ""
 
 #: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Hiệu ứng pixel hoá hình ảnh"
 
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
