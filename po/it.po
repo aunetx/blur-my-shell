@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-08-28 02:09+0000\n"
-"Last-Translator: Cristiano Landi <cri98li@gmail.com>\n"
+"PO-Revision-Date: 2024-09-15 06:09+0000\n"
+"Last-Translator: Milli189 <agarplayerarlon@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -154,7 +154,7 @@ msgstr "Un effetto che pixelizza l'immagine."
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Fattore"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
@@ -162,11 +162,11 @@ msgstr "Quanto ridimensionare l'immagine."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Modalità di sottocampionamento"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Il metodo di sottocampionamento che è usato."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
@@ -174,7 +174,7 @@ msgstr ""
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "Triangolare"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
@@ -187,6 +187,7 @@ msgstr ""
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
+"Un effetto che riduce l'immagine e la mette nell'angolo in alto a sinistra."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
@@ -210,11 +211,11 @@ msgstr ""
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "Operazione"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "L'operazione matematica da applicare."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
@@ -500,7 +501,7 @@ msgstr "Aggiungi effetto"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Include effetti avanzati"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
