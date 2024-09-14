@@ -45,7 +45,7 @@ export const Pipeline = class Pipeline {
         this.actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
-            y: 1 + (use_absolute_position ? monitor.y : 0), // add 1 to correct z-position
+            y: .5 + (use_absolute_position ? monitor.y : 0), // add 1 to correct z-position
             z_position: 1, // seems to fix the multi-monitor glitch
             width: monitor.width,
             height: monitor.height

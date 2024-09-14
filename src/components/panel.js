@@ -243,7 +243,7 @@ export const PanelBlur = class PanelBlur {
 
             background.set_clip(x, y, panel.width, panel.height);
             background.x = (width - panel.width) / 2 - x;
-            background.y = (height - panel.height) / 2 - y;
+            background.y = .5 + (height - panel.height) / 2 - y;
         } else {
             background.x = panel.x;
             background.y = panel.y;
