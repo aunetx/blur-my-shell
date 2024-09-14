@@ -61,7 +61,7 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
                 `chained_effect`,
                 `Chained Effect`,
                 `Chained Effect`,
-                GObject.ParamFlags.READABLE,
+                GObject.ParamFlags.READWRITE,
                 GObject.Object,
             ),
         }
