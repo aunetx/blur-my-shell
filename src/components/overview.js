@@ -148,6 +148,14 @@ export const OverviewBlur = class OverviewBlur {
         }
         // add the container widget for the overview only to the overview group
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
+        // make sure it stays below
+        this.connections.connect(Main.layoutManager.overviewGroup, "child-added", (_, child) => {
+            if (child !== this.overview_background_group) {
+                if (this.overview_background_group.get_parent())
+                    Main.layoutManager.overviewGroup.remove_child(this.overview_background_group);
+                Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
+            }
+        });
     }
 
     /// Updates the classname to style overview components with semi-transparent
@@ -166,6 +174,11 @@ export const OverviewBlur = class OverviewBlur {
     remove_background_actors() {
         this.overview_background_group.remove_all_children();
         this.animation_background_group.remove_all_children();
+
+        this.connections.disconnect_all_for(Main.layoutManager.overviewGroup);
+        if (this.overview_background_group.get_parent())
+            Main.layoutManager.overviewGroup.remove_child(this.overview_background_group);
+
         this.overview_background_managers.forEach(background_manager => {
             background_manager._bms_pipeline.destroy();
             background_manager.destroy();
