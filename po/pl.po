@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-09-15 06:09+0000\n"
-"Last-Translator: senza <senza@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2024-09-16 11:09+0000\n"
+"Last-Translator: Wojtek Choroś <twoface1667@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Rozmycie Gaussa (efekt zaawansowany)"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -153,7 +153,7 @@ msgstr "Efekt pikselizujący zdjęcie."
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Współczynnik"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
@@ -161,11 +161,11 @@ msgstr "Jak bardzo zmniejszyć zdjęcie."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Tryb zmniejszania próbkowania"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Użyty tryb zmniejszania próbkowania."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
@@ -173,7 +173,7 @@ msgstr ""
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "Trójkątny"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
@@ -181,7 +181,7 @@ msgstr ""
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Zmniejszenie rozdzielczości (efekt zaawansowany)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
@@ -189,11 +189,11 @@ msgstr "Efekt, który zmniejsza obraz i umieszcza go w lewym górnym rogu."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Zwiększanie jakości (efekt zaawansowany)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "Efekt zwiększający jakość obrazu zaczynając od lewego górnego rogu."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
@@ -201,7 +201,7 @@ msgstr "Jak bardzo powiększyć obraz."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "Operator pochodnej"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
