@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-04-13 23:01+0000\n"
-"Last-Translator: Aleksandr Melman <alexmelman88@gmail.com>\n"
+"PO-Revision-Date: 2024-09-21 05:40+0000\n"
+"Last-Translator: Vadim Turchenko <turchenkovadim2000@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -72,7 +72,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Размытие по Гауссу (продвинутый эффект)"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -155,7 +155,7 @@ msgstr "Эффект, который пикселизирует изображе
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Множитель"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
