@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-09-15 06:09+0000\n"
-"Last-Translator: Milli189 <agarplayerarlon@gmail.com>\n"
+"PO-Revision-Date: 2024-09-23 15:16+0000\n"
+"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
 "Language: it\n"
@@ -182,7 +182,7 @@ msgstr ""
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Downscale (effetto avanzato)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
@@ -199,11 +199,11 @@ msgstr ""
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Quanto ingrandire l'immagine."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "Derivata"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
@@ -259,7 +259,7 @@ msgstr ""
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB a HSL (effetto avanzato)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
@@ -267,7 +267,7 @@ msgstr ""
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "Da HSL a RGB (effetto avanzato)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
