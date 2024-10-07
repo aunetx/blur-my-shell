@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2023-10-15 09:03+0000\n"
-"Last-Translator: ilovethensa <Ambulance1581@tuta.io>\n"
+"PO-Revision-Date: 2024-09-15 06:09+0000\n"
+"Last-Translator: Iliya Iliev <iliq123123@gmail.com>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/bg/>\n"
 "Language: bg\n"
@@ -17,44 +17,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Ефекти на замъгляване"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Текстурни ефекти"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Фигурни ефекти"
 
 #: src/effects/effects.js:57
+#, fuzzy
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Нативно гаусово замъгляване"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Оптимизиран замъгляващ ефект, който плавно слива пикселите в зададен радиус."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
-msgstr ""
+msgstr "Радиус"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Интензивността на замъгляващия ефект."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr ""
+msgstr "Яркост"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
 #: src/effects/effects.js:139 resources/ui/applications.ui:43
@@ -64,172 +66,192 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"Яркостта на замъгляващия ефект. Висока стойност може да направи текста "
+"нечетим."
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Гаусово замъгляване (разширен ефект)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Замъгляващ ефект, който плавно слива пикселите в зададен радиус. Този ефект "
+"е по-прецизен, но не е оптимизиран."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
+"Интензивността на замъгляващия ефект. Големи стойности правят ефекта "
+"по-бавен."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Замъгляване \"Монте Карло\""
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Замъгляващ ефект, който имитира случайно движение, като избира все по-"
+"далечни пиксели и смесва заедно."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Максималната дистанция за всяка стъпка от случайното движение. По-висока "
+"стойност ще направи замъгляването по-случайно."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr ""
+msgstr "Итерации"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Броя на итерациите. Колкото повече, толкова по-гладко замъгляване."
 
 #: src/effects/effects.js:148
+#, fuzzy
 msgid "Use base pixel"
-msgstr ""
+msgstr "Използване на основен пиксел"
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Дали оригиналния пиксел да се използва при замъгляването. Ако се, то "
+"изображението ще бъде по-четимо."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
-msgstr ""
+msgstr "Цвят"
 
 #: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Ефект, който смесва цвят в потока за обработка."
 
 #: src/effects/effects.js:164
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Цвета, който да се смеси. Количеството на цвета се определя от "
+"непрозрачността му."
 
 #: src/effects/effects.js:172
 msgid "Pixelize"
-msgstr ""
+msgstr "Пикселизиране"
 
 #: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Ефект, който пикселизира изображението."
 
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Фактор"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Колко да се намали мащаба на изображението."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Метод на дискретизация"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Метода на дискретизация, който ще бъде използван."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
+#, fuzzy
 msgid "Boxcar"
-msgstr ""
+msgstr "Правоъгълен"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "Триъгълен"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "Делта функция на Дирак"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Намаляване на мащаба (разширен ефект)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
+"Ефект който намаля мащаба на изображението и го поставя в горния ляв ъгъл."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Увеличаване на мащаба (разширен ефект)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "Ефект, който увеличава мащаба, започвайки от горния ляв ъгъл."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Колко да бъде увеличен мащаба."
 
 #: src/effects/effects.js:243
+#, fuzzy
 msgid "Derivative"
-msgstr ""
+msgstr "Производна"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Прилагане на обемна производна или лапласиан."
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "Операция"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Математическата операция, която да се приложи."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "Първа производна"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "Втора производна"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "Лапласиан"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
-msgstr ""
+msgstr "Шум"
 
 #: src/effects/effects.js:263
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
+"Ефект, който добавя случаен шум. С замъгляването \"Монте Карло\" ще се "
+"получи по естествен ефект."
 
 #: src/effects/effects.js:268
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Количеството шум, което да се добави."
 
 #: src/effects/effects.js:277
 msgid "Lightness"
-msgstr ""
+msgstr "Светлост"
 
 #: src/effects/effects.js:278
 msgid ""
@@ -327,6 +349,7 @@ msgid "Opacity"
 msgstr ""
 
 #: resources/ui/applications.ui:64
+#, fuzzy
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."

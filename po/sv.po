@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-04-12 08:02+0000\n"
-"Last-Translator: Andreas Florin <andreas.florin.1988@outlook.com>\n"
+"PO-Revision-Date: 2024-10-07 04:33+0000\n"
+"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sv/>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Gaussisk oskärpa (avancerad effekt)"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -154,7 +154,7 @@ msgstr "En effekt som pixeliserar bilden."
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Faktor"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
@@ -162,71 +162,72 @@ msgstr "Hur mycket man ska skala ner bilden."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Nedsamplingsläge"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Nedsamplingsmetoden som används."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "Lådbil"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "Triangulär"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Nedskala (avancerad effekt)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
+"En effekt som förminskar bilden och placerar den i det övre vänstra hörnet."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Uppskala (avancerad effekt)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "En effekt som uppskalar bilden från det övre vänstra hörnet."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Hur mycket ska bilden skalas upp."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "Derivat"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Applicera en rumslig derivata, eller en laplacian."
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "Operation"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Den matematiska operationen att tillämpa."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "1-stegs derivata"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "2-stegs derivata"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplacian"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
@@ -258,19 +259,19 @@ msgstr ""
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB till HSL (avancerad effekt)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Konverterar bilden från RGBA-färgrymd till HSLA."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL till RGB (avancerad effekt)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Konverterar bilden från HSLA-färgrymd till RGBA."
 
 #: src/effects/effects.js:307
 msgid "Corner"
@@ -494,7 +495,7 @@ msgstr "Lägg till effekter"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Inkludera avancerade effekter"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -545,11 +546,11 @@ msgstr "Gör \"window-list\"-tilläget oskarpt om det används."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Coverflow Alt-Tab förlängning oskärpa"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Gör coverflow alt-tab-förlängningen suddig, om den används."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
