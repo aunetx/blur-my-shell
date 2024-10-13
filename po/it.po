@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-09-23 15:16+0000\n"
+"PO-Revision-Date: 2024-10-14 10:15+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -191,11 +191,13 @@ msgstr ""
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Upscale (effetto avanzato)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
+"Un effetto che ingrandisce l'immagine a partire dall'angolo in alto a "
+"sinistra."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
@@ -207,7 +209,7 @@ msgstr "Derivata"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Applicare una derivata spaziale o un laplaciano."
 
 #: src/effects/effects.js:248
 msgid "Operation"
@@ -263,7 +265,7 @@ msgstr "RGB a HSL (effetto avanzato)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Converte l'immagine dallo spazio colore RGBA a HSLA."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
@@ -271,7 +273,7 @@ msgstr "Da HSL a RGB (effetto avanzato)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Converte l'immagine dallo spazio colore HSLA a RGBA."
 
 #: src/effects/effects.js:307
 msgid "Corner"
@@ -553,11 +555,11 @@ msgstr "Rendi sfocata l'estensione dell'elenco di finestre, se utilizzata."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Estensione Alt-Tab Coverflow sfocata"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Rendere sfocata l'estensione alt-tab di Coverflow, se utilizzata."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
