@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-07-19 08:09+0000\n"
-"Last-Translator: Joe Erd <weblate@joclever.mozmail.com>\n"
+"PO-Revision-Date: 2024-10-20 21:15+0000\n"
+"Last-Translator: Whoever4976 <wolffjonas47@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-rc\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Gaußscher Weichzeichner (erweiterter Effekt)"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -158,7 +158,7 @@ msgstr "Ein Effekt, der das Bild verpixelt."
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr ""
+msgstr "Faktor"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
@@ -194,7 +194,7 @@ msgstr ""
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Hochskalieren (erweiterter Effekt)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
@@ -202,7 +202,7 @@ msgstr ""
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Wie stark das Bild hochskaliert werden soll."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
@@ -262,19 +262,19 @@ msgstr ""
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB zu HSL (erweiterter Effekt)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Konvertiert das Bild vom RGBA- zum HSLA-Farbraum."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL zu RGB (erweiterter Effekt)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Konvertiert das Bild vom HSLA- zum RGBA-Farbraum."
 
 #: src/effects/effects.js:307
 msgid "Corner"
@@ -505,7 +505,7 @@ msgstr "Effekt hinzufügen"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Beinhalte erweiterte Effekte"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
