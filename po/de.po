@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-10-20 21:15+0000\n"
-"Last-Translator: Whoever4976 <wolffjonas47@gmail.com>\n"
+"PO-Revision-Date: 2024-10-23 02:15+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-rc\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -166,11 +166,11 @@ msgstr "Wie stark das Bild verkleinert werden soll."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Heruntertaktungsmodus"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Die verwendete Heruntertaktungsmethode."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
@@ -178,7 +178,7 @@ msgstr ""
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "Triangular"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
@@ -186,11 +186,12 @@ msgstr ""
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Herunterskalieren (erweiterter Effekt)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
+"Ein Effekt, der das Bild herunterskaliert und in die linke obere Ecke setzt."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
@@ -198,7 +199,7 @@ msgstr "Hochskalieren (erweiterter Effekt)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "Ein Effekt, der das Bild von der linken oberen Ecke aus hochskaliert."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
@@ -206,7 +207,7 @@ msgstr "Wie stark das Bild hochskaliert werden soll."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "Ableitung"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
@@ -214,19 +215,19 @@ msgstr ""
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "Operation"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Die zu verwendende mathematische Operation."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "1-stufige Ableitung"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "2-stufige Ableitung"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
