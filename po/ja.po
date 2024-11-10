@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-09-04 15:09+0000\n"
+"PO-Revision-Date: 2024-11-11 04:00+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.2-rc\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -92,13 +92,15 @@ msgstr "モンテカルロぼかし"
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr ""
+msgstr "ランダムウォークを模倣したぼかし効果で、基準点から遠く離れたピクセル同士を混"
+"合します。"
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
-msgstr ""
+msgstr "ランダムウォークでピクセルを選択する際の最大移動距離。値が大きいほど、よりラ"
+"ンダムなぼかしになります。"
 
 #: src/effects/effects.js:130
 msgid "Iterations"
@@ -110,13 +112,14 @@ msgstr "繰り返しの数。数が大きいほど、よりなめらかなぼか
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr ""
+msgstr "基準点のピクセルを使う"
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
-msgstr ""
+msgstr "基準点のピクセルをぼかしの計算対象に含めるかどうか。含める場合、画像が見やす"
+"くなります。"
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
@@ -159,15 +162,15 @@ msgstr "使用するダウンサンプリングの方法。"
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "ボックスカー"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr ""
+msgstr "三角形"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "ディラック"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
@@ -191,11 +194,11 @@ msgstr "画像をどれくらい拡大するか。"
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "導関数"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "空間導関数またはラプラシアンを適用します。"
 
 #: src/effects/effects.js:248
 msgid "Operation"
@@ -207,15 +210,15 @@ msgstr "適用する数学演算。"
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "一階導関数"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "二階導関数"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "ラプラシアン"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
