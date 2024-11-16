@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-11-15 17:00+0000\n"
+"PO-Revision-Date: 2024-11-17 11:00+0000\n"
 "Last-Translator: Damir Zelenika <damir.zelenika@gmail.com>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/hr/>\n"
@@ -413,7 +413,7 @@ msgstr "Crtica"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Prevuci na DOck zamućenje"
 
 #: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
