@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-08-24 09:09+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2025-01-13 06:36+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr "Efectos de desenfoque"
+msgstr "Efectos de difuminado"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
@@ -33,13 +33,13 @@ msgstr "Efectos de forma"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr "Desenfoque gaussiano nativo"
+msgstr "Difuminado gaussiano nativo"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
-"Un efecto de desenfoque optimizado que combina suavemente los píxeles dentro "
+"Un efecto de difuminado optimizado que combina suavemente los píxeles dentro "
 "de un radio determinado."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
@@ -49,7 +49,7 @@ msgstr "Radio"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr "La intensidad del efecto de desenfoque."
+msgstr "La intensidad del efecto de difuminado."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
@@ -66,38 +66,38 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"El brillo del efecto de desenfoque, un valor alto puede hacer que el texto "
+"El brillo del efecto de difuminado, un valor alto puede hacer que el texto "
 "sea más difícil de leer."
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr "Desenfoque gaussiano (efecto avanzado)"
+msgstr "Difuminado gaussiano (efecto avanzado)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
-"Un efecto de desenfoque que combina suavemente los píxeles dentro de un "
+"Un efecto de difuminado que combina suavemente los píxeles dentro de un "
 "radio determinado. Este efecto es más preciso, pero mucho menos optimizado."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr ""
-"La intensidad del efecto de desenfoque. Cuanto más grande sea, más lento "
+"La intensidad del efecto de difuminado. Cuanto más grande sea, más lento "
 "será."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr "Desenfoque de Montecarlo"
+msgstr "Difuminado de Montecarlo"
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
-"Un efecto de desenfoque que imita un paseo aleatorio, seleccionando píxeles "
+"Un efecto de difuminado que imita un paseo aleatorio, seleccionando píxeles "
 "cada vez más lejos de su origen y mezclándolos todos."
 
 #: src/effects/effects.js:121
@@ -106,7 +106,7 @@ msgid ""
 "will make the blur more randomized."
 msgstr ""
 "La distancia máxima recorrida para cada paso en la caminata aleatoria. Un "
-"valor más alto hará que el desenfoque sea más aleatorio."
+"valor más alto hará que el difuminado sea más aleatorio."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
@@ -115,7 +115,7 @@ msgstr "Iteraciones"
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
-"El número de iteraciones. Cuantos más haya, más suave será el desenfoque."
+"El número de iteraciones. Cuantos más haya, más suave será el difuminado."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
@@ -126,7 +126,7 @@ msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
-"Si el píxel original se cuenta o no para el desenfoque. Si es así, la imagen "
+"Si el píxel original se cuenta o no para el difuminado. Si es así, la imagen "
 "será más legible."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
@@ -204,7 +204,7 @@ msgstr ""
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr "¿Cuánto ampliar la imagen?"
+msgstr "Cuánto escalar la imagen."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
@@ -243,7 +243,7 @@ msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
-"Un efecto que añade un ruido aleatorio. Prefiere el desenfoque Monte Carlo "
+"Un efecto que añade un ruido aleatorio. Prefiere el difuminado Monte Carlo "
 "para obtener un efecto más orgánico si es necesario."
 
 #: src/effects/effects.js:268
@@ -330,7 +330,7 @@ msgstr "Aplicaciones"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr "Las aplicaciones se desenfocan"
+msgstr "Difuminado de las aplicaciones"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -338,10 +338,10 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
-"Añade desenfoque a las aplicaciones.\n"
+"Añade difuminado a las aplicaciones.\n"
 "Para obtener los mejores resultados posibles, aunque con prestaciones "
-"reducidas, puede elegir la opción \"Sin artefacto\" en la pestaña \"Otros → "
-"Nivel de hack\"."
+"reducidas, puede elegir la opción \"Sin artefacto\" en la pestaña "
+"\"Otros → Nivel de hack\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -353,7 +353,7 @@ msgstr "Sigma"
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
-msgstr "La intensidad del desenfoque."
+msgstr "La intensidad del difuminado."
 
 #: resources/ui/applications.ui:63
 msgid "Opacity"
@@ -364,7 +364,7 @@ msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"La opacidad de la ventana sobre el efecto de desenfoque, un valor más alto "
+"La opacidad de la ventana sobre el efecto de difuminado, un valor más alto "
 "será más legible."
 
 #: resources/ui/applications.ui:85
@@ -381,14 +381,14 @@ msgstr ""
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
-msgstr "Desenfoque en la vista general"
+msgstr "Difuminado en la vista general"
 
 #: resources/ui/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"Fuerza a que el desenfoque se muestre correctamente en todos los espacios de "
+"Fuerza a que el difuminado se muestre correctamente en todos los espacios de "
 "trabajo en la vista general.\n"
 "Esto puede causar algunos problemas de latencia o rendimiento."
 
@@ -398,8 +398,7 @@ msgstr "Activar todo por defecto"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
-"Agrega desenfoque detrás de todas las ventanas de forma predeterminada."
+msgstr "Añade difuminado detrás de todas las ventanas de forma predeterminada."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -407,7 +406,7 @@ msgstr "Lista blanca"
 
 #: resources/ui/applications.ui:134
 msgid "A list of windows to blur."
-msgstr "Una lista de ventanas para desenfocar."
+msgstr "Una lista de ventanas para difuminar."
 
 #: resources/ui/applications.ui:152 resources/ui/applications.ui:189
 msgid "Add Window"
@@ -427,22 +426,22 @@ msgstr "Tablero"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Desenfoque de Dash to Dock"
+msgstr "Difuminado de Dash to Dock"
 
 #: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Desenfoca el fondo de la extensión Dash to Dock, si se usa."
+msgstr "Difumina el fondo de la extensión Dash to Dock, si se usa."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr "Tipo de desenfoque"
+msgstr "Tipo de difuminado"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
-"El desenfoque dinámico es más lento y solo es compatible con un efecto de "
-"desenfoque gaussiano."
+"El difuminado dinámico es más lento y solo es compatible con un efecto de "
+"difuminado gaussiano."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
@@ -480,7 +479,7 @@ msgstr "Desactivar en la vista general"
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Desactiva el desenfoque de Dash a Dock al entrar en la vista general."
+msgstr "Desactiva el difuminado de Dash a Dock al entrar en la vista general."
 
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
@@ -531,27 +530,27 @@ msgstr "Otro"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr "Desenfoque de la pantalla de bloqueo"
+msgstr "Difuminado de la pantalla de bloqueo"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
-"Cambia el desenfoque de la pantalla de bloqueo para usar las preferencias de "
+"Cambia el difuminado de la pantalla de bloqueo para usar las preferencias de "
 "esta extensión."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr "Desenfoque de captura de pantalla"
+msgstr "Difuminado de captura de pantalla"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"Añade desenfoque al fondo del selector de ventanas en la interfaz de usuario "
+"Añade difuminado al fondo del selector de ventanas en la interfaz de usuario "
 "de las capturas de pantalla."
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
-msgstr "Desenfoque de la lista de ventanas"
+msgstr "Difuminado de la lista de ventanas"
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
@@ -559,7 +558,7 @@ msgstr "Hacer borrosa la extensión de la lista de ventanas, si se usa."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr "Desenfoque de la extensión Coverflow Alt-Tab"
+msgstr "Difuminado de la extensión Coverflow Alt-Tab"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
@@ -584,9 +583,9 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
-"Cambia el comportamiento del efecto de desenfoque dinámico. El valor por "
-"defecto es muy recomendable.\n"
-"La opción \"Sin artefacto\" deshabilitará por completo los redibujados "
+"Cambia el comportamiento del efecto de difuminado dinámico. El valor "
+"predeterminado es muy recomendable.\n"
+"La opción \"Sin artefacto\" desactivará por completo los redibujados "
 "recortados en el shell de GNOME, e impactará significativamente en el "
 "rendimiento de su ordenador."
 
@@ -632,12 +631,12 @@ msgstr "Vista general"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr "Desenfoque del fondo"
+msgstr "Difuminado del fondo"
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
-"Añade desenfoque al fondo de la vista general, usando la imagen del fondo de "
+"Añade difuminado al fondo de la vista general, usando la imagen del fondo de "
 "pantalla."
 
 #: resources/ui/overview.ui:26
@@ -654,7 +653,7 @@ msgstr ""
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr "Desenfoque de la carpeta de la aplicación"
+msgstr "Difuminado de la carpeta de la aplicación"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
@@ -680,11 +679,11 @@ msgstr "Panel"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr "Desenfoque del panel"
+msgstr "Difuminado del panel"
 
 #: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "Desenfoca el panel superior con la imagen de fondo."
+msgstr "Difumina el panel superior con la imagen de fondo."
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
@@ -721,7 +720,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "Desactiva el desenfoque del panel al entrar en la vista general."
+msgstr "Desactiva el difuminado del panel al entrar en la vista general."
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
@@ -739,19 +738,19 @@ msgstr "Extensión Hidetopbar"
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"No desactiva el desenfoque en la vista general, se usa mejor con el "
-"desenfoque estático."
+"No desactiva el difuminado en la vista general, se usa mejor con el "
+"difuminado estático."
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
-msgstr "Desenfocar panel original con Dash to Panel"
+msgstr "Difuminar el panel original con Dash to Panel"
 
 #: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
-"Activa el desenfoque del panel original con Dash to Panel, si está "
+"Activa el difuminado del panel original con Dash to Panel, si está "
 "seleccionado en las opciones de la extensión."
 
 #: resources/ui/panel.ui:225
