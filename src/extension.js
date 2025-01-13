@@ -1,4 +1,3 @@
-import Meta from 'gi://Meta';
 import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
@@ -253,14 +252,14 @@ export default class BlurMyShell extends Extension {
 
     /// Add the Clutter debug flag.
     _disable_clipped_redraws() {
-        Meta.add_clutter_debug_flags(
+        Clutter.add_debug_flags(
             null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
         );
     }
 
     /// Remove the Clutter debug flag.
     _reenable_clipped_redraws() {
-        Meta.remove_clutter_debug_flags(
+        Clutter.remove_debug_flags(
             null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
         );
     }
