@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-11-29 13:00+0000\n"
-"Last-Translator: Lorenzo Pandolfo <lorenzopandolfo2004@gmail.com>\n"
+"PO-Revision-Date: 2025-01-22 12:01+0000\n"
+"Last-Translator: Henrique Claranhan <henrique.claranhan@outlook.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/effects/effects.js:20
 #, fuzzy
@@ -79,7 +79,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Desfoque gaussiano (efeito avançado)"
 
 #: src/effects/effects.js:87
 #, fuzzy
@@ -204,18 +204,19 @@ msgstr ""
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
+"Um efeito que reduz a escala da imagem e a coloca no canto superior esquerdo."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Ampliar (efeito avançado)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "Um efeito que amplia a imagem a partir do canto superior esquerdo."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Quanto ampliar a imagem."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
@@ -223,15 +224,15 @@ msgstr ""
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Aplicar uma derivada espacial ou um laplaciano."
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "Operação"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "A operação matemática a ser aplicada."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
@@ -280,19 +281,19 @@ msgstr ""
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB para HSL (efeito avançado)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Converte a imagem do espaço de cores RGBA para HSLA."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL para RGB (efeito avançado)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Converte a imagem do espaço de cores HSLA para RGBA."
 
 #: src/effects/effects.js:307
 #, fuzzy
