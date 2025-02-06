@@ -275,6 +275,30 @@ export const PanelBlur = class PanelBlur {
                 this.connections.connect(
                     Main.overview, 'hidden', _ => this.show()
                 );
+
+
+                // keep the panel unblur in overview, even when a workspace is added or removed
+                this.connections.connect(
+                    global.workspace_manager, 'workspace-added',
+                    _ => {
+                        if (Main.overview.visible)
+                            this.hide();
+                    }
+                );
+                this.connections.connect(
+                    global.workspace_manager, 'workspace-removed',
+                    _ => {
+                        if (Main.overview.visible)
+                            this.hide();
+                    }
+                );
+
+                // Ensure the panel's blur is correctly set based on the current state
+                if (Main.overview.visible)
+                    this.hide();
+                else
+                    this.show();
+
             } else {
                 let appDisplay = Main.overview._overview._controls._appDisplay;
 
@@ -287,6 +311,27 @@ export const PanelBlur = class PanelBlur {
                 this.connections.connect(
                     Main.overview, 'hidden', _ => this.show()
                 );
+
+
+                this.connections.connect(
+                    global.workspace_manager, 'workspace-added',
+                    _ => {
+                        if (appDisplay.visible || Main.overview.visible)
+                            this.hide();
+                    }
+                );
+                this.connections.connect(
+                    global.workspace_manager, 'workspace-removed',
+                    _ => {
+                        if (appDisplay.visible || Main.overview.visible)
+                            this.hide();
+                    }
+                );
+
+                if (appDisplay.visible || Main.overview.visible)
+                    this.hide();
+                else
+                    this.show();
             }
 
         }
