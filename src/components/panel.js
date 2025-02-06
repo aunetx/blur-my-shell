@@ -54,9 +54,6 @@ export const PanelBlur = class PanelBlur {
         // the blur when a window is near a panel
         this.connect_to_windows_and_overview();
 
-        // update the classname if the panel to have or have not light text
-        this.update_light_text_classname();
-
         // connect to workareas change
         this.connections.connect(global.display, 'workareas-changed',
             _ => this.reset()
@@ -468,10 +465,14 @@ export const PanelBlur = class PanelBlur {
             this.settings.panel.OVERRIDE_BACKGROUND
             &&
             should_override
-        )
+        ) {
             panel.add_style_class_name(
                 PANEL_STYLES[this.settings.panel.STYLE_PANEL]
             );
+        }
+
+        // update the classname if the panel to have or have not light text
+        this.update_light_text_classname(!should_override);
     }
 
     update_pipeline() {
