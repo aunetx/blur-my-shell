@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-10-14 10:15+0000\n"
+"PO-Revision-Date: 2025-02-17 10:02+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.10\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -170,7 +170,7 @@ msgstr "Il metodo di sottocampionamento che è usato."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "Carro merci"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
@@ -178,7 +178,7 @@ msgstr "Triangolare"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
@@ -221,15 +221,15 @@ msgstr "L'operazione matematica da applicare."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "derivata in 1 passaggio"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "Derivata a 2 passi"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplaciano"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
