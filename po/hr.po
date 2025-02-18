@@ -8,53 +8,56 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-11-11 04:00+0000\n"
-"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ja/>\n"
-"Language: ja\n"
+"PO-Revision-Date: 2024-11-17 11:00+0000\n"
+"Last-Translator: Damir Zelenika <damir.zelenika@gmail.com>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/hr/>\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr "ぼかし効果"
+msgstr "Efekt zamućenja"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr "テクスチャ効果"
+msgstr "Efekt teksture"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr "シェイプ効果"
+msgstr "Efekt oblika"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr "ネイティブガウスぼかし"
+msgstr "Prirodno gaussian zamućenje"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
-msgstr "指定された半径内のピクセルをなめらかに混ぜる、最適化されたぼかし効果。"
+msgstr ""
+"Optimizirani efekt zamućenja kao kombinacija piksela unutar zadanog "
+"polumjera."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
-msgstr "半径"
+msgstr "Polumjer"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr "ぼかし効果の強度。"
+msgstr "Intenzitet efekta zamućenja."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr "明るさ"
+msgstr "Svjetlina"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
 #: src/effects/effects.js:139 resources/ui/applications.ui:43
@@ -64,256 +67,259 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"ぼかし効果の明るさ。値が大きいほど、テキストが読みづらくなる可能性がありま"
-"す。"
+"Svjetlina efekta zamućenja, visoka vrijednost može učiniti tekst nečitljivim."
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr "ガウスぼかし (高度な効果)"
+msgstr "Gaussian zamućenje (napredni efekt)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
-"指定された半径内のピクセルをなめらかに混ぜる、ぼかし効果。この効果はより正確"
-"ですが、あまり最適化されていません。"
+"Efekt zamućenja s glatkim stapanjem piksela unutar zadanog polumjera. Ovaj "
+"efekt je precizniji ali je manje optimiziran."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr "ぼかし効果の強度。値が大きいほど、低速になります。"
+msgstr ""
+"Intenzitet efekta zamućenja. Što je intenzitet veći to je efekt sporiji."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr "モンテカルロぼかし"
+msgstr "Monte Carlo Zamućenje"
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr "ランダムウォークを模倣したぼかし効果で、基準点から遠く離れたピクセル同士を混"
-"合します。"
+msgstr ""
+"Efekt zamućenja s oponašanjem nasumičnog prolaska, odabirom za stapanje onih "
+"piksela koji su više udaljeni od ishodišta."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
-msgstr "ランダムウォークでピクセルを選択する際の最大移動距離。値が大きいほど、よりラ"
-"ンダムなぼかしになります。"
+msgstr ""
+"Najvaća udaljenost za svaki korak u nasumičnom prolazu. Veća vrijednost "
+"učinit će efekt zamućenja više nasumičnim."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr "繰り返し"
+msgstr "Ponavljanja"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "繰り返しの数。数が大きいほど、よりなめらかなぼかしになります。"
+msgstr ""
+"Broj ponavljanja. Što je broj ponavljanja veći učinak zamućrenja je glatkiji."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr "基準点のピクセルを使う"
+msgstr "Koristi osnovni piksel"
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
-msgstr "基準点のピクセルをぼかしの計算対象に含めるかどうか。含める場合、画像が見やす"
-"くなります。"
+msgstr ""
+"Hoće li se, ili ne, izvorni poksel u obzir prilikom zamućenja. Ako se uzme "
+"slika će biti čitljivija."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
-msgstr "色"
+msgstr "Boja"
 
 #: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."
-msgstr "パイプラインに色を混ぜる効果。"
+msgstr "Efekt koji stapa boju u cjevovodu."
 
 #: src/effects/effects.js:164
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
-msgstr "混ぜる色。混ぜる量は、色の透明度で調整します。"
+msgstr "Boja za stapanje. Intenzitet zamućenja određen je neprozirnošću boje."
 
 #: src/effects/effects.js:172
 msgid "Pixelize"
-msgstr "ピクセル化"
+msgstr "Pikseliziraj"
 
 #: src/effects/effects.js:173
 msgid "An effect that pixelizes the image."
-msgstr "画像をピクセル化する効果。"
+msgstr "Efekti koji pikselizira sliku."
 
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231
 msgid "Factor"
-msgstr "係数"
+msgstr "Faktor"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 msgid "How much to scale down the image."
-msgstr "画像をどれくらい縮小するか。"
+msgstr "Koliko će slika biti umanjena."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr "ダウンサンプリングモード"
+msgstr "Način umanjenja slike"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr "使用するダウンサンプリングの方法。"
+msgstr "Korištena metoda umanjenja."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr "ボックスカー"
+msgstr "Boxcar"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
-msgstr "三角形"
+msgstr "Trokutast"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr "ディラック"
+msgstr "Dirac"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr "ダウンスケール (高度な効果)"
+msgstr "Smanjenje veličine (napredni efekt)"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
-msgstr "画像をダウンスケールして左上の角に配置する効果。"
+msgstr "Efekt koji umanjuje sliku i postavlja ju u gornji likjevi kut."
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr "アップスケール (高度な効果)"
+msgstr "Uvećanje (napredni efekt)"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr "画像をアップスケールして左上の角に配置する効果。"
+msgstr "Efekt koji uvećava sliku iz gornjeg likevog kuta."
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr "画像をどれくらい拡大するか。"
+msgstr "Koliko će slika biti uvećana."
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr "導関数"
+msgstr "Derivacija"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr "空間導関数またはラプラシアンを適用します。"
+msgstr "Primijeniti prostornu derivaciju ili Laplaceov operator."
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr "演算"
+msgstr "Operacija"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr "適用する数学演算。"
+msgstr "Primijenjena matematička operacija."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr "一階導関数"
+msgstr "Prva derivacija"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr "二階導関数"
+msgstr "Druga derivacija"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr "ラプラシアン"
+msgstr "Laplaceov operator"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
-msgstr "ノイズ"
+msgstr "Šum"
 
 #: src/effects/effects.js:263
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
-"ランダムなノイズを追加する効果。自然な風合いが必要な場合、モンテカルロぼかし"
-"を使用してください。"
+"Efekt koji dodaje nasumični šum. Odaberite Monte Carlo zamućenju za "
+"organskiji učinak ako je potrebno."
 
 #: src/effects/effects.js:268
 msgid "The amount of noise to add."
-msgstr "追加するノイズの量。"
+msgstr "Količina šuma koja će biti dodana."
 
 #: src/effects/effects.js:277
 msgid "Lightness"
-msgstr "明るさ"
+msgstr "Svjetlina"
 
 #: src/effects/effects.js:278
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr "ノイズの明度。'1.0' を設定すると、効果が透明になります。"
+msgstr "Svjetlina šuma. Postavka 1.0 učinit će efekt prozirnim."
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr "RGB を HSL に変換 (高度な効果)"
+msgstr "RGB u HSL (napredni efekt)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr "画像の色空間を RGBA から HSLA に変換します。"
+msgstr "Pretvori sliku iz RGBA u HSLA format zapisa."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr "HSL を RGB に変換 (高度な効果)"
+msgstr "HSL u RGB (napredni efekt)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr "画像の色空間を HSLA から RGBA に変換します。"
+msgstr "Pretvara sliku iz HSLA u RGBA format zapisa."
 
 #: src/effects/effects.js:307
 msgid "Corner"
-msgstr "角"
+msgstr "Kutak"
 
 #: src/effects/effects.js:308
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
-"角を描画する効果。角の部分に他の効果が適用されないよう、効果の一覧の末尾に追"
-"加してください。"
+"Efekt koji crta kutove, Dodajte ga na kraju kako drugi efekti ne bi "
+"poništili kutove."
 
 #: src/effects/effects.js:313
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr "角の半径。GNOME アプリはデフォルトで 12 px の半径を使用します。"
+msgstr "Radijus kuta. GNOME aplikacije imaju zadanu vrijednost radijusa 12 px."
 
 #: src/effects/effects.js:320
 msgid "Top corners"
-msgstr "上側の角"
+msgstr "Gornji kutovi"
 
 #: src/effects/effects.js:321
 msgid "Whether or not to round the top corners."
-msgstr "上側の角を丸めるかどうか。"
+msgstr "Hoće li ili neće gornji kutovi biti zaobljeni."
 
 #: src/effects/effects.js:325
 msgid "Bottom corners"
-msgstr "下側の角"
+msgstr "Donji kutovi"
 
 #: src/effects/effects.js:326
 msgid "Whether or not to round the bottom corners."
-msgstr "下側の角を丸めるかどうか。"
+msgstr "Hoće li ili ne donji kutovi biti zaobljeni."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
-msgstr "ウィンドウの名前"
+msgstr "Naziv prozora"
 
 #: resources/ui/application-row.ui:8
 msgid "Select window"
-msgstr "ウィンドウを選択"
+msgstr "Odaberi prozor"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
-"ウィンドウをマウスポインターで選択するか、クラス名を指定して選択します。"
+msgstr "Odaberite prozor ili ga odaberite prema nazivu klase."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
-msgstr "アプリケーション"
+msgstr "Aplikacije"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr "アプリケーションのぼかし"
+msgstr "Zamućenje aplikacija"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -321,236 +327,231 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
-"アプリケーションにぼかしを追加します。\n"
-"パフォーマンスは低下しますが、“その他 → ハックレベル”タブで“アーティファクト"
-"なし”のオプションを選択すると、最高の結果を得られます。"
+"Dodaj zamućenje na aplikacije.\n"
+"Kako bi dobili najbolje rezultate, iako sa smanjenim performansama, možete "
+"odaprati opciju \"Bez artefakta\" u tabu \"Ostalo → Hack razina\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
-msgstr "標準偏差"
+msgstr "Sigma"
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
-msgstr "ぼかしの強度。"
+msgstr "Intenzitet zamućenja."
 
 #: resources/ui/applications.ui:63
 msgid "Opacity"
-msgstr "不透明度"
+msgstr "Neprozirnost"
 
 #: resources/ui/applications.ui:64
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"ぼかし効果の上に表示されているウィンドウの透明度。値が大きいほど、読みやすく"
-"なります。"
+"Neprozirnost prozora na vrhu efekta zamućenja, veća vrijednost bolja "
+"čitljivost."
 
 #: resources/ui/applications.ui:85
 msgid "Opaque focused window"
-msgstr "アクティブウィンドウは不透明にする"
+msgstr "Neprozirnost fokusiranog prozora"
 
 #: resources/ui/applications.ui:86
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
-"アクティブウィンドウは不透明にし、そのほかのウィンドウはぼかしをかけること"
-"で、判読性を向上します。"
+"Čini fokusirani prozor neprozirnim, a ostale zamućenima, što pomaže "
+"čitljivosti."
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
-msgstr "アクティビティ画面でぼかす"
+msgstr "Zamućenje na pregledu"
 
 #: resources/ui/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"アクティビティ画面のすべてのワークスペースで、ぼかしが適切に表示されるよう強"
-"制します。\n"
-"これはレイテンシやパフォーマンスの不具合を引き起こす可能性があります。"
+"Forsira valjani prikaz zamućenja na svim radnim površinama pregleda.\n"
+"Ovo može uzrokovati tromost i umanjenje performansi."
 
 #: resources/ui/applications.ui:116
 msgid "Enable all by default"
-msgstr "デフォルトですべて有効にする"
+msgstr "Omogući sve po zadanim postavkama"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr "デフォルトですべてのウィンドウにぼかしを加えます。"
+msgstr "Dodaje zamućenje iza svih prozora po zadanim postavkama."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
-msgstr "ホワイトリスト"
+msgstr "Popis dopuštenih"
 
 #: resources/ui/applications.ui:134
 msgid "A list of windows to blur."
-msgstr "ぼかすウィンドウの一覧。"
+msgstr "Popis prozora za zamućenje."
 
 #: resources/ui/applications.ui:152 resources/ui/applications.ui:189
 msgid "Add Window"
-msgstr "ウィンドウを追加"
+msgstr "Dodaj prozor"
 
 #: resources/ui/applications.ui:170
 msgid "Blacklist"
-msgstr "ブラックリスト"
+msgstr "Popis nedopuštenih"
 
 #: resources/ui/applications.ui:171
 msgid "A list of windows not to blur."
-msgstr "ぼかさないウィンドウの一覧。"
+msgstr "Popis prozora koji neće biti zamućeni."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr "Dash"
+msgstr "Crtica"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
-msgstr "Dash to Dock のぼかし"
+msgstr "Prevuci na DOck zamućenje"
 
 #: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Dash to Dock 拡張機能の背景をぼかします (使用中の場合)。"
+msgstr ""
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr "ぼかしの種類"
+msgstr ""
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr "動的ぼかしは相対的に低速で、ガウスぼかし効果のみと互換性があります。"
+msgstr ""
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr "静的"
+msgstr ""
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr "動的"
+msgstr ""
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
-msgstr "背景を上書き"
+msgstr ""
 
 #: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"背景を透明または半透明のいずれかに変更します。Dash to Dock の設定を使用するに"
-"は無効にします。"
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
-msgstr "背景のスタイル"
+msgstr ""
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr "ドックの背景に適用する透明/半透明のスタイル。"
+msgstr ""
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
-msgstr "アクティビティ画面では無効にする"
+msgstr ""
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
-"アクティビティ画面を表示した際に、Dash to Dock のぼかしを無効にします。"
 
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
-msgstr "透明"
+msgstr ""
 
 #: resources/ui/dash.ui:168 resources/ui/overview.ui:116
 #: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
-msgstr "明るい"
+msgstr ""
 
 #: resources/ui/dash.ui:169 resources/ui/overview.ui:117
 #: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
-msgstr "暗い"
+msgstr ""
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr "効果"
+msgstr ""
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr "効果を追加"
+msgstr ""
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr "高度な効果を含める"
+msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr "プロジェクトページ"
+msgstr ""
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr "バグを報告"
+msgstr ""
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr "ライセンス"
+msgstr ""
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
-msgstr "寄付"
+msgstr ""
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr "その他"
+msgstr ""
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr "ロック画面のぼかし"
+msgstr ""
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "この拡張機能で設定した内容をロック画面のぼかしに使うように変更します。"
+msgstr ""
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr "スクリーンショットのぼかし"
+msgstr ""
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
-"スクリーンショット機能のウィンドウ選択画面の背景に、ぼかしを追加します。"
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
-msgstr "Window List 拡張機能のぼかし"
+msgstr ""
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr "Window List 拡張機能にぼかしを追加します (使用中の場合)。"
+msgstr ""
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr "Coverflow Alt-Tab 拡張機能のぼかし"
+msgstr ""
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr "Coverflow Alt-Tab 拡張機能にぼかしを追加します (使用中の場合)。"
+msgstr ""
 
 #: resources/ui/other.ui:118
 msgid "Performance"
-msgstr "パフォーマンス"
+msgstr ""
 
 #: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
-msgstr "パフォーマンスを調整するための各種オプション。"
+msgstr ""
 
 #: resources/ui/other.ui:123
 msgid "Hack level"
-msgstr "ハックレベル"
+msgstr ""
 
 #: resources/ui/other.ui:124
 msgid ""
@@ -559,111 +560,103 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
-"動的ぼかし効果の動作を変更します。デフォルト値を強く推奨します。\n"
-"“アーティファクトなし”オプションは GNOME Shell の部分再描画機能を完全に無効化"
-"するため、コンピューターのパフォーマンスに大きく影響します。"
 
 #: resources/ui/other.ui:138
 msgid "Debug"
-msgstr "デバッグ"
+msgstr ""
 
 #: resources/ui/other.ui:139
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
-"拡張機能に追加のログを出力させます。不具合を報告する場合に有効にしてくださ"
-"い。"
 
 #: resources/ui/other.ui:154
 msgid "Reset preferences"
-msgstr "設定をリセット"
+msgstr ""
 
 #: resources/ui/other.ui:155
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr "Blur my Shell の設定を完全にリセットします。"
+msgstr ""
 
 #: resources/ui/other.ui:174
 msgid "Reset"
-msgstr "リセット"
+msgstr ""
 
 #: resources/ui/other.ui:203
 msgid "High performances"
-msgstr "高パフォーマンス"
+msgstr ""
 
 #: resources/ui/other.ui:204
 msgid "Default"
-msgstr "デフォルト"
+msgstr ""
 
 #: resources/ui/other.ui:205
 msgid "No artifact"
-msgstr "アーティファクトなし"
+msgstr ""
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr "アクティビティ画面"
+msgstr ""
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr "背景のぼかし"
+msgstr ""
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr "壁紙の画像を使用して、アクティビティ画面の背景にぼかしを追加します。"
+msgstr ""
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr "アクティビティ画面のコンポーネントのスタイル"
+msgstr ""
 
 #: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
-"Dash、検索欄/検索結果、アプリケーションフォルダーに適用する半透明のスタイル。"
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr "アプリケーションフォルダーのぼかし"
+msgstr ""
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr "アプリケーションフォルダーダイアログの背景をぼかします。"
+msgstr ""
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr "アプリケーションフォルダーダイアログのスタイル"
+msgstr ""
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr "アプリケーションフォルダーダイアログに適用する半透明のスタイル。"
+msgstr ""
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
-msgstr "適用しない"
+msgstr ""
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr "パネル"
+msgstr ""
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr "パネルのぼかし"
+msgstr ""
 
 #: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr "背景画像を使用して上部のパネルをぼかします。"
+msgstr ""
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr "明るいテキストを強制"
+msgstr ""
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
-"パネルに明るいテキストを使用します。GNOME Shell の明るいテーマを使用する場合"
-"に便利です。"
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -671,106 +664,79 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"パネルの背景を透明または半透明に上書きします。\n"
-"GNOME テーマをカスタマイズしたい場合以外は、有効にすることを推奨します。"
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "パネルの背景に適用する透明/半透明のスタイル。"
+msgstr ""
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
-msgstr "ウィンドウが近づいたら無効にする"
+msgstr ""
 
 #: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
-msgstr "ウィンドウがパネルに近づいたら、パネルの透明度を無効にします。"
+msgstr ""
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
-msgstr "アクティビティ画面を表示した際に、パネルのぼかしを無効にします。"
+msgstr ""
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
-msgstr "互換性"
+msgstr ""
 
 #: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
-msgstr "他の拡張機能との互換性を提供するための各種オプション。"
+msgstr ""
 
 #: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
-msgstr "Hide Top Bar 拡張機能"
+msgstr ""
 
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
-"アクティビティ画面でぼかしを無効にしません。静的ぼかしを使う場合に最適です。"
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
-msgstr "Dash to Panel 使用時、GNOME Shell 本来のパネルをぼかす"
+msgstr ""
 
 #: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
-"Dash to Panel 使用時、GNOME Shell 本来のパネルのぼかしを有効にします (Dash "
-"to Panel のオプションで選択されている場合)。"
 
 #: resources/ui/panel.ui:225
 msgid "Contrasted"
-msgstr "コントラスト"
+msgstr ""
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr "パイプライン"
+msgstr ""
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr "このコンポーネントが使用するパイプライン。"
+msgstr ""
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr "パイプラインの名前"
+msgstr ""
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr "効果を管理"
+msgstr ""
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr "パイプライン"
+msgstr ""
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
-"各コンポーネントのタブから、そのコンポーネントが使用するパイプラインを選択で"
-"きます。ここでは、パイプラインとその効果の作成、変更、削除を行えます。"
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr "パイプラインを追加"
-
-#~ msgid "Gaussian blur"
-#~ msgstr "ガウスぼかし"
-
-#~ msgid "Divider"
-#~ msgstr "ブロックサイズ"
-
-#~ msgid "Applications blur (beta)"
-#~ msgstr "blurのアプリ(ベータ)"
-
-#~ msgid ""
-#~ "Adds blur to the applications. This is still beta functionality.\n"
-#~ "To get the best results possible, make sure to choose the option “No "
-#~ "artifact” in the “General → Hack level” preference.\n"
-#~ "        "
-#~ msgstr ""
-#~ "アプリにぼかしを追加します。これはまだベータ機能です。\n"
-#~ "最大限の結果を得るには、設定の「一般 → ハック レベル」で「アーティファクト"
-#~ "なし」オプションを選択してください。\n"
-#~ "        "
+msgstr ""

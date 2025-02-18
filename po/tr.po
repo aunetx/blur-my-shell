@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-09-13 09:10+0000\n"
-"Last-Translator: Hacı <qwehacim3542qwe@gmail.com>\n"
+"PO-Revision-Date: 2024-11-03 13:00+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -168,7 +168,7 @@ msgstr "Kullanılan aşağı örnekleme yöntemi."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "Boxcar"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
@@ -176,7 +176,7 @@ msgstr "Üçgen"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
@@ -195,7 +195,6 @@ msgid "An effect that upscales the image from the top-left corner."
 msgstr "Görseli sol üst köşeden yukarı ölçekleyen bir efekt."
 
 #: src/effects/effects.js:232
-#, fuzzy
 msgid "How much to scale up the image."
 msgstr "Görüntünün ne kadar büyütüleceği."
 

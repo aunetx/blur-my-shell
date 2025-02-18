@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2023-11-22 18:04+0000\n"
-"Last-Translator: Julen <julensanso@gmail.com>\n"
+"PO-Revision-Date: 2024-11-12 19:00+0000\n"
+"Last-Translator: Joan Aymà <joanayma@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ca/>\n"
 "Language: ca\n"
@@ -17,44 +17,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Efectes de desenfocament"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Efectes de textura"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Efectes de forma"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Desenfocament gaussià natiu"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Un efecte de desenfocament optimitzat que barreja suaument els píxels dins "
+"d'un radi determinat."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 msgid "Radius"
-msgstr ""
+msgstr "Radi"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "La intensitat de l'efecte de desenfocament."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr ""
+msgstr "Lluminositat"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
 #: src/effects/effects.js:139 resources/ui/applications.ui:43
@@ -64,59 +66,70 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"La lluminositat de l'efecte de desenfocament, un valor alt pot dificultar la "
+"lectura."
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Desenfocament guassià (efecte avançat)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"Un efecte de desenfocament que barreja suaument els píxels dins d'un radi "
+"determinat. Aquest efecte és més precís, però molt menys optimitzat."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "La intensitat de l'efecte de desenfocament. Com més intens, més lent."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "Efecte de Montecarlo"
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Un efecte de desenfocament que imita un passeig aleatori, seleccionant "
+"píxels cada cop més lluny de l'origen i barrejant-los tots junts."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"La distància màxima per cada pas del passeig aleatori. Un valor alt farà que "
+"el desenfocament sigui més aleatori."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr ""
+msgstr "Iteracions"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr ""
+"El nombre d'interacions. Com més n'hi hagi, més suau serà el desenfocament."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr ""
+msgstr "Usar el píxel base"
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Si el píxel base serà comptat o no pel desenfocament. Si ho és, la imatge "
+"serà més llegible."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 #: src/effects/effects.js:158
 msgid "An effect that blends a color into the pipeline."

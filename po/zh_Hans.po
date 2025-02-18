@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-15 16:24+0200\n"
-"PO-Revision-Date: 2024-09-02 02:09+0000\n"
-"Last-Translator: Cryo <cryo@disroot.org>\n"
+"PO-Revision-Date: 2025-01-22 12:01+0000\n"
+"Last-Translator: Eric Zhao <zhaojiale20060708@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -89,8 +89,8 @@ msgstr "蒙特卡洛模糊"
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
-msgstr ""
-"模仿随机行走的模糊效果，它选取距离原点越来越远的像素，并将其混合在一起。"
+msgstr "一种模拟随机游走的模糊效果，做法是选取离原点越来越远的像素，然后将它们混合在"
+"一起。"
 
 #: src/effects/effects.js:121
 msgid ""
@@ -165,55 +165,55 @@ msgstr "三角形"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "狄拉克函数"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "缩小（进阶效果）"
 
 #: src/effects/effects.js:200
 msgid "An effect that downscales the image and put it on the top-left corner."
-msgstr ""
+msgstr "缩小图像并将其放在左上角的效果。"
 
 #: src/effects/effects.js:226
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "放大（进阶效果）"
 
 #: src/effects/effects.js:227
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "放大图像并且将其靠左上角放置的效果。"
 
 #: src/effects/effects.js:232
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "将图像放大多少。"
 
 #: src/effects/effects.js:243
 msgid "Derivative"
-msgstr ""
+msgstr "狄拉克函数"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "应用空间导数或拉普拉斯算子。"
 
 #: src/effects/effects.js:248
 msgid "Operation"
-msgstr ""
+msgstr "运算"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "要应用的数学运算。"
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr ""
+msgstr "一阶导数"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr ""
+msgstr "二阶导数"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "拉普拉斯算子"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
@@ -241,23 +241,23 @@ msgstr "噪点的光度。设置为“1.0”会使效果透明。"
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB 转 HSL（进阶效果）"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "将图像从RGBA色彩空间转换为HSLA色彩空间。"
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL 转 RGB（进阶效果）"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "将图像从HSLA色彩空间转换为RGBA色彩空间。"
 
 #: src/effects/effects.js:307
 msgid "Corner"
-msgstr "边角"
+msgstr "圆角"
 
 #: src/effects/effects.js:308
 msgid ""
@@ -467,7 +467,7 @@ msgstr "添加效果"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "包括进阶效果"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -515,11 +515,11 @@ msgstr "模糊 window-list 扩展（如果启用）。"
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Coverflow Alt-Tab 扩展的模糊效果"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "如果使用了Coverflow Alt-Tab扩展，将其设置为模糊效果。"
 
 #: resources/ui/other.ui:118
 msgid "Performance"
