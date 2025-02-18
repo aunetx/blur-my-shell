@@ -166,15 +166,15 @@ msgstr "Wie stark das Bild verkleinert werden soll."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 msgid "Downsampling mode"
-msgstr "Heruntertaktungsmodus"
+msgstr "Downsampling-Modus"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 msgid "The downsampling method that is used."
-msgstr "Die verwendete Heruntertaktungsmethode."
+msgstr "Die verwendete Downsampling-Methode."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 msgid "Boxcar"
-msgstr ""
+msgstr "Boxcar"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Triangular"
@@ -182,7 +182,7 @@ msgstr "Triangular"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199
 msgid "Downscale (advanced effect)"
@@ -211,7 +211,7 @@ msgstr "Ableitung"
 
 #: src/effects/effects.js:244
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Wende eine räumliche Ableitung oder einen Laplace-Operator an."
 
 #: src/effects/effects.js:248
 msgid "Operation"
@@ -219,19 +219,19 @@ msgstr "Operation"
 
 #: src/effects/effects.js:249
 msgid "The mathematical operation to apply."
-msgstr "Die zu verwendende mathematische Operation."
+msgstr "Die mathematische Operation, welche angewendet werden soll."
 
 #: src/effects/effects.js:252
 msgid "1-step derivative"
-msgstr "1-stufige Ableitung"
+msgstr "Erste Ableitung"
 
 #: src/effects/effects.js:253
 msgid "2-step derivative"
-msgstr "2-stufige Ableitung"
+msgstr "Zweite Ableitung"
 
 #: src/effects/effects.js:254
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplace-Operator"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 msgid "Noise"
@@ -263,19 +263,19 @@ msgstr ""
 
 #: src/effects/effects.js:291
 msgid "RGB to HSL (advanced effect)"
-msgstr "RGB zu HSL (erweiterter Effekt)"
+msgstr "RGB zu HSL (fortgeschrittener Effekt)"
 
 #: src/effects/effects.js:292
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr "Konvertiert das Bild vom RGBA- zum HSLA-Farbraum."
+msgstr "Konvertiert das Bild von RGBA-Farbraum zu HSLA."
 
 #: src/effects/effects.js:299
 msgid "HSL to RGB (advanced effect)"
-msgstr "HSL zu RGB (erweiterter Effekt)"
+msgstr "HSL zu RGB (fortgeschrittener Effekt)"
 
 #: src/effects/effects.js:300
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr "Konvertiert das Bild vom HSLA- zum RGBA-Farbraum."
+msgstr "Konvertiert das Bild von HSLA-Farbraum zu RGBA."
 
 #: src/effects/effects.js:307
 msgid "Corner"
@@ -560,11 +560,12 @@ msgstr ""
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Coverflow Alt-Tab Erweiterung Unschärfe"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Unschärfeeffekt auf die Coverflow Alt-Tab Erweiterungen anwenden wenn "
+"diese verwendet wird."
 
 #: resources/ui/other.ui:118
 msgid "Performance"

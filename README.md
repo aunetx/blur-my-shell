@@ -11,7 +11,7 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
 
 [<img src="https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/multi-auto.svg" align="right">](https://hosted.weblate.org/engage/blur-my-shell/)
 
-## Functionnalities
+## Functionalities
 
 - apply a blur effect to different components of the shell:
   - overview
@@ -58,7 +58,7 @@ For the difference between static blur and dynamic blur:
 - dynamic blur makes the component translucent, and blur directly what is behind it
   - you can only use a gaussian blur for this kind of blurring: this means that it is not possible to add corners, for example
   - you can still configure the gaussian blur to make it look as cool as you want
-  - this method of blurring is not very efficient: even though it should not slow down your computer to a halt, using static blur is still prefered when possible
+  - this method of blurring is not very efficient: even though it should not slow down your computer to a halt, using static blur is still preferred when possible
   - the gaussian blur effect that is being used has implementation defects, which make if having artifacts in the form of black rectangles when interacting with things that are close to the effect
   - however, you can remove this problem by selecting a “Hack level" in the “Other" tab in preferences
     - if using “High performances”, then nothing is done to prevent the artifacts
@@ -124,7 +124,7 @@ Just don't hesitate to open issues and pull requests, and sorry if I take some t
 
 ### Donations
 
-If you want to sponsor me, first of all thank you very much! That really is not a required part of being an user, and other developpers (for quite a lot of projects, them being extensions or GNOME itself) surely merit it more than me!
+If you want to sponsor me, first of all thank you very much! That really is not a required part of being an user, and other developers (for quite a lot of projects, them being extensions or GNOME itself) surely merit it more than me!
 
 You can use either [GitHub Sponsors](https://github.com/sponsors/aunetx) or [Ko-fi](https://ko-fi.com/aunetx); and don't hesitate to ask for more specialized support if you need to!
 
@@ -162,7 +162,7 @@ Much much love to (I hope I did not forget anyone...):
 - @RichardLuo0 who permitted to change the panel background colour
 - @a2leexx who fixed important issues regarding dynamic blur
 - @io12 thanks to which applications blurring works well enough for it to be usable
-- @Schneegans thanks to whom a lot is coming from actually, because its code is so crystal-clear that it helped me during my development (that is the case of many other extensions developpers by the way!!)
+- @Schneegans thanks to whom a lot is coming from actually, because its code is so crystal-clear that it helped me during my development (that is the case of many other extensions developers by the way!!)
 - @TomBursch thanks to which panel blur can be deactivated when windows are close to it
 - @defkev who helped to work on GNOME 46
 - @swyknox for the awesome icon!
