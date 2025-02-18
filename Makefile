@@ -9,6 +9,7 @@ build: clean
 	mkdir -p build/
 	cd src && gnome-extensions pack -f \
 			--extra-source=../metadata.json \
+			--extra-source=../LICENSE \
 			--extra-source=../resources/icons \
 			--extra-source=../resources/ui \
 			--extra-source=./components \
