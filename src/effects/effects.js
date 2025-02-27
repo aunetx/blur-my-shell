@@ -148,6 +148,11 @@ export function get_supported_effects(_ = () => "") {
                     name: _("Use base pixel"),
                     description: _("Whether or not the original pixel is counted for the blur. If it is, the image will be more legible."),
                     type: "boolean"
+                },
+                prefer_closer_pixels: {
+                    name: _("Prefer closer pixels"),
+                    description: _("Whether or not the pixels that are closer to the original pixel will have more weight."),
+                    type: "boolean"
                 }
             }
         },
