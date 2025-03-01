@@ -466,13 +466,17 @@ export default class BlurMyShell extends Extension {
         // application opacity changed
         this._settings.applications.OPACITY_changed(() => {
             if (this._settings.applications.BLUR)
-                this._applications_blur.set_opacity(
-                    this._settings.applications.OPACITY
-                );
+                this._applications_blur.update_opacity();
         });
 
         // application dynamic-opacity changed
         this._settings.applications.DYNAMIC_OPACITY_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.init_dynamic_opacity();
+        });
+
+        // application opaque-fullscreen-window changed
+        this._settings.applications.OPAQUE_FULLSCREEN_WINDOW_changed(() => {
             if (this._settings.applications.BLUR)
                 this._applications_blur.init_dynamic_opacity();
         });
