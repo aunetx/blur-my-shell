@@ -38,7 +38,7 @@ export default class BlurMyShell extends Extension {
         // it needs to be loaded before logging, as it checks for DEBUG
         this._settings = new Settings(KEYS, this.getSettings());
 
-        this._log(`enabling extension...`);
+        this._log("enabling extension...");
 
         // create main extension Connections instance
         this._connection = new Connections;
