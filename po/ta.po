@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: 2024-12-10 20:00+0000\n"
-"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"PO-Revision-Date: 2025-04-06 17:36+0000\n"
+"Last-Translator: Arun <lunar.arun@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
 "my-shell/ta/>\n"
 "Language: ta\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -41,7 +41,8 @@ msgid ""
 msgstr "கொடுக்கப்பட்ட ஆரத்திற்குள் பிக்சல்களை சீராக இணைக்கும் உகந்த மங்கலான விளைவு."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:312
+#: src/effects/effects.js:317
 msgid "Radius"
 msgstr "ஆரம்"
 
@@ -122,120 +123,119 @@ msgstr ""
 "மங்கலுக்கு அசல் பிக்சல் கணக்கிடப்படுகிறதா இல்லையா. அது இருந்தால், படம் இன்னும் தெளிவாக "
 "இருக்கும்."
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr ""
-
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
-
+#: src/effects/effects.js:157 src/effects/effects.js:163
 #: src/effects/effects.js:162 src/effects/effects.js:168
 msgid "Color"
 msgstr "நிறம்"
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:158 src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr "குழாயில் ஒரு நிறத்தை கலக்கும் விளைவு."
 
-#: src/effects/effects.js:169
+#: src/effects/effects.js:164 src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr "கலப்பதற்கான நிறம். கலப்பு அளவு நிறத்தின் ஒளிபுகாநிலையால் கட்டுப்படுத்தப்படுகிறது."
 
-#: src/effects/effects.js:177
+#: src/effects/effects.js:172 src/effects/effects.js:177
 msgid "Pixelize"
 msgstr "பிக்சலைஸ்"
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:173 src/effects/effects.js:178
 msgid "An effect that pixelizes the image."
 msgstr "படத்தை பிக்சலைஸ் செய்யும் விளைவு."
 
-#: src/effects/effects.js:182 src/effects/effects.js:209
-#: src/effects/effects.js:236
+#: src/effects/effects.js:177 src/effects/effects.js:204
+#: src/effects/effects.js:231 src/effects/effects.js:182
+#: src/effects/effects.js:209 src/effects/effects.js:236
 msgid "Factor"
 msgstr "காரணி"
 
+#: src/effects/effects.js:178 src/effects/effects.js:205
 #: src/effects/effects.js:183 src/effects/effects.js:210
 msgid "How much to scale down the image."
 msgstr "படத்தை எவ்வளவு குறைக்க வேண்டும்."
 
+#: src/effects/effects.js:185 src/effects/effects.js:212
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Downsampling mode"
 msgstr "வீழ்ச்சி பயன்முறை"
 
+#: src/effects/effects.js:186 src/effects/effects.js:213
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "The downsampling method that is used."
 msgstr "பயன்படுத்தப்படும் வீழ்ச்சி முறை."
 
+#: src/effects/effects.js:189 src/effects/effects.js:216
 #: src/effects/effects.js:194 src/effects/effects.js:221
 msgid "Boxcar"
 msgstr "பாக்ச் காரர்"
 
+#: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
 msgstr "முக்கோண"
 
+#: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
 msgid "Dirac"
 msgstr "டிராக்"
 
-#: src/effects/effects.js:204
+#: src/effects/effects.js:199 src/effects/effects.js:204
 msgid "Downscale (advanced effect)"
 msgstr "கீழ்நோக்கி (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:205
+#: src/effects/effects.js:200 src/effects/effects.js:205
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr "படத்தை குறைத்து, மேல்-இடது மூலையில் வைக்கும் ஒரு விளைவு."
 
-#: src/effects/effects.js:231
+#: src/effects/effects.js:226 src/effects/effects.js:231
 msgid "Upscale (advanced effect)"
 msgstr "மேல்தட்டு (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:232
+#: src/effects/effects.js:227 src/effects/effects.js:232
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "மேல்-இடது மூலையிலிருந்து படத்தை உயர்த்தும் ஒரு விளைவு."
 
-#: src/effects/effects.js:237
+#: src/effects/effects.js:232 src/effects/effects.js:237
 msgid "How much to scale up the image."
 msgstr "படத்தை எவ்வளவு அளவிட வேண்டும்."
 
-#: src/effects/effects.js:248
+#: src/effects/effects.js:243 src/effects/effects.js:248
 msgid "Derivative"
 msgstr "சார்பியம்"
 
-#: src/effects/effects.js:249
+#: src/effects/effects.js:244 src/effects/effects.js:249
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "ஒரு இடஞ்சார்ந்த வழித்தோன்றல் அல்லது ஒரு லாப்லாசியனைப் பயன்படுத்துங்கள்."
 
-#: src/effects/effects.js:253
+#: src/effects/effects.js:248 src/effects/effects.js:253
 msgid "Operation"
 msgstr "செயல்பாடு"
 
-#: src/effects/effects.js:254
+#: src/effects/effects.js:249 src/effects/effects.js:254
 msgid "The mathematical operation to apply."
 msgstr "விண்ணப்பிக்க கணித செயல்பாடு."
 
-#: src/effects/effects.js:257
+#: src/effects/effects.js:252 src/effects/effects.js:257
 msgid "1-step derivative"
 msgstr "1-படி வழித்தோன்றல்"
 
-#: src/effects/effects.js:258
+#: src/effects/effects.js:253 src/effects/effects.js:258
 msgid "2-step derivative"
 msgstr "2-படி வழித்தோன்றல்"
 
-#: src/effects/effects.js:259
+#: src/effects/effects.js:254 src/effects/effects.js:259
 msgid "Laplacian"
 msgstr "லாப்லாசியன்"
 
-#: src/effects/effects.js:267 src/effects/effects.js:272
+#: src/effects/effects.js:262 src/effects/effects.js:267
+#: src/effects/effects.js:272
 msgid "Noise"
 msgstr "சத்தம்"
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:263 src/effects/effects.js:268
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -243,41 +243,41 @@ msgstr ""
 "ஒரு சீரற்ற சத்தத்தை சேர்க்கும் விளைவு. தேவைப்பட்டால், அதிக கரிம விளைவுக்காக மான்டே கார்லோ "
 "மங்கலைப் பயன்படுத்தவும்."
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:268 src/effects/effects.js:273
 msgid "The amount of noise to add."
 msgstr "சேர்க்க வேண்டிய சத்தத்தின் அளவு."
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:277 src/effects/effects.js:282
 msgid "Lightness"
 msgstr "லேசான தன்மை"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:278 src/effects/effects.js:283
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr "சத்தத்தின் ஒளிர்வு. '1.0' அமைப்பானது, விளைவை வெளிப்படையானதாக மாற்றும்."
 
-#: src/effects/effects.js:296
+#: src/effects/effects.js:291 src/effects/effects.js:296
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB முதல் HSL (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:297
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "படத்தை RGBA வண்ணங்களில் இருந்து HSLA ஆக மாற்றுகிறது."
 
-#: src/effects/effects.js:304
+#: src/effects/effects.js:299 src/effects/effects.js:304
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL பெறுநர் RGB (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:305
+#: src/effects/effects.js:300 src/effects/effects.js:305
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "படத்தை HSLA கலர்ச்பேசிலிருந்து RGBA ஆக மாற்றுகிறது."
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:307 src/effects/effects.js:312
 msgid "Corner"
 msgstr "மூலை"
 
-#: src/effects/effects.js:313
+#: src/effects/effects.js:308 src/effects/effects.js:313
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -285,23 +285,23 @@ msgstr ""
 "மூலைகளை ஈர்க்கும் விளைவு. மற்ற விளைவுகள் மூலைகளைத் தொந்தரவு செய்யாதபடி கடைசியாகச் "
 "சேர்க்கவும்."
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:313 src/effects/effects.js:318
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "மூலையின் ஆரம். GNOME பயன்பாடுகள் இயல்பாக 12 px ஆரம் பயன்படுத்துகின்றன."
 
-#: src/effects/effects.js:325
+#: src/effects/effects.js:320 src/effects/effects.js:325
 msgid "Top corners"
 msgstr "மேல் மூலைகள்"
 
-#: src/effects/effects.js:326
+#: src/effects/effects.js:321 src/effects/effects.js:326
 msgid "Whether or not to round the top corners."
 msgstr "மேல் மூலைகளைச் சுற்றி வளைக்க வேண்டுமா இல்லையா."
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:325 src/effects/effects.js:330
 msgid "Bottom corners"
 msgstr "கீழ் மூலைகள்"
 
-#: src/effects/effects.js:331
+#: src/effects/effects.js:326 src/effects/effects.js:331
 msgid "Whether or not to round the bottom corners."
 msgstr "கீழ் மூலைகளை வட்டமிட வேண்டுமா இல்லையா."
 
@@ -764,6 +764,16 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "பைப்லைனைச் சேர்க்கவும்"
+
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr ""
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr ""
 
 #~ msgid "Gaussian blur"
 #~ msgstr "காஸியன் தெளிவின்மை"

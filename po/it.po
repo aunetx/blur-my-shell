@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: 2025-02-17 10:02+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"PO-Revision-Date: 2025-04-06 17:36+0000\n"
+"Last-Translator: Cristiano Landi <cri98li@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -43,7 +43,8 @@ msgstr ""
 "all'interno di un determinato raggio."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:312
+#: src/effects/effects.js:317
 msgid "Radius"
 msgstr "Raggio"
 
@@ -127,25 +128,16 @@ msgstr ""
 "Indica se il pixel originale viene conteggiato o meno per la sfocatura. Se "
 "lo è, l'immagine sarà più leggibile."
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr ""
-
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
-
+#: src/effects/effects.js:157 src/effects/effects.js:163
 #: src/effects/effects.js:162 src/effects/effects.js:168
 msgid "Color"
 msgstr "Colore"
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:158 src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr "Un effetto che fonde un colore in pipeline."
 
-#: src/effects/effects.js:169
+#: src/effects/effects.js:164 src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
@@ -153,99 +145,107 @@ msgstr ""
 "Il colore da sfumare. La quantità di fusione è controllata dall'opacità del "
 "colore."
 
-#: src/effects/effects.js:177
+#: src/effects/effects.js:172 src/effects/effects.js:177
 msgid "Pixelize"
 msgstr "Pixelizza"
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:173 src/effects/effects.js:178
 msgid "An effect that pixelizes the image."
 msgstr "Un effetto che pixelizza l'immagine."
 
-#: src/effects/effects.js:182 src/effects/effects.js:209
-#: src/effects/effects.js:236
+#: src/effects/effects.js:177 src/effects/effects.js:204
+#: src/effects/effects.js:231 src/effects/effects.js:182
+#: src/effects/effects.js:209 src/effects/effects.js:236
 msgid "Factor"
 msgstr "Fattore"
 
+#: src/effects/effects.js:178 src/effects/effects.js:205
 #: src/effects/effects.js:183 src/effects/effects.js:210
 msgid "How much to scale down the image."
 msgstr "Quanto ridimensionare l'immagine."
 
+#: src/effects/effects.js:185 src/effects/effects.js:212
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Downsampling mode"
 msgstr "Modalità di sottocampionamento"
 
+#: src/effects/effects.js:186 src/effects/effects.js:213
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "The downsampling method that is used."
 msgstr "Il metodo di sottocampionamento che è usato."
 
+#: src/effects/effects.js:189 src/effects/effects.js:216
 #: src/effects/effects.js:194 src/effects/effects.js:221
 msgid "Boxcar"
 msgstr "Carro merci"
 
+#: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
 msgstr "Triangolare"
 
+#: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:204
+#: src/effects/effects.js:199 src/effects/effects.js:204
 msgid "Downscale (advanced effect)"
 msgstr "Downscale (effetto avanzato)"
 
-#: src/effects/effects.js:205
+#: src/effects/effects.js:200 src/effects/effects.js:205
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
 "Un effetto che riduce l'immagine e la mette nell'angolo in alto a sinistra."
 
-#: src/effects/effects.js:231
+#: src/effects/effects.js:226 src/effects/effects.js:231
 msgid "Upscale (advanced effect)"
 msgstr "Upscale (effetto avanzato)"
 
-#: src/effects/effects.js:232
+#: src/effects/effects.js:227 src/effects/effects.js:232
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
 "Un effetto che ingrandisce l'immagine a partire dall'angolo in alto a "
 "sinistra."
 
-#: src/effects/effects.js:237
+#: src/effects/effects.js:232 src/effects/effects.js:237
 msgid "How much to scale up the image."
 msgstr "Quanto ingrandire l'immagine."
 
-#: src/effects/effects.js:248
+#: src/effects/effects.js:243 src/effects/effects.js:248
 msgid "Derivative"
 msgstr "Derivata"
 
-#: src/effects/effects.js:249
+#: src/effects/effects.js:244 src/effects/effects.js:249
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Applicare una derivata spaziale o un laplaciano."
 
-#: src/effects/effects.js:253
+#: src/effects/effects.js:248 src/effects/effects.js:253
 msgid "Operation"
 msgstr "Operazione"
 
-#: src/effects/effects.js:254
+#: src/effects/effects.js:249 src/effects/effects.js:254
 msgid "The mathematical operation to apply."
 msgstr "L'operazione matematica da applicare."
 
-#: src/effects/effects.js:257
+#: src/effects/effects.js:252 src/effects/effects.js:257
 msgid "1-step derivative"
 msgstr "derivata in 1 passaggio"
 
-#: src/effects/effects.js:258
+#: src/effects/effects.js:253 src/effects/effects.js:258
 msgid "2-step derivative"
 msgstr "Derivata a 2 passi"
 
-#: src/effects/effects.js:259
+#: src/effects/effects.js:254 src/effects/effects.js:259
 msgid "Laplacian"
 msgstr "Laplaciano"
 
-#: src/effects/effects.js:267 src/effects/effects.js:272
+#: src/effects/effects.js:262 src/effects/effects.js:267
+#: src/effects/effects.js:272
 msgid "Noise"
 msgstr "Rumore"
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:263 src/effects/effects.js:268
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -253,15 +253,15 @@ msgstr ""
 "Un effetto che aggiunge un rumore casuale. Se necessario, preferisci la "
 "sfocatura Monte Carlo per un effetto più organico."
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:268 src/effects/effects.js:273
 msgid "The amount of noise to add."
 msgstr "La quantità di rumore da aggiungere."
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:277 src/effects/effects.js:282
 msgid "Lightness"
 msgstr "Leggerezza"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:278 src/effects/effects.js:283
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -269,27 +269,27 @@ msgstr ""
 "La luminosità del rumore. Un'impostazione pari a '1.0' renderà l'effetto "
 "trasparente."
 
-#: src/effects/effects.js:296
+#: src/effects/effects.js:291 src/effects/effects.js:296
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB a HSL (effetto avanzato)"
 
-#: src/effects/effects.js:297
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "Converte l'immagine dallo spazio colore RGBA a HSLA."
 
-#: src/effects/effects.js:304
+#: src/effects/effects.js:299 src/effects/effects.js:304
 msgid "HSL to RGB (advanced effect)"
 msgstr "Da HSL a RGB (effetto avanzato)"
 
-#: src/effects/effects.js:305
+#: src/effects/effects.js:300 src/effects/effects.js:305
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Converte l'immagine dallo spazio colore HSLA a RGBA."
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:307 src/effects/effects.js:312
 msgid "Corner"
 msgstr "Angolo"
 
-#: src/effects/effects.js:313
+#: src/effects/effects.js:308 src/effects/effects.js:313
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -297,25 +297,25 @@ msgstr ""
 "Un effetto che disegna angoli. Aggiungilo per ultimo per non far sì che gli "
 "altri effetti disturbino gli angoli."
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:313 src/effects/effects.js:318
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
 "Il raggio dell'angolo. Le app GNOME utilizzano un raggio di 12 px per "
 "impostazione predefinita."
 
-#: src/effects/effects.js:325
+#: src/effects/effects.js:320 src/effects/effects.js:325
 msgid "Top corners"
 msgstr "Angoli superiori"
 
-#: src/effects/effects.js:326
+#: src/effects/effects.js:321 src/effects/effects.js:326
 msgid "Whether or not to round the top corners."
 msgstr "Se arrotondare o meno gli angoli superiori."
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:325 src/effects/effects.js:330
 msgid "Bottom corners"
 msgstr "Angoli inferiori"
 
-#: src/effects/effects.js:331
+#: src/effects/effects.js:326 src/effects/effects.js:331
 msgid "Whether or not to round the bottom corners."
 msgstr "Se arrotondare o meno gli angoli inferiori."
 
@@ -797,6 +797,16 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "Aggiungi pipeline"
+
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr ""
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr ""
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Sfocatura gaussiana"

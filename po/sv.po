@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: 2024-10-07 04:33+0000\n"
-"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
+"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"PO-Revision-Date: 2025-04-06 17:36+0000\n"
+"Last-Translator: \"Artur O.\" <commander.alchemy@gmail.com>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sv/>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -43,7 +43,8 @@ msgstr ""
 "radie."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:312
+#: src/effects/effects.js:317
 msgid "Radius"
 msgstr "Radie"
 
@@ -129,121 +130,120 @@ msgstr ""
 "Om bildpunkten räknas för oskärpan eller inte. Om så är fallet kommer bilden "
 "att bli mer läsbar."
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr ""
-
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
-
+#: src/effects/effects.js:157 src/effects/effects.js:163
 #: src/effects/effects.js:162 src/effects/effects.js:168
 msgid "Color"
 msgstr "Färg"
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:158 src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr "En effekt som blandar en färg i pipelinen."
 
-#: src/effects/effects.js:169
+#: src/effects/effects.js:164 src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr "Färgen som ska blandas i. Blandningsmängden styrs av färgens opacitet."
 
-#: src/effects/effects.js:177
+#: src/effects/effects.js:172 src/effects/effects.js:177
 msgid "Pixelize"
 msgstr "Pixelisera"
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:173 src/effects/effects.js:178
 msgid "An effect that pixelizes the image."
 msgstr "En effekt som pixeliserar bilden."
 
-#: src/effects/effects.js:182 src/effects/effects.js:209
-#: src/effects/effects.js:236
+#: src/effects/effects.js:177 src/effects/effects.js:204
+#: src/effects/effects.js:231 src/effects/effects.js:182
+#: src/effects/effects.js:209 src/effects/effects.js:236
 msgid "Factor"
 msgstr "Faktor"
 
+#: src/effects/effects.js:178 src/effects/effects.js:205
 #: src/effects/effects.js:183 src/effects/effects.js:210
 msgid "How much to scale down the image."
 msgstr "Hur mycket man ska skala ner bilden."
 
+#: src/effects/effects.js:185 src/effects/effects.js:212
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Downsampling mode"
 msgstr "Nedsamplingsläge"
 
+#: src/effects/effects.js:186 src/effects/effects.js:213
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "The downsampling method that is used."
 msgstr "Nedsamplingsmetoden som används."
 
+#: src/effects/effects.js:189 src/effects/effects.js:216
 #: src/effects/effects.js:194 src/effects/effects.js:221
 msgid "Boxcar"
 msgstr "Lådbil"
 
+#: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
 msgstr "Triangulär"
 
+#: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:204
+#: src/effects/effects.js:199 src/effects/effects.js:204
 msgid "Downscale (advanced effect)"
 msgstr "Nedskala (avancerad effekt)"
 
-#: src/effects/effects.js:205
+#: src/effects/effects.js:200 src/effects/effects.js:205
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
 "En effekt som förminskar bilden och placerar den i det övre vänstra hörnet."
 
-#: src/effects/effects.js:231
+#: src/effects/effects.js:226 src/effects/effects.js:231
 msgid "Upscale (advanced effect)"
 msgstr "Uppskala (avancerad effekt)"
 
-#: src/effects/effects.js:232
+#: src/effects/effects.js:227 src/effects/effects.js:232
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "En effekt som uppskalar bilden från det övre vänstra hörnet."
 
-#: src/effects/effects.js:237
+#: src/effects/effects.js:232 src/effects/effects.js:237
 msgid "How much to scale up the image."
 msgstr "Hur mycket ska bilden skalas upp."
 
-#: src/effects/effects.js:248
+#: src/effects/effects.js:243 src/effects/effects.js:248
 msgid "Derivative"
 msgstr "Derivat"
 
-#: src/effects/effects.js:249
+#: src/effects/effects.js:244 src/effects/effects.js:249
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Applicera en rumslig derivata, eller en laplacian."
 
-#: src/effects/effects.js:253
+#: src/effects/effects.js:248 src/effects/effects.js:253
 msgid "Operation"
 msgstr "Operation"
 
-#: src/effects/effects.js:254
+#: src/effects/effects.js:249 src/effects/effects.js:254
 msgid "The mathematical operation to apply."
 msgstr "Den matematiska operationen att tillämpa."
 
-#: src/effects/effects.js:257
+#: src/effects/effects.js:252 src/effects/effects.js:257
 msgid "1-step derivative"
 msgstr "1-stegs derivata"
 
-#: src/effects/effects.js:258
+#: src/effects/effects.js:253 src/effects/effects.js:258
 msgid "2-step derivative"
 msgstr "2-stegs derivata"
 
-#: src/effects/effects.js:259
+#: src/effects/effects.js:254 src/effects/effects.js:259
 msgid "Laplacian"
 msgstr "Laplacian"
 
-#: src/effects/effects.js:267 src/effects/effects.js:272
+#: src/effects/effects.js:262 src/effects/effects.js:267
+#: src/effects/effects.js:272
 msgid "Noise"
 msgstr "Brus"
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:263 src/effects/effects.js:268
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -251,15 +251,15 @@ msgstr ""
 "En effekt som lägger till ett slumpmässigt brus. Föredrar Monte Carlo-"
 "oskärpan för en mer organisk effekt om det behövs."
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:268 src/effects/effects.js:273
 msgid "The amount of noise to add."
 msgstr "Mängden brus att lägga till."
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:277 src/effects/effects.js:282
 msgid "Lightness"
 msgstr "Ljushet"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:278 src/effects/effects.js:283
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -267,27 +267,27 @@ msgstr ""
 "Ljusstyrkan i bruset. En inställning på '1.0' kommer att göra effekten "
 "transparent."
 
-#: src/effects/effects.js:296
+#: src/effects/effects.js:291 src/effects/effects.js:296
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB till HSL (avancerad effekt)"
 
-#: src/effects/effects.js:297
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "Konverterar bilden från RGBA-färgrymd till HSLA."
 
-#: src/effects/effects.js:304
+#: src/effects/effects.js:299 src/effects/effects.js:304
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL till RGB (avancerad effekt)"
 
-#: src/effects/effects.js:305
+#: src/effects/effects.js:300 src/effects/effects.js:305
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Konverterar bilden från HSLA-färgrymd till RGBA."
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:307 src/effects/effects.js:312
 msgid "Corner"
 msgstr "Hörn"
 
-#: src/effects/effects.js:313
+#: src/effects/effects.js:308 src/effects/effects.js:313
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -295,23 +295,23 @@ msgstr ""
 "En effekt som drar hörn. Lägg till det sist så att de andra effekterna inte "
 "stör hörnen."
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:313 src/effects/effects.js:318
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "Hörnets radie. GNOME-appar använder en radie på 12 px som standard."
 
-#: src/effects/effects.js:325
+#: src/effects/effects.js:320 src/effects/effects.js:325
 msgid "Top corners"
 msgstr "Topp hörn"
 
-#: src/effects/effects.js:326
+#: src/effects/effects.js:321 src/effects/effects.js:326
 msgid "Whether or not to round the top corners."
 msgstr "Om de översta hörnen ska rundas eller inte."
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:325 src/effects/effects.js:330
 msgid "Bottom corners"
 msgstr "Nedre hörnen"
 
-#: src/effects/effects.js:331
+#: src/effects/effects.js:326 src/effects/effects.js:331
 msgid "Whether or not to round the bottom corners."
 msgstr "Om de nedre hörnen ska rundas eller inte."
 
@@ -785,6 +785,16 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "Lägg till Pipeline"
+
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr ""
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr ""
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Gaussisk oskärpa"
