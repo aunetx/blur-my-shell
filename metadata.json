@@ -3,7 +3,8 @@
     "name": "Blur my Shell",
     "shell-version": [
         "46",
-        "47"
+        "47",
+        "48"
     ],
     "url": "https://github.com/aunetx/blur-my-shell",
     "uuid": "blur-my-shell@aunetx",
@@ -20,5 +21,5 @@
         "github": "aunetx",
         "kofi": "aunetx"
     },
-    "version": 67
+    "version": 68
 }

@@ -1,6 +1,7 @@
 import Meta from 'gi://Meta';
 import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
@@ -253,16 +254,28 @@ export default class BlurMyShell extends Extension {
 
     /// Add the Clutter debug flag.
     _disable_clipped_redraws() {
-        Meta.add_clutter_debug_flags(
-            null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
-        );
+        let gnome_shell_major_version = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+        if (gnome_shell_major_version >= 48)
+            Clutter.add_debug_flags(
+                null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+            );
+        else
+            Meta.add_clutter_debug_flags(
+                null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+            );
     }
 
     /// Remove the Clutter debug flag.
     _reenable_clipped_redraws() {
-        Meta.remove_clutter_debug_flags(
-            null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
-        );
+        let gnome_shell_major_version = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+        if (gnome_shell_major_version >= 48)
+            Clutter.remove_debug_flags(
+                null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+            );
+        else
+            Meta.remove_clutter_debug_flags(
+                null, Clutter.DrawDebugFlag.DISABLE_CLIPPED_REDRAWS, null
+            );
     }
 
     /// Enables every component from the user session needed, should be called when the shell is

@@ -8,7 +8,8 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const SHADER_FILENAME = 'monte_carlo_blur.glsl';
 const DEFAULT_PARAMS = {
     radius: 2., iterations: 5, brightness: .6,
-    width: 0, height: 0, use_base_pixel: true
+    width: 0, height: 0, use_base_pixel: true,
+    prefer_closer_pixels: true,
 };
 
 
@@ -61,6 +62,13 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
                 `use_base_pixel`,
                 `Use base pixel`,
                 `Use base pixel`,
+                GObject.ParamFlags.READWRITE,
+                true,
+            ),
+            'prefer_closer_pixels': GObject.ParamSpec.boolean(
+                `prefer_closer_pixels`,
+                `Prefer closer pixels`,
+                `Prefer closer pixels`,
                 GObject.ParamFlags.READWRITE,
                 true,
             ),
@@ -163,6 +171,18 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
                 this._use_base_pixel = value;
 
                 this.set_uniform_value('use_base_pixel', this._use_base_pixel ? 1 : 0);
+            }
+        }
+
+        get prefer_closer_pixels() {
+            return this._prefer_closer_pixels;
+        }
+
+        set prefer_closer_pixels(value) {
+            if (this._prefer_closer_pixels !== value) {
+                this._prefer_closer_pixels = value;
+
+                this.set_uniform_value('prefer_closer_pixels', this._prefer_closer_pixels ? 1 : 0);
             }
         }
 
