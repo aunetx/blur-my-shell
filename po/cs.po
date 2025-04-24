@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Štěpán <beranstepan@icloud.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/blur-"
-"my-shell/cs/>\n"
+"PO-Revision-Date: 2025-04-25 08:05+0000\n"
+"Last-Translator: vikdevelop <vikdevelop@proton.me>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -776,13 +776,13 @@ msgstr "Přidat Pipeline"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Preferovat bližší pixely"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "Zda budou mít pixely, které jsou blíže původnímu pixelu, větší váhu."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Gaussianovo rozostření"
