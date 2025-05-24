@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2025-05-25 15:01+0000\n"
+"Last-Translator: ResurrectionEye <gabriozet@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ka/>\n"
 "Language: ka\n"
@@ -17,38 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "ბლურის ეფექტები"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "ტექსტურის ეფექტები"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "ფორმის ეფექტები"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "მშობლიური გაუსის ბლური"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"ოპტიმიზებული ბლურის ეფექტი, რომელიც შეუფერხებლად აერთიანებს პიქსელებს "
+"მოცემულ რადიუსში."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 #: src/effects/effects.js:317
 msgid "Radius"
-msgstr ""
+msgstr "რადიუსი"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "ბლურის ეფექტის ინტენსივობა."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
@@ -65,25 +67,29 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"ბლურის ეფექტის სიკაშკაშე, მაღალმა მნიშვნელობამ შესაძლოა ტექსტის წაკითხვა "
+"გაართულოს."
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "გაუსის ბლური (გაფართოვებული ეფექტი)"
 
 #: src/effects/effects.js:87
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
+"ბლურის ეფექტი რომელიც შეუფერხებლად აერთიანებს პიქსელებს მოცემულ რადიუსში. ეს "
+"ეფექტი უფრო ზუსტია, მაგრამ ნაკლებად ოპტიმიზირებული."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
+msgstr "ბლურის ეფექტის ინტენსივობა. რაც უფრო დიდია, მით უფრო ნელი იქნება."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "მონტე კარლოს ბლური"
 
 #: src/effects/effects.js:116
 msgid ""
@@ -99,7 +105,7 @@ msgstr ""
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr ""
+msgstr "იტერაციები"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
@@ -107,7 +113,7 @@ msgstr ""
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr ""
+msgstr "გამოიყენე საბაზისო პიქსელი"
 
 #: src/effects/effects.js:149
 msgid ""
@@ -132,22 +138,22 @@ msgstr ""
 
 #: src/effects/effects.js:172 src/effects/effects.js:177
 msgid "Pixelize"
-msgstr ""
+msgstr "პიქსელიზაცია"
 
 #: src/effects/effects.js:173 src/effects/effects.js:178
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "ეფექტი, რომელიც პიქსელიზებს სურათს."
 
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231 src/effects/effects.js:182
 #: src/effects/effects.js:209 src/effects/effects.js:236
 msgid "Factor"
-msgstr ""
+msgstr "ფაქტორი"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 #: src/effects/effects.js:183 src/effects/effects.js:210
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "რამდენად შემცირდება სურათი."
 
 #: src/effects/effects.js:185 src/effects/effects.js:212
 #: src/effects/effects.js:190 src/effects/effects.js:217
@@ -167,7 +173,7 @@ msgstr ""
 #: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
-msgstr ""
+msgstr "სამკუთხა"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
@@ -204,7 +210,7 @@ msgstr ""
 
 #: src/effects/effects.js:248 src/effects/effects.js:253
 msgid "Operation"
-msgstr ""
+msgstr "ოპერაცია"
 
 #: src/effects/effects.js:249 src/effects/effects.js:254
 msgid "The mathematical operation to apply."
@@ -220,12 +226,12 @@ msgstr ""
 
 #: src/effects/effects.js:254 src/effects/effects.js:259
 msgid "Laplacian"
-msgstr ""
+msgstr "ლაპლასიური"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 #: src/effects/effects.js:272
 msgid "Noise"
-msgstr ""
+msgstr "ხმაური"
 
 #: src/effects/effects.js:263 src/effects/effects.js:268
 msgid ""
@@ -235,11 +241,11 @@ msgstr ""
 
 #: src/effects/effects.js:268 src/effects/effects.js:273
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "დასამატებელი ხმაურის ოდენობა."
 
 #: src/effects/effects.js:277 src/effects/effects.js:282
 msgid "Lightness"
-msgstr ""
+msgstr "სინათლე"
 
 #: src/effects/effects.js:278 src/effects/effects.js:283
 msgid ""
@@ -265,7 +271,7 @@ msgstr ""
 
 #: src/effects/effects.js:307 src/effects/effects.js:312
 msgid "Corner"
-msgstr ""
+msgstr "კუთხე"
 
 #: src/effects/effects.js:308 src/effects/effects.js:313
 msgid ""
@@ -279,7 +285,7 @@ msgstr ""
 
 #: src/effects/effects.js:320 src/effects/effects.js:325
 msgid "Top corners"
-msgstr ""
+msgstr "ზედა კუთხეები"
 
 #: src/effects/effects.js:321 src/effects/effects.js:326
 msgid "Whether or not to round the top corners."
@@ -287,7 +293,7 @@ msgstr ""
 
 #: src/effects/effects.js:325 src/effects/effects.js:330
 msgid "Bottom corners"
-msgstr ""
+msgstr "ქვედა კუთხეები"
 
 #: src/effects/effects.js:326 src/effects/effects.js:331
 msgid "Whether or not to round the bottom corners."
@@ -303,7 +309,7 @@ msgstr "ფანჯრის არჩევა"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
-msgstr ""
+msgstr "აირჩიეთ ფანჯარა ან შეარჩიეთ იგი კლასის სახელით."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
@@ -311,7 +317,7 @@ msgstr "აპლიკაციები"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "აპლიკაციების ბლური"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -334,7 +340,7 @@ msgstr "დაბინდვის ინტენსივობა."
 
 #: resources/ui/applications.ui:63
 msgid "Opacity"
-msgstr "_გაუმჭვირვალობა"
+msgstr "გაუმჭვირვალობა"
 
 #: resources/ui/applications.ui:64
 msgid ""
@@ -354,7 +360,7 @@ msgstr ""
 
 #: resources/ui/applications.ui:100
 msgid "Blur on overview"
-msgstr ""
+msgstr "დაბინდვა მიმოხილვაზე"
 
 #: resources/ui/applications.ui:101
 msgid ""
@@ -388,7 +394,7 @@ msgstr "შავი სია"
 
 #: resources/ui/applications.ui:171
 msgid "A list of windows not to blur."
-msgstr ""
+msgstr "დაუბლურავ ფანჯარათა ჩამონათვალი."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -404,7 +410,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "ბლურის ტიპი"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
@@ -413,11 +419,11 @@ msgstr ""
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "სტატიკური"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "დინამიური"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -439,7 +445,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
-msgstr ""
+msgstr "გათიშვა მიმოხილვაში"
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
@@ -462,11 +468,11 @@ msgstr "ბნელი"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "ეფექტები"
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr ""
+msgstr "ეფექტის დამატება"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
