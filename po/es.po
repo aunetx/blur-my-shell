@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-05-24 14:27+0000\n"
-"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
+"PO-Revision-Date: 2025-05-24 14:30+0000\n"
+"Last-Translator: Mayco Emanuel Portillo <maycoemanuelportillo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -661,7 +661,7 @@ msgstr ""
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr "Desenfoque para carpeta de aplicaciones"
+msgstr "Desenfoque de la carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
