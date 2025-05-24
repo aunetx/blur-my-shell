@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-05-24 14:30+0000\n"
-"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
+"PO-Revision-Date: 2025-05-25 15:01+0000\n"
+"Last-Translator: Mayco Emanuel Portillo <maycoemanuelportillo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -479,7 +479,7 @@ msgstr "Estilo del fondo"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr "El estilo transparente/semi-transparente para el fondo del dock"
+msgstr "El estilo transparente/semi-transparente para el fondo del dock."
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
@@ -674,7 +674,7 @@ msgstr "Estilo de los diálogos de la carpeta de aplicaciones"
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
-"El estilo semi-transparente para los diálogos de la carpeta de aplicaciones"
+"El estilo semi-transparente para los diálogos de la carpeta de aplicaciones."
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
