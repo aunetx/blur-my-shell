@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-05-24 14:27+0000\n"
-"Last-Translator: Mayco Emanuel Portillo <maycoemanuelportillo@gmail.com>\n"
+"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -631,7 +631,7 @@ msgstr "Predeterminado"
 
 #: resources/ui/other.ui:205
 msgid "No artifact"
-msgstr "Sin artefactos"
+msgstr "Sin artefacto"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
@@ -656,12 +656,12 @@ msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
-"El estilo semitransparente para el guión, la entrada de búsqueda/resultados "
-"y las carpetas de aplicaciones."
+"El estilo semi-transparente para el dash, entrada/resultado de busqueda y "
+"carpetas de aplicaciones."
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr "Difuminado de la carpeta de la aplicación"
+msgstr "Desenfoque para carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
