@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-05-24 14:24+0000\n"
+"PO-Revision-Date: 2025-05-24 14:27+0000\n"
 "Last-Translator: Mayco Emanuel Portillo <maycoemanuelportillo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
@@ -578,7 +578,7 @@ msgstr "Rendimiento"
 
 #: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
-msgstr "Varias opciones para ajustar el rendimiento"
+msgstr "Varias opciones para ajustar el rendimiento."
 
 #: resources/ui/other.ui:123
 msgid "Hack level"
