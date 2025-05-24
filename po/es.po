@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-05-24 14:30+0000\n"
-"Last-Translator: Mayco Emanuel Portillo <maycoemanuelportillo@gmail.com>\n"
+"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -665,17 +665,16 @@ msgstr "Desenfoque de la carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
-"Difumina el fondo de los cuadros de diálogo de las carpetas de aplicaciones."
+msgstr "Desenfoca el fondo de los diálogos de la carpeta de aplicaciones."
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr "Estilo de los diálogos de las carpetas de las aplicaciones"
+msgstr "Estilo de los diálogos de la carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
-"El estilo semitransparente para los diálogos de la carpeta de la aplicación."
+"El estilo semi-transparente para los diálogos de la carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
