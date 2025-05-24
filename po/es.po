@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-05-24 14:22+0000\n"
-"Last-Translator: Marco Moreno <hibarioath@proton.me>\n"
+"PO-Revision-Date: 2025-05-24 14:24+0000\n"
+"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -470,8 +470,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"Hace que el fondo sea transparente o semitransparente; desactívelo para usar "
-"las preferencias de Dash to Dock."
+"Hace el fondo transparente o semi-transparente, desactive esta opción para "
+"utilizar las preferencias de Dash to Dock."
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
@@ -479,9 +479,7 @@ msgstr "Estilo del fondo"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
-"El estilo transparente/semitransparente para el fondo de la barra de "
-"aplicaciones."
+msgstr "El estilo transparente/semi-transparente para el fondo del dock"
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
@@ -580,7 +578,7 @@ msgstr "Rendimiento"
 
 #: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
-msgstr "Varias opciones para mejorar el rendimiento."
+msgstr "Varias opciones para ajustar el rendimiento"
 
 #: resources/ui/other.ui:123
 msgid "Hack level"
