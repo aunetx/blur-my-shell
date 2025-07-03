@@ -102,7 +102,7 @@ msgid ""
 "will make the blur more randomized."
 msgstr ""
 "المسافة القصوى لكل خطوة في الحركة العشوائية. كلما زادت هذه القيمة، أصبح "
-"تأثير الشفافية أكثر عشوائية."
+"تأثير التمويه أكثر عشوائية."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
