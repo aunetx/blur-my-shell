@@ -8,51 +8,55 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-07-11 08:01+0000\n"
+"Last-Translator: Marek Červeň <marekcerven@proton.me>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Efekty rozmazania"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Efekty textúr"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Tvarové efekty"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr ""
+msgstr "Nativné gaussovské rozostrenie"
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
+"Optimalizovaný efekt rozmazania, ktorý hladko prechádza pomocou daného "
+"priemeru."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:317
 msgid "Radius"
-msgstr ""
+msgstr "Polomer"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intenzita efektu rozmazania."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:42
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr ""
+msgstr "Jas"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
 #: src/effects/effects.js:139 resources/ui/applications.ui:43
