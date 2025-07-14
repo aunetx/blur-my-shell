@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-07-15 14:01+0000\n"
+"Last-Translator: Akhil Raj <akhilakae07@gmail.com>\n"
+"Language-Team: Malayalam <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/ml/>\n"
 "Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -41,7 +43,7 @@ msgstr ""
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:317
 msgid "Radius"
-msgstr ""
+msgstr "ആരം"
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
