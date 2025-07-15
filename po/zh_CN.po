@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Ys413 <the413reply@gmail.com>\n"
+"PO-Revision-Date: 2025-07-15 14:01+0000\n"
+"Last-Translator: \"Alioc.\" <hit.177411245@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -742,13 +742,13 @@ msgstr "添加管线"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "首选较近的像素"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "是否更接近原始像素的像素将具有更大的权重。"
 
 #~ msgid "Gaussian blur"
 #~ msgstr "高斯模糊"
