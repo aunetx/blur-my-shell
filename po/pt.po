@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-07-29 16:05+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
 "Language: pt\n"
@@ -18,30 +18,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/effects/effects.js:20
-#, fuzzy
 msgid "Blur effects"
 msgstr "Efeitos de desfoque"
 
 #: src/effects/effects.js:28
-#, fuzzy
 msgid "Texture effects"
 msgstr "Efeitos de textura"
 
 #: src/effects/effects.js:41
-#, fuzzy
 msgid "Shape effects"
 msgstr "Efeitos de forma"
 
 #: src/effects/effects.js:57
-#, fuzzy
 msgid "Native gaussian blur"
 msgstr "Desfoque gaussiano nativo"
 
 #: src/effects/effects.js:58
-#, fuzzy
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
@@ -51,12 +46,10 @@ msgstr ""
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:312
 #: src/effects/effects.js:317
-#, fuzzy
 msgid "Radius"
 msgstr "Raio"
 
 #: src/effects/effects.js:63
-#, fuzzy
 msgid "The intensity of the blur effect."
 msgstr "A intensidade do efeito de desfoque."
 
@@ -83,13 +76,12 @@ msgid "Gaussian blur (advanced effect)"
 msgstr "Desfoque gaussiano (efeito avançado)"
 
 #: src/effects/effects.js:87
-#, fuzzy
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
 "Um efeito de desfoque que mescla suavemente os pixels dentro de um "
-"determinado raio. Esse efeito é mais preciso, porém menos otimizado."
+"determinado raio. Este efeito é mais preciso, porém menos otimizado."
 
 #: src/effects/effects.js:92
 msgid ""
@@ -98,18 +90,16 @@ msgstr ""
 "A intensidade do efeito de desfoque. Quanto maior for, mais pesado será."
 
 #: src/effects/effects.js:115
-#, fuzzy
 msgid "Monte Carlo blur"
 msgstr "Desfoque Monte Carlo"
 
 #: src/effects/effects.js:116
-#, fuzzy
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
 "Um efeito de desfoque que funciona com um deslocamento aleatório, escolhendo "
-"pixels cada vez mais longe de sua origem e misturando-os todos juntos."
+"pixels cada vez mais longe da sua origem e misturando-os todos juntos."
 
 #: src/effects/effects.js:121
 msgid ""
@@ -120,21 +110,19 @@ msgstr ""
 "maior tornará o desfoque mais aleatório."
 
 #: src/effects/effects.js:130
-#, fuzzy
 msgid "Iterations"
 msgstr "Iterações"
 
 #: src/effects/effects.js:131
-#, fuzzy
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "O número de iterações. Quanto mais houver, mais suave será o desfoque."
+msgstr ""
+"A quantidade de iterações. Quanto mais houver, mais suave o desfoque será."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
 msgstr "Usar pixel base"
 
 #: src/effects/effects.js:149
-#, fuzzy
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
@@ -148,7 +136,6 @@ msgid "Color"
 msgstr "Cor"
 
 #: src/effects/effects.js:158 src/effects/effects.js:163
-#, fuzzy
 msgid "An effect that blends a color into the pipeline."
 msgstr "Um efeito que mescla uma cor na sequência."
 
@@ -161,12 +148,10 @@ msgstr ""
 "opacidade da cor."
 
 #: src/effects/effects.js:172 src/effects/effects.js:177
-#, fuzzy
 msgid "Pixelize"
 msgstr "Pixelizar"
 
 #: src/effects/effects.js:173 src/effects/effects.js:178
-#, fuzzy
 msgid "An effect that pixelizes the image."
 msgstr "Um efeito que pixeliza a imagem."
 
@@ -174,7 +159,7 @@ msgstr "Um efeito que pixeliza a imagem."
 #: src/effects/effects.js:231 src/effects/effects.js:182
 #: src/effects/effects.js:209 src/effects/effects.js:236
 msgid "Factor"
-msgstr ""
+msgstr "Fator"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 #: src/effects/effects.js:183 src/effects/effects.js:210
@@ -257,12 +242,10 @@ msgstr ""
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 #: src/effects/effects.js:272
-#, fuzzy
 msgid "Noise"
 msgstr "Ruído"
 
 #: src/effects/effects.js:263 src/effects/effects.js:268
-#, fuzzy
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -271,17 +254,14 @@ msgstr ""
 "para um efeito mais orgânico, se necessário."
 
 #: src/effects/effects.js:268 src/effects/effects.js:273
-#, fuzzy
 msgid "The amount of noise to add."
 msgstr "A quantidade de ruído a ser adicionada."
 
 #: src/effects/effects.js:277 src/effects/effects.js:282
-#, fuzzy
 msgid "Lightness"
 msgstr "Luminosidade"
 
 #: src/effects/effects.js:278 src/effects/effects.js:283
-#, fuzzy
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -306,7 +286,6 @@ msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Converte a imagem do espaço de cores HSLA para RGBA."
 
 #: src/effects/effects.js:307 src/effects/effects.js:312
-#, fuzzy
 msgid "Corner"
 msgstr "Canto"
 
@@ -319,13 +298,10 @@ msgstr ""
 "outros efeitos perturbem os cantos."
 
 #: src/effects/effects.js:313 src/effects/effects.js:318
-#, fuzzy
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
-"O raio do canto. Os aplicativos GNOME usam um raio de 12 px por padrão."
+msgstr "O raio do canto. As apps GNOME usam um raio de 12 px por padrão."
 
 #: src/effects/effects.js:320 src/effects/effects.js:325
-#, fuzzy
 msgid "Top corners"
 msgstr "Cantos superiores"
 
@@ -334,7 +310,6 @@ msgid "Whether or not to round the top corners."
 msgstr "Arredondar ou não os cantos superiores."
 
 #: src/effects/effects.js:325 src/effects/effects.js:330
-#, fuzzy
 msgid "Bottom corners"
 msgstr "Cantos inferiores"
 
@@ -359,21 +334,19 @@ msgid "Applications"
 msgstr "Aplicações"
 
 #: resources/ui/applications.ui:10
-#, fuzzy
 msgid "Applications blur"
-msgstr "Desfocar aplicativos"
+msgstr "Desfocar aplicações"
 
 #: resources/ui/applications.ui:11
-#, fuzzy
 msgid ""
 "Adds blur to the applications.\n"
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
-"Adiciona desfoque aos aplicativos.\n"
-"Para obter o melhor resultado possível, embora com performance reduzida, "
-"você pode escolher a opção “Sem imperfeição” na aba “Outros → Nível de "
-"modificação”."
+"Adiciona desfoque às aplicações.\n"
+"Para obter os melhores resultados possíveis, embora com performances "
+"reduzidas, pode escolher a opção “Nenhuma imperfeição” na guia “Outros → "
+"Nível de modificação”."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -399,12 +372,10 @@ msgstr ""
 "A opacidade da janela com o efeito de desfoque, um valor maior será legível."
 
 #: resources/ui/applications.ui:85
-#, fuzzy
 msgid "Opaque focused window"
 msgstr "Janela em foco opaca"
 
 #: resources/ui/applications.ui:86
-#, fuzzy
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -430,7 +401,6 @@ msgid "Enable all by default"
 msgstr "Habilitar tudo por padrão"
 
 #: resources/ui/applications.ui:117
-#, fuzzy
 msgid "Adds blur behind all windows by default."
 msgstr "Adiciona desfoque atrás de todas as janelas por padrão."
 
@@ -467,12 +437,10 @@ msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Desfoca o plano de fundo da extensão Dash to Dock, caso seja usado."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-#, fuzzy
 msgid "Blur type"
 msgstr "Tipo de desfoque"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
-#, fuzzy
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
@@ -480,12 +448,10 @@ msgstr ""
 "desfoque gaussiano."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-#, fuzzy
 msgid "Static"
 msgstr "Estático"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-#, fuzzy
 msgid "Dynamic"
 msgstr "Dinâmico"
 
@@ -533,18 +499,16 @@ msgid "Dark"
 msgstr "Escuro"
 
 #: resources/ui/effects-dialog.ui:4
-#, fuzzy
 msgid "Effects"
 msgstr "Efeitos"
 
 #: resources/ui/effects-dialog.ui:39
-#, fuzzy
 msgid "Add Effect"
 msgstr "Adicionar Efeito"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Incluir efeitos avançados"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -808,9 +772,8 @@ msgid "Pipeline name"
 msgstr "Nome da sequência"
 
 #: resources/ui/pipeline-group.ui:20
-#, fuzzy
 msgid "Manage effects"
-msgstr "Gerenciar efeitos"
+msgstr "Gerir efeitos"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
@@ -831,7 +794,7 @@ msgstr "Adicionar Sequência"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Preferir pixels mais pertos"
 
 #: src/effects/effects.js:154
 msgid ""
