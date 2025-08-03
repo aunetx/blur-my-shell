@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-07-29 16:05+0000\n"
+"PO-Revision-Date: 2025-08-04 12:01+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
@@ -169,12 +169,12 @@ msgstr "Quanto reduzir o tamanho da imagem."
 #: src/effects/effects.js:185 src/effects/effects.js:212
 #: src/effects/effects.js:190 src/effects/effects.js:217
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Modo de redução da resolução"
 
 #: src/effects/effects.js:186 src/effects/effects.js:213
 #: src/effects/effects.js:191 src/effects/effects.js:218
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "O método de redução da resolução que é usado."
 
 #: src/effects/effects.js:189 src/effects/effects.js:216
 #: src/effects/effects.js:194 src/effects/effects.js:221
@@ -184,16 +184,16 @@ msgstr ""
 #: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
-msgstr ""
+msgstr "Triangular"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199 src/effects/effects.js:204
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Redução de escala (efeito avançado)"
 
 #: src/effects/effects.js:200 src/effects/effects.js:205
 msgid "An effect that downscales the image and put it on the top-left corner."
@@ -214,7 +214,7 @@ msgstr "Quanto ampliar a imagem."
 
 #: src/effects/effects.js:243 src/effects/effects.js:248
 msgid "Derivative"
-msgstr ""
+msgstr "Derivado"
 
 #: src/effects/effects.js:244 src/effects/effects.js:249
 msgid "Apply a spatial derivative, or a laplacian."
@@ -230,15 +230,15 @@ msgstr "A operação matemática a ser aplicada."
 
 #: src/effects/effects.js:252 src/effects/effects.js:257
 msgid "1-step derivative"
-msgstr ""
+msgstr "Derivado de 1 etapa"
 
 #: src/effects/effects.js:253 src/effects/effects.js:258
 msgid "2-step derivative"
-msgstr ""
+msgstr "Derivado de 2 etapas"
 
 #: src/effects/effects.js:254 src/effects/effects.js:259
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplacian"
 
 #: src/effects/effects.js:262 src/effects/effects.js:267
 #: src/effects/effects.js:272
