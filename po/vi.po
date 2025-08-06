@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-06-26 03:04+0000\n"
-"Last-Translator: liamkhoi <thanhkhoidangngoc@gmail.com>\n"
+"PO-Revision-Date: 2025-08-07 03:01+0000\n"
+"Last-Translator: AlaxLima <thanhkhoidangngoc@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/vi/>\n"
 "Language: vi\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr "Hiệu ứng mờ"
+msgstr "Hiệu ứng làm mờ"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
@@ -346,7 +346,7 @@ msgstr ""
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
-msgstr "Sigma"
+msgstr "Độ sigma"
 
 #: resources/ui/applications.ui:22 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
@@ -420,7 +420,7 @@ msgstr "Một danh sách những cửa sổ không sử dụng hiệu ứng mờ
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr "Dash"
+msgstr "Bảng dash"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
@@ -545,28 +545,27 @@ msgstr "Danh sách cửa sổ extension làm mờ"
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "Làm mờ cho danh sách cửa sổ extension, nếu được sử dụng."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Extension làm mờ Coverflow Alt-Tab"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Làm mờ extension coverflow alt-tab, nếu được sử dụng."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
 msgstr "Hiệu năng"
 
 #: resources/ui/other.ui:119
-#, fuzzy
 msgid "Various options to tweak the performance."
 msgstr "Những tùy chọn khác nhau để tinh chỉnh phần hiệu năng."
 
 #: resources/ui/other.ui:123
 msgid "Hack level"
-msgstr ""
+msgstr "Mức độ hack"
 
 #: resources/ui/other.ui:124
 msgid ""
@@ -575,6 +574,10 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Thay đổi phản ứng của làm hiệu ứng làm mờ động. Khuyến nghị sử dụng giá trị "
+"mặc định.\n"
+"Tùy chọn \"Không artifact\" sẽ được bỏ qua clipped redraw hoàn toàn trong "
+"GNOME shell, và sẽ ảnh hưởng đáng kể đến hiệu năng của máy bạn."
 
 #: resources/ui/other.ui:138
 msgid "Debug"
@@ -593,7 +596,6 @@ msgid "Reset preferences"
 msgstr "Đặt lại toàn bộ cài đặt"
 
 #: resources/ui/other.ui:155
-#, fuzzy
 msgid "Resets preferences of Blur my Shell irreversibly."
 msgstr "Đặt lại hoàn toàn các cài đặt cho Blur my Shell. Không thể đặt lại."
 
@@ -611,11 +613,11 @@ msgstr "Mặc định"
 
 #: resources/ui/other.ui:205
 msgid "No artifact"
-msgstr ""
+msgstr "Không artifact"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "Tổng quan"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
@@ -627,7 +629,7 @@ msgstr "Thêm hiệu ứng mờ vào phần nền màn hình Overview, sử dụ
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "Tổng quan kiểu của các thành phần"
 
 #: resources/ui/overview.ui:27
 msgid ""
@@ -647,37 +649,38 @@ msgstr "Khiến nền của các thư mục ứng dụng bị mờ đi."
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Kiểu của hộp thoại thư mục ứng dụng"
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "Kiểu bán trong suốt cho các hộp thoại thư mục ứng dụng."
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
-msgstr ""
+msgstr "Không tạo kiểu"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "Thanh panel"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "Làm mờ thanh panel"
 
 #: resources/ui/panel.ui:11
-#, fuzzy
 msgid "Blur the top panel using the background image."
-msgstr "Làm mờ thanh trên cùng nhờ hình nền"
+msgstr "Làm mờ thanh trên cùng nhờ hình nền."
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr ""
+msgstr "Bắt buộc chữ màu sáng"
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Dùng chữ màu sáng cho thanh panel, hữu ích khi sử dụng gnome-shell với light "
+"theme."
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -736,47 +739,50 @@ msgstr ""
 
 #: resources/ui/panel.ui:225
 msgid "Contrasted"
-msgstr ""
+msgstr "Tương phản"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Chuỗi pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "Chuỗi pipeline được sử dụng cho thành phần này."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Tên pipeline"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Quản lý hiệu ứng"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Chuỗi pipeline"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Mỗi thành phần sử dụng một chuỗi pipeline được chọn theo tab tương ứng. Tại "
+"đây bạn có thể tạo, chỉnh sửa và xóa các chuỗi pipeline và hiệu ứng của "
+"chúng."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Thêm chuỗi pipeline"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Ưu tiên các điểm ảnh gần hơn"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "Các điểm ảnh gần hơn điểm ảnh gốc sẽ có thêm độ đậm."
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Làm mờ ứng dụng (beta)"
