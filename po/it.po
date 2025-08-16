@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Cristiano Landi <cri98li@gmail.com>\n"
+"PO-Revision-Date: 2025-04-14 12:33+0000\n"
+"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
 "Language: it\n"
@@ -800,13 +800,14 @@ msgstr "Aggiungi pipeline"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Preferire pixel più vicini"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
 msgstr ""
+"Se i pixel più vicini al pixel originale avranno o meno un peso maggiore."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Sfocatura gaussiana"

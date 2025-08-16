@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
+"PO-Revision-Date: 2025-04-30 08:01+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -88,37 +88,43 @@ msgstr "Intensitas efek keburaman. Semakin besar, semakin lambat efeknya."
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr ""
+msgstr "blur Monte Carlo"
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
+"Efek buram yang meniru jalan acak, dengan memilih piksel yang semakin jauh "
+"dari asalnya, dan mencampurkan semuanya menjadi satu."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
+"Jarak tempuh maksimum untuk setiap langkah dalam random walk. Nilai yang "
+"lebih tinggi akan membuat keburaman menjadi lebih acak."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr ""
+msgstr "Iterasi"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
+msgstr "Jumlah iterasi. Semakin banyak, semakin halus keburamannya."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr ""
+msgstr "Gunakan piksel dasar"
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
+"Apakah piksel asli dihitung untuk keburaman atau tidak. Jika ya, gambar akan "
+"lebih terbaca."
 
 #: src/effects/effects.js:157 src/effects/effects.js:163
 #: src/effects/effects.js:162 src/effects/effects.js:168
@@ -127,27 +133,29 @@ msgstr "Warna"
 
 #: src/effects/effects.js:158 src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Efek yang memadukan warna ke dalam pipa."
 
 #: src/effects/effects.js:164 src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
+"Warna yang akan dibaurkan. Jumlah pembauran dikontrol oleh tingkat keburaman "
+"warna."
 
 #: src/effects/effects.js:172 src/effects/effects.js:177
 msgid "Pixelize"
-msgstr ""
+msgstr "Pixelize"
 
 #: src/effects/effects.js:173 src/effects/effects.js:178
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Efek yang membuat piksel gambar."
 
 #: src/effects/effects.js:177 src/effects/effects.js:204
 #: src/effects/effects.js:231 src/effects/effects.js:182
 #: src/effects/effects.js:209 src/effects/effects.js:236
 msgid "Factor"
-msgstr ""
+msgstr "Faktor"
 
 #: src/effects/effects.js:178 src/effects/effects.js:205
 #: src/effects/effects.js:183 src/effects/effects.js:210

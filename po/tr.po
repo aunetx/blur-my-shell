@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Hacı <qwehacim3542qwe@gmail.com>\n"
+"PO-Revision-Date: 2025-06-21 19:04+0000\n"
+"Last-Translator: ulahcherubim <rbinici@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -782,13 +782,14 @@ msgstr "Komut Zinciri Ekle"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Yakın pikselleri tercih et"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
 msgstr ""
+"Orijinal piksele yakın olan piksellerin daha çok ağırlığının olup olmayacağı."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Gauss bulanıklığı"

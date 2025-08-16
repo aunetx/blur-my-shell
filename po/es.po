@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Deleted User <noreply+48943@weblate.org>\n"
+"PO-Revision-Date: 2025-05-25 15:01+0000\n"
+"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -179,7 +179,7 @@ msgstr "El método de reducción de la muestra utilizado."
 #: src/effects/effects.js:189 src/effects/effects.js:216
 #: src/effects/effects.js:194 src/effects/effects.js:221
 msgid "Boxcar"
-msgstr "vagón de carga"
+msgstr "Vagón de caja"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
@@ -470,8 +470,8 @@ msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
-"Hace que el fondo sea transparente o semitransparente; desactívelo para usar "
-"las preferencias de Dash to Dock."
+"Hace el fondo transparente o semi-transparente, desactive esta opción para "
+"utilizar las preferencias de Dash to Dock."
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
@@ -479,9 +479,7 @@ msgstr "Estilo del fondo"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
-"El estilo transparente/semitransparente para el fondo de la barra de "
-"aplicaciones."
+msgstr "El estilo transparente/semi-transparente para el fondo del dock."
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
@@ -580,7 +578,7 @@ msgstr "Rendimiento"
 
 #: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
-msgstr "Varias opciones para mejorar el rendimiento."
+msgstr "Varias opciones para ajustar el rendimiento."
 
 #: resources/ui/other.ui:123
 msgid "Hack level"
@@ -633,7 +631,7 @@ msgstr "Predeterminado"
 
 #: resources/ui/other.ui:205
 msgid "No artifact"
-msgstr "Sin artefactos"
+msgstr "Sin artefacto"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
@@ -658,26 +656,25 @@ msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
-"El estilo semitransparente para el guión, la entrada de búsqueda/resultados "
-"y las carpetas de aplicaciones."
+"El estilo semi-transparente para el dash, entrada/resultado de busqueda y "
+"carpetas de aplicaciones."
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr "Difuminado de la carpeta de la aplicación"
+msgstr "Desenfoque de la carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
-"Difumina el fondo de los cuadros de diálogo de las carpetas de aplicaciones."
+msgstr "Desenfoca el fondo de los diálogos de la carpeta de aplicaciones."
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr "Estilo de los diálogos de las carpetas de las aplicaciones"
+msgstr "Estilo de los diálogos de la carpeta de aplicaciones"
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
-"El estilo semitransparente para los diálogos de la carpeta de la aplicación."
+"El estilo semi-transparente para los diálogos de la carpeta de aplicaciones."
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
@@ -712,12 +709,12 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
-"Anula el fondo del panel para usar uno transparente o semitransparente.\n"
-"Recomendado a menos que quieras personalizar tu tema de GNOME."
+"Sobreescribe el fondo del panel por uno transparente o semi-transparente.\n"
+"Recomendado a menos que quieras modificar tu tema de GNOME."
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr "El estilo transparente/semitransparente para el fondo del panel."
+msgstr "El estilo transparente/semi-transparente para el fondo del panel."
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
@@ -802,13 +799,15 @@ msgstr "Añadir flujo"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Preferir píxeles más cercanos"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
 msgstr ""
+"Elegir si los píxeles que están más cerca del píxel original tendrán mayor "
+"peso."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "desenfoque gaussiano"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Bence Turi <benceturi2@gmail.com>\n"
+"PO-Revision-Date: 2025-06-30 07:03+0000\n"
+"Last-Translator: blatoz <viragdaniel@outlook.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/hu/>\n"
 "Language: hu\n"
@@ -17,19 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: src/effects/effects.js:20
+#, fuzzy
 msgid "Blur effects"
-msgstr ""
+msgstr "Blur effektusok"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Textura effektusok"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Alakzat effektusok"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
