@@ -438,11 +438,15 @@ export const PanelBlur = class PanelBlur {
                     let same_monitor = actors.monitor.index == window_monitor_i;
 
                     let window_vertical_pos = meta_window.get_frame_rect().y;
+                    let window_vertical_bottom = window_vertical_pos + meta_window.get_frame_rect().height;
 
                     // if so, and if in the same monitor, then it overlaps
                     if (same_monitor
                         &&
-                        window_vertical_pos < panel_bottom + 5 * scale
+                        // check if panel is on top
+                        ((panel_top === 0 && window_vertical_pos < panel_bottom + 5 * scale) ||
+                        // check if panel is at the bottom
+                        (panel_top > 0 && window_vertical_bottom > panel_top - 5 * scale))
                     )
                         window_overlap_panel = true;
                 });
