@@ -11,6 +11,7 @@ import { PixelizeEffect } from './pixelize.js';
 import { DerivativeEffect } from './derivative.js';
 import { RgbToHslEffect } from './rgb_to_hsl.js';
 import { HslToRgbEffect } from './hsl_to_rgb.js';
+import { LuminosityEffect } from './luminosity.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -33,6 +34,7 @@ export function get_effects_groups(_ = _ => "") {
                 "derivative",
                 "noise",
                 "color",
+                "luminosity",
                 "rgb_to_hsl",
                 "hsl_to_rgb"
             ]
@@ -167,8 +169,68 @@ export function get_supported_effects(_ = () => "") {
                 color: {
                     name: _("Color"),
                     description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
-                    type: "rgba"
+                    type: "rgba",
+                    use_alpha: true,
                 }
+            }
+        },
+
+        luminosity: {
+            class: LuminosityEffect,
+            name: _("Luminosity"),
+            description: _("An effect that affects the luminosity of the image."),
+            is_advanced: false,
+            editable_params: {
+                brightness_shift: {
+                    name: _("Shift brightness"),
+                    description: _("The brightness to add of remove to the image."),
+                    type: "float",
+                    min: -1.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                brightness_multiplicator: {
+                    name: _("Multiply brightness"),
+                    description: _("The brightness multiplicator of the image, so that 0 means no brightness and 2 means infinite brightness."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                contrast: {
+                    name: _("Contrast"),
+                    description: _("The contrast of the image in regard to the center of the contrast."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                contrast_center: {
+                    name: _("Contrast center"),
+                    description: _("The center of the contrast to use."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                saturation_multiplicator: {
+                    name: _("Saturation"),
+                    description: _("The saturation of the image, so that 0 means no saturation and 2 means infinite saturation."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
             }
         },
 
