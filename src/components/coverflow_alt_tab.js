@@ -66,7 +66,7 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
     }
 
     remove_background_actors() {
-        this.background_actors.forEach((actor) => actor.destroy);
+        this.background_actors.forEach((actor) => actor.destroy());
         this.background_actors = [];
 
         this.background_managers.forEach((background_manager) => {
