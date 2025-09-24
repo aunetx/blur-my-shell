@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-09-24 14:01+0000\n"
-"Last-Translator: Amora Celeste <amoracmelo@gmail.com>\n"
+"PO-Revision-Date: 2025-09-24 14:02+0000\n"
+"Last-Translator: Pedro Nora <pedro@nora.vc>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "blur-my-shell/blur-my-shell/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -182,7 +182,7 @@ msgstr "Boxcar"
 #: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
-msgstr ""
+msgstr "Triangular"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
@@ -508,7 +508,7 @@ msgstr "Adicionar Efeito"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Inclui efeitos avançados"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
