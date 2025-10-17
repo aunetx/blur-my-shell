@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
 "PO-Revision-Date: 2025-10-20 04:50+0000\n"
-"Last-Translator: Sami <sami.baghdady2@gmail.com>\n"
+"Last-Translator: bedokaram 187 <bedo.karam.187@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -207,7 +207,7 @@ msgstr "كمية زيادة حجم الصورة."
 
 #: src/effects/effects.js:243 src/effects/effects.js:248
 msgid "Derivative"
-msgstr ""
+msgstr "مشتق"
 
 #: src/effects/effects.js:244 src/effects/effects.js:249
 msgid "Apply a spatial derivative, or a laplacian."
@@ -215,7 +215,7 @@ msgstr "تطبيق مشتق مكاني، أو لابلاسي."
 
 #: src/effects/effects.js:248 src/effects/effects.js:253
 msgid "Operation"
-msgstr ""
+msgstr "عملية"
 
 #: src/effects/effects.js:249 src/effects/effects.js:254
 msgid "The mathematical operation to apply."
