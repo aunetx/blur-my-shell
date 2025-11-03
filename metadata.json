@@ -4,7 +4,8 @@
     "shell-version": [
         "46",
         "47",
-        "48"
+        "48",
+	"49"
     ],
     "url": "https://github.com/aunetx/blur-my-shell",
     "uuid": "blur-my-shell@aunetx",
