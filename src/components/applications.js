@@ -145,6 +145,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
             _ => this.check_blur(meta_window)
         );
 
+        // update the blur when wm-class is changed
+        this.connections.connect(
+            meta_window, 'notify::fullscreen',
+            _ => this.update_opacity_for(meta_window, pid)
+        );
+
         // update the position and size when the window size changes
         this.connections.connect(
             meta_window, 'size-changed',
@@ -310,7 +316,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // if we remove the focus and have blur, show it and make the window transparent
         else if (blur_actor) {
             blur_actor.show();
-            this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
+            this.set_window_opacity(window_actor, this.get_opacity_for_window(meta_window));
         }
     }
 
@@ -346,16 +352,29 @@ export const ApplicationsBlur = class ApplicationsBlur {
         });
     }
 
-    /// Update the opacity of all window actors.
-    set_opacity() {
-        let opacity = this.settings.applications.OPACITY;
+    /// Get the opacity for a given meta window; taking into account whether or it is fullscreen
+    /// and needs to be opaque.
+    get_opacity_for_window(meta_window) {
+        if (this.settings.applications.OPAQUE_FULLSCREEN_WINDOW && meta_window.fullscreen)
+            return 255;
+        else
+            return this.settings.applications.OPACITY;
+    }
 
-        this.meta_window_map.forEach(((meta_window, pid) => {
-            if (pid != this.focused_window_pid && meta_window.blur_actor) {
-                let window_actor = meta_window.get_compositor_private();
-                this.set_window_opacity(window_actor, opacity);
-            }
-        }));
+    /// Update the opacity of a given window actor.
+    update_opacity_for(meta_window, pid) {
+        if (pid != this.focused_window_pid && meta_window.blur_actor) {
+            let window_actor = meta_window.get_compositor_private();
+            let opacity = this.get_opacity_for_window(meta_window);
+            this.set_window_opacity(window_actor, opacity);
+        }
+    }
+
+    /// Update the opacity of all window actors.
+    update_opacity() {
+        this.meta_window_map.forEach(
+            (meta_window, pid) => this.update_opacity_for(meta_window, pid)
+        );
     }
 
     /// Compute the size and position for a blur actor.

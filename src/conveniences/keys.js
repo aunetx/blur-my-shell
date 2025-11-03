@@ -57,6 +57,7 @@ export const KEYS = [
             { type: Type.D, name: "brightness" },
             { type: Type.I, name: "opacity" },
             { type: Type.B, name: "dynamic-opacity" },
+            { type: Type.B, name: "opaque-fullscreen-window" },
             { type: Type.B, name: "blur-on-overview" },
             { type: Type.B, name: "enable-all" },
             { type: Type.AS, name: "whitelist" },
