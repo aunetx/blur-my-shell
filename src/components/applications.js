@@ -97,7 +97,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                         let window_actor = meta_window.get_compositor_private();
 
                         if (
-                            !meta_window.get_workspace().active
+                             (!meta_window.get_workspace().active) || meta_window.minimized
                         )
                             window_actor.hide();
                     });
