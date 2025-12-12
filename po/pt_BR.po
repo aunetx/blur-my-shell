@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-09-24 14:02+0000\n"
-"Last-Translator: Pedro Nora <pedro@nora.vc>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"blur-my-shell/blur-my-shell/pt_BR/>\n"
+"PO-Revision-Date: 2025-12-13 21:00+0000\n"
+"Last-Translator: Mateus Liberale Gomes <sergiogomes209403@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/blur-"
+"my-shell/blur-my-shell/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -187,7 +187,7 @@ msgstr "Triangular"
 #: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199 src/effects/effects.js:204
 msgid "Downscale (advanced effect)"
@@ -560,11 +560,11 @@ msgstr "Torne a extensão da lista de janelas desfocada, se for usada."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Desfoque da extensão Alt-Tab do Coverflow"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Desfocar a extensão Alt+Tab do Coverflow, caso esteja sendo utilizada."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
@@ -791,13 +791,13 @@ msgstr "Adicionar Pipeline"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Prefira pixels mais próximos"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "Se os pixels mais próximos do pixel original terão ou não maior peso."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Desfoque gaussiano"
