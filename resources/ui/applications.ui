@@ -131,7 +131,8 @@ This may cause some latency or performance issues.</property>
     <child>
       <object class="AdwPreferencesGroup" id="whitelist">
         <property name="title" translatable="yes">Whitelist</property>
-        <property name="description" translatable="yes">A list of windows to blur.</property>
+        <property name="description" translatable="yes">A list of windows to blur.
+Use * to match any characters (e.g., Firefox* or *Code*).</property>
         <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
         <property name="header-suffix">
           <object class="GtkButton" id="add_window_whitelist">
@@ -168,7 +169,8 @@ This may cause some latency or performance issues.</property>
     <child>
       <object class="AdwPreferencesGroup" id="blacklist">
         <property name="title" translatable="yes">Blacklist</property>
-        <property name="description" translatable="yes">A list of windows not to blur.</property>
+        <property name="description" translatable="yes">A list of windows not to blur.
+Use * to match any characters (e.g., Firefox* or *Code*).</property>
         <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
         <property name="header-suffix">
           <object class="GtkButton" id="add_window_blacklist">
