@@ -3,7 +3,6 @@ import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.j
 import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
 import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
 import { ColorEffect } from '../effects/color.js';
-import { MixEffect } from '../effects/mix.js';
 import { NoiseEffect } from '../effects/noise.js';
 import { CornerEffect } from '../effects/corner.js';
 import { DownscaleEffect } from './downscale.js';
@@ -34,7 +33,6 @@ export function get_effects_groups(_ = _ => "") {
                 "derivative",
                 "noise",
                 "color",
-                "mix",
                 "rgb_to_hsl",
                 "hsl_to_rgb"
             ]
@@ -170,34 +168,10 @@ export function get_supported_effects(_ = () => "") {
                     name: _("Color"),
                     description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
                     type: "rgba"
-                }
-            }
-        },
-
-        mix: {
-            class: MixEffect,
-            name: _("Mix"),
-            description: _("An effect that blends a solid color or image into the pipeline."),
-            is_advanced: true,
-            editable_params: {
-                color: {
-                    name: _("Color"),
-                    description: _("The color to blend in."),
-                    type: "rgb"
-                },
-                opacity: {
-                    name: _("Opacity"),
-                    description: _("The strength of the effect"),
-                    type: "float",
-                    min: 0.,
-                    max: 1.,
-                    increment: 0.01,
-                    big_increment: 0.1,
-                    digits: 2
                 },
                 blend_mode: {
                     name: _("Blend mode"),
-                    description: _("The mode used to blend the image or color."),
+                    description: _("How the color is blended in."),
                     type: "dropdown",
                     options: [
                         _("Normal"),

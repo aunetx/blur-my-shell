@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
@@ -47,25 +48,29 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 0.0, 1.0,
                 0.0,
             ),
+            'blend_mode': GObject.ParamSpec.int(
+                `blend_mode`,
+                `Blend mode`,
+                `Blend mode`,
+                GObject.ParamFlags.READWRITE,
+                0, 17,
+                0,
+            )
         }
+        // Normal (0), Multiply (1), Screen (2), Overlay (3), Darken (4), Lighten (5), Color dodge (6), Color burn (7), Hard light (8),
+        // Soft light (9), Difference (10), Exclusion (11), Hue (12), Saturation (13), Color (14), Luminosity (15), Plus darker (16),
+        // Plus lighter (17)
     }, class ColorEffect extends Clutter.ShaderEffect {
         constructor(params) {
             // initialize without color as a parameter
-            const { color, ...parent_params } = params;
-            super(parent_params);
+            super(params);
 
-            this._red = null;
-            this._green = null;
-            this._blue = null;
-            this._blend = null;
+            utils.setup_params(this, params);
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
-
-            // set shader color
-            this.color = 'color' in params ? color : this.constructor.default_params.color;
         }
 
         static get default_params() {
