@@ -40,72 +40,72 @@ vec3 hsl_to_rgb(vec3 c) {
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
 
-float soft_light_channel(float base, float blend) {
-    if (blend < 0.5) {
-        return base - (1.0 - 2.0 * blend) * base * (1.0 - base);
+float soft_light_channel(float base, float _blend) {
+    if (_blend < 0.5) {
+        return base - (1.0 - 2.0 * _blend) * base * (1.0 - base);
     } else {
         float d = (base < 0.25)
         ? ((16.0 * base - 12.0) * base + 4.0) * base
         : sqrt(base);
-        return base + (2.0 * blend - 1.0) * (d - base);
+        return base + (2.0 * _blend - 1.0) * (d - base);
     }
 }
 
-vec3 blend(vec3 base, vec3 blend) {
-    if (mode == MULTIPLY) return base * blend;
-    if (mode == SCREEN) return 1 - (1 - base) * (1 - blend);
+vec3 get_blend(vec3 base, vec3 _blend) {
+    if (mode == MULTIPLY) return base * _blend;
+    if (mode == SCREEN) return 1 - (1 - base) * (1 - _blend);
     if (mode == OVERLAY) {
         vec3 result;
-        result.r = base.r < 0.5 ? (2.0 * base.r * blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - blend.r));
-        result.g = base.g < 0.5 ? (2.0 * base.g * blend.g) : (1.0 - 2.0 * (1.0 - base.g) * (1.0 - blend.g));
-        result.b = base.b < 0.5 ? (2.0 * base.b * blend.b) : (1.0 - 2.0 * (1.0 - base.b) * (1.0 - blend.b));
+        result.r = base.r < 0.5 ? (2.0 * base.r * _blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - _blend.r));
+        result.g = base.g < 0.5 ? (2.0 * base.g * _blend.g) : (1.0 - 2.0 * (1.0 - base.g) * (1.0 - _blend.g));
+        result.b = base.b < 0.5 ? (2.0 * base.b * _blend.b) : (1.0 - 2.0 * (1.0 - base.b) * (1.0 - _blend.b));
         return result;
     }
-    if (mode == DARKEN) return min(base, blend);
-    if (mode == LIGHTEN) return max(base, blend);
-    if (mode == COLOR_DODGE) return base / (1 - blend);
-    if (mode == COLOR_BURN) return 1 - (1 - base) / blend;
+    if (mode == DARKEN) return min(base, _blend);
+    if (mode == LIGHTEN) return max(base, _blend);
+    if (mode == COLOR_DODGE) return base / (1 - _blend);
+    if (mode == COLOR_BURN) return 1 - (1 - base) / _blend;
     if (mode == HARD_LIGHT) {
         vec3 result;
-        result.r = blend.r < 0.5 ? (2.0 * base.r * blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - blend.r));
-        result.g = blend.g < 0.5 ? (2.0 * base.g * blend.g) : (1.0 - 2.0 * (1.0 - base.g) * (1.0 - blend.g));
-        result.b = blend.b < 0.5 ? (2.0 * base.b * blend.b) : (1.0 - 2.0 * (1.0 - base.b) * (1.0 - blend.b));
+        result.r = _blend.r < 0.5 ? (2.0 * base.r * _blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - _blend.r));
+        result.g = _blend.g < 0.5 ? (2.0 * base.g * _blend.g) : (1.0 - 2.0 * (1.0 - base.g) * (1.0 - _blend.g));
+        result.b = _blend.b < 0.5 ? (2.0 * base.b * _blend.b) : (1.0 - 2.0 * (1.0 - base.b) * (1.0 - _blend.b));
         return result;
     }
     if (mode == SOFT_LIGHT) {
-        return vec3(soft_light_channel(base.r, blend.r), soft_light_channel(base.g, blend.g), soft_light_channel(base.b, blend.b));
+        return vec3(soft_light_channel(base.r, _blend.r), soft_light_channel(base.g, _blend.g), soft_light_channel(base.b, _blend.b));
     }
-    if (mode == DIFFERENCE) return abs(base - blend);
-    if (mode == EXCLUSION) return 0.5 - 2 * (base - 0.5) * (blend - 0.5);
+    if (mode == DIFFERENCE) return abs(base - _blend);
+    if (mode == EXCLUSION) return 0.5 - 2 * (base - 0.5) * (_blend - 0.5);
     if (mode == HUE) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(blend);
+        vec3 base_hsl = rgb_to_hsl(_blend);
         return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
     }
     if (mode == SATURATION) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(blend);
+        vec3 base_hsl = rgb_to_hsl(_blend);
         return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
     }
     if (mode == COLOR) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(blend);
+        vec3 base_hsl = rgb_to_hsl(_blend);
         return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
     }
     if (mode == LUMINOSITY) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(blend);
+        vec3 base_hsl = rgb_to_hsl(_blend);
         return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
     }
-    if (mode == PLUS_DARKER) return base + blend - 1;
-    if (mode == PLUS_LIGHTER) return base + blend;
-    return blend; // For NORMAL
+    if (mode == PLUS_DARKER) return base + _blend - 1;
+    if (mode == PLUS_LIGHTER) return base + _blend;
+    return _blend; // For NORMAL
 }
 
 void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
     vec3 pix_color = c.xyz;
-    vec3 color = blend(pix_color, vec3(red, green, blue));
+    vec3 color = get_blend(pix_color, vec3(red, green, blue));
 
     cogl_color_out = vec4(mix(pix_color, color, blend), 1.);
 }
