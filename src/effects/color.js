@@ -126,6 +126,18 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             }
         }
 
+        get blend_mode() {
+            return this._blend_mode;
+        }
+
+        set blend_mode(value) {
+            if (this._blend_mode !== value) {
+                this._blend_mode = value;
+
+                this.set_uniform_value('mode', this._blend_mode);
+            }
+        }
+
         set color(rgba) {
             let [r, g, b, a] = rgba;
             this.red = r;
