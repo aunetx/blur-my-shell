@@ -73,8 +73,6 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             this._blend = null;
             this._blend_mode = null;
 
-            console.log(`(${this._red}, ${this._green}, ${this._blue}, ${this._blend}) with mode ${this._blend_mode}`); //- TODO: REMOVE
-
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
