@@ -79,23 +79,23 @@ vec3 get_blend(vec3 base, vec3 _blend) {
     if (mode == EXCLUSION) return 0.5 - 2 * (base - 0.5) * (_blend - 0.5);
     if (mode == HUE) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(_blend);
-        return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
+        vec3 blend_hsl = rgb_to_hsl(blend);
+        return hsl_to_rgb(vec3(blend_hsl.x, base_hsl.y, base_hsl.z));
     }
     if (mode == SATURATION) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(_blend);
-        return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
+        vec3 blend_hsl = rgb_to_hsl(blend);
+        return hsl_to_rgb(vec3(base_hsl.x, blend_hsl.y, base_hsl.z));
     }
     if (mode == COLOR) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(_blend);
-        return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
+        vec3 blend_hsl = rgb_to_hsl(blend);
+        return hsl_to_rgb(vec3(blend_hsl.x, blend_hsl.y, base_hsl.z));
     }
     if (mode == LUMINOSITY) {
         vec3 base_hsl = rgb_to_hsl(base);
-        vec3 base_hsl = rgb_to_hsl(_blend);
-        return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, base_hsl.z));
+        vec3 blend_hsl = rgb_to_hsl(blend);
+        return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, blend_hsl.z));
     }
     if (mode == PLUS_DARKER) return base + _blend - 1;
     if (mode == PLUS_LIGHTER) return base + _blend;
