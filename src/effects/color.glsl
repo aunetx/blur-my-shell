@@ -11,18 +11,18 @@ const int SCREEN = 2;
 const int OVERLAY = 3;
 const int DARKEN = 4;
 const int LIGHTEN = 5;
-const int COLOR_DODGE = 6;
-const int COLOR_BURN = 7;
-const int HARD_LIGHT = 8;
-const int SOFT_LIGHT = 9;
-const int DIFFERENCE = 10;
-const int EXCLUSION = 11;
-const int HUE = 12;
-const int SATURATION = 13;
-const int COLOR = 14;
-const int LUMINOSITY = 15;
-const int PLUS_DARKER = 16;
-const int PLUS_LIGHTER = 17;
+const int PLUS_DARKER = 6;
+const int PLUS_LIGHTER = 7;
+const int COLOR_DODGE = 8;
+const int COLOR_BURN = 9;
+const int HARD_LIGHT = 10;
+const int SOFT_LIGHT = 11;
+const int DIFFERENCE = 12;
+const int EXCLUSION = 13;
+const int HUE = 14;
+const int SATURATION = 15;
+const int COLOR = 16;
+const int LUMINOSITY = 17;
 
 vec3 rgb_to_hsl(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -63,6 +63,8 @@ vec3 get_blend(vec3 base, vec3 _blend) {
     }
     if (mode == DARKEN) return min(base, _blend);
     if (mode == LIGHTEN) return max(base, _blend);
+    if (mode == PLUS_DARKER) return base + _blend - 1;
+    if (mode == PLUS_LIGHTER) return base + _blend;
     if (mode == COLOR_DODGE) return base / (1 - _blend);
     if (mode == COLOR_BURN) return 1 - (1 - base) / _blend;
     if (mode == HARD_LIGHT) {
@@ -97,8 +99,6 @@ vec3 get_blend(vec3 base, vec3 _blend) {
         vec3 blend_hsl = rgb_to_hsl(_blend);
         return hsl_to_rgb(vec3(base_hsl.x, base_hsl.y, blend_hsl.z));
     }
-    if (mode == PLUS_DARKER) return base + _blend - 1;
-    if (mode == PLUS_LIGHTER) return base + _blend;
     return _blend; // For NORMAL
 }
 

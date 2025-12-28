@@ -58,9 +58,9 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 0,
             )
         }
-        // Normal (0), Multiply (1), Screen (2), Overlay (3), Darken (4), Lighten (5), Color dodge (6), Color burn (7), Hard light (8),
-        // Soft light (9), Difference (10), Exclusion (11), Hue (12), Saturation (13), Color (14), Luminosity (15), Plus darker (16),
-        // Plus lighter (17)
+        // Normal (0), Multiply (1), Screen (2), Overlay (3), Darken (4), Lighten (5), Plus darker (6), Plus lighter (7), Color dodge (8),
+        // Color burn (9), Hard light (10), Soft light (11), Difference (12), Exclusion (13), Hue (14), Saturation (15), Color (16),
+        // Luminosity (17)
     }, class ColorEffect extends Clutter.ShaderEffect {
         constructor(params) {
             // initialize without color as a parameter

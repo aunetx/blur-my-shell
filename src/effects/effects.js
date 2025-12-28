@@ -180,6 +180,8 @@ export function get_supported_effects(_ = () => "") {
                         _("Overlay"),
                         _("Darken"),
                         _("Lighten"),
+                        _("Plus darker"),
+                        _("Plus lighter"),
                         _("Color dodge"),
                         _("Color burn"),
                         _("Hard light"),
@@ -189,9 +191,7 @@ export function get_supported_effects(_ = () => "") {
                         _("Hue"),
                         _("Saturation"),
                         _("Color"),
-                        _("Luminosity"),
-                        _("Plus darker"),
-                        _("Plus lighter")
+                        _("Luminosity")
                     ]
                 }
             }
