@@ -7,7 +7,8 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'color.glsl';
 const DEFAULT_PARAMS = {
-    color: [0.0, 0.0, 0.0, 0.0]
+    color: [0.0, 0.0, 0.0, 0.0],
+    blend_mode: 0
 };
 
 
@@ -63,14 +64,25 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
     }, class ColorEffect extends Clutter.ShaderEffect {
         constructor(params) {
             // initialize without color as a parameter
-            super(params);
+            const { color, ...parent_params } = params;
+            super(parent_params);
 
-            utils.setup_params(this, params);
+            this._red = null;
+            this._green = null;
+            this._blue = null;
+            this._blend = null;
+            this._blend_mode = null;
+
+            console.log(`(${this._red}, ${this._green}, ${this._blue}, ${this._blend}) with mode ${this._blend_mode}`); //- TODO: REMOVE
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
+
+            // set params; utils.setup_params doesn't work here with color
+            this.color = 'color' in params ? color : this.constructor.default_params.color;
+            this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
         }
 
         static get default_params() {
