@@ -163,5 +163,6 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
         /// False set function, only cares about the color. Too hard to change.
         set(params) {
             this.color = params.color;
+            this.blend_mode = params.blend_mode;
         }
     });
