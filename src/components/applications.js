@@ -1,6 +1,7 @@
 import Meta from 'gi://Meta';
 import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import { ApplicationsService } from '../dbus/services.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
@@ -362,9 +363,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// If `scale-monitor-framebuffer` experimental feature if on, we don't need to manage scaling.
     /// Else, on wayland, we need to divide by the scale to get the correct result.
     compute_allocation(meta_window) {
-        const scale_monitor_framebuffer = this.mutter_gsettings.get_strv('experimental-features')
-            .includes('scale-monitor-framebuffer');
-        const is_wayland = Meta.is_wayland_compositor();
+        // TODO: Drop GNOME <50 compatibility
+        const gnome_shell_major_version = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+        const scale_monitor_framebuffer = 
+            gnome_shell_major_version >= 50 ||
+            this.mutter_gsettings
+                .get_strv('experimental-features')
+                .includes('scale-monitor-framebuffer');
+        const is_wayland = gnome_shell_major_version >= 50 || Meta.is_wayland_compositor();
         const monitor_index = meta_window.get_monitor();
         // check if the window is using wayland, or xwayland/xorg for rendering
         const scale = !scale_monitor_framebuffer && is_wayland && meta_window.get_client_type() == 0
