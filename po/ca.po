@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-11-17 12:51+0000\n"
-"Last-Translator: Emanuel <intrcnet@gmail.com>\n"
+"PO-Revision-Date: 2026-01-19 14:01+0000\n"
+"Last-Translator: Joan De Genover Miquel <joandegenover@protonmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ca/>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -33,7 +33,7 @@ msgstr "Efectes de forma"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr "Desenfocament gaussià natiu"
+msgstr "Desenfocament gaussià nadiu"
 
 #: src/effects/effects.js:58
 msgid ""
@@ -177,17 +177,17 @@ msgstr "El mètode de reducció de mostreig utilitzat."
 #: src/effects/effects.js:189 src/effects/effects.js:216
 #: src/effects/effects.js:194 src/effects/effects.js:221
 msgid "Boxcar"
-msgstr ""
+msgstr "Boxcar"
 
 #: src/effects/effects.js:190 src/effects/effects.js:217
 #: src/effects/effects.js:195 src/effects/effects.js:222
 msgid "Triangular"
-msgstr ""
+msgstr "Triangular"
 
 #: src/effects/effects.js:191 src/effects/effects.js:218
 #: src/effects/effects.js:196 src/effects/effects.js:223
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/effects.js:199 src/effects/effects.js:204
 msgid "Downscale (advanced effect)"
@@ -329,7 +329,6 @@ msgid "Select window"
 msgstr "Seleccionar finestra"
 
 #: resources/ui/application-row.ui:9
-#, fuzzy
 msgid "Pick a window or select it by its classname."
 msgstr "Triar una finestra o seleccionar-la pel seu tipus de nom."
 
@@ -342,7 +341,6 @@ msgid "Applications blur"
 msgstr "Desenfocament de les aplicacions"
 
 #: resources/ui/applications.ui:11
-#, fuzzy
 msgid ""
 "Adds blur to the applications.\n"
 "To get the best results possible, although with reduced performances, you "
@@ -350,8 +348,8 @@ msgid ""
 msgstr ""
 "Afegeix desenfocament a les aplicacions.\n"
 "Per obtindre els millors resultats possibles, tot i que amb un rendiment "
-"reduït, pots triar-ne l'opció \"Sense artefactes\" en la pestanya "
-"\"Altres → Nivell de [?]\"."
+"reduït, pots triar-ne l'opció \"Sense artefactes\" en la pestanya \"Altres → "
+"Nivell de [?]\"."
 
 #: resources/ui/applications.ui:21 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
@@ -432,15 +430,15 @@ msgstr "La llista de finestres que no s'han de desenfocar."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "Barra d'aplicacions"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
-msgstr ""
+msgstr "Desenfocament de Dash to Dock"
 
 #: resources/ui/dash.ui:11
 msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr ""
+msgstr "Desenfoca el fons de l'extensió Dash to Dock, si està instal·lada."
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
@@ -450,131 +448,141 @@ msgstr "Tipus de desenfocament"
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
+"El desenfocament dinàmic és més lent i només compatible amb un efecte de "
+"desenfocament gaussià."
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Estàtic"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinàmic"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
-msgstr ""
+msgstr "Substituir el fons"
 
 #: resources/ui/dash.ui:114
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
+"Fes que el fons sigui transparent o semi-transparent, desactiva aquesta "
+"opció per utilitzar les preferències de Dash to Dock en el seu lloc."
 
 #: resources/ui/dash.ui:120 resources/ui/panel.ui:136
 msgid "Background style"
-msgstr ""
+msgstr "Estil del fons"
 
 #: resources/ui/dash.ui:121
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr ""
+"L'estil transparent/semi-transparent per al fons de la barra d'aplicacions."
 
 #: resources/ui/dash.ui:137 resources/ui/panel.ui:167
 msgid "Disable in overview"
-msgstr ""
+msgstr "Desactivar a la vista general"
 
 #: resources/ui/dash.ui:138
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
+"Desactiva el desenfocament de Dash to Dock en entrar a la vista general."
 
 #: resources/ui/dash.ui:167 resources/ui/overview.ui:118
 #: resources/ui/overview.ui:138 resources/ui/panel.ui:222
 msgid "Transparent"
-msgstr ""
+msgstr "Transparent"
 
 #: resources/ui/dash.ui:168 resources/ui/overview.ui:116
 #: resources/ui/overview.ui:139 resources/ui/panel.ui:223
 msgid "Light"
-msgstr ""
+msgstr "Clar"
 
 #: resources/ui/dash.ui:169 resources/ui/overview.ui:117
 #: resources/ui/overview.ui:140 resources/ui/panel.ui:224
 msgid "Dark"
-msgstr ""
+msgstr "Fosc"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "Efectes"
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr ""
+msgstr "Afegir un efecte"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "Incloure els efectes avançats"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "Pàgina del projecte"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "Informar d'un error"
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "Llicència"
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "Fer un donatiu"
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "Altres"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "Desenfocament de la pantalla de bloqueig"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
+"Canvia el desenfocament de la pantalla de bloqueig per utilitzar les "
+"preferències d'aquesta extensió."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "Desenfocament de la captura de pantalla"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
+"Afegeix desenfocament al fons de la selecció de finestres, a l'eina de "
+"captura de pantalla."
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "Desenfocament de l'extensió Window List"
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "Desenfoca l'extensió window-list, en ser utilitzada."
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Desenfocament de l'extensió Coverflow Alt-Tab"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Desenfoca l'extensió Coverflow Alt-Tab, en ser utilitzada."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
-msgstr ""
+msgstr "Rendiment"
 
 #: resources/ui/other.ui:119
 msgid "Various options to tweak the performance."
-msgstr ""
+msgstr "Opcions diverses per ajustar el rendiment."
 
 #: resources/ui/other.ui:123
 msgid "Hack level"
-msgstr ""
+msgstr "Nivell de tècniques d'optimització"
 
 #: resources/ui/other.ui:124
 msgid ""
@@ -583,103 +591,116 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"Canvia el comportament de l'efecte de desenfocament dinàmic. El valor per "
+"defecte és molt recomanat.\n"
+"L'opció \"Sense artefacte\" desactivarà completament els redibuixos "
+"retallats a GNOME shell i afectarà significativament el rendiment de "
+"l'ordinador."
 
 #: resources/ui/other.ui:138
 msgid "Debug"
-msgstr ""
+msgstr "Depuració"
 
 #: resources/ui/other.ui:139
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"Fes que l'extensió sigui més detallada als registres, activa aquesta opció "
+"quan necessitis reportar un problema."
 
 #: resources/ui/other.ui:154
 msgid "Reset preferences"
-msgstr ""
+msgstr "Restablir preferències"
 
 #: resources/ui/other.ui:155
 msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr ""
+msgstr "Restableix les preferències de Blur my Shell de manera irreversible."
 
 #: resources/ui/other.ui:174
 msgid "Reset"
-msgstr ""
+msgstr "Reestableix"
 
 #: resources/ui/other.ui:203
 msgid "High performances"
-msgstr ""
+msgstr "Alts rendiments"
 
 #: resources/ui/other.ui:204
 msgid "Default"
-msgstr ""
+msgstr "Per defecte"
 
 #: resources/ui/other.ui:205
 msgid "No artifact"
-msgstr ""
+msgstr "Sense artefacte"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "Vista general"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "Desenfocament del fons"
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr ""
+"Afegeix un efecte de desenfocament al fons de la vista general, utilitzant "
+"la imatge de fons."
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "Estil dels components de la vista general"
 
 #: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"L'estil semi-transparent per a la barra d'aplicacions, el menú de cerca i "
+"les carpetes al menú d'aplicacions."
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "Desenfocament de les carpetes al menú d'aplicacions"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "Desenfoca el fons de les carpetes al menú d'aplicacions."
 
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Estil de les carpetes dins el menú d'aplicacions"
 
 #: resources/ui/overview.ui:97
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "L'estil semi-transparent per a les carpetes d'aplicacions."
 
 #: resources/ui/overview.ui:115 resources/ui/overview.ui:137
 msgid "Do not style"
-msgstr ""
+msgstr "No aplicar cap tema"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "Barra superior"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "Desenfocament de la barra superior"
 
 #: resources/ui/panel.ui:11
 msgid "Blur the top panel using the background image."
-msgstr ""
+msgstr "Desenfoca la barra superior utilitzant la imatge de fons."
 
 #: resources/ui/panel.ui:113
 msgid "Force light text"
-msgstr ""
+msgstr "Forçar el text clar"
 
 #: resources/ui/panel.ui:114
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"Utilitza un text clar per a la barra superior, útil quan s’utilitza el tema "
+"clar de GNOME Shell."
 
 #: resources/ui/panel.ui:129
 msgid ""
@@ -687,92 +708,105 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"Substituir el fons de la barra superior per un fons transparent/semi-"
+"transparent.\n"
+"Recomanat, a menys que vulgueu personalitzar el vostre tema GNOME."
 
 #: resources/ui/panel.ui:137
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "L'estil transparent/semi-transparent per al fons de la barra superior."
 
 #: resources/ui/panel.ui:151
 msgid "Disable when a window is near"
-msgstr ""
+msgstr "Desactivar quan una finestra és a prop"
 
 #: resources/ui/panel.ui:152
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
+"Desactiva la transparència de la barra superior quan una finestra és a prop."
 
 #: resources/ui/panel.ui:168
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
+"Desactiva el desenfocament de la barra superior quan s'entra a la vista "
+"d'activitats."
 
 #: resources/ui/panel.ui:184
 msgid "Compatibility"
-msgstr ""
+msgstr "Compatibilitat"
 
 #: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "Diverses opcions per proporcionar compatibilitat amb altres extensions."
 
 #: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Extensió Hidetopbar"
 
 #: resources/ui/panel.ui:191
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
+"No desactiva el desenfocament a la vista d'activitat, es recomana utilitzar-"
+"lo amb desenfocament estàtic."
 
 #: resources/ui/panel.ui:205
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Desenfocar el panell original quan s'utilitza Dash to Panel"
 
 #: resources/ui/panel.ui:206
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"Habilita el desenfocament del panell original amb Dash to Panel, si està "
+"seleccionat a les opcions de l'extensió."
 
 #: resources/ui/panel.ui:225
 msgid "Contrasted"
-msgstr ""
+msgstr "Contrastat"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Pipeline"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "La pipeline utilitzada pel component."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "Nom de la pipeline"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "Gestionar els efectes"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Pipelines"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"Cada component utilitza una pipeline, que es pot triar a la pestanya "
+"corresponent. Aquí podeu crear, modificar i suprimir les pipelines i els "
+"seus efectes."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "Afegir una pipeline"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Preferir píxels més propers"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "Els píxels més propers al píxel original tindran més pes o no."
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Aplicacions de desenfocament (beta)"
