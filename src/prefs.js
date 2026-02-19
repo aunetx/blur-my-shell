@@ -43,7 +43,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(new Panel(preferences, pipelines_manager, pipelines_page));
         window.add(new Overview(preferences, pipelines_manager, pipelines_page));
         window.add(new Dash(preferences, pipelines_manager, pipelines_page));
-        window.add(new Applications(preferences, window));
+        window.add(new Applications(preferences, window, pipelines_manager, pipelines_page));
         window.add(new Other(preferences, pipelines_manager, pipelines_page));
 
         window.search_enabled = true;

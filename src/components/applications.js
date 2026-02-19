@@ -5,6 +5,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { ApplicationsService } from '../dbus/services.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
+import { Pipeline } from '../conveniences/pipeline.js';
 
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
@@ -145,11 +146,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
             _ => this.check_blur(meta_window)
         );
 
-        // update the position and size when the window size changes
+        // update the clip, position, and/or size when the window changes
         this.connections.connect(
             meta_window, 'size-changed',
             _ => this.update_size(pid)
         );
+        if (this.settings.applications.STATIC_BLUR) {
+            this.connections.connect(
+                meta_window, 'position-changed',
+                _ => this.update_size(pid)
+            );
+        }
 
         // remove the blur when the window is unmanaged
         this.connections.connect(
@@ -158,6 +165,18 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
 
         this.check_blur(meta_window);
+
+        if (this.settings.applications.STATIC_BLUR && meta_window.get_client_type() === Meta.WindowClientType.X11) {
+            const window_actor = meta_window.get_compositor_private();
+            window_actor.connect('child-added', _ => {
+                if (!meta_window.blur_actor) {
+                    this._warn("can't move blur actor to back, it doesn't exist");
+                    return;
+                }
+
+                window_actor.set_child_below_sibling(meta_window.blur_actor, null);
+            });
+        }
     }
 
     /// Updates the size of the blur actor associated to a meta window from its pid.
@@ -167,11 +186,39 @@ export const ApplicationsBlur = class ApplicationsBlur {
             const meta_window = this.meta_window_map.get(pid);
             const blur_actor = meta_window.blur_actor;
             if (blur_actor) {
-                const allocation = this.compute_allocation(meta_window);
-                blur_actor.x = allocation.x;
-                blur_actor.y = allocation.y;
-                blur_actor.width = allocation.width;
-                blur_actor.height = allocation.height;
+                if (this.settings.applications.STATIC_BLUR) {
+                    const bg_manager = meta_window.bg_manager;
+                    const bg_actor_monitor_index = bg_manager.backgroundActor.monitor;
+                    const window_monitor_index = meta_window.get_monitor();
+                    const monitor = Main.layoutManager.monitors[window_monitor_index];
+
+                    if (bg_actor_monitor_index !== window_monitor_index) {
+                        this._log(`application (pid ${pid}) switching to monitor: ${window_monitor_index}`);
+
+                        // Recreate the BackgroundActor on the right monitor. This is necessary to make sure differently
+                        // sized monitors have the correct scaled image of the wallpaper.
+                        bg_manager._monitorIndex = window_monitor_index;
+                        bg_manager._updateBackgroundActor();
+
+                        // Also to fix differently sized monitor issues.
+                        blur_actor.width = monitor.width;
+                        blur_actor.height = monitor.height;
+                    }
+
+                    const frame = meta_window.get_frame_rect();
+                    const buffer = meta_window.get_buffer_rect();
+                    blur_actor.x = monitor.x - buffer.x;
+                    blur_actor.y = monitor.y - buffer.y;
+
+                    // set_clip(x-offset, y-offset, width, height)
+                    blur_actor.set_clip(frame.x - monitor.x, frame.y - monitor.y, frame.width, frame.height);
+                } else {
+                    const allocation = this.compute_allocation(meta_window);
+                    blur_actor.x = allocation.x;
+                    blur_actor.y = allocation.y;
+                    blur_actor.width = allocation.width;
+                    blur_actor.height = allocation.height;
+                }
             }
         } else
             // the pid was visibly not removed
@@ -222,23 +269,37 @@ export const ApplicationsBlur = class ApplicationsBlur {
         const pid = meta_window.bms_pid;
         const window_actor = meta_window.get_compositor_private();
 
-        const pipeline = new DummyPipeline(this.effects_manager, this.settings.applications);
-        let [blur_actor, bg_manager] = pipeline.create_background_with_effect(
-            window_actor, 'bms-application-blurred-widget'
-        );
+        let blur_actor;
+
+        if (this.settings.applications.STATIC_BLUR) {
+            const pipeline = new Pipeline(this.effects_manager, global.blur_my_shell._pipelines_manager, this.settings.applications.PIPELINE);
+            const bg_managers = [];
+            blur_actor = pipeline.create_background_with_effects(
+                meta_window.get_monitor(), bg_managers, window_actor,
+                'bms-application-blurred-widget'
+            );
+
+            if (bg_managers.length > 0) meta_window.bg_manager = bg_managers[0];
+            else // I've never seen this happen, but just in case
+                this._warn(`no bg_manager on blur creation for pid ${pid}`);
+        } else {
+            const pipeline = new DummyPipeline(this.effects_manager, this.settings.applications);
+            [blur_actor, meta_window.bg_manager] = pipeline.create_background_with_effect(
+                window_actor, 'bms-application-blurred-widget'
+            );
+
+            // if hacks are selected, force to repaint the window
+            if (this.settings.HACKS_LEVEL === 1) {
+                this._log("hack level 1");
+
+                this.paint_signals.disconnect_all_for_actor(blur_actor);
+                this.paint_signals.connect(blur_actor, pipeline.effect);
+            } else {
+                this.paint_signals.disconnect_all_for_actor(blur_actor);
+            }
+        }
 
         meta_window.blur_actor = blur_actor;
-        meta_window.bg_manager = bg_manager;
-
-        // if hacks are selected, force to repaint the window
-        if (this.settings.HACKS_LEVEL === 1) {
-            this._log("hack level 1");
-
-            this.paint_signals.disconnect_all_for_actor(blur_actor);
-            this.paint_signals.connect(blur_actor, pipeline.effect);
-        } else {
-            this.paint_signals.disconnect_all_for_actor(blur_actor);
-        }
 
         // make sure window is blurred in overview
         if (this.settings.applications.BLUR_ON_OVERVIEW)
@@ -328,8 +389,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                     ) {
                         window_actor.show();
                         window_actor.get_last_child().hide();
-                    }
-                    else if (
+                    } else if (
                         window_actor.visible
                     )
                         window_actor.get_last_child().show();
@@ -358,18 +418,24 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }));
     }
 
-    /// Compute the size and position for a blur actor.
+    /// Find the system's window scaling.
     /// If `scale-monitor-framebuffer` experimental feature if on, we don't need to manage scaling.
     /// Else, on wayland, we need to divide by the scale to get the correct result.
-    compute_allocation(meta_window) {
+    compute_scale(meta_window) {
         const scale_monitor_framebuffer = this.mutter_gsettings.get_strv('experimental-features')
             .includes('scale-monitor-framebuffer');
         const is_wayland = Meta.is_wayland_compositor();
         const monitor_index = meta_window.get_monitor();
         // check if the window is using wayland, or xwayland/xorg for rendering
-        const scale = !scale_monitor_framebuffer && is_wayland && meta_window.get_client_type() == 0
+        return !scale_monitor_framebuffer && is_wayland && meta_window.get_client_type() == 0
             ? Main.layoutManager.monitors[monitor_index].geometry_scale
             : 1;
+    }
+
+    /// Compute the size and position for a blur actor.
+    /// Coordinates are relative to window buffer's corner.
+    compute_allocation(meta_window) {
+        const scale = this.compute_scale(meta_window);
 
         let frame = meta_window.get_frame_rect();
         let buffer = meta_window.get_buffer_rect();
@@ -380,6 +446,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
             width: frame.width / scale,
             height: frame.height / scale
         };
+    }
+
+    change_blur_type() {
+        this._log("resetting...");
+
+        this.disable();
+        setTimeout(_ => this.enable(), 1);
+    }
+
+    change_pipeline() {
+        this.update_all_windows();
     }
 
     /// Removes the blur actor to make a blurred window become normal again.
@@ -447,5 +524,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
     _log(str) {
         if (this.settings.DEBUG)
             console.log(`[Blur my Shell > applications] ${str}`);
+    }
+
+    _warn(str) {
+        console.warn(`[Blur my Shell > applications] ${str}`);
     }
 };
