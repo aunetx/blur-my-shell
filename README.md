@@ -1,3 +1,6 @@
+## Continued Fork Information
+- Merge a selection of pull requests and apply patches to master (if development is continued by @aunetx again).
+
 # GNOME Shell Extension - Blur my Shell
 
 [<img src="https://github.com/aunetx/files_utils/raw/master/get_it_on_gnome_extensions.png" height="100" align="right">](https://extensions.gnome.org/extension/3193/blur-my-shell/)
