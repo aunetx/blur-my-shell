@@ -805,13 +805,15 @@ msgstr "Pipeline hinzufügen"
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Nähere Pixel bevorzugen"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
 msgstr ""
+"Legt fest, ob Pixel, die näher am ursprünglichen Pixel liegen, stärker "
+"gewichtet werden."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Gaußscher Weichzeichner"
