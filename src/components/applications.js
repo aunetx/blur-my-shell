@@ -1,10 +1,57 @@
 import Meta from 'gi://Meta';
 import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import { ApplicationsService } from '../dbus/services.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
+
+
+/// Converts a wildcard pattern to a RegExp object.
+/// Supports * (matches any sequence) and ? (matches any single character).
+/// Matching is case-insensitive.
+///
+/// @param {string} pattern - The wildcard pattern (e.g., "Firefox*", "*Code*")
+/// @returns {RegExp} The compiled regex pattern
+function wildcardToRegex(pattern) {
+    // Escape special regex characters except * and ?
+    const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+    // Convert wildcards: * -> .*, ? -> .
+    const regex = '^' + escaped.replace(/\*/g, '.*').replace(/\?/g, '.') + '$';
+    return new RegExp(regex, 'i');
+}
+
+
+/// Compiles an array of wildcard patterns into RegExp objects.
+/// Caches the results to avoid recompilation on every check.
+///
+/// @param {string[]} patterns - Array of wildcard patterns
+/// @param {Map} cache - Cache map storing pattern -> regex mappings
+/// @returns {RegExp[]} Array of compiled regex patterns
+function compilePatterns(patterns, cache) {
+    return patterns.map(pattern => {
+        if (cache.has(pattern)) {
+            return cache.get(pattern);
+        }
+        const regex = wildcardToRegex(pattern);
+        cache.set(pattern, regex);
+        return regex;
+    });
+}
+
+
+/// Tests if a value matches any of the compiled patterns.
+///
+/// @param {string} value - The value to test (e.g., wm_class)
+/// @param {RegExp[]} patterns - Array of compiled regex patterns
+/// @returns {boolean} True if value matches any pattern
+function matchesAnyPattern(value, patterns) {
+    if (!value || patterns.length === 0) {
+        return false;
+    }
+    return patterns.some(pattern => pattern.test(value));
+}
 
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
@@ -15,6 +62,27 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         // stores every blurred meta window
         this.meta_window_map = new Map();
+
+        // cache for compiled patterns to avoid recompilation
+        this._whitelist_pattern_cache = new Map();
+        this._blacklist_pattern_cache = new Map();
+        this._compiled_whitelist = [];
+        this._compiled_blacklist = [];
+
+        // compile initial patterns
+        this._update_patterns();
+    }
+
+    /// Updates the compiled whitelist and blacklist patterns from settings.
+    /// Called during initialization and when whitelist/blacklist settings change.
+    _update_patterns() {
+        const whitelist = this.settings.applications.WHITELIST || [];
+        const blacklist = this.settings.applications.BLACKLIST || [];
+
+        this._compiled_whitelist = compilePatterns(whitelist, this._whitelist_pattern_cache);
+        this._compiled_blacklist = compilePatterns(blacklist, this._blacklist_pattern_cache);
+
+        this._log(`Patterns updated - whitelist: ${whitelist.length}, blacklist: ${blacklist.length}`);
     }
 
     enable() {
@@ -97,7 +165,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                         let window_actor = meta_window.get_compositor_private();
 
                         if (
-                            !meta_window.get_workspace().active
+                             (!meta_window.get_workspace().active) || meta_window.minimized
                         )
                             window_actor.hide();
                     });
@@ -108,6 +176,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
     /// Iterate through all existing windows and add blur as needed.
     update_all_windows() {
+        // Recompile patterns in case whitelist/blacklist changed
+        this._update_patterns();
+
         // remove all previously blurred windows, in the case where the
         // whitelist was changed
         this.meta_window_map.forEach(((_meta_window, pid) => {
@@ -184,11 +255,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// In order to be blurred, a window either:
     /// - is whitelisted in the user preferences if not enable-all
     /// - is not blacklisted if enable-all
+    ///
+    /// Whitelist and blacklist support wildcard patterns:
+    /// - * matches any sequence of characters
+    /// - ? matches any single character
+    /// - Matching is case-insensitive
     check_blur(meta_window) {
         const window_wm_class = meta_window.get_wm_class();
         const enable_all = this.settings.applications.ENABLE_ALL;
-        const whitelist = this.settings.applications.WHITELIST;
-        const blacklist = this.settings.applications.BLACKLIST;
         if (window_wm_class)
             this._log(`pid ${meta_window.bms_pid} associated to wm class name ${window_wm_class}`);
 
@@ -197,8 +271,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // or if we are in whitelist mode and the window is whitelisted
         if (
             window_wm_class !== ""
-            && ((enable_all && !blacklist.includes(window_wm_class))
-                || (!enable_all && whitelist.includes(window_wm_class))
+            && ((enable_all && !matchesAnyPattern(window_wm_class, this._compiled_blacklist))
+                || (!enable_all && matchesAnyPattern(window_wm_class, this._compiled_whitelist))
             )
             && [
                 Meta.FrameType.NORMAL,
@@ -362,9 +436,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// If `scale-monitor-framebuffer` experimental feature if on, we don't need to manage scaling.
     /// Else, on wayland, we need to divide by the scale to get the correct result.
     compute_allocation(meta_window) {
-        const scale_monitor_framebuffer = this.mutter_gsettings.get_strv('experimental-features')
-            .includes('scale-monitor-framebuffer');
-        const is_wayland = Meta.is_wayland_compositor();
+        // TODO: Drop GNOME <50 compatibility
+        const gnome_shell_major_version = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
+        const scale_monitor_framebuffer = 
+            gnome_shell_major_version >= 50 ||
+            this.mutter_gsettings
+                .get_strv('experimental-features')
+                .includes('scale-monitor-framebuffer');
+        const is_wayland = gnome_shell_major_version >= 50 || Meta.is_wayland_compositor();
         const monitor_index = meta_window.get_monitor();
         // check if the window is using wayland, or xwayland/xorg for rendering
         const scale = !scale_monitor_framebuffer && is_wayland && meta_window.get_client_type() == 0
