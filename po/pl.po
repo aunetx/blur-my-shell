@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Voyteck <voyteck@tutanota.com>\n"
+"PO-Revision-Date: 2025-12-10 19:00+0000\n"
+"Last-Translator: Adam Lewicki <a.lewicki95@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -40,7 +40,7 @@ msgstr "Natywne rozmycie gaussa"
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
-"Zoptymalizowany efekt rozmycia który gładko miesza kolory w podanym "
+"Zoptymalizowany efekt rozmycia, który gładko miesza kolory w podanym "
 "promieniu."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
@@ -79,8 +79,8 @@ msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
-"Efekt rozmycia który gładko miesza kolory w podanym promieniu. Ten efekt "
-"jest dogładniejszy ale o o wiele mniej zoptymalizowany."
+"Efekt rozmycia, który gładko miesza kolory w podanym promieniu. Ten efekt "
+"jest dokładniejszy, ale o wiele mniej zoptymalizowany."
 
 #: src/effects/effects.js:92
 msgid ""
@@ -104,7 +104,7 @@ msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
-"Maksymalny dystans każdego kroku losowej dorgi. Wyższa wartoś uczynie "
+"Maksymalny dystans każdego kroku losowej dorgi. Wyższa wartość uczyni "
 "rozmycie bardziej losowym."
 
 #: src/effects/effects.js:130
@@ -113,7 +113,7 @@ msgstr "Iteracje"
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "Ilość iteracje. Im więcej, tym gładsze rozmycie."
+msgstr "Ilość iteracji. Im więcej, tym gładsze rozmycie."
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
@@ -134,7 +134,7 @@ msgstr "Kolor"
 
 #: src/effects/effects.js:158 src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
-msgstr "Efekt który wtapia kolor w proces."
+msgstr "Efekt, który wtapia kolor w proces."
 
 #: src/effects/effects.js:164 src/effects/effects.js:169
 msgid ""
