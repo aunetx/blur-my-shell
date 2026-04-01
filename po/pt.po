@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-08-04 12:01+0000\n"
+"PO-Revision-Date: 2025-09-03 19:22+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pt/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.13.1-rc\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -564,7 +564,7 @@ msgstr ""
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "Fazer a extensão de alt-tab fluxo de cobertura borrado, se for usado."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
@@ -800,7 +800,7 @@ msgstr "Preferir pixels mais pertos"
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "Se os pixels que estão mais próximos do pixel original terão mais peso."
 
 #, fuzzy
 #~ msgid "Gaussian blur"
