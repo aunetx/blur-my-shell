@@ -168,6 +168,31 @@ export function get_supported_effects(_ = () => "") {
                     name: _("Color"),
                     description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
                     type: "rgba"
+                },
+                blend_mode: {
+                    name: _("Blend mode"),
+                    description: _("How the color is blended in."),
+                    type: "dropdown",
+                    options: [
+                        _("Normal"),
+                        _("Multiply"),
+                        _("Screen"),
+                        _("Overlay"),
+                        _("Darken"),
+                        _("Lighten"),
+                        _("Plus darker"),
+                        _("Plus lighter"),
+                        _("Color dodge"),
+                        _("Color burn"),
+                        _("Hard light"),
+                        _("Soft light"),
+                        _("Difference"),
+                        _("Exclusion"),
+                        _("Hue"),
+                        _("Saturation"),
+                        _("Color"),
+                        _("Luminosity")
+                    ]
                 }
             }
         },
