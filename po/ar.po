@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 21:20+0100\n"
-"PO-Revision-Date: 2025-10-20 04:50+0000\n"
-"Last-Translator: bedokaram 187 <bedo.karam.187@gmail.com>\n"
+"PO-Revision-Date: 2026-04-03 17:09+0000\n"
+"Last-Translator: Muhammed Al-Basha "
+"<mu7basha@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -390,7 +391,7 @@ msgstr "مكِّن الكلَّ مبدئيًّا"
 
 #: resources/ui/applications.ui:117
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "يُضيف تموية خلف كل النوافذ افتراضيًا."
 
 #: resources/ui/applications.ui:133
 msgid "Whitelist"
@@ -426,7 +427,7 @@ msgstr "ضبِّب خلفيَّة امتداد Dash to Dock إن كان مستخ
 
 #: resources/ui/dash.ui:20 resources/ui/panel.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "نوع التموية"
 
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
@@ -435,11 +436,11 @@ msgstr ""
 
 #: resources/ui/dash.ui:41 resources/ui/panel.ui:41
 msgid "Static"
-msgstr ""
+msgstr "ثابت"
 
 #: resources/ui/dash.ui:53 resources/ui/panel.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "حركي"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -484,15 +485,15 @@ msgstr "داكن"
 
 #: resources/ui/effects-dialog.ui:4
 msgid "Effects"
-msgstr ""
+msgstr "التأثيرات"
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr ""
+msgstr "أضِف تأثيرًا"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "ضمّن التأثيرات المُتقدِّمة"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
@@ -540,11 +541,11 @@ msgstr "ضبِّب امتداد قائمة-النوافذ إن كان مستخد
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "تموية امتداد Coverflow Alt-Tab"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr ""
+msgstr "ضبّب امتداد coverflow alt-tab، إن كان مستخدمًا."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
