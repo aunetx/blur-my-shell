@@ -47,8 +47,8 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
       - similar to the Windows "Acrylic" effect
       - shows other windows behind the application
       - more comprehensively tested — less likely to cause problems
-    - you can select the opacity of the window that is above the blur: a lower opacity means it will be less legible
-    - but you can choose to make the focused window totally opaque so that you can enjoy your blur while always having a legible window you work on! (for this, use a transparent GTK theme)
+    - you can select the opacity of the window that is above the blur: a lower opacity means it will be less legible; and a totally opaque setting can be used in pair with a transparent GTK theme to make the background of the windows blurred without touching at its content
+    - but you can choose to make the focused window totally opaque so that you can enjoy your blur while always having a legible window you work on!
     - you can activate an option to better blur the windows while in overview, although it won't make the blur perfect
     - and there are two modes for blurring applications:
       - whitelisting (by default), where only windows that are selected are blurred
