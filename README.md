@@ -141,7 +141,7 @@ You can use either [GitHub Sponsors](https://github.com/sponsors/aunetx) or [Ko-
 
 The current extension supports these GNOME Shell versions:
 
-- 46 — `master` branch
+- 46 to 50 — `master` branch
 
 Blur my Shell supports older GNOME Shell versions, with different version tags:
 
