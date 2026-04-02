@@ -476,6 +476,18 @@ export default class BlurMyShell extends Extension {
                 this._applications_blur.disable();
         });
 
+        // static blur toggled on/off
+        this._settings.applications.STATIC_BLUR_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.change_blur_type();
+        });
+
+        // pipeline changed
+        this._settings.applications.PIPELINE_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.change_pipeline();
+        });
+
         // application opacity changed
         this._settings.applications.OPACITY_changed(() => {
             if (this._settings.applications.BLUR)

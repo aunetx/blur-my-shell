@@ -30,7 +30,12 @@ export const Applications = GObject.registerClass({
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/applications.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
+        'pipeline_choose_row',
+        'mode_static',
+        'mode_dynamic',
+        'sigma_row',
         'sigma',
+        'brightness_row',
         'brightness',
         'opacity',
         'dynamic_opacity',
@@ -42,16 +47,32 @@ export const Applications = GObject.registerClass({
         'add_window_blacklist'
     ],
 }, class Applications extends Adw.PreferencesPage {
-    constructor(preferences, preferences_window) {
+    constructor(preferences, preferences_window, pipelines_manager, pipelines_page) {
         super({});
         this._preferences_window = preferences_window;
 
         this.preferences = preferences;
+        this.pipelines_manager = pipelines_manager;
+        this.pipelines_page = pipelines_page;
 
         this.preferences.applications.settings.bind(
             'blur', this._blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+
+        this._pipeline_choose_row.initialize(
+            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+        );
+
+        this.change_blur_mode(this.preferences.applications.STATIC_BLUR, true);
+
+        this._mode_static.connect('toggled',
+            () => this.preferences.applications.STATIC_BLUR = this._mode_static.active
+        );
+        this.preferences.applications.STATIC_BLUR_changed(
+            () => this.change_blur_mode(this.preferences.applications.STATIC_BLUR, false)
+        );
+
         this.preferences.applications.settings.bind(
             'opacity', this._opacity, 'value',
             Gio.SettingsBindFlags.DEFAULT
@@ -182,5 +203,15 @@ export const Applications = GObject.registerClass({
     remove_from_blacklist(widget) {
         this._blacklist.remove(widget);
         this.update_blacklist_titles();
+    }
+
+    change_blur_mode(is_static_blur, first_run) {
+        this._mode_static.set_active(is_static_blur);
+        if (first_run)
+            this._mode_dynamic.set_active(!is_static_blur);
+
+        this._pipeline_choose_row.set_visible(is_static_blur);
+        this._sigma_row.set_visible(!is_static_blur);
+        this._brightness_row.set_visible(!is_static_blur);
     }
 });
