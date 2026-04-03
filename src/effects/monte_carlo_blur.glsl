@@ -35,14 +35,14 @@ void main() {
         dir = vec2(cos(rv.y), sin(rv.y));
         new_uv = uv + rv.x * dir * p;
         if (new_uv.x > 2. / width && new_uv.y > 2. / height && new_uv.x < 1. - 3. / width && new_uv.y < 1. - 3. / height) {
-            strength = prefer_closer_pixels ? (iterations - i)^2 : 1;
+            strength = prefer_closer_pixels ? ((iterations - i) * (iterations - i)) : 1;
             c += strength * texture2D(tex, new_uv);
             count += strength;
         }
     }
 
     if (count == 0 || use_base_pixel) {
-        strength = prefer_closer_pixels ? (iterations + 1)^2 : 1;
+        strength = prefer_closer_pixels ? ((iterations + 1) * (iterations + 1)) : 1;
         c += strength * texture2D(tex, uv);
         count += strength;
     }
