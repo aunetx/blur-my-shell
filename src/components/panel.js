@@ -57,6 +57,15 @@ export const PanelBlur = class PanelBlur {
             }
         );
 
+        // blur panels created by extension multi-monitors-bar@frederykabryan
+        this.connections.connect(Main.uiGroup, 'child-added', (_, actor) => {
+            if (actor.get_name() === "panelBox" && actor.get_n_children() == 1) {
+                let multi_monitor_panel = actor.get_child_at_index(0);
+                if (multi_monitor_panel != Main.panel)
+                    this.maybe_blur_panel(multi_monitor_panel);
+            }
+        });
+
         this.blur_existing_panels();
 
         // connect to overview being opened/closed, and dynamically show or not
@@ -97,6 +106,15 @@ export const PanelBlur = class PanelBlur {
         } else {
             // if no dash-to-panel, blur the main and only panel
             this.maybe_blur_panel(Main.panel);
+
+            // blur panels already created by extension multi-monitors-bar@frederykabryan
+            Main.uiGroup.get_children().forEach(actor => {
+                if (actor.get_name() === "panelBox" && actor.get_n_children() === 1) {
+                    let multi_monitor_panel = actor.get_child_at_index(0);
+                    if (multi_monitor_panel != Main.panel)
+                        this.maybe_blur_panel(multi_monitor_panel);
+                }
+            })
         }
     }
 
@@ -385,10 +403,8 @@ export const PanelBlur = class PanelBlur {
 
     /// Update the css classname of the panel for light theme
     update_light_text_classname(disable = false) {
-        if (!isMainPanelAlive) {
-            this._log("cannot update light text classname, Main.panel is not alive");
+        if (!isMainPanelAlive)
             return;
-        }
 
         if (this.settings.panel.FORCE_LIGHT_TEXT && !disable)
             Main.panel.add_style_class_name("panel-light-text");
