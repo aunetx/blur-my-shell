@@ -374,6 +374,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
 
         meta_window.blur_actor = blur_actor;
+        meta_window.blur_pipeline = pipeline;
 
         // make sure window is blurred in overview
         if (this.settings.applications.BLUR_ON_OVERVIEW)
