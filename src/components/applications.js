@@ -362,6 +362,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 window_actor, 'bms-application-blurred-widget'
             );
 
+            meta_window.blur_pipeline = pipeline;
+
             // if hacks are selected, force to repaint the window
             if (this.settings.HACKS_LEVEL === 1) {
                 this._log("hack level 1");
@@ -374,7 +376,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
 
         meta_window.blur_actor = blur_actor;
-        meta_window.blur_pipeline = pipeline;
 
         // make sure window is blurred in overview
         if (this.settings.applications.BLUR_ON_OVERVIEW)
