@@ -133,6 +133,27 @@ To get the best results possible, although with reduced performances, you can ch
 
         <child>
           <object class="AdwActionRow">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="subtitle" translatable="yes">Radius for the corner rounding effect</property>
+            <property name="activatable-widget">corner_radius_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="corner_radius_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="digits">0</property>
+                <property name="adjustment">corner_radius</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Opaque focused window</property>
             <property name="subtitle" translatable="yes">Makes the focused window opaque and the other ones blurred, helping with legibility.</property>
             <property name="activatable-widget">dynamic_opacity</property>
@@ -266,6 +287,12 @@ Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? for 
     <property name="lower">0.0</property>
     <property name="upper">1.0</property>
     <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkAdjustment" id="corner_radius">
+    <property name="lower">0</property>
+    <property name="upper">50</property>
+    <property name="step-increment">1</property>
   </object>
 
   <object class="GtkAdjustment" id="opacity">

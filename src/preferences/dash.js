@@ -16,6 +16,7 @@ export const Dash = GObject.registerClass({
         'sigma',
         'brightness_row',
         'brightness',
+        'corner_radius',
         'override_background',
         'style_dash_to_dock',
         'unblur_in_overview'
@@ -52,6 +53,10 @@ export const Dash = GObject.registerClass({
         );
         this.preferences.dash_to_dock.settings.bind(
             'brightness', this._brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_dock.settings.bind(
+            'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(

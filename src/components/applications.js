@@ -385,9 +385,26 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // set the window actor's opacity
         this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
 
+        // update corner radius based on window state
+        this.update_corner_radius(meta_window);
+
         // now set up the signals, for the window actor only: they are disconnected
         // in `remove_blur`, whereas the signals for the meta window are disconnected
         // only when the whole component is disabled
+
+        // listen for window state changes (maximized/fullscreen)
+        this.connections.connect(
+            meta_window, 'notify::maximized-horizontally',
+            _ => this.update_corner_radius(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::maximized-vertically',
+            _ => this.update_corner_radius(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::fullscreen',
+            _ => this.update_corner_radius(meta_window)
+        );
 
         // update the window opacity when it changes, else we don't control it fully
         this.connections.connect(
@@ -470,6 +487,21 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 }
             }
         );
+    }
+
+    /// Update the corner radius based on window state (0 for maximized/fullscreen).
+    update_corner_radius(meta_window) {
+        if (!meta_window.blur_pipeline?.effect)
+            return;
+
+        const is_maximized = meta_window.maximized_horizontally || meta_window.maximized_vertically;
+        const is_fullscreen = meta_window.fullscreen;
+
+        if (is_maximized || is_fullscreen) {
+            meta_window.blur_pipeline.effect.corner_radius = 0;
+        } else {
+            meta_window.blur_pipeline.effect.corner_radius = this.settings.applications.CORNER_RADIUS;
+        }
     }
 
     /// Set the opacity of the window actor that sits on top of the blur effect.
@@ -564,6 +596,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 // whether we are blurred or not
                 delete meta_window.blur_actor;
                 delete meta_window.bg_manager;
+                delete meta_window.blur_pipeline;
 
                 // disconnect the signals of the window actor
                 this.paint_signals.disconnect_all_for_actor(blur_actor);

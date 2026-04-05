@@ -37,6 +37,7 @@ export const Applications = GObject.registerClass({
         'sigma',
         'brightness_row',
         'brightness',
+        'corner_radius',
         'opacity',
         'dynamic_opacity',
         'blur_on_overview',
@@ -95,6 +96,10 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'brightness', this._brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 

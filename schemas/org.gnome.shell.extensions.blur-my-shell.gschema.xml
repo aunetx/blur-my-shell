@@ -226,6 +226,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>0</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
@@ -338,7 +343,7 @@
         </key>
         <!-- CORNER RADIUS -->
         <key type="i" name="corner-radius">
-            <default>12</default>
+            <default>18</default>
             <summary>Radius for the corner rounding effect</summary>
         </key>
     </schema>
@@ -375,6 +380,11 @@
         <key type="d" name="brightness">
             <default>1.</default>
             <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>15</default>
+            <summary>Radius for the corner rounding effect</summary>
         </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">

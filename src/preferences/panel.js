@@ -16,6 +16,7 @@ export const Panel = GObject.registerClass({
         'sigma',
         'brightness_row',
         'brightness',
+        'corner_radius',
         'unblur_in_overview',
         'force_light_text',
         'override_background',
@@ -56,6 +57,10 @@ export const Panel = GObject.registerClass({
         );
         this.preferences.panel.settings.bind(
             'brightness', this._brightness, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(
