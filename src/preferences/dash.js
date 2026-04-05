@@ -82,5 +82,6 @@ export const Dash = GObject.registerClass({
         this._pipeline_choose_row.set_visible(is_static_blur);
         this._sigma_row.set_visible(!is_static_blur);
         this._brightness_row.set_visible(!is_static_blur);
+        this._corner_radius.set_visible(!is_static_blur);
     }
 });
