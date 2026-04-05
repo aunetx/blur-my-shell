@@ -16,6 +16,7 @@ export const Panel = GObject.registerClass({
         'sigma',
         'brightness_row',
         'brightness',
+        'corner_radius_row',
         'corner_radius',
         'unblur_in_overview',
         'force_light_text',
@@ -103,6 +104,6 @@ export const Panel = GObject.registerClass({
         this._pipeline_choose_row.set_visible(is_static_blur);
         this._sigma_row.set_visible(!is_static_blur);
         this._brightness_row.set_visible(!is_static_blur);
-        this._corner_radius.set_visible(!is_static_blur);
+        this._corner_radius_row.set_visible(!is_static_blur);
     }
 });
