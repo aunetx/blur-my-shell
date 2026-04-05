@@ -109,7 +109,7 @@
         </child>
         
         <child>
-          <object class="AdwActionRow">
+          <object class="AdwActionRow" id="corner_radius_row">
             <property name="title" translatable="yes">Corner radius</property>
             <property name="subtitle" translatable="yes">Radius for the corner rounding effect</property>
             <property name="activatable-widget">corner_radius_scale</property>
