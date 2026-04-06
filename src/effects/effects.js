@@ -343,7 +343,7 @@ export function get_supported_effects(_ = () => "") {
                     description: _("The radius of the corner. GNOME apps use a radius of 12 px by default."),
                     type: "integer",
                     min: 0,
-                    max: 50,
+                    max: 150,
                     increment: 1,
                 },
                 corners_top: {
