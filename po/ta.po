@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"POT-Creation-Date: 2026-04-06 17:22+0200\n"
 "PO-Revision-Date: 2025-04-28 03:02+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/ta/>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/blur-my-shell/blur-"
+"my-shell/ta/>\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,8 +41,7 @@ msgid ""
 msgstr "கொடுக்கப்பட்ட ஆரத்திற்குள் பிக்சல்களை சீராக இணைக்கும் உகந்த மங்கலான விளைவு."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:312
-#: src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr "ஆரம்"
 
@@ -51,14 +50,14 @@ msgid "The intensity of the blur effect."
 msgstr "மங்கலான விளைவின் தீவிரம்."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "பிரகாசம்"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -123,119 +122,198 @@ msgstr ""
 "மங்கலுக்கு அசல் பிக்சல் கணக்கிடப்படுகிறதா இல்லையா. அது இருந்தால், படம் இன்னும் தெளிவாக "
 "இருக்கும்."
 
-#: src/effects/effects.js:157 src/effects/effects.js:163
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr "நெருக்கமான புள்ளிகளை விரும்பு"
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr ""
+"அசல் புள்ளிகலுக்கு அருகில் இருக்கும் புள்ளிகள் அதிக எடையைக் கொண்டிருக்குமா இல்லையா."
+
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "நிறம்"
 
-#: src/effects/effects.js:158 src/effects/effects.js:163
+#: src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr "குழாயில் ஒரு நிறத்தை கலக்கும் விளைவு."
 
-#: src/effects/effects.js:164 src/effects/effects.js:169
+#: src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr "கலப்பதற்கான நிறம். கலப்பு அளவு நிறத்தின் ஒளிபுகாநிலையால் கட்டுப்படுத்தப்படுகிறது."
 
-#: src/effects/effects.js:172 src/effects/effects.js:177
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
+#: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr "பிக்சலைஸ்"
 
-#: src/effects/effects.js:173 src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr "படத்தை பிக்சலைஸ் செய்யும் விளைவு."
 
-#: src/effects/effects.js:177 src/effects/effects.js:204
-#: src/effects/effects.js:231 src/effects/effects.js:182
-#: src/effects/effects.js:209 src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
 msgstr "காரணி"
 
-#: src/effects/effects.js:178 src/effects/effects.js:205
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr "படத்தை எவ்வளவு குறைக்க வேண்டும்."
 
-#: src/effects/effects.js:185 src/effects/effects.js:212
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
 msgstr "வீழ்ச்சி பயன்முறை"
 
-#: src/effects/effects.js:186 src/effects/effects.js:213
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
 msgstr "பயன்படுத்தப்படும் வீழ்ச்சி முறை."
 
-#: src/effects/effects.js:189 src/effects/effects.js:216
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
 msgstr "பாக்ச் காரர்"
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
 msgstr "முக்கோண"
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
 msgstr "டிராக்"
 
-#: src/effects/effects.js:199 src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
 msgstr "கீழ்நோக்கி (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:200 src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr "படத்தை குறைத்து, மேல்-இடது மூலையில் வைக்கும் ஒரு விளைவு."
 
-#: src/effects/effects.js:226 src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
 msgstr "மேல்தட்டு (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:227 src/effects/effects.js:232
+#: src/effects/effects.js:257
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "மேல்-இடது மூலையிலிருந்து படத்தை உயர்த்தும் ஒரு விளைவு."
 
-#: src/effects/effects.js:232 src/effects/effects.js:237
+#: src/effects/effects.js:262
 msgid "How much to scale up the image."
 msgstr "படத்தை எவ்வளவு அளவிட வேண்டும்."
 
-#: src/effects/effects.js:243 src/effects/effects.js:248
+#: src/effects/effects.js:273
 msgid "Derivative"
 msgstr "சார்பியம்"
 
-#: src/effects/effects.js:244 src/effects/effects.js:249
+#: src/effects/effects.js:274
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "ஒரு இடஞ்சார்ந்த வழித்தோன்றல் அல்லது ஒரு லாப்லாசியனைப் பயன்படுத்துங்கள்."
 
-#: src/effects/effects.js:248 src/effects/effects.js:253
+#: src/effects/effects.js:278
 msgid "Operation"
 msgstr "செயல்பாடு"
 
-#: src/effects/effects.js:249 src/effects/effects.js:254
+#: src/effects/effects.js:279
 msgid "The mathematical operation to apply."
 msgstr "விண்ணப்பிக்க கணித செயல்பாடு."
 
-#: src/effects/effects.js:252 src/effects/effects.js:257
+#: src/effects/effects.js:282
 msgid "1-step derivative"
 msgstr "1-படி வழித்தோன்றல்"
 
-#: src/effects/effects.js:253 src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
 msgstr "2-படி வழித்தோன்றல்"
 
-#: src/effects/effects.js:254 src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
 msgstr "லாப்லாசியன்"
 
-#: src/effects/effects.js:262 src/effects/effects.js:267
-#: src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr "சத்தம்"
 
-#: src/effects/effects.js:263 src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -243,41 +321,41 @@ msgstr ""
 "ஒரு சீரற்ற சத்தத்தை சேர்க்கும் விளைவு. தேவைப்பட்டால், அதிக கரிம விளைவுக்காக மான்டே கார்லோ "
 "மங்கலைப் பயன்படுத்தவும்."
 
-#: src/effects/effects.js:268 src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr "சேர்க்க வேண்டிய சத்தத்தின் அளவு."
 
-#: src/effects/effects.js:277 src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr "லேசான தன்மை"
 
-#: src/effects/effects.js:278 src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr "சத்தத்தின் ஒளிர்வு. '1.0' அமைப்பானது, விளைவை வெளிப்படையானதாக மாற்றும்."
 
-#: src/effects/effects.js:291 src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB முதல் HSL (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:292 src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "படத்தை RGBA வண்ணங்களில் இருந்து HSLA ஆக மாற்றுகிறது."
 
-#: src/effects/effects.js:299 src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL பெறுநர் RGB (மேம்பட்ட விளைவு)"
 
-#: src/effects/effects.js:300 src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "படத்தை HSLA கலர்ச்பேசிலிருந்து RGBA ஆக மாற்றுகிறது."
 
-#: src/effects/effects.js:307 src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr "மூலை"
 
-#: src/effects/effects.js:308 src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -285,23 +363,23 @@ msgstr ""
 "மூலைகளை ஈர்க்கும் விளைவு. மற்ற விளைவுகள் மூலைகளைத் தொந்தரவு செய்யாதபடி கடைசியாகச் "
 "சேர்க்கவும்."
 
-#: src/effects/effects.js:313 src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "மூலையின் ஆரம். GNOME பயன்பாடுகள் இயல்பாக 12 px ஆரம் பயன்படுத்துகின்றன."
 
-#: src/effects/effects.js:320 src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr "மேல் மூலைகள்"
 
-#: src/effects/effects.js:321 src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr "மேல் மூலைகளைச் சுற்றி வளைக்க வேண்டுமா இல்லையா."
 
-#: src/effects/effects.js:325 src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr "கீழ் மூலைகள்"
 
-#: src/effects/effects.js:326 src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr "கீழ் மூலைகளை வட்டமிட வேண்டுமா இல்லையா."
 
@@ -335,23 +413,44 @@ msgstr ""
 "குறைந்த செயல்திறன் இருந்தாலும், சாத்தியமான சிறந்த முடிவுகளைப் பெற, \"பிற → ஹேக் "
 "லெவல்\" தாவலில் \"கலைப்பொருள் இல்லை\" என்ற விருப்பத்தை நீங்கள் தேர்வு செய்யலாம்."
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr "மங்கலான வகை"
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr "நிலையான"
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr "மாறும்"
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "சிக்மா"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "மங்கலின் தீவிரம்."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:114
 msgid "Opacity"
 msgstr "ஒளிபுகாநிலை"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:115
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -359,11 +458,11 @@ msgstr ""
 "மங்கலான விளைவின் மேல் உள்ள சாளரத்தின் ஒளிபுகாநிலை, அதிக மதிப்பு இன்னும் தெளிவாகத் "
 "தெரியும்."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:136
 msgid "Opaque focused window"
 msgstr "ஒளிபுகா மையப்படுத்தப்பட்ட சாளரம்"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:137
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -371,11 +470,11 @@ msgstr ""
 "ஃபோகஸ் செய்யப்பட்ட சாளரத்தை ஒளிபுகாதாக்குகிறது மற்றும் மற்றவற்றை மங்கலாக்குகிறது, "
 "தெளிவுக்கு உதவுகிறது."
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:151
 msgid "Blur on overview"
 msgstr "மேலோட்டப் பார்வையில் மங்கலாக்கு"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:152
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -383,33 +482,39 @@ msgstr ""
 "மேலோட்டத்தில் அனைத்து பணியிடங்களிலும் மங்கலானது சரியாகக் காட்டப்பட வேண்டும்.\n"
 "இது சில தாமதம் அல்லது செயல்திறன் சிக்கல்களை ஏற்படுத்தலாம்."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:167
 msgid "Enable all by default"
 msgstr "முன்னிருப்பாக அனைத்தையும் இயக்கு"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:168
 msgid "Adds blur behind all windows by default."
 msgstr "முன்னிருப்பாக அனைத்து சாளரங்களின் பின்னும் மங்கலைச் சேர்க்கிறது."
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:184
 msgid "Whitelist"
 msgstr "அனுமதிப்பட்டியல்"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "மங்கலாக்க வேண்டிய சாளரங்களின் பட்டியல்."
+#: resources/ui/applications.ui:185
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:204 resources/ui/applications.ui:242
 msgid "Add Window"
 msgstr "சாளரத்தைச் சேர்க்கவும்"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:222
 msgid "Blacklist"
 msgstr "பிளாக்லிஸ்ட்"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "மங்கலாக்கப்படக் கூடாத சாளரங்களின் பட்டியல்."
+#: resources/ui/applications.ui:223
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -423,23 +528,11 @@ msgstr "டேஷ் டு டாக் மங்கல்"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "டாஷ் டு டாக் நீட்டிப்பு பயன்படுத்தப்பட்டால் அதன் பின்புலத்தை மங்கலாக்குங்கள்."
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr "மங்கலான வகை"
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
 "மாறும் மங்கலானது மெதுவாகவும், காஸியன் மங்கலான விளைவுடன் மட்டுமே இணக்கமாகவும் இருக்கும்."
-
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr "நிலையான"
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
-msgstr "மாறும்"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -765,16 +858,11 @@ msgstr ""
 msgid "Add Pipeline"
 msgstr "பைப்லைனைச் சேர்க்கவும்"
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr "நெருக்கமான புள்ளிகளை விரும்பு"
+#~ msgid "A list of windows to blur."
+#~ msgstr "மங்கலாக்க வேண்டிய சாளரங்களின் பட்டியல்."
 
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
-"அசல் புள்ளிகலுக்கு அருகில் இருக்கும் புள்ளிகள் அதிக எடையைக் கொண்டிருக்குமா இல்லையா."
+#~ msgid "A list of windows not to blur."
+#~ msgstr "மங்கலாக்கப்படக் கூடாத சாளரங்களின் பட்டியல்."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "காஸியன் தெளிவின்மை"

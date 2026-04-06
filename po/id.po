@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"POT-Creation-Date: 2026-04-06 17:22+0200\n"
 "PO-Revision-Date: 2025-11-23 13:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -43,8 +43,7 @@ msgstr ""
 "radius tertentu."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:312
-#: src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr "Radius"
 
@@ -53,14 +52,14 @@ msgid "The intensity of the blur effect."
 msgstr "Intensitas efek keburaman."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Kecerahan"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -126,16 +125,28 @@ msgstr ""
 "Apakah piksel asli dihitung untuk keburaman atau tidak. Jika ya, gambar akan "
 "lebih terbaca."
 
-#: src/effects/effects.js:157 src/effects/effects.js:163
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr "Utamakan piksel yang lebih dekat"
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr ""
+"Menentukan apakah piksel yang lebih dekat ke piksel asli akan memiliki bobot "
+"lebih besar atau tidak."
+
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "Warna"
 
-#: src/effects/effects.js:158 src/effects/effects.js:163
+#: src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr "Efek yang memadukan warna ke dalam pipa."
 
-#: src/effects/effects.js:164 src/effects/effects.js:169
+#: src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
@@ -143,104 +154,172 @@ msgstr ""
 "Warna yang akan dibaurkan. Jumlah pembauran dikontrol oleh tingkat keburaman "
 "warna."
 
-#: src/effects/effects.js:172 src/effects/effects.js:177
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
+#: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr "Pixelize"
 
-#: src/effects/effects.js:173 src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr "Efek yang membuat piksel gambar."
 
-#: src/effects/effects.js:177 src/effects/effects.js:204
-#: src/effects/effects.js:231 src/effects/effects.js:182
-#: src/effects/effects.js:209 src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
 msgstr "Faktor"
 
-#: src/effects/effects.js:178 src/effects/effects.js:205
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr "Seberapa besar untuk mengecilkan gambar."
 
-#: src/effects/effects.js:185 src/effects/effects.js:212
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
 msgstr "Mode downsampling"
 
-#: src/effects/effects.js:186 src/effects/effects.js:213
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
 msgstr "Metode downsampling yang digunakan."
 
-#: src/effects/effects.js:189 src/effects/effects.js:216
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
 msgstr "Boxcar"
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
 msgstr "Triangular"
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:199 src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
 msgstr "Downscale (efek lanjutan)"
 
-#: src/effects/effects.js:200 src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr "Efek yang mengecilkan gambar dan menempatkannya di pojok kiri atas."
 
-#: src/effects/effects.js:226 src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
 msgstr "Upscale (efek lanjutan)"
 
-#: src/effects/effects.js:227 src/effects/effects.js:232
+#: src/effects/effects.js:257
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "Efek yang memperbesar gambar dari pojok kiri atas."
 
-#: src/effects/effects.js:232 src/effects/effects.js:237
+#: src/effects/effects.js:262
 msgid "How much to scale up the image."
 msgstr "Seberapa besar untuk memperbesar gambar."
 
-#: src/effects/effects.js:243 src/effects/effects.js:248
+#: src/effects/effects.js:273
 msgid "Derivative"
 msgstr "Turunan"
 
-#: src/effects/effects.js:244 src/effects/effects.js:249
+#: src/effects/effects.js:274
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Menerapkan turunan spasial atau laplasian."
 
-#: src/effects/effects.js:248 src/effects/effects.js:253
+#: src/effects/effects.js:278
 msgid "Operation"
 msgstr "Operasi"
 
-#: src/effects/effects.js:249 src/effects/effects.js:254
+#: src/effects/effects.js:279
 msgid "The mathematical operation to apply."
 msgstr "Operasi matematis yang akan diterapkan."
 
-#: src/effects/effects.js:252 src/effects/effects.js:257
+#: src/effects/effects.js:282
 msgid "1-step derivative"
 msgstr "Turunan 1 langkah"
 
-#: src/effects/effects.js:253 src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
 msgstr "Turunan 2 langkah"
 
-#: src/effects/effects.js:254 src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
 msgstr "Laplacian"
 
-#: src/effects/effects.js:262 src/effects/effects.js:267
-#: src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr "Noise"
 
-#: src/effects/effects.js:263 src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -248,15 +327,15 @@ msgstr ""
 "Efek yang menambahkan noise acak. Disarankan menggunakan Monte Carlo blur "
 "untuk efek yang lebih alami jika diperlukan."
 
-#: src/effects/effects.js:268 src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr "Jumlah noise yang akan ditambahkan."
 
-#: src/effects/effects.js:277 src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr "Kecerahan"
 
-#: src/effects/effects.js:278 src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -264,27 +343,27 @@ msgstr ""
 "Tingkat kecerahan noise. Pengaturan ‘1.0’ akan membuat efek menjadi "
 "transparan."
 
-#: src/effects/effects.js:291 src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB ke HSL (efek lanjutan)"
 
-#: src/effects/effects.js:292 src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "Mengonversi gambar dari ruang warna RGBA ke HSLA."
 
-#: src/effects/effects.js:299 src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL ke RGB (efek lanjutan)"
 
-#: src/effects/effects.js:300 src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Mengonversi gambar dari ruang warna HSLA ke RGBA."
 
-#: src/effects/effects.js:307 src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr "Sudut"
 
-#: src/effects/effects.js:308 src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -292,23 +371,23 @@ msgstr ""
 "Efek yang menggambar sudut. Tambahkan efek ini terakhir agar efek lain tidak "
 "memengaruhi bentuk sudut."
 
-#: src/effects/effects.js:313 src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "Radius sudut. Aplikasi GNOME menggunakan radius 12 px secara default."
 
-#: src/effects/effects.js:320 src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr "Sudut atas"
 
-#: src/effects/effects.js:321 src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr "Apakah sudut atas akan dibulatkan atau tidak."
 
-#: src/effects/effects.js:325 src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr "Sudut bawah"
 
-#: src/effects/effects.js:326 src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr "Apakah sudut bawah akan dibulatkan atau tidak."
 
@@ -342,23 +421,44 @@ msgstr ""
 "Untuk hasil terbaik, meskipun dengan performa yang berkurang, Anda dapat "
 "memilih opsi “Tidak ada artefak” di tab “Lainnya → Tingkat Hack”."
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr "Jenis blur"
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr "Statis"
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr "Dinamis"
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "Sigma"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "Intensitas blur."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:114
 msgid "Opacity"
 msgstr "Kegelapan"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:115
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -366,11 +466,11 @@ msgstr ""
 "Kegelapan jendela di atas efek kabur, nilai yang lebih tinggi akan lebih "
 "mudah dilihat."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:136
 msgid "Opaque focused window"
 msgstr "Jendela fokus buram"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:137
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -378,11 +478,11 @@ msgstr ""
 "Membuat jendela yang sedang aktif menjadi buram dan jendela lainnya menjadi "
 "transparan, membantu meningkatkan keterbacaan."
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:151
 msgid "Blur on overview"
 msgstr "Blur pada ruang kerja"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:152
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -391,33 +491,39 @@ msgstr ""
 "semua ruang kerja.\n"
 "Ini dapat menyebabkan beberapa latensi atau masalah kinerja."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:167
 msgid "Enable all by default"
 msgstr "Aktifkan semua secara bawaan"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:168
 msgid "Adds blur behind all windows by default."
 msgstr "Menambahkan efek blur di belakang semua jendela secara default."
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:184
 msgid "Whitelist"
 msgstr "Daftar putih"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "Daftar dari jendela-jendela untuk tidak di blur."
+#: resources/ui/applications.ui:185
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:204 resources/ui/applications.ui:242
 msgid "Add Window"
 msgstr "Tambah jendela"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:222
 msgid "Blacklist"
 msgstr "Daftar Hitam"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "Daftar dari jendela-jendela untuk tidak di blur."
+#: resources/ui/applications.ui:223
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -431,23 +537,11 @@ msgstr "Blur Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Blur latar belakang dari ekstensi Dash to Dock, jika digunakan."
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr "Jenis blur"
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
 "Blur dinamis lebih lambat dan hanya kompatibel dengan efek blur gaussian."
-
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr "Statis"
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
-msgstr "Dinamis"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -776,17 +870,11 @@ msgstr ""
 msgid "Add Pipeline"
 msgstr "Tambahkan Pipeline"
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr "Utamakan piksel yang lebih dekat"
+#~ msgid "A list of windows to blur."
+#~ msgstr "Daftar dari jendela-jendela untuk tidak di blur."
 
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
-"Menentukan apakah piksel yang lebih dekat ke piksel asli akan memiliki bobot "
-"lebih besar atau tidak."
+#~ msgid "A list of windows not to blur."
+#~ msgstr "Daftar dari jendela-jendela untuk tidak di blur."
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Blur Aplikasi (beta)"

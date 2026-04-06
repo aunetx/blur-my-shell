@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"POT-Creation-Date: 2026-04-06 17:22+0200\n"
 "PO-Revision-Date: 2026-01-19 14:01+0000\n"
 "Last-Translator: Emanuel <intrcnet@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -43,8 +43,7 @@ msgstr ""
 "d'un radi determinat."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:312
-#: src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr "Radi"
 
@@ -53,14 +52,14 @@ msgid "The intensity of the blur effect."
 msgstr "La intensitat de l'efecte de desenfocament."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Brillantor"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -128,16 +127,26 @@ msgstr ""
 "Si el píxel base serà comptat o no pel desenfocament. Si ho és, la imatge "
 "serà més llegible."
 
-#: src/effects/effects.js:157 src/effects/effects.js:163
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr "Preferir píxels més propers"
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr "Els píxels més propers al píxel original tindran més pes o no."
+
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "Color"
 
-#: src/effects/effects.js:158 src/effects/effects.js:163
+#: src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr "Un efecte que mescla un color en el procés de renderització."
 
-#: src/effects/effects.js:164 src/effects/effects.js:169
+#: src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
@@ -145,108 +154,176 @@ msgstr ""
 "El color a mesclar. La quantitat de mescla es controla mitjançant l'opacitat "
 "del color."
 
-#: src/effects/effects.js:172 src/effects/effects.js:177
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
+#: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr "Pixelitzar"
 
-#: src/effects/effects.js:173 src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr "Un efecte que pixela la imatge."
 
-#: src/effects/effects.js:177 src/effects/effects.js:204
-#: src/effects/effects.js:231 src/effects/effects.js:182
-#: src/effects/effects.js:209 src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
 msgstr "Factor"
 
-#: src/effects/effects.js:178 src/effects/effects.js:205
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr "Quant reduir l'escala de la imatge."
 
-#: src/effects/effects.js:185 src/effects/effects.js:212
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
 msgstr "Mode de reducció de mostreig"
 
-#: src/effects/effects.js:186 src/effects/effects.js:213
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
 msgstr "El mètode de reducció de mostreig utilitzat."
 
-#: src/effects/effects.js:189 src/effects/effects.js:216
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
 msgstr "Boxcar"
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
 msgstr "Triangular"
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:199 src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
 msgstr "Reduir l'escala (efecte avançat)"
 
-#: src/effects/effects.js:200 src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
 "Un efecte que redueix l'escala de la imatge i la situa a la cantonada "
 "superior esquerra."
 
-#: src/effects/effects.js:226 src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
 msgstr "Augmentar l'escala (efecte avançat)"
 
-#: src/effects/effects.js:227 src/effects/effects.js:232
+#: src/effects/effects.js:257
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
 "Un efecte que augmenta l'escala de la imatge des de la cantonada superior "
 "esquerra."
 
-#: src/effects/effects.js:232 src/effects/effects.js:237
+#: src/effects/effects.js:262
 msgid "How much to scale up the image."
 msgstr "Quant augmentar l'escala de la imatge."
 
-#: src/effects/effects.js:243 src/effects/effects.js:248
+#: src/effects/effects.js:273
 msgid "Derivative"
 msgstr "Derivatiu"
 
-#: src/effects/effects.js:244 src/effects/effects.js:249
+#: src/effects/effects.js:274
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Aplicar un derivat espacial, o un laplacià."
 
-#: src/effects/effects.js:248 src/effects/effects.js:253
+#: src/effects/effects.js:278
 msgid "Operation"
 msgstr "Operació"
 
-#: src/effects/effects.js:249 src/effects/effects.js:254
+#: src/effects/effects.js:279
 msgid "The mathematical operation to apply."
 msgstr "L'operació matemàtica a aplicar."
 
-#: src/effects/effects.js:252 src/effects/effects.js:257
+#: src/effects/effects.js:282
 msgid "1-step derivative"
 msgstr "Derivatiu d'un pas"
 
-#: src/effects/effects.js:253 src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
 msgstr "Derivatiu de dos passos"
 
-#: src/effects/effects.js:254 src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
 msgstr "Laplacià"
 
-#: src/effects/effects.js:262 src/effects/effects.js:267
-#: src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr "Soroll digital"
 
-#: src/effects/effects.js:263 src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -254,15 +331,15 @@ msgstr ""
 "Un efecte que afegeix soroll digital aleatori. Opta pel desenfocament de "
 "Montecarlo per un efecte més orgànic si cal."
 
-#: src/effects/effects.js:268 src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr "La quantitat de soroll digital a afegir."
 
-#: src/effects/effects.js:277 src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr "Lluminositat"
 
-#: src/effects/effects.js:278 src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -270,27 +347,27 @@ msgstr ""
 "La lluminositat del soroll digital. Un valor de '1.0' farà que l'efecte "
 "sigui transparent."
 
-#: src/effects/effects.js:291 src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB a HSL (efecte avançat)"
 
-#: src/effects/effects.js:292 src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "Converteix la imatge des de l'espai de color RGBA a HSLA."
 
-#: src/effects/effects.js:299 src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL a RGB (efecte avançat)"
 
-#: src/effects/effects.js:300 src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Converteix la imatge des de l'espai de color HSLA a RGBA."
 
-#: src/effects/effects.js:307 src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr "Cantonada"
 
-#: src/effects/effects.js:308 src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -298,25 +375,25 @@ msgstr ""
 "Un efecte que dibuixa cantonades. Afegiu-lo al final per evitar que els "
 "altres efectes pertorbin les cantonades."
 
-#: src/effects/effects.js:313 src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
 "El radi de la cantonada. Les aplicacions de GNOME utilitzen un radi de 12px "
 "per defecte."
 
-#: src/effects/effects.js:320 src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr "Cantonades superiors"
 
-#: src/effects/effects.js:321 src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr "Si cal arrodonir les cantonades superiors."
 
-#: src/effects/effects.js:325 src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr "Cantonades inferiors"
 
-#: src/effects/effects.js:326 src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr "Si cal arrodonir les cantonades inferiors."
 
@@ -351,23 +428,44 @@ msgstr ""
 "reduït, pots triar-ne l'opció \"Sense artefactes\" en la pestanya \"Altres → "
 "Nivell de [?]\"."
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr "Tipus de desenfocament"
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr "Estàtic"
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr "Dinàmic"
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "Sigma"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "La intensitat del desenfocament."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:114
 msgid "Opacity"
 msgstr "Opacitat"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:115
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -375,11 +473,11 @@ msgstr ""
 "L'opacitat de la finestra a sobre de l'efecte de desenfocament, un valor alt "
 "permetrà una millor visualització."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:136
 msgid "Opaque focused window"
 msgstr "Finestra enfocada opaca"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:137
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -387,11 +485,11 @@ msgstr ""
 "Fa la finestra enfocada opaca i les altres desenfocades, ajudant amb la "
 "llegibilitat."
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:151
 msgid "Blur on overview"
 msgstr "Desenfocament a la vista general"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:152
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -400,33 +498,39 @@ msgstr ""
 "treball a la vista general.\n"
 "Això pot provocar alguns problemes de latència o de rendiment."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:167
 msgid "Enable all by default"
 msgstr "Activa tot per defecte"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:168
 msgid "Adds blur behind all windows by default."
 msgstr "Afegeix desenfocament al darrere de totes les finestres per defecte."
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:184
 msgid "Whitelist"
 msgstr "Llista blanca"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "La llista de finestres que s'han de desenfocar."
+#: resources/ui/applications.ui:185
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:204 resources/ui/applications.ui:242
 msgid "Add Window"
 msgstr "Afegir finestra"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:222
 msgid "Blacklist"
 msgstr "Llista negra"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "La llista de finestres que no s'han de desenfocar."
+#: resources/ui/applications.ui:223
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -440,24 +544,12 @@ msgstr "Desenfocament de Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Desenfoca el fons de l'extensió Dash to Dock, si està instal·lada."
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr "Tipus de desenfocament"
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
 "El desenfocament dinàmic és més lent i només compatible amb un efecte de "
 "desenfocament gaussià."
-
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr "Estàtic"
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
-msgstr "Dinàmic"
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
 msgid "Override background"
@@ -737,7 +829,8 @@ msgstr "Compatibilitat"
 
 #: resources/ui/panel.ui:185
 msgid "Various options to provide compatibility with other extensions."
-msgstr "Diverses opcions per proporcionar compatibilitat amb altres extensions."
+msgstr ""
+"Diverses opcions per proporcionar compatibilitat amb altres extensions."
 
 #: resources/ui/panel.ui:190
 msgid "Hidetopbar extension"
@@ -798,15 +891,11 @@ msgstr ""
 msgid "Add Pipeline"
 msgstr "Afegir una pipeline"
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr "Preferir píxels més propers"
+#~ msgid "A list of windows to blur."
+#~ msgstr "La llista de finestres que s'han de desenfocar."
 
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr "Els píxels més propers al píxel original tindran més pes o no."
+#~ msgid "A list of windows not to blur."
+#~ msgstr "La llista de finestres que no s'han de desenfocar."
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Aplicacions de desenfocament (beta)"

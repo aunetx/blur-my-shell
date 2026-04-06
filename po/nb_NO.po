@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 21:20+0100\n"
+"POT-Creation-Date: 2026-04-06 17:22+0200\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
@@ -43,8 +43,7 @@ msgid ""
 msgstr ""
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:312
-#: src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr ""
 
@@ -53,14 +52,14 @@ msgid "The intensity of the blur effect."
 msgstr ""
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Lysstyrke"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -118,181 +117,259 @@ msgid ""
 "image will be more legible."
 msgstr ""
 
-#: src/effects/effects.js:157 src/effects/effects.js:163
+#: src/effects/effects.js:153
+msgid "Prefer closer pixels"
+msgstr ""
+
+#: src/effects/effects.js:154
+msgid ""
+"Whether or not the pixels that are closer to the original pixel will have "
+"more weight."
+msgstr ""
+
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "Farge"
 
-#: src/effects/effects.js:158 src/effects/effects.js:163
+#: src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
 msgstr ""
 
-#: src/effects/effects.js:164 src/effects/effects.js:169
+#: src/effects/effects.js:169
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
 msgstr ""
 
-#: src/effects/effects.js:172 src/effects/effects.js:177
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
+#: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr ""
 
-#: src/effects/effects.js:173 src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr ""
 
-#: src/effects/effects.js:177 src/effects/effects.js:204
-#: src/effects/effects.js:231 src/effects/effects.js:182
-#: src/effects/effects.js:209 src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
 msgstr ""
 
-#: src/effects/effects.js:178 src/effects/effects.js:205
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr ""
 
-#: src/effects/effects.js:185 src/effects/effects.js:212
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
 msgstr ""
 
-#: src/effects/effects.js:186 src/effects/effects.js:213
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
 msgstr ""
 
-#: src/effects/effects.js:189 src/effects/effects.js:216
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
 msgstr ""
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
 msgstr ""
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
 msgstr ""
 
-#: src/effects/effects.js:199 src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:200 src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
 
-#: src/effects/effects.js:226 src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:227 src/effects/effects.js:232
+#: src/effects/effects.js:257
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
 
-#: src/effects/effects.js:232 src/effects/effects.js:237
+#: src/effects/effects.js:262
 msgid "How much to scale up the image."
 msgstr ""
 
-#: src/effects/effects.js:243 src/effects/effects.js:248
+#: src/effects/effects.js:273
 msgid "Derivative"
 msgstr ""
 
-#: src/effects/effects.js:244 src/effects/effects.js:249
+#: src/effects/effects.js:274
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr ""
 
-#: src/effects/effects.js:248 src/effects/effects.js:253
+#: src/effects/effects.js:278
 msgid "Operation"
 msgstr ""
 
-#: src/effects/effects.js:249 src/effects/effects.js:254
+#: src/effects/effects.js:279
 msgid "The mathematical operation to apply."
 msgstr ""
 
-#: src/effects/effects.js:252 src/effects/effects.js:257
+#: src/effects/effects.js:282
 msgid "1-step derivative"
 msgstr ""
 
-#: src/effects/effects.js:253 src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
 msgstr ""
 
-#: src/effects/effects.js:254 src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
 msgstr ""
 
-#: src/effects/effects.js:262 src/effects/effects.js:267
-#: src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr ""
 
-#: src/effects/effects.js:263 src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
 msgstr ""
 
-#: src/effects/effects.js:268 src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr ""
 
-#: src/effects/effects.js:277 src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr ""
 
-#: src/effects/effects.js:278 src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
 
-#: src/effects/effects.js:291 src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:292 src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr ""
 
-#: src/effects/effects.js:299 src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:300 src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr ""
 
-#: src/effects/effects.js:307 src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr ""
 
-#: src/effects/effects.js:308 src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
 
-#: src/effects/effects.js:313 src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
 
-#: src/effects/effects.js:320 src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr ""
 
-#: src/effects/effects.js:321 src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr ""
 
-#: src/effects/effects.js:325 src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr ""
 
-#: src/effects/effects.js:326 src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr ""
 
@@ -323,23 +400,44 @@ msgid ""
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr ""
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr ""
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr ""
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "Sigma"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "Tilsløringsgrad."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:114
 msgid "Opacity"
 msgstr "Gjennomsiktighet"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:115
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -347,21 +445,21 @@ msgstr ""
 "Vinduets gjennomsiktighet oppå uklarhets effekten, en høyere verdi vil være "
 "mer leselig."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:136
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:137
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:151
 msgid "Blur on overview"
 msgstr "Tilslør på oversikt"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:152
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -370,33 +468,39 @@ msgstr ""
 "oversikt.\n"
 "Dette kan årsake noe \"latency\" eller ytelsesproblemer."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:167
 msgid "Enable all by default"
 msgstr "Aktiver alle av standard"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:168
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:184
 msgid "Whitelist"
 msgstr "Hviteliste"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "En liste av vinduer å tilsløre."
+#: resources/ui/applications.ui:185
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:204 resources/ui/applications.ui:242
 msgid "Add Window"
 msgstr "Legg til vindu"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:222
 msgid "Blacklist"
 msgstr "Svarteliste"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "En liste av vinduer å ikke tilsløre."
+#: resources/ui/applications.ui:223
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -410,21 +514,9 @@ msgstr "Dash til dokk-tilsløring"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Tilslør bakgrunnen til Dash til dokk-utvidelsen, hvis den benyttes."
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr ""
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
-
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr ""
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
 msgstr ""
 
 #: resources/ui/dash.ui:113 resources/ui/panel.ui:128
@@ -748,15 +840,11 @@ msgstr ""
 msgid "Add Pipeline"
 msgstr ""
 
-#: src/effects/effects.js:153
-msgid "Prefer closer pixels"
-msgstr ""
+#~ msgid "A list of windows to blur."
+#~ msgstr "En liste av vinduer å tilsløre."
 
-#: src/effects/effects.js:154
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
+#~ msgid "A list of windows not to blur."
+#~ msgstr "En liste av vinduer å ikke tilsløre."
 
 #~ msgid "Applications blur (beta)"
 #~ msgstr "Programtilsløring (beta)"
