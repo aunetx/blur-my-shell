@@ -107,25 +107,13 @@
             </child>
           </object>
         </child>
-        
-        <child>
-          <object class="AdwActionRow" id="corner_radius_row">
-            <property name="title" translatable="yes">Corner radius</property>
-            <property name="subtitle" translatable="yes">Radius for the corner rounding effect</property>
-            <property name="activatable-widget">corner_radius_scale</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
-            <child>
-              <object class="GtkScale" id="corner_radius_scale">
-                <property name="valign">center</property>
-                <property name="hexpand">true</property>
-                <property name="width-request">200px</property>
-                <property name="draw-value">true</property>
-                <property name="value-pos">right</property>
-                <property name="digits">0</property>
-                <property name="adjustment">corner_radius</property>
-              </object>
-            </child>
+        <child>
+          <object class="AdwSpinRow" id="corner_radius_row">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="subtitle" translatable="yes">Radius for the corner rounding effect.</property>
+            <property name="adjustment">corner_radius</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
           </object>
         </child>
 
@@ -261,7 +249,7 @@ Recommended unless you want to customize your GNOME theme.</property>
 
   <object class="GtkAdjustment" id="corner_radius">
     <property name="lower">0</property>
-    <property name="upper">50</property>
+    <property name="upper">150</property>
     <property name="step-increment">1</property>
   </object>
 </interface>
