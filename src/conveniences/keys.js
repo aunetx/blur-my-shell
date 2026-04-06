@@ -6,6 +6,7 @@ export const KEYS = [
         component: "general", schemas: [
             { type: Type.PIPELINES, name: "pipelines" },
             { type: Type.I, name: "hacks-level" },
+            { type: Type.B, name: "rounded-blur-found" },
             { type: Type.B, name: "debug" },
         ]
     },

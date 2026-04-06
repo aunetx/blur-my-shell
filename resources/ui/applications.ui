@@ -110,6 +110,23 @@ To get the best results possible, although with reduced performances, you can ch
         </child>
 
         <child>
+          <object class="AdwActionRow" id="corner_radius_not_found_row">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="subtitle" translatable="yes">In order to use rounded corners, please install the GNOME Rounded Blur library.</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">open_gnome_rounded_blur</property>
+
+            <child type="suffix">
+              <object class="GtkButton" id="open_gnome_rounded_blur">
+                <property name="icon-name">external-link-symbolic</property>
+                <property name="valign">center</property>
+                <property name="action-name">link.open-gnome-rounded-blur</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwSpinRow" id="corner_radius_row">
             <property name="title" translatable="yes">Corner radius</property>
             <property name="subtitle" translatable="yes">Radius for the corner rounding effect.</property>

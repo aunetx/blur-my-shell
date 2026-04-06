@@ -84,6 +84,11 @@
             <default>1</default>
             <summary>Level of hacks to use (from 0 to 2, 2 disabling clipped redraws entirely)</summary>
         </key>
+        <!-- ROUNDED BLUR FOUND -->
+        <key type="b" name="rounded-blur-found">
+            <default>false</default>
+            <summary>Boolean, set to true if a patched version of ShellBlurEffect was found</summary>
+        </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
             <default>false</default>
