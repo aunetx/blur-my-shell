@@ -136,6 +136,23 @@ To get the best results possible, although with reduced performances, you can ch
         </child>
 
         <child>
+          <object class="AdwActionRow" id="corner_artifacts_row">
+            <property name="title" translatable="yes">Enable corner rounding on Maximized and Fullscreen</property>
+            <property name="subtitle" translatable="yes">Corner rounding effect will keep being applied to maximized and fullscreen windows.
+You may want to restart any currently running application after enabling or disabling this option.
+Best use with Rounded Window Corners Reborn</property>
+            <property name="activatable-widget">corner_artifacts</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="corner_artifacts">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Opacity</property>
             <property name="subtitle" translatable="yes">The opacity of the window on top of the blur effect, a higher value will be more legible.</property>

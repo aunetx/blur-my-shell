@@ -166,7 +166,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                         let window_actor = meta_window.get_compositor_private();
 
                         if (
-                             (!meta_window.get_workspace().active) || meta_window.minimized
+                            (!meta_window.get_workspace().active) || meta_window.minimized
                         )
                             window_actor.hide();
                     });
@@ -492,17 +492,20 @@ export const ApplicationsBlur = class ApplicationsBlur {
     }
 
     /// Update the corner radius based on window state (0 for maximized/fullscreen).
+    /// This can be disabled for those who need it.
     update_corner_radius(meta_window) {
         if (!meta_window.blur_pipeline?.effect)
             return;
-
+ 
         const is_maximized = meta_window.maximized_horizontally || meta_window.maximized_vertically;
         const is_fullscreen = meta_window.fullscreen;
 
-        if (is_maximized || is_fullscreen) {
-            meta_window.blur_pipeline.effect.corner_radius = 0;
-        } else {
-            meta_window.blur_pipeline.effect.corner_radius = this.settings.applications.CORNER_RADIUS;
+        if (!this.settings.applications.CORNER_ARTIFACTS)  {
+            if (is_maximized || is_fullscreen) {
+                meta_window.blur_pipeline.effect.corner_radius = 0;
+            } else {
+                meta_window.blur_pipeline.effect.corner_radius = this.settings.applications.CORNER_RADIUS;
+            }
         }
     }
 
