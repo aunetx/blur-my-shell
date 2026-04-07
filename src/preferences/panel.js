@@ -65,13 +65,6 @@ export const Panel = GObject.registerClass({
             'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        if (this.preferences.ROUNDED_BLUR_FOUND) {
-            this._corner_radius_row.set_visible(true);
-            this._corner_radius_not_found_row.set_visible(false);
-        } else {
-            this._corner_radius_row.set_visible(false);
-            this._corner_radius_not_found_row.set_visible(true);
-        }
         this.preferences.panel.settings.bind(
             'unblur-in-overview', this._unblur_in_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
@@ -112,6 +105,7 @@ export const Panel = GObject.registerClass({
         this._pipeline_choose_row.set_visible(is_static_blur);
         this._sigma_row.set_visible(!is_static_blur);
         this._brightness_row.set_visible(!is_static_blur);
-        this._corner_radius_row.set_visible(!is_static_blur);
+        this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
+        this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
     }
 });
