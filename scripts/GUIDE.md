@@ -3,17 +3,17 @@
 Due to various technical difficulties, an additional external library is required to help fix the corners issue found while using dynamic blur. Included in this repo is a script that help automate the building & installing of the library.
 
 ### Installing the library
-Before running the script, it is necessary to grant it executing permission by using this command
+Before running the script, it is necessary to grant it execute permission by using this command
 ```
 $ sudo chmod +x rounded_blur_build.sh
 ```
-After doing that, the library can be install by running the script
+After doing that, the library can be installed by running the script
 ```
 $ ./rounded_blur_build.sh -i
 ```
 **Note:** You will need to rerun this script everytime GNOME Shell / mutter is updated because the library need to be built against the version that you have running on your computer.
 ### Uninstalling the library
-The library can be uninstall by running the script
+The library can be uninstalled by running the script
 ```
 $ ./rounded_blur_build.sh -u
 ```
