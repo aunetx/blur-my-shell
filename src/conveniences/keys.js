@@ -61,7 +61,7 @@ export const KEYS = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },
-            { type: Type.B, name: "corner-artifacts" },
+            { type: Type.B, name: "corner-when-maximized" },
             { type: Type.I, name: "opacity" },
             { type: Type.B, name: "dynamic-opacity" },
             { type: Type.B, name: "blur-on-overview" },

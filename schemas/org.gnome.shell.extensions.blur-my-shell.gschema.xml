@@ -391,8 +391,8 @@
             <default>15</default>
             <summary>Radius for the corner rounding effect</summary>
         </key>
-        <!-- CORNER ROUNDING ON FULLSCREEN / MAXIMIZED -->
-        <key type="b" name="corner-artifacts">
+        <!-- CORNER WHEN MAXIMIZED -->
+        <key type="b" name="corner-when-maximized">
             <default>false</default>
             <summary>Boolean, whether to keep rounding the corners of fullscreen and maximized window or not</summary>
         </key>

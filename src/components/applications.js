@@ -362,8 +362,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 window_actor, 'bms-application-blurred-widget'
             );
 
-            meta_window.blur_pipeline = pipeline;
-
             // if hacks are selected, force to repaint the window
             if (this.settings.HACKS_LEVEL === 1) {
                 this._log("hack level 1");
@@ -491,22 +489,31 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
     }
 
-    /// Update the corner radius based on window state (0 for maximized/fullscreen).
-    /// This can be disabled for those who need it.
+    /// Update the corner radius based on window state (0 for maximized/fullscreen)
+    /// if the preferences say so.
     update_corner_radius(meta_window) {
-        if (!meta_window.blur_pipeline?.effect)
-            return;
- 
         const is_maximized = meta_window.maximized_horizontally || meta_window.maximized_vertically;
         const is_fullscreen = meta_window.fullscreen;
 
-        if (!this.settings.applications.CORNER_ARTIFACTS)  {
-            if (is_maximized || is_fullscreen) {
-                meta_window.blur_pipeline.effect.corner_radius = 0;
-            } else {
-                meta_window.blur_pipeline.effect.corner_radius = this.settings.applications.CORNER_RADIUS;
-            }
+        let use_0_radius = !this.settings.applications.CORNER_WHEN_MAXIMIZED && (is_maximized || is_fullscreen);
+
+        if (this.settings.applications.STATIC_BLUR) {
+            meta_window.bg_manager?._bms_pipeline?.effects.forEach(effect => {
+                if (effect.constructor.name === "CornerEffect")
+                    effect.straight_corners = use_0_radius;
+            })
+        } else {
+            if (meta_window.bg_manager?._bms_pipeline?.effect)
+                meta_window.bg_manager._bms_pipeline.effect.corner_radius = use_0_radius ?
+                    0 : this.settings.applications.CORNER_RADIUS;
         }
+    }
+
+    /// Update all corners, to use when the setting has been changed.
+    update_all_corner_radii() {
+        this.meta_window_map.forEach(
+            (meta_window, _pid) => this.update_corner_radius(meta_window)
+        )
     }
 
     /// Set the opacity of the window actor that sits on top of the blur effect.
@@ -601,7 +608,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 // whether we are blurred or not
                 delete meta_window.blur_actor;
                 delete meta_window.bg_manager;
-                delete meta_window.blur_pipeline;
 
                 // disconnect the signals of the window actor
                 this.paint_signals.disconnect_all_for_actor(blur_actor);

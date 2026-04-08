@@ -40,8 +40,8 @@ export const Applications = GObject.registerClass({
         'corner_radius_not_found_row',
         'corner_radius_row',
         'corner_radius',
-        'corner_artifacts_row',
-        'corner_artifacts',
+        'corner_when_maximized_row',
+        'corner_when_maximized',
         'opacity',
         'dynamic_opacity',
         'blur_on_overview',
@@ -107,19 +107,9 @@ export const Applications = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
-            'corner-artifacts', this._corner_artifacts, 'active',
+            'corner-when-maximized', this._corner_when_maximized, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-
-        if (this.preferences.ROUNDED_BLUR_FOUND) {
-            this._corner_radius_row.set_visible(true);
-            this._corner_artifacts_row.set_visible(true);
-            this._corner_radius_not_found_row.set_visible(false);
-        } else {
-            this._corner_radius_row.set_visible(false);
-            this._corner_artifacts_row.set_visible(false);
-            this._corner_radius_not_found_row.set_visible(true);
-        }
 
         // connect 'enable all' button to whitelist/blacklist visibility
         this._enable_all.bind_property(
@@ -238,7 +228,7 @@ export const Applications = GObject.registerClass({
         this._brightness_row.set_visible(!is_static_blur);
         this._corner_radius_row.set_visible(!is_static_blur);
         this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
-        this._corner_artifacts_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
+        //this._corner_when_maximized_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
         this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
     }
 });

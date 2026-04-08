@@ -507,6 +507,12 @@ export default class BlurMyShell extends Extension {
                 this._applications_blur.change_pipeline();
         });
 
+        // rounded corners on maximized windows changed
+        this._settings.applications.CORNER_WHEN_MAXIMIZED_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.update_all_corner_radii();
+        });
+
         // application opacity changed
         this._settings.applications.OPACITY_changed(() => {
             if (this._settings.applications.BLUR)
