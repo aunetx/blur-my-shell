@@ -40,7 +40,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         const action = new Gio.SimpleAction({ name: 'open-gnome-rounded-blur' });
         action.connect('activate', () => {
             Gio.AppInfo.launch_default_for_uri(
-                'https://github.com/kancko/gnome-rounded-blur',
+                'https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md',
                 null
             );
         });

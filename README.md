@@ -65,7 +65,8 @@ For the difference between static blur and dynamic blur:
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
   - even though it is static, this method of applying effects is not always so fast: for example, applying non-native gaussian blur, or Monte Carlo blur with a lot of iterations will make GNOME Shell quite slow while using the overview or switching workspace. This is being worked on, but for the moment you can for example limit yourself to 5 to 10 iterations for the Monte Carlo blur (which looks cool anyway!), and use native gaussian blur (which is very slightly less precise, but that really does not change anything in reality)
 - dynamic blur makes the component translucent, and blur directly what is behind it
-  - you can only use a gaussian blur for this kind of blurring: this means that it is not possible to add corners, for example
+  - you can only use a gaussian blur for this kind of blurring
+  - by default, it is not possible to add corners, however, you can achieve that with an additional library. Consult this [guide](https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md) on how to install library yourself
   - you can still configure the gaussian blur to make it look as cool as you want
   - this method of blurring is not very efficient: even though it should not slow down your computer to a halt, using static blur is still preferred when possible
   - the gaussian blur effect that is being used has implementation defects, which make if having artifacts in the form of black rectangles when interacting with things that are close to the effect
