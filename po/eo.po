@@ -8,26 +8,28 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-06 17:22+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-04-09 17:09+0000\n"
+"Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr ""
+msgstr "Malklaraj efikoj"
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr ""
+msgstr "Teksturaj efikoj"
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr ""
+msgstr "Formaj efikoj"
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
