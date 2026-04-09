@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 10:29+0200\n"
+"POT-Creation-Date: 2026-04-09 10:41+0200\n"
 "PO-Revision-Date: 2025-11-23 13:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -19,47 +19,47 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.15-dev\n"
 
-#: src/effects/effects.js:20
+#: src/effects/effects.js:21
 msgid "Blur effects"
 msgstr "Efek buram"
 
-#: src/effects/effects.js:28
+#: src/effects/effects.js:29
 msgid "Texture effects"
 msgstr "Efek tekstur"
 
-#: src/effects/effects.js:41
+#: src/effects/effects.js:43
 msgid "Shape effects"
 msgstr "Efek bentuk"
 
-#: src/effects/effects.js:57
+#: src/effects/effects.js:59
 msgid "Native gaussian blur"
 msgstr "Keburaman gaussian bawaan"
 
-#: src/effects/effects.js:58
+#: src/effects/effects.js:60
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
 "Efek keburaman yang dioptimalkan, yang memadukan piksel secara mulus dalam "
 "radius tertentu."
 
-#: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:342
+#: src/effects/effects.js:64 src/effects/effects.js:93
+#: src/effects/effects.js:122 src/effects/effects.js:404
 msgid "Radius"
 msgstr "Radius"
 
-#: src/effects/effects.js:63
+#: src/effects/effects.js:65
 msgid "The intensity of the blur effect."
 msgstr "Intensitas efek keburaman."
 
-#: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:93
+#: src/effects/effects.js:74 src/effects/effects.js:103
+#: src/effects/effects.js:140 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Kecerahan"
 
-#: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:94
+#: src/effects/effects.js:75 src/effects/effects.js:104
+#: src/effects/effects.js:141 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -68,11 +68,11 @@ msgid ""
 msgstr ""
 "Kecerahan efek buram, nilai tinggi mungkin membuat teks lebih sulit dibaca."
 
-#: src/effects/effects.js:86
+#: src/effects/effects.js:88
 msgid "Gaussian blur (advanced effect)"
 msgstr "Keburaman Gaussian (efek lanjutan)"
 
-#: src/effects/effects.js:87
+#: src/effects/effects.js:89
 msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
@@ -80,16 +80,16 @@ msgstr ""
 "Efek buram yang membaurkan piksel secara mulus dalam radius tertentu. Efek "
 "ini lebih tepat, tetapi kurang dioptimalkan."
 
-#: src/effects/effects.js:92
+#: src/effects/effects.js:94
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
 msgstr "Intensitas efek keburaman. Semakin besar, semakin lambat efeknya."
 
-#: src/effects/effects.js:115
+#: src/effects/effects.js:117
 msgid "Monte Carlo blur"
 msgstr "blur Monte Carlo"
 
-#: src/effects/effects.js:116
+#: src/effects/effects.js:118
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
@@ -97,7 +97,7 @@ msgstr ""
 "Efek buram yang meniru jalan acak, dengan memilih piksel yang semakin jauh "
 "dari asalnya, dan mencampurkan semuanya menjadi satu."
 
-#: src/effects/effects.js:121
+#: src/effects/effects.js:123
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
@@ -105,19 +105,19 @@ msgstr ""
 "Jarak tempuh maksimum untuk setiap langkah dalam random walk. Nilai yang "
 "lebih tinggi akan membuat keburaman menjadi lebih acak."
 
-#: src/effects/effects.js:130
+#: src/effects/effects.js:132
 msgid "Iterations"
 msgstr "Iterasi"
 
-#: src/effects/effects.js:131
+#: src/effects/effects.js:133
 msgid "The number of iterations. The more there are, the smoother the blur is."
 msgstr "Jumlah iterasi. Semakin banyak, semakin halus keburamannya."
 
-#: src/effects/effects.js:148
+#: src/effects/effects.js:150
 msgid "Use base pixel"
 msgstr "Gunakan piksel dasar"
 
-#: src/effects/effects.js:149
+#: src/effects/effects.js:151
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
@@ -125,11 +125,11 @@ msgstr ""
 "Apakah piksel asli dihitung untuk keburaman atau tidak. Jika ya, gambar akan "
 "lebih terbaca."
 
-#: src/effects/effects.js:153
+#: src/effects/effects.js:155
 msgid "Prefer closer pixels"
 msgstr "Utamakan piksel yang lebih dekat"
 
-#: src/effects/effects.js:154
+#: src/effects/effects.js:156
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
@@ -137,16 +137,16 @@ msgstr ""
 "Menentukan apakah piksel yang lebih dekat ke piksel asli akan memiliki bobot "
 "lebih besar atau tidak."
 
-#: src/effects/effects.js:162 src/effects/effects.js:168
-#: src/effects/effects.js:193
+#: src/effects/effects.js:164 src/effects/effects.js:170
+#: src/effects/effects.js:196
 msgid "Color"
 msgstr "Warna"
 
-#: src/effects/effects.js:163
+#: src/effects/effects.js:165
 msgid "An effect that blends a color into the pipeline."
 msgstr "Efek yang memadukan warna ke dalam pipa."
 
-#: src/effects/effects.js:169
+#: src/effects/effects.js:171
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
@@ -154,172 +154,216 @@ msgstr ""
 "Warna yang akan dibaurkan. Jumlah pembauran dikontrol oleh tingkat keburaman "
 "warna."
 
-#: src/effects/effects.js:173
+#: src/effects/effects.js:176
 msgid "Blend mode"
 msgstr ""
 
-#: src/effects/effects.js:174
+#: src/effects/effects.js:177
 msgid "How the color is blended in."
 msgstr ""
 
-#: src/effects/effects.js:177
+#: src/effects/effects.js:180
 msgid "Normal"
 msgstr ""
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:181
 msgid "Multiply"
 msgstr ""
 
-#: src/effects/effects.js:179
+#: src/effects/effects.js:182
 msgid "Screen"
 msgstr ""
 
-#: src/effects/effects.js:180
+#: src/effects/effects.js:183
 msgid "Overlay"
 msgstr ""
 
-#: src/effects/effects.js:181
+#: src/effects/effects.js:184
 msgid "Darken"
 msgstr ""
 
-#: src/effects/effects.js:182
+#: src/effects/effects.js:185
 msgid "Lighten"
 msgstr ""
 
-#: src/effects/effects.js:183
+#: src/effects/effects.js:186
 msgid "Plus darker"
 msgstr ""
 
-#: src/effects/effects.js:184
+#: src/effects/effects.js:187
 msgid "Plus lighter"
 msgstr ""
 
-#: src/effects/effects.js:185
+#: src/effects/effects.js:188
 msgid "Color dodge"
 msgstr ""
 
-#: src/effects/effects.js:186
+#: src/effects/effects.js:189
 msgid "Color burn"
 msgstr ""
 
-#: src/effects/effects.js:187
+#: src/effects/effects.js:190
 msgid "Hard light"
 msgstr ""
 
-#: src/effects/effects.js:188
+#: src/effects/effects.js:191
 msgid "Soft light"
 msgstr ""
 
-#: src/effects/effects.js:189
+#: src/effects/effects.js:192
 msgid "Difference"
 msgstr ""
 
-#: src/effects/effects.js:190
+#: src/effects/effects.js:193
 msgid "Exclusion"
 msgstr ""
 
-#: src/effects/effects.js:191
+#: src/effects/effects.js:194
 msgid "Hue"
 msgstr ""
 
-#: src/effects/effects.js:192
+#: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
 msgstr ""
 
-#: src/effects/effects.js:194
+#: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
 msgstr ""
 
-#: src/effects/effects.js:202
+#: src/effects/effects.js:206
+msgid "An effect that affects the luminosity of the image."
+msgstr ""
+
+#: src/effects/effects.js:210
+msgid "Shift brightness"
+msgstr ""
+
+#: src/effects/effects.js:211
+msgid "The brightness to add of remove to the image."
+msgstr ""
+
+#: src/effects/effects.js:220
+msgid "Multiply brightness"
+msgstr ""
+
+#: src/effects/effects.js:221
+msgid ""
+"The brightness multiplicator of the image, so that 0 means no brightness and "
+"2 means infinite brightness."
+msgstr ""
+
+#: src/effects/effects.js:230
+msgid "Contrast"
+msgstr ""
+
+#: src/effects/effects.js:231
+msgid "The contrast of the image in regard to the center of the contrast."
+msgstr ""
+
+#: src/effects/effects.js:240
+msgid "Contrast center"
+msgstr ""
+
+#: src/effects/effects.js:241
+msgid "The center of the contrast to use."
+msgstr ""
+
+#: src/effects/effects.js:251
+msgid ""
+"The saturation of the image, so that 0 means no saturation and 2 means "
+"infinite saturation."
+msgstr ""
+
+#: src/effects/effects.js:264
 msgid "Pixelize"
 msgstr "Pixelize"
 
-#: src/effects/effects.js:203
+#: src/effects/effects.js:265
 msgid "An effect that pixelizes the image."
 msgstr "Efek yang membuat piksel gambar."
 
-#: src/effects/effects.js:207 src/effects/effects.js:234
-#: src/effects/effects.js:261
+#: src/effects/effects.js:269 src/effects/effects.js:296
+#: src/effects/effects.js:323
 msgid "Factor"
 msgstr "Faktor"
 
-#: src/effects/effects.js:208 src/effects/effects.js:235
+#: src/effects/effects.js:270 src/effects/effects.js:297
 msgid "How much to scale down the image."
 msgstr "Seberapa besar untuk mengecilkan gambar."
 
-#: src/effects/effects.js:215 src/effects/effects.js:242
+#: src/effects/effects.js:277 src/effects/effects.js:304
 msgid "Downsampling mode"
 msgstr "Mode downsampling"
 
-#: src/effects/effects.js:216 src/effects/effects.js:243
+#: src/effects/effects.js:278 src/effects/effects.js:305
 msgid "The downsampling method that is used."
 msgstr "Metode downsampling yang digunakan."
 
-#: src/effects/effects.js:219 src/effects/effects.js:246
+#: src/effects/effects.js:281 src/effects/effects.js:308
 msgid "Boxcar"
 msgstr "Boxcar"
 
-#: src/effects/effects.js:220 src/effects/effects.js:247
+#: src/effects/effects.js:282 src/effects/effects.js:309
 msgid "Triangular"
 msgstr "Triangular"
 
-#: src/effects/effects.js:221 src/effects/effects.js:248
+#: src/effects/effects.js:283 src/effects/effects.js:310
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:229
+#: src/effects/effects.js:291
 msgid "Downscale (advanced effect)"
 msgstr "Downscale (efek lanjutan)"
 
-#: src/effects/effects.js:230
+#: src/effects/effects.js:292
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr "Efek yang mengecilkan gambar dan menempatkannya di pojok kiri atas."
 
-#: src/effects/effects.js:256
+#: src/effects/effects.js:318
 msgid "Upscale (advanced effect)"
 msgstr "Upscale (efek lanjutan)"
 
-#: src/effects/effects.js:257
+#: src/effects/effects.js:319
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "Efek yang memperbesar gambar dari pojok kiri atas."
 
-#: src/effects/effects.js:262
+#: src/effects/effects.js:324
 msgid "How much to scale up the image."
 msgstr "Seberapa besar untuk memperbesar gambar."
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:335
 msgid "Derivative"
 msgstr "Turunan"
 
-#: src/effects/effects.js:274
+#: src/effects/effects.js:336
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Menerapkan turunan spasial atau laplasian."
 
-#: src/effects/effects.js:278
+#: src/effects/effects.js:340
 msgid "Operation"
 msgstr "Operasi"
 
-#: src/effects/effects.js:279
+#: src/effects/effects.js:341
 msgid "The mathematical operation to apply."
 msgstr "Operasi matematis yang akan diterapkan."
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:344
 msgid "1-step derivative"
 msgstr "Turunan 1 langkah"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:345
 msgid "2-step derivative"
 msgstr "Turunan 2 langkah"
 
-#: src/effects/effects.js:284
+#: src/effects/effects.js:346
 msgid "Laplacian"
 msgstr "Laplacian"
 
-#: src/effects/effects.js:292 src/effects/effects.js:297
+#: src/effects/effects.js:354 src/effects/effects.js:359
 msgid "Noise"
 msgstr "Noise"
 
-#: src/effects/effects.js:293
+#: src/effects/effects.js:355
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -327,15 +371,15 @@ msgstr ""
 "Efek yang menambahkan noise acak. Disarankan menggunakan Monte Carlo blur "
 "untuk efek yang lebih alami jika diperlukan."
 
-#: src/effects/effects.js:298
+#: src/effects/effects.js:360
 msgid "The amount of noise to add."
 msgstr "Jumlah noise yang akan ditambahkan."
 
-#: src/effects/effects.js:307
+#: src/effects/effects.js:369
 msgid "Lightness"
 msgstr "Kecerahan"
 
-#: src/effects/effects.js:308
+#: src/effects/effects.js:370
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -343,27 +387,27 @@ msgstr ""
 "Tingkat kecerahan noise. Pengaturan ‘1.0’ akan membuat efek menjadi "
 "transparan."
 
-#: src/effects/effects.js:321
+#: src/effects/effects.js:383
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB ke HSL (efek lanjutan)"
 
-#: src/effects/effects.js:322
+#: src/effects/effects.js:384
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "Mengonversi gambar dari ruang warna RGBA ke HSLA."
 
-#: src/effects/effects.js:329
+#: src/effects/effects.js:391
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL ke RGB (efek lanjutan)"
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:392
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Mengonversi gambar dari ruang warna HSLA ke RGBA."
 
-#: src/effects/effects.js:337
+#: src/effects/effects.js:399
 msgid "Corner"
 msgstr "Sudut"
 
-#: src/effects/effects.js:338
+#: src/effects/effects.js:400
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -371,23 +415,23 @@ msgstr ""
 "Efek yang menggambar sudut. Tambahkan efek ini terakhir agar efek lain tidak "
 "memengaruhi bentuk sudut."
 
-#: src/effects/effects.js:343
+#: src/effects/effects.js:405
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "Radius sudut. Aplikasi GNOME menggunakan radius 12 px secara default."
 
-#: src/effects/effects.js:350
+#: src/effects/effects.js:412
 msgid "Top corners"
 msgstr "Sudut atas"
 
-#: src/effects/effects.js:351
+#: src/effects/effects.js:413
 msgid "Whether or not to round the top corners."
 msgstr "Apakah sudut atas akan dibulatkan atau tidak."
 
-#: src/effects/effects.js:355
+#: src/effects/effects.js:417
 msgid "Bottom corners"
 msgstr "Sudut bawah"
 
-#: src/effects/effects.js:356
+#: src/effects/effects.js:418
 msgid "Whether or not to round the bottom corners."
 msgstr "Apakah sudut bawah akan dibulatkan atau tidak."
 
