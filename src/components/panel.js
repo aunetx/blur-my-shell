@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
@@ -15,6 +16,9 @@ const PANEL_STYLES = [
     "contrasted-panel"
 ];
 
+// global listener, so we don't miss the panel destruction event
+let isMainPanelAlive = true;
+Main.panel.connect('destroy', () => isMainPanelAlive = false);
 
 export const PanelBlur = class PanelBlur {
     constructor(connections, settings, effects_manager) {
@@ -27,6 +31,11 @@ export const PanelBlur = class PanelBlur {
     }
 
     enable() {
+        if (this.enabled) {
+            this._log("blur already enabled");
+            return;
+        }
+
         this._log("blurring top panel");
 
         // check for panels when Dash to Panel is activated
@@ -54,15 +63,43 @@ export const PanelBlur = class PanelBlur {
         // the blur when a window is near a panel
         this.connect_to_windows_and_overview();
 
-        // connect to workareas change
-        this.connections.connect(global.display, 'workareas-changed',
-            _ => this.reset()
+        // connect to monitors change, and set a dirty flag to tell the extension that it should be
+        // reset on 'workareas-changed' signal
+        this._dirty = false;
+        this.connections.connect(Main.layoutManager, 'monitors-changed',
+            _ => this._dirty = true
         );
+
+        this.connections.connect(global.display, 'workareas-changed', _ => {
+            if (this._dirty) {
+                // the monitors chaned
+                this.reset();
+                this._dirty = false;
+            }
+            else {
+                // blur panels created by extension multi-monitors-bar@frederykabryan
+                // I would like to connect directly to Main.uiGroup 'child-added' but it seems
+                // like the name is updated too late...
+                Main.uiGroup.get_children().forEach(child => {
+                    if (child.get_name() === "panelBox" &&
+                        child != Main.layoutManager.panelBox &&
+                        child.get_n_children() == 1
+                    ) {
+                        this.maybe_blur_panel(child.get_child_at_index(0));
+                    }
+                });
+            }
+        })
 
         this.enabled = true;
     }
 
     reset() {
+        if (!this.enabled) {
+            this._log("reset called but blur is not enabled");
+            return;
+        }
+
         this._log("resetting...");
 
         this.disable();
@@ -76,30 +113,46 @@ export const PanelBlur = class PanelBlur {
             // blur already existing ones
             if (global.dashToPanel.panels)
                 this.blur_dtp_panels();
+
+            // blur main panel if requested in settings
+            if (this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL && isMainPanelAlive)
+                this.maybe_blur_panel(Main.panel);
         } else {
-            // if no dash-to-panel, blur the main and only panel
-            this.maybe_blur_panel(Main.panel);
+            // if no dash-to-panel, blur the main panel
+            if (isMainPanelAlive)
+                this.maybe_blur_panel(Main.panel);
+
+            // blur panels already created by extension multi-monitors-bar@frederykabryan
+            Main.uiGroup.get_children().forEach(actor => {
+                if (actor.get_name() === "panelBox" && actor.get_n_children() === 1) {
+                    let multi_monitor_panel = actor.get_child_at_index(0);
+                    if (isMainPanelAlive && multi_monitor_panel != Main.panel)
+                        this.maybe_blur_panel(multi_monitor_panel);
+                }
+            })
         }
     }
 
     blur_dtp_panels() {
-        // FIXME when Dash to Panel changes its size, it seems it creates new
-        // panels; but I can't get to delete old widgets
+        // Defer the blurring to the next idle cycle.
+        // This is crucial to ensure the panel actors have been allocated their
+        // final size and position by the compositor, avoiding race conditions
+        // during extension startup.
+        GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            if (!global.dashToPanel?.panels) {
+                return GLib.SOURCE_REMOVE;
+            }
 
-        // blur every panel found
-        global.dashToPanel.panels.forEach(p => {
-            this.maybe_blur_panel(p.panel);
+            this._log("Blurring Dash to Panel panels after idle.");
+    
+            // blur every panel, except Main.panel (this is handled in blur_existing_panels() method above)
+            global.dashToPanel.panels.forEach(p => {
+                if (p.panel != Main.panel)
+                    this.maybe_blur_panel(p.panel);
+            });
+
+            return GLib.SOURCE_REMOVE;
         });
-
-        // if main panel is not included in the previous panels, blur it
-        if (
-            !global.dashToPanel.panels
-                .map(p => p.panel)
-                .includes(Main.panel)
-            &&
-            this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
-        )
-            this.maybe_blur_panel(Main.panel);
     };
 
     /// Blur a panel only if it is not already blurred (contained in the list)
@@ -365,6 +418,9 @@ export const PanelBlur = class PanelBlur {
 
     /// Update the css classname of the panel for light theme
     update_light_text_classname(disable = false) {
+        if (!isMainPanelAlive)
+            return;
+
         if (this.settings.panel.FORCE_LIGHT_TEXT && !disable)
             Main.panel.add_style_class_name("panel-light-text");
         else
@@ -396,7 +452,7 @@ export const PanelBlur = class PanelBlur {
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
-            Main.panel.has_style_pseudo_class('overview')
+            isMainPanelAlive && Main.panel.has_style_pseudo_class('overview')
             || !Main.sessionMode.hasWindows
         ) {
             this.actors_list.forEach(
@@ -438,11 +494,15 @@ export const PanelBlur = class PanelBlur {
                     let same_monitor = actors.monitor.index == window_monitor_i;
 
                     let window_vertical_pos = meta_window.get_frame_rect().y;
+                    let window_vertical_bottom = window_vertical_pos + meta_window.get_frame_rect().height;
 
                     // if so, and if in the same monitor, then it overlaps
                     if (same_monitor
                         &&
-                        window_vertical_pos < panel_bottom + 5 * scale
+                        // check if panel is on top
+                        ((panel_top === 0 && window_vertical_pos < panel_bottom + 5 * scale) ||
+                        // check if panel is at the bottom
+                        (panel_top > 0 && window_vertical_bottom > panel_top - 5 * scale))
                     )
                         window_overlap_panel = true;
                 });
@@ -517,6 +577,11 @@ export const PanelBlur = class PanelBlur {
     }
 
     disable() {
+        if (!this.enabled) {
+            this._log("blur already removed");
+            return;
+        }
+
         this._log("removing blur from top panel");
 
         this.disconnect_from_windows_and_overview();
@@ -526,6 +591,8 @@ export const PanelBlur = class PanelBlur {
         const immutable_actors_list = [...this.actors_list];
         immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
         this.actors_list = [];
+
+        this._dirty = true;
 
         this.connections.disconnect_all();
 

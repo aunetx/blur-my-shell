@@ -6,6 +6,7 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 import { update_from_old_settings } from './conveniences/settings_updater.js';
+import { import_in_shell_only} from './conveniences/utils.js';
 import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
@@ -21,6 +22,8 @@ import { WindowListBlur } from './components/window_list.js';
 import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
+
+const BlurModule = await import_in_shell_only('gi://Blur');
 
 
 /// The main extension class, created when the GNOME Shell is loaded.
@@ -79,6 +82,9 @@ export default class BlurMyShell extends Extension {
         // enable the lockscreen blur, only one important in both `user` session and `unlock-dialog`
         if (this._settings.lockscreen.BLUR && !this._lockscreen_blur.enabled)
             this._lockscreen_blur.enable();
+
+        // update whether or not the external rounded corners library was found
+        this._update_rounded_blur_found();
 
         // ensure we take the correct action for the current session mode
         this._user_session_mode_enabled = false;
@@ -238,6 +244,19 @@ export default class BlurMyShell extends Extension {
             if (this._user_session_mode_enabled)
                 // we need to disable the components related to the user session mode
                 this._disable_user_session();
+        }
+    }
+
+    /// Verify whether or not the gi://Blur library was found, in order to inform
+    /// the preferences and instruct the user to install it to have native rounded
+    /// corners in dynamic blur.
+    _update_rounded_blur_found() {
+        if (BlurModule === null) {
+            this._settings.ROUNDED_BLUR_FOUND = false;
+            this._log("using original implementation for the native blur effect")
+        } else {
+            this._settings.ROUNDED_BLUR_FOUND = true;
+            this._log("using external library for the native blur effect")
         }
     }
 
@@ -474,6 +493,24 @@ export default class BlurMyShell extends Extension {
                 this._applications_blur.enable();
             else
                 this._applications_blur.disable();
+        });
+
+        // static blur toggled on/off
+        this._settings.applications.STATIC_BLUR_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.change_blur_type();
+        });
+
+        // pipeline changed
+        this._settings.applications.PIPELINE_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.change_pipeline();
+        });
+
+        // rounded corners on maximized windows changed
+        this._settings.applications.CORNER_WHEN_MAXIMIZED_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.update_all_corner_radii();
         });
 
         // application opacity changed

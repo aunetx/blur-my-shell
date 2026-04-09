@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: 2025-02-17 10:02+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"POT-Creation-Date: 2026-04-09 10:29+0200\n"
+"PO-Revision-Date: 2026-03-31 07:09+0000\n"
+"Last-Translator: tfr tint <tfrtint@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -43,7 +43,7 @@ msgstr ""
 "all'interno di un determinato raggio."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr "Raggio"
 
@@ -52,14 +52,14 @@ msgid "The intensity of the blur effect."
 msgstr "L'intensità dell'effetto sfocato."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Luminosità"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -129,15 +129,17 @@ msgstr ""
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "Preferire pixel più vicini"
 
 #: src/effects/effects.js:154
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
 msgstr ""
+"Se i pixel più vicini al pixel originale avranno o meno un peso maggiore."
 
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "Colore"
 
@@ -153,99 +155,175 @@ msgstr ""
 "Il colore da sfumare. La quantità di fusione è controllata dall'opacità del "
 "colore."
 
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
 #: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr "Pixelizza"
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr "Un effetto che pixelizza l'immagine."
 
-#: src/effects/effects.js:182 src/effects/effects.js:209
-#: src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
 msgstr "Fattore"
 
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr "Quanto ridimensionare l'immagine."
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
 msgstr "Modalità di sottocampionamento"
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
 msgstr "Il metodo di sottocampionamento che è usato."
 
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
 msgstr "Carro merci"
 
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
 msgstr "Triangolare"
 
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
 msgstr "Downscale (effetto avanzato)"
 
-#: src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr ""
 "Un effetto che riduce l'immagine e la mette nell'angolo in alto a sinistra."
 
-#: src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
 msgstr "Upscale (effetto avanzato)"
 
-#: src/effects/effects.js:232
+#: src/effects/effects.js:257
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
 "Un effetto che ingrandisce l'immagine a partire dall'angolo in alto a "
 "sinistra."
 
-#: src/effects/effects.js:237
+#: src/effects/effects.js:262
 msgid "How much to scale up the image."
 msgstr "Quanto ingrandire l'immagine."
 
-#: src/effects/effects.js:248
+#: src/effects/effects.js:273
 msgid "Derivative"
 msgstr "Derivata"
 
-#: src/effects/effects.js:249
+#: src/effects/effects.js:274
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Applicare una derivata spaziale o un laplaciano."
 
-#: src/effects/effects.js:253
+#: src/effects/effects.js:278
 msgid "Operation"
 msgstr "Operazione"
 
-#: src/effects/effects.js:254
+#: src/effects/effects.js:279
 msgid "The mathematical operation to apply."
 msgstr "L'operazione matematica da applicare."
 
-#: src/effects/effects.js:257
+#: src/effects/effects.js:282
 msgid "1-step derivative"
 msgstr "derivata in 1 passaggio"
 
-#: src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
 msgstr "Derivata a 2 passi"
 
-#: src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
 msgstr "Laplaciano"
 
-#: src/effects/effects.js:267 src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr "Rumore"
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -253,15 +331,15 @@ msgstr ""
 "Un effetto che aggiunge un rumore casuale. Se necessario, preferisci la "
 "sfocatura Monte Carlo per un effetto più organico."
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr "La quantità di rumore da aggiungere."
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr "Leggerezza"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -269,27 +347,27 @@ msgstr ""
 "La luminosità del rumore. Un'impostazione pari a '1.0' renderà l'effetto "
 "trasparente."
 
-#: src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB a HSL (effetto avanzato)"
 
-#: src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "Converte l'immagine dallo spazio colore RGBA a HSLA."
 
-#: src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
 msgstr "Da HSL a RGB (effetto avanzato)"
 
-#: src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "Converte l'immagine dallo spazio colore HSLA a RGBA."
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr "Angolo"
 
-#: src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -297,25 +375,25 @@ msgstr ""
 "Un effetto che disegna angoli. Aggiungilo per ultimo per non far sì che gli "
 "altri effetti disturbino gli angoli."
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
 "Il raggio dell'angolo. Le app GNOME utilizzano un raggio di 12 px per "
 "impostazione predefinita."
 
-#: src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr "Angoli superiori"
 
-#: src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr "Se arrotondare o meno gli angoli superiori."
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr "Angoli inferiori"
 
-#: src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr "Se arrotondare o meno gli angoli inferiori."
 
@@ -350,23 +428,72 @@ msgstr ""
 "ridotte, è possibile scegliere l'opzione “Nessun artefatto” nella scheda "
 "“Altro → Livello Hack”."
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr "Tipo di sfocatura"
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr "Statico"
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr "Dinamico"
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "Sigma"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "L'intensità della sfocatura."
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:114 resources/ui/applications.ui:131
+#: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
+#: resources/ui/panel.ui:130
+msgid "Corner radius"
+msgstr ""
+
+#: resources/ui/applications.ui:115 resources/ui/dash.ui:114
+#: resources/ui/panel.ui:114
+msgid ""
+"In order to use rounded corners, please install the GNOME Rounded Blur "
+"library."
+msgstr ""
+
+#: resources/ui/applications.ui:132 resources/ui/dash.ui:131
+#: resources/ui/panel.ui:131
+msgid "Radius for the corner rounding effect."
+msgstr ""
+
+#: resources/ui/applications.ui:140
+msgid "Enable corner rounding on maximized and fullscreen"
+msgstr ""
+
+#: resources/ui/applications.ui:141
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+
+#: resources/ui/applications.ui:155
 msgid "Opacity"
 msgstr "Opacità"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:156
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -374,11 +501,11 @@ msgstr ""
 "L'opacità della finestra sopra l'effetto di sfocatura; un valore più alto "
 "sarà più leggibile."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:177
 msgid "Opaque focused window"
 msgstr "Finestra focalizzata opaca"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:178
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -386,11 +513,11 @@ msgstr ""
 "Rende opaca la finestra focalizzata e sfocate le altre, aiutandone la "
 "leggibilità."
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:192
 msgid "Blur on overview"
 msgstr "Sfocatura nella panoramica"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:193
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -399,34 +526,40 @@ msgstr ""
 "lavoro nella panoramica.\n"
 "Ciò può causare problemi di latenza o di prestazioni."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:208
 msgid "Enable all by default"
 msgstr "Abilita tutto per impostazione predefinita"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:209
 msgid "Adds blur behind all windows by default."
 msgstr ""
 "Aggiunge la sfocatura dietro tutte le finestre per impostazione predefinita."
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:225
 msgid "Whitelist"
 msgstr "Whitelist"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "Un elenco di finestre da sfocare."
+#: resources/ui/applications.ui:226
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
 msgstr "Aggiungi finestra"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:263
 msgid "Blacklist"
 msgstr "Blacklist"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "Un elenco di finestre da non sfocare."
+#: resources/ui/applications.ui:264
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -440,10 +573,6 @@ msgstr "Sfocatura Dash to Dock"
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr "Sfoca lo sfondo dell'estensione Dash to Dock, se utilizzata."
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr "Tipo di sfocatura"
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
@@ -451,19 +580,11 @@ msgstr ""
 "La sfocatura dinamica è più lenta e compatibile solo con un effetto di "
 "sfocatura gaussiana."
 
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr "Statico"
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
-msgstr "Dinamico"
-
-#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
+#: resources/ui/dash.ui:139 resources/ui/panel.ui:154
 msgid "Override background"
 msgstr "Sovrascrivi sfondo"
 
-#: resources/ui/dash.ui:114
+#: resources/ui/dash.ui:140
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -471,35 +592,35 @@ msgstr ""
 "Rende lo sfondo trasparente o semitrasparente, disabilitalo per utilizzare "
 "invece le preferenze Dash to Dock."
 
-#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
+#: resources/ui/dash.ui:146 resources/ui/panel.ui:162
 msgid "Background style"
 msgstr "Stile di sfondo"
 
-#: resources/ui/dash.ui:121
+#: resources/ui/dash.ui:147
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Lo stile trasparente/semitrasparente per lo sfondo del dock."
 
-#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
+#: resources/ui/dash.ui:163 resources/ui/panel.ui:193
 msgid "Disable in overview"
 msgstr "Disattiva in panoramica"
 
-#: resources/ui/dash.ui:138
+#: resources/ui/dash.ui:164
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "Disattiva la sfocatura da Dash to Dock quando si accede alla panoramica."
 
-#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
+#: resources/ui/dash.ui:199 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:248
 msgid "Transparent"
 msgstr "Trasparente"
 
-#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
+#: resources/ui/dash.ui:200 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:249
 msgid "Light"
 msgstr "Chiaro"
 
-#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
+#: resources/ui/dash.ui:201 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:250
 msgid "Dark"
 msgstr "Scuro"
 
@@ -511,7 +632,7 @@ msgstr "Effetti"
 msgid "Add Effect"
 msgstr "Aggiungi effetto"
 
-#: resources/ui/effects-dialog.ui:72
+#: resources/ui/effects-dialog.ui:77
 msgid "Include advanced effects"
 msgstr "Include effetti avanzati"
 
@@ -694,18 +815,18 @@ msgstr "Sfocatura pannello"
 msgid "Blur the top panel using the background image."
 msgstr "Sfoca il pannello superiore usando l'immagine di sfondo."
 
-#: resources/ui/panel.ui:113
+#: resources/ui/panel.ui:139
 msgid "Force light text"
 msgstr "Forza il testo chiaro"
 
-#: resources/ui/panel.ui:114
+#: resources/ui/panel.ui:140
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Utilizza un testo chiaro per il pannello, utile quando si utilizza il tema "
 "chiaro di gnome-shell."
 
-#: resources/ui/panel.ui:129
+#: resources/ui/panel.ui:155
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -715,45 +836,45 @@ msgstr ""
 "semitrasparente.\n"
 "Consigliato a meno che tu non voglia personalizzare il tuo tema GNOME."
 
-#: resources/ui/panel.ui:137
+#: resources/ui/panel.ui:163
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Lo stile trasparente/semitrasparente per lo sfondo del pannello."
 
-#: resources/ui/panel.ui:151
+#: resources/ui/panel.ui:177
 msgid "Disable when a window is near"
 msgstr "Disattiva quando una finestra è vicina"
 
-#: resources/ui/panel.ui:152
+#: resources/ui/panel.ui:178
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Disattiva la trasparenza del pannello quando una finestra è vicina."
 
-#: resources/ui/panel.ui:168
+#: resources/ui/panel.ui:194
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Disattiva la sfocatura dal pannello quando si accede alla panoramica."
 
-#: resources/ui/panel.ui:184
+#: resources/ui/panel.ui:210
 msgid "Compatibility"
 msgstr "Compatibilità"
 
-#: resources/ui/panel.ui:185
+#: resources/ui/panel.ui:211
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Varie opzioni per fornire compatibilità con altre estensioni."
 
-#: resources/ui/panel.ui:190
+#: resources/ui/panel.ui:216
 msgid "Hidetopbar extension"
 msgstr "Estensione Hidetopbar"
 
-#: resources/ui/panel.ui:191
+#: resources/ui/panel.ui:217
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Non disabilita la sfocatura nella panoramica, meglio utilizzata con la "
 "sfocatura statica."
 
-#: resources/ui/panel.ui:205
+#: resources/ui/panel.ui:231
 msgid "Blur original panel with Dash to Panel"
 msgstr "Sfoca il pannello originale con Dash to Panel"
 
-#: resources/ui/panel.ui:206
+#: resources/ui/panel.ui:232
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -761,13 +882,13 @@ msgstr ""
 "Abilita la sfocatura del pannello originale con Dash to Panel, se "
 "selezionato nelle opzioni dell'estensione."
 
-#: resources/ui/panel.ui:225
+#: resources/ui/panel.ui:251
 msgid "Contrasted"
 msgstr "Contrastato"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr "Pipeline"
+msgstr "Tubazione"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
@@ -797,6 +918,12 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "Aggiungi pipeline"
+
+#~ msgid "A list of windows to blur."
+#~ msgstr "Un elenco di finestre da sfocare."
+
+#~ msgid "A list of windows not to blur."
+#~ msgstr "Un elenco di finestre da non sfocare."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Sfocatura gaussiana"

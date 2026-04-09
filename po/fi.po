@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: 2024-07-21 17:09+0000\n"
-"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"POT-Creation-Date: 2026-04-09 10:29+0200\n"
+"PO-Revision-Date: 2025-04-06 17:37+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fi/>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -43,7 +43,7 @@ msgstr ""
 "säteellä."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr "Säde"
 
@@ -52,14 +52,14 @@ msgid "The intensity of the blur effect."
 msgstr "Sumeustehosteen voimakkuus."
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "Kirkkaus"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
-msgstr ""
+msgstr "Gaussin sumeus (edistynyt tehoste)"
 
 #: src/effects/effects.js:87
 msgid ""
@@ -137,6 +137,7 @@ msgid ""
 msgstr ""
 
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "Väri"
 
@@ -151,96 +152,172 @@ msgid ""
 msgstr ""
 "Väri, johon sekoitetaan. Sekoitusmäärää säätelee värin läpikuultamattomuus."
 
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
 #: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr "Pikseloi"
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr "Tehoste, joka pikselisoi kuvan."
 
-#: src/effects/effects.js:182 src/effects/effects.js:209
-#: src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
-msgstr ""
+msgstr "Kerroin"
 
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr "Kuinka paljon kuvaa pienennetään."
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Alasnäytteenottotila"
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Käytettävä alasnäytteenottomenetelmä."
 
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
-msgstr ""
+msgstr "Laatikkoauto"
 
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
-msgstr ""
+msgstr "Kolmion muotoinen"
 
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
-#: src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Alennettu skaalaus (edistynyt tehoste)"
 
-#: src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
-msgstr ""
+msgstr "Tehoste, joka pienentää kuvan ja asettaa sen vasempaan yläkulmaan."
 
-#: src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
-msgstr ""
-
-#: src/effects/effects.js:232
-msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
-
-#: src/effects/effects.js:237
-msgid "How much to scale up the image."
-msgstr ""
-
-#: src/effects/effects.js:248
-msgid "Derivative"
-msgstr ""
-
-#: src/effects/effects.js:249
-msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
-
-#: src/effects/effects.js:253
-msgid "Operation"
-msgstr ""
-
-#: src/effects/effects.js:254
-msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Isonnettu skaalaus (edistynyt tehoste)"
 
 #: src/effects/effects.js:257
+msgid "An effect that upscales the image from the top-left corner."
+msgstr "Tehoste, joka isontaa kuvaa vasemmasta yläkulmasta."
+
+#: src/effects/effects.js:262
+msgid "How much to scale up the image."
+msgstr "Kuinka paljon kuvaa suurentaa."
+
+#: src/effects/effects.js:273
+msgid "Derivative"
+msgstr "Johdannainen"
+
+#: src/effects/effects.js:274
+msgid "Apply a spatial derivative, or a laplacian."
+msgstr "Sovella spatiaalista johdannaista tai laplaciania."
+
+#: src/effects/effects.js:278
+msgid "Operation"
+msgstr "Lasku"
+
+#: src/effects/effects.js:279
+msgid "The mathematical operation to apply."
+msgstr "Sovellettava matemaattinen lasku."
+
+#: src/effects/effects.js:282
 msgid "1-step derivative"
-msgstr ""
+msgstr "1-vaiheinen johdannainen"
 
-#: src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
-msgstr ""
+msgstr "2-vaiheinen johdannainen"
 
-#: src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplacian"
 
-#: src/effects/effects.js:267 src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr "Kohina"
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -248,41 +325,41 @@ msgstr ""
 "Satunnaista kohinaa lisäävä tehoste. Käytä Monte Carlo -sumutusta saadaksesi "
 "orgaanisemman tehosteen tarvittaessa."
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr "Lisättävän kohinan määrä."
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr "Vaaleus"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr "Kohinan kirkkaus. Asetus '1.0' tekee tehosteesta läpinäkyvän."
 
-#: src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB HSL:ksi (edistynyt tehoste)"
 
-#: src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr ""
+msgstr "Muuntaa kuvan RGBA-väriavaruudesta HSLA:ksi."
 
-#: src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL RGB:ksi (edistynyt tehoste)"
 
-#: src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr ""
+msgstr "Muuntaa kuvan HSLA-väriavaruudesta RGBA:ksi."
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr "Kulma"
 
-#: src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -290,24 +367,24 @@ msgstr ""
 "Tehoste, joka piirtää kulmia. Lisää se viimeisenä, jotta muut tehosteet "
 "eivät häiritse kulmia."
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr ""
 "Kulman säde. GNOME-sovellukset käyttävät oletuksena 12 pikselin sädettä."
 
-#: src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr "Yläkulmat"
 
-#: src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr "Pyöristetäänkö yläkulmat vai ei."
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr "Alakulmat"
 
-#: src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr "Pyöristetäänkö alakulmat vai ei."
 
@@ -329,7 +406,7 @@ msgstr "Sovellukset"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "Sovellukset sumenevat"
 
 #: resources/ui/applications.ui:11
 msgid ""
@@ -337,44 +414,99 @@ msgid ""
 "To get the best results possible, although with reduced performances, you "
 "can choose the option “No artifact” in the “Other → Hack level” tab."
 msgstr ""
+"Lisää sumeutta sovelluksiin.\n"
+"Parhaiden mahdollisten tulosten saamiseksi, vaikka suorituskyvyt ovatkin "
+"heikentyneet, voit valita vaihtoehdon \"Ei artefaktia\" \"Muu → "
+"Hakkerointitaso\" -välilehdeltä."
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr "Sumennuksen tyyppi"
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr "Staattinen"
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr "Dynaaminen"
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "Sigma"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "Sumennuksen voimakkuus."
 
-#: resources/ui/applications.ui:63
-msgid "Opacity"
+#: resources/ui/applications.ui:114 resources/ui/applications.ui:131
+#: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
+#: resources/ui/panel.ui:130
+msgid "Corner radius"
 msgstr ""
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:115 resources/ui/dash.ui:114
+#: resources/ui/panel.ui:114
+msgid ""
+"In order to use rounded corners, please install the GNOME Rounded Blur "
+"library."
+msgstr ""
+
+#: resources/ui/applications.ui:132 resources/ui/dash.ui:131
+#: resources/ui/panel.ui:131
+msgid "Radius for the corner rounding effect."
+msgstr ""
+
+#: resources/ui/applications.ui:140
+msgid "Enable corner rounding on maximized and fullscreen"
+msgstr ""
+
+#: resources/ui/applications.ui:141
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+
+#: resources/ui/applications.ui:155
+msgid "Opacity"
+msgstr "Läpikuultamattomuus"
+
+#: resources/ui/applications.ui:156
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"Ikkunan läpikuultamattomuus on sumennustehosteen päällä, suurempi arvo on "
+"luettavampi."
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:177
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:178
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:192
 msgid "Blur on overview"
 msgstr "Sumennus yleiskatsauksessa"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:193
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -383,33 +515,39 @@ msgstr ""
 "työtiloissa.\n"
 "Tämä voi aiheuttaa viive- tai suorituskykyongelmia."
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:208
 msgid "Enable all by default"
 msgstr "Ota kaikki käyttöön oletuksena"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:209
 msgid "Adds blur behind all windows by default."
 msgstr "Lisää sumennus oletuksena kaikkien ikkunoiden taakse."
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:225
 msgid "Whitelist"
 msgstr "Valkoinen luettelo"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "Luettelo sumennettavista ikkunoista."
+#: resources/ui/applications.ui:226
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
 msgstr "Lisää ikkuna"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:263
 msgid "Blacklist"
 msgstr "Musta luettelo"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "Luettelo ikkunoista, joita ei sumenneta."
+#: resources/ui/applications.ui:264
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -423,10 +561,6 @@ msgstr ""
 msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr "Sumennuksen tyyppi"
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
@@ -434,52 +568,44 @@ msgstr ""
 "Dynaaminen sumennus on hitaampi ja yhteensopiva vain Gaussin "
 "sumennustehosteen kanssa."
 
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr "Staattinen"
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
-msgstr "Dynaaminen"
-
-#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
+#: resources/ui/dash.ui:139 resources/ui/panel.ui:154
 msgid "Override background"
 msgstr "Korvaa tausta"
 
-#: resources/ui/dash.ui:114
+#: resources/ui/dash.ui:140
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
 msgstr ""
 
-#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
+#: resources/ui/dash.ui:146 resources/ui/panel.ui:162
 msgid "Background style"
 msgstr "Taustan tyyli"
 
-#: resources/ui/dash.ui:121
+#: resources/ui/dash.ui:147
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr ""
 
-#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
+#: resources/ui/dash.ui:163 resources/ui/panel.ui:193
 msgid "Disable in overview"
 msgstr "Poista käytöstä yleiskatsauksessa"
 
-#: resources/ui/dash.ui:138
+#: resources/ui/dash.ui:164
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 
-#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
+#: resources/ui/dash.ui:199 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:248
 msgid "Transparent"
 msgstr "Läpinäkyvä"
 
-#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
+#: resources/ui/dash.ui:200 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:249
 msgid "Light"
 msgstr "Vaalea"
 
-#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
+#: resources/ui/dash.ui:201 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:250
 msgid "Dark"
 msgstr "Tumma"
 
@@ -491,7 +617,7 @@ msgstr "Tehosteet"
 msgid "Add Effect"
 msgstr "Lisää tehoste"
 
-#: resources/ui/effects-dialog.ui:72
+#: resources/ui/effects-dialog.ui:77
 msgid "Include advanced effects"
 msgstr ""
 
@@ -657,65 +783,65 @@ msgstr ""
 msgid "Blur the top panel using the background image."
 msgstr ""
 
-#: resources/ui/panel.ui:113
+#: resources/ui/panel.ui:139
 msgid "Force light text"
 msgstr ""
 
-#: resources/ui/panel.ui:114
+#: resources/ui/panel.ui:140
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 
-#: resources/ui/panel.ui:129
+#: resources/ui/panel.ui:155
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
 
-#: resources/ui/panel.ui:137
+#: resources/ui/panel.ui:163
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr ""
 
-#: resources/ui/panel.ui:151
+#: resources/ui/panel.ui:177
 msgid "Disable when a window is near"
 msgstr ""
 
-#: resources/ui/panel.ui:152
+#: resources/ui/panel.ui:178
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr ""
 
-#: resources/ui/panel.ui:168
+#: resources/ui/panel.ui:194
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 
-#: resources/ui/panel.ui:184
+#: resources/ui/panel.ui:210
 msgid "Compatibility"
 msgstr ""
 
-#: resources/ui/panel.ui:185
+#: resources/ui/panel.ui:211
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 
-#: resources/ui/panel.ui:190
+#: resources/ui/panel.ui:216
 msgid "Hidetopbar extension"
 msgstr ""
 
-#: resources/ui/panel.ui:191
+#: resources/ui/panel.ui:217
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 
-#: resources/ui/panel.ui:205
+#: resources/ui/panel.ui:231
 msgid "Blur original panel with Dash to Panel"
 msgstr ""
 
-#: resources/ui/panel.ui:206
+#: resources/ui/panel.ui:232
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
 
-#: resources/ui/panel.ui:225
+#: resources/ui/panel.ui:251
 msgid "Contrasted"
 msgstr ""
 
@@ -748,6 +874,12 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
+
+#~ msgid "A list of windows to blur."
+#~ msgstr "Luettelo sumennettavista ikkunoista."
+
+#~ msgid "A list of windows not to blur."
+#~ msgstr "Luettelo ikkunoista, joita ei sumenneta."
 
 #~ msgid "Gaussian blur"
 #~ msgstr "Gaussin sumeus"

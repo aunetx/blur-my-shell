@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 23:06+0100\n"
-"PO-Revision-Date: 2024-08-20 13:09+0000\n"
+"POT-Creation-Date: 2026-04-09 10:29+0200\n"
+"PO-Revision-Date: 2025-04-06 17:37+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/blur-"
 "my-shell/hi/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.11-dev\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
@@ -42,7 +42,7 @@ msgstr ""
 "एक अनुकूलित धुंधला प्रभाव जो किसी दिए गए दायरे में पिक्सल को सहजता से मिश्रित करता है।"
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
-#: src/effects/effects.js:120 src/effects/effects.js:317
+#: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
 msgstr "त्रिज्या"
 
@@ -51,14 +51,14 @@ msgid "The intensity of the blur effect."
 msgstr "धुँधले प्रभाव की तीव्रता।"
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
-#: src/effects/effects.js:138 resources/ui/applications.ui:42
+#: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
 msgstr "चमक"
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
-#: src/effects/effects.js:139 resources/ui/applications.ui:43
+#: src/effects/effects.js:139 resources/ui/applications.ui:94
 #: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
 #: resources/ui/panel.ui:93
 msgid ""
@@ -134,6 +134,7 @@ msgid ""
 msgstr ""
 
 #: src/effects/effects.js:162 src/effects/effects.js:168
+#: src/effects/effects.js:193
 msgid "Color"
 msgstr "रंग"
 
@@ -148,96 +149,172 @@ msgid ""
 msgstr ""
 "मिश्रण करने योग्य रंग। मिश्रण की मात्रा रंग की अपारदर्शिता द्वारा नियंत्रित होती है।"
 
+#: src/effects/effects.js:173
+msgid "Blend mode"
+msgstr ""
+
+#: src/effects/effects.js:174
+msgid "How the color is blended in."
+msgstr ""
+
 #: src/effects/effects.js:177
+msgid "Normal"
+msgstr ""
+
+#: src/effects/effects.js:178
+msgid "Multiply"
+msgstr ""
+
+#: src/effects/effects.js:179
+msgid "Screen"
+msgstr ""
+
+#: src/effects/effects.js:180
+msgid "Overlay"
+msgstr ""
+
+#: src/effects/effects.js:181
+msgid "Darken"
+msgstr ""
+
+#: src/effects/effects.js:182
+msgid "Lighten"
+msgstr ""
+
+#: src/effects/effects.js:183
+msgid "Plus darker"
+msgstr ""
+
+#: src/effects/effects.js:184
+msgid "Plus lighter"
+msgstr ""
+
+#: src/effects/effects.js:185
+msgid "Color dodge"
+msgstr ""
+
+#: src/effects/effects.js:186
+msgid "Color burn"
+msgstr ""
+
+#: src/effects/effects.js:187
+msgid "Hard light"
+msgstr ""
+
+#: src/effects/effects.js:188
+msgid "Soft light"
+msgstr ""
+
+#: src/effects/effects.js:189
+msgid "Difference"
+msgstr ""
+
+#: src/effects/effects.js:190
+msgid "Exclusion"
+msgstr ""
+
+#: src/effects/effects.js:191
+msgid "Hue"
+msgstr ""
+
+#: src/effects/effects.js:192
+msgid "Saturation"
+msgstr ""
+
+#: src/effects/effects.js:194
+msgid "Luminosity"
+msgstr ""
+
+#: src/effects/effects.js:202
 msgid "Pixelize"
 msgstr "पिक्सलाइज़ करें"
 
-#: src/effects/effects.js:178
+#: src/effects/effects.js:203
 msgid "An effect that pixelizes the image."
 msgstr "एक प्रभाव जो छवि को पिक्सलाइज़ करता है।"
 
-#: src/effects/effects.js:182 src/effects/effects.js:209
-#: src/effects/effects.js:236
+#: src/effects/effects.js:207 src/effects/effects.js:234
+#: src/effects/effects.js:261
 msgid "Factor"
 msgstr "कारक"
 
-#: src/effects/effects.js:183 src/effects/effects.js:210
+#: src/effects/effects.js:208 src/effects/effects.js:235
 msgid "How much to scale down the image."
 msgstr "छवि को कितना छोटा करना है।"
 
-#: src/effects/effects.js:190 src/effects/effects.js:217
+#: src/effects/effects.js:215 src/effects/effects.js:242
 msgid "Downsampling mode"
 msgstr "डाउनसैंपलिंग मोड"
 
-#: src/effects/effects.js:191 src/effects/effects.js:218
+#: src/effects/effects.js:216 src/effects/effects.js:243
 msgid "The downsampling method that is used."
 msgstr "डाउनसैंपलिंग विधि जिसका उपयोग किया जाता है।"
 
-#: src/effects/effects.js:194 src/effects/effects.js:221
+#: src/effects/effects.js:219 src/effects/effects.js:246
 msgid "Boxcar"
 msgstr "बॉक्सकार"
 
-#: src/effects/effects.js:195 src/effects/effects.js:222
+#: src/effects/effects.js:220 src/effects/effects.js:247
 msgid "Triangular"
 msgstr "त्रिकोणीय"
 
-#: src/effects/effects.js:196 src/effects/effects.js:223
+#: src/effects/effects.js:221 src/effects/effects.js:248
 msgid "Dirac"
 msgstr "डायराक"
 
-#: src/effects/effects.js:204
+#: src/effects/effects.js:229
 msgid "Downscale (advanced effect)"
 msgstr "डाउनस्केल (उन्नत प्रभाव)"
 
-#: src/effects/effects.js:205
+#: src/effects/effects.js:230
 msgid "An effect that downscales the image and put it on the top-left corner."
 msgstr "एक प्रभाव जो छवि को छोटा कर देता है और उसे ऊपरी बाएं कोने पर रख देता है।"
 
-#: src/effects/effects.js:231
+#: src/effects/effects.js:256
 msgid "Upscale (advanced effect)"
 msgstr "अपस्केल (उन्नत प्रभाव)"
 
-#: src/effects/effects.js:232
+#: src/effects/effects.js:257
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "एक प्रभाव जो छवि को ऊपरी-बाएं कोने से ऊपर उठाता है।"
 
-#: src/effects/effects.js:237
+#: src/effects/effects.js:262
 msgid "How much to scale up the image."
 msgstr "छवि को कितना स्केल करना है।"
 
-#: src/effects/effects.js:248
+#: src/effects/effects.js:273
 msgid "Derivative"
 msgstr "व्युत्पन्न"
 
-#: src/effects/effects.js:249
+#: src/effects/effects.js:274
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "एक स्थानिक व्युत्पन्न, या एक लाप्लासियन लागू करें।"
 
-#: src/effects/effects.js:253
+#: src/effects/effects.js:278
 msgid "Operation"
 msgstr "ऑपरेशन"
 
-#: src/effects/effects.js:254
+#: src/effects/effects.js:279
 msgid "The mathematical operation to apply."
 msgstr "लागू करने के लिए गणितीय ऑपरेशन।"
 
-#: src/effects/effects.js:257
+#: src/effects/effects.js:282
 msgid "1-step derivative"
 msgstr "1-चरण व्युत्पन्न"
 
-#: src/effects/effects.js:258
+#: src/effects/effects.js:283
 msgid "2-step derivative"
 msgstr "2-चरण व्युत्पन्न"
 
-#: src/effects/effects.js:259
+#: src/effects/effects.js:284
 msgid "Laplacian"
 msgstr "लाप्लासियन"
 
-#: src/effects/effects.js:267 src/effects/effects.js:272
+#: src/effects/effects.js:292 src/effects/effects.js:297
 msgid "Noise"
 msgstr "शोर"
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:293
 msgid ""
 "An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
 "organic effect if needed."
@@ -245,41 +322,41 @@ msgstr ""
 "एक प्रभाव जो एक यादृच्छिक शोर जोड़ता है। यदि आवश्यक हो तो अधिक जैविक प्रभाव के लिए "
 "मोंटे कार्लो धुंधलेपन को प्राथमिकता दें।"
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:298
 msgid "The amount of noise to add."
 msgstr "जोड़ने योग्य शोर की मात्रा।"
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:307
 msgid "Lightness"
 msgstr "हल्कापन"
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:308
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr "शोर की चमक। '1.0' की सेटिंग प्रभाव को पारदर्शी बना देगी।"
 
-#: src/effects/effects.js:296
+#: src/effects/effects.js:321
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB से HSL (उन्नत प्रभाव)"
 
-#: src/effects/effects.js:297
+#: src/effects/effects.js:322
 msgid "Converts the image from RGBA colorspace to HSLA."
 msgstr "छवि को RGBA कलरस्पेस से HSLA में परिवर्तित करता है।"
 
-#: src/effects/effects.js:304
+#: src/effects/effects.js:329
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL से RGB (उन्नत प्रभाव)"
 
-#: src/effects/effects.js:305
+#: src/effects/effects.js:330
 msgid "Converts the image from HSLA colorspace to RGBA."
 msgstr "छवि को HSLA कलरस्पेस से RGBA में परिवर्तित करता है।"
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:337
 msgid "Corner"
 msgstr "कोने"
 
-#: src/effects/effects.js:313
+#: src/effects/effects.js:338
 msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
@@ -287,23 +364,23 @@ msgstr ""
 "एक प्रभाव जो कोनों को खींचता है। इसे आखिरी में जोड़ें ताकि अन्य प्रभाव कोनों को परेशान न "
 "करें।"
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:343
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
 msgstr "कोने की त्रिज्या। GNOME ऐप्स तयशुदा रूप से 12 px के दायरे का उपयोग करते हैं।"
 
-#: src/effects/effects.js:325
+#: src/effects/effects.js:350
 msgid "Top corners"
 msgstr "ऊपरी कोने"
 
-#: src/effects/effects.js:326
+#: src/effects/effects.js:351
 msgid "Whether or not to round the top corners."
 msgstr "ऊपरी कोनों को गोल करना है या नहीं।"
 
-#: src/effects/effects.js:330
+#: src/effects/effects.js:355
 msgid "Bottom corners"
 msgstr "निचले कोने"
 
-#: src/effects/effects.js:331
+#: src/effects/effects.js:356
 msgid "Whether or not to round the bottom corners."
 msgstr "निचले कोनों को गोल करना है या नहीं।"
 
@@ -337,44 +414,93 @@ msgstr ""
 "सर्वोत्तम परिणाम प्राप्त करने के लिए, यद्यपि कम प्रदर्शन के साथ, आप “अन्य → हैक स्तर” टैब "
 "में “कोई विरूपण नहीं” विकल्प चुन सकते हैं।"
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:71
+#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20
+msgid "Blur type"
+msgstr "धुंधला प्रकार"
+
+#: resources/ui/applications.ui:22
+msgid ""
+"The dynamic blur is slower and only compatible with a gaussian blur effect, "
+"but shows content behind windows."
+msgstr ""
+
+#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41
+msgid "Static"
+msgstr "स्थिर"
+
+#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53
+msgid "Dynamic"
+msgstr "गतिशील"
+
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
 #: resources/ui/other.ui:56 resources/ui/overview.ui:54
 #: resources/ui/panel.ui:71
 msgid "Sigma"
 msgstr "सिग्मा"
 
-#: resources/ui/applications.ui:22 resources/ui/dash.ui:72
+#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
 #: resources/ui/other.ui:57 resources/ui/overview.ui:55
 #: resources/ui/panel.ui:72
 msgid "The intensity of the blur."
 msgstr "धुंधलेपन की तीव्रता।"
 
-#: resources/ui/applications.ui:63
+#: resources/ui/applications.ui:114 resources/ui/applications.ui:131
+#: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
+#: resources/ui/panel.ui:130
+msgid "Corner radius"
+msgstr ""
+
+#: resources/ui/applications.ui:115 resources/ui/dash.ui:114
+#: resources/ui/panel.ui:114
+msgid ""
+"In order to use rounded corners, please install the GNOME Rounded Blur "
+"library."
+msgstr ""
+
+#: resources/ui/applications.ui:132 resources/ui/dash.ui:131
+#: resources/ui/panel.ui:131
+msgid "Radius for the corner rounding effect."
+msgstr ""
+
+#: resources/ui/applications.ui:140
+msgid "Enable corner rounding on maximized and fullscreen"
+msgstr ""
+
+#: resources/ui/applications.ui:141
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+
+#: resources/ui/applications.ui:155
 msgid "Opacity"
 msgstr "अपारदर्शिता"
 
-#: resources/ui/applications.ui:64
+#: resources/ui/applications.ui:156
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr "धुंधले प्रभाव के शीर्ष पर विंडो की अपारदर्शिता, उच्चतर मान अधिक सुपाठ्य होगा।"
 
-#: resources/ui/applications.ui:85
+#: resources/ui/applications.ui:177
 msgid "Opaque focused window"
 msgstr "अपारदर्शी केंद्रित विंडो"
 
-#: resources/ui/applications.ui:86
+#: resources/ui/applications.ui:178
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 "केंद्रित विंडो को अपारदर्शी और अन्य को धुंधला बनाता है, जिससे सुपाठ्यता में मदद मिलती है।"
 
-#: resources/ui/applications.ui:100
+#: resources/ui/applications.ui:192
 msgid "Blur on overview"
 msgstr "अवलोकन पर धुंधलापन"
 
-#: resources/ui/applications.ui:101
+#: resources/ui/applications.ui:193
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -382,33 +508,39 @@ msgstr ""
 "अवलोकन में सभी कार्यस्थानों पर धुंधलापन ठीक से दिखाने के लिए बाध्य करता है।\n"
 "इससे कुछ विलंबता या प्रदर्शन संबंधी समस्याएं हो सकती हैं।"
 
-#: resources/ui/applications.ui:116
+#: resources/ui/applications.ui:208
 msgid "Enable all by default"
 msgstr "सभी को तयशुदा रूप से सक्षम करें"
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:209
 msgid "Adds blur behind all windows by default."
 msgstr "तयशुदा रूप से सभी विंडो के पीछे धुंधलापन जोड़ता है।"
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:225
 msgid "Whitelist"
 msgstr "श्वेतसूची"
 
-#: resources/ui/applications.ui:134
-msgid "A list of windows to blur."
-msgstr "धुंधली करने के लिए विंडोज़ की सूची।"
+#: resources/ui/applications.ui:226
+msgid ""
+"A list of windows to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
-#: resources/ui/applications.ui:152 resources/ui/applications.ui:189
+#: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
 msgstr "विंडो जोड़ें"
 
-#: resources/ui/applications.ui:170
+#: resources/ui/applications.ui:263
 msgid "Blacklist"
 msgstr "काली सूची"
 
-#: resources/ui/applications.ui:171
-msgid "A list of windows not to blur."
-msgstr "धुंधली न होने वाली विंडोज़ की सूची।"
+#: resources/ui/applications.ui:264
+msgid ""
+"A list of windows not to blur.\n"
+"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
+"for a single one."
+msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -423,28 +555,16 @@ msgid "Blur the background of the Dash to Dock extension, if it is used."
 msgstr ""
 "यदि Dash to Dock एक्सटेंशन का उपयोग किया जाता है तो उसकी पृष्ठभूमि को धुंधला कर दें।"
 
-#: resources/ui/dash.ui:20 resources/ui/panel.ui:20
-msgid "Blur type"
-msgstr "धुंधला प्रकार"
-
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr "गतिशील धुंधलापन धीमा है और केवल गॉसियन धुंधला प्रभाव के साथ संगत है।"
 
-#: resources/ui/dash.ui:41 resources/ui/panel.ui:41
-msgid "Static"
-msgstr "स्थिर"
-
-#: resources/ui/dash.ui:53 resources/ui/panel.ui:53
-msgid "Dynamic"
-msgstr "गतिशील"
-
-#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
+#: resources/ui/dash.ui:139 resources/ui/panel.ui:154
 msgid "Override background"
 msgstr "पृष्ठभूमि को ओवरराइड करें"
 
-#: resources/ui/dash.ui:114
+#: resources/ui/dash.ui:140
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -452,34 +572,34 @@ msgstr ""
 "पृष्ठभूमि को पारदर्शी या अर्ध-पारदर्शी बनाता है, इसके बजाय Dash to Dock प्राथमिकताओं "
 "का उपयोग करने के लिए इसे अक्षम करें।"
 
-#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
+#: resources/ui/dash.ui:146 resources/ui/panel.ui:162
 msgid "Background style"
 msgstr "पृष्ठभूमि शैली"
 
-#: resources/ui/dash.ui:121
+#: resources/ui/dash.ui:147
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "डॉक पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
-#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
+#: resources/ui/dash.ui:163 resources/ui/panel.ui:193
 msgid "Disable in overview"
 msgstr "अवलोकन में अक्षम करें"
 
-#: resources/ui/dash.ui:138
+#: resources/ui/dash.ui:164
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "अवलोकन दर्ज करते समय Dash to Dock तक धुंधलापन अक्षम कर देता है।"
 
-#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
+#: resources/ui/dash.ui:199 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:248
 msgid "Transparent"
 msgstr "पारदर्शी"
 
-#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
+#: resources/ui/dash.ui:200 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:249
 msgid "Light"
 msgstr "हल्का"
 
-#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
+#: resources/ui/dash.ui:201 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:250
 msgid "Dark"
 msgstr "गहरा"
 
@@ -491,7 +611,7 @@ msgstr "प्रभाव"
 msgid "Add Effect"
 msgstr "प्रभाव जोड़ें"
 
-#: resources/ui/effects-dialog.ui:72
+#: resources/ui/effects-dialog.ui:77
 msgid "Include advanced effects"
 msgstr "उन्नत प्रभाव शामिल करें"
 
@@ -660,18 +780,18 @@ msgstr "फलक का धुंधलापन"
 msgid "Blur the top panel using the background image."
 msgstr "पृष्ठभूमि छवि का उपयोग करके शीर्ष फलक को धुंधला करें।"
 
-#: resources/ui/panel.ui:113
+#: resources/ui/panel.ui:139
 msgid "Force light text"
 msgstr "बलपूर्वक हल्के पाठ लागू करें"
 
-#: resources/ui/panel.ui:114
+#: resources/ui/panel.ui:140
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "फलक के लिए हल्के पाठ का उपयोग करें, जो gnome-shell की हल्की थीम का उपयोग करते समय "
 "उपयोगी होता है।"
 
-#: resources/ui/panel.ui:129
+#: resources/ui/panel.ui:155
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -680,44 +800,44 @@ msgstr ""
 "पारदर्शी या अर्ध-पारदर्शी का उपयोग करने के लिए फलक की पृष्ठभूमि को ओवरराइड करें।\n"
 "अनुशंसित जब तक आप अपनी GNOME थीम को अनुकूलित नहीं करना चाहते।"
 
-#: resources/ui/panel.ui:137
+#: resources/ui/panel.ui:163
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "फलक पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
-#: resources/ui/panel.ui:151
+#: resources/ui/panel.ui:177
 msgid "Disable when a window is near"
 msgstr "जब कोई विंडो निकट हो तो अक्षम करें"
 
-#: resources/ui/panel.ui:152
+#: resources/ui/panel.ui:178
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "जब कोई विंडो इसके निकट हो तो फलक की पारदर्शिता अक्षम हो जाती है।"
 
-#: resources/ui/panel.ui:168
+#: resources/ui/panel.ui:194
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "अवलोकन दर्ज करते समय फलक से धुंधलापन अक्षम कर देता है।"
 
-#: resources/ui/panel.ui:184
+#: resources/ui/panel.ui:210
 msgid "Compatibility"
 msgstr "अनुकूलता"
 
-#: resources/ui/panel.ui:185
+#: resources/ui/panel.ui:211
 msgid "Various options to provide compatibility with other extensions."
 msgstr "अन्य एक्सटेंशन के साथ अनुकूलता प्रदान करने के लिए विभिन्न विकल्प।"
 
-#: resources/ui/panel.ui:190
+#: resources/ui/panel.ui:216
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar एक्सटेंशन"
 
-#: resources/ui/panel.ui:191
+#: resources/ui/panel.ui:217
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "अवलोकन में धुंधलापन अक्षम नहीं करता, स्थिर धुंधलापन के साथ सबसे अच्छा उपयोग किया जाता है।"
 
-#: resources/ui/panel.ui:205
+#: resources/ui/panel.ui:231
 msgid "Blur original panel with Dash to Panel"
 msgstr "Dash to Panel के साथ मूल फलक को धुंधला करें"
 
-#: resources/ui/panel.ui:206
+#: resources/ui/panel.ui:232
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -725,7 +845,7 @@ msgstr ""
 "यदि एक्सटेंशन के विकल्पों में चयन किया गया है, तो Dash to Panel के साथ मूल फलक को धुंधला "
 "करने में सक्षम बनाता है।"
 
-#: resources/ui/panel.ui:225
+#: resources/ui/panel.ui:251
 msgid "Contrasted"
 msgstr "विषम"
 
@@ -760,6 +880,12 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "पाइपलाइन जोड़ें"
+
+#~ msgid "A list of windows to blur."
+#~ msgstr "धुंधली करने के लिए विंडोज़ की सूची।"
+
+#~ msgid "A list of windows not to blur."
+#~ msgstr "धुंधली न होने वाली विंडोज़ की सूची।"
 
 #~ msgid "Gaussian blur"
 #~ msgstr "गॉसियन धुंधलापन"

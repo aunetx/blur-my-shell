@@ -170,7 +170,32 @@ export function get_supported_effects(_ = () => "") {
                     name: _("Color"),
                     description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
                     type: "rgba",
-                    use_alpha: true,
+                    use_alpha: true
+                },
+                blend_mode: {
+                    name: _("Blend mode"),
+                    description: _("How the color is blended in."),
+                    type: "dropdown",
+                    options: [
+                        _("Normal"),
+                        _("Multiply"),
+                        _("Screen"),
+                        _("Overlay"),
+                        _("Darken"),
+                        _("Lighten"),
+                        _("Plus darker"),
+                        _("Plus lighter"),
+                        _("Color dodge"),
+                        _("Color burn"),
+                        _("Hard light"),
+                        _("Soft light"),
+                        _("Difference"),
+                        _("Exclusion"),
+                        _("Hue"),
+                        _("Saturation"),
+                        _("Color"),
+                        _("Luminosity")
+                    ]
                 }
             }
         },
@@ -380,7 +405,7 @@ export function get_supported_effects(_ = () => "") {
                     description: _("The radius of the corner. GNOME apps use a radius of 12 px by default."),
                     type: "integer",
                     min: 0,
-                    max: 50,
+                    max: 150,
                     increment: 1,
                 },
                 corners_top: {

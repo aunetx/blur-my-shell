@@ -1,5 +1,6 @@
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
+import Gio from 'gi://Gio';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { update_from_old_settings } from './conveniences/settings_updater.js';
@@ -34,6 +35,17 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         // update from old settings, very important for hacks level specifically
         update_from_old_settings(this.getSettings());
 
+        const actionGroup = new Gio.SimpleActionGroup();
+        window.insert_action_group('link', actionGroup);
+        const action = new Gio.SimpleAction({ name: 'open-gnome-rounded-blur' });
+        action.connect('activate', () => {
+            Gio.AppInfo.launch_default_for_uri(
+                'https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md',
+                null
+            );
+        });
+        actionGroup.add_action(action);
+
         const preferences = new Settings(KEYS, this.getSettings());
         const pipelines_manager = new PipelinesManager(preferences);
 
@@ -43,7 +55,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(new Panel(preferences, pipelines_manager, pipelines_page));
         window.add(new Overview(preferences, pipelines_manager, pipelines_page));
         window.add(new Dash(preferences, pipelines_manager, pipelines_page));
-        window.add(new Applications(preferences, window));
+        window.add(new Applications(preferences, window, pipelines_manager, pipelines_page));
         window.add(new Other(preferences, pipelines_manager, pipelines_page));
 
         window.search_enabled = true;

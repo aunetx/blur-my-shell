@@ -16,6 +16,9 @@ export const Dash = GObject.registerClass({
         'sigma',
         'brightness_row',
         'brightness',
+        'corner_radius_not_found_row',
+        'corner_radius_row',
+        'corner_radius',
         'override_background',
         'style_dash_to_dock',
         'unblur_in_overview'
@@ -55,6 +58,10 @@ export const Dash = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
+            'corner-radius', this._corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_dock.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
             Gio.SettingsBindFlags.DEFAULT
@@ -77,5 +84,7 @@ export const Dash = GObject.registerClass({
         this._pipeline_choose_row.set_visible(is_static_blur);
         this._sigma_row.set_visible(!is_static_blur);
         this._brightness_row.set_visible(!is_static_blur);
+        this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
+        this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
     }
 });

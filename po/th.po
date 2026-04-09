@@ -8,55 +8,51 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:29+0200\n"
-"PO-Revision-Date: 2025-04-06 17:37+0000\n"
-"Last-Translator: Indrek Haav <indrek.haav@hotmail.com>\n"
-"Language-Team: Estonian <https://hosted.weblate.org/projects/blur-my-shell/"
-"blur-my-shell/et/>\n"
-"Language: et\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/effects/effects.js:20
 msgid "Blur effects"
-msgstr "Blur efektid"
+msgstr ""
 
 #: src/effects/effects.js:28
 msgid "Texture effects"
-msgstr "Tekstuuri efektid"
+msgstr ""
 
 #: src/effects/effects.js:41
 msgid "Shape effects"
-msgstr "Kuju efektid"
+msgstr ""
 
 #: src/effects/effects.js:57
 msgid "Native gaussian blur"
-msgstr "Natiivne gaussian blur"
+msgstr ""
 
 #: src/effects/effects.js:58
 msgid ""
 "An optimized blur effect that smoothly blends pixels within a given radius."
 msgstr ""
-"Optimiseeritud hägususe effekt, mis sujuvalt hägustab piksleid etteantud "
-"raadiuses."
 
 #: src/effects/effects.js:62 src/effects/effects.js:91
 #: src/effects/effects.js:120 src/effects/effects.js:342
 msgid "Radius"
-msgstr "Raadius"
+msgstr ""
 
 #: src/effects/effects.js:63
 msgid "The intensity of the blur effect."
-msgstr "Hägususe efekti intensiivsus."
+msgstr ""
 
 #: src/effects/effects.js:72 src/effects/effects.js:101
 #: src/effects/effects.js:138 resources/ui/applications.ui:93
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr "Eredus"
+msgstr ""
 
 #: src/effects/effects.js:73 src/effects/effects.js:102
 #: src/effects/effects.js:139 resources/ui/applications.ui:94
@@ -66,7 +62,6 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Hägususe efekti eredus, kõrge väärtus võib teha teksti raskemini loetavaks."
 
 #: src/effects/effects.js:86
 msgid "Gaussian blur (advanced effect)"
@@ -77,53 +72,45 @@ msgid ""
 "A blur effect that smoothly blends pixels within a given radius. This effect "
 "is more precise, but way less optimized."
 msgstr ""
-"Hägususe efekt, mis sujuvalt hägustab piksleid etteantud raadiuses. See "
-"efekt on täpsem, aga optimiseerimata."
 
 #: src/effects/effects.js:92
 msgid ""
 "The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr "Hägususe efekti intensiivsus. Mida suurem, seda aeglasem."
+msgstr ""
 
 #: src/effects/effects.js:115
 msgid "Monte Carlo blur"
-msgstr "Monte Carlo blur"
+msgstr ""
 
 #: src/effects/effects.js:116
 msgid ""
 "A blur effect that mimics a random walk, by picking pixels further and "
 "further away from its origin and mixing them all together."
 msgstr ""
-"Hägususe efekt, mis imiteerib suvalist jalutust, võttes pikslid kaugemalt ja "
-"kaugemalt oma algasukohast ja segades need kõik kokku."
 
 #: src/effects/effects.js:121
 msgid ""
 "The maximum travel distance for each step in the random walk. A higher value "
 "will make the blur more randomized."
 msgstr ""
-"Iga sammu maksimaalne kaugus suvalisel jalutusel. Suurem väärtus muudab "
-"hägususe suvalisemaks."
 
 #: src/effects/effects.js:130
 msgid "Iterations"
-msgstr "Iteratsioonid"
+msgstr ""
 
 #: src/effects/effects.js:131
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "Iteratsioonide arv. Mida rohkem, seda sujuvam on efekt."
+msgstr ""
 
 #: src/effects/effects.js:148
 msgid "Use base pixel"
-msgstr "Kasuta baaspikslit"
+msgstr ""
 
 #: src/effects/effects.js:149
 msgid ""
 "Whether or not the original pixel is counted for the blur. If it is, the "
 "image will be more legible."
 msgstr ""
-"Algpiksel arvestatakse hägususe loomisel. Kui arvestatakse, näeb pilt "
-"teravam välja."
 
 #: src/effects/effects.js:153
 msgid "Prefer closer pixels"
@@ -138,11 +125,11 @@ msgstr ""
 #: src/effects/effects.js:162 src/effects/effects.js:168
 #: src/effects/effects.js:193
 msgid "Color"
-msgstr "Värv"
+msgstr ""
 
 #: src/effects/effects.js:163
 msgid "An effect that blends a color into the pipeline."
-msgstr "Efekt, mis segab värvi pipeline'sse."
+msgstr ""
 
 #: src/effects/effects.js:169
 msgid ""
@@ -854,6 +841,3 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr ""
-
-#~ msgid "Gaussian blur"
-#~ msgstr "Gaussian blur"
