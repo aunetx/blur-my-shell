@@ -4,26 +4,20 @@ Due to various technical difficulties, an additional external library is require
 
 ### Installing the library
 
-Before running the script, it is necessary to grant it execute permission by using this command
+The library can be installed by running the following command
 
 ```
-$ sudo chmod +x rounded_blur_build.sh
-```
-
-After doing that, the library can be installed by running the script like this
-
-```
-$ ./rounded_blur_build.sh -i
+$ curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i
 ```
 
 **Note:** You will need to rerun this script everytime GNOME Shell / mutter is updated because the library need to be built against the version that you have running on your computer.
 
 ### Uninstalling the library
 
-The library can be uninstalled by running the script like this
+The library can be uninstalled by running the following command
 
 ```
-$ ./rounded_blur_build.sh -u
+$ curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -u
 ```
 
   
