@@ -24,7 +24,7 @@ $ curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/
 
 ### For Arch Linux (or any of its derivatives) users
 
-You can get this library by getting it on [the AUR](https://aur.archlinux.org/packages/gnome-rounded-blur). If you have an AUR helper, you can use that to, here are some example:
+You can get this library by getting it on [the AUR](https://aur.archlinux.org/packages/gnome-rounded-blur). If you have an AUR helper, you can use that to install the library, here are some example:
 
 - For `paru` users
 ```
