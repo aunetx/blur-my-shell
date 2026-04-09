@@ -154,18 +154,24 @@ export const EffectRow = GObject.registerClass({
                         width_request: 75,
                         height_request: 45,
                         show_editor: true,
-                        use_alpha: true
+                        use_alpha: param.use_alpha
                     });
                     row.add_suffix(color_button);
                     // set original color
                     let c = color_button.get_rgba().copy();
-                    [c.red, c.green, c.blue, c.alpha] = this.get_effect_param(param_key);
+                    if (param.use_alpha)
+                        [c.red, c.green, c.blue, c.alpha] = this.get_effect_param(param_key);
+                    else
+                        [c.red, c.green, c.blue] = this.get_effect_param(param_key);
                     color_button.set_rgba(c);
                     // update on on 'color-set'
                     color_button.connect(
                         'color-set', () => {
                             let c = color_button.get_rgba();
-                            this.set_effect_param(param_key, [c.red, c.green, c.blue, c.alpha]);
+                            if (param.use_alpha)
+                                this.set_effect_param(param_key, [c.red, c.green, c.blue, c.alpha]);
+                            else
+                                this.set_effect_param(param_key, [c.red, c.green, c.blue]);
                         }
                     );
                     break;
