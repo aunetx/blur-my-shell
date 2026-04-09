@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-06 17:22+0200\n"
-"PO-Revision-Date: 2025-05-22 01:01+0000\n"
-"Last-Translator: BalHaise <swizzybabe@gmail.com>\n"
+"PO-Revision-Date: 2026-04-09 17:09+0000\n"
+"Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -158,79 +158,79 @@ msgstr ""
 
 #: src/effects/effects.js:173
 msgid "Blend mode"
-msgstr ""
+msgstr "Mode de mixage"
 
 #: src/effects/effects.js:174
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Comment les couleurs sont mixées."
 
 #: src/effects/effects.js:177
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: src/effects/effects.js:178
 msgid "Multiply"
-msgstr ""
+msgstr "Multiplication"
 
 #: src/effects/effects.js:179
 msgid "Screen"
-msgstr ""
+msgstr "Écran"
 
 #: src/effects/effects.js:180
 msgid "Overlay"
-msgstr ""
+msgstr "Superposition"
 
 #: src/effects/effects.js:181
 msgid "Darken"
-msgstr ""
+msgstr "Assombrissement"
 
 #: src/effects/effects.js:182
 msgid "Lighten"
-msgstr ""
+msgstr "Éclaircissement"
 
 #: src/effects/effects.js:183
 msgid "Plus darker"
-msgstr ""
+msgstr "Assombrissement plus"
 
 #: src/effects/effects.js:184
 msgid "Plus lighter"
-msgstr ""
+msgstr "Éclaircissement plus"
 
 #: src/effects/effects.js:185
 msgid "Color dodge"
-msgstr ""
+msgstr "Densité -"
 
 #: src/effects/effects.js:186
 msgid "Color burn"
-msgstr ""
+msgstr "Densité +"
 
 #: src/effects/effects.js:187
 msgid "Hard light"
-msgstr ""
+msgstr "Lumière dure"
 
 #: src/effects/effects.js:188
 msgid "Soft light"
-msgstr ""
+msgstr "Lumière douce"
 
 #: src/effects/effects.js:189
 msgid "Difference"
-msgstr ""
+msgstr "Différence"
 
 #: src/effects/effects.js:190
 msgid "Exclusion"
-msgstr ""
+msgstr "Exclusion"
 
 #: src/effects/effects.js:191
 msgid "Hue"
-msgstr ""
+msgstr "Teinte"
 
 #: src/effects/effects.js:192
 msgid "Saturation"
-msgstr ""
+msgstr "Saturation"
 
 #: src/effects/effects.js:194
 msgid "Luminosity"
-msgstr ""
+msgstr "Luminosité"
 
 #: src/effects/effects.js:202
 msgid "Pixelize"
@@ -440,6 +440,8 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect, "
 "but shows content behind windows."
 msgstr ""
+"Le flou dynamique est plus lent et est seulement compatible avec un effet de "
+"flou gaussien, mais il montre le contenu derrière les fenêtres."
 
 #: resources/ui/applications.ui:42 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41
@@ -518,6 +520,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Une liste de fenêtres à flouter.\n"
+"Le caractère * correspond à n'importe quelle séquence de caractères (par "
+"exemple, Firefox* ou *Code*), et ? à un seul caractère."
 
 #: resources/ui/applications.ui:204 resources/ui/applications.ui:242
 msgid "Add Window"
@@ -533,6 +538,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Une liste de fenêtres à ne pas flouter.\n"
+"Le caractère * correspond à n'importe quelle séquence de caractères (par "
+"exemple, Firefox* ou *Code*), et ? à un seul caractère."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -795,7 +803,7 @@ msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Utilise un texte clair pour le panneau, utile lorsque l'on utilise le thème "
-"clair the GNOME Shell."
+"clair de GNOME Shell."
 
 #: resources/ui/panel.ui:129
 msgid ""
