@@ -57,13 +57,24 @@ install_lib(){
 }
 
 uninstall_lib(){
-	echo "--------------------------------------------------------"
-	echo "Uninstalling"
-	echo "--------------------------------------------------------"
+	OS_ID_TYPE=$(cat /etc/os-release | grep -m 1 -o -P '(?<=ID=).*')
+	OS_LIKE_ID_TYPE=$(cat /etc/os-release | grep -m 1 -o -P '(?<=ID_LIKE=).*' || true)
 	
-	sudo rm -rf /usr/include/blur-effect-1.0
-	sudo rm /usr/lib/girepository-1.0/Blur-1.0.typelib /usr/lib/pkgconfig/blur-effect-1.0.pc /usr/lib/libblur-effect-1.0.so /usr/lib/libblur-effect-1.0.so.1 /usr/lib/libblur-effect-1.0.so.1.0.0 /usr/share/gir-1.0/Blur-1.0.gir
-	
+	if [[ "$OS_ID_TYPE" = "arch" ]] || [[ "$OS_LIKE_ID_TYPE" = "arch" ]]; then
+	 	echo "--------------------------------------------------------"
+		echo "Please do not use this script to uninstall the library if you installed it via the AUR,"
+		echo "use pacman -R gnome-rounded-blur instead"
+		echo "--------------------------------------------------------"
+		sleep 5
+		exit 1
+	else
+		echo "--------------------------------------------------------"
+		echo "Uninstalling"
+		echo "--------------------------------------------------------"
+		sudo rm -rf /usr/include/blur-effect-1.0
+		sudo rm /usr/lib/girepository-1.0/Blur-1.0.typelib /usr/lib/pkgconfig/blur-effect-1.0.pc /usr/lib/libblur-effect-1.0.so /usr/lib/libblur-effect-1.0.so.1 /usr/lib/libblur-effect-1.0.so.1.0.0 /usr/share/gir-1.0/Blur-1.0.gir
+	fi
+
 	echo "--------------------------------------------------------"
 	echo "For the changes to apply, please log out and then log back in."
 	echo "--------------------------------------------------------"
@@ -80,7 +91,6 @@ if [[ $? -ne 4 ]]; then
 fi
 
 install_dep(){
-	echo "Checking environment"
 	OS_ID_TYPE=$(cat /etc/os-release | grep -m 1 -o -P '(?<=ID=).*')
 	OS_LIKE_ID_TYPE=$(cat /etc/os-release | grep -m 1 -o -P '(?<=ID_LIKE=).*' || true)
 
