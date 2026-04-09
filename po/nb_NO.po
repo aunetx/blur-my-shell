@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 17:22+0200\n"
+"POT-Creation-Date: 2026-04-09 10:29+0200\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/blur-my-"
@@ -433,11 +433,39 @@ msgstr "Sigma"
 msgid "The intensity of the blur."
 msgstr "Tilsløringsgrad."
 
-#: resources/ui/applications.ui:114
+#: resources/ui/applications.ui:114 resources/ui/applications.ui:131
+#: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
+#: resources/ui/panel.ui:130
+msgid "Corner radius"
+msgstr ""
+
+#: resources/ui/applications.ui:115 resources/ui/dash.ui:114
+#: resources/ui/panel.ui:114
+msgid ""
+"In order to use rounded corners, please install the GNOME Rounded Blur "
+"library."
+msgstr ""
+
+#: resources/ui/applications.ui:132 resources/ui/dash.ui:131
+#: resources/ui/panel.ui:131
+msgid "Radius for the corner rounding effect."
+msgstr ""
+
+#: resources/ui/applications.ui:140
+msgid "Enable corner rounding on maximized and fullscreen"
+msgstr ""
+
+#: resources/ui/applications.ui:141
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+
+#: resources/ui/applications.ui:155
 msgid "Opacity"
 msgstr "Gjennomsiktighet"
 
-#: resources/ui/applications.ui:115
+#: resources/ui/applications.ui:156
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -445,21 +473,21 @@ msgstr ""
 "Vinduets gjennomsiktighet oppå uklarhets effekten, en høyere verdi vil være "
 "mer leselig."
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:177
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/applications.ui:137
+#: resources/ui/applications.ui:178
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 
-#: resources/ui/applications.ui:151
+#: resources/ui/applications.ui:192
 msgid "Blur on overview"
 msgstr "Tilslør på oversikt"
 
-#: resources/ui/applications.ui:152
+#: resources/ui/applications.ui:193
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -468,34 +496,34 @@ msgstr ""
 "oversikt.\n"
 "Dette kan årsake noe \"latency\" eller ytelsesproblemer."
 
-#: resources/ui/applications.ui:167
+#: resources/ui/applications.ui:208
 msgid "Enable all by default"
 msgstr "Aktiver alle av standard"
 
-#: resources/ui/applications.ui:168
+#: resources/ui/applications.ui:209
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:184
+#: resources/ui/applications.ui:225
 msgid "Whitelist"
 msgstr "Hviteliste"
 
-#: resources/ui/applications.ui:185
+#: resources/ui/applications.ui:226
 msgid ""
 "A list of windows to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
 
-#: resources/ui/applications.ui:204 resources/ui/applications.ui:242
+#: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
 msgstr "Legg til vindu"
 
-#: resources/ui/applications.ui:222
+#: resources/ui/applications.ui:263
 msgid "Blacklist"
 msgstr "Svarteliste"
 
-#: resources/ui/applications.ui:223
+#: resources/ui/applications.ui:264
 msgid ""
 "A list of windows not to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -519,11 +547,11 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr ""
 
-#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
+#: resources/ui/dash.ui:139 resources/ui/panel.ui:154
 msgid "Override background"
 msgstr "Overstyr bakgrunn"
 
-#: resources/ui/dash.ui:114
+#: resources/ui/dash.ui:140
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -531,34 +559,34 @@ msgstr ""
 "Gjør bakgrunnen enten gjennomsiktig eller semi-gjennomsiktig, deaktiver "
 "denne for å bruke Dash til Dock preferanser i stedet."
 
-#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
+#: resources/ui/dash.ui:146 resources/ui/panel.ui:162
 msgid "Background style"
 msgstr "Bakgrunnsstil"
 
-#: resources/ui/dash.ui:121
+#: resources/ui/dash.ui:147
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "Den gjennomsiktige/semi-gjennomsiktige stilen for dock bakgrunnen."
 
-#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
+#: resources/ui/dash.ui:163 resources/ui/panel.ui:193
 msgid "Disable in overview"
 msgstr "Skru av i oversikten"
 
-#: resources/ui/dash.ui:138
+#: resources/ui/dash.ui:164
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr "Skrur av tilsløring fra Dash til dokk når oversikten åpnes."
 
-#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
+#: resources/ui/dash.ui:199 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:248
 msgid "Transparent"
 msgstr "Gjennomsiktig"
 
-#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
+#: resources/ui/dash.ui:200 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:249
 msgid "Light"
 msgstr "Lys"
 
-#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
+#: resources/ui/dash.ui:201 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:250
 msgid "Dark"
 msgstr "Mørk"
 
@@ -570,7 +598,7 @@ msgstr ""
 msgid "Add Effect"
 msgstr ""
 
-#: resources/ui/effects-dialog.ui:72
+#: resources/ui/effects-dialog.ui:77
 msgid "Include advanced effects"
 msgstr ""
 
@@ -741,17 +769,17 @@ msgstr "Paneltilsløring"
 msgid "Blur the top panel using the background image."
 msgstr "Tilslør topp-panelet med bakgrunnsbildet."
 
-#: resources/ui/panel.ui:113
+#: resources/ui/panel.ui:139
 msgid "Force light text"
 msgstr "Tving lys text"
 
-#: resources/ui/panel.ui:114
+#: resources/ui/panel.ui:140
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Bruk en lys tekst for panelet, nyttig når du bruker gnome-shellets lys tema."
 
-#: resources/ui/panel.ui:129
+#: resources/ui/panel.ui:155
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -761,44 +789,44 @@ msgstr ""
 "gjennomsiktig en.\n"
 "Anbefalt hvis du ikke vil tilpasse GNOME temaet ditt."
 
-#: resources/ui/panel.ui:137
+#: resources/ui/panel.ui:163
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "Den gjennomsiktige/semi-gjennomsiktige stilen for panel bakgrunnen."
 
-#: resources/ui/panel.ui:151
+#: resources/ui/panel.ui:177
 msgid "Disable when a window is near"
 msgstr "Deaktiver når et vindu er nært"
 
-#: resources/ui/panel.ui:152
+#: resources/ui/panel.ui:178
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "Deaktiver gjennomsiktigheten av panelet når et vindu er nært."
 
-#: resources/ui/panel.ui:168
+#: resources/ui/panel.ui:194
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Skrur av tilsløring fra panelet når oversikten åpnes."
 
-#: resources/ui/panel.ui:184
+#: resources/ui/panel.ui:210
 msgid "Compatibility"
 msgstr "Kompatibilitet"
 
-#: resources/ui/panel.ui:185
+#: resources/ui/panel.ui:211
 msgid "Various options to provide compatibility with other extensions."
 msgstr "Forskjellige valg for å tilby kompatibilitet med andre utvidelser."
 
-#: resources/ui/panel.ui:190
+#: resources/ui/panel.ui:216
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-tillegg"
 
-#: resources/ui/panel.ui:191
+#: resources/ui/panel.ui:217
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "Skrur ikke av tilsløring i oversikten. Fungerer best med statisk tilsløring."
 
-#: resources/ui/panel.ui:205
+#: resources/ui/panel.ui:231
 msgid "Blur original panel with Dash to Panel"
 msgstr "Tilslør det originalet panelet med Dash to Panel"
 
-#: resources/ui/panel.ui:206
+#: resources/ui/panel.ui:232
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -806,7 +834,7 @@ msgstr ""
 "Aktiverer tilsløringen av det originalet panelet med Dash to Panel, hvis "
 "valgt i utvidelsens opsjoner."
 
-#: resources/ui/panel.ui:225
+#: resources/ui/panel.ui:251
 msgid "Contrasted"
 msgstr "Kontrastet"
 

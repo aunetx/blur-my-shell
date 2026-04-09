@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 17:22+0200\n"
+"POT-Creation-Date: 2026-04-09 10:29+0200\n"
 "PO-Revision-Date: 2025-04-06 17:37+0000\n"
 "Last-Translator: Syuugo <pub@s1204.me>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -448,11 +448,39 @@ msgstr "標準偏差"
 msgid "The intensity of the blur."
 msgstr "ぼかしの強度。"
 
-#: resources/ui/applications.ui:114
+#: resources/ui/applications.ui:114 resources/ui/applications.ui:131
+#: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
+#: resources/ui/panel.ui:130
+msgid "Corner radius"
+msgstr ""
+
+#: resources/ui/applications.ui:115 resources/ui/dash.ui:114
+#: resources/ui/panel.ui:114
+msgid ""
+"In order to use rounded corners, please install the GNOME Rounded Blur "
+"library."
+msgstr ""
+
+#: resources/ui/applications.ui:132 resources/ui/dash.ui:131
+#: resources/ui/panel.ui:131
+msgid "Radius for the corner rounding effect."
+msgstr ""
+
+#: resources/ui/applications.ui:140
+msgid "Enable corner rounding on maximized and fullscreen"
+msgstr ""
+
+#: resources/ui/applications.ui:141
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+
+#: resources/ui/applications.ui:155
 msgid "Opacity"
 msgstr "不透明度"
 
-#: resources/ui/applications.ui:115
+#: resources/ui/applications.ui:156
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -460,11 +488,11 @@ msgstr ""
 "ぼかし効果の上に表示されているウィンドウの透明度。値が大きいほど、読みやすく"
 "なります。"
 
-#: resources/ui/applications.ui:136
+#: resources/ui/applications.ui:177
 msgid "Opaque focused window"
 msgstr "アクティブウィンドウは不透明にする"
 
-#: resources/ui/applications.ui:137
+#: resources/ui/applications.ui:178
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -472,11 +500,11 @@ msgstr ""
 "アクティブウィンドウは不透明にし、そのほかのウィンドウはぼかしをかけること"
 "で、判読性を向上します。"
 
-#: resources/ui/applications.ui:151
+#: resources/ui/applications.ui:192
 msgid "Blur on overview"
 msgstr "アクティビティ画面でぼかす"
 
-#: resources/ui/applications.ui:152
+#: resources/ui/applications.ui:193
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -485,34 +513,34 @@ msgstr ""
 "制します。\n"
 "これはレイテンシやパフォーマンスの不具合を引き起こす可能性があります。"
 
-#: resources/ui/applications.ui:167
+#: resources/ui/applications.ui:208
 msgid "Enable all by default"
 msgstr "デフォルトですべて有効にする"
 
-#: resources/ui/applications.ui:168
+#: resources/ui/applications.ui:209
 msgid "Adds blur behind all windows by default."
 msgstr "デフォルトですべてのウィンドウにぼかしを加えます。"
 
-#: resources/ui/applications.ui:184
+#: resources/ui/applications.ui:225
 msgid "Whitelist"
 msgstr "ホワイトリスト"
 
-#: resources/ui/applications.ui:185
+#: resources/ui/applications.ui:226
 msgid ""
 "A list of windows to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
 
-#: resources/ui/applications.ui:204 resources/ui/applications.ui:242
+#: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
 msgstr "ウィンドウを追加"
 
-#: resources/ui/applications.ui:222
+#: resources/ui/applications.ui:263
 msgid "Blacklist"
 msgstr "ブラックリスト"
 
-#: resources/ui/applications.ui:223
+#: resources/ui/applications.ui:264
 msgid ""
 "A list of windows not to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -536,11 +564,11 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
 msgstr "動的ぼかしは相対的に低速で、ガウスぼかし効果のみと互換性があります。"
 
-#: resources/ui/dash.ui:113 resources/ui/panel.ui:128
+#: resources/ui/dash.ui:139 resources/ui/panel.ui:154
 msgid "Override background"
 msgstr "背景を上書き"
 
-#: resources/ui/dash.ui:114
+#: resources/ui/dash.ui:140
 msgid ""
 "Makes the background either transparent or semi-transparent, disable this to "
 "use Dash to Dock preferences instead."
@@ -548,35 +576,35 @@ msgstr ""
 "背景を透明または半透明のいずれかに変更します。Dash to Dock の設定を使用するに"
 "は無効にします。"
 
-#: resources/ui/dash.ui:120 resources/ui/panel.ui:136
+#: resources/ui/dash.ui:146 resources/ui/panel.ui:162
 msgid "Background style"
 msgstr "背景のスタイル"
 
-#: resources/ui/dash.ui:121
+#: resources/ui/dash.ui:147
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "ドックの背景に適用する透明/半透明のスタイル。"
 
-#: resources/ui/dash.ui:137 resources/ui/panel.ui:167
+#: resources/ui/dash.ui:163 resources/ui/panel.ui:193
 msgid "Disable in overview"
 msgstr "アクティビティ画面では無効にする"
 
-#: resources/ui/dash.ui:138
+#: resources/ui/dash.ui:164
 msgid "Disables the blur from Dash to Dock when entering the overview."
 msgstr ""
 "アクティビティ画面を表示した際に、Dash to Dock のぼかしを無効にします。"
 
-#: resources/ui/dash.ui:167 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:222
+#: resources/ui/dash.ui:199 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:248
 msgid "Transparent"
 msgstr "透明"
 
-#: resources/ui/dash.ui:168 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:223
+#: resources/ui/dash.ui:200 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:249
 msgid "Light"
 msgstr "明るい"
 
-#: resources/ui/dash.ui:169 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:224
+#: resources/ui/dash.ui:201 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:250
 msgid "Dark"
 msgstr "暗い"
 
@@ -588,7 +616,7 @@ msgstr "効果"
 msgid "Add Effect"
 msgstr "効果を追加"
 
-#: resources/ui/effects-dialog.ui:72
+#: resources/ui/effects-dialog.ui:77
 msgid "Include advanced effects"
 msgstr "高度な効果を含める"
 
@@ -759,18 +787,18 @@ msgstr "パネルのぼかし"
 msgid "Blur the top panel using the background image."
 msgstr "背景画像を使用して上部のパネルをぼかします。"
 
-#: resources/ui/panel.ui:113
+#: resources/ui/panel.ui:139
 msgid "Force light text"
 msgstr "明るいテキストを強制"
 
-#: resources/ui/panel.ui:114
+#: resources/ui/panel.ui:140
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "パネルに明るいテキストを使用します。GNOME Shell の明るいテーマを使用する場合"
 "に便利です。"
 
-#: resources/ui/panel.ui:129
+#: resources/ui/panel.ui:155
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -779,44 +807,44 @@ msgstr ""
 "パネルの背景を透明または半透明に上書きします。\n"
 "GNOME テーマをカスタマイズしたい場合以外は、有効にすることを推奨します。"
 
-#: resources/ui/panel.ui:137
+#: resources/ui/panel.ui:163
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "パネルの背景に適用する透明/半透明のスタイル。"
 
-#: resources/ui/panel.ui:151
+#: resources/ui/panel.ui:177
 msgid "Disable when a window is near"
 msgstr "ウィンドウが近づいたら無効にする"
 
-#: resources/ui/panel.ui:152
+#: resources/ui/panel.ui:178
 msgid "Disables the transparency of the panel when a window is near it."
 msgstr "ウィンドウがパネルに近づいたら、パネルの透明度を無効にします。"
 
-#: resources/ui/panel.ui:168
+#: resources/ui/panel.ui:194
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "アクティビティ画面を表示した際に、パネルのぼかしを無効にします。"
 
-#: resources/ui/panel.ui:184
+#: resources/ui/panel.ui:210
 msgid "Compatibility"
 msgstr "互換性"
 
-#: resources/ui/panel.ui:185
+#: resources/ui/panel.ui:211
 msgid "Various options to provide compatibility with other extensions."
 msgstr "他の拡張機能との互換性を提供するための各種オプション。"
 
-#: resources/ui/panel.ui:190
+#: resources/ui/panel.ui:216
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar 拡張機能"
 
-#: resources/ui/panel.ui:191
+#: resources/ui/panel.ui:217
 msgid "Does not disable the blur in overview, best used with static blur."
 msgstr ""
 "アクティビティ画面でぼかしを無効にしません。静的ぼかしを使う場合に最適です。"
 
-#: resources/ui/panel.ui:205
+#: resources/ui/panel.ui:231
 msgid "Blur original panel with Dash to Panel"
 msgstr "Dash to Panel 使用時、GNOME Shell 本来のパネルをぼかす"
 
-#: resources/ui/panel.ui:206
+#: resources/ui/panel.ui:232
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -824,7 +852,7 @@ msgstr ""
 "Dash to Panel 使用時、GNOME Shell 本来のパネルのぼかしを有効にします (Dash "
 "to Panel のオプションで選択されている場合)。"
 
-#: resources/ui/panel.ui:225
+#: resources/ui/panel.ui:251
 msgid "Contrasted"
 msgstr "コントラスト"
 
