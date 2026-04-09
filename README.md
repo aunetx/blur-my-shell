@@ -40,12 +40,12 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
   - applications
     - you can choose between static blur and dynamic blur
     - static blur:
-      - similar to the Windows "Mica" effect
+      - similar to the Windows “Mica” effect
       - you select a pipeline, just like static blur for any other component
       - **if you use multiple monitors, be aware that blur may not be handled properly**
       - **for Mosaic WM users, this may cause unexpected behavior**
     - dynamic blur:
-      - similar to the Windows "Acrylic" effect
+      - similar to the Windows “Acrylic” effect
       - shows other windows behind the application
       - more comprehensively tested — less likely to cause problems
     - you can select the opacity of the window that is above the blur: a lower opacity means it will be less legible; and a totally opaque setting can be used in pair with a transparent GTK theme to make the background of the windows blurred without touching at its content
@@ -66,11 +66,12 @@ For the difference between static blur and dynamic blur:
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
   - even though it is static, this method of applying effects is not always so fast: for example, applying non-native gaussian blur, or Monte Carlo blur with a lot of iterations will make GNOME Shell quite slow while using the overview or switching workspace. This is being worked on, but for the moment you can for example limit yourself to 5 to 10 iterations for the Monte Carlo blur (which looks cool anyway!), and use native gaussian blur (which is very slightly less precise, but that really does not change anything in reality)
 - dynamic blur makes the component translucent, and blur directly what is behind it
-  - you can only use a gaussian blur for this kind of blurring: this means that it is not possible to add corners, for example
+  - you can only use a gaussian blur for this kind of blurring
+  - by default, it is not possible to add corners, however, you can achieve that with an additional library. Consult this [guide](https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md) on how to install library yourself
   - you can still configure the gaussian blur to make it look as cool as you want
   - this method of blurring is not very efficient: even though it should not slow down your computer to a halt, using static blur is still preferred when possible
   - the gaussian blur effect that is being used has implementation defects, which make if having artifacts in the form of black rectangles when interacting with things that are close to the effect
-  - however, you can remove this problem by selecting a “Hack level" in the “Other" tab in preferences
+  - however, you can remove this problem by selecting a “Hack level” in the “Other” tab in preferences
     - if using “High performances”, then nothing is done to prevent the artifacts
     - if using “Default”, then the blur is updated nearly every time it should be: this removes most artifacts, and induces some performances loss when using the blur effect but while still being usable
     - if using “No artifacts”, then the extension will deactivate clipped redraws in GNOME Shell. This effectively entirely fixes the issue, BUT in return will make your entire computer slower and possibly laggy; even when the blur effect is NOT shown. So I really do not recommend using this option; although it is still included because in the end you are the master of your computer!
@@ -79,10 +80,11 @@ For the difference between static blur and dynamic blur:
 
 Blur my Shell is guaranteed to be compatible, in the sense of at least not to mess around, with the following extensions:
 
-- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from Dash to Dock page)
-- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from Panel page)
-- [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from Other page)
-- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from dedicated switch in Panel page)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from “Dash” to Dock page)
+- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from “Panel” page)
+- [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
+- [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from “Other” page)
+- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from dedicated switch in “Panel” page)
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
 - [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), although corners can't be blurred
 - [Burn my Windows](https://extensions.gnome.org//extension/4679/burn-my-windows/), although nothing is blurred either

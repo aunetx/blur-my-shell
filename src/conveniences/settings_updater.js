@@ -29,6 +29,7 @@ export function update_from_old_settings(gsettings) {
                 if (!deprecated_component.CUSTOMIZE) {
                     new_component.SIGMA = deprecated_preferences.SIGMA;
                     new_component.BRIGHTNESS = deprecated_preferences.BRIGHTNESS;
+                    new_component.CORNER_RADIUS = deprecated_preferences.CORNER_RADIUS;
                 }
             });
 

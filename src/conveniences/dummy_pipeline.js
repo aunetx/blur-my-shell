@@ -43,6 +43,7 @@ export const DummyPipeline = class DummyPipeline {
         this.build_effect({
             unscaled_radius: 2 * this.settings.SIGMA,
             brightness: this.settings.BRIGHTNESS,
+            corner_radius: this.settings.CORNER_RADIUS,
         });
 
         this.actor_destroy_id = this.actor.connect(
@@ -75,6 +76,9 @@ export const DummyPipeline = class DummyPipeline {
         this._brightness_changed_id = this.settings.settings.connect(
             'changed::brightness', () => this.effect.brightness = this.settings.BRIGHTNESS
         );
+        this._corner_radius_changed_id = this.settings.settings.connect(
+            'changed::corner-radius', () => this.effect.corner_radius = this.settings.CORNER_RADIUS
+        );
     }
 
     repaint_effect() {
@@ -92,8 +96,11 @@ export const DummyPipeline = class DummyPipeline {
             this.settings.settings.disconnect(this._sigma_changed_id);
         if (this._brightness_changed_id)
             this.settings.settings.disconnect(this._brightness_changed_id);
+        if (this._corner_radius_changed_id)
+            this.settings.settings.disconnect(this._corner_radius_changed_id);
         delete this._sigma_changed_id;
         delete this._brightness_changed_id;
+        delete this._corner_radius_changed_id;
     }
 
     /// Do nothing for this dummy pipeline.

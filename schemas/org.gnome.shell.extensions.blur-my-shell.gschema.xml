@@ -84,6 +84,11 @@
             <default>1</default>
             <summary>Level of hacks to use (from 0 to 2, 2 disabling clipped redraws entirely)</summary>
         </key>
+        <!-- ROUNDED BLUR FOUND -->
+        <key type="b" name="rounded-blur-found">
+            <default>false</default>
+            <summary>Boolean, set to true if a patched version of ShellBlurEffect was found</summary>
+        </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
             <default>false</default>
@@ -226,6 +231,11 @@
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
         </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>0</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
@@ -338,7 +348,7 @@
         </key>
         <!-- CORNER RADIUS -->
         <key type="i" name="corner-radius">
-            <default>12</default>
+            <default>18</default>
             <summary>Radius for the corner rounding effect</summary>
         </key>
     </schema>
@@ -375,6 +385,16 @@
         <key type="d" name="brightness">
             <default>1.</default>
             <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>15</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
+        <!-- CORNER WHEN MAXIMIZED -->
+        <key type="b" name="corner-when-maximized">
+            <default>false</default>
+            <summary>Boolean, whether to keep rounding the corners of fullscreen and maximized window or not</summary>
         </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">
