@@ -118,6 +118,11 @@ class DashInfos {
     }
 
     update_size() {
+        if (!this.dash_blur._has_valid_allocation(this.dash_container) ||
+            !this.dash_blur._has_valid_allocation(this.dash) ||
+            !this.dash_blur._has_valid_allocation(this.dash_background))
+            return;
+
         if (this.dash_blur.is_static) {
             let [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
 
@@ -234,20 +239,57 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         }).forEach(dash_container => this.try_blur(dash_container));
     }
 
+    _has_valid_allocation(actor) {
+        return actor &&
+            (!actor.has_allocation || actor.has_allocation()) &&
+            actor.width > 0 && actor.height > 0;
+    }
+
+    _defer_blur_until_allocated(dash_container, dash) {
+        if (dash_container._bms_pending_blur_setup)
+            return;
+
+        dash_container._bms_pending_blur_setup = true;
+        const retry = () => {
+            if (!dash_container._bms_pending_blur_setup)
+                return;
+
+            if (!this._has_valid_allocation(dash_container) ||
+                !this._has_valid_allocation(dash))
+                return;
+
+            dash_container._bms_pending_blur_setup = false;
+            this.try_blur(dash_container);
+        };
+
+        this.connections.connect(dash_container, 'notify::allocation', retry);
+        this.connections.connect(dash, 'notify::allocation', retry);
+        this.connections.connect(dash_container, 'destroy', () => {
+            dash_container._bms_pending_blur_setup = false;
+        });
+    }
+
     // Tries to blur the dash contained in the given actor
     try_blur(dash_container) {
         let dash_box = dash_container._slider.get_child();
+        let dash = dash_box.get_children().find(child => {
+            return child.get_name() === 'dash';
+        });
+
+        if (!dash ||
+            !this._has_valid_allocation(dash_container) ||
+            !this._has_valid_allocation(dash_box) ||
+            !this._has_valid_allocation(dash)) {
+            if (dash)
+                this._defer_blur_until_allocated(dash_container, dash);
+            return;
+        }
 
         // verify that we did not already blur that dash
         if (!dash_box.get_children().some(child =>
             child.get_name() === "bms-dash-backgroundgroup"
         )) {
             this._log("dash to dock found, blurring it");
-
-            // finally blur the dash
-            let dash = dash_box.get_children().find(child => {
-                return child.get_name() === 'dash';
-            });
 
             this.dashes.push(this.blur_dash_from(dash, dash_container));
         }
