@@ -104,7 +104,14 @@ export const OverviewBlur = class OverviewBlur {
                 // this hides windows that are not on the current workspace
                 if (
                     outer_this.settings.applications.BLUR
-                )
+                ) {
+                    // compile blacklist patterns once for this switch
+                    const blacklist = outer_this.settings.applications.BLACKLIST || [];
+                    const blacklist_regexes = blacklist.map(pattern => {
+                        const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+                        return new RegExp('^' + escaped.replace(/\*/g, '.*').replace(/\?/g, '.') + '$', 'i');
+                    });
+
                     for (let i = 0; i < w_m.get_n_workspaces(); i++) {
                         if (i != w_m.get_active_workspace_index())
                             w_m.get_workspace_by_index(i)?.list_windows().forEach(
@@ -113,10 +120,23 @@ export const OverviewBlur = class OverviewBlur {
                                     // monitor windows under `workspaces-only-on-primary`);
                                     // hiding them on any inactive workspace hides them globally
                                     if (window.is_on_all_workspaces()) return;
+
+                                    // skip desktop-type windows (e.g. DING, Nautilus desktop):
+                                    // they should always remain visible
+                                    if (window.get_window_type() === Meta.WindowType.DESKTOP)
+                                        return;
+
+                                    // skip blacklisted windows:
+                                    // they are not blurred and should always remain visible
+                                    const wm_class = window.get_wm_class();
+                                    if (wm_class && blacklist_regexes.some(re => re.test(wm_class)))
+                                        return;
+
                                     window.get_compositor_private().hide();
                                 }
                             );
                     }
+                }
 
                 Main.uiGroup.remove_child(outer_this.animation_background_group);
             };
