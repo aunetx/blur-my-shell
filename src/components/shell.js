@@ -5,39 +5,11 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
 
-const SHELL_STYLE_CLASSES = [
-    'popup-menu',
-    'quick-toggle-menu-container',
-    'candidate-popup-boxpointer'
-];
-
-const SHELL_TARGET_STYLE_CLASSES = [
-    'popup-menu-content',
-    'quick-settings',
-    'quick-toggle-menu',
-    'notification-banner',
-    'candidate-popup-content'
-];
-
-const SHELL_CHILD_STYLE_CLASSES = [
-    'osd-window',
-    'resize-popup',
-    'switcher-list',
-    'workspace-switcher',
-    'modal-dialog',
-    'run-dialog'
-];
-
-const SHELL_BACKGROUND_STYLES = [
-    'bms-shell-background-transparent',
-    'bms-shell-background-light',
-    'bms-shell-background-dark'
-];
-
-const SHELL_GROUPS = [
-    () => Main.uiGroup,
-    () => Main.layoutManager?.uiGroup,
-];
+const SHELL_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
+const SHELL_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
+const SHELL_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
+const SHELL_BACKGROUND_STYLES = ['bms-shell-background-transparent', 'bms-shell-background-light', 'bms-shell-background-dark'];
+const SURFACE_SIGNALS = ['notify::allocation', 'notify::position', 'notify::size', 'notify::visible', 'notify::opacity', 'notify::translation-x', 'notify::translation-y', 'notify::scale-x', 'notify::scale-y'];
 
 export const ShellBlur = class ShellBlur {
     constructor(connections, settings, effects_manager) {
@@ -162,6 +134,7 @@ export const ShellBlur = class ShellBlur {
             pipeline,
             corner_effect,
             signal_ids: [],
+            signal_actors: new WeakSet(),
             repaint_id: 0,
             update_id: 0,
             x: null,
@@ -201,20 +174,12 @@ export const ShellBlur = class ShellBlur {
     }
 
     connect_surface_actor(surface, actor) {
-        if (!actor || surface.signal_ids.some(([connected_actor]) => connected_actor === actor))
+        if (!actor || surface.signal_actors.has(actor))
             return;
 
-        [
-            'notify::allocation',
-            'notify::position',
-            'notify::size',
-            'notify::visible',
-            'notify::opacity',
-            'notify::translation-x',
-            'notify::translation-y',
-            'notify::scale-x',
-            'notify::scale-y',
-        ].forEach(signal => {
+        surface.signal_actors.add(actor);
+
+        SURFACE_SIGNALS.forEach(signal => {
             try {
                 const id = actor.connect(signal, () => this.queue_update_surface(surface));
                 surface.signal_ids.push([actor, id]);
@@ -257,7 +222,7 @@ export const ShellBlur = class ShellBlur {
         let actor = root_actor;
         while (actor?.get_parent?.()) {
             const parent = actor.get_parent();
-            if (SHELL_GROUPS.some(get_group => parent === get_group()))
+            if (parent === Main.uiGroup || parent === Main.layoutManager?.uiGroup)
                 return { parent, sibling: actor };
 
             actor = parent;
@@ -280,7 +245,7 @@ export const ShellBlur = class ShellBlur {
             if (!this.surfaces.has(target))
                 return;
 
-            if (!target.visible || !target.mapped || !target.has_allocation()) {
+            if (!this.is_surface_visible(surface)) {
                 blur_actor.hide();
                 return;
             }
@@ -362,9 +327,23 @@ export const ShellBlur = class ShellBlur {
         return (
             this.enabled
             && this.surfaces.has(surface.target)
-            && surface.target.visible
-            && surface.target.mapped
-            && surface.target.has_allocation()
+            && this.is_surface_visible(surface)
+        );
+    }
+
+    is_surface_visible(surface) {
+        return (
+            this.is_actor_visible(surface.target)
+            && this.is_actor_visible(surface.root_actor)
+        );
+    }
+
+    is_actor_visible(actor) {
+        return (
+            actor
+            && actor.visible
+            && actor.mapped
+            && actor.has_allocation?.()
         );
     }
 
@@ -372,39 +351,51 @@ export const ShellBlur = class ShellBlur {
         const delegate = actor._delegate;
         const targets = [];
 
-        if (SHELL_TARGET_STYLE_CLASSES.some(style => this.has_style_class(delegate?.box, style)))
-            targets.push(delegate.box);
+        if (this.has_any_style_class(delegate?.box, SHELL_TARGET_STYLE_CLASSES))
+            this.add_target(targets, delegate.box);
 
-        if (SHELL_TARGET_STYLE_CLASSES.some(style => this.has_style_class(actor, style)))
-            targets.push(actor);
+        if (this.has_any_style_class(actor, SHELL_TARGET_STYLE_CLASSES))
+            this.add_target(targets, actor);
 
-        if (SHELL_CHILD_STYLE_CLASSES.some(style => this.has_style_class(actor, style)))
-            targets.push(actor);
+        if (this.has_any_style_class(actor, SHELL_CHILD_STYLE_CLASSES))
+            this.add_target(targets, actor);
 
-        if (SHELL_CHILD_STYLE_CLASSES.some(style => this.has_style_class(actor.dialogLayout, style)))
-            targets.push(actor.dialogLayout);
+        if (this.has_any_style_class(actor.dialogLayout, SHELL_CHILD_STYLE_CLASSES))
+            this.add_target(targets, actor.dialogLayout);
 
-        this.find_target_children(actor, targets);
+        if (targets.length === 0)
+            this.find_target_children(actor, targets);
 
         if (
             targets.length === 0
-            && SHELL_STYLE_CLASSES.some(style => this.has_style_class(actor, style))
+            && this.has_any_style_class(actor, SHELL_STYLE_CLASSES)
         )
-            targets.push(actor);
+            this.add_target(targets, actor);
 
-        return [...new Set(targets)];
+        return targets;
     }
 
     find_target_children(actor, targets) {
         actor.get_children?.().forEach(child => {
             if (
-                SHELL_TARGET_STYLE_CLASSES.some(style => this.has_style_class(child, style))
-                || SHELL_CHILD_STYLE_CLASSES.some(style => this.has_style_class(child, style))
-            )
-                targets.push(child);
+                this.has_any_style_class(child, SHELL_TARGET_STYLE_CLASSES)
+                || this.has_any_style_class(child, SHELL_CHILD_STYLE_CLASSES)
+            ) {
+                this.add_target(targets, child);
+                return;
+            }
 
             this.find_target_children(child, targets);
         });
+    }
+
+    add_target(targets, target) {
+        if (target && !targets.includes(target))
+            targets.push(target);
+    }
+
+    has_any_style_class(actor, style_classes) {
+        return style_classes.some(style => this.has_style_class(actor, style));
     }
 
     has_style_class(actor, style_class) {
