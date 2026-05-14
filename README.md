@@ -76,10 +76,10 @@ For the difference between static blur and dynamic blur:
   - you can still configure the gaussian blur to make it look as cool as you want
   - this method of blurring is not very efficient: even though it should not slow down your computer to a halt, using static blur is still preferred when possible
   - the gaussian blur effect that is being used has implementation defects, which make if having artifacts in the form of black rectangles when interacting with things that are close to the effect
-  - however, you can remove this problem by selecting a “Hack level” in the “Other” tab in preferences
-    - if using “High performances”, then nothing is done to prevent the artifacts
+  - however, you can reduce this problem by selecting an “Artifact handling” mode in the “Other” tab in preferences
+    - if using “High performance”, then nothing is done to prevent the artifacts
     - if using “Default”, then the blur is updated nearly every time it should be: this removes most artifacts, and induces some performances loss when using the blur effect but while still being usable
-    - if using “No artifacts”, then the extension will deactivate clipped redraws in GNOME Shell. This effectively entirely fixes the issue, BUT in return will make your entire computer slower and possibly laggy; even when the blur effect is NOT shown. So I really do not recommend using this option; although it is still included because in the end you are the master of your computer!
+    - if using “No artifact”, then the extension will deactivate clipped redraws in GNOME Shell. This effectively entirely fixes the issue, BUT in return will make your entire computer slower and possibly laggy; even when the blur effect is NOT shown. So I really do not recommend using this option; although it is still included because in the end you are the master of your computer!
 
 ## Extensions compatibility
 
