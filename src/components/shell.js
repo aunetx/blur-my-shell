@@ -4,6 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
+import { ShellMessageStacks } from './shell_message_stacks.js';
 
 const SHELL_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const SHELL_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
@@ -20,6 +21,10 @@ export const ShellBlur = class ShellBlur {
         this.surfaces = new Map();
         this.containers = new Set();
         this.queued_actors = new WeakSet();
+        this.message_stacks = new ShellMessageStacks(
+            connections,
+            (actor, style_class) => this.has_style_class(actor, style_class)
+        );
         this.enabled = false;
     }
 
@@ -34,6 +39,7 @@ export const ShellBlur = class ShellBlur {
 
         Main.uiGroup.add_style_class_name('bms-shell-blur-enabled');
         this.update_background();
+        this.message_stacks.enable();
 
         this.track_container(Main.uiGroup);
         this.track_container(Main.layoutManager?.modalDialogGroup);
@@ -46,6 +52,7 @@ export const ShellBlur = class ShellBlur {
             return;
 
         this.containers.add(container);
+        this.message_stacks.track_container(container);
 
         container.get_children?.().forEach(child => this.try_blur(child));
 
@@ -72,6 +79,7 @@ export const ShellBlur = class ShellBlur {
         if (!actor)
             return;
 
+        this.message_stacks.scan(actor);
         this.track_container(actor._delegate?._overlay);
 
         if (this.has_style_class(actor, 'switcher-popup'))
@@ -471,6 +479,7 @@ export const ShellBlur = class ShellBlur {
         actors.forEach(actor => this.destroy_blur(actor));
         this.surfaces.clear();
         this.containers.clear();
+        this.message_stacks.disable();
 
         this.connections.disconnect_all();
         this.enabled = false;

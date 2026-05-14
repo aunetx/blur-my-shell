@@ -155,9 +155,14 @@
     border-radius: 18px;
 }
 
-.bms-shell-background-transparent .message:second-in-stack,
+.bms-shell-background-transparent .message:second-in-stack {
+    background: rgba(58, 58, 64, 0.24) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
 .bms-shell-background-transparent .message:lower-in-stack {
-    background: transparent !important;
+    background: rgba(48, 48, 54, 0.2) !important;
+    box-shadow: none;
 }
 
 .bms-shell-background-light .message:second-in-stack,
