@@ -47,6 +47,7 @@ export const ShellBlur = class ShellBlur {
         this.paint_signals = new PaintSignals(connections);
         this.surfaces = new Map();
         this.containers = new Set();
+        this.queued_actors = new WeakSet();
         this.enabled = false;
     }
 
@@ -57,6 +58,7 @@ export const ShellBlur = class ShellBlur {
         }
 
         this._log("blurring shell surfaces");
+        this.enabled = true;
 
         Main.uiGroup.add_style_class_name('bms-shell-blur-enabled');
         this.update_background();
@@ -65,8 +67,6 @@ export const ShellBlur = class ShellBlur {
         this.track_container(Main.layoutManager?.modalDialogGroup);
         this.track_container(Main.messageTray?._bannerBin);
         this.track_quick_settings();
-
-        this.enabled = true;
     }
 
     track_container(container) {
@@ -109,10 +109,18 @@ export const ShellBlur = class ShellBlur {
     }
 
     queue_try_blur(actor) {
-        this.try_blur(actor);
+        if (!actor || this.queued_actors.has(actor))
+            return;
+
+        this.queued_actors.add(actor);
+        try {
+            this.try_blur(actor);
+        } catch (e) { }
 
         GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             try {
+                this.queued_actors.delete(actor);
+
                 if (this.enabled)
                     this.try_blur(actor);
             } catch (e) { }
@@ -137,19 +145,13 @@ export const ShellBlur = class ShellBlur {
             blur_actor
         );
 
-        const corner_effect = this.effects_manager.new_corner_effect({
-            radius: this.settings.shell.CORNER_RADIUS,
-        });
-        blur_actor.add_effect(corner_effect);
+        const corner_effect = this.create_corner_effect(blur_actor);
 
         const { parent, sibling } = this.get_overlay_parent(root_actor);
         parent.add_child(blur_actor);
         this.set_blur_actor_position(blur_actor, parent, sibling);
 
         target.add_style_class_name?.('bms-shell-blur');
-
-        if (this.settings.HACKS_LEVEL === 1)
-            this.paint_signals.connect(blur_actor, pipeline.effect);
 
         const surface = {
             target,
@@ -160,14 +162,24 @@ export const ShellBlur = class ShellBlur {
             pipeline,
             corner_effect,
             signal_ids: [],
-            corner_changed_id: this.settings.shell.settings.connect(
-                'changed::corner-radius',
-                () => corner_effect.radius = this.settings.shell.CORNER_RADIUS
-            ),
+            repaint_id: 0,
+            update_id: 0,
+            x: null,
+            y: null,
+            width: null,
+            height: null,
+            opacity: null,
+            corner_changed_id: corner_effect
+                ? this.settings.shell.settings.connect(
+                    'changed::corner-radius',
+                    () => corner_effect.radius = this.settings.shell.CORNER_RADIUS
+                )
+                : 0,
         };
         this.surfaces.set(target, surface);
 
         this.update_surface(surface);
+        this.connect_surface_repaints(surface);
 
         this.connect_surface_actor(surface, target);
         this.connect_surface_actor(surface, root_actor);
@@ -204,10 +216,41 @@ export const ShellBlur = class ShellBlur {
             'notify::scale-y',
         ].forEach(signal => {
             try {
-                const id = actor.connect(signal, () => this.update_surface(surface));
+                const id = actor.connect(signal, () => this.queue_update_surface(surface));
                 surface.signal_ids.push([actor, id]);
             } catch (e) { }
         });
+    }
+
+    connect_surface_repaints(surface) {
+        if (this.settings.HACKS_LEVEL !== 1)
+            return;
+
+        const repaint_source = {
+            queue_repaint: () => this.queue_surface_repaint(surface),
+        };
+
+        [
+            surface.blur_actor,
+            surface.target,
+        ].forEach(actor => {
+            try {
+                this.paint_signals.disconnect_all_for_actor(actor);
+                this.paint_signals.connect(actor, repaint_source);
+            } catch (e) { }
+        });
+    }
+
+    create_corner_effect(blur_actor) {
+        if (this.settings.ROUNDED_BLUR_FOUND || this.settings.shell.CORNER_RADIUS <= 0)
+            return null;
+
+        const corner_effect = this.effects_manager.new_corner_effect({
+            radius: this.settings.shell.CORNER_RADIUS,
+        });
+        blur_actor.add_effect(corner_effect);
+
+        return corner_effect;
     }
 
     get_overlay_parent(root_actor) {
@@ -231,7 +274,7 @@ export const ShellBlur = class ShellBlur {
     }
 
     update_surface(surface) {
-        const { target, root_actor, blur_actor, parent, pipeline } = surface;
+        const { target, root_actor, blur_actor, parent } = surface;
 
         try {
             if (!this.surfaces.has(target))
@@ -242,8 +285,6 @@ export const ShellBlur = class ShellBlur {
                 return;
             }
 
-            const [target_x, target_y] = target.get_transformed_position();
-            const [target_width, target_height] = target.get_transformed_size();
             let parent_x = 0;
             let parent_y = 0;
 
@@ -251,17 +292,80 @@ export const ShellBlur = class ShellBlur {
                 [parent_x, parent_y] = parent.get_transformed_position();
             }
 
-            blur_actor.set_position(
-                Math.round(target_x - parent_x),
-                Math.round(target_y - parent_y)
-            );
-            blur_actor.set_size(Math.ceil(target_width), Math.ceil(target_height));
-            blur_actor.opacity = root_actor.opacity;
+            const [target_x, target_y] = target.get_transformed_position();
+            const [target_width, target_height] = target.get_transformed_size();
+            const x = Math.round(target_x - parent_x);
+            const y = Math.round(target_y - parent_y);
+            const width = Math.ceil(target_width);
+            const height = Math.ceil(target_height);
+
+            if (width <= 0 || height <= 0) {
+                blur_actor.hide();
+                return;
+            }
+
+            if (surface.x !== x || surface.y !== y) {
+                blur_actor.set_position(x, y);
+                surface.x = x;
+                surface.y = y;
+            }
+
+            if (surface.width !== width || surface.height !== height) {
+                blur_actor.set_size(width, height);
+                surface.width = width;
+                surface.height = height;
+            }
+
+            if (surface.opacity !== root_actor.opacity) {
+                blur_actor.opacity = root_actor.opacity;
+                surface.opacity = root_actor.opacity;
+            }
+
             blur_actor.show();
-            pipeline.repaint_effect();
+            this.queue_surface_repaint(surface);
         } catch (e) {
             blur_actor.hide();
         }
+    }
+
+    queue_update_surface(surface) {
+        if (surface.update_id)
+            return;
+
+        surface.update_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            surface.update_id = 0;
+
+            if (this.enabled && this.surfaces.has(surface.target))
+                this.update_surface(surface);
+
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    queue_surface_repaint(surface) {
+        if (surface.repaint_id || !this.should_repaint_surface(surface))
+            return;
+
+        surface.repaint_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            surface.repaint_id = 0;
+
+            if (!this.should_repaint_surface(surface)) {
+                return GLib.SOURCE_REMOVE;
+            }
+
+            surface.pipeline.repaint_effect();
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    should_repaint_surface(surface) {
+        return (
+            this.enabled
+            && this.surfaces.has(surface.target)
+            && surface.target.visible
+            && surface.target.mapped
+            && surface.target.has_allocation()
+        );
     }
 
     get_blur_targets(actor) {
@@ -280,7 +384,7 @@ export const ShellBlur = class ShellBlur {
         if (SHELL_CHILD_STYLE_CLASSES.some(style => this.has_style_class(actor.dialogLayout, style)))
             targets.push(actor.dialogLayout);
 
-        this.find_target_children(actor).forEach(target => targets.push(target));
+        this.find_target_children(actor, targets);
 
         if (
             targets.length === 0
@@ -291,9 +395,7 @@ export const ShellBlur = class ShellBlur {
         return [...new Set(targets)];
     }
 
-    find_target_children(actor) {
-        const targets = [];
-
+    find_target_children(actor, targets) {
         actor.get_children?.().forEach(child => {
             if (
                 SHELL_TARGET_STYLE_CLASSES.some(style => this.has_style_class(child, style))
@@ -301,14 +403,15 @@ export const ShellBlur = class ShellBlur {
             )
                 targets.push(child);
 
-            this.find_target_children(child).forEach(target => targets.push(target));
+            this.find_target_children(child, targets);
         });
-
-        return targets;
     }
 
     has_style_class(actor, style_class) {
         try {
+            if (actor?.has_style_class_name)
+                return actor.has_style_class_name(style_class);
+
             return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
         } catch (e) {
             return false;
@@ -322,6 +425,7 @@ export const ShellBlur = class ShellBlur {
 
         try {
             this.paint_signals.disconnect_all_for_actor(surface.blur_actor);
+            this.paint_signals.disconnect_all_for_actor(surface.target);
         } catch (e) { }
 
         if (!actor_already_destroyed)
@@ -330,6 +434,14 @@ export const ShellBlur = class ShellBlur {
         if (surface.corner_changed_id)
             this.settings.shell.settings.disconnect(surface.corner_changed_id);
 
+        if (surface.repaint_id)
+            GLib.source_remove(surface.repaint_id);
+        surface.repaint_id = 0;
+
+        if (surface.update_id)
+            GLib.source_remove(surface.update_id);
+        surface.update_id = 0;
+
         surface.signal_ids.forEach(([signal_actor, signal_id]) => {
             try {
                 signal_actor.disconnect(signal_id);
@@ -337,7 +449,8 @@ export const ShellBlur = class ShellBlur {
         });
         surface.signal_ids = [];
 
-        this.effects_manager.remove(surface.corner_effect);
+        if (surface.corner_effect)
+            this.effects_manager.remove(surface.corner_effect);
         surface.pipeline.destroy();
         surface.blur_actor.destroy();
         this.surfaces.delete(actor);
