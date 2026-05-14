@@ -22,6 +22,7 @@ import { WindowListBlur } from './components/window_list.js';
 import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
+import { ShellBlur } from './components/shell.js';
 
 const BlurModule = await import_in_shell_only('gi://Blur');
 
@@ -75,6 +76,7 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur = new CoverflowAltTabBlur(...init());
         this._applications_blur = new ApplicationsBlur(...init());
         this._screenshot_blur = new ScreenshotBlur(...init());
+        this._shell_blur = new ShellBlur(...init());
 
         // connect each component to preferences change
         this._connect_to_settings();
@@ -179,6 +181,7 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur = null;
         this._applications_blur = null;
         this._screenshot_blur = null;
+        this._shell_blur = null;
 
         // make sure no settings change can re-enable them
         this._settings.disconnect_all_settings();
@@ -213,6 +216,7 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur.disable();
         this._applications_blur.disable();
         this._screenshot_blur.disable();
+        this._shell_blur.disable();
 
         // remove the clipped redraws flag
         this._reenable_clipped_redraws();
@@ -325,6 +329,9 @@ export default class BlurMyShell extends Extension {
 
         if (this._settings.screenshot.BLUR)
             this._screenshot_blur.enable();
+
+        if (this._settings.shell.BLUR)
+            this._shell_blur.enable();
 
         this._log("all components enabled.");
     }
@@ -629,6 +636,29 @@ export default class BlurMyShell extends Extension {
         this._settings.screenshot.PIPELINE_changed(() => {
             if (this._settings.screenshot.BLUR)
                 this._screenshot_blur.update_pipeline();
+        });
+
+
+        // ---------- SHELL ----------
+
+        // toggled on/off
+        this._settings.shell.BLUR_changed(() => {
+            if (this._settings.shell.BLUR)
+                this._shell_blur.enable();
+            else
+                this._shell_blur.disable();
+        });
+
+        // shell background override toggled on/off
+        this._settings.shell.OVERRIDE_BACKGROUND_changed(() => {
+            if (this._settings.shell.BLUR)
+                this._shell_blur.update_background();
+        });
+
+        // shell background style changed
+        this._settings.shell.STYLE_SHELL_changed(() => {
+            if (this._settings.shell.BLUR)
+                this._shell_blur.update_background();
         });
     }
 

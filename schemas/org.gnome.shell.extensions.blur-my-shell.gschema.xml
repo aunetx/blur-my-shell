@@ -104,6 +104,7 @@
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='coverflow-alt-tab' schema='org.gnome.shell.extensions.blur-my-shell.coverflow-alt-tab'></child>
+        <child name='shell' schema='org.gnome.shell.extensions.blur-my-shell.shell'></child>
         <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
         <child name='dash-to-panel' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-panel'></child>
     </schema>
@@ -590,6 +591,41 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+    </schema>
+
+    <!-- SHELL -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.shell"
+        path="/org/gnome/shell/extensions/blur-my-shell/shell/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur shell menus, popups, notifications, and dialogs or not</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Gaussian sigma to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>18</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
+        <!-- OVERRIDE BACKGROUND -->
+        <key type="b" name="override-background">
+            <default>true</default>
+            <summary>Boolean, whether to override the background or not</summary>
+        </key>
+        <!-- STYLE SHELL -->
+        <key type="i" name="style-shell">
+            <default>2</default>
+            <summary>Enum to select the style of shell surfaces (0 transparent, 1 light, 2 dark)</summary>
         </key>
     </schema>
 

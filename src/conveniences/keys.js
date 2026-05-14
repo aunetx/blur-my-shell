@@ -97,6 +97,16 @@ export const KEYS = [
         ]
     },
     {
+        component: "shell", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+            { type: Type.I, name: "corner-radius" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-shell" },
+        ]
+    },
+    {
         component: "hidetopbar", schemas: [
             { type: Type.B, name: "compatibility" },
         ]

@@ -92,6 +92,109 @@
 }
 
 
+/*** SHELL ***/
+
+.bms-shell-blurred-widget {
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.bms-shell-background-transparent .popup-menu-content,
+.bms-shell-background-transparent .candidate-popup-content,
+.bms-shell-background-transparent .quick-settings,
+.bms-shell-background-transparent .quick-toggle-menu,
+.bms-shell-background-transparent .message,
+.bms-shell-background-transparent .osd-window,
+.bms-shell-background-transparent .resize-popup,
+.bms-shell-background-transparent .switcher-list,
+.bms-shell-background-transparent .workspace-switcher,
+.bms-shell-background-transparent .modal-dialog {
+    background: transparent !important;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-shell-background-light .popup-menu-content,
+.bms-shell-background-light .candidate-popup-content,
+.bms-shell-background-light .quick-settings,
+.bms-shell-background-light .quick-toggle-menu,
+.bms-shell-background-light .message,
+.bms-shell-background-light .osd-window,
+.bms-shell-background-light .resize-popup,
+.bms-shell-background-light .switcher-list,
+.bms-shell-background-light .workspace-switcher,
+.bms-shell-background-light .modal-dialog {
+    background: rgba(200, 200, 200, 0.24) !important;
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+.bms-shell-background-dark .popup-menu-content,
+.bms-shell-background-dark .candidate-popup-content,
+.bms-shell-background-dark .quick-settings,
+.bms-shell-background-dark .quick-toggle-menu,
+.bms-shell-background-dark .message,
+.bms-shell-background-dark .osd-window,
+.bms-shell-background-dark .resize-popup,
+.bms-shell-background-dark .switcher-list,
+.bms-shell-background-dark .workspace-switcher,
+.bms-shell-background-dark .modal-dialog {
+    background: rgba(45, 45, 50, 0.48) !important;
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.bms-shell-background-transparent .osd-window,
+.bms-shell-background-light .osd-window,
+.bms-shell-background-dark .osd-window,
+.bms-shell-background-transparent .resize-popup,
+.bms-shell-background-light .resize-popup,
+.bms-shell-background-dark .resize-popup,
+.bms-shell-background-transparent .workspace-switcher,
+.bms-shell-background-light .workspace-switcher,
+.bms-shell-background-dark .workspace-switcher {
+    border-radius: 18px;
+}
+
+.bms-shell-background-transparent .message:second-in-stack,
+.bms-shell-background-transparent .message:lower-in-stack {
+    background: transparent !important;
+}
+
+.bms-shell-background-light .message:second-in-stack,
+.bms-shell-background-light .message:lower-in-stack {
+    background: rgba(200, 200, 200, 0.3) !important;
+}
+
+.bms-shell-background-dark .message:second-in-stack,
+.bms-shell-background-dark .message:lower-in-stack {
+    background: rgba(35, 35, 40, 0.54) !important;
+}
+
+.bms-shell-background-transparent .popup-menu-item:hover,
+.bms-shell-background-transparent .popup-menu-item:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.bms-shell-background-transparent .popup-menu-item:active,
+.bms-shell-background-transparent .popup-menu-item:checked {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.bms-shell-background-light .popup-menu-item:hover,
+.bms-shell-background-light .popup-menu-item:focus,
+.bms-shell-background-dark .popup-menu-item:hover,
+.bms-shell-background-dark .popup-menu-item:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bms-shell-background-light .popup-menu-item:active,
+.bms-shell-background-light .popup-menu-item:checked,
+.bms-shell-background-dark .popup-menu-item:active,
+.bms-shell-background-dark .popup-menu-item:checked {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+
 /*** OVERVIEW ***/
 
 /*
