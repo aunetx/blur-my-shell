@@ -109,11 +109,52 @@
         </child>
 
         <child>
-          <object class="AdwSpinRow" id="corner_radius">
+          <object class="AdwExpanderRow" id="corner_radius_row">
             <property name="title" translatable="yes">Corner radius</property>
-            <property name="subtitle" translatable="yes">Radius for the corner rounding effect.</property>
-            <property name="adjustment">corner_radius_adjustment</property>
+            <property name="subtitle" translatable="yes">Adjust the rounded corners for each shell surface.</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="AdwSpinRow" id="menu_corner_radius">
+                <property name="title" translatable="yes">Menus</property>
+                <property name="adjustment">menu_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="quick_settings_corner_radius">
+                <property name="title" translatable="yes">Quick settings and calendar</property>
+                <property name="adjustment">quick_settings_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="notification_corner_radius">
+                <property name="title" translatable="yes">Notifications</property>
+                <property name="adjustment">notification_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="osd_corner_radius">
+                <property name="title" translatable="yes">OSDs and switchers</property>
+                <property name="adjustment">osd_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="dialog_corner_radius">
+                <property name="title" translatable="yes">Dialogs</property>
+                <property name="adjustment">dialog_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="corner_radius">
+                <property name="title" translatable="yes">Other shell surfaces</property>
+                <property name="adjustment">corner_radius_adjustment</property>
+              </object>
+            </child>
           </object>
         </child>
 
@@ -174,6 +215,36 @@
   </object>
 
   <object class="GtkAdjustment" id="corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="menu_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="quick_settings_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="notification_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="osd_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="dialog_corner_radius_adjustment">
     <property name="lower">0</property>
     <property name="upper">150</property>
     <property name="step-increment">1</property>

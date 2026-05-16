@@ -104,6 +104,11 @@ export const KEYS = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },
+            { type: Type.I, name: "menu-corner-radius" },
+            { type: Type.I, name: "quick-settings-corner-radius" },
+            { type: Type.I, name: "notification-corner-radius" },
+            { type: Type.I, name: "osd-corner-radius" },
+            { type: Type.I, name: "dialog-corner-radius" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-shell" },
         ]

@@ -627,6 +627,31 @@
             <default>18</default>
             <summary>Radius for the corner rounding effect</summary>
         </key>
+        <!-- MENU CORNER RADIUS -->
+        <key type="i" name="menu-corner-radius">
+            <default>20</default>
+            <summary>Radius for shell menu corner rounding</summary>
+        </key>
+        <!-- QUICK SETTINGS CORNER RADIUS -->
+        <key type="i" name="quick-settings-corner-radius">
+            <default>36</default>
+            <summary>Radius for quick settings and calendar corner rounding</summary>
+        </key>
+        <!-- NOTIFICATION CORNER RADIUS -->
+        <key type="i" name="notification-corner-radius">
+            <default>18</default>
+            <summary>Radius for notification corner rounding</summary>
+        </key>
+        <!-- OSD CORNER RADIUS -->
+        <key type="i" name="osd-corner-radius">
+            <default>28</default>
+            <summary>Radius for OSD and switcher corner rounding</summary>
+        </key>
+        <!-- DIALOG CORNER RADIUS -->
+        <key type="i" name="dialog-corner-radius">
+            <default>18</default>
+            <summary>Radius for dialog corner rounding</summary>
+        </key>
         <!-- OVERRIDE BACKGROUND -->
         <key type="b" name="override-background">
             <default>true</default>

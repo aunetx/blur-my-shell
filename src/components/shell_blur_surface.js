@@ -10,7 +10,7 @@ import { Pipeline } from '../conveniences/pipeline.js';
 const SURFACE_SIGNALS = ['notify::allocation', 'notify::position', 'notify::size', 'notify::visible', 'notify::opacity', 'notify::translation-x', 'notify::translation-y', 'notify::scale-x', 'notify::scale-y'];
 
 export const ShellBlurSurface = class ShellBlurSurface {
-    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, is_enabled) {
+    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled) {
         this.connections = connections;
         this.settings = settings;
         this.effects_manager = effects_manager;
@@ -18,6 +18,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.root_actor = root_actor;
         this.parent = parent;
         this.sibling = sibling;
+        this.corner_radius = corner_radius;
         this.is_enabled = is_enabled;
         this.paint_signals = new PaintSignals(connections);
         this.signal_ids = [];
@@ -31,6 +32,8 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.opacity = null;
         this.monitor_index = null;
         this.static_blur = settings.shell.STATIC_BLUR;
+        this.original_target_style = null;
+        this.target_style_set = false;
         this.corner_changed_id = 0;
     }
 
@@ -44,6 +47,8 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.parent.add_child(this.actor);
         this.set_actor_position();
         this.target.add_style_class_name?.('bms-shell-blur');
+        this.original_target_style = this.target.get_style?.() ?? null;
+        this.update_target_style();
 
         this.update();
         this.connect_repaints();
@@ -51,6 +56,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.connect_actor(this.root_actor);
         this.connect_ancestors();
         this.connect_layout();
+        this.connect_settings();
 
         return true;
     }
@@ -68,7 +74,11 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.pipeline = new DummyPipeline(
             this.effects_manager,
             this.settings.shell,
-            this.blur_actor
+            this.blur_actor,
+            {
+                corner_radius_key: this.corner_radius.key,
+                corner_radius_getter: () => this.get_corner_radius(),
+            }
         );
         this.corner_effect = this.create_corner_effect();
         this.actor = this.blur_actor;
@@ -285,21 +295,67 @@ export const ShellBlurSurface = class ShellBlurSurface {
         ]);
     }
 
+    connect_settings() {
+        if (this.static_blur)
+            return;
+
+        [
+            this.corner_radius.key,
+            'override-background',
+            'style-shell',
+        ].forEach(key => {
+            const id = this.settings.shell.settings.connect(
+                `changed::${key}`,
+                () => this.update_target_style()
+            );
+            this.signal_ids.push([this.settings.shell.settings, id]);
+        });
+    }
+
     create_corner_effect() {
-        if (this.settings.ROUNDED_BLUR_FOUND || this.settings.shell.CORNER_RADIUS <= 0)
+        if (this.settings.ROUNDED_BLUR_FOUND || this.get_corner_radius() <= 0)
             return null;
 
         const corner_effect = this.effects_manager.new_corner_effect({
-            radius: this.settings.shell.CORNER_RADIUS,
+            radius: this.get_corner_radius(),
         });
         this.blur_actor.add_effect(corner_effect);
 
         this.corner_changed_id = this.settings.shell.settings.connect(
-            'changed::corner-radius',
-            () => corner_effect.radius = this.settings.shell.CORNER_RADIUS
+            `changed::${this.corner_radius.key}`,
+            () => corner_effect.radius = this.get_corner_radius()
         );
 
         return corner_effect;
+    }
+
+    get_corner_radius() {
+        return this.settings.shell[this.corner_radius.property] ?? this.settings.shell.CORNER_RADIUS;
+    }
+
+    update_target_style() {
+        if (
+            this.static_blur
+            || !this.target.set_style
+            || !this.settings.shell.OVERRIDE_BACKGROUND
+            || this.settings.shell.STYLE_SHELL === 0
+        ) {
+            this.restore_target_style();
+            return;
+        }
+
+        const base_style = this.original_target_style ?? '';
+        const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
+        this.target.set_style(`${base_style}${separator}border-radius: ${this.get_corner_radius()}px;`);
+        this.target_style_set = true;
+    }
+
+    restore_target_style() {
+        if (!this.target_style_set || !this.target.set_style)
+            return;
+
+        this.target.set_style(this.original_target_style);
+        this.target_style_set = false;
     }
 
     queue_repaint() {
@@ -341,6 +397,9 @@ export const ShellBlurSurface = class ShellBlurSurface {
 
         if (!actor_already_destroyed)
             this.target.remove_style_class_name?.('bms-shell-blur');
+
+        if (!actor_already_destroyed)
+            this.restore_target_style();
 
         if (this.corner_changed_id)
             this.settings.shell.settings.disconnect(this.corner_changed_id);

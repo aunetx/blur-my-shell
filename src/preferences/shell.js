@@ -16,7 +16,13 @@ export const Shell = GObject.registerClass({
         'sigma',
         'brightness_row',
         'brightness',
+        'corner_radius_row',
         'corner_radius',
+        'menu_corner_radius',
+        'quick_settings_corner_radius',
+        'notification_corner_radius',
+        'osd_corner_radius',
+        'dialog_corner_radius',
         'corner_radius_not_found_row',
         'override_background',
         'style_shell'
@@ -60,6 +66,26 @@ export const Shell = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.shell.settings.bind(
+            'menu-corner-radius', this._menu_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.shell.settings.bind(
+            'quick-settings-corner-radius', this._quick_settings_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.shell.settings.bind(
+            'notification-corner-radius', this._notification_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.shell.settings.bind(
+            'osd-corner-radius', this._osd_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.shell.settings.bind(
+            'dialog-corner-radius', this._dialog_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.shell.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
             Gio.SettingsBindFlags.DEFAULT
@@ -78,7 +104,7 @@ export const Shell = GObject.registerClass({
         this._pipeline_choose_row.set_visible(is_static_blur);
         this._sigma_row.set_visible(!is_static_blur);
         this._brightness_row.set_visible(!is_static_blur);
-        this._corner_radius.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
+        this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
         this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
     }
 });

@@ -4,9 +4,11 @@ import Clutter from 'gi://Clutter';
 /// A dummy `Pipeline`, for dynamic blur only.
 /// Instead of a pipeline id, we take the settings of the component we want to blur.
 export const DummyPipeline = class DummyPipeline {
-    constructor(effects_manager, settings, actor = null) {
+    constructor(effects_manager, settings, actor = null, options = {}) {
         this.effects_manager = effects_manager;
         this.settings = settings;
+        this.corner_radius_key = options.corner_radius_key ?? 'corner-radius';
+        this.corner_radius_getter = options.corner_radius_getter ?? (() => this.settings.CORNER_RADIUS);
         this.effect = null;
         this.attach_effect_to_actor(actor);
     }
@@ -43,7 +45,7 @@ export const DummyPipeline = class DummyPipeline {
         this.build_effect({
             unscaled_radius: 2 * this.settings.SIGMA,
             brightness: this.settings.BRIGHTNESS,
-            corner_radius: this.settings.CORNER_RADIUS,
+            corner_radius: this.corner_radius_getter(),
         });
 
         this.actor_destroy_id = this.actor.connect(
@@ -77,7 +79,8 @@ export const DummyPipeline = class DummyPipeline {
             'changed::brightness', () => this.effect.brightness = this.settings.BRIGHTNESS
         );
         this._corner_radius_changed_id = this.settings.settings.connect(
-            'changed::corner-radius', () => this.effect.corner_radius = this.settings.CORNER_RADIUS
+            `changed::${this.corner_radius_key}`,
+            () => this.effect.corner_radius = this.corner_radius_getter()
         );
     }
 

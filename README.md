@@ -38,6 +38,7 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
     - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, and dialogs
     - static blur uses the selected pipeline, like other static blur components
     - you can choose a transparent, light, or dark background above the blur
+    - dynamic blur has separate corner-radius settings for the different shell surface types
     - rounded corners for dynamic blur require the GNOME Rounded Blur library from the included guide
   - lockscreen — to customize the already existing blur
     - uses static blur only

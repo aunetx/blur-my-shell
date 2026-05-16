@@ -8,6 +8,34 @@ const SHELL_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candi
 const SHELL_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
 const SHELL_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
 const SHELL_BACKGROUND_STYLES = ['bms-shell-background-transparent', 'bms-shell-background-light', 'bms-shell-background-dark'];
+const DEFAULT_CORNER_RADIUS = { key: 'corner-radius', property: 'CORNER_RADIUS' };
+const SHELL_CORNER_RADII = [
+    {
+        key: 'quick-settings-corner-radius',
+        property: 'QUICK_SETTINGS_CORNER_RADIUS',
+        style_classes: ['quick-settings', 'quick-toggle-menu', 'datemenu-popover'],
+    },
+    {
+        key: 'notification-corner-radius',
+        property: 'NOTIFICATION_CORNER_RADIUS',
+        style_classes: ['notification-banner', 'message', 'message-view', 'message-list'],
+    },
+    {
+        key: 'menu-corner-radius',
+        property: 'MENU_CORNER_RADIUS',
+        style_classes: ['popup-menu-content', 'popup-menu', 'candidate-popup-content', 'candidate-popup-boxpointer'],
+    },
+    {
+        key: 'osd-corner-radius',
+        property: 'OSD_CORNER_RADIUS',
+        style_classes: ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher'],
+    },
+    {
+        key: 'dialog-corner-radius',
+        property: 'DIALOG_CORNER_RADIUS',
+        style_classes: ['modal-dialog', 'run-dialog'],
+    },
+];
 
 export const ShellBlur = class ShellBlur {
     constructor(connections, settings, effects_manager) {
@@ -119,6 +147,7 @@ export const ShellBlur = class ShellBlur {
             root_actor,
             parent,
             sibling,
+            this.get_corner_radius(target, root_actor),
             () => this.enabled && this.surfaces.has(target)
         );
 
@@ -147,6 +176,13 @@ export const ShellBlur = class ShellBlur {
         }
 
         return { parent: Main.uiGroup, sibling: null };
+    }
+
+    get_corner_radius(target, root_actor) {
+        return SHELL_CORNER_RADII.find(radius =>
+            this.has_any_style_class(target, radius.style_classes)
+            || this.has_any_style_class(root_actor, radius.style_classes)
+        ) ?? DEFAULT_CORNER_RADIUS;
     }
 
     get_blur_targets(actor) {
