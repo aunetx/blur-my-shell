@@ -649,6 +649,16 @@ export default class BlurMyShell extends Extension {
                 this._shell_blur.disable();
         });
 
+        this._settings.shell.STATIC_BLUR_changed(() => {
+            if (this._settings.shell.BLUR)
+                this._shell_blur.reset();
+        });
+
+        this._settings.shell.PIPELINE_changed(() => {
+            if (this._settings.shell.BLUR)
+                this._shell_blur.update_pipeline();
+        });
+
         // shell background override toggled on/off
         this._settings.shell.OVERRIDE_BACKGROUND_changed(() => {
             if (this._settings.shell.BLUR)

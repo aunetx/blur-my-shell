@@ -99,6 +99,8 @@ export const KEYS = [
     {
         component: "shell", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.B, name: "static-blur" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },

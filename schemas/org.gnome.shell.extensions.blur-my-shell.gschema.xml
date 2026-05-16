@@ -602,6 +602,16 @@
             <default>true</default>
             <summary>Boolean, whether to blur shell menus, popups, notifications, and dialogs or not</summary>
         </key>
+        <!-- STATIC BLUR -->
+        <key type="b" name="static-blur">
+            <default>false</default>
+            <summary>Boolean, whether to use a static blur on shell surfaces</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default_rounded"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>

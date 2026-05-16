@@ -21,19 +21,11 @@ export const Other = GObject.registerClass({
         'coverflow_alt_tab_blur',
         'coverflow_alt_tab_pipeline_choose_row',
 
-        'shell_blur',
-        'shell_sigma',
-        'shell_brightness',
-        'shell_corner_radius',
-        'shell_corner_radius_not_found_row',
-        'shell_override_background',
-        'shell_style_shell',
-
         'hack_level',
         'debug',
         'reset'
     ],
-}, class Overview extends Adw.PreferencesPage {
+}, class Other extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
@@ -79,34 +71,6 @@ export const Other = GObject.registerClass({
         this._coverflow_alt_tab_pipeline_choose_row.initialize(
             this.preferences.coverflow_alt_tab, this.pipelines_manager, this.pipelines_page
         );
-
-        this.preferences.shell.settings.bind(
-            'blur', this._shell_blur, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.shell.settings.bind(
-            'sigma', this._shell_sigma, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.shell.settings.bind(
-            'brightness', this._shell_brightness, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.shell.settings.bind(
-            'corner-radius', this._shell_corner_radius, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.shell.settings.bind(
-            'override-background',
-            this._shell_override_background, 'enable-expansion',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.shell.settings.bind(
-            'style-shell', this._shell_style_shell, 'selected',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this._shell_corner_radius.set_visible(this.preferences.ROUNDED_BLUR_FOUND);
-        this._shell_corner_radius_not_found_row.set_visible(!this.preferences.ROUNDED_BLUR_FOUND);
 
         this.preferences.settings.bind(
             'hacks-level', this._hack_level, 'selected',
