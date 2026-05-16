@@ -6,6 +6,8 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
 import { Pipeline } from '../conveniences/pipeline.js';
+import { ShellStaticCorner } from './shell_static_corner.js';
+import { ShellSurfaceFade } from './shell_surface_fade.js';
 
 const SURFACE_SIGNALS = ['notify::allocation', 'notify::position', 'notify::size', 'notify::visible', 'notify::opacity', 'notify::translation-x', 'notify::translation-y', 'notify::scale-x', 'notify::scale-y'];
 
@@ -32,6 +34,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.opacity = null;
         this.monitor_index = null;
         this.static_blur = settings.shell.STATIC_BLUR;
+        this.static_corner = new ShellStaticCorner(effects_manager, () => this.get_corner_radius());
         this.original_target_style = null;
         this.target_style_set = false;
         this.corner_changed_id = 0;
@@ -45,6 +48,13 @@ export const ShellBlurSurface = class ShellBlurSurface {
         }
 
         this.parent.add_child(this.actor);
+        this.fade = new ShellSurfaceFade(
+            this.actor,
+            this.target,
+            this.root_actor,
+            this.parent,
+            () => this.is_visible()
+        );
         this.set_actor_position();
         this.target.add_style_class_name?.('bms-shell-blur');
         this.original_target_style = this.target.get_style?.() ?? null;
@@ -111,7 +121,13 @@ export const ShellBlurSurface = class ShellBlurSurface {
         const pipeline = new Pipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.shell.PIPELINE
+            this.settings.shell.PIPELINE,
+            null,
+            {
+                effect_overrides: {
+                    corner: () => ({ radius: this.get_corner_radius() }),
+                },
+            }
         );
         this.blur_actor = pipeline.create_background_with_effects(
             monitor.index,
@@ -123,6 +139,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.bg_manager = bg_manager_list[0];
         this.pipeline = pipeline;
         this.monitor_index = monitor.index;
+        this.static_corner.bind(this.pipeline, this.blur_actor);
 
         return true;
     }
@@ -145,7 +162,8 @@ export const ShellBlurSurface = class ShellBlurSurface {
     update() {
         try {
             if (!this.is_visible()) {
-                this.actor.hide();
+                this.update_opacity();
+                this.fade.hide();
                 return;
             }
 
@@ -163,9 +181,12 @@ export const ShellBlurSurface = class ShellBlurSurface {
             const height = Math.ceil(target_height);
 
             if (width <= 0 || height <= 0) {
-                this.actor.hide();
+                this.update_opacity();
+                this.fade.hide();
                 return;
             }
+
+            this.fade.cancel();
 
             if (this.static_blur) {
                 if (!this.update_static_geometry(target_x, target_y, width, height))
@@ -223,11 +244,13 @@ export const ShellBlurSurface = class ShellBlurSurface {
     }
 
     update_opacity() {
-        if (this.opacity === this.root_actor.opacity)
+        const opacity = this.fade.get_opacity();
+
+        if (this.opacity === opacity && this.actor.opacity === opacity)
             return;
 
-        this.actor.opacity = this.root_actor.opacity;
-        this.opacity = this.root_actor.opacity;
+        this.actor.opacity = opacity;
+        this.opacity = opacity;
     }
 
     queue_update() {
@@ -296,9 +319,6 @@ export const ShellBlurSurface = class ShellBlurSurface {
     }
 
     connect_settings() {
-        if (this.static_blur)
-            return;
-
         [
             this.corner_radius.key,
             'override-background',
@@ -306,10 +326,15 @@ export const ShellBlurSurface = class ShellBlurSurface {
         ].forEach(key => {
             const id = this.settings.shell.settings.connect(
                 `changed::${key}`,
-                () => this.update_target_style()
+                () => this.update_settings()
             );
             this.signal_ids.push([this.settings.shell.settings, id]);
         });
+    }
+
+    update_settings() {
+        this.update_target_style();
+        this.static_corner.update();
     }
 
     create_corner_effect() {
@@ -335,8 +360,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
 
     update_target_style() {
         if (
-            this.static_blur
-            || !this.target.set_style
+            !this.target.set_style
             || !this.settings.shell.OVERRIDE_BACKGROUND
             || this.settings.shell.STYLE_SHELL === 0
         ) {
@@ -385,8 +409,10 @@ export const ShellBlurSurface = class ShellBlurSurface {
     }
 
     update_pipeline() {
-        if (this.static_blur)
+        if (this.static_blur) {
             this.bg_manager?._bms_pipeline.change_pipeline_to(this.settings.shell.PIPELINE);
+            this.static_corner.update();
+        }
     }
 
     destroy(actor_already_destroyed = false) {
@@ -411,6 +437,8 @@ export const ShellBlurSurface = class ShellBlurSurface {
         if (this.update_id)
             GLib.source_remove(this.update_id);
         this.update_id = 0;
+
+        this.fade?.destroy();
 
         this.signal_ids.forEach(([signal_actor, signal_id]) => {
             try {
@@ -439,6 +467,8 @@ export const ShellBlurSurface = class ShellBlurSurface {
     }
 
     destroy_static_background() {
+        this.static_corner.destroy();
+
         if (this.bg_manager) {
             this.bg_manager._bms_pipeline.destroy();
             this.bg_manager.destroy();
