@@ -163,6 +163,14 @@ export const ShellBlur = class ShellBlur {
             'destroy',
             () => this.destroy_blur(target, true)
         );
+
+        if (root_actor !== target) {
+            this.connections.connect(
+                root_actor,
+                'destroy',
+                () => this.destroy_blur(target, true)
+            );
+        }
     }
 
     get_overlay_parent(root_actor) {

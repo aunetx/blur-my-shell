@@ -14,7 +14,7 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
     }
 
     hide() {
-        if (this.hiding || !this.actor.visible)
+        if (this.hiding || !this.is_actor_visible(this.actor))
             return;
 
         this.hiding = true;
@@ -29,7 +29,7 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
 
                 this.hiding = false;
 
-                if (!this.is_visible())
+                if (!this.is_visible_actor())
                     this.actor.hide();
                 else
                     this.actor.opacity = this.get_opacity();
@@ -47,6 +47,22 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
         this.actor.opacity = this.get_opacity();
     }
 
+    is_visible_actor() {
+        try {
+            return this.is_visible();
+        } catch (e) {
+            return false;
+        }
+    }
+
+    is_actor_visible(actor) {
+        try {
+            return actor?.visible;
+        } catch (e) {
+            return false;
+        }
+    }
+
     get_opacity() {
         let opacity = 255;
         const visited = new WeakSet();
@@ -55,10 +71,11 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
         while (actor && actor !== this.parent) {
             opacity = this.apply_actor_opacity(opacity, actor, visited);
 
-            if (actor === this.root_actor)
+            try {
+                actor = actor.get_parent?.();
+            } catch (e) {
                 break;
-
-            actor = actor.get_parent?.();
+            }
         }
 
         return this.apply_actor_opacity(opacity, this.root_actor, visited);
@@ -69,10 +86,16 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
             return opacity;
 
         visited.add(actor);
-        return Math.round(opacity * (actor.opacity ?? 255) / 255);
+
+        try {
+            return Math.round(opacity * (actor.opacity ?? 255) / 255);
+        } catch (e) {
+            return opacity;
+        }
     }
 
     destroy() {
+        this.serial++;
         this.cancel();
     }
 };

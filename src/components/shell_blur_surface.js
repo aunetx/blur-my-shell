@@ -47,7 +47,6 @@ export const ShellBlurSurface = class ShellBlurSurface {
             return false;
         }
 
-        this.parent.add_child(this.actor);
         this.fade = new ShellSurfaceFade(
             this.actor,
             this.target,
@@ -55,6 +54,8 @@ export const ShellBlurSurface = class ShellBlurSurface {
             this.parent,
             () => this.is_visible()
         );
+        this.actor.hide();
+        this.parent.add_child(this.actor);
         this.set_actor_position();
         this.target.add_style_class_name?.('bms-shell-blur');
         this.original_target_style = this.target.get_style?.() ?? null;
@@ -102,6 +103,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
             width: 0,
             height: 0,
         });
+        this.background_group.hide();
         this.actor = this.background_group;
 
         return this.update_static_background();
@@ -135,10 +137,15 @@ export const ShellBlurSurface = class ShellBlurSurface {
             this.background_group,
             'bms-shell-blurred-widget'
         );
+        this.blur_actor.hide();
         this.blur_actor.add_style_class_name('bms-shell-blurred-widget');
         this.bg_manager = bg_manager_list[0];
         this.pipeline = pipeline;
         this.monitor_index = monitor.index;
+        this.x = null;
+        this.y = null;
+        this.width = null;
+        this.height = null;
         this.static_corner.bind(this.pipeline, this.blur_actor);
 
         return true;
@@ -195,8 +202,10 @@ export const ShellBlurSurface = class ShellBlurSurface {
                 this.update_dynamic_geometry(x, y, width, height);
             }
 
-            this.update_opacity();
-            this.actor.show();
+            if (this.update_opacity() > 0)
+                this.actor.show();
+            else
+                this.actor.hide();
             this.queue_repaint();
         } catch (e) {
             this.actor.hide();
@@ -240,6 +249,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
             this.height = height;
         }
 
+        this.blur_actor.show();
         return true;
     }
 
@@ -247,10 +257,11 @@ export const ShellBlurSurface = class ShellBlurSurface {
         const opacity = this.fade.get_opacity();
 
         if (this.opacity === opacity && this.actor.opacity === opacity)
-            return;
+            return opacity;
 
         this.actor.opacity = opacity;
         this.opacity = opacity;
+        return opacity;
     }
 
     queue_update() {
@@ -405,7 +416,11 @@ export const ShellBlurSurface = class ShellBlurSurface {
     }
 
     is_actor_visible(actor) {
-        return actor && actor.visible && actor.mapped && actor.has_allocation?.();
+        try {
+            return actor && actor.visible && actor.mapped && actor.has_allocation?.();
+        } catch (e) {
+            return false;
+        }
     }
 
     update_pipeline() {
