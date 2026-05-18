@@ -98,6 +98,10 @@
     background: rgba(0, 0, 0, 0.01);
 }
 
+.bms-shell-tint-widget {
+    background: transparent;
+}
+
 .bms-shell-background-transparent .popup-menu-content,
 .bms-shell-background-transparent .candidate-popup-content,
 .bms-shell-background-transparent .quick-settings,
@@ -107,7 +111,8 @@
 .bms-shell-background-transparent .resize-popup,
 .bms-shell-background-transparent .switcher-list,
 .bms-shell-background-transparent .workspace-switcher,
-.bms-shell-background-transparent .modal-dialog {
+.bms-shell-background-transparent .modal-dialog,
+.bms-shell-background-transparent .bms-shell-tint-widget {
     background: transparent !important;
     border-color: transparent;
     box-shadow: none;
@@ -122,10 +127,12 @@
 .bms-shell-background-light .resize-popup,
 .bms-shell-background-light .switcher-list,
 .bms-shell-background-light .workspace-switcher,
-.bms-shell-background-light .modal-dialog {
-    background: rgba(200, 200, 200, 0.24) !important;
-    border-color: transparent;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+.bms-shell-background-light .modal-dialog,
+.bms-shell-background-light .bms-shell-tint-widget {
+    color: #222226;
+    background: rgba(255, 255, 255, 0.46) !important;
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
 
 .bms-shell-background-dark .popup-menu-content,
@@ -137,10 +144,36 @@
 .bms-shell-background-dark .resize-popup,
 .bms-shell-background-dark .switcher-list,
 .bms-shell-background-dark .workspace-switcher,
-.bms-shell-background-dark .modal-dialog {
-    background: rgba(45, 45, 50, 0.48) !important;
+.bms-shell-background-dark .modal-dialog,
+.bms-shell-background-dark .bms-shell-tint-widget {
+    color: #ffffff;
+    background: rgba(45, 45, 50, 0.22) !important;
     border-color: transparent;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.bms-shell-background-light .bms-shell-tint-dialog {
+    background: rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.bms-shell-background-light .modal-dialog .message-dialog-title {
+    color: #ffffff;
+}
+
+.bms-shell-background-light .modal-dialog .message-dialog-description {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.bms-shell-background-dark .bms-shell-tint-dialog {
+    background: rgba(45, 45, 50, 0.18) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.bms-shell-background-transparent .message,
+.bms-shell-background-light .message,
+.bms-shell-background-dark .message {
+    box-shadow: none;
 }
 
 .bms-shell-background-transparent .osd-window,
@@ -156,23 +189,299 @@
 }
 
 .bms-shell-background-transparent .message:second-in-stack {
-    background: rgba(58, 58, 64, 0.24) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    background: rgba(58, 58, 64, 0.2) !important;
+    box-shadow: 0 1px 1px 0 transparent;
 }
 
 .bms-shell-background-transparent .message:lower-in-stack {
-    background: rgba(48, 48, 54, 0.2) !important;
+    background: rgba(48, 48, 54, 0.14) !important;
     box-shadow: none;
 }
 
-.bms-shell-background-light .message:second-in-stack,
-.bms-shell-background-light .message:lower-in-stack {
-    background: rgba(200, 200, 200, 0.3) !important;
+.bms-shell-background-light .message:second-in-stack {
+    background: rgba(255, 255, 255, 0.42) !important;
+    box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-shell-background-dark .message:second-in-stack,
+.bms-shell-background-light .bms-shell-tint-notification:second-in-stack {
+    background: rgba(255, 255, 255, 0.42) !important;
+    box-shadow: 0 1px 1px 0 transparent;
+}
+
+.bms-shell-background-light .message:lower-in-stack {
+    background: rgba(255, 255, 255, 0.32) !important;
+    box-shadow: none;
+}
+
+.bms-shell-background-light .bms-shell-tint-notification:lower-in-stack {
+    background: rgba(255, 255, 255, 0.32) !important;
+    box-shadow: none;
+}
+
+.bms-shell-background-light .message .message-header,
+.bms-shell-background-light .message .message-header .message-header-content .event-time {
+    color: rgba(34, 34, 38, 0.68);
+}
+
+.bms-shell-background-light .message .message-header .message-header-content .message-source-title,
+.bms-shell-background-light .message .message-box .message-content .message-title {
+    color: #222226;
+}
+
+.bms-shell-background-light .message .message-header .message-source-icon {
+    color: rgba(34, 34, 38, 0.74);
+}
+
+.bms-shell-background-light .message .message-header .message-expand-button,
+.bms-shell-background-light .message .message-header .message-close-button,
+.bms-shell-background-light .message-notification-group .message-collapse-button {
+    color: #222226;
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.bms-shell-background-light .message .message-header .message-expand-button:hover,
+.bms-shell-background-light .message .message-header .message-close-button:hover,
+.bms-shell-background-light .message-notification-group .message-collapse-button:hover {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.bms-shell-background-light .message .message-header .message-expand-button:active,
+.bms-shell-background-light .message .message-header .message-close-button:active,
+.bms-shell-background-light .message-notification-group .message-collapse-button:active {
+    background-color: rgba(0, 0, 0, 0.16) !important;
+}
+
+.bms-shell-background-dark .message:second-in-stack {
+    background: rgba(35, 35, 40, 0.3) !important;
+    box-shadow: 0 1px 1px 0 transparent;
+}
+
+.bms-shell-background-dark .bms-shell-tint-notification:second-in-stack {
+    background: rgba(35, 35, 40, 0.3) !important;
+    box-shadow: 0 1px 1px 0 transparent;
+}
+
 .bms-shell-background-dark .message:lower-in-stack {
-    background: rgba(35, 35, 40, 0.54) !important;
+    background: rgba(35, 35, 40, 0.2) !important;
+    box-shadow: none;
+}
+
+.bms-shell-background-dark .bms-shell-tint-notification:lower-in-stack {
+    background: rgba(35, 35, 40, 0.2) !important;
+    box-shadow: none;
+}
+
+.bms-shell-background-transparent .bms-shell-blur.popup-menu-content,
+.bms-shell-background-transparent .bms-shell-blur.candidate-popup-content,
+.bms-shell-background-transparent .bms-shell-blur.quick-settings,
+.bms-shell-background-transparent .bms-shell-blur.quick-toggle-menu,
+.bms-shell-background-transparent .bms-shell-blur.message,
+.bms-shell-background-transparent .bms-shell-blur.osd-window,
+.bms-shell-background-transparent .bms-shell-blur.resize-popup,
+.bms-shell-background-transparent .bms-shell-blur.switcher-list,
+.bms-shell-background-transparent .bms-shell-blur.workspace-switcher,
+.bms-shell-background-transparent .bms-shell-blur.modal-dialog,
+.bms-shell-background-light .bms-shell-blur.popup-menu-content,
+.bms-shell-background-light .bms-shell-blur.candidate-popup-content,
+.bms-shell-background-light .bms-shell-blur.quick-settings,
+.bms-shell-background-light .bms-shell-blur.quick-toggle-menu,
+.bms-shell-background-light .bms-shell-blur.message,
+.bms-shell-background-light .bms-shell-blur.osd-window,
+.bms-shell-background-light .bms-shell-blur.resize-popup,
+.bms-shell-background-light .bms-shell-blur.switcher-list,
+.bms-shell-background-light .bms-shell-blur.workspace-switcher,
+.bms-shell-background-light .bms-shell-blur.modal-dialog,
+.bms-shell-background-dark .bms-shell-blur.popup-menu-content,
+.bms-shell-background-dark .bms-shell-blur.candidate-popup-content,
+.bms-shell-background-dark .bms-shell-blur.quick-settings,
+.bms-shell-background-dark .bms-shell-blur.quick-toggle-menu,
+.bms-shell-background-dark .bms-shell-blur.message,
+.bms-shell-background-dark .bms-shell-blur.osd-window,
+.bms-shell-background-dark .bms-shell-blur.resize-popup,
+.bms-shell-background-dark .bms-shell-blur.switcher-list,
+.bms-shell-background-dark .bms-shell-blur.workspace-switcher,
+.bms-shell-background-dark .bms-shell-blur.modal-dialog {
+    background: transparent !important;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-shell-background-light .quick-toggle,
+.bms-shell-background-light .quick-toggle-has-menu,
+.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button,
+.bms-shell-background-light .notification-button {
+    color: #222226;
+    background-color: rgba(255, 255, 255, 0.32) !important;
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+.bms-shell-background-light .quick-toggle:hover,
+.bms-shell-background-light .quick-toggle-has-menu:hover,
+.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.bms-shell-background-light .notification-button:hover {
+    background-color: rgba(255, 255, 255, 0.46) !important;
+}
+
+.bms-shell-background-light .calendar,
+.bms-shell-background-light .datemenu-today-button,
+.bms-shell-background-light .events-button,
+.bms-shell-background-light .world-clocks-button,
+.bms-shell-background-light .weather-button {
+    color: #222226;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-shell-background-light .calendar .calendar-month-header .calendar-month-label,
+.bms-shell-background-light .calendar .calendar-month-header .pager-button {
+    color: #222226;
+    background-color: transparent;
+}
+
+.bms-shell-background-light .calendar-day-heading,
+.bms-shell-background-light .calendar-day {
+    color: #222226;
+    background-color: transparent;
+}
+
+.bms-shell-background-light .calendar .calendar-day.calendar-weekend {
+    color: rgba(34, 34, 38, 0.72);
+}
+
+.bms-shell-background-light .calendar .calendar-day.calendar-other-month,
+.bms-shell-background-light .calendar .calendar-day.calendar-other-month.calendar-weekend {
+    color: rgba(34, 34, 38, 0.5);
+}
+
+.bms-shell-background-light .calendar-day:selected,
+.bms-shell-background-light .calendar-day:checked,
+.bms-shell-background-light .calendar-day.calendar-today {
+    color: -st-accent-fg-color !important;
+    background-color: -st-accent-color !important;
+}
+
+.bms-shell-background-light .calendar .calendar-day:hover,
+.bms-shell-background-light .calendar .calendar-month-header .pager-button:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.bms-shell-background-light .calendar-day:selected:hover,
+.bms-shell-background-light .calendar-day:checked:hover,
+.bms-shell-background-light .calendar-day.calendar-today:hover {
+    color: -st-accent-fg-color !important;
+    background-color: st-darken(-st-accent-color, 4%) !important;
+}
+
+.bms-shell-background-light .quick-toggle:checked,
+.bms-shell-background-light .quick-toggle-has-menu:checked,
+.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle,
+.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
+    color: -st-accent-fg-color;
+    background-color: -st-accent-color !important;
+}
+
+.bms-shell-background-light .quick-toggle:checked:hover,
+.bms-shell-background-light .quick-toggle-has-menu:checked:hover,
+.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle:hover,
+.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
+.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+    color: -st-accent-fg-color;
+    background-color: st-darken(-st-accent-color, 4%) !important;
+}
+
+.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle-separator {
+    background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%);
+}
+
+.bms-shell-background-dark .quick-toggle,
+.bms-shell-background-dark .quick-toggle-has-menu,
+.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
+.bms-shell-background-dark .notification-button {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.bms-shell-background-dark .quick-toggle:hover,
+.bms-shell-background-dark .quick-toggle-has-menu:hover,
+.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.bms-shell-background-dark .notification-button:hover {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-shell-background-dark .calendar,
+.bms-shell-background-dark .datemenu-today-button,
+.bms-shell-background-dark .events-button,
+.bms-shell-background-dark .world-clocks-button,
+.bms-shell-background-dark .weather-button {
+    color: #ffffff;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-shell-background-dark .calendar .calendar-month-header .calendar-month-label,
+.bms-shell-background-dark .calendar .calendar-month-header .pager-button {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.bms-shell-background-dark .calendar-day-heading,
+.bms-shell-background-dark .calendar-day {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.bms-shell-background-dark .calendar .calendar-day.calendar-weekend {
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.bms-shell-background-dark .calendar .calendar-day.calendar-other-month,
+.bms-shell-background-dark .calendar .calendar-day.calendar-other-month.calendar-weekend {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.bms-shell-background-dark .calendar-day:selected,
+.bms-shell-background-dark .calendar-day:checked,
+.bms-shell-background-dark .calendar-day.calendar-today {
+    color: -st-accent-fg-color !important;
+    background-color: -st-accent-color !important;
+}
+
+.bms-shell-background-dark .calendar .calendar-day:hover,
+.bms-shell-background-dark .calendar .calendar-month-header .pager-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bms-shell-background-dark .calendar-day:selected:hover,
+.bms-shell-background-dark .calendar-day:checked:hover,
+.bms-shell-background-dark .calendar-day.calendar-today:hover {
+    color: -st-accent-fg-color !important;
+    background-color: st-lighten(-st-accent-color, 4%) !important;
+}
+
+.bms-shell-background-dark .quick-toggle:checked,
+.bms-shell-background-dark .quick-toggle-has-menu:checked,
+.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle,
+.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked {
+    color: -st-accent-fg-color;
+    background-color: -st-accent-color !important;
+}
+
+.bms-shell-background-dark .quick-toggle:checked:hover,
+.bms-shell-background-dark .quick-toggle-has-menu:checked:hover,
+.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle:hover,
+.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
+.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+    color: -st-accent-fg-color;
+    background-color: st-lighten(-st-accent-color, 4%) !important;
+}
+
+.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle-separator {
+    background-color: st-mix(-st-accent-fg-color, -st-accent-color, 30%);
 }
 
 .bms-shell-background-transparent .popup-menu-item:hover,
@@ -186,14 +495,20 @@
 }
 
 .bms-shell-background-light .popup-menu-item:hover,
-.bms-shell-background-light .popup-menu-item:focus,
+.bms-shell-background-light .popup-menu-item:focus {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.bms-shell-background-light .popup-menu-item:active,
+.bms-shell-background-light .popup-menu-item:checked {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .bms-shell-background-dark .popup-menu-item:hover,
 .bms-shell-background-dark .popup-menu-item:focus {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.bms-shell-background-light .popup-menu-item:active,
-.bms-shell-background-light .popup-menu-item:checked,
 .bms-shell-background-dark .popup-menu-item:active,
 .bms-shell-background-dark .popup-menu-item:checked {
     background-color: rgba(255, 255, 255, 0.14);

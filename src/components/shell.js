@@ -1,4 +1,5 @@
 import GLib from 'gi://GLib';
+import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { ShellBlurSurface } from './shell_blur_surface.js';
@@ -8,6 +9,9 @@ const SHELL_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candi
 const SHELL_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
 const SHELL_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
 const SHELL_BACKGROUND_STYLES = ['bms-shell-background-transparent', 'bms-shell-background-light', 'bms-shell-background-dark'];
+const SHELL_INTERNAL_STYLE_CLASSES = ['bms-shell-blurred-widget', 'bms-shell-tint-widget', 'bms-shell-backgroundgroup'];
+const SHELL_INTERNAL_NAMES = ['bms-shell-blurred-widget', 'bms-shell-tint-widget', 'bms-shell-backgroundgroup'];
+const SHELL_BACKGROUND_STYLE_AUTO = 3;
 const DEFAULT_CORNER_RADIUS = { key: 'corner-radius', property: 'CORNER_RADIUS' };
 const SHELL_CORNER_RADII = [
     {
@@ -45,10 +49,10 @@ export const ShellBlur = class ShellBlur {
         this.surfaces = new Map();
         this.containers = new Set();
         this.queued_actors = new WeakSet();
-        this.message_stacks = new ShellMessageStacks(
-            connections,
-            (actor, style_class) => this.has_style_class(actor, style_class)
-        );
+        this.watched_actors = new WeakSet();
+        this.destroyed_actors = new WeakSet();
+        this.interface_settings = new Gio.Settings({ schema_id: 'org.gnome.desktop.interface' });
+        this.message_stacks = new ShellMessageStacks(connections);
         this.reset_id = 0;
         this.enabled = false;
     }
@@ -59,12 +63,17 @@ export const ShellBlur = class ShellBlur {
             return;
         }
 
-        this._log("blurring shell surfaces");
+        this._log("blurring popup surfaces");
         this.enabled = true;
 
         Main.uiGroup.add_style_class_name('bms-shell-blur-enabled');
         this.update_background();
         this.message_stacks.enable();
+        this.connections.connect(
+            this.interface_settings,
+            'changed::color-scheme',
+            () => this.update_background()
+        );
 
         this.track_container(Main.uiGroup);
         this.track_container(Main.layoutManager?.modalDialogGroup);
@@ -75,37 +84,33 @@ export const ShellBlur = class ShellBlur {
     track_container(container) {
         if (!container || this.containers.has(container))
             return;
+        if (!this.watch_actor(container))
+            return;
 
         this.containers.add(container);
         this.message_stacks.track_container(container);
 
-        container.get_children?.().forEach(child => this.try_blur(child));
+        this.get_children(container).forEach(child => this.try_blur(child));
 
         this.connections.connect(
             container,
             'child-added',
             (_, child) => this.queue_try_blur(child)
         );
-
-        this.connections.connect(
-            container,
-            'destroy',
-            () => this.containers.delete(container)
-        );
     }
 
     track_quick_settings() {
         const menu = Main.panel?.statusArea?.quickSettings?.menu;
         this.track_container(menu?._overlay);
-        menu?._overlay?.get_children().forEach(child => this.try_blur(child));
+        this.get_children(menu?._overlay).forEach(child => this.try_blur(child));
     }
 
     try_blur(actor) {
-        if (!actor)
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor))
             return;
 
         this.message_stacks.scan(actor);
-        this.track_container(actor._delegate?._overlay);
+        this.track_container(this.get_actor_overlay(actor));
 
         if (this.has_style_class(actor, 'switcher-popup'))
             this.track_container(actor);
@@ -114,7 +119,7 @@ export const ShellBlur = class ShellBlur {
     }
 
     queue_try_blur(actor) {
-        if (!actor || this.queued_actors.has(actor))
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor) || this.queued_actors.has(actor))
             return;
 
         this.queued_actors.add(actor);
@@ -126,7 +131,7 @@ export const ShellBlur = class ShellBlur {
             try {
                 this.queued_actors.delete(actor);
 
-                if (this.enabled)
+                if (this.enabled && !this.destroyed_actors.has(actor) && !this.is_internal_actor(actor))
                     this.try_blur(actor);
             } catch (e) { }
 
@@ -135,7 +140,13 @@ export const ShellBlur = class ShellBlur {
     }
 
     blur_actor(target, root_actor) {
-        if (!target || this.surfaces.has(target))
+        if (
+            this.is_internal_actor(target)
+            || this.is_internal_actor(root_actor)
+            || !this.watch_actor(target)
+            || !this.watch_actor(root_actor)
+            || this.surfaces.has(target)
+        )
             return;
 
         const { parent, sibling } = this.get_overlay_parent(root_actor);
@@ -175,8 +186,17 @@ export const ShellBlur = class ShellBlur {
 
     get_overlay_parent(root_actor) {
         let actor = root_actor;
-        while (actor?.get_parent?.()) {
-            const parent = actor.get_parent();
+        while (actor && !this.destroyed_actors.has(actor)) {
+            let parent = null;
+            try {
+                parent = actor.get_parent?.();
+            } catch (e) {
+                break;
+            }
+
+            if (!parent)
+                break;
+
             if (parent === Main.uiGroup || parent === Main.layoutManager?.uiGroup)
                 return { parent, sibling: actor };
 
@@ -194,10 +214,13 @@ export const ShellBlur = class ShellBlur {
     }
 
     get_blur_targets(actor) {
-        const delegate = actor._delegate;
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor))
+            return [];
+
+        const delegate = this.get_actor_delegate(actor);
         const targets = [];
 
-        if (this.has_any_style_class(delegate?.box, SHELL_TARGET_STYLE_CLASSES))
+        if (this.watch_actor(delegate?.box) && this.has_any_style_class(delegate.box, SHELL_TARGET_STYLE_CLASSES))
             this.add_target(targets, delegate.box);
 
         if (this.has_any_style_class(actor, SHELL_TARGET_STYLE_CLASSES))
@@ -206,8 +229,9 @@ export const ShellBlur = class ShellBlur {
         if (this.has_any_style_class(actor, SHELL_CHILD_STYLE_CLASSES))
             this.add_target(targets, actor);
 
-        if (this.has_any_style_class(actor.dialogLayout, SHELL_CHILD_STYLE_CLASSES))
-            this.add_target(targets, actor.dialogLayout);
+        const dialog_layout = this.get_actor_dialog_layout(actor);
+        if (this.watch_actor(dialog_layout) && this.has_any_style_class(dialog_layout, SHELL_CHILD_STYLE_CLASSES))
+            this.add_target(targets, dialog_layout);
 
         if (targets.length === 0)
             this.find_target_children(actor, targets);
@@ -221,8 +245,15 @@ export const ShellBlur = class ShellBlur {
         return targets;
     }
 
-    find_target_children(actor, targets) {
-        actor.get_children?.().forEach(child => {
+    find_target_children(actor, targets, seen = new WeakSet()) {
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor) || seen.has(actor))
+            return;
+        seen.add(actor);
+
+        this.get_children(actor).forEach(child => {
+            if (this.is_internal_actor(child) || !this.watch_actor(child))
+                return;
+
             if (
                 this.has_any_style_class(child, SHELL_TARGET_STYLE_CLASSES)
                 || this.has_any_style_class(child, SHELL_CHILD_STYLE_CLASSES)
@@ -231,12 +262,12 @@ export const ShellBlur = class ShellBlur {
                 return;
             }
 
-            this.find_target_children(child, targets);
+            this.find_target_children(child, targets, seen);
         });
     }
 
     add_target(targets, target) {
-        if (target && !targets.includes(target))
+        if (!this.is_internal_actor(target) && this.watch_actor(target) && !targets.includes(target))
             targets.push(target);
     }
 
@@ -245,6 +276,9 @@ export const ShellBlur = class ShellBlur {
     }
 
     has_style_class(actor, style_class) {
+        if (!actor || this.destroyed_actors.has(actor))
+            return false;
+
         try {
             if (actor?.has_style_class_name)
                 return actor.has_style_class_name(style_class);
@@ -252,6 +286,76 @@ export const ShellBlur = class ShellBlur {
             return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
         } catch (e) {
             return false;
+        }
+    }
+
+    is_internal_actor(actor) {
+        if (!actor)
+            return false;
+
+        if (this.has_any_style_class(actor, SHELL_INTERNAL_STYLE_CLASSES))
+            return true;
+
+        try {
+            return SHELL_INTERNAL_NAMES.includes(actor.name ?? actor.get_name?.());
+        } catch (e) {
+            return false;
+        }
+    }
+
+    watch_actor(actor) {
+        if (!actor || this.destroyed_actors.has(actor))
+            return false;
+        if (this.watched_actors.has(actor))
+            return true;
+
+        this.watched_actors.add(actor);
+        try {
+            this.connections.connect(actor, 'destroy', () => {
+                this.destroyed_actors.add(actor);
+                this.containers.delete(actor);
+            });
+        } catch (e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    get_children(actor) {
+        if (!this.watch_actor(actor))
+            return [];
+
+        try {
+            return actor.get_children?.() ?? [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    get_actor_delegate(actor) {
+        if (!this.watch_actor(actor))
+            return null;
+
+        try {
+            return actor._delegate ?? null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    get_actor_overlay(actor) {
+        return this.get_actor_delegate(actor)?._overlay ?? null;
+    }
+
+    get_actor_dialog_layout(actor) {
+        if (!this.watch_actor(actor))
+            return null;
+
+        try {
+            return actor.dialogLayout ?? null;
+        } catch (e) {
+            return null;
         }
     }
 
@@ -288,8 +392,15 @@ export const ShellBlur = class ShellBlur {
 
         if (this.settings.shell.OVERRIDE_BACKGROUND)
             Main.uiGroup.add_style_class_name(
-                SHELL_BACKGROUND_STYLES[this.settings.shell.STYLE_SHELL]
+                SHELL_BACKGROUND_STYLES[this.get_background_style()]
             );
+    }
+
+    get_background_style() {
+        if (this.settings.shell.STYLE_SHELL !== SHELL_BACKGROUND_STYLE_AUTO)
+            return this.settings.shell.STYLE_SHELL;
+
+        return this.interface_settings.get_string('color-scheme') === 'prefer-dark' ? 2 : 1;
     }
 
     disable() {
@@ -303,7 +414,7 @@ export const ShellBlur = class ShellBlur {
             return;
         }
 
-        this._log("removing blur from shell surfaces");
+        this._log("removing blur from popup surfaces");
 
         Main.uiGroup.remove_style_class_name('bms-shell-blur-enabled');
         SHELL_BACKGROUND_STYLES.forEach(style => Main.uiGroup.remove_style_class_name(style));

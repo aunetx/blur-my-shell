@@ -2,15 +2,18 @@ import GLib from 'gi://GLib';
 
 const STACKED_PSEUDO_CLASSES = ['second-in-stack', 'lower-in-stack'];
 const MESSAGE_CONTAINER_STYLE_CLASSES = ['message-list', 'message-view', 'message-notification-group'];
+const INTERNAL_STYLE_CLASSES = ['bms-shell-blurred-widget', 'bms-shell-tint-widget', 'bms-shell-backgroundgroup'];
+const INTERNAL_NAMES = ['bms-shell-blurred-widget', 'bms-shell-tint-widget', 'bms-shell-backgroundgroup'];
 
 export const ShellMessageStacks = class ShellMessageStacks {
-    constructor(connections, has_style_class) {
+    constructor(connections) {
         this.connections = connections;
-        this.has_style_class = has_style_class;
         this.containers = new Set();
         this.groups = new Set();
         this.messages = new Set();
         this.queued_actors = new WeakSet();
+        this.watched_actors = new WeakSet();
+        this.destroyed_actors = new WeakSet();
         this.update_ids = new Map();
         this.original_opacity = new WeakMap();
         this.enabled = false;
@@ -22,6 +25,8 @@ export const ShellMessageStacks = class ShellMessageStacks {
 
     track_container(container) {
         if (!container || this.containers.has(container))
+            return;
+        if (!this.watch_actor(container))
             return;
 
         this.containers.add(container);
@@ -41,16 +46,10 @@ export const ShellMessageStacks = class ShellMessageStacks {
             'child-removed',
             () => this.queue_update_all()
         );
-
-        this.connect(
-            container,
-            'destroy',
-            () => this.containers.delete(container)
-        );
     }
 
     queue_scan(actor) {
-        if (!actor || this.queued_actors.has(actor))
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor) || this.queued_actors.has(actor))
             return;
 
         this.queued_actors.add(actor);
@@ -59,7 +58,7 @@ export const ShellMessageStacks = class ShellMessageStacks {
     }
 
     scan(actor, seen = new WeakSet()) {
-        if (!actor || seen.has(actor))
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor) || seen.has(actor))
             return;
 
         seen.add(actor);
@@ -73,15 +72,15 @@ export const ShellMessageStacks = class ShellMessageStacks {
         if (this.has_style_class(actor, 'message'))
             this.track_message(actor);
 
-        actor.get_children?.().forEach(child => this.scan(child, seen));
+        this.get_children(actor).forEach(child => this.scan(child, seen));
 
-        const child = actor.get_child?.() ?? actor.child;
+        const child = this.get_child(actor);
         if (child)
             this.scan(child, seen);
     }
 
     track_message(message) {
-        if (this.messages.has(message))
+        if (this.is_internal_actor(message) || !this.watch_actor(message) || this.messages.has(message))
             return;
 
         this.messages.add(message);
@@ -111,7 +110,7 @@ export const ShellMessageStacks = class ShellMessageStacks {
     }
 
     track_group(group) {
-        if (this.groups.has(group))
+        if (!this.watch_actor(group) || this.groups.has(group))
             return;
 
         this.groups.add(group);
@@ -120,12 +119,6 @@ export const ShellMessageStacks = class ShellMessageStacks {
             group,
             'notify::expanded',
             () => this.queue_update_all()
-        );
-
-        this.connect(
-            group,
-            'destroy',
-            () => this.groups.delete(group)
         );
     }
 
@@ -153,15 +146,15 @@ export const ShellMessageStacks = class ShellMessageStacks {
         if (!this.enabled)
             return;
 
-        const child = message.get_child?.() ?? message.child;
+        const child = this.get_child(message);
         if (!child)
             return;
 
         if (this.is_stacked(message)) {
             if (!this.original_opacity.has(child))
-                this.original_opacity.set(child, child.opacity);
+                this.original_opacity.set(child, this.get_opacity(child));
 
-            child.opacity = 0;
+            this.set_opacity(child, 0);
             return;
         }
 
@@ -170,10 +163,14 @@ export const ShellMessageStacks = class ShellMessageStacks {
 
     is_stacked(message) {
         return STACKED_PSEUDO_CLASSES.some(pseudo_class => {
-            if (message.has_style_pseudo_class)
-                return message.has_style_pseudo_class(pseudo_class);
+            try {
+                if (message.has_style_pseudo_class)
+                    return message.has_style_pseudo_class(pseudo_class);
 
-            return (message.get_style_pseudo_class?.() ?? '').split(/\s+/).includes(pseudo_class);
+                return (message.get_style_pseudo_class?.() ?? '').split(/\s+/).includes(pseudo_class);
+            } catch (e) {
+                return false;
+            }
         });
     }
 
@@ -181,20 +178,113 @@ export const ShellMessageStacks = class ShellMessageStacks {
         return style_classes.some(style_class => this.has_style_class(actor, style_class));
     }
 
+    is_internal_actor(actor) {
+        if (!actor)
+            return false;
+
+        if (this.has_any_style_class(actor, INTERNAL_STYLE_CLASSES))
+            return true;
+
+        try {
+            return INTERNAL_NAMES.includes(actor.name ?? actor.get_name?.());
+        } catch (e) {
+            return false;
+        }
+    }
+
     restore_message(message) {
-        const child = message.get_child?.() ?? message.child;
+        const child = this.get_child(message);
         if (child)
             this.restore_child(child);
     }
 
     restore_child(child) {
-        if (!this.original_opacity.has(child) && child.opacity !== 0)
+        const current_opacity = this.get_opacity(child);
+        if (!this.original_opacity.has(child) && current_opacity !== 0)
             return;
 
         const opacity = this.original_opacity.get(child);
 
-        child.opacity = opacity > 0 ? opacity : 255;
+        this.set_opacity(child, opacity > 0 ? opacity : 255);
         this.original_opacity.delete(child);
+    }
+
+    has_style_class(actor, style_class) {
+        if (!actor || this.destroyed_actors.has(actor))
+            return false;
+
+        try {
+            if (actor?.has_style_class_name)
+                return actor.has_style_class_name(style_class);
+
+            return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    watch_actor(actor) {
+        if (!actor || this.destroyed_actors.has(actor))
+            return false;
+        if (this.watched_actors.has(actor))
+            return true;
+
+        this.watched_actors.add(actor);
+        try {
+            this.connections.connect(actor, 'destroy', () => {
+                this.destroyed_actors.add(actor);
+                this.containers.delete(actor);
+                this.groups.delete(actor);
+                this.messages.delete(actor);
+                this.cancel_update(actor);
+            });
+        } catch (e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    get_children(actor) {
+        if (this.is_internal_actor(actor) || !this.watch_actor(actor))
+            return [];
+
+        try {
+            return actor.get_children?.() ?? [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    get_child(actor) {
+        if (!this.watch_actor(actor))
+            return null;
+
+        try {
+            return actor.get_child?.() ?? actor.child ?? null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    get_opacity(actor) {
+        if (!this.watch_actor(actor))
+            return 255;
+
+        try {
+            return actor.opacity ?? 255;
+        } catch (e) {
+            return 255;
+        }
+    }
+
+    set_opacity(actor, opacity) {
+        if (!this.watch_actor(actor))
+            return;
+
+        try {
+            actor.opacity = opacity;
+        } catch (e) { }
     }
 
     cancel_update(message) {

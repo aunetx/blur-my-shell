@@ -1,10 +1,10 @@
 import Clutter from 'gi://Clutter';
-
-const HIDE_ANIMATION_MS = 120;
+import { POPUP_ANIMATION_TIME } from 'resource:///org/gnome/shell/ui/boxpointer.js';
 
 export const ShellSurfaceFade = class ShellSurfaceFade {
-    constructor(actor, target, root_actor, parent, is_visible) {
+    constructor(actor, target, root_actor, parent, is_visible, followers = []) {
         this.actor = actor;
+        this.actors = [actor, ...followers];
         this.target = target;
         this.root_actor = root_actor;
         this.parent = parent;
@@ -19,22 +19,24 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
 
         this.hiding = true;
         const serial = ++this.serial;
-        this.actor.ease({
+        this.actors.forEach(actor => actor.ease({
             opacity: 0,
-            duration: HIDE_ANIMATION_MS,
+            duration: POPUP_ANIMATION_TIME,
             mode: Clutter.AnimationMode.EASE_OUT_QUAD,
             onComplete: () => {
+                if (actor !== this.actor)
+                    return;
                 if (this.serial !== serial)
                     return;
 
                 this.hiding = false;
 
                 if (!this.is_visible_actor())
-                    this.actor.hide();
+                    this.hide_actors();
                 else
-                    this.actor.opacity = this.get_opacity();
+                    this.set_opacity(this.get_opacity());
             },
-        });
+        }));
     }
 
     cancel() {
@@ -43,8 +45,8 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
 
         this.serial++;
         this.hiding = false;
-        this.actor.remove_transition?.('opacity');
-        this.actor.opacity = this.get_opacity();
+        this.actors.forEach(actor => actor.remove_transition?.('opacity'));
+        this.set_opacity(this.get_opacity());
     }
 
     is_visible_actor() {
@@ -78,7 +80,26 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
             }
         }
 
-        return this.apply_actor_opacity(opacity, this.root_actor, visited);
+        opacity = this.apply_actor_opacity(opacity, this.root_actor, visited);
+
+        [
+            this.target,
+            this.root_actor,
+        ].forEach(actor => {
+            const paint_opacity = this.get_paint_opacity(actor);
+            if (paint_opacity !== null)
+                opacity = Math.min(opacity, paint_opacity);
+        });
+
+        return opacity;
+    }
+
+    set_opacity(opacity) {
+        this.actors.forEach(actor => actor.opacity = opacity);
+    }
+
+    hide_actors() {
+        this.actors.forEach(actor => actor.hide());
     }
 
     apply_actor_opacity(opacity, actor, visited) {
@@ -92,6 +113,15 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
         } catch (e) {
             return opacity;
         }
+    }
+
+    get_paint_opacity(actor) {
+        try {
+            if (actor?.get_paint_opacity)
+                return actor.get_paint_opacity();
+        } catch (e) { }
+
+        return null;
     }
 
     destroy() {

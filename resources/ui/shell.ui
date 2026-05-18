@@ -2,12 +2,12 @@
 <interface domain="blur-my-shell@aunetx">
   <template class="Shell" parent="AdwPreferencesPage">
     <property name="name">shell</property>
-    <property name="title" translatable="yes">Shell</property>
+    <property name="title" translatable="yes">Popups</property>
     <property name="icon-name">shell-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Shell blur</property>
+        <property name="title" translatable="yes">Popup blur</property>
         <property name="description" translatable="yes">Add blur to GNOME Shell menus, the calendar and notifications popup, notification banners, OSD popups, and dialogs.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
@@ -111,7 +111,7 @@
         <child>
           <object class="AdwExpanderRow" id="corner_radius_row">
             <property name="title" translatable="yes">Corner radius</property>
-            <property name="subtitle" translatable="yes">Adjust the rounded corners for each shell surface.</property>
+            <property name="subtitle" translatable="yes">Adjust the rounded corners for each popup surface.</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
             <child>
@@ -151,7 +151,7 @@
 
             <child>
               <object class="AdwSpinRow" id="corner_radius">
-                <property name="title" translatable="yes">Other shell surfaces</property>
+                <property name="title" translatable="yes">Other popup surfaces</property>
                 <property name="adjustment">corner_radius_adjustment</property>
               </object>
             </child>
@@ -178,14 +178,14 @@
         <child>
           <object class="AdwExpanderRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
-            <property name="subtitle" translatable="yes">Override the background of shell popups to use a transparent or semi-transparent one.</property>
+            <property name="subtitle" translatable="yes">Override the background of popups to use a transparent or semi-transparent one.</property>
             <property name="show-enable-switch">true</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
             <child>
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Background style</property>
-                <property name="subtitle" translatable="yes">The transparent/semi-transparent style for shell popups.</property>
+                <property name="subtitle" translatable="yes">The transparent/semi-transparent style for popups.</property>
                 <property name="activatable-widget">style_shell</property>
 
                 <child>
@@ -255,6 +255,7 @@
       <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
+      <item translatable="yes">Automatic</item>
     </items>
   </object>
 </interface>

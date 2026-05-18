@@ -9,7 +9,19 @@ import { Pipeline } from '../conveniences/pipeline.js';
 import { ShellStaticCorner } from './shell_static_corner.js';
 import { ShellSurfaceFade } from './shell_surface_fade.js';
 
-const SURFACE_SIGNALS = ['notify::allocation', 'notify::position', 'notify::size', 'notify::visible', 'notify::opacity', 'notify::translation-x', 'notify::translation-y', 'notify::scale-x', 'notify::scale-y'];
+const SURFACE_SIGNALS = ['notify::allocation', 'notify::position', 'notify::size', 'notify::visible', 'notify::opacity', 'notify::translation-x', 'notify::translation-y', 'notify::scale-x', 'notify::scale-y', 'notify::pseudo-class'];
+const TINT_PSEUDO_CLASSES = ['second-in-stack', 'lower-in-stack'];
+const ROOT_GEOMETRY_STYLE_CLASSES = ['notification-banner'];
+const TINT_STYLE_CLASSES = [
+    {
+        style_class: 'bms-shell-tint-notification',
+        target_style_classes: ['notification-banner', 'message'],
+    },
+    {
+        style_class: 'bms-shell-tint-dialog',
+        target_style_classes: ['modal-dialog', 'run-dialog'],
+    },
+];
 
 export const ShellBlurSurface = class ShellBlurSurface {
     constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled) {
@@ -31,6 +43,10 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.y = null;
         this.width = null;
         this.height = null;
+        this.tint_x = null;
+        this.tint_y = null;
+        this.tint_width = null;
+        this.tint_height = null;
         this.opacity = null;
         this.monitor_index = null;
         this.static_blur = settings.shell.STATIC_BLUR;
@@ -47,15 +63,22 @@ export const ShellBlurSurface = class ShellBlurSurface {
             return false;
         }
 
+        this.create_tint_actor();
+        const fade_followers = this.has_separate_tint_actor() ? [this.tint_actor] : [];
         this.fade = new ShellSurfaceFade(
             this.actor,
             this.target,
             this.root_actor,
             this.parent,
-            () => this.is_visible()
+            () => this.is_visible(),
+            fade_followers
         );
         this.actor.hide();
+        if (this.has_separate_tint_actor())
+            this.tint_actor.hide();
         this.parent.add_child(this.actor);
+        if (this.has_separate_tint_actor())
+            this.parent.add_child(this.tint_actor);
         this.set_actor_position();
         this.target.add_style_class_name?.('bms-shell-blur');
         this.original_target_style = this.target.get_style?.() ?? null;
@@ -70,6 +93,28 @@ export const ShellBlurSurface = class ShellBlurSurface {
         this.connect_settings();
 
         return true;
+    }
+
+    create_tint_actor() {
+        if (!this.static_blur) {
+            this.tint_actor = this.actor;
+            this.tint_actor.add_style_class_name('bms-shell-tint-widget');
+            this.add_tint_style_classes();
+            this.update_tint_style();
+            return;
+        }
+
+        this.tint_actor = new St.Widget({
+            name: 'bms-shell-tint-widget',
+            reactive: false,
+        });
+        this.tint_actor.add_style_class_name('bms-shell-tint-widget');
+        this.add_tint_style_classes();
+        this.update_tint_style();
+    }
+
+    has_separate_tint_actor() {
+        return this.tint_actor && this.tint_actor !== this.actor;
     }
 
     create_actor() {
@@ -160,19 +205,55 @@ export const ShellBlurSurface = class ShellBlurSurface {
     }
 
     set_actor_position() {
-        if (this.sibling)
-            this.parent.set_child_below_sibling(this.actor, this.sibling);
-        else
-            this.parent.set_child_below_sibling(this.actor, null);
+        try {
+            const sibling = this.sibling?.get_parent?.() === this.parent ? this.sibling : null;
+            if (this.is_below_sibling(sibling))
+                return;
+
+            if (this.has_separate_tint_actor()) {
+                this.parent.set_child_below_sibling(this.tint_actor, sibling);
+                this.parent.set_child_below_sibling(this.actor, this.tint_actor);
+            } else {
+                this.parent.set_child_below_sibling(this.actor, sibling);
+            }
+        } catch (e) { }
+    }
+
+    is_below_sibling(sibling) {
+        const children = this.parent.get_children?.() ?? [];
+        const actor_index = children.indexOf(this.actor);
+
+        if (actor_index < 0)
+            return false;
+
+        if (!this.has_separate_tint_actor()) {
+            if (!sibling)
+                return actor_index === 0;
+
+            const sibling_index = children.indexOf(sibling);
+            return sibling_index >= 0 && actor_index < sibling_index;
+        }
+
+        const tint_index = children.indexOf(this.tint_actor);
+        if (tint_index < 0)
+            return false;
+
+        if (!sibling)
+            return actor_index < tint_index;
+
+        const sibling_index = children.indexOf(sibling);
+        return sibling_index >= 0 && actor_index < tint_index && tint_index < sibling_index;
     }
 
     update() {
         try {
             if (!this.is_visible()) {
-                this.update_opacity();
                 this.fade.hide();
                 return;
             }
+
+            this.set_actor_position();
+            this.sync_tint_pseudo_classes();
 
             let parent_x = 0;
             let parent_y = 0;
@@ -180,15 +261,15 @@ export const ShellBlurSurface = class ShellBlurSurface {
             if (this.parent.get_transformed_position)
                 [parent_x, parent_y] = this.parent.get_transformed_position();
 
-            const [target_x, target_y] = this.target.get_transformed_position();
-            const [target_width, target_height] = this.target.get_transformed_size();
+            const geometry_actor = this.get_geometry_actor();
+            const [target_x, target_y] = geometry_actor.get_transformed_position();
+            const [target_width, target_height] = geometry_actor.get_transformed_size();
             const x = Math.round(target_x - parent_x);
             const y = Math.round(target_y - parent_y);
             const width = Math.ceil(target_width);
             const height = Math.ceil(target_height);
 
             if (width <= 0 || height <= 0) {
-                this.update_opacity();
                 this.fade.hide();
                 return;
             }
@@ -196,19 +277,19 @@ export const ShellBlurSurface = class ShellBlurSurface {
             this.fade.cancel();
 
             if (this.static_blur) {
-                if (!this.update_static_geometry(target_x, target_y, width, height))
+                if (!this.update_static_geometry(target_x, target_y, x, y, width, height))
                     return;
             } else {
                 this.update_dynamic_geometry(x, y, width, height);
             }
 
             if (this.update_opacity() > 0)
-                this.actor.show();
+                this.show_actors();
             else
-                this.actor.hide();
+                this.hide_actors();
             this.queue_repaint();
         } catch (e) {
-            this.actor.hide();
+            this.hide_actors();
         }
     }
 
@@ -224,17 +305,19 @@ export const ShellBlurSurface = class ShellBlurSurface {
             this.width = width;
             this.height = height;
         }
+
+        this.update_tint_geometry(x, y, width, height);
     }
 
-    update_static_geometry(target_x, target_y, width, height) {
+    update_static_geometry(target_x, target_y, x, y, width, height) {
         if (!this.update_static_background()) {
-            this.actor.hide();
+            this.hide_actors();
             return false;
         }
 
         const monitor = Main.layoutManager.monitors[this.monitor_index];
         if (!monitor) {
-            this.actor.hide();
+            this.hide_actors();
             return false;
         }
 
@@ -250,18 +333,59 @@ export const ShellBlurSurface = class ShellBlurSurface {
         }
 
         this.blur_actor.show();
+        this.update_tint_geometry(x, y, width, height);
         return true;
+    }
+
+    update_tint_geometry(x, y, width, height) {
+        if (!this.has_separate_tint_actor())
+            return;
+
+        if (this.tint_x !== x || this.tint_y !== y) {
+            this.tint_actor.set_position(x, y);
+            this.tint_x = x;
+            this.tint_y = y;
+        }
+
+        if (this.tint_width !== width || this.tint_height !== height) {
+            this.tint_actor.set_size(width, height);
+            this.tint_width = width;
+            this.tint_height = height;
+        }
     }
 
     update_opacity() {
         const opacity = this.fade.get_opacity();
 
-        if (this.opacity === opacity && this.actor.opacity === opacity)
+        if (
+            this.opacity === opacity
+            && this.actor.opacity === opacity
+            && (!this.has_separate_tint_actor() || this.tint_actor.opacity === opacity)
+        )
             return opacity;
 
-        this.actor.opacity = opacity;
+        this.fade.set_opacity(opacity);
         this.opacity = opacity;
         return opacity;
+    }
+
+    get_geometry_actor() {
+        if (this.has_any_style_class(this.root_actor, ROOT_GEOMETRY_STYLE_CLASSES))
+            return this.root_actor;
+
+        return this.target;
+    }
+
+    show_actors() {
+        this.actor.show();
+        if (this.has_separate_tint_actor())
+            this.tint_actor.show();
+    }
+
+    hide_actors() {
+        this.actor.hide();
+        if (this.has_separate_tint_actor())
+            this.tint_actor.hide();
     }
 
     queue_update() {
@@ -345,6 +469,7 @@ export const ShellBlurSurface = class ShellBlurSurface {
 
     update_settings() {
         this.update_target_style();
+        this.update_tint_style();
         this.static_corner.update();
     }
 
@@ -373,7 +498,6 @@ export const ShellBlurSurface = class ShellBlurSurface {
         if (
             !this.target.set_style
             || !this.settings.shell.OVERRIDE_BACKGROUND
-            || this.settings.shell.STYLE_SHELL === 0
         ) {
             this.restore_target_style();
             return;
@@ -381,8 +505,69 @@ export const ShellBlurSurface = class ShellBlurSurface {
 
         const base_style = this.original_target_style ?? '';
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
-        this.target.set_style(`${base_style}${separator}border-radius: ${this.get_corner_radius()}px;`);
+        this.target.set_style(
+            `${base_style}${separator}` +
+            `background: transparent; ` +
+            `background-color: transparent; ` +
+            `border-color: transparent; ` +
+            `box-shadow: none; ` +
+            `border-radius: ${this.get_corner_radius()}px;`
+        );
         this.target_style_set = true;
+    }
+
+    add_tint_style_classes() {
+        TINT_STYLE_CLASSES.forEach(({ style_class, target_style_classes }) => {
+            if (
+                this.has_any_style_class(this.target, target_style_classes)
+                || this.has_any_style_class(this.root_actor, target_style_classes)
+            ) {
+                this.tint_actor.add_style_class_name(style_class);
+            }
+        });
+    }
+
+    update_tint_style() {
+        if (!this.tint_actor?.set_style)
+            return;
+
+        this.sync_tint_pseudo_classes();
+        this.tint_actor.set_style(`border-radius: ${this.get_corner_radius()}px;`);
+    }
+
+    sync_tint_pseudo_classes() {
+        TINT_PSEUDO_CLASSES.forEach(pseudo_class => {
+            if (this.has_pseudo_class(this.target, pseudo_class))
+                this.tint_actor.add_style_pseudo_class?.(pseudo_class);
+            else
+                this.tint_actor.remove_style_pseudo_class?.(pseudo_class);
+        });
+    }
+
+    has_pseudo_class(actor, pseudo_class) {
+        try {
+            if (actor?.has_style_pseudo_class)
+                return actor.has_style_pseudo_class(pseudo_class);
+
+            return (actor?.get_style_pseudo_class?.() ?? '').split(/\s+/).includes(pseudo_class);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    has_any_style_class(actor, style_classes) {
+        return style_classes.some(style_class => this.has_style_class(actor, style_class));
+    }
+
+    has_style_class(actor, style_class) {
+        try {
+            if (actor?.has_style_class_name)
+                return actor.has_style_class_name(style_class);
+
+            return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
+        } catch (e) {
+            return false;
+        }
     }
 
     restore_target_style() {
@@ -469,6 +654,9 @@ export const ShellBlurSurface = class ShellBlurSurface {
             this.destroy_static_actor();
         else
             this.destroy_dynamic_actor();
+
+        if (this.has_separate_tint_actor())
+            this.tint_actor.destroy();
     }
 
     destroy_dynamic_actor() {
