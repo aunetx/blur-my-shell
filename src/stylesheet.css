@@ -98,10 +98,6 @@
     background: rgba(0, 0, 0, 0.01);
 }
 
-.bms-shell-tint-widget {
-    background: transparent;
-}
-
 .bms-shell-background-transparent .popup-menu-content,
 .bms-shell-background-transparent .candidate-popup-content,
 .bms-shell-background-transparent .quick-settings,
@@ -111,8 +107,7 @@
 .bms-shell-background-transparent .resize-popup,
 .bms-shell-background-transparent .switcher-list,
 .bms-shell-background-transparent .workspace-switcher,
-.bms-shell-background-transparent .modal-dialog,
-.bms-shell-background-transparent .bms-shell-tint-widget {
+.bms-shell-background-transparent .modal-dialog {
     background: transparent !important;
     border-color: transparent;
     box-shadow: none;
@@ -127,8 +122,7 @@
 .bms-shell-background-light .resize-popup,
 .bms-shell-background-light .switcher-list,
 .bms-shell-background-light .workspace-switcher,
-.bms-shell-background-light .modal-dialog,
-.bms-shell-background-light .bms-shell-tint-widget {
+.bms-shell-background-light .modal-dialog {
     color: #222226;
     background: rgba(255, 255, 255, 0.58) !important;
     border-color: rgba(0, 0, 0, 0.05);
@@ -144,29 +138,10 @@
 .bms-shell-background-dark .resize-popup,
 .bms-shell-background-dark .switcher-list,
 .bms-shell-background-dark .workspace-switcher,
-.bms-shell-background-dark .modal-dialog,
-.bms-shell-background-dark .bms-shell-tint-widget {
+.bms-shell-background-dark .modal-dialog {
     color: #ffffff;
     background: rgba(45, 45, 50, 0.22) !important;
     border-color: transparent;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
-}
-
-.bms-shell-background-light .bms-shell-tint-dialog {
-    background: rgba(255, 255, 255, 0.52) !important;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-}
-
-.bms-shell-background-light .modal-dialog .message-dialog-title {
-    color: #ffffff;
-}
-
-.bms-shell-background-light .modal-dialog .message-dialog-description {
-    color: rgba(255, 255, 255, 0.82);
-}
-
-.bms-shell-background-dark .bms-shell-tint-dialog {
-    background: rgba(45, 45, 50, 0.18) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
@@ -203,17 +178,7 @@
     box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-shell-background-light .bms-shell-tint-notification:second-in-stack {
-    background: rgba(255, 255, 255, 0.54) !important;
-    box-shadow: 0 1px 1px 0 transparent;
-}
-
 .bms-shell-background-light .message:lower-in-stack {
-    background: rgba(255, 255, 255, 0.44) !important;
-    box-shadow: none;
-}
-
-.bms-shell-background-light .bms-shell-tint-notification:lower-in-stack {
     background: rgba(255, 255, 255, 0.44) !important;
     box-shadow: none;
 }
@@ -256,53 +221,8 @@
     box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-shell-background-dark .bms-shell-tint-notification:second-in-stack {
-    background: rgba(35, 35, 40, 0.3) !important;
-    box-shadow: 0 1px 1px 0 transparent;
-}
-
 .bms-shell-background-dark .message:lower-in-stack {
     background: rgba(35, 35, 40, 0.2) !important;
-    box-shadow: none;
-}
-
-.bms-shell-background-dark .bms-shell-tint-notification:lower-in-stack {
-    background: rgba(35, 35, 40, 0.2) !important;
-    box-shadow: none;
-}
-
-.bms-shell-background-transparent .bms-shell-blur.popup-menu-content,
-.bms-shell-background-transparent .bms-shell-blur.candidate-popup-content,
-.bms-shell-background-transparent .bms-shell-blur.quick-settings,
-.bms-shell-background-transparent .bms-shell-blur.quick-toggle-menu,
-.bms-shell-background-transparent .bms-shell-blur.message,
-.bms-shell-background-transparent .bms-shell-blur.osd-window,
-.bms-shell-background-transparent .bms-shell-blur.resize-popup,
-.bms-shell-background-transparent .bms-shell-blur.switcher-list,
-.bms-shell-background-transparent .bms-shell-blur.workspace-switcher,
-.bms-shell-background-transparent .bms-shell-blur.modal-dialog,
-.bms-shell-background-light .bms-shell-blur.popup-menu-content,
-.bms-shell-background-light .bms-shell-blur.candidate-popup-content,
-.bms-shell-background-light .bms-shell-blur.quick-settings,
-.bms-shell-background-light .bms-shell-blur.quick-toggle-menu,
-.bms-shell-background-light .bms-shell-blur.message,
-.bms-shell-background-light .bms-shell-blur.osd-window,
-.bms-shell-background-light .bms-shell-blur.resize-popup,
-.bms-shell-background-light .bms-shell-blur.switcher-list,
-.bms-shell-background-light .bms-shell-blur.workspace-switcher,
-.bms-shell-background-light .bms-shell-blur.modal-dialog,
-.bms-shell-background-dark .bms-shell-blur.popup-menu-content,
-.bms-shell-background-dark .bms-shell-blur.candidate-popup-content,
-.bms-shell-background-dark .bms-shell-blur.quick-settings,
-.bms-shell-background-dark .bms-shell-blur.quick-toggle-menu,
-.bms-shell-background-dark .bms-shell-blur.message,
-.bms-shell-background-dark .bms-shell-blur.osd-window,
-.bms-shell-background-dark .bms-shell-blur.resize-popup,
-.bms-shell-background-dark .bms-shell-blur.switcher-list,
-.bms-shell-background-dark .bms-shell-blur.workspace-switcher,
-.bms-shell-background-dark .bms-shell-blur.modal-dialog {
-    background: transparent !important;
-    border-color: transparent;
     box-shadow: none;
 }
 

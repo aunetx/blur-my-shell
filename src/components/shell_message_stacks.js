@@ -2,8 +2,8 @@ import GLib from 'gi://GLib';
 
 const STACKED_PSEUDO_CLASSES = ['second-in-stack', 'lower-in-stack'];
 const MESSAGE_CONTAINER_STYLE_CLASSES = ['message-list', 'message-view', 'message-notification-group'];
-const INTERNAL_STYLE_CLASSES = ['bms-shell-blurred-widget', 'bms-shell-tint-widget', 'bms-shell-backgroundgroup'];
-const INTERNAL_NAMES = ['bms-shell-blurred-widget', 'bms-shell-tint-widget', 'bms-shell-backgroundgroup'];
+const INTERNAL_STYLE_CLASSES = ['bms-shell-blurred-widget', 'bms-shell-backgroundgroup'];
+const INTERNAL_NAMES = ['bms-shell-blurred-widget', 'bms-shell-backgroundgroup'];
 
 export const ShellMessageStacks = class ShellMessageStacks {
     constructor(connections) {
