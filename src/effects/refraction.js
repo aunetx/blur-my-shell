@@ -5,8 +5,6 @@ import * as utils from '../conveniences/utils.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Gst = await utils.import_in_shell_only('gi://Gst');
-const GstApp = await utils.import_in_shell_only('gi://GstApp');
 
 const SHADER_FILENAME = 'refraction.glsl';
 const DEFAULT_PARAMS = {
@@ -17,8 +15,6 @@ const DEFAULT_PARAMS = {
     corner_radius: 22,
     rgb_fringing: 0.08,
     gloss: 0.55,
-    webcam_gloss: false,
-    webcam_device: '',
     tint: 0.18,
     shadow: 0.28,
     mode: 0,
@@ -89,20 +85,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0.0, 1.0,
                 0.55,
-            ),
-            'webcam_gloss': GObject.ParamSpec.boolean(
-                `webcam_gloss`,
-                `Experimental Webcam Gloss`,
-                `Use webcam luminance to modulate gloss`,
-                GObject.ParamFlags.READWRITE,
-                false,
-            ),
-            'webcam_device': GObject.ParamSpec.string(
-                `webcam_device`,
-                `Experimental Webcam Device`,
-                `Video device used for webcam gloss`,
-                GObject.ParamFlags.READWRITE,
-                '',
             ),
             'tint': GObject.ParamSpec.double(
                 `tint`,
@@ -176,14 +158,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
             this._stable_clip_width = null;
             this._stable_clip_height = null;
             this._clip_settle_timeout_id = null;
-            this._webcam_pipeline = null;
-            this._webcam_sink = null;
-            this._webcam_poll_id = null;
-            this._webcam_pipeline_candidates = [];
-            this._webcam_pipeline_index = 0;
-            this._webcam_empty_polls = 0;
-            this._manual_gloss = DEFAULT_PARAMS.gloss;
-            this._live_gloss = DEFAULT_PARAMS.gloss;
 
             utils.setup_params(this, params);
 
@@ -291,42 +265,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
         set gloss(value) {
             if (this._gloss !== value) {
                 this._gloss = value;
-                this._manual_gloss = value;
 
-                if (!this.webcam_gloss)
-                    this.set_uniform_value('gloss', parseFloat(this._gloss - 1e-6));
-            }
-        }
-
-        get webcam_gloss() {
-            return this._webcam_gloss;
-        }
-
-        set webcam_gloss(value) {
-            if (this._webcam_gloss !== value) {
-                this._webcam_gloss = value;
-
-                if (this._webcam_gloss)
-                    this._start_webcam_gloss();
-                else {
-                    this._stop_webcam_gloss();
-                    this.set_uniform_value('gloss', parseFloat(this._manual_gloss - 1e-6));
-                }
-            }
-        }
-
-        get webcam_device() {
-            return this._webcam_device;
-        }
-
-        set webcam_device(value) {
-            if (this._webcam_device !== value) {
-                this._webcam_device = value ?? '';
-
-                if (this.webcam_gloss) {
-                    this._stop_webcam_gloss();
-                    this._start_webcam_gloss();
-                }
+                this.set_uniform_value('gloss', parseFloat(this._gloss - 1e-6));
             }
         }
 
@@ -368,158 +308,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
 
         set(params) {
             utils.setup_params(this, params);
-        }
-
-        _quoted_gst_string(value) {
-            return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
-        }
-
-        _start_webcam_gloss() {
-            if (!Gst || !GstApp || this._webcam_pipeline)
-                return;
-
-            try {
-                Gst.init(null);
-                this._webcam_pipeline_candidates = this._webcam_pipeline_descriptions();
-                this._webcam_pipeline_index = 0;
-                this._start_next_webcam_pipeline();
-
-                this._webcam_poll_id = GLib.timeout_add(GLib.PRIORITY_LOW, 125, () => {
-                    this._poll_webcam_gloss();
-                    return GLib.SOURCE_CONTINUE;
-                });
-            } catch (e) {
-                console.warn(`[Blur my Shell > refraction]   webcam gloss unavailable: ${e}`);
-                this._stop_webcam_gloss();
-                this.set_uniform_value('gloss', parseFloat(this._manual_gloss - 1e-6));
-            }
-        }
-
-        _webcam_pipeline_descriptions() {
-            const device = this.webcam_device?.startsWith('/dev/video')
-                ? this.webcam_device
-                : '/dev/video0';
-            const source = `v4l2src device=${this._quoted_gst_string(device)}`;
-            const sink = 'videoconvert ! videoscale ! video/x-raw,format=RGBA,width=24,height=16 ! appsink name=sink emit-signals=false sync=false max-buffers=1 drop=true';
-
-            return [
-                `${source} ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! ${sink}`,
-                `${source} ! video/x-raw,width=640,height=480,framerate=30/1 ! ${sink}`,
-                `${source} ! image/jpeg,width=640,height=480,framerate=30/1 ! jpegdec ! ${sink}`,
-                `autovideosrc ! video/x-raw,width=640,height=480,framerate=30/1 ! ${sink}`,
-                `autovideosrc ! ${sink}`,
-            ];
-        }
-
-        _start_next_webcam_pipeline() {
-            this._stop_webcam_pipeline();
-            this._webcam_empty_polls = 0;
-
-            while (this._webcam_pipeline_index < this._webcam_pipeline_candidates.length) {
-                const description = this._webcam_pipeline_candidates[this._webcam_pipeline_index++];
-
-                try {
-                    this._webcam_pipeline = Gst.parse_launch(description);
-                    this._webcam_sink = this._webcam_pipeline.get_by_name('sink');
-                    this._webcam_pipeline.set_state(Gst.State.PLAYING);
-                    return true;
-                } catch (e) {
-                    console.warn(`[Blur my Shell > refraction]   webcam pipeline failed: ${e}`);
-                }
-            }
-
-            console.warn('[Blur my Shell > refraction]   webcam gloss unavailable: no camera pipeline could start');
-            this.set_uniform_value('gloss', parseFloat(this._manual_gloss - 1e-6));
-            return false;
-        }
-
-        _webcam_pipeline_has_error() {
-            const bus = this._webcam_pipeline?.get_bus();
-            if (!bus)
-                return false;
-
-            const message = bus.pop_filtered(Gst.MessageType.ERROR | Gst.MessageType.EOS);
-            if (!message)
-                return false;
-
-            if (message.type === Gst.MessageType.ERROR) {
-                const [error, debug] = message.parse_error();
-                console.warn(`[Blur my Shell > refraction]   webcam pipeline error: ${error.message}; ${debug}`);
-            }
-
-            return true;
-        }
-
-        _poll_webcam_gloss() {
-            if (!this._webcam_sink)
-                return;
-
-            if (this._webcam_pipeline_has_error()) {
-                this._start_next_webcam_pipeline();
-                return;
-            }
-
-            let sample = null;
-            try {
-                sample = this._webcam_sink.try_pull_sample(0);
-            } catch (e) {
-                console.warn(`[Blur my Shell > refraction]   webcam sample failed: ${e}`);
-                this._start_next_webcam_pipeline();
-                return;
-            }
-
-            if (!sample) {
-                this._webcam_empty_polls++;
-                if (this._webcam_empty_polls > 24)
-                    this._start_next_webcam_pipeline();
-                return;
-            }
-
-            this._webcam_empty_polls = 0;
-            const buffer = sample.get_buffer();
-            const [success, map] = buffer.map(Gst.MapFlags.READ);
-            if (!success)
-                return;
-
-            try {
-                let sum = 0;
-                const data = map.data;
-                for (let i = 0; i + 2 < data.length; i += 4)
-                    sum += data[i] * 0.2126 + data[i + 1] * 0.7152 + data[i + 2] * 0.0722;
-
-                const luma = data.length > 0 ? sum / (data.length / 4) / 255 : 0.5;
-                const target = Math.max(0.05, Math.min(1.0, this._manual_gloss * (0.45 + luma * 1.25)));
-                this._live_gloss += (target - this._live_gloss) * 0.22;
-                this.set_uniform_value('gloss', parseFloat(this._live_gloss - 1e-6));
-                this.queue_repaint();
-            } finally {
-                buffer.unmap(map);
-            }
-        }
-
-        _stop_webcam_gloss() {
-            if (this._webcam_poll_id) {
-                GLib.Source.remove(this._webcam_poll_id);
-                this._webcam_poll_id = null;
-            }
-
-            this._stop_webcam_pipeline();
-            this._webcam_pipeline_candidates = [];
-            this._webcam_pipeline_index = 0;
-        }
-
-        _stop_webcam_pipeline() {
-            if (this._webcam_pipeline) {
-                try {
-                    this._webcam_pipeline.set_state(Gst.State.NULL);
-                } catch (e) {
-                    console.warn(`[Blur my Shell > refraction]   could not stop webcam gloss: ${e}`);
-                }
-            }
-
-            this._webcam_pipeline = null;
-            this._webcam_sink = null;
-            this._webcam_empty_polls = 0;
         }
 
         get width() {
@@ -646,14 +434,12 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 this._stable_clip_y0 = null;
                 this._stable_clip_width = null;
                 this._stable_clip_height = null;
-                this._stop_webcam_gloss();
             }
 
             super.vfunc_set_actor(actor);
         }
 
         vfunc_dispose() {
-            this._stop_webcam_gloss();
             if (super.vfunc_dispose)
                 super.vfunc_dispose();
         }

@@ -122,6 +122,10 @@ vec3 lchToSrgb(vec3 lch) {
     return xyzToSrgb(labToXyz(lab));
 }
 
+float luminance(vec3 color) {
+    return dot(color, vec3(0.2126, 0.7152, 0.0722));
+}
+
 vec2 clampUV(vec2 uv) {
     vec2 px = vec2(1.5 / width, 1.5 / height);
     return clamp(uv, px, vec2(1.0) - px);
@@ -201,6 +205,24 @@ vec4 sampleDispersed(vec2 uv, vec2 prismOffset, float dispersion) {
     return base;
 }
 
+vec2 wallpaperGlossDirection(vec2 uv, vec2 fallbackDir) {
+    vec2 px = 1.0 / vec2(width, height);
+    vec2 radius = px * max(12.0, min(min(width, height) * 0.04, blur_radius * 1.6 + 10.0));
+
+    float left = luminance(sampleGlassBackdrop(uv - vec2(radius.x, 0.0)).rgb);
+    float right = luminance(sampleGlassBackdrop(uv + vec2(radius.x, 0.0)).rgb);
+    float top = luminance(sampleGlassBackdrop(uv - vec2(0.0, radius.y)).rgb);
+    float bottom = luminance(sampleGlassBackdrop(uv + vec2(0.0, radius.y)).rgb);
+    vec2 gradient = vec2(right - left, bottom - top);
+    float contrast = length(gradient);
+
+    if (contrast < 0.015)
+        return fallbackDir;
+
+    vec2 backdropDir = normalize(vec2(-gradient.x, gradient.y));
+    return normalize(mix(fallbackDir, backdropDir, smoothstep(0.015, 0.13, contrast)));
+}
+
 void main() {
     vec2 actorSize = vec2(width, height);
     vec2 actorUV = cogl_tex_coord_in[0].xy;
@@ -246,7 +268,8 @@ void main() {
     vec4 bgColor = sampleDispersed(sample, prismOffset, dispersion);
 
     float specularAngle = -0.85;
-    vec2 lightDir = vec2(cos(specularAngle), -sin(specularAngle));
+    vec2 fallbackLightDir = vec2(cos(specularAngle), -sin(specularAngle));
+    vec2 lightDir = wallpaperGlossDirection(actorUV, fallbackLightDir);
     float specDot = dot(dir, lightDir);
     float strokePx = 2.0;
     float strokeMask = clamp(1.0 - (distFromSide / strokePx), 0.0, 1.0);

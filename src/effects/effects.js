@@ -446,16 +446,6 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 0.1,
                     digits: 2
                 },
-                webcam_gloss: {
-                    name: _("Experimental webcam gloss"),
-                    description: _("Modulates gloss from live camera brightness. This may request camera access and is experimental."),
-                    type: "boolean"
-                },
-                webcam_device: {
-                    name: _("Experimental video selector"),
-                    description: _("Camera device used by experimental webcam gloss."),
-                    type: "video_device"
-                },
                 tint: {
                     name: _("Tint"),
                     description: _("Amount of subtle milky glass tint over the blurred texture."),
