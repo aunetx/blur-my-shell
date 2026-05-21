@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2025-04-18 17:01+0000\n"
-"Last-Translator: Максим Горпиніч <maksimgorpinic2005a@gmail.com>\n"
+"PO-Revision-Date: 2026-05-22 14:11+0000\n"
+"Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: src/effects/effects.js:176
 msgid "Blend mode"
-msgstr ""
+msgstr "Режим змішування"
 
 #: src/effects/effects.js:177
 msgid "How the color is blended in."
@@ -164,27 +164,27 @@ msgstr ""
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "Звичайний"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "Множення"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "Екран"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "Перекриття"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Затемнення"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "Заміна світлим"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
@@ -196,39 +196,39 @@ msgstr ""
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "Освітлення основи"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "Затемнення основи"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "Жорстке світло"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
-msgstr ""
+msgstr "Розсіяне світло"
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "Різниця"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr ""
+msgstr "Виключення"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "Колірний тон"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "Насиченість"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "Свічення"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
@@ -254,7 +254,7 @@ msgstr ""
 
 #: src/effects/effects.js:230
 msgid "Contrast"
-msgstr ""
+msgstr "Контраст"
 
 #: src/effects/effects.js:231
 msgid "The contrast of the image in regard to the center of the contrast."
