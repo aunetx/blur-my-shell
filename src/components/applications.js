@@ -166,7 +166,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                         let window_actor = meta_window.get_compositor_private();
 
                         if (
-                             (!meta_window.get_workspace().active) || meta_window.minimized
+                            (!meta_window.get_workspace().active) || meta_window.minimized
                         )
                             window_actor.hide();
                     });
@@ -385,9 +385,26 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // set the window actor's opacity
         this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
 
+        // update corner radius based on window state
+        this.update_corner_radius(meta_window);
+
         // now set up the signals, for the window actor only: they are disconnected
         // in `remove_blur`, whereas the signals for the meta window are disconnected
         // only when the whole component is disabled
+
+        // listen for window state changes (maximized/fullscreen)
+        this.connections.connect(
+            meta_window, 'notify::maximized-horizontally',
+            _ => this.update_corner_radius(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::maximized-vertically',
+            _ => this.update_corner_radius(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::fullscreen',
+            _ => this.update_corner_radius(meta_window)
+        );
 
         // update the window opacity when it changes, else we don't control it fully
         this.connections.connect(
@@ -470,6 +487,33 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 }
             }
         );
+    }
+
+    /// Update the corner radius based on window state (0 for maximized/fullscreen)
+    /// if the preferences say so.
+    update_corner_radius(meta_window) {
+        const is_maximized = meta_window.maximized_horizontally || meta_window.maximized_vertically;
+        const is_fullscreen = meta_window.fullscreen;
+
+        let use_0_radius = !this.settings.applications.CORNER_WHEN_MAXIMIZED && (is_maximized || is_fullscreen);
+
+        if (this.settings.applications.STATIC_BLUR) {
+            meta_window.bg_manager?._bms_pipeline?.effects.forEach(effect => {
+                if (effect.constructor.name === "CornerEffect")
+                    effect.straight_corners = use_0_radius;
+            })
+        } else {
+            if (meta_window.bg_manager?._bms_pipeline?.effect)
+                meta_window.bg_manager._bms_pipeline.effect.corner_radius = use_0_radius ?
+                    0 : this.settings.applications.CORNER_RADIUS;
+        }
+    }
+
+    /// Update all corners, to use when the setting has been changed.
+    update_all_corner_radii() {
+        this.meta_window_map.forEach(
+            (meta_window, _pid) => this.update_corner_radius(meta_window)
+        )
     }
 
     /// Set the opacity of the window actor that sits on top of the blur effect.

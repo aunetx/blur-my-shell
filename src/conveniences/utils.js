@@ -9,7 +9,11 @@ export const IS_IN_PREFERENCES = typeof global === 'undefined';
 export async function import_in_shell_only(module) {
     if (IS_IN_PREFERENCES)
         return null;
-    return (await import(module)).default;
+    try {
+        return (await import(module)).default;
+    } catch (e) {
+        return null;
+    }
 }
 
 // In use for the effects, to prevent boilerplate code

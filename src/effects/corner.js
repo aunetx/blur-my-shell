@@ -77,6 +77,7 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
             this._clip_height = null;
 
             utils.setup_params(this, params);
+            this.straight_corners = false;
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -162,6 +163,18 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                 this._corners_bottom = value;
 
                 this.set_uniform_value('corners_bottom', this._corners_bottom ? 1 : 0);
+            }
+        }
+
+        get straight_corners() {
+            return this._straight_corners;
+        }
+
+        set straight_corners(value) {
+            if (this._straight_corners !== value) {
+                this._straight_corners = value;
+
+                this.set_uniform_value('straight_corners', this._straight_corners ? 1 : 0);
             }
         }
 

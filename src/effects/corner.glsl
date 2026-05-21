@@ -7,6 +7,7 @@ uniform float width;
 uniform float height;
 uniform bool corners_top;
 uniform bool corners_bottom;
+uniform bool straight_corners;
 
 uniform float clip_x0;
 uniform float clip_y0;
@@ -65,7 +66,9 @@ float rounded_rect_coverage(vec2 p, vec4 bounds, float clip_radius) {
     float center_top = bounds.y + clip_radius;
     float center_bottom = bounds.w - clip_radius;
 
-    if (corners_top && p.y < center_top)
+    if (straight_corners)
+        return 1.0;
+    else if (corners_top && p.y < center_top)
         center.y = center_top + 2.;
     else if (corners_bottom && p.y > center_bottom)
         center.y = center_bottom - 1.;

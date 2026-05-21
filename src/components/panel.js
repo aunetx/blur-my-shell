@@ -57,30 +57,39 @@ export const PanelBlur = class PanelBlur {
             }
         );
 
-        // blur panels created by extension multi-monitors-bar@frederykabryan
-        // I would like to connect directly to Main.uiGroup 'child-added' but it seems
-        // like the name is updated too late...
-        this.connections.connect(global.display, 'workareas-changed', _ => {
-            Main.uiGroup.get_children().forEach(child => {
-                if (child.get_name() === "panelBox" &&
-                    child != Main.layoutManager.panelBox &&
-                    child.get_n_children() == 1
-                ) {
-                    this.maybe_blur_panel(child.get_child_at_index(0));
-                }
-            })
-        })
-
         this.blur_existing_panels();
 
         // connect to overview being opened/closed, and dynamically show or not
         // the blur when a window is near a panel
         this.connect_to_windows_and_overview();
 
-        // connect to monitors change
+        // connect to monitors change, and set a dirty flag to tell the extension that it should be
+        // reset on 'workareas-changed' signal
+        this._dirty = false;
         this.connections.connect(Main.layoutManager, 'monitors-changed',
-            _ => this.reset()
+            _ => this._dirty = true
         );
+
+        this.connections.connect(global.display, 'workareas-changed', _ => {
+            if (this._dirty) {
+                // the monitors chaned
+                this.reset();
+                this._dirty = false;
+            }
+            else {
+                // blur panels created by extension multi-monitors-bar@frederykabryan
+                // I would like to connect directly to Main.uiGroup 'child-added' but it seems
+                // like the name is updated too late...
+                Main.uiGroup.get_children().forEach(child => {
+                    if (child.get_name() === "panelBox" &&
+                        child != Main.layoutManager.panelBox &&
+                        child.get_n_children() == 1
+                    ) {
+                        this.maybe_blur_panel(child.get_child_at_index(0));
+                    }
+                });
+            }
+        })
 
         this.enabled = true;
     }
@@ -582,6 +591,8 @@ export const PanelBlur = class PanelBlur {
         const immutable_actors_list = [...this.actors_list];
         immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
         this.actors_list = [];
+
+        this._dirty = true;
 
         this.connections.disconnect_all();
 

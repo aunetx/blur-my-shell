@@ -3,18 +3,24 @@ import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as LookingGlass from 'resource:///org/gnome/shell/ui/lookingGlass.js';
 
+const IFACE_XML = `
+<node>
+  <interface name="dev.aunetx.BlurMyShell">
+    <!-- This method is called in preferences to pick a window -->
+    <method name="pick" />
+    <!-- When window is picking, send a signal to preferences -->
+    <signal name="picking"></signal>
+    <!-- If window is picked, send a signal to preferences -->
+    <signal name="picked">
+      <arg name="window" type="s" />
+    </signal>
+  </interface>
+</node>
+`;
 
 export const ApplicationsService = class ApplicationsService {
     constructor() {
-        let decoder = new TextDecoder();
-        let path = GLib.filename_from_uri(GLib.uri_resolve_relative(
-            import.meta.url, 'iface.xml', GLib.UriFlags.NONE)
-        )[0];
-        let [, buffer] = GLib.file_get_contents(path);
-        let iface = decoder.decode(buffer);
-        GLib.free(buffer);
-
-        this.DBusImpl = Gio.DBusExportedObject.wrapJSObject(iface, this);
+        this.DBusImpl = Gio.DBusExportedObject.wrapJSObject(IFACE_XML, this);
     }
 
     /// Pick Window for Preferences Page, exported to DBus client.

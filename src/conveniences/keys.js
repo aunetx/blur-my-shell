@@ -6,6 +6,7 @@ export const KEYS = [
         component: "general", schemas: [
             { type: Type.PIPELINES, name: "pipelines" },
             { type: Type.I, name: "hacks-level" },
+            { type: Type.B, name: "rounded-blur-found" },
             { type: Type.B, name: "debug" },
         ]
     },
@@ -31,6 +32,7 @@ export const KEYS = [
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
+            { type: Type.I, name: "corner-radius" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "force-light-text" },
             { type: Type.B, name: "override-background" },
@@ -45,6 +47,7 @@ export const KEYS = [
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
+            { type: Type.I, name: "corner-radius" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-dash-to-dock" },
@@ -57,6 +60,8 @@ export const KEYS = [
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
+            { type: Type.I, name: "corner-radius" },
+            { type: Type.B, name: "corner-when-maximized" },
             { type: Type.I, name: "opacity" },
             { type: Type.B, name: "dynamic-opacity" },
             { type: Type.B, name: "blur-on-overview" },
