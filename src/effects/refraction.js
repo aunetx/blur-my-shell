@@ -15,6 +15,8 @@ const DEFAULT_PARAMS = {
     corner_radius: 22,
     rgb_fringing: 0.08,
     gloss: 0.55,
+    webcam_gloss: false,
+    webcam_device: '',
     tint: 0.18,
     shadow: 0.28,
     mode: 0,
@@ -86,6 +88,20 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 0.0, 1.0,
                 0.55,
             ),
+            'webcam_gloss': GObject.ParamSpec.boolean(
+                `webcam_gloss`,
+                `Deprecated Webcam Gloss`,
+                `Deprecated compatibility property`,
+                GObject.ParamFlags.READWRITE,
+                false,
+            ),
+            'webcam_device': GObject.ParamSpec.string(
+                `webcam_device`,
+                `Deprecated Webcam Device`,
+                `Deprecated compatibility property`,
+                GObject.ParamFlags.READWRITE,
+                '',
+            ),
             'tint': GObject.ParamSpec.double(
                 `tint`,
                 `Tint`,
@@ -147,7 +163,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
         }
     }, class RefractionEffect extends Clutter.ShaderEffect {
         constructor(params) {
-            super(params);
+            const { webcam_gloss, webcam_device, ...parent_params } = params;
+            super(parent_params);
 
             this._clip_x0 = null;
             this._clip_y0 = null;
@@ -268,6 +285,22 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('gloss', parseFloat(this._gloss - 1e-6));
             }
+        }
+
+        get webcam_gloss() {
+            return this._webcam_gloss;
+        }
+
+        set webcam_gloss(value) {
+            this._webcam_gloss = value;
+        }
+
+        get webcam_device() {
+            return this._webcam_device;
+        }
+
+        set webcam_device(value) {
+            this._webcam_device = value ?? '';
         }
 
         get tint() {
