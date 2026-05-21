@@ -126,6 +126,10 @@ float luminance(vec3 color) {
     return dot(color, vec3(0.2126, 0.7152, 0.0722));
 }
 
+float nearPeak(float value, float peak, float band) {
+    return 1.0 - smoothstep(band * 0.35, band, peak - value);
+}
+
 vec2 clampUV(vec2 uv) {
     vec2 px = vec2(1.5 / width, 1.5 / height);
     return clamp(uv, px, vec2(1.0) - px);
@@ -205,22 +209,50 @@ vec4 sampleDispersed(vec2 uv, vec2 prismOffset, float dispersion) {
     return base;
 }
 
-vec2 wallpaperGlossDirection(vec2 uv, vec2 fallbackDir) {
+vec4 wallpaperGloss(vec2 uv, vec2 fallbackDir) {
     vec2 px = 1.0 / vec2(width, height);
     vec2 radius = px * max(12.0, min(min(width, height) * 0.04, blur_radius * 1.6 + 10.0));
 
+    float center = luminance(sampleGlassBackdrop(uv).rgb);
     float left = luminance(sampleGlassBackdrop(uv - vec2(radius.x, 0.0)).rgb);
     float right = luminance(sampleGlassBackdrop(uv + vec2(radius.x, 0.0)).rgb);
     float top = luminance(sampleGlassBackdrop(uv - vec2(0.0, radius.y)).rgb);
     float bottom = luminance(sampleGlassBackdrop(uv + vec2(0.0, radius.y)).rgb);
+    float topLeft = luminance(sampleGlassBackdrop(uv - radius).rgb);
+    float topRight = luminance(sampleGlassBackdrop(uv + vec2(radius.x, -radius.y)).rgb);
+    float bottomLeft = luminance(sampleGlassBackdrop(uv + vec2(-radius.x, radius.y)).rgb);
+    float bottomRight = luminance(sampleGlassBackdrop(uv + radius).rgb);
+
+    float peak = max(center, max(max(left, right), max(max(top, bottom), max(max(topLeft, topRight), max(bottomLeft, bottomRight)))));
+    float low = min(center, min(min(left, right), min(min(top, bottom), min(min(topLeft, topRight), min(bottomLeft, bottomRight)))));
+    float band = max(0.08, peak * 0.28);
+    float localPeak = nearPeak(center, peak, band);
+    float coverage = (
+        localPeak +
+        nearPeak(left, peak, band) +
+        nearPeak(right, peak, band) +
+        nearPeak(top, peak, band) +
+        nearPeak(bottom, peak, band) +
+        nearPeak(topLeft, peak, band) +
+        nearPeak(topRight, peak, band) +
+        nearPeak(bottomLeft, peak, band) +
+        nearPeak(bottomRight, peak, band)
+    ) / 9.0;
+    float brightness = smoothstep(0.36, 0.86, peak);
+    float spotSize = smoothstep(0.28, 0.78, coverage) * brightness;
+    float contrastMask = mix(0.55, 1.0, smoothstep(0.025, 0.22, peak - low));
+    float spotMask = brightness * contrastMask * pow(localPeak, mix(3.0, 1.05, spotSize));
+
     vec2 gradient = vec2(right - left, bottom - top);
     float contrast = length(gradient);
+    vec2 glossDir = fallbackDir;
 
-    if (contrast < 0.015)
-        return fallbackDir;
+    if (contrast >= 0.015) {
+        vec2 backdropDir = normalize(vec2(-gradient.x, gradient.y));
+        glossDir = normalize(mix(fallbackDir, backdropDir, smoothstep(0.015, 0.13, contrast)));
+    }
 
-    vec2 backdropDir = normalize(vec2(-gradient.x, gradient.y));
-    return normalize(mix(fallbackDir, backdropDir, smoothstep(0.015, 0.13, contrast)));
+    return vec4(glossDir, spotMask, spotSize);
 }
 
 void main() {
@@ -269,19 +301,22 @@ void main() {
 
     float specularAngle = -0.85;
     vec2 fallbackLightDir = vec2(cos(specularAngle), -sin(specularAngle));
-    vec2 lightDir = wallpaperGlossDirection(actorUV, fallbackLightDir);
+    vec4 glossSample = wallpaperGloss(actorUV, fallbackLightDir);
+    vec2 lightDir = glossSample.xy;
+    float wallpaperSpot = glossSample.z;
     float specDot = dot(dir, lightDir);
-    float strokePx = 2.0;
+    float spotSize = glossSample.w;
+    float strokePx = mix(1.35, 3.25, spotSize);
     float strokeMask = clamp(1.0 - (distFromSide / strokePx), 0.0, 1.0);
-    float lobeStart = 0.66;
-    float lobeWidth = 0.20;
+    float lobeStart = mix(0.84, 0.58, spotSize);
+    float lobeWidth = mix(0.08, 0.26, spotSize);
     float primary = smoothstep(lobeStart, lobeStart + lobeWidth, specDot);
     float secondary = smoothstep(lobeStart, lobeStart + lobeWidth, -specDot);
     float roundSpec = smoothstep(0.46, 0.90, abs(specDot));
     float cornerWeight = 1.0 - smoothstep(R * 0.45, R, min(min(glassPx.x, W - glassPx.x), min(glassPx.y, H - glassPx.y)));
     float specLobe = mix(primary + secondary, roundSpec, cornerWeight);
     float fresnel = pow(clamp(1.0 - bezelRatio, 0.0, 1.0), 2.2) * edgeOpacity;
-    float specular = specLobe * strokeMask * gloss * 2.15 * edgeOpacity;
+    float specular = specLobe * strokeMask * mix(0.18, 1.15, wallpaperSpot) * gloss * 2.15 * edgeOpacity;
     float highlight = specular + fresnel * 0.34;
 
     vec3 lch = srgbToLch(clamp(bgColor.rgb, 0.0, 1.0));
