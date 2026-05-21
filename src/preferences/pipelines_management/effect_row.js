@@ -1,5 +1,6 @@
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
 import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
@@ -147,6 +148,25 @@ export const EffectRow = GObject.registerClass({
                     );
                     break;
 
+                case "video_device":
+                    row = new Adw.ComboRow({ model: new Gtk.StringList });
+                    row._bms_values = this.list_video_devices();
+                    row._bms_values.forEach(device => row.model.append(device.label));
+
+                    const selected_value = this.get_effect_param(param_key);
+                    let selected_index = row._bms_values.findIndex(device => device.value === selected_value);
+                    if (selected_index < 0 && selected_value) {
+                        row._bms_values.push({ label: selected_value, value: selected_value });
+                        row.model.append(selected_value);
+                        selected_index = row._bms_values.length - 1;
+                    }
+                    row.selected = Math.max(0, selected_index);
+                    row.connect(
+                        'notify::selected',
+                        () => this.set_effect_param(param_key, row._bms_values[row.selected]?.value ?? '')
+                    );
+                    break;
+
                 case "rgba":
                     row = new Adw.ActionRow;
                     let color_button = new Gtk.ColorButton({
@@ -217,6 +237,29 @@ export const EffectRow = GObject.registerClass({
             this._warn(`effect not found when setting key ${key}`);
 
         this.pipelines_manager.update_pipeline_effects(this.pipeline_id, effects, false);
+    }
+
+    list_video_devices() {
+        const devices = [{ label: _("Default camera (auto)"), value: '' }];
+
+        try {
+            const dir = GLib.Dir.open('/dev', 0);
+            let name;
+            while ((name = dir.read_name()) !== null) {
+                if (/^video[0-9]+$/.test(name))
+                    devices.push({ label: `/dev/${name}`, value: `/dev/${name}` });
+            }
+        } catch (e) {
+            this._warn(`could not list video devices: ${e}`);
+        }
+
+        return devices.sort((a, b) => {
+            if (!a.value)
+                return -1;
+            if (!b.value)
+                return 1;
+            return a.value.localeCompare(b.value, undefined, { numeric: true });
+        });
     }
 
     _warn(str) {
