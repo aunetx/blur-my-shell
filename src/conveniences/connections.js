@@ -45,8 +45,13 @@ export const Connections = class Connections {
             )
         ) {
             let destroy_id = actor.connect('destroy', () => {
-                actor.disconnect(id);
-                actor.disconnect(destroy_id);
+                try {
+                    actor.disconnect(id);
+                } catch (e) { }
+
+                try {
+                    actor.disconnect(destroy_id);
+                } catch (e) { }
 
                 let index = this.buffer.indexOf(infos);
                 if (index >= 0) {

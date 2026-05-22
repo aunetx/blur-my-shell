@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="blur-my-shell@aunetx">
-  <template class="Shell" parent="AdwPreferencesPage">
-    <property name="name">shell</property>
+  <template class="PopupBlur" parent="AdwPreferencesPage">
+    <property name="name">popup</property>
     <property name="title" translatable="yes">Popups</property>
-    <property name="icon-name">shell-symbolic</property>
+    <property name="icon-name">popup-symbolic</property>
 
     <child>
       <object class="AdwPreferencesGroup">
@@ -186,12 +186,12 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes">Background style</property>
                 <property name="subtitle" translatable="yes">The transparent/semi-transparent style for popups.</property>
-                <property name="activatable-widget">style_shell</property>
+                <property name="activatable-widget">style_popup</property>
 
                 <child>
-                  <object class="GtkDropDown" id="style_shell">
+                  <object class="GtkDropDown" id="style_popup">
                     <property name="valign">center</property>
-                    <property name="model">style_shell_model</property>
+                    <property name="model">style_popup_model</property>
                   </object>
                 </child>
               </object>
@@ -250,7 +250,7 @@
     <property name="step-increment">1</property>
   </object>
 
-  <object class="GtkStringList" id="style_shell_model">
+  <object class="GtkStringList" id="style_popup_model">
     <items>
       <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>

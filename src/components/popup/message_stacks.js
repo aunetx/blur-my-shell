@@ -2,10 +2,10 @@ import GLib from 'gi://GLib';
 
 const STACKED_PSEUDO_CLASSES = ['second-in-stack', 'lower-in-stack'];
 const MESSAGE_CONTAINER_STYLE_CLASSES = ['message-list', 'message-view', 'message-notification-group'];
-const INTERNAL_STYLE_CLASSES = ['bms-shell-blurred-widget', 'bms-shell-backgroundgroup'];
-const INTERNAL_NAMES = ['bms-shell-blurred-widget', 'bms-shell-backgroundgroup'];
+const INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
+const INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
 
-export const ShellMessageStacks = class ShellMessageStacks {
+export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     constructor(connections) {
         this.connections = connections;
         this.containers = new Set();
@@ -118,8 +118,12 @@ export const ShellMessageStacks = class ShellMessageStacks {
         this.connect(
             group,
             'notify::expanded',
-            () => this.queue_update_all()
+            () => this.update_all()
         );
+    }
+
+    update_all() {
+        this.messages.forEach(message => this.update_message(message));
     }
 
     queue_update_all() {
@@ -150,7 +154,7 @@ export const ShellMessageStacks = class ShellMessageStacks {
         if (!child)
             return;
 
-        if (this.is_stacked(message)) {
+        if (this.is_stacked(message) && !this.is_in_expanded_group(message)) {
             if (!this.original_opacity.has(child))
                 this.original_opacity.set(child, this.get_opacity(child));
 
@@ -159,6 +163,26 @@ export const ShellMessageStacks = class ShellMessageStacks {
         }
 
         this.restore_child(child);
+    }
+
+    is_in_expanded_group(message) {
+        let actor = message;
+
+        while (actor) {
+            try {
+                actor = actor.get_parent?.();
+            } catch (e) {
+                return false;
+            }
+
+            if (
+                this.has_style_class(actor, 'message-notification-group')
+                && actor.expanded
+            )
+                return true;
+        }
+
+        return false;
     }
 
     is_stacked(message) {
@@ -229,7 +253,6 @@ export const ShellMessageStacks = class ShellMessageStacks {
         if (this.watched_actors.has(actor))
             return true;
 
-        this.watched_actors.add(actor);
         try {
             this.connections.connect(actor, 'destroy', () => {
                 this.destroyed_actors.add(actor);
@@ -242,6 +265,7 @@ export const ShellMessageStacks = class ShellMessageStacks {
             return false;
         }
 
+        this.watched_actors.add(actor);
         return true;
     }
 
@@ -309,6 +333,9 @@ export const ShellMessageStacks = class ShellMessageStacks {
         this.messages.clear();
         this.groups.clear();
         this.containers.clear();
+        this.watched_actors = new WeakSet();
+        this.destroyed_actors = new WeakSet();
+        this.original_opacity = new WeakMap();
         this.enabled = false;
     }
 };

@@ -1,4 +1,4 @@
-export const ShellStaticCorner = class ShellStaticCorner {
+export const PopupBlurStaticCorner = class PopupBlurStaticCorner {
     constructor(effects_manager, get_radius) {
         this.effects_manager = effects_manager;
         this.get_radius = get_radius;

@@ -104,7 +104,7 @@
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='coverflow-alt-tab' schema='org.gnome.shell.extensions.blur-my-shell.coverflow-alt-tab'></child>
-        <child name='shell' schema='org.gnome.shell.extensions.blur-my-shell.shell'></child>
+        <child name='popup' schema='org.gnome.shell.extensions.blur-my-shell.popup'></child>
         <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
         <child name='dash-to-panel' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-panel'></child>
     </schema>
@@ -594,9 +594,9 @@
         </key>
     </schema>
 
-    <!-- SHELL -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.shell"
-        path="/org/gnome/shell/extensions/blur-my-shell/shell/">
+    <!-- POPUP -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.popup"
+        path="/org/gnome/shell/extensions/blur-my-shell/popup/">
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
@@ -657,8 +657,8 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
-        <!-- STYLE SHELL -->
-        <key type="i" name="style-shell">
+        <!-- STYLE POPUP -->
+        <key type="i" name="style-popup">
             <default>3</default>
             <summary>Enum to select the style of popup surfaces (0 transparent, 1 light, 2 dark, 3 automatic)</summary>
         </key>

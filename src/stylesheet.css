@@ -92,406 +92,419 @@
 }
 
 
-/*** SHELL ***/
+/*** POPUP ***/
 
-.bms-shell-blurred-widget {
+.bms-popup-blurred-widget {
     background: rgba(0, 0, 0, 0.01);
 }
 
-.bms-shell-background-transparent .popup-menu-content,
-.bms-shell-background-transparent .candidate-popup-content,
-.bms-shell-background-transparent .quick-settings,
-.bms-shell-background-transparent .quick-toggle-menu,
-.bms-shell-background-transparent .message,
-.bms-shell-background-transparent .osd-window,
-.bms-shell-background-transparent .resize-popup,
-.bms-shell-background-transparent .switcher-list,
-.bms-shell-background-transparent .workspace-switcher,
-.bms-shell-background-transparent .modal-dialog {
+.bms-popup-background-transparent .popup-menu-content,
+.bms-popup-background-transparent .candidate-popup-content,
+.bms-popup-background-transparent .quick-settings,
+.bms-popup-background-transparent .quick-toggle-menu,
+.bms-popup-background-transparent .message,
+.bms-popup-background-transparent .osd-window,
+.bms-popup-background-transparent .resize-popup,
+.bms-popup-background-transparent .switcher-list,
+.bms-popup-background-transparent .workspace-switcher,
+.bms-popup-background-transparent .modal-dialog {
     background: transparent !important;
     border-color: transparent;
     box-shadow: none;
 }
 
-.bms-shell-background-light .popup-menu-content,
-.bms-shell-background-light .candidate-popup-content,
-.bms-shell-background-light .quick-settings,
-.bms-shell-background-light .quick-toggle-menu,
-.bms-shell-background-light .message,
-.bms-shell-background-light .osd-window,
-.bms-shell-background-light .resize-popup,
-.bms-shell-background-light .switcher-list,
-.bms-shell-background-light .workspace-switcher,
-.bms-shell-background-light .modal-dialog {
+.bms-popup-background-light .popup-menu-content,
+.bms-popup-background-light .candidate-popup-content,
+.bms-popup-background-light .quick-settings,
+.bms-popup-background-light .quick-toggle-menu,
+.bms-popup-background-light .message,
+.bms-popup-background-light .osd-window,
+.bms-popup-background-light .resize-popup,
+.bms-popup-background-light .workspace-switcher,
+.bms-popup-background-light .modal-dialog {
     color: #222226;
     background: rgba(255, 255, 255, 0.58) !important;
     border-color: rgba(0, 0, 0, 0.05);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
 
-.bms-shell-background-dark .popup-menu-content,
-.bms-shell-background-dark .candidate-popup-content,
-.bms-shell-background-dark .quick-settings,
-.bms-shell-background-dark .quick-toggle-menu,
-.bms-shell-background-dark .message,
-.bms-shell-background-dark .osd-window,
-.bms-shell-background-dark .resize-popup,
-.bms-shell-background-dark .switcher-list,
-.bms-shell-background-dark .workspace-switcher,
-.bms-shell-background-dark .modal-dialog {
+.bms-popup-background-dark .popup-menu-content,
+.bms-popup-background-dark .candidate-popup-content,
+.bms-popup-background-dark .quick-settings,
+.bms-popup-background-dark .quick-toggle-menu,
+.bms-popup-background-dark .message,
+.bms-popup-background-dark .osd-window,
+.bms-popup-background-dark .resize-popup,
+.bms-popup-background-dark .workspace-switcher,
+.bms-popup-background-dark .modal-dialog {
     color: #ffffff;
     background: rgba(45, 45, 50, 0.22) !important;
     border-color: transparent;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
-.bms-shell-background-transparent .message,
-.bms-shell-background-light .message,
-.bms-shell-background-dark .message {
+.bms-popup-background-light .switcher-list,
+.bms-popup-background-dark .switcher-list {
+    background: transparent !important;
+    border-color: transparent;
     box-shadow: none;
 }
 
-.bms-shell-background-transparent .osd-window,
-.bms-shell-background-light .osd-window,
-.bms-shell-background-dark .osd-window,
-.bms-shell-background-transparent .resize-popup,
-.bms-shell-background-light .resize-popup,
-.bms-shell-background-dark .resize-popup,
-.bms-shell-background-transparent .workspace-switcher,
-.bms-shell-background-light .workspace-switcher,
-.bms-shell-background-dark .workspace-switcher {
+.bms-popup-background-transparent .message,
+.bms-popup-background-light .message,
+.bms-popup-background-dark .message {
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .osd-window,
+.bms-popup-background-light .osd-window,
+.bms-popup-background-dark .osd-window,
+.bms-popup-background-transparent .resize-popup,
+.bms-popup-background-light .resize-popup,
+.bms-popup-background-dark .resize-popup,
+.bms-popup-background-transparent .workspace-switcher,
+.bms-popup-background-light .workspace-switcher,
+.bms-popup-background-dark .workspace-switcher {
     border-radius: 18px;
 }
 
-.bms-shell-background-transparent .message:second-in-stack {
+.bms-popup-background-light .osd-window .level {
+    -barlevel-background-color: rgba(0, 0, 0, 0.12);
+    -barlevel-active-background-color: #222226;
+    -barlevel-overdrive-color: #c01c28;
+}
+
+.bms-popup-background-dark .osd-window .level {
+    -barlevel-background-color: rgba(255, 255, 255, 0.14);
+    -barlevel-active-background-color: #ffffff;
+    -barlevel-overdrive-color: #f66151;
+}
+
+.bms-popup-background-transparent .message:second-in-stack {
     background: rgba(58, 58, 64, 0.2) !important;
     box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-shell-background-transparent .message:lower-in-stack {
+.bms-popup-background-transparent .message:lower-in-stack {
     background: rgba(48, 48, 54, 0.14) !important;
     box-shadow: none;
 }
 
-.bms-shell-background-light .message:second-in-stack {
+.bms-popup-background-light .message:second-in-stack {
     background: rgba(255, 255, 255, 0.54) !important;
     box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-shell-background-light .message:lower-in-stack {
+.bms-popup-background-light .message:lower-in-stack {
     background: rgba(255, 255, 255, 0.44) !important;
     box-shadow: none;
 }
 
-.bms-shell-background-light .message .message-header,
-.bms-shell-background-light .message .message-header .message-header-content .event-time {
+.bms-popup-background-light .message .message-header,
+.bms-popup-background-light .message .message-header .message-header-content .event-time {
     color: rgba(34, 34, 38, 0.68);
 }
 
-.bms-shell-background-light .message .message-header .message-header-content .message-source-title,
-.bms-shell-background-light .message .message-box .message-content .message-title {
+.bms-popup-background-light .message .message-header .message-header-content .message-source-title,
+.bms-popup-background-light .message .message-box .message-content .message-title {
     color: #222226;
 }
 
-.bms-shell-background-light .message .message-header .message-source-icon {
+.bms-popup-background-light .message .message-header .message-source-icon {
     color: rgba(34, 34, 38, 0.74);
 }
 
-.bms-shell-background-light .message .message-header .message-expand-button,
-.bms-shell-background-light .message .message-header .message-close-button,
-.bms-shell-background-light .message-notification-group .message-collapse-button {
+.bms-popup-background-light .message .message-header .message-expand-button,
+.bms-popup-background-light .message .message-header .message-close-button,
+.bms-popup-background-light .message-notification-group .message-collapse-button {
     color: #222226;
     background-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-.bms-shell-background-light .message .message-header .message-expand-button:hover,
-.bms-shell-background-light .message .message-header .message-close-button:hover,
-.bms-shell-background-light .message-notification-group .message-collapse-button:hover {
+.bms-popup-background-light .message .message-header .message-expand-button:hover,
+.bms-popup-background-light .message .message-header .message-close-button:hover,
+.bms-popup-background-light .message-notification-group .message-collapse-button:hover {
     background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
-.bms-shell-background-light .message .message-header .message-expand-button:active,
-.bms-shell-background-light .message .message-header .message-close-button:active,
-.bms-shell-background-light .message-notification-group .message-collapse-button:active {
+.bms-popup-background-light .message .message-header .message-expand-button:active,
+.bms-popup-background-light .message .message-header .message-close-button:active,
+.bms-popup-background-light .message-notification-group .message-collapse-button:active {
     background-color: rgba(0, 0, 0, 0.16) !important;
 }
 
-.bms-shell-background-dark .message:second-in-stack {
+.bms-popup-background-dark .message:second-in-stack {
     background: rgba(35, 35, 40, 0.3) !important;
     box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-shell-background-dark .message:lower-in-stack {
+.bms-popup-background-dark .message:lower-in-stack {
     background: rgba(35, 35, 40, 0.2) !important;
     box-shadow: none;
 }
 
-.bms-shell-background-light .quick-toggle,
-.bms-shell-background-light .quick-toggle-has-menu,
-.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button,
-.bms-shell-background-light .notification-button {
+.bms-popup-background-light .quick-toggle,
+.bms-popup-background-light .quick-toggle-has-menu,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button,
+.bms-popup-background-light .notification-button {
     color: #222226;
-    background-color: rgba(255, 255, 255, 0.3) !important;
-    border-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.62) !important;
+    border-color: rgba(0, 0, 0, 0.08);
 }
 
-.bms-shell-background-light .quick-settings .icon-button,
-.bms-shell-background-light .quick-settings .button,
-.bms-shell-background-light .quick-slider .slider-bin {
+.bms-popup-background-light .quick-settings .icon-button,
+.bms-popup-background-light .quick-settings .button,
+.bms-popup-background-light .quick-slider .slider-bin {
     color: #222226;
-    background-color: rgba(255, 255, 255, 0.3) !important;
-    border-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.62) !important;
+    border-color: rgba(0, 0, 0, 0.08);
 }
 
-.bms-shell-background-light .quick-toggle:hover,
-.bms-shell-background-light .quick-toggle-has-menu:hover,
-.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button:hover,
-.bms-shell-background-light .notification-button:hover,
-.bms-shell-background-light .quick-settings .icon-button:hover,
-.bms-shell-background-light .quick-settings .button:hover,
-.bms-shell-background-light .quick-slider .slider-bin:hover {
-    background-color: rgba(255, 255, 255, 0.42) !important;
+.bms-popup-background-light .quick-toggle:hover,
+.bms-popup-background-light .quick-toggle-has-menu:hover,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.bms-popup-background-light .notification-button:hover,
+.bms-popup-background-light .quick-settings .icon-button:hover,
+.bms-popup-background-light .quick-settings .button:hover,
+.bms-popup-background-light .quick-slider .slider-bin:hover {
+    background-color: rgba(255, 255, 255, 0.78) !important;
 }
 
-.bms-shell-background-light .calendar {
+.bms-popup-background-light .calendar {
     color: #222226;
     background-color: transparent;
     border-color: transparent;
     box-shadow: none;
 }
 
-.bms-shell-background-light .datemenu-today-button,
-.bms-shell-background-light .events-button,
-.bms-shell-background-light .world-clocks-button,
-.bms-shell-background-light .weather-button {
+.bms-popup-background-light .events-button,
+.bms-popup-background-light .world-clocks-button,
+.bms-popup-background-light .weather-button {
     color: #222226;
     background-color: rgba(255, 255, 255, 0.28) !important;
     border-color: rgba(0, 0, 0, 0.04);
     box-shadow: none;
 }
 
-.bms-shell-background-light .datemenu-today-button:hover,
-.bms-shell-background-light .events-button:hover,
-.bms-shell-background-light .world-clocks-button:hover,
-.bms-shell-background-light .weather-button:hover {
+.bms-popup-background-light .events-button:hover,
+.bms-popup-background-light .world-clocks-button:hover,
+.bms-popup-background-light .weather-button:hover {
     background-color: rgba(255, 255, 255, 0.4) !important;
 }
 
-.bms-shell-background-light .calendar .calendar-month-header .calendar-month-label,
-.bms-shell-background-light .calendar .calendar-month-header .pager-button {
+.bms-popup-background-light .calendar .calendar-month-header .calendar-month-label,
+.bms-popup-background-light .calendar .calendar-month-header .pager-button {
     color: #222226;
     background-color: transparent;
 }
 
-.bms-shell-background-light .calendar-day-heading,
-.bms-shell-background-light .calendar-day {
+.bms-popup-background-light .calendar-day-heading,
+.bms-popup-background-light .calendar-day {
     color: #222226;
     background-color: transparent;
 }
 
-.bms-shell-background-light .calendar .calendar-day.calendar-weekend {
+.bms-popup-background-light .calendar .calendar-day.calendar-weekend {
     color: rgba(34, 34, 38, 0.72);
 }
 
-.bms-shell-background-light .calendar .calendar-day.calendar-other-month,
-.bms-shell-background-light .calendar .calendar-day.calendar-other-month.calendar-weekend {
+.bms-popup-background-light .calendar .calendar-day.calendar-other-month,
+.bms-popup-background-light .calendar .calendar-day.calendar-other-month.calendar-weekend {
     color: rgba(34, 34, 38, 0.5);
 }
 
-.bms-shell-background-light .calendar-day:selected,
-.bms-shell-background-light .calendar-day:checked,
-.bms-shell-background-light .calendar-day.calendar-today {
+.bms-popup-background-light .calendar-day:selected,
+.bms-popup-background-light .calendar-day:checked,
+.bms-popup-background-light .calendar-day.calendar-today {
     color: -st-accent-fg-color !important;
     background-color: -st-accent-color !important;
 }
 
-.bms-shell-background-light .calendar .calendar-day:hover,
-.bms-shell-background-light .calendar .calendar-month-header .pager-button:hover {
+.bms-popup-background-light .calendar .calendar-day:hover,
+.bms-popup-background-light .calendar .calendar-month-header .pager-button:hover {
     background-color: rgba(0, 0, 0, 0.08);
 }
 
-.bms-shell-background-light .calendar-day:selected:hover,
-.bms-shell-background-light .calendar-day:checked:hover,
-.bms-shell-background-light .calendar-day.calendar-today:hover {
+.bms-popup-background-light .calendar-day:selected:hover,
+.bms-popup-background-light .calendar-day:checked:hover,
+.bms-popup-background-light .calendar-day.calendar-today:hover {
     color: -st-accent-fg-color !important;
     background-color: st-darken(-st-accent-color, 4%) !important;
 }
 
-.bms-shell-background-light .quick-toggle:checked,
-.bms-shell-background-light .quick-toggle-has-menu:checked,
-.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle,
-.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button,
-.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
+.bms-popup-background-light .quick-toggle:checked,
+.bms-popup-background-light .quick-toggle-has-menu:checked,
+.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle,
+.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
     color: -st-accent-fg-color;
-    background-color: st-transparentize(-st-accent-color, 0.18) !important;
+    background-color: -st-accent-color !important;
 }
 
-.bms-shell-background-light .quick-toggle:checked:hover,
-.bms-shell-background-light .quick-toggle-has-menu:checked:hover,
-.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle:hover,
-.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
-.bms-shell-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+.bms-popup-background-light .quick-toggle:checked:hover,
+.bms-popup-background-light .quick-toggle-has-menu:checked:hover,
+.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle:hover,
+.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
     color: -st-accent-fg-color;
-    background-color: st-transparentize(st-darken(-st-accent-color, 4%), 0.12) !important;
+    background-color: st-darken(-st-accent-color, 4%) !important;
 }
 
-.bms-shell-background-light .quick-toggle-has-menu:checked .quick-toggle-separator {
+.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-separator {
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%);
 }
 
-.bms-shell-background-dark .quick-toggle,
-.bms-shell-background-dark .quick-toggle-has-menu,
-.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
-.bms-shell-background-dark .notification-button {
+.bms-popup-background-dark .quick-toggle,
+.bms-popup-background-dark .quick-toggle-has-menu,
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
+.bms-popup-background-dark .notification-button {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.07) !important;
-    border-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.11) !important;
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
-.bms-shell-background-dark .quick-settings .icon-button,
-.bms-shell-background-dark .quick-settings .button,
-.bms-shell-background-dark .quick-slider .slider-bin {
+.bms-popup-background-dark .quick-settings .icon-button,
+.bms-popup-background-dark .quick-settings .button,
+.bms-popup-background-dark .quick-slider .slider-bin {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.07) !important;
-    border-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.11) !important;
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
-.bms-shell-background-dark .quick-toggle:hover,
-.bms-shell-background-dark .quick-toggle-has-menu:hover,
-.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover,
-.bms-shell-background-dark .notification-button:hover,
-.bms-shell-background-dark .quick-settings .icon-button:hover,
-.bms-shell-background-dark .quick-settings .button:hover,
-.bms-shell-background-dark .quick-slider .slider-bin:hover {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+.bms-popup-background-dark .quick-toggle:hover,
+.bms-popup-background-dark .quick-toggle-has-menu:hover,
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.bms-popup-background-dark .notification-button:hover,
+.bms-popup-background-dark .quick-settings .icon-button:hover,
+.bms-popup-background-dark .quick-settings .button:hover,
+.bms-popup-background-dark .quick-slider .slider-bin:hover {
+    background-color: rgba(255, 255, 255, 0.18) !important;
 }
 
-.bms-shell-background-dark .calendar {
+.bms-popup-background-dark .calendar {
     color: #ffffff;
     background-color: transparent;
     border-color: transparent;
     box-shadow: none;
 }
 
-.bms-shell-background-dark .datemenu-today-button,
-.bms-shell-background-dark .events-button,
-.bms-shell-background-dark .world-clocks-button,
-.bms-shell-background-dark .weather-button {
+.bms-popup-background-dark .events-button,
+.bms-popup-background-dark .world-clocks-button,
+.bms-popup-background-dark .weather-button {
     color: #ffffff;
     background-color: rgba(255, 255, 255, 0.07) !important;
     border-color: rgba(255, 255, 255, 0.05);
     box-shadow: none;
 }
 
-.bms-shell-background-dark .datemenu-today-button:hover,
-.bms-shell-background-dark .events-button:hover,
-.bms-shell-background-dark .world-clocks-button:hover,
-.bms-shell-background-dark .weather-button:hover {
+.bms-popup-background-dark .events-button:hover,
+.bms-popup-background-dark .world-clocks-button:hover,
+.bms-popup-background-dark .weather-button:hover {
     background-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-.bms-shell-background-dark .calendar .calendar-month-header .calendar-month-label,
-.bms-shell-background-dark .calendar .calendar-month-header .pager-button {
+.bms-popup-background-dark .calendar .calendar-month-header .calendar-month-label,
+.bms-popup-background-dark .calendar .calendar-month-header .pager-button {
     color: #ffffff;
     background-color: transparent;
 }
 
-.bms-shell-background-dark .calendar-day-heading,
-.bms-shell-background-dark .calendar-day {
+.bms-popup-background-dark .calendar-day-heading,
+.bms-popup-background-dark .calendar-day {
     color: #ffffff;
     background-color: transparent;
 }
 
-.bms-shell-background-dark .calendar .calendar-day.calendar-weekend {
+.bms-popup-background-dark .calendar .calendar-day.calendar-weekend {
     color: rgba(255, 255, 255, 0.68);
 }
 
-.bms-shell-background-dark .calendar .calendar-day.calendar-other-month,
-.bms-shell-background-dark .calendar .calendar-day.calendar-other-month.calendar-weekend {
+.bms-popup-background-dark .calendar .calendar-day.calendar-other-month,
+.bms-popup-background-dark .calendar .calendar-day.calendar-other-month.calendar-weekend {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.bms-shell-background-dark .calendar-day:selected,
-.bms-shell-background-dark .calendar-day:checked,
-.bms-shell-background-dark .calendar-day.calendar-today {
+.bms-popup-background-dark .calendar-day:selected,
+.bms-popup-background-dark .calendar-day:checked,
+.bms-popup-background-dark .calendar-day.calendar-today {
     color: -st-accent-fg-color !important;
     background-color: -st-accent-color !important;
 }
 
-.bms-shell-background-dark .calendar .calendar-day:hover,
-.bms-shell-background-dark .calendar .calendar-month-header .pager-button:hover {
+.bms-popup-background-dark .calendar .calendar-day:hover,
+.bms-popup-background-dark .calendar .calendar-month-header .pager-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.bms-shell-background-dark .calendar-day:selected:hover,
-.bms-shell-background-dark .calendar-day:checked:hover,
-.bms-shell-background-dark .calendar-day.calendar-today:hover {
+.bms-popup-background-dark .calendar-day:selected:hover,
+.bms-popup-background-dark .calendar-day:checked:hover,
+.bms-popup-background-dark .calendar-day.calendar-today:hover {
     color: -st-accent-fg-color !important;
     background-color: st-lighten(-st-accent-color, 4%) !important;
 }
 
-.bms-shell-background-dark .quick-toggle:checked,
-.bms-shell-background-dark .quick-toggle-has-menu:checked,
-.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle,
-.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle-menu-button,
-.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked {
+.bms-popup-background-dark .quick-toggle:checked,
+.bms-popup-background-dark .quick-toggle-has-menu:checked,
+.bms-popup-background-dark .quick-toggle-has-menu:checked .quick-toggle,
+.bms-popup-background-dark .quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked {
     color: -st-accent-fg-color;
-    background-color: st-transparentize(-st-accent-color, 0.12) !important;
+    background-color: -st-accent-color !important;
 }
 
-.bms-shell-background-dark .quick-toggle:checked:hover,
-.bms-shell-background-dark .quick-toggle-has-menu:checked:hover,
-.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle:hover,
-.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
-.bms-shell-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+.bms-popup-background-dark .quick-toggle:checked:hover,
+.bms-popup-background-dark .quick-toggle-has-menu:checked:hover,
+.bms-popup-background-dark .quick-toggle-has-menu:checked .quick-toggle:hover,
+.bms-popup-background-dark .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
     color: -st-accent-fg-color;
-    background-color: st-transparentize(st-lighten(-st-accent-color, 4%), 0.08) !important;
+    background-color: st-lighten(-st-accent-color, 4%) !important;
 }
 
-.bms-shell-background-dark .quick-toggle-has-menu:checked .quick-toggle-separator {
+.bms-popup-background-dark .quick-toggle-has-menu:checked .quick-toggle-separator {
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 30%);
 }
 
-.bms-shell-background-transparent .popup-menu-item:hover,
-.bms-shell-background-transparent .popup-menu-item:focus {
+.bms-popup-background-transparent .popup-menu-item:hover,
+.bms-popup-background-transparent .popup-menu-item:focus {
     background-color: rgba(255, 255, 255, 0.08);
 }
 
-.bms-shell-background-transparent .popup-menu-item:active,
-.bms-shell-background-transparent .popup-menu-item:checked {
+.bms-popup-background-transparent .popup-menu-item:active,
+.bms-popup-background-transparent .popup-menu-item:checked {
     background-color: rgba(255, 255, 255, 0.12);
 }
 
-.bms-shell-background-light .popup-menu-item,
-.bms-shell-background-light .popup-menu-item:hover,
-.bms-shell-background-light .popup-menu-item:focus,
-.bms-shell-background-light .popup-menu-item:selected,
-.bms-shell-background-light .popup-menu-item:active,
-.bms-shell-background-light .popup-menu-item:checked {
+.bms-popup-background-light .popup-menu-item,
+.bms-popup-background-light .popup-menu-item:hover,
+.bms-popup-background-light .popup-menu-item:focus,
+.bms-popup-background-light .popup-menu-item:selected,
+.bms-popup-background-light .popup-menu-item:active,
+.bms-popup-background-light .popup-menu-item:checked {
     color: #222226;
 }
 
-.bms-shell-background-light .popup-menu-item:insensitive {
+.bms-popup-background-light .popup-menu-item:insensitive {
     color: rgba(34, 34, 38, 0.5);
 }
 
-.bms-shell-background-light .popup-menu-item:hover,
-.bms-shell-background-light .popup-menu-item:focus {
+.bms-popup-background-light .popup-menu-item:hover,
+.bms-popup-background-light .popup-menu-item:focus {
     background-color: rgba(0, 0, 0, 0.06);
 }
 
-.bms-shell-background-light .popup-menu-item:active,
-.bms-shell-background-light .popup-menu-item:checked {
+.bms-popup-background-light .popup-menu-item:active,
+.bms-popup-background-light .popup-menu-item:checked {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.bms-shell-background-dark .popup-menu-item:hover,
-.bms-shell-background-dark .popup-menu-item:focus {
+.bms-popup-background-dark .popup-menu-item:hover,
+.bms-popup-background-dark .popup-menu-item:focus {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.bms-shell-background-dark .popup-menu-item:active,
-.bms-shell-background-dark .popup-menu-item:checked {
+.bms-popup-background-dark .popup-menu-item:active,
+.bms-popup-background-dark .popup-menu-item:checked {
     background-color: rgba(255, 255, 255, 0.14);
 }
 

@@ -97,7 +97,7 @@ export const KEYS = [
         ]
     },
     {
-        component: "shell", schemas: [
+        component: "popup", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
@@ -110,7 +110,7 @@ export const KEYS = [
             { type: Type.I, name: "osd-corner-radius" },
             { type: Type.I, name: "dialog-corner-radius" },
             { type: Type.B, name: "override-background" },
-            { type: Type.I, name: "style-shell" },
+            { type: Type.I, name: "style-popup" },
         ]
     },
     {

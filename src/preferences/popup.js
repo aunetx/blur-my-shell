@@ -4,9 +4,9 @@ import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
 
-export const Shell = GObject.registerClass({
-    GTypeName: 'Shell',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/shell.ui', GLib.UriFlags.NONE),
+export const PopupBlur = GObject.registerClass({
+    GTypeName: 'PopupBlur',
+    Template: GLib.uri_resolve_relative(import.meta.url, '../ui/popup.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
         'pipeline_choose_row',
@@ -25,9 +25,9 @@ export const Shell = GObject.registerClass({
         'dialog_corner_radius',
         'corner_radius_not_found_row',
         'override_background',
-        'style_shell'
+        'style_popup'
     ],
-}, class Shell extends Adw.PreferencesPage {
+}, class PopupBlur extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
@@ -35,63 +35,63 @@ export const Shell = GObject.registerClass({
         this.pipelines_manager = pipelines_manager;
         this.pipelines_page = pipelines_page;
 
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'blur', this._blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
         this._pipeline_choose_row.initialize(
-            this.preferences.shell, this.pipelines_manager, this.pipelines_page
+            this.preferences.popup, this.pipelines_manager, this.pipelines_page
         );
 
-        this.change_blur_mode(this.preferences.shell.STATIC_BLUR, true);
+        this.change_blur_mode(this.preferences.popup.STATIC_BLUR, true);
 
         this._mode_static.connect('toggled',
-            () => this.preferences.shell.STATIC_BLUR = this._mode_static.active
+            () => this.preferences.popup.STATIC_BLUR = this._mode_static.active
         );
-        this.preferences.shell.STATIC_BLUR_changed(
-            () => this.change_blur_mode(this.preferences.shell.STATIC_BLUR, false)
+        this.preferences.popup.STATIC_BLUR_changed(
+            () => this.change_blur_mode(this.preferences.popup.STATIC_BLUR, false)
         );
 
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'sigma', this._sigma, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'brightness', this._brightness, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'menu-corner-radius', this._menu_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'quick-settings-corner-radius', this._quick_settings_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'notification-corner-radius', this._notification_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'osd-corner-radius', this._osd_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'dialog-corner-radius', this._dialog_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
+        this.preferences.popup.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.shell.settings.bind(
-            'style-shell', this._style_shell, 'selected',
+        this.preferences.popup.settings.bind(
+            'style-popup', this._style_popup, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
     }

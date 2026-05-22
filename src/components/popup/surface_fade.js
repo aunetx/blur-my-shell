@@ -1,4 +1,4 @@
-export const ShellSurfaceFade = class ShellSurfaceFade {
+export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     constructor(actor, target, root_actor, parent) {
         this.actor = actor;
         this.target = target;
@@ -36,7 +36,9 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
     }
 
     set_opacity(opacity) {
-        this.actor.opacity = opacity;
+        try {
+            this.actor.opacity = opacity;
+        } catch (e) { }
     }
 
     apply_actor_opacity(opacity, actor, visited) {
@@ -60,6 +62,4 @@ export const ShellSurfaceFade = class ShellSurfaceFade {
 
         return null;
     }
-
-    destroy() { }
 };
