@@ -1,0 +1,100 @@
+/*** POPUP ***/
+
+.bms-popup-blurred-widget {
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.bms-popup-background-transparent .popup-menu-content,
+.bms-popup-background-transparent .popup-sub-menu,
+.bms-popup-background-transparent .candidate-popup-content,
+.bms-popup-background-transparent .quick-settings,
+.bms-popup-background-transparent .quick-toggle-menu,
+.bms-popup-background-transparent .message,
+.bms-popup-background-transparent .osd-window,
+.bms-popup-background-transparent .resize-popup,
+.bms-popup-background-transparent .switcher-list,
+.bms-popup-background-transparent .workspace-switcher,
+.bms-popup-background-transparent .modal-dialog {
+    background: transparent !important;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-popup-background-light .popup-menu-content,
+.bms-popup-background-light .popup-sub-menu,
+.bms-popup-background-light .candidate-popup-content,
+.bms-popup-background-light .quick-settings,
+.bms-popup-background-light .quick-toggle-menu,
+.bms-popup-background-light .message,
+.bms-popup-background-light .osd-window,
+.bms-popup-background-light .resize-popup,
+.bms-popup-background-light .workspace-switcher,
+.bms-popup-background-light .modal-dialog {
+    color: #222226;
+    background: rgba(255, 255, 255, 0.58) !important;
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.bms-popup-background-dark .popup-menu-content,
+.bms-popup-background-dark .popup-sub-menu,
+.bms-popup-background-dark .candidate-popup-content,
+.bms-popup-background-dark .quick-settings,
+.bms-popup-background-dark .quick-toggle-menu,
+.bms-popup-background-dark .message,
+.bms-popup-background-dark .osd-window,
+.bms-popup-background-dark .resize-popup,
+.bms-popup-background-dark .workspace-switcher,
+.bms-popup-background-dark .modal-dialog {
+    color: #ffffff;
+    background: rgba(45, 45, 50, 0.22) !important;
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.bms-popup-background-light .switcher-list,
+.bms-popup-background-dark .switcher-list {
+    background: transparent !important;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .message,
+.bms-popup-background-light .message,
+.bms-popup-background-dark .message {
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .message:second-in-stack {
+    background: rgba(58, 58, 64, 0.2) !important;
+    box-shadow: 0 1px 1px 0 transparent;
+}
+
+.bms-popup-background-transparent .message:lower-in-stack {
+    background: rgba(48, 48, 54, 0.14) !important;
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .osd-window,
+.bms-popup-background-light .osd-window,
+.bms-popup-background-dark .osd-window,
+.bms-popup-background-transparent .resize-popup,
+.bms-popup-background-light .resize-popup,
+.bms-popup-background-dark .resize-popup,
+.bms-popup-background-transparent .workspace-switcher,
+.bms-popup-background-light .workspace-switcher,
+.bms-popup-background-dark .workspace-switcher {
+    border-radius: 18px;
+}
+
+.bms-popup-background-light .osd-window .level {
+    -barlevel-background-color: rgba(0, 0, 0, 0.12);
+    -barlevel-active-background-color: #222226;
+    -barlevel-overdrive-color: #c01c28;
+}
+
+.bms-popup-background-dark .osd-window .level {
+    -barlevel-background-color: rgba(255, 255, 255, 0.14);
+    -barlevel-active-background-color: #ffffff;
+    -barlevel-overdrive-color: #f66151;
+}

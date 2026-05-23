@@ -3,6 +3,8 @@ const GEOMETRY_TRANSITION_PROPERTIES = [
     'y',
     'width',
     'height',
+    'clip-rect',
+    'clip_rect',
     'translation-x',
     'translation-y',
     'translation_x',

@@ -9,7 +9,11 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     get_surface_geometry() {
-        return this.get_unclipped_surface_geometry();
+        const geometry = this.get_unclipped_surface_geometry();
+        if (!this.has_valid_geometry(geometry))
+            return null;
+
+        return this.get_clipped_surface_geometry(geometry);
     }
 
     get_unclipped_surface_geometry() {
@@ -52,6 +56,40 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             width: Math.ceil(width),
             height: Math.ceil(height),
         };
+    }
+
+    get_clipped_surface_geometry(geometry) {
+        let clipped = {
+            x: geometry.target_x,
+            y: geometry.target_y,
+            width: geometry.width,
+            height: geometry.height,
+        };
+
+        let actor = this.surface.get_geometry_actor();
+        while (actor && actor !== this.surface.parent) {
+            const clip = this.geometry.get_transformed_clip(actor);
+            if (clip) {
+                clipped = this.geometry.intersect(clipped, clip);
+                if (!this.has_valid_geometry(clipped))
+                    return null;
+            }
+
+            try {
+                actor = actor.get_parent?.();
+            } catch (e) {
+                break;
+            }
+        }
+
+        return this.create_surface_geometry(
+            geometry.parent_x,
+            geometry.parent_y,
+            clipped.x,
+            clipped.y,
+            clipped.width,
+            clipped.height
+        );
     }
 
     has_valid_geometry(geometry) {

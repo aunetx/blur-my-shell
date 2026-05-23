@@ -8,6 +8,7 @@ const SURFACE_SIGNALS = [
     'notify::y',
     'notify::width',
     'notify::height',
+    'notify::clip-rect',
     'notify::visible',
     'notify::mapped',
     'notify::opacity',

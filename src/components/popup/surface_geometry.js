@@ -45,6 +45,31 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
         }
     }
 
+    get_transformed_clip(actor) {
+        try {
+            if (!actor?.has_clip)
+                return null;
+
+            const [clip_x, clip_y, clip_width, clip_height] = actor.get_clip();
+            if (clip_width <= 0 || clip_height <= 0)
+                return null;
+
+            const [actor_x, actor_y] = actor.get_transformed_position();
+            const [actor_width, actor_height] = actor.get_transformed_size();
+            const scale_x = this.get_actor_scale(actor, actor_width, 'width');
+            const scale_y = this.get_actor_scale(actor, actor_height, 'height');
+
+            return {
+                x: actor_x + clip_x * scale_x,
+                y: actor_y + clip_y * scale_y,
+                width: clip_width * scale_x,
+                height: clip_height * scale_y,
+            };
+        } catch (e) {
+            return null;
+        }
+    }
+
     get_margin_adjusted(actor, geometry) {
         const margins = this.get_margins(actor);
         if (!margins)

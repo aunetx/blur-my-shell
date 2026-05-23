@@ -1,0 +1,81 @@
+.bms-popup-background-transparent .quick-settings .icon-button,
+.bms-popup-background-transparent .quick-settings-system-item .button,
+.bms-popup-background-transparent .quick-settings-system-item .power-item {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .quick-settings .icon-button:hover,
+.bms-popup-background-transparent .quick-settings .icon-button:focus,
+.bms-popup-background-transparent .quick-settings-system-item .button:hover,
+.bms-popup-background-transparent .quick-settings-system-item .button:focus,
+.bms-popup-background-transparent .quick-settings-system-item .power-item:hover,
+.bms-popup-background-transparent .quick-settings-system-item .power-item:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+.bms-popup-background-transparent .quick-settings .icon-button:active,
+.bms-popup-background-transparent .quick-settings-system-item .button:active,
+.bms-popup-background-transparent .quick-settings-system-item .power-item:active {
+    background-color: rgba(255, 255, 255, 0.17) !important;
+}
+
+.bms-popup-background-transparent .quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked {
+    color: -st-accent-fg-color;
+    background-color: st-mix(-st-accent-color, #ffffff, 85%) !important;
+}
+
+.bms-popup-background-transparent .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+    color: -st-accent-fg-color;
+    background-color: st-lighten(st-mix(-st-accent-color, #ffffff, 85%), 4%) !important;
+}
+
+.bms-popup-background-transparent .datemenu-today-button {
+    background-color: transparent !important;
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .datemenu-today-button:hover,
+.bms-popup-background-transparent .datemenu-today-button:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bms-popup-background-transparent .datemenu-today-button:active,
+.bms-popup-background-transparent .datemenu-today-button:checked {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-transparent .calendar .calendar-month-header .calendar-month-label,
+.bms-popup-background-transparent .calendar .calendar-month-header .pager-button,
+.bms-popup-background-transparent .calendar .calendar-day-heading,
+.bms-popup-background-transparent .calendar .calendar-day {
+    background-color: transparent !important;
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .calendar .calendar-day:hover,
+.bms-popup-background-transparent .calendar .calendar-day:focus,
+.bms-popup-background-transparent .calendar .calendar-month-header .pager-button:hover,
+.bms-popup-background-transparent .calendar .calendar-month-header .pager-button:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bms-popup-background-transparent .calendar .calendar-day:active,
+.bms-popup-background-transparent .calendar .calendar-day:selected,
+.bms-popup-background-transparent .calendar .calendar-day:checked {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-transparent .calendar .calendar-day.calendar-today,
+.bms-popup-background-transparent .calendar .calendar-day.calendar-today:hover,
+.bms-popup-background-transparent .calendar .calendar-day.calendar-today:focus,
+.bms-popup-background-transparent .calendar .calendar-day.calendar-today:active,
+.bms-popup-background-transparent .calendar .calendar-day.calendar-today:selected,
+.bms-popup-background-transparent .calendar .calendar-day.calendar-today:checked {
+    color: -st-accent-fg-color !important;
+    background-color: -st-accent-color !important;
+}

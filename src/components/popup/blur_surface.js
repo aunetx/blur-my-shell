@@ -12,7 +12,17 @@ import { PopupBlurSurfaceTransitions } from './surface_transitions.js';
 import { PopupBlurStaticActor } from './static_actor.js';
 
 const NOTIFICATION_STYLE_CLASSES = ['notification-banner'];
-const FULL_GEOMETRY_STYLE_CLASSES = ['notification-banner', 'osd-window', 'resize-popup', 'workspace-switcher'];
+const FULL_GEOMETRY_STYLE_CLASSES = [
+    'popup-menu-content',
+    'candidate-popup-content',
+    'quick-settings',
+    'quick-toggle-menu',
+    'notification-banner',
+    'snap-assistant',
+    'osd-window',
+    'resize-popup',
+    'workspace-switcher',
+];
 
 export const PopupBlurSurface = class PopupBlurSurface {
     constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled) {
