@@ -145,7 +145,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
                 return false;
 
             const background_actor = this.get_background_actor();
-            return !background_actor || background_actor.opacity === 255;
+            return !background_actor || background_actor.opacity === opacity;
         } catch (e) {
             return false;
         }
@@ -163,10 +163,10 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
             const background_actor = this.get_background_actor();
             if (background_actor)
-                background_actor.opacity = 255;
+                background_actor.opacity = opacity;
 
             if (!this.blur_actor_destroyed)
-                this.blur_actor?.get_children?.().forEach(child => child.opacity = 255);
+                this.blur_actor?.get_children?.().forEach(child => child.opacity = opacity);
         } catch (e) { }
     }
 

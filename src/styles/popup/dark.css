@@ -8,6 +8,20 @@
     box-shadow: none;
 }
 
+.bms-popup-background-dark .message-list-controls .message-list-clear-button {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:hover,
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:active {
+    background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
 .bms-popup-background-dark .quick-toggle,
 .bms-popup-background-dark .quick-toggle-has-menu,
 .bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,

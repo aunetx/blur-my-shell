@@ -34,6 +34,20 @@
     background-color: st-lighten(st-mix(-st-accent-color, #ffffff, 85%), 4%) !important;
 }
 
+.bms-popup-background-transparent .message-list-controls .message-list-clear-button {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bms-popup-background-transparent .message-list-controls .message-list-clear-button:hover,
+.bms-popup-background-transparent .message-list-controls .message-list-clear-button:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+.bms-popup-background-transparent .message-list-controls .message-list-clear-button:active {
+    background-color: rgba(255, 255, 255, 0.17) !important;
+}
+
 .bms-popup-background-transparent .datemenu-today-button {
     background-color: transparent !important;
     box-shadow: none;

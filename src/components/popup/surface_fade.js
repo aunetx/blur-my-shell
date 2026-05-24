@@ -48,6 +48,9 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         visited.add(actor);
 
         try {
+            if (!actor.visible || !actor.mapped)
+                return 0;
+
             return Math.round(opacity * (actor.opacity ?? 255) / 255);
         } catch (e) {
             return opacity;

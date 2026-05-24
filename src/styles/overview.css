@@ -18,7 +18,7 @@
 
 .overview-components-transparent .search-entry {
     color: white;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0) !important;
     border-color: transparent;
     box-shadow: none;
 }
@@ -37,7 +37,7 @@
 /* remove the rectangular background from the dash */
 .overview-components-transparent #dash .overview-tile,
 .overview-components-transparent #dashtopanelScrollview .overview-tile {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .overview-components-transparent .workspace-thumbnail,
@@ -47,7 +47,7 @@
 .overview-components-transparent .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
 .overview-components-transparent StBoxLayout>StWidget>#dash>.dash-background {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0) !important;
 }
 
 .overview-components-transparent .overview-tile:hover,
@@ -72,7 +72,7 @@
 .overview-components-transparent #dash .overview-tile:focus .overview-icon,
 .overview-components-transparent #dash .show-apps:hover .overview-icon,
 .overview-components-transparent #dash .show-apps:focus .overview-icon {
-    background-color: rgba(230, 230, 230, 0.08);
+    background-color: rgba(230, 230, 230, 0.08) !important;
 }
 
 .overview-components-transparent .overview-tile:active,
@@ -98,7 +98,7 @@
 .overview-components-transparent #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-transparent #dash .overview-tile:drop .overview-icon,
 .overview-components-transparent #dash .show-apps:checked .overview-icon {
-    background-color: rgba(230, 230, 230, 0.12);
+    background-color: rgba(230, 230, 230, 0.12) !important;
 }
 
 .overview-components-transparent .overview-tile:focus:active,
@@ -114,7 +114,7 @@
 .overview-components-transparent .page-navigation-arrow:focus:active,
 .overview-components-transparent .app-folder-dialog .icon-button:focus:active,
 .overview-components-transparent #dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(230, 230, 230, 0.15);
+    background-color: rgba(230, 230, 230, 0.15) !important;
 }
 
 
@@ -124,7 +124,7 @@
 
 .overview-components-light .search-entry {
     color: white;
-    background-color: rgba(200, 200, 200, 0.2);
+    background-color: rgba(200, 200, 200, 0.2) !important;
     border-color: transparent;
     box-shadow: none;
 }
@@ -143,7 +143,7 @@
 /* remove the rectangular background from the dash */
 .overview-components-light #dash .overview-tile,
 .overview-components-light #dashtopanelScrollview .overview-tile {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .overview-components-light .workspace-thumbnail,
@@ -153,7 +153,7 @@
 .overview-components-light .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
 .overview-components-light StBoxLayout>StWidget>#dash>.dash-background {
-    background-color: rgba(200, 200, 200, 0.2);
+    background-color: rgba(200, 200, 200, 0.2) !important;
 }
 
 .overview-components-light .overview-tile:hover,
@@ -178,7 +178,7 @@
 .overview-components-light #dash .overview-tile:focus .overview-icon,
 .overview-components-light #dash .show-apps:hover .overview-icon,
 .overview-components-light #dash .show-apps:focus .overview-icon {
-    background-color: rgba(230, 230, 230, 0.2);
+    background-color: rgba(230, 230, 230, 0.2) !important;
 }
 
 .overview-components-light .overview-tile:active,
@@ -204,7 +204,7 @@
 .overview-components-light #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-light #dash .overview-tile:drop .overview-icon,
 .overview-components-light #dash .show-apps:checked .overview-icon {
-    background-color: rgba(230, 230, 230, 0.25);
+    background-color: rgba(230, 230, 230, 0.25) !important;
 }
 
 .overview-components-light .overview-tile:focus:active,
@@ -220,7 +220,7 @@
 .overview-components-light .page-navigation-arrow:focus:active,
 .overview-components-light .app-folder-dialog .icon-button:focus:active,
 .overview-components-light #dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(230, 230, 230, 0.3);
+    background-color: rgba(230, 230, 230, 0.3) !important;
 }
 
 
@@ -230,7 +230,7 @@
 
 .overview-components-dark .search-entry {
     color: white;
-    background-color: rgba(100, 100, 100, 0.35);
+    background-color: rgba(100, 100, 100, 0.35) !important;
     border-color: transparent;
     box-shadow: none;
 }
@@ -249,7 +249,7 @@
 /* remove the rectangular background from the dash */
 .overview-components-dark #dash .overview-tile,
 .overview-components-dark #dashtopanelScrollview .overview-tile {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .overview-components-dark .workspace-thumbnail,
@@ -259,7 +259,7 @@
 .overview-components-dark .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
 .overview-components-dark StBoxLayout>StWidget>#dash>.dash-background {
-    background-color: rgba(100, 100, 100, 0.35);
+    background-color: rgba(100, 100, 100, 0.35) !important;
 }
 
 .overview-components-dark .overview-tile:hover,
@@ -284,7 +284,7 @@
 .overview-components-dark #dash .overview-tile:focus .overview-icon,
 .overview-components-dark #dash .show-apps:hover .overview-icon,
 .overview-components-dark #dash .show-apps:focus .overview-icon {
-    background-color: rgba(120, 120, 120, 0.35);
+    background-color: rgba(120, 120, 120, 0.35) !important;
 }
 
 .overview-components-dark .overview-tile:active,
@@ -310,7 +310,7 @@
 .overview-components-dark #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-dark #dash .overview-tile:drop .overview-icon,
 .overview-components-dark #dash .show-apps:checked .overview-icon {
-    background-color: rgba(120, 120, 120, 0.4);
+    background-color: rgba(120, 120, 120, 0.4) !important;
 }
 
 .overview-components-dark .overview-tile:focus:active,
@@ -326,7 +326,6 @@
 .overview-components-dark .page-navigation-arrow:focus:active,
 .overview-components-dark .app-folder-dialog .icon-button:focus:active,
 .overview-components-dark #dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(120, 120, 120, 0.45);
+    background-color: rgba(120, 120, 120, 0.45) !important;
 }
-
 

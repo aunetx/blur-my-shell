@@ -4,7 +4,7 @@
 * `.transparent-panel`
 */
 #panel.transparent-panel {
-    background: transparent;
+    background: transparent !important;
     transition-duration: 500ms;
 }
 
@@ -12,8 +12,8 @@
 * `.dark-panel`
 */
 #panel.dark-panel {
-    background-color: rgba(100, 100, 100, 0.35);
-    box-shadow: none;
+    background-color: rgba(100, 100, 100, 0.35) !important;
+    box-shadow: none !important;
     transition-duration: 500ms;
 }
 
@@ -21,8 +21,8 @@
 * `.light-panel`
 */
 #panel.light-panel {
-    background-color: rgba(200, 200, 200, 0.2);
-    box-shadow: none;
+    background-color: rgba(200, 200, 200, 0.2) !important;
+    box-shadow: none !important;
     transition-duration: 500ms;
 }
 
@@ -30,8 +30,8 @@
 * `.contrasted-panel`
 */
 #panel.contrasted-panel {
-    background-color: transparent;
-    box-shadow: none;
+    background-color: transparent !important;
+    box-shadow: none !important;
     transition-duration: 500ms;
 }
 
@@ -66,5 +66,4 @@
 .contrasted-panel .clock {
     margin: 0 !important;
 }
-
 

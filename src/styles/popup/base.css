@@ -98,3 +98,24 @@
     -barlevel-active-background-color: #ffffff;
     -barlevel-overdrive-color: #f66151;
 }
+
+.bms-popup-background-transparent .popup-sub-menu,
+.bms-popup-background-light .popup-sub-menu,
+.bms-popup-background-dark .popup-sub-menu {
+    border-radius: 0 0 13px 13px;
+}
+
+.bms-popup-background-transparent .popup-sub-menu .popup-menu-item,
+.bms-popup-background-light .popup-sub-menu .popup-menu-item,
+.bms-popup-background-dark .popup-sub-menu .popup-menu-item {
+    border-radius: 0;
+}
+
+.bms-popup-background-transparent .popup-sub-menu .popup-menu-item:last-child,
+.bms-popup-background-transparent .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child,
+.bms-popup-background-light .popup-sub-menu .popup-menu-item:last-child,
+.bms-popup-background-light .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child,
+.bms-popup-background-dark .popup-sub-menu .popup-menu-item:last-child,
+.bms-popup-background-dark .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child {
+    border-radius: 0 0 12px 12px;
+}
