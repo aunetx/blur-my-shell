@@ -8,7 +8,8 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const SHADER_FILENAME = 'color.glsl';
 const DEFAULT_PARAMS = {
     color: [0.0, 0.0, 0.0, 0.0],
-    blend_mode: 0
+    blend_mode: 0,
+    opacity_factor: 1
 };
 
 
@@ -56,6 +57,14 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0, 17,
                 0,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             )
         }
         // Normal (0), Multiply (1), Screen (2), Overlay (3), Darken (4), Lighten (5), Plus darker (6), Plus lighter (7), Color dodge (8),
@@ -72,6 +81,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             this._blue = null;
             this._blend = null;
             this._blend_mode = null;
+            this._opacity_factor = null;
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -81,6 +91,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             // set params; utils.setup_params doesn't work here with color
             this.color = 'color' in params ? color : this.constructor.default_params.color;
             this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
+            this.opacity_factor = 'opacity_factor' in params ? params.opacity_factor : this.constructor.default_params.opacity_factor;
         }
 
         static get default_params() {
@@ -148,6 +159,18 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             }
         }
 
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
+            }
+        }
+
         set color(rgba) {
             let [r, g, b, a] = rgba;
             this.red = r;
@@ -164,5 +187,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
         set(params) {
             this.color = params.color;
             this.blend_mode = params.blend_mode;
+            if ('opacity_factor' in params)
+                this.opacity_factor = params.opacity_factor;
         }
     });

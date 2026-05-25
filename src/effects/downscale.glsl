@@ -3,6 +3,7 @@ uniform int divider;
 uniform float width;
 uniform float height;
 uniform int downsampling_mode;
+uniform float opacity_factor;
 
 #define CORRECTION 2.25
 #define SIZE_ADDITION 3
@@ -21,11 +22,14 @@ vec2 get_corrected_position() {
 }
 
 void main() {
+    vec4 source_color = texture2D(tex, cogl_tex_coord0_in.st);
+    vec4 effect_color = vec4(0);
     ivec2 corrected_position = ivec2(get_corrected_position());
     vec2 multiplied_position = corrected_position * divider;
 
     if (any(greaterThan(multiplied_position, vec2(width, height)))) {
-        discard;
+        cogl_color_out = mix(source_color, effect_color, opacity_factor);
+        return;
     }
 
     // mode 0: boxcar downsampling
@@ -43,7 +47,7 @@ void main() {
                 }
             }
         }
-        cogl_color_out = color / count;
+        effect_color = color / count;
 
     } else
     // mode 1: triangular downsampling
@@ -63,14 +67,16 @@ void main() {
                 }
             }
         }
-        cogl_color_out = color / count;
+        effect_color = color / count;
 
     } else
     // mode 2: Dirac downsampling
     if (downsampling_mode == 2) {
 
         vec2 lookup_position = min(multiplied_position + vec2(divider, divider) / 2, vec2(width - 1, height - 1));
-        cogl_color_out = get_texture_at_position(lookup_position);
+        effect_color = get_texture_at_position(lookup_position);
 
     }
+
+    cogl_color_out = mix(source_color, effect_color, opacity_factor);
 }

@@ -6,7 +6,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'downscale.glsl';
 const DEFAULT_PARAMS = {
-    divider: 8, downsampling_mode: 0, width: 0, height: 0
+    divider: 8, downsampling_mode: 0, opacity_factor: 1, width: 0, height: 0
 };
 
 
@@ -30,6 +30,14 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0, 2,
                 0,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
@@ -85,6 +93,18 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
                 this._downsampling_mode = value;
 
                 this.set_uniform_value('downsampling_mode', this._downsampling_mode);
+            }
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 

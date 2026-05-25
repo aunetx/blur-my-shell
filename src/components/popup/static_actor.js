@@ -64,9 +64,15 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
                     native_static_gaussian_blur: params => this.get_blur_effect_overrides(params, 'unscaled_radius'),
                     gaussian_blur: params => this.get_blur_effect_overrides(params, 'radius'),
                     monte_carlo_blur: params => this.get_blur_effect_overrides(params, 'radius'),
+                    downscale: () => this.get_texture_effect_overrides(),
+                    upscale: () => this.get_texture_effect_overrides(),
+                    pixelize: () => this.get_texture_effect_overrides(),
+                    derivative: () => this.get_texture_effect_overrides(),
                     color: params => this.get_color_effect_overrides(params),
-                    luminosity: params => this.get_luminosity_effect_overrides(params),
+                    luminosity: () => this.get_luminosity_effect_overrides(),
                     noise: params => this.get_noise_effect_overrides(params),
+                    rgb_to_hsl: () => this.get_texture_effect_overrides(),
+                    hsl_to_rgb: () => this.get_texture_effect_overrides(),
                     corner: () => ({ radius: this.get_corner_radius() }),
                 },
             }
@@ -193,28 +199,30 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     get_color_effect_overrides(params) {
-        if (!Array.isArray(params.color) || params.color.length < 4)
-            return {};
+        const overrides = this.get_texture_effect_overrides();
 
-        const [red, green, blue, alpha] = params.color;
-        return {
-            color: [red, green, blue, alpha * this.opacity_factor],
-        };
+        if (Array.isArray(params.color) && params.color.length >= 4)
+            overrides.color = params.color;
+
+        return overrides;
     }
 
-    get_luminosity_effect_overrides(params) {
-        const factor = this.opacity_factor;
-        return {
-            brightness_shift: params.brightness_shift * factor,
-            brightness_multiplicator: 1 + (params.brightness_multiplicator - 1) * factor,
-            contrast: 1 + (params.contrast - 1) * factor,
-            saturation_multiplicator: 1 + (params.saturation_multiplicator - 1) * factor,
-        };
+    get_luminosity_effect_overrides() {
+        return this.get_texture_effect_overrides();
     }
 
     get_noise_effect_overrides(params) {
+        const overrides = this.get_texture_effect_overrides();
+
+        if ('noise' in params)
+            overrides.noise = params.noise;
+
+        return overrides;
+    }
+
+    get_texture_effect_overrides() {
         return {
-            noise: params.noise * this.opacity_factor,
+            opacity_factor: this.opacity_factor,
         };
     }
 

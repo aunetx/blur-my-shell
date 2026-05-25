@@ -3,6 +3,7 @@ uniform float red;
 uniform float green;
 uniform float blue;
 uniform float blend;
+uniform float opacity_factor;
 uniform int mode;
 
 const int NORMAL = 0;
@@ -106,6 +107,7 @@ void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
     vec3 pix_color = c.xyz;
     vec3 color = get_blend(pix_color, vec3(red, green, blue));
+    vec4 effect_color = vec4(mix(pix_color, color, blend), c.a);
 
-    cogl_color_out = vec4(mix(pix_color, color, blend), 1.);
+    cogl_color_out = mix(c, effect_color, opacity_factor);
 }

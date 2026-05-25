@@ -6,7 +6,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'noise.glsl';
 const DEFAULT_PARAMS = {
-    noise: 0.4, lightness: 0.4
+    noise: 0.4, lightness: 0.4, opacity_factor: 1
 };
 
 
@@ -30,6 +30,14 @@ export const NoiseEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0.0, 2.0,
                 0.4,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             ),
         }
     }, class NoiseEffect extends Clutter.ShaderEffect {
@@ -71,6 +79,18 @@ export const NoiseEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('lightness', parseFloat(this._lightness - 1e-6));
                 this.set_enabled(this.noise > 0. && this.lightness != 1);
+            }
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
     });
