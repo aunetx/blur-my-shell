@@ -75,6 +75,50 @@
     box-shadow: none;
 }
 
+.bms-popup-background-transparent StScrollBar StBin#trough,
+.bms-popup-background-light StScrollBar StBin#trough,
+.bms-popup-background-dark StScrollBar StBin#trough {
+    background-color: transparent;
+}
+
+.bms-popup-background-transparent StScrollBar > .vhandle,
+.bms-popup-background-transparent StScrollBar > .hhandle,
+.bms-popup-background-dark StScrollBar > .vhandle,
+.bms-popup-background-dark StScrollBar > .hhandle {
+    background-color: rgba(255, 255, 255, 0.28);
+    border-color: transparent;
+}
+
+.bms-popup-background-transparent StScrollBar > .vhandle:hover,
+.bms-popup-background-transparent StScrollBar > .hhandle:hover,
+.bms-popup-background-dark StScrollBar > .vhandle:hover,
+.bms-popup-background-dark StScrollBar > .hhandle:hover {
+    background-color: rgba(255, 255, 255, 0.38);
+}
+
+.bms-popup-background-transparent StScrollBar > .vhandle:active,
+.bms-popup-background-transparent StScrollBar > .hhandle:active,
+.bms-popup-background-dark StScrollBar > .vhandle:active,
+.bms-popup-background-dark StScrollBar > .hhandle:active {
+    background-color: rgba(255, 255, 255, 0.46);
+}
+
+.bms-popup-background-light StScrollBar > .vhandle,
+.bms-popup-background-light StScrollBar > .hhandle {
+    background-color: rgba(34, 34, 38, 0.24);
+    border-color: transparent;
+}
+
+.bms-popup-background-light StScrollBar > .vhandle:hover,
+.bms-popup-background-light StScrollBar > .hhandle:hover {
+    background-color: rgba(34, 34, 38, 0.34);
+}
+
+.bms-popup-background-light StScrollBar > .vhandle:active,
+.bms-popup-background-light StScrollBar > .hhandle:active {
+    background-color: rgba(34, 34, 38, 0.42);
+}
+
 .bms-popup-background-transparent .osd-window,
 .bms-popup-background-light .osd-window,
 .bms-popup-background-dark .osd-window,
@@ -102,20 +146,51 @@
 .bms-popup-background-transparent .popup-sub-menu,
 .bms-popup-background-light .popup-sub-menu,
 .bms-popup-background-dark .popup-sub-menu {
+    background: transparent !important;
+    border-color: transparent;
+    border-radius: 0 0 13px 13px;
+    box-shadow: none;
+}
+
+.bms-popup-background-dark .popup-sub-menu > StBoxLayout {
+    background-color: rgba(58, 58, 64, 0.36) !important;
+    border-radius: 0 0 13px 13px;
+}
+
+.bms-popup-background-light .popup-sub-menu > StBoxLayout {
+    background-color: rgba(255, 255, 255, 0.58) !important;
     border-radius: 0 0 13px 13px;
 }
 
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-item,
 .bms-popup-background-light .popup-sub-menu .popup-menu-item,
 .bms-popup-background-dark .popup-sub-menu .popup-menu-item {
+    background-color: transparent !important;
+    border-color: transparent;
     border-radius: 0;
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .popup-sub-menu .popup-menu-item:insensitive,
+.bms-popup-background-light .popup-sub-menu .popup-menu-item:insensitive,
+.bms-popup-background-dark .popup-sub-menu .popup-menu-item:insensitive {
+    background-color: transparent !important;
+}
+
+.bms-popup-background-transparent .popup-sub-menu .popup-menu-section,
+.bms-popup-background-light .popup-sub-menu .popup-menu-section,
+.bms-popup-background-dark .popup-sub-menu .popup-menu-section {
+    border-radius: 0 0 12px 12px;
 }
 
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-item:last-child,
+.bms-popup-background-transparent .popup-sub-menu .popup-menu-section .popup-menu-item:last-child,
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child,
 .bms-popup-background-light .popup-sub-menu .popup-menu-item:last-child,
+.bms-popup-background-light .popup-sub-menu .popup-menu-section .popup-menu-item:last-child,
 .bms-popup-background-light .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child,
 .bms-popup-background-dark .popup-sub-menu .popup-menu-item:last-child,
+.bms-popup-background-dark .popup-sub-menu .popup-menu-section .popup-menu-item:last-child,
 .bms-popup-background-dark .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child {
     border-radius: 0 0 12px 12px;
 }
