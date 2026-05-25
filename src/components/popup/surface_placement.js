@@ -1,3 +1,5 @@
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+
 import { PopupBlurSurfaceGeometry } from './surface_geometry.js';
 
 export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
@@ -9,11 +11,39 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     get_surface_geometry() {
+        this.offscreen = false;
+
         const geometry = this.get_unclipped_surface_geometry();
         if (!this.has_valid_geometry(geometry))
             return null;
 
-        return this.get_clipped_surface_geometry(geometry);
+        const clipped_geometry = this.get_clipped_surface_geometry(geometry);
+        if (!this.has_valid_geometry(clipped_geometry))
+            return null;
+
+        const monitor_geometry = this.get_monitor_clipped_surface_geometry(clipped_geometry);
+        if (!this.has_valid_geometry(monitor_geometry)) {
+            this.offscreen = true;
+            return null;
+        }
+
+        return monitor_geometry;
+    }
+
+    get_unclipped_monitor_surface_geometry() {
+        this.offscreen = false;
+
+        const geometry = this.get_unclipped_surface_geometry();
+        if (!this.has_valid_geometry(geometry))
+            return null;
+
+        const monitor_geometry = this.get_monitor_clipped_surface_geometry(geometry);
+        if (!this.has_valid_geometry(monitor_geometry)) {
+            this.offscreen = true;
+            return null;
+        }
+
+        return monitor_geometry;
     }
 
     get_unclipped_surface_geometry() {
@@ -92,12 +122,84 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         );
     }
 
+    get_monitor_clipped_surface_geometry(geometry) {
+        const rect = {
+            x: geometry.target_x,
+            y: geometry.target_y,
+            width: geometry.width,
+            height: geometry.height,
+        };
+        const cached_monitor = this.get_cached_monitor();
+        const match = cached_monitor
+            ? this.get_monitor_intersection(rect, cached_monitor.monitor, cached_monitor.index)
+            : this.find_best_monitor_intersection(rect);
+
+        if (!match)
+            return null;
+
+        this.monitor_index = match.monitor_index;
+
+        const surface_geometry = this.create_surface_geometry(
+            geometry.parent_x,
+            geometry.parent_y,
+            match.intersection.x,
+            match.intersection.y,
+            match.intersection.width,
+            match.intersection.height
+        );
+        surface_geometry.monitor_index = match.monitor_index;
+        return surface_geometry;
+    }
+
+    get_cached_monitor() {
+        if (this.monitor_index === null)
+            return null;
+
+        const monitor = Main.layoutManager.monitors?.[this.monitor_index];
+        if (!monitor) {
+            this.monitor_index = null;
+            return null;
+        }
+
+        return { monitor, index: this.monitor_index };
+    }
+
+    find_best_monitor_intersection(rect) {
+        let best_match = null;
+        let best_area = 0;
+
+        (Main.layoutManager.monitors ?? []).forEach((monitor, index) => {
+            const match = this.get_monitor_intersection(rect, monitor, index);
+            if (!match)
+                return;
+
+            const area = match.intersection.width * match.intersection.height;
+            if (area > best_area) {
+                best_match = match;
+                best_area = area;
+            }
+        });
+
+        return best_match;
+    }
+
+    get_monitor_intersection(rect, monitor, monitor_index) {
+        const intersection = this.geometry.intersect(rect, monitor);
+        if (!this.has_valid_geometry(intersection))
+            return null;
+
+        return {
+            monitor_index,
+            intersection,
+        };
+    }
+
     has_valid_geometry(geometry) {
         return geometry?.width > 0 && geometry?.height > 0;
     }
 
     keep_transition_visible(transition_state) {
-        if (!this.ready || !this.has_cached_geometry() || !transition_state.running)
+        if (this.offscreen || !this.ready || !this.has_cached_geometry() || !transition_state.running)
             return false;
 
         const opacity = this.surface.update_opacity(transition_state);
@@ -203,7 +305,13 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     update_static_geometry(target_x, target_y, width, height) {
-        const geometry = this.surface.static_actor.update_geometry(target_x, target_y, width, height);
+        const geometry = this.surface.static_actor.update_geometry(
+            target_x,
+            target_y,
+            width,
+            height,
+            this.monitor_index
+        );
         this.surface.sync_static_actor();
 
         if (!geometry) {
@@ -232,5 +340,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         this.surface_y = null;
         this.surface_width = null;
         this.surface_height = null;
+        this.monitor_index = null;
+        this.offscreen = false;
     }
 };

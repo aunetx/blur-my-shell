@@ -181,6 +181,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
                 return;
             }
             if (!this.placement.has_valid_geometry(geometry)) {
+                if (this.placement.offscreen)
+                    return this.hide_surface();
                 if (this.placement.keep_transition_visible(transition_state)) {
                     this.queue_repaint(true);
                     this.queue_transition_update(transition_state);
@@ -217,11 +219,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         }
         this.set_actor_position();
-        const geometry = this.placement.get_unclipped_surface_geometry();
-        if (!this.placement.has_valid_geometry(geometry)) {
-            this.hide_surface();
-            return;
-        }
+        const geometry = this.placement.get_unclipped_monitor_surface_geometry();
+        if (!this.placement.has_valid_geometry(geometry))
+            return this.hide_surface();
         if (!this.placement.update_surface_geometry(geometry))
             return;
         if (!this.placement.prepare_visible_geometry())

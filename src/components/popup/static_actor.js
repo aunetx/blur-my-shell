@@ -43,8 +43,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         return this.background_group;
     }
 
-    update_background() {
-        const monitor = this.find_monitor();
+    update_background(monitor_index = null) {
+        const monitor = this.find_monitor(monitor_index);
         if (!monitor)
             return false;
 
@@ -102,7 +102,10 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         } catch (e) { }
     }
 
-    find_monitor() {
+    find_monitor(monitor_index = null) {
+        if (monitor_index !== null)
+            return Main.layoutManager.monitors?.[monitor_index] ?? null;
+
         return (
             Main.layoutManager.findMonitorForActor(this.target)
             ?? Main.layoutManager.findMonitorForActor(this.root_actor)
@@ -110,8 +113,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         );
     }
 
-    update_geometry(target_x, target_y, width, height) {
-        if (!this.update_background())
+    update_geometry(target_x, target_y, width, height, monitor_index = null) {
+        if (!this.update_background(monitor_index))
             return false;
         if (!this.blur_actor || this.blur_actor_destroyed)
             return false;
