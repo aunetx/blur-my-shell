@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
@@ -63,6 +64,22 @@ export const Pipeline = class Pipeline {
             controlPosition: false,
         });
         bg_manager._bms_pipeline = this;
+
+        // Since controlPosition is false, gnome-shell BackgroundManager skips its default layout pass,
+        // disabling sibling re-ordering.
+        // To prevent them from rendering on top of the existing background (while loading - leading
+        // to a dark flash), we force new background actors to the bottom of the container.
+        bg_manager._bms_child_added_id = this.actor.connect(
+            'child-added', (_container, child) => {
+                if (child instanceof Meta.BackgroundActor)
+                    _container.set_child_below_sibling(child, null);
+            }
+        );
+
+        // unregister signal handler on actor destruction
+        this.actor.connect('destroy', () => {
+            bg_manager._bms_child_added_id = 0;
+        });
 
         background_managers.push(bg_manager);
         background_group.insert_child_at_index(this.actor, 0);
