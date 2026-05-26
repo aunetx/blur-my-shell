@@ -22,14 +22,34 @@
     background-color: rgba(255, 255, 255, 0.17) !important;
 }
 
+.bms-popup-background-transparent .quick-toggle:checked,
+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:checked {
+    color: #ffffff;
+    background-color: #3584e4 !important;
+    color: -st-accent-fg-color;
+    background-color: -st-accent-color !important;
+}
+
 .bms-popup-background-transparent .quick-toggle-has-menu:checked .quick-toggle-menu-button,
 .bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked {
+    color: #ffffff;
+    background-color: #4f96e8 !important;
     color: -st-accent-fg-color;
     background-color: st-mix(-st-accent-color, #ffffff, 85%) !important;
 }
 
+.bms-popup-background-transparent .quick-toggle:checked:hover,
+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:checked:hover {
+    color: #ffffff;
+    background-color: #4990e7 !important;
+    color: -st-accent-fg-color;
+    background-color: st-lighten(-st-accent-color, 4%) !important;
+}
+
 .bms-popup-background-transparent .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
 .bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
+    color: #ffffff;
+    background-color: #62a0ea !important;
     color: -st-accent-fg-color;
     background-color: st-lighten(st-mix(-st-accent-color, #ffffff, 85%), 4%) !important;
 }
@@ -90,6 +110,8 @@
 .bms-popup-background-transparent .calendar .calendar-day.calendar-today:active,
 .bms-popup-background-transparent .calendar .calendar-day.calendar-today:selected,
 .bms-popup-background-transparent .calendar .calendar-day.calendar-today:checked {
+    color: #ffffff !important;
+    background-color: #3584e4 !important;
     color: -st-accent-fg-color !important;
     background-color: -st-accent-color !important;
 }

@@ -1,10 +1,10 @@
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {
-    POPUP_BACKGROUND_STYLE_AUTO,
     POPUP_BACKGROUND_STYLES,
     PopupBlurTargets,
 } from './targets.js';
@@ -13,6 +13,8 @@ import { PopupBlurMessageStacks } from './message_stacks.js';
 
 const POPUP_INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
 const POPUP_INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
+const LIGHT_STYLE_UUID = 'light-style@gnome-shell-extensions.gcampax.github.com';
+const EXTENSION_STATE_ACTIVE = 1;
 
 export const PopupBlur = class PopupBlur {
     constructor(connections, settings, effects_manager) {
@@ -50,11 +52,28 @@ export const PopupBlur = class PopupBlur {
             'changed::color-scheme',
             () => this.update_background()
         );
+        this.connections.connect(
+            this.interface_settings,
+            'changed::gtk-theme',
+            () => this.update_background()
+        );
+        this.connections.connect(
+            Main.sessionMode,
+            'updated',
+            () => this.update_background()
+        );
+        this.connections.connect(
+            St.Settings.get(),
+            'notify::color-scheme',
+            () => this.update_background()
+        );
 
         this.track_container(Main.uiGroup);
+        (Main.osdWindowManager?._osdWindows ?? []).forEach(window => this.track_container(window));
         this.track_container(Main.layoutManager?.modalDialogGroup);
         this.track_container(Main.messageTray?._bannerBin);
         this.track_quick_settings();
+        this.track_container(global.window_group);
     }
 
     track_container(container) {
@@ -93,6 +112,9 @@ export const PopupBlur = class PopupBlur {
             this.track_container(actor);
 
         if (this.has_style_class(actor, 'switcher-popup'))
+            this.track_container(actor);
+
+        if (this.is_window_actor(actor))
             this.track_container(actor);
 
         targets.forEach(target => this.blur_actor(target, actor));
@@ -238,6 +260,7 @@ export const PopupBlur = class PopupBlur {
 
     get_overlay_parent(root_actor) {
         let actor = root_actor;
+        let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {
             let parent = null;
             try {
@@ -252,6 +275,10 @@ export const PopupBlur = class PopupBlur {
             if (parent === Main.uiGroup || parent === Main.layoutManager?.uiGroup)
                 return { parent, sibling: actor };
 
+            if (parent === global.window_group)
+                return { parent: actor, sibling: child ?? actor.get_last_child?.() ?? null };
+
+            child = actor;
             actor = parent;
         }
 
@@ -290,6 +317,14 @@ export const PopupBlur = class PopupBlur {
                 return actor.has_style_class_name(style_class);
 
             return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    is_window_actor(actor) {
+        try {
+            return actor?.get_parent?.() === global.window_group;
         } catch (e) {
             return false;
         }
@@ -411,7 +446,21 @@ export const PopupBlur = class PopupBlur {
         if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
             return style;
 
+        if (this.is_light_style_enabled() && Main.sessionMode?.colorScheme === 'prefer-light')
+            return 1;
+
+        const shell_style = Main.getStyleVariant?.();
+        if (shell_style === 'light')
+            return 1;
+
+        if (shell_style === 'dark')
+            return 2;
+
         return this.interface_settings.get_string('color-scheme') === 'prefer-dark' ? 2 : 1;
+    }
+
+    is_light_style_enabled() {
+        return Main.extensionManager?.lookup?.(LIGHT_STYLE_UUID)?.state === EXTENSION_STATE_ACTIVE;
     }
 
     disable() {

@@ -55,25 +55,31 @@
     background-color: rgba(0, 0, 0, 0.16) !important;
 }
 
-.bms-popup-background-light .modal-dialog .button {
+.bms-popup-background-light .modal-dialog .button,
+.bms-popup-background-light .modal-dialog .modal-dialog-button-box .modal-dialog-button {
     color: #222226 !important;
     background-color: rgba(255, 255, 255, 0.42) !important;
     border-color: rgba(0, 0, 0, 0.08);
 }
 
 .bms-popup-background-light .modal-dialog .button:hover,
-.bms-popup-background-light .modal-dialog .button:focus {
+.bms-popup-background-light .modal-dialog .button:focus,
+.bms-popup-background-light .modal-dialog .modal-dialog-button-box .modal-dialog-button:hover,
+.bms-popup-background-light .modal-dialog .modal-dialog-button-box .modal-dialog-button:focus {
     color: #222226 !important;
     background-color: rgba(255, 255, 255, 0.54) !important;
 }
 
 .bms-popup-background-light .modal-dialog .button:active,
-.bms-popup-background-light .modal-dialog .button:checked {
+.bms-popup-background-light .modal-dialog .button:checked,
+.bms-popup-background-light .modal-dialog .modal-dialog-button-box .modal-dialog-button:active,
+.bms-popup-background-light .modal-dialog .modal-dialog-button-box .modal-dialog-button:checked {
     color: #222226 !important;
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-.bms-popup-background-light .modal-dialog .button:insensitive {
+.bms-popup-background-light .modal-dialog .button:insensitive,
+.bms-popup-background-light .modal-dialog .modal-dialog-button-box .modal-dialog-button:insensitive {
     color: rgba(34, 34, 38, 0.5) !important;
     background-color: rgba(255, 255, 255, 0.28) !important;
 }
@@ -212,6 +218,8 @@
 .bms-popup-background-light .calendar .calendar-day.calendar-today,
 .bms-popup-background-light .calendar .calendar-day.calendar-today:selected,
 .bms-popup-background-light .calendar .calendar-day.calendar-today:checked {
+    color: #ffffff !important;
+    background-color: #3584e4 !important;
     color: -st-accent-fg-color !important;
     background-color: -st-accent-color !important;
 }
@@ -219,34 +227,45 @@
 .bms-popup-background-light .calendar .calendar-day.calendar-today:hover,
 .bms-popup-background-light .calendar .calendar-day.calendar-today:selected:hover,
 .bms-popup-background-light .calendar .calendar-day.calendar-today:checked:hover {
+    color: #ffffff !important;
+    background-color: #1c71d8 !important;
     color: -st-accent-fg-color !important;
     background-color: st-darken(-st-accent-color, 8%) !important;
 }
 
 .bms-popup-background-light .quick-toggle:checked,
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked {
+    color: #ffffff;
+    background-color: #3584e4 !important;
     color: -st-accent-fg-color;
     background-color: -st-accent-color !important;
 }
 
 .bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button,
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
-    color: -st-accent-fg-color;
+    color: #222226;
+    background-color: #4f96e8 !important;
     background-color: st-mix(-st-accent-color, #ffffff, 85%) !important;
 }
 
 .bms-popup-background-light .quick-toggle:checked:hover,
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked:hover {
+    color: #ffffff;
+    background-color: #1c71d8 !important;
     color: -st-accent-fg-color;
     background-color: st-darken(-st-accent-color, 4%) !important;
 }
 
 .bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
-.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
-    color: -st-accent-fg-color;
+.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:focus,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:focus {
+    color: #222226;
+    background-color: #62a0ea !important;
     background-color: st-lighten(st-mix(-st-accent-color, #ffffff, 85%), 4%) !important;
 }
 
 .bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-separator {
+    background-color: rgba(255, 255, 255, 0.3);
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%);
 }
