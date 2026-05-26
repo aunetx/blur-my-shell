@@ -69,7 +69,7 @@ export const Pipeline = class Pipeline {
         // sibling re-ordering.
         // Without it, new actors render on top while loading, causing a solid color flash through
         // on the surface.
-        this.actor.connect(
+        this._child_added_id = this.actor.connect(
             'child-added', (_container, child) => {
                 if (child instanceof Meta.BackgroundActor)
                     _container.set_child_below_sibling(child, null);
@@ -148,7 +148,10 @@ export const Pipeline = class Pipeline {
         this.remove_all_effects();
         if (this.actor && this.actor_destroy_id)
             this.actor.disconnect(this.actor_destroy_id);
+        if (this.actor && this._child_added_id)
+            this.actor.disconnect(this._child_added_id);
         this.actor_destroy_id = null;
+        this._child_added_id = null;
         this.actor = null;
     }
 
