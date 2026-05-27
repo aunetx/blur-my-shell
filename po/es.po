@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2025-05-25 15:01+0000\n"
-"Last-Translator: Sebastian Wald <seandwald@gmail.com>\n"
+"PO-Revision-Date: 2026-05-28 14:11+0000\n"
+"Last-Translator: Joel Molina Navarro <joelmolinanavarro21@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -168,15 +168,15 @@ msgstr ""
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "Multiplicar"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "Pantalla"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
@@ -216,11 +216,11 @@ msgstr ""
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "Diferencia"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr ""
+msgstr "Exclusion"
 
 #: src/effects/effects.js:194
 msgid "Hue"
@@ -228,15 +228,15 @@ msgstr ""
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "Saturación"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "Luminosidad"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "Un efecto que afecta la luminosidad de la imagen."
 
 #: src/effects/effects.js:210
 msgid "Shift brightness"
@@ -244,25 +244,27 @@ msgstr ""
 
 #: src/effects/effects.js:211
 msgid "The brightness to add of remove to the image."
-msgstr ""
+msgstr "El brillo que se añade o se quita a la imagen."
 
 #: src/effects/effects.js:220
 msgid "Multiply brightness"
-msgstr ""
+msgstr "Multiplicar brillo"
 
 #: src/effects/effects.js:221
 msgid ""
 "The brightness multiplicator of the image, so that 0 means no brightness and "
 "2 means infinite brightness."
 msgstr ""
+"El multiplicador de brillo de la imagen, de modo que 0 significa ausencia de "
+"brillo y 2 significa brillo infinito."
 
 #: src/effects/effects.js:230
 msgid "Contrast"
-msgstr ""
+msgstr "Contraste"
 
 #: src/effects/effects.js:231
 msgid "The contrast of the image in regard to the center of the contrast."
-msgstr ""
+msgstr "El contraste de la imagen con respecto al centro del contraste."
 
 #: src/effects/effects.js:240
 msgid "Contrast center"
