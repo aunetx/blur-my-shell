@@ -14,6 +14,8 @@ uniform float gloss;
 uniform float tint;
 uniform float shadow;
 uniform int texture_repeat;
+uniform int blur_direction;
+uniform int private_pass;
 uniform float clip_x0;
 uniform float clip_y0;
 uniform float clip_width;
@@ -148,31 +150,41 @@ vec4 sampleGlassBackdrop(vec2 uv) {
     if (blur_radius <= 0.01)
         return texture2D(tex, sampleUV(uv));
 
-    float radius = min(blur_radius, min(width, height) * 0.18);
-    vec2 step = radius / vec2(width, height);
-    vec4 color = texture2D(tex, sampleUV(uv)) * 0.16;
+    float sigma = max(0.1, blur_radius * 0.5);
+    float pixelStep = blur_direction == 1 ? 1.0 / width : 1.0 / height;
+    vec2 direction = vec2(float(blur_direction), 1.0 - float(blur_direction));
 
-    color += texture2D(tex, sampleUV(uv + vec2( 0.40,  0.00) * step)) * 0.10;
-    color += texture2D(tex, sampleUV(uv + vec2(-0.40,  0.00) * step)) * 0.10;
-    color += texture2D(tex, sampleUV(uv + vec2( 0.00,  0.40) * step)) * 0.10;
-    color += texture2D(tex, sampleUV(uv + vec2( 0.00, -0.40) * step)) * 0.10;
+    vec3 gauss;
+    gauss.x = 1.0 / (sqrt(2.0 * 3.14159265) * sigma);
+    gauss.y = exp(-0.5 / (sigma * sigma));
+    gauss.z = gauss.y * gauss.y;
 
-    color += texture2D(tex, sampleUV(uv + vec2( 0.46,  0.46) * step)) * 0.075;
-    color += texture2D(tex, sampleUV(uv + vec2(-0.46,  0.46) * step)) * 0.075;
-    color += texture2D(tex, sampleUV(uv + vec2( 0.46, -0.46) * step)) * 0.075;
-    color += texture2D(tex, sampleUV(uv + vec2(-0.46, -0.46) * step)) * 0.075;
+    vec4 accum = texture2D(tex, sampleUV(uv)) * gauss.x;
+    float weightSum = gauss.x;
 
-    color += texture2D(tex, sampleUV(uv + vec2( 0.92,  0.18) * step)) * 0.045;
-    color += texture2D(tex, sampleUV(uv + vec2(-0.92, -0.18) * step)) * 0.045;
-    color += texture2D(tex, sampleUV(uv + vec2( 0.18, -0.92) * step)) * 0.045;
-    color += texture2D(tex, sampleUV(uv + vec2(-0.18,  0.92) * step)) * 0.045;
+    gauss.xy *= gauss.yz;
 
-    color += texture2D(tex, sampleUV(uv + vec2( 1.20,  0.70) * step)) * 0.025;
-    color += texture2D(tex, sampleUV(uv + vec2(-1.20, -0.70) * step)) * 0.025;
-    color += texture2D(tex, sampleUV(uv + vec2( 0.70, -1.20) * step)) * 0.025;
-    color += texture2D(tex, sampleUV(uv + vec2(-0.70,  1.20) * step)) * 0.025;
+    int radius = int(ceil(1.5 * sigma)) * 2;
 
-    return color / 1.14;
+    for (int i = 1; i <= radius; i += 2) {
+        float subtotal = gauss.x;
+
+        gauss.xy *= gauss.yz;
+        subtotal += gauss.x;
+
+        float gaussRatio = gauss.x / subtotal;
+        float foffset = float(i) + gaussRatio;
+        vec2 offset = direction * foffset * pixelStep;
+
+        accum += texture2D(tex, sampleUV(uv + offset)) * subtotal;
+        accum += texture2D(tex, sampleUV(uv - offset)) * subtotal;
+
+        weightSum += subtotal * 2.0;
+
+        gauss.xy *= gauss.yz;
+    }
+
+    return accum / weightSum;
 }
 
 float roundedRectDist(vec2 p, vec2 halfSize, float radius) {
@@ -223,8 +235,14 @@ vec4 wallpaperGloss(vec2 uv, vec2 fallbackDir) {
     float bottomLeft = luminance(sampleGlassBackdrop(uv + vec2(-radius.x, radius.y)).rgb);
     float bottomRight = luminance(sampleGlassBackdrop(uv + radius).rgb);
 
-    float peak = max(center, max(max(left, right), max(max(top, bottom), max(max(topLeft, topRight), max(bottomLeft, bottomRight)))));
-    float low = min(center, min(min(left, right), min(min(top, bottom), min(min(topLeft, topRight), min(bottomLeft, bottomRight)))));
+    float peak = max(
+        center,
+        max(max(left, right), max(max(top, bottom), max(max(topLeft, topRight), max(bottomLeft, bottomRight))))
+    );
+    float low = min(
+        center,
+        min(min(left, right), min(min(top, bottom), min(min(topLeft, topRight), min(bottomLeft, bottomRight))))
+    );
     float band = max(0.08, peak * 0.28);
     float localPeak = nearPeak(center, peak, band);
     float coverage = (
@@ -258,6 +276,12 @@ vec4 wallpaperGloss(vec2 uv, vec2 fallbackDir) {
 void main() {
     vec2 actorSize = vec2(width, height);
     vec2 actorUV = cogl_tex_coord_in[0].xy;
+
+    if (private_pass == 1) {
+        cogl_color_out = sampleGlassBackdrop(actorUV);
+        return;
+    }
+
     vec2 actorPx = actorUV * actorSize;
 
     vec4 bounds = clip_width < 0.0 || clip_height < 0.0
@@ -313,7 +337,11 @@ void main() {
     float primary = smoothstep(lobeStart, lobeStart + lobeWidth, specDot);
     float secondary = smoothstep(lobeStart, lobeStart + lobeWidth, -specDot);
     float roundSpec = smoothstep(0.46, 0.90, abs(specDot));
-    float cornerWeight = 1.0 - smoothstep(R * 0.45, R, min(min(glassPx.x, W - glassPx.x), min(glassPx.y, H - glassPx.y)));
+    float cornerWeight = 1.0 - smoothstep(
+        R * 0.45,
+        R,
+        min(min(glassPx.x, W - glassPx.x), min(glassPx.y, H - glassPx.y))
+    );
     float specLobe = mix(primary + secondary, roundSpec, cornerWeight);
     float fresnel = pow(clamp(1.0 - bezelRatio, 0.0, 1.0), 2.2) * edgeOpacity;
     float specular = specLobe * strokeMask * mix(0.18, 1.15, wallpaperSpot) * gloss * 2.15 * edgeOpacity;
@@ -329,5 +357,8 @@ void main() {
     bgColor.rgb = mix(bgColor.rgb, vec3(0.92, 0.96, 1.0), tint * 0.22 + bodyMix);
     bgColor.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
 
-    cogl_color_out = vec4(clamp(bgColor.rgb, 0.0, 1.0) * edgeOpacity, min(bgColor.a, edgeOpacity));
+    cogl_color_out = vec4(
+        clamp(bgColor.rgb, 0.0, 1.0) * edgeOpacity,
+        min(bgColor.a, edgeOpacity)
+    );
 }

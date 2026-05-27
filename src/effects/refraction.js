@@ -8,6 +8,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'refraction.glsl';
 const CLIP_STABILIZE_EPSILON = 1.0;
+
 const DEFAULT_PARAMS = {
     strength: 0.42,
     blur_radius: 10,
@@ -22,6 +23,9 @@ const DEFAULT_PARAMS = {
     shadow: 0.28,
     mode: 0,
     texture_repeat: 0,
+    blur_direction: 0,
+    private_pass: 0,
+    chained_effect: null,
     width: 0,
     height: 0,
     clip: [0, 0, -1, -1]
@@ -135,6 +139,29 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 0, 1,
                 0,
             ),
+            'blur_direction': GObject.ParamSpec.int(
+                `blur_direction`,
+                `Blur Direction`,
+                `Private Gaussian blur direction`,
+                GObject.ParamFlags.READWRITE,
+                0, 1,
+                0,
+            ),
+            'private_pass': GObject.ParamSpec.int(
+                `private_pass`,
+                `Private Pass`,
+                `Private Gaussian blur pass`,
+                GObject.ParamFlags.READWRITE,
+                0, 1,
+                0,
+            ),
+            'chained_effect': GObject.ParamSpec.object(
+                `chained_effect`,
+                `Chained Effect`,
+                `Private chained blur effect`,
+                GObject.ParamFlags.READWRITE,
+                GObject.Object,
+            ),
             'width': GObject.ParamSpec.double(
                 `width`,
                 `Width`,
@@ -218,6 +245,9 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 this._edge_size = value;
 
                 this.update_scaled_uniforms();
+
+                if (this.chained_effect)
+                    this.chained_effect.edge_size = value;
             }
         }
 
@@ -230,6 +260,9 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 this._blur_radius = value;
 
                 this.update_scaled_uniforms();
+
+                if (this.chained_effect)
+                    this.chained_effect.blur_radius = value;
             }
         }
 
@@ -242,6 +275,9 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 this._falloff = value;
 
                 this.set_uniform_value('falloff', parseFloat(this._falloff - 1e-6));
+
+                if (this.chained_effect)
+                    this.chained_effect.falloff = value;
             }
         }
 
@@ -254,6 +290,9 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 this._corner_radius = value;
 
                 this.update_scaled_uniforms();
+
+                if (this.chained_effect)
+                    this.chained_effect.corner_radius = value;
             }
         }
 
@@ -339,7 +378,44 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                 this._texture_repeat = value;
 
                 this.set_uniform_value('texture_repeat', this._texture_repeat);
+
+                if (this.chained_effect)
+                    this.chained_effect.texture_repeat = value;
             }
+        }
+
+        get blur_direction() {
+            return this._blur_direction;
+        }
+
+        set blur_direction(value) {
+            if (this._blur_direction !== value) {
+                this._blur_direction = value;
+
+                this.set_uniform_value('blur_direction', this._blur_direction);
+            }
+        }
+
+        get private_pass() {
+            return this._private_pass;
+        }
+
+        set private_pass(value) {
+            if (this._private_pass !== value) {
+                this._private_pass = value;
+
+                this.set_uniform_value('private_pass', this._private_pass);
+                if (this._private_pass === 1)
+                    this.set_enabled(this.blur_radius > 0.01);
+            }
+        }
+
+        get chained_effect() {
+            return this._chained_effect;
+        }
+
+        set chained_effect(value) {
+            this._chained_effect = value;
         }
 
         set(params) {
@@ -356,6 +432,9 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('width', parseFloat(this._width + 3.0 - 1e-6));
                 this.update_scaled_uniforms();
+
+                if (this.chained_effect)
+                    this.chained_effect.width = value;
             }
         }
 
@@ -369,6 +448,9 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
 
                 this.set_uniform_value('height', parseFloat(this._height + 3.0 - 1e-6));
                 this.update_scaled_uniforms();
+
+                if (this.chained_effect)
+                    this.chained_effect.height = value;
             }
         }
 
@@ -462,7 +544,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
         }
 
         _stabilized_clip_axis(start, size, previous_start, previous_size, stable_start, stable_size, stabilizing) {
-            const size_changed = previous_size !== null &&
+            const size_changed =
+                previous_size !== null &&
                 previous_size >= 0 &&
                 Math.abs(size - previous_size) > CLIP_STABILIZE_EPSILON;
 
@@ -481,8 +564,10 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
 
         update_scaled_uniforms() {
             const scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
-            const rect_width = this._stable_clip_width ?? (this._clip_width >= 0 ? this._clip_width : this.width);
-            const rect_height = this._stable_clip_height ?? (this._clip_height >= 0 ? this._clip_height : this.height);
+            const rect_width =
+                this._stable_clip_width ?? (this._clip_width >= 0 ? this._clip_width : this.width);
+            const rect_height =
+                this._stable_clip_height ?? (this._clip_height >= 0 ? this._clip_height : this.height);
             const max_edge = Math.max(1, Math.min(rect_width, rect_height) / 2);
             const edge_size = Math.min(this.edge_size * scale_factor, max_edge);
             const corner_radius = Math.min(this.corner_radius * scale_factor, max_edge);
@@ -490,9 +575,14 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
             this.set_uniform_value('edge_size', parseFloat(edge_size - 1e-6));
             this.set_uniform_value('corner_radius', parseFloat(corner_radius - 1e-6));
             this.set_uniform_value('blur_radius', parseFloat(this.blur_radius * scale_factor - 1e-6));
+            if (this.private_pass === 1)
+                this.set_enabled(this.blur_radius > 0.01);
         }
 
         vfunc_set_actor(actor) {
+            if (this.chained_effect)
+                this.chained_effect.get_actor()?.remove_effect(this.chained_effect);
+
             if (this._actor_connection_size_id) {
                 let old_actor = this.get_actor();
                 old_actor?.disconnect(this._actor_connection_size_id);
@@ -530,6 +620,41 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
             }
 
             super.vfunc_set_actor(actor);
+
+            if (this.private_pass === 0) {
+                if (!this.chained_effect) {
+                    const chained_params = {
+                        strength: this.strength,
+                        blur_radius: this.blur_radius,
+                        edge_size: this.edge_size,
+                        falloff: this.falloff,
+                        corner_radius: this.corner_radius,
+                        rgb_fringing: this.rgb_fringing,
+                        gloss: this.gloss,
+                        tint: this.tint,
+                        shadow: this.shadow,
+                        mode: this.mode,
+                        texture_repeat: this.texture_repeat,
+                        width: this.width,
+                        height: this.height,
+                        clip: this.clip,
+                        blur_direction: 1,
+                        private_pass: 1
+                    };
+
+                    this.chained_effect = new RefractionEffect(chained_params);
+                }
+
+                if (actor !== null)
+                    actor.add_effect(this.chained_effect);
+            }
+        }
+
+        vfunc_paint_target(paint_node, paint_context) {
+            this.set_uniform_value('blur_direction', this.blur_direction);
+            this.set_uniform_value('private_pass', this.private_pass);
+
+            super.vfunc_paint_target(paint_node, paint_context);
         }
 
         vfunc_dispose() {
