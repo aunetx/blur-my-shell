@@ -70,9 +70,9 @@ export const Pipeline = class Pipeline {
         // Without it, new actors render on top while loading, causing a solid color flash through
         // on the surface.
         this.child_added_id = this.actor.connect(
-            'child-added', (_container, child) => {
+            'child-added', (container, child) => {
                 if (child instanceof Meta.BackgroundActor)
-                    _container.set_child_below_sibling(child, null);
+                    container.set_child_below_sibling(child, null);
             }
         );
 
