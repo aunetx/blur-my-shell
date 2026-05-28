@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2025-11-23 13:51+0000\n"
+"POT-Creation-Date: 2026-04-06 17:22+0200\n"
+"PO-Revision-Date: 2026-04-09 17:09+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -156,79 +156,79 @@ msgstr ""
 
 #: src/effects/effects.js:176
 msgid "Blend mode"
-msgstr ""
+msgstr "Mode campuran"
 
 #: src/effects/effects.js:177
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Cara warna dicampurkan."
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "Kalikan"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "Layar"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "Hamparan"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Gelapkan"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "Terangkan"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
-msgstr ""
+msgstr "Plus lebih gelap"
 
 #: src/effects/effects.js:187
 msgid "Plus lighter"
-msgstr ""
+msgstr "Plus lebih terang"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "Dodge warna"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "Bakar warna"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "Cahaya keras"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
-msgstr ""
+msgstr "Cahaya lembut"
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "Perbedaan"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr ""
+msgstr "Pengecualian"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "Rona"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "Saturasi"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "Luminositas"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
@@ -475,6 +475,8 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect, "
 "but shows content behind windows."
 msgstr ""
+"Blur dinamis lebih lambat dan hanya kompatibel dengan efek blur gaussian, "
+"tetapi menampilkan konten di balik jendela."
 
 #: resources/ui/applications.ui:42 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41
@@ -581,6 +583,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Daftar jendela yang akan diburamkan.\n"
+"Gunakan * untuk mencocokkan urutan karakter apa pun (mis., Firefox* atau "
+"*Code*), dan ? untuk satu karakter."
 
 #: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
@@ -596,6 +601,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Daftar jendela yang tidak akan diburamkan.\n"
+"Gunakan * untuk mencocokkan urutan karakter apa pun (mis., Firefox* atau "
+"*Code*), dan ? untuk satu karakter."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"

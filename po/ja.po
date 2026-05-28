@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -126,13 +126,13 @@ msgstr ""
 
 #: src/effects/effects.js:155
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "近いピクセルを優先する"
 
 #: src/effects/effects.js:156
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "元のピクセルに近いピクセルほど、より大きな重みを持つかどうか。"
 
 #: src/effects/effects.js:164 src/effects/effects.js:170
 #: src/effects/effects.js:196

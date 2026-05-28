@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
@@ -64,6 +65,17 @@ export const Pipeline = class Pipeline {
             controlPosition: false,
         });
         bg_manager._bms_pipeline = this;
+
+        // 'controlPosition: false' skips BackgroundManager's default layout pass, which also diables
+        // sibling re-ordering.
+        // Without it, new actors render on top while loading, causing a solid color flash through
+        // on the surface.
+        this.child_added_id = this.actor.connect(
+            'child-added', (container, child) => {
+                if (child instanceof Meta.BackgroundActor)
+                    container.set_child_below_sibling(child, null);
+            }
+        );
 
         background_managers.push(bg_manager);
         background_group.insert_child_at_index(this.actor, 0);
@@ -137,7 +149,10 @@ export const Pipeline = class Pipeline {
         this.remove_all_effects();
         if (this.actor && this.actor_destroy_id)
             this.actor.disconnect(this.actor_destroy_id);
+        if (this.actor && this.child_added_id)
+            this.actor.disconnect(this.child_added_id);
         this.actor_destroy_id = null;
+        this.child_added_id = null;
         this.actor = null;
     }
 
