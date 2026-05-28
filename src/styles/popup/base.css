@@ -29,6 +29,7 @@
 .bms-popup-background-light .message,
 .bms-popup-background-light .osd-window,
 .bms-popup-background-light .resize-popup,
+.bms-popup-background-light .switcher-list,
 .bms-popup-background-light .workspace-switcher,
 .bms-popup-background-light .modal-dialog,
 .bms-popup-background-light .run-dialog {
@@ -46,6 +47,7 @@
 .bms-popup-background-dark .message,
 .bms-popup-background-dark .osd-window,
 .bms-popup-background-dark .resize-popup,
+.bms-popup-background-dark .switcher-list,
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog {
@@ -53,13 +55,6 @@
     background: rgba(45, 45, 50, 0.22) !important;
     border-color: transparent;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
-}
-
-.bms-popup-background-light .switcher-list,
-.bms-popup-background-dark .switcher-list {
-    background: transparent !important;
-    border-color: transparent;
-    box-shadow: none;
 }
 
 .bms-popup-background-transparent .message,

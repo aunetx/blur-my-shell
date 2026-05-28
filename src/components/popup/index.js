@@ -446,6 +446,14 @@ export const PopupBlur = class PopupBlur {
         if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
             return style;
 
+        const theme = St.ThemeContext.get_for_stage(global.stage).get_theme?.();
+        let uri = theme?.default_stylesheet?.get_uri?.();
+        if (theme?.application_stylesheet)
+            uri = theme?.application_stylesheet?.get_uri?.();
+        const lower_uri = typeof uri === 'string' ? uri.toLowerCase() : '';
+        if (lower_uri.includes('yaru'))
+            return lower_uri.includes('dark') ? 2 : 1;
+
         const shell_style = Main.getStyleVariant?.();
         if (shell_style === 'light')
             return 1;
