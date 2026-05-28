@@ -13,8 +13,6 @@ import { PopupBlurMessageStacks } from './message_stacks.js';
 
 const POPUP_INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
 const POPUP_INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
-const LIGHT_STYLE_UUID = 'light-style@gnome-shell-extensions.gcampax.github.com';
-const EXTENSION_STATE_ACTIVE = 1;
 
 export const PopupBlur = class PopupBlur {
     constructor(connections, settings, effects_manager) {
@@ -439,15 +437,14 @@ export const PopupBlur = class PopupBlur {
             Main.uiGroup.add_style_class_name(
                 POPUP_BACKGROUND_STYLES[this.get_background_style()]
             );
+
+        this.surfaces.forEach(surface => surface.update_settings());
     }
 
     get_background_style() {
         const style = this.settings.popup.STYLE_POPUP;
         if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
             return style;
-
-        if (this.is_light_style_enabled() && Main.sessionMode?.colorScheme === 'prefer-light')
-            return 1;
 
         const shell_style = Main.getStyleVariant?.();
         if (shell_style === 'light')
@@ -457,10 +454,6 @@ export const PopupBlur = class PopupBlur {
             return 2;
 
         return this.interface_settings.get_string('color-scheme') === 'prefer-dark' ? 2 : 1;
-    }
-
-    is_light_style_enabled() {
-        return Main.extensionManager?.lookup?.(LIGHT_STYLE_UUID)?.state === EXTENSION_STATE_ACTIVE;
     }
 
     disable() {
