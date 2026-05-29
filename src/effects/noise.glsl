@@ -16,7 +16,7 @@ void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
     vec3 pix_color = c.xyz;
     float blend = noise * (1. - noise_gen(gl_FragCoord.xy));
-    vec4 effect_color = vec4(mix(pix_color, lightness * pix_color, blend), c.a);
+    vec4 effect_color = vec4(mix(pix_color, lightness * pix_color, blend), 1.);
 
     cogl_color_out = mix(c, effect_color, opacity_factor);
 }

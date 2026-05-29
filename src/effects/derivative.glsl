@@ -46,7 +46,7 @@ void main() {
         if (c < 4) {
             color = vec4(0);
         }
-        effect_color = vec4(color.xyz, source_color.a);
+        effect_color = vec4(color.xyz, 1.);
     } else
     // 2-step derivative
     if (operation == 1) {
@@ -59,7 +59,7 @@ void main() {
         if (c < 4) {
             color = vec4(0);
         }
-        effect_color = vec4(color.xyz / 2, source_color.a);
+        effect_color = vec4(color.xyz / 2, 1.);
     } else
     // laplacian
     if (operation == 2) {
@@ -69,7 +69,7 @@ void main() {
         color += get_texture_at_position(corrected_position + vec2(0, -1));
         color += get_texture_at_position(corrected_position + vec2(1, 0));
         color += get_texture_at_position(corrected_position + vec2(-1, 0));
-        effect_color = vec4(color.xyz, source_color.a);
+        effect_color = vec4(color.xyz, 1.);
     }
 
     cogl_color_out = mix(source_color, effect_color, opacity_factor);

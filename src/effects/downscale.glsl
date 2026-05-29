@@ -28,7 +28,9 @@ void main() {
     vec2 multiplied_position = corrected_position * divider;
 
     if (any(greaterThan(multiplied_position, vec2(width, height)))) {
-        cogl_color_out = mix(source_color, effect_color, opacity_factor);
+        if (opacity_factor >= 1.)
+            discard;
+        cogl_color_out = vec4(0);
         return;
     }
 
