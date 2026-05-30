@@ -31,10 +31,9 @@ const DEFAULT_PARAMS = {
     clip: [0, 0, -1, -1]
 };
 
-
-export const RefractionEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+export const RefractionEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : new GObject.registerClass({
         GTypeName: "RefractionEffect",
         Properties: {
             'strength': GObject.ParamSpec.double(
@@ -214,7 +213,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
 
             const theme_context = St.ThemeContext.get_for_stage(global.stage);
             theme_context.connectObject(
-                'notify::scale-factor', _ => this.update_scaled_uniforms(),
+                'notify::scale-factor',
+                _ => this.update_scaled_uniforms(),
                 this
             );
         }
@@ -483,7 +483,12 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
                     GLib.Source.remove(this._clip_settle_timeout_id);
                     this._clip_settle_timeout_id = null;
                 }
-                return [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height];
+                return [
+                    this._clip_x0,
+                    this._clip_y0,
+                    this._clip_width,
+                    this._clip_height
+                ];
             }
 
             const [previous_x0, previous_y0, previous_width, previous_height] = previous_clip;
@@ -543,7 +548,15 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES ?
             ];
         }
 
-        _stabilized_clip_axis(start, size, previous_start, previous_size, stable_start, stable_size, stabilizing) {
+        _stabilized_clip_axis(
+            start,
+            size,
+            previous_start,
+            previous_size,
+            stable_start,
+            stable_size,
+            stabilizing
+        ) {
             const size_changed =
                 previous_size !== null &&
                 previous_size >= 0 &&

@@ -73,7 +73,12 @@ float gammaCorrectSRGB(float c) {
 }
 
 vec3 srgbToXyz(vec3 rgb) {
-    vec3 lin = vec3(linearizeSRGB(rgb.r), linearizeSRGB(rgb.g), linearizeSRGB(rgb.b));
+    vec3 lin = vec3(
+        linearizeSRGB(rgb.r),
+        linearizeSRGB(rgb.g),
+        linearizeSRGB(rgb.b)
+    );
+
     return vec3(
         dot(lin, vec3(0.4124, 0.3576, 0.1805)),
         dot(lin, vec3(0.2126, 0.7152, 0.0722)),
@@ -87,7 +92,12 @@ vec3 xyzToSrgb(vec3 xyz) {
         dot(xyz, vec3(-0.9689,  1.8758,  0.0415)),
         dot(xyz, vec3( 0.0557, -0.2040,  1.0570))
     );
-    return clamp(vec3(gammaCorrectSRGB(lin.r), gammaCorrectSRGB(lin.g), gammaCorrectSRGB(lin.b)), 0.0, 1.0);
+
+    return clamp(vec3(
+        gammaCorrectSRGB(lin.r),
+        gammaCorrectSRGB(lin.g),
+        gammaCorrectSRGB(lin.b)
+    ), 0.0, 1.0);
 }
 
 float labF(float t) {
@@ -237,11 +247,23 @@ vec4 wallpaperGloss(vec2 uv, vec2 fallbackDir) {
 
     float peak = max(
         center,
-        max(max(left, right), max(max(top, bottom), max(max(topLeft, topRight), max(bottomLeft, bottomRight))))
+        max(
+            max(left, right),
+            max(
+                max(top, bottom),
+                max(max(topLeft, topRight), max(bottomLeft, bottomRight))
+            )
+        )
     );
     float low = min(
         center,
-        min(min(left, right), min(min(top, bottom), min(min(topLeft, topRight), min(bottomLeft, bottomRight))))
+        min(
+            min(left, right),
+            min(
+                min(top, bottom),
+                min(min(topLeft, topRight), min(bottomLeft, bottomRight))
+            )
+        )
     );
     float band = max(0.08, peak * 0.28);
     float localPeak = nearPeak(center, peak, band);
@@ -259,7 +281,10 @@ vec4 wallpaperGloss(vec2 uv, vec2 fallbackDir) {
     float brightness = smoothstep(0.36, 0.86, peak);
     float spotSize = smoothstep(0.28, 0.78, coverage) * brightness;
     float contrastMask = mix(0.55, 1.0, smoothstep(0.025, 0.22, peak - low));
-    float spotMask = brightness * contrastMask * pow(localPeak, mix(3.0, 1.05, spotSize));
+    float spotMask = brightness * contrastMask * pow(
+        localPeak,
+        mix(3.0, 1.05, spotSize)
+    );
 
     vec2 gradient = vec2(right - left, bottom - top);
     float contrast = length(gradient);
@@ -344,7 +369,12 @@ void main() {
     );
     float specLobe = mix(primary + secondary, roundSpec, cornerWeight);
     float fresnel = pow(clamp(1.0 - bezelRatio, 0.0, 1.0), 2.2) * edgeOpacity;
-    float specular = specLobe * strokeMask * mix(0.18, 1.15, wallpaperSpot) * gloss * 2.15 * edgeOpacity;
+    float specular = specLobe *
+        strokeMask *
+        mix(0.18, 1.15, wallpaperSpot) *
+        gloss *
+        2.15 *
+        edgeOpacity;
     float highlight = specular + fresnel * 0.34;
 
     vec3 lch = srgbToLch(clamp(bgColor.rgb, 0.0, 1.0));
