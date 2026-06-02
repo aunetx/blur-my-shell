@@ -22,6 +22,7 @@ import { WindowListBlur } from './components/window_list.js';
 import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
+import { PopupBlur } from './components/popup.js';
 
 const BlurModule = await import_in_shell_only('gi://Blur');
 
@@ -75,6 +76,7 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur = new CoverflowAltTabBlur(...init());
         this._applications_blur = new ApplicationsBlur(...init());
         this._screenshot_blur = new ScreenshotBlur(...init());
+        this._popup = new PopupBlur(...init());
 
         // connect each component to preferences change
         this._connect_to_settings();
@@ -179,6 +181,7 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur = null;
         this._applications_blur = null;
         this._screenshot_blur = null;
+        this._popup = null;
 
         // make sure no settings change can re-enable them
         this._settings.disconnect_all_settings();
@@ -213,6 +216,7 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur.disable();
         this._applications_blur.disable();
         this._screenshot_blur.disable();
+        this._popup.disable();
 
         // remove the clipped redraws flag
         this._reenable_clipped_redraws();
@@ -325,6 +329,9 @@ export default class BlurMyShell extends Extension {
 
         if (this._settings.screenshot.BLUR)
             this._screenshot_blur.enable();
+
+        if (this._settings.popup.BLUR)
+            this._popup.enable();
 
         this._log("all components enabled.");
     }
@@ -629,6 +636,39 @@ export default class BlurMyShell extends Extension {
         this._settings.screenshot.PIPELINE_changed(() => {
             if (this._settings.screenshot.BLUR)
                 this._screenshot_blur.update_pipeline();
+        });
+
+
+        // ---------- POPUP BLUR ----------
+
+        // toggled on/off
+        this._settings.popup.BLUR_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.enable();
+            else
+                this._popup.disable();
+        });
+
+        this._settings.popup.STATIC_BLUR_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.reset();
+        });
+
+        this._settings.popup.PIPELINE_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.update_pipeline();
+        });
+
+        // popup background override toggled on/off
+        this._settings.popup.OVERRIDE_BACKGROUND_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.update_background();
+        });
+
+        // popup background style changed
+        this._settings.popup.STYLE_POPUP_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.update_background();
         });
     }
 

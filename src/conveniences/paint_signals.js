@@ -55,7 +55,9 @@ export const PaintSignals = class PaintSignals {
         immutable_buffer.forEach(infos => {
             if (infos.actor === actor) {
                 this.connections.disconnect_all_for(infos.paint_effect);
-                infos.actor.remove_effect(infos.paint_effect);
+                try {
+                    infos.actor.remove_effect(infos.paint_effect);
+                } catch (e) { }
 
                 // remove from buffer
                 let index = this.buffer.indexOf(infos);
@@ -67,7 +69,9 @@ export const PaintSignals = class PaintSignals {
     disconnect_all() {
         this.buffer.forEach(infos => {
             this.connections.disconnect_all_for(infos.paint_effect);
-            infos.actor.remove_effect(infos.paint_effect);
+            try {
+                infos.actor.remove_effect(infos.paint_effect);
+            } catch (e) { }
         });
 
         this.buffer = [];

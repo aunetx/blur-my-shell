@@ -4,9 +4,12 @@ import Clutter from 'gi://Clutter';
 /// A dummy `Pipeline`, for dynamic blur only.
 /// Instead of a pipeline id, we take the settings of the component we want to blur.
 export const DummyPipeline = class DummyPipeline {
-    constructor(effects_manager, settings, actor = null) {
+    constructor(effects_manager, settings, actor = null, options = {}) {
         this.effects_manager = effects_manager;
         this.settings = settings;
+        this.corner_radius_key = options.corner_radius_key ?? 'corner-radius';
+        this.corner_radius_getter = options.corner_radius_getter ?? (() => this.settings.CORNER_RADIUS);
+        this.opacity_factor = 1;
         this.effect = null;
         this.attach_effect_to_actor(actor);
     }
@@ -41,9 +44,9 @@ export const DummyPipeline = class DummyPipeline {
 
         // build the new effect to be added
         this.build_effect({
-            unscaled_radius: 2 * this.settings.SIGMA,
-            brightness: this.settings.BRIGHTNESS,
-            corner_radius: this.settings.CORNER_RADIUS,
+            unscaled_radius: this.get_unscaled_radius(),
+            brightness: this.get_brightness(),
+            corner_radius: this.corner_radius_getter(),
         });
 
         this.actor_destroy_id = this.actor.connect(
@@ -70,15 +73,38 @@ export const DummyPipeline = class DummyPipeline {
         this.effect = this.effects_manager.new_native_dynamic_gaussian_blur_effect(params);
 
         // connect to settings changes, using the true gsettings object
-        this._sigma_changed_id = this.settings.settings.connect(
-            'changed::sigma', () => this.effect.unscaled_radius = 2 * this.settings.SIGMA
-        );
-        this._brightness_changed_id = this.settings.settings.connect(
-            'changed::brightness', () => this.effect.brightness = this.settings.BRIGHTNESS
-        );
+        this._sigma_changed_id = this.settings.settings.connect('changed::sigma', () => this.update_effect());
+        this._brightness_changed_id = this.settings.settings.connect('changed::brightness', () => this.update_effect());
         this._corner_radius_changed_id = this.settings.settings.connect(
-            'changed::corner-radius', () => this.effect.corner_radius = this.settings.CORNER_RADIUS
+            `changed::${this.corner_radius_key}`,
+            () => this.update_effect()
         );
+    }
+
+    set_opacity_factor(opacity_factor) {
+        opacity_factor = Math.max(0, Math.min(1, opacity_factor));
+        if (this.opacity_factor === opacity_factor)
+            return;
+
+        this.opacity_factor = opacity_factor;
+        this.update_effect();
+    }
+
+    update_effect() {
+        if (!this.effect)
+            return;
+
+        this.effect.unscaled_radius = this.get_unscaled_radius();
+        this.effect.brightness = this.get_brightness();
+        this.effect.corner_radius = this.corner_radius_getter();
+    }
+
+    get_unscaled_radius() {
+        return 2 * this.settings.SIGMA * this.opacity_factor;
+    }
+
+    get_brightness() {
+        return 1 - (1 - this.settings.BRIGHTNESS) * this.opacity_factor;
     }
 
     repaint_effect() {

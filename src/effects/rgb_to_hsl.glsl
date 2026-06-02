@@ -1,4 +1,5 @@
 uniform sampler2D tex;
+uniform float opacity_factor;
 
 vec3 rgb_to_hsl(vec3 c) {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -14,5 +15,5 @@ void main(void) {
     vec2 uv = cogl_tex_coord_in[0].xy;
     vec4 rgba = texture2D(tex, uv);
     vec4 hsla = vec4(rgb_to_hsl(rgba.xyz), rgba.w);
-    cogl_color_out = hsla;
+    cogl_color_out = mix(rgba, hsla, opacity_factor);
 }

@@ -2,6 +2,7 @@ uniform sampler2D tex;
 uniform int factor;
 uniform float width;
 uniform float height;
+uniform float opacity_factor;
 
 #define CORRECTION 2.25
 #define SIZE_ADDITION 3
@@ -20,11 +21,13 @@ ivec2 get_corrected_position() {
 }
 
 void main() {
+    vec4 source_color = texture2D(tex, cogl_tex_coord0_in.st);
     ivec2 corrected_position = get_corrected_position();
 
     vec2 adjusted_position = corrected_position / factor;
 
-    cogl_color_out = get_texture_at_position(adjusted_position);
+    vec4 effect_color = get_texture_at_position(adjusted_position);
+    cogl_color_out = mix(source_color, effect_color, opacity_factor);
 
     // round
     if (distance(corrected_position, (floor(adjusted_position) + 0.5) * factor) < factor / 2.5) {

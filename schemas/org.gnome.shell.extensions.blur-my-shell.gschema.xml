@@ -104,6 +104,7 @@
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='coverflow-alt-tab' schema='org.gnome.shell.extensions.blur-my-shell.coverflow-alt-tab'></child>
+        <child name='popup' schema='org.gnome.shell.extensions.blur-my-shell.popup'></child>
         <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
         <child name='dash-to-panel' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-panel'></child>
     </schema>
@@ -590,6 +591,76 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+    </schema>
+
+    <!-- POPUP -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.popup"
+        path="/org/gnome/shell/extensions/blur-my-shell/popup/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>true</default>
+            <summary>Boolean, whether to blur popup menus, notifications, switchers, and dialogs or not</summary>
+        </key>
+        <!-- STATIC BLUR -->
+        <key type="b" name="static-blur">
+            <default>false</default>
+            <summary>Boolean, whether to use a static blur on popup surfaces</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default_rounded"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Gaussian sigma to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>18</default>
+            <summary>Radius for the corner rounding effect</summary>
+        </key>
+        <!-- MENU CORNER RADIUS -->
+        <key type="i" name="menu-corner-radius">
+            <default>20</default>
+            <summary>Radius for popup menu corner rounding</summary>
+        </key>
+        <!-- QUICK SETTINGS CORNER RADIUS -->
+        <key type="i" name="quick-settings-corner-radius">
+            <default>36</default>
+            <summary>Radius for quick settings and calendar corner rounding</summary>
+        </key>
+        <!-- NOTIFICATION CORNER RADIUS -->
+        <key type="i" name="notification-corner-radius">
+            <default>18</default>
+            <summary>Radius for notification corner rounding</summary>
+        </key>
+        <!-- OSD CORNER RADIUS -->
+        <key type="i" name="osd-corner-radius">
+            <default>28</default>
+            <summary>Radius for OSD and switcher corner rounding</summary>
+        </key>
+        <!-- DIALOG CORNER RADIUS -->
+        <key type="i" name="dialog-corner-radius">
+            <default>18</default>
+            <summary>Radius for dialog corner rounding</summary>
+        </key>
+        <!-- OVERRIDE BACKGROUND -->
+        <key type="b" name="override-background">
+            <default>true</default>
+            <summary>Boolean, whether to override the background or not</summary>
+        </key>
+        <!-- STYLE POPUP -->
+        <key type="i" name="style-popup">
+            <default>3</default>
+            <summary>Enum to select the style of popup surfaces (0 transparent, 1 light, 2 dark, 3 automatic)</summary>
         </key>
     </schema>
 

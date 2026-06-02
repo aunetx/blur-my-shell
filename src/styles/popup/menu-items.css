@@ -1,0 +1,120 @@
+.bms-popup-background-transparent .quick-settings .quick-slider,
+.bms-popup-background-transparent .quick-settings .quick-slider:hover,
+.bms-popup-background-transparent .quick-settings .quick-slider:focus,
+.bms-popup-background-transparent .quick-settings .quick-slider:active,
+.bms-popup-background-transparent .quick-settings .quick-slider:checked,
+.bms-popup-background-light .quick-settings .quick-slider,
+.bms-popup-background-light .quick-settings .quick-slider:hover,
+.bms-popup-background-light .quick-settings .quick-slider:focus,
+.bms-popup-background-light .quick-settings .quick-slider:active,
+.bms-popup-background-light .quick-settings .quick-slider:checked,
+.bms-popup-background-dark .quick-settings .quick-slider,
+.bms-popup-background-dark .quick-settings .quick-slider:hover,
+.bms-popup-background-dark .quick-settings .quick-slider:focus,
+.bms-popup-background-dark .quick-settings .quick-slider:active,
+.bms-popup-background-dark .quick-settings .quick-slider:checked,
+.bms-popup-background-transparent .quick-slider .slider-bin,
+.bms-popup-background-transparent .quick-slider .slider-bin:hover,
+.bms-popup-background-transparent .quick-slider .slider-bin:focus,
+.bms-popup-background-transparent .quick-slider .icon-button,
+.bms-popup-background-transparent .quick-slider .button,
+.bms-popup-background-light .quick-slider .slider-bin,
+.bms-popup-background-light .quick-slider .slider-bin:hover,
+.bms-popup-background-light .quick-slider .slider-bin:focus,
+.bms-popup-background-light .quick-slider .icon-button,
+.bms-popup-background-light .quick-slider .button,
+.bms-popup-background-dark .quick-slider .slider-bin,
+.bms-popup-background-dark .quick-slider .slider-bin:hover,
+.bms-popup-background-dark .quick-slider .slider-bin:focus,
+.bms-popup-background-dark .quick-slider .icon-button,
+.bms-popup-background-dark .quick-slider .button {
+    background-color: transparent !important;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bms-popup-background-transparent .quick-slider .icon-button:hover,
+.bms-popup-background-transparent .quick-slider .icon-button:focus,
+.bms-popup-background-transparent .quick-slider .button:hover,
+.bms-popup-background-transparent .quick-slider .button:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bms-popup-background-transparent .quick-slider .icon-button:active,
+.bms-popup-background-transparent .quick-slider .button:active {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-light .quick-slider .icon-button:hover,
+.bms-popup-background-light .quick-slider .icon-button:focus,
+.bms-popup-background-light .quick-slider .button:hover,
+.bms-popup-background-light .quick-slider .button:focus {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.bms-popup-background-light .quick-slider .icon-button:active,
+.bms-popup-background-light .quick-slider .button:active {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.bms-popup-background-dark .quick-slider .icon-button:hover,
+.bms-popup-background-dark .quick-slider .icon-button:focus,
+.bms-popup-background-dark .quick-slider .button:hover,
+.bms-popup-background-dark .quick-slider .button:focus {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-dark .quick-slider .icon-button:active,
+.bms-popup-background-dark .quick-slider .button:active {
+    background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.bms-popup-background-transparent .popup-menu-item:hover,
+.bms-popup-background-transparent .popup-menu-item:focus,
+.bms-popup-background-transparent .popup-menu-item:selected {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bms-popup-background-transparent .popup-menu-item:active {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-transparent .popup-menu-item:checked,
+.bms-popup-background-transparent .popup-menu-item:open {
+    background-color: transparent !important;
+}
+
+.bms-popup-background-light .popup-menu-item,
+.bms-popup-background-light .popup-menu-item:hover,
+.bms-popup-background-light .popup-menu-item:focus,
+.bms-popup-background-light .popup-menu-item:selected,
+.bms-popup-background-light .popup-menu-item:active,
+.bms-popup-background-light .popup-menu-item:checked {
+    color: #222226;
+}
+
+.bms-popup-background-light .popup-menu-item:insensitive {
+    color: rgba(34, 34, 38, 0.5);
+}
+
+.bms-popup-background-light .popup-menu-item:hover,
+.bms-popup-background-light .popup-menu-item:focus {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+.bms-popup-background-light .popup-menu-item:active,
+.bms-popup-background-light .popup-menu-item:open,
+.bms-popup-background-light .popup-menu-item:checked {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bms-popup-background-dark .popup-menu-item:hover,
+.bms-popup-background-dark .popup-menu-item:focus {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.bms-popup-background-dark .popup-menu-item:active,
+.bms-popup-background-dark .popup-menu-item:open,
+.bms-popup-background-dark .popup-menu-item:checked {
+    background-color: rgba(255, 255, 255, 0.14) !important;
+}

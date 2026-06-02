@@ -6,7 +6,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'derivative.glsl';
 const DEFAULT_PARAMS = {
-    operation: 0, width: 0, height: 0
+    operation: 0, opacity_factor: 1, width: 0, height: 0
 };
 
 
@@ -22,6 +22,14 @@ export const DerivativeEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0, 2,
                 0,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
@@ -65,6 +73,18 @@ export const DerivativeEffect = utils.IS_IN_PREFERENCES ?
                 this._operation = value;
 
                 this.set_uniform_value('operation', this._operation);
+            }
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 

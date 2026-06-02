@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="PopupBlur" parent="AdwPreferencesPage">
+    <property name="name">popup</property>
+    <property name="title" translatable="yes">Popups</property>
+    <property name="icon-name">popup-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Popup blur</property>
+        <property name="description" translatable="yes">Add blur to GNOME Shell menus, the calendar and notifications popup, notification banners, OSD popups, and dialogs.</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="blur">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blur type</property>
+            <property name="subtitle" translatable="yes">The dynamic blur is slower and only compatible with a gaussian blur effect.</property>
+            <property name="activatable-widget">blur_mode_choose</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkBox" id="blur_mode_choose">
+                <property name="valign">center</property>
+                <property name="hexpand">false</property>
+                <style>
+                  <class name="linked" />
+                </style>
+
+                <child>
+                  <object class="GtkToggleButton" id="mode_static">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="group">mode_dynamic</property>
+                    <property name="child">
+                      <object class="AdwButtonContent">
+                        <property name="icon-name">static-mode-symbolic</property>
+                        <property name="label" translatable="yes">Static</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="mode_dynamic">
+                    <property name="valign">center</property>
+                    <property name="hexpand">true</property>
+                    <property name="child">
+                      <object class="AdwButtonContent">
+                        <property name="icon-name">dynamic-mode-symbolic</property>
+                        <property name="label" translatable="yes">Dynamic</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="sigma_row">
+            <property name="title" translatable="yes">Sigma</property>
+            <property name="subtitle" translatable="yes">The intensity of the blur.</property>
+            <property name="activatable-widget">sigma_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="sigma_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="digits">0</property>
+                <property name="adjustment">sigma</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="brightness_row">
+            <property name="title" translatable="yes">Brightness</property>
+            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
+            <property name="activatable-widget">brightness_scale</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="brightness_scale">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="digits">2</property>
+                <property name="adjustment">brightness</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwExpanderRow" id="corner_radius_row">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="subtitle" translatable="yes">Adjust the rounded corners for each popup surface.</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="AdwSpinRow" id="menu_corner_radius">
+                <property name="title" translatable="yes">Menus</property>
+                <property name="adjustment">menu_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="quick_settings_corner_radius">
+                <property name="title" translatable="yes">Quick settings and calendar</property>
+                <property name="adjustment">quick_settings_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="notification_corner_radius">
+                <property name="title" translatable="yes">Notifications</property>
+                <property name="adjustment">notification_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="osd_corner_radius">
+                <property name="title" translatable="yes">OSDs and switchers</property>
+                <property name="adjustment">osd_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="dialog_corner_radius">
+                <property name="title" translatable="yes">Dialogs</property>
+                <property name="adjustment">dialog_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="corner_radius">
+                <property name="title" translatable="yes">Other popup surfaces</property>
+                <property name="adjustment">corner_radius_adjustment</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="corner_radius_not_found_row">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="subtitle" translatable="yes">Install the GNOME Rounded Blur library to clip dynamic blur with rounded corners.</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">open_gnome_rounded_blur</property>
+
+            <child type="suffix">
+              <object class="GtkButton" id="open_gnome_rounded_blur">
+                <property name="icon-name">adw-external-link-symbolic</property>
+                <property name="valign">center</property>
+                <property name="action-name">link.open-gnome-rounded-blur</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwExpanderRow" id="override_background">
+            <property name="title" translatable="yes">Override background</property>
+            <property name="subtitle" translatable="yes">Override the background of popups to use a transparent or semi-transparent one.</property>
+            <property name="show-enable-switch">true</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Background style</property>
+                <property name="subtitle" translatable="yes">The transparent/semi-transparent style for popups.</property>
+                <property name="activatable-widget">style_popup</property>
+
+                <child>
+                  <object class="GtkDropDown" id="style_popup">
+                    <property name="valign">center</property>
+                    <property name="model">style_popup_model</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkAdjustment" id="sigma">
+    <property name="lower">0</property>
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="brightness">
+    <property name="lower">0.0</property>
+    <property name="upper">1.0</property>
+    <property name="step-increment">0.01</property>
+  </object>
+
+  <object class="GtkAdjustment" id="corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="menu_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="quick_settings_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="notification_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="osd_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="dialog_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkStringList" id="style_popup_model">
+    <items>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+      <item translatable="yes">Automatic</item>
+    </items>
+  </object>
+</interface>

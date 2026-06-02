@@ -25,7 +25,7 @@ export const Other = GObject.registerClass({
         'debug',
         'reset'
     ],
-}, class Overview extends Adw.PreferencesPage {
+}, class Other extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 

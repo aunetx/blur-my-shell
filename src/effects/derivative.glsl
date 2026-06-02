@@ -2,6 +2,7 @@ uniform sampler2D tex;
 uniform int operation;
 uniform float width;
 uniform float height;
+uniform float opacity_factor;
 
 #define CORRECTION 2.25
 #define SIZE_ADDITION 3
@@ -31,6 +32,8 @@ ivec2 get_corrected_position() {
 
 void main() {
     ivec2 corrected_position = get_corrected_position();
+    vec4 source_color = get_texture_at_position(corrected_position);
+    vec4 effect_color = source_color;
 
     // 1-step derivative
     if (operation == 0) {
@@ -43,7 +46,7 @@ void main() {
         if (c < 4) {
             color = vec4(0);
         }
-        cogl_color_out = vec4(color.xyz, 1);
+        effect_color = vec4(color.xyz, 1.);
     } else
     // 2-step derivative
     if (operation == 1) {
@@ -56,7 +59,7 @@ void main() {
         if (c < 4) {
             color = vec4(0);
         }
-        cogl_color_out = vec4(color.xyz / 2, 1);
+        effect_color = vec4(color.xyz / 2, 1.);
     } else
     // laplacian
     if (operation == 2) {
@@ -66,6 +69,8 @@ void main() {
         color += get_texture_at_position(corrected_position + vec2(0, -1));
         color += get_texture_at_position(corrected_position + vec2(1, 0));
         color += get_texture_at_position(corrected_position + vec2(-1, 0));
-        cogl_color_out = vec4(color.xyz, 1);
+        effect_color = vec4(color.xyz, 1.);
     }
+
+    cogl_color_out = mix(source_color, effect_color, opacity_factor);
 }

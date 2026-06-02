@@ -6,7 +6,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'luminosity.glsl';
 const DEFAULT_PARAMS = {
-    brightness_shift: 0., brightness_multiplicator: 1., contrast: 1., contrast_center: 0.5, saturation_multiplicator: 1.
+    brightness_shift: 0., brightness_multiplicator: 1., contrast: 1., contrast_center: 0.5, saturation_multiplicator: 1., opacity_factor: 1.
 };
 
 
@@ -53,6 +53,14 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
                 `Saturation multiplicator value in shader`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 2.0,
+                1.0,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
                 1.0,
             ),
         }
@@ -136,6 +144,18 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
                 if (value < 1.995)
                     saturation_mul = 3. * (1. / (1. - (value / 2.) ** 2) - 1.);
                 this.set_uniform_value('saturation_multiplicator', parseFloat(saturation_mul - 1e-6));
+            }
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
     });

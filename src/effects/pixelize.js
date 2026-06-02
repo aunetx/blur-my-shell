@@ -7,7 +7,7 @@ import { UpscaleEffect } from './upscale.js';
 import { DownscaleEffect } from './downscale.js';
 
 const DEFAULT_PARAMS = {
-    factor: 8, downsampling_mode: 0
+    factor: 8, downsampling_mode: 0, opacity_factor: 1
 };
 
 
@@ -31,6 +31,14 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0, 2,
                 0,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             )
         }
     }, class PixelizeEffect extends Clutter.Effect {
@@ -63,6 +71,18 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
 
         set downsampling_mode(value) {
             this.downscale_effect.downsampling_mode = value;
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+                this.upscale_effect.opacity_factor = value;
+                this.downscale_effect.opacity_factor = value;
+            }
         }
 
         vfunc_set_actor(actor) {

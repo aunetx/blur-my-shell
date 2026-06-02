@@ -4,6 +4,7 @@ uniform float brightness_multiplicator;
 uniform float contrast;
 uniform float contrast_center;
 uniform float saturation_multiplicator;
+uniform float opacity_factor;
 
 vec3 hsl_to_rgb(vec3 c) {
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
@@ -24,10 +25,16 @@ vec3 rgb_to_hsl(vec3 c) {
 void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
 
+    if (c.a <= 0.0) {
+        cogl_color_out = c;
+        return;
+    }
+
     vec3 pix_hsl = rgb_to_hsl(c.xyz) / c.a;
     pix_hsl.z = clamp(pix_hsl.z * brightness_multiplicator, 0., 1.);
     pix_hsl.z = clamp((pix_hsl.z - contrast_center) * contrast + contrast_center + brightness_shift, 0., 1.);
     pix_hsl.y = clamp(pix_hsl.y * saturation_multiplicator, 0., 1.);
+    vec4 effect_color = vec4(hsl_to_rgb(pix_hsl) * c.a, c.a);
 
-    cogl_color_out = vec4(hsl_to_rgb(pix_hsl) * c.a, c.a);
+    cogl_color_out = mix(c, effect_color, opacity_factor);
 }

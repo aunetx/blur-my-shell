@@ -6,7 +6,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'upscale.glsl';
 const DEFAULT_PARAMS = {
-    factor: 8, width: 0, height: 0
+    factor: 8, opacity_factor: 1, width: 0, height: 0
 };
 
 
@@ -22,6 +22,14 @@ export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
                 GObject.ParamFlags.READWRITE,
                 0, 64,
                 8,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
@@ -65,6 +73,18 @@ export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
                 this._factor = value;
 
                 this.set_uniform_value('factor', this._factor);
+            }
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 

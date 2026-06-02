@@ -19,10 +19,11 @@ import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 /// - `'pipeline_id'::effect-'id'-key-updated`, handing the key that was changed and its new value
 /// - `'pipeline_id'::effect-'id'-key-added`, handing the key that was added and its value
 export const Pipeline = class Pipeline {
-    constructor(effects_manager, pipelines_manager, pipeline_id, actor = null) {
+    constructor(effects_manager, pipelines_manager, pipeline_id, actor = null, options = {}) {
         this.effects_manager = effects_manager;
         this.pipelines_manager = pipelines_manager;
         this.effects = [];
+        this.effect_overrides = options.effect_overrides ?? {};
         this.set_pipeline_id(pipeline_id);
         this.attach_pipeline_to_actor(actor);
     }
@@ -179,22 +180,70 @@ export const Pipeline = class Pipeline {
     /// Given an `effect_infos` object containing the effect type, id and params, build an effect
     /// and append it to the effects list
     build_effect(effect_infos) {
-        let effect = this.effects_manager['new_' + effect_infos.type + '_effect'](effect_infos.params);
+        const effect_params = this.get_effect_params(effect_infos);
+        const effect_overrides = this.get_effect_overrides(effect_infos.type, effect_params);
+        let effect = this.effects_manager['new_' + effect_infos.type + '_effect']({
+            ...effect_params,
+            ...effect_overrides,
+        });
+        effect._bms_effect_type = effect_infos.type;
+        effect._bms_effect_params = effect_params;
         this.effects.push(effect);
 
         // connect to settings changes
         effect._effect_key_removed_id = this.pipelines_manager.connect(
-            this.pipeline_id + '::effect-' + effect_infos.id + '-key-removed',
-            (_, key) => effect[key] = effect.constructor.default_params[key]
+            this.pipeline_id + '::effect-' + effect_infos.id + '-key-removed', (_, key) => {
+                effect._bms_effect_params[key] = effect.constructor.default_params[key];
+                if (!this.apply_effect_override(effect, key))
+                    effect[key] = effect.constructor.default_params[key];
+            }
         );
         effect._effect_key_updated_id = this.pipelines_manager.connect(
-            this.pipeline_id + '::effect-' + effect_infos.id + '-key-updated',
-            (_, key, value) => effect[key] = value
+            this.pipeline_id + '::effect-' + effect_infos.id + '-key-updated', (_, key, value) => {
+                effect._bms_effect_params[key] = value;
+                if (!this.apply_effect_override(effect, key))
+                    effect[key] = value;
+            }
         );
         effect._effect_key_added_id = this.pipelines_manager.connect(
-            this.pipeline_id + '::effect-' + effect_infos.id + '-key-added',
-            (_, key, value) => effect[key] = value
+            this.pipeline_id + '::effect-' + effect_infos.id + '-key-added', (_, key, value) => {
+                effect._bms_effect_params[key] = value;
+                if (!this.apply_effect_override(effect, key))
+                    effect[key] = value;
+            }
         );
+    }
+
+    get_effect_params(effect_infos) {
+        const effect_class = this.effects_manager.SUPPORTED_EFFECTS[effect_infos.type]?.class;
+        return {
+            ...(effect_class?.default_params ?? {}),
+            ...effect_infos.params,
+        };
+    }
+
+    get_effect_overrides(effect_type, effect_params = {}) {
+        const overrides = this.effect_overrides[effect_type] ?? {};
+        return typeof overrides === 'function' ? overrides(effect_params) : overrides;
+    }
+
+    apply_effect_override(effect, key) {
+        const overrides = this.get_effect_overrides(effect._bms_effect_type, effect._bms_effect_params);
+        if (!(key in overrides))
+            return false;
+
+        effect[key] = overrides[key];
+        return true;
+    }
+
+    apply_effect_overrides(effect_type = null) {
+        this.effects.forEach(effect => {
+            if (effect_type && effect._bms_effect_type !== effect_type)
+                return;
+
+            const overrides = this.get_effect_overrides(effect._bms_effect_type, effect._bms_effect_params);
+            Object.keys(overrides).forEach(key => effect[key] = overrides[key]);
+        });
     }
 
     /// Remove every effect from the actor it is attached to. Please note that they are not
@@ -212,6 +261,8 @@ export const Pipeline = class Pipeline {
             delete effect._effect_key_removed_id;
             delete effect._effect_key_updated_id;
             delete effect._effect_key_added_id;
+            delete effect._bms_effect_type;
+            delete effect._bms_effect_params;
         });
         this.effects = [];
     }
