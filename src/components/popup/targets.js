@@ -1,5 +1,10 @@
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
-const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
+const POPUP_TARGET_STYLE_CLASSES = [
+    'popup-menu-content', 'popup-menu', 'quick-settings', 'quick-toggle-menu',
+    'notification-banner', 'notification', 'message', 'candidate-popup-content',
+];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
@@ -15,7 +20,7 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'notification-corner-radius',
         property: 'NOTIFICATION_CORNER_RADIUS',
-        style_classes: ['notification-banner', 'message', 'message-view', 'message-list'],
+        style_classes: ['notification-banner', 'notification', 'message', 'message-view', 'message-list'],
     },
     {
         key: 'menu-corner-radius',
@@ -33,6 +38,7 @@ export const POPUP_CORNER_RADII = [
         style_classes: ['modal-dialog', 'run-dialog'],
     },
 ];
+const QUICK_SETTINGS_CORNER_RADIUS = POPUP_CORNER_RADII.find(radius => radius.key === 'quick-settings-corner-radius');
 
 export const PopupBlurTargets = class PopupBlurTargets {
     constructor(actor) {
@@ -143,10 +149,50 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     get_corner_radius(target, root_actor) {
+        return this.with_style_cache(() => this.find_corner_radius(target, root_actor));
+    }
+
+    find_corner_radius(target, root_actor) {
+        const actors = this.get_corner_radius_actors(target, root_actor);
+        if (this.has_quick_settings_ancestor(actors))
+            return QUICK_SETTINGS_CORNER_RADIUS;
+
         return POPUP_CORNER_RADII.find(radius =>
-            this.has_any_style_class(target, radius.style_classes)
-            || this.has_any_style_class(root_actor, radius.style_classes)
+            actors.some(actor => this.has_any_style_class(actor, radius.style_classes))
         ) ?? DEFAULT_CORNER_RADIUS;
+    }
+
+    get_corner_radius_actors(target, root_actor) {
+        const actors = [];
+        const seen = new WeakSet();
+        [target, root_actor].forEach(actor => this.add_actor_and_ancestors(actors, seen, actor));
+        return actors;
+    }
+
+    has_quick_settings_ancestor(actors) {
+        const menu = Main.panel?.statusArea?.quickSettings?.menu;
+        const ancestors = [menu, menu?.actor, menu?._overlay, menu?._boxPointer, menu?.box]
+            .filter(Boolean);
+        return ancestors.some(actor => actors.includes(actor));
+    }
+
+    add_actor_and_ancestors(actors, seen, actor) {
+        for (let depth = 0; actor && depth < 12; depth++) {
+            if (seen.has(actor))
+                return;
+
+            seen.add(actor);
+            actors.push(actor);
+
+            if (actor === global.stage)
+                return;
+
+            try {
+                actor = actor.get_parent?.();
+            } catch (e) {
+                return;
+            }
+        }
     }
 
     with_style_cache(callback) {

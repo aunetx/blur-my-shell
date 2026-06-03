@@ -1,5 +1,7 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import { POPUP_CORNER_RADII } from './targets.js';
+
 const SURFACE_SIGNALS = [
     'notify::allocation',
     'notify::position',
@@ -18,6 +20,11 @@ const SURFACE_SIGNALS = [
     'notify::scale-y',
     'notify::pseudo-class',
     'style-changed',
+];
+
+const CORNER_RADIUS_KEYS = [
+    'corner-radius',
+    ...POPUP_CORNER_RADII.map(radius => radius.key),
 ];
 
 export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
@@ -81,10 +88,17 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
 
     connect_settings() {
         [
-            this.surface.corner_radius.key,
+            ...CORNER_RADIUS_KEYS,
             'override-background',
-            'style-popup',
         ].forEach(key => {
+            const id = this.surface.blur_settings.settings.connect(
+                `changed::${key}`,
+                () => this.surface.update_settings()
+            );
+            this.signal_ids.push([this.surface.blur_settings.settings, id]);
+        });
+
+        ['style-popup'].forEach(key => {
             const id = this.surface.settings.popup.settings.connect(
                 `changed::${key}`,
                 () => this.surface.update_settings()

@@ -1,5 +1,12 @@
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 const Signals = imports.signals;
+
+function sync_settings() {
+    try {
+        Gio.Settings.sync();
+    } catch (e) { }
+}
 
 /// An enum non-extensively describing the type of gsettings key.
 export const Type = {
@@ -52,6 +59,7 @@ export const Settings = class Settings {
                             },
                             set(v) {
                                 component_settings.set_boolean(key.name, v);
+                                sync_settings();
                             }
                         });
                         break;
@@ -63,6 +71,7 @@ export const Settings = class Settings {
                             },
                             set(v) {
                                 component_settings.set_int(key.name, v);
+                                sync_settings();
                             }
                         });
                         break;
@@ -74,6 +83,7 @@ export const Settings = class Settings {
                             },
                             set(v) {
                                 component_settings.set_double(key.name, v);
+                                sync_settings();
                             }
                         });
                         break;
@@ -85,6 +95,7 @@ export const Settings = class Settings {
                             },
                             set(v) {
                                 component_settings.set_string(key.name, v);
+                                sync_settings();
                             }
                         });
                         break;
@@ -102,6 +113,7 @@ export const Settings = class Settings {
                             set(v) {
                                 let val = new GLib.Variant("(dddd)", v);
                                 component_settings.set_value(key.name, val);
+                                sync_settings();
                             }
                         });
                         break;
@@ -115,6 +127,7 @@ export const Settings = class Settings {
                             set(v) {
                                 let val = new GLib.Variant("as", v);
                                 component_settings.set_value(key.name, val);
+                                sync_settings();
                             }
                         });
                         break;
@@ -287,6 +300,7 @@ export const Settings = class Settings {
                                 });
                                 let val = new GLib.Variant("a{sa{sv}}", pipelines);
                                 component_settings.set_value(key.name, val);
+                                sync_settings();
                             }
                         });
                         break;

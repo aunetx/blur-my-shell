@@ -33,7 +33,11 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
             GEOMETRY_TRANSITION_PROPERTIES,
             actors
         );
-        const opacity = this.has_running_for(['opacity'], surface_actors);
+        const opacity_actors = this.get_running_actors(
+            ['opacity'],
+            include_descendants ? actors : surface_actors
+        );
+        const opacity = opacity_actors.length > 0;
 
         return {
             complete: include_descendants,
@@ -41,6 +45,7 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
             geometry: geometry_properties.size > 0,
             geometry_properties,
             opacity,
+            opacity_actors,
         };
     }
 
@@ -49,12 +54,6 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
             return transition_state;
 
         return this.get_state(true);
-    }
-
-    has_running_for(properties, actors) {
-        return actors.some(actor =>
-            properties.some(property => this.has_transition(actor, property))
-        );
     }
 
     get_running_properties(properties, actors) {
@@ -68,6 +67,12 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
         });
 
         return running_properties;
+    }
+
+    get_running_actors(properties, actors) {
+        return actors.filter(actor =>
+            properties.some(property => this.has_transition(actor, property))
+        );
     }
 
     normalize_property(property) {
