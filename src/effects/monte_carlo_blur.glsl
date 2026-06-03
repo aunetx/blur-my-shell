@@ -18,7 +18,7 @@ float rand(inout float r) {
 
 void main() {
     vec2 uv = cogl_tex_coord0_in.st;
-    vec2 p = 16 * radius / vec2(width, height);
+    vec2 p = 16.0 * radius / vec2(width, height);
     float r = srand(uv);
 
     vec2 rv;
@@ -36,17 +36,17 @@ void main() {
         new_uv = uv + rv.x * dir * p;
         if (new_uv.x > 2. / width && new_uv.y > 2. / height && new_uv.x < 1. - 3. / width && new_uv.y < 1. - 3. / height) {
             strength = prefer_closer_pixels ? ((iterations - i) * (iterations - i)) : 1;
-            c += strength * texture2D(tex, new_uv);
+            c += float(strength) * texture2D(tex, new_uv);
             count += strength;
         }
     }
 
     if (count == 0 || use_base_pixel) {
         strength = prefer_closer_pixels ? ((iterations + 1) * (iterations + 1)) : 1;
-        c += strength * texture2D(tex, uv);
+        c += float(strength) * texture2D(tex, uv);
         count += strength;
     }
 
     c.xyz *= brightness;
-    cogl_color_out = c / count;
+    cogl_color_out = c / max(1.0, float(count));
 }

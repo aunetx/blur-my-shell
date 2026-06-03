@@ -1,11 +1,8 @@
-import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
-import { PaintSignals } from '../conveniences/paint_signals.js';
-
-import { Pipeline } from '../conveniences/pipeline.js';
-import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
+import { BlurSurface } from '../conveniences/blur_surface.js';
+import { SurfaceSettings } from '../conveniences/surface_settings.js';
 
 const DASH_STYLES = [
     "transparent-dash",
@@ -21,17 +18,19 @@ const DASH_STYLES = [
 class DashInfos {
     constructor(
         dash_blur, dash, dash_container, dash_background,
-        background, background_group, bg_manager
+        blur_surface
     ) {
         // the parent DashBlur object, to communicate
         this.dash_blur = dash_blur;
         this.dash = dash;
         this.dash_container = dash_container;
         this.dash_background = dash_background;
-        this.background = background;
-        this.background_group = background_group;
-        this.bg_manager = bg_manager;
+        this.blur_surface = blur_surface;
+        this.background = blur_surface.actor;
+        this.background_group = blur_surface.background_group;
+        this.bg_manager = blur_surface.bg_manager;
         this.settings = dash_blur.settings;
+        this.blur_settings = dash_blur.blur_settings;
         this.old_style = this.dash._background.style;
 
         this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur(false));
@@ -44,7 +43,8 @@ class DashInfos {
             this.dash_blur.connect('hide', () => this.background_group.hide()),
             this.dash_blur.connect('update-size', () => this.update_size()),
             this.dash_blur.connect('change-blur-type', () => this.change_blur_type()),
-            this.dash_blur.connect('update-pipeline', () => this.update_pipeline())
+            this.dash_blur.connect('update-pipeline', () => this.update_pipeline()),
+            this.dash_blur.connect('update-corner-radius', () => this.update_corner_radius())
         );
     }
 
@@ -71,8 +71,20 @@ class DashInfos {
         this.remove_style();
 
         this.dash.set_style_class_name(
-            DASH_STYLES[this.settings.dash_to_dock.STYLE_DASH_TO_DOCK]
+            DASH_STYLES[this.get_dash_style()]
         );
+    }
+
+    get_dash_style() {
+        const style = this.blur_settings.USE_GLOBAL ?
+            this.blur_settings.BACKGROUND_STYLE :
+            this.settings.dash_to_dock.STYLE_DASH_TO_DOCK;
+
+        if (this.blur_settings.USE_GLOBAL && style === 3)
+            return Main.getStyleVariant?.() === 'light' ? 1 : 2;
+        if (style >= 0 && style < DASH_STYLES.length)
+            return style;
+        return 0;
     }
 
     remove_style() {
@@ -83,38 +95,40 @@ class DashInfos {
         );
     }
 
-    destroy_dash(dash_not_already_destroyed = true) {
-        if (!dash_not_already_destroyed)
-            this.bg_manager.backgroundActor = null;
+    lower_background() {
+        const parent = this.background_group?.get_parent?.();
+        if (!parent)
+            return;
 
-        this.paint_signals?.disconnect_all();
-        this.dash.get_parent().remove_child(this.background_group);
-        this.bg_manager._bms_pipeline.destroy();
-        this.bg_manager.destroy();
-        this.background_group.destroy();
+        try {
+            parent.set_child_below_sibling(this.background_group, this.dash.get_parent?.() === parent ? this.dash : null);
+        } catch (e) { }
+    }
+
+    destroy_dash(dash_not_already_destroyed = true) {
+        this.blur_surface.destroy({ container_destroyed: !dash_not_already_destroyed });
     }
 
     change_blur_type() {
         this.destroy_dash();
 
-        let [
-            background, background_group, bg_manager, paint_signals
-        ] = this.dash_blur.add_blur(this.dash);
+        this.blur_surface = this.dash_blur.create_blur_surface(this.dash);
+        this.background = this.blur_surface.actor;
+        this.background_group = this.blur_surface.background_group;
+        this.bg_manager = this.blur_surface.bg_manager;
 
-        this.background = background;
-        this.background_group = background_group;
-        this.bg_manager = bg_manager;
-        this.paint_signals = paint_signals;
-
-        this.dash.get_parent().insert_child_at_index(this.background_group, 0);
+        this.blur_surface.insert_group(this.dash.get_parent(), 0);
+        this.lower_background();
 
         this.update_size();
     }
 
     update_pipeline() {
-        this.bg_manager._bms_pipeline.change_pipeline_to(
-            this.settings.dash_to_dock.PIPELINE
-        );
+        this.blur_surface.update_pipeline(this.dash_blur.blur_settings.PIPELINE);
+    }
+
+    update_corner_radius() {
+        this.blur_surface.update_corner_radius();
     }
 
     update_size() {
@@ -124,46 +138,47 @@ class DashInfos {
             return;
 
         if (this.dash_blur.is_static) {
-            let [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
-
-            this.background.x = -x;
-            this.background.y = -y;
-
-            if (this.dash_container.get_style_class_name().includes("top"))
-                this.background.set_clip(
-                    x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-            else if (this.dash_container.get_style_class_name().includes("bottom"))
-                this.background.set_clip(
-                    x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-            else if (this.dash_container.get_style_class_name().includes("left"))
-                this.background.set_clip(
-                    x + this.dash.x + this.dash_background.x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-            else if (this.dash_container.get_style_class_name().includes("right"))
-                this.background.set_clip(
-                    x + this.dash.x + this.dash_background.x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
+            this.blur_surface.update_static_geometry(
+                this.dash.get_parent(),
+                this.get_dash_geometry()
+            );
         } else {
-            this.background.width = this.dash_background.width;
-            this.background.height = this.dash_background.height;
-
-            this.background.x = this.dash_background.x;
-            this.background.y = this.dash_background.y + this.dash.y;
+            this.blur_surface.update_dynamic_geometry(
+                this.dash.get_parent(),
+                this.get_dash_geometry()
+            );
         }
+
+        this.background = this.blur_surface.actor;
+        this.bg_manager = this.blur_surface.bg_manager;
+        this.lower_background();
+    }
+
+    get_dash_geometry() {
+        const monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
+        if (!monitor)
+            return null;
+
+        try {
+            const [x, y] = this.dash_background.get_transformed_position();
+            if (Number.isFinite(x) && Number.isFinite(y))
+                return {
+                    x,
+                    y,
+                    width: this.dash_background.width,
+                    height: this.dash_background.height,
+                    monitor_index: monitor.index,
+                };
+        } catch (e) { }
+
+        const [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
+        return {
+            x: monitor.x + x,
+            y: monitor.y + y + this.dash.y + this.dash_background.y,
+            width: this.dash_background.width,
+            height: this.dash_background.height,
+            monitor_index: monitor.index,
+        };
     }
 
     get_dash_position(dash_container, dash_background) {
@@ -200,17 +215,23 @@ class DashInfos {
 }
 
 export const DashBlur = class DashBlur extends Signals.EventEmitter {
-    constructor(connections, settings, _) {
+    constructor(connections, settings, effects_manager) {
         super();
         this.dashes = [];
         this.connections = connections;
         this.settings = settings;
-        this.paint_signals = new PaintSignals(connections);
-        this.is_static = this.settings.dash_to_dock.STATIC_BLUR;
+        this.blur_settings = new SurfaceSettings(settings, 'dash-to-dock');
+        this.effects_manager = effects_manager;
+        this.is_static = this.blur_settings.STATIC_BLUR;
         this.enabled = false;
     }
 
     enable() {
+        if (this.enabled) {
+            this._log("blur already enabled");
+            return;
+        }
+
         this.connections.connect(Main.uiGroup, 'child-added', (_, actor) => {
             if (
                 (actor.get_name() === "dashtodockContainer") &&
@@ -323,16 +344,29 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         )) {
             this._log("dash to dock found, blurring it");
 
-            this.dashes.push(this.blur_dash_from(dash, dash_container));
+            const dash_infos = this.blur_dash_from(dash, dash_container);
+            if (dash_infos)
+                this.dashes.push(dash_infos);
         }
     }
 
     // Blurs the dash and returns a `DashInfos` containing its information
     blur_dash_from(dash, dash_container) {
-        let [background, background_group, bg_manager, paint_signals] = this.add_blur(dash);
+        if (!dash)
+            return null;
+
+        const dash_background = dash.get_children().find(child => {
+            return child.get_style_class_name() === 'dash-background';
+        });
+        if (!dash_background)
+            return null;
+
+        const blur_surface = this.create_blur_surface(dash);
+        if (!blur_surface)
+            return null;
 
         // insert the background group to the right element
-        dash.get_parent().insert_child_at_index(background_group, 0);
+        blur_surface.insert_group(dash.get_parent(), 0);
 
         // updates size and position on change
         this.connections.connect(
@@ -346,89 +380,49 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             _ => this.update_size()
         );
 
-        const dash_background = dash.get_children().find(child => {
-            return child.get_style_class_name() === 'dash-background';
-        });
-
         // create infos
         let infos = new DashInfos(
             this,
             dash,
             dash_container,
             dash_background,
-            background,
-            background_group,
-            bg_manager,
-            paint_signals
+            blur_surface
         );
 
         this.update_size();
         this.update_background();
+        infos.lower_background();
 
         // returns infos
         return infos;
     }
 
-    add_blur(dash) {
+    create_blur_surface(dash) {
         const monitor = Main.layoutManager.findMonitorForActor(dash);
         if (!monitor)
             return;
 
-        const background_group = new Meta.BackgroundGroup({
-            name: 'bms-dash-backgroundgroup', width: 0, height: 0
+        let static_blur = this.blur_settings.STATIC_BLUR;
+        const blur_surface = new BlurSurface({
+            connections: this.connections,
+            component_settings: this.blur_settings,
+            effects_manager: this.effects_manager,
+            pipeline_manager: global.blur_my_shell._pipelines_manager,
+            widget_name: 'bms-dash-blurred-widget',
+            group_name: 'bms-dash-backgroundgroup',
+            use_absolute_position: false,
+        }).create({
+            container: dash.get_parent(),
+            monitor_index: monitor.index,
+            pipeline_id: this.blur_settings.PIPELINE,
+            static_blur,
         });
 
-        let background, bg_manager, paint_signals;
-        let static_blur = this.settings.dash_to_dock.STATIC_BLUR;
-        if (static_blur) {
-            let bg_manager_list = [];
-            const pipeline = new Pipeline(
-                global.blur_my_shell._effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                this.settings.dash_to_dock.PIPELINE
-            );
-            background = pipeline.create_background_with_effects(
-                monitor.index, bg_manager_list,
-                background_group, 'bms-dash-blurred-widget'
-            );
-            bg_manager = bg_manager_list[0];
-        }
-        else {
-            const pipeline = new DummyPipeline(
-                global.blur_my_shell._effects_manager,
-                this.settings.dash_to_dock
-            );
-            [background, bg_manager] = pipeline.create_background_with_effect(
-                background_group, 'bms-dash-blurred-widget'
-            );
-
-            paint_signals = new PaintSignals(this.connections);
-
-            // HACK
-            //
-            //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
-            //
-            // This does not entirely fix this bug (shadows caused by windows
-            // still cause artifacts), but it prevents the shadows of the dash
-            // buttons to cause artifacts on the dash itself
-            //
-            // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
-
-            if (this.settings.HACKS_LEVEL === 1) {
-                this._log("hack level 1");
-
-                paint_signals.disconnect_all();
-                paint_signals.connect(background, pipeline.effect);
-            } else {
-                paint_signals.disconnect_all();
-            }
-        }
-
-        return [background, background_group, bg_manager, paint_signals];
+        return blur_surface;
     }
 
     change_blur_type() {
-        this.is_static = this.settings.dash_to_dock.STATIC_BLUR;
+        this.is_static = this.blur_settings.STATIC_BLUR;
         this.emit('change-blur-type');
 
         this.update_background();
@@ -452,7 +446,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     /// user preferences.
     update_background() {
         this._log("updating background");
-        if (this.settings.dash_to_dock.OVERRIDE_BACKGROUND)
+        if (this.blur_settings.OVERRIDE_BACKGROUND)
             this.emit('override-style');
         else
             this.emit('remove-style');
@@ -460,6 +454,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
     update_pipeline() {
         this.emit('update-pipeline');
+    }
+
+    update_corner_radius() {
+        this.emit('update-corner-radius');
     }
 
     update_size() {
@@ -474,6 +472,11 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     }
 
     disable() {
+        if (!this.enabled) {
+            this._log("blur already removed");
+            return;
+        }
+
         this._log("removing blur from dashes");
 
         this.emit('remove-dashes');

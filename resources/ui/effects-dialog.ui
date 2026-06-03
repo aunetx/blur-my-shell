@@ -3,8 +3,8 @@
   <template class="EffectsDialog" parent="AdwPreferencesDialog">
     <property name="title" translatable="yes">Effects</property>
     <property name="presentation-mode">ADW_DIALOG_BOTTOM_SHEET</property>
-    <property name="content-width">600</property>
-    <property name="content-height">480</property>
+    <property name="content-width">660</property>
+    <property name="content-height">740</property>
 
     <child>
       <object class="AdwPreferencesPage">
@@ -60,11 +60,6 @@
                 </child>
               </object>
             </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwPreferencesGroup">
-            <property name="description">In order to have rounded corners on a component, add a “Corner” effect at the end of its pipeline.</property>
           </object>
         </child>
       </object>

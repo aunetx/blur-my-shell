@@ -5,9 +5,12 @@ export const KEYS = [
     {
         component: "general", schemas: [
             { type: Type.PIPELINES, name: "pipelines" },
-            { type: Type.I, name: "hacks-level" },
-            { type: Type.B, name: "rounded-blur-found" },
+            { type: Type.B, name: "disable-clipped-redraws" },
             { type: Type.B, name: "debug" },
+            { type: Type.B, name: "profile-static-blur" },
+            { type: Type.S, name: "profile-pipeline" },
+            { type: Type.B, name: "profile-override-background" },
+            { type: Type.I, name: "profile-background-style" },
         ]
     },
     {
@@ -28,6 +31,7 @@ export const KEYS = [
     {
         component: "panel", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.B, name: "use-global" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
@@ -43,6 +47,7 @@ export const KEYS = [
     {
         component: "dash-to-dock", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.B, name: "use-global" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
@@ -56,6 +61,7 @@ export const KEYS = [
     {
         component: "applications", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.B, name: "use-global" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
@@ -79,9 +85,11 @@ export const KEYS = [
     {
         component: "window-list", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.B, name: "use-global" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
+            { type: Type.I, name: "corner-radius" },
         ]
     },
     {
@@ -99,6 +107,7 @@ export const KEYS = [
     {
         component: "popup", schemas: [
             { type: Type.B, name: "blur" },
+            { type: Type.B, name: "use-global" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
@@ -132,6 +141,7 @@ export const DEPRECATED_KEYS = [
         component: "general", schemas: [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
+            { type: Type.I, name: "corner-radius" },
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },

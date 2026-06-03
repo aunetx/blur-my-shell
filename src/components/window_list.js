@@ -1,55 +1,62 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../conveniences/paint_signals.js';
-import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
+import { BlurSurface } from '../conveniences/blur_surface.js';
+import { SurfaceSettings } from '../conveniences/surface_settings.js';
 
 
 export const WindowListBlur = class WindowListBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.settings = settings;
-        this.paint_signals = new PaintSignals(connections);
+        this.blur_settings = new SurfaceSettings(settings, 'window-list');
         this.effects_manager = effects_manager;
-        this.pipelines = [];
+        this.surfaces = [];
+        this.enabled = false;
     }
 
     enable() {
+        if (this.enabled) {
+            this._log("blur already enabled");
+            return;
+        }
+
         this._log("blurring window list");
 
-        // blur if window-list is found
         Main.layoutManager.uiGroup.get_children().forEach(
             child => this.try_blur(child)
         );
 
-        // listen to new actors in `Main.layoutManager.uiGroup` and blur it if
-        // if is window-list
         this.connections.connect(
             Main.layoutManager.uiGroup,
             'child-added',
             (_, child) => this.try_blur(child)
         );
 
-        // connect to overview
         this.connections.connect(Main.overview, 'showing', _ => {
             this.hide();
         });
         this.connections.connect(Main.overview, 'hidden', _ => {
             this.show();
         });
+
+        this.enabled = true;
+    }
+
+    is_window_list_actor(actor) {
+        return actor?._windowList && typeof actor._windowList.get_children === 'function';
     }
 
     try_blur(actor) {
         if (
-            actor.constructor.name === "WindowList" &&
-            actor.style !== "background:transparent;"
+            this.is_window_list_actor(actor) &&
+            actor.style !== "background:transparent;" &&
+            !actor._bms_blur_surface
         ) {
             this._log("found window list to blur");
 
-            const pipeline = new DummyPipeline(
-                this.effects_manager, this.settings.window_list
-            );
-            pipeline.attach_effect_to_actor(actor);
-            this.pipelines.push(pipeline);
+            const surface = this.create_blur_surface(actor);
+            if (!surface)
+                return;
 
             actor.set_style("background:transparent;");
 
@@ -66,29 +73,53 @@ export const WindowListBlur = class WindowListBlur {
             this.connections.connect(
                 actor,
                 'destroy',
-                _ => this.destroy_blur(pipeline, true)
+                _ => this.destroy_blur(surface, true)
             );
 
-
-            // HACK
-            //
-            //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
-            //
-            // This does not entirely fix this bug (shadows caused by windows
-            // still cause artifacts), but it prevents the shadows of the panel
-            // buttons to cause artifacts on the panel itself
-            //
-            // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
-
-            if (this.settings.HACKS_LEVEL === 1) {
-                this._log("window list hack level 1");
-
-                this.paint_signals.disconnect_all_for_actor(actor);
-                this.paint_signals.connect(actor, pipeline.effect);
-            } else {
-                this.paint_signals.disconnect_all_for_actor(actor);
-            }
+            this.connections.connect(
+                actor,
+                ['notify::width', 'notify::height', 'notify::allocation'],
+                _ => this.update_size(surface)
+            );
         }
+    }
+
+    create_blur_surface(actor) {
+        const monitor = Main.layoutManager.findMonitorForActor(actor) ?? Main.layoutManager.primaryMonitor;
+        if (!monitor)
+            return null;
+
+        const surface = new BlurSurface({
+            connections: this.connections,
+            component_settings: this.blur_settings,
+            effects_manager: this.effects_manager,
+            pipeline_manager: global.blur_my_shell._pipelines_manager,
+            widget_name: 'bms-window-list-blurred-widget',
+            use_absolute_position: false,
+        }).create({
+            container: actor,
+            monitor_index: monitor.index,
+            pipeline_id: this.blur_settings.PIPELINE,
+            static_blur: false,
+        });
+        surface.window_list_actor = actor;
+        actor._bms_blur_surface = surface;
+        this.surfaces.push(surface);
+        this.update_size(surface);
+        return surface;
+    }
+
+    update_size(surface) {
+        const actor = surface.window_list_actor;
+        if (!actor)
+            return;
+
+        surface.update_local_geometry({
+            x: 0,
+            y: 0,
+            width: actor.width,
+            height: actor.height,
+        });
     }
 
     style_window_button(window) {
@@ -97,23 +128,23 @@ export const WindowListBlur = class WindowListBlur {
         );
     }
 
-    // IMPORTANT: do never call this in a mutable `this.pipelines.forEach`
-    destroy_blur(pipeline, actor_destroyed = false) {
-        if (!actor_destroyed) {
-            this.remove_style(pipeline.actor);
-            this.paint_signals.disconnect_all_for_actor(pipeline.actor);
-        }
+    destroy_blur(surface, actor_destroyed = false) {
+        const actor = surface.window_list_actor;
+        if (!actor_destroyed)
+            this.remove_style(actor);
 
-        pipeline.destroy();
+        surface.destroy({ container_destroyed: actor_destroyed });
+        if (actor?._bms_blur_surface === surface)
+            delete actor._bms_blur_surface;
 
-        let index = this.pipelines.indexOf(pipeline);
+        let index = this.surfaces.indexOf(surface);
         if (index >= 0)
-            this.pipelines.splice(pipeline, 1);
+            this.surfaces.splice(index, 1);
     }
 
     remove_style(actor) {
         if (
-            actor.constructor.name === "WindowList" &&
+            this.is_window_list_actor(actor) &&
             actor.style === "background:transparent;"
         ) {
             actor.style = null;
@@ -124,21 +155,33 @@ export const WindowListBlur = class WindowListBlur {
     }
 
     hide() {
-        this.pipelines.forEach(pipeline => pipeline.effect?.set_enabled(false));
+        this.surfaces.forEach(surface => surface.hide_surface());
     }
 
     show() {
-        this.pipelines.forEach(pipeline => pipeline.effect?.set_enabled(true));
+        this.surfaces.forEach(surface => this.update_size(surface));
+    }
+
+    update_pipeline() {
+        this.surfaces.forEach(surface =>
+            surface.update_pipeline(this.blur_settings.PIPELINE)
+        );
     }
 
     disable() {
+        if (!this.enabled) {
+            this._log("blur already removed");
+            return;
+        }
+
         this._log("removing blur from window list");
 
-        const immutable_pipelines_list = [...this.pipelines];
-        immutable_pipelines_list.forEach(pipeline => this.destroy_blur(pipeline));
+        const immutable_surfaces = [...this.surfaces];
+        immutable_surfaces.forEach(surface => this.destroy_blur(surface));
 
-        this.pipelines = [];
+        this.surfaces = [];
         this.connections.disconnect_all();
+        this.enabled = false;
     }
 
     _log(str) {

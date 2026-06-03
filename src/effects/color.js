@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+import * as uniforms from '../conveniences/shader_uniforms.js';
 
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
@@ -72,9 +73,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
         // Luminosity (17)
     }, class ColorEffect extends Clutter.ShaderEffect {
         constructor(params) {
-            // initialize without color as a parameter
-            const { color, ...parent_params } = params;
-            super(parent_params);
+            super();
 
             this._red = null;
             this._green = null;
@@ -89,7 +88,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 this.set_shader_source(this._source);
 
             // set params; utils.setup_params doesn't work here with color
-            this.color = 'color' in params ? color : this.constructor.default_params.color;
+            this.color = 'color' in params ? params.color : this.constructor.default_params.color;
             this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
             this.opacity_factor = 'opacity_factor' in params ? params.opacity_factor : this.constructor.default_params.opacity_factor;
         }
@@ -106,7 +105,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             if (this._red !== value) {
                 this._red = value;
 
-                this.set_uniform_value('red', parseFloat(this._red - 1e-6));
+                uniforms.set_uniform(this, 'red', parseFloat(this._red - 1e-6));
             }
         }
 
@@ -118,7 +117,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             if (this._green !== value) {
                 this._green = value;
 
-                this.set_uniform_value('green', parseFloat(this._green - 1e-6));
+                uniforms.set_uniform(this, 'green', parseFloat(this._green - 1e-6));
             }
         }
 
@@ -130,7 +129,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             if (this._blue !== value) {
                 this._blue = value;
 
-                this.set_uniform_value('blue', parseFloat(this._blue - 1e-6));
+                uniforms.set_uniform(this, 'blue', parseFloat(this._blue - 1e-6));
             }
         }
 
@@ -142,7 +141,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             if (this._blend !== value) {
                 this._blend = value;
 
-                this.set_uniform_value('blend', parseFloat(this._blend - 1e-6));
+                uniforms.set_uniform(this, 'blend', parseFloat(this._blend - 1e-6));
                 this.set_enabled(this.blend > 0);
             }
         }
@@ -155,7 +154,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             if (this._blend_mode !== value) {
                 this._blend_mode = value;
 
-                this.set_uniform_value('mode', this._blend_mode);
+                uniforms.set_uniform(this, 'mode', this._blend_mode);
             }
         }
 
@@ -167,7 +166,7 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             if (this._opacity_factor !== value) {
                 this._opacity_factor = value;
 
-                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
+                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 
@@ -189,5 +188,10 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             this.blend_mode = params.blend_mode;
             if ('opacity_factor' in params)
                 this.opacity_factor = params.opacity_factor;
+        }
+
+        vfunc_paint_target(paint_node, paint_context) {
+            uniforms.upload_uniforms(this);
+            super.vfunc_paint_target(paint_node, paint_context);
         }
     });
