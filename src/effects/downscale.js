@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
@@ -58,14 +59,14 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
         }
     }, class DownscaleEffect extends Clutter.ShaderEffect {
         constructor(params) {
-            super(params);
-
-            utils.setup_params(this, params);
+            super();
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
+
+            utils.setup_params(this, params);
         }
 
         static get default_params() {
@@ -77,10 +78,11 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set divider(value) {
-            if (this._divider !== value) {
-                this._divider = value;
+            const v = Math.max(1, value || 1);
+            if (this._divider !== v) {
+                this._divider = v;
 
-                this.set_uniform_value('divider', this._divider);
+                uniforms.set_uniform(this, 'divider', this._divider);
             }
         }
 
@@ -92,7 +94,7 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
             if (this._downsampling_mode !== value) {
                 this._downsampling_mode = value;
 
-                this.set_uniform_value('downsampling_mode', this._downsampling_mode);
+                uniforms.set_uniform(this, 'downsampling_mode', this._downsampling_mode);
             }
         }
 
@@ -104,7 +106,7 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
             if (this._opacity_factor !== value) {
                 this._opacity_factor = value;
 
-                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
+                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 
@@ -113,10 +115,11 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set width(value) {
-            if (this._width !== value) {
-                this._width = value;
+            const v = Math.max(1, value || 1);
+            if (this._width !== v) {
+                this._width = v;
 
-                this.set_uniform_value('width', parseFloat(this._width - 1e-6));
+                uniforms.set_uniform(this, 'width', parseFloat(this._width - 1e-6));
             }
         }
 
@@ -125,10 +128,11 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set height(value) {
-            if (this._height !== value) {
-                this._height = value;
+            const v = Math.max(1, value || 1);
+            if (this._height !== v) {
+                this._height = v;
 
-                this.set_uniform_value('height', parseFloat(this._height - 1e-6));
+                uniforms.set_uniform(this, 'height', parseFloat(this._height - 1e-6));
             }
         }
 
@@ -152,8 +156,14 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
         }
 
         vfunc_paint_target(paint_node, paint_context) {
-            // force setting nearest-neighbour texture filtering
-            this.get_pipeline().set_layer_filters(0, 9728, 9728);
+            uniforms.upload_uniforms(this);
+
+            const pipeline = this.get_pipeline();
+            if (pipeline) {
+                try {
+                    pipeline.set_layer_filters(0, 9728, 9728);
+                } catch (e) { }
+            }
 
             super.vfunc_paint_target(paint_node, paint_context);
         }

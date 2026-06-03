@@ -157,20 +157,32 @@ export const EffectRow = GObject.registerClass({
                         use_alpha: param.use_alpha
                     });
                     row.add_suffix(color_button);
-                    // set original color
                     let c = color_button.get_rgba().copy();
-                    if (param.use_alpha)
+                    if (param.use_alpha) {
                         [c.red, c.green, c.blue, c.alpha] = this.get_effect_param(param_key);
-                    else
+                        if (c.alpha <= 0)
+                            c.alpha = 1;
+                    } else
                         [c.red, c.green, c.blue] = this.get_effect_param(param_key);
                     color_button.set_rgba(c);
-                    // update on on 'color-set'
                     color_button.connect(
                         'color-set', () => {
                             let c = color_button.get_rgba();
-                            if (param.use_alpha)
-                                this.set_effect_param(param_key, [c.red, c.green, c.blue, c.alpha]);
-                            else
+                            if (param.use_alpha) {
+                                const previous = this.get_effect_param(param_key);
+                                const changed_color = previous.length >= 3 && (
+                                    previous[0] !== c.red ||
+                                    previous[1] !== c.green ||
+                                    previous[2] !== c.blue
+                                );
+                                const alpha = c.alpha <= 0 && previous[3] <= 0 && changed_color ?
+                                    1 : c.alpha;
+                                if (alpha !== c.alpha) {
+                                    c.alpha = alpha;
+                                    color_button.set_rgba(c);
+                                }
+                                this.set_effect_param(param_key, [c.red, c.green, c.blue, alpha]);
+                            } else
                                 this.set_effect_param(param_key, [c.red, c.green, c.blue]);
                         }
                     );
@@ -201,22 +213,27 @@ export const EffectRow = GObject.registerClass({
     }
 
     set_effect_param(key, value) {
-        // we must pay attention not to change the effects in the pipelines manager before updating
-        // it in gsettings, else it won't be updated (or every effect will be)
-        let effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
-        const effect_index = effects.findIndex(e => e.id == this.effect.id);
+        const current_effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effect_index = current_effects.findIndex(e => e.id == this.effect.id);
 
         if (effect_index >= 0) {
-            effects[effect_index] = {
-                ...this.effect, params: { ...this.effect.params }
-            };
-            effects[effect_index].params[key] = value;
+            const effects = current_effects.map(effect => {
+                if (effect.id !== this.effect.id)
+                    return effect;
+
+                return {
+                    ...effect,
+                    params: {
+                        ...(effect.params ?? {}),
+                        [key]: value,
+                    },
+                };
+            });
             this.effect = effects[effect_index];
+            this.pipelines_manager.update_pipeline_effects(this.pipeline_id, effects);
         }
         else
             this._warn(`effect not found when setting key ${key}`);
-
-        this.pipelines_manager.update_pipeline_effects(this.pipeline_id, effects, false);
     }
 
     _warn(str) {

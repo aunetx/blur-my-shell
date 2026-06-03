@@ -73,15 +73,23 @@ export class PipelinesManager {
         this._emit('pipeline-list-changed');
     }
 
-    update_pipeline_effects(id, effects, emit_update_signal = true) {
+    update_pipeline_effects(id, effects) {
         if (!(id in this.pipelines)) {
             this._warn(`could not update pipeline effects, id ${id} does not exist`);
             return;
         }
-        this.pipelines[id].effects = [...effects];
-        this.settings.PIPELINES = this.pipelines;
-        if (emit_update_signal)
-            this._emit(id + '::pipeline-updated');
+        const pipeline = this.pipelines[id];
+        const pipelines = {
+            ...this.pipelines,
+            [id]: {
+                ...pipeline,
+                effects: effects.map(effect => ({
+                    ...effect,
+                    params: { ...(effect.params ?? {}) },
+                })),
+            },
+        };
+        this.settings.PIPELINES = pipelines;
     }
 
     rename_pipeline(id, name) {

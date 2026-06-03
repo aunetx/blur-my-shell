@@ -3,21 +3,20 @@ import Gio from 'gi://Gio';
 import Meta from 'gi://Meta';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-
 import {
     POPUP_BACKGROUND_STYLES,
     PopupBlurTargets,
 } from './targets.js';
+import { SurfaceSettings } from '../../conveniences/surface_settings.js';
 import { PopupBlurSurface } from './blur_surface.js';
 import { PopupBlurMessageStacks } from './message_stacks.js';
-
 const POPUP_INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
 const POPUP_INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
-
 export const PopupBlur = class PopupBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.settings = settings;
+        this.blur_settings = new SurfaceSettings(settings, 'popup');
         this.effects_manager = effects_manager;
         this.surfaces = new Map();
         this.containers = new Set();
@@ -33,7 +32,6 @@ export const PopupBlur = class PopupBlur {
         this.reset_id = 0;
         this.enabled = false;
     }
-
     enable() {
         if (this.enabled) {
             this._log("blur already enabled");
@@ -67,11 +65,23 @@ export const PopupBlur = class PopupBlur {
         );
 
         this.track_container(Main.uiGroup);
+        this.track_container(Main.layoutManager?.uiGroup);
+        this.track_container(Main.layoutManager?.panelBox);
         (Main.osdWindowManager?._osdWindows ?? []).forEach(window => this.track_container(window));
         this.track_container(Main.layoutManager?.modalDialogGroup);
         this.track_container(Main.messageTray?._bannerBin);
         this.track_quick_settings();
         this.track_container(global.window_group);
+        this.connect_to_overview();
+    }
+
+    connect_to_overview() {
+        const refresh_surfaces = () => {
+            this.surfaces.forEach(surface => surface.queue_update({ force: true }));
+        };
+
+        this.connections.connect(Main.overview, 'showing', refresh_surfaces);
+        this.connections.connect(Main.overview, 'hidden', refresh_surfaces);
     }
 
     track_container(container) {
@@ -203,7 +213,7 @@ export const PopupBlur = class PopupBlur {
             root_actor,
             parent,
             sibling,
-            this.get_corner_radius(target, root_actor),
+            () => this.targets.get_corner_radius(target, root_actor),
             () => this.enabled && this.surfaces.has(target)
         );
 
@@ -270,21 +280,21 @@ export const PopupBlur = class PopupBlur {
             if (!parent)
                 break;
 
-            if (parent === Main.uiGroup || parent === Main.layoutManager?.uiGroup)
+            if (
+                parent === Main.uiGroup
+                || parent === Main.layoutManager?.uiGroup
+                || parent === Main.layoutManager?.panelBox
+            )
                 return { parent, sibling: actor };
 
             if (parent === global.window_group)
-                return { parent: actor, sibling: child ?? actor.get_last_child?.() ?? null };
+                return { parent: actor, sibling: child };
 
             child = actor;
             actor = parent;
         }
 
         return { parent: Main.uiGroup, sibling: null };
-    }
-
-    get_corner_radius(target, root_actor) {
-        return this.targets.get_corner_radius(target, root_actor);
     }
 
     get_blur_targets(actor) {
@@ -433,7 +443,7 @@ export const PopupBlur = class PopupBlur {
     update_background() {
         POPUP_BACKGROUND_STYLES.forEach(style => Main.uiGroup.remove_style_class_name(style));
 
-        if (this.settings.popup.OVERRIDE_BACKGROUND)
+        if (this.blur_settings.OVERRIDE_BACKGROUND)
             Main.uiGroup.add_style_class_name(
                 POPUP_BACKGROUND_STYLES[this.get_background_style()]
             );
@@ -442,7 +452,9 @@ export const PopupBlur = class PopupBlur {
     }
 
     get_background_style() {
-        const style = this.settings.popup.STYLE_POPUP;
+        const style = this.blur_settings.USE_GLOBAL ?
+            this.blur_settings.BACKGROUND_STYLE :
+            this.settings.popup.STYLE_POPUP;
         if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
             return style;
 

@@ -118,12 +118,14 @@ export const EffectsDialog = GObject.registerClass({
 
         const effect_row = new EffectRow(effect, this);
         this._effects_list.add(effect_row);
-        this.move_row_by(effect_row, 0);
         this.update_rows_insensitive_mover(effect_row);
     }
 
     move_row_by(row, number) {
-        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects.map(effect => ({
+            ...effect,
+            params: { ...(effect.params ?? {}) },
+        }));
         const effect_index = effects.findIndex(e => e.id == row.effect.id);
 
         if (effect_index >= 0) {
@@ -159,7 +161,10 @@ export const EffectsDialog = GObject.registerClass({
     }
 
     remove_row(row) {
-        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects.map(effect => ({
+            ...effect,
+            params: { ...(effect.params ?? {}) },
+        }));
         const effect_index = effects.findIndex(e => e.id == row.effect.id);
 
         if (effect_index >= 0) {

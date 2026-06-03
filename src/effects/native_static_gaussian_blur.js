@@ -15,17 +15,22 @@ export const NativeStaticBlurEffect = utils.IS_IN_PREFERENCES ?
         GTypeName: "NativeStaticBlurEffect"
     }, class NativeStaticBlurEffect extends Shell.BlurEffect {
         constructor(params) {
-            const { unscaled_radius, brightness, ...parent_params } = params;
+            const normalized_params = { ...params };
+            if (!('unscaled_radius' in normalized_params) && 'radius' in normalized_params)
+                normalized_params.unscaled_radius = normalized_params.radius;
+            delete normalized_params.radius;
+
+            const { unscaled_radius, brightness, ...parent_params } = normalized_params;
             super({ ...parent_params, mode: Shell.BlurMode.ACTOR });
 
             this._theme_context = St.ThemeContext.get_for_stage(global.stage);
             this._theme_context.connectObject(
                 'notify::scale-factor',
-                _ => this.radius = this.unscaled_radius * this._theme_context.scale_factor,
+                _ => this.radius = Math.max(0.5, this.unscaled_radius * this._theme_context.scale_factor),
                 this
             );
 
-            utils.setup_params(this, params);
+            utils.setup_params(this, normalized_params);
         }
 
         static get default_params() {
@@ -38,6 +43,6 @@ export const NativeStaticBlurEffect = utils.IS_IN_PREFERENCES ?
 
         set unscaled_radius(value) {
             this._unscaled_radius = value;
-            this.radius = value * this._theme_context.scale_factor;
+            this.radius = Math.max(0.5, value * this._theme_context.scale_factor);
         }
     });

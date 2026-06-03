@@ -1,15 +1,18 @@
 /*** POPUP ***/
 
 .bms-popup-blurred-widget {
-    background: rgba(0, 0, 0, 0.01);
+    background: transparent;
 }
 
 .bms-popup-background-transparent .popup-menu-content,
+.bms-popup-background-transparent .popup-menu,
 .bms-popup-background-transparent .popup-sub-menu,
 .bms-popup-background-transparent .candidate-popup-content,
 .bms-popup-background-transparent .quick-settings,
 .bms-popup-background-transparent .quick-toggle-menu,
 .bms-popup-background-transparent .message,
+.bms-popup-background-transparent .notification,
+.bms-popup-background-transparent .notification-banner,
 .bms-popup-background-transparent .osd-window,
 .bms-popup-background-transparent .resize-popup,
 .bms-popup-background-transparent .switcher-list,
@@ -22,11 +25,14 @@
 }
 
 .bms-popup-background-light .popup-menu-content,
+.bms-popup-background-light .popup-menu,
 .bms-popup-background-light .popup-sub-menu,
 .bms-popup-background-light .candidate-popup-content,
 .bms-popup-background-light .quick-settings,
 .bms-popup-background-light .quick-toggle-menu,
 .bms-popup-background-light .message,
+.bms-popup-background-light .notification,
+.bms-popup-background-light .notification-banner,
 .bms-popup-background-light .osd-window,
 .bms-popup-background-light .resize-popup,
 .bms-popup-background-light .switcher-list,
@@ -40,11 +46,14 @@
 }
 
 .bms-popup-background-dark .popup-menu-content,
+.bms-popup-background-dark .popup-menu,
 .bms-popup-background-dark .popup-sub-menu,
 .bms-popup-background-dark .candidate-popup-content,
 .bms-popup-background-dark .quick-settings,
 .bms-popup-background-dark .quick-toggle-menu,
 .bms-popup-background-dark .message,
+.bms-popup-background-dark .notification,
+.bms-popup-background-dark .notification-banner,
 .bms-popup-background-dark .osd-window,
 .bms-popup-background-dark .resize-popup,
 .bms-popup-background-dark .switcher-list,
@@ -58,8 +67,14 @@
 }
 
 .bms-popup-background-transparent .message,
+.bms-popup-background-transparent .notification,
+.bms-popup-background-transparent .notification-banner,
 .bms-popup-background-light .message,
-.bms-popup-background-dark .message {
+.bms-popup-background-light .notification,
+.bms-popup-background-light .notification-banner,
+.bms-popup-background-dark .message,
+.bms-popup-background-dark .notification,
+.bms-popup-background-dark .notification-banner {
     box-shadow: none;
 }
 

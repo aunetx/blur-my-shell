@@ -195,13 +195,27 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     has_valid_geometry(geometry) {
-        return geometry?.width > 0 && geometry?.height > 0;
+        return (
+            geometry?.width > 0
+            && geometry?.height > 0
+            && Number.isFinite(geometry.x)
+            && Number.isFinite(geometry.y)
+            && Number.isFinite(geometry.width)
+            && Number.isFinite(geometry.height)
+            && Number.isFinite(geometry.target_x)
+            && Number.isFinite(geometry.target_y)
+        );
     }
 
     keep_transition_visible(transition_state) {
-        if (this.offscreen || !this.ready || !this.has_cached_geometry() || !transition_state.running)
+        if (
+            this.offscreen
+            || !this.ready
+            || !this.has_cached_geometry()
+            || !transition_state.running
+            || !this.surface.is_visible()
+        )
             return false;
-
         const opacity = this.surface.update_opacity(transition_state);
         if (opacity <= 0)
             return false;
@@ -259,11 +273,20 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             return true;
 
         this.ready = true;
-        this.surface.opacity = 0;
-        this.surface.update_surface_opacity(0);
-        this.surface.hide_actors();
-        this.surface.queue_update();
-        return false;
+        if (
+            this.surface.static_blur
+            && !this.surface.is_notification_surface()
+        ) {
+            this.surface.opacity = 0;
+            this.surface.update_surface_opacity(0);
+            this.surface.hide_actors();
+            this.surface.queue_update({ force: true });
+            return false;
+        }
+
+        if (!this.surface.static_blur)
+            this.surface.live_actor?.prepare_visible?.();
+        return true;
     }
 
     update_surface_geometry(geometry) {
@@ -276,7 +299,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             ))
                 return false;
         } else {
-            if (!this.update_dynamic_geometry(geometry.x, geometry.y, geometry.width, geometry.height))
+            if (!this.update_dynamic_geometry(geometry))
                 return false;
         }
 
@@ -284,8 +307,9 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         return true;
     }
 
-    update_dynamic_geometry(x, y, width, height) {
+    update_dynamic_geometry(geometry) {
         try {
+            const { x, y, width, height } = geometry;
             if (this.x !== x || this.y !== y) {
                 this.surface.blur_actor.set_position(x, y);
                 this.x = x;
@@ -297,6 +321,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
                 this.width = width;
                 this.height = height;
             }
+            this.surface.live_actor?.update_geometry(geometry);
         } catch (e) {
             return false;
         }
