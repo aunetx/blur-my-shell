@@ -25,6 +25,7 @@ const DEFAULT_PARAMS = {
     texture_repeat: 0,
     blur_direction: 0,
     private_pass: 0,
+    opacity_factor: 1,
     chained_effect: null,
     width: 0,
     height: 0,
@@ -154,6 +155,14 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 0, 1,
                 0,
             ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
+            ),
             'chained_effect': GObject.ParamSpec.object(
                 `chained_effect`,
                 `Chained Effect`,
@@ -204,6 +213,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             this._stabilize_clip_x = false;
             this._stabilize_clip_y = false;
             this._clip_settle_timeout_id = null;
+            this._opacity_factor = null;
 
             utils.setup_params(this, params);
 
@@ -407,6 +417,18 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 this.set_uniform_value('private_pass', this._private_pass);
                 if (this._private_pass === 1)
                     this.set_enabled(this.blur_radius > 0.01);
+            }
+        }
+
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 
@@ -648,6 +670,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                         shadow: this.shadow,
                         mode: this.mode,
                         texture_repeat: this.texture_repeat,
+                        opacity_factor: this.opacity_factor,
                         width: this.width,
                         height: this.height,
                         clip: this.clip,
