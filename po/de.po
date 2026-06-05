@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-05-23 18:11+0000\n"
-"Last-Translator: H9niki9 99 <hniki5324@gmail.com>\n"
+"PO-Revision-Date: 2026-06-06 02:01+0000\n"
+"Last-Translator: daffodilkoala "
+"<daffodilkoala@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -174,7 +175,7 @@ msgstr "Normal"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "Multiplizieren"
 
 #: src/effects/effects.js:182
 msgid "Screen"
@@ -186,7 +187,7 @@ msgstr ""
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Verdunkeln"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
