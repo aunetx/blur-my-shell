@@ -36,7 +36,8 @@
 .overview-components-transparent.just-perfection .search-section-content,
 /* remove the rectangular background from the dash */
 .overview-components-transparent #dash .overview-tile,
-.overview-components-transparent #dashtopanelScrollview .overview-tile {
+.overview-components-transparent #dashtopanelScrollview .overview-tile,
+.overview-components-transparent .multimonitor-dock .overview-tile {
     background-color: transparent !important;
 }
 
@@ -46,7 +47,8 @@
 .overview-components-transparent .page-navigation-arrow,
 .overview-components-transparent .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
-.overview-components-transparent StBoxLayout>StWidget>#dash>.dash-background {
+.overview-components-transparent StBoxLayout>StWidget>#dash>.dash-background,
+.overview-components-transparent .multimonitor-dock .dash-background {
     background-color: rgba(0, 0, 0, 0) !important;
 }
 
@@ -71,7 +73,11 @@
 .overview-components-transparent #dash .overview-tile:hover .overview-icon,
 .overview-components-transparent #dash .overview-tile:focus .overview-icon,
 .overview-components-transparent #dash .show-apps:hover .overview-icon,
-.overview-components-transparent #dash .show-apps:focus .overview-icon {
+.overview-components-transparent #dash .show-apps:focus .overview-icon,
+.overview-components-transparent .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-transparent .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-transparent .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-transparent .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.08) !important;
 }
 
@@ -97,7 +103,11 @@
 .overview-components-transparent #dash .overview-tile:active .overview-icon,
 .overview-components-transparent #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-transparent #dash .overview-tile:drop .overview-icon,
-.overview-components-transparent #dash .show-apps:checked .overview-icon {
+.overview-components-transparent #dash .show-apps:checked .overview-icon,
+.overview-components-transparent .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-transparent .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-transparent .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-transparent .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.12) !important;
 }
 
@@ -113,7 +123,8 @@
 .overview-components-transparent .search-provider-icon:focus:active,
 .overview-components-transparent .page-navigation-arrow:focus:active,
 .overview-components-transparent .app-folder-dialog .icon-button:focus:active,
-.overview-components-transparent #dash .show-apps:checked .overview-icon:hover {
+.overview-components-transparent #dash .show-apps:checked .overview-icon:hover,
+.overview-components-transparent .multimonitor-dock .show-apps:checked .overview-icon:hover {
     background-color: rgba(230, 230, 230, 0.15) !important;
 }
 
@@ -142,7 +153,8 @@
 .overview-components-light.just-perfection .search-section-content,
 /* remove the rectangular background from the dash */
 .overview-components-light #dash .overview-tile,
-.overview-components-light #dashtopanelScrollview .overview-tile {
+.overview-components-light #dashtopanelScrollview .overview-tile,
+.overview-components-light .multimonitor-dock .overview-tile {
     background-color: transparent !important;
 }
 
@@ -152,7 +164,8 @@
 .overview-components-light .page-navigation-arrow,
 .overview-components-light .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
-.overview-components-light StBoxLayout>StWidget>#dash>.dash-background {
+.overview-components-light StBoxLayout>StWidget>#dash>.dash-background,
+.overview-components-light .multimonitor-dock .dash-background {
     background-color: rgba(200, 200, 200, 0.2) !important;
 }
 
@@ -177,7 +190,11 @@
 .overview-components-light #dash .overview-tile:hover .overview-icon,
 .overview-components-light #dash .overview-tile:focus .overview-icon,
 .overview-components-light #dash .show-apps:hover .overview-icon,
-.overview-components-light #dash .show-apps:focus .overview-icon {
+.overview-components-light #dash .show-apps:focus .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-light .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-light .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.2) !important;
 }
 
@@ -203,7 +220,11 @@
 .overview-components-light #dash .overview-tile:active .overview-icon,
 .overview-components-light #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-light #dash .overview-tile:drop .overview-icon,
-.overview-components-light #dash .show-apps:checked .overview-icon {
+.overview-components-light #dash .show-apps:checked .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-light .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-light .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: rgba(230, 230, 230, 0.25) !important;
 }
 
@@ -219,7 +240,8 @@
 .overview-components-light .search-provider-icon:focus:active,
 .overview-components-light .page-navigation-arrow:focus:active,
 .overview-components-light .app-folder-dialog .icon-button:focus:active,
-.overview-components-light #dash .show-apps:checked .overview-icon:hover {
+.overview-components-light #dash .show-apps:checked .overview-icon:hover,
+.overview-components-light .multimonitor-dock .show-apps:checked .overview-icon:hover {
     background-color: rgba(230, 230, 230, 0.3) !important;
 }
 
@@ -248,7 +270,8 @@
 .overview-components-dark.just-perfection .search-section-content,
 /* remove the rectangular background from the dash */
 .overview-components-dark #dash .overview-tile,
-.overview-components-dark #dashtopanelScrollview .overview-tile {
+.overview-components-dark #dashtopanelScrollview .overview-tile,
+.overview-components-dark .multimonitor-dock .overview-tile {
     background-color: transparent !important;
 }
 
@@ -258,7 +281,8 @@
 .overview-components-dark .page-navigation-arrow,
 .overview-components-dark .app-folder-dialog .icon-button,
 /* this shouldn't apply to Dash to Dock */
-.overview-components-dark StBoxLayout>StWidget>#dash>.dash-background {
+.overview-components-dark StBoxLayout>StWidget>#dash>.dash-background,
+.overview-components-dark .multimonitor-dock .dash-background {
     background-color: rgba(100, 100, 100, 0.35) !important;
 }
 
@@ -283,7 +307,11 @@
 .overview-components-dark #dash .overview-tile:hover .overview-icon,
 .overview-components-dark #dash .overview-tile:focus .overview-icon,
 .overview-components-dark #dash .show-apps:hover .overview-icon,
-.overview-components-dark #dash .show-apps:focus .overview-icon {
+.overview-components-dark #dash .show-apps:focus .overview-icon,
+.overview-components-dark .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-dark .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-dark .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-dark .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: rgba(120, 120, 120, 0.35) !important;
 }
 
@@ -309,7 +337,11 @@
 .overview-components-dark #dash .overview-tile:active .overview-icon,
 .overview-components-dark #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-dark #dash .overview-tile:drop .overview-icon,
-.overview-components-dark #dash .show-apps:checked .overview-icon {
+.overview-components-dark #dash .show-apps:checked .overview-icon,
+.overview-components-dark .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-dark .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-dark .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-dark .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: rgba(120, 120, 120, 0.4) !important;
 }
 
@@ -325,7 +357,8 @@
 .overview-components-dark .search-provider-icon:focus:active,
 .overview-components-dark .page-navigation-arrow:focus:active,
 .overview-components-dark .app-folder-dialog .icon-button:focus:active,
-.overview-components-dark #dash .show-apps:checked .overview-icon:hover {
+.overview-components-dark #dash .show-apps:checked .overview-icon:hover,
+.overview-components-dark .multimonitor-dock .show-apps:checked .overview-icon:hover {
     background-color: rgba(120, 120, 120, 0.45) !important;
 }
 
