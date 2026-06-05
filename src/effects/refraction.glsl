@@ -330,7 +330,7 @@ void main() {
     float feather = max(1.25, min(bezel * 0.08, 4.0));
     float edgeOpacity = 1.0 - smoothstep(-feather, feather, signedDist);
     if (edgeOpacity <= 0.0) {
-        cogl_color_out = mix(texture2D(tex, actorUV), vec4(0.0), opacity_factor);
+        cogl_color_out = vec4(0.0);
         return;
     }
 
@@ -388,11 +388,8 @@ void main() {
     bgColor.rgb = mix(bgColor.rgb, vec3(0.92, 0.96, 1.0), tint * 0.22 + bodyMix);
     bgColor.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
 
-    vec4 sourceColor = texture2D(tex, actorUV);
-    vec4 effectColor = vec4(
+    cogl_color_out = vec4(
         clamp(bgColor.rgb, 0.0, 1.0) * edgeOpacity,
         min(bgColor.a, edgeOpacity)
     );
-
-    cogl_color_out = mix(sourceColor, effectColor, opacity_factor);
 }
