@@ -422,9 +422,9 @@ export const PanelBlur = class PanelBlur {
             return;
 
         if (this.settings.panel.FORCE_LIGHT_TEXT && !disable)
-            Main.panel.add_style_class_name("panel-light-text");
+            Main.uiGroup.add_style_class_name("panel-light-text");
         else
-            Main.panel.remove_style_class_name("panel-light-text");
+            Main.uiGroup.remove_style_class_name("panel-light-text");
     }
 
     /// Callback when a new window is added
