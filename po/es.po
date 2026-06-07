@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-05-28 14:11+0000\n"
-"Last-Translator: Joel Molina Navarro <joelmolinanavarro21@gmail.com>\n"
+"PO-Revision-Date: 2026-06-08 18:01+0000\n"
+"Last-Translator: Libre <6n0n1m0s@proton.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/es/>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -160,11 +160,11 @@ msgstr ""
 
 #: src/effects/effects.js:176
 msgid "Blend mode"
-msgstr ""
+msgstr "Modo mezcla"
 
 #: src/effects/effects.js:177
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Cómo se mezcla el color."
 
 #: src/effects/effects.js:180
 msgid "Normal"
@@ -180,39 +180,39 @@ msgstr "Pantalla"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "Cobertura"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Oscuridad"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "Aclarar"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
-msgstr ""
+msgstr "Más oscuridad"
 
 #: src/effects/effects.js:187
 msgid "Plus lighter"
-msgstr ""
+msgstr "Más claridad"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "Esquivar color"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "Quemado de color"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "Luz intensa"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
-msgstr ""
+msgstr "Luz difusa"
 
 #: src/effects/effects.js:192
 msgid "Difference"
@@ -220,11 +220,11 @@ msgstr "Diferencia"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr "Exclusion"
+msgstr "Exclusión"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "Matiz"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
@@ -240,7 +240,7 @@ msgstr "Un efecto que afecta la luminosidad de la imagen."
 
 #: src/effects/effects.js:210
 msgid "Shift brightness"
-msgstr ""
+msgstr "Cambiar el brillo"
 
 #: src/effects/effects.js:211
 msgid "The brightness to add of remove to the image."
@@ -268,17 +268,19 @@ msgstr "El contraste de la imagen con respecto al centro del contraste."
 
 #: src/effects/effects.js:240
 msgid "Contrast center"
-msgstr ""
+msgstr "Centro de contraste"
 
 #: src/effects/effects.js:241
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "El centro del contraste a utilizar."
 
 #: src/effects/effects.js:251
 msgid ""
 "The saturation of the image, so that 0 means no saturation and 2 means "
 "infinite saturation."
 msgstr ""
+"La saturación de la imagen, de modo que 0 significa sin saturación y 2 "
+"significa saturación infinita."
 
 #: src/effects/effects.js:264
 msgid "Pixelize"
@@ -387,7 +389,7 @@ msgstr "La cantidad de ruido a agregar."
 
 #: src/effects/effects.js:369
 msgid "Lightness"
-msgstr "Luminosidad"
+msgstr "Claridad"
 
 #: src/effects/effects.js:370
 msgid ""
@@ -488,6 +490,9 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect, "
 "but shows content behind windows."
 msgstr ""
+"El desenfoque dinámico es más lento y solo es compatible con un efecto de "
+"desenfoque gaussiano, pero muestra el contenido que se encuentra detrás de "
+"las ventanas."
 
 #: resources/ui/applications.ui:42 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41
@@ -515,7 +520,7 @@ msgstr "La intensidad del difuminado."
 #: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
 #: resources/ui/panel.ui:130
 msgid "Corner radius"
-msgstr ""
+msgstr "Radio de esquina"
 
 #: resources/ui/applications.ui:115 resources/ui/dash.ui:114
 #: resources/ui/panel.ui:114
@@ -523,21 +528,24 @@ msgid ""
 "In order to use rounded corners, please install the GNOME Rounded Blur "
 "library."
 msgstr ""
+"Para utilizar esquinas redondeadas, instale la biblioteca GNOME Rounded Blur."
 
 #: resources/ui/applications.ui:132 resources/ui/dash.ui:131
 #: resources/ui/panel.ui:131
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "Radio para el efecto de redondeo de esquinas."
 
 #: resources/ui/applications.ui:140
 msgid "Enable corner rounding on maximized and fullscreen"
-msgstr ""
+msgstr "Habilitar el redondeo de esquinas en pantalla maximizada y completa"
 
 #: resources/ui/applications.ui:141
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
 msgstr ""
+"El efecto de redondeo de esquinas se seguirá aplicando a las ventanas "
+"maximizadas y a las de pantalla completa."
 
 #: resources/ui/applications.ui:155
 msgid "Opacity"
@@ -594,6 +602,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Un listado de ventanas para desenfocar.\n"
+"Utilice * para que coincida con cualquier secuencia de caracteres (p. ej., "
+"Firefox* o *Code*), y ? para que coincida con un solo carácter."
 
 #: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
@@ -609,6 +620,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Lista de ventanas que no se deben desenfocar.\n"
+"Utilice * para que coincida con cualquier secuencia de caracteres (p. ej., "
+"Firefox* o *Code*), y ? para que coincida con un solo carácter."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
