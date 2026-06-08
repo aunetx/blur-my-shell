@@ -12,6 +12,7 @@ import { DerivativeEffect } from './derivative.js';
 import { RgbToHslEffect } from './rgb_to_hsl.js';
 import { HslToRgbEffect } from './hsl_to_rgb.js';
 import { LuminosityEffect } from './luminosity.js';
+import { RefractionEffect } from './refraction.js';
 
 // We do in this way because I've not found another way to store our preferences in a dictionnary
 // while calling `gettext` on it while in preferences. Not so pretty, but works.
@@ -31,6 +32,7 @@ export function get_effects_groups(_ = _ => "") {
                 "downscale",
                 "upscale",
                 "pixelize",
+                "refraction",
                 "derivative",
                 "noise",
                 "color",
@@ -374,6 +376,124 @@ export function get_supported_effects(_ = () => "") {
                     increment: 0.01,
                     big_increment: 0.1,
                     digits: 2
+                }
+            }
+        },
+
+        refraction: {
+            class: RefractionEffect,
+            name: _("Liquid Glass"),
+            description: _("A glossy translucent material with edge refraction, rim lighting, tint, and inner shadow."),
+            is_advanced: false,
+            editable_params: {
+                strength: {
+                    name: _("Refraction scale"),
+                    description: _("How strongly the glass bends the sampled blur texture."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                blur_radius: {
+                    name: _("Blur radius"),
+                    description: _("Blurs the sampled backdrop before the liquid-glass shader is applied."),
+                    type: "float",
+                    min: 0.,
+                    max: 48.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                edge_size: {
+                    name: _("Bezel width"),
+                    description: _("How far the liquid-glass lens reaches inward from the edge."),
+                    type: "float",
+                    min: 1.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                rim_width: {
+                    name: _("Rim spread"),
+                    description: _("How far the refraction eases inward from the glass edge."),
+                    type: "float",
+                    min: 1.,
+                    max: 6.5,
+                    increment: 0.1,
+                    big_increment: 0.5,
+                    digits: 2
+                },
+                falloff: {
+                    name: _("Glass thickness"),
+                    description: _("Depth used by the Snell-style refraction profile."),
+                    type: "float",
+                    min: 0.25,
+                    max: 8.,
+                    increment: 0.05,
+                    big_increment: 0.5,
+                    digits: 2
+                },
+                corner_radius: {
+                    name: _("Corner radius"),
+                    description: _("The rounded shape used for the glass edge and highlight."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                gloss: {
+                    name: _("Gloss"),
+                    description: _("Strength of the white rim and surface highlight."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                tint: {
+                    name: _("Tint"),
+                    description: _("Amount of subtle milky glass tint over the blurred texture."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                shadow: {
+                    name: _("Inner shadow"),
+                    description: _("Darkens the lower and inner edge for a deeper glass surface."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                rgb_fringing: {
+                    name: _("RGB fringing"),
+                    description: _("Adds subtle color separation to the bent texture."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                texture_repeat: {
+                    name: _("Edge behavior"),
+                    description: _("How texture coordinates outside the actor are sampled."),
+                    type: "dropdown",
+                    options: [
+                        _("Clamp"),
+                        _("Mirror")
+                    ]
                 }
             }
         },
