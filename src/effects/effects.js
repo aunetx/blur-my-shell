@@ -401,7 +401,7 @@ export function get_supported_effects(_ = () => "") {
                     description: _("Blurs the sampled backdrop before the liquid-glass shader is applied."),
                     type: "float",
                     min: 0.,
-                    max: 80.,
+                    max: 48.,
                     increment: 1.,
                     big_increment: 10.,
                     digits: 0
@@ -415,6 +415,16 @@ export function get_supported_effects(_ = () => "") {
                     increment: 1.,
                     big_increment: 10.,
                     digits: 0
+                },
+                rim_width: {
+                    name: _("Rim spread"),
+                    description: _("How far the refraction eases inward from the glass edge."),
+                    type: "float",
+                    min: 1.,
+                    max: 6.5,
+                    increment: 0.1,
+                    big_increment: 0.5,
+                    digits: 2
                 },
                 falloff: {
                     name: _("Glass thickness"),

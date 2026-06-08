@@ -8,6 +8,7 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'refraction.glsl';
 const CLIP_STABILIZE_EPSILON = 1.0;
+const MAX_BLUR_RADIUS = 48.0;
 
 const DEFAULT_PARAMS = {
     strength: 0.42,
@@ -15,6 +16,7 @@ const DEFAULT_PARAMS = {
     edge_size: 22,
     falloff: 2.4,
     corner_radius: 22,
+    rim_width: 4.8,
     rgb_fringing: 0.08,
     gloss: 0.55,
     webcam_gloss: false,
@@ -58,7 +60,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 `Blur Radius`,
                 `Internal glass blur radius`,
                 GObject.ParamFlags.READWRITE,
-                0.0, 80.0,
+                0.0, MAX_BLUR_RADIUS,
                 10.0,
             ),
             'falloff': GObject.ParamSpec.double(
@@ -76,6 +78,14 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 GObject.ParamFlags.READWRITE,
                 0.0, 200.0,
                 22.0,
+            ),
+            'rim_width': GObject.ParamSpec.double(
+                `rim_width`,
+                `Rim Width`,
+                `Refraction rim width`,
+                GObject.ParamFlags.READWRITE,
+                1.0, 6.5,
+                4.8,
             ),
             'rgb_fringing': GObject.ParamSpec.double(
                 `rgb_fringing`,
@@ -267,12 +277,12 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
 
         set blur_radius(value) {
             if (this._blur_radius !== value) {
-                this._blur_radius = value;
+                this._blur_radius = Math.min(value, MAX_BLUR_RADIUS);
 
                 this.update_scaled_uniforms();
 
                 if (this.chained_effect)
-                    this.chained_effect.blur_radius = value;
+                    this.chained_effect.blur_radius = this._blur_radius;
             }
         }
 
@@ -303,6 +313,22 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
 
                 if (this.chained_effect)
                     this.chained_effect.corner_radius = value;
+            }
+        }
+
+        get rim_width() {
+            return this._rim_width;
+        }
+
+        set rim_width(value) {
+            const rim_width = Math.max(1.0, Math.min(value, 6.5));
+            if (this._rim_width !== rim_width) {
+                this._rim_width = rim_width;
+
+                this.set_uniform_value('rim_width', parseFloat(this._rim_width - 1e-6));
+
+                if (this.chained_effect)
+                    this.chained_effect.rim_width = rim_width;
             }
         }
 
@@ -609,9 +635,10 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
 
             this.set_uniform_value('edge_size', parseFloat(edge_size - 1e-6));
             this.set_uniform_value('corner_radius', parseFloat(corner_radius - 1e-6));
-            this.set_uniform_value('blur_radius', parseFloat(this.blur_radius * scale_factor - 1e-6));
+            const blur_radius = Math.min(this.blur_radius, MAX_BLUR_RADIUS) * scale_factor;
+            this.set_uniform_value('blur_radius', parseFloat(blur_radius - 1e-6));
             if (this.private_pass === 1)
-                this.set_enabled(this.blur_radius > 0.01);
+                this.set_enabled(blur_radius > 0.01);
         }
 
         vfunc_set_actor(actor) {
@@ -664,6 +691,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                         edge_size: this.edge_size,
                         falloff: this.falloff,
                         corner_radius: this.corner_radius,
+                        rim_width: this.rim_width,
                         rgb_fringing: this.rgb_fringing,
                         gloss: this.gloss,
                         tint: this.tint,
