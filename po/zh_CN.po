@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2025-07-15 14:01+0000\n"
-"Last-Translator: \"Alioc.\" <hit.177411245@gmail.com>\n"
+"PO-Revision-Date: 2026-06-11 10:01+0000\n"
+"Last-Translator: zlx0000 <zlx20010815@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -220,7 +220,7 @@ msgstr ""
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "影响图像亮度的效果。"
 
 #: src/effects/effects.js:210
 msgid "Shift brightness"
@@ -242,19 +242,19 @@ msgstr ""
 
 #: src/effects/effects.js:230
 msgid "Contrast"
-msgstr ""
+msgstr "对比度"
 
 #: src/effects/effects.js:231
 msgid "The contrast of the image in regard to the center of the contrast."
-msgstr ""
+msgstr "图像相对于对比度中心的对比度。"
 
 #: src/effects/effects.js:240
 msgid "Contrast center"
-msgstr ""
+msgstr "对比度中心"
 
 #: src/effects/effects.js:241
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "要使用的对比度中心。"
 
 #: src/effects/effects.js:251
 msgid ""
@@ -456,7 +456,7 @@ msgstr "模糊类型"
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect, "
 "but shows content behind windows."
-msgstr ""
+msgstr "动态模糊更慢且只与高斯模糊兼容，但它能够显示窗口背后的内容。"
 
 #: resources/ui/applications.ui:42 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41
