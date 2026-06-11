@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-04-03 17:09+0000\n"
-"Last-Translator: Muhammed Al-Basha <mu7basha@users.noreply.hosted.weblate."
-"org>\n"
+"PO-Revision-Date: 2026-06-03 17:01+0000\n"
+"Last-Translator: Proman4713 <proman4713@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -19,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.6\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -128,13 +127,13 @@ msgstr ""
 
 #: src/effects/effects.js:155
 msgid "Prefer closer pixels"
-msgstr ""
+msgstr "فضّل البكسلات الأقرب"
 
 #: src/effects/effects.js:156
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr ""
+msgstr "سواء البكسلات الأقرب من البكسل الأصلية ستحظى بوزن أكبر أم لا."
 
 #: src/effects/effects.js:164 src/effects/effects.js:170
 #: src/effects/effects.js:196
@@ -143,89 +142,93 @@ msgstr "اللون"
 
 #: src/effects/effects.js:165
 msgid "An effect that blends a color into the pipeline."
-msgstr "تأثير يمزج اللون بالقناة."
+msgstr "تأثير يمزج لونًا معينًا بمسار معالجة الرسوميات."
 
 #: src/effects/effects.js:171
 msgid ""
 "The color to blend in. The blending amount is controled by the opacity of "
 "the color."
-msgstr "اللون للمزج. كمية المزج تعتمد على كَمَد اللون."
+msgstr "اللون المراد مزجه. كمية المزج تعتمد على عتامة اللون."
 
 #: src/effects/effects.js:176
 msgid "Blend mode"
-msgstr ""
+msgstr "طريقة المزج"
 
 #: src/effects/effects.js:177
 msgid "How the color is blended in."
-msgstr ""
+msgstr "كيفية مزج اللون."
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "عادي"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "ضرب"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "شاشة"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "تراكب"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "تغميق"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "تفتيح"
 
 #: src/effects/effects.js:186
+#, fuzzy
 msgid "Plus darker"
-msgstr ""
+msgstr "Plus darker"
 
 #: src/effects/effects.js:187
+#, fuzzy
 msgid "Plus lighter"
-msgstr ""
+msgstr "Plus lighter"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "تفادي اللون"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "حرق اللون"
 
 #: src/effects/effects.js:190
+#, fuzzy
 msgid "Hard light"
-msgstr ""
+msgstr "Hard light"
 
 #: src/effects/effects.js:191
+#, fuzzy
 msgid "Soft light"
-msgstr ""
+msgstr "Soft light"
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "طرح"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr ""
+msgstr "استبعاد"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "درجة اللون"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "التشبع"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "السطوع"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
