@@ -36,10 +36,10 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
   - popup blur
     - you can choose between static blur and dynamic blur
     - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, and dialogs
-    - static blur uses the selected pipeline, like other static blur components
+    - static and dynamic blur use the selected pipeline, like other surface components
     - you can choose a transparent, light, dark, or automatic background above the blur
     - popup blur has separate corner-radius settings for the different popup surface types
-    - rounded corners for dynamic blur require the GNOME Rounded Blur library from the included guide
+    - rounded corners are handled by the extension
   - lockscreen — to customize the already existing blur
     - uses static blur only
   - [Window List](https://extensions.gnome.org/extension/602/window-list/) extension
@@ -61,6 +61,8 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
     - and there are two modes for blurring applications:
       - whitelisting (by default), where only windows that are selected are blurred
       - blacklisting, where every window is blurred, excepted for the selected ones
+- preferences include a global blur profile on the Surfaces page; panel, Dash to Dock, popup blur, applications, and Window List can use that profile or keep their own local settings
+- the global profile controls blur type, pipeline, and the default background override style
 
 ## Static and dynamic blur
 
@@ -68,32 +70,32 @@ For the difference between static blur and dynamic blur:
 
 - static blur uses a static image of the wallpaper, and applies the effects that are part of a pipeline on it
   - you can create, duplicate, rename, delete the pipelines in the first tab
-  - for each pipeline, you can add effects (including gaussian blur, Monte Carlo blur, pixelization, corners... with more coming soon, you can open issues if you have a specific idea!), configure them, reorder and delete them
-  - the effects order is important: the first effect in list will be applied... first, which means that if you want to add corners to you pipeline (for the panel or Dash to Dock for example), you need to add it last!
+  - for each pipeline, you can add effects (including gaussian blur, Monte Carlo blur, pixelization, color, noise, luminosity... with more coming soon, you can open issues if you have a specific idea!), configure them, reorder and delete them
+  - the effects order is important: the first effect in list will be applied... first
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
+  - surface corner radius is configured from the Surfaces page, not as a pipeline effect
   - even though it is static, this method of applying effects is not always so fast: for example, applying non-native gaussian blur, or Monte Carlo blur with a lot of iterations will make GNOME Shell quite slow while using the overview or switching workspace. This is being worked on, but for the moment you can for example limit yourself to 5 to 10 iterations for the Monte Carlo blur (which looks cool anyway!), and use native gaussian blur (which is very slightly less precise, but that really does not change anything in reality)
-- dynamic blur makes the component translucent, and blur directly what is behind it
-  - you can only use a gaussian blur for this kind of blurring
-  - by default, it is not possible to add corners, however, you can achieve that with an additional library. Consult this [guide](https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md) on how to install library yourself
-  - you can still configure the gaussian blur to make it look as cool as you want
+- dynamic blur makes the component translucent, and samples what is directly behind it
+  - it uses the selected pipeline too: blur is only applied when the pipeline contains a blur effect
+  - pipelines without a blur effect can still use effects such as pixelization, color, noise, and luminosity on live content
+  - native dynamic blur stays on the optimized Shell path when possible; shader effects use a refreshed live snapshot so they can process real pixels
+  - rounded corners are applied by the extension on the blurred actor
+  - you can configure the selected pipeline to make each dynamic surface look as cool as you want
   - this method of blurring is not very efficient: even though it should not slow down your computer to a halt, using static blur is still preferred when possible
-  - the gaussian blur effect that is being used has implementation defects, which make if having artifacts in the form of black rectangles when interacting with things that are close to the effect
-  - however, you can reduce this problem by selecting an “Artifact handling” mode in the “Other” tab in preferences
-    - if using “High performance”, then nothing is done to prevent the artifacts
-    - if using “Default”, then the blur is updated nearly every time it should be: this removes most artifacts, and induces some performances loss when using the blur effect but while still being usable
-    - if using “No artifact”, then the extension will deactivate clipped redraws in GNOME Shell. This effectively entirely fixes the issue, BUT in return will make your entire computer slower and possibly laggy; even when the blur effect is NOT shown. So I really do not recommend using this option; although it is still included because in the end you are the master of your computer!
+  - dynamic blur can still show black-rectangle artifacts near the blurred surface; this is a GNOME Shell compositor limitation
+  - if that happens, you can enable “Disable clipped redraws” in the Other preferences tab; it usually fixes the artifacts, but slows down GNOME Shell globally, even when blur is hidden, so leave it off unless you need it
 
 ## Extensions compatibility
 
 Blur my Shell is guaranteed to be compatible, in the sense of at least not to mess around, with the following extensions:
 
-- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from “Dash” to Dock page)
-- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from “Panel” page)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from the Dock section on the Surfaces page)
+- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from the Panel section on the Surfaces page)
 - [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
-- [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from “Other” page)
-- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from dedicated switch in “Panel” page)
+- [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from the Windows section on the Surfaces page)
+- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from the Panel section on the Surfaces page)
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
-- [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), although corners can't be blurred
+- [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), with surface corners handled by Blur my Shell
 - [Burn my Windows](https://extensions.gnome.org//extension/4679/burn-my-windows/), although nothing is blurred either
 
 ## Screenshots

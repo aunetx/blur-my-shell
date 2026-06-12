@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
@@ -42,14 +43,14 @@ export const NoiseEffect = utils.IS_IN_PREFERENCES ?
         }
     }, class NoiseEffect extends Clutter.ShaderEffect {
         constructor(params) {
-            super(params);
-
-            utils.setup_params(this, params);
+            super();
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
+
+            utils.setup_params(this, params);
         }
 
         static get default_params() {
@@ -64,7 +65,7 @@ export const NoiseEffect = utils.IS_IN_PREFERENCES ?
             if (this._noise !== value) {
                 this._noise = value;
 
-                this.set_uniform_value('noise', parseFloat(this._noise - 1e-6));
+                uniforms.set_uniform(this, 'noise', parseFloat(this._noise - 1e-6));
                 this.set_enabled(this.noise > 0. && this.lightness != 1);
             }
         }
@@ -77,7 +78,7 @@ export const NoiseEffect = utils.IS_IN_PREFERENCES ?
             if (this._lightness !== value) {
                 this._lightness = value;
 
-                this.set_uniform_value('lightness', parseFloat(this._lightness - 1e-6));
+                uniforms.set_uniform(this, 'lightness', parseFloat(this._lightness - 1e-6));
                 this.set_enabled(this.noise > 0. && this.lightness != 1);
             }
         }
@@ -90,7 +91,12 @@ export const NoiseEffect = utils.IS_IN_PREFERENCES ?
             if (this._opacity_factor !== value) {
                 this._opacity_factor = value;
 
-                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
+                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
+        }
+
+        vfunc_paint_target(paint_node, paint_context) {
+            uniforms.upload_uniforms(this);
+            super.vfunc_paint_target(paint_node, paint_context);
         }
     });

@@ -7,126 +7,17 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Lockscreen blur</property>
-        <property name="description" translatable="yes">Change the blur of the lockscreen to use this extension's preferences.</property>
-        <property name="header-suffix">
-          <object class="GtkSwitch" id="lockscreen_blur">
-            <property name="valign">center</property>
-          </object>
-        </property>
-
-        <child>
-          <object class="PipelineChooseRow" id="lockscreen_pipeline_choose_row">
-            <property name="sensitive" bind-source="lockscreen_blur" bind-property="state" bind-flags="sync-create" />
-          </object>
-        </child>
-      </object>
-    </child>
-
-    <child>
-      <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Screenshot blur</property>
-        <property name="description" translatable="yes">Add blur to the background of the window selector in the screenshot UI.</property>
-        <property name="header-suffix">
-          <object class="GtkSwitch" id="screenshot_blur">
-            <property name="valign">center</property>
-          </object>
-        </property>
-
-        <child>
-          <object class="PipelineChooseRow" id="screenshot_pipeline_choose_row">
-            <property name="sensitive" bind-source="screenshot_blur" bind-property="state" bind-flags="sync-create" />
-          </object>
-        </child>
-      </object>
-    </child>
-
-    <child>
-      <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Window list extension blur</property>
-        <property name="description" translatable="yes">Make the window-list extension blurred, if it is used.</property>
-        <property name="header-suffix">
-          <object class="GtkSwitch" id="window_list_blur">
-            <property name="valign">center</property>
-          </object>
-        </property>
-
-        <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Sigma</property>
-            <property name="subtitle" translatable="yes">The intensity of the blur.</property>
-            <property name="activatable-widget">window_list_sigma_scale</property>
-            <property name="sensitive" bind-source="window_list_blur" bind-property="state" bind-flags="sync-create" />
-
-            <child>
-              <object class="GtkScale" id="window_list_sigma_scale">
-                <property name="valign">center</property>
-                <property name="hexpand">true</property>
-                <property name="width-request">200px</property>
-                <property name="draw-value">true</property>
-                <property name="value-pos">right</property>
-                <property name="digits">0</property>
-                <property name="adjustment">window_list_sigma</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
-        <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Brightness</property>
-            <property name="subtitle" translatable="yes">The brightness of the blur effect, a high value might make the text harder to read.</property>
-            <property name="activatable-widget">window_list_brightness_scale</property>
-            <property name="sensitive" bind-source="window_list_blur" bind-property="state" bind-flags="sync-create" />
-
-            <child>
-              <object class="GtkScale" id="window_list_brightness_scale">
-                <property name="valign">center</property>
-                <property name="hexpand">true</property>
-                <property name="width-request">200px</property>
-                <property name="draw-value">true</property>
-                <property name="value-pos">right</property>
-                <property name="digits">2</property>
-                <property name="adjustment">window_list_brightness</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-
-    <child>
-      <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Coverflow Alt-Tab extension blur</property>
-        <property name="description" translatable="yes">Make the coverflow alt-tab extension blurred, if it is used.</property>
-        <property name="header-suffix">
-          <object class="GtkSwitch" id="coverflow_alt_tab_blur">
-            <property name="valign">center</property>
-          </object>
-        </property>
-
-        <child>
-          <object class="PipelineChooseRow" id="coverflow_alt_tab_pipeline_choose_row">
-            <property name="sensitive" bind-source="coverflow_alt_tab_blur" bind-property="state" bind-flags="sync-create" />
-          </object>
-        </child>
-      </object>
-    </child>
-
-    <child>
-      <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Performance</property>
         <property name="description" translatable="yes">Various options to tweak the performance.</property>
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Artifact handling</property>
-            <property name="subtitle" translatable="yes">Controls how aggressively dynamic blur is repainted. The “No artifact” option disables clipped redraws globally and can reduce GNOME Shell performance.</property>
-            <property name="activatable-widget">hack_level</property>
+            <property name="title" translatable="yes">Disable clipped redraws</property>
+            <property name="subtitle" translatable="yes">Workaround for black-rectangle artifacts on dynamic blur. Slows down GNOME Shell globally, even when blur is hidden.</property>
+            <property name="activatable-widget">disable_clipped_redraws</property>
             <child>
-              <object class="GtkDropDown" id="hack_level">
+              <object class="GtkSwitch" id="disable_clipped_redraws">
                 <property name="valign">center</property>
-                <property name="model">hack_level_model</property>
               </object>
             </child>
           </object>
@@ -185,23 +76,4 @@
     </child>
   </template>
 
-  <object class="GtkAdjustment" id="window_list_sigma">
-    <property name="lower">0</property>
-    <property name="upper">100</property>
-    <property name="step-increment">1</property>
-  </object>
-
-  <object class="GtkAdjustment" id="window_list_brightness">
-    <property name="lower">0.0</property>
-    <property name="upper">1.0</property>
-    <property name="step-increment">0.01</property>
-  </object>
-
-  <object class="GtkStringList" id="hack_level_model">
-    <items>
-      <item translatable="yes">High performance</item>
-      <item translatable="yes">Default</item>
-      <item translatable="yes">No artifact</item>
-    </items>
-  </object>
 </interface>

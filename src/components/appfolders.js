@@ -131,21 +131,27 @@ let _zoomAndFadeOut = function () {
 
 
 export const AppFoldersBlur = class AppFoldersBlur {
-    // we do not use the effects manager and dummy pipelines here because we
-    // really want to manage our sigma value ourself during the transition
     constructor(connections, settings, _) {
         this.connections = connections;
         this.paint_signals = new PaintSignals(connections);
         this.settings = settings;
+        this.enabled = false;
     }
 
     enable() {
+        if (this.enabled) {
+            this._log("blur already enabled");
+            return;
+        }
+
         this._log("blurring appfolders");
 
         brightness = this.settings.appfolder.BRIGHTNESS;
         sigma = this.settings.appfolder.SIGMA;
 
-        let appDisplay = Main.overview._overview.controls._appDisplay;
+        let appDisplay = this.get_app_display();
+        if (!appDisplay)
+            return;
 
         if (appDisplay._folderIcons.length > 0) {
             this.blur_appfolders();
@@ -154,13 +160,13 @@ export const AppFoldersBlur = class AppFoldersBlur {
         this.connections.connect(
             appDisplay, 'view-loaded', _ => this.blur_appfolders()
         );
+        this.enabled = true;
     }
 
     blur_appfolders() {
-        let appDisplay = Main.overview._overview.controls._appDisplay;
-
-        if (this.settings.HACKS_LEVEL === 1)
-            this._log("appfolders hack level 1");
+        let appDisplay = this.get_app_display();
+        if (!appDisplay)
+            return;
 
         appDisplay._folderIcons.forEach(icon => {
             icon._ensureFolderDialog();
@@ -206,12 +212,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.settings.HACKS_LEVEL === 1) {
-                this.paint_signals.disconnect_all_for_actor(icon._dialog);
-                this.paint_signals.connect(icon._dialog, blur_effect);
-            } else {
-                this.paint_signals.disconnect_all();
-            }
+            this.paint_signals.disconnect_all_for_actor(icon._dialog);
+            this.paint_signals.connect(icon._dialog, blur_effect);
         });
     };
 
@@ -228,9 +230,19 @@ export const AppFoldersBlur = class AppFoldersBlur {
     }
 
     disable() {
+        if (!this.enabled) {
+            this._log("blur already removed");
+            return;
+        }
+
         this._log("removing blur from appfolders");
 
-        let appDisplay = Main.overview._overview.controls._appDisplay;
+        let appDisplay = this.get_app_display();
+        if (!appDisplay) {
+            this.connections.disconnect_all();
+            this.enabled = false;
+            return;
+        }
 
         if (original_zoomAndFadeIn != null) {
             appDisplay._folderIcons.forEach(icon => {
@@ -256,6 +268,13 @@ export const AppFoldersBlur = class AppFoldersBlur {
         });
 
         this.connections.disconnect_all();
+        this.enabled = false;
+    }
+
+    get_app_display() {
+        return Main.overview?._overview?.controls?._appDisplay
+            ?? Main.overview?._overview?._controls?._appDisplay
+            ?? null;
     }
 
     _log(str) {

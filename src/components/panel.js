@@ -1,32 +1,27 @@
-import St from 'gi://St';
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from '../conveniences/paint_signals.js';
-
-import { Pipeline } from '../conveniences/pipeline.js';
-import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
+import { BlurSurface } from '../conveniences/blur_surface.js';
+import { SurfaceSettings } from '../conveniences/surface_settings.js';
+import { findPanelMonitor, getPanelCornerRadius } from './panel_corner.js';
+import { updatePanelDynamicSize, updatePanelStaticSize } from './panel_geometry.js';
+import { PanelVisibility } from './panel_visibility.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
-const PANEL_STYLES = [
-    "transparent-panel",
-    "light-panel",
-    "dark-panel",
-    "contrasted-panel"
-];
 
-// global listener, so we don't miss the panel destruction event
 let isMainPanelAlive = true;
 Main.panel.connect('destroy', () => isMainPanelAlive = false);
 
 export const PanelBlur = class PanelBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
-        this.window_signal_ids = new Map();
         this.settings = settings;
+        this.blur_settings = new SurfaceSettings(settings, 'panel');
         this.effects_manager = effects_manager;
+        this.visibility = new PanelVisibility(this);
         this.actors_list = [];
+        this.original_panel_blur_ids = new Set();
         this.enabled = false;
     }
 
@@ -38,7 +33,6 @@ export const PanelBlur = class PanelBlur {
 
         this._log("blurring top panel");
 
-        // check for panels when Dash to Panel is activated
         this.connections.connect(
             Main.extensionManager,
             'extension-state-changed',
@@ -59,12 +53,8 @@ export const PanelBlur = class PanelBlur {
 
         this.blur_existing_panels();
 
-        // connect to overview being opened/closed, and dynamically show or not
-        // the blur when a window is near a panel
         this.connect_to_windows_and_overview();
 
-        // connect to monitors change, and set a dirty flag to tell the extension that it should be
-        // reset on 'workareas-changed' signal
         this._dirty = false;
         this.connections.connect(Main.layoutManager, 'monitors-changed',
             _ => this._dirty = true
@@ -72,14 +62,10 @@ export const PanelBlur = class PanelBlur {
 
         this.connections.connect(global.display, 'workareas-changed', _ => {
             if (this._dirty) {
-                // the monitors chaned
                 this.reset();
                 this._dirty = false;
             }
             else {
-                // blur panels created by extension multi-monitors-bar@frederykabryan
-                // I would like to connect directly to Main.uiGroup 'child-added' but it seems
-                // like the name is updated too late...
                 Main.uiGroup.get_children().forEach(child => {
                     if (child.get_name() === "panelBox" &&
                         child != Main.layoutManager.panelBox &&
@@ -103,26 +89,23 @@ export const PanelBlur = class PanelBlur {
         this._log("resetting...");
 
         this.disable();
-        setTimeout(_ => this.enable(), 1);
+        GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            this.enable();
+            return GLib.SOURCE_REMOVE;
+        });
     }
 
-    /// Check for already existing panels and blur them if they are not already
     blur_existing_panels() {
-        // check if dash-to-panel is present
         if (global.dashToPanel) {
-            // blur already existing ones
             if (global.dashToPanel.panels)
                 this.blur_dtp_panels();
 
-            // blur main panel if requested in settings
             if (this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL && isMainPanelAlive)
-                this.maybe_blur_panel(Main.panel);
+                this.schedule_original_panel_blur();
         } else {
-            // if no dash-to-panel, blur the main panel
             if (isMainPanelAlive)
                 this.maybe_blur_panel(Main.panel);
 
-            // blur panels already created by extension multi-monitors-bar@frederykabryan
             Main.uiGroup.get_children().forEach(actor => {
                 if (actor.get_name() === "panelBox" && actor.get_n_children() === 1) {
                     let multi_monitor_panel = actor.get_child_at_index(0);
@@ -134,10 +117,6 @@ export const PanelBlur = class PanelBlur {
     }
 
     blur_dtp_panels() {
-        // Defer the blurring to the next idle cycle.
-        // This is crucial to ensure the panel actors have been allocated their
-        // final size and position by the compositor, avoiding race conditions
-        // during extension startup.
         GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             if (!global.dashToPanel?.panels) {
                 return GLib.SOURCE_REMOVE;
@@ -145,7 +124,6 @@ export const PanelBlur = class PanelBlur {
 
             this._log("Blurring Dash to Panel panels after idle.");
     
-            // blur every panel, except Main.panel (this is handled in blur_existing_panels() method above)
             global.dashToPanel.panels.forEach(p => {
                 if (p.panel != Main.panel)
                     this.maybe_blur_panel(p.panel);
@@ -155,19 +133,43 @@ export const PanelBlur = class PanelBlur {
         });
     };
 
-    /// Blur a panel only if it is not already blurred (contained in the list)
+    schedule_original_panel_blur() {
+        this.cancel_original_panel_blur();
+        [700, 1500].forEach(delay => {
+            const id = GLib.timeout_add(GLib.PRIORITY_DEFAULT_IDLE, delay, () => {
+                this.original_panel_blur_ids.delete(id);
+                if (
+                    this.enabled &&
+                    this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL &&
+                    isMainPanelAlive
+                ) {
+                    this.maybe_blur_panel(Main.panel);
+                    const actors = this.actors_list.find(
+                        actors => actors.widgets.panel === Main.panel
+                    );
+                    if (actors)
+                        this.queue_update_size(actors);
+                }
+                return GLib.SOURCE_REMOVE;
+            });
+            this.original_panel_blur_ids.add(id);
+        });
+    }
+
+    cancel_original_panel_blur() {
+        this.original_panel_blur_ids.forEach(id => GLib.source_remove(id));
+        this.original_panel_blur_ids.clear();
+    }
+
     maybe_blur_panel(panel) {
-        // check if the panel is contained in the list
         let actors = this.actors_list.find(
             actors => actors.widgets.panel == panel
         );
 
         if (!actors)
-            // if the actors is not blurred, blur it
             this.blur_panel(panel);
     }
 
-    /// Blur a panel
     blur_panel(panel) {
         let panel_box = panel.get_parent();
         let is_dtp_panel = false;
@@ -175,95 +177,71 @@ export const PanelBlur = class PanelBlur {
             is_dtp_panel = true;
             panel_box = panel_box.get_parent();
         }
+        const blur_parent = panel_box;
 
         let monitor = Main.layoutManager.findMonitorForActor(panel);
         if (!monitor)
             return;
 
-        let background_group = new Meta.BackgroundGroup(
-            { name: 'bms-panel-backgroundgroup', width: 0, height: 0 }
-        );
+        let static_blur = this.blur_settings.STATIC_BLUR;
+        const blur_surface = new BlurSurface({
+            connections: this.connections,
+            component_settings: this.blur_settings,
+            effects_manager: this.effects_manager,
+            pipeline_manager: global.blur_my_shell._pipelines_manager,
+            widget_name: 'bms-panel-blurred-widget',
+            group_name: 'bms-panel-backgroundgroup',
+            use_absolute_position: false,
+            manage_group_allocation: false,
+            dynamic_options: {
+                corner_radius_getter: () => getPanelCornerRadius(this, panel, panel_box),
+            },
+        }).create({
+            container: blur_parent,
+            monitor_index: monitor.index,
+            pipeline_id: this.blur_settings.PIPELINE,
+            static_blur,
+        });
 
-        let background, bg_manager;
-        let static_blur = this.settings.panel.STATIC_BLUR;
-        if (static_blur) {
-            let bg_manager_list = [];
-            const pipeline = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                this.settings.panel.PIPELINE
-            );
-            background = pipeline.create_background_with_effects(
-                monitor.index, bg_manager_list,
-                background_group, 'bms-panel-blurred-widget'
-            );
-            bg_manager = bg_manager_list[0];
-        }
-        else {
-            const pipeline = new DummyPipeline(this.effects_manager, this.settings.panel);
-            [background, bg_manager] = pipeline.create_background_with_effect(
-                background_group, 'bms-panel-blurred-widget'
-            );
+        if (blur_surface.background_group)
+            blur_surface.insert_group(blur_parent, 0);
+        this.lower_background(blur_surface, panel);
 
-            let paint_signals = new PaintSignals(this.connections);
-
-            // HACK
-            //
-            //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
-            //
-            // This does not entirely fix this bug (shadows caused by windows
-            // still cause artifacts), but it prevents the shadows of the panel
-            // buttons to cause artifacts on the panel itself
-            //
-            // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
-
-            {
-                if (this.settings.HACKS_LEVEL === 1) {
-                    this._log("panel hack level 1");
-
-                    paint_signals.disconnect_all();
-                    paint_signals.connect(background, pipeline.effect);
-                } else {
-                    paint_signals.disconnect_all();
-                }
-            }
-        }
-
-        // insert the background group to the panel box
-        panel_box.insert_child_at_index(background_group, 0);
-
-        // the object that is used to remembering each elements that is linked to the blur effect
         let actors = {
-            widgets: { panel, panel_box, background, background_group },
+            widgets: {
+                panel,
+                panel_box,
+                blur_parent,
+                background: blur_surface.actor,
+                background_group: blur_surface.background_group
+            },
+            blur_surface,
             static_blur,
             monitor,
-            bg_manager,
+            bg_manager: blur_surface.bg_manager,
             is_dtp_panel
         };
         this.actors_list.push(actors);
 
-        // update the size of the actor
         this.update_size(actors);
+        this.schedule_settle_updates(actors);
 
-        // connect to panel, panel_box and its parent position or size change
-        // this should fire update_size every time one of its params change
         this.connections.connect(
             panel,
-            'notify::position',
-            _ => this.update_size(actors)
+            ['notify::position', 'notify::size', 'notify::allocation', 'notify::visible'],
+            _ => this.queue_update_size(actors)
         );
         this.connections.connect(
             panel_box,
-            ['notify::size', 'notify::position'],
-            _ => this.update_size(actors)
+            ['notify::size', 'notify::position', 'notify::allocation', 'notify::visible'],
+            _ => this.queue_update_size(actors)
         );
         this.connections.connect(
             panel_box.get_parent(),
-            'notify::position',
-            _ => this.update_size(actors)
+            ['notify::position', 'notify::size', 'notify::allocation'],
+            _ => this.queue_update_size(actors)
         );
 
-        // connect to the panel getting destroyed
         this.connections.connect(
             panel,
             'destroy',
@@ -271,305 +249,211 @@ export const PanelBlur = class PanelBlur {
         );
     }
 
+    lower_background(blur_surface, panel) {
+        const background = blur_surface?.background_group ?? blur_surface?.actor;
+        const parent = background?.get_parent?.();
+        if (!parent || !background)
+            return;
+
+        const panel_parent = panel.get_parent?.();
+        try {
+            parent.set_child_at_index(background, 0);
+        } catch (e) {
+            try {
+                parent.set_child_below_sibling(
+                    background,
+                    panel_parent === parent ? panel : null
+                );
+            } catch (e) { }
+        }
+    }
+
+    schedule_settle_updates(actors) {
+        actors.settle_update_ids = new Set();
+        [50, 150, 400, 900].forEach(delay => {
+            const id = GLib.timeout_add(GLib.PRIORITY_DEFAULT_IDLE, delay, () => {
+                actors.settle_update_ids?.delete(id);
+                if (this.actors_list.includes(actors))
+                    this.update_size(actors);
+                return GLib.SOURCE_REMOVE;
+            });
+            actors.settle_update_ids.add(id);
+        });
+    }
+
+    queue_update_size(actors) {
+        if (actors.update_size_id)
+            return;
+
+        actors.update_size_id = global.compositor.get_laters().add(
+            Meta.LaterType.BEFORE_REDRAW,
+            () => {
+                actors.update_size_id = 0;
+                if (this.actors_list.includes(actors))
+                    this.update_size(actors);
+                return GLib.SOURCE_REMOVE;
+            }
+        );
+    }
+
     update_size(actors) {
         let panel = actors.widgets.panel;
         let panel_box = actors.widgets.panel_box;
-        let background = actors.widgets.background;
-        let [width, height] = panel_box.get_size();
-
-        // if static blur, need to clip the background
-        if (actors.static_blur) {
-            let monitor = Main.layoutManager.findMonitorForActor(panel);
-            if (!monitor)
-                return;
-
-            // an alternative to panel.get_transformed_position, because it
-            // sometimes yields NaN (probably when the actor is not fully
-            // positionned yet)
-            let [p_x, p_y] = panel_box.get_position();
-            let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
-            let x = p_x + p_p_x - monitor.x + (width - panel.width) / 2;
-            let y = p_y + p_p_y - monitor.y + (height - panel.height) / 2;
-
-            background.set_clip(x, y, panel.width, panel.height);
-            background.x = (width - panel.width) / 2 - x;
-            background.y = .5 + (height - panel.height) / 2 - y;
-        } else {
-            background.x = panel.x;
-            background.y = panel.y;
-            background.width = panel.width;
-            background.height = panel.height;
-        }
-
-        // update the monitor panel is on
-        actors.monitor = Main.layoutManager.findMonitorForActor(panel);
-    }
-
-    /// Connect when overview if opened/closed to hide/show the blur accordingly
-    ///
-    /// If HIDETOPBAR is set, we need just to hide the blur when showing appgrid
-    /// (so no shadow is cropped)
-    connect_to_overview() {
-        // may be called when panel blur is disabled, if hidetopbar
-        // compatibility is toggled on/off
-        // if this is the case, do nothing as only the panel blur interfers with
-        // hidetopbar
-        if (
-            this.settings.panel.BLUR &&
-            this.settings.panel.UNBLUR_IN_OVERVIEW
-        ) {
-            if (!this.settings.hidetopbar.COMPATIBILITY) {
-                this.connections.connect(
-                    Main.overview, 'showing', _ => this.hide()
-                );
-                this.connections.connect(
-                    Main.overview, 'hidden', _ => this.show()
-                );
-            } else {
-                let appDisplay = Main.overview._overview._controls._appDisplay;
-
-                this.connections.connect(
-                    appDisplay, 'show', _ => this.hide()
-                );
-                this.connections.connect(
-                    appDisplay, 'hide', _ => this.show()
-                );
-                this.connections.connect(
-                    Main.overview, 'hidden', _ => this.show()
-                );
-            }
-
-        }
-    }
-
-    /// Connect to windows disable transparency when a window is too close
-    connect_to_windows() {
-        if (
-            this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY
-        ) {
-            // connect to overview opening/closing
-            this.connections.connect(Main.overview, ['showing', 'hiding'],
-                _ => this.update_visibility()
-            );
-
-            // connect to session mode update
-            this.connections.connect(Main.sessionMode, 'updated',
-                _ => this.update_visibility()
-            );
-
-            // manage already-existing windows
-            for (const meta_window_actor of global.get_window_actors()) {
-                this.on_window_actor_added(
-                    meta_window_actor.get_parent(), meta_window_actor
-                );
-            }
-
-            // manage windows at their creation/removal
-            this.connections.connect(global.window_group, 'child-added',
-                this.on_window_actor_added.bind(this)
-            );
-            this.connections.connect(global.window_group, 'child-removed',
-                this.on_window_actor_removed.bind(this)
-            );
-
-            // connect to a workspace change
-            this.connections.connect(global.window_manager, 'switch-workspace',
-                _ => this.update_visibility()
-            );
-
-            // perform early update
-            this.update_visibility();
-        } else {
-            // reset transparency for every panels
-            this.actors_list.forEach(
-                actors => this.set_should_override_panel(actors, true)
-            );
-        }
-    }
-
-    /// An helper to connect to both the windows and overview signals.
-    /// This is the only function that should be directly called, to prevent
-    /// inconsistencies with signals not being disconnected.
-    connect_to_windows_and_overview() {
-        this.disconnect_from_windows_and_overview();
-        this.connect_to_overview();
-        this.connect_to_windows();
-    }
-
-    /// Disconnect all the connections created by connect_to_windows
-    disconnect_from_windows_and_overview() {
-        // disconnect the connections to actors
-        for (const actor of [
-            Main.overview, Main.sessionMode,
-            global.window_group, global.window_manager,
-            Main.overview._overview._controls._appDisplay
-        ]) {
-            this.connections.disconnect_all_for(actor);
-        }
-
-        // disconnect the connections from windows
-        for (const [actor, ids] of this.window_signal_ids) {
-            for (const id of ids) {
-                actor.disconnect(id);
-            }
-        }
-        this.window_signal_ids = new Map();
-    }
-
-    /// Update the css classname of the panel for light theme
-    update_light_text_classname(disable = false) {
-        if (!isMainPanelAlive)
+        let monitor = findPanelMonitor(panel, panel_box);
+        if (!monitor)
             return;
 
-        if (this.settings.panel.FORCE_LIGHT_TEXT && !disable)
-            Main.uiGroup.add_style_class_name("panel-light-text");
+        if (actors.static_blur)
+            updatePanelStaticSize(actors, panel, panel_box, monitor);
         else
-            Main.uiGroup.remove_style_class_name("panel-light-text");
+            updatePanelDynamicSize(actors, panel);
+
+        actors.widgets.background = actors.blur_surface.actor;
+        actors.bg_manager = actors.blur_surface.bg_manager;
+        actors.monitor = monitor;
+        this.lower_background(actors.blur_surface, panel);
+        actors.blur_surface.update_corner_radius();
     }
 
-    /// Callback when a new window is added
-    on_window_actor_added(container, meta_window_actor) {
-        this.window_signal_ids.set(meta_window_actor, [
-            meta_window_actor.connect('notify::allocation',
-                _ => this.update_visibility()
-            ),
-            meta_window_actor.connect('notify::visible',
-                _ => this.update_visibility()
-            )
-        ]);
-        this.update_visibility();
+    get_panel_geometry(panel, panel_box, monitor) {
+        const panel_geometry = this.get_actor_geometry(panel);
+        if (panel_geometry)
+            return {
+                ...panel_geometry,
+                monitor_index: monitor.index,
+            };
+
+        const geometry = this.get_actor_geometry(panel_box);
+        if (geometry)
+            return {
+                ...geometry,
+                monitor_index: monitor.index,
+            };
+
+        try {
+            const [x, y] = panel.get_transformed_position();
+            if (Number.isFinite(x) && Number.isFinite(y))
+                return {
+                    x,
+                    y,
+                    width: panel.width,
+                    height: panel.height,
+                    monitor_index: monitor.index,
+                };
+        } catch (e) { }
+
+        const [box_x, box_y] = this.get_actor_position(panel_box);
+        return {
+            x: box_x + panel.x,
+            y: box_y + panel.y,
+            width: panel.width,
+            height: panel.height,
+            monitor_index: monitor.index,
+        };
     }
 
-    /// Callback when a window is removed
-    on_window_actor_removed(container, meta_window_actor) {
-        for (const signalId of this.window_signal_ids.get(meta_window_actor)) {
-            meta_window_actor.disconnect(signalId);
-        }
-        this.window_signal_ids.delete(meta_window_actor);
-        this.update_visibility();
+    get_actor_position(actor) {
+        try {
+            const [x, y] = actor.get_transformed_position();
+            if (Number.isFinite(x) && Number.isFinite(y))
+                return [x, y];
+        } catch (e) { }
+
+        try {
+            const [x, y] = actor.get_position();
+            return [x, y];
+        } catch (e) { }
+
+        return [0, 0];
     }
 
-    /// Update the visibility of the blur effect
-    update_visibility() {
-        if (
-            isMainPanelAlive && Main.panel.has_style_pseudo_class('overview')
-            || !Main.sessionMode.hasWindows
-        ) {
-            this.actors_list.forEach(
-                actors => this.set_should_override_panel(actors, true)
-            );
-            return;
-        }
+    get_actor_geometry(actor) {
+        try {
+            const extents = actor.get_transformed_extents?.();
+            const top_left = extents?.get_top_left?.();
+            const bottom_right = extents?.get_bottom_right?.();
 
-        if (!Main.layoutManager.primaryMonitor)
-            return;
+            if (top_left && bottom_right) {
+                const geometry = {
+                    x: top_left.x,
+                    y: top_left.y,
+                    width: bottom_right.x - top_left.x,
+                    height: bottom_right.y - top_left.y,
+                };
 
-        // get all the windows in the active workspace that are visible
-        const workspace = global.workspace_manager.get_active_workspace();
-        const windows = workspace.list_windows().filter(meta_window =>
-            meta_window.showing_on_its_workspace()
-            && !meta_window.is_hidden()
-            && meta_window.get_window_type() !== Meta.WindowType.DESKTOP
-            // exclude Desktop Icons NG
-            && meta_window.get_gtk_application_id() !== "com.rastersoft.ding"
-            && meta_window.get_gtk_application_id() !== "com.desktop.ding"
-        );
+                if (geometry.width > 0 && geometry.height > 0)
+                    return geometry;
+            }
+        } catch (e) { }
 
-        // check if at least one window is near enough to each panel and act
-        // accordingly
-        const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
-        this.actors_list
-            // do not apply for dtp panels, as it would only cause bugs and it
-            // can be done from its preferences anyway
-            .filter(actors => !actors.is_dtp_panel)
-            .forEach(actors => {
-                let panel = actors.widgets.panel;
-                let panel_top = panel.get_transformed_position()[1];
-                let panel_bottom = panel_top + panel.get_height();
+        try {
+            const [x, y] = actor.get_transformed_position();
+            const [width, height] = actor.get_transformed_size();
+            if (Number.isFinite(x) && Number.isFinite(y) && width > 0 && height > 0)
+                return { x, y, width, height };
+        } catch (e) { }
 
-                // check if at least a window is near enough the panel
-                let window_overlap_panel = false;
-                windows.forEach(meta_window => {
-                    let window_monitor_i = meta_window.get_monitor();
-                    let same_monitor = actors.monitor.index == window_monitor_i;
-
-                    let window_vertical_pos = meta_window.get_frame_rect().y;
-                    let window_vertical_bottom = window_vertical_pos + meta_window.get_frame_rect().height;
-
-                    // if so, and if in the same monitor, then it overlaps
-                    if (same_monitor
-                        &&
-                        // check if panel is on top
-                        ((panel_top === 0 && window_vertical_pos < panel_bottom + 5 * scale) ||
-                        // check if panel is at the bottom
-                        (panel_top > 0 && window_vertical_bottom > panel_top - 5 * scale))
-                    )
-                        window_overlap_panel = true;
-                });
-
-                // if no window overlaps, then the panel is transparent
-                this.set_should_override_panel(
-                    actors, !window_overlap_panel
-                );
-            });
+        return null;
     }
 
-    /// Choose wether or not the panel background should be overriden, in
-    /// respect to its argument and the `override-background` setting.
-    set_should_override_panel(actors, should_override) {
-        let panel = actors.widgets.panel;
+    connect_to_windows_and_overview() {
+        this.visibility.connect_to_windows_and_overview();
+    }
 
-        PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
+    refresh_after_startup() {
+        this.actors_list.forEach(actors => this.update_size(actors));
+        this.visibility.sync_overview_visibility();
+        this.visibility.update_visibility();
+    }
 
-        if (
-            this.settings.panel.OVERRIDE_BACKGROUND
-            &&
-            should_override
-        ) {
-            panel.add_style_class_name(
-                PANEL_STYLES[this.settings.panel.STYLE_PANEL]
-            );
-        }
+    disconnect_from_windows_and_overview() {
+        this.visibility.disconnect_from_windows_and_overview();
+    }
 
-        // update the classname if the panel to have or have not light text
-        this.update_light_text_classname(!should_override);
+    update_light_text_classname(disable = false) {
+        this.visibility.update_light_text_classname(disable);
+    }
+
+    is_main_panel_alive() {
+        return isMainPanelAlive;
     }
 
     update_pipeline() {
         this.actors_list.forEach(actors =>
-            actors.bg_manager._bms_pipeline.change_pipeline_to(
-                this.settings.panel.PIPELINE
-            )
+            actors.blur_surface.update_pipeline(this.blur_settings.PIPELINE)
+        );
+    }
+
+    update_corner_radius() {
+        this.actors_list.forEach(actors =>
+            actors.blur_surface.update_corner_radius()
         );
     }
 
     show() {
         this.actors_list.forEach(actors => {
-            actors.widgets.background.show();
+            actors.blur_surface.actor?.show?.();
         });
     }
 
     hide() {
         this.actors_list.forEach(actors => {
-            actors.widgets.background.hide();
+            actors.blur_surface.actor?.hide?.();
         });
     }
 
     // IMPORTANT: do never call this in a mutable `this.actors_list.forEach`
     destroy_blur(actors, panel_already_destroyed) {
-        this.set_should_override_panel(actors, false);
+        this.visibility.set_should_override_panel(actors, false);
 
-        actors.bg_manager._bms_pipeline.destroy();
-
-        if (panel_already_destroyed)
-            actors.bg_manager.backgroundActor = null;
-        actors.bg_manager.destroy();
-
-        if (!panel_already_destroyed) {
-            actors.widgets.panel_box.remove_child(actors.widgets.background_group);
-            actors.widgets.background_group.destroy_all_children();
-            actors.widgets.background_group.destroy();
+        if (actors.update_size_id) {
+            global.compositor.get_laters().remove(actors.update_size_id);
+            actors.update_size_id = 0;
         }
+        actors.settle_update_ids?.forEach(id => GLib.source_remove(id));
+        actors.settle_update_ids?.clear();
+
+        actors.blur_surface.destroy({ container_destroyed: panel_already_destroyed });
 
         let index = this.actors_list.indexOf(actors);
         if (index >= 0)
@@ -585,6 +469,7 @@ export const PanelBlur = class PanelBlur {
         this._log("removing blur from top panel");
 
         this.disconnect_from_windows_and_overview();
+        this.cancel_original_panel_blur();
 
         this.update_light_text_classname(true);
 
@@ -604,7 +489,4 @@ export const PanelBlur = class PanelBlur {
             console.log(`[Blur my Shell > panel]        ${str}`);
     }
 
-    _warn(str) {
-        console.warn(`[Blur my Shell > panel]        ${str}`);
-    }
 };

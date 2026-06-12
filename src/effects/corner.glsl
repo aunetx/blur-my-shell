@@ -30,17 +30,20 @@ float circle_bounds(vec2 p, vec2 center, float clip_radius) {
 }
 
 vec4 getTexture(vec2 uv) {
-    if (uv.x < 2. / width)
-        uv.x = 2. / width;
+    float w = max(1.0, width);
+    float h = max(1.0, height);
 
-    if (uv.y < 2. / height)
-        uv.y = 2. / height;
+    if (uv.x < 2. / w)
+        uv.x = 2. / w;
 
-    if (uv.x > 1. - 3. / width)
-        uv.x = 1. - 3. / width;
+    if (uv.y < 2. / h)
+        uv.y = 2. / h;
 
-    if (uv.y > 1. - 3. / height)
-        uv.y = 1. - 3. / height;
+    if (uv.x > 1. - 3. / w)
+        uv.x = 1. - 3. / w;
+
+    if (uv.y > 1. - 3. / h)
+        uv.y = 1. - 3. / h;
 
     return texture2D(tex, uv);
 }
