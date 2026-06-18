@@ -36,6 +36,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
         this.destroyed = false;
         this.visible_id = 0;
         this.repaint_loop = null;
+        this.geometry = null;
     }
 
     create({ container = null, insert_index = 0 } = {}) {
@@ -72,6 +73,8 @@ export const LiveBlurSurface = class LiveBlurSurface {
             () => !this.destroyed
         );
         this.visible_id = this.actor.connect('notify::visible', () => {
+            if (this.destroyed)
+                return;
             if (this.actor.visible) {
                 this.prepare_visible();
             } else
@@ -96,6 +99,11 @@ export const LiveBlurSurface = class LiveBlurSurface {
         if (!this.has_valid_geometry(geometry))
             return false;
 
+        geometry = this.normalize_geometry(geometry);
+        const geometry_changed = !this.has_same_geometry(geometry);
+        if (!geometry_changed && this.actor.visible)
+            return true;
+
         const updated = this.live_pipeline?.update_geometry?.({
             x: Math.round(geometry.x),
             y: Math.round(geometry.y),
@@ -105,8 +113,10 @@ export const LiveBlurSurface = class LiveBlurSurface {
         if (!updated)
             return false;
 
-        this.show_surface();
-        this.prepare_visible();
+        const shown = this.show_surface();
+        this.geometry = geometry;
+        if (shown || geometry_changed)
+            this.prepare_visible();
         return true;
     }
 
@@ -116,9 +126,16 @@ export const LiveBlurSurface = class LiveBlurSurface {
         if (!this.has_valid_geometry(geometry))
             return false;
 
+        geometry = this.normalize_geometry(geometry);
+        const geometry_changed = !this.has_same_geometry(geometry);
+        if (!geometry_changed && this.actor.visible)
+            return true;
+
         this.live_pipeline?.update_stage_geometry?.(geometry);
-        this.show_surface();
-        this.prepare_visible();
+        const shown = this.show_surface();
+        this.geometry = geometry;
+        if (shown || geometry_changed)
+            this.prepare_visible();
         return true;
     }
 
@@ -203,6 +220,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
         } catch (e) { }
         this.repaint_loop?.stop();
         this.tracking = false;
+        this.geometry = null;
     }
 
     hide(clear_source = false) {
@@ -213,8 +231,8 @@ export const LiveBlurSurface = class LiveBlurSurface {
 
     show() {
         try {
-            this.actor?.show?.();
-            this.sync();
+            if (this.show_surface())
+                this.sync();
         } catch (e) { }
     }
 
@@ -244,6 +262,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
 
     clear_source() {
         this.live_pipeline?.clear_source?.();
+        this.geometry = null;
     }
 
     has_valid_geometry(geometry) {
@@ -257,6 +276,30 @@ export const LiveBlurSurface = class LiveBlurSurface {
         );
     }
 
+    normalize_geometry(geometry) {
+        return {
+            ...geometry,
+            x: Math.round(geometry.x),
+            y: Math.round(geometry.y),
+            target_x: Number.isFinite(geometry.target_x) ? Math.round(geometry.target_x) : undefined,
+            target_y: Number.isFinite(geometry.target_y) ? Math.round(geometry.target_y) : undefined,
+            width: Math.ceil(geometry.width),
+            height: Math.ceil(geometry.height),
+        };
+    }
+
+    has_same_geometry(geometry) {
+        return (
+            this.geometry
+            && this.geometry.x === geometry.x
+            && this.geometry.y === geometry.y
+            && this.geometry.target_x === geometry.target_x
+            && this.geometry.target_y === geometry.target_y
+            && this.geometry.width === geometry.width
+            && this.geometry.height === geometry.height
+        );
+    }
+
     destroy({ actor_destroyed = false } = {}) {
         this.destroyed = true;
         if (this.source_paint_id)
@@ -265,10 +308,11 @@ export const LiveBlurSurface = class LiveBlurSurface {
         this.tracking = false;
 
         const actor = this.actor;
-        try {
-            if (actor && this.visible_id)
+        if (actor && this.visible_id && !actor_destroyed) {
+            try {
                 actor.disconnect(this.visible_id);
-        } catch (e) { }
+            } catch (e) { }
+        }
         try {
             this.live_pipeline?.destroy?.({ actor_destroyed });
         } catch (e) { }
@@ -288,5 +332,6 @@ export const LiveBlurSurface = class LiveBlurSurface {
         this.source_paint_id = 0;
         this.visible_id = 0;
         this.repaint_loop = null;
+        this.geometry = null;
     }
 };

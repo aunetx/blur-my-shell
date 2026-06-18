@@ -4,12 +4,31 @@
     background: transparent;
 }
 
+/* The tint is painted on a dedicated actor (bms-popup-tint) that is the exact
+ * same size and position as the blur actor, so the tinted area can never
+ * mismatch the blurred area.  The popup content itself is transparent. */
+
+.bms-popup-background-transparent .bms-popup-tint {
+    background: transparent !important;
+    border-radius: 20px !important;
+}
+
+.bms-popup-background-light .bms-popup-tint {
+    background: rgba(255, 255, 255, 0.58) !important;
+    border-radius: 20px !important;
+}
+
+.bms-popup-background-dark .bms-popup-tint {
+    background: rgba(45, 45, 50, 0.22) !important;
+    border-radius: 20px !important;
+}
+
 .bms-popup-background-transparent .popup-menu-content,
 .bms-popup-background-transparent .popup-menu,
 .bms-popup-background-transparent .popup-sub-menu,
 .bms-popup-background-transparent .candidate-popup-content,
-.bms-popup-background-transparent .quick-settings,
-.bms-popup-background-transparent .quick-toggle-menu,
+.bms-popup-background-transparent .datemenu-popover,
+.bms-popup-background-transparent .datemenu-popover .popup-menu-content,
 .bms-popup-background-transparent .message,
 .bms-popup-background-transparent .notification,
 .bms-popup-background-transparent .notification-banner,
@@ -18,7 +37,9 @@
 .bms-popup-background-transparent .switcher-list,
 .bms-popup-background-transparent .workspace-switcher,
 .bms-popup-background-transparent .modal-dialog,
-.bms-popup-background-transparent .run-dialog {
+.bms-popup-background-transparent .run-dialog,
+.bms-popup-background-transparent .quick-settings,
+.bms-popup-background-transparent .quick-toggle-menu {
     background: transparent !important;
     border-color: transparent;
     box-shadow: none;
@@ -28,8 +49,8 @@
 .bms-popup-background-light .popup-menu,
 .bms-popup-background-light .popup-sub-menu,
 .bms-popup-background-light .candidate-popup-content,
-.bms-popup-background-light .quick-settings,
-.bms-popup-background-light .quick-toggle-menu,
+.bms-popup-background-light .datemenu-popover,
+.bms-popup-background-light .datemenu-popover .popup-menu-content,
 .bms-popup-background-light .message,
 .bms-popup-background-light .notification,
 .bms-popup-background-light .notification-banner,
@@ -38,19 +59,21 @@
 .bms-popup-background-light .switcher-list,
 .bms-popup-background-light .workspace-switcher,
 .bms-popup-background-light .modal-dialog,
-.bms-popup-background-light .run-dialog {
+.bms-popup-background-light .run-dialog,
+.bms-popup-background-light .quick-settings,
+.bms-popup-background-light .quick-toggle-menu {
     color: #222226;
-    background: rgba(255, 255, 255, 0.58) !important;
-    border-color: rgba(0, 0, 0, 0.05);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    background: transparent !important;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .bms-popup-background-dark .popup-menu-content,
 .bms-popup-background-dark .popup-menu,
 .bms-popup-background-dark .popup-sub-menu,
 .bms-popup-background-dark .candidate-popup-content,
-.bms-popup-background-dark .quick-settings,
-.bms-popup-background-dark .quick-toggle-menu,
+.bms-popup-background-dark .datemenu-popover,
+.bms-popup-background-dark .datemenu-popover .popup-menu-content,
 .bms-popup-background-dark .message,
 .bms-popup-background-dark .notification,
 .bms-popup-background-dark .notification-banner,
@@ -59,11 +82,13 @@
 .bms-popup-background-dark .switcher-list,
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
-.bms-popup-background-dark .run-dialog {
+.bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .quick-settings,
+.bms-popup-background-dark .quick-toggle-menu {
     color: #ffffff;
-    background: rgba(45, 45, 50, 0.22) !important;
+    background: transparent !important;
     border-color: transparent;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    box-shadow: none;
 }
 
 .bms-popup-background-transparent .message,

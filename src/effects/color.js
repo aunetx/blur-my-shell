@@ -5,6 +5,7 @@ import * as uniforms from '../conveniences/shader_uniforms.js';
 
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'color.glsl';
 const DEFAULT_PARAMS = {
@@ -16,7 +17,10 @@ const DEFAULT_PARAMS = {
 
 export const ColorEffect = utils.IS_IN_PREFERENCES ?
     { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+    (() => {
+        const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
+        const SHADER_SNIPPET = utils.create_shader_snippet_for_source(Clutter, Cogl, SHADER_SOURCE);
+        const gtype_spec = {
         GTypeName: "ColorEffect",
         Properties: {
             'red': GObject.ParamSpec.double(
@@ -71,127 +75,261 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
         // Normal (0), Multiply (1), Screen (2), Overlay (3), Darken (4), Lighten (5), Plus darker (6), Plus lighter (7), Color dodge (8),
         // Color burn (9), Hard light (10), Soft light (11), Difference (12), Exclusion (13), Hue (14), Saturation (15), Color (16),
         // Luminosity (17)
-    }, class ColorEffect extends Clutter.ShaderEffect {
-        constructor(params) {
-            super();
+    };
 
-            this._red = null;
-            this._green = null;
-            this._blue = null;
-            this._blend = null;
-            this._blend_mode = null;
-            this._opacity_factor = null;
+        if (utils.uses_shader_snippets(Clutter)) {
+            class ColorEffect extends Clutter.ShaderEffect {
+                vfunc_get_static_snippet() {
+                    return SHADER_SNIPPET;
+                }
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
 
-            // set params; utils.setup_params doesn't work here with color
-            this.color = 'color' in params ? params.color : this.constructor.default_params.color;
-            this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
-            this.opacity_factor = 'opacity_factor' in params ? params.opacity_factor : this.constructor.default_params.opacity_factor;
-        }
+                    constructor(params) {
+                        super();
 
-        static get default_params() {
-            return DEFAULT_PARAMS;
-        }
+                        this._red = null;
+                        this._green = null;
+                        this._blue = null;
+                        this._blend = null;
+                        this._blend_mode = null;
+                        this._opacity_factor = null;
 
-        get red() {
-            return this._red;
-        }
+                        // set params; utils.setup_params doesn't work here with color
+                        this.color = 'color' in params ? params.color : this.constructor.default_params.color;
+                        this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
+                        this.opacity_factor = 'opacity_factor' in params ? params.opacity_factor : this.constructor.default_params.opacity_factor;
+                    }
 
-        set red(value) {
-            if (this._red !== value) {
-                this._red = value;
+                    static get default_params() {
+                        return DEFAULT_PARAMS;
+                    }
 
-                uniforms.set_uniform(this, 'red', parseFloat(this._red - 1e-6));
+                    get red() {
+                        return this._red;
+                    }
+
+                    set red(value) {
+                        if (this._red !== value) {
+                            this._red = value;
+
+                            uniforms.set_uniform(this, 'red', parseFloat(this._red - 1e-6));
+                        }
+                    }
+
+                    get green() {
+                        return this._green;
+                    }
+
+                    set green(value) {
+                        if (this._green !== value) {
+                            this._green = value;
+
+                            uniforms.set_uniform(this, 'green', parseFloat(this._green - 1e-6));
+                        }
+                    }
+
+                    get blue() {
+                        return this._blue;
+                    }
+
+                    set blue(value) {
+                        if (this._blue !== value) {
+                            this._blue = value;
+
+                            uniforms.set_uniform(this, 'blue', parseFloat(this._blue - 1e-6));
+                        }
+                    }
+
+                    get blend() {
+                        return this._blend;
+                    }
+
+                    set blend(value) {
+                        if (this._blend !== value) {
+                            this._blend = value;
+
+                            uniforms.set_uniform(this, 'blend', parseFloat(this._blend - 1e-6));
+                            this.set_enabled(this.blend > 0);
+                        }
+                    }
+
+                    get blend_mode() {
+                        return this._blend_mode;
+                    }
+
+                    set blend_mode(value) {
+                        if (this._blend_mode !== value) {
+                            this._blend_mode = value;
+
+                            uniforms.set_uniform(this, 'mode', this._blend_mode);
+                        }
+                    }
+
+                    get opacity_factor() {
+                        return this._opacity_factor;
+                    }
+
+                    set opacity_factor(value) {
+                        if (this._opacity_factor !== value) {
+                            this._opacity_factor = value;
+
+                            uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                        }
+                    }
+
+                    set color(rgba) {
+                        let [r, g, b, a] = rgba;
+                        this.red = r;
+                        this.green = g;
+                        this.blue = b;
+                        this.blend = a;
+                    }
+
+                    get color() {
+                        return [this.red, this.green, this.blue, this.blend];
+                    }
+
+                    /// False set function, only cares about the color. Too hard to change.
+                    set(params) {
+                        this.color = params.color;
+                        this.blend_mode = params.blend_mode;
+                        if ('opacity_factor' in params)
+                            this.opacity_factor = params.opacity_factor;
+                    }
+
+                    vfunc_paint_target(paint_node, paint_context) {
+                        uniforms.upload_uniforms(this);
+                        super.vfunc_paint_target(paint_node, paint_context);
+                    }
+
             }
+            return GObject.registerClass(gtype_spec, ColorEffect);
         }
 
-        get green() {
-            return this._green;
-        }
-
-        set green(value) {
-            if (this._green !== value) {
-                this._green = value;
-
-                uniforms.set_uniform(this, 'green', parseFloat(this._green - 1e-6));
+        class ColorEffect extends Clutter.ShaderEffect {
+            vfunc_get_static_shader_source() {
+                return SHADER_SOURCE;
             }
+
+
+                    constructor(params) {
+                        super();
+
+                        this._red = null;
+                        this._green = null;
+                        this._blue = null;
+                        this._blend = null;
+                        this._blend_mode = null;
+                        this._opacity_factor = null;
+
+                        // set params; utils.setup_params doesn't work here with color
+                        this.color = 'color' in params ? params.color : this.constructor.default_params.color;
+                        this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
+                        this.opacity_factor = 'opacity_factor' in params ? params.opacity_factor : this.constructor.default_params.opacity_factor;
+                    }
+
+                    static get default_params() {
+                        return DEFAULT_PARAMS;
+                    }
+
+                    get red() {
+                        return this._red;
+                    }
+
+                    set red(value) {
+                        if (this._red !== value) {
+                            this._red = value;
+
+                            uniforms.set_uniform(this, 'red', parseFloat(this._red - 1e-6));
+                        }
+                    }
+
+                    get green() {
+                        return this._green;
+                    }
+
+                    set green(value) {
+                        if (this._green !== value) {
+                            this._green = value;
+
+                            uniforms.set_uniform(this, 'green', parseFloat(this._green - 1e-6));
+                        }
+                    }
+
+                    get blue() {
+                        return this._blue;
+                    }
+
+                    set blue(value) {
+                        if (this._blue !== value) {
+                            this._blue = value;
+
+                            uniforms.set_uniform(this, 'blue', parseFloat(this._blue - 1e-6));
+                        }
+                    }
+
+                    get blend() {
+                        return this._blend;
+                    }
+
+                    set blend(value) {
+                        if (this._blend !== value) {
+                            this._blend = value;
+
+                            uniforms.set_uniform(this, 'blend', parseFloat(this._blend - 1e-6));
+                            this.set_enabled(this.blend > 0);
+                        }
+                    }
+
+                    get blend_mode() {
+                        return this._blend_mode;
+                    }
+
+                    set blend_mode(value) {
+                        if (this._blend_mode !== value) {
+                            this._blend_mode = value;
+
+                            uniforms.set_uniform(this, 'mode', this._blend_mode);
+                        }
+                    }
+
+                    get opacity_factor() {
+                        return this._opacity_factor;
+                    }
+
+                    set opacity_factor(value) {
+                        if (this._opacity_factor !== value) {
+                            this._opacity_factor = value;
+
+                            uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                        }
+                    }
+
+                    set color(rgba) {
+                        let [r, g, b, a] = rgba;
+                        this.red = r;
+                        this.green = g;
+                        this.blue = b;
+                        this.blend = a;
+                    }
+
+                    get color() {
+                        return [this.red, this.green, this.blue, this.blend];
+                    }
+
+                    /// False set function, only cares about the color. Too hard to change.
+                    set(params) {
+                        this.color = params.color;
+                        this.blend_mode = params.blend_mode;
+                        if ('opacity_factor' in params)
+                            this.opacity_factor = params.opacity_factor;
+                    }
+
+                    vfunc_paint_target(paint_node, paint_context) {
+                        uniforms.upload_uniforms(this);
+                        super.vfunc_paint_target(paint_node, paint_context);
+                    }
+
         }
-
-        get blue() {
-            return this._blue;
-        }
-
-        set blue(value) {
-            if (this._blue !== value) {
-                this._blue = value;
-
-                uniforms.set_uniform(this, 'blue', parseFloat(this._blue - 1e-6));
-            }
-        }
-
-        get blend() {
-            return this._blend;
-        }
-
-        set blend(value) {
-            if (this._blend !== value) {
-                this._blend = value;
-
-                uniforms.set_uniform(this, 'blend', parseFloat(this._blend - 1e-6));
-                this.set_enabled(this.blend > 0);
-            }
-        }
-
-        get blend_mode() {
-            return this._blend_mode;
-        }
-
-        set blend_mode(value) {
-            if (this._blend_mode !== value) {
-                this._blend_mode = value;
-
-                uniforms.set_uniform(this, 'mode', this._blend_mode);
-            }
-        }
-
-        get opacity_factor() {
-            return this._opacity_factor;
-        }
-
-        set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
-
-                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
-            }
-        }
-
-        set color(rgba) {
-            let [r, g, b, a] = rgba;
-            this.red = r;
-            this.green = g;
-            this.blue = b;
-            this.blend = a;
-        }
-
-        get color() {
-            return [this.red, this.green, this.blue, this.blend];
-        }
-
-        /// False set function, only cares about the color. Too hard to change.
-        set(params) {
-            this.color = params.color;
-            this.blend_mode = params.blend_mode;
-            if ('opacity_factor' in params)
-                this.opacity_factor = params.opacity_factor;
-        }
-
-        vfunc_paint_target(paint_node, paint_context) {
-            uniforms.upload_uniforms(this);
-            super.vfunc_paint_target(paint_node, paint_context);
-        }
-    });
+        return GObject.registerClass(gtype_spec, ColorEffect);
+    })();

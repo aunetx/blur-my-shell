@@ -55,10 +55,40 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
                 [parent_x, parent_y] = this.surface.parent.get_transformed_position();
 
             const geometry_actor = this.surface.get_geometry_actor();
-            const geometry = this.geometry.get(geometry_actor, {
+            let geometry = this.geometry.get(geometry_actor, {
                 use_content: this.surface.should_use_content_geometry(),
                 use_margins: this.surface.should_use_margin_geometry(),
             });
+
+            const parent_bin = this.surface.parent?.bin;
+            if (parent_bin) {
+                try {
+                    // Use the allocation box for width/height — these are in
+                    // the parent's LOCAL coordinate space, so they don't
+                    // include the parent's scale.  This is correct because
+                    // the blur actor is a child of the parent and set_size()
+                    // sets the local size (the parent's scale applies on top).
+                    // Using get_transformed_size() here would include the
+                    // parent's scale, causing a double-scale blip when the
+                    // parent animates scale (e.g. BoxPointer 0.96→1).
+                    // The allocation may be one frame stale at BEFORE_REDRAW,
+                    // but the before-paint sync corrects it after relayout.
+                    const alloc = parent_bin.get_allocation_box?.();
+                    if (alloc) {
+                        const bw = alloc.x2 - alloc.x1;
+                        const bh = alloc.y2 - alloc.y1;
+                        if (bw > 0 && bh > 0) {
+                            geometry = {
+                                x: parent_x + alloc.x1,
+                                y: parent_y + alloc.y1,
+                                width: bw,
+                                height: bh,
+                            };
+                        }
+                    }
+                } catch (e) { }
+            }
+
             if (!this.has_valid_geometry(geometry))
                 return null;
 
@@ -73,6 +103,10 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         } catch (e) {
             return null;
         }
+    }
+
+    should_prefer_bin(actor_geom, bin_geom) {
+        return false;
     }
 
     create_surface_geometry(parent_x, parent_y, target_x, target_y, width, height) {
@@ -202,8 +236,6 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             && Number.isFinite(geometry.y)
             && Number.isFinite(geometry.width)
             && Number.isFinite(geometry.height)
-            && Number.isFinite(geometry.target_x)
-            && Number.isFinite(geometry.target_y)
         );
     }
 
@@ -303,6 +335,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
                 return false;
         }
 
+        this.surface.allocate_actor?.();
         this.store_surface_geometry(geometry);
         return true;
     }
@@ -312,15 +345,22 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             const { x, y, width, height } = geometry;
             if (this.x !== x || this.y !== y) {
                 this.surface.blur_actor.set_position(x, y);
+                try { this.surface.tint_actor?.set_position(x, y); } catch (e) { }
                 this.x = x;
                 this.y = y;
             }
 
             if (this.width !== width || this.height !== height) {
                 this.surface.blur_actor.set_size(width, height);
+                try { this.surface.tint_actor?.set_size(width, height); } catch (e) { }
                 this.width = width;
                 this.height = height;
             }
+            // live_actor.update_geometry() → show_surface() shows the blur
+            // actor (queues relayout, sets NeedsAllocation). The allocation is
+            // applied AFTER this by update_surface_geometry()'s allocate_actor()
+            // call, which clears the flag. Do NOT allocate here — it would be
+            // invalidated by the show() inside update_geometry().
             this.surface.live_actor?.update_geometry(geometry);
         } catch (e) {
             return false;

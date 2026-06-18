@@ -34,6 +34,25 @@ function is_window_actor_alive(actor) {
     }
 }
 
+function allocate_to_box(actor, x, y, width, height) {
+    try {
+        if (!actor?.get_stage())
+            return;
+        if (
+            !Number.isFinite(x) || !Number.isFinite(y)
+            || !Number.isFinite(width) || !Number.isFinite(height)
+            || width <= 0 || height <= 0
+        )
+            return;
+        actor.allocate(new Clutter.ActorBox({
+            x1: Math.round(x),
+            y1: Math.round(y),
+            x2: Math.round(x + width),
+            y2: Math.round(y + height),
+        }));
+    } catch (e) { }
+}
+
 export const LiveWindowGroupSource = class LiveWindowGroupSource {
     constructor({
         container,
@@ -174,6 +193,7 @@ export const LiveWindowGroupSource = class LiveWindowGroupSource {
         const clone = new Clutter.Actor({
             reactive: false,
             clip_to_allocation: true,
+            layout_manager: new Clutter.FixedLayout(),
         });
         clone._bms_content_clones = new Map();
         clone.sync_source = source => this.sync_decomposed_window_clone(clone, source);
@@ -234,6 +254,9 @@ export const LiveWindowGroupSource = class LiveWindowGroupSource {
             child_clone.set_size(rect.width, rect.height);
             child_clone.opacity = 255;
             child_clone.visible = next_visible;
+            // Allocate AFTER setting visible — setting visible queues a
+            // relayout that invalidates prior allocations.
+            allocate_to_box(child_clone, rect.x, rect.y, rect.width, rect.height);
 
             if (changed)
                 child_clone.queue_redraw?.();
@@ -330,6 +353,9 @@ export const LiveWindowGroupSource = class LiveWindowGroupSource {
             clone.set_size(next_width, next_height);
             clone.opacity = 255;
             clone.visible = next_visible;
+            // Allocate AFTER setting visible — setting visible queues a
+            // relayout that invalidates prior allocations.
+            allocate_to_box(clone, next_x, next_y, next_width, next_height);
             if (clone.sync_source?.(actor))
                 this.changed = true;
 

@@ -96,7 +96,7 @@
         </key>
         <!-- GLOBAL PROFILE BACKGROUND STYLE -->
         <key type="i" name="profile-background-style">
-            <default>0</default>
+            <default>3</default>
             <summary>Default background style for surfaces using the global profile</summary>
         </key>
 

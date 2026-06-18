@@ -14,6 +14,7 @@ export const PopupBlurLiveActor = class PopupBlurLiveActor {
             overview_source_getter: false,
             window_source_options: {
                 on_source_paint: () => this.surface.queue_source_paint_sync(),
+                decompose_windows: false,
             },
         });
         this.geometry = null;

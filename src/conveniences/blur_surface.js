@@ -339,12 +339,14 @@ export const BlurSurface = class BlurSurface {
         this.destroyed = true;
         this.repaint_loop?.stop();
 
-        if (container_destroyed && this.bg_manager)
+        const actor_destroyed = container_destroyed;
+
+        if (actor_destroyed && this.bg_manager)
             this.bg_manager.backgroundActor = null;
 
-        this.destroy_background();
+        this.destroy_background({ actor_destroyed });
 
-        if (!container_destroyed) {
+        if (!actor_destroyed) {
             if (this.background_group)
                 this.destroy_group();
         }

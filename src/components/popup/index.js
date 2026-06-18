@@ -204,7 +204,7 @@ export const PopupBlur = class PopupBlur {
 
         this.destroy_blurred_ancestors(target);
 
-        const { parent, sibling } = this.get_overlay_parent(root_actor);
+        const { parent, sibling } = this.get_overlay_parent(root_actor, target);
         const surface = new PopupBlurSurface(
             this.connections,
             this.settings,
@@ -266,7 +266,17 @@ export const PopupBlur = class PopupBlur {
         }
     }
 
-    get_overlay_parent(root_actor) {
+    get_overlay_parent(root_actor, target = null) {
+        if (target) {
+            const found = this.find_boxpointer_ancestor(target);
+            if (found) {
+                this._log(`get_overlay_parent: BoxPointer detected (${found.boxpointer.constructor.name}), adding blur as child of BoxPointer below bin`);
+                return { parent: found.boxpointer, sibling: found.bin };
+            }
+        }
+
+        this._log(`get_overlay_parent: no BoxPointer for target=${target?.constructor.name}, falling through`);
+
         let actor = root_actor;
         let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {
@@ -295,6 +305,28 @@ export const PopupBlur = class PopupBlur {
         }
 
         return { parent: Main.uiGroup, sibling: null };
+    }
+
+    find_boxpointer_ancestor(actor) {
+        let current = actor;
+        while (current) {
+            let bin = null;
+            try { bin = current.bin; } catch (e) { }
+            if (bin) {
+                let children = [];
+                try { children = current.get_children?.() ?? []; }
+                catch (e) { }
+                if (children.includes(bin))
+                    return { boxpointer: current, bin };
+            }
+
+            let parent;
+            try { parent = current.get_parent?.(); } catch (e) { return null; }
+            if (!parent || parent === current)
+                return null;
+            current = parent;
+        }
+        return null;
     }
 
     get_blur_targets(actor) {

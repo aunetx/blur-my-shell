@@ -196,7 +196,13 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         } catch (e) { }
     }
 
-    destroy() {
+    destroy({ actor_destroyed = false } = {}) {
+        if (actor_destroyed) {
+            this.background_group = null;
+            this.destroy_background();
+            return;
+        }
+
         const background_group = this.background_group;
         this.destroy_background();
         this.background_group = null;

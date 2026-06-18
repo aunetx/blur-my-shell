@@ -32,6 +32,8 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.surface = surface;
         this.signal_ids = [];
         this.signal_actors = new WeakSet();
+        this.removal_actors = new WeakSet();
+        this.descendant_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
     }
 
@@ -71,6 +73,78 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
             } catch (e) {
                 return;
             }
+        }
+    }
+
+    connect_parent_removal(actor) {
+        let parent = null;
+
+        try {
+            parent = actor?.get_parent?.() ?? null;
+        } catch (e) {
+            return;
+        }
+
+        if (!parent || this.removal_actors.has(parent))
+            return;
+
+        this.removal_actors.add(parent);
+        this.track_destroy(parent);
+
+        try {
+            const id = parent.connect('child-removed', (_, child) => {
+                if (
+                    child === this.surface.target
+                    || child === this.surface.root_actor
+                    || !this.surface.has_stage_actor(this.surface.target)
+                    || !this.surface.has_stage_actor(this.surface.root_actor)
+                )
+                    this.surface.queue_update({ force: true });
+            });
+            this.signal_ids.push([parent, id]);
+        } catch (e) { }
+    }
+
+    connect_descendants(actor, seen = new WeakSet()) {
+        if (!actor || seen.has(actor))
+            return;
+
+        seen.add(actor);
+        this.connect_descendant_container(actor);
+
+        this.get_children(actor).forEach(child => {
+            this.connect_actor(child);
+            this.connect_descendants(child, seen);
+        });
+    }
+
+    connect_descendant_container(actor) {
+        if (this.descendant_actors.has(actor))
+            return;
+
+        this.descendant_actors.add(actor);
+        this.track_destroy(actor);
+
+        try {
+            const id = actor.connect('child-added', (_, child) => {
+                this.connect_actor(child);
+                this.connect_descendants(child);
+                this.surface.queue_update({ force: true });
+            });
+            this.signal_ids.push([actor, id]);
+        } catch (e) { }
+
+        try {
+            const id = actor.connect('child-removed', () => this.surface.queue_update({ force: true }));
+            this.signal_ids.push([actor, id]);
+        } catch (e) { }
+    }
+
+    get_children(actor) {
+        try {
+            return actor?.get_children?.() ?? [];
+        } catch (e) {
+            return [];
         }
     }
 
@@ -118,6 +192,8 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         });
         this.signal_ids = [];
         this.signal_actors = new WeakSet();
+        this.removal_actors = new WeakSet();
+        this.descendant_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
     }
 };

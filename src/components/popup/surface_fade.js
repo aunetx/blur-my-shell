@@ -23,14 +23,15 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
 
         opacity = this.apply_actor_opacity(opacity, this.root_actor, visited);
 
-        [
-            this.target,
-            this.root_actor,
-        ].forEach(actor => {
-            const paint_opacity = this.get_paint_opacity(actor);
-            if (paint_opacity !== null)
-                opacity = Math.min(opacity, paint_opacity);
-        });
+        // NOTE: Do NOT clamp by get_paint_opacity() here.  When the blur actor
+        // is a child of this.parent (e.g. a BoxPointer), get_paint_opacity()
+        // includes this.parent's opacity — but the blur actor already inherits
+        // that opacity by being its child.  Clamping here would double-count
+        // the parent's opacity, making the blur+tint too dark during opacity
+        // transitions (e.g. quick settings fade-in).  The walk above already
+        // computes the correct combined opacity from target to (not including)
+        // parent, and get_transition_opacity below handles the parent's
+        // opacity transition separately.
 
         const transition_opacity = this.get_transition_opacity(opacity_actors, visited);
         if (transition_opacity !== null) {
@@ -56,26 +57,33 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         visited.add(actor);
 
         try {
-            const paint_opacity = this.get_paint_opacity(actor);
+            const actor_opacity = actor.opacity ?? 255;
 
             if (!actor.visible) {
+                // Actor is not visible — if it has a paint opacity (e.g. it's
+                // in a fade-out transition), use that; otherwise it contributes
+                // zero opacity.
+                const paint_opacity = this.get_paint_opacity(actor);
                 if (paint_opacity !== null)
                     return Math.round(opacity * paint_opacity / 255);
-
                 return 0;
             }
 
             if (!actor.mapped) {
+                const paint_opacity = this.get_paint_opacity(actor);
                 if (paint_opacity !== null)
                     return Math.round(opacity * paint_opacity / 255);
-
-                return Math.round(opacity * (actor.opacity ?? 255) / 255);
+                return Math.round(opacity * actor_opacity / 255);
             }
 
-            if (paint_opacity !== null)
-                return Math.round(opacity * Math.min(actor.opacity ?? 255, paint_opacity) / 255);
-
-            return Math.round(opacity * (actor.opacity ?? 255) / 255);
+            // Use the actor's OWN opacity only — the walk from target to
+            // parent already traverses the full chain, so multiplying each
+            // actor's own opacity gives the correct combined opacity relative
+            // to the parent.  Using get_paint_opacity() here would include
+            // ancestors' opacities (including the parent's), causing
+            // double-counting when the blur actor is also a child of the
+            // parent.
+            return Math.round(opacity * actor_opacity / 255);
         } catch (e) {
             return opacity;
         }

@@ -50,11 +50,18 @@ export const LivePipeline = class LivePipeline {
         this.actor._bms_is_blur_actor = true;
         this.actor.set_size(1, 1);
         this.actor.hide();
+        // NOTE: do NOT allocate here — the actor has no parent/stage yet, so
+        // allocating triggers "Spurious clutter_actor_allocate ... isn't a
+        // descendant of the stage". The real (non-zero) allocation is applied
+        // later via allocate_actor()/allocate_to_box() once the actor is shown
+        // onstage, which is also before the first paint.
 
         this.source = new Clutter.Actor({
             reactive: false,
             clip_to_allocation: false,
+            layout_manager: new Clutter.FixedLayout(),
         });
+        this.source.set_size(1, 1);
         this.actor.add_child(this.source);
         this.build_sources();
 
@@ -136,6 +143,16 @@ export const LivePipeline = class LivePipeline {
         this.actor.set_position(Math.round(geometry.x), Math.round(geometry.y));
         this.actor.set_size(Math.ceil(geometry.width), Math.ceil(geometry.height));
         this.actor.show();
+        // Allocate after show — show() queues a relayout (sets NeedsAllocation);
+        // allocating after clears it. allocate_to_box is stage-guarded to avoid
+        // Spurious warnings when off-stage.
+        this.allocate_to_box(
+            this.actor,
+            Math.round(geometry.x),
+            Math.round(geometry.y),
+            Math.ceil(geometry.width),
+            Math.ceil(geometry.height)
+        );
         this.sync();
 
         return true;
@@ -179,6 +196,7 @@ export const LivePipeline = class LivePipeline {
             return;
         this.source.set_position(-stage_x, -stage_y);
         this.source.set_size(stage_width, stage_height);
+        this.allocate_to_box(this.source, -stage_x, -stage_y, stage_width, stage_height);
         this.sync_clone(this.background_clone, stage_width, stage_height);
         const previous = this.window_source?.sync(this.background_clone) ?? this.background_clone;
         this.sync_overview(stage_width, stage_height, previous);
@@ -209,6 +227,30 @@ export const LivePipeline = class LivePipeline {
             clone.set_position(0, 0);
             clone.set_size(width, height);
             clone.show();
+            // Allocate AFTER show — show() queues a relayout that sets
+            // NeedsAllocation; allocating after clears it.
+            this.allocate_to_box(clone, 0, 0, width, height);
+        } catch (e) { }
+    }
+
+    allocate_to_box(actor, x, y, width, height) {
+        try {
+            if (!actor?.get_stage())
+                return;
+            // Guard against NaN — passing NaN to allocate() triggers a
+            // CRITICAL assertion and leaves the actor unallocated.
+            if (
+                !Number.isFinite(x) || !Number.isFinite(y)
+                || !Number.isFinite(width) || !Number.isFinite(height)
+                || width <= 0 || height <= 0
+            )
+                return;
+            actor.allocate(new Clutter.ActorBox({
+                x1: Math.round(x),
+                y1: Math.round(y),
+                x2: Math.round(x + width),
+                y2: Math.round(y + height),
+            }));
         } catch (e) { }
     }
 

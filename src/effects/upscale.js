@@ -4,6 +4,7 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'upscale.glsl';
 const DEFAULT_PARAMS = {
@@ -13,7 +14,10 @@ const DEFAULT_PARAMS = {
 
 export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
     { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+    (() => {
+        const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
+        const SHADER_SNIPPET = utils.create_shader_snippet_for_source(Clutter, Cogl, SHADER_SOURCE);
+        const gtype_spec = {
         GTypeName: "UpscaleEffect",
         Properties: {
             'factor': GObject.ParamSpec.int(
@@ -49,102 +53,211 @@ export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
                 0.0,
             )
         }
-    }, class UpscaleEffect extends Clutter.ShaderEffect {
-        constructor(params) {
-            super();
+    };
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+        if (utils.uses_shader_snippets(Clutter)) {
+            class UpscaleEffect extends Clutter.ShaderEffect {
+                vfunc_get_static_snippet() {
+                    return SHADER_SNIPPET;
+                }
 
-            utils.setup_params(this, params);
-        }
 
-        static get default_params() {
-            return DEFAULT_PARAMS;
-        }
+                    constructor(params) {
+                        super();
 
-        get factor() {
-            return this._factor;
-        }
+                        utils.setup_params(this, params);
+                    }
 
-        set factor(value) {
-            const v = Math.max(1, value || 1);
-            if (this._factor !== v) {
-                this._factor = v;
+                    static get default_params() {
+                        return DEFAULT_PARAMS;
+                    }
 
-                uniforms.set_uniform(this, 'factor', this._factor);
+                    get factor() {
+                        return this._factor;
+                    }
+
+                    set factor(value) {
+                        const v = Math.max(1, value || 1);
+                        if (this._factor !== v) {
+                            this._factor = v;
+
+                            uniforms.set_uniform(this, 'factor', this._factor);
+                        }
+                    }
+
+                    get opacity_factor() {
+                        return this._opacity_factor;
+                    }
+
+                    set opacity_factor(value) {
+                        if (this._opacity_factor !== value) {
+                            this._opacity_factor = value;
+
+                            uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                        }
+                    }
+
+                    get width() {
+                        return this._width;
+                    }
+
+                    set width(value) {
+                        const v = Math.max(1, value || 1);
+                        if (this._width !== v) {
+                            this._width = v;
+
+                            uniforms.set_uniform(this, 'width', parseFloat(this._width - 1e-6));
+                        }
+                    }
+
+                    get height() {
+                        return this._height;
+                    }
+
+                    set height(value) {
+                        const v = Math.max(1, value || 1);
+                        if (this._height !== v) {
+                            this._height = v;
+
+                            uniforms.set_uniform(this, 'height', parseFloat(this._height - 1e-6));
+                        }
+                    }
+
+                    vfunc_set_actor(actor) {
+                        if (this._actor_connection_size_id) {
+                            let old_actor = this.get_actor();
+                            old_actor?.disconnect(this._actor_connection_size_id);
+                        }
+                        if (actor) {
+                            this.width = actor.width;
+                            this.height = actor.height;
+                            this._actor_connection_size_id = actor.connect('notify::size', _ => {
+                                this.width = actor.width;
+                                this.height = actor.height;
+                            });
+                        }
+                        else
+                            this._actor_connection_size_id = null;
+
+                        super.vfunc_set_actor(actor);
+                    }
+
+                    vfunc_paint_target(paint_node, paint_context) {
+                        uniforms.upload_uniforms(this);
+
+                        const pipeline = this.get_pipeline();
+                        if (pipeline) {
+                            try {
+                                pipeline.set_layer_filters(0, 9728, 9728);
+                            } catch (e) { }
+                        }
+
+                        super.vfunc_paint_target(paint_node, paint_context);
+                    }
+
             }
+            return GObject.registerClass(gtype_spec, UpscaleEffect);
         }
 
-        get opacity_factor() {
-            return this._opacity_factor;
-        }
-
-        set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
-
-                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
-            }
-        }
-
-        get width() {
-            return this._width;
-        }
-
-        set width(value) {
-            const v = Math.max(1, value || 1);
-            if (this._width !== v) {
-                this._width = v;
-
-                uniforms.set_uniform(this, 'width', parseFloat(this._width - 1e-6));
-            }
-        }
-
-        get height() {
-            return this._height;
-        }
-
-        set height(value) {
-            const v = Math.max(1, value || 1);
-            if (this._height !== v) {
-                this._height = v;
-
-                uniforms.set_uniform(this, 'height', parseFloat(this._height - 1e-6));
-            }
-        }
-
-        vfunc_set_actor(actor) {
-            if (this._actor_connection_size_id) {
-                let old_actor = this.get_actor();
-                old_actor?.disconnect(this._actor_connection_size_id);
-            }
-            if (actor) {
-                this.width = actor.width;
-                this.height = actor.height;
-                this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                    this.width = actor.width;
-                    this.height = actor.height;
-                });
-            }
-            else
-                this._actor_connection_size_id = null;
-
-            super.vfunc_set_actor(actor);
-        }
-
-        vfunc_paint_target(paint_node, paint_context) {
-            uniforms.upload_uniforms(this);
-
-            const pipeline = this.get_pipeline();
-            if (pipeline) {
-                try {
-                    pipeline.set_layer_filters(0, 9728, 9728);
-                } catch (e) { }
+        class UpscaleEffect extends Clutter.ShaderEffect {
+            vfunc_get_static_shader_source() {
+                return SHADER_SOURCE;
             }
 
-            super.vfunc_paint_target(paint_node, paint_context);
+
+                    constructor(params) {
+                        super();
+
+                        utils.setup_params(this, params);
+                    }
+
+                    static get default_params() {
+                        return DEFAULT_PARAMS;
+                    }
+
+                    get factor() {
+                        return this._factor;
+                    }
+
+                    set factor(value) {
+                        const v = Math.max(1, value || 1);
+                        if (this._factor !== v) {
+                            this._factor = v;
+
+                            uniforms.set_uniform(this, 'factor', this._factor);
+                        }
+                    }
+
+                    get opacity_factor() {
+                        return this._opacity_factor;
+                    }
+
+                    set opacity_factor(value) {
+                        if (this._opacity_factor !== value) {
+                            this._opacity_factor = value;
+
+                            uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                        }
+                    }
+
+                    get width() {
+                        return this._width;
+                    }
+
+                    set width(value) {
+                        const v = Math.max(1, value || 1);
+                        if (this._width !== v) {
+                            this._width = v;
+
+                            uniforms.set_uniform(this, 'width', parseFloat(this._width - 1e-6));
+                        }
+                    }
+
+                    get height() {
+                        return this._height;
+                    }
+
+                    set height(value) {
+                        const v = Math.max(1, value || 1);
+                        if (this._height !== v) {
+                            this._height = v;
+
+                            uniforms.set_uniform(this, 'height', parseFloat(this._height - 1e-6));
+                        }
+                    }
+
+                    vfunc_set_actor(actor) {
+                        if (this._actor_connection_size_id) {
+                            let old_actor = this.get_actor();
+                            old_actor?.disconnect(this._actor_connection_size_id);
+                        }
+                        if (actor) {
+                            this.width = actor.width;
+                            this.height = actor.height;
+                            this._actor_connection_size_id = actor.connect('notify::size', _ => {
+                                this.width = actor.width;
+                                this.height = actor.height;
+                            });
+                        }
+                        else
+                            this._actor_connection_size_id = null;
+
+                        super.vfunc_set_actor(actor);
+                    }
+
+                    vfunc_paint_target(paint_node, paint_context) {
+                        uniforms.upload_uniforms(this);
+
+                        const pipeline = this.get_pipeline();
+                        if (pipeline) {
+                            try {
+                                pipeline.set_layer_filters(0, 9728, 9728);
+                            } catch (e) { }
+                        }
+
+                        super.vfunc_paint_target(paint_node, paint_context);
+                    }
+
         }
-    });
+        return GObject.registerClass(gtype_spec, UpscaleEffect);
+    })();

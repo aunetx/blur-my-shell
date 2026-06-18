@@ -1,6 +1,7 @@
 import GLib from 'gi://GLib';
+import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
-import { FrameRepaintLoop } from '../../conveniences/frame_repaint_loop.js';
+import St from 'gi://St';
 import { SurfaceSettings } from '../../conveniences/surface_settings.js';
 import { PopupBlurSurfaceFade } from './surface_fade.js';
 import { PopupBlurLiveActor } from './live_actor.js';
@@ -13,7 +14,7 @@ const NOTIFICATION_STYLE_CLASSES = [
     'notification-banner', 'notification', 'message',
 ];
 const FULL_GEOMETRY_STYLE_CLASSES = [
-    'popup-menu-content', 'candidate-popup-content',
+    'popup-menu-content', 'popup-menu', 'popup-sub-menu', 'candidate-popup-content',
     'quick-settings', 'quick-toggle-menu',
     'notification-banner', 'notification', 'message', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
@@ -37,10 +38,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.signals = new PopupBlurSurfaceSignals(this);
         this.style = new PopupBlurSurfaceStyle(this);
         this.transitions = new PopupBlurSurfaceTransitions(this);
-        this.repaint_loop = new FrameRepaintLoop(
-            () => this.repaint_frame(),
-            () => this.should_repaint()
-        );
         this.repaint_id = 0;
         this.update_id = 0;
         this.transition_update_id = 0;
@@ -66,15 +63,62 @@ export const PopupBlurSurface = class PopupBlurSurface {
         );
         this.actor.hide();
         this.parent.add_child(this.actor);
+
+        // Create a dedicated tint actor that gets the exact same size and
+        // position as the blur actor.  The BMS tint background is painted on
+        // THIS actor (via the bms-popup-tint CSS class) instead of on the popup
+        // content, so the tinted area can never mismatch the blurred area.
+        this.tint_actor = new St.Widget({
+            name: 'bms-popup-tint',
+            reactive: false,
+            clip_to_allocation: true,
+        });
+        this.tint_actor.add_style_class_name('bms-popup-tint');
+        this.tint_actor.hide();
+        this.parent.add_child(this.tint_actor);
+
         this.set_actor_position();
+        this.apply_blur_widget_corner_radius();
         this.style.capture_target_style();
         this.style.update_target_style();
         this.signals.connect_actor(this.target);
         this.signals.connect_actor(this.root_actor);
         this.signals.connect_ancestors(this.target);
         this.signals.connect_ancestors(this.root_actor);
+        this.signals.connect_parent_removal(this.target);
+        this.signals.connect_parent_removal(this.root_actor);
+        if (this.is_notification_surface()) {
+            this.signals.connect_descendants(this.target);
+            this.signals.connect_descendants(this.root_actor);
+        }
         this.signals.connect_layout();
         this.signals.connect_settings();
+
+        // BEFORE_REDRAW laters run BEFORE the Clutter relayout pass, so
+        // allocations are one frame stale when our update() runs.  The
+        // before-paint signal fires AFTER relayout but BEFORE paint — the
+        // perfect moment to re-sync geometry with current allocations.
+        // This prevents the blur/tint from lagging one frame behind during
+        // height animations (e.g. quick settings nested menu expand).
+        this.needs_paint_sync = false;
+        this.paint_sync_id = global.stage.connect('before-paint', () => {
+            if (this.destroyed || !this.is_enabled() || !this.needs_paint_sync)
+                return;
+            this.needs_paint_sync = false;
+            // Lightweight sync — just re-read geometry with current
+            // allocations and re-allocate.  The full update() already ran
+            // at BEFORE_REDRAW; this just corrects the geometry that was
+            // computed with stale allocations.  Running the full update()
+            // here would double the per-frame work and cause lag.
+            try {
+                if (this.static_blur || !this.live_actor)
+                    return;
+                const geometry = this.placement.get_unclipped_monitor_surface_geometry();
+                if (this.placement.has_valid_geometry(geometry))
+                    this.placement.update_surface_geometry(geometry);
+            } catch (e) { }
+        });
+
         this.queue_update();
         return true;
     }
@@ -119,10 +163,50 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.is_owned_actor_destroyed())
             return;
         try {
-            const sibling = this.sibling?.get_parent?.() === this.parent ? this.sibling : null;
-            if (this.is_below_sibling(sibling))
+            // Only re-insert if our sibling is still tracked; otherwise just
+            // rely on add_child at enable-time and skip the assertion.
+            let sibling = null;
+            if (this.sibling && this.parent?.get_children?.()?.includes?.(this.sibling))
+                sibling = this.sibling;
+            if (sibling && this.is_below_sibling(sibling))
                 return;
-            this.parent.set_child_below_sibling(this.actor, sibling);
+            if (sibling) {
+                this.parent.set_child_below_sibling(this.actor, sibling);
+                // Place the tint actor between the blur and the bin so the
+                // tint is painted on top of the blur but below the content.
+                if (this.tint_actor)
+                    this.parent.set_child_below_sibling(this.tint_actor, sibling);
+            }
+        } catch (e) { }
+    }
+    allocate_actor() {
+        if (this.is_owned_actor_destroyed() || !this.actor)
+            return;
+        try {
+            if (!this.actor.get_stage())
+                return;
+            const width = this.actor.width;
+            const height = this.actor.height;
+            const x = this.actor.x;
+            const y = this.actor.y;
+            // Guard against NaN — width <= 0 is false for NaN, so we must
+            // explicitly check Number.isFinite to avoid passing NaN to
+            // allocate(), which triggers a CRITICAL assertion and leaves
+            // the actor unallocated ("needs an allocation").
+            if (
+                !Number.isFinite(x) || !Number.isFinite(y)
+                || !Number.isFinite(width) || !Number.isFinite(height)
+                || width <= 0 || height <= 0
+            )
+                return;
+            const box = new Clutter.ActorBox({
+                x1: Math.round(x),
+                y1: Math.round(y),
+                x2: Math.round(x + width),
+                y2: Math.round(y + height),
+            });
+            this.actor.allocate(box);
+            try { this.tint_actor?.allocate(box); } catch (e) { }
         } catch (e) { }
     }
     is_below_sibling(sibling) {
@@ -138,11 +222,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
     update() {
         try {
             this.update_corner_radius_source();
+            this.apply_blur_widget_corner_radius();
             if (!this.static_blur) {
                 this.update_live_surface();
                 return;
             }
-            let transition_state = this.transitions.get_state();
+            let transition_state = this.transitions.get_state(this.is_notification_surface());
             let geometry = this.placement.get_surface_geometry();
             const visible = this.is_visible();
             const geometry_changed = this.placement.has_surface_geometry_changed(geometry);
@@ -193,7 +278,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         }
     }
     update_live_surface() {
-        const transition_state = this.transitions.get_state();
+        const transition_state = this.transitions.get_state(this.is_notification_surface());
         if (!this.is_visible()) {
             if (this.fade_out_during_opacity_transition(transition_state))
                 return;
@@ -201,8 +286,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         }
         this.set_actor_position();
-        const geometry = this.get_live_surface_geometry();
+        const geometry = this.placement.get_unclipped_monitor_surface_geometry();
         if (!this.placement.has_valid_geometry(geometry)) {
+            if (this.placement.offscreen)
+                return this.hide_surface();
             if (this.placement.keep_transition_visible(transition_state)) {
                 this.queue_repaint(true);
                 this.queue_transition_update(transition_state);
@@ -212,7 +299,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
                 this.queue_transition_update(transition_state);
                 return;
             }
-            this.queue_update({ force: true });
+            this.hide_surface();
+            this.schedule_live_settle();
             return;
         }
         if (!this.placement.update_surface_geometry(geometry))
@@ -241,14 +329,15 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.clear_live_settle();
         this.opacity = 0;
         this.update_surface_opacity(0);
-        this.hide_actors(this.static_blur);
+        this.hide_actors(true);
         this.placement.hide();
     }
     update_opacity(transition_state = null) {
-        const opacity = this.apply_transition_opacity(
+        let opacity = this.apply_transition_opacity(
             this.fade.get_opacity(transition_state?.opacity_actors),
             transition_state
         );
+        opacity = Math.min(opacity, this.get_content_opacity());
         if (
             this.opacity === opacity
             && this.has_surface_opacity(opacity)
@@ -292,14 +381,17 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return this.static_actor.has_opacity(opacity);
         if (this.is_owned_actor_destroyed())
             return false;
-        return this.live_actor?.has_opacity(opacity) ?? this.actor.opacity === opacity;
+        const blur_matches = this.live_actor?.has_opacity(opacity) ?? this.actor.opacity === opacity;
+        const tint_matches = this.tint_actor?.opacity === opacity;
+        return blur_matches && tint_matches;
     }
     update_surface_opacity(opacity) {
         if (this.static_blur) {
             this.static_actor.set_opacity(opacity);
-            return;
+        } else {
+            this.live_actor?.set_opacity(opacity);
         }
-        this.live_actor?.set_opacity(opacity);
+        try { this.tint_actor && (this.tint_actor.opacity = opacity); } catch (e) { }
     }
     get_geometry_actor() { return this.target; }
     should_use_content_geometry() { return !this.uses_full_actor_geometry(); }
@@ -317,12 +409,56 @@ export const PopupBlurSurface = class PopupBlurSurface {
         );
     }
 
+    get_content_opacity() {
+        if (!this.is_notification_surface())
+            return 255;
+
+        const children = [
+            ...this.get_actor_children(this.target),
+            ...this.get_actor_children(this.root_actor),
+        ].filter(child => child !== this.actor && child !== this.tint_actor);
+
+        if (children.length === 0)
+            return 0;
+
+        return Math.max(...children.map(child => this.get_actor_opacity(child)));
+    }
+
+    get_actor_opacity(actor) {
+        try {
+            if (!actor.visible || !actor.mapped)
+                return actor.get_paint_opacity?.() ?? 0;
+
+            return Math.min(actor.opacity ?? 255, actor.get_paint_opacity?.() ?? 255);
+        } catch (e) {
+            return 0;
+        }
+    }
+
+    get_actor_children(actor) {
+        try {
+            return actor?.get_children?.() ?? [];
+        } catch (e) {
+            return [];
+        }
+    }
+
     get_live_surface_geometry() {
         if (this.is_notification_surface())
             return this.placement.get_unclipped_monitor_surface_geometry();
 
         return this.placement.get_surface_geometry();
     }
+
+    apply_blur_widget_corner_radius() {
+        const radius = this.get_corner_radius();
+        if (!Number.isFinite(radius) || radius <= 0)
+            return;
+        const css = `border-radius: ${radius}px;`;
+        try { this.actor?.set_style?.(css); } catch (e) { }
+        try { this.tint_actor?.set_style?.(css); } catch (e) { }
+    }
+
 
     show_actors() {
         try {
@@ -333,6 +469,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
                     this.live_actor?.show();
             }
         } catch (e) { }
+        try {
+            if (this.tint_actor && this.opacity != null)
+                this.tint_actor.opacity = this.opacity;
+        } catch (e) { }
+        try { this.tint_actor?.show?.(); } catch (e) { }
+        this.allocate_actor();
         this.update_repaint_loop();
     }
     hide_actors(clear_source = false) {
@@ -340,28 +482,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
             if (!this.is_owned_actor_destroyed())
                 this.actor?.hide?.();
         } catch (e) { }
-        this.repaint_loop.stop();
+        try { this.tint_actor?.hide?.(); } catch (e) { }
         if (!this.static_blur)
             this.live_actor?.hide(clear_source);
     }
 
-    update_repaint_loop(effects = null) {
-        if (
-            !this.static_blur
-            && this.live_actor
-            && (effects ?? this.pipeline?.effects ?? []).length > 0
-            && this.should_repaint()
-        ) {
-            this.repaint_loop.start();
-            return;
-        }
-        this.repaint_loop.stop();
-    }
-
-    repaint_frame() {
-        this.live_actor?.sync();
-        this.pipeline?.repaint_effect?.();
-    }
+    update_repaint_loop(_effects = null) { }
 
     is_owned_actor_destroyed() {
         return (
@@ -372,6 +498,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
     queue_update({ force = false } = {}) {
         if (this.destroyed || this.update_id || (!force && this.transition_update_id))
             return;
+        // Flag for the before-paint sync — the BEFORE_REDRAW later runs
+        // before relayout (stale allocations), so we need a second pass
+        // after relayout (before paint) to use current allocations.
+        this.needs_paint_sync = true;
         this.update_id = global.compositor.get_laters().add(
             Meta.LaterType.BEFORE_REDRAW,
             () => {
@@ -421,6 +551,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     update_settings() {
+        this.apply_blur_widget_corner_radius();
         const source_changed = this.update_corner_radius_source();
         if (source_changed) return;
         this.style.update_target_style();
@@ -484,7 +615,15 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     is_actor_visible(actor) {
         try {
-            return actor && actor.visible && actor.mapped;
+            return actor && actor.visible && actor.mapped && this.has_stage_actor(actor);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    has_stage_actor(actor) {
+        try {
+            return !!actor?.get_stage?.();
         } catch (e) {
             return false;
         }
@@ -512,17 +651,31 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.repaint_id)
             GLib.source_remove(this.repaint_id);
         this.repaint_id = 0;
-        this.repaint_loop.stop();
+        if (this.paint_sync_id) {
+            try { global.stage.disconnect(this.paint_sync_id); } catch (e) { }
+            this.paint_sync_id = 0;
+        }
+        this.needs_paint_sync = false;
         if (!actor_already_destroyed)
             this.style.restore_target_style();
         this.fade = null;
         this.signals.disconnect_all();
+
+        // Destroy the tint actor.
+        if (this.tint_actor) {
+            try {
+                if (!actor_already_destroyed)
+                    this.tint_actor.destroy();
+            } catch (e) { }
+            this.tint_actor = null;
+        }
+
         if (this.static_blur)
-            this.destroy_static_actor();
+            this.destroy_static_actor(actor_already_destroyed);
         else
-            this.destroy_dynamic_actor();
+            this.destroy_dynamic_actor(actor_already_destroyed);
     }
-    destroy_dynamic_actor() {
+    destroy_dynamic_actor(actor_already_destroyed = false) {
         const live_actor = this.live_actor;
         this.pipeline = null;
         this.blur_actor = null;
@@ -532,12 +685,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
 
         try {
-            live_actor.destroy();
+            live_actor.destroy({ actor_destroyed: actor_already_destroyed });
         } catch (e) { }
     }
 
-    destroy_static_actor() {
-        this.static_actor?.destroy();
+    destroy_static_actor(actor_already_destroyed = false) {
+        this.static_actor?.destroy({ actor_destroyed: actor_already_destroyed });
         this.static_actor = null;
         this.actor = null;
         this.blur_actor = null;

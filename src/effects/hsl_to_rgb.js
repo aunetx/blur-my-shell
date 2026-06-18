@@ -4,6 +4,7 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'hsl_to_rgb.glsl';
 const DEFAULT_PARAMS = {
@@ -13,7 +14,10 @@ const DEFAULT_PARAMS = {
 
 export const HslToRgbEffect = utils.IS_IN_PREFERENCES ?
     { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+    (() => {
+        const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
+        const SHADER_SNIPPET = utils.create_shader_snippet_for_source(Clutter, Cogl, SHADER_SOURCE);
+        const gtype_spec = {
         GTypeName: "HslToRgbEffect",
         Properties: {
             'opacity_factor': GObject.ParamSpec.double(
@@ -25,36 +29,79 @@ export const HslToRgbEffect = utils.IS_IN_PREFERENCES ?
                 1.0,
             ),
         }
-    }, class HslToRgbEffect extends Clutter.ShaderEffect {
-        constructor(params) {
-            super();
+    };
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+        if (utils.uses_shader_snippets(Clutter)) {
+            class HslToRgbEffect extends Clutter.ShaderEffect {
+                vfunc_get_static_snippet() {
+                    return SHADER_SNIPPET;
+                }
 
-            utils.setup_params(this, params);
-        }
 
-        static get default_params() {
-            return DEFAULT_PARAMS;
-        }
+                    constructor(params) {
+                        super();
 
-        get opacity_factor() {
-            return this._opacity_factor;
-        }
+                        utils.setup_params(this, params);
+                    }
 
-        set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+                    static get default_params() {
+                        return DEFAULT_PARAMS;
+                    }
 
-                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                    get opacity_factor() {
+                        return this._opacity_factor;
+                    }
+
+                    set opacity_factor(value) {
+                        if (this._opacity_factor !== value) {
+                            this._opacity_factor = value;
+
+                            uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                        }
+                    }
+
+                    vfunc_paint_target(paint_node, paint_context) {
+                        uniforms.upload_uniforms(this);
+                        super.vfunc_paint_target(paint_node, paint_context);
+                    }
+
             }
+            return GObject.registerClass(gtype_spec, HslToRgbEffect);
         }
 
-        vfunc_paint_target(paint_node, paint_context) {
-            uniforms.upload_uniforms(this);
-            super.vfunc_paint_target(paint_node, paint_context);
+        class HslToRgbEffect extends Clutter.ShaderEffect {
+            vfunc_get_static_shader_source() {
+                return SHADER_SOURCE;
+            }
+
+
+                    constructor(params) {
+                        super();
+
+                        utils.setup_params(this, params);
+                    }
+
+                    static get default_params() {
+                        return DEFAULT_PARAMS;
+                    }
+
+                    get opacity_factor() {
+                        return this._opacity_factor;
+                    }
+
+                    set opacity_factor(value) {
+                        if (this._opacity_factor !== value) {
+                            this._opacity_factor = value;
+
+                            uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+                        }
+                    }
+
+                    vfunc_paint_target(paint_node, paint_context) {
+                        uniforms.upload_uniforms(this);
+                        super.vfunc_paint_target(paint_node, paint_context);
+                    }
+
         }
-    });
+        return GObject.registerClass(gtype_spec, HslToRgbEffect);
+    })();

@@ -22,6 +22,11 @@ export const PanelBlur = class PanelBlur {
         this.visibility = new PanelVisibility(this);
         this.actors_list = [];
         this.original_panel_blur_ids = new Set();
+        // Maximum panel height ever observed in a "natural" (non-fullscreen)
+        // state. The blur falls back to this value when the panel widget
+        // itself is shrunk (e.g. by an auto-hide panel during a fullscreen
+        // window), so the visible blur keeps the same height it had before.
+        this.natural_panel_height = 0;
         this.enabled = false;
     }
 
@@ -87,6 +92,11 @@ export const PanelBlur = class PanelBlur {
         }
 
         this._log("resetting...");
+
+        // Drop the cached "natural" panel height: it was measured against
+        // the old panel actor / old monitor layout, and may be stale
+        // (or simply too small / too large) for the recreated panel.
+        this.natural_panel_height = 0;
 
         this.disable();
         GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
@@ -182,6 +192,11 @@ export const PanelBlur = class PanelBlur {
         let monitor = Main.layoutManager.findMonitorForActor(panel);
         if (!monitor)
             return;
+
+        // Re-measure for this newly-observed panel actor: a DTP or
+        // auto-hide-driven recreate may have produced a panel with a
+        // different natural height than the one we cached before.
+        this.natural_panel_height = 0;
 
         let static_blur = this.blur_settings.STATIC_BLUR;
         const blur_surface = new BlurSurface({
@@ -303,10 +318,25 @@ export const PanelBlur = class PanelBlur {
         if (!monitor)
             return;
 
+        // Track the natural panel height (the height when the panel is
+        // not in a "shrunk" state such as fullscreen). The widget itself
+        // collapses to the icon row in those cases and we want the blur
+        // to keep the same height it had before. We freeze the value
+        // at the first valid observation: this both prevents a panel
+        // recreated in a shrunk state from poisoning the baseline, and
+        // prevents the height captured in a transient layout frame
+        // (e.g. right after a fullscreen window exits) from sticking.
+        const observed_height = Math.ceil(panel.height);
+        if (this.natural_panel_height <= 0
+            && Number.isFinite(observed_height) && observed_height > 0
+            && !this.has_fullscreen_window_on_monitor(monitor)) {
+            this.natural_panel_height = observed_height;
+        }
+
         if (actors.static_blur)
-            updatePanelStaticSize(actors, panel, panel_box, monitor);
+            updatePanelStaticSize(actors, panel, panel_box, monitor, this);
         else
-            updatePanelDynamicSize(actors, panel);
+            updatePanelDynamicSize(actors, panel, this);
 
         actors.widgets.background = actors.blur_surface.actor;
         actors.bg_manager = actors.blur_surface.bg_manager;
@@ -416,6 +446,24 @@ export const PanelBlur = class PanelBlur {
 
     is_main_panel_alive() {
         return isMainPanelAlive;
+    }
+
+    has_fullscreen_window_on_monitor(monitor) {
+        if (!monitor)
+            return false;
+        const workspace = global.workspace_manager?.get_active_workspace?.();
+        if (!workspace)
+            return false;
+        const windows = workspace.list_windows();
+        for (const meta_window of windows) {
+            if (!meta_window || meta_window.minimized || meta_window.is_hidden?.())
+                continue;
+            if (meta_window.get_monitor() !== monitor.index)
+                continue;
+            if (meta_window.fullscreen)
+                return true;
+        }
+        return false;
     }
 
     update_pipeline() {

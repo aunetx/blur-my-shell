@@ -2,7 +2,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = [
-    'popup-menu-content', 'popup-menu', 'quick-settings', 'quick-toggle-menu',
+    'popup-menu-content', 'popup-menu', 'popup-sub-menu', 'quick-settings', 'quick-toggle-menu',
     'notification-banner', 'notification', 'message', 'candidate-popup-content',
 ];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
@@ -25,7 +25,7 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'menu-corner-radius',
         property: 'MENU_CORNER_RADIUS',
-        style_classes: ['popup-menu-content', 'popup-menu', 'candidate-popup-content', 'candidate-popup-boxpointer'],
+        style_classes: ['popup-menu-content', 'popup-menu', 'popup-sub-menu', 'candidate-popup-content', 'candidate-popup-boxpointer'],
     },
     {
         key: 'osd-corner-radius',

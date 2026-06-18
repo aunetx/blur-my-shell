@@ -22,27 +22,27 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
 
     get_transformed_actor(actor) {
         try {
+            const [x, y] = actor.get_transformed_position();
+            const [width, height] = actor.get_transformed_size();
+            if (Number.isFinite(x) && Number.isFinite(y) && width > 0 && height > 0)
+                return { x, y, width, height };
+        } catch (e) { }
+
+        try {
             const extents = actor.get_transformed_extents?.();
             const top_left = extents?.get_top_left?.();
             const bottom_right = extents?.get_bottom_right?.();
 
-            if (top_left && bottom_right) {
+            if (top_left && bottom_right)
                 return {
                     x: top_left.x,
                     y: top_left.y,
                     width: bottom_right.x - top_left.x,
                     height: bottom_right.y - top_left.y,
                 };
-            }
         } catch (e) { }
 
-        try {
-            const [x, y] = actor.get_transformed_position();
-            const [width, height] = actor.get_transformed_size();
-            return { x, y, width, height };
-        } catch (e) {
-            return null;
-        }
+        return null;
     }
 
     get_transformed_clip(actor) {
