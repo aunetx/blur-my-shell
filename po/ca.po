@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-05-28 14:11+0000\n"
-"Last-Translator: Joel Molina Navarro <joelmolinanavarro21@gmail.com>\n"
+"PO-Revision-Date: 2026-06-27 15:01+0000\n"
+"Last-Translator: eternal4411 <joandegenover@protonmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ca/>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -176,39 +176,39 @@ msgstr "Pantalla"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "Superposició"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Enfosquir"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "Il·luminar"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
-msgstr ""
+msgstr "Més fosc"
 
 #: src/effects/effects.js:187
 msgid "Plus lighter"
-msgstr ""
+msgstr "Més clar"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "- Densitat"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "+ Densitat"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "Llum dur"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
-msgstr ""
+msgstr "Llum suau"
 
 #: src/effects/effects.js:192
 msgid "Difference"
@@ -220,7 +220,7 @@ msgstr "Exclusió"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "To"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
@@ -228,7 +228,7 @@ msgstr "Saturació"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr "Luminositat"
+msgstr "Lluminositat"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
