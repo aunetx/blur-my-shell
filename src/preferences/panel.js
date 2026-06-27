@@ -24,6 +24,10 @@ export const Panel = GObject.registerClass({
         'override_background',
         'style_panel',
         'override_background_dynamically',
+        'background_on_window_proximity_row',
+        'background_on_window_proximity',
+        'blur_on_window_proximity_row',
+        'blur_on_window_proximity',
         'hidetopbar_compatibility',
         'dtp_blur_original_panel'
     ],
@@ -87,6 +91,25 @@ export const Panel = GObject.registerClass({
             this._override_background_dynamically, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+        this.preferences.panel.settings.bind(
+            'background-on-window-proximity',
+            this._background_on_window_proximity, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'blur-on-window-proximity',
+            this._blur_on_window_proximity, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(
+            () => this.proximity_option_changed()
+        );
+        this.preferences.panel.BLUR_ON_WINDOW_PROXIMITY_changed(
+            () => this.proximity_option_changed()
+        );
+        this.preferences.panel.BACKGROUND_ON_WINDOW_PROXIMITY_changed(
+            () => this.proximity_option_changed()
+        );
         this.preferences.hidetopbar.settings.bind(
             'compatibility', this._hidetopbar_compatibility, 'active',
             Gio.SettingsBindFlags.DEFAULT
@@ -95,6 +118,11 @@ export const Panel = GObject.registerClass({
             'blur-original-panel', this._dtp_blur_original_panel, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+    }
+
+    proximity_option_changed() {
+        this._blur_on_window_proximity_row.set_sensitive(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && !this.preferences.panel.BACKGROUND_ON_WINDOW_PROXIMITY);
+        this._background_on_window_proximity_row.set_sensitive(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && !this.preferences.panel.BLUR_ON_WINDOW_PROXIMITY);
     }
 
     change_blur_mode(is_static_blur, first_run) {
@@ -107,5 +135,7 @@ export const Panel = GObject.registerClass({
         this._brightness_row.set_visible(!is_static_blur);
         this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
         this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
+
+        this.proximity_option_changed();
     }
 });

@@ -280,7 +280,17 @@
         <!-- UNBLUR DYNAMICALLY -->
         <key type="b" name="override-background-dynamically">
             <default>false</default>
-            <summary>Boolean, whether to disable blur from this component when a window is close to the panel</summary>
+            <summary>Boolean, whether to enable certain effect for this component when a window is close to the panel</summary>
+        </key>
+        <!-- BACKGROUND ON WINDOW PROXIMITY -->
+        <key type="b" name="background-on-window-proximity">
+            <default>true</default>
+            <summary>Boolean, whether to enable background from this component when a window is close to the panel, required "override-background-dynamically" to be enabled.</summary>
+        </key>
+        <!-- BLUR ON WINDOW PROXIMITY -->
+        <key type="b" name="blur-on-window-proximity">
+            <default>false</default>
+            <summary>Boolean, whether to enable blur from this component when a window is close to the panel, required "override-background-dynamically" to be enabled.</summary>
         </key>
     </schema>
 

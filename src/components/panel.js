@@ -28,6 +28,7 @@ export const PanelBlur = class PanelBlur {
         this.effects_manager = effects_manager;
         this.actors_list = [];
         this.enabled = false;
+        this._first_boot = true;
     }
 
     enable() {
@@ -58,6 +59,9 @@ export const PanelBlur = class PanelBlur {
         );
 
         this.blur_existing_panels();
+
+        // Hide the panel blur first to avoid the panel background from display on login
+        this.panel_hide_blur_startup();
 
         // connect to overview being opened/closed, and dynamically show or not
         // the blur when a window is near a panel
@@ -322,15 +326,17 @@ export const PanelBlur = class PanelBlur {
                 this.connections.connect(
                     Main.overview, 'showing', _ => this.hide()
                 );
+                
                 this.connections.connect(
-                    Main.overview, 'hidden', _ => this.show()
+                    Main.overview, 'hidden', _ => this.panel_hide_blur_dynamically()
                 );
             } else {
                 let appDisplay = Main.overview._overview._controls._appDisplay;
-
+                
                 this.connections.connect(
                     appDisplay, 'show', _ => this.hide()
                 );
+
                 this.connections.connect(
                     appDisplay, 'hide', _ => this.show()
                 );
@@ -338,7 +344,6 @@ export const PanelBlur = class PanelBlur {
                     Main.overview, 'hidden', _ => this.show()
                 );
             }
-
         }
     }
 
@@ -521,18 +526,55 @@ export const PanelBlur = class PanelBlur {
 
         PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
 
-        if (
-            this.settings.panel.OVERRIDE_BACKGROUND
-            &&
-            should_override
-        ) {
-            panel.add_style_class_name(
-                PANEL_STYLES[this.settings.panel.STYLE_PANEL]
-            );
-        }
+        if (this.settings.panel.OVERRIDE_BACKGROUND) {
+            if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
+                // This is an invert of the above behavior, 
+                // Blur and all styling is hidden when "should_override" is true. 
+                if (this.settings.panel.BLUR_ON_WINDOW_PROXIMITY && !this.settings.panel.BACKGROUND_ON_WINDOW_PROXIMITY) {
+                    panel.add_style_class_name(
+                        PANEL_STYLES[this.settings.panel.STYLE_PANEL]
+                    );
+                    if (!should_override) {
+                        this.show();
+                    }
+                    else {
+                        this.hide();
+                    };
+                }
+                if (!this.settings.panel.BLUR_ON_WINDOW_PROXIMITY && this.settings.panel.BACKGROUND_ON_WINDOW_PROXIMITY) {
+                    PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
+                    if (should_override) {
+                        panel.add_style_class_name(
+                            PANEL_STYLES[this.settings.panel.STYLE_PANEL]
+                        );
+                    }
+                }
+            }
+            else {
+                panel.add_style_class_name(
+                    PANEL_STYLES[this.settings.panel.STYLE_PANEL]
+                );
+            }
+        };
 
         // update the classname if the panel to have or have not light text
         this.update_light_text_classname(!should_override);
+    }
+
+    panel_hide_blur_startup(){
+        if (this._first_boot) {
+            this.hide();
+            this._first_boot = false
+        }
+    }
+
+    panel_hide_blur_dynamically(should_override){
+        if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && this.settings.panel.BLUR_ON_WINDOW_PROXIMITY) {
+            if (should_override){ this.hide() }
+        }
+        else {
+            this.show()
+        }
     }
 
     update_pipeline() {

@@ -38,6 +38,8 @@ export const KEYS = [
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },
+            { type: Type.B, name: "background-on-window-proximity" },
+            { type: Type.B, name: "blur-on-window-proximity" },
         ]
     },
     {
