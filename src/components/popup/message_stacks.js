@@ -2,8 +2,8 @@ import GLib from 'gi://GLib';
 
 const STACKED_PSEUDO_CLASSES = ['second-in-stack', 'lower-in-stack'];
 const MESSAGE_CONTAINER_STYLE_CLASSES = ['message-list', 'message-view', 'message-notification-group'];
-const INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
-const INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
+const INTERNAL_STYLE_CLASSES = ['bms-popup-surface', 'bms-popup-blurred-widget', 'bms-popup-backgroundgroup', 'bms-popup-tint'];
+const INTERNAL_NAMES = ['bms-popup-surface', 'bms-popup-blurred-widget', 'bms-popup-backgroundgroup', 'bms-popup-tint'];
 
 export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     constructor(connections) {

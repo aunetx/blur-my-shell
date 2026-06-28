@@ -8,8 +8,10 @@ import { PopupBlurLiveActor } from './live_actor.js';
 import { PopupBlurSurfacePlacement } from './surface_placement.js';
 import { PopupBlurSurfaceSignals } from './surface_signals.js';
 import { PopupBlurSurfaceStyle } from './surface_style.js';
+import { PopupBlurSurfaceSwitcherDelay } from './surface_switcher_delay.js';
 import { PopupBlurSurfaceTransitions } from './surface_transitions.js';
 import { PopupBlurStaticActor } from './static_actor.js';
+import { SURFACE_CORNER_EFFECT_ID } from '../../conveniences/surface_corner.js';
 const NOTIFICATION_STYLE_CLASSES = [
     'notification-banner', 'notification', 'message',
 ];
@@ -37,6 +39,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.placement = new PopupBlurSurfacePlacement(this);
         this.signals = new PopupBlurSurfaceSignals(this);
         this.style = new PopupBlurSurfaceStyle(this);
+        this.switcher_delay = new PopupBlurSurfaceSwitcherDelay(this);
         this.transitions = new PopupBlurSurfaceTransitions(this);
         this.repaint_id = 0;
         this.update_id = 0;
@@ -45,6 +48,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.static_blur = this.blur_settings.STATIC_BLUR;
         this.static_actor = null;
         this.live_actor = null;
+        this.surface_corner_effect = null;
+        this.surface_actor_destroyed = false;
         this.destroyed = false;
         this.settle_update_ids = new Set();
         this.resolve_corner_radius_descriptor();
@@ -63,19 +68,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         );
         this.actor.hide();
         this.parent.add_child(this.actor);
-
-        // Create a dedicated tint actor that gets the exact same size and
-        // position as the blur actor.  The BMS tint background is painted on
-        // THIS actor (via the bms-popup-tint CSS class) instead of on the popup
-        // content, so the tinted area can never mismatch the blurred area.
-        this.tint_actor = new St.Widget({
-            name: 'bms-popup-tint',
-            reactive: false,
-            clip_to_allocation: true,
-        });
-        this.tint_actor.add_style_class_name('bms-popup-tint');
-        this.tint_actor.hide();
-        this.parent.add_child(this.tint_actor);
+        this.create_tint_actor();
 
         this.set_actor_position();
         this.apply_blur_widget_corner_radius();
@@ -125,15 +118,38 @@ export const PopupBlurSurface = class PopupBlurSurface {
     create_actor() {
         if (this.static_blur)
             return this.create_static_actor();
+        this.create_live_actor_wrapper();
         this.live_actor = new PopupBlurLiveActor(
             this.effects_manager,
             this.blur_settings,
             () => this.get_corner_radius()
         );
-        if (!this.live_actor.create())
+        if (!this.live_actor.create(this.actor))
             return false;
         this.sync_live_actor();
         return true;
+    }
+    create_live_actor_wrapper() {
+        this.actor = new St.Widget({
+            name: 'bms-popup-surface',
+            reactive: false,
+            clip_to_allocation: true,
+            layout_manager: new Clutter.FixedLayout(),
+        });
+        this.actor.add_style_class_name('bms-popup-surface');
+        try {
+            this.actor.set_offscreen_redirect(Clutter.OffscreenRedirect.ALWAYS);
+        } catch (e) { }
+        this.actor.set_size(1, 1);
+        this.actor.hide();
+        this.surface_actor_destroyed = false;
+        try {
+            this.actor.connect('destroy', () => this.surface_actor_destroyed = true);
+        } catch (e) { }
+        this.surface_corner_effect = this.effects_manager.new_corner_effect({
+            radius: this.get_corner_radius(),
+        });
+        this.actor.add_effect(this.surface_corner_effect);
     }
     create_static_actor() {
         this.static_actor = new PopupBlurStaticActor(
@@ -153,11 +169,54 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.actor = this.static_actor.actor;
         this.blur_actor = this.static_actor.blur_actor;
         this.pipeline = this.static_actor.pipeline;
+        this.configure_blur_actor();
+        this.attach_tint_actor();
     }
     sync_live_actor() {
-        this.actor = this.live_actor.actor;
         this.blur_actor = this.live_actor.actor;
         this.pipeline = this.live_actor.pipeline;
+        this.configure_blur_actor();
+        this.attach_tint_actor();
+    }
+    configure_blur_actor() {
+        try {
+            this.blur_actor?.set_offscreen_redirect?.(Clutter.OffscreenRedirect.ALWAYS);
+        } catch (e) { }
+    }
+    create_tint_actor() {
+        this.tint_actor_destroyed = false;
+        this.tint_actor = new St.Widget({
+            name: 'bms-popup-tint',
+            reactive: false,
+        });
+        this.tint_actor.add_style_class_name('bms-popup-tint');
+        this.tint_actor.hide();
+        try {
+            this.tint_actor.connect('destroy', () => this.tint_actor_destroyed = true);
+        } catch (e) { }
+        this.attach_tint_actor();
+    }
+    ensure_tint_actor() {
+        if (!this.tint_actor || this.tint_actor_destroyed)
+            this.create_tint_actor();
+        else
+            this.attach_tint_actor();
+    }
+    attach_tint_actor() {
+        if (!this.tint_actor || this.tint_actor_destroyed || !this.blur_actor)
+            return false;
+
+        try {
+            const parent = this.tint_actor.get_parent?.();
+            if (parent !== this.blur_actor) {
+                parent?.remove_child?.(this.tint_actor);
+                this.blur_actor.add_child(this.tint_actor);
+            }
+            this.blur_actor.set_child_above_sibling?.(this.tint_actor, null);
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
     set_actor_position() {
         if (this.is_owned_actor_destroyed())
@@ -170,13 +229,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
                 sibling = this.sibling;
             if (sibling && this.is_below_sibling(sibling))
                 return;
-            if (sibling) {
+            if (sibling)
                 this.parent.set_child_below_sibling(this.actor, sibling);
-                // Place the tint actor between the blur and the bin so the
-                // tint is painted on top of the blur but below the content.
-                if (this.tint_actor)
-                    this.parent.set_child_below_sibling(this.tint_actor, sibling);
-            }
         } catch (e) { }
     }
     allocate_actor() {
@@ -206,7 +260,36 @@ export const PopupBlurSurface = class PopupBlurSurface {
                 y2: Math.round(y + height),
             });
             this.actor.allocate(box);
-            try { this.tint_actor?.allocate(box); } catch (e) { }
+            if (!this.static_blur && this.blur_actor && this.blur_actor !== this.actor) {
+                this.blur_actor.allocate(new Clutter.ActorBox({
+                    x1: 0,
+                    y1: 0,
+                    x2: Math.round(width),
+                    y2: Math.round(height),
+                }));
+            }
+            this.update_tint_geometry(width, height);
+            this.update_surface_corner_effect();
+        } catch (e) { }
+    }
+    update_tint_geometry(width = null, height = null) {
+        this.ensure_tint_actor();
+        if (!this.tint_actor || this.tint_actor_destroyed)
+            return;
+
+        try {
+            width = Math.max(1, Math.ceil(width ?? this.blur_actor?.width ?? this.actor?.width ?? 1));
+            height = Math.max(1, Math.ceil(height ?? this.blur_actor?.height ?? this.actor?.height ?? 1));
+            this.tint_actor.set_position(0, 0);
+            this.tint_actor.set_size(width, height);
+            if (this.tint_actor.get_stage?.()) {
+                this.tint_actor.allocate(new Clutter.ActorBox({
+                    x1: 0,
+                    y1: 0,
+                    x2: width,
+                    y2: height,
+                }));
+            }
         } catch (e) { }
     }
     is_below_sibling(sibling) {
@@ -223,6 +306,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         try {
             this.update_corner_radius_source();
             this.apply_blur_widget_corner_radius();
+            this.style.update_target_style();
             if (!this.static_blur) {
                 this.update_live_surface();
                 return;
@@ -241,6 +325,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
                 if (this.fade_out_during_opacity_transition(transition_state))
                     return;
                 this.hide_surface();
+                return;
+            }
+            if (this.switcher_delay.should_delay_show()) {
+                this.hide_actors();
+                this.switcher_delay.queue();
                 return;
             }
             if (!this.placement.has_valid_geometry(geometry)) {
@@ -280,9 +369,15 @@ export const PopupBlurSurface = class PopupBlurSurface {
     update_live_surface() {
         const transition_state = this.transitions.get_state(this.is_notification_surface());
         if (!this.is_visible()) {
+            this.switcher_delay.reset();
             if (this.fade_out_during_opacity_transition(transition_state))
                 return;
             this.hide_surface();
+            return;
+        }
+        if (this.switcher_delay.should_delay_show()) {
+            this.hide_actors();
+            this.switcher_delay.queue();
             return;
         }
         this.set_actor_position();
@@ -327,6 +422,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
     hide_surface() {
         this.clear_live_settle();
+        this.switcher_delay.reset();
         this.opacity = 0;
         this.update_surface_opacity(0);
         this.hide_actors(true);
@@ -425,8 +521,27 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     get_actor_opacity(actor) {
+        let opacity = 255;
+        let current = actor;
+
+        while (current) {
+            opacity = Math.min(opacity, this.get_single_actor_opacity(current));
+            if (opacity <= 0 || current === global.stage)
+                break;
+
+            try {
+                current = current.get_parent?.() ?? null;
+            } catch (e) {
+                break;
+            }
+        }
+
+        return opacity;
+    }
+
+    get_single_actor_opacity(actor) {
         try {
-            if (!actor.visible || !actor.mapped)
+            if (!actor.visible || actor.mapped === false)
                 return actor.get_paint_opacity?.() ?? 0;
 
             return Math.min(actor.opacity ?? 255, actor.get_paint_opacity?.() ?? 255);
@@ -452,21 +567,85 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     apply_blur_widget_corner_radius() {
         const radius = this.get_corner_radius();
-        if (!Number.isFinite(radius) || radius <= 0)
+        if (!Number.isFinite(radius) || radius <= 0) {
+            try { this.tint_actor?.set_style?.(null); } catch (e) { }
             return;
-        const css = `border-radius: ${radius}px;`;
-        try { this.actor?.set_style?.(css); } catch (e) { }
-        try { this.tint_actor?.set_style?.(css); } catch (e) { }
+        }
+
+        try { this.tint_actor?.set_style?.(`border-radius: ${radius}px;`); } catch (e) { }
     }
 
+    refresh_surface_effects() {
+        try { this.pipeline?.apply_effect_overrides?.('corner'); } catch (e) { }
+
+        this.update_surface_corner_effect();
+
+        try {
+            this.pipeline?.effects?.forEach(effect => {
+                effect.invalidate_cache?.();
+
+                if (effect._bms_effect_id === SURFACE_CORNER_EFFECT_ID)
+                    effect.update_actor_geometry?.(this.blur_actor);
+                effect.queue_repaint?.();
+            });
+            this.blur_actor?.queue_redraw?.();
+            this.actor?.queue_redraw?.();
+        } catch (e) { }
+    }
+
+    update_surface_corner_effect() {
+        if (!this.surface_corner_effect)
+            return;
+
+        try {
+            this.surface_corner_effect.radius = this.get_corner_radius();
+            this.surface_corner_effect.update_actor_geometry?.(this.actor);
+            this.surface_corner_effect.queue_repaint?.();
+        } catch (e) { }
+    }
+
+    recreate_surface_corner_effect() {
+        if (this.static_blur || this.is_owned_actor_destroyed() || !this.actor)
+            return;
+
+        if (this.surface_corner_effect) {
+            try {
+                this.effects_manager.remove(this.surface_corner_effect);
+            } catch (e) { }
+            this.surface_corner_effect = null;
+        }
+
+        try {
+            this.surface_corner_effect = this.effects_manager.new_corner_effect({
+                radius: this.get_corner_radius(),
+            });
+            this.actor.add_effect(this.surface_corner_effect);
+            this.update_surface_corner_effect();
+        } catch (e) {
+            this.surface_corner_effect = null;
+        }
+    }
+
+    is_surface_actor_visible() {
+        try {
+            return !this.is_owned_actor_destroyed() && !!this.actor?.visible;
+        } catch (e) {
+            return false;
+        }
+    }
 
     show_actors() {
+        const was_visible = this.is_surface_actor_visible();
+        this.ensure_tint_actor();
+        this.update_tint_geometry();
         try {
             if (!this.is_owned_actor_destroyed()) {
                 if (this.static_blur)
                     this.actor?.show?.();
-                else
+                else {
+                    this.actor?.show?.();
                     this.live_actor?.show();
+                }
             }
         } catch (e) { }
         try {
@@ -475,6 +654,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
         } catch (e) { }
         try { this.tint_actor?.show?.(); } catch (e) { }
         this.allocate_actor();
+        if (!was_visible)
+            this.recreate_surface_corner_effect();
+        if (!this.static_blur)
+            this.live_actor?.prepare_visible?.();
+        this.refresh_surface_effects();
         this.update_repaint_loop();
     }
     hide_actors(clear_source = false) {
@@ -482,7 +666,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
             if (!this.is_owned_actor_destroyed())
                 this.actor?.hide?.();
         } catch (e) { }
-        try { this.tint_actor?.hide?.(); } catch (e) { }
+        try {
+            if (!this.tint_actor_destroyed)
+                this.tint_actor?.hide?.();
+        } catch (e) { }
         if (!this.static_blur)
             this.live_actor?.hide(clear_source);
     }
@@ -491,7 +678,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     is_owned_actor_destroyed() {
         return (
-            this.static_blur && this.static_actor?.background_group_destroyed
+            (this.static_blur && this.static_actor?.background_group_destroyed)
+            || (!this.static_blur && this.surface_actor_destroyed)
         );
     }
 
@@ -535,6 +723,14 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.settle_update_ids.clear();
     }
 
+    get_owned_actors() {
+        return [
+            this.actor,
+            this.blur_actor,
+            this.tint_actor,
+        ].filter(Boolean);
+    }
+
     queue_transition_update(transition_state = null) {
         const has_running_transition = transition_state?.running ?? this.transitions.has_running();
         if (this.destroyed || this.transition_update_id || this.update_id || !has_running_transition)
@@ -551,13 +747,17 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     update_settings() {
-        this.apply_blur_widget_corner_radius();
+        if (this.destroyed || !this.has_live_targets())
+            return;
+
         const source_changed = this.update_corner_radius_source();
+        this.apply_blur_widget_corner_radius();
         if (source_changed) return;
         this.style.update_target_style();
         this.pipeline?.update_corner_radius?.();
         this.static_actor?.update_settings();
         this.live_actor?.update_settings();
+        this.refresh_surface_effects();
     }
 
     update_corner_radius_source() {
@@ -613,6 +813,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
     should_repaint() { return this.is_enabled() && this.is_visible(); }
     is_visible() { return this.is_actor_visible(this.target) && this.is_actor_visible(this.root_actor); }
 
+    has_live_targets() {
+        return this.has_stage_actor(this.target) && this.has_stage_actor(this.root_actor);
+    }
+
     is_actor_visible(actor) {
         try {
             return actor && actor.visible && actor.mapped && this.has_stage_actor(actor);
@@ -642,6 +846,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     destroy(actor_already_destroyed = false) {
         this.destroyed = true;
         this.clear_live_settle();
+        this.switcher_delay.reset();
         if (this.update_id)
             global.compositor.get_laters().remove(this.update_id);
         this.update_id = 0;
@@ -661,10 +866,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.fade = null;
         this.signals.disconnect_all();
 
-        // Destroy the tint actor.
         if (this.tint_actor) {
             try {
-                if (!actor_already_destroyed)
+                if (!actor_already_destroyed && !this.tint_actor_destroyed)
                     this.tint_actor.destroy();
             } catch (e) { }
             this.tint_actor = null;
@@ -677,6 +881,14 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
     destroy_dynamic_actor(actor_already_destroyed = false) {
         const live_actor = this.live_actor;
+        const actor = this.actor;
+        const actor_destroyed = actor_already_destroyed || this.surface_actor_destroyed;
+        if (this.surface_corner_effect) {
+            try {
+                this.effects_manager.remove(this.surface_corner_effect, actor_destroyed);
+            } catch (e) { }
+            this.surface_corner_effect = null;
+        }
         this.pipeline = null;
         this.blur_actor = null;
         this.actor = null;
@@ -685,8 +897,13 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
 
         try {
-            live_actor.destroy({ actor_destroyed: actor_already_destroyed });
+            live_actor.destroy({ actor_destroyed });
         } catch (e) { }
+        try {
+            if (!actor_destroyed)
+                actor?.destroy?.();
+        } catch (e) { }
+        this.surface_actor_destroyed = false;
     }
 
     destroy_static_actor(actor_already_destroyed = false) {
@@ -695,6 +912,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.actor = null;
         this.blur_actor = null;
         this.pipeline = null;
+        this.surface_corner_effect = null;
+        this.surface_actor_destroyed = false;
         this.placement.clear();
     }
 };

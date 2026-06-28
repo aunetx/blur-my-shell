@@ -1,5 +1,6 @@
 /*** POPUP ***/
 
+.bms-popup-surface,
 .bms-popup-blurred-widget {
     background: transparent;
 }

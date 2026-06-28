@@ -3,6 +3,7 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import * as uniforms from './shader_uniforms.js';
+import { SURFACE_CORNER_EFFECT_ID } from './surface_corner.js';
 
 /// A `Pipeline` object is a handy way to manage the effects attached to an actor. It only manages
 /// one actor at a time (so blurring multiple widgets will need multiple `Pipeline`), and is
@@ -168,6 +169,7 @@ export const Pipeline = class Pipeline {
                 this._warn(`could not add effect to actor, effect "${effect.type}" not found`);
         });
         this.effects.reverse();
+        this.order_surface_corner_effects();
 
         // add the effects to the actor
         if (this.actor)
@@ -179,6 +181,19 @@ export const Pipeline = class Pipeline {
             this._warn(`could not add effect to actor, actor does not exist anymore`);
 
         this.effects_changed?.(this.effects);
+    }
+
+    order_surface_corner_effects() {
+        const corner_effects = this.effects.filter(
+            effect => effect._bms_effect_id === SURFACE_CORNER_EFFECT_ID
+        );
+        if (!corner_effects.length)
+            return;
+
+        this.effects = [
+            ...corner_effects,
+            ...this.effects.filter(effect => effect._bms_effect_id !== SURFACE_CORNER_EFFECT_ID),
+        ];
     }
 
     build_pixelize_effect(effect_infos) {

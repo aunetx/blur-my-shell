@@ -39,6 +39,8 @@ export const LivePipeline = class LivePipeline {
         this.window_source = null;
         this.overview_clone = null;
         this.stage_geometry = null;
+        this.actor_destroyed = false;
+        this.source_destroyed = false;
     }
 
     create_background_with_effect(container, widget_name) {
@@ -48,6 +50,10 @@ export const LivePipeline = class LivePipeline {
             clip_to_allocation: true,
         });
         this.actor._bms_is_blur_actor = true;
+        this.actor_destroyed = false;
+        try {
+            this.actor.connect('destroy', () => this.actor_destroyed = true);
+        } catch (e) { }
         this.actor.set_size(1, 1);
         this.actor.hide();
         // NOTE: do NOT allocate here — the actor has no parent/stage yet, so
@@ -61,6 +67,10 @@ export const LivePipeline = class LivePipeline {
             clip_to_allocation: false,
             layout_manager: new Clutter.FixedLayout(),
         });
+        this.source_destroyed = false;
+        try {
+            this.source.connect('destroy', () => this.source_destroyed = true);
+        } catch (e) { }
         this.source.set_size(1, 1);
         this.actor.add_child(this.source);
         this.build_sources();
@@ -100,7 +110,7 @@ export const LivePipeline = class LivePipeline {
             pipeline_effects_mapper: pipeline_effects_mapper ?? (effects => with_surface_corner(
                 map_source_effects(effects),
                 () => this.corner_radius_getter(),
-                { always: this.has_corner_radius }
+                { always: this.has_corner_radius, enabled: this.has_corner_radius }
             )),
             effects_changed: effects => this.effects_changed?.(effects),
         };
@@ -136,7 +146,7 @@ export const LivePipeline = class LivePipeline {
     }
 
     update_geometry(geometry) {
-        if (!this.actor || !this.has_valid_geometry(geometry))
+        if (!this.has_actor() || !this.has_valid_geometry(geometry))
             return false;
 
         this.stage_geometry = null;
@@ -159,7 +169,7 @@ export const LivePipeline = class LivePipeline {
     }
 
     update_stage_geometry(geometry) {
-        if (!this.actor || !this.has_valid_geometry(geometry))
+        if (!this.has_actor() || !this.has_valid_geometry(geometry))
             return false;
         if (!Number.isFinite(geometry.target_x) || !Number.isFinite(geometry.target_y))
             return false;
@@ -175,6 +185,9 @@ export const LivePipeline = class LivePipeline {
     }
 
     sync() {
+        if (!this.has_actor() || !this.has_source())
+            return;
+
         const rect = this.stage_geometry ?? this.get_actor_stage_rect();
         if (!rect)
             return;
@@ -286,17 +299,20 @@ export const LivePipeline = class LivePipeline {
         return Main.overview?._overview?._controls ?? null;
     }
 
-    destroy_overview_clone() {
-        try {
-            this.overview_clone?.destroy?.();
-        } catch (e) { }
+    destroy_overview_clone(actor_destroyed = false) {
+        if (!actor_destroyed) {
+            try {
+                this.overview_clone?.destroy?.();
+            } catch (e) { }
+        }
         this.overview_clone = null;
     }
 
     repaint_effect() {
         this.sync();
         this.effects.forEach(effect => effect.queue_repaint?.());
-        this.actor?.queue_redraw?.();
+        if (!this.actor_destroyed)
+            this.actor?.queue_redraw?.();
     }
 
     invalidate_source() {
@@ -320,23 +336,27 @@ export const LivePipeline = class LivePipeline {
 
     hide() {
         try {
-            this.actor?.hide?.();
+            if (this.has_actor())
+                this.actor.hide();
         } catch (e) { }
     }
 
-    destroy_sources() {
-        this.window_source?.destroy();
-        this.destroy_overview_clone();
-        try {
-            this.source?.destroy_all_children?.();
-        } catch (e) { }
+    destroy_sources({ actor_destroyed = false } = {}) {
+        const source_destroyed = actor_destroyed || this.source_destroyed;
+        this.window_source?.destroy({ actor_destroyed: source_destroyed });
+        this.destroy_overview_clone(source_destroyed);
+        if (!source_destroyed) {
+            try {
+                this.source?.destroy_all_children?.();
+            } catch (e) { }
+        }
         this.background_clone = null;
         this.window_source = null;
     }
 
     destroy({ actor_destroyed = false } = {}) {
-        if (!actor_destroyed)
-            this.destroy_sources();
+        actor_destroyed = actor_destroyed || this.actor_destroyed;
+        this.destroy_sources({ actor_destroyed });
         try {
             this.pipeline?.destroy?.({ actor_destroyed });
         } catch (e) { }
@@ -345,6 +365,8 @@ export const LivePipeline = class LivePipeline {
         this.source = null;
         this.bg_manager = null;
         this.stage_geometry = null;
+        this.actor_destroyed = false;
+        this.source_destroyed = false;
     }
 
     has_valid_geometry(geometry) {
@@ -360,5 +382,13 @@ export const LivePipeline = class LivePipeline {
 
     get effects() {
         return this.pipeline?.effects ?? [];
+    }
+
+    has_actor() {
+        return !this.actor_destroyed && !!this.actor;
+    }
+
+    has_source() {
+        return !this.source_destroyed && !!this.source;
     }
 };

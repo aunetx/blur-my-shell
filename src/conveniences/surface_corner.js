@@ -1,4 +1,4 @@
-const SURFACE_CORNER_EFFECT_ID = '__bms_surface_corner';
+export const SURFACE_CORNER_EFFECT_ID = '__bms_surface_corner';
 
 function get_radius(get_corner_radius) {
     const radius = get_corner_radius?.() ?? 0;
@@ -9,6 +9,9 @@ export function with_surface_corner(effects, get_corner_radius, options = {}) {
     const mapped_effects = effects.filter(effect =>
         effect.type !== 'corner' && effect.id !== SURFACE_CORNER_EFFECT_ID
     );
+
+    if (options.enabled === false)
+        return mapped_effects;
 
     if (!options.always && get_radius(get_corner_radius) <= 0)
         return mapped_effects;

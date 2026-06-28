@@ -1,9 +1,10 @@
-export function updatePanelStaticSize(actors, panel, panel_box, monitor, panel_blur = null) {
+export function updatePanelStaticSize(actors, panel, panel_box, monitor) {
     if (actors.blur_surface.destroyed)
         return;
 
+    const geometry_actor = actors.widgets.geometry_actor ?? panel;
     const [width, height] = panel_box.get_size();
-    if (width <= 0 || height <= 0 || panel.width <= 0 || panel.height <= 0) {
+    if (width <= 0 || height <= 0 || geometry_actor.width <= 0 || geometry_actor.height <= 0) {
         actors.blur_surface.hide_surface();
         return;
     }
@@ -13,27 +14,21 @@ export function updatePanelStaticSize(actors, panel, panel_box, monitor, panel_b
 
     const background = actors.blur_surface.actor;
 
-    // Use the larger of the panel's frozen "natural" height and its
-    // current height, so the blur keeps its visual height when the
-    // panel widget itself collapses (e.g. while a fullscreen window
-    // makes the auto-hide panel shrink to the icon row).
-    const natural_h = panel_blur?.natural_panel_height ?? 0;
-    const observed_h = Math.ceil(panel.height);
-    const blur_h = Math.max(1, Math.max(natural_h, observed_h));
+    const blur_h = Math.max(1, Math.ceil(geometry_actor.height));
 
     const [panel_box_x, panel_box_y] = panel_box.get_position();
     const [parent_x, parent_y] = panel_box.get_parent().get_position();
-    const x = panel_box_x + parent_x - monitor.x + (width - panel.width) / 2;
+    const x = panel_box_x + parent_x - monitor.x + geometry_actor.x;
     const y = panel_box_y + parent_y - monitor.y + (height - blur_h) / 2;
 
     try {
         background.set_clip(
             Math.round(x),
             Math.round(y),
-            Math.ceil(panel.width),
+            Math.ceil(geometry_actor.width),
             blur_h
         );
-        background.x = Math.round((width - panel.width) / 2 - x);
+        background.x = Math.round(geometry_actor.x - x);
         background.y = Math.round(.5 + (height - blur_h) / 2 - y);
         actors.blur_surface.show_surface();
         // Force a redraw so the blur reflects the new clip/size even
@@ -45,17 +40,14 @@ export function updatePanelStaticSize(actors, panel, panel_box, monitor, panel_b
     } catch (e) { }
 }
 
-export function updatePanelDynamicSize(actors, panel, panel_blur = null) {
+export function updatePanelDynamicSize(actors, panel) {
     if (actors.blur_surface.destroyed)
         return;
 
-    const natural_h = panel_blur?.natural_panel_height ?? 0;
-    const observed_h = Math.ceil(panel.height);
-    const reference_height = Math.max(natural_h, observed_h);
-
-    const geometry = getPanelBlurGeometry(actors.widgets.blur_parent, panel, {
-        reference_height,
-    });
+    const geometry = getPanelBlurGeometry(
+        actors.widgets.blur_parent,
+        actors.widgets.geometry_actor ?? panel
+    );
     if (!geometry) {
         actors.blur_surface.hide_surface();
         return;
@@ -64,31 +56,27 @@ export function updatePanelDynamicSize(actors, panel, panel_blur = null) {
     actors.blur_surface.update_local_geometry(geometry);
 }
 
-export function getPanelBlurGeometry(blur_parent, panel, options = {}) {
+export function getPanelBlurGeometry(blur_parent, panel) {
     if (!blur_parent || !panel)
         return null;
 
-    return getPanelGeometryInContainer(blur_parent, panel, options);
+    return getPanelGeometryInContainer(blur_parent, panel);
 }
 
-function getPanelSize(panel, reference_height = 0) {
+function getPanelSize(panel) {
     const width = Math.ceil(panel.width);
-    const observed_height = Math.ceil(panel.height);
-    const height = reference_height > 0
-        ? Math.max(reference_height, observed_height)
-        : observed_height;
+    const height = Math.ceil(panel.height);
     if (width <= 0 || height <= 0)
         return null;
 
     return { width, height };
 }
 
-export function getPanelGeometryInContainer(container, panel, options = {}) {
+export function getPanelGeometryInContainer(container, panel) {
     if (!container || !panel)
         return null;
 
-    const reference_height = options.reference_height ?? 0;
-    const size = getPanelSize(panel, reference_height);
+    const size = getPanelSize(panel);
     if (!size)
         return null;
 

@@ -45,4 +45,11 @@ export const NativeStaticBlurEffect = utils.IS_IN_PREFERENCES ?
             this._unscaled_radius = value;
             this.radius = Math.max(0.5, value * this._theme_context.scale_factor);
         }
+
+        invalidate_cache() {
+            const radius = this.radius;
+            this.radius = radius > 1 ? radius - 1 : radius + 1;
+            this.radius = radius;
+            this.queue_repaint?.();
+        }
     });

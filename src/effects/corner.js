@@ -78,6 +78,11 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                         this._clip_y0 = null;
                         this._clip_width = null;
                         this._clip_height = null;
+                        this._actor_connection_actor = null;
+                        this._actor_connection_size_id = 0;
+                        this._actor_connection_allocation_id = 0;
+                        this._actor_connection_clip_rect_id = 0;
+                        this._actor_connection_destroy_id = 0;
 
                         utils.setup_params(this, params);
                         this.straight_corners = false;
@@ -180,7 +185,16 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                     }
 
                     set clip(value) {
-                        [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = value;
+                        const [clip_x0, clip_y0, clip_width, clip_height] = value;
+                        if (
+                            this._clip_x0 === clip_x0
+                            && this._clip_y0 === clip_y0
+                            && this._clip_width === clip_width
+                            && this._clip_height === clip_height
+                        )
+                            return;
+
+                        [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = [clip_x0, clip_y0, clip_width, clip_height];
                         uniforms.set_uniform(this, 'clip_x0', parseFloat(this._clip_x0 - 1e-6));
                         uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));
                         uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width + 3 - 1e-6));
@@ -188,38 +202,61 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                         this.update_radius();
                     }
 
+                    update_actor_geometry(actor = this.get_actor?.()) {
+                        if (!actor)
+                            return;
+
+                        this.width = actor.width;
+                        this.height = actor.height;
+                        this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+                    }
+
+                    disconnect_actor_signals() {
+                        const actor = this._actor_connection_actor;
+                        [
+                            this._actor_connection_size_id,
+                            this._actor_connection_allocation_id,
+                            this._actor_connection_clip_rect_id,
+                            this._actor_connection_destroy_id,
+                        ].forEach(id => {
+                            if (!actor || !id)
+                                return;
+                            try { actor.disconnect(id); } catch (e) { }
+                        });
+
+                        this._actor_connection_actor = null;
+                        this._actor_connection_size_id = 0;
+                        this._actor_connection_allocation_id = 0;
+                        this._actor_connection_clip_rect_id = 0;
+                        this._actor_connection_destroy_id = 0;
+                    }
+
+                    connect_actor_signals(actor) {
+                        if (!actor)
+                            return;
+
+                        this._actor_connection_actor = actor;
+                        this.update_actor_geometry(actor);
+                        this._actor_connection_size_id = actor.connect('notify::size', _ => this.update_actor_geometry(actor));
+                        this._actor_connection_allocation_id = actor.connect('notify::allocation', _ => this.update_actor_geometry(actor));
+                        this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => this.update_actor_geometry(actor));
+                        this._actor_connection_destroy_id = actor.connect('destroy', () => {
+                            this._actor_connection_actor = null;
+                            this._actor_connection_size_id = 0;
+                            this._actor_connection_allocation_id = 0;
+                            this._actor_connection_clip_rect_id = 0;
+                            this._actor_connection_destroy_id = 0;
+                        });
+                    }
+
                     vfunc_set_actor(actor) {
-                        if (this._actor_connection_size_id) {
-                            let old_actor = this.get_actor();
-                            old_actor?.disconnect(this._actor_connection_size_id);
-                        }
-                        if (this._actor_connection_clip_rect_id) {
-                            let old_actor = this.get_actor();
-                            old_actor?.disconnect(this._actor_connection_clip_rect_id);
-                        }
-
-                        if (actor) {
-                            this.width = actor.width;
-                            this.height = actor.height;
-                            this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                                this.width = actor.width;
-                                this.height = actor.height;
-                            });
-
-                            this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                            this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
-                                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                            });
-                        }
-                        else {
-                            this._actor_connection_size_id = null;
-                            this._actor_connection_clip_rect_id = null;
-                        }
-
+                        this.disconnect_actor_signals();
+                        this.connect_actor_signals(actor);
                         super.vfunc_set_actor(actor);
                     }
 
                     vfunc_paint_target(paint_node, paint_context) {
+                        this.update_actor_geometry();
                         uniforms.upload_uniforms(this);
                         super.vfunc_paint_target(paint_node, paint_context);
                     }
@@ -241,6 +278,11 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                         this._clip_y0 = null;
                         this._clip_width = null;
                         this._clip_height = null;
+                        this._actor_connection_actor = null;
+                        this._actor_connection_size_id = 0;
+                        this._actor_connection_allocation_id = 0;
+                        this._actor_connection_clip_rect_id = 0;
+                        this._actor_connection_destroy_id = 0;
 
                         utils.setup_params(this, params);
                         this.straight_corners = false;
@@ -343,7 +385,16 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                     }
 
                     set clip(value) {
-                        [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = value;
+                        const [clip_x0, clip_y0, clip_width, clip_height] = value;
+                        if (
+                            this._clip_x0 === clip_x0
+                            && this._clip_y0 === clip_y0
+                            && this._clip_width === clip_width
+                            && this._clip_height === clip_height
+                        )
+                            return;
+
+                        [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = [clip_x0, clip_y0, clip_width, clip_height];
                         uniforms.set_uniform(this, 'clip_x0', parseFloat(this._clip_x0 - 1e-6));
                         uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));
                         uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width + 3 - 1e-6));
@@ -351,38 +402,61 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                         this.update_radius();
                     }
 
+                    update_actor_geometry(actor = this.get_actor?.()) {
+                        if (!actor)
+                            return;
+
+                        this.width = actor.width;
+                        this.height = actor.height;
+                        this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+                    }
+
+                    disconnect_actor_signals() {
+                        const actor = this._actor_connection_actor;
+                        [
+                            this._actor_connection_size_id,
+                            this._actor_connection_allocation_id,
+                            this._actor_connection_clip_rect_id,
+                            this._actor_connection_destroy_id,
+                        ].forEach(id => {
+                            if (!actor || !id)
+                                return;
+                            try { actor.disconnect(id); } catch (e) { }
+                        });
+
+                        this._actor_connection_actor = null;
+                        this._actor_connection_size_id = 0;
+                        this._actor_connection_allocation_id = 0;
+                        this._actor_connection_clip_rect_id = 0;
+                        this._actor_connection_destroy_id = 0;
+                    }
+
+                    connect_actor_signals(actor) {
+                        if (!actor)
+                            return;
+
+                        this._actor_connection_actor = actor;
+                        this.update_actor_geometry(actor);
+                        this._actor_connection_size_id = actor.connect('notify::size', _ => this.update_actor_geometry(actor));
+                        this._actor_connection_allocation_id = actor.connect('notify::allocation', _ => this.update_actor_geometry(actor));
+                        this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => this.update_actor_geometry(actor));
+                        this._actor_connection_destroy_id = actor.connect('destroy', () => {
+                            this._actor_connection_actor = null;
+                            this._actor_connection_size_id = 0;
+                            this._actor_connection_allocation_id = 0;
+                            this._actor_connection_clip_rect_id = 0;
+                            this._actor_connection_destroy_id = 0;
+                        });
+                    }
+
                     vfunc_set_actor(actor) {
-                        if (this._actor_connection_size_id) {
-                            let old_actor = this.get_actor();
-                            old_actor?.disconnect(this._actor_connection_size_id);
-                        }
-                        if (this._actor_connection_clip_rect_id) {
-                            let old_actor = this.get_actor();
-                            old_actor?.disconnect(this._actor_connection_clip_rect_id);
-                        }
-
-                        if (actor) {
-                            this.width = actor.width;
-                            this.height = actor.height;
-                            this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                                this.width = actor.width;
-                                this.height = actor.height;
-                            });
-
-                            this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                            this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
-                                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                            });
-                        }
-                        else {
-                            this._actor_connection_size_id = null;
-                            this._actor_connection_clip_rect_id = null;
-                        }
-
+                        this.disconnect_actor_signals();
+                        this.connect_actor_signals(actor);
                         super.vfunc_set_actor(actor);
                     }
 
                     vfunc_paint_target(paint_node, paint_context) {
+                        this.update_actor_geometry();
                         uniforms.upload_uniforms(this);
                         super.vfunc_paint_target(paint_node, paint_context);
                     }

@@ -16,6 +16,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
         window_source_options = {},
         overview_source_getter = undefined,
         style_class_name = null,
+        prepare_on_visible = true,
     }) {
         this.effects_manager = effects_manager;
         this.pipelines_manager = pipelines_manager;
@@ -27,6 +28,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
         this.window_source_options = window_source_options;
         this.overview_source_getter = overview_source_getter;
         this.style_class_name = style_class_name;
+        this.prepare_on_visible = prepare_on_visible;
         this.live_pipeline = null;
         this.actor = null;
         this.bg_manager = null;
@@ -35,6 +37,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
         this.tracking = false;
         this.destroyed = false;
         this.visible_id = 0;
+        this.actor_destroyed = false;
         this.repaint_loop = null;
         this.geometry = null;
     }
@@ -57,6 +60,10 @@ export const LiveBlurSurface = class LiveBlurSurface {
             container,
             this.widget_name
         );
+        this.actor_destroyed = false;
+        try {
+            this.actor.connect('destroy', () => this.actor_destroyed = true);
+        } catch (e) { }
 
         if (this.style_class_name)
             this.actor.add_style_class_name(this.style_class_name);
@@ -75,7 +82,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
         this.visible_id = this.actor.connect('notify::visible', () => {
             if (this.destroyed)
                 return;
-            if (this.actor.visible) {
+            if (this.actor.visible && this.prepare_on_visible) {
                 this.prepare_visible();
             } else
                 this.repaint_loop?.stop();
@@ -94,14 +101,14 @@ export const LiveBlurSurface = class LiveBlurSurface {
     }
 
     update_local_geometry(geometry) {
-        if (this.destroyed || !this.actor)
+        if (!this.has_actor())
             return false;
         if (!this.has_valid_geometry(geometry))
             return false;
 
         geometry = this.normalize_geometry(geometry);
         const geometry_changed = !this.has_same_geometry(geometry);
-        if (!geometry_changed && this.actor.visible)
+        if (!geometry_changed && this.is_actor_visible())
             return true;
 
         const updated = this.live_pipeline?.update_geometry?.({
@@ -121,20 +128,19 @@ export const LiveBlurSurface = class LiveBlurSurface {
     }
 
     update_stage_geometry(geometry) {
-        if (this.destroyed || !this.actor || !geometry)
+        if (!this.has_actor() || !geometry)
             return false;
         if (!this.has_valid_geometry(geometry))
             return false;
 
         geometry = this.normalize_geometry(geometry);
         const geometry_changed = !this.has_same_geometry(geometry);
-        if (!geometry_changed && this.actor.visible)
+        if (!geometry_changed && this.is_actor_visible())
             return true;
 
         this.live_pipeline?.update_stage_geometry?.(geometry);
-        const shown = this.show_surface();
         this.geometry = geometry;
-        if (shown || geometry_changed)
+        if (this.is_actor_visible() && geometry_changed && this.prepare_on_visible)
             this.prepare_visible();
         return true;
     }
@@ -154,10 +160,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
     }
 
     sync_frame() {
-        if (
-            !this.actor?.visible
-            || (!this.tracking && GLib.get_monotonic_time() > this.sync_until)
-        ) {
+        if (!this.is_actor_visible() || (!this.tracking && GLib.get_monotonic_time() > this.sync_until)) {
             this.repaint_loop?.stop();
             return;
         }
@@ -177,7 +180,7 @@ export const LiveBlurSurface = class LiveBlurSurface {
     }
 
     sync(force_redraw = false) {
-        if (this.destroyed || !this.actor?.visible)
+        if (!this.is_actor_visible())
             return;
 
         invalidate_stacked_window_actors();
@@ -188,13 +191,12 @@ export const LiveBlurSurface = class LiveBlurSurface {
     }
 
     queue_source_paint_sync() {
-        if (this.destroyed || !this.actor?.visible || this.source_paint_id)
+        if (!this.is_actor_visible() || this.source_paint_id)
             return;
 
         this.source_paint_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.source_paint_id = 0;
             this.sync(true);
-            this.request_frame_sync(120);
             return GLib.SOURCE_REMOVE;
         });
     }
@@ -202,21 +204,26 @@ export const LiveBlurSurface = class LiveBlurSurface {
     repaint() {
         try {
             this.live_pipeline?.effects?.forEach(effect => effect.queue_repaint?.());
-            this.actor?.queue_redraw?.();
+            if (!this.actor_destroyed)
+                this.actor?.queue_redraw?.();
         } catch (e) { }
     }
 
     show_surface() {
-        const was_visible = this.actor?.visible;
+        if (!this.has_actor())
+            return false;
+
+        const was_visible = this.is_actor_visible();
         try {
-            this.actor?.show?.();
+            this.actor.show();
         } catch (e) { }
-        return !was_visible && this.actor?.visible;
+        return !was_visible && this.is_actor_visible();
     }
 
     hide_surface() {
         try {
-            this.actor?.hide?.();
+            if (this.has_actor())
+                this.actor.hide();
         } catch (e) { }
         this.repaint_loop?.stop();
         this.tracking = false;
@@ -238,13 +245,14 @@ export const LiveBlurSurface = class LiveBlurSurface {
 
     set_opacity(opacity) {
         try {
-            this.actor.opacity = opacity;
+            if (this.has_actor())
+                this.actor.opacity = opacity;
         } catch (e) { }
     }
 
     has_opacity(opacity) {
         try {
-            return this.actor?.opacity === opacity;
+            return this.has_actor() && this.actor.opacity === opacity;
         } catch (e) {
             return false;
         }
@@ -263,6 +271,19 @@ export const LiveBlurSurface = class LiveBlurSurface {
     clear_source() {
         this.live_pipeline?.clear_source?.();
         this.geometry = null;
+    }
+
+    has_actor() {
+        return !this.destroyed && !this.actor_destroyed && !!this.actor;
+    }
+
+    is_actor_visible() {
+        try {
+            return this.has_actor() && this.actor.visible;
+        } catch (e) {
+            this.actor_destroyed = true;
+            return false;
+        }
     }
 
     has_valid_geometry(geometry) {
@@ -302,35 +323,29 @@ export const LiveBlurSurface = class LiveBlurSurface {
 
     destroy({ actor_destroyed = false } = {}) {
         this.destroyed = true;
+        actor_destroyed = actor_destroyed || this.actor_destroyed;
         if (this.source_paint_id)
             GLib.source_remove(this.source_paint_id);
         this.repaint_loop?.stop();
         this.tracking = false;
 
         const actor = this.actor;
-        if (actor && this.visible_id && !actor_destroyed) {
-            try {
-                actor.disconnect(this.visible_id);
-            } catch (e) { }
-        }
+        this.actor = null;
+        this.bg_manager = null;
+        this.visible_id = 0;
         try {
             this.live_pipeline?.destroy?.({ actor_destroyed });
         } catch (e) { }
 
         if (!actor_destroyed) {
             try {
-                actor?.get_parent?.()?.remove_child?.(actor);
-            } catch (e) { }
-            try {
                 actor?.destroy?.();
             } catch (e) { }
         }
 
         this.live_pipeline = null;
-        this.actor = null;
-        this.bg_manager = null;
         this.source_paint_id = 0;
-        this.visible_id = 0;
+        this.actor_destroyed = false;
         this.repaint_loop = null;
         this.geometry = null;
     }

@@ -10,8 +10,8 @@ import {
 import { SurfaceSettings } from '../../conveniences/surface_settings.js';
 import { PopupBlurSurface } from './blur_surface.js';
 import { PopupBlurMessageStacks } from './message_stacks.js';
-const POPUP_INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
-const POPUP_INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
+const POPUP_INTERNAL_STYLE_CLASSES = ['bms-popup-surface', 'bms-popup-blurred-widget', 'bms-popup-backgroundgroup', 'bms-popup-tint'];
+const POPUP_INTERNAL_NAMES = ['bms-popup-surface', 'bms-popup-blurred-widget', 'bms-popup-backgroundgroup', 'bms-popup-tint'];
 export const PopupBlur = class PopupBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
@@ -30,6 +30,7 @@ export const PopupBlur = class PopupBlur {
         this.follow_up_queue_id = 0;
         this.follow_up_actors = new Set();
         this.reset_id = 0;
+        this.sweep_id = 0;
         this.enabled = false;
     }
     enable() {
@@ -66,13 +67,14 @@ export const PopupBlur = class PopupBlur {
 
         this.track_container(Main.uiGroup);
         this.track_container(Main.layoutManager?.uiGroup);
-        this.track_container(Main.layoutManager?.panelBox);
         (Main.osdWindowManager?._osdWindows ?? []).forEach(window => this.track_container(window));
         this.track_container(Main.layoutManager?.modalDialogGroup);
         this.track_container(Main.messageTray?._bannerBin);
         this.track_quick_settings();
         this.track_container(global.window_group);
         this.connect_to_overview();
+        this.start_sweeper();
+        this.destroy_orphan_internal_actors();
     }
 
     connect_to_overview() {
@@ -100,6 +102,86 @@ export const PopupBlur = class PopupBlur {
             'child-added',
             (_, child) => this.queue_try_blur(child)
         );
+    }
+
+    start_sweeper() {
+        if (this.sweep_id)
+            return;
+
+        this.sweep_id = GLib.timeout_add(GLib.PRIORITY_DEFAULT_IDLE, 500, () => {
+            if (!this.enabled) {
+                this.sweep_id = 0;
+                return GLib.SOURCE_REMOVE;
+            }
+
+            if (this.sweep_surfaces())
+                this.destroy_orphan_internal_actors();
+            return GLib.SOURCE_CONTINUE;
+        });
+    }
+
+    stop_sweeper() {
+        if (!this.sweep_id)
+            return;
+
+        GLib.source_remove(this.sweep_id);
+        this.sweep_id = 0;
+    }
+
+    sweep_surfaces() {
+        let removed = false;
+
+        [...this.surfaces.entries()].forEach(([target, surface]) => {
+            if (
+                !this.is_actor_alive(target)
+                || !this.is_actor_alive(surface.root_actor)
+            ) {
+                this.destroy_blur(target, true);
+                removed = true;
+            } else if (!surface.is_visible?.()) {
+                surface.queue_update({ force: true });
+            }
+        });
+
+        return removed;
+    }
+
+    destroy_orphan_internal_actors() {
+        const owned = new Set();
+        this.surfaces.forEach(surface => {
+            surface.get_owned_actors?.().forEach(actor => owned.add(actor));
+        });
+
+        const roots = [
+            Main.uiGroup,
+            Main.layoutManager?.uiGroup,
+            Main.layoutManager?.modalDialogGroup,
+            Main.messageTray?._bannerBin,
+            Main.panel?.statusArea?.quickSettings?.menu?._overlay,
+            global.window_group,
+            ...(Main.osdWindowManager?._osdWindows ?? []),
+        ].filter(Boolean);
+
+        const seen = new WeakSet();
+        roots.forEach(root => this.destroy_orphan_internal_children(root, owned, seen));
+    }
+
+    destroy_orphan_internal_children(root, owned, seen) {
+        if (!root || seen.has(root))
+            return;
+
+        seen.add(root);
+
+        this.get_children(root).forEach(child => {
+            if (this.is_internal_actor(child)) {
+                if (!owned.has(child)) {
+                    try { child.destroy?.(); } catch (e) { }
+                }
+                return;
+            }
+
+            this.destroy_orphan_internal_children(child, owned, seen);
+        });
     }
 
     track_quick_settings() {
@@ -293,7 +375,6 @@ export const PopupBlur = class PopupBlur {
             if (
                 parent === Main.uiGroup
                 || parent === Main.layoutManager?.uiGroup
-                || parent === Main.layoutManager?.panelBox
             )
                 return { parent, sibling: actor };
 
@@ -370,6 +451,18 @@ export const PopupBlur = class PopupBlur {
         }
     }
 
+    is_actor_alive(actor) {
+        try {
+            return (
+                actor
+                && !this.destroyed_actors.has(actor)
+                && actor.get_stage?.()
+            );
+        } catch (e) {
+            return false;
+        }
+    }
+
     is_internal_actor(actor) {
         if (!actor)
             return false;
@@ -440,14 +533,14 @@ export const PopupBlur = class PopupBlur {
         }
     }
 
-    destroy_blur(actor, actor_already_destroyed = false) {
+    destroy_blur(actor, _actor_already_destroyed = false) {
         const surface = this.surfaces.get(actor);
         if (!surface)
             return;
 
         this.surfaces.delete(actor);
         try {
-            surface.destroy(actor_already_destroyed);
+            surface.destroy();
         } catch (e) { }
     }
 
@@ -515,6 +608,7 @@ export const PopupBlur = class PopupBlur {
         }
 
         this.cancel_queued_blurs();
+        this.stop_sweeper();
 
         if (!this.enabled) {
             this._log("blur already removed");
@@ -529,6 +623,7 @@ export const PopupBlur = class PopupBlur {
         const actors = [...this.surfaces.keys()];
         actors.forEach(actor => this.destroy_blur(actor));
         this.surfaces.clear();
+        this.destroy_orphan_internal_actors();
         this.containers.clear();
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();

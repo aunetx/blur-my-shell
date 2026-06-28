@@ -38,12 +38,14 @@ export const FrameRepaintLoop = class FrameRepaintLoop {
         if (!this.enabled)
             return GLib.SOURCE_REMOVE;
 
-        invalidate_stacked_window_actors();
-
         if (this.should_repaint()) {
+            invalidate_stacked_window_actors();
             try {
                 this.repaint();
             } catch (e) { }
+        } else {
+            this.stop();
+            return GLib.SOURCE_REMOVE;
         }
         this.queue();
         return GLib.SOURCE_REMOVE;

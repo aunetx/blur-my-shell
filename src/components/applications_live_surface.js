@@ -21,7 +21,6 @@ export const ApplicationsLiveSurface = class ApplicationsLiveSurface {
             overview_source_getter: false,
             window_source_options: {
                 stop_at: actor => this.is_own_window_actor(actor),
-                on_source_paint: () => this.surface.queue_source_paint_sync(),
                 decompose_windows: true,
             },
         });
@@ -62,6 +61,10 @@ export const ApplicationsLiveSurface = class ApplicationsLiveSurface {
 
     prepare_visible() {
         this.surface.prepare_visible();
+    }
+
+    hide_surface() {
+        this.surface.hide_surface();
     }
 
     request_frame_sync(duration_ms = 300) {

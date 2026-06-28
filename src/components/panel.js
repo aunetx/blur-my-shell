@@ -22,11 +22,6 @@ export const PanelBlur = class PanelBlur {
         this.visibility = new PanelVisibility(this);
         this.actors_list = [];
         this.original_panel_blur_ids = new Set();
-        // Maximum panel height ever observed in a "natural" (non-fullscreen)
-        // state. The blur falls back to this value when the panel widget
-        // itself is shrunk (e.g. by an auto-hide panel during a fullscreen
-        // window), so the visible blur keeps the same height it had before.
-        this.natural_panel_height = 0;
         this.enabled = false;
     }
 
@@ -93,11 +88,6 @@ export const PanelBlur = class PanelBlur {
 
         this._log("resetting...");
 
-        // Drop the cached "natural" panel height: it was measured against
-        // the old panel actor / old monitor layout, and may be stale
-        // (or simply too small / too large) for the recreated panel.
-        this.natural_panel_height = 0;
-
         this.disable();
         GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.enable();
@@ -110,7 +100,11 @@ export const PanelBlur = class PanelBlur {
             if (global.dashToPanel.panels)
                 this.blur_dtp_panels();
 
-            if (this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL && isMainPanelAlive)
+            if (
+                this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
+                && isMainPanelAlive
+                && !this.has_dtp_main_panel()
+            )
                 this.schedule_original_panel_blur();
         } else {
             if (isMainPanelAlive)
@@ -135,8 +129,7 @@ export const PanelBlur = class PanelBlur {
             this._log("Blurring Dash to Panel panels after idle.");
     
             global.dashToPanel.panels.forEach(p => {
-                if (p.panel != Main.panel)
-                    this.maybe_blur_panel(p.panel);
+                this.maybe_blur_panel(p);
             });
 
             return GLib.SOURCE_REMOVE;
@@ -151,7 +144,8 @@ export const PanelBlur = class PanelBlur {
                 if (
                     this.enabled &&
                     this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL &&
-                    isMainPanelAlive
+                    isMainPanelAlive &&
+                    !this.has_dtp_main_panel()
                 ) {
                     this.maybe_blur_panel(Main.panel);
                     const actors = this.actors_list.find(
@@ -181,22 +175,20 @@ export const PanelBlur = class PanelBlur {
     }
 
     blur_panel(panel) {
+        const dtp_panel = this.get_dtp_panel_actor(panel);
+        let is_dtp_panel = !!dtp_panel;
+        panel = dtp_panel ?? panel;
+
         let panel_box = panel.get_parent();
-        let is_dtp_panel = false;
-        if (!panel_box.name) {
-            is_dtp_panel = true;
-            panel_box = panel_box.get_parent();
-        }
-        const blur_parent = panel_box;
+        let blur_parent = panel_box;
+        if (is_dtp_panel)
+            blur_parent = panel_box?.get_parent?.() ?? panel_box;
+        if (!panel_box || !blur_parent)
+            return;
 
         let monitor = Main.layoutManager.findMonitorForActor(panel);
         if (!monitor)
             return;
-
-        // Re-measure for this newly-observed panel actor: a DTP or
-        // auto-hide-driven recreate may have produced a panel with a
-        // different natural height than the one we cached before.
-        this.natural_panel_height = 0;
 
         let static_blur = this.blur_settings.STATIC_BLUR;
         const blur_surface = new BlurSurface({
@@ -226,6 +218,7 @@ export const PanelBlur = class PanelBlur {
             widgets: {
                 panel,
                 panel_box,
+                geometry_actor: panel,
                 blur_parent,
                 background: blur_surface.actor,
                 background_group: blur_surface.background_group
@@ -252,7 +245,7 @@ export const PanelBlur = class PanelBlur {
             _ => this.queue_update_size(actors)
         );
         this.connections.connect(
-            panel_box.get_parent(),
+            blur_parent,
             ['notify::position', 'notify::size', 'notify::allocation'],
             _ => this.queue_update_size(actors)
         );
@@ -280,6 +273,32 @@ export const PanelBlur = class PanelBlur {
                     panel_parent === parent ? panel : null
                 );
             } catch (e) { }
+        }
+    }
+
+    get_dtp_panel_actor(actor) {
+        if (this.has_style_class(actor, 'dashtopanelPanel'))
+            return actor;
+
+        const parent = actor?.get_parent?.();
+        if (this.has_style_class(parent, 'dashtopanelPanel'))
+            return parent;
+
+        return null;
+    }
+
+    has_dtp_main_panel() {
+        return (global.dashToPanel?.panels ?? []).some(panel => panel.panel === Main.panel);
+    }
+
+    has_style_class(actor, style_class) {
+        try {
+            if (actor?.has_style_class_name)
+                return actor.has_style_class_name(style_class);
+
+            return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
+        } catch (e) {
+            return false;
         }
     }
 
@@ -318,25 +337,10 @@ export const PanelBlur = class PanelBlur {
         if (!monitor)
             return;
 
-        // Track the natural panel height (the height when the panel is
-        // not in a "shrunk" state such as fullscreen). The widget itself
-        // collapses to the icon row in those cases and we want the blur
-        // to keep the same height it had before. We freeze the value
-        // at the first valid observation: this both prevents a panel
-        // recreated in a shrunk state from poisoning the baseline, and
-        // prevents the height captured in a transient layout frame
-        // (e.g. right after a fullscreen window exits) from sticking.
-        const observed_height = Math.ceil(panel.height);
-        if (this.natural_panel_height <= 0
-            && Number.isFinite(observed_height) && observed_height > 0
-            && !this.has_fullscreen_window_on_monitor(monitor)) {
-            this.natural_panel_height = observed_height;
-        }
-
         if (actors.static_blur)
-            updatePanelStaticSize(actors, panel, panel_box, monitor, this);
+            updatePanelStaticSize(actors, panel, panel_box, monitor);
         else
-            updatePanelDynamicSize(actors, panel, this);
+            updatePanelDynamicSize(actors, panel);
 
         actors.widgets.background = actors.blur_surface.actor;
         actors.bg_manager = actors.blur_surface.bg_manager;
@@ -446,24 +450,6 @@ export const PanelBlur = class PanelBlur {
 
     is_main_panel_alive() {
         return isMainPanelAlive;
-    }
-
-    has_fullscreen_window_on_monitor(monitor) {
-        if (!monitor)
-            return false;
-        const workspace = global.workspace_manager?.get_active_workspace?.();
-        if (!workspace)
-            return false;
-        const windows = workspace.list_windows();
-        for (const meta_window of windows) {
-            if (!meta_window || meta_window.minimized || meta_window.is_hidden?.())
-                continue;
-            if (meta_window.get_monitor() !== monitor.index)
-                continue;
-            if (meta_window.fullscreen)
-                return true;
-        }
-        return false;
     }
 
     update_pipeline() {

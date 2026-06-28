@@ -9,11 +9,11 @@ export const PopupBlurLiveActor = class PopupBlurLiveActor {
             pipeline_id: blur_settings.PIPELINE,
             widget_name: 'bms-popup-blurred-widget',
             corner_radius_getter: get_corner_radius,
-            has_corner_radius: true,
+            has_corner_radius: false,
             style_class_name: 'bms-popup-blurred-widget',
             overview_source_getter: false,
+            prepare_on_visible: false,
             window_source_options: {
-                on_source_paint: () => this.surface.queue_source_paint_sync(),
                 decompose_windows: false,
             },
         });
@@ -21,9 +21,9 @@ export const PopupBlurLiveActor = class PopupBlurLiveActor {
         this.destroyed = false;
     }
 
-    create() {
+    create(container = null) {
         this.destroyed = false;
-        this.surface.create();
+        this.surface.create({ container });
         return true;
     }
 
@@ -49,8 +49,7 @@ export const PopupBlurLiveActor = class PopupBlurLiveActor {
     prepare_visible() {
         if (this.geometry)
             this.sync();
-        else
-            this.surface.prepare_visible();
+        this.surface.prepare_visible();
     }
 
     repaint() {

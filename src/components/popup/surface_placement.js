@@ -344,23 +344,19 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         try {
             const { x, y, width, height } = geometry;
             if (this.x !== x || this.y !== y) {
-                this.surface.blur_actor.set_position(x, y);
-                try { this.surface.tint_actor?.set_position(x, y); } catch (e) { }
+                this.surface.actor.set_position(x, y);
+                this.surface.blur_actor.set_position(0, 0);
                 this.x = x;
                 this.y = y;
             }
 
             if (this.width !== width || this.height !== height) {
+                this.surface.actor.set_size(width, height);
                 this.surface.blur_actor.set_size(width, height);
-                try { this.surface.tint_actor?.set_size(width, height); } catch (e) { }
+                this.surface.update_tint_geometry(width, height);
                 this.width = width;
                 this.height = height;
             }
-            // live_actor.update_geometry() → show_surface() shows the blur
-            // actor (queues relayout, sets NeedsAllocation). The allocation is
-            // applied AFTER this by update_surface_geometry()'s allocate_actor()
-            // call, which clears the flag. Do NOT allocate here — it would be
-            // invalidated by the show() inside update_geometry().
             this.surface.live_actor?.update_geometry(geometry);
         } catch (e) {
             return false;
@@ -378,6 +374,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             this.monitor_index
         );
         this.surface.sync_static_actor();
+        this.surface.update_tint_geometry(width, height);
 
         if (!geometry) {
             this.surface.hide_actors();

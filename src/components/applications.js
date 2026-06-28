@@ -194,6 +194,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
         const blur_actor = meta_window.blur_actor;
         if (!blur_actor)
             return;
+        if (!this.sync_window_blur_visibility(meta_window, this.blur_settings.STATIC_BLUR, {
+            prepare: false,
+            queue_geometry: false,
+        }))
+            return;
 
         if (this.blur_settings.STATIC_BLUR) {
             const window_monitor_index = meta_window.get_monitor();
@@ -307,30 +312,21 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(
             window_actor,
             'notify::visible',
-            actor => {
-                if (actor.visible) {
-                    meta_window.blur_actor.show();
-                    if (!static_blur) {
-                        meta_window.blur_surface?.prepare_visible?.();
-                        this.geometry_scheduler.schedule_settle(meta_window);
-                    }
-                } else {
-                    meta_window.blur_actor.hide();
-                }
-            }
+            () => this.sync_window_blur_visibility(meta_window, static_blur)
+        );
+        this.connections.connect(
+            meta_window,
+            'notify::minimized',
+            () => this.sync_window_blur_visibility(meta_window, static_blur)
         );
         if (!static_blur) {
             this.connections.connect(
                 window_actor,
                 'notify::mapped',
-                actor => {
-                    if (actor.mapped && meta_window.blur_actor?.visible)
-                        meta_window.blur_surface?.prepare_visible?.();
-                }
+                () => this.sync_window_blur_visibility(meta_window, static_blur)
             );
         }
-        this.geometry_scheduler.queue(meta_window, static_blur);
-        this.geometry_scheduler.schedule_settle(meta_window);
+        this.sync_window_blur_visibility(meta_window, static_blur);
     }
     create_static_blur_surface(meta_window, window_actor) {
         return new BlurSurface({
@@ -357,6 +353,43 @@ export const ApplicationsBlur = class ApplicationsBlur {
             get_corner_radius: () => this.get_corner_radius(meta_window),
         }).create();
     }
+    sync_window_blur_visibility(
+        meta_window,
+        static_blur = this.blur_settings.STATIC_BLUR,
+        { prepare = true, queue_geometry = true } = {}
+    ) {
+        const blur_surface = meta_window?.blur_surface;
+        const blur_actor = meta_window?.blur_actor;
+        const window_actor = meta_window?.get_compositor_private?.();
+        if (!blur_surface || !blur_actor || !window_actor)
+            return false;
+
+        if (!this.should_show_window_blur(meta_window, window_actor)) {
+            blur_surface.hide_surface?.();
+            return false;
+        }
+
+        blur_actor.show();
+        if (queue_geometry)
+            this.geometry_scheduler.queue(meta_window, static_blur);
+        if (!static_blur && prepare)
+            blur_surface.prepare_visible?.();
+        if (queue_geometry)
+            this.geometry_scheduler.schedule_settle(meta_window);
+        return true;
+    }
+    should_show_window_blur(meta_window, window_actor = meta_window?.get_compositor_private?.()) {
+        try {
+            return (
+                window_actor?.visible
+                && window_actor.mapped !== false
+                && !meta_window?.minimized
+                && meta_window?.is_hidden?.() !== true
+            );
+        } catch (e) {
+            return false;
+        }
+    }
     set_focus_for_window(meta_window, focus = true) {
         let blur_actor = null;
         let window_actor = null;
@@ -377,8 +410,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
             }
         }
         else if (blur_actor) {
+            if (!this.sync_window_blur_visibility(meta_window, this.blur_settings.STATIC_BLUR))
+                return;
             this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
-            blur_actor.show();
             meta_window.blur_surface?.sync?.(true);
             this.drag_tracker.sync_all_dynamic_surfaces(true);
             this.drag_tracker.schedule_all_dynamic_surfaces();
