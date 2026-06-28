@@ -170,20 +170,22 @@ class DashInfos {
         var x, y;
 
         let monitor = Main.layoutManager.findMonitorForActor(dash_container);
+        let offsetX = -monitor.x;
+        let offserY = -monitor.y
         let dash_box = dash_container._slider.get_child();
 
         if (dash_container.get_style_class_name().includes("top")) {
-            x = (monitor.width - dash_background.width) / 2;
-            y = dash_box.y;
+            x = (offsetX + monitor.width - dash_background.width) / 2;
+            y = offserY + dash_box.y;
         } else if (dash_container.get_style_class_name().includes("bottom")) {
-            x = (monitor.width - dash_background.width) / 2;
-            y = monitor.height - dash_container.height;
+            x = (offsetX + monitor.width - dash_background.width) / 2;
+            y = offserY + monitor.height - dash_container.height;
         } else if (dash_container.get_style_class_name().includes("left")) {
-            x = dash_box.x;
-            y = dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
+            x = offsetX + dash_box.x;
+            y = offserY + dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
         } else if (dash_container.get_style_class_name().includes("right")) {
-            x = monitor.width - dash_container.width;
-            y = dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
+            x = offsetX + monitor.width - dash_container.width;
+            y = offserY + dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
         }
 
         return [x, y];
