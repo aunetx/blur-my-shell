@@ -13,7 +13,6 @@ uniform float rgb_fringing;
 uniform float gloss;
 uniform float tint;
 uniform float shadow;
-uniform float opacity_factor;
 uniform int texture_repeat;
 uniform int blur_direction;
 uniform int private_pass;

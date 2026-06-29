@@ -23,11 +23,9 @@ const DEFAULT_PARAMS = {
     webcam_device: '',
     tint: 0.18,
     shadow: 0.28,
-    mode: 0,
     texture_repeat: 0,
     blur_direction: 0,
     private_pass: 0,
-    opacity_factor: 1,
     chained_effect: null,
     width: 0,
     height: 0,
@@ -133,14 +131,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 0.0, 1.0,
                 0.28,
             ),
-            'mode': GObject.ParamSpec.int(
-                `mode`,
-                `Mode`,
-                `Refraction mode`,
-                GObject.ParamFlags.READWRITE,
-                0, 1,
-                0,
-            ),
             'texture_repeat': GObject.ParamSpec.int(
                 `texture_repeat`,
                 `Texture Repeat`,
@@ -164,14 +154,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 GObject.ParamFlags.READWRITE,
                 0, 1,
                 0,
-            ),
-            'opacity_factor': GObject.ParamSpec.double(
-                `opacity_factor`,
-                `Opacity factor`,
-                `Opacity factor`,
-                GObject.ParamFlags.READWRITE,
-                0.0, 1.0,
-                1.0,
             ),
             'chained_effect': GObject.ParamSpec.object(
                 `chained_effect`,
@@ -223,7 +205,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             this._stabilize_clip_x = false;
             this._stabilize_clip_y = false;
             this._clip_settle_timeout_id = null;
-            this._opacity_factor = null;
 
             utils.setup_params(this, params);
 
@@ -231,8 +212,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             if (this._source)
                 this.set_shader_source(this._source);
 
-            const theme_context = St.ThemeContext.get_for_stage(global.stage);
-            theme_context.connectObject(
+            this._theme_context = St.ThemeContext.get_for_stage(global.stage);
+            this._theme_context.connectObject(
                 'notify::scale-factor',
                 _ => this.update_scaled_uniforms(),
                 this
@@ -344,15 +325,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             }
         }
 
-        get mode() {
-            return this._mode;
-        }
-
-        set mode(value) {
-            if (this._mode !== value)
-                this._mode = value;
-        }
-
         get gloss() {
             return this._gloss;
         }
@@ -365,6 +337,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             }
         }
 
+        // Deprecated no-op compatibility properties for old saved pipelines.
         get webcam_gloss() {
             return this._webcam_gloss;
         }
@@ -443,18 +416,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 this.set_uniform_value('private_pass', this._private_pass);
                 if (this._private_pass === 1)
                     this.set_enabled(this.blur_radius > 0.01);
-            }
-        }
-
-        get opacity_factor() {
-            return this._opacity_factor;
-        }
-
-        set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
-
-                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 
@@ -696,9 +657,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                         gloss: this.gloss,
                         tint: this.tint,
                         shadow: this.shadow,
-                        mode: this.mode,
                         texture_repeat: this.texture_repeat,
-                        opacity_factor: this.opacity_factor,
                         width: this.width,
                         height: this.height,
                         clip: this.clip,
@@ -722,6 +681,19 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
         }
 
         vfunc_dispose() {
+            if (this._clip_settle_timeout_id) {
+                GLib.Source.remove(this._clip_settle_timeout_id);
+                this._clip_settle_timeout_id = null;
+            }
+
+            if (this.chained_effect) {
+                this.chained_effect.get_actor()?.remove_effect(this.chained_effect);
+                this.chained_effect = null;
+            }
+
+            this._theme_context?.disconnectObject(this);
+            this._theme_context = null;
+
             if (super.vfunc_dispose)
                 super.vfunc_dispose();
         }
