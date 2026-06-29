@@ -1,7 +1,10 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-import { Pipeline } from '../conveniences/pipeline.js';
+import {
+    create_static_background,
+    destroy_background_manager,
+} from '../conveniences/static_background.js';
 
 const original_createBackground =
     UnlockDialog.prototype._createBackground;
@@ -20,6 +23,11 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     enable() {
+        if (this.enabled) {
+            this._log("blur already enabled");
+            return;
+        }
+
         this._log("blurring lockscreen");
 
         this.update_lockscreen();
@@ -37,17 +45,15 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     _createBackground(monitor_index) {
-        let pipeline = new Pipeline(
-            global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager,
-            global.blur_my_shell._settings.lockscreen.PIPELINE
-        );
-
-        pipeline.create_background_with_effects(
+        create_static_background({
+            effects_manager: global.blur_my_shell._effects_manager,
+            pipelines_manager: global.blur_my_shell._pipelines_manager,
+            pipeline_id: global.blur_my_shell._settings.lockscreen.PIPELINE,
             monitor_index,
-            this._bgManagers,
-            this._backgroundGroup,
-            "screen-shield-background"
-        );
+            background_managers: this._bgManagers,
+            container: this._backgroundGroup,
+            widget_name: 'screen-shield-background',
+        });
     }
 
     _updateBackgroundEffects() {
@@ -55,10 +61,7 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     _updateBackgrounds() {
-        for (let i = 0; i < this._bgManagers.length; i++) {
-            this._bgManagers[i]._bms_pipeline.destroy();
-            this._bgManagers[i].destroy();
-        }
+        this._bgManagers.forEach(destroy_background_manager);
 
         this._bgManagers = [];
         this._backgroundGroup.destroy_all_children();
@@ -68,6 +71,11 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     disable() {
+        if (!this.enabled) {
+            this._log("blur already removed");
+            return;
+        }
+
         this._log("removing blur from lockscreen");
 
         UnlockDialog.prototype._createBackground =

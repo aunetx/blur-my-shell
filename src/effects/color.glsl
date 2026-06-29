@@ -54,7 +54,7 @@ float soft_light_channel(float base, float _blend) {
 
 vec3 get_blend(vec3 base, vec3 _blend) {
     if (mode == MULTIPLY) return base * _blend;
-    if (mode == SCREEN) return 1 - (1 - base) * (1 - _blend);
+    if (mode == SCREEN) return 1.0 - (1.0 - base) * (1.0 - _blend);
     if (mode == OVERLAY) {
         vec3 result;
         result.r = base.r < 0.5 ? (2.0 * base.r * _blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - _blend.r));
@@ -64,10 +64,10 @@ vec3 get_blend(vec3 base, vec3 _blend) {
     }
     if (mode == DARKEN) return min(base, _blend);
     if (mode == LIGHTEN) return max(base, _blend);
-    if (mode == PLUS_DARKER) return base + _blend - 1;
+    if (mode == PLUS_DARKER) return base + _blend - vec3(1.0);
     if (mode == PLUS_LIGHTER) return base + _blend;
-    if (mode == COLOR_DODGE) return base / (1 - _blend);
-    if (mode == COLOR_BURN) return 1 - (1 - base) / _blend;
+    if (mode == COLOR_DODGE) return base / max(vec3(1e-6), 1.0 - _blend);
+    if (mode == COLOR_BURN) return 1.0 - (1.0 - base) / max(vec3(1e-6), _blend);
     if (mode == HARD_LIGHT) {
         vec3 result;
         result.r = _blend.r < 0.5 ? (2.0 * base.r * _blend.r) : (1.0 - 2.0 * (1.0 - base.r) * (1.0 - _blend.r));
@@ -79,7 +79,7 @@ vec3 get_blend(vec3 base, vec3 _blend) {
         return vec3(soft_light_channel(base.r, _blend.r), soft_light_channel(base.g, _blend.g), soft_light_channel(base.b, _blend.b));
     }
     if (mode == DIFFERENCE) return abs(base - _blend);
-    if (mode == EXCLUSION) return 0.5 - 2 * (base - 0.5) * (_blend - 0.5);
+    if (mode == EXCLUSION) return 0.5 - 2.0 * (base - 0.5) * (_blend - 0.5);
     if (mode == HUE) {
         vec3 base_hsl = rgb_to_hsl(base);
         vec3 blend_hsl = rgb_to_hsl(_blend);
@@ -107,7 +107,7 @@ void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
     vec3 pix_color = c.xyz;
     vec3 color = get_blend(pix_color, vec3(red, green, blue));
-    vec4 effect_color = vec4(mix(pix_color, color, blend), 1.);
+    float amount = blend * opacity_factor;
 
-    cogl_color_out = mix(c, effect_color, opacity_factor);
+    cogl_color_out = vec4(mix(pix_color, color, amount), c.a);
 }

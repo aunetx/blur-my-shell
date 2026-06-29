@@ -5,7 +5,7 @@
         path="/org/gnome/shell/extensions/blur-my-shell/">
         <!-- SETTINGS VERSION -->
         <key type="i" name="settings-version">
-            <default>1</default>
+            <default>5</default>
             <summary>The version of the settings to update from.</summary>
         </key>
         <!-- PIPELINES -->
@@ -24,26 +24,6 @@
                                 }>
                             }>
                         ]>
-                    },
-                    'pipeline_default_rounded': {
-                        'name': <'Default rounded'>,
-                        'effects': <[
-                            <{
-                                'type': <'native_static_gaussian_blur'>,
-                                'id': <'effect_000000000001'>,
-                                'params': <{
-                                    'radius': <30>,
-                                    'brightness': <0.6>
-                                }>
-                            }>,
-                            <{
-                                'type': <'corner'>,
-                                'id': <'effect_000000000002'>,
-                                'params': <{
-                                    'radius': <24>
-                                }>
-                            }>
-                        ]>
                     }
                 }
             ]]></default>
@@ -58,6 +38,11 @@
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Global brightness to use</summary>
+        </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>0</default>
+            <summary>Deprecated global corner radius used for settings migration</summary>
         </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">
@@ -79,20 +64,40 @@
             <default>true</default>
             <summary>Boolean, controls wether or not the color and noise effects are in use globally</summary>
         </key>
-        <!-- HACKS LEVEL -->
+        <!-- DISABLE CLIPPED REDRAWS -->
+        <key type="b" name="disable-clipped-redraws">
+            <default>false</default>
+            <summary>Disable clipped redraws globally to work around dynamic blur artifacts</summary>
+        </key>
+        <!-- Deprecated: migrated to disable-clipped-redraws in settings version 6 -->
         <key type="i" name="hacks-level">
             <default>1</default>
-            <summary>Level of hacks to use (from 0 to 2, 2 disabling clipped redraws entirely)</summary>
-        </key>
-        <!-- ROUNDED BLUR FOUND -->
-        <key type="b" name="rounded-blur-found">
-            <default>false</default>
-            <summary>Boolean, set to true if a patched version of ShellBlurEffect was found</summary>
+            <summary>Deprecated artifact-handling level, kept for settings migration only</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
             <default>false</default>
             <summary>Boolean, set to true to activate debug mode (more verbose journalctl logs)</summary>
+        </key>
+        <!-- GLOBAL PROFILE STATIC BLUR -->
+        <key type="b" name="profile-static-blur">
+            <default>true</default>
+            <summary>Default blur mode for surfaces using the global profile</summary>
+        </key>
+        <!-- GLOBAL PROFILE PIPELINE -->
+        <key type="s" name="profile-pipeline">
+            <default>"pipeline_default"</default>
+            <summary>Default pipeline for surfaces using the global profile</summary>
+        </key>
+        <!-- GLOBAL PROFILE OVERRIDE BACKGROUND -->
+        <key type="b" name="profile-override-background">
+            <default>true</default>
+            <summary>Default background override setting for surfaces using the global profile</summary>
+        </key>
+        <!-- GLOBAL PROFILE BACKGROUND STYLE -->
+        <key type="i" name="profile-background-style">
+            <default>0</default>
+            <summary>Default background style for surfaces using the global profile</summary>
         </key>
 
         <child name='overview' schema='org.gnome.shell.extensions.blur-my-shell.overview'></child>
@@ -212,6 +217,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- USE GLOBAL PROFILE -->
+        <key type="b" name="use-global">
+            <default>true</default>
+            <summary>Boolean, whether to use the global blur profile for this component</summary>
+        </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
@@ -292,9 +302,14 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- USE GLOBAL PROFILE -->
+        <key type="b" name="use-global">
+            <default>true</default>
+            <summary>Boolean, whether to use the global blur profile for this component</summary>
+        </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
-            <default>"pipeline_default_rounded"</default>
+            <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
@@ -361,6 +376,11 @@
         <key type="b" name="blur">
             <default>false</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+        </key>
+        <!-- USE GLOBAL PROFILE -->
+        <key type="b" name="use-global">
+            <default>true</default>
+            <summary>Boolean, whether to use the global blur profile for this component</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
@@ -542,6 +562,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur activate the blur for this component or not</summary>
         </key>
+        <!-- USE GLOBAL PROFILE -->
+        <key type="b" name="use-global">
+            <default>true</default>
+            <summary>Boolean, whether to use the global blur profile for this component</summary>
+        </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
@@ -561,6 +586,11 @@
         <key type="d" name="brightness">
             <default>0.6</default>
             <summary>Brightness to use for the blur effect</summary>
+        </key>
+        <!-- CORNER RADIUS -->
+        <key type="i" name="corner-radius">
+            <default>18</default>
+            <summary>Radius for the corner rounding effect</summary>
         </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">
@@ -602,6 +632,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur popup menus, notifications, switchers, and dialogs or not</summary>
         </key>
+        <!-- USE GLOBAL PROFILE -->
+        <key type="b" name="use-global">
+            <default>true</default>
+            <summary>Boolean, whether to use the global blur profile for popup blur</summary>
+        </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
             <default>false</default>
@@ -609,7 +644,7 @@
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
-            <default>"pipeline_default_rounded"</default>
+            <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- SIGMA -->

@@ -33,22 +33,11 @@ export const EffectsManager = class EffectsManager {
 
     connect_to_destroy(effect) {
         effect.old_actor = effect.get_actor();
-        if (effect.old_actor)
-            effect.old_actor_id = effect.old_actor.connect('destroy', _ => {
-                this.remove(effect, true);
-            });
 
         this.connections.connect(effect, 'notify::actor', _ => {
             let actor = effect.get_actor();
 
-            if (effect.old_actor && actor != effect.old_actor)
-                effect.old_actor.disconnect(effect.old_actor_id);
-
-            if (actor && actor != effect.old_actor) {
-                effect.old_actor_id = actor.connect('destroy', _ => {
-                    this.remove(effect, true);
-                });
-            }
+            effect.old_actor = actor;
         });
     }
 
@@ -60,10 +49,9 @@ export const EffectsManager = class EffectsManager {
             } catch (e) {
                 this._warn(`could not remove the effect, continuing: ${e}`);
             }
-        if (effect.old_actor)
-            effect.old_actor.disconnect(effect.old_actor_id);
+        this.connections.disconnect_all_for(effect);
+
         delete effect.old_actor;
-        delete effect.old_actor_id;
 
         let index = this.used.indexOf(effect);
         if (index >= 0) {

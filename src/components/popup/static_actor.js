@@ -2,22 +2,22 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
-import { PopupBlurStaticCorner } from './static_corner.js';
+import { map_source_effects } from '../../conveniences/source_effects.js';
+import { get_surface_corner_overrides, with_surface_corner } from '../../conveniences/surface_corner.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
-    constructor(settings, effects_manager, target, root_actor, get_corner_radius) {
+    constructor(settings, effects_manager, target, root_actor, get_corner_radius, blur_settings = null) {
         this.settings = settings;
+        this.blur_settings = blur_settings ?? settings.popup;
         this.effects_manager = effects_manager;
         this.target = target;
         this.root_actor = root_actor;
         this.get_corner_radius = get_corner_radius;
-        this.static_corner = new PopupBlurStaticCorner(effects_manager, get_corner_radius);
         this.background_group = null;
         this.blur_actor = null;
         this.bg_manager = null;
         this.pipeline = null;
         this.monitor_index = null;
-        this.opacity_factor = 1;
         this.background_opacity = null;
         this.x = null;
         this.y = null;
@@ -33,6 +33,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             width: 0,
             height: 0,
         });
+        this.background_group.opacity = 0;
         this.background_group.hide();
         this.connect_destroy(this.background_group, () => this.background_group_destroyed = true);
 
@@ -57,24 +58,17 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         const pipeline = new Pipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.popup.PIPELINE,
+            this.blur_settings.PIPELINE,
             null,
             {
                 effect_overrides: {
-                    native_static_gaussian_blur: params => this.get_blur_effect_overrides(params, 'unscaled_radius'),
-                    gaussian_blur: params => this.get_blur_effect_overrides(params, 'radius'),
-                    monte_carlo_blur: params => this.get_blur_effect_overrides(params, 'radius'),
-                    downscale: () => this.get_texture_effect_overrides(),
-                    upscale: () => this.get_texture_effect_overrides(),
-                    pixelize: () => this.get_texture_effect_overrides(),
-                    derivative: () => this.get_texture_effect_overrides(),
-                    color: params => this.get_color_effect_overrides(params),
-                    luminosity: () => this.get_luminosity_effect_overrides(),
-                    noise: params => this.get_noise_effect_overrides(params),
-                    rgb_to_hsl: () => this.get_texture_effect_overrides(),
-                    hsl_to_rgb: () => this.get_texture_effect_overrides(),
-                    corner: () => ({ radius: this.get_corner_radius() }),
+                    corner: get_surface_corner_overrides(() => this.get_corner_radius()),
                 },
+                pipeline_effects_mapper: effects => with_surface_corner(
+                    map_source_effects(effects),
+                    () => this.get_corner_radius(),
+                    { always: true }
+                ),
             }
         );
 
@@ -87,11 +81,12 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.blur_actor_destroyed = false;
         this.connect_destroy(this.blur_actor, () => this.blur_actor_destroyed = true);
         this.blur_actor.set_position(monitor.x, monitor.y);
+        this.blur_actor.opacity = 255;
         this.blur_actor.hide();
         this.bg_manager = bg_manager_list[0];
         this.pipeline = pipeline;
         this.monitor_index = monitor.index;
-        this.static_corner.bind(this.pipeline, this.blur_actor);
+        this.set_opacity(this.background_opacity ?? 0);
 
         return true;
     }
@@ -153,8 +148,10 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             if (this.background_opacity !== opacity)
                 return false;
 
-            const background_actor = this.get_background_actor();
-            return !background_actor || background_actor.opacity === opacity;
+            return (
+                this.background_group_destroyed
+                || this.background_group.opacity === opacity
+            );
         } catch (e) {
             return false;
         }
@@ -162,9 +159,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
     set_opacity(opacity) {
         try {
-            this.set_opacity_factor(opacity / 255);
             if (!this.background_group_destroyed)
-                this.background_group.opacity = 255;
+                this.background_group.opacity = opacity;
             if (this.blur_actor && !this.blur_actor_destroyed)
                 this.blur_actor.opacity = 255;
 
@@ -172,61 +168,11 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
             const background_actor = this.get_background_actor();
             if (background_actor)
-                background_actor.opacity = opacity;
+                background_actor.opacity = 255;
 
             if (!this.blur_actor_destroyed)
-                this.blur_actor?.get_children?.().forEach(child => child.opacity = opacity);
+                this.blur_actor?.get_children?.().forEach(child => child.opacity = 255);
         } catch (e) { }
-    }
-
-    set_opacity_factor(opacity_factor) {
-        opacity_factor = Math.max(0, Math.min(1, opacity_factor));
-        if (this.opacity_factor === opacity_factor)
-            return;
-
-        this.opacity_factor = opacity_factor;
-        try {
-            this.pipeline?.apply_effect_overrides();
-        } catch (e) { }
-    }
-
-    get_blur_effect_overrides(params, radius_key) {
-        const overrides = {};
-
-        if (radius_key in params)
-            overrides[radius_key] = params[radius_key] * this.opacity_factor;
-        if ('brightness' in params)
-            overrides.brightness = 1 - (1 - params.brightness) * this.opacity_factor;
-
-        return overrides;
-    }
-
-    get_color_effect_overrides(params) {
-        const overrides = this.get_texture_effect_overrides();
-
-        if (Array.isArray(params.color) && params.color.length >= 4)
-            overrides.color = params.color;
-
-        return overrides;
-    }
-
-    get_luminosity_effect_overrides() {
-        return this.get_texture_effect_overrides();
-    }
-
-    get_noise_effect_overrides(params) {
-        const overrides = this.get_texture_effect_overrides();
-
-        if ('noise' in params)
-            overrides.noise = params.noise;
-
-        return overrides;
-    }
-
-    get_texture_effect_overrides() {
-        return {
-            opacity_factor: this.opacity_factor,
-        };
     }
 
     get_background_actor() {
@@ -239,14 +185,14 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
     update_settings() {
         try {
-            this.static_corner.update();
+            this.pipeline?.apply_effect_overrides?.('corner');
         } catch (e) { }
     }
 
     update_pipeline() {
         try {
-            this.bg_manager?._bms_pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
-            this.static_corner.update();
+            this.bg_manager?._bms_pipeline.change_pipeline_to(this.blur_settings.PIPELINE);
+            this.pipeline?.apply_effect_overrides?.('corner');
         } catch (e) { }
     }
 
@@ -267,10 +213,6 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.bg_manager = null;
         this.blur_actor = null;
         this.pipeline = null;
-
-        try {
-            this.static_corner.destroy();
-        } catch (e) { }
 
         if (bg_manager) {
             try {

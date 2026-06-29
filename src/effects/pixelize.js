@@ -3,9 +3,6 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
-import { UpscaleEffect } from './upscale.js';
-import { DownscaleEffect } from './downscale.js';
-
 const DEFAULT_PARAMS = {
     factor: 8, downsampling_mode: 0, opacity_factor: 1
 };
@@ -45,9 +42,6 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
         constructor(params) {
             super();
 
-            this.upscale_effect = new UpscaleEffect({});
-            this.downscale_effect = new DownscaleEffect({});
-
             utils.setup_params(this, params);
         }
 
@@ -56,21 +50,19 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
         }
 
         get factor() {
-            // should be the same as `this.downscale_effect.divider`
-            return this.upscale_effect.factor;
+            return this._factor;
         }
 
         set factor(value) {
-            this.upscale_effect.factor = value;
-            this.downscale_effect.divider = value;
+            this._factor = value;
         }
 
         get downsampling_mode() {
-            return this.downscale_effect.downsampling_mode;
+            return this._downsampling_mode;
         }
 
         set downsampling_mode(value) {
-            this.downscale_effect.downsampling_mode = value;
+            this._downsampling_mode = value;
         }
 
         get opacity_factor() {
@@ -78,31 +70,6 @@ export const PixelizeEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
-                this.upscale_effect.opacity_factor = value;
-                this.downscale_effect.opacity_factor = value;
-            }
-        }
-
-        vfunc_set_actor(actor) {
-            // deattach effects from old actor
-            this.upscale_effect?.actor?.remove_effect(this.upscale_effect);
-            this.downscale_effect?.actor?.remove_effect(this.downscale_effect);
-            // attach effects to new actor
-            if (actor) {
-                if (this.upscale_effect)
-                    actor.add_effect(this.upscale_effect);
-                if (this.downscale_effect)
-                    actor.add_effect(this.downscale_effect);
-            }
-
-            super.vfunc_set_actor(actor);
-        }
-
-        vfunc_set_enabled(is_enabled) {
-            this.upscale_effect?.set_enabled(is_enabled);
-            this.downscale_effect?.set_enabled(is_enabled);
-            super.vfunc_set_enabled(is_enabled);
+            this._opacity_factor = value;
         }
     });
