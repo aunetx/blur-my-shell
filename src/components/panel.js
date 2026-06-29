@@ -200,9 +200,11 @@ export const PanelBlur = class PanelBlur {
 
         let background, bg_manager;
         let static_blur = this.settings.panel.STATIC_BLUR;
+        let pipeline; // Hoist the pipeline variable so our proxy can access it
+
         if (static_blur) {
             let bg_manager_list = [];
-            const pipeline = new Pipeline(
+            pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
                 this.settings.panel.PIPELINE
@@ -214,32 +216,56 @@ export const PanelBlur = class PanelBlur {
             bg_manager = bg_manager_list[0];
         }
         else {
-            const pipeline = new DummyPipeline(this.effects_manager, this.settings.panel);
+            pipeline = new DummyPipeline(this.effects_manager, this.settings.panel);
             [background, bg_manager] = pipeline.create_background_with_effect(
                 background_group, 'bms-panel-blurred-widget'
             );
+        }
 
-            let paint_signals = new PaintSignals(this.connections);
+        let paint_signals = new PaintSignals(this.connections);
 
-            // HACK
-            //
-            //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
-            //
-            // This does not entirely fix this bug (shadows caused by windows
-            // still cause artifacts), but it prevents the shadows of the panel
-            // buttons to cause artifacts on the panel itself
-            //
-            // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
+        // HACK
+        //
+        //`Shell.BlurEffect` does not repaint when shadows are under it. [1]
+        //
+        // This does not entirely fix this bug (shadows caused by windows
+        // still cause artifacts), but it prevents the shadows of the panel
+        // buttons to cause artifacts on the panel itself
+        //
+        // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            {
-                if (this.settings.HACKS_LEVEL === 1) {
-                    this._log("panel hack level 1");
+        {
+            if (this.settings.HACKS_LEVEL === 1) {
+                this._log("panel hack level 1");
 
-                    paint_signals.disconnect_all();
-                    paint_signals.connect(background, pipeline.effect);
-                } else {
-                    paint_signals.disconnect_all();
-                }
+                // Proxy object to dynamically resolve the active blur effect.
+                // This ensures repaints continue safely even if pipeline effects are rebuilt.
+                let dynamic_target = {
+                    queue_repaint: () => {
+                        let eff = null;
+                        if (static_blur && pipeline && pipeline.effects) {
+                            // Find the blur effect in the static pipeline array
+                            for (let i = 0; i < pipeline.effects.length; i++) {
+                                if (pipeline.effects[i]._bms_effect_type && pipeline.effects[i]._bms_effect_type.includes('blur')) {
+                                    eff = pipeline.effects[i];
+                                    break;
+                                }
+                            }
+                            if (!eff) eff = pipeline.effects[0]; // Fallback to first effect
+                        } else if (!static_blur && pipeline) {
+                            eff = pipeline.effect; // Dynamic pipeline uses a single effect
+                        }
+
+                        if (eff && typeof eff.queue_repaint === 'function') {
+                            eff.queue_repaint();
+                        }
+                    }
+                };
+
+                paint_signals.disconnect_all();
+                paint_signals.connect(background, dynamic_target);
+            } else {
+                paint_signals.disconnect_all();
             }
         }
 
