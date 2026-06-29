@@ -27,6 +27,7 @@ export const PanelBlur = class PanelBlur {
         this.settings = settings;
         this.effects_manager = effects_manager;
         this.actors_list = [];
+        this.queued_updates = new Set();
         this.enabled = false;
         this._first_boot = true;
     }
@@ -117,10 +118,6 @@ export const PanelBlur = class PanelBlur {
             // blur already existing ones
             if (global.dashToPanel.panels)
                 this.blur_dtp_panels();
-
-            // blur main panel if requested in settings
-            if (this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL && isMainPanelAlive)
-                this.maybe_blur_panel(Main.panel);
         } else {
             // if no dash-to-panel, blur the main panel
             if (isMainPanelAlive)
@@ -149,11 +146,26 @@ export const PanelBlur = class PanelBlur {
 
             this._log("Blurring Dash to Panel panels after idle.");
     
-            // blur every panel, except Main.panel (this is handled in blur_existing_panels() method above)
+            // blur every panel found
             global.dashToPanel.panels.forEach(p => {
-                if (p.panel != Main.panel)
+                if (
+                    p.panel != Main.panel ||
+                    this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
+                )
                     this.maybe_blur_panel(p.panel);
             });
+
+            // if main panel is not included in the previous panels, blur it
+            if (
+                !global.dashToPanel.panels
+                    .map(p => p.panel)
+                    .includes(Main.panel)
+                &&
+                this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
+                &&
+                isMainPanelAlive
+            )
+                this.maybe_blur_panel(Main.panel);
 
             return GLib.SOURCE_REMOVE;
         });
@@ -173,10 +185,12 @@ export const PanelBlur = class PanelBlur {
 
     /// Blur a panel
     blur_panel(panel) {
+        let geometry_actor = panel;
         let panel_box = panel.get_parent();
         let is_dtp_panel = false;
         if (!panel_box.name) {
             is_dtp_panel = true;
+            geometry_actor = panel_box;
             panel_box = panel_box.get_parent();
         }
 
@@ -238,7 +252,13 @@ export const PanelBlur = class PanelBlur {
 
         // the object that is used to remembering each elements that is linked to the blur effect
         let actors = {
-            widgets: { panel, panel_box, background, background_group },
+            widgets: {
+                panel,
+                panel_box,
+                background,
+                background_group,
+                geometry_actor
+            },
             static_blur,
             monitor,
             bg_manager,
@@ -248,12 +268,13 @@ export const PanelBlur = class PanelBlur {
 
         // update the size of the actor
         this.update_size(actors);
+        this.queue_update_size(actors);
 
-        // connect to panel, panel_box and its parent position or size change
+        // connect to the relevant actors geometry changes
         // this should fire update_size every time one of its params change
         this.connections.connect(
-            panel,
-            'notify::position',
+            geometry_actor,
+            ['notify::allocation', 'notify::size', 'notify::position'],
             _ => this.update_size(actors)
         );
         this.connections.connect(
@@ -275,38 +296,60 @@ export const PanelBlur = class PanelBlur {
         );
     }
 
+    queue_update_size(actors) {
+        if (this.queued_updates.has(actors))
+            return;
+
+        this.queued_updates.add(actors);
+        GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            this.queued_updates.delete(actors);
+
+            if (!this.enabled || !this.actors_list.includes(actors))
+                return GLib.SOURCE_REMOVE;
+
+            this.update_size(actors);
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
     update_size(actors) {
-        let panel = actors.widgets.panel;
+        let geometry_actor = actors.widgets.geometry_actor;
         let panel_box = actors.widgets.panel_box;
         let background = actors.widgets.background;
         let [width, height] = panel_box.get_size();
+        let [geometry_width, geometry_height] = geometry_actor.get_size();
+
+        if (!width || !height || !geometry_width || !geometry_height) {
+            this.queue_update_size(actors);
+            return;
+        }
 
         // if static blur, need to clip the background
         if (actors.static_blur) {
-            let monitor = Main.layoutManager.findMonitorForActor(panel);
-            if (!monitor)
+            let monitor = Main.layoutManager.findMonitorForActor(geometry_actor);
+            if (!monitor) {
+                this.queue_update_size(actors);
                 return;
+            }
 
-            // an alternative to panel.get_transformed_position, because it
-            // sometimes yields NaN (probably when the actor is not fully
-            // positionned yet)
             let [p_x, p_y] = panel_box.get_position();
             let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
-            let x = p_x + p_p_x - monitor.x + (width - panel.width) / 2;
-            let y = p_y + p_p_y - monitor.y + (height - panel.height) / 2;
+            let [g_x, g_y] = geometry_actor.get_position();
+            let x = p_x + p_p_x - monitor.x + g_x;
+            let y = p_y + p_p_y - monitor.y + g_y;
 
-            background.set_clip(x, y, panel.width, panel.height);
-            background.x = (width - panel.width) / 2 - x;
-            background.y = .5 + (height - panel.height) / 2 - y;
+            background.set_clip(x, y, geometry_width, geometry_height);
+            background.x = g_x - x;
+            background.y = .5 + g_y - y;
         } else {
-            background.x = panel.x;
-            background.y = panel.y;
-            background.width = panel.width;
-            background.height = panel.height;
+            background.x = geometry_actor.x;
+            background.y = geometry_actor.y;
+            background.width = geometry_width;
+            background.height = geometry_height;
         }
 
         // update the monitor panel is on
-        actors.monitor = Main.layoutManager.findMonitorForActor(panel);
+        actors.monitor = Main.layoutManager.findMonitorForActor(geometry_actor);
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly
@@ -633,6 +676,7 @@ export const PanelBlur = class PanelBlur {
         const immutable_actors_list = [...this.actors_list];
         immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
         this.actors_list = [];
+        this.queued_updates.clear();
 
         this._dirty = true;
 
