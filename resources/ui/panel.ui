@@ -187,32 +187,21 @@ Recommended unless you want to customize your GNOME theme.</property>
             </child>
 
             <child>
-              <object class="AdwActionRow" id="background_on_window_proximity_row">
-                <property name="title" translatable="yes">Enable background when a window is near</property>
-                <property name="subtitle" translatable="yes">Enables background when a window is near the panel, and disable it when it's not. Requires "Override background dynamically" to be enabled.</property>
-                <property name="activatable-widget">background_on_window_proximity</property>
+              <object class="AdwActionRow" id="override_background_dynamically_mode_row">
+                <property name="title" translatable="yes">When window is near:</property>
+                <property name="subtitle" translatable="yes">Blur on Window Proximity: Blur only when a window is near the panel and transparent when it is not. 
+Background on Window Proximity: Solid color background when a window is near the panel and blur when it is not</property>
+                <property name="activatable-widget">override_background_dynamically_mode</property>
 
                 <child>
-                  <object class="GtkSwitch" id="background_on_window_proximity">
+                  <object class="GtkDropDown" id="override_background_dynamically_mode">
                     <property name="valign">center</property>
+                    <property name="model">override_background_dynamically_mode_model</property>
                   </object>
                 </child>
               </object>
             </child>
 
-            <child>
-              <object class="AdwActionRow" id="blur_on_window_proximity_row">
-                <property name="title" translatable="yes">Enable blur when a window is near</property>
-                <property name="subtitle" translatable="yes">Enables the blur effect when a window is near the panel, and disable it when it's not. Requires "Override background dynamically" to be enabled.</property>
-                <property name="activatable-widget">blur_on_window_proximity</property>
-
-                <child>
-                  <object class="GtkSwitch" id="blur_on_window_proximity">
-                    <property name="valign">center</property>
-                  </object>
-                </child>
-              </object>
-            </child>
           </object>
         </child>
 
@@ -277,6 +266,13 @@ Recommended unless you want to customize your GNOME theme.</property>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
       <item translatable="yes">Contrasted</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="override_background_dynamically_mode_model">
+    <items>
+      <item translatable="yes">Blur on Window Proximity</item>
+      <item translatable="yes">Background on Window Proximity</item>
     </items>
   </object>
 

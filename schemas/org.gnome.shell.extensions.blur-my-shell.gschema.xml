@@ -277,20 +277,15 @@
             <default>0</default>
             <summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark, 3 contrasted)</summary>
         </key>
-        <!-- UNBLUR DYNAMICALLY -->
+        <!-- OVERRIDE BACKGROUND DYNAMICALLY -->
         <key type="b" name="override-background-dynamically">
             <default>false</default>
             <summary>Boolean, whether to enable certain effect for this component when a window is close to the panel</summary>
         </key>
-        <!-- BACKGROUND ON WINDOW PROXIMITY -->
-        <key type="b" name="background-on-window-proximity">
-            <default>true</default>
-            <summary>Boolean, whether to enable background from this component when a window is close to the panel, required "override-background-dynamically" to be enabled.</summary>
-        </key>
-        <!-- BLUR ON WINDOW PROXIMITY -->
-        <key type="b" name="blur-on-window-proximity">
-            <default>false</default>
-            <summary>Boolean, whether to enable blur from this component when a window is close to the panel, required "override-background-dynamically" to be enabled.</summary>
+        <!-- OVERRIDE BACKGROUND DYNAMICALLY MODE -->
+        <key type="i" name="override-background-dynamically-mode">
+            <default>1</default>
+            <summary>Enum to select the override mode (0 Blur on Window Proximity, 1 Background on Window Proximity). Required "override-background-dynamically" to be enabled.</summary>
         </key>
     </schema>
 

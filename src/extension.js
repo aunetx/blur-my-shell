@@ -452,14 +452,7 @@ export default class BlurMyShell extends Extension {
             }
         });
 
-        this._settings.panel.BACKGROUND_ON_WINDOW_PROXIMITY_changed(() => {
-            if (this._settings.panel.BLUR) {
-                this._panel_blur.connect_to_windows_and_overview();
-                this._panel_blur.reset();
-            }
-        });
-
-        this._settings.panel.BLUR_ON_WINDOW_PROXIMITY_changed(() => {
+        this._settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE_changed(() => {
             if (this._settings.panel.BLUR) {
                 this._panel_blur.connect_to_windows_and_overview();
                 this._panel_blur.reset();

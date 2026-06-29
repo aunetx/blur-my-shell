@@ -24,10 +24,8 @@ export const Panel = GObject.registerClass({
         'override_background',
         'style_panel',
         'override_background_dynamically',
-        'background_on_window_proximity_row',
-        'background_on_window_proximity',
-        'blur_on_window_proximity_row',
-        'blur_on_window_proximity',
+        'override_background_dynamically_mode_row',
+        'override_background_dynamically_mode',
         'hidetopbar_compatibility',
         'dtp_blur_original_panel'
     ],
@@ -92,22 +90,11 @@ export const Panel = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(
-            'background-on-window-proximity',
-            this._background_on_window_proximity, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.panel.settings.bind(
-            'blur-on-window-proximity',
-            this._blur_on_window_proximity, 'active',
+            'override-background-dynamically-mode',
+            this._override_background_dynamically_mode, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(
-            () => this.proximity_option_changed()
-        );
-        this.preferences.panel.BLUR_ON_WINDOW_PROXIMITY_changed(
-            () => this.proximity_option_changed()
-        );
-        this.preferences.panel.BACKGROUND_ON_WINDOW_PROXIMITY_changed(
             () => this.proximity_option_changed()
         );
         this.preferences.hidetopbar.settings.bind(
@@ -121,8 +108,7 @@ export const Panel = GObject.registerClass({
     }
 
     proximity_option_changed() {
-        this._blur_on_window_proximity_row.set_sensitive(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && !this.preferences.panel.BACKGROUND_ON_WINDOW_PROXIMITY);
-        this._background_on_window_proximity_row.set_sensitive(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && !this.preferences.panel.BLUR_ON_WINDOW_PROXIMITY);
+        this._override_background_dynamically_mode_row.set_visible(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY);
     }
 
     change_blur_mode(is_static_blur, first_run) {

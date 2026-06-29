@@ -371,7 +371,10 @@ export const PanelBlur = class PanelBlur {
                 );
                 
                 this.connections.connect(
-                    Main.overview, 'hidden', _ => this.panel_hide_blur_dynamically()
+                    Main.overview, 'hidden', _ => {
+                        this.panel_hide_blur_dynamically();
+                        this.update_visibility();
+                    }
                 );
             } else {
                 let appDisplay = Main.overview._overview._controls._appDisplay;
@@ -381,10 +384,10 @@ export const PanelBlur = class PanelBlur {
                 );
 
                 this.connections.connect(
-                    appDisplay, 'hide', _ => this.show()
+                    appDisplay, 'hide', _ => this.update_visibility()
                 );
                 this.connections.connect(
-                    Main.overview, 'hidden', _ => this.show()
+                    Main.overview, 'hidden', _ => this.update_visibility()
                 );
             }
         }
@@ -573,18 +576,18 @@ export const PanelBlur = class PanelBlur {
             if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
                 // This is an invert of the above behavior, 
                 // Blur and all styling is hidden when "should_override" is true. 
-                if (this.settings.panel.BLUR_ON_WINDOW_PROXIMITY && !this.settings.panel.BACKGROUND_ON_WINDOW_PROXIMITY) {
+                if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
                     panel.add_style_class_name(
                         PANEL_STYLES[this.settings.panel.STYLE_PANEL]
                     );
                     if (!should_override) {
-                        this.show();
+                        actors.widgets.background.show();
                     }
                     else {
-                        this.hide();
+                        actors.widgets.background.hide();
                     };
                 }
-                if (!this.settings.panel.BLUR_ON_WINDOW_PROXIMITY && this.settings.panel.BACKGROUND_ON_WINDOW_PROXIMITY) {
+                if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 1) {
                     PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
                     if (should_override) {
                         panel.add_style_class_name(
@@ -604,19 +607,22 @@ export const PanelBlur = class PanelBlur {
         this.update_light_text_classname(!should_override);
     }
 
+    panel_hide_blur_dynamically(){
+        if (this.settings.panel.OVERRIDE_BACKGROUND && this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
+            if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
+                this.hide()
+            }
+            else {this.show()}
+        }
+        else {
+            this.show()
+        }
+    }
+
     panel_hide_blur_startup(){
         if (this._first_boot) {
             this.hide();
             this._first_boot = false
-        }
-    }
-
-    panel_hide_blur_dynamically(should_override){
-        if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && this.settings.panel.BLUR_ON_WINDOW_PROXIMITY) {
-            if (should_override){ this.hide() }
-        }
-        else {
-            this.show()
         }
     }
 
