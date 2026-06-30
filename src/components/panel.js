@@ -262,8 +262,7 @@ export const PanelBlur = class PanelBlur {
         };
         this.actors_list.push(actors);
 
-        // update the size of the actor
-        this.update_size(actors);
+        // defer size update to idle to avoid allocation race
         this.queue_update_size(actors);
 
         // connect to the relevant actors geometry changes
