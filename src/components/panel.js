@@ -242,22 +242,21 @@ export const PanelBlur = class PanelBlur {
                 // This ensures repaints continue safely even if pipeline effects are rebuilt.
                 let dynamic_target = {
                     queue_repaint: () => {
-                        let eff = null;
-                        if (static_blur && pipeline && pipeline.effects) {
-                            // Find the blur effect in the static pipeline array
-                            for (let i = 0; i < pipeline.effects.length; i++) {
-                                if (pipeline.effects[i]._bms_effect_type && pipeline.effects[i]._bms_effect_type.includes('blur')) {
-                                    eff = pipeline.effects[i];
-                                    break;
+                        let active_pipeline = (bg_manager && bg_manager._bms_pipeline) ? bg_manager._bms_pipeline : pipeline;
+
+                        if (static_blur && active_pipeline && active_pipeline.effects) {
+                            // Repaint all effects in the static pipeline to be agnostic of the active effects
+                            for (let i = 0; i < active_pipeline.effects.length; i++) {
+                                let eff = active_pipeline.effects[i];
+                                if (eff && typeof eff.queue_repaint === 'function') {
+                                    eff.queue_repaint();
                                 }
                             }
-                            if (!eff) eff = pipeline.effects[0]; // Fallback to first effect
-                        } else if (!static_blur && pipeline) {
-                            eff = pipeline.effect; // Dynamic pipeline uses a single effect
-                        }
-
-                        if (eff && typeof eff.queue_repaint === 'function') {
-                            eff.queue_repaint();
+                        } else if (!static_blur && active_pipeline) {
+                            let eff = active_pipeline.effect; // Dynamic pipeline uses a single effect
+                            if (eff && typeof eff.queue_repaint === 'function') {
+                                eff.queue_repaint();
+                            }
                         }
                     }
                 };
