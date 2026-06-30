@@ -24,6 +24,8 @@ export const Panel = GObject.registerClass({
         'override_background',
         'style_panel',
         'override_background_dynamically',
+        'override_background_dynamically_mode_row',
+        'override_background_dynamically_mode',
         'hidetopbar_compatibility',
         'dtp_blur_original_panel'
     ],
@@ -87,6 +89,14 @@ export const Panel = GObject.registerClass({
             this._override_background_dynamically, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+        this.preferences.panel.settings.bind(
+            'override-background-dynamically-mode',
+            this._override_background_dynamically_mode, 'selected',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(
+            () => this.proximity_option_changed()
+        );
         this.preferences.hidetopbar.settings.bind(
             'compatibility', this._hidetopbar_compatibility, 'active',
             Gio.SettingsBindFlags.DEFAULT
@@ -95,6 +105,10 @@ export const Panel = GObject.registerClass({
             'blur-original-panel', this._dtp_blur_original_panel, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+    }
+
+    proximity_option_changed() {
+        this._override_background_dynamically_mode_row.set_visible(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY);
     }
 
     change_blur_mode(is_static_blur, first_run) {
@@ -107,5 +121,7 @@ export const Panel = GObject.registerClass({
         this._brightness_row.set_visible(!is_static_blur);
         this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
         this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
+
+        this.proximity_option_changed();
     }
 });

@@ -446,10 +446,18 @@ export default class BlurMyShell extends Extension {
 
         // panel background's dynamic overriding toggled on/off
         this._settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_changed(() => {
-            if (this._settings.panel.BLUR)
+            if (this._settings.panel.BLUR) {
                 this._panel_blur.connect_to_windows_and_overview();
+                this._panel_blur.reset();
+            }
         });
 
+        this._settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE_changed(() => {
+            if (this._settings.panel.BLUR) {
+                this._panel_blur.connect_to_windows_and_overview();
+                this._panel_blur.reset();
+            }
+        });
 
         // ---------- DASH TO DOCK ----------
 
