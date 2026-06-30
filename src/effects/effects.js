@@ -40,12 +40,6 @@ export function get_effects_groups(_ = _ => "") {
                 "rgb_to_hsl",
                 "hsl_to_rgb"
             ]
-        },
-        shape_effects: {
-            name: _("Shape effects"),
-            contains: [
-                "corner"
-            ]
         }
     };
 };

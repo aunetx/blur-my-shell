@@ -17,14 +17,22 @@ const DEFAULT_PARAMS = {
 
 
 export const NativeDynamicBlurEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
+    { default_params: DEFAULT_PARAMS, supports_corner_radius: false } :
     new GObject.registerClass({
         GTypeName: "NativeDynamicBlurEffect"
     }, class NativeDynamicBlurEffect extends BlurOrShell.BlurEffect {
         constructor(params) {
-            const { unscaled_radius, brightness, corner_radius, ...parent_params } = params;
+            const normalized_params = { ...params };
+            if (!('unscaled_radius' in normalized_params) && 'radius' in normalized_params)
+                normalized_params.unscaled_radius = normalized_params.radius;
+            delete normalized_params.radius;
+
+            const { unscaled_radius, brightness, corner_radius, ...parent_params } = normalized_params;
+            delete normalized_params.corner_radius;
+            const unscaled_corner_radius = corner_radius ?? 0;
+            normalized_params.unscaled_corner_radius = unscaled_corner_radius;
             if (IS_BLUR_MODULE)
-                super({ ...parent_params, mode: BlurOrShell.BlurMode.BACKGROUND, ...{ 'corner_radius': corner_radius } });
+                super({ ...parent_params, mode: BlurOrShell.BlurMode.BACKGROUND, ...{ 'corner_radius': unscaled_corner_radius } });
             else
                 super({ ...parent_params, mode: BlurOrShell.BlurMode.BACKGROUND });
 
@@ -32,17 +40,22 @@ export const NativeDynamicBlurEffect = utils.IS_IN_PREFERENCES ?
             this._theme_context.connectObject(
                 'notify::scale-factor',
                 _ => {
-                    this.radius = this.unscaled_radius * this._theme_context.scale_factor;
-                    this.corner_radius = this.unscaled_corner_radius * this._theme_context.scale_factor;
+                    this.radius = Math.max(0, this.unscaled_radius * this._theme_context.scale_factor);
+                    if (IS_BLUR_MODULE)
+                        this.corner_radius = this.unscaled_corner_radius * this._theme_context.scale_factor;
                 },
                 this
             );
 
-            utils.setup_params(this, params);
+            utils.setup_params(this, normalized_params);
         }
 
         static get default_params() {
             return DEFAULT_PARAMS;
+        }
+
+        static get supports_corner_radius() {
+            return IS_BLUR_MODULE;
         }
 
         get unscaled_radius() {
@@ -51,7 +64,7 @@ export const NativeDynamicBlurEffect = utils.IS_IN_PREFERENCES ?
 
         set unscaled_radius(value) {
             this._unscaled_radius = value;
-            this.radius = value * this._theme_context.scale_factor;
+            this.radius = Math.max(0, value * this._theme_context.scale_factor);
         }
 
         get unscaled_corner_radius() {
@@ -60,6 +73,7 @@ export const NativeDynamicBlurEffect = utils.IS_IN_PREFERENCES ?
 
         set unscaled_corner_radius(value) {
             this._unscaled_corner_radius = value;
-            this.corner_radius = value * this._theme_context.scale_factor;
+            if (IS_BLUR_MODULE)
+                this.corner_radius = value * this._theme_context.scale_factor;
         }
     });
