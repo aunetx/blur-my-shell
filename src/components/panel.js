@@ -190,7 +190,7 @@ export const PanelBlur = class PanelBlur {
         let is_dtp_panel = false;
         if (!panel_box.name) {
             is_dtp_panel = true;
-            geometry_actor = panel_box;
+            geometry_actor = panel; // track inner panel instead of the wrapper
             panel_box = panel_box.get_parent();
         }
 
@@ -359,6 +359,13 @@ export const PanelBlur = class PanelBlur {
             let [p_x, p_y] = panel_box.get_position();
             let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
             let [g_x, g_y] = geometry_actor.get_position();
+
+            if (actors.is_dtp_panel) {
+                let [w_x, w_y] = geometry_actor.get_parent().get_position();
+                g_x += w_x;
+                g_y += w_y;
+            }
+
             let x = p_x + p_p_x - monitor.x + g_x;
             let y = p_y + p_p_y - monitor.y + g_y;
 
@@ -366,8 +373,16 @@ export const PanelBlur = class PanelBlur {
             background.x = g_x - x;
             background.y = .5 + g_y - y;
         } else {
-            background.x = geometry_actor.x;
-            background.y = geometry_actor.y;
+            let [g_x, g_y] = geometry_actor.get_position();
+
+            if (actors.is_dtp_panel) {
+                let [w_x, w_y] = geometry_actor.get_parent().get_position();
+                g_x += w_x;
+                g_y += w_y;
+            }
+
+            background.x = g_x;
+            background.y = g_y;
             background.width = geometry_width;
             background.height = geometry_height;
         }
