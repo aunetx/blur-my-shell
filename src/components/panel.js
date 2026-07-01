@@ -186,11 +186,13 @@ export const PanelBlur = class PanelBlur {
     /// Blur a panel
     blur_panel(panel) {
         let geometry_actor = panel;
+        let wrapper = null;
         let panel_box = panel.get_parent();
         let is_dtp_panel = false;
         if (!panel_box.name) {
             is_dtp_panel = true;
-            geometry_actor = panel; // track inner panel instead of the wrapper
+            wrapper = panel_box;
+            geometry_actor = panel; // Track the inner panel dynamically
             panel_box = panel_box.get_parent();
         }
 
@@ -279,6 +281,7 @@ export const PanelBlur = class PanelBlur {
         let actors = {
             widgets: {
                 panel,
+                wrapper,
                 panel_box,
                 background,
                 background_group,
@@ -301,6 +304,14 @@ export const PanelBlur = class PanelBlur {
             ['notify::allocation', 'notify::size', 'notify::position'],
             _ => this.update_size(actors)
         );
+
+        if (wrapper) {
+            this.connections.connect(
+                wrapper,
+                ['notify::allocation', 'notify::size', 'notify::position'],
+                _ => this.update_size(actors)
+            );
+        }
         this.connections.connect(
             panel_box,
             ['notify::size', 'notify::position'],
@@ -339,6 +350,7 @@ export const PanelBlur = class PanelBlur {
     update_size(actors) {
         let geometry_actor = actors.widgets.geometry_actor;
         let panel_box = actors.widgets.panel_box;
+        let wrapper = actors.widgets.wrapper;
         let background = actors.widgets.background;
         let [width, height] = panel_box.get_size();
         let [geometry_width, geometry_height] = geometry_actor.get_size();
@@ -358,12 +370,16 @@ export const PanelBlur = class PanelBlur {
 
             let [p_x, p_y] = panel_box.get_position();
             let [p_p_x, p_p_y] = panel_box.get_parent().get_position();
-            let [g_x, g_y] = geometry_actor.get_position();
 
+            // updated coordinates for static blur
+            let g_x, g_y;
             if (actors.is_dtp_panel) {
-                let [w_x, w_y] = geometry_actor.get_parent().get_position();
-                g_x += w_x;
-                g_y += w_y;
+                let [w_x, w_y] = wrapper.get_position();
+                let [pan_x, pan_y] = geometry_actor.get_position();
+                g_x = w_x + pan_x;
+                g_y = w_y + pan_y;
+            } else {
+                [g_x, g_y] = geometry_actor.get_position();
             }
 
             let x = p_x + p_p_x - monitor.x + g_x;
@@ -373,16 +389,14 @@ export const PanelBlur = class PanelBlur {
             background.x = g_x - x;
             background.y = .5 + g_y - y;
         } else {
-            let [g_x, g_y] = geometry_actor.get_position();
-
+            // updated coordinates for dynamic blur
             if (actors.is_dtp_panel) {
-                let [w_x, w_y] = geometry_actor.get_parent().get_position();
-                g_x += w_x;
-                g_y += w_y;
+                background.x = wrapper.x + geometry_actor.x;
+                background.y = wrapper.y + geometry_actor.y;
+            } else {
+                background.x = geometry_actor.x;
+                background.y = geometry_actor.y;
             }
-
-            background.x = g_x;
-            background.y = g_y;
             background.width = geometry_width;
             background.height = geometry_height;
         }
