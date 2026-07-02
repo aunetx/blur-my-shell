@@ -302,25 +302,25 @@ export const PanelBlur = class PanelBlur {
         this.connections.connect(
             geometry_actor,
             ['notify::allocation', 'notify::size', 'notify::position'],
-            _ => this.update_size(actors)
+            _ => this.queue_update_size(actors)
         );
 
         if (wrapper) {
             this.connections.connect(
                 wrapper,
                 ['notify::allocation', 'notify::size', 'notify::position'],
-                _ => this.update_size(actors)
+                _ => this.queue_update_size(actors)
             );
         }
         this.connections.connect(
             panel_box,
             ['notify::size', 'notify::position'],
-            _ => this.update_size(actors)
+            _ => this.queue_update_size(actors)
         );
         this.connections.connect(
             panel_box.get_parent(),
             'notify::position',
-            _ => this.update_size(actors)
+            _ => this.queue_update_size(actors)
         );
 
         // connect to the panel getting destroyed
