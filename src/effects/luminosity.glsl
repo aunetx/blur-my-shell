@@ -34,7 +34,7 @@ void main() {
     pix_hsl.z = clamp(pix_hsl.z * brightness_multiplicator, 0., 1.);
     pix_hsl.z = clamp((pix_hsl.z - contrast_center) * contrast + contrast_center + brightness_shift, 0., 1.);
     pix_hsl.y = clamp(pix_hsl.y * saturation_multiplicator, 0., 1.);
-    vec4 effect_color = vec4(hsl_to_rgb(pix_hsl) * c.a, c.a);
 
+    vec4 effect_color = vec4(hsl_to_rgb(pix_hsl) * c.a, c.a);
     cogl_color_out = mix(c, effect_color, opacity_factor);
 }

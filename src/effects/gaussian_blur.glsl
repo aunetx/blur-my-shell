@@ -6,30 +6,35 @@ uniform float width;
 uniform float height;
 
 vec4 getTexture(vec2 uv) {
-    if (uv.x < 3. / width)
-        uv.x = 3. / width;
+    float w = max(1.0, width);
+    float h = max(1.0, height);
 
-    if (uv.y < 3. / height)
-        uv.y = 3. / height;
+    if (uv.x < 3. / w)
+        uv.x = 3. / w;
 
-    if (uv.x > 1. - 3. / width)
-        uv.x = 1. - 3. / width;
+    if (uv.y < 3. / h)
+        uv.y = 3. / h;
 
-    if (uv.y > 1. - 3. / height)
-        uv.y = 1. - 3. / height;
+    if (uv.x > 1. - 3. / w)
+        uv.x = 1. - 3. / w;
+
+    if (uv.y > 1. - 3. / h)
+        uv.y = 1. - 3. / h;
 
     return texture2D(tex, uv);
 }
 
 void main(void) {
     vec2 uv = cogl_tex_coord_in[0].xy;
-    vec2 direction = vec2(dir, (1.0 - dir));
+    vec2 direction = vec2(float(dir), 1.0 - float(dir));
 
+    float w = max(1.0, width);
+    float h = max(1.0, height);
     float pixel_step;
     if (dir == 0)
-        pixel_step = 1.0 / height;
+        pixel_step = 1.0 / h;
     else
-        pixel_step = 1.0 / width;
+        pixel_step = 1.0 / w;
 
     vec3 gauss_coefficient;
     gauss_coefficient.x = 1.0 / (sqrt(2.0 * 3.14159265) * sigma);

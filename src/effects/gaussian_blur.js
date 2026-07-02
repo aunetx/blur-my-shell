@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
@@ -67,19 +68,19 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
         }
     }, class GaussianBlurEffect extends Clutter.ShaderEffect {
         constructor(params) {
-            super(params);
-
-            utils.setup_params(this, params);
+            super();
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
 
+            utils.setup_params(this, params);
+
             const theme_context = St.ThemeContext.get_for_stage(global.stage);
             theme_context.connectObject(
                 'notify::scale-factor', _ =>
-                this.set_uniform_value('sigma',
+                uniforms.set_uniform(this, 'sigma',
                     parseFloat(this.radius * theme_context.scale_factor / 2 - 1e-6)
                 ),
                 this
@@ -101,7 +102,7 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
                 const scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
 
                 // like Clutter, we use the assumption radius = 2*sigma
-                this.set_uniform_value('sigma', parseFloat(this._radius * scale_factor / 2 - 1e-6));
+                uniforms.set_uniform(this, 'sigma', parseFloat(this._radius * scale_factor / 2 - 1e-6));
                 this.set_enabled(this.radius > 0.);
 
                 if (this.chained_effect)
@@ -117,7 +118,7 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
             if (this._brightness !== value) {
                 this._brightness = value;
 
-                this.set_uniform_value('brightness', parseFloat(this._brightness - 1e-6));
+                uniforms.set_uniform(this, 'brightness', parseFloat(this._brightness - 1e-6));
 
                 if (this.chained_effect)
                     this.chained_effect.brightness = value;
@@ -129,13 +130,14 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set width(value) {
-            if (this._width !== value) {
-                this._width = value;
+            const v = Math.max(1, value || 1);
+            if (this._width !== v) {
+                this._width = v;
 
-                this.set_uniform_value('width', parseFloat(this._width + 3.0 - 1e-6));
+                uniforms.set_uniform(this, 'width', parseFloat(this._width + 3.0 - 1e-6));
 
                 if (this.chained_effect)
-                    this.chained_effect.width = value;
+                    this.chained_effect.width = v;
             }
         }
 
@@ -144,13 +146,14 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set height(value) {
-            if (this._height !== value) {
-                this._height = value;
+            const v = Math.max(1, value || 1);
+            if (this._height !== v) {
+                this._height = v;
 
-                this.set_uniform_value('height', parseFloat(this._height + 3.0 - 1e-6));
+                uniforms.set_uniform(this, 'height', parseFloat(this._height + 3.0 - 1e-6));
 
                 if (this.chained_effect)
-                    this.chained_effect.height = value;
+                    this.chained_effect.height = v;
             }
         }
 
@@ -159,8 +162,10 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
         }
 
         set direction(value) {
-            if (this._direction !== value)
+            if (this._direction !== value) {
                 this._direction = value;
+                uniforms.set_uniform(this, "dir", this._direction);
+            }
         }
 
         get chained_effect() {
@@ -202,12 +207,12 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
                     });
                 if (actor !== null)
                     actor.add_effect(this.chained_effect);
+                uniforms.mark_dirty(this.chained_effect);
             }
         }
 
         vfunc_paint_target(paint_node, paint_context) {
-            this.set_uniform_value("dir", this.direction);
-
+            uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
     });

@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
@@ -66,14 +67,14 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
         }
     }, class LuminosityEffect extends Clutter.ShaderEffect {
         constructor(params) {
-            super(params);
-
-            utils.setup_params(this, params);
+            super();
 
             // set shader source
             this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
             if (this._source)
                 this.set_shader_source(this._source);
+
+            utils.setup_params(this, params);
         }
 
         static get default_params() {
@@ -88,7 +89,7 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
             if (this._brightness_shift !== value) {
                 this._brightness_shift = value;
 
-                this.set_uniform_value('brightness_shift', parseFloat(this._brightness_shift - 1e-6));
+                uniforms.set_uniform(this, 'brightness_shift', parseFloat(this._brightness_shift - 1e-6));
             }
         }
 
@@ -104,7 +105,7 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
                 let brightness_mul = 600.;
                 if (value < 1.995)
                     brightness_mul = 3. * (1. / (1. - (value / 2.) ** 2) - 1.);
-                this.set_uniform_value('brightness_multiplicator', parseFloat(brightness_mul - 1e-6));
+                uniforms.set_uniform(this, 'brightness_multiplicator', parseFloat(brightness_mul - 1e-6));
             }
         }
 
@@ -116,7 +117,7 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
             if (this._contrast !== value) {
                 this._contrast = value;
 
-                this.set_uniform_value('contrast', parseFloat(this._contrast - 1e-6));
+                uniforms.set_uniform(this, 'contrast', parseFloat(this._contrast - 1e-6));
             }
         }
 
@@ -128,7 +129,7 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
             if (this._contrast_center !== value) {
                 this._contrast_center = value;
 
-                this.set_uniform_value('contrast_center', parseFloat(this._contrast_center - 1e-6));
+                uniforms.set_uniform(this, 'contrast_center', parseFloat(this._contrast_center - 1e-6));
             }
         }
 
@@ -143,7 +144,7 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
                 let saturation_mul = 600.;
                 if (value < 1.995)
                     saturation_mul = 3. * (1. / (1. - (value / 2.) ** 2) - 1.);
-                this.set_uniform_value('saturation_multiplicator', parseFloat(saturation_mul - 1e-6));
+                uniforms.set_uniform(this, 'saturation_multiplicator', parseFloat(saturation_mul - 1e-6));
             }
         }
 
@@ -155,7 +156,12 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
             if (this._opacity_factor !== value) {
                 this._opacity_factor = value;
 
-                this.set_uniform_value('opacity_factor', parseFloat(this._opacity_factor));
+                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
+        }
+
+        vfunc_paint_target(paint_node, paint_context) {
+            uniforms.upload_uniforms(this);
+            super.vfunc_paint_target(paint_node, paint_context);
         }
     });
