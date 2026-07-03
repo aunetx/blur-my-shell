@@ -12,7 +12,7 @@ if (BlurOrShell === null) {
 
 
 const DEFAULT_PARAMS = {
-    unscaled_radius: 30, brightness: 0.6, corner_radius: 14
+    unscaled_radius: 30, brightness: 0.6
 };
 
 
