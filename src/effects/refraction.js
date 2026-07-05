@@ -5,8 +5,10 @@ import * as utils from '../conveniences/utils.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'refraction.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const CLIP_STABILIZE_EPSILON = 1.0;
 const MAX_BLUR_RADIUS = 48.0;
 
@@ -32,9 +34,7 @@ const DEFAULT_PARAMS = {
     clip: [0, 0, -1, -1]
 };
 
-export const RefractionEffect = utils.IS_IN_PREFERENCES
-    ? { default_params: DEFAULT_PARAMS }
-    : new GObject.registerClass({
+const REFRACTION_EFFECT_META = {
         GTypeName: "RefractionEffect",
         Properties: {
             'strength': GObject.ParamSpec.double(
@@ -189,10 +189,21 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 0.0,
             ),
         }
-    }, class RefractionEffect extends Clutter.ShaderEffect {
+};
+
+const SHADER_BASE = utils.IS_IN_PREFERENCES
+    ? null
+    : utils.get_shader_effect_base(Clutter, Cogl, "RefractionEffect", SHADER_SOURCE);
+
+const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionEffect extends SHADER_BASE {
+
         constructor(params) {
             const { webcam_gloss, webcam_device, ...parent_params } = params;
-            super(parent_params);
+            super({
+                ...parent_params,
+                ...utils.shader_effect_super_args(SHADER_SOURCE, Clutter),
+            });
+            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
 
             this._clip_x0 = null;
             this._clip_y0 = null;
@@ -207,10 +218,6 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             this._clip_settle_timeout_id = null;
 
             utils.setup_params(this, params);
-
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
 
             this._theme_context = St.ThemeContext.get_for_stage(global.stage);
             this._theme_context.connectObject(
@@ -697,4 +704,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             if (super.vfunc_dispose)
                 super.vfunc_dispose();
         }
-    });
+};
+
+export const RefractionEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(REFRACTION_EFFECT_META, RefractionEffectClass, Cogl, SHADER_SOURCE, Clutter);

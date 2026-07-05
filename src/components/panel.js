@@ -1,9 +1,11 @@
 import St from 'gi://St';
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
+import * as utils from '../conveniences/utils.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
@@ -385,9 +387,16 @@ export const PanelBlur = class PanelBlur {
             let x = p_x + p_p_x - monitor.x + g_x;
             let y = p_y + p_p_y - monitor.y + g_y;
 
-            background.set_clip(x, y, geometry_width, geometry_height);
-            background.x = g_x - x;
-            background.y = .5 + g_y - y;
+            const inset = utils.static_blur_clip_inset(Clutter);
+            const offset = utils.subpixel_stage_offset(Clutter);
+            const clip_x = Math.floor(x) - inset;
+            const clip_y = Math.floor(y) - inset;
+            const clip_w = Math.ceil(geometry_width) + inset * 2;
+            const clip_h = Math.ceil(geometry_height) + inset * 2;
+
+            background.set_clip(clip_x, clip_y, clip_w, clip_h);
+            background.x = g_x - x + inset;
+            background.y = offset + g_y - y + inset;
         } else {
             // updated coordinates for dynamic blur
             if (actors.is_dtp_panel) {

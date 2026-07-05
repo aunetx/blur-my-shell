@@ -5,8 +5,10 @@ import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'corner.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     radius: 12, width: 0, height: 0,
     corners_top: true, corners_bottom: true,
@@ -14,9 +16,7 @@ const DEFAULT_PARAMS = {
 };
 
 
-export const CornerEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const CORNER_EFFECT_META = {
         GTypeName: "CornerEffect",
         Properties: {
             'radius': GObject.ParamSpec.double(
@@ -58,19 +58,24 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                 true,
             ),
         }
-    }, class CornerEffect extends Clutter.ShaderEffect {
+};
+
+const SHADER_BASE = utils.IS_IN_PREFERENCES
+    ? null
+    : utils.get_shader_effect_base(Clutter, Cogl, "CornerEffect", SHADER_SOURCE);
+
+const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect extends SHADER_BASE {
+
         constructor(params) {
-            super();
+            super(utils.shader_effect_super_args(SHADER_SOURCE, Clutter));
+
+            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+
 
             this._clip_x0 = null;
             this._clip_y0 = null;
             this._clip_width = null;
             this._clip_height = null;
-
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
 
             utils.setup_params(this, params);
             this.straight_corners = false;
@@ -219,4 +224,8 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const CornerEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass, Cogl, SHADER_SOURCE, Clutter);

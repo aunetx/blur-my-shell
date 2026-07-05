@@ -1,8 +1,10 @@
 import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
+import * as utils from '../conveniences/utils.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
@@ -125,37 +127,44 @@ class DashInfos {
 
         if (this.dash_blur.is_static) {
             let [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
+            const inset = utils.static_blur_clip_inset(Clutter);
+            const clip_x = Math.floor(x) - inset;
+            const clip_y = Math.floor(y) - inset;
+            const clip_w = Math.ceil(this.dash_background.width) + inset * 2;
+            const clip_h = Math.ceil(this.dash_background.height) + inset * 2;
+            const clip_offset_x = this.dash.x + this.dash_background.x;
+            const clip_offset_y = this.dash.y + this.dash_background.y;
 
-            this.background.x = -x;
-            this.background.y = -y;
+            this.background.x = -x + inset;
+            this.background.y = -y + inset;
 
             if (this.dash_container.get_style_class_name().includes("top"))
                 this.background.set_clip(
-                    x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
+                    clip_x,
+                    clip_y + clip_offset_y,
+                    clip_w,
+                    clip_h
                 );
             else if (this.dash_container.get_style_class_name().includes("bottom"))
                 this.background.set_clip(
-                    x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
+                    clip_x,
+                    clip_y + clip_offset_y,
+                    clip_w,
+                    clip_h
                 );
             else if (this.dash_container.get_style_class_name().includes("left"))
                 this.background.set_clip(
-                    x + this.dash.x + this.dash_background.x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
+                    clip_x + clip_offset_x,
+                    clip_y + clip_offset_y,
+                    clip_w,
+                    clip_h
                 );
             else if (this.dash_container.get_style_class_name().includes("right"))
                 this.background.set_clip(
-                    x + this.dash.x + this.dash_background.x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
+                    clip_x + clip_offset_x,
+                    clip_y + clip_offset_y,
+                    clip_w,
+                    clip_h
                 );
         } else {
             this.background.width = this.dash_background.width;
