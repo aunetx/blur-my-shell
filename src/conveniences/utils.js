@@ -71,10 +71,8 @@ export function static_blur_clip_inset(Clutter) {
     return shader_uses_snippet_api(Clutter) ? 1 : 0;
 }
 
-export function shader_effect_super_args(source, Clutter) {
-    if (shader_uses_snippet_api(Clutter) || !source)
-        return {};
-    return { shader: source };
+export function shader_effect_super_args(_source, _Clutter) {
+    return {};
 }
 
 const _shader_snippets = new Map();
