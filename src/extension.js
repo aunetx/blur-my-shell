@@ -6,7 +6,7 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 import { update_from_old_settings } from './conveniences/settings_updater.js';
-import { import_in_shell_only} from './conveniences/utils.js';
+import { import_in_shell_only, is_usable_blur_module } from './conveniences/utils.js';
 import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { EffectsManager } from './conveniences/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
@@ -255,7 +255,7 @@ export default class BlurMyShell extends Extension {
     /// the preferences and instruct the user to install it to have native rounded
     /// corners in dynamic blur.
     _update_rounded_blur_found() {
-        if (BlurModule === null) {
+        if (!is_usable_blur_module(BlurModule)) {
             this._settings.ROUNDED_BLUR_FOUND = false;
             this._log("using original implementation for the native blur effect")
         } else {

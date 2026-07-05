@@ -3,12 +3,10 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 const St = await utils.import_in_shell_only('gi://St');
 
-let BlurOrShell = await utils.import_in_shell_only('gi://Blur');
-let IS_BLUR_MODULE = true;
-if (BlurOrShell === null) {
-    BlurOrShell = await utils.import_in_shell_only('gi://Shell');
-    IS_BLUR_MODULE = false;
-}
+const BlurModule = await utils.import_in_shell_only('gi://Blur');
+const Shell = await utils.import_in_shell_only('gi://Shell');
+const BlurOrShell = utils.is_usable_blur_module(BlurModule) ? BlurModule : Shell;
+const IS_BLUR_MODULE = BlurOrShell === BlurModule;
 
 
 const DEFAULT_PARAMS = {

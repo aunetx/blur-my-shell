@@ -5,8 +5,10 @@ import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'monte_carlo_blur.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     radius: 2., iterations: 5, brightness: .6,
     width: 0, height: 0, use_base_pixel: true,
@@ -14,9 +16,7 @@ const DEFAULT_PARAMS = {
 };
 
 
-export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const MONTE_CARLO_BLUR_EFFECT_META = {
         GTypeName: "MonteCarloBlurEffect",
         Properties: {
             'radius': GObject.ParamSpec.double(
@@ -74,14 +74,19 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
                 true,
             ),
         }
-    }, class MonteCarloBlurEffect extends Clutter.ShaderEffect {
-        constructor(params) {
-            super();
+};
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+const SHADER_BASE = utils.IS_IN_PREFERENCES
+    ? null
+    : utils.get_shader_effect_base(Clutter, Cogl, "MonteCarloBlurEffect", SHADER_SOURCE);
+
+const MonteCarloBlurEffectClass = utils.IS_IN_PREFERENCES ? null : class MonteCarloBlurEffect extends SHADER_BASE {
+
+        constructor(params) {
+            super(utils.shader_effect_super_args(SHADER_SOURCE, Clutter));
+
+            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+
 
             utils.setup_params(this, params);
 
@@ -212,4 +217,8 @@ export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES ?
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const MonteCarloBlurEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(MONTE_CARLO_BLUR_EFFECT_META, MonteCarloBlurEffectClass, Cogl, SHADER_SOURCE, Clutter);

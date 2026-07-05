@@ -1,8 +1,10 @@
 import Meta from 'gi://Meta';
+import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
+import * as utils from '../conveniences/utils.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
@@ -190,15 +192,16 @@ class DashInfos {
             if (!dash_box)
                 return;
 
-            this.background.x = dash_box.background_x;
-            this.background.y = dash_box.background_y;
+            const inset = utils.static_blur_clip_inset(Clutter);
+            const clip_x = Math.floor(dash_box.clip_x) - inset;
+            const clip_y = Math.floor(dash_box.clip_y) - inset;
+            const clip_w = Math.ceil(this.dash_background.width) + inset * 2;
+            const clip_h = Math.ceil(this.dash_background.height) + inset * 2;
 
-            this.background.set_clip(
-                dash_box.clip_x,
-                dash_box.clip_y,
-                this.dash_background.width,
-                this.dash_background.height
-            );
+            this.background.x = dash_box.background_x + inset;
+            this.background.y = dash_box.background_y + inset;
+
+            this.background.set_clip(clip_x, clip_y, clip_w, clip_h);
         } else {
             this.background.width = this.dash_background.width;
             this.background.height = this.dash_background.height;

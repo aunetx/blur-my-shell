@@ -5,8 +5,10 @@ import * as uniforms from '../conveniences/shader_uniforms.js';
 
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'color.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     color: [0.0, 0.0, 0.0, 0.0],
     blend_mode: 0,
@@ -14,9 +16,7 @@ const DEFAULT_PARAMS = {
 };
 
 
-export const ColorEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const COLOR_EFFECT_META = {
         GTypeName: "ColorEffect",
         Properties: {
             'red': GObject.ParamSpec.double(
@@ -68,12 +68,19 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
                 1.0,
             )
         }
-        // Normal (0), Multiply (1), Screen (2), Overlay (3), Darken (4), Lighten (5), Plus darker (6), Plus lighter (7), Color dodge (8),
-        // Color burn (9), Hard light (10), Soft light (11), Difference (12), Exclusion (13), Hue (14), Saturation (15), Color (16),
-        // Luminosity (17)
-    }, class ColorEffect extends Clutter.ShaderEffect {
+};
+
+const SHADER_BASE = utils.IS_IN_PREFERENCES
+    ? null
+    : utils.get_shader_effect_base(Clutter, Cogl, "ColorEffect", SHADER_SOURCE);
+
+const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect extends SHADER_BASE {
+
         constructor(params) {
-            super();
+            super(utils.shader_effect_super_args(SHADER_SOURCE, Clutter));
+
+            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+
 
             this._red = null;
             this._green = null;
@@ -81,11 +88,6 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             this._blend = null;
             this._blend_mode = null;
             this._opacity_factor = null;
-
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
 
             // set params; utils.setup_params doesn't work here with color
             this.color = 'color' in params ? params.color : this.constructor.default_params.color;
@@ -194,4 +196,8 @@ export const ColorEffect = utils.IS_IN_PREFERENCES ?
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const ColorEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(COLOR_EFFECT_META, ColorEffectClass, Cogl, SHADER_SOURCE, Clutter);
