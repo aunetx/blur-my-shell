@@ -68,6 +68,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
                     upscale: () => this.get_texture_effect_overrides(),
                     pixelize: () => this.get_texture_effect_overrides(),
                     derivative: () => this.get_texture_effect_overrides(),
+                    refraction: () => this.get_texture_effect_overrides(),
                     color: params => this.get_color_effect_overrides(params),
                     luminosity: () => this.get_luminosity_effect_overrides(),
                     noise: params => this.get_noise_effect_overrides(params),

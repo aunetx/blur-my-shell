@@ -20,6 +20,7 @@ uniform float clip_x0;
 uniform float clip_y0;
 uniform float clip_width;
 uniform float clip_height;
+uniform float opacity_factor;
 
 const float PI = 3.14159265;
 const float REFRACTIVE_INDEX = 1.52;
@@ -361,9 +362,9 @@ void main() {
     lch.y = max(0.0, lch.y - highlight * 4.0);
 
     vec3 shapedHighlight = lchToSrgb(lch);
-    bgColor.rgb = mix(bgColor.rgb, shapedHighlight, clamp(highlight * 0.48, 0.0, 1.0));
-    bgColor.rgb = mix(bgColor.rgb, vec3(0.92, 0.96, 1.0), tint * 0.22);
-    bgColor.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
+    bgColor.rgb = mix(bgColor.rgb, shapedHighlight, clamp(highlight * 0.48, 0.0, 1.0) * opacity_factor);
+    bgColor.rgb = mix(bgColor.rgb, vec3(0.92, 0.96, 1.0), tint * 0.22 * opacity_factor);
+    bgColor.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20 * opacity_factor;
 
-    cogl_color_out = vec4(clamp(bgColor.rgb, 0.0, 1.0) * edgeOpacity, edgeOpacity);
+    cogl_color_out = vec4(clamp(bgColor.rgb, 0.0, 1.0) * edgeOpacity, edgeOpacity * opacity_factor);
 }
