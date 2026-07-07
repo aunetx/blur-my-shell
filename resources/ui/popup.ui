@@ -8,7 +8,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Popup blur</property>
-        <property name="description" translatable="yes">Add blur to GNOME Shell menus, the calendar and notifications popup, notification banners, OSD popups, and dialogs.</property>
+        <property name="description" translatable="yes">Add blur to GNOME Shell menus, dash, calendar and notifications popup, notification banners, OSD popups, and dialogs.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
