@@ -12,7 +12,11 @@ const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.met
 const DEFAULT_PARAMS = {
     radius: 12, width: 0, height: 0,
     corners_top: true, corners_bottom: true,
-    clip: [0, 0, -1, -1]
+    clip: [0, 0, -1, -1],
+    lock_actor_clip: false,
+    // Reset on reuse: `EffectsManager` pools `CornerEffect` instances, and a
+    // pooled instance could otherwise keep rendering square (see corner.glsl).
+    straight_corners: false,
 };
 
 
@@ -57,6 +61,13 @@ const CORNER_EFFECT_META = {
                 GObject.ParamFlags.READWRITE,
                 true,
             ),
+            'lock-actor-clip': GObject.ParamSpec.boolean(
+                `lock-actor-clip`,
+                `Lock Actor Clip`,
+                `When true, clip bounds are managed manually and are not synced from the actor clip rect`,
+                GObject.ParamFlags.READWRITE,
+                false,
+            ),
         }
 };
 
@@ -71,14 +82,12 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
 
             utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
 
-
             this._clip_x0 = null;
             this._clip_y0 = null;
             this._clip_width = null;
             this._clip_height = null;
 
             utils.setup_params(this, params);
-            this.straight_corners = false;
 
             const theme_context = St.ThemeContext.get_for_stage(global.stage);
             theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
@@ -86,6 +95,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
 
         static get default_params() {
             return DEFAULT_PARAMS;
+        }
+
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("CornerEffect", Cogl, SHADER_SOURCE);
         }
 
         get radius() {
@@ -176,6 +190,45 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             }
         }
 
+        get lock_actor_clip() {
+            return this._lock_actor_clip;
+        }
+
+        set lock_actor_clip(value) {
+            if (this._lock_actor_clip === value)
+                return;
+
+            this._lock_actor_clip = value;
+
+            const actor = this.get_actor();
+            if (!actor)
+                return;
+
+            if (value)
+                this.detach_actor_clip_sync(actor);
+            else
+                this.sync_actor_clip(actor);
+        }
+
+        detach_actor_clip_sync(actor = this.get_actor()) {
+            if (!actor || !this._actor_connection_clip_rect_id)
+                return;
+
+            try {
+                actor.disconnect(this._actor_connection_clip_rect_id);
+            } catch (e) { }
+
+            this._actor_connection_clip_rect_id = null;
+        }
+
+        sync_actor_clip(actor) {
+            this.detach_actor_clip_sync(actor);
+            this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+            this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
+                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+            });
+        }
+
         get clip() {
             return [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height];
         }
@@ -194,10 +247,7 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
                 let old_actor = this.get_actor();
                 old_actor?.disconnect(this._actor_connection_size_id);
             }
-            if (this._actor_connection_clip_rect_id) {
-                let old_actor = this.get_actor();
-                old_actor?.disconnect(this._actor_connection_clip_rect_id);
-            }
+            this.detach_actor_clip_sync();
 
             if (actor) {
                 this.width = actor.width;
@@ -207,14 +257,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
                     this.height = actor.height;
                 });
 
-                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
-                    this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                });
+                if (!this._lock_actor_clip)
+                    this.sync_actor_clip(actor);
             }
             else {
                 this._actor_connection_size_id = null;
-                this._actor_connection_clip_rect_id = null;
             }
 
             super.vfunc_set_actor(actor);

@@ -179,7 +179,9 @@ class DashInfos {
         var x, y;
 
         let monitor = Main.layoutManager.findMonitorForActor(dash_container);
-        let dash_box = dash_container._slider.get_child();
+        let dash_box = dash_container._slider?.get_child();
+        if (!dash_box)
+            return [0, 0];
 
         if (dash_container.get_style_class_name().includes("top")) {
             x = (monitor.width - dash_background.width) / 2;
@@ -254,9 +256,53 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             actor.width > 0 && actor.height > 0;
     }
 
+    _get_dash_actors(dash_container) {
+        const dash_slider = dash_container._slider;
+        if (!dash_slider)
+            return null;
+
+        const dash_box = dash_slider.get_child();
+        if (!dash_box)
+            return null;
+
+        const dash = dash_box.get_children().find(child => child.get_name() === 'dash');
+        const dash_background = dash?.get_children().find(child => {
+            return child.get_style_class_name() === 'dash-background';
+        });
+
+        return { dash_slider, dash_box, dash, dash_background };
+    }
+
+    _dash_already_blurred(dash_container) {
+        const dash_box = this._get_dash_actors(dash_container)?.dash_box;
+        return !!dash_box?.get_children().some(child =>
+            child.get_name() === "bms-dash-backgroundgroup"
+        );
+    }
+
+    _ensure_dash_allocation_watchers(dash_container) {
+        if (dash_container._bms_allocation_watch_connected)
+            return;
+
+        dash_container._bms_allocation_watch_connected = true;
+
+        const retry = () => {
+            if (!dash_container.get_stage() || this._dash_already_blurred(dash_container))
+                return;
+
+            dash_container._bms_pending_blur_attempts = 0;
+            this._queue_try_blur(dash_container);
+        };
+
+        this.connections.connect(dash_container, 'notify::allocation', retry);
+        this.connections.connect(dash_container, 'child-added', retry);
+    }
+
     _queue_try_blur(dash_container) {
         if (dash_container._bms_pending_blur_setup)
             return;
+
+        this._ensure_dash_allocation_watchers(dash_container);
 
         if (!dash_container._bms_pending_blur_destroy_connected) {
             dash_container._bms_pending_blur_destroy_connected = true;
@@ -276,7 +322,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
                 dash_container._bms_pending_blur_attempts =
                     (dash_container._bms_pending_blur_attempts ?? 0) + 1;
-                if (dash_container._bms_pending_blur_attempts > 30) {
+                if (dash_container._bms_pending_blur_attempts > 120) {
                     dash_container._bms_pending_blur_attempts = 0;
                     this._warn('giving up dash blur setup before allocation');
                     return false;
@@ -292,7 +338,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
             dash_container._bms_pending_blur_attempts =
                 (dash_container._bms_pending_blur_attempts ?? 0) + 1;
-            if (dash_container._bms_pending_blur_attempts > 30) {
+            if (dash_container._bms_pending_blur_attempts > 120) {
                 dash_container._bms_pending_blur_attempts = 0;
                 this._warn('giving up dash blur setup before allocation');
                 return false;
@@ -305,19 +351,14 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
     // Tries to blur the dash contained in the given actor
     try_blur(dash_container) {
-        let dash_slider = dash_container._slider;
-        let dash_box = dash_slider.get_child();
-        let dash = dash_box.get_children().find(child => {
-            return child.get_name() === 'dash';
-        });
-        let dash_background = dash?.get_children().find(child => {
-            return child.get_style_class_name() === 'dash-background';
-        });
+        const actors = this._get_dash_actors(dash_container);
+        const dash = actors?.dash;
+        const dash_box = actors?.dash_box;
+        const dash_background = actors?.dash_background;
 
         if (!dash ||
+            !dash_background ||
             !this._has_valid_allocation(dash_container) ||
-            !this._has_valid_allocation(dash_slider) ||
-            !this._has_valid_allocation(dash_box) ||
             !this._has_valid_allocation(dash) ||
             !this._has_valid_allocation(dash_background)) {
             this._queue_try_blur(dash_container);

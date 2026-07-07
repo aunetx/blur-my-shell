@@ -231,6 +231,11 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             return DEFAULT_PARAMS;
         }
 
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("RefractionEffect", Cogl, SHADER_SOURCE);
+        }
+
         get strength() {
             return this._strength;
         }

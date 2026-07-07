@@ -70,6 +70,11 @@ const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect 
             return DEFAULT_PARAMS;
         }
 
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("UpscaleEffect", Cogl, SHADER_SOURCE);
+        }
+
         get factor() {
             return this._factor;
         }
