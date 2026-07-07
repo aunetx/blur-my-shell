@@ -674,8 +674,13 @@ export const PanelBlur = class PanelBlur {
 
     panel_hide_blur_startup(){
         if (this._first_boot) {
-            this.hide();
-            this._first_boot = false
+            if (this.settings.panel.UNBLUR_IN_OVERVIEW) {
+                this.hide();
+                this._first_boot = false
+            }
+            else {
+                this._first_boot = false
+            }
         }
     }
 
