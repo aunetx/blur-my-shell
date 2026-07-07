@@ -98,7 +98,6 @@
         <child name='overview' schema='org.gnome.shell.extensions.blur-my-shell.overview'></child>
         <child name='appfolder' schema='org.gnome.shell.extensions.blur-my-shell.appfolder'></child>
         <child name='panel' schema='org.gnome.shell.extensions.blur-my-shell.panel'></child>
-        <child name='dash-to-dock' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-dock'></child>
         <child name='applications' schema='org.gnome.shell.extensions.blur-my-shell.applications'></child>
         <child name='screenshot' schema='org.gnome.shell.extensions.blur-my-shell.screenshot'></child>
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
@@ -286,76 +285,6 @@
         <key type="i" name="override-background-dynamically-mode">
             <default>1</default>
             <summary>Enum to select the override mode (0 Blur on Window Proximity, 1 Background on Window Proximity). Required "override-background-dynamically" to be enabled.</summary>
-        </key>
-    </schema>
-
-    <!-- DASH TO DOCK -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.dash-to-dock"
-        path="/org/gnome/shell/extensions/blur-my-shell/dash-to-dock/">
-        <!-- BLUR -->
-        <key type="b" name="blur">
-            <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
-        </key>
-        <!-- PIPELINE -->
-        <key type="s" name="pipeline">
-            <default>"pipeline_default_rounded"</default>
-            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
-        </key>
-        <!-- CUSTOMIZE -->
-        <key type="b" name="customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
-        </key>
-        <!-- SIGMA -->
-        <key type="i" name="sigma">
-            <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
-        </key>
-        <!-- BRIGHTNESS -->
-        <key type="d" name="brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
-        </key>
-        <!-- STATIC BLUR -->
-        <key type="b" name="static-blur">
-            <default>true</default>
-            <summary>Boolean, whether to use static or dynamic blur for this component</summary>
-        </key>
-        <!-- OVERRIDE BACKGROUND -->
-        <key type="b" name="override-background">
-            <default>true</default>
-            <summary>Boolean, whether to override the background or not</summary>
-        </key>
-        <!-- STYLE DASH TO DOCK -->
-        <key type="i" name="style-dash-to-dock">
-            <default>0</default>
-            <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark)</summary>
-        </key>
-        <!-- UNBLUR IN OVERVIEW -->
-        <key type="b" name="unblur-in-overview">
-            <default>false</default>
-            <summary>Boolean, whether to disable blur from this component when opening the overview or not</summary>
-        </key>
-        <!-- CORNER RADIUS -->
-        <key type="i" name="corner-radius">
-            <default>18</default>
-            <summary>Radius for the corner rounding effect</summary>
         </key>
     </schema>
 
@@ -656,6 +585,11 @@
         <key type="i" name="dialog-corner-radius">
             <default>18</default>
             <summary>Radius for dialog corner rounding</summary>
+        </key>
+        <!-- DASH CORNER RADIUS -->
+        <key type="i" name="dash-corner-radius">
+            <default>23</default>
+            <summary>Radius for dash corner rounding</summary>
         </key>
         <!-- OVERRIDE BACKGROUND -->
         <key type="b" name="override-background">

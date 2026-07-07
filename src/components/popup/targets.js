@@ -1,5 +1,5 @@
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
-const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
+const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content', 'dash-background', 'plank-like-dock-bg'];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
@@ -31,6 +31,11 @@ export const POPUP_CORNER_RADII = [
         key: 'dialog-corner-radius',
         property: 'DIALOG_CORNER_RADIUS',
         style_classes: ['modal-dialog', 'run-dialog'],
+    },
+    {
+        key: 'dash-corner-radius',
+        property: 'DASH_CORNER_RADIUS',
+        style_classes: ['dash-background', 'plank-like-dock-bg'],
     },
 ];
 

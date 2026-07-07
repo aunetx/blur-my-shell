@@ -15,14 +15,8 @@ export function update_from_old_settings(gsettings) {
         if (preferences.HACKS_LEVEL > 1)
             preferences.HACKS_LEVEL = 1;
 
-        // enable dash-to-dock blurring, as most disabled it due to the lack of rounded corners; set
-        // it to static blur by default too and with transparent background
-        preferences.dash_to_dock.BLUR = true;
-        preferences.dash_to_dock.STATIC_BLUR = true;
-        preferences.dash_to_dock.STYLE_DASH_TO_DOCK = 0;
-
         // 'customize' has been removed: we merge the current used settings
-        ['appfolder', 'panel', 'dash_to_dock', 'applications', 'window_list'].forEach(
+        ['appfolder', 'panel', 'applications', 'window_list'].forEach(
             component_name => {
                 const deprecated_component = deprecated_preferences[component_name];
                 const new_component = preferences[component_name];

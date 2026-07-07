@@ -18,6 +18,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
     'modal-dialog', 'run-dialog',
+    'dash-background', 'plank-like-dock-bg',
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
