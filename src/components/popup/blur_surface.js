@@ -315,6 +315,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
         try {
             if (!this.is_owned_actor_destroyed())
                 this.actor?.show?.();
+            if (this.static_blur) {
+                this.static_actor?.refresh_corner();
+                this.static_actor?.blur_actor?.show?.();
+            }
         } catch (e) { }
     }
 
@@ -322,6 +326,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         try {
             if (!this.is_owned_actor_destroyed())
                 this.actor?.hide?.();
+            if (this.static_blur)
+                this.static_actor?.blur_actor?.hide?.();
         } catch (e) { }
     }
 
@@ -470,7 +476,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.corner_effect = null;
         }
         if (this.static_blur)
-            this.destroy_static_actor();
+            this.destroy_static_actor(actor_already_destroyed);
         else
             this.destroy_dynamic_actor();
     }
@@ -490,8 +496,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         } catch (e) { }
     }
 
-    destroy_static_actor() {
-        this.static_actor?.destroy();
+    destroy_static_actor(actor_already_destroyed = false) {
+        this.static_actor?.destroy(actor_already_destroyed);
         this.static_actor = null;
         this.actor = null;
         this.blur_actor = null;

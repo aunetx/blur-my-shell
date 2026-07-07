@@ -77,38 +77,31 @@ export function shader_effect_super_args(_source, _Clutter) {
 
 const _shader_snippets = new Map();
 
-function get_or_create_shader_snippet(key, Cogl, source) {
-    if (!_shader_snippets.has(key)) {
-        const snippet = create_fragment_shader_snippet(Cogl, source);
-        if (!snippet)
-            console.warn(`[Blur my Shell > effect]       could not create shader snippet for ${key}`);
-        _shader_snippets.set(key, snippet);
+// `get_static_snippet` is an optional vfunc; GJS only wires it up if every
+// leaf effect class declares `vfunc_get_static_snippet()` itself (not
+// inherited). This just gets/builds the cached snippet for that class.
+export function get_or_create_shader_snippet(key, Cogl, source) {
+    if (_shader_snippets.has(key))
+        return _shader_snippets.get(key);
+
+    const snippet = create_fragment_shader_snippet(Cogl, source);
+    if (!snippet) {
+        console.warn(`[Blur my Shell > effect]       could not create shader snippet for ${key}`);
+        return null;
     }
-    return _shader_snippets.get(key) ?? null;
+
+    _shader_snippets.set(key, snippet);
+    return snippet;
 }
 
-const _snippet_shader_bases = new Map();
-
-export function get_shader_effect_base(Clutter, Cogl, gtype, source) {
-    if (!shader_uses_snippet_api(Clutter))
-        return Clutter.ShaderEffect;
-
-    if (_snippet_shader_bases.has(gtype))
-        return _snippet_shader_bases.get(gtype);
-
-    const Base = GObject.registerClass({
-        GTypeName: `BmsSnippet${gtype}`,
-    }, class BmsSnippetShaderEffect extends Clutter.ShaderEffect {
-        vfunc_get_static_snippet() {
-            return get_or_create_shader_snippet(gtype, Cogl, source);
-        }
-    });
-
-    _snippet_shader_bases.set(gtype, Base);
-    return Base;
+export function get_shader_effect_base(Clutter, _Cogl, _gtype, _source) {
+    return Clutter.ShaderEffect;
 }
 
-export function register_shader_effect(meta, effect_class, _Cogl, _source, _Clutter) {
+export function register_shader_effect(meta, effect_class, _Cogl, _source, Clutter) {
+    if (shader_uses_snippet_api(Clutter) && typeof effect_class.prototype.vfunc_get_static_snippet !== 'function')
+        console.warn(`[Blur my Shell > effect]       ${meta.GTypeName} is missing its own vfunc_get_static_snippet() override, the shader will never be applied`);
+
     return GObject.registerClass(meta, effect_class);
 }
 
@@ -140,6 +133,53 @@ function split_fragment_shader(source) {
     return null;
 }
 
+function adapt_glsl_bool_usages(source, bool_names) {
+    let adapted = source;
+
+    for (const name of bool_names) {
+        adapted = adapted.replace(
+            new RegExp(`\\bif\\s*\\(\\s*${name}\\s*\\)`, 'g'),
+            `if (${name} != 0)`
+        );
+        adapted = adapted.replace(
+            new RegExp(`\\b${name}\\s*\\?`, 'g'),
+            `${name} != 0 ?`
+        );
+        adapted = adapted.replace(
+            new RegExp(`\\b${name}\\s*&&`, 'g'),
+            `${name} != 0 &&`
+        );
+        adapted = adapted.replace(
+            new RegExp(`&&\\s*${name}\\b`, 'g'),
+            `&& ${name} != 0`
+        );
+        adapted = adapted.replace(
+            new RegExp(`\\|\\|\\s*${name}\\b`, 'g'),
+            `|| ${name} != 0`
+        );
+        adapted = adapted.replace(
+            new RegExp(`!${name}\\b`, 'g'),
+            `${name} == 0`
+        );
+    }
+
+    return adapted;
+}
+
+function adapt_bool_uniforms_for_snippet(declarations, body) {
+    const bool_names = [...declarations.matchAll(/uniform bool (\w+);/g)].map(match => match[1]);
+    if (!bool_names.length)
+        return { declarations, body };
+
+    const adapted_declarations = adapt_glsl_bool_usages(
+        declarations.replace(/uniform bool (\w+);/g, 'uniform int $1;'),
+        bool_names
+    );
+    const adapted_body = adapt_glsl_bool_usages(body, bool_names);
+
+    return { declarations: adapted_declarations, body: adapted_body };
+}
+
 export function create_fragment_shader_snippet(Cogl, source) {
     if (!Cogl || !source)
         return null;
@@ -151,12 +191,16 @@ export function create_fragment_shader_snippet(Cogl, source) {
     }
 
     try {
+        const { declarations, body } = adapt_bool_uniforms_for_snippet(
+            parts.declarations,
+            parts.body
+        );
         const snippet = Cogl.Snippet.new(
             Cogl.SnippetHook.FRAGMENT,
-            parts.declarations,
+            declarations,
             null
         );
-        snippet.set_replace(parts.body);
+        snippet.set_replace(body);
         return snippet;
     } catch (e) {
         console.warn(`[Blur my Shell > effect]       could not create shader snippet: ${e}`);

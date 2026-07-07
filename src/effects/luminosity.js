@@ -86,6 +86,11 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
             return DEFAULT_PARAMS;
         }
 
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("LuminosityEffect", Cogl, SHADER_SOURCE);
+        }
+
         get brightness_shift() {
             return this._brightness;
         }

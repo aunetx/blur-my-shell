@@ -78,6 +78,11 @@ const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEff
             return DEFAULT_PARAMS;
         }
 
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("DownscaleEffect", Cogl, SHADER_SOURCE);
+        }
+
         get divider() {
             return this._divider;
         }

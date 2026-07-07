@@ -104,6 +104,11 @@ const MonteCarloBlurEffectClass = utils.IS_IN_PREFERENCES ? null : class MonteCa
             return DEFAULT_PARAMS;
         }
 
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("MonteCarloBlurEffect", Cogl, SHADER_SOURCE);
+        }
+
         get radius() {
             return this._radius;
         }

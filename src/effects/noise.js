@@ -62,6 +62,11 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
             return DEFAULT_PARAMS;
         }
 
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("NoiseEffect", Cogl, SHADER_SOURCE);
+        }
+
         get noise() {
             return this._noise;
         }
