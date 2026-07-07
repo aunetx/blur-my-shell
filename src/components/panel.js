@@ -603,10 +603,10 @@ export const PanelBlur = class PanelBlur {
                     // if so, and if in the same monitor, then it overlaps
                     if (same_monitor
                         &&
-                        // check if panel is on top
-                        ((panel_top === 0 && window_vertical_pos < panel_bottom + 5 * scale) ||
+                        // check if panel is on top (relative to the monitor's Y origin)
+                        ((panel_top === actors.monitor.y && window_vertical_pos < panel_bottom + 5 * scale) ||
                         // check if panel is at the bottom
-                        (panel_top > 0 && window_vertical_bottom > panel_top - 5 * scale))
+                        (panel_top > actors.monitor.y && window_vertical_bottom > panel_top - 5 * scale))
                     )
                         window_overlap_panel = true;
                 });
