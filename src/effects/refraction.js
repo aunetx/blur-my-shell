@@ -2,6 +2,7 @@ import GObject from 'gi://GObject';
 import GLib from 'gi://GLib';
 
 import * as utils from '../conveniences/utils.js';
+import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
@@ -29,6 +30,7 @@ const DEFAULT_PARAMS = {
     chained_effect: null,
     width: 0,
     height: 0,
+    opacity_factor: 1.0,
     clip: [0, 0, -1, -1]
 };
 
@@ -187,6 +189,14 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                 GObject.ParamFlags.READWRITE,
                 0.0, Number.MAX_SAFE_INTEGER,
                 0.0,
+            ),
+            'opacity_factor': GObject.ParamSpec.double(
+                `opacity_factor`,
+                `Opacity factor`,
+                `Opacity factor`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
             ),
         }
     }, class RefractionEffect extends Clutter.ShaderEffect {
@@ -480,6 +490,21 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
             this.update_scaled_uniforms();
         }
 
+        get opacity_factor() {
+            return this._opacity_factor;
+        }
+
+        set opacity_factor(value) {
+            if (this._opacity_factor !== value) {
+                this._opacity_factor = value;
+
+                uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
+
+                if (this.chained_effect)
+                    this.chained_effect.opacity_factor = value;
+            }
+        }
+
         _stabilized_clip(previous_clip) {
             if (this._clip_width < 0 || this._clip_height < 0) {
                 this._stable_clip_x0 = null;
@@ -662,7 +687,8 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
                         height: this.height,
                         clip: this.clip,
                         blur_direction: 1,
-                        private_pass: 1
+                        private_pass: 1,
+                        opacity_factor: this._opacity_factor
                     };
 
                     this.chained_effect = new RefractionEffect(chained_params);
@@ -674,6 +700,7 @@ export const RefractionEffect = utils.IS_IN_PREFERENCES
         }
 
         vfunc_paint_target(paint_node, paint_context) {
+            uniforms.upload_uniforms(this);
             this.set_uniform_value('blur_direction', this.blur_direction);
             this.set_uniform_value('private_pass', this.private_pass);
 
