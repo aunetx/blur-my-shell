@@ -205,6 +205,29 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">
+Dash specific settings</property>
+            <property name="description" translatable="yes">Settings that target the dash specifically</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Disable Dash blurring in overview</property>
+                <property name="subtitle" translatable="yes">Disables the blur from the Dash when entering the overview.</property>
+                <property name="activatable-widget">unblur_in_overview_dash</property>
+
+                <child>
+                  <object class="GtkSwitch" id="unblur_in_overview_dash">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

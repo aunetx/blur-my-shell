@@ -622,6 +622,11 @@ export default class BlurMyShell extends Extension {
             if (this._settings.popup.BLUR)
                 this._popup.update_background();
         });
+
+        this._settings.popup.UNBLUR_IN_OVERVIEW_DASH_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.reset();
+        });
     }
 
     _log(str) {

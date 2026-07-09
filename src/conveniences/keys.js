@@ -100,6 +100,7 @@ export const KEYS = [
             { type: Type.I, name: "dash-corner-radius" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-popup" },
+            { type: Type.B, name: "unblur-in-overview-dash" },
         ]
     },
     {

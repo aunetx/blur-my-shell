@@ -601,6 +601,11 @@
             <default>3</default>
             <summary>Enum to select the style of popup surfaces (0 transparent, 1 light, 2 dark, 3 automatic)</summary>
         </key>
+        <!-- UNBLUR IN OVERVIEW DASH -->
+        <key type="b" name="unblur-in-overview-dash">
+            <default>false</default>
+            <summary>Boolean, whether to unblur the Dash when entering the overview</summary>
+        </key>
     </schema>
 
     <!-- HIDETOPBAR -->
