@@ -202,6 +202,35 @@ Background on Window Proximity: Solid color background when a window is near the
               </object>
             </child>
 
+            <child>
+              <object class="AdwActionRow" id="gradient_panel_row">
+                <property name="title" translatable="yes">Gradient background</property>
+                <property name="subtitle" translatable="yes">Apply a gradient effect to the panel background.</property>
+                <property name="activatable-widget">gradient_panel</property>
+
+                <child>
+                  <object class="GtkSwitch" id="gradient_panel">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow" id="gradient_panel_mode_row">
+                <property name="title" translatable="yes">Gradient direction</property>
+                <property name="subtitle" translatable="yes">Change the direction of the gradient background.</property>
+                <property name="activatable-widget">gradient_panel_mode</property>
+
+                <child>
+                  <object class="GtkDropDown" id="gradient_panel_mode">
+                    <property name="valign">center</property>
+                    <property name="model">gradient_panel_mode_model</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
           </object>
         </child>
 
@@ -273,6 +302,13 @@ Background on Window Proximity: Solid color background when a window is near the
     <items>
       <item translatable="yes">Blur on Window Proximity</item>
       <item translatable="yes">Background on Window Proximity</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="gradient_panel_mode_model">
+    <items>
+      <item translatable="yes">Top</item>
+      <item translatable="yes">Bottom</item>
     </items>
   </object>
 

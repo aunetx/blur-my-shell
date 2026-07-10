@@ -39,6 +39,8 @@ export const KEYS = [
             { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },
             { type: Type.I, name: "override-background-dynamically-mode" },
+            { type: Type.B, name: "gradient-panel" },
+            { type: Type.I, name: "gradient-panel-mode" },
         ]
     },
     {
