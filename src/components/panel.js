@@ -573,7 +573,13 @@ export const PanelBlur = class PanelBlur {
         const windows = workspace.list_windows().filter(meta_window =>
             meta_window.showing_on_its_workspace()
             && !meta_window.is_hidden()
-            && meta_window.get_window_type() !== Meta.WindowType.DESKTOP
+            // Whitelist only standard application windows.
+            // This prevents system overlays from disabling panel blur.
+            && [
+                Meta.WindowType.NORMAL,
+                Meta.WindowType.DIALOG,
+                Meta.WindowType.MODAL_DIALOG
+            ].includes(meta_window.get_window_type())
             // exclude Desktop Icons NG
             && meta_window.get_gtk_application_id() !== "com.rastersoft.ding"
             && meta_window.get_gtk_application_id() !== "com.desktop.ding"
