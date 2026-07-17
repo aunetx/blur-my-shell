@@ -12,7 +12,6 @@ import { addMenu } from './preferences/menu.js';
 import { Pipelines } from './preferences/pipelines.js';
 import { Panel } from './preferences/panel.js';
 import { Overview } from './preferences/overview.js';
-import { Dash } from './preferences/dash.js';
 import { Applications } from './preferences/applications.js';
 import { PopupBlur } from './preferences/popup.js';
 import { Other } from './preferences/other.js';
@@ -55,7 +54,6 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(pipelines_page);
         window.add(new Panel(preferences, pipelines_manager, pipelines_page));
         window.add(new Overview(preferences, pipelines_manager, pipelines_page));
-        window.add(new Dash(preferences, pipelines_manager, pipelines_page));
         window.add(new Applications(preferences, window, pipelines_manager, pipelines_page));
         window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
         window.add(new Other(preferences, pipelines_manager, pipelines_page));

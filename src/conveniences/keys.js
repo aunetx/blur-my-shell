@@ -42,19 +42,6 @@ export const KEYS = [
         ]
     },
     {
-        component: "dash-to-dock", schemas: [
-            { type: Type.B, name: "blur" },
-            { type: Type.B, name: "static-blur" },
-            { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
-            { type: Type.I, name: "corner-radius" },
-            { type: Type.B, name: "unblur-in-overview" },
-            { type: Type.B, name: "override-background" },
-            { type: Type.I, name: "style-dash-to-dock" },
-        ]
-    },
-    {
         component: "applications", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
@@ -110,8 +97,10 @@ export const KEYS = [
             { type: Type.I, name: "notification-corner-radius" },
             { type: Type.I, name: "osd-corner-radius" },
             { type: Type.I, name: "dialog-corner-radius" },
+            { type: Type.I, name: "dash-corner-radius" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-popup" },
+            { type: Type.B, name: "unblur-in-overview-dash" },
         ]
     },
     {
@@ -163,15 +152,6 @@ export const DEPRECATED_KEYS = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
-        ]
-    },
-    {
-        component: "dash-to-dock", schemas: [
-            { type: Type.B, name: "customize" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
-            { type: Type.I, name: "corner-radius" },
         ]
     },
     {

@@ -192,3 +192,15 @@
 .bms-popup-background-dark .popup-sub-menu .popup-menu-section:last-child .popup-menu-item:last-child {
     border-radius: 0 0 12px 12px;
 }
+
+.bms-popup-background-transparent .dash-background {
+    background-color: transparent !important;
+}
+
+.bms-popup-background-light .dash-background {
+    background-color: rgba(200, 200, 200, 0.2) !important;
+}
+
+.bms-popup-background-dark .dash-background {
+    background-color: rgba(100, 100, 100, 0.35) !important;
+}

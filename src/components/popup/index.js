@@ -276,7 +276,7 @@ export const PopupBlur = class PopupBlur {
             if (parent === global.window_group)
                 return { parent: actor, sibling: child ?? actor.get_last_child?.() ?? null };
 
-            child = actor;
+            child = actor;PopupBlurSurface
             actor = parent;
         }
 

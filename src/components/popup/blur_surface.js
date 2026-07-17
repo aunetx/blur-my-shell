@@ -1,6 +1,7 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import St from 'gi://St';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DummyPipeline } from '../../conveniences/dummy_pipeline.js';
 import { PaintSignals } from '../../conveniences/paint_signals.js';
@@ -18,6 +19,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
     'modal-dialog', 'run-dialog',
+    'dash-background', 'plank-like-dock-bg',
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
@@ -45,6 +47,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.corner_changed_id = 0;
         this.actor_destroyed = false;
         this.blur_actor_destroyed = false;
+        this.overview_hidden = false;
+        this._first_boot = true;
         this.destroyed = false;
     }
 
@@ -75,6 +79,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.signals.connect_layout();
         this.signals.connect_settings();
         this.queue_update();
+
+        this.connect_to_overview();
+        this.hide_dash_first_boot();
 
         return true;
     }
@@ -158,6 +165,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     update() {
         try {
+            if (this.overview_hidden)
+                return this.hide_surface();
+
             if (this.is_notification_surface()) {
                 this.update_live_surface();
                 return;
@@ -210,6 +220,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     update_live_surface() {
+        if (this.overview_hidden)
+            return this.hide_surface();
+
         if (!this.is_visible()) {
             this.hide_surface();
             return;
@@ -228,6 +241,66 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.hide_actors();
         this.queue_repaint();
         this.queue_transition_update();
+    }
+
+    hide_dash_first_boot() {
+        if (
+            this.settings.popup.BLUR &&
+            this.settings.popup.UNBLUR_IN_OVERVIEW_DASH &&
+            this._first_boot
+        ) {
+            const is_dash_surface = () =>
+            this.style.has_any_style_class(this.target, ["dash-background", "plank-like-dock-bg"]) ||
+            this.style.has_any_style_class(this.root_actor, ["dash-background", "plank-like-dock-bg"]);
+
+            if (!is_dash_surface())
+                return;
+
+            this._first_boot = false;
+
+            this.hide_surface_overview();
+
+            // We show the overview to workaround the issue where the dash background is not visible on option enable while the overview is hidden.
+            Main.overview.show();
+        }
+    }
+
+    connect_to_overview() {
+        if (
+            this.settings.popup.BLUR &&
+            this.settings.popup.UNBLUR_IN_OVERVIEW_DASH
+        ) {
+            const is_dash_surface = () =>
+                this.style.has_any_style_class(this.target, ["dash-background", "plank-like-dock-bg"]) ||
+                this.style.has_any_style_class(this.root_actor, ["dash-background", "plank-like-dock-bg"]);
+
+            this.connections.connect(
+                Main.overview, 'showing', _ => {
+                    if (!is_dash_surface())
+                        return;
+                    this.hide_surface_overview();
+                }
+            );
+
+            this.connections.connect(
+                Main.overview, 'hidden', _ => {
+                    if (!is_dash_surface())
+                        return;
+                    this.show_surface_overview();
+                }
+            );
+        }
+    }
+
+    hide_surface_overview() {
+        this.overview_hidden = true;
+        this.hide_surface();
+        this.queue_update();
+    }
+
+    show_surface_overview() {
+        this.overview_hidden = false;
+        this.queue_update();
     }
 
     hide_surface() {
@@ -251,6 +324,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     get_transition_opacity(opacity, transition_state) {
+        if (this.overview_hidden)
+            return 0;
+
         if (
             this.static_blur
             || !transition_state?.geometry
@@ -258,6 +334,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             || this.opacity <= 0
         )
             return opacity;
+            
         return Math.max(opacity, this.opacity);
     }
 
