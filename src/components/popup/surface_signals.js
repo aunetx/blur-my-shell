@@ -1,4 +1,5 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import GLib from 'gi://GLib';
 
 const SURFACE_SIGNALS = [
     'notify::allocation',
@@ -26,6 +27,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.signal_ids = [];
         this.signal_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
+        this.pendingIdles = new Set();
     }
 
     connect_actor(actor) {
@@ -35,10 +37,28 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.signal_actors.add(actor);
         this.track_destroy(actor);
 
+        const is_excluded_from_deferring_surface = this.surface.is_excluded_from_deferring_surface();
+
         SURFACE_SIGNALS.forEach(signal => {
             try {
-                const id = actor.connect(signal, () => this.surface.queue_update());
-                this.signal_ids.push([actor, id]);
+                let id = actor.connect(signal, () => {
+                    if (is_excluded_from_deferring_surface) {
+                        this.surface.queue_update();
+                    } else {
+                        if (this.pendingIdles.size > 0)
+                            return;
+
+                        let updateId = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+                            this.pendingIdles.delete(updateId);
+                            this.surface.queue_update();
+                            return GLib.SOURCE_REMOVE;
+                        });
+
+                        if (updateId)
+                            this.pendingIdles.add(updateId);
+                    }
+                });
+                this.signal_ids.push([actor, id, signal]);
             } catch (e) { }
         });
     }
@@ -94,6 +114,14 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
     }
 
     disconnect_all() {
+        if (this.pendingIdles.size > 0) {
+            for (const updateId of this.pendingIdles) {
+                if (updateId) {
+                    GLib.source_remove(updateId);
+                }
+            }
+            this.pendingIdles.clear();
+        };
         this.signal_ids.forEach(([signal_actor, signal_id]) => {
             if (this.destroyed_actors.has(signal_actor))
                 return;
