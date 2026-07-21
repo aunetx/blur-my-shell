@@ -16,6 +16,11 @@ const PANEL_STYLES = [
     "contrasted-panel"
 ];
 
+const GRADIENT_PANEL_STYLES = [
+    "gradient-panel",
+    "gradient-panel-reverse"
+];
+
 // global listener, so we don't miss the panel destruction event
 let isMainPanelAlive = true;
 Main.panel.connect('destroy', () => isMainPanelAlive = false);
@@ -629,44 +634,55 @@ export const PanelBlur = class PanelBlur {
     set_should_override_panel(actors, should_override) {
         let panel = actors.widgets.panel;
 
-        PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
-
         if (this.settings.panel.OVERRIDE_BACKGROUND) {
             if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
-                // This is an invert of the above behavior, 
-                // Blur and all styling is hidden when "should_override" is true. 
                 if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
-                    panel.add_style_class_name(
-                        PANEL_STYLES[this.settings.panel.STYLE_PANEL]
-                    );
+                    // This is an invert of the above behavior, 
+                    // Blur and all styling is hidden when "should_override" is true. 
                     if (!should_override) {
-                        actors.widgets.background.show();
+                        this.proximity_show(actors, panel);
                     }
                     else {
-                        actors.widgets.background.hide();
+                        this.proximity_hide(actors, panel);
                     };
                 }
                 if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 1) {
-                    PANEL_STYLES.forEach(style => panel.remove_style_class_name(style));
                     if (should_override) {
-                        panel.add_style_class_name(
-                            PANEL_STYLES[this.settings.panel.STYLE_PANEL]
-                        );
+                        this.update_panel_style_class(panel, PANEL_STYLES[this.settings.panel.STYLE_PANEL]);
+                    } else {
+                        this.update_panel_style_class(panel, null); // Clear custom styles
                     }
                 }
             }
             else {
-                panel.add_style_class_name(
-                    PANEL_STYLES[this.settings.panel.STYLE_PANEL]
-                );
+                this.update_panel_style_class(panel, PANEL_STYLES[this.settings.panel.STYLE_PANEL]);
             }
-        };
+        }
+        else {
+            this.update_panel_style_class(panel, null);
+        }
 
         // update the classname if the panel to have or have not light text
         this.update_light_text_classname(!should_override);
     }
 
-    panel_hide_blur_dynamically(){
+    update_panel_style_class(panel, target_class) {
+        const ALL_STYLES = [...PANEL_STYLES, ...GRADIENT_PANEL_STYLES];
+
+        // Remove all managed classes EXCEPT the target class we are moving to
+        ALL_STYLES.forEach(style => {
+            if (style !== target_class) {
+                panel.remove_style_class_name(style);
+            }
+        });
+
+        // Add the target class if specified and not already present
+        if (target_class && !panel.has_style_class_name(target_class)) {
+            panel.add_style_class_name(target_class);
+        }
+    }
+
+    panel_hide_blur_dynamically() {
         if (this.settings.panel.OVERRIDE_BACKGROUND && this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
             if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
                 this.hide()
@@ -676,6 +692,31 @@ export const PanelBlur = class PanelBlur {
         else {
             this.show()
         }
+    }
+
+    proximity_hide(actors, panel) {
+        let target_style = null;
+        if (this.settings.panel.GRADIENT_PANEL) {
+            if (!Main.overview.visible) {
+                target_style = GRADIENT_PANEL_STYLES[this.settings.panel.GRADIENT_PANEL_MODE];
+            }
+            else {
+                target_style = this.settings.panel.UNBLUR_IN_OVERVIEW
+                                ? PANEL_STYLES[0]
+                                : GRADIENT_PANEL_STYLES[this.settings.panel.GRADIENT_PANEL_MODE];
+            }
+        }
+        else {
+            target_style = PANEL_STYLES[this.settings.panel.STYLE_PANEL];
+        }
+
+        this.update_panel_style_class(panel, target_style);
+        actors.widgets.background.hide();
+    }
+
+    proximity_show(actors, panel) {
+        this.update_panel_style_class(panel, PANEL_STYLES[this.settings.panel.STYLE_PANEL]);
+        actors.widgets.background.show();
     }
 
     panel_hide_blur_startup(){

@@ -434,8 +434,10 @@ export default class BlurMyShell extends Extension {
 
         // panel override background toggled on/off
         this._settings.panel.OVERRIDE_BACKGROUND_changed(() => {
-            if (this._settings.panel.BLUR)
+            if (this._settings.panel.BLUR) {
                 this._panel_blur.connect_to_windows_and_overview();
+                this._panel_blur.reset();
+            }
         });
 
         // panel style changed
@@ -456,6 +458,18 @@ export default class BlurMyShell extends Extension {
             if (this._settings.panel.BLUR) {
                 this._panel_blur.connect_to_windows_and_overview();
                 this._panel_blur.reset();
+            }
+        });
+
+        this._settings.panel.GRADIENT_PANEL_changed(() => {
+            if (this._settings.panel.BLUR) {
+                this._panel_blur.update_visibility() ;
+            }
+        });
+
+        this._settings.panel.GRADIENT_PANEL_MODE_changed(() => {
+            if (this._settings.panel.BLUR) {
+                this._panel_blur.update_visibility();
             }
         });
 
