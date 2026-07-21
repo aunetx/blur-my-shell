@@ -155,6 +155,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
         const sibling_index = children.indexOf(sibling);
         return sibling_index >= 0 && actor_index < sibling_index;
     }
+    
+    is_excluded_from_deferring_surface() {
+        return this.style.has_any_style_class(this.target, ['datemenu-popover','modal-dialog'])
+            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','modal-dialog']);
+    }
 
     update() {
         try {
