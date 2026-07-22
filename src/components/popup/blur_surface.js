@@ -157,8 +157,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
     
     is_excluded_from_deferring_surface() {
-        return this.style.has_any_style_class(this.target, ['datemenu-popover','modal-dialog'])
-            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','modal-dialog']);
+        return this.style.has_any_style_class(this.target, ['datemenu-popover','modal-dialog','quick-settings'])
+            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','modal-dialog','quick-settings']);
     }
 
     update() {
