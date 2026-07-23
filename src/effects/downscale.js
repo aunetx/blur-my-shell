@@ -59,16 +59,12 @@ const DOWNSCALE_EFFECT_META = {
         }
 };
 
-const SHADER_BASE = utils.IS_IN_PREFERENCES
-    ? null
-    : utils.get_shader_effect_base(Clutter, Cogl, "DownscaleEffect", SHADER_SOURCE);
-
-const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEffect extends SHADER_BASE {
+const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEffect extends Clutter.ShaderEffect {
 
         constructor(params) {
-            super(utils.shader_effect_super_args(SHADER_SOURCE, Clutter));
+            super();
 
-            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
 
 
             utils.setup_params(this, params);
@@ -181,4 +177,4 @@ const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEff
 
 export const DownscaleEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(DOWNSCALE_EFFECT_META, DownscaleEffectClass, Cogl, SHADER_SOURCE, Clutter);
+    : utils.register_shader_effect(DOWNSCALE_EFFECT_META, DownscaleEffectClass);

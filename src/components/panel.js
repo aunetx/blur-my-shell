@@ -1,7 +1,6 @@
 import St from 'gi://St';
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
-import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
@@ -399,8 +398,8 @@ export const PanelBlur = class PanelBlur {
             let is_bottom_panel = is_horizontal &&
                 distance_to_bottom < distance_to_top;
 
-            const inset = utils.static_blur_clip_inset(Clutter);
-            const offset = utils.subpixel_stage_offset(Clutter);
+            const inset = utils.static_blur_clip_inset();
+            const offset = utils.subpixel_stage_offset();
             const workspace_edge_inset = is_bottom_panel
                 ? Math.max(inset, 1)
                 : inset;

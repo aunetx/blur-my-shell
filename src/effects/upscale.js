@@ -51,16 +51,12 @@ const UPSCALE_EFFECT_META = {
         }
 };
 
-const SHADER_BASE = utils.IS_IN_PREFERENCES
-    ? null
-    : utils.get_shader_effect_base(Clutter, Cogl, "UpscaleEffect", SHADER_SOURCE);
-
-const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect extends SHADER_BASE {
+const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect extends Clutter.ShaderEffect {
 
         constructor(params) {
-            super(utils.shader_effect_super_args(SHADER_SOURCE, Clutter));
+            super();
 
-            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
 
 
             utils.setup_params(this, params);
@@ -161,4 +157,4 @@ const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect 
 
 export const UpscaleEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass, Cogl, SHADER_SOURCE, Clutter);
+    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass);
