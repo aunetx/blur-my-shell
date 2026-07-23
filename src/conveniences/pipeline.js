@@ -3,6 +3,7 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import * as uniforms from './shader_uniforms.js';
+import * as utils from './utils.js';
 
 /// A `Pipeline` object is a handy way to manage the effects attached to an actor. It only manages
 /// one actor at a time (so blurring multiple widgets will need multiple `Pipeline`), and is
@@ -48,7 +49,7 @@ export const Pipeline = class Pipeline {
         this.actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
-            y: .5 + (use_absolute_position ? monitor.y : 0), // add 1 to correct z-position
+            y: utils.subpixel_stage_offset() + (use_absolute_position ? monitor.y : 0),
             z_position: 1, // seems to fix the multi-monitor glitch
             width: monitor.width,
             height: monitor.height

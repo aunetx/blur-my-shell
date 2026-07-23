@@ -4,16 +4,16 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'luminosity.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     brightness_shift: 0., brightness_multiplicator: 1., contrast: 1., contrast_center: 0.5, saturation_multiplicator: 1., opacity_factor: 1.
 };
 
 
-export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const LUMINOSITY_EFFECT_META = {
         GTypeName: "LuminosityEffect",
         Properties: {
             'brightness_shift': GObject.ParamSpec.double(
@@ -65,20 +65,26 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
                 1.0,
             ),
         }
-    }, class LuminosityEffect extends Clutter.ShaderEffect {
+};
+
+const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityEffect extends Clutter.ShaderEffect {
+
         constructor(params) {
             super();
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
+
 
             utils.setup_params(this, params);
         }
 
         static get default_params() {
             return DEFAULT_PARAMS;
+        }
+
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("LuminosityEffect", Cogl, SHADER_SOURCE);
         }
 
         get brightness_shift() {
@@ -164,4 +170,8 @@ export const LuminosityEffect = utils.IS_IN_PREFERENCES ?
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const LuminosityEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass);

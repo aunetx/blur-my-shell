@@ -4,16 +4,16 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'upscale.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     factor: 8, opacity_factor: 1, width: 0, height: 0
 };
 
 
-export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const UPSCALE_EFFECT_META = {
         GTypeName: "UpscaleEffect",
         Properties: {
             'factor': GObject.ParamSpec.int(
@@ -49,20 +49,26 @@ export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
                 0.0,
             )
         }
-    }, class UpscaleEffect extends Clutter.ShaderEffect {
+};
+
+const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect extends Clutter.ShaderEffect {
+
         constructor(params) {
             super();
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
+
 
             utils.setup_params(this, params);
         }
 
         static get default_params() {
             return DEFAULT_PARAMS;
+        }
+
+        // Declared here (not inherited) so GJS wires up this optional vfunc.
+        vfunc_get_static_snippet() {
+            return utils.get_or_create_shader_snippet("UpscaleEffect", Cogl, SHADER_SOURCE);
         }
 
         get factor() {
@@ -147,4 +153,8 @@ export const UpscaleEffect = utils.IS_IN_PREFERENCES ?
 
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const UpscaleEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass);
