@@ -67,16 +67,12 @@ const LUMINOSITY_EFFECT_META = {
         }
 };
 
-const SHADER_BASE = utils.IS_IN_PREFERENCES
-    ? null
-    : utils.get_shader_effect_base(Clutter, Cogl, "LuminosityEffect", SHADER_SOURCE);
-
-const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityEffect extends SHADER_BASE {
+const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityEffect extends Clutter.ShaderEffect {
 
         constructor(params) {
-            super(utils.shader_effect_super_args(SHADER_SOURCE, Clutter));
+            super();
 
-            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
 
 
             utils.setup_params(this, params);
@@ -178,4 +174,4 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
 
 export const LuminosityEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass, Cogl, SHADER_SOURCE, Clutter);
+    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass);

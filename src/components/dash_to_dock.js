@@ -1,5 +1,4 @@
 import Meta from 'gi://Meta';
-import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
@@ -127,7 +126,7 @@ class DashInfos {
 
         if (this.dash_blur.is_static) {
             let [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
-            const inset = utils.static_blur_clip_inset(Clutter);
+            const inset = utils.static_blur_clip_inset();
             const clip_x = Math.floor(x) - inset;
             const clip_y = Math.floor(y) - inset;
             const clip_w = Math.ceil(this.dash_background.width) + inset * 2;

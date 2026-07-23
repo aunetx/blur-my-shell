@@ -18,6 +18,8 @@ export async function import_in_shell_only(module) {
     }
 }
 
+const Clutter = await import_in_shell_only('gi://Clutter');
+
 export function is_usable_blur_module(ns) {
     if (!ns)
         return false;
@@ -57,22 +59,18 @@ export const get_shader_source = (Shell, shader_filename, self_uri) => {
     }
 };
 
-export function shader_uses_snippet_api(Clutter) {
+export function shader_uses_snippet_api() {
     // Runtime detection: GNOME 51+ mutter exposes new_with_snippet and drops
     // set_shader_source. GNOME 46–50 only have the legacy shader-source path.
     return typeof Clutter?.ShaderEffect?.new_with_snippet === 'function';
 }
 
-export function subpixel_stage_offset(Clutter) {
-    return shader_uses_snippet_api(Clutter) ? 0 : 0.5;
+export function subpixel_stage_offset() {
+    return shader_uses_snippet_api() ? 0 : 0.5;
 }
 
-export function static_blur_clip_inset(Clutter) {
-    return shader_uses_snippet_api(Clutter) ? 1 : 0;
-}
-
-export function shader_effect_super_args(_source, _Clutter) {
-    return {};
+export function static_blur_clip_inset() {
+    return shader_uses_snippet_api() ? 1 : 0;
 }
 
 const _shader_snippets = new Map();
@@ -94,12 +92,8 @@ export function get_or_create_shader_snippet(key, Cogl, source) {
     return snippet;
 }
 
-export function get_shader_effect_base(Clutter, _Cogl, _gtype, _source) {
-    return Clutter.ShaderEffect;
-}
-
-export function register_shader_effect(meta, effect_class, _Cogl, _source, Clutter) {
-    if (shader_uses_snippet_api(Clutter) && typeof effect_class.prototype.vfunc_get_static_snippet !== 'function')
+export function register_shader_effect(meta, effect_class) {
+    if (shader_uses_snippet_api() && typeof effect_class.prototype.vfunc_get_static_snippet !== 'function')
         console.warn(`[Blur my Shell > effect]       ${meta.GTypeName} is missing its own vfunc_get_static_snippet() override, the shader will never be applied`);
 
     return GObject.registerClass(meta, effect_class);
@@ -208,8 +202,8 @@ export function create_fragment_shader_snippet(Cogl, source) {
     }
 }
 
-export function bind_shader_source(effect, source, Clutter) {
-    if (!source || !effect || effect._bms_shader_bound || shader_uses_snippet_api(Clutter))
+export function bind_shader_source(effect, source) {
+    if (!source || !effect || effect._bms_shader_bound || shader_uses_snippet_api())
         return;
 
     try {
@@ -229,17 +223,17 @@ export function bind_shader_source(effect, source, Clutter) {
     }
 }
 
-export function initialize_shader_effect(effect, source, Clutter) {
+export function initialize_shader_effect(effect, source) {
     if (!source || !effect || effect._bms_shader_bound)
         return;
 
-    if (shader_uses_snippet_api(Clutter)) {
+    if (shader_uses_snippet_api()) {
         bind_shader_texture_unit(effect);
         effect._bms_shader_bound = true;
         return;
     }
 
-    bind_shader_source(effect, source, Clutter);
+    bind_shader_source(effect, source);
 }
 
 function bind_shader_texture_unit(effect) {

@@ -1,7 +1,6 @@
 import St from 'gi://St';
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
-import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
@@ -387,8 +386,8 @@ export const PanelBlur = class PanelBlur {
             let x = p_x + p_p_x - monitor.x + g_x;
             let y = p_y + p_p_y - monitor.y + g_y;
 
-            const inset = utils.static_blur_clip_inset(Clutter);
-            const offset = utils.subpixel_stage_offset(Clutter);
+            const inset = utils.static_blur_clip_inset();
+            const offset = utils.subpixel_stage_offset();
             const clip_x = Math.floor(x) - inset;
             const clip_y = Math.floor(y) - inset;
             const clip_w = Math.ceil(geometry_width) + inset * 2;

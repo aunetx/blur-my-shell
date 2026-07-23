@@ -1,6 +1,5 @@
 import St from 'gi://St';
 import Meta from 'gi://Meta';
-import Clutter from 'gi://Clutter';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 import * as uniforms from './shader_uniforms.js';
@@ -50,7 +49,7 @@ export const Pipeline = class Pipeline {
         this.actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
-            y: utils.subpixel_stage_offset(Clutter) + (use_absolute_position ? monitor.y : 0),
+            y: utils.subpixel_stage_offset() + (use_absolute_position ? monitor.y : 0),
             z_position: 1, // seems to fix the multi-monitor glitch
             width: monitor.width,
             height: monitor.height

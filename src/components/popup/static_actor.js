@@ -131,7 +131,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         const x = target_x - monitor.x;
         const y = target_y - monitor.y;
         // Don't use panel's 1px clip inset — it overhangs the menu as a top line.
-        const offset = utils.subpixel_stage_offset(Clutter);
+        const offset = utils.subpixel_stage_offset();
         const clip_x = Math.floor(x);
         const clip_y = Math.floor(y);
         const clip_w = Math.ceil(width);

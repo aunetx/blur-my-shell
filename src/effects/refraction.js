@@ -191,19 +191,12 @@ const REFRACTION_EFFECT_META = {
         }
 };
 
-const SHADER_BASE = utils.IS_IN_PREFERENCES
-    ? null
-    : utils.get_shader_effect_base(Clutter, Cogl, "RefractionEffect", SHADER_SOURCE);
-
-const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionEffect extends SHADER_BASE {
+const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionEffect extends Clutter.ShaderEffect {
 
         constructor(params) {
             const { webcam_gloss, webcam_device, ...parent_params } = params;
-            super({
-                ...parent_params,
-                ...utils.shader_effect_super_args(SHADER_SOURCE, Clutter),
-            });
-            utils.initialize_shader_effect(this, SHADER_SOURCE, Clutter);
+            super({ ...parent_params });
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
 
             this._clip_x0 = null;
             this._clip_y0 = null;
@@ -713,4 +706,4 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
 
 export const RefractionEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(REFRACTION_EFFECT_META, RefractionEffectClass, Cogl, SHADER_SOURCE, Clutter);
+    : utils.register_shader_effect(REFRACTION_EFFECT_META, RefractionEffectClass);
