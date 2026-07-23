@@ -1,4 +1,5 @@
 import Meta from 'gi://Meta';
+import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
@@ -21,7 +22,7 @@ const DASH_STYLES = [
 class DashInfos {
     constructor(
         dash_blur, dash, dash_container, dash_background,
-        background, background_group, bg_manager
+        background, background_group, bg_manager, paint_signals
     ) {
         // the parent DashBlur object, to communicate
         this.dash_blur = dash_blur;
@@ -31,8 +32,11 @@ class DashInfos {
         this.background = background;
         this.background_group = background_group;
         this.bg_manager = bg_manager;
+        this.paint_signals = paint_signals;
         this.settings = dash_blur.settings;
         this.old_style = this.dash._background.style;
+
+        this.updateId = 0;
 
         this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur(false));
         this.dash_blur_connections_ids = [];
@@ -42,10 +46,30 @@ class DashInfos {
             this.dash_blur.connect('remove-style', () => this.remove_style()),
             this.dash_blur.connect('show', () => this.background_group.show()),
             this.dash_blur.connect('hide', () => this.background_group.hide()),
-            this.dash_blur.connect('update-size', () => this.update_size()),
+            this.dash_blur.connect('update-size', () => this.schedule_update()),
             this.dash_blur.connect('change-blur-type', () => this.change_blur_type()),
             this.dash_blur.connect('update-pipeline', () => this.update_pipeline())
         );
+    }
+
+    schedule_update() {
+        if (this.updateId) {
+            GLib.source_remove(this.updateId);
+            this.updateId = 0;
+        }
+
+        this.updateId = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            this.updateId = 0;
+            this.update_size();
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    clear_pending_idles() {
+        if (this.updateId) {
+            GLib.source_remove(this.updateId);
+            this.updateId = 0;
+        }
     }
 
     // IMPORTANT: do never call this in a mutable `this.dash_blur.forEach`
@@ -79,19 +103,28 @@ class DashInfos {
         this.dash._background.style = this.old_style;
 
         DASH_STYLES.forEach(
-            style => this.dash.remove_style_class_name(style)
+            style => {
+                this.dash?.remove_style_class_name(style);
+                this.dash_background?.remove_style_class_name(style);
+            }
         );
     }
 
     destroy_dash(dash_not_already_destroyed = true) {
+        this.clear_pending_idles();
+
         if (!dash_not_already_destroyed)
             this.bg_manager.backgroundActor = null;
 
         this.paint_signals?.disconnect_all();
-        this.dash.get_parent().remove_child(this.background_group);
-        this.bg_manager._bms_pipeline.destroy();
-        this.bg_manager.destroy();
-        this.background_group.destroy();
+        if (this.background_group && this.dash?.get_parent())
+            this.dash.get_parent().remove_child(this.background_group);
+        if (this.bg_manager?._bms_pipeline) {
+            this.bg_manager._bms_pipeline.destroy();
+            this.bg_manager._bms_pipeline = null;
+        }
+        this.bg_manager?.destroy();
+        this.background_group?.destroy();
     }
 
     change_blur_type() {
@@ -112,9 +145,11 @@ class DashInfos {
     }
 
     update_pipeline() {
-        this.bg_manager._bms_pipeline.change_pipeline_to(
-            this.settings.dash_to_dock.PIPELINE
-        );
+        if (this.bg_manager?._bms_pipeline) {
+            this.bg_manager._bms_pipeline.change_pipeline_to(
+                this.settings.dash_to_dock.PIPELINE
+            );
+        }
     }
 
     update_size() {
@@ -124,7 +159,11 @@ class DashInfos {
             return;
 
         if (this.dash_blur.is_static) {
-            let [x, y] = this.get_dash_position(this.dash_container, this.dash_background);
+            let dash_box = this.get_dash_position(this.dash_container, this.dash_background);
+            if (!dash_box)
+                return;
+
+            let [x, y] = dash_box
 
             this.background.x = -x;
             this.background.y = -y;
@@ -171,6 +210,8 @@ class DashInfos {
 
         let monitor = Main.layoutManager.findMonitorForActor(dash_container);
         let dash_box = dash_container._slider.get_child();
+        if (!dash_box)
+            return null
 
         if (dash_container.get_style_class_name().includes("top")) {
             x = (monitor.width - dash_background.width) / 2;
@@ -216,7 +257,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
                 (actor.get_name() === "dashtodockContainer") &&
                 (actor.constructor.name === 'DashToDock')
             )
-                this._queue_try_blur(actor);
+                this.try_blur(actor);
         });
 
         this.blur_existing_dashes();
@@ -236,7 +277,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         Main.uiGroup.get_children().filter((child) => {
             return (child.get_name() === "dashtodockContainer") &&
                 (child.constructor.name === 'DashToDock');
-        }).forEach(dash_container => this._queue_try_blur(dash_container));
+        }).forEach(dash_container => this.try_blur(dash_container));
     }
 
     _has_valid_allocation(actor) {
@@ -245,91 +286,104 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             actor.width > 0 && actor.height > 0;
     }
 
-    _queue_try_blur(dash_container) {
+    _defer_blur_until_allocated(dash_container, dash) {
         if (dash_container._bms_pending_blur_setup)
             return;
 
-        if (!dash_container._bms_pending_blur_destroy_connected) {
-            dash_container._bms_pending_blur_destroy_connected = true;
-            this.connections.connect(dash_container, 'destroy', () => {
-                dash_container._bms_pending_blur_setup = 0;
-                dash_container._bms_pending_blur_attempts = 0;
-                dash_container._bms_pending_blur_destroy_connected = false;
+        dash_container._bms_pending_blur_setup = true;
+        
+        const connections = [];
+        const cleanup = () => {
+            delete dash_container._bms_pending_blur_setup;
+            delete dash_container._bms_defer_cleanup;
+            connections.forEach(({ actor, id }) => {
+                if (actor && id)
+                    actor.disconnect(id);
             });
+        };
+
+        const retry = () => {
+            if (!dash_container._bms_pending_blur_setup)
+                return;
+
+            let current_dash_box = dash_container._slider?.get_child?.();
+            let current_dash = dash || current_dash_box?.get_children?.().find(child => child.get_name() === 'dash');
+
+            if (!this._has_valid_allocation(dash_container) ||
+                !this._has_valid_allocation(current_dash_box) ||
+                !this._has_valid_allocation(current_dash))
+                return;
+
+            cleanup();
+            this.try_blur(dash_container);
+        };
+
+        const dash_cont_id = dash_container.connect('notify::allocation', retry);
+        connections.push({ actor: dash_container, id: dash_cont_id });
+
+        if (dash) {
+            const dash_id = dash.connect('notify::allocation', retry);
+            connections.push({ actor: dash, id: dash_id });
         }
 
-        dash_container._bms_pending_blur_setup = global.compositor?.get_laters?.().add(
-            Meta.LaterType.BEFORE_REDRAW,
-            () => {
-                dash_container._bms_pending_blur_setup = 0;
-                if (!dash_container.get_stage?.())
-                    return false;
+        const destroy_id = dash_container.connect('destroy', cleanup);
+        connections.push({ actor: dash_container, id: destroy_id });
 
-                dash_container._bms_pending_blur_attempts =
-                    (dash_container._bms_pending_blur_attempts ?? 0) + 1;
-                if (dash_container._bms_pending_blur_attempts > 30) {
-                    dash_container._bms_pending_blur_attempts = 0;
-                    this._warn('giving up dash blur setup before allocation');
-                    return false;
-                }
-
-                this.try_blur(dash_container);
-                return false;
-            }
-        ) ?? Meta.later_add(Meta.LaterType.BEFORE_REDRAW, () => {
-            dash_container._bms_pending_blur_setup = 0;
-            if (!dash_container.get_stage?.())
-                return false;
-
-            dash_container._bms_pending_blur_attempts =
-                (dash_container._bms_pending_blur_attempts ?? 0) + 1;
-            if (dash_container._bms_pending_blur_attempts > 30) {
-                dash_container._bms_pending_blur_attempts = 0;
-                this._warn('giving up dash blur setup before allocation');
-                return false;
-            }
-
-            this.try_blur(dash_container);
-            return false;
-        });
+        dash_container._bms_defer_cleanup = cleanup;
     }
 
     // Tries to blur the dash contained in the given actor
     try_blur(dash_container) {
-        let dash_slider = dash_container._slider;
-        let dash_box = dash_slider.get_child();
+        let dash_box = dash_container._slider?.get_child?.();
+        if (!dash_box){
+            this._defer_blur_until_allocated(dash_container);
+            return;
+        }
+
         let dash = dash_box.get_children().find(child => {
             return child.get_name() === 'dash';
-        });
-        let dash_background = dash?.get_children().find(child => {
-            return child.get_style_class_name() === 'dash-background';
         });
 
         if (!dash ||
             !this._has_valid_allocation(dash_container) ||
-            !this._has_valid_allocation(dash_slider) ||
             !this._has_valid_allocation(dash_box) ||
-            !this._has_valid_allocation(dash) ||
-            !this._has_valid_allocation(dash_background)) {
-            this._queue_try_blur(dash_container);
-            return;
+            !this._has_valid_allocation(dash)) {
+                this._defer_blur_until_allocated(dash_container, dash);
+                return;
         }
 
-        dash_container._bms_pending_blur_attempts = 0;
+        let dash_exist = this.dashes.find(info => info.dash === dash);
+        if (dash_exist) {
+            dash_exist.remove_dash_blur();
+        }
+
+        let existing_bg = dash_box.get_children().find(child => 
+            child.get_name() === "bms-dash-backgroundgroup"
+        );
+
+        if (existing_bg) {
+            if (dash_box.contains?.(existing_bg))
+                dash_box.remove_child(existing_bg);
+            
+            existing_bg.destroy();
+        }
 
         // verify that we did not already blur that dash
-        if (!dash_box.get_children().some(child =>
-            child.get_name() === "bms-dash-backgroundgroup"
-        )) {
-            this._log("dash to dock found, blurring it");
+        this._log("dash to dock found, blurring it");
 
-            this.dashes.push(this.blur_dash_from(dash, dash_container));
+        let infos = this.blur_dash_from(dash, dash_container);
+        if (infos) {
+            this.dashes.push(infos);
         }
     }
 
     // Blurs the dash and returns a `DashInfos` containing its information
     blur_dash_from(dash, dash_container) {
-        let [background, background_group, bg_manager, paint_signals] = this.add_blur(dash);
+        let blur_result = this.add_blur(dash);
+        if (!blur_result)
+            return null;
+        
+        let [background, background_group, bg_manager, paint_signals] = blur_result;
 
         // insert the background group to the right element
         dash.get_parent().insert_child_at_index(background_group, 0);
@@ -477,6 +531,12 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this._log("removing blur from dashes");
 
         this.emit('remove-dashes');
+
+        for (let child of Main.uiGroup.get_children()) {
+            if (child._bms_defer_cleanup)
+                child._bms_defer_cleanup();
+            delete child._bms_pending_blur_setup;
+        }
 
         this.dashes = [];
         this.connections.disconnect_all();
