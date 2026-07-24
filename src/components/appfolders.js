@@ -206,7 +206,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
             //
             // [1]: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/2857
 
-            if (this.settings.HACKS_LEVEL === 1) {
+            if (this.settings.HACKS_LEVEL !== 2) {
                 this.paint_signals.disconnect_all_for_actor(icon._dialog);
                 this.paint_signals.connect(icon._dialog, blur_effect);
             } else {
