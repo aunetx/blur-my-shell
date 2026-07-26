@@ -389,12 +389,19 @@ export const PanelBlur = class PanelBlur {
 
             let x = p_x + p_p_x - monitor.x + g_x;
             let y = p_y + p_p_y - monitor.y + g_y;
+            let is_horizontal = geometry_width >= geometry_height;
+            let distance_to_top = Math.abs(y);
+            let distance_to_bottom = Math.abs(
+                monitor.height - (y + geometry_height)
+            );
+            let is_bottom_panel = is_horizontal &&
+                distance_to_bottom < distance_to_top;
 
             background.set_clip(
                 x,
-                y - 1,
+                is_bottom_panel ? y - 1 : y,
                 geometry_width,
-                geometry_height + 1
+                is_bottom_panel ? geometry_height + 1 : geometry_height
             );
             background.x = g_x - x;
             background.y = .5 + g_y - y;
