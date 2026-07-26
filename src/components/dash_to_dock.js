@@ -52,35 +52,17 @@ class DashInfos {
     }
 
     schedule_update() {
-        const laters = global.compositor?.get_laters?.();
-
         this.clear_pending_idles();
-
-        if (laters) {
-            // Modern GNOME Shell (GNOME 44+)
-            this.updateId = laters.add(Meta.LaterType.IDLE, () => {
-                this.updateId = 0;
-                this.update_size();
-                return false;
-            });
-        } else {
-            // Legacy fallback (GNOME 43 and older)
-            this.updateId = Meta.later_add(Meta.LaterType.IDLE, () => {
-                this.updateId = 0;
-                this.update_size();
-                return false
-            });
-        }
+        this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
+            this.updateId = 0;
+            this.update_size();
+            return false;
+        });
     }
 
     clear_pending_idles() {
         if (this.updateId) {
-            const laters = global.compositor?.get_laters?.();
-            if (laters) {
-                laters.remove(this.updateId);
-            } else {
-                Meta.later_remove(this.updateId);
-            }
+            global.compositor.get_laters().remove(this.updateId);
             this.updateId = 0;
         }
     }

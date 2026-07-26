@@ -44,25 +44,12 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
                     if (is_excluded_from_deferring_surface) {
                         this.surface.queue_update();
                     } else {
-                        const laters = global.compositor?.get_laters?.();
-                        
                         this.clear_pending_idles();
-                        
-                        if (laters) {
-                            // Modern GNOME Shell (GNOME 44+)
-                            this.updateId = laters.add(Meta.LaterType.IDLE, () => {
-                                this.updateId = 0;
-                                this.surface.queue_update();
-                                return false;
-                            });
-                        } else {
-                            // Legacy fallback (GNOME 43 and older)
-                            this.updateId = Meta.later_add(Meta.LaterType.IDLE, () => {
-                                this.updateId = 0;
-                                this.surface.queue_update();
-                                return false
-                            });
-                        }
+                        this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
+                            this.updateId = 0;
+                            this.surface.queue_update();
+                            return false;
+                        });
                     }
                 });
                 this.signal_ids.push([actor, id, signal]);
@@ -122,12 +109,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
 
     clear_pending_idles() {
         if (this.updateId) {
-            const laters = global.compositor?.get_laters?.();
-            if (laters) {
-                laters.remove(this.updateId);
-            } else {
-                Meta.later_remove(this.updateId);
-            }
+            global.compositor.get_laters().remove(this.updateId);
             this.updateId = 0;
         }
     }
