@@ -390,7 +390,12 @@ export const PanelBlur = class PanelBlur {
             let x = p_x + p_p_x - monitor.x + g_x;
             let y = p_y + p_p_y - monitor.y + g_y;
 
-            background.set_clip(x, y, geometry_width, geometry_height);
+            background.set_clip(
+                x,
+                y - 1,
+                geometry_width,
+                geometry_height + 1
+            );
             background.x = g_x - x;
             background.y = .5 + g_y - y;
         } else {
