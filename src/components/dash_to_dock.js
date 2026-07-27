@@ -36,6 +36,14 @@ class DashInfos {
         this.old_style = this.dash._background?.style;
 
         this.updateId = 0;
+        this._first_boot = true;
+
+        this.bg_allocation_id = this.background_group?.connect('notify::allocation', () => {
+            this.schedule_update();
+        });
+
+        let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
+        this.current_monitor_index = monitor ? monitor.index : null;
 
         this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur(false));
         this.dash_blur_connections_ids = [];
@@ -119,6 +127,11 @@ class DashInfos {
             this.bg_manager._bms_pipeline.destroy();
             this.bg_manager._bms_pipeline = null;
         }
+        if (this.bg_allocation_id && this.background_group) {
+            this.background_group.disconnect(this.bg_allocation_id);
+            this.bg_allocation_id = null;
+        }
+        
         this.bg_manager?.destroy();
         this.background_group?.destroy();
     }
@@ -126,7 +139,7 @@ class DashInfos {
     change_blur_type() {
         this.destroy_dash();
 
-        let blur_result = this.dash_blur.add_blur(this.dash);
+        let blur_result = this.dash_blur.add_blur(this.dash, this.dash_container);
         if (!blur_result)
             return;
 
@@ -140,6 +153,11 @@ class DashInfos {
         this.paint_signals = paint_signals;
 
         this.dash.get_parent().insert_child_at_index(this.background_group, 0);
+
+        // Apply the layout instantly before drawing the first frame
+        this.bg_allocation_id = this.background_group.connect('notify::allocation', () => {
+            this.schedule_update();
+        });
 
         this.schedule_update();
     }
@@ -159,43 +177,28 @@ class DashInfos {
             return;
 
         if (this.dash_blur.is_static) {
+            let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
+            if (!monitor) return;
+
+            if (this.current_monitor_index !== monitor.index) {
+                this.current_monitor_index = monitor.index;
+                this.change_blur_type(); 
+                return;
+            }
+
             let dash_box = this.get_dash_position(this.dash_container, this.dash_background);
             if (!dash_box)
                 return;
 
-            let [x, y] = dash_box
+            this.background.x = dash_box.background_x;
+            this.background.y = dash_box.background_y;
 
-            this.background.x = -x;
-            this.background.y = -y;
-
-            if (this.dash_container.get_style_class_name().includes("top"))
-                this.background.set_clip(
-                    x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-            else if (this.dash_container.get_style_class_name().includes("bottom"))
-                this.background.set_clip(
-                    x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-            else if (this.dash_container.get_style_class_name().includes("left"))
-                this.background.set_clip(
-                    x + this.dash.x + this.dash_background.x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
-            else if (this.dash_container.get_style_class_name().includes("right"))
-                this.background.set_clip(
-                    x + this.dash.x + this.dash_background.x,
-                    y + this.dash.y + this.dash_background.y,
-                    this.dash_background.width,
-                    this.dash_background.height
-                );
+            this.background.set_clip(
+                dash_box.clip_x,
+                dash_box.clip_y,
+                this.dash_background.width,
+                this.dash_background.height
+            );
         } else {
             this.background.width = this.dash_background.width;
             this.background.height = this.dash_background.height;
@@ -203,31 +206,39 @@ class DashInfos {
             this.background.x = this.dash_background.x;
             this.background.y = this.dash_background.y + this.dash.y;
         }
+        
+        if (this._first_boot) {
+            if (this.settings.dash_to_dock.UNBLUR_IN_OVERVIEW && Main.overview.visible) {
+                this.background_group?.hide();
+            }
+            this._first_boot = false;
+        }
     }
 
     get_dash_position(dash_container, dash_background) {
-        var x, y;
+        let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
+            if (!monitor) return;
 
-        let monitor = Main.layoutManager.findMonitorForActor(dash_container);
         let dash_box = dash_container._slider.get_child();
         if (!dash_box)
-            return null
+            return null;
 
-        if (dash_container.get_style_class_name().includes("top")) {
-            x = (monitor.width - dash_background.width) / 2;
-            y = dash_box.y;
-        } else if (dash_container.get_style_class_name().includes("bottom")) {
-            x = (monitor.width - dash_background.width) / 2;
-            y = monitor.height - dash_container.height;
-        } else if (dash_container.get_style_class_name().includes("left")) {
-            x = dash_box.x;
-            y = dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
-        } else if (dash_container.get_style_class_name().includes("right")) {
-            x = monitor.width - dash_container.width;
-            y = dash_container.y + (dash_container.height - dash_background.height) / 2 - dash_background.y;
-        }
+        let parent = this.background_group?.get_parent();
+            if (!parent) return;
 
-        return [x, y];
+        let [parent_stage_x, parent_stage_y] = parent.get_transformed_position();
+        let [bg_stage_x, bg_stage_y] = this.dash_background.get_transformed_position();
+
+        this.background.x = monitor.x - parent_stage_x;
+        this.background.y = monitor.y - parent_stage_y;
+
+        let background_x = monitor.x - parent_stage_x;
+        let background_y = monitor.y - parent_stage_y;
+
+        let clip_x = bg_stage_x - monitor.x;
+        let clip_y = bg_stage_y - monitor.y;
+
+        return {background_x, background_y, clip_x, clip_y};
     }
 
     _log(str) {
@@ -379,7 +390,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
     // Blurs the dash and returns a `DashInfos` containing its information
     blur_dash_from(dash, dash_container) {
-        let blur_result = this.add_blur(dash);
+        let blur_result = this.add_blur(dash, dash_container);
         if (!blur_result)
             return null;
         
@@ -396,14 +407,23 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         );
         this.connections.connect(
             dash_container,
-            ['notify::width', 'notify::height', 'notify::y', 'notify::x'],
+            [
+                'notify::width', 
+                'notify::height', 
+                'notify::y', 
+                'notify::x', 
+                'notify::style-class-name',
+                'notify::allocation'
+            ],
             _ => this.update_size()
         );
 
-        const dash_background = dash.get_children().find(child => {
-            return child.get_style_class_name() === 'dash-background';
-        });
+        const dash_background = dash._background ||
+            dash.get_children().find(child => child.get_style_class_name?.()?.includes('dash-background')) ||
+            dash;
 
+        if (!dash_background)
+            return null;
         // create infos
         let infos = new DashInfos(
             this,
@@ -423,10 +443,11 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         return infos;
     }
 
-    add_blur(dash) {
-        const monitor = Main.layoutManager.findMonitorForActor(dash);
+    add_blur(dash, dash_container = null) {
+        const target_actor = dash_container || dash;
+        const monitor = Main.layoutManager.findMonitorForActor(target_actor) || Main.layoutManager.primaryMonitor;
         if (!monitor)
-            return;
+            return null;
 
         const background_group = new Meta.BackgroundGroup({
             name: 'bms-dash-backgroundgroup', width: 0, height: 0
