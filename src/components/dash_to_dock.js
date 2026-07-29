@@ -229,9 +229,6 @@ class DashInfos {
         let [parent_stage_x, parent_stage_y] = parent.get_transformed_position();
         let [bg_stage_x, bg_stage_y] = this.dash_background.get_transformed_position();
 
-        this.background.x = monitor.x - parent_stage_x;
-        this.background.y = monitor.y - parent_stage_y;
-
         let background_x = monitor.x - parent_stage_x;
         let background_y = monitor.y - parent_stage_y;
 
