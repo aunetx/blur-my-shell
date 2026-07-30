@@ -93,7 +93,9 @@ export function get_or_create_shader_snippet(key, Cogl, source) {
 }
 
 export function register_shader_effect(meta, effect_class) {
-    if (shader_uses_snippet_api() && typeof effect_class.prototype.vfunc_get_static_snippet !== 'function')
+    if (!shader_uses_snippet_api())
+        delete effect_class.prototype.vfunc_get_static_snippet;
+    else if (typeof effect_class.prototype.vfunc_get_static_snippet !== 'function')
         console.warn(`[Blur my Shell > effect]       ${meta.GTypeName} is missing its own vfunc_get_static_snippet() override, the shader will never be applied`);
 
     return GObject.registerClass(meta, effect_class);
