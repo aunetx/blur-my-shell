@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'upscale.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -64,11 +63,6 @@ const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect 
 
         static get default_params() {
             return DEFAULT_PARAMS;
-        }
-
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("UpscaleEffect", Cogl, SHADER_SOURCE);
         }
 
         get factor() {
@@ -157,4 +151,4 @@ const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect 
 
 export const UpscaleEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass);
+    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass, SHADER_SOURCE);

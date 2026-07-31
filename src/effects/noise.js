@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'noise.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -58,11 +57,6 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
             return DEFAULT_PARAMS;
         }
 
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("NoiseEffect", Cogl, SHADER_SOURCE);
-        }
-
         get noise() {
             return this._noise;
         }
@@ -109,4 +103,4 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
 
 export const NoiseEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(NOISE_EFFECT_META, NoiseEffectClass);
+    : utils.register_shader_effect(NOISE_EFFECT_META, NoiseEffectClass, SHADER_SOURCE);

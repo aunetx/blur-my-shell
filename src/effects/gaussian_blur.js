@@ -5,7 +5,6 @@ import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'gaussian_blur.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -90,11 +89,6 @@ const GaussianBlurEffectClass = utils.IS_IN_PREFERENCES ? null : class GaussianB
 
         static get default_params() {
             return DEFAULT_PARAMS;
-        }
-
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("GaussianBlurEffect", Cogl, SHADER_SOURCE);
         }
 
         get radius() {
@@ -225,4 +219,4 @@ const GaussianBlurEffectClass = utils.IS_IN_PREFERENCES ? null : class GaussianB
 
 export const GaussianBlurEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(GAUSSIAN_BLUR_EFFECT_META, GaussianBlurEffectClass);
+    : utils.register_shader_effect(GAUSSIAN_BLUR_EFFECT_META, GaussianBlurEffectClass, SHADER_SOURCE);

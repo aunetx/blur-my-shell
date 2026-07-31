@@ -19,6 +19,9 @@ export async function import_in_shell_only(module) {
 }
 
 const Clutter = await import_in_shell_only('gi://Clutter');
+const Cogl = await import_in_shell_only('gi://Cogl');
+const USES_SHADER_SNIPPET_API =
+    typeof Clutter?.ShaderEffect?.new_with_snippet === 'function';
 
 export function is_usable_blur_module(ns) {
     if (!ns)
@@ -59,30 +62,21 @@ export const get_shader_source = (Shell, shader_filename, self_uri) => {
     }
 };
 
-export function shader_uses_snippet_api() {
-    // Runtime detection: GNOME 51+ mutter exposes new_with_snippet and drops
-    // set_shader_source. GNOME 46–50 only have the legacy shader-source path.
-    return typeof Clutter?.ShaderEffect?.new_with_snippet === 'function';
-}
-
 export function subpixel_stage_offset() {
-    return shader_uses_snippet_api() ? 0 : 0.5;
+    return USES_SHADER_SNIPPET_API ? 0 : 0.5;
 }
 
 export function static_blur_clip_inset() {
-    return shader_uses_snippet_api() ? 1 : 0;
+    return USES_SHADER_SNIPPET_API ? 1 : 0;
 }
 
 const _shader_snippets = new Map();
 
-// `get_static_snippet` is an optional vfunc; GJS only wires it up if every
-// leaf effect class declares `vfunc_get_static_snippet()` itself (not
-// inherited). This just gets/builds the cached snippet for that class.
-export function get_or_create_shader_snippet(key, Cogl, source) {
+function get_or_create_shader_snippet(key, source) {
     if (_shader_snippets.has(key))
         return _shader_snippets.get(key);
 
-    const snippet = create_fragment_shader_snippet(Cogl, source);
+    const snippet = create_fragment_shader_snippet(source);
     if (!snippet) {
         console.warn(`[Blur my Shell > effect]       could not create shader snippet for ${key}`);
         return null;
@@ -92,11 +86,14 @@ export function get_or_create_shader_snippet(key, Cogl, source) {
     return snippet;
 }
 
-export function register_shader_effect(meta, effect_class) {
-    if (!shader_uses_snippet_api())
-        delete effect_class.prototype.vfunc_get_static_snippet;
-    else if (typeof effect_class.prototype.vfunc_get_static_snippet !== 'function')
-        console.warn(`[Blur my Shell > effect]       ${meta.GTypeName} is missing its own vfunc_get_static_snippet() override, the shader will never be applied`);
+export function register_shader_effect(meta, effect_class, source) {
+    if (USES_SHADER_SNIPPET_API) {
+        Object.defineProperty(effect_class.prototype, 'vfunc_get_static_snippet', {
+            value() {
+                return get_or_create_shader_snippet(meta.GTypeName, source);
+            },
+        });
+    }
 
     return GObject.registerClass(meta, effect_class);
 }
@@ -129,54 +126,7 @@ function split_fragment_shader(source) {
     return null;
 }
 
-function adapt_glsl_bool_usages(source, bool_names) {
-    let adapted = source;
-
-    for (const name of bool_names) {
-        adapted = adapted.replace(
-            new RegExp(`\\bif\\s*\\(\\s*${name}\\s*\\)`, 'g'),
-            `if (${name} != 0)`
-        );
-        adapted = adapted.replace(
-            new RegExp(`\\b${name}\\s*\\?`, 'g'),
-            `${name} != 0 ?`
-        );
-        adapted = adapted.replace(
-            new RegExp(`\\b${name}\\s*&&`, 'g'),
-            `${name} != 0 &&`
-        );
-        adapted = adapted.replace(
-            new RegExp(`&&\\s*${name}\\b`, 'g'),
-            `&& ${name} != 0`
-        );
-        adapted = adapted.replace(
-            new RegExp(`\\|\\|\\s*${name}\\b`, 'g'),
-            `|| ${name} != 0`
-        );
-        adapted = adapted.replace(
-            new RegExp(`!${name}\\b`, 'g'),
-            `${name} == 0`
-        );
-    }
-
-    return adapted;
-}
-
-function adapt_bool_uniforms_for_snippet(declarations, body) {
-    const bool_names = [...declarations.matchAll(/uniform bool (\w+);/g)].map(match => match[1]);
-    if (!bool_names.length)
-        return { declarations, body };
-
-    const adapted_declarations = adapt_glsl_bool_usages(
-        declarations.replace(/uniform bool (\w+);/g, 'uniform int $1;'),
-        bool_names
-    );
-    const adapted_body = adapt_glsl_bool_usages(body, bool_names);
-
-    return { declarations: adapted_declarations, body: adapted_body };
-}
-
-export function create_fragment_shader_snippet(Cogl, source) {
+function create_fragment_shader_snippet(source) {
     if (!Cogl || !source)
         return null;
 
@@ -187,16 +137,12 @@ export function create_fragment_shader_snippet(Cogl, source) {
     }
 
     try {
-        const { declarations, body } = adapt_bool_uniforms_for_snippet(
-            parts.declarations,
-            parts.body
-        );
         const snippet = Cogl.Snippet.new(
             Cogl.SnippetHook.FRAGMENT,
-            declarations,
+            parts.declarations,
             null
         );
-        snippet.set_replace(body);
+        snippet.set_replace(parts.body);
         return snippet;
     } catch (e) {
         console.warn(`[Blur my Shell > effect]       could not create shader snippet: ${e}`);
@@ -205,7 +151,7 @@ export function create_fragment_shader_snippet(Cogl, source) {
 }
 
 export function bind_shader_source(effect, source) {
-    if (!source || !effect || effect._bms_shader_bound || shader_uses_snippet_api())
+    if (!source || !effect || effect._bms_shader_bound || USES_SHADER_SNIPPET_API)
         return;
 
     try {
@@ -229,7 +175,7 @@ export function initialize_shader_effect(effect, source) {
     if (!source || !effect || effect._bms_shader_bound)
         return;
 
-    if (shader_uses_snippet_api()) {
+    if (USES_SHADER_SNIPPET_API) {
         bind_shader_texture_unit(effect);
         effect._bms_shader_bound = true;
         return;

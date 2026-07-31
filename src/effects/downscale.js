@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'downscale.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -72,11 +71,6 @@ const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEff
 
         static get default_params() {
             return DEFAULT_PARAMS;
-        }
-
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("DownscaleEffect", Cogl, SHADER_SOURCE);
         }
 
         get divider() {
@@ -177,4 +171,4 @@ const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEff
 
 export const DownscaleEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(DOWNSCALE_EFFECT_META, DownscaleEffectClass);
+    : utils.register_shader_effect(DOWNSCALE_EFFECT_META, DownscaleEffectClass, SHADER_SOURCE);

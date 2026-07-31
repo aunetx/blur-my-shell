@@ -19,37 +19,45 @@ export const EffectsManager = class EffectsManager {
                     effect.set({
                         ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
                     });
-                } else
+                } else {
                     effect = new this.SUPPORTED_EFFECTS[effect_name].class({
                         ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
                     });
+                    this.connect_to_destroy(effect);
+                }
 
                 this.used.push(effect);
-                this.connect_to_destroy(effect);
                 return effect;
             };
         });
     }
 
     connect_to_destroy(effect) {
-        effect.old_actor = effect.get_actor();
-        if (effect.old_actor)
-            effect.old_actor_id = effect.old_actor.connect('destroy', _ => {
-                this.remove(effect, true);
-            });
+        const update_actor = () => {
+            const actor = effect.get_actor();
+            if (actor === effect._bms_actor)
+                return;
 
-        this.connections.connect(effect, 'notify::actor', _ => {
-            let actor = effect.get_actor();
+            this.disconnect_actor_destroy(effect);
+            effect._bms_actor = actor;
+            if (actor)
+                effect._bms_actor_destroy_id = actor.connect(
+                    'destroy', () => this.remove(effect, true)
+                );
+        };
 
-            if (effect.old_actor && actor != effect.old_actor)
-                effect.old_actor.disconnect(effect.old_actor_id);
+        this.connections.connect(effect, 'notify::actor', update_actor);
+        update_actor();
+    }
 
-            if (actor && actor != effect.old_actor) {
-                effect.old_actor_id = actor.connect('destroy', _ => {
-                    this.remove(effect, true);
-                });
-            }
-        });
+    disconnect_actor_destroy(effect) {
+        if (effect._bms_actor && effect._bms_actor_destroy_id) {
+            try {
+                effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
+            } catch (e) { }
+        }
+        effect._bms_actor = null;
+        effect._bms_actor_destroy_id = null;
     }
 
     // IMPORTANT: do never call this in a mutable `this.used.forEach`
@@ -60,10 +68,7 @@ export const EffectsManager = class EffectsManager {
             } catch (e) {
                 this._warn(`could not remove the effect, continuing: ${e}`);
             }
-        if (effect.old_actor)
-            effect.old_actor.disconnect(effect.old_actor_id);
-        delete effect.old_actor;
-        delete effect.old_actor_id;
+        this.disconnect_actor_destroy(effect);
 
         let index = this.used.indexOf(effect);
         if (index >= 0) {

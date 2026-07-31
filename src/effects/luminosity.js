@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'luminosity.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -80,11 +79,6 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
 
         static get default_params() {
             return DEFAULT_PARAMS;
-        }
-
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("LuminosityEffect", Cogl, SHADER_SOURCE);
         }
 
         get brightness_shift() {
@@ -174,4 +168,4 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
 
 export const LuminosityEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass);
+    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass, SHADER_SOURCE);

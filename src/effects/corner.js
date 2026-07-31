@@ -5,7 +5,6 @@ import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'corner.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -91,11 +90,6 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
 
         static get default_params() {
             return DEFAULT_PARAMS;
-        }
-
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("CornerEffect", Cogl, SHADER_SOURCE);
         }
 
         get radius() {
@@ -271,4 +265,4 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
 
 export const CornerEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass);
+    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass, SHADER_SOURCE);

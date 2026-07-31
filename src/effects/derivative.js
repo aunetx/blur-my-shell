@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'derivative.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -64,11 +63,6 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
 
         static get default_params() {
             return DEFAULT_PARAMS;
-        }
-
-        // Declared here (not inherited) so GJS wires up this optional vfunc.
-        vfunc_get_static_snippet() {
-            return utils.get_or_create_shader_snippet("DerivativeEffect", Cogl, SHADER_SOURCE);
         }
 
         get operation() {
@@ -156,4 +150,4 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
 
 export const DerivativeEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(DERIVATIVE_EFFECT_META, DerivativeEffectClass);
+    : utils.register_shader_effect(DERIVATIVE_EFFECT_META, DerivativeEffectClass, SHADER_SOURCE);
