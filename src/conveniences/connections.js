@@ -76,7 +76,16 @@ export const Connections = class Connections {
     }
 
     raw_disconnect(object, id) {
+        if (!id)
+            return;
+
         try {
+            if (
+                object instanceof GObject.Object
+                && !GObject.signal_handler_is_connected(object, id)
+            )
+                return;
+
             object.disconnect(id);
         } catch (error) {
             this._warn(`error removing connection: ${error}; continuing`);

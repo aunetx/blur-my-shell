@@ -2,7 +2,6 @@ import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { adjustAnimationTime } from 'resource:///org/gnome/shell/misc/animationUtils.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
 
@@ -28,37 +27,24 @@ let original_zoomAndFadeOut = null;
 let sigma;
 let brightness;
 
+const BLUR_RADIUS_PROPERTY = '@effects.appfolder-blur.radius';
+const BLUR_BRIGHTNESS_PROPERTY = '@effects.appfolder-blur.brightness';
+
 function stop_blur_animation(dialog) {
-    dialog._bms_blur_timeline?.stop();
-    dialog._bms_blur_timeline = null;
+    dialog.remove_transition(BLUR_RADIUS_PROPERTY);
+    dialog.remove_transition(BLUR_BRIGHTNESS_PROPERTY);
 }
 
-function animate_blur(dialog, blur_effect, target, mode) {
+function animate_blur(dialog, target, mode) {
     stop_blur_animation(dialog);
-
-    const duration = adjustAnimationTime(FOLDER_DIALOG_ANIMATION_TIME);
-    if (duration === 0) {
-        blur_effect.set(target);
-        return;
-    }
-
-    const start_radius = blur_effect.radius;
-    const start_brightness = blur_effect.brightness;
-    const timeline = Clutter.Timeline.new_for_actor(dialog, duration);
-    timeline.set_progress_mode(mode);
-    timeline.connect('new-frame', () => {
-        const progress = timeline.get_progress();
-        blur_effect.radius = start_radius + (target.radius - start_radius) * progress;
-        blur_effect.brightness = start_brightness
-            + (target.brightness - start_brightness) * progress;
+    dialog.ease_property(BLUR_RADIUS_PROPERTY, target.radius, {
+        duration: FOLDER_DIALOG_ANIMATION_TIME,
+        mode,
     });
-    timeline.connect('completed', () => {
-        blur_effect.set(target);
-        if (dialog._bms_blur_timeline === timeline)
-            dialog._bms_blur_timeline = null;
+    dialog.ease_property(BLUR_BRIGHTNESS_PROPERTY, target.brightness, {
+        duration: FOLDER_DIALOG_ANIMATION_TIME,
+        mode,
     });
-    dialog._bms_blur_timeline = timeline;
-    timeline.start();
 }
 
 let _zoomAndFadeIn = function () {
@@ -83,7 +69,6 @@ let _zoomAndFadeIn = function () {
     blur_effect.brightness = 1.0;
     animate_blur(
         this,
-        blur_effect,
         { radius: sigma * 2, brightness },
         Clutter.AnimationMode.EASE_OUT_QUAD
     );
@@ -122,10 +107,8 @@ let _zoomAndFadeOut = function () {
 
     this.set_background_color(transparent);
 
-    let blur_effect = this.get_effect("appfolder-blur");
     animate_blur(
         this,
-        blur_effect,
         { radius: 0, brightness: 1.0 },
         Clutter.AnimationMode.EASE_IN_QUAD
     );
@@ -273,6 +256,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
         this._log("removing blur from appfolders");
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
+        this.paint_signals.disconnect_all();
 
         if (original_zoomAndFadeIn != null) {
             appDisplay._folderIcons.forEach(icon => {

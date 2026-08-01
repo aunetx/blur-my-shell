@@ -64,11 +64,5 @@ const PaintCallbackEffect = GObject.registerClass(
             this._callback?.();
             super.vfunc_paint(node, paint_context, paint_flags);
         }
-
-        vfunc_dispose() {
-            this._callback = null;
-            if (super.vfunc_dispose)
-                super.vfunc_dispose();
-        }
     }
 );
