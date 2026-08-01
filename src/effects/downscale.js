@@ -6,14 +6,13 @@ const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'downscale.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     divider: 8, downsampling_mode: 0, opacity_factor: 1, width: 0, height: 0
 };
 
 
-export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const DOWNSCALE_EFFECT_META = {
         GTypeName: "DownscaleEffect",
         Properties: {
             'divider': GObject.ParamSpec.int(
@@ -57,14 +56,15 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
                 0.0,
             )
         }
-    }, class DownscaleEffect extends Clutter.ShaderEffect {
+};
+
+const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEffect extends Clutter.ShaderEffect {
+
         constructor(params) {
             super();
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
+
 
             utils.setup_params(this, params);
         }
@@ -167,4 +167,8 @@ export const DownscaleEffect = utils.IS_IN_PREFERENCES ?
 
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const DownscaleEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(DOWNSCALE_EFFECT_META, DownscaleEffectClass, SHADER_SOURCE);

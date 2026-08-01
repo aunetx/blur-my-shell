@@ -7,15 +7,14 @@ const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'gaussian_blur.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     radius: 30, brightness: .6,
     width: 0, height: 0, direction: 0, chained_effect: null
 };
 
 
-export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const GAUSSIAN_BLUR_EFFECT_META = {
         GTypeName: "GaussianBlurEffect",
         Properties: {
             'radius': GObject.ParamSpec.double(
@@ -66,14 +65,15 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
                 GObject.Object,
             ),
         }
-    }, class GaussianBlurEffect extends Clutter.ShaderEffect {
+};
+
+const GaussianBlurEffectClass = utils.IS_IN_PREFERENCES ? null : class GaussianBlurEffect extends Clutter.ShaderEffect {
+
         constructor(params) {
             super();
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
+
 
             utils.setup_params(this, params);
 
@@ -215,4 +215,8 @@ export const GaussianBlurEffect = utils.IS_IN_PREFERENCES ?
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const GaussianBlurEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(GAUSSIAN_BLUR_EFFECT_META, GaussianBlurEffectClass, SHADER_SOURCE);

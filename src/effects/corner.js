@@ -7,16 +7,18 @@ const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'corner.glsl';
+const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     radius: 12, width: 0, height: 0,
     corners_top: true, corners_bottom: true,
-    clip: [0, 0, -1, -1]
+    clip: [0, 0, -1, -1],
+    // Reset on reuse: `EffectsManager` pools `CornerEffect` instances, and a
+    // pooled instance could otherwise keep rendering square (see corner.glsl).
+    straight_corners: false,
 };
 
 
-export const CornerEffect = utils.IS_IN_PREFERENCES ?
-    { default_params: DEFAULT_PARAMS } :
-    new GObject.registerClass({
+const CORNER_EFFECT_META = {
         GTypeName: "CornerEffect",
         Properties: {
             'radius': GObject.ParamSpec.double(
@@ -58,22 +60,21 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                 true,
             ),
         }
-    }, class CornerEffect extends Clutter.ShaderEffect {
+};
+
+const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect extends Clutter.ShaderEffect {
+
         constructor(params) {
             super();
+
+            utils.initialize_shader_effect(this, SHADER_SOURCE);
 
             this._clip_x0 = null;
             this._clip_y0 = null;
             this._clip_width = null;
             this._clip_height = null;
 
-            // set shader source
-            this._source = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-            if (this._source)
-                this.set_shader_source(this._source);
-
             utils.setup_params(this, params);
-            this.straight_corners = false;
 
             const theme_context = St.ThemeContext.get_for_stage(global.stage);
             theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
@@ -171,6 +172,25 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
             }
         }
 
+        detach_actor_clip_sync(actor = this.get_actor()) {
+            if (!actor || !this._actor_connection_clip_rect_id)
+                return;
+
+            try {
+                actor.disconnect(this._actor_connection_clip_rect_id);
+            } catch (e) { }
+
+            this._actor_connection_clip_rect_id = null;
+        }
+
+        sync_actor_clip(actor) {
+            this.detach_actor_clip_sync(actor);
+            this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+            this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
+                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
+            });
+        }
+
         get clip() {
             return [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height];
         }
@@ -189,10 +209,7 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                 let old_actor = this.get_actor();
                 old_actor?.disconnect(this._actor_connection_size_id);
             }
-            if (this._actor_connection_clip_rect_id) {
-                let old_actor = this.get_actor();
-                old_actor?.disconnect(this._actor_connection_clip_rect_id);
-            }
+            this.detach_actor_clip_sync();
 
             if (actor) {
                 this.width = actor.width;
@@ -202,14 +219,10 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
                     this.height = actor.height;
                 });
 
-                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
-                    this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                });
+                this.sync_actor_clip(actor);
             }
             else {
                 this._actor_connection_size_id = null;
-                this._actor_connection_clip_rect_id = null;
             }
 
             super.vfunc_set_actor(actor);
@@ -219,4 +232,8 @@ export const CornerEffect = utils.IS_IN_PREFERENCES ?
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
-    });
+};
+
+export const CornerEffect = utils.IS_IN_PREFERENCES
+    ? { default_params: DEFAULT_PARAMS }
+    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass, SHADER_SOURCE);

@@ -20,7 +20,7 @@ export const PopupBlurStaticCorner = class PopupBlurStaticCorner {
         this.pipeline.apply_effect_overrides('corner');
 
         if (this.pipeline_has_corner_effect()) {
-            this.destroy_effect();
+            this.destroy_external_effect();
             return;
         }
 
@@ -28,11 +28,29 @@ export const PopupBlurStaticCorner = class PopupBlurStaticCorner {
             this.effect = this.effects_manager.new_corner_effect({
                 radius: this.get_radius(),
             });
-            this.actor.add_effect(this.effect);
+            this.attach_external_effect_as_outermost();
             return;
         }
 
         this.effect.radius = this.get_radius();
+    }
+
+    attach_external_effect_as_outermost() {
+        const existing_effects = this.pipeline?.effects ?? [];
+
+        existing_effects.forEach(effect => {
+            try {
+                this.actor.remove_effect(effect);
+            } catch (e) { }
+        });
+
+        this.actor.add_effect(this.effect);
+
+        existing_effects.forEach(effect => {
+            try {
+                this.actor.add_effect(effect);
+            } catch (e) { }
+        });
     }
 
     pipeline_has_corner_effect() {
@@ -40,7 +58,7 @@ export const PopupBlurStaticCorner = class PopupBlurStaticCorner {
         return this.pipeline.effects.some(effect => effect instanceof corner_class);
     }
 
-    destroy_effect() {
+    destroy_external_effect() {
         if (!this.effect)
             return;
 
@@ -49,7 +67,7 @@ export const PopupBlurStaticCorner = class PopupBlurStaticCorner {
     }
 
     destroy() {
-        this.destroy_effect();
+        this.destroy_external_effect();
         this.pipeline = null;
         this.actor = null;
     }

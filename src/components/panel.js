@@ -4,6 +4,7 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
+import * as utils from '../conveniences/utils.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
@@ -397,14 +398,20 @@ export const PanelBlur = class PanelBlur {
             let is_bottom_panel = is_horizontal &&
                 distance_to_bottom < distance_to_top;
 
-            background.set_clip(
-                x,
-                is_bottom_panel ? y - 1 : y,
-                geometry_width,
-                is_bottom_panel ? geometry_height + 1 : geometry_height
-            );
-            background.x = g_x - x;
-            background.y = .5 + g_y - y;
+            const inset = utils.static_blur_clip_inset();
+            const offset = utils.subpixel_stage_offset();
+            const workspace_edge_inset = is_bottom_panel
+                ? Math.max(inset, 1)
+                : inset;
+            const clip_x = Math.floor(x) - inset;
+            const clip_y = Math.floor(y) - workspace_edge_inset;
+            const clip_w = Math.ceil(geometry_width) + inset * 2;
+            const clip_h = Math.ceil(geometry_height) +
+                inset + workspace_edge_inset;
+
+            background.set_clip(clip_x, clip_y, clip_w, clip_h);
+            background.x = g_x - x + inset;
+            background.y = offset + g_y - y + inset;
         } else {
             // updated coordinates for dynamic blur
             if (actors.is_dtp_panel) {

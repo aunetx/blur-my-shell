@@ -1,5 +1,24 @@
 import St from 'gi://St';
 
+export function transform_to_actor_space(actor, { x, y, width, height }) {
+    try {
+        const [actor_x, actor_y] = actor.get_transformed_position();
+        const [actor_width, actor_height] = actor.get_size();
+        const [transformed_width, transformed_height] = actor.get_transformed_size();
+        const scale_x = actor_width > 0 ? transformed_width / actor_width : 1;
+        const scale_y = actor_height > 0 ? transformed_height / actor_height : 1;
+
+        return {
+            x: (x - actor_x) / scale_x,
+            y: (y - actor_y) / scale_y,
+            width: width / scale_x,
+            height: height / scale_y,
+        };
+    } catch (e) {
+        return null;
+    }
+}
+
 export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
     get(actor, { use_content = true, use_margins = true } = {}) {
         const actor_geometry = this.get_transformed_actor(actor);

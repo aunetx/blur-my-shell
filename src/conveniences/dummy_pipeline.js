@@ -46,7 +46,7 @@ export const DummyPipeline = class DummyPipeline {
         this.build_effect({
             unscaled_radius: this.get_unscaled_radius(),
             brightness: this.get_brightness(),
-            corner_radius: this.corner_radius_getter(),
+            unscaled_corner_radius: this.corner_radius_getter(),
         });
 
         this.actor_destroy_id = this.actor.connect(
@@ -96,7 +96,7 @@ export const DummyPipeline = class DummyPipeline {
 
         this.effect.unscaled_radius = this.get_unscaled_radius();
         this.effect.brightness = this.get_brightness();
-        this.effect.corner_radius = this.corner_radius_getter();
+        this.effect.unscaled_corner_radius = this.corner_radius_getter();
     }
 
     get_unscaled_radius() {
@@ -135,7 +135,6 @@ export const DummyPipeline = class DummyPipeline {
 
     /// Note: exposed to public API.
     destroy() {
-        this.remove_effect();
         this.remove_pipeline_from_actor();
     }
 

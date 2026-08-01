@@ -4,8 +4,8 @@ uniform int iterations;
 uniform float brightness;
 uniform float width;
 uniform float height;
-uniform bool use_base_pixel;
-uniform bool prefer_closer_pixels;
+uniform int use_base_pixel;
+uniform int prefer_closer_pixels;
 
 float srand(vec2 a) {
     return sin(dot(a, vec2(1233.224, 1743.335)));
@@ -35,14 +35,14 @@ void main() {
         dir = vec2(cos(rv.y), sin(rv.y));
         new_uv = uv + rv.x * dir * p;
         if (new_uv.x > 2. / width && new_uv.y > 2. / height && new_uv.x < 1. - 3. / width && new_uv.y < 1. - 3. / height) {
-            strength = prefer_closer_pixels ? ((iterations - i) * (iterations - i)) : 1;
+            strength = prefer_closer_pixels != 0 ? ((iterations - i) * (iterations - i)) : 1;
             c += float(strength) * texture2D(tex, new_uv);
             count += strength;
         }
     }
 
-    if (count == 0 || use_base_pixel) {
-        strength = prefer_closer_pixels ? ((iterations + 1) * (iterations + 1)) : 1;
+    if (count == 0 || use_base_pixel != 0) {
+        strength = prefer_closer_pixels != 0 ? ((iterations + 1) * (iterations + 1)) : 1;
         c += float(strength) * texture2D(tex, uv);
         count += strength;
     }

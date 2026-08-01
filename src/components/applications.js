@@ -504,7 +504,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             })
         } else {
             if (meta_window.bg_manager?._bms_pipeline?.effect)
-                meta_window.bg_manager._bms_pipeline.effect.corner_radius = use_0_radius ?
+                meta_window.bg_manager._bms_pipeline.effect.unscaled_corner_radius = use_0_radius ?
                     0 : this.settings.applications.CORNER_RADIUS;
         }
     }

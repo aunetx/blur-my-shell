@@ -2,14 +2,16 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
+import { transform_to_actor_space } from './surface_geometry.js';
 import { PopupBlurStaticCorner } from './static_corner.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
-    constructor(settings, effects_manager, target, root_actor, get_corner_radius) {
+    constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius) {
         this.settings = settings;
         this.effects_manager = effects_manager;
         this.target = target;
         this.root_actor = root_actor;
+        this.parent = parent;
         this.get_corner_radius = get_corner_radius;
         this.static_corner = new PopupBlurStaticCorner(effects_manager, get_corner_radius);
         this.background_group = null;
@@ -87,7 +89,6 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         );
         this.blur_actor_destroyed = false;
         this.connect_destroy(this.blur_actor, () => this.blur_actor_destroyed = true);
-        this.blur_actor.set_position(monitor.x, monitor.y);
         this.blur_actor.hide();
         this.bg_manager = bg_manager_list[0];
         this.pipeline = pipeline;
@@ -124,21 +125,41 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         if (!monitor)
             return false;
 
-        const clip_x = Math.round(target_x - monitor.x);
-        const clip_y = Math.round(target_y - monitor.y);
+        const monitor_geometry = transform_to_actor_space(this.parent, monitor);
+        const target_geometry = transform_to_actor_space(this.parent, {
+            x: target_x,
+            y: target_y,
+            width,
+            height,
+        });
+        if (!monitor_geometry || !target_geometry)
+            return false;
+
+        const clip_x = Math.round(target_geometry.x - monitor_geometry.x);
+        const clip_y = Math.round(target_geometry.y - monitor_geometry.y);
+        const clip_width = Math.ceil(target_geometry.width);
+        const clip_height = Math.ceil(target_geometry.height);
 
         try {
+            if (this.blur_actor.x !== monitor_geometry.x || this.blur_actor.y !== monitor_geometry.y)
+                this.blur_actor.set_position(monitor_geometry.x, monitor_geometry.y);
+            if (
+                this.blur_actor.width !== monitor_geometry.width
+                || this.blur_actor.height !== monitor_geometry.height
+            )
+                this.blur_actor.set_size(monitor_geometry.width, monitor_geometry.height);
+
             if (
                 this.x !== clip_x
                 || this.y !== clip_y
-                || this.width !== width
-                || this.height !== height
+                || this.width !== clip_width
+                || this.height !== clip_height
             ) {
-                this.blur_actor.set_clip(clip_x, clip_y, width, height);
+                this.blur_actor.set_clip(clip_x, clip_y, clip_width, clip_height);
                 this.x = clip_x;
                 this.y = clip_y;
-                this.width = width;
-                this.height = height;
+                this.width = clip_width;
+                this.height = clip_height;
             }
 
             this.blur_actor.show();
@@ -146,7 +167,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             return false;
         }
 
-        return { x: clip_x, y: clip_y, width, height };
+        return { x: clip_x, y: clip_y, width: clip_width, height: clip_height };
     }
 
     has_opacity(opacity) {
@@ -251,18 +272,20 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         } catch (e) { }
     }
 
-    destroy() {
+    destroy(actor_already_destroyed = false) {
         const background_group = this.background_group;
-        this.destroy_background();
+        this.destroy_background(actor_already_destroyed);
         this.background_group = null;
 
+        // Always destroy our owned overlay — `actor_already_destroyed` is about
+        // the popup target, not this background group.
         try {
             if (!this.background_group_destroyed)
                 background_group?.destroy?.();
         } catch (e) { }
     }
 
-    destroy_background() {
+    destroy_background(actor_already_destroyed = false) {
         const bg_manager = this.bg_manager;
         const background_group = this.background_group;
         this.bg_manager = null;
@@ -275,18 +298,20 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
         if (bg_manager) {
             try {
-                bg_manager._bms_pipeline.destroy();
+                bg_manager._bms_pipeline?.destroy();
             } catch (e) { }
 
             try {
+                if (actor_already_destroyed || this.blur_actor_destroyed)
+                    bg_manager.backgroundActor = null;
                 bg_manager.destroy();
             } catch (e) { }
+        } else {
+            try {
+                if (!this.background_group_destroyed)
+                    background_group?.destroy_all_children?.();
+            } catch (e) { }
         }
-
-        try {
-            if (!this.background_group_destroyed)
-                background_group?.destroy_all_children?.();
-        } catch (e) { }
 
         this.monitor_index = null;
         this.background_opacity = null;
