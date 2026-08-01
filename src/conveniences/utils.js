@@ -70,27 +70,11 @@ export function static_blur_clip_inset() {
     return USES_SHADER_SNIPPET_API ? 1 : 0;
 }
 
-const _shader_snippets = new Map();
-
-function get_or_create_shader_snippet(key, source) {
-    if (_shader_snippets.has(key))
-        return _shader_snippets.get(key);
-
-    const snippet = create_fragment_shader_snippet(source);
-    if (!snippet) {
-        console.warn(`[Blur my Shell > effect]       could not create shader snippet for ${key}`);
-        return null;
-    }
-
-    _shader_snippets.set(key, snippet);
-    return snippet;
-}
-
 export function register_shader_effect(meta, effect_class, source) {
     if (USES_SHADER_SNIPPET_API) {
         Object.defineProperty(effect_class.prototype, 'vfunc_get_static_snippet', {
             value() {
-                return get_or_create_shader_snippet(meta.GTypeName, source);
+                return create_fragment_shader_snippet(source);
             },
         });
     }
@@ -150,57 +134,13 @@ function create_fragment_shader_snippet(source) {
     }
 }
 
-export function bind_shader_source(effect, source) {
-    if (!source || !effect || effect._bms_shader_bound || USES_SHADER_SNIPPET_API)
+export function initialize_shader_effect(effect, source) {
+    if (!source || !effect || USES_SHADER_SNIPPET_API)
         return;
 
     try {
-        if (typeof effect.set_shader_source === 'function') {
-            effect.set_shader_source(source);
-            effect._bms_shader_bound = true;
-            return;
-        }
-
-        const set_shader_source = Clutter?.ShaderEffect?.prototype?.set_shader_source;
-        if (typeof set_shader_source === 'function') {
-            set_shader_source.call(effect, source);
-            effect._bms_shader_bound = true;
-        }
+        effect.set_shader_source(source);
     } catch (e) {
         console.warn(`[Blur my Shell > effect]       set_shader_source failed: ${e}`);
-    }
-}
-
-export function initialize_shader_effect(effect, source) {
-    if (!source || !effect || effect._bms_shader_bound)
-        return;
-
-    if (USES_SHADER_SNIPPET_API) {
-        bind_shader_texture_unit(effect);
-        effect._bms_shader_bound = true;
-        return;
-    }
-
-    bind_shader_source(effect, source);
-}
-
-function bind_shader_texture_unit(effect) {
-    if (effect._bms_tex_uniform_bound)
-        return;
-
-    try {
-        if (typeof effect.set_uniform === 'function') {
-            effect.set_uniform('tex', GObject.TYPE_INT, 1, 0);
-            effect._bms_tex_uniform_bound = true;
-            return;
-        }
-
-        const int_value = new GObject.Value();
-        int_value.init(GObject.TYPE_INT);
-        int_value.set_int(0);
-        effect.set_uniform_value('tex', int_value);
-        effect._bms_tex_uniform_bound = true;
-    } catch (e) {
-        console.warn(`[Blur my Shell > effect]       could not bind tex uniform: ${e}`);
     }
 }

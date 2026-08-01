@@ -12,7 +12,6 @@ const DEFAULT_PARAMS = {
     radius: 12, width: 0, height: 0,
     corners_top: true, corners_bottom: true,
     clip: [0, 0, -1, -1],
-    lock_actor_clip: false,
     // Reset on reuse: `EffectsManager` pools `CornerEffect` instances, and a
     // pooled instance could otherwise keep rendering square (see corner.glsl).
     straight_corners: false,
@@ -59,13 +58,6 @@ const CORNER_EFFECT_META = {
                 `Round bottom corners`,
                 GObject.ParamFlags.READWRITE,
                 true,
-            ),
-            'lock-actor-clip': GObject.ParamSpec.boolean(
-                `lock-actor-clip`,
-                `Lock Actor Clip`,
-                `When true, clip bounds are managed manually and are not synced from the actor clip rect`,
-                GObject.ParamFlags.READWRITE,
-                false,
             ),
         }
 };
@@ -180,26 +172,6 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             }
         }
 
-        get lock_actor_clip() {
-            return this._lock_actor_clip;
-        }
-
-        set lock_actor_clip(value) {
-            if (this._lock_actor_clip === value)
-                return;
-
-            this._lock_actor_clip = value;
-
-            const actor = this.get_actor();
-            if (!actor)
-                return;
-
-            if (value)
-                this.detach_actor_clip_sync(actor);
-            else
-                this.sync_actor_clip(actor);
-        }
-
         detach_actor_clip_sync(actor = this.get_actor()) {
             if (!actor || !this._actor_connection_clip_rect_id)
                 return;
@@ -247,8 +219,7 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
                     this.height = actor.height;
                 });
 
-                if (!this._lock_actor_clip)
-                    this.sync_actor_clip(actor);
+                this.sync_actor_clip(actor);
             }
             else {
                 this._actor_connection_size_id = null;

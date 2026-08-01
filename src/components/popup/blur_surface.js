@@ -107,6 +107,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.effects_manager,
             this.target,
             this.root_actor,
+            this.parent,
             () => this.get_corner_radius()
         );
         if (!this.static_actor.create())
@@ -313,10 +314,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         try {
             if (!this.is_owned_actor_destroyed())
                 this.actor?.show?.();
-            if (this.static_blur) {
-                this.static_actor?.refresh_corner();
-                this.static_actor?.blur_actor?.show?.();
-            }
         } catch (e) { }
     }
 
@@ -324,8 +321,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         try {
             if (!this.is_owned_actor_destroyed())
                 this.actor?.hide?.();
-            if (this.static_blur)
-                this.static_actor?.blur_actor?.hide?.();
         } catch (e) { }
     }
 

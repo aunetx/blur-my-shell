@@ -1,6 +1,6 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PopupBlurSurfaceGeometry } from './surface_geometry.js';
+import { PopupBlurSurfaceGeometry, transform_to_actor_space } from './surface_geometry.js';
 
 export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     constructor(surface) {
@@ -48,12 +48,6 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
 
     get_unclipped_surface_geometry() {
         try {
-            let parent_x = 0;
-            let parent_y = 0;
-
-            if (this.surface.parent.get_transformed_position)
-                [parent_x, parent_y] = this.surface.parent.get_transformed_position();
-
             const geometry_actor = this.surface.get_geometry_actor();
             const geometry = this.geometry.get(geometry_actor, {
                 use_content: this.surface.should_use_content_geometry(),
@@ -63,8 +57,6 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
                 return null;
 
             return this.create_surface_geometry(
-                parent_x,
-                parent_y,
                 geometry.x,
                 geometry.y,
                 geometry.width,
@@ -75,16 +67,25 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         }
     }
 
-    create_surface_geometry(parent_x, parent_y, target_x, target_y, width, height) {
+    create_surface_geometry(target_x, target_y, width, height) {
+        const local_geometry = transform_to_actor_space(this.surface.parent, {
+            x: target_x,
+            y: target_y,
+            width,
+            height,
+        });
+        if (!local_geometry)
+            return null;
+
         return {
-            parent_x,
-            parent_y,
             target_x,
             target_y,
-            x: Math.round(target_x - parent_x),
-            y: Math.round(target_y - parent_y),
-            width: Math.ceil(width),
-            height: Math.ceil(height),
+            target_width: width,
+            target_height: height,
+            x: Math.round(local_geometry.x),
+            y: Math.round(local_geometry.y),
+            width: Math.ceil(local_geometry.width),
+            height: Math.ceil(local_geometry.height),
         };
     }
 
@@ -92,8 +93,8 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         let clipped = {
             x: geometry.target_x,
             y: geometry.target_y,
-            width: geometry.width,
-            height: geometry.height,
+            width: geometry.target_width,
+            height: geometry.target_height,
         };
 
         let actor = this.surface.get_geometry_actor();
@@ -113,8 +114,6 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         }
 
         return this.create_surface_geometry(
-            geometry.parent_x,
-            geometry.parent_y,
             clipped.x,
             clipped.y,
             clipped.width,
@@ -126,8 +125,8 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         const rect = {
             x: geometry.target_x,
             y: geometry.target_y,
-            width: geometry.width,
-            height: geometry.height,
+            width: geometry.target_width,
+            height: geometry.target_height,
         };
         const cached_monitor = this.get_cached_monitor();
         const match = cached_monitor
@@ -140,8 +139,6 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         this.monitor_index = match.monitor_index;
 
         const surface_geometry = this.create_surface_geometry(
-            geometry.parent_x,
-            geometry.parent_y,
             match.intersection.x,
             match.intersection.y,
             match.intersection.width,
@@ -239,8 +236,8 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             this.has_valid_geometry(geometry)
             && (
                 !this.has_cached_surface_geometry()
-                || this.surface_x !== geometry.target_x
-                || this.surface_y !== geometry.target_y
+                || this.surface_x !== geometry.x
+                || this.surface_y !== geometry.y
                 || this.surface_width !== geometry.width
                 || this.surface_height !== geometry.height
             )
@@ -248,8 +245,8 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     store_surface_geometry(geometry) {
-        this.surface_x = geometry.target_x;
-        this.surface_y = geometry.target_y;
+        this.surface_x = geometry.x;
+        this.surface_y = geometry.y;
         this.surface_width = geometry.width;
         this.surface_height = geometry.height;
     }
@@ -271,8 +268,8 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             if (!this.update_static_geometry(
                 geometry.target_x,
                 geometry.target_y,
-                geometry.width,
-                geometry.height
+                geometry.target_width,
+                geometry.target_height
             ))
                 return false;
         } else {
