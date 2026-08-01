@@ -1,4 +1,22 @@
+import GLib from 'gi://GLib';
+
 const Signals = imports.signals;
+
+function new_id(prefix) {
+    return `${prefix}_${GLib.uuid_string_random()}`;
+}
+
+function clone_effect(effect) {
+    return {
+        ...effect,
+        params: Object.fromEntries(
+            Object.entries(effect.params ?? {}).map(([key, value]) => [
+                key,
+                Array.isArray(value) ? [...value] : value,
+            ])
+        ),
+    };
+}
 
 /// The `PipelinesManager` object permits to store the list of pipelines and their effects in
 /// memory. It is meant to *always* be in sync with the `org.gnome.shell.extensions.blur-my-shell`'s
@@ -36,10 +54,8 @@ export class PipelinesManager {
     }
 
     create_pipeline(name, effects = []) {
-        // select a random id for the pipeline
-        let id = "pipeline_" + ("" + Math.random()).slice(2, 16);
-        // add a random ID for each effect, to help tracking them
-        effects.forEach(effect => effect.id = "effect_" + ("" + Math.random()).slice(2, 16));
+        const id = new_id('pipeline');
+        effects.forEach(effect => effect.id = new_id('effect'));
 
         this.pipelines[id] = { name, effects };
         this.settings.PIPELINES = this.pipelines;
@@ -54,8 +70,10 @@ export class PipelinesManager {
             return;
         }
         const pipeline = this.pipelines[id];
-        this.create_pipeline(pipeline.name + " - duplicate", [...pipeline.effects]);
-        this.settings.PIPELINES = this.pipelines;
+        this.create_pipeline(
+            `${pipeline.name} - duplicate`,
+            pipeline.effects.map(clone_effect)
+        );
     }
 
     delete_pipeline(id) {
@@ -89,7 +107,7 @@ export class PipelinesManager {
             this._warn(`could not rename pipeline, id ${id} does not exist`);
             return;
         }
-        this.pipelines[id].name = name.slice();
+        this.pipelines[id].name = name;
         this.settings.PIPELINES = this.pipelines;
         this._emit(id + '::pipeline-renamed', name);
         this._emit('pipeline-names-changed');
@@ -98,8 +116,18 @@ export class PipelinesManager {
     on_pipeline_update() {
         const old_pipelines = this.pipelines;
         this.pipelines = this.settings.PIPELINES;
+        const old_ids = Object.keys(old_pipelines);
+        const new_ids = Object.keys(this.pipelines);
+        const list_changed = old_ids.length !== new_ids.length
+            || old_ids.some(id => !(id in this.pipelines));
+        let names_changed = false;
 
-        for (var pipeline_id in old_pipelines) {
+        for (const pipeline_id of new_ids) {
+            if (!(pipeline_id in old_pipelines))
+                this._emit('pipeline-created', pipeline_id, this.pipelines[pipeline_id]);
+        }
+
+        for (const pipeline_id of old_ids) {
             // if we find a pipeline that does not exist anymore, signal it
             if (!(pipeline_id in this.pipelines)) {
                 this._emit(pipeline_id + '::pipeline-destroyed');
@@ -108,6 +136,11 @@ export class PipelinesManager {
 
             const old_pipeline = old_pipelines[pipeline_id];
             const new_pipeline = this.pipelines[pipeline_id];
+
+            if (old_pipeline.name !== new_pipeline.name) {
+                this._emit(pipeline_id + '::pipeline-renamed', new_pipeline.name);
+                names_changed = true;
+            }
 
             // verify if both pipelines have effects in the same order
             // if they have, then check for their parameters
@@ -144,6 +177,11 @@ export class PipelinesManager {
             else
                 this._emit(pipeline_id + '::pipeline-updated', new_pipeline);
         }
+
+        if (list_changed)
+            this._emit('pipeline-list-changed');
+        if (names_changed)
+            this._emit('pipeline-names-changed');
     }
 
     destroy() {

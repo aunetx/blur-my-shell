@@ -1,108 +1,86 @@
 import GObject from 'gi://GObject';
 
-/// An object to easily manage signals.
+function supports_destroy_signal(object) {
+    const gtype = object?.constructor?.$gtype;
+    return gtype && GObject.signal_lookup('destroy', gtype) !== 0;
+}
+
 export const Connections = class Connections {
     constructor() {
-        this.buffer = [];
+        this.records = new Map();
     }
 
-    /// Adds a connection.
-    ///
-    /// Takes as arguments:
-    /// - an actor, which fires the signal
-    /// - signal(s) (string or array of strings), which are watched for
-    /// - a callback, which is called when the signal is fired
-    connect(actor, signals, handler) {
-        if (signals instanceof Array) {
-            signals.forEach(signal => {
-                let id = actor.connect(signal, handler);
-                this.process_connection(actor, id);
-            });
-        } else {
-            let id = actor.connect(signals, handler);
-            this.process_connection(actor, id);
+    connect(object, signals, handler) {
+        const names = Array.isArray(signals) ? signals : [signals];
+        const record = this.get_record(object);
+        const ids = [];
+
+        for (const signal of names) {
+            const id = object.connect(signal, handler);
+            record.ids.add(id);
+            ids.push(id);
         }
-
+        return Array.isArray(signals) ? ids : ids[0];
     }
 
-    /// Process the given actor and id.
-    ///
-    /// This makes sure that the signal is disconnected when the actor is
-    /// destroyed, and that the signal can be managed through other Connections
-    /// methods.
-    process_connection(actor, id) {
-        let infos = {
-            actor: actor,
-            id: id
+    get_record(object) {
+        let record = this.records.get(object);
+        if (record)
+            return record;
+
+        record = {
+            ids: new Set(),
+            destroy_id: null,
         };
+        this.records.set(object, record);
 
-        // remove the signal when the actor is destroyed
-        if (
-            actor.connect &&
-            (
-                !(actor instanceof GObject.Object) ||
-                GObject.signal_lookup('destroy', actor)
-            )
-        ) {
-            let destroy_id = actor.connect('destroy', () => {
-                try {
-                    actor.disconnect(id);
-                } catch (e) { }
-
-                try {
-                    actor.disconnect(destroy_id);
-                } catch (e) { }
-
-                let index = this.buffer.indexOf(infos);
-                if (index >= 0) {
-                    this.buffer.splice(index, 1);
-                }
+        if (supports_destroy_signal(object))
+            record.destroy_id = object.connect('destroy', () => {
+                this.records.delete(object);
+                record.ids.clear();
+                record.destroy_id = null;
             });
-            infos.destroy_id = destroy_id;
-        }
 
-        this.buffer.push(infos);
+        return record;
     }
 
-    /// Disconnects every connection found for an actor.
-    disconnect_all_for(actor) {
-        // get every connection stored for the actor
-        let actor_connections = this.buffer.filter(
-            infos => infos.actor === actor
-        );
+    disconnect_all_for(object) {
+        const record = this.records.get(object);
+        if (!record)
+            return;
 
-        // remove each of them
-        actor_connections.forEach(connection => {
-            // disconnect
-            try {
-                connection.actor.disconnect(connection.id);
-                if ('destroy_id' in connection)
-                    connection.actor.disconnect(connection.destroy_id);
-            } catch (e) {
-                this._warn(`error removing connection: ${e}; continuing`);
-            }
-
-            // remove from buffer
-            let index = this.buffer.indexOf(connection);
-            this.buffer.splice(index, 1);
-        });
+        this.records.delete(object);
+        for (const id of record.ids)
+            this.raw_disconnect(object, id);
+        if (record.destroy_id)
+            this.raw_disconnect(object, record.destroy_id);
     }
 
-    /// Disconnect every connection for each actor.
     disconnect_all() {
-        this.buffer.forEach(connection => {
-            // disconnect
-            try {
-                connection.actor.disconnect(connection.id);
-                if ('destroy_id' in connection)
-                    connection.actor.disconnect(connection.destroy_id);
-            } catch (e) {
-                this._warn(`error removing connection: ${e}; continuing`);
-            }
-        });
+        for (const object of [...this.records.keys()])
+            this.disconnect_all_for(object);
+    }
 
-        // reset buffer
-        this.buffer = [];
+    disconnect(object, id) {
+        const record = this.records.get(object);
+        if (record)
+            record.ids.delete(id);
+
+        this.raw_disconnect(object, id);
+
+        if (record && record.ids.size === 0) {
+            this.records.delete(object);
+            if (record.destroy_id)
+                this.raw_disconnect(object, record.destroy_id);
+        }
+    }
+
+    raw_disconnect(object, id) {
+        try {
+            object.disconnect(id);
+        } catch (error) {
+            this._warn(`error removing connection: ${error}; continuing`);
+        }
     }
 
     _warn(str) {

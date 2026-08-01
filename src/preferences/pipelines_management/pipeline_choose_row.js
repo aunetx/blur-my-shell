@@ -73,7 +73,10 @@ export const PipelineChooseRow = GObject.registerClass({
             const pipeline_id = this._pipeline_model.get_string(i);
             // if we have more pipelines than we should have: rebuild...
             // that is the case when resetting the preferences for example
-            if (!(pipeline_id in this.pipelines_manager)) {
+            if (
+                pipeline_id !== 'create_new'
+                && !(pipeline_id in this.pipelines_manager.pipelines)
+            ) {
                 this.create_pipelines_list();
                 return;
             }
