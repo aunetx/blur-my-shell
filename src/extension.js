@@ -207,7 +207,7 @@ export default class BlurMyShell extends Extension {
     _disable_user_session() {
         this._log("disabling user session mode...");
 
-        // disable every component except lockscreen blur
+        // disable every component except lockscreen blur and popup blur
         this._panel_blur.disable();
         this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
@@ -216,7 +216,6 @@ export default class BlurMyShell extends Extension {
         this._coverflow_alt_tab_blur.disable();
         this._applications_blur.disable();
         this._screenshot_blur.disable();
-        this._popup.disable();
 
         // remove the clipped redraws flag
         this._reenable_clipped_redraws();

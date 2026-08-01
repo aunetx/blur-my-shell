@@ -55,6 +55,7 @@ export const PopupBlur = class PopupBlur {
             'changed::gtk-theme',
             () => this.update_background()
         );
+        
         this.connections.connect(
             Main.sessionMode,
             'updated',
@@ -69,6 +70,8 @@ export const PopupBlur = class PopupBlur {
         this.track_container(Main.uiGroup);
         (Main.osdWindowManager?._osdWindows ?? []).forEach(window => this.track_container(window));
         this.track_container(Main.layoutManager?.modalDialogGroup);
+        this.track_container(Main.layoutManager?.screenShieldGroup);
+        this.track_container(Main.layoutManager?.unlockDialogGroup);
         this.track_container(Main.messageTray?._bannerBin);
         this.track_quick_settings();
         this.track_container(global.window_group);
@@ -270,7 +273,10 @@ export const PopupBlur = class PopupBlur {
             if (!parent)
                 break;
 
-            if (parent === Main.uiGroup || parent === Main.layoutManager?.uiGroup)
+            if (parent === Main.layoutManager?.unlockDialogGroup ||
+                parent === Main.layoutManager?.screenShieldGroup ||
+                parent === Main.uiGroup || 
+                parent === Main.layoutManager?.uiGroup)
                 return { parent, sibling: actor };
 
             if (parent === global.window_group)
