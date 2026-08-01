@@ -166,7 +166,8 @@ export default class BlurMyShell extends Extension {
             this._disable_user_session();
         this._overview_blur.restore_patched_proto();
 
-        // disable lockscreen blur too
+        // disable components that stay active outside the user session
+        this._popup.disable();
         this._lockscreen_blur.disable();
 
         // untrack them
