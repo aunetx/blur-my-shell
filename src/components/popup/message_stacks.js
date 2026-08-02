@@ -112,7 +112,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             () => {
                 this.cancel_update(message);
                 this.remove_stack_mask(message);
-                this.restore_message(message);
                 this.messages.delete(message);
             }
         );
@@ -394,23 +393,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         }
     }
 
-    restore_message(message) {
-        const child = this.get_child(message);
-        if (child)
-            this.restore_child(child);
-    }
-
-    restore_child(child) {
-        const current_opacity = this.get_opacity(child);
-        if (!this.original_opacity.has(child) && current_opacity !== 0)
-            return;
-
-        const opacity = this.original_opacity.get(child);
-
-        this.set_opacity(child, opacity > 0 ? opacity : 255);
-        this.original_opacity.delete(child);
-    }
-
     has_style_class(actor, style_class) {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
@@ -509,10 +491,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     disable() {
         this.update_ids.forEach(id => GLib.source_remove(id));
         this.update_ids.clear();
-        this.messages.forEach(message => {
-            this.remove_stack_mask(message);
-            this.restore_message(message);
-        });
+        this.messages.forEach(message => this.remove_stack_mask(message));
         this.groups.forEach(group => {
             try {
                 if (group._headerBox) {

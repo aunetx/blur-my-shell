@@ -57,7 +57,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
 
     get_banner_position_alpha() {
         try {
-            const [stage_x, stage_y] = this.target.get_transformed_position();
+            const [, stage_y] = this.target.get_transformed_position();
 
             if (!Main.panel)
                 return 1;
@@ -68,7 +68,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
             if (!monitor)
                 return 1;
 
-            const [panel_x, panel_y] = Main.panel.get_transformed_position();
+            const [, panel_y] = Main.panel.get_transformed_position();
             const panel_width = Main.panel.width || Main.panel.get_width() || 0;
             const panel_height = Main.panel.height || Main.panel.get_height() || 36;
 
