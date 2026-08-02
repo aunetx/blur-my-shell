@@ -1,4 +1,4 @@
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Main from 'resource:///org/gnome-shell/ui/main.js';
 
 export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     constructor(actor, target, root_actor, parent) {
@@ -59,21 +59,25 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         try {
             const [stage_x, stage_y] = this.target.get_transformed_position();
 
-            let panel_bottom = 36;
-            if (Main.panel) {
-                const [, panel_y] = Main.panel.get_transformed_position();
-                const panel_height = Main.panel.height || Main.panel.get_height() || 36;
-                panel_bottom = panel_y + panel_height;
-            }
+            if (!Main.panel)
+                return 1;
 
+            const [, panel_y] = Main.panel.get_transformed_position();
+            const panel_height = Main.panel.height || Main.panel.get_height() || 36;
+
+            // Only modulate alpha if panel is anchored near the top of the screen
+            if (panel_y > 50)
+                return 1;
+
+            const panel_bottom = panel_y + panel_height;
             const threshold = panel_bottom + 5;
 
-            if (stage_y <= 0)
+            if (stage_y <= panel_y)
                 return 0;
             if (stage_y >= threshold)
                 return 1;
 
-            return Math.clamp(stage_y / threshold, 0, 1);
+            return Math.clamp((stage_y - panel_y) / (threshold - panel_y), 0, 1);
         } catch (e) {
             return 1;
         }
