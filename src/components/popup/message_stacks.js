@@ -121,16 +121,53 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             return;
 
         this.groups.add(group);
+        this.update_group_header(group);
 
         this.connect(
             group,
             'notify::expanded',
             () => this.update_all()
         );
+
+        this.connect(
+            group,
+            'notify::allocation',
+            () => this.update_group_header(group)
+        );
+
+        if (group.layout_manager) {
+            this.connect(
+                group.layout_manager,
+                'notify::expansion',
+                () => this.update_group_header(group)
+            );
+        }
     }
 
     update_all() {
         this.messages.forEach(message => this.update_message(message));
+        this.groups.forEach(group => this.update_group_header(group));
+    }
+
+    update_group_header(group) {
+        if (!this.watch_actor(group))
+            return;
+
+        try {
+            const header = group._headerBox;
+            if (!header)
+                return;
+
+            const expansion = group.layout_manager?.expansion ?? (group.expanded ? 1 : 0);
+            const target_opacity = this.enabled ? Math.round(expansion * 255) : 255;
+
+            header.opacity = target_opacity;
+
+            header.get_children?.().forEach(actor => {
+                if (actor)
+                    actor.opacity = target_opacity;
+            });
+        } catch (e) { }
     }
 
     queue_update_all() {
@@ -190,7 +227,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
                 const clip_y = Math.max(0, height - visible_edge);
                 message.set_clip(0, clip_y, width, visible_edge);
             } else if (index === 2) {
-                // 3rd card: tight visible strip of 6px (matches exact 6px bottom offset below card 2)
+                // 3rd card: tight visible strip of 7px (matches exact 7px bottom offset below card 2)
                 const visible_edge = 7;
                 const clip_y = Math.max(0, height - visible_edge);
                 message.set_clip(0, clip_y, width, visible_edge);
@@ -463,6 +500,14 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.update_ids.forEach(id => GLib.source_remove(id));
         this.update_ids.clear();
         this.messages.forEach(message => this.restore_message(message));
+        this.groups.forEach(group => {
+            try {
+                if (group._headerBox) {
+                    group._headerBox.remove_all_transitions?.();
+                    group._headerBox.opacity = 255;
+                }
+            } catch (e) { }
+        });
         this.messages.clear();
         this.groups.clear();
         this.containers.clear();
