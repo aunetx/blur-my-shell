@@ -453,26 +453,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         }
     }
 
-    get_opacity(actor) {
-        if (!this.watch_actor(actor))
-            return 255;
-
-        try {
-            return actor.opacity ?? 255;
-        } catch (e) {
-            return 255;
-        }
-    }
-
-    set_opacity(actor, opacity) {
-        if (!this.watch_actor(actor))
-            return;
-
-        try {
-            actor.opacity = opacity;
-        } catch (e) { }
-    }
-
     cancel_update(message) {
         const id = this.update_ids.get(message);
         if (!id)
