@@ -100,9 +100,16 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
 
         this.connect(
             message,
+            'notify::allocation',
+            () => this.queue_update_message(message)
+        );
+
+        this.connect(
+            message,
             'destroy',
             () => {
                 this.cancel_update(message);
+                this.remove_stack_mask(message);
                 this.restore_message(message);
                 this.messages.delete(message);
             }
@@ -150,19 +157,76 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!this.enabled)
             return;
 
-        const child = this.get_child(message);
-        if (!child)
-            return;
+        const group = this.get_message_group(message);
+        const is_expanded = group ? group.expanded : this.is_in_expanded_group(message);
 
-        if (this.is_stacked(message) && !this.is_in_expanded_group(message)) {
-            if (!this.original_opacity.has(child))
-                this.original_opacity.set(child, this.get_opacity(child));
-
-            this.set_opacity(child, 0);
-            return;
+        if (this.is_stacked(message) && !is_expanded) {
+            this.apply_stack_mask(message);
+        } else {
+            this.remove_stack_mask(message);
         }
+    }
 
-        this.restore_child(child);
+    apply_stack_mask(message) {
+        if (!this.watch_actor(message))
+            return;
+
+        try {
+            const height = message.height || message.get_height() || 0;
+            const width = message.width || message.get_width() || 0;
+
+            if (height <= 0 || width <= 0)
+                return;
+
+            const is_second = this.has_pseudo_class(message, 'second-in-stack');
+            const is_lower = this.has_pseudo_class(message, 'lower-in-stack');
+
+            const visible_edge_height = is_lower ? 6 : (is_second ? 12 : 12);
+            const clip_y = Math.max(0, height - visible_edge_height);
+
+            message.set_clip(0, clip_y, width, visible_edge_height);
+
+            const parent = message.get_parent?.();
+            if (parent && parent !== message)
+                parent.set_clip(0, clip_y, width, visible_edge_height);
+        } catch (e) { }
+    }
+
+    remove_stack_mask(message) {
+        if (!this.watch_actor(message))
+            return;
+
+        try {
+            message.remove_clip();
+            message.get_parent?.()?.remove_clip();
+        } catch (e) { }
+    }
+
+    has_pseudo_class(actor, pseudo_class) {
+        if (!actor || this.destroyed_actors.has(actor))
+            return false;
+        try {
+            if (actor.has_style_pseudo_class)
+                return actor.has_style_pseudo_class(pseudo_class);
+            return (actor.get_style_pseudo_class?.() ?? '').split(/\s+/).includes(pseudo_class);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    get_message_group(message) {
+        let actor = message;
+        while (actor) {
+            try {
+                actor = actor.get_parent?.();
+            } catch (e) {
+                return null;
+            }
+
+            if (this.has_style_class(actor, 'message-notification-group'))
+                return actor;
+        }
+        return null;
     }
 
     is_in_expanded_group(message) {
