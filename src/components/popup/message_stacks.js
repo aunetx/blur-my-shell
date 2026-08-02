@@ -14,6 +14,8 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.queued_actors = new WeakSet();
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
+        this.bms_clipped = new WeakSet();
+        this.group_connections = new Map();
         this.update_ids = new Map();
         this.original_opacity = new WeakMap();
         this.enabled = false;
@@ -136,12 +138,23 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         );
 
         if (group.layout_manager) {
-            this.connect(
-                group.layout_manager,
-                'notify::expansion',
-                () => this.update_group_header(group)
-            );
+            const lm = group.layout_manager;
+            try {
+                const id = lm.connect('notify::expansion', () => this.update_group_header(group));
+                this.group_connections.set(group, { lm, id });
+            } catch (e) { }
         }
+    }
+
+    untrack_group(group) {
+        if (this.group_connections.has(group)) {
+            const { lm, id } = this.group_connections.get(group);
+            try {
+                lm.disconnect(id);
+            } catch (e) { }
+            this.group_connections.delete(group);
+        }
+        this.groups.delete(group);
     }
 
     update_all() {
@@ -162,11 +175,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             const target_opacity = this.enabled ? Math.round(expansion * 255) : 255;
 
             header.opacity = target_opacity;
-
-            header.get_children?.().forEach(actor => {
-                if (actor)
-                    actor.opacity = target_opacity;
-            });
         } catch (e) { }
     }
 
@@ -204,7 +212,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             this.hide_message_content(message);
         } else {
             this.remove_stack_mask(message);
-            this.restore_message_content(message);
         }
     }
 
@@ -226,20 +233,24 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
                 const visible_edge = 10;
                 const clip_y = Math.max(0, height - visible_edge);
                 message.set_clip(0, clip_y, width, visible_edge);
+                this.bms_clipped.add(message);
             } else if (index === 2) {
                 // 3rd card: tight visible strip of 7px (matches exact 7px bottom offset below card 2)
                 const visible_edge = 7;
                 const clip_y = Math.max(0, height - visible_edge);
                 message.set_clip(0, clip_y, width, visible_edge);
+                this.bms_clipped.add(message);
             } else if (index >= 3) {
                 // 4th+ cards: hidden when collapsed so they don't stack behind card 3
                 message.set_clip(0, height, width, 0);
+                this.bms_clipped.add(message);
             } else {
                 // Fallback by pseudo class
                 const is_second = this.has_pseudo_class(message, 'second-in-stack');
                 const visible_edge = is_second ? 10 : 6;
                 const clip_y = Math.max(0, height - visible_edge);
                 message.set_clip(0, clip_y, width, visible_edge);
+                this.bms_clipped.add(message);
             }
         } catch (e) { }
     }
@@ -248,13 +259,12 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!message || this.destroyed_actors.has(message))
             return;
 
-        try {
-            message.remove_clip();
-        } catch (e) { }
-
-        try {
-            message.get_parent?.()?.remove_clip();
-        } catch (e) { }
+        if (this.bms_clipped.has(message)) {
+            try {
+                message.remove_clip();
+            } catch (e) { }
+            this.bms_clipped.delete(message);
+        }
 
         this.restore_message_content(message);
     }
@@ -281,8 +291,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (this.original_opacity.has(child)) {
                 child.opacity = this.original_opacity.get(child);
                 this.original_opacity.delete(child);
-            } else {
-                child.opacity = 255;
             }
         } catch (e) { }
     }
@@ -427,7 +435,9 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             this.connections.connect(actor, 'destroy', () => {
                 this.destroyed_actors.add(actor);
                 this.containers.delete(actor);
-                this.groups.delete(actor);
+                if (this.groups.has(actor)) {
+                    this.untrack_group(actor);
+                }
                 this.messages.delete(actor);
                 this.cancel_update(actor);
             });
@@ -499,20 +509,30 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     disable() {
         this.update_ids.forEach(id => GLib.source_remove(id));
         this.update_ids.clear();
-        this.messages.forEach(message => this.restore_message(message));
+        this.messages.forEach(message => {
+            this.remove_stack_mask(message);
+            this.restore_message(message);
+        });
         this.groups.forEach(group => {
             try {
                 if (group._headerBox) {
-                    group._headerBox.remove_all_transitions?.();
                     group._headerBox.opacity = 255;
                 }
             } catch (e) { }
+            this.untrack_group(group);
         });
+        this.group_connections.forEach(({ lm, id }) => {
+            try {
+                lm.disconnect(id);
+            } catch (e) { }
+        });
+        this.group_connections.clear();
         this.messages.clear();
         this.groups.clear();
         this.containers.clear();
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
+        this.bms_clipped = new WeakSet();
         this.original_opacity = new WeakMap();
         this.enabled = false;
     }

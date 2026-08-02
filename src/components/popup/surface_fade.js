@@ -1,3 +1,5 @@
+import * as Main from 'resource:///org/gnome-shell/ui/main.js';
+
 export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     constructor(actor, target, root_actor, parent) {
         this.actor = actor;
@@ -56,8 +58,15 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     get_banner_position_alpha() {
         try {
             const [stage_x, stage_y] = this.target.get_transformed_position();
-            const panel_height = 36;
-            const threshold = panel_height + 5;
+
+            let panel_bottom = 36;
+            if (Main.panel) {
+                const [, panel_y] = Main.panel.get_transformed_position();
+                const panel_height = Main.panel.height || Main.panel.get_height() || 36;
+                panel_bottom = panel_y + panel_height;
+            }
+
+            const threshold = panel_bottom + 5;
 
             if (stage_y <= 0)
                 return 0;
