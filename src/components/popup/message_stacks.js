@@ -154,16 +154,20 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     }
 
     update_message(message) {
-        if (!this.enabled)
+        if (!this.enabled) {
+            this.remove_stack_mask(message);
             return;
+        }
 
         const group = this.get_message_group(message);
         const is_expanded = group ? group.expanded : this.is_in_expanded_group(message);
 
         if (this.is_stacked(message) && !is_expanded) {
             this.apply_stack_mask(message);
+            this.hide_message_content(message);
         } else {
             this.remove_stack_mask(message);
+            this.restore_message_content(message);
         }
     }
 
@@ -178,28 +182,93 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (height <= 0 || width <= 0)
                 return;
 
-            const is_second = this.has_pseudo_class(message, 'second-in-stack');
-            const is_lower = this.has_pseudo_class(message, 'lower-in-stack');
+            const index = this.get_message_index_in_group(message);
 
-            const visible_edge_height = is_lower ? 6 : (is_second ? 12 : 12);
-            const clip_y = Math.max(0, height - visible_edge_height);
-
-            message.set_clip(0, clip_y, width, visible_edge_height);
-
-            const parent = message.get_parent?.();
-            if (parent && parent !== message)
-                parent.set_clip(0, clip_y, width, visible_edge_height);
+            if (index === 1) {
+                // 2nd card: tight visible strip of 10px (matches exact 10px bottom offset below card 1)
+                const visible_edge = 10;
+                const clip_y = Math.max(0, height - visible_edge);
+                message.set_clip(0, clip_y, width, visible_edge);
+            } else if (index === 2) {
+                // 3rd card: tight visible strip of 6px (matches exact 6px bottom offset below card 2)
+                const visible_edge = 7;
+                const clip_y = Math.max(0, height - visible_edge);
+                message.set_clip(0, clip_y, width, visible_edge);
+            } else if (index >= 3) {
+                // 4th+ cards: hidden when collapsed so they don't stack behind card 3
+                message.set_clip(0, height, width, 0);
+            } else {
+                // Fallback by pseudo class
+                const is_second = this.has_pseudo_class(message, 'second-in-stack');
+                const visible_edge = is_second ? 10 : 6;
+                const clip_y = Math.max(0, height - visible_edge);
+                message.set_clip(0, clip_y, width, visible_edge);
+            }
         } catch (e) { }
     }
 
     remove_stack_mask(message) {
-        if (!this.watch_actor(message))
+        if (!message || this.destroyed_actors.has(message))
             return;
 
         try {
             message.remove_clip();
+        } catch (e) { }
+
+        try {
             message.get_parent?.()?.remove_clip();
         } catch (e) { }
+
+        this.restore_message_content(message);
+    }
+
+    hide_message_content(message) {
+        const child = this.get_child(message);
+        if (!child)
+            return;
+
+        try {
+            if (!this.original_opacity.has(child))
+                this.original_opacity.set(child, child.opacity ?? 255);
+
+            child.opacity = 0;
+        } catch (e) { }
+    }
+
+    restore_message_content(message) {
+        const child = this.get_child(message);
+        if (!child)
+            return;
+
+        try {
+            if (this.original_opacity.has(child)) {
+                child.opacity = this.original_opacity.get(child);
+                this.original_opacity.delete(child);
+            } else {
+                child.opacity = 255;
+            }
+        } catch (e) { }
+    }
+
+    get_message_index_in_group(message) {
+        const group = this.get_message_group(message);
+        if (!group)
+            return -1;
+
+        try {
+            const list = [];
+            const find_messages = actor => {
+                if (this.has_style_class(actor, 'message')) {
+                    list.push(actor);
+                    return;
+                }
+                actor.get_children?.().forEach(find_messages);
+            };
+            find_messages(group);
+            return list.indexOf(message);
+        } catch (e) {
+            return -1;
+        }
     }
 
     has_pseudo_class(actor, pseudo_class) {
