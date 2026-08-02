@@ -1,4 +1,4 @@
-import * as Main from 'resource:///org/gnome-shell/ui/main.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     constructor(actor, target, root_actor, parent) {
