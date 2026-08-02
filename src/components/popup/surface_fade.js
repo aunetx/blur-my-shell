@@ -1,4 +1,4 @@
-import * as Main from 'resource:///org/gnome-shell/ui/main.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     constructor(actor, target, root_actor, parent) {
@@ -62,11 +62,21 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
             if (!Main.panel)
                 return 1;
 
-            const [, panel_y] = Main.panel.get_transformed_position();
+            const monitor = Main.layoutManager.findMonitorForActor(Main.panel)
+                ?? Main.layoutManager.primaryMonitor;
+
+            if (!monitor)
+                return 1;
+
+            const [panel_x, panel_y] = Main.panel.get_transformed_position();
+            const panel_width = Main.panel.width || Main.panel.get_width() || 0;
             const panel_height = Main.panel.height || Main.panel.get_height() || 36;
 
-            // Only modulate alpha if panel is anchored near the top of the screen
-            if (panel_y > 50)
+            // Must be a horizontal panel anchored at the monitor's top edge
+            const is_horizontal = panel_width > panel_height;
+            const is_at_monitor_top = Math.abs(panel_y - monitor.y) <= 5;
+
+            if (!is_horizontal || !is_at_monitor_top)
                 return 1;
 
             const panel_bottom = panel_y + panel_height;
