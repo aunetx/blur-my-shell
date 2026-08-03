@@ -111,7 +111,7 @@ msgstr "التكرارات"
 
 #: src/effects/effects.js:133
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "عدد التكرارات. كلما زاد، كلما كان التموية املس."
+msgstr "عدد التكرارات. كلما زاد، كلما كان التمويةالتمويه أكثر سلاسة."
 
 #: src/effects/effects.js:150
 msgid "Use base pixel"
@@ -133,7 +133,7 @@ msgstr "فضّل البكسلات الأقرب"
 msgid ""
 "Whether or not the pixels that are closer to the original pixel will have "
 "more weight."
-msgstr "سواء البكسلات الأقرب من البكسل الأصلية ستحظى بوزن أكبر أم لا."
+msgstr "سواء البكسلات الأقرب من البكسل الأصلي ستحظى بوزن أكبر أم لا."
 
 #: src/effects/effects.js:164 src/effects/effects.js:170
 #: src/effects/effects.js:196
@@ -413,7 +413,7 @@ msgid ""
 "An effect that draws corners. Add it last not to have the other effects "
 "perturb the corners."
 msgstr ""
-"تأثير يرسم زوايا منحنية. أضفه أخيراً حتى لا تؤثر التأثيرات الأخرى على الزوايا."
+"تأثير يُنشئ زوايا مستديرة. أضفه أخيراً حتى لا تؤثر التأثيرات الأخرى على الزوايا."
 
 #: src/effects/effects.js:405
 msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
@@ -549,8 +549,8 @@ msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
-"يجعل النافذة المحددة لا شفافة و الباقي مموه، مما يساعد على زيادة إمكانية "
-"القراءة."
+"يجعل النافذة المحددة معتمة ويُموّه بقية النوافذ، مما"
+"يساعد على تحسين إمكانية القراءة."
 
 #: resources/ui/applications.ui:192
 msgid "Blur on overview"
