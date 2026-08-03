@@ -111,7 +111,7 @@ msgstr "التكرارات"
 
 #: src/effects/effects.js:133
 msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr "عدد التكرارات. كلما زاد، كلما كان التمويةالتمويه أكثر سلاسة."
+msgstr "عدد التكرارات. كلما زاد، كلما كان التمويه أكثر سلاسة."
 
 #: src/effects/effects.js:150
 msgid "Use base pixel"
@@ -693,7 +693,7 @@ msgstr "تبرَّع"
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr "آخر"
+msgstr "أخرى"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
@@ -721,11 +721,11 @@ msgstr "ضبِّب امتداد قائمة-النوافذ إن كان مستخد
 
 #: resources/ui/other.ui:100
 msgid "Coverflow Alt-Tab extension blur"
-msgstr "تموية امتداد Coverflow Alt-Tab"
+msgstr "تمويه امتداد Coverflow Alt-Tab"
 
 #: resources/ui/other.ui:101
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr "ضبّب امتداد coverflow alt-tab، إن كان مستخدمًا."
+msgstr "طبّق التمويه على امتداد Coverflow Alt-Tab إذا كان مستخدمًا."
 
 #: resources/ui/other.ui:118
 msgid "Performance"
