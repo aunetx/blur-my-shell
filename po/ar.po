@@ -606,7 +606,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr "شَرطة"
+msgstr "Dash"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
