@@ -79,8 +79,10 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
         const seen = new WeakSet();
         actors.forEach(actor => seen.add(actor));
 
-        this.add_descendants(actors, seen, this.surface.target);
-        this.add_descendants(actors, seen, this.surface.root_actor);
+        if (!this.surface.is_quick_settings()) {
+            this.add_descendants(actors, seen, this.surface.target);
+            this.add_descendants(actors, seen, this.surface.root_actor);
+        }
 
         return actors;
     }

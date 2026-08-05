@@ -21,6 +21,24 @@ const SURFACE_SIGNALS = [
     'style-changed',
 ];
 
+const ANCESTOR_SIGNALS = [
+    'notify::allocation',
+    'notify::position',
+    'notify::size',
+    'notify::x',
+    'notify::y',
+    'notify::width',
+    'notify::height',
+    'notify::clip-rect',
+    'notify::visible',
+    'notify::mapped',
+    'notify::translation-x',
+    'notify::translation-y',
+    'notify::scale-x',
+    'notify::scale-y',
+    'notify::pseudo-class',
+];
+
 export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
     constructor(surface) {
         this.surface = surface;
@@ -29,30 +47,34 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.destroyed_actors = new WeakSet();
     }
 
-    connect_actor(actor) {
+    connect_actor(actor, is_ancestor = false) {
         if (!actor || this.signal_actors.has(actor))
             return;
 
         this.signal_actors.add(actor);
         this.track_destroy(actor);
 
-        const is_excluded_from_deferring_surface = this.surface.is_excluded_from_deferring_surface();
+        const is_heavy_surface = this.surface.is_heavy_surface();
+        const signals_to_use = is_ancestor ? ANCESTOR_SIGNALS : SURFACE_SIGNALS;
 
-        SURFACE_SIGNALS.forEach(signal => {
+        signals_to_use.forEach(signal => {
             try {
-                let id = actor.connect(signal, () => {
-                    if (is_excluded_from_deferring_surface) {
+            let id = actor.connect(signal, () => {
+                this.clear_pending_idles();
+                const is_visibility_change = signal === 'notify::visible' || signal === 'notify::mapped';
+                if (is_heavy_surface || is_visibility_change) {
+                    this.surface.queue_update();
+                    return;
+                }
+                else {
+                    this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
+                        this.updateId = 0;
                         this.surface.queue_update();
-                    } else {
-                        this.clear_pending_idles();
-                        this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
-                            this.updateId = 0;
-                            this.surface.queue_update();
-                            return false;
-                        });
-                    }
-                });
-                this.signal_ids.push([actor, id, signal]);
+                        return false;
+                    });
+                }
+            });
+            this.signal_ids.push([actor, id, signal]);
             } catch (e) { }
         });
     }
@@ -72,7 +94,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         }
 
         while (actor && actor !== this.surface.parent) {
-            this.connect_actor(actor);
+            this.connect_actor(actor, true);
             try {
                 actor = actor.get_parent?.();
             } catch (e) {
