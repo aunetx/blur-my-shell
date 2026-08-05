@@ -123,7 +123,7 @@ export const Pipeline = class Pipeline {
             return;
         }
 
-        this.disconnect_actor_signals();
+        this.disconnect_actor_destroy();
         this.actor = actor;
 
         // attach the pipeline
@@ -148,22 +148,26 @@ export const Pipeline = class Pipeline {
 
     remove_pipeline_from_actor() {
         this.remove_all_effects();
-        this.disconnect_actor_signals();
+        this.disconnect_actor_destroy();
+        this.disconnect_child_added();
         this.actor = null;
     }
 
-    disconnect_actor_signals() {
+    disconnect_actor_destroy() {
         if (this.actor && this.actor_destroy_id) {
             try {
                 this.actor.disconnect(this.actor_destroy_id);
             } catch (e) { }
         }
+        this.actor_destroy_id = null;
+    }
+
+    disconnect_child_added() {
         if (this.actor && this.child_added_id) {
             try {
                 this.actor.disconnect(this.child_added_id);
             } catch (e) { }
         }
-        this.actor_destroy_id = null;
         this.child_added_id = null;
     }
 
