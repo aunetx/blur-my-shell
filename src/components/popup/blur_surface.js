@@ -155,9 +155,15 @@ export const PopupBlurSurface = class PopupBlurSurface {
         return sibling_index >= 0 && actor_index < sibling_index;
     }
     
-    is_excluded_from_deferring_surface() {
-        return this.style.has_any_style_class(this.target, ['datemenu-popover','modal-dialog','quick-settings'])
-            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','modal-dialog','quick-settings']);
+
+    is_quick_settings() {
+        return this.style.has_any_style_class(this.target, ['quick-toggle-menu','quick-settings'])
+            || this.style.has_any_style_class(this.root_actor, ['quick-toggle-menu','quick-settings']);
+    }
+
+    is_heavy_surface() {
+        return this.style.has_any_style_class(this.target, ['datemenu-popover','quick-settings','modal-dialog'])
+            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','quick-settings','modal-dialog']);
     }
 
     update() {
