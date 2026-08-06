@@ -9,7 +9,6 @@
 .bms-popup-background-transparent .candidate-popup-content,
 .bms-popup-background-transparent .quick-settings,
 .bms-popup-background-transparent .quick-toggle-menu,
-.bms-popup-background-transparent .message,
 .bms-popup-background-transparent .osd-window,
 .bms-popup-background-transparent .resize-popup,
 .bms-popup-background-transparent .switcher-list,
@@ -50,7 +49,8 @@
 .bms-popup-background-dark .switcher-list,
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
-.bms-popup-background-dark .run-dialog {
+.bms-popup-background-dark .run-dialog,
+.bms-popup-background-transparent .message {
     color: #ffffff;
     background: rgba(45, 45, 50, 0.22) !important;
     border-color: transparent;
@@ -60,16 +60,6 @@
 .bms-popup-background-transparent .message,
 .bms-popup-background-light .message,
 .bms-popup-background-dark .message {
-    box-shadow: none;
-}
-
-.bms-popup-background-transparent .message:second-in-stack {
-    background: rgba(58, 58, 64, 0.2) !important;
-    box-shadow: 0 1px 1px 0 transparent;
-}
-
-.bms-popup-background-transparent .message:lower-in-stack {
-    background: rgba(48, 48, 54, 0.14) !important;
     box-shadow: none;
 }
 

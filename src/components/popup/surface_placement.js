@@ -139,10 +139,10 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         this.monitor_index = match.monitor_index;
 
         const surface_geometry = this.create_surface_geometry(
-            match.intersection.x,
-            match.intersection.y,
-            match.intersection.width,
-            match.intersection.height
+            rect.x,
+            rect.y,
+            rect.width,
+            rect.height
         );
         surface_geometry.monitor_index = match.monitor_index;
         return surface_geometry;
