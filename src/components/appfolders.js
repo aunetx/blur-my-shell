@@ -2,11 +2,8 @@ import Shell from 'gi://Shell';
 import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { adjustAnimationTime } from 'resource:///org/gnome/shell/misc/animationUtils.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
-// TODO drop Tweener in favour of Clutter's `ease` (will need to extend the blur effect for it)
-const Tweener = imports.tweener.tweener;
 
 // TODO: Drop GNOME 46 backwards compatibility
 const transparent = Clutter.Color ?
@@ -30,6 +27,26 @@ let original_zoomAndFadeOut = null;
 let sigma;
 let brightness;
 
+const BLUR_RADIUS_PROPERTY = '@effects.appfolder-blur.radius';
+const BLUR_BRIGHTNESS_PROPERTY = '@effects.appfolder-blur.brightness';
+
+function stop_blur_animation(dialog) {
+    dialog.remove_transition(BLUR_RADIUS_PROPERTY);
+    dialog.remove_transition(BLUR_BRIGHTNESS_PROPERTY);
+}
+
+function animate_blur(dialog, target, mode) {
+    stop_blur_animation(dialog);
+    dialog.ease_property(BLUR_RADIUS_PROPERTY, target.radius, {
+        duration: FOLDER_DIALOG_ANIMATION_TIME,
+        mode,
+    });
+    dialog.ease_property(BLUR_BRIGHTNESS_PROPERTY, target.brightness, {
+        duration: FOLDER_DIALOG_ANIMATION_TIME,
+        mode,
+    });
+}
+
 let _zoomAndFadeIn = function () {
     let [sourceX, sourceY] =
         this._source.get_transformed_position();
@@ -50,13 +67,10 @@ let _zoomAndFadeIn = function () {
 
     blur_effect.radius = 0;
     blur_effect.brightness = 1.0;
-    Tweener.addTween(blur_effect,
-        {
-            radius: sigma * 2,
-            brightness: brightness,
-            time: adjustAnimationTime(FOLDER_DIALOG_ANIMATION_TIME / 1000),
-            transition: 'easeOutQuad'
-        }
+    animate_blur(
+        this,
+        { radius: sigma * 2, brightness },
+        Clutter.AnimationMode.EASE_OUT_QUAD
     );
 
     this.child.ease({
@@ -93,14 +107,10 @@ let _zoomAndFadeOut = function () {
 
     this.set_background_color(transparent);
 
-    let blur_effect = this.get_effect("appfolder-blur");
-    Tweener.addTween(blur_effect,
-        {
-            radius: 0,
-            brightness: 1.0,
-            time: adjustAnimationTime(FOLDER_DIALOG_ANIMATION_TIME / 1000),
-            transition: 'easeInQuad'
-        }
+    animate_blur(
+        this,
+        { radius: 0, brightness: 1.0 },
+        Clutter.AnimationMode.EASE_IN_QUAD
     );
 
     this.child.ease({
@@ -172,15 +182,19 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 original_zoomAndFadeOut = icon._dialog._zoomAndFadeOut;
             }
 
-            let blur_effect = new Shell.BlurEffect({
-                name: "appfolder-blur",
-                radius: sigma * 2,
-                brightness: brightness,
-                mode: Shell.BlurMode.BACKGROUND
-            });
-
-            icon._dialog.remove_effect_by_name("appfolder-blur");
-            icon._dialog.add_effect(blur_effect);
+            let blur_effect = icon._dialog.get_effect('appfolder-blur');
+            if (!blur_effect) {
+                blur_effect = new Shell.BlurEffect({
+                    name: 'appfolder-blur',
+                    radius: sigma * 2,
+                    brightness,
+                    mode: Shell.BlurMode.BACKGROUND,
+                });
+                icon._dialog.add_effect(blur_effect);
+            } else {
+                stop_blur_animation(icon._dialog);
+                blur_effect.set({ radius: sigma * 2, brightness });
+            }
 
             DIALOGS_STYLES.forEach(
                 style => icon._dialog._viewBox.remove_style_class_name(style)
@@ -218,19 +232,31 @@ export const AppFoldersBlur = class AppFoldersBlur {
     set_sigma(s) {
         sigma = s;
         if (this.settings.appfolder.BLUR)
-            this.blur_appfolders();
+            this.update_blur_effects({ radius: sigma * 2 });
     }
 
     set_brightness(b) {
         brightness = b;
         if (this.settings.appfolder.BLUR)
-            this.blur_appfolders();
+            this.update_blur_effects({ brightness });
+    }
+
+    update_blur_effects(params) {
+        const appDisplay = Main.overview._overview.controls._appDisplay;
+        appDisplay._folderIcons.forEach(icon => {
+            if (!icon._dialog)
+                return;
+
+            stop_blur_animation(icon._dialog);
+            icon._dialog.get_effect('appfolder-blur')?.set(params);
+        });
     }
 
     disable() {
         this._log("removing blur from appfolders");
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
+        this.paint_signals.disconnect_all();
 
         if (original_zoomAndFadeIn != null) {
             appDisplay._folderIcons.forEach(icon => {
@@ -248,6 +274,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
 
         appDisplay._folderIcons.forEach(icon => {
             if (icon._dialog) {
+                stop_blur_animation(icon._dialog);
                 icon._dialog.remove_effect_by_name("appfolder-blur");
                 DIALOGS_STYLES.forEach(
                     s => icon._dialog._viewBox.remove_style_class_name(s)

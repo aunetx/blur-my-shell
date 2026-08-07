@@ -55,7 +55,7 @@ export const ApplicationsService = class ApplicationsService {
 
         // inspect window now
         const inspector = new LookingGlass.Inspector(Main.createLookingGlass());
-        inspector.connect('target', (me, target, x, y) => {
+        inspector.connect('target', (me, target, _x, _y) => {
             // remove border effect when window is picked.
             const effect_name = 'lookingGlass_RedBorderEffect';
             target

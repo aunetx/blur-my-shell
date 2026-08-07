@@ -203,7 +203,11 @@ const REFRACTION_EFFECT_META = {
 const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionEffect extends Clutter.ShaderEffect {
 
         constructor(params) {
-            const { webcam_gloss, webcam_device, ...parent_params } = params;
+            const {
+                webcam_gloss: _webcam_gloss,
+                webcam_device: _webcam_device,
+                ...parent_params
+            } = params;
             super({ ...parent_params });
             utils.initialize_shader_effect(this, SHADER_SOURCE);
 

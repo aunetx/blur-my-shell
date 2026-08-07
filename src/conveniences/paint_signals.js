@@ -1,94 +1,67 @@
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
 
+const PAINTS_BETWEEN_REPAINTS = 2;
 
 export const PaintSignals = class PaintSignals {
     constructor(connections) {
-        this.buffer = [];
+        this.entries = new Map();
         this.connections = connections;
     }
 
     connect(actor, blur_effect) {
-        let paint_effect = new EmitPaintSignal();
-        let infos = {
-            actor: actor,
-            paint_effect: paint_effect
-        };
-        let counter = 0;
+        this.disconnect_all_for_actor(actor);
 
-        actor.add_effect(paint_effect);
-        this.connections.connect(paint_effect, 'update-blur', () => {
+        let paints_to_skip = 0;
+        const paint_effect = new PaintCallbackEffect();
+        paint_effect.set_callback(() => {
+            if (paints_to_skip > 0) {
+                paints_to_skip--;
+                return;
+            }
+
+            paints_to_skip = PAINTS_BETWEEN_REPAINTS;
             try {
-                // checking if blur_effect.queue_repaint() has been recently called
-                if (counter === 0) {
-                    counter = 2;
-                    blur_effect.queue_repaint();
-                }
-                else counter--;
+                blur_effect.queue_repaint();
             } catch (e) { }
         });
 
-        // remove the actor from buffer when it is destroyed
-        if (
-            actor.connect &&
-            (
-                !(actor instanceof GObject.Object) ||
-                GObject.signal_lookup('destroy', actor)
-            )
-        )
-            this.connections.connect(actor, 'destroy', () => {
-                const immutable_buffer = [...this.buffer];
-                immutable_buffer.forEach(infos => {
-                    if (infos.actor === actor) {
-                        // remove from buffer
-                        let index = this.buffer.indexOf(infos);
-                        this.buffer.splice(index, 1);
-                    }
-                });
-            });
-
-        this.buffer.push(infos);
+        actor.add_effect(paint_effect);
+        const destroy_id = this.connections.connect(actor, 'destroy', () => {
+            paint_effect.set_callback(null);
+            this.entries.delete(actor);
+        });
+        this.entries.set(actor, { paint_effect, destroy_id });
     }
 
     disconnect_all_for_actor(actor) {
-        const immutable_buffer = [...this.buffer];
-        immutable_buffer.forEach(infos => {
-            if (infos.actor === actor) {
-                this.connections.disconnect_all_for(infos.paint_effect);
-                try {
-                    infos.actor.remove_effect(infos.paint_effect);
-                } catch (e) { }
+        const entry = this.entries.get(actor);
+        if (!entry)
+            return;
 
-                // remove from buffer
-                let index = this.buffer.indexOf(infos);
-                this.buffer.splice(index, 1);
-            }
-        });
+        this.entries.delete(actor);
+        entry.paint_effect.set_callback(null);
+        this.connections.disconnect(actor, entry.destroy_id);
+        try {
+            actor.remove_effect(entry.paint_effect);
+        } catch (e) { }
     }
 
     disconnect_all() {
-        this.buffer.forEach(infos => {
-            this.connections.disconnect_all_for(infos.paint_effect);
-            try {
-                infos.actor.remove_effect(infos.paint_effect);
-            } catch (e) { }
-        });
-
-        this.buffer = [];
+        for (const actor of [...this.entries.keys()])
+            this.disconnect_all_for_actor(actor);
     }
 };
 
-export const EmitPaintSignal = GObject.registerClass({
-    GTypeName: 'EmitPaintSignal',
-    Signals: {
-        'update-blur': {
-            param_types: []
-        },
-    }
-},
-    class EmitPaintSignal extends Clutter.Effect {
+const PaintCallbackEffect = GObject.registerClass(
+    { GTypeName: 'BmsPaintCallbackEffect' },
+    class PaintCallbackEffect extends Clutter.Effect {
+        set_callback(callback) {
+            this._callback = callback;
+        }
+
         vfunc_paint(node, paint_context, paint_flags) {
-            this.emit("update-blur");
+            this._callback?.();
             super.vfunc_paint(node, paint_context, paint_flags);
         }
     }

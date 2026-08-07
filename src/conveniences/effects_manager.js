@@ -4,7 +4,7 @@ import { get_supported_effects } from '../effects/effects.js';
 export const EffectsManager = class EffectsManager {
     constructor(connections) {
         this.connections = connections;
-        this.used = [];
+        this.used = new Set();
         this.SUPPORTED_EFFECTS = get_supported_effects();
 
         Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
@@ -15,7 +15,7 @@ export const EffectsManager = class EffectsManager {
             this['new_' + effect_name + '_effect'] = function (params) {
                 let effect;
                 if (this[effect_name + '_effects'].length > 0) {
-                    effect = this[effect_name + '_effects'].splice(0, 1)[0];
+                    effect = this[effect_name + '_effects'].pop();
                     effect.set({
                         ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
                     });
@@ -26,7 +26,7 @@ export const EffectsManager = class EffectsManager {
                     this.connect_to_destroy(effect);
                 }
 
-                this.used.push(effect);
+                this.used.add(effect);
                 return effect;
             };
         });
@@ -60,7 +60,6 @@ export const EffectsManager = class EffectsManager {
         effect._bms_actor_destroy_id = null;
     }
 
-    // IMPORTANT: do never call this in a mutable `this.used.forEach`
     remove(effect, actor_already_destroyed = false) {
         if (!actor_already_destroyed)
             try {
@@ -70,10 +69,7 @@ export const EffectsManager = class EffectsManager {
             }
         this.disconnect_actor_destroy(effect);
 
-        let index = this.used.indexOf(effect);
-        if (index >= 0) {
-            this.used.splice(index, 1);
-
+        if (this.used.delete(effect)) {
             Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
                 if (effect instanceof this.SUPPORTED_EFFECTS[effect_name].class)
                     this[effect_name + '_effects'].push(effect);

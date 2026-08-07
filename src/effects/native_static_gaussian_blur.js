@@ -20,7 +20,11 @@ export const NativeStaticBlurEffect = utils.IS_IN_PREFERENCES ?
                 normalized_params.unscaled_radius = normalized_params.radius;
             delete normalized_params.radius;
 
-            const { unscaled_radius, brightness, ...parent_params } = normalized_params;
+            const {
+                unscaled_radius: _unscaled_radius,
+                brightness: _brightness,
+                ...parent_params
+            } = normalized_params;
             super({ ...parent_params, mode: Shell.BlurMode.ACTOR });
 
             this._theme_context = St.ThemeContext.get_for_stage(global.stage);

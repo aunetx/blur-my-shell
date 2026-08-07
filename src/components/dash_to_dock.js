@@ -187,7 +187,7 @@ class DashInfos {
                 return;
             }
 
-            let dash_box = this.get_dash_position(this.dash_container, this.dash_background);
+            let dash_box = this.get_dash_position(this.dash_container);
             if (!dash_box)
                 return;
 
@@ -217,16 +217,18 @@ class DashInfos {
         }
     }
 
-    get_dash_position(dash_container, dash_background) {
+    get_dash_position(dash_container) {
         let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
-            if (!monitor) return;
+        if (!monitor)
+            return;
 
         let dash_box = dash_container._slider.get_child();
         if (!dash_box)
             return null;
 
         let parent = this.background_group?.get_parent();
-            if (!parent) return;
+        if (!parent)
+            return;
 
         let [parent_stage_x, parent_stage_y] = parent.get_transformed_position();
         let [bg_stage_x, bg_stage_y] = this.dash_background.get_transformed_position();

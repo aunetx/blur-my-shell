@@ -13,42 +13,7 @@ import { RgbToHslEffect } from './rgb_to_hsl.js';
 import { HslToRgbEffect } from './hsl_to_rgb.js';
 import { LuminosityEffect } from './luminosity.js';
 import { RefractionEffect } from './refraction.js';
-
-// We do in this way because I've not found another way to store our preferences in a dictionnary
-// while calling `gettext` on it while in preferences. Not so pretty, but works.
-export function get_effects_groups(_ = _ => "") {
-    return {
-        blur_effects: {
-            name: _("Blur effects"),
-            contains: [
-                "native_static_gaussian_blur",
-                "gaussian_blur",
-                "monte_carlo_blur"
-            ]
-        },
-        texture_effects: {
-            name: _("Texture effects"),
-            contains: [
-                "downscale",
-                "upscale",
-                "pixelize",
-                "refraction",
-                "derivative",
-                "noise",
-                "color",
-                "luminosity",
-                "rgb_to_hsl",
-                "hsl_to_rgb"
-            ]
-        },
-        shape_effects: {
-            name: _("Shape effects"),
-            contains: [
-                "corner"
-            ]
-        }
-    };
-};
+export { get_effects_groups } from './effect_groups.js';
 
 export function get_supported_effects(_ = () => "") {
     return {

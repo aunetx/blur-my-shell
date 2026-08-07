@@ -29,7 +29,7 @@ install: build remove
 
 pot:
 	find resources/ui -iname "*.ui" -printf "%p\n" | sort | \
-		xargs xgettext --output=po/$(UUID).pot src/effects/effects.js \
+		xargs xgettext --output=po/$(UUID).pot src/effects/effects.js src/effects/effect_groups.js \
 		--from-code=utf-8 --package-name=$(UUID)
 
 	rm po/LINGUAS
