@@ -411,8 +411,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (this.original_message_opacity.has(message)) {
                 message.opacity = this.original_message_opacity.get(message);
                 this.original_message_opacity.delete(message);
-            } else {
-                message.opacity = 255;
             }
         } catch (e) { }
     }
@@ -616,6 +614,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.destroyed_actors = new WeakSet();
         this.bms_clipped = new WeakSet();
         this.original_opacity = new WeakMap();
+        this.original_message_opacity = new WeakMap();
         this.enabled = false;
     }
 };
