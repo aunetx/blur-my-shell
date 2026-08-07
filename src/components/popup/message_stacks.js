@@ -18,6 +18,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.group_connections = new Map();
         this.update_ids = new Map();
         this.original_opacity = new WeakMap();
+        this.original_message_opacity = new WeakMap();
         this.enabled = false;
     }
 
@@ -139,7 +140,10 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (group.layout_manager) {
             const lm = group.layout_manager;
             try {
-                const id = lm.connect('notify::expansion', () => this.update_group_header(group));
+                const id = lm.connect('notify::expansion', () => {
+                    this.update_group_header(group);
+                    this.update_group_messages(group);
+                });
                 this.group_connections.set(group, { lm, id });
             } catch (e) { }
         }
@@ -157,8 +161,14 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     }
 
     update_all() {
-        this.messages.forEach(message => this.update_message(message));
-        this.groups.forEach(group => this.update_group_header(group));
+        this.groups.forEach(group => {
+            this.update_group_header(group);
+            this.update_group_messages(group);
+        });
+        this.messages.forEach(message => {
+            if (!this.get_message_group(message))
+                this.update_message(message);
+        });
     }
 
     update_group_header(group) {
@@ -175,6 +185,31 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
 
             header.opacity = target_opacity;
         } catch (e) { }
+    }
+
+    get_group_messages(group) {
+        const list = [];
+        const find_messages = actor => {
+            if (this.has_style_class(actor, 'message')) {
+                list.push(actor);
+                return;
+            }
+            this.get_children(actor).forEach(find_messages);
+        };
+        find_messages(group);
+        return list;
+    }
+
+    update_group_messages(group) {
+        if (!this.enabled || !this.watch_actor(group))
+            return;
+
+        const expansion = group.layout_manager?.expansion ?? (group.expanded ? 1.0 : 0.0);
+        const messages = this.get_group_messages(group);
+
+        messages.forEach((message, index) => {
+            this.update_message_with_expansion(message, index, expansion, group);
+        });
     }
 
     queue_update_all() {
@@ -204,14 +239,73 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         }
 
         const group = this.get_message_group(message);
-        const is_expanded = group ? group.expanded : this.is_in_expanded_group(message);
+        if (group) {
+            const expansion = group.layout_manager?.expansion ?? (group.expanded ? 1.0 : 0.0);
+            const index = this.get_message_index_in_group(message);
+            this.update_message_with_expansion(message, index >= 0 ? index : 0, expansion, group);
+        } else {
+            const is_expanded = this.is_in_expanded_group(message);
+            if (this.is_stacked(message) && !is_expanded) {
+                this.apply_stack_mask(message);
+                this.hide_message_content(message);
+                this.restore_message_opacity(message);
+            } else {
+                this.remove_stack_mask(message);
+            }
+        }
+    }
 
-        if (this.is_stacked(message) && !is_expanded) {
+    update_message_with_expansion(message, index, expansion, group) {
+        if (!this.enabled || !this.watch_actor(message))
+            return;
+
+        const is_stacked = this.is_stacked(message) || index > 0;
+
+        if (!is_stacked) {
+            this.remove_stack_mask(message);
+            return;
+        }
+
+        if (expansion >= 0.99) {
+            this.remove_stack_mask(message);
+            return;
+        }
+
+        if (expansion <= 0.01) {
             this.apply_stack_mask(message);
             this.hide_message_content(message);
-        } else {
-            this.remove_stack_mask(message);
+            this.restore_message_opacity(message);
+            return;
         }
+
+        // 0.01 < expansion < 0.99: Animating unravel / collapse
+        try {
+            const height = message.height || message.get_height() || 0;
+            const width = message.width || message.get_width() || 0;
+
+            if (height <= 0 || width <= 0)
+                return;
+
+            const base_edge = (index === 1) ? 10 : (index === 2 ? 7 : 0);
+            const visible_edge = Math.round(base_edge + (height - base_edge) * expansion);
+            const clip_y = Math.max(0, height - visible_edge);
+
+            message.set_clip(0, clip_y, width, visible_edge);
+            this.bms_clipped.add(message);
+
+            // Staggered opacity progress for cards so they smoothly fade in as they unravel
+            const stagger_start = Math.min(0.8, index * 0.04);
+            const progress = Math.min(1.0, Math.max(0.0, (expansion - stagger_start) / (1.0 - stagger_start)));
+            const target_alpha = Math.round(255 * progress);
+
+            this.set_child_opacity(message, target_alpha);
+
+            if (index >= 3) {
+                this.set_message_opacity(message, target_alpha);
+            } else {
+                this.restore_message_opacity(message);
+            }
+        } catch (e) { }
     }
 
     apply_stack_mask(message) {
@@ -266,9 +360,10 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         }
 
         this.restore_message_content(message);
+        this.restore_message_opacity(message);
     }
 
-    hide_message_content(message) {
+    set_child_opacity(message, opacity) {
         const child = this.get_child(message);
         if (!child)
             return;
@@ -277,8 +372,12 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (!this.original_opacity.has(child))
                 this.original_opacity.set(child, child.opacity ?? 255);
 
-            child.opacity = 0;
+            child.opacity = opacity;
         } catch (e) { }
+    }
+
+    hide_message_content(message) {
+        this.set_child_opacity(message, 0);
     }
 
     restore_message_content(message) {
@@ -290,6 +389,28 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (this.original_opacity.has(child)) {
                 child.opacity = this.original_opacity.get(child);
                 this.original_opacity.delete(child);
+            }
+        } catch (e) { }
+    }
+
+    set_message_opacity(message, opacity) {
+        if (!this.watch_actor(message))
+            return;
+        try {
+            if (!this.original_message_opacity.has(message))
+                this.original_message_opacity.set(message, message.opacity ?? 255);
+
+            message.opacity = opacity;
+        } catch (e) { }
+    }
+
+    restore_message_opacity(message) {
+        if (!message || this.destroyed_actors.has(message))
+            return;
+        try {
+            if (this.original_message_opacity.has(message)) {
+                message.opacity = this.original_message_opacity.get(message);
+                this.original_message_opacity.delete(message);
             }
         } catch (e) { }
     }
@@ -493,6 +614,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.destroyed_actors = new WeakSet();
         this.bms_clipped = new WeakSet();
         this.original_opacity = new WeakMap();
+        this.original_message_opacity = new WeakMap();
         this.enabled = false;
     }
 };
