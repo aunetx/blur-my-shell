@@ -19,25 +19,7 @@ const SURFACE_SIGNALS = [
     'notify::scale-y',
     'notify::pseudo-class',
     'style-changed',
-];
-
-const ANCESTOR_SIGNALS = [
-    'notify::allocation',
-    'notify::position',
-    'notify::size',
-    'notify::x',
-    'notify::y',
-    'notify::width',
-    'notify::height',
-    'notify::clip-rect',
-    'notify::visible',
-    'notify::mapped',
-    'notify::translation-x',
-    'notify::translation-y',
-    'notify::scale-x',
-    'notify::scale-y',
-    'notify::pseudo-class',
-];
+]; 
 
 export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
     constructor(surface) {
@@ -47,7 +29,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.destroyed_actors = new WeakSet();
     }
 
-    connect_actor(actor, is_ancestor = false) {
+    connect_actor(actor) {
         if (!actor || this.signal_actors.has(actor))
             return;
 
@@ -55,9 +37,8 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.track_destroy(actor);
 
         const is_heavy_surface = this.surface.is_heavy_surface();
-        const signals_to_use = is_ancestor ? ANCESTOR_SIGNALS : SURFACE_SIGNALS;
 
-        signals_to_use.forEach(signal => {
+        SURFACE_SIGNALS.forEach(signal => {
             try {
             let id = actor.connect(signal, () => {
                 this.clear_pending_idles();
@@ -94,7 +75,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         }
 
         while (actor && actor !== this.surface.parent) {
-            this.connect_actor(actor, true);
+            this.connect_actor(actor);
             try {
                 actor = actor.get_parent?.();
             } catch (e) {

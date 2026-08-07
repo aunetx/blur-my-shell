@@ -157,13 +157,13 @@ export const PopupBlurSurface = class PopupBlurSurface {
     
 
     is_quick_settings() {
-        return this.style.has_any_style_class(this.target, ['quick-toggle-menu','quick-settings'])
-            || this.style.has_any_style_class(this.root_actor, ['quick-toggle-menu','quick-settings']);
+        return this.style.has_any_style_class(this.target, ['quick-toggle-menu','quick-settings','datemenu-popover'])
+            || this.style.has_any_style_class(this.root_actor, ['quick-toggle-menu','quick-settings','datemenu-popover']);
     }
 
     is_heavy_surface() {
-        return this.style.has_any_style_class(this.target, ['datemenu-popover','quick-settings','modal-dialog'])
-            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','quick-settings','modal-dialog']);
+        return this.style.has_any_style_class(this.target, ['datemenu-popover','quick-settings','modal-dialog','candidate-popup-content', 'candidate-popup-boxpointer'])
+            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','quick-settings','modal-dialog','candidate-popup-content', 'candidate-popup-boxpointer']);
     }
 
     update() {
