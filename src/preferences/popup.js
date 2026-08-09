@@ -25,6 +25,7 @@ export const PopupBlur = GObject.registerClass({
         'dialog_corner_radius',
         'corner_radius_not_found_row',
         'override_background',
+        'preserve_shell_theme',
         'style_popup'
     ],
 }, class PopupBlur extends Adw.PreferencesPage {
@@ -88,6 +89,11 @@ export const PopupBlur = GObject.registerClass({
         this.preferences.popup.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'preserve-shell-theme',
+            this._preserve_shell_theme, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(
