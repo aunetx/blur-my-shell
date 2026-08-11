@@ -6,6 +6,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {
     POPUP_BACKGROUND_STYLES,
+    POPUP_SURFACE_STYLES,
     PopupBlurTargets,
 } from './targets.js';
 import { PopupBlurSurface } from './blur_surface.js';
@@ -437,18 +438,25 @@ export const PopupBlur = class PopupBlur {
     }
 
     update_background() {
-        POPUP_BACKGROUND_STYLES.forEach(style => Main.uiGroup.remove_style_class_name(style));
+        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
+            .forEach(style => Main.uiGroup.remove_style_class_name(style));
 
-        if (this.settings.popup.OVERRIDE_BACKGROUND)
+        if (this.settings.popup.OVERRIDE_BACKGROUND) {
+            const style = this.get_background_style();
+            const background_style = this.settings.popup.PRESERVE_SHELL_THEME ?
+                POPUP_SURFACE_STYLES[style] :
+                POPUP_BACKGROUND_STYLES[style];
             Main.uiGroup.add_style_class_name(
-                POPUP_BACKGROUND_STYLES[this.get_background_style()]
+                background_style
             );
+        }
 
         this.surfaces.forEach(surface => surface.update_settings());
     }
 
     get_background_style() {
         const style = this.settings.popup.STYLE_POPUP;
+
         if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
             return style;
 
@@ -486,7 +494,8 @@ export const PopupBlur = class PopupBlur {
         this._log("removing blur from popup surfaces");
         this.enabled = false;
 
-        POPUP_BACKGROUND_STYLES.forEach(style => Main.uiGroup.remove_style_class_name(style));
+        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
+            .forEach(style => Main.uiGroup.remove_style_class_name(style));
 
         const actors = [...this.surfaces.keys()];
         actors.forEach(actor => this.destroy_blur(actor));

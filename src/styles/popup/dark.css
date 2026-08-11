@@ -1,9 +1,11 @@
-.bms-popup-background-dark .message:second-in-stack {
+.bms-popup-background-dark .message:second-in-stack,
+.bms-popup-surface-dark .message:second-in-stack {
     background: rgba(35, 35, 40, 0.3) !important;
     box-shadow: 0 1px 1px 0 transparent;
 }
 
-.bms-popup-background-dark .message:lower-in-stack {
+.bms-popup-background-dark .message:lower-in-stack,
+.bms-popup-surface-dark .message:lower-in-stack {
     background: rgba(35, 35, 40, 0.2) !important;
     box-shadow: none;
 }

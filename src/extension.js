@@ -688,6 +688,13 @@ export default class BlurMyShell extends Extension {
                 this._popup.update_background();
         });
 
+        // Apply only the popup surface override, leaving shell theme control
+        // and text styles intact.
+        this._settings.popup.PRESERVE_SHELL_THEME_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.update_background();
+        });
+
         // popup background style changed
         this._settings.popup.STYLE_POPUP_changed(() => {
             if (this._settings.popup.BLUR)

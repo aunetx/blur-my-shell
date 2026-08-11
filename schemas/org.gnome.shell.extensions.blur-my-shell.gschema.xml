@@ -672,6 +672,11 @@
             <default>true</default>
             <summary>Boolean, whether to override the background or not</summary>
         </key>
+        <!-- PRESERVE SHELL THEME -->
+        <key type="b" name="preserve-shell-theme">
+            <default>false</default>
+            <summary>Boolean, whether to preserve the shell theme's popup control styling</summary>
+        </key>
         <!-- STYLE POPUP -->
         <key type="i" name="style-popup">
             <default>3</default>

@@ -4,6 +4,9 @@ const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list'
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
 export const POPUP_BACKGROUND_STYLES = ['bms-popup-background-transparent', 'bms-popup-background-light', 'bms-popup-background-dark'];
+export const POPUP_SURFACE_STYLES = POPUP_BACKGROUND_STYLES.map(
+    style => style.replace('bms-popup-background-', 'bms-popup-surface-')
+);
 export const DEFAULT_CORNER_RADIUS = { key: 'corner-radius', property: 'CORNER_RADIUS' };
 export const POPUP_CORNER_RADII = [
     {

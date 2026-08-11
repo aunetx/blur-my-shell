@@ -184,6 +184,20 @@
 
             <child>
               <object class="AdwActionRow">
+                <property name="title" translatable="yes">Preserve shell theme</property>
+                <property name="subtitle" translatable="yes">Keep your shell theme's colors for popup controls.</property>
+                <property name="activatable-widget">preserve_shell_theme</property>
+
+                <child>
+                  <object class="GtkSwitch" id="preserve_shell_theme">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
                 <property name="title" translatable="yes">Background style</property>
                 <property name="subtitle" translatable="yes">The transparent/semi-transparent style for popups.</property>
                 <property name="activatable-widget">style_popup</property>
