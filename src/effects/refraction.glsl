@@ -1,4 +1,4 @@
-// GLSL port of winaviation-tweaks/liquidass 0.1.0b LiquidAssBackboardd/Tweak.mm kShaderSrc.
+// GLSL port of winaviation-tweaks/liquidass LiquidAssBackboardd/Tweak.mm kShaderSrc.
 // The sampling and blur pass are adapted for Blur my Shell's Clutter pipeline.
 uniform sampler2D tex;
 uniform float width;
@@ -165,24 +165,25 @@ vec4 sampleOrTintFallback(vec2 uv) {
     return sample.a < 0.01 ? tintFallbackSample() : sample;
 }
 
-// 0.1.0b rounded-box signed distance.
 float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
     radius = min(radius, min(halfSize.x, halfSize.y));
     vec2 q = abs(p) - halfSize + vec2(radius);
     return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
 }
 
-// 0.1.0b continuous-corner (superellipse) signed distance.
 float squircleCornerDistance(vec2 p, vec2 halfSize, float radius) {
     const float continuousCornerExtent = 1.528;
+
     vec2 extent = min(vec2(radius * continuousCornerExtent), halfSize);
     vec2 core = max(halfSize - extent, vec2(0.0));
     vec2 q = abs(p) - core;
     vec2 corner = max(q, vec2(0.0));
     vec2 normalized = corner / max(extent, vec2(0.001));
     float superLength = pow(pow(normalized.x, 4.0) + pow(normalized.y, 4.0), 0.25);
+
     if (q.x <= 0.0 && q.y <= 0.0)
         return -min(halfSize.x - abs(p.x), halfSize.y - abs(p.y));
+
     return (superLength - 1.0) * min(extent.x, extent.y);
 }
 
@@ -192,8 +193,6 @@ struct EdgeInfo {
     vec2 dir;
 };
 
-// 0.1.0b-style analytic edge: rounded-box for full/near-full rounding,
-// superellipse for intermediate radii.
 EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius, float shortest) {
     vec2 p = px - halfSize;
     float signedDistance;
@@ -213,9 +212,9 @@ EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius, float shorte
     info.distance = max(0.0, -signedDistance);
     info.alpha = clamp(1.0 - max(0.0, signedDistance), 0.0, 1.0);
 
-    // 0.1.0b normal: cubic superellipse corner, else nearest-core.
     vec2 cornerDelta = max(abs(p) - core, vec2(0.0));
     vec2 normalDelta;
+
     if (radius < shortest * 0.49 && radius >= 0.5 &&
         cornerDelta.x > 0.0 && cornerDelta.y > 0.0) {
         normalDelta = sign(p) * pow(cornerDelta, vec2(3.0));
@@ -225,30 +224,34 @@ EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius, float shorte
     }
 
     float normalLength = length(normalDelta);
+
     if (normalLength > 0.001) {
         info.dir = normalDelta / normalLength;
     } else {
         vec2 lensPx = px;
-        float dL = lensPx.x, dR = halfSize.x * 2.0 - lensPx.x;
-        float dT = lensPx.y, dB = halfSize.y * 2.0 - lensPx.y;
+        float dL = lensPx.x;
+        float dR = halfSize.x * 2.0 - lensPx.x;
+        float dT = lensPx.y;
+        float dB = halfSize.y * 2.0 - lensPx.y;
         float dm = min(min(dL, dR), min(dT, dB));
+
         info.dir = vec2(
             (dL < dR && dL == dm) ? -1.0 : (dR <= dL && dR == dm) ? 1.0 : 0.0,
             (dT < dB && dT == dm) ? -1.0 : (dB <= dT && dB == dm) ? 1.0 : 0.0
         );
     }
+
     return info;
 }
 
-// 0.1.0b backdrop sample with zoom applied on top of the actor-space mapping.
 vec2 backdropSampleUV(vec2 sampleUV, vec2 displacementPx) {
     vec2 displaced = sampleUV + displacementPx / vec2(width, height);
     float zoom = max(backdrop_zoom, 0.01);
+
     displaced = vec2(0.5) + (displaced - vec2(0.5)) / zoom;
     return displaced;
 }
 
-// 0.1.0b per-channel dispersion with alpha fallback.
 vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
     float greenScale = dispersionOffsetScale(kDispersionGreenIndex, dispersion);
     vec2 greenUV = resolveUV(backdropSampleUV(sampleUV, dispPx * greenScale));
@@ -257,10 +260,13 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
     vec4 fallback = vec4(0.0);
     bool loadedFallback = false;
     if (greenSample.a < 0.01) {
-        fallback = sampleOrTintFallback(resolveUV(backdropSampleUV(sampleUV, vec2(0.0))));
+        vec2 fallbackUV = resolveUV(backdropSampleUV(sampleUV, vec2(0.0)));
+
+        fallback = sampleOrTintFallback(fallbackUV);
         loadedFallback = true;
         greenSample = fallback;
     }
+
     if (greenSample.a < 0.01)
         return tintFallbackSample();
 
@@ -275,10 +281,14 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
         vec4 blueSample = sampleGlassBackdrop(blueUV);
 
         if (redSample.a < 0.01 || blueSample.a < 0.01) {
-            if (!loadedFallback)
-                fallback = sampleOrTintFallback(resolveUV(backdropSampleUV(sampleUV, vec2(0.0))));
+            if (!loadedFallback) {
+                vec2 fallbackUV = resolveUV(backdropSampleUV(sampleUV, vec2(0.0)));
+                fallback = sampleOrTintFallback(fallbackUV);
+            }
+
             if (redSample.a < 0.01)
                 redSample = fallback.a < 0.01 ? tintFallbackSample() : fallback;
+
             if (blueSample.a < 0.01)
                 blueSample = fallback.a < 0.01 ? tintFallbackSample() : fallback;
         }
@@ -289,6 +299,15 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
         bg.a = greenSample.a;
     }
     return bg;
+}
+
+vec4 applyTintAndShadow(vec4 sample, vec2 localUV, float alpha) {
+    vec3 tintColor = vec3(tint_r, tint_g, tint_b);
+    vec3 outRGB = mix(sample.rgb, tintColor, tint * tint_a);
+
+    outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
+
+    return vec4(clamp(outRGB, 0.0, 1.0) * alpha, alpha);
 }
 
 void main() {
@@ -352,20 +371,17 @@ void main() {
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     } else {
-        // 0.1.0b: refraction only applies within the bezel band.
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     }
 
-    // 0.1.0b early-out: away from the edge, just a tinted flat sample.
-    // (skipped for the circular surface, which refracts across the whole face)
     if (!useCircularSurface && R < shortestSide * 0.45 && distFromSide >= refractionBand) {
         vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
         vec4 flatSample = sampleOrTintFallback(resolveUV(flatUV));
-        flatSample.rgb = mix(flatSample.rgb, vec3(tint_r, tint_g, tint_b), tint * tint_a);
-        flatSample.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
-        cogl_color_out = vec4(clamp(flatSample.rgb, 0.0, 1.0) * edgeOpacity, edgeOpacity * opacity_factor);
+        float finalOpacity = edgeOpacity * opacity_factor;
+
+        cogl_color_out = applyTintAndShadow(flatSample, localUV, finalOpacity);
         return;
     }
 
@@ -383,7 +399,6 @@ void main() {
         return;
     }
 
-    // 0.1.0b tint color + Schlick fresnel glare, luminance-weighted.
     vec3 outRGB = mix(bgColor.rgb, vec3(tint_r, tint_g, tint_b), tint * tint_a);
     float fresnel = fresnelAtRatio(bezelRatio, REFRACTIVE_INDEX) * edgeOpacity;
     float bgLuminance = luminance(outRGB);
@@ -392,5 +407,6 @@ void main() {
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - glare);
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
 
-    cogl_color_out = vec4(clamp(outRGB, 0.0, 1.0) * edgeOpacity, edgeOpacity * opacity_factor);
+    float finalOpacity = edgeOpacity * opacity_factor;
+    cogl_color_out = vec4(clamp(outRGB, 0.0, 1.0) * finalOpacity, finalOpacity);
 }
