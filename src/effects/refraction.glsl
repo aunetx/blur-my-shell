@@ -156,6 +156,15 @@ vec4 sampleGlassBackdrop(vec2 uv) {
     return accum / weightSum;
 }
 
+vec4 tintFallbackSample() {
+    return vec4(vec3(tint_r, tint_g, tint_b), 1.0);
+}
+
+vec4 sampleOrTintFallback(vec2 uv) {
+    vec4 sample = sampleGlassBackdrop(uv);
+    return sample.a < 0.01 ? tintFallbackSample() : sample;
+}
+
 // 0.1.0b rounded-box signed distance.
 float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
     radius = min(radius, min(halfSize.x, halfSize.y));
@@ -248,12 +257,12 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
     vec4 fallback = vec4(0.0);
     bool loadedFallback = false;
     if (greenSample.a < 0.01) {
-        fallback = sampleGlassBackdrop(resolveUV(sampleUV));
+        fallback = sampleOrTintFallback(resolveUV(backdropSampleUV(sampleUV, vec2(0.0))));
         loadedFallback = true;
         greenSample = fallback;
     }
     if (greenSample.a < 0.01)
-        return vec4(vec3(tint_r, tint_g, tint_b), 1.0);
+        return tintFallbackSample();
 
     vec4 bg = greenSample;
     if (dispersion > 0.001 && dot(dispPx, dispPx) > 0.0001) {
@@ -267,11 +276,11 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
 
         if (redSample.a < 0.01 || blueSample.a < 0.01) {
             if (!loadedFallback)
-                fallback = sampleGlassBackdrop(resolveUV(sampleUV));
+                fallback = sampleOrTintFallback(resolveUV(backdropSampleUV(sampleUV, vec2(0.0))));
             if (redSample.a < 0.01)
-                redSample = fallback;
+                redSample = fallback.a < 0.01 ? tintFallbackSample() : fallback;
             if (blueSample.a < 0.01)
-                blueSample = fallback;
+                blueSample = fallback.a < 0.01 ? tintFallbackSample() : fallback;
         }
 
         bg.r = redSample.r;
@@ -321,7 +330,7 @@ void main() {
     float distFromSide = edge.distance;
     float edgeOpacity = edge.alpha;
     float edgeBand = 1.0;
-    float lensBezel = bezel;
+    float refractionBand = bezel;
     vec2 dir = edge.dir;
 
     if (useCircularSurface) {
@@ -338,35 +347,34 @@ void main() {
         distFromSide = max(0.0, circleRadius - circleDistance);
         dir = circleDistance > 0.001 ? normalize(fromCenter) : vec2(0.0, -1.0);
         edgeOpacity = clamp(1.0 - max(0.0, circleDistance - circleRadius), 0.0, 1.0);
-        lensBezel = max(bezel, circleRadius);
 
         float rimRadius = max(1.0, bezel * 0.35);
+        refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     } else {
         // 0.1.0b: refraction only applies within the bezel band.
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
+        refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     }
 
     // 0.1.0b early-out: away from the edge, just a tinted flat sample.
     // (skipped for the circular surface, which refracts across the whole face)
-    if (!useCircularSurface && R < shortestSide * 0.45 && distFromSide >= bezel) {
+    if (!useCircularSurface && R < shortestSide * 0.45 && distFromSide >= refractionBand) {
         vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
-        vec4 flatSample = sampleGlassBackdrop(flatUV);
+        vec4 flatSample = sampleOrTintFallback(resolveUV(flatUV));
         flatSample.rgb = mix(flatSample.rgb, vec3(tint_r, tint_g, tint_b), tint * tint_a);
         flatSample.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
         cogl_color_out = vec4(clamp(flatSample.rgb, 0.0, 1.0) * edgeOpacity, edgeOpacity * opacity_factor);
         return;
     }
 
-    float bezelRatio = useCircularSurface
-        ? clamp(distFromSide / lensBezel, 0.0, 1.0)
-        : clamp(distFromSide / max(1.0, bezel * 0.35 * max(1.0, rim_width)), 0.0, 1.0);
-    float normDisp = distFromSide < bezel
-        ? displacementAtRatio(bezelRatio, glassThickness, lensBezel, eta)
+    float bezelRatio = clamp(distFromSide / refractionBand, 0.0, 1.0);
+    float normDisp = distFromSide < refractionBand
+        ? displacementAtRatio(bezelRatio, glassThickness, refractionBand, eta)
         : 0.0;
     float dispStrength = useCircularSurface ? edgeOpacity : edgeBand;
-    vec2 dispPx = -dir * normDisp * lensBezel * strength * dispStrength;
+    vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength;
 
     float dispersion = clamp(rgb_fringing * DISPERSION_SCALE, 0.0, 20.0);
     vec4 bgColor = sampleDispersed(actorUV, dispPx, dispersion);
