@@ -253,7 +253,7 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
         greenSample = fallback;
     }
     if (greenSample.a < 0.01)
-        return vec4(0.0);
+        return vec4(vec3(tint_r, tint_g, tint_b), 1.0);
 
     vec4 bg = greenSample;
     if (dispersion > 0.001 && dot(dispPx, dispPx) > 0.0001) {
@@ -351,7 +351,8 @@ void main() {
     // 0.1.0b early-out: away from the edge, just a tinted flat sample.
     // (skipped for the circular surface, which refracts across the whole face)
     if (!useCircularSurface && R < shortestSide * 0.45 && distFromSide >= bezel) {
-        vec4 flatSample = sampleGlassBackdrop(actorUV);
+        vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
+        vec4 flatSample = sampleGlassBackdrop(flatUV);
         flatSample.rgb = mix(flatSample.rgb, vec3(tint_r, tint_g, tint_b), tint * tint_a);
         flatSample.rgb *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
         cogl_color_out = vec4(clamp(flatSample.rgb, 0.0, 1.0) * edgeOpacity, edgeOpacity * opacity_factor);

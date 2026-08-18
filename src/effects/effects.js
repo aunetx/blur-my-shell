@@ -435,7 +435,7 @@ export function get_supported_effects(_ = () => "") {
                     name: _("Tint color"),
                     description: _("Color blended over the blurred texture, weighted by the tint strength."),
                     type: "rgba",
-                    use_alpha: false
+                    use_alpha: true
                 },
                 backdrop_zoom: {
                     name: _("Backdrop zoom"),
