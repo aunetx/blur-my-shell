@@ -1,7 +1,10 @@
 import GObject from 'gi://GObject';
 import Clutter from 'gi://Clutter';
+import GLib from 'gi://GLib';
 
-const PAINTS_BETWEEN_REPAINTS = 2;
+// Shell.BlurEffect needs explicit invalidation for some shadow updates. Limit
+// those refreshes so a constantly painting actor cannot keep the GPU busy.
+const REPAINT_INTERVAL_US = 100_000;
 
 export const PaintSignals = class PaintSignals {
     constructor(connections) {
@@ -12,15 +15,14 @@ export const PaintSignals = class PaintSignals {
     connect(actor, blur_effect) {
         this.disconnect_all_for_actor(actor);
 
-        let paints_to_skip = 0;
+        let last_repaint_at = 0;
         const paint_effect = new PaintCallbackEffect();
         paint_effect.set_callback(() => {
-            if (paints_to_skip > 0) {
-                paints_to_skip--;
+            const now = GLib.get_monotonic_time();
+            if (now - last_repaint_at < REPAINT_INTERVAL_US)
                 return;
-            }
 
-            paints_to_skip = PAINTS_BETWEEN_REPAINTS;
+            last_repaint_at = now;
             try {
                 blur_effect.queue_repaint();
             } catch (e) { }
