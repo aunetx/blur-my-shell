@@ -24,6 +24,8 @@ const DEFAULT_PARAMS = {
     webcam_gloss: false,
     webcam_device: '',
     tint: 0.18,
+    tint_color: [1.0, 1.0, 1.0, 1.0],
+    backdrop_zoom: 1.0,
     shadow: 0.28,
     texture_repeat: 0,
     blur_direction: 0,
@@ -124,6 +126,46 @@ const REFRACTION_EFFECT_META = {
                 0.0, 1.0,
                 0.18,
             ),
+            'tint_red': GObject.ParamSpec.double(
+                `tint_red`,
+                `Tint Red`,
+                `Glass tint color red`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
+            ),
+            'tint_green': GObject.ParamSpec.double(
+                `tint_green`,
+                `Tint Green`,
+                `Glass tint color green`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
+            ),
+            'tint_blue': GObject.ParamSpec.double(
+                `tint_blue`,
+                `Tint Blue`,
+                `Glass tint color blue`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
+            ),
+            'tint_alpha': GObject.ParamSpec.double(
+                `tint_alpha`,
+                `Tint Alpha`,
+                `Glass tint color alpha`,
+                GObject.ParamFlags.READWRITE,
+                0.0, 1.0,
+                1.0,
+            ),
+            'backdrop_zoom': GObject.ParamSpec.double(
+                `backdrop_zoom`,
+                `Backdrop Zoom`,
+                `Zoom level of the refracted backdrop`,
+                GObject.ParamFlags.READWRITE,
+                0.1, 4.0,
+                1.0,
+            ),
             'shadow': GObject.ParamSpec.double(
                 `shadow`,
                 `Shadow`,
@@ -206,6 +248,7 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             const {
                 webcam_gloss: _webcam_gloss,
                 webcam_device: _webcam_device,
+                tint_color: _tint_color,
                 ...parent_params
             } = params;
             super({ ...parent_params });
@@ -376,6 +419,78 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
                 this._tint = value;
 
                 this.set_uniform_value('tint', parseFloat(this._tint - 1e-6));
+            }
+        }
+
+        get tint_red() {
+            return this._tint_red;
+        }
+
+        set tint_red(value) {
+            if (this._tint_red !== value) {
+                this._tint_red = value;
+
+                this.set_uniform_value('tint_r', parseFloat(this._tint_red - 1e-6));
+            }
+        }
+
+        get tint_green() {
+            return this._tint_green;
+        }
+
+        set tint_green(value) {
+            if (this._tint_green !== value) {
+                this._tint_green = value;
+
+                this.set_uniform_value('tint_g', parseFloat(this._tint_green - 1e-6));
+            }
+        }
+
+        get tint_blue() {
+            return this._tint_blue;
+        }
+
+        set tint_blue(value) {
+            if (this._tint_blue !== value) {
+                this._tint_blue = value;
+
+                this.set_uniform_value('tint_b', parseFloat(this._tint_blue - 1e-6));
+            }
+        }
+
+        get tint_alpha() {
+            return this._tint_alpha;
+        }
+
+        set tint_alpha(value) {
+            if (this._tint_alpha !== value) {
+                this._tint_alpha = value;
+
+                this.set_uniform_value('tint_a', parseFloat(this._tint_alpha - 1e-6));
+            }
+        }
+
+        get tint_color() {
+            return [this.tint_red, this.tint_green, this.tint_blue, this.tint_alpha];
+        }
+
+        set tint_color(rgba) {
+            const [r, g, b, a] = rgba;
+            this.tint_red = r;
+            this.tint_green = g;
+            this.tint_blue = b;
+            this.tint_alpha = a ?? 1.0;
+        }
+
+        get backdrop_zoom() {
+            return this._backdrop_zoom;
+        }
+
+        set backdrop_zoom(value) {
+            if (this._backdrop_zoom !== value) {
+                this._backdrop_zoom = value;
+
+                this.set_uniform_value('backdrop_zoom', parseFloat(this._backdrop_zoom - 1e-6));
             }
         }
 

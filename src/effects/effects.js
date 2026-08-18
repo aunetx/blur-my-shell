@@ -412,8 +412,8 @@ export function get_supported_effects(_ = () => "") {
                     digits: 0
                 },
                 gloss: {
-                    name: _("Gloss"),
-                    description: _("Strength of the white rim and surface highlight."),
+                    name: _("Fresnel glare"),
+                    description: _("Strength of the Schlick fresnel rim glare from the glass edge."),
                     type: "float",
                     min: 0.,
                     max: 1.,
@@ -422,11 +422,27 @@ export function get_supported_effects(_ = () => "") {
                     digits: 2
                 },
                 tint: {
-                    name: _("Tint"),
+                    name: _("Tint strength"),
                     description: _("Amount of subtle milky glass tint over the blurred texture."),
                     type: "float",
                     min: 0.,
                     max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                tint_color: {
+                    name: _("Tint color"),
+                    description: _("Color blended over the blurred texture, weighted by the tint strength."),
+                    type: "rgba",
+                    use_alpha: true
+                },
+                backdrop_zoom: {
+                    name: _("Backdrop zoom"),
+                    description: _("Zoom level of the backdrop visible through the glass."),
+                    type: "float",
+                    min: 0.1,
+                    max: 4.,
                     increment: 0.01,
                     big_increment: 0.1,
                     digits: 2
@@ -442,8 +458,8 @@ export function get_supported_effects(_ = () => "") {
                     digits: 2
                 },
                 rgb_fringing: {
-                    name: _("RGB fringing"),
-                    description: _("Adds subtle color separation to the bent texture."),
+                    name: _("Chromatic dispersion"),
+                    description: _("Physical per-channel refraction dispersion at the glass edge."),
                     type: "float",
                     min: 0.,
                     max: 1.,
