@@ -563,6 +563,12 @@ export default class BlurMyShell extends Extension {
                 this._applications_blur.connect_to_overview();
         });
 
+        // application unblur-when-fullscreen changed
+        this._settings.applications.UNBLUR_WHEN_FULLSCREEN_changed(() => {
+            if (this._settings.applications.BLUR)
+                this._applications_blur.update_fullscreen_status();
+        });
+
         // application enable-all changed
         this._settings.applications.ENABLE_ALL_changed(() => {
             if (this._settings.applications.BLUR)

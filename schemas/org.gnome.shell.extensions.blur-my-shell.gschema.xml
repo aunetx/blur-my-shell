@@ -442,6 +442,11 @@
             <default>false</default>
             <summary>Wether or not to blur applications on the overview</summary>
         </key>
+        <!-- UNBLUR WHEN FULLSCREEN -->
+        <key type="b" name="unblur-when-fullscreen">
+            <default>false</default>
+            <summary>Wether or not to unblur applications when they are fullscreen</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>
