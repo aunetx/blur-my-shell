@@ -32,10 +32,7 @@ export const PaintSignals = class PaintSignals {
         };
         const paint_effect = new PaintCallbackEffect();
         paint_effect.set_callback(paint_flags => {
-            // queue_repaint() invalidates the effect itself, which results in
-            // a paint without ACTOR_DIRTY. Do not turn that repaint into a
-            // new trailing timeout.
-            if (!(paint_flags & Clutter.PaintFlag.ACTOR_DIRTY))
+            if (!(paint_flags & Clutter.EffectPaintFlags.ACTOR_DIRTY))
                 return;
 
             const now = GLib.get_monotonic_time();
