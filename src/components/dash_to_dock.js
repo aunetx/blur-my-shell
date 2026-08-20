@@ -98,9 +98,15 @@ class DashInfos {
     override_style() {
         this.remove_style();
 
-        this.dash.set_style_class_name(
-            DASH_STYLES[this.settings.dash_to_dock.STYLE_DASH_TO_DOCK]
-        );
+        const style = DASH_STYLES[
+            this.settings.dash_to_dock.STYLE_DASH_TO_DOCK
+        ];
+
+        // Dash to Dock owns its style class list. Replacing it removes the
+        // extension's layout and border-radius rules. Add Blur My Shell's
+        // visual modifier alongside the native classes instead.
+        if (style && !this.dash.has_style_class_name(style))
+            this.dash.add_style_class_name(style);
     }
 
     remove_style() {
