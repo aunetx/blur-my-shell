@@ -31,7 +31,13 @@ export const PaintSignals = class PaintSignals {
             repaint_timeout_id = 0;
         };
         const paint_effect = new PaintCallbackEffect();
-        paint_effect.set_callback(() => {
+        paint_effect.set_callback(paint_flags => {
+            // queue_repaint() invalidates the effect itself, which results in
+            // a paint without ACTOR_DIRTY. Do not turn that repaint into a
+            // new trailing timeout.
+            if (!(paint_flags & Clutter.PaintFlag.ACTOR_DIRTY))
+                return;
+
             const now = GLib.get_monotonic_time();
             const elapsed = now - last_repaint_at;
             if (elapsed >= REPAINT_INTERVAL_US) {
@@ -88,7 +94,7 @@ const PaintCallbackEffect = GObject.registerClass(
         }
 
         vfunc_paint(node, paint_context, paint_flags) {
-            this._callback?.();
+            this._callback?.(paint_flags);
             super.vfunc_paint(node, paint_context, paint_flags);
         }
     }
