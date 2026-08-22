@@ -75,6 +75,11 @@
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
 
+.bms-popup-background-light .message:hover,
+.bms-popup-surface-light .message:hover {
+    background: rgba(255, 255, 255, 0.4) !important;
+}
+
 .bms-popup-background-dark .popup-menu-content,
 .bms-popup-background-dark .popup-sub-menu,
 .bms-popup-background-dark .candidate-popup-content,
@@ -96,30 +101,42 @@
 .bms-popup-background-dark .candidate-popup-content,
 .bms-popup-background-dark .quick-settings,
 .bms-popup-background-dark .quick-toggle-menu,
-.bms-popup-background-dark .message,
 .bms-popup-background-dark .osd-window,
 .bms-popup-background-dark .resize-popup,
 .bms-popup-background-dark .switcher-list,
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog,
-.bms-popup-background-transparent .message,
 .bms-popup-surface-dark .popup-menu-content,
 .bms-popup-surface-dark .popup-sub-menu,
 .bms-popup-surface-dark .candidate-popup-content,
 .bms-popup-surface-dark .quick-settings,
 .bms-popup-surface-dark .quick-toggle-menu,
-.bms-popup-surface-dark .message,
 .bms-popup-surface-dark .osd-window,
 .bms-popup-surface-dark .resize-popup,
 .bms-popup-surface-dark .switcher-list,
 .bms-popup-surface-dark .workspace-switcher,
 .bms-popup-surface-dark .modal-dialog,
-.bms-popup-surface-dark .run-dialog,
-.bms-popup-surface-transparent .message {
+.bms-popup-surface-dark .run-dialog {
     background: rgba(45, 45, 50, 0.22) !important;
-    border-color: transparent;
+    border-color: rgba(255, 255, 255, 0.05);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.bms-popup-background-dark .message,
+.bms-popup-background-transparent .message,
+.bms-popup-surface-dark .message,
+.bms-popup-surface-transparent .message {
+    background: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.bms-popup-background-dark .message:hover,
+.bms-popup-background-transparent .message:hover,
+.bms-popup-surface-dark .message:hover,
+.bms-popup-surface-transparent .message:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
 }
 
 .bms-popup-background-transparent .message,

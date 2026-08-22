@@ -45,6 +45,7 @@ export const Applications = GObject.registerClass({
         'opacity',
         'dynamic_opacity',
         'blur_on_overview',
+        'unblur_when_fullscreen',
         'enable_all',
         'whitelist',
         'add_window_whitelist',
@@ -88,6 +89,10 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'blur-on-overview', this._blur_on_overview, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'unblur-when-fullscreen', this._unblur_when_fullscreen, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
