@@ -115,6 +115,11 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         );
     }
 
+    is_screenshot_ui() {
+        return this.target?.has_style_class_name?.('screenshot-ui-panel')
+            || this.root_actor?.has_style_class_name?.('screenshot-ui-panel');
+    }
+
     update_geometry(target_x, target_y, width, height, monitor_index = null) {
         if (!this.update_background(monitor_index))
             return false;
@@ -141,6 +146,11 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         const clip_height = Math.ceil(target_geometry.height);
 
         try {
+            if (this.is_screenshot_ui() && this.background_group && !this.background_group_destroyed) {
+                this.background_group.set_position(0, 0);
+                this.background_group.set_size(monitor_geometry.width, monitor_geometry.height);
+            }
+
             if (this.blur_actor.x !== monitor_geometry.x || this.blur_actor.y !== monitor_geometry.y)
                 this.blur_actor.set_position(monitor_geometry.x, monitor_geometry.y);
             if (
@@ -182,9 +192,9 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         }
     }
 
-    set_opacity(opacity) {
+    set_opacity(opacity, pipeline_opacity = opacity) {
         try {
-            this.set_opacity_factor(opacity / 255);
+            this.set_opacity_factor(pipeline_opacity / 255);
             if (!this.background_group_destroyed)
                 this.background_group.opacity = 255;
             if (this.blur_actor && !this.blur_actor_destroyed)

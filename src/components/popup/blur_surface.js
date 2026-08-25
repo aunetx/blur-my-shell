@@ -14,10 +14,17 @@ import { PopupBlurStaticActor } from './static_actor.js';
 const NOTIFICATION_STYLE_CLASSES = ['notification-banner'];
 const FULL_GEOMETRY_STYLE_CLASSES = [
     'popup-menu-content', 'candidate-popup-content',
-    'quick-settings', 'quick-toggle-menu',
+    'quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel',
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
     'modal-dialog', 'run-dialog',
+];
+const IS_HEAVY_SURFACE_STYLE_CLASSES = [
+    'datemenu-popover', 'quick-settings', 'modal-dialog',
+    'candidate-popup-content', 'candidate-popup-boxpointer',
+];
+const IS_QUICK_SETTINGS_STYLE_CLASSES = [
+    'quick-toggle-menu', 'quick-settings', 'datemenu-popover', 
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
@@ -71,6 +78,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.signals.connect_actor(this.root_actor);
         this.signals.connect_ancestors(this.target);
         this.signals.connect_ancestors(this.root_actor);
+        if (this.style.has_any_style_class(this.target, ['screenshot-ui-panel']))
+            this.signals.connect_actor(this.parent);
         this.signals.connect_layout();
         this.signals.connect_settings();
         this.queue_update();
@@ -157,13 +166,13 @@ export const PopupBlurSurface = class PopupBlurSurface {
     
 
     is_quick_settings() {
-        return this.style.has_any_style_class(this.target, ['quick-toggle-menu','quick-settings','datemenu-popover'])
-            || this.style.has_any_style_class(this.root_actor, ['quick-toggle-menu','quick-settings','datemenu-popover']);
+        return this.style.has_any_style_class(this.target, IS_QUICK_SETTINGS_STYLE_CLASSES)
+            || this.style.has_any_style_class(this.root_actor, IS_QUICK_SETTINGS_STYLE_CLASSES);
     }
 
     is_heavy_surface() {
-        return this.style.has_any_style_class(this.target, ['datemenu-popover','quick-settings','modal-dialog','candidate-popup-content', 'candidate-popup-boxpointer'])
-            || this.style.has_any_style_class(this.root_actor, ['datemenu-popover','quick-settings','modal-dialog','candidate-popup-content', 'candidate-popup-boxpointer']);
+        return this.style.has_any_style_class(this.target, IS_HEAVY_SURFACE_STYLE_CLASSES)
+            || this.style.has_any_style_class(this.root_actor, IS_HEAVY_SURFACE_STYLE_CLASSES);
     }
 
     update() {
@@ -280,14 +289,21 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     update_surface_opacity(opacity) {
+        const pipeline_opacity = this.get_pipeline_opacity(opacity);
         if (this.static_blur) {
-            this.static_actor.set_opacity(opacity);
+            this.static_actor.set_opacity(opacity, pipeline_opacity);
             return;
         }
         this.fade.set_opacity(opacity);
         try {
-            this.pipeline?.set_opacity_factor(opacity / 255);
+            this.pipeline?.set_opacity_factor(pipeline_opacity / 255);
         } catch (e) { }
+    }
+
+    get_pipeline_opacity(opacity) {
+        if (!this.style.has_any_style_class(this.target, ['screenshot-ui-panel']))
+            return opacity;
+        return Math.round(opacity * (this.parent?.opacity ?? 255) / 255);
     }
 
     get_geometry_actor() {
