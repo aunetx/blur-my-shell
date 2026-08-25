@@ -205,6 +205,52 @@ This may cause some latency or performance issues.</property>
 
         <child>
           <object class="AdwActionRow">
+            <property name="title" translatable="yes">Blur during animations (experimental)</property>
+            <property name="subtitle" translatable="yes">Keeps the blur following the window during minimize and unminimize animations, matching its deformed outline.
+Experimental: only active with the Compiz alike magic lamp effect extension and a dock at the bottom of the screen; other animations and dock positions keep the default behaviour. Also costs an extra offscreen paint per frame while an animation runs.</property>
+            <property name="activatable-widget">animation_blur</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="animation_blur">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="animation_brightness_row">
+            <property name="title" translatable="yes">Animation blur brightness</property>
+            <property name="subtitle" translatable="yes">The gaussian blur used during animations reads brighter than the native one at the same value, so lower it to match. 0.8 is the tuned default.</property>
+            <property name="activatable-widget">animation_brightness</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkScale" id="animation_brightness">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="width-request">200px</property>
+                <property name="draw-value">true</property>
+                <property name="value-pos">right</property>
+                <property name="orientation">horizontal</property>
+                <property name="digits">2</property>
+                <property name="adjustment">
+                  <object class="GtkAdjustment" id="animation_brightness_adjustment">
+                    <property name="lower">0.5</property>
+                    <property name="upper">1.0</property>
+                    <property name="value">0.8</property>
+                    <property name="step-increment">0.05</property>
+                    <property name="page-increment">0.1</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Enable all by default</property>
             <property name="subtitle" translatable="yes">Adds blur behind all windows by default.</property>
             <property name="activatable-widget">enable_all</property>

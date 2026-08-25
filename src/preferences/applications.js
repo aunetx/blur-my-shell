@@ -45,6 +45,9 @@ export const Applications = GObject.registerClass({
         'opacity',
         'dynamic_opacity',
         'blur_on_overview',
+        'animation_blur',
+        'animation_brightness_row',
+        'animation_brightness_adjustment',
         'enable_all',
         'whitelist',
         'add_window_whitelist',
@@ -90,6 +93,20 @@ export const Applications = GObject.registerClass({
             'blur-on-overview', this._blur_on_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+        this.preferences.applications.settings.bind(
+            'animation-blur', this._animation_blur, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            // bind to the adjustment, GtkScale itself has no value property
+            'animation-brightness', this._animation_brightness_adjustment, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        // the brightness row only shows when the animation blur is on
+        this._animation_brightness_row.set_visible(this._animation_blur.active);
+        this._animation_blur.connect('notify::active', () => {
+            this._animation_brightness_row.set_visible(this._animation_blur.active);
+        });
         this.preferences.applications.settings.bind(
             'enable-all', this._enable_all, 'active',
             Gio.SettingsBindFlags.DEFAULT

@@ -58,6 +58,8 @@ export const KEYS = [
         component: "applications", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
+            { type: Type.B, name: "animation-blur" },
+            { type: Type.D, name: "animation-brightness" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },

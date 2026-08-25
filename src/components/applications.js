@@ -1,5 +1,10 @@
 import Meta from 'gi://Meta';
+import Mtk from 'gi://Mtk';
+import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
+import Clutter from 'gi://Clutter';
+import St from 'gi://St';
+import GObject from 'gi://GObject';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
@@ -7,6 +12,130 @@ import { ApplicationsService } from '../dbus/services.js';
 import { PaintSignals } from '../conveniences/paint_signals.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 import { Pipeline } from '../conveniences/pipeline.js';
+import * as shader_uniforms from '../conveniences/shader_uniforms.js';
+import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
+
+// Magic-lamp minimize/unminimize effect names. The animations come from the
+// compiz-alike-magic-lamp-effect extension; we hook the window-manager
+// minimize/unminimize signals to ride on top of them.
+const MINIMIZE_EFFECT_NAME = 'minimize-magic-lamp-effect';
+const UNMINIMIZE_EFFECT_NAME = 'unminimize-magic-lamp-effect';
+
+// Silhouette mask GLSL: analytically inverts magic-lamp's BOTTOM-branch deform
+// so a flat (undeformed) blur texture is clipped to the curved silhouette of
+// the animating window. k/j semantics: (0,0) is the window fully open and
+// (1,1) is collapsed to the icon, for both minimize and unminimize, so the
+// mask does not need to know the direction. fL/fT/fR/fB clip the silhouette to
+// the visible frame rect (inside the CSD shadow), and cornerRad rounds corners
+// like BMS's resting blur. Other dock sides pass through (rectangle blur).
+const ANIM_MASK_GLSL = `
+uniform sampler2D tex;
+uniform float iconPos;     // St.Side: 2 = BOTTOM
+uniform float k;
+uniform float j;
+uniform float winX, winY, winW, winH;
+uniform float iconX, iconW;
+uniform float iconMonH;
+uniform float actorH;      // sweep height = iconMonH - winY
+uniform float actorW;      // sampler actor width (window + icon + margin)
+uniform float xOff;        // window-local x at the actor's left edge (<=0)
+uniform float effectMode;  // 0 = default, 1 = sine
+uniform float fL, fT, fR, fB; // frame insets (buffer px)
+uniform float cornerRad;   // BMS corner radius (buffer px)
+
+const float PI = 3.14159265359;
+
+void main(void) {
+    vec2 uv = cogl_tex_coord_in[0].xy;
+    vec4 c = texture2D(tex, uv);
+
+    if (iconPos < 1.5 || iconPos > 2.5) {
+        cogl_color_out = c;
+        return;
+    }
+
+    float lx = uv.x * actorW + xOff;
+    float ly = uv.y * actorH;
+
+    float expandH = iconMonH - winY - winH;
+    float fullH   = (iconMonH - winY) - expandH * (1.0 - k);
+    float height  = fullH * (1.0 - j);
+    float offsetY = (iconMonH - winY) - height - expandH * (1.0 - k);
+
+    float ty = (ly - offsetY) / max(height, 0.0001);
+
+    float A = iconW + (winW - iconW) * ((1.0 - j) * (1.0 - ty) + (1.0 - k) * ty);
+    float offsetX = (iconX - winX) * (ty * (1.0 - j)) * k + (iconX - winX) * j;
+    float B = offsetX;
+    if (effectMode > 0.5) {
+        B += sin((1.0 - j) * (1.0 - ty) * 4.0 * PI) * (winW / 14.0) * k;
+    } else {
+        float P = sin((1.0 - j) * (1.0 - ty) * 2.0 * PI + PI) * (k / 7.0);
+        A += P * (winW - iconW);
+        B += P * (winX - iconX);
+    }
+
+    float fx0 = fL / max(winW, 1.0);
+    float fx1 = 1.0 - fR / max(winW, 1.0);
+    float fy0 = fT / max(winH, 1.0);
+    float fy1 = 1.0 - fB / max(winH, 1.0);
+    float rawTx = (lx - B) / max(A, 0.0001);
+    float rawTy = ty;
+    float tx = (rawTx - fx0) / max(fx1 - fx0, 0.0001);
+    ty = (rawTy - fy0) / max(fy1 - fy0, 0.0001);
+
+    // Screen-space antialiased silhouette coverage. The hard 0/1 'inside' step,
+    // sampled by Clutter's linear filter, would interpolate into a ~1px soft
+    // ramp leaking the gaussian tail past the edge. Recompute the boundary as a
+    // smoothstep exactly one screen pixel wide (via fwidth) so the transition
+    // lands on the silhouette and is fully transparent immediately outside it.
+    float awX = max(fwidth(tx), 1e-6);
+    float awY = max(fwidth(ty), 1e-6);
+    float dx = min(tx, 1.0 - tx);
+    float dy = min(ty, 1.0 - ty);
+    float covX = smoothstep(-awX, awX, dx);
+    float covY = smoothstep(-awY, awY, dy);
+    float inside = covX * covY;
+
+    if (inside > 0.0 && cornerRad > 0.5) {
+        float r = cornerRad;
+        vec2 p  = vec2(tx * winW, ty * winH);
+        float cl = r, cr = winW - r, ct = r, cb = winH - r;
+        vec2 center = p;
+        bool inCorner = false;
+        if (p.x < cl)      { center.x = cl + 2.0; inCorner = true; }
+        else if (p.x > cr) { center.x = cr - 1.0; inCorner = true; }
+        if (inCorner) {
+            if (p.y < ct)      { center.y = ct + 2.0; }
+            else if (p.y > cb) { center.y = cb - 1.0; }
+            else               { inCorner = false; }
+        }
+        if (inCorner) {
+            float dist = length(p - center);
+            float outer = r + 0.5, inner = r - 0.5;
+            float corner = 1.0;
+            if (dist >= outer)      corner = 0.0;
+            else if (dist > inner)  corner = outer - dist;
+            inside *= corner;
+        }
+    }
+
+    cogl_color_out = vec4(c.rgb * inside, min(inside, c.a));
+}
+`;
+
+const AnimMaskEffect = GObject.registerClass({
+    GTypeName: 'BmsAnimMaskEffect',
+}, class AnimMaskEffect extends Clutter.ShaderEffect {
+    _init() {
+        super._init();
+        this.set_shader_source(ANIM_MASK_GLSL);
+    }
+    vfunc_paint_target(paint_node, paint_context) {
+        try { shader_uniforms.upload_uniforms(this); } catch (e) {}
+        super.vfunc_paint_target(paint_node, paint_context);
+    }
+});
 
 
 /// Converts a wildcard pattern to a RegExp object.
@@ -63,6 +192,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         // stores every blurred meta window
         this.meta_window_map = new Map();
+
+        // active magic-lamp animation states (meta_window -> state), for the
+        // per-frame deformed blur that follows the minimizing window.
+        this._anim_states = new Map();
+        this._anim_enabled = false;
+        this._anim_wm_handlers = [];
 
         // cache for compiled patterns to avoid recompilation
         this._whitelist_pattern_cache = new Map();
@@ -125,6 +260,23 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
 
         this.connect_to_overview();
+
+        // animation blur is experimental and opt-in
+        if (this.settings.applications.ANIMATION_BLUR)
+            this._enable_anim_blur();
+
+        // enable/disable the animation blur when the setting changes; listen
+        // on the underlying GSettings object (the Keys wrapper is not a
+        // GObject and cannot be connected to)
+        this._anim_setting_id = this.settings.applications.settings.connect(
+            'changed::animation-blur',
+            () => {
+                if (this.settings.applications.ANIMATION_BLUR)
+                    this._enable_anim_blur();
+                else
+                    this._disable_anim_blur();
+            }
+        );
     }
 
     /// Initializes the dynamic opacity for windows, without touching to the connections.
@@ -423,6 +575,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
             window_actor,
             'notify::visible',
             window_actor => {
+                // during an animation blur the sampler owns the window's blur;
+                // the capture loop toggles this window's visibility every
+                // frame, and re-showing the resting blur widget here would
+                // stack a static blur on top of the animated one
+                if (this._anim_states?.has(meta_window))
+                    return;
                 if (window_actor.visible)
                     meta_window.blur_actor.show();
                 else
@@ -638,6 +796,13 @@ export const ApplicationsBlur = class ApplicationsBlur {
     disable() {
         this._log("removing blur from applications...");
 
+        this._disable_anim_blur();
+        if (this._anim_setting_id) {
+            try { this.settings.applications.settings.disconnect(this._anim_setting_id); }
+            catch (e) {}
+            this._anim_setting_id = 0;
+        }
+
         this.service?.unexport();
         delete this.mutter_gsettings;
 
@@ -647,6 +812,336 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         this.connections.disconnect_all();
         this.paint_signals.disconnect_all();
+    }
+
+    // ---- magic-lamp animation blur ----
+
+    _enable_anim_blur() {
+        if (this._anim_enabled) return;
+        this._anim_enabled = true;
+        const hook = (actor, isMinimize) => {
+            if (!this._anim_enabled || !actor) return;
+            const mw = actor.meta_window;
+            if (!mw || !mw.blur_actor) return;
+            const name = isMinimize ? MINIMIZE_EFFECT_NAME : UNMINIMIZE_EFFECT_NAME;
+            const effect = actor.get_effect(name);
+            if (effect?.timerId) {
+                try { this._anim_begin(actor, mw, effect); }
+                catch (e) { this._warn(`anim begin: ${e}`); }
+                return;
+            }
+            let tries = 0;
+            GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+                if (!this._anim_enabled) return GLib.SOURCE_REMOVE;
+                const e2 = actor.get_effect(
+                    isMinimize ? MINIMIZE_EFFECT_NAME : UNMINIMIZE_EFFECT_NAME);
+                if (!e2?.timerId) return ++tries > 30 ? GLib.SOURCE_REMOVE : GLib.SOURCE_CONTINUE;
+                try { this._anim_begin(actor, mw, e2); }
+                catch (e) { this._warn(`anim begin(idle): ${e}`); }
+                return GLib.SOURCE_REMOVE;
+            });
+        };
+        this._anim_wm_handlers.push(
+            global.window_manager.connect('minimize', (_w, a) => hook(a, true)));
+        this._anim_wm_handlers.push(
+            global.window_manager.connect('unminimize', (_w, a) => hook(a, false)));
+    }
+
+    _disable_anim_blur() {
+        if (!this._anim_enabled) return;
+        this._anim_enabled = false;
+        for (const id of this._anim_wm_handlers) {
+            try { global.window_manager.disconnect(id); } catch (e) {}
+        }
+        this._anim_wm_handlers = [];
+        for (const s of this._anim_states.values()) {
+            try { this._anim_finish(s); } catch (e) {}
+        }
+        this._anim_states.clear();
+    }
+
+    _find_blur_widget(window_actor) {
+        for (const c of window_actor.get_children()) {
+            if ((c.name || '').includes('bms-application-blurred')) return c;
+        }
+        return null;
+    }
+
+    _anim_begin(window_actor, meta_window, masterEffect) {
+        // only the bottom dock branch of the deform is inverted analytically
+        // for now; other dock sides keep the vanilla behaviour (no animated
+        // blur at all rather than a wrong rectangle blur)
+        if (masterEffect.iconPosition !== St.Side.BOTTOM) return;
+
+        const existing = this._anim_states.get(meta_window);
+        if (existing) { try { this._anim_finish(existing); } catch (e) {} this._anim_states.delete(meta_window); }
+        for (const [mw2, st2] of this._anim_states) {
+            if (!st2.masterEffect || st2.masterEffect.get_actor?.() !== st2.wa) {
+                try { this._anim_finish(st2); } catch (e) {} this._anim_states.delete(mw2);
+            }
+        }
+
+        const ba = this._find_blur_widget(window_actor);
+        if (!ba) return;
+        const wg = global.window_group;
+
+        const w = masterEffect.window;
+        const icon = masterEffect.icon;
+        const iconMon = masterEffect.iconMonitor;
+        if (!w || !icon || !iconMon) { this._warn('anim: geometry missing'); return; }
+
+        const actorW0 = Math.max(1, Math.round(window_actor.width));
+        const actorH0 = Math.max(1, Math.round(window_actor.height));
+        const sweepH = Math.max(1, Math.round(iconMon.height - w.y));
+
+        let fL = 0, fT = 0, fR = 0, fB = 0;
+        let winW = actorW0;
+        try {
+            const br = meta_window.get_buffer_rect();
+            const fr = meta_window.get_frame_rect();
+            const sx = actorW0 / Math.max(1, br.width);
+            const sy = actorH0 / Math.max(1, br.height);
+            const edgeSafety = 2;
+            fL = Math.max(0, Math.round((fr.x - br.x) * sx)) + edgeSafety;
+            fT = Math.max(0, Math.round((fr.y - br.y) * sy)) + edgeSafety;
+            fR = Math.max(0, Math.round((br.x + br.width - fr.x - fr.width) * sx)) + edgeSafety;
+            fB = Math.max(0, Math.round((br.y + br.height - fr.y - fr.height) * sy)) + edgeSafety;
+            winW = Math.max(1, actorW0 - fL - fR);
+        } catch (e) {}
+        if (fL + fR >= actorW0 * 0.8 || fT + fB >= actorH0 * 0.8) {
+            fL = fT = fR = fB = 0; winW = actorW0;
+        }
+
+        const iconLocalX = icon.x - w.x;
+        const iconStageX = window_actor.x + iconLocalX;
+        const iconStageR = iconStageX + icon.width;
+        const winStageR = window_actor.x + actorW0;
+        const margin = Math.max(60, actorW0 / 8);
+        const rx0 = Math.round(Math.min(window_actor.x, iconStageX) - margin);
+        const rx1 = Math.round(Math.max(winStageR, iconStageR) + margin);
+        const actorW = Math.max(1, rx1 - rx0);
+        const xOff = rx0 - window_actor.x;
+        const X = rx0;
+        const Y = Math.round(window_actor.y);
+
+        let scale = 1;
+        try { scale = global.stage.get_resource_scale() || 1; } catch (e) {}
+
+        const saved = {
+            ba, wa: window_actor, mw: meta_window, masterEffect,
+            timeline: masterEffect.timerId,
+            sampler: null, content: null, mask: null,
+            newFrameId: 0, signals: [], timeoutId: 0, hardTimeoutId: 0, done: false,
+            winW, sweepH, rx0: X, actorW, xOff, scale,
+            fL, fT, fR, fB,
+            isMinimize: masterEffect.isMinimizeEffect === true,
+            waVisible: window_actor.visible !== false,
+            baVisible: ba.visible !== false,
+            baOpacity: Number.isFinite(Number(ba.opacity)) ? ba.opacity : 255,
+        };
+
+        const sampler = new St.Widget({ x: X, y: Y, width: actorW, height: sweepH, opacity: 255, reactive: false });
+        sampler.add_effect(new GaussianBlurEffect({
+            radius: this._anim_read_radius(),
+            // GaussianBlurEffect is brighter than Shell.BlurEffect (BMS
+            // dynamic) at identical brightness settings; the animation
+            // brightness setting compensates (0.8 default, tuned by eye).
+            brightness: this._anim_read_anim_brightness(),
+            // width/height are not passed: vfunc_set_actor overrides them
+            // from the actor's own size anyway
+        }));
+        const mask = new AnimMaskEffect();
+        sampler.add_effect(mask);
+        wg.insert_child_below(sampler, window_actor);
+        saved.sampler = sampler;
+        saved.mask = mask;
+
+        let captured = false;
+        try { captured = this._anim_capture(saved); }
+        catch (e) { this._warn(`anim capture: ${e}`); }
+        if (!captured) {
+            GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+                try { sampler.destroy(); } catch (e) {}
+                return GLib.SOURCE_REMOVE;
+            });
+            try {
+                ba.visible = saved.baVisible;
+                ba.opacity = saved.baOpacity;
+                window_actor.visible = saved.waVisible;
+            } catch (e) {}
+            saved.sampler = null;
+            return;
+        }
+
+        // hide BMS's own blur widget for the duration (two-layer = double blur)
+        try { ba.visible = false; } catch (e) {}
+
+        shader_uniforms.set_uniform(mask, 'iconPos', masterEffect.iconPosition);
+        shader_uniforms.set_uniform(mask, 'winX', w.x);
+        shader_uniforms.set_uniform(mask, 'winY', w.y);
+        shader_uniforms.set_uniform(mask, 'winW', actorW0);
+        shader_uniforms.set_uniform(mask, 'winH', actorH0);
+        shader_uniforms.set_uniform(mask, 'iconX', icon.x);
+        shader_uniforms.set_uniform(mask, 'iconW', icon.width);
+        shader_uniforms.set_uniform(mask, 'iconMonH', iconMon.height);
+        shader_uniforms.set_uniform(mask, 'actorH', sweepH);
+        shader_uniforms.set_uniform(mask, 'actorW', actorW);
+        shader_uniforms.set_uniform(mask, 'xOff', xOff);
+        shader_uniforms.set_uniform(mask, 'effectMode', masterEffect.EFFECT === 'sine' ? 1 : 0);
+        shader_uniforms.set_uniform(mask, 'fL', fL);
+        shader_uniforms.set_uniform(mask, 'fT', fT);
+        shader_uniforms.set_uniform(mask, 'fR', fR);
+        shader_uniforms.set_uniform(mask, 'fB', fB);
+        shader_uniforms.set_uniform(mask, 'cornerRad', this._anim_read_corner());
+        shader_uniforms.set_uniform(mask, 'k', masterEffect.k ?? 0);
+        shader_uniforms.set_uniform(mask, 'j', masterEffect.j ?? 0);
+
+        const refresh = () => {
+            if (saved.done) return;
+            try {
+                saved.sampler.set_position(
+                    Math.round(saved.wa.x + saved.xOff), Math.round(saved.wa.y));
+            } catch (e) {}
+            try { this._anim_capture(saved); } catch (e) {}
+            try {
+                saved.sampler.get_parent()?.set_child_below_sibling?.(saved.sampler, saved.wa);
+            } catch (e) {}
+            try { sampler.queue_redraw(); } catch (e) {}
+            try {
+                shader_uniforms.set_uniform(saved.mask, 'k', masterEffect.k ?? 0);
+                shader_uniforms.set_uniform(saved.mask, 'j', masterEffect.j ?? 0);
+            } catch (e) {}
+        };
+        if (saved.timeline)
+            saved.newFrameId = saved.timeline.connect('new-frame', refresh);
+        refresh();
+
+        const finish = () => {
+            if (saved.done) return;
+            saved.done = true;
+            this._anim_finish(saved);
+            this._anim_states.delete(meta_window);
+        };
+        saved.timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 250, () => {
+            if (saved.done) return GLib.SOURCE_REMOVE;
+            if (!saved.masterEffect || saved.masterEffect.get_actor?.() !== window_actor) {
+                if (saved._gone) { finish(); return GLib.SOURCE_REMOVE; }
+                saved._gone = true;
+            } else {
+                saved._gone = false;
+            }
+            return GLib.SOURCE_CONTINUE;
+        });
+        if (saved.timeline) {
+            saved.signals.push([saved.timeline, saved.timeline.connect('completed', finish)]);
+            saved.signals.push([saved.timeline, saved.timeline.connect('stopped', finish)]);
+        }
+        saved.hardTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 15000, () => {
+            finish(); return GLib.SOURCE_REMOVE;
+        });
+
+        this._anim_states.set(meta_window, saved);
+    }
+
+    // Capture the sweep region (background behind the window) into the sampler.
+    // Hide window actor + sampler + BMS widget during the synchronous paint so
+    // nothing feeds back into its own capture.
+    _anim_capture(s) {
+        const rect = new Mtk.Rectangle({
+            x: s.rx0, y: Math.round(s.wa.y),
+            width: s.actorW, height: s.sweepH,
+        });
+        s.wa.visible = false;
+        s.sampler.visible = false;
+        let baWas = false;
+        if (s.ba && s.ba.visible !== false) { baWas = true; try { s.ba.visible = false; } catch (e) {} }
+        let content = null;
+        // GNOME 50 signature: paint_to_content(rect, scale, color_state,
+        // paint_flags). Older shells take 3 args; the extension only declares
+        // shell-version 50, so this arity is fine as-is.
+        try { content = global.stage.paint_to_content(rect, s.scale || 1.0, null, 0); }
+        catch (e) {
+            if (!s._captureWarned) {
+                s._captureWarned = true;
+                this._warn(`animation capture failed: ${e}`);
+            }
+        }
+        if (baWas) try { s.ba.visible = true; } catch (e) {}
+        s.sampler.visible = true;
+        s.wa.visible = s.waVisible !== false;
+        if (!content) return false;
+        const old = s.content;
+        s.content = content;
+        s.sampler.set_content(content);
+        if (old) {
+            GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+                try { old.destroy?.(); } catch (e) {}
+                return GLib.SOURCE_REMOVE;
+            });
+        }
+        return true;
+    }
+
+    _anim_finish(s) {
+        s.done = true;
+        if (s.timeline && s.newFrameId) {
+            try { s.timeline.disconnect(s.newFrameId); } catch (e) {}
+            s.newFrameId = 0;
+        }
+        for (const [obj, id] of s.signals) { try { obj.disconnect(id); } catch (e) {} }
+        s.signals = [];
+        if (s.timeoutId) { try { GLib.source_remove(s.timeoutId); } catch (e) {} s.timeoutId = 0; }
+        if (s.hardTimeoutId) { try { GLib.source_remove(s.hardTimeoutId); } catch (e) {} s.hardTimeoutId = 0; }
+
+        const sampler = s.sampler;
+        const content = s.content;
+        s.sampler = null;
+        s.content = null;
+        const wa = s.wa;
+        const ba = s.ba;
+        const baVisible = s.baVisible !== false;
+        const baOpacity = s.baOpacity;
+        const waVisible = s.waVisible !== false;
+        const isMinimize = s.isMinimize;
+        // Hand the window back to BMS in ONE idle callback. _anim_finish runs
+        // from a timeline signal, where destroying a Clutter actor during a GC
+        // sweep can crash gnome-shell, so the swap is deferred to a single
+        // callback (single visible frame). If a NEWER animation has already
+        // taken over this window (rapid re-minimize), it owns the blur widget
+        // now and this stale idle must not re-show it.
+        GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            try { sampler?.destroy?.(); } catch (e) {}
+            try { content?.destroy?.(); } catch (e) {}
+            try {
+                if (!isMinimize) wa.visible = waVisible;
+                let superseded = false;
+                for (const st of this._anim_states.values()) {
+                    if (st !== s && st.wa === wa) { superseded = true; break; }
+                }
+                if (!superseded && ba) { ba.visible = baVisible; ba.opacity = baOpacity; }
+            } catch (e) {}
+            try { wa.queue_redraw(); } catch (e) {}
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    _anim_read_radius() {
+        const s = this.settings?.applications;
+        if (s?.SIGMA !== undefined) return Math.max(0.5, Number(s.SIGMA));
+        return 30;
+    }
+
+    _anim_read_anim_brightness() {
+        const s = this.settings?.applications;
+        if (s?.ANIMATION_BRIGHTNESS !== undefined)
+            return Math.min(1, Math.max(0.05, Number(s.ANIMATION_BRIGHTNESS)));
+        return 0.8;
+    }
+
+    _anim_read_corner() {
+        const s = this.settings?.applications;
+        if (s?.CORNER_RADIUS !== undefined) return s.CORNER_RADIUS;
+        return 12;
     }
 
     _log(str) {
