@@ -173,6 +173,39 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 }
             );
         }
+        else {
+            this.connections.connect(
+                Main.overview, 'showing',
+                _ => this.meta_window_map.forEach((meta_window, _pid) => {
+                    let window_actor = meta_window.get_compositor_private();
+                    window_actor?.hide();
+                })
+            );
+            // when the overview is closed, hide every actor that is not on the
+            // current workspace (to mimic the original behaviour)
+            this.connections.connect(
+                Main.overview, 'hidden',
+                _ => { this.meta_window_map.forEach((meta_window, _pid) => {
+                        let window_actor = meta_window.get_compositor_private();
+                        if (
+                            (!meta_window.get_workspace().active) || meta_window.minimized
+                        ){
+                            window_actor.hide();
+                        }
+                        else {
+                            window_actor.show();
+                            if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN) {
+                                 this.unblur_when_fullscreen(meta_window);
+                            }     
+                            else {
+                                meta_window.blur_actor?.show();
+                            }
+                                
+                        }
+                    });
+                }
+            );
+        }
     }
 
     /// Iterate through all existing windows and add blur as needed.
@@ -375,6 +408,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         meta_window.blur_actor = blur_actor;
 
+        if (!this.settings.applications.BLUR_ON_OVERVIEW && Main.overview.visible)
+            blur_actor.hide();
+
         // make sure window is blurred in overview
         if (this.settings.applications.BLUR_ON_OVERVIEW)
             this.enforce_window_visibility_on_overview_for(window_actor);
@@ -387,6 +423,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         // update corner radius based on window state
         this.update_corner_radius(meta_window);
+
+        // unblur when fullscreen
+        if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN) {
+            this.unblur_when_fullscreen(meta_window);
+        }
 
         // now set up the signals, for the window actor only: they are disconnected
         // in `remove_blur`, whereas the signals for the meta window are disconnected
@@ -403,7 +444,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
         this.connections.connect(
             meta_window, 'notify::fullscreen',
-            _ => this.update_corner_radius(meta_window)
+            _ => {
+                this.update_corner_radius(meta_window);
+                if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN){
+                    this.unblur_when_fullscreen(meta_window);
+                }
+            }
         );
 
         // update the window opacity when it changes, else we don't control it fully
@@ -423,10 +469,18 @@ export const ApplicationsBlur = class ApplicationsBlur {
             window_actor,
             'notify::visible',
             window_actor => {
-                if (window_actor.visible)
-                    meta_window.blur_actor.show();
-                else
+                if (window_actor.visible) {
+                    if (!this.settings.applications.BLUR_ON_OVERVIEW && Main.overview.visible) {
+                        meta_window.blur_actor.hide();
+                    }
+                    else if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN){
+                        this.unblur_when_fullscreen(meta_window);
+                    }
+                    else { meta_window.blur_actor.show(); }
+                }
+                else {
                     meta_window.blur_actor.hide();
+                }
             }
         );
     }
@@ -461,7 +515,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
         // if we remove the focus and have blur, show it and make the window transparent
         else if (blur_actor) {
-            blur_actor.show();
+            if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN) {
+                this.unblur_when_fullscreen(meta_window);
+            }
+            else {
+                blur_actor.show();
+            }
             this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
         }
     }
@@ -509,11 +568,36 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
     }
 
+    unblur_when_fullscreen(meta_window) {
+        const is_fullscreen = meta_window.fullscreen;
+
+        let window_actor = null;
+        if (meta_window) {
+            window_actor = meta_window.get_compositor_private();
+        }
+
+        if (is_fullscreen) {
+            meta_window.blur_actor.hide();
+            this.set_window_opacity(window_actor, 255);
+        } else {
+            meta_window.blur_actor.show();
+            this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
+        }    
+    }
+
     /// Update all corners, to use when the setting has been changed.
     update_all_corner_radii() {
         this.meta_window_map.forEach(
             (meta_window, _pid) => this.update_corner_radius(meta_window)
         )
+    }
+
+    update_fullscreen_status() {
+        if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN){
+            this.meta_window_map.forEach(
+                (meta_window, _pid) => this.unblur_when_fullscreen(meta_window)
+            )
+        }
     }
 
     /// Set the opacity of the window actor that sits on top of the blur effect.
