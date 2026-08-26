@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="ApplicationRow" parent="AdwExpanderRow">
+    <property name="title" translatable="yes">Window Name</property>
+
+    <child>
+      <object class="AdwActionRow">
+        <property name="title" translatable="yes">Select window</property>
+        <property name="subtitle" translatable="yes">Pick a window or select it by its classname.</property>
+
+        <child>
+          <object class="GtkBox" id="window_selector">
+            <property name="valign">center</property>
+            <property name="hexpand">true</property>
+            <property name="width-request">175px</property>
+            <style>
+              <class name="linked" />
+            </style>
+
+            <child>
+              <object class="GtkButton" id="window_picker">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+                <property name="icon-name">select-window-symbolic</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkEntry" id="window_class">
+                <property name="valign">center</property>
+                <property name="hexpand">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="AdwToast" id="picking_failure_toast">
+    <property name="title">Could not pick window, make sure that the extension is enabled.</property>
+  </object>
+
+  <object class="AdwToast" id="window_not_found_toast">
+    <property name="title">Could not pick window from here, does not seem like a valid window.</property>
+  </object>
+</interface>

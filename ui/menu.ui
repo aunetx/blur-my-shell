@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <menu id="info_menu_model">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Project page</attribute>
+        <attribute name="action">prefs.open-readme</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Report a Bug</attribute>
+        <attribute name="action">prefs.open-bug-report</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">License</attribute>
+        <attribute name="action">prefs.open-license</attribute>
+      </item>
+      <submenu>
+        <attribute name="label" translatable="yes">Donate</attribute>
+        <item>
+          <attribute name="label">GitHub</attribute>
+          <attribute name="action">prefs.donate-github</attribute>
+        </item>
+        <item>
+          <attribute name="label">Ko-fi</attribute>
+          <attribute name="action">prefs.donate-kofi</attribute>
+        </item>
+      </submenu>
+    </section>
+  </menu>
+
+  <object class="GtkMenuButton" id="info_menu">
+    <property name="menu-model">info_menu_model</property>
+    <property name="icon-name">heart-symbolic</property>
+  </object>
+
+  <object class="AdwPreferencesPage" id="menu_util"></object>
+</interface>
