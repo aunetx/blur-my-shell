@@ -205,6 +205,21 @@ This may cause some latency or performance issues.</property>
 
         <child>
           <object class="AdwActionRow">
+            <property name="title" translatable="yes">Unblur when Fullscreen</property>
+            <property name="subtitle" translatable="yes">Forces the blur to be removed when a window is in fullscreen mode.</property>
+            <property name="activatable-widget">unblur_when_fullscreen</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="unblur_when_fullscreen">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow">
             <property name="title" translatable="yes">Enable all by default</property>
             <property name="subtitle" translatable="yes">Adds blur behind all windows by default.</property>
             <property name="activatable-widget">enable_all</property>
