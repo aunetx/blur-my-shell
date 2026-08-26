@@ -4,21 +4,23 @@
 * `.transparent-dash`
 */
 .transparent-dash .dash-background {
-    background-color: transparent !important;
+    background: transparent !important;
 }
 
 /*
 * `.light-dash`
 */
 .light-dash .dash-background {
-    background-color: rgba(200, 200, 200, 0.2) !important;
+    background: rgba(255, 255, 255, 0.58) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /*
 * `.dark-dash`
 */
 .dark-dash .dash-background {
-    background-color: rgba(100, 100, 100, 0.35) !important;
+    background: rgba(45, 45, 50, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 
