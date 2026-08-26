@@ -145,67 +145,23 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// shown on every window of the workspaces viewer.
     connect_to_overview() {
         this.connections.disconnect_all_for(Main.overview);
+        this.overview_visible = Main.overview.visible;
 
-        if (this.settings.applications.BLUR_ON_OVERVIEW) {
-            // when the overview is opened, show every window actors (which
-            // allows the blur to be shown too)
-            this.connections.connect(
-                Main.overview, 'showing',
-                _ => this.meta_window_map.forEach((meta_window, _pid) => {
-                    let window_actor = meta_window.get_compositor_private();
-                    window_actor?.show();
-                })
-            );
+        const reconcile_windows = () => this.meta_window_map.forEach(
+            (meta_window, _pid) => this.reconcile_window_visibility(meta_window)
+        );
+        this.connections.connect(Main.overview, 'showing', _ => {
+            this.overview_visible = true;
+            reconcile_windows();
+        });
+        this.connections.connect(Main.overview, 'hidden', _ => {
+            this.overview_visible = false;
+            reconcile_windows();
+        });
 
-            // when the overview is closed, hide every actor that is not on the
-            // current workspace (to mimic the original behaviour)
-            this.connections.connect(
-                Main.overview, 'hidden',
-                _ => {
-                    this.meta_window_map.forEach((meta_window, _pid) => {
-                        let window_actor = meta_window.get_compositor_private();
-
-                        if (
-                            (!meta_window.get_workspace().active) || meta_window.minimized
-                        )
-                            window_actor.hide();
-                    });
-                }
-            );
-        }
-        else {
-            this.connections.connect(
-                Main.overview, 'showing',
-                _ => this.meta_window_map.forEach((meta_window, _pid) => {
-                    let window_actor = meta_window.get_compositor_private();
-                    window_actor?.hide();
-                })
-            );
-            // when the overview is closed, hide every actor that is not on the
-            // current workspace (to mimic the original behaviour)
-            this.connections.connect(
-                Main.overview, 'hidden',
-                _ => { this.meta_window_map.forEach((meta_window, _pid) => {
-                        let window_actor = meta_window.get_compositor_private();
-                        if (
-                            (!meta_window.get_workspace().active) || meta_window.minimized
-                        ){
-                            window_actor.hide();
-                        }
-                        else {
-                            window_actor.show();
-                            if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN) {
-                                 this.unblur_when_fullscreen(meta_window);
-                            }     
-                            else {
-                                meta_window.blur_actor?.show();
-                            }
-                                
-                        }
-                    });
-                }
-            );
-        }
+        this.meta_window_map.forEach((meta_window, _pid) =>
+            this.reconcile_window_visibility(meta_window)
+        );
     }
 
     /// Iterate through all existing windows and add blur as needed.
@@ -411,23 +367,13 @@ export const ApplicationsBlur = class ApplicationsBlur {
         if (!this.settings.applications.BLUR_ON_OVERVIEW && Main.overview.visible)
             blur_actor.hide();
 
-        // make sure window is blurred in overview
-        if (this.settings.applications.BLUR_ON_OVERVIEW)
-            this.enforce_window_visibility_on_overview_for(window_actor);
-
         // update the size
         this.update_size(pid);
-
-        // set the window actor's opacity
-        this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
 
         // update corner radius based on window state
         this.update_corner_radius(meta_window);
 
-        // unblur when fullscreen
-        if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN) {
-            this.unblur_when_fullscreen(meta_window);
-        }
+        this.reconcile_window_visibility(meta_window);
 
         // now set up the signals, for the window actor only: they are disconnected
         // in `remove_blur`, whereas the signals for the meta window are disconnected
@@ -446,9 +392,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             meta_window, 'notify::fullscreen',
             _ => {
                 this.update_corner_radius(meta_window);
-                if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN){
-                    this.unblur_when_fullscreen(meta_window);
-                }
+                this.reconcile_window_visibility(meta_window);
             }
         );
 
@@ -456,8 +400,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(
             window_actor, 'notify::opacity',
             _ => {
-                if (this.focused_window_pid != pid)
-                    this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
+                this.reconcile_window_visibility(meta_window);
             }
         );
 
@@ -468,20 +411,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(
             window_actor,
             'notify::visible',
-            window_actor => {
-                if (window_actor.visible) {
-                    if (!this.settings.applications.BLUR_ON_OVERVIEW && Main.overview.visible) {
-                        meta_window.blur_actor.hide();
-                    }
-                    else if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN){
-                        this.unblur_when_fullscreen(meta_window);
-                    }
-                    else { meta_window.blur_actor.show(); }
-                }
-                else {
-                    meta_window.blur_actor.hide();
-                }
-            }
+            _ => this.reconcile_window_visibility(meta_window)
         );
     }
 
@@ -489,62 +419,18 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// we are not focused anymore). It automatically removes the ancient focus.
     /// With `focus=false`, just remove the focus from said window (which can still be null).
     set_focus_for_window(meta_window, focus = true) {
-        let blur_actor = null;
-        let window_actor = null;
         let new_pid = null;
         if (meta_window) {
-            blur_actor = meta_window.blur_actor;
-            window_actor = meta_window.get_compositor_private();
             new_pid = meta_window.bms_pid;
         }
 
-        if (focus) {
-            // remove old focused window if any
-            if (this.focused_window_pid) {
-                const old_focused_window = this.meta_window_map.get(this.focused_window_pid);
-                if (old_focused_window)
-                    this.set_focus_for_window(old_focused_window, false);
-            }
-            // set new focused window pid
+        if (focus)
             this.focused_window_pid = new_pid;
-            // if we have blur, hide it and make the window opaque
-            if (this.settings.applications.DYNAMIC_OPACITY && blur_actor) {
-                blur_actor.hide();
-                this.set_window_opacity(window_actor, 255);
-            }
-        }
-        // if we remove the focus and have blur, show it and make the window transparent
-        else if (blur_actor) {
-            if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN) {
-                this.unblur_when_fullscreen(meta_window);
-            }
-            else {
-                blur_actor.show();
-            }
-            this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
-        }
-    }
+        else
+            this.focused_window_pid = null;
 
-    /// Makes sure that, when the overview is visible, the window actor will
-    /// stay visible no matter what.
-    /// We can instead hide the last child of the window actor, which will
-    /// improve performances without hiding the blur effect.
-    enforce_window_visibility_on_overview_for(window_actor) {
-        this.connections.connect(window_actor, 'notify::visible',
-            _ => {
-                if (this.settings.applications.BLUR_ON_OVERVIEW) {
-                    if (
-                        !window_actor.visible
-                        && Main.overview.visible
-                    ) {
-                        window_actor.show();
-                        window_actor.get_last_child().hide();
-                    } else if (
-                        window_actor.visible
-                    )
-                        window_actor.get_last_child().show();
-                }
-            }
+        this.meta_window_map.forEach((tracked_window, _pid) =>
+            this.reconcile_window_visibility(tracked_window)
         );
     }
 
@@ -568,21 +454,31 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
     }
 
-    unblur_when_fullscreen(meta_window) {
-        const is_fullscreen = meta_window.fullscreen;
+    reconcile_window_visibility(meta_window, overview_visible = this.overview_visible) {
+        const window_actor = meta_window.get_compositor_private();
+        const blur_actor = meta_window.blur_actor;
+        if (!window_actor || !blur_actor)
+            return;
 
-        let window_actor = null;
-        if (meta_window) {
-            window_actor = meta_window.get_compositor_private();
-        }
+        const is_focused = this.settings.applications.DYNAMIC_OPACITY
+            && meta_window.bms_pid === this.focused_window_pid;
+        const is_fullscreen = this.settings.applications.UNBLUR_WHEN_FULLSCREEN
+            && meta_window.fullscreen;
+        const visible_for_blur = window_actor.visible
+            || (this.settings.applications.BLUR_ON_OVERVIEW && overview_visible);
+        const show_blur = visible_for_blur
+            && !is_focused
+            && !is_fullscreen
+            && (this.settings.applications.BLUR_ON_OVERVIEW || !overview_visible);
 
-        if (is_fullscreen) {
-            meta_window.blur_actor.hide();
-            this.set_window_opacity(window_actor, 255);
-        } else {
-            meta_window.blur_actor.show();
-            this.set_window_opacity(window_actor, this.settings.applications.OPACITY);
-        }    
+        if (show_blur)
+            blur_actor.show();
+        else
+            blur_actor.hide();
+
+        this.set_window_opacity(window_actor, show_blur
+            ? this.settings.applications.OPACITY
+            : 255);
     }
 
     /// Update all corners, to use when the setting has been changed.
@@ -593,11 +489,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
     }
 
     update_fullscreen_status() {
-        if (this.settings.applications.UNBLUR_WHEN_FULLSCREEN){
-            this.meta_window_map.forEach(
-                (meta_window, _pid) => this.unblur_when_fullscreen(meta_window)
-            )
-        }
+        this.meta_window_map.forEach(
+            (meta_window, _pid) => this.reconcile_window_visibility(meta_window)
+        );
     }
 
     /// Set the opacity of the window actor that sits on top of the blur effect.
@@ -615,14 +509,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
     /// Update the opacity of all window actors.
     set_opacity() {
-        let opacity = this.settings.applications.OPACITY;
-
-        this.meta_window_map.forEach(((meta_window, pid) => {
-            if (pid != this.focused_window_pid && meta_window.blur_actor) {
-                let window_actor = meta_window.get_compositor_private();
-                this.set_window_opacity(window_actor, opacity);
-            }
-        }));
+        this.meta_window_map.forEach((meta_window, _pid) =>
+            this.reconcile_window_visibility(meta_window)
+        );
     }
 
     /// Find the system's window scaling.
