@@ -1,0 +1,525 @@
+import { NativeDynamicBlurEffect } from '../effects/native_dynamic_gaussian_blur.js';
+import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.js';
+import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
+import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
+import { ColorEffect } from '../effects/color.js';
+import { NoiseEffect } from '../effects/noise.js';
+import { CornerEffect } from '../effects/corner.js';
+import { DownscaleEffect } from './downscale.js';
+import { UpscaleEffect } from './upscale.js';
+import { PixelizeEffect } from './pixelize.js';
+import { DerivativeEffect } from './derivative.js';
+import { RgbToHslEffect } from './rgb_to_hsl.js';
+import { HslToRgbEffect } from './hsl_to_rgb.js';
+import { LuminosityEffect } from './luminosity.js';
+import { RefractionEffect } from './refraction.js';
+export { get_effects_groups } from './effect_groups.js';
+
+export function get_supported_effects(_ = () => "") {
+    return {
+        native_dynamic_gaussian_blur: {
+            class: NativeDynamicBlurEffect
+        },
+
+        native_static_gaussian_blur: {
+            class: NativeStaticBlurEffect,
+            name: _("Native gaussian blur"),
+            description: _("An optimized blur effect that smoothly blends pixels within a given radius."),
+            is_advanced: false,
+            editable_params: {
+                unscaled_radius: {
+                    name: _("Radius"),
+                    description: _("The intensity of the blur effect."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.0,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                brightness: {
+                    name: _("Brightness"),
+                    description: _("The brightness of the blur effect, a high value might make the text harder to read."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+            }
+        },
+
+        gaussian_blur: {
+            class: GaussianBlurEffect,
+            name: _("Gaussian blur (advanced effect)"),
+            description: _("A blur effect that smoothly blends pixels within a given radius. This effect is more precise, but way less optimized."),
+            is_advanced: true,
+            editable_params: {
+                radius: {
+                    name: _("Radius"),
+                    description: _("The intensity of the blur effect. The bigger it is, the slower it will be."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: .1,
+                    big_increment: 10.,
+                    digits: 1
+                },
+                brightness: {
+                    name: _("Brightness"),
+                    description: _("The brightness of the blur effect, a high value might make the text harder to read."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+            }
+        },
+
+        monte_carlo_blur: {
+            class: MonteCarloBlurEffect,
+            name: _("Monte Carlo blur"),
+            description: _("A blur effect that mimics a random walk, by picking pixels further and further away from its origin and mixing them all together."),
+            is_advanced: false,
+            editable_params: {
+                radius: {
+                    name: _("Radius"),
+                    description: _("The maximum travel distance for each step in the random walk. A higher value will make the blur more randomized."),
+                    type: "float",
+                    min: 0.,
+                    max: 10.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                iterations: {
+                    name: _("Iterations"),
+                    description: _("The number of iterations. The more there are, the smoother the blur is."),
+                    type: "integer",
+                    min: 0,
+                    max: 50,
+                    increment: 1
+                },
+                brightness: {
+                    name: _("Brightness"),
+                    description: _("The brightness of the blur effect, a high value might make the text harder to read."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                use_base_pixel: {
+                    name: _("Use base pixel"),
+                    description: _("Whether or not the original pixel is counted for the blur. If it is, the image will be more legible."),
+                    type: "boolean"
+                },
+                prefer_closer_pixels: {
+                    name: _("Prefer closer pixels"),
+                    description: _("Whether or not the pixels that are closer to the original pixel will have more weight."),
+                    type: "boolean"
+                }
+            }
+        },
+
+        color: {
+            class: ColorEffect,
+            name: _("Color"),
+            description: _("An effect that blends a color into the pipeline."),
+            is_advanced: false,
+            // TODO make this RGB + blend
+            editable_params: {
+                color: {
+                    name: _("Color"),
+                    description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
+                    type: "rgba",
+                    use_alpha: true
+                },
+                blend_mode: {
+                    name: _("Blend mode"),
+                    description: _("How the color is blended in."),
+                    type: "dropdown",
+                    options: [
+                        _("Normal"),
+                        _("Multiply"),
+                        _("Screen"),
+                        _("Overlay"),
+                        _("Darken"),
+                        _("Lighten"),
+                        _("Plus darker"),
+                        _("Plus lighter"),
+                        _("Color dodge"),
+                        _("Color burn"),
+                        _("Hard light"),
+                        _("Soft light"),
+                        _("Difference"),
+                        _("Exclusion"),
+                        _("Hue"),
+                        _("Saturation"),
+                        _("Color"),
+                        _("Luminosity")
+                    ]
+                }
+            }
+        },
+
+        luminosity: {
+            class: LuminosityEffect,
+            name: _("Luminosity"),
+            description: _("An effect that affects the luminosity of the image."),
+            is_advanced: false,
+            editable_params: {
+                brightness_shift: {
+                    name: _("Shift brightness"),
+                    description: _("The brightness to add of remove to the image."),
+                    type: "float",
+                    min: -1.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                brightness_multiplicator: {
+                    name: _("Multiply brightness"),
+                    description: _("The brightness multiplicator of the image, so that 0 means no brightness and 2 means infinite brightness."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                contrast: {
+                    name: _("Contrast"),
+                    description: _("The contrast of the image in regard to the center of the contrast."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                contrast_center: {
+                    name: _("Contrast center"),
+                    description: _("The center of the contrast to use."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                saturation_multiplicator: {
+                    name: _("Saturation"),
+                    description: _("The saturation of the image, so that 0 means no saturation and 2 means infinite saturation."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+            }
+        },
+
+        pixelize: {
+            class: PixelizeEffect,
+            name: _("Pixelize"),
+            description: _("An effect that pixelizes the image."),
+            is_advanced: false,
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
+                }
+            }
+        },
+
+        downscale: {
+            class: DownscaleEffect,
+            name: _("Downscale (advanced effect)"),
+            description: _("An effect that downscales the image and put it on the top-left corner."),
+            is_advanced: true,
+            editable_params: {
+                divider: {
+                    name: _("Factor"),
+                    description: _("How much to scale down the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                },
+                downsampling_mode: {
+                    name: _("Downsampling mode"),
+                    description: _("The downsampling method that is used."),
+                    type: "dropdown",
+                    options: [
+                        _("Boxcar"),
+                        _("Triangular"),
+                        _("Dirac")
+                    ]
+                }
+            }
+        },
+
+        upscale: {
+            class: UpscaleEffect,
+            name: _("Upscale (advanced effect)"),
+            description: _("An effect that upscales the image from the top-left corner."),
+            is_advanced: true,
+            editable_params: {
+                factor: {
+                    name: _("Factor"),
+                    description: _("How much to scale up the image."),
+                    type: "integer",
+                    min: 1,
+                    max: 50,
+                    increment: 1
+                }
+            }
+        },
+
+        derivative: {
+            class: DerivativeEffect,
+            name: _("Derivative"),
+            description: _("Apply a spatial derivative, or a laplacian."),
+            is_advanced: false,
+            editable_params: {
+                operation: {
+                    name: _("Operation"),
+                    description: _("The mathematical operation to apply."),
+                    type: "dropdown",
+                    options: [
+                        _("1-step derivative"),
+                        _("2-step derivative"),
+                        _("Laplacian")
+                    ]
+                }
+            }
+        },
+
+        noise: {
+            class: NoiseEffect,
+            name: _("Noise"),
+            description: _("An effect that adds a random noise. Prefer the Monte Carlo blur for a more organic effect if needed."),
+            is_advanced: false,
+            editable_params: {
+                noise: {
+                    name: _("Noise"),
+                    description: _("The amount of noise to add."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                lightness: {
+                    name: _("Lightness"),
+                    description: _("The luminosity of the noise. A setting of '1.0' will make the effect transparent."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                }
+            }
+        },
+
+        refraction: {
+            class: RefractionEffect,
+            name: _("Liquid Glass"),
+            description: _("A glossy translucent material with edge refraction, rim lighting, tint, and inner shadow."),
+            is_advanced: false,
+            editable_params: {
+                strength: {
+                    name: _("Refraction scale"),
+                    description: _("How strongly the glass bends the sampled blur texture."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                blur_radius: {
+                    name: _("Blur radius"),
+                    description: _("Blurs the sampled backdrop before the liquid-glass shader is applied."),
+                    type: "float",
+                    min: 0.,
+                    max: 48.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                edge_size: {
+                    name: _("Bezel width"),
+                    description: _("How far the liquid-glass lens reaches inward from the edge."),
+                    type: "float",
+                    min: 1.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                rim_width: {
+                    name: _("Rim spread"),
+                    description: _("How far the refraction eases inward from the glass edge."),
+                    type: "float",
+                    min: 1.,
+                    max: 6.5,
+                    increment: 0.1,
+                    big_increment: 0.5,
+                    digits: 2
+                },
+                falloff: {
+                    name: _("Glass thickness"),
+                    description: _("Depth used by the Snell-style refraction profile."),
+                    type: "float",
+                    min: 0.25,
+                    max: 8.,
+                    increment: 0.05,
+                    big_increment: 0.5,
+                    digits: 2
+                },
+                corner_radius: {
+                    name: _("Corner radius"),
+                    description: _("The rounded shape used for the glass edge and highlight."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                gloss: {
+                    name: _("Fresnel glare"),
+                    description: _("Strength of the Schlick fresnel rim glare from the glass edge."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                tint: {
+                    name: _("Tint strength"),
+                    description: _("Amount of subtle milky glass tint over the blurred texture."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                tint_color: {
+                    name: _("Tint color"),
+                    description: _("Color blended over the blurred texture, weighted by the tint strength."),
+                    type: "rgba",
+                    use_alpha: true
+                },
+                backdrop_zoom: {
+                    name: _("Backdrop zoom"),
+                    description: _("Zoom level of the backdrop visible through the glass."),
+                    type: "float",
+                    min: 0.1,
+                    max: 4.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                shadow: {
+                    name: _("Inner shadow"),
+                    description: _("Darkens the lower and inner edge for a deeper glass surface."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                rgb_fringing: {
+                    name: _("Chromatic dispersion"),
+                    description: _("Physical per-channel refraction dispersion at the glass edge."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                texture_repeat: {
+                    name: _("Edge behavior"),
+                    description: _("How texture coordinates outside the actor are sampled."),
+                    type: "dropdown",
+                    options: [
+                        _("Clamp"),
+                        _("Mirror")
+                    ]
+                }
+            }
+        },
+
+        rgb_to_hsl: {
+            class: RgbToHslEffect,
+            name: _("RGB to HSL (advanced effect)"),
+            description: _("Converts the image from RGBA colorspace to HSLA."),
+            is_advanced: true,
+            editable_params: {}
+        },
+
+        hsl_to_rgb: {
+            class: HslToRgbEffect,
+            name: _("HSL to RGB (advanced effect)"),
+            description: _("Converts the image from HSLA colorspace to RGBA."),
+            is_advanced: true,
+            editable_params: {}
+        },
+
+        corner: {
+            class: CornerEffect,
+            name: _("Corner"),
+            description: _("An effect that draws corners. Add it last not to have the other effects perturb the corners."),
+            is_advanced: false,
+            editable_params: {
+                radius: {
+                    name: _("Radius"),
+                    description: _("The radius of the corner. GNOME apps use a radius of 12 px by default."),
+                    type: "integer",
+                    min: 0,
+                    max: 150,
+                    increment: 1,
+                },
+                corners_top: {
+                    name: _("Top corners"),
+                    description: _("Whether or not to round the top corners."),
+                    type: "boolean"
+                },
+                corners_bottom: {
+                    name: _("Bottom corners"),
+                    description: _("Whether or not to round the bottom corners."),
+                    type: "boolean"
+                }
+            }
+        }
+    };
+};

@@ -1,0 +1,82 @@
+uniform sampler2D tex;
+uniform int divider;
+uniform float width;
+uniform float height;
+uniform int downsampling_mode;
+uniform float opacity_factor;
+
+#define CORRECTION 2.25
+#define SIZE_ADDITION 3.0
+
+vec4 get_texture_at_position(vec2 position) {
+    vec2 raw_position = position + vec2(CORRECTION, CORRECTION);
+    vec2 raw_uv = raw_position / vec2(max(1.0, width + SIZE_ADDITION), max(1.0, height + SIZE_ADDITION));
+
+    return texture2D(tex, raw_uv);
+}
+
+vec2 get_corrected_position() {
+    vec2 raw_uv = cogl_tex_coord0_in.st;
+    vec2 raw_position = raw_uv * vec2(width + SIZE_ADDITION, height + SIZE_ADDITION);
+    return raw_position - vec2(CORRECTION, CORRECTION);
+}
+
+void main() {
+    vec4 source_color = texture2D(tex, cogl_tex_coord0_in.st);
+    vec4 effect_color = vec4(0.0);
+    ivec2 corrected_position = ivec2(get_corrected_position());
+    vec2 multiplied_position = vec2(corrected_position) * float(divider);
+
+    if (any(greaterThan(multiplied_position, vec2(width, height)))) {
+        cogl_color_out = mix(source_color, effect_color, opacity_factor);
+        return;
+    }
+
+    // mode 0: boxcar downsampling
+    if (downsampling_mode == 0) {
+
+        vec4 color = vec4(0.);
+        int count = 0;
+        for (int i = 0; i < divider; i++) {
+            for (int j = 0; j < divider; j++) {
+                vec2 lookup_position = multiplied_position + vec2(float(i), float(j));
+                if (all(greaterThanEqual(lookup_position, vec2(0.0, 0.0))) &&
+                    all(lessThan(lookup_position, vec2(width, height)))) {
+                    color += get_texture_at_position(lookup_position);
+                    count += 1;
+                }
+            }
+        }
+        effect_color = color / max(1.0, float(count));
+
+    } else
+    // mode 1: triangular downsampling
+    if (downsampling_mode == 1) {
+
+        vec4 color = vec4(0.);
+        int count = 0;
+        int force = 1;
+        for (int i = 0; i < divider; i++) {
+            for (int j = 0; j < divider; j++) {
+                vec2 lookup_position = multiplied_position + vec2(float(i), float(j));
+                if (all(greaterThanEqual(lookup_position, vec2(0.0, 0.0))) &&
+                    all(lessThan(lookup_position, vec2(width, height)))) {
+                    force = 1 + divider - int(abs(float(divider - i - j)));
+                    color += get_texture_at_position(lookup_position) * float(force);
+                    count += force;
+                }
+            }
+        }
+        effect_color = color / max(1.0, float(count));
+
+    } else
+    // mode 2: Dirac downsampling
+    if (downsampling_mode == 2) {
+
+        vec2 lookup_position = min(multiplied_position + vec2(float(divider)) * 0.5, vec2(width - 1.0, height - 1.0));
+        effect_color = get_texture_at_position(lookup_position);
+
+    }
+
+    cogl_color_out = mix(source_color, effect_color, opacity_factor);
+}
