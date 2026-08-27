@@ -35,6 +35,31 @@ paru -S gnome-rounded-blur
 yay -S gnome-rounded-blur
 ```
 
+### For Fedora (or any of its derivaties, including Atomic based distro) users
+
+Fedora user can follow the following steps to install the libray
+
+- **REMEMBER TO UNINSTALL THE LIBRARY FIRST IF YOU ALREADY INSTALL IT VIA THE SCRIPT HERE**, you can uninstall it by following the uninstall command below
+- Enable the following copr using this command 
+```
+sudo dnf copr enable aneagle/gnome-rounded-blur
+```
+- Then, install the library using `dnf`
+```
+sudo dnf install gnome-rounded-blur
+```
+
+**Note:**
+- Fedora Atomic user may want to manually add the copr by downloading the copr `.repo` from [here](https://copr.fedorainfracloud.org/coprs/aneagle/gnome-rounded-blur/) and copy the file into `/etc/yum.repos.d/`, then use the following command to refresh the metadata
+```
+sudo rpm-ostree refresh-md --force 
+```
+- Bazzite (or any of ubluek atomic distro) can directly install the library via the following command (Fedora Atomic user after following the previous step can use this as well)
+```
+rpm-ostree install gnome-rounded-blur
+```
+
+
 ### Build it yourself
 
 You can visit the original repo [here](https://github.com/kancko/gnome-rounded-blur) for guide on how to build the library yourself. Do keep in mind that

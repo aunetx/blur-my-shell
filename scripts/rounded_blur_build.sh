@@ -21,6 +21,30 @@ check_env(){
 		sleep 5
 		exit 1
 	fi
+
+	if [[ "$OS_ID_TYPE" = "fedora" ]] || [[ "$OS_LIKE_ID_TYPE" = "fedora" ]]; then
+		if [[ $i = "y" ]] && [[ $u = "n" ]]; then		
+			echo "--------------------------------------------------------"
+			echo "Please do not use this script to install gnome-rounded-blur on Fedora"
+			echo "To install this library on Fedora, follow the guide below"
+			echo "https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md"
+			echo "--------------------------------------------------------"
+			sleep 5
+			exit 1
+		elif [[ $i = "n" ]] && [[ $u = "y" ]]; then	
+			echo "--------------------------------------------------------"
+			echo "Checking if the library is already installed via system package manager"
+			echo "--------------------------------------------------------"
+			if rpm -q --quiet "gnome-rounded-blur"; then
+				echo "--------------------------------------------------------"
+				echo "Please do not use this script to uninstall gnome-rounded-blur on Fedora"
+				echo "To uninstall this library on Fedora, use your system package manager"
+				echo "--------------------------------------------------------"
+				sleep 5
+				exit 1
+			fi
+		fi
+	fi
 }
 
 install_git(){
@@ -31,11 +55,6 @@ install_git(){
 			echo "Installing git"
 			echo "--------------------------------------------------------"
 			sudo apt -y install git 
-		elif [[ "$OS_ID_TYPE" = "fedora" ]] || [[ "$OS_LIKE_ID_TYPE" = "fedora" ]]; then
-			echo "--------------------------------------------------------"
-			echo "Installing git"
-			echo "--------------------------------------------------------"
-			sudo dnf -y install git
 		else
 			echo "--------------------------------------------------------"
 			echo "Please manually install git using your distro's package manager"
@@ -63,11 +82,6 @@ install_dep(){
 		echo "Installing dependency"
 		echo "--------------------------------------------------------"
 		sudo apt -y install libglib2.0-dev build-essential libmutter-$DIFF_VALUE_2-dev gobject-introspection meson
-	elif [[ "$OS_ID_TYPE" = "fedora" ]] || [[ "$OS_LIKE_ID_TYPE" = "fedora" ]]; then
-		echo "--------------------------------------------------------"
-		echo "Installing dependency"
-		echo "--------------------------------------------------------"
-		sudo dnf -y install glib2-devel @c-development meson mutter-devel gobject-introspection
 	else
 		echo "--------------------------------------------------------"
 		echo "Please manually install the equivalent of libglib2.0-dev build-essential libmutter-$DIFF_VALUE_2-dev gobject-introspection meson on your computer"
