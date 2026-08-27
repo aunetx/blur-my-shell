@@ -106,7 +106,14 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         visited.add(actor);
 
         try {
-            if (!actor.visible || !actor.mapped)
+            let visible = actor.visible;
+            let mapped = actor.mapped;
+            if (!visible && this.is_keyboard_actor(actor)) {
+                const parent = actor.get_parent?.();
+                visible = parent?.visible && parent?.mapped;
+                mapped = parent?.mapped;
+            }
+            if (!visible || !mapped)
                 return 0;
 
             return Math.round(opacity * (actor.opacity ?? 255) / 255);
@@ -115,8 +122,19 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         }
     }
 
+    is_keyboard_actor(actor) {
+        return (
+            actor?.has_style_class_name?.('bms-keyboard-surface')
+        );
+    }
+
     get_paint_opacity(actor) {
         try {
+            if (this.is_keyboard_actor(actor) && (!actor.visible || !actor.mapped)) {
+                const parent = actor.get_parent?.();
+                if (parent?.visible && parent?.mapped)
+                    return null;
+            }
             if (actor?.get_paint_opacity)
                 return actor.get_paint_opacity();
         } catch (e) { }

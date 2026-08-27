@@ -18,6 +18,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
     'modal-dialog', 'run-dialog',
+    'bms-keyboard-surface',
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
@@ -154,7 +155,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         const sibling_index = children.indexOf(sibling);
         return sibling_index >= 0 && actor_index < sibling_index;
     }
-    
 
     is_quick_settings() {
         return this.style.has_any_style_class(this.target, ['quick-toggle-menu','quick-settings','datemenu-popover'])
@@ -413,9 +413,24 @@ export const PopupBlurSurface = class PopupBlurSurface {
         return this.is_actor_visible(this.target) && this.is_actor_visible(this.root_actor);
     }
 
+    is_keyboard_surface() {
+        return (
+            this.style.has_style_class(this.target, 'bms-keyboard-surface')
+            || this.style.has_style_class(this.root_actor, 'bms-keyboard-surface')
+        );
+    }
+
     is_actor_visible(actor) {
         try {
-            return actor && actor.visible && actor.mapped;
+            if (!actor)
+                return false;
+            if (actor.visible && actor.mapped)
+                return true;
+            if (!this.is_keyboard_surface())
+                return false;
+
+            const parent = actor.get_parent?.();
+            return parent?.visible && parent?.mapped;
         } catch (e) {
             return false;
         }

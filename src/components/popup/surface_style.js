@@ -22,6 +22,11 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
             return;
         }
 
+        if (
+            this.has_style_class(this.surface.target, 'bms-keyboard-surface')
+        )
+            return;
+
         const base_style = this.original_target_style ?? '';
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
 

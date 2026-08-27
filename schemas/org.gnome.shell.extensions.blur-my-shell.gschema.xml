@@ -672,6 +672,11 @@
             <default>18</default>
             <summary>Radius for dialog corner rounding</summary>
         </key>
+        <!-- ON-SCREEN KEYBOARD CORNER RADIUS -->
+        <key type="i" name="osk-corner-radius">
+            <default>0</default>
+            <summary>Radius for on-screen keyboard corner rounding</summary>
+        </key>
         <!-- OVERRIDE BACKGROUND -->
         <key type="b" name="override-background">
             <default>true</default>
