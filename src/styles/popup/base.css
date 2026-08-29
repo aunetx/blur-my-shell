@@ -96,6 +96,13 @@
     background: rgba(255, 255, 255, 0.4) !important;
 }
 
+.bms-popup-background-light .message:active,
+.bms-popup-surface-light .message:active,
+.bms-popup-background-light .message:focus,
+.bms-popup-surface-light .message:focus {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
 .bms-popup-background-dark .popup-menu-content,
 .bms-popup-background-dark .popup-sub-menu,
 .bms-popup-background-dark .candidate-popup-content,
@@ -156,6 +163,17 @@
 .bms-popup-surface-dark .message:hover,
 .bms-popup-surface-transparent .message:hover {
     background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-dark .message:focus,
+.bms-popup-background-transparent .message:focus,
+.bms-popup-surface-dark .message:focus,
+.bms-popup-surface-transparent .message:focus,
+.bms-popup-background-dark .message:active,
+.bms-popup-background-transparent .message:active,
+.bms-popup-surface-dark .message:active,
+.bms-popup-surface-transparent .message:active {
+    background: rgba(255, 255, 255, 0.15) !important;
 }
 
 .bms-popup-background-transparent .message,
@@ -242,6 +260,27 @@
     -barlevel-background-color: rgba(255, 255, 255, 0.14);
     -barlevel-active-background-color: #ffffff;
     -barlevel-overdrive-color: #f66151;
+}
+
+.bms-popup-background-light .switcher-list .item-box:focus,
+.bms-popup-background-light .switcher-list .item-box:selected,
+.bms-popup-surface-light .switcher-list .item-box:focus,
+.bms-popup-surface-light .switcher-list .item-box:selected {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.bms-popup-background-dark .switcher-list .item-box:focus,
+.bms-popup-background-dark .switcher-list .item-box:selected,
+.bms-popup-surface-dark .switcher-list .item-box:focus,
+.bms-popup-surface-dark .switcher-list .item-box:selected {
+  background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+.bms-popup-background-transparent .switcher-list .item-box:focus,
+.bms-popup-background-transparent .switcher-list .item-box:selected,
+.bms-popup-surface-transparent .switcher-list .item-box:focus,
+.bms-popup-surface-transparent .switcher-list .item-box:selected {
+  background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 .bms-popup-background-transparent .popup-sub-menu,
