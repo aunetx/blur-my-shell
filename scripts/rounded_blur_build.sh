@@ -208,18 +208,17 @@ prep_stage(){
 	else
 		if [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
 			DIFF_VALUE_2="$MUTTER_SYS_VER"
-			sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
-			sed -i -E "s/mutter_req = '>= [0-9.]+'/mutter_req = '>= $MUTTER_SYS_VER.0'/" meson.build
 		elif [[ "$MUTTER_SYS_VER" -ge "$HARDCODE_MUTTER_SYS_VER" ]]; then
 			DIFF_VALUE=$((MUTTER_SYS_VER - HARDCODE_MUTTER_SYS_VER))
 			DIFF_VALUE_2=$((MUTTER_API_REPO_VER + DIFF_VALUE))
-			sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
 		else
 			DIFF_VALUE=$((HARDCODE_MUTTER_SYS_VER - MUTTER_SYS_VER))
 			DIFF_VALUE_2=$((MUTTER_API_REPO_VER - DIFF_VALUE))
-			sed -i -E "s/mutter_req = '>= [0-9.]+'/mutter_req = '>= $MUTTER_SYS_VER.0'/" meson.build
-			sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
 		fi
+
+		sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
+		sed -i -E "s/mutter_req = '>= [0-9.]+'/mutter_req = '>= $MUTTER_SYS_VER.0'/" meson.build
+		sed -i -E "s/dependency\('libmutter-[0-9]+'\)/dependency('libmutter-' + mutter_api_version)/" meson.build
 	fi
 	
 	install_dep
