@@ -35,9 +35,9 @@ paru -S gnome-rounded-blur
 yay -S gnome-rounded-blur
 ```
 
-### For Fedora (or any of its derivaties, including Atomic based distro) users
+### For Fedora (or any of its derivatives, including Atomic based distro) users
 
-Fedora user can follow the following steps to install the libray
+Fedora user can follow the following steps to install the library
 
 - **REMEMBER TO UNINSTALL THE LIBRARY FIRST IF YOU ALREADY INSTALL IT VIA THE SCRIPT HERE**, you can uninstall it by following the uninstall command below
 - Enable the following copr using this command 
@@ -54,7 +54,7 @@ sudo dnf install gnome-rounded-blur
 ```
 sudo rpm-ostree refresh-md --force 
 ```
-- Bazzite (or any of ubluek atomic distro) can directly install the library via the following command (Fedora Atomic user after following the previous step can use this as well)
+- Bazzite (or any of ublue atomic distro) can directly install the library via the following command (Fedora Atomic user after following the previous step can use this as well)
 ```
 rpm-ostree install gnome-rounded-blur
 ```
