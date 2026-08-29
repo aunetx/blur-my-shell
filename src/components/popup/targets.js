@@ -1,6 +1,7 @@
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content','screenshot-ui-panel'];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
+const POPUP_TARGET_STYLE_CLASSES_OSK = ['bms-keyboard-surface']
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
 export const POPUP_BACKGROUND_STYLES = ['bms-popup-background-transparent', 'bms-popup-background-light', 'bms-popup-background-dark'];
@@ -34,6 +35,11 @@ export const POPUP_CORNER_RADII = [
         property: 'DIALOG_CORNER_RADIUS',
         style_classes: ['modal-dialog', 'run-dialog'],
     },
+    {
+        key: 'osk-corner-radius',
+        property: 'OSK_CORNER_RADIUS',
+        style_classes: ['bms-keyboard-surface'],
+    },
 ];
 
 export const PopupBlurTargets = class PopupBlurTargets {
@@ -59,10 +65,13 @@ export const PopupBlurTargets = class PopupBlurTargets {
                 return targets.actors;
         }
 
-        if (this.actor.watch_actor(delegate?.box) && this.has_any_style_class(delegate.box, POPUP_TARGET_STYLE_CLASSES))
+        if (this.actor.watch_actor(delegate?.box) && (this.has_any_style_class(delegate.box, POPUP_TARGET_STYLE_CLASSES) || this.has_any_style_class(delegate.box, POPUP_TARGET_STYLE_CLASSES_OSK)))
             this.add(targets, delegate.box);
 
         if (this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES))
+            this.add(targets, actor);
+
+        if (this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES_OSK))
             this.add(targets, actor);
 
         if (this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES))
@@ -140,6 +149,7 @@ export const PopupBlurTargets = class PopupBlurTargets {
     is_blur_target_actor(actor) {
         return (
             this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
+            || this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES_OSK)
             || this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES)
         );
     }

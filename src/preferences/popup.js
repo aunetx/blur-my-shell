@@ -23,6 +23,7 @@ export const PopupBlur = GObject.registerClass({
         'notification_corner_radius',
         'osd_corner_radius',
         'dialog_corner_radius',
+        'osk_corner_radius',
         'corner_radius_not_found_row',
         'override_background',
         'preserve_shell_theme',
@@ -84,6 +85,10 @@ export const PopupBlur = GObject.registerClass({
         );
         this.preferences.popup.settings.bind(
             'dialog-corner-radius', this._dialog_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'osk-corner-radius', this._osk_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(

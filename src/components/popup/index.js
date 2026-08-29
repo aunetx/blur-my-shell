@@ -14,6 +14,7 @@ import { PopupBlurMessageStacks } from './message_stacks.js';
 
 const POPUP_INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
 const POPUP_INTERNAL_NAMES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
+const KEYBOARD_STYLE_CLASS = 'bms-keyboard-surface';
 
 export const PopupBlur = class PopupBlur {
     constructor(connections, settings, effects_manager) {
@@ -56,7 +57,6 @@ export const PopupBlur = class PopupBlur {
             'changed::gtk-theme',
             () => this.update_background()
         );
-        
         this.connections.connect(
             Main.sessionMode,
             'updated',
@@ -76,6 +76,8 @@ export const PopupBlur = class PopupBlur {
         this.track_container(Main.messageTray?._bannerBin);
         this.track_quick_settings();
         this.track_container(global.window_group);
+        this.track_keyboard();
+        this.track_container(Main.keyboard?.keyboardActor);
     }
 
     track_container(container) {
@@ -99,6 +101,19 @@ export const PopupBlur = class PopupBlur {
     track_quick_settings() {
         const menu = Main.panel?.statusArea?.quickSettings?.menu;
         this.track_container(menu?._overlay);
+    }
+
+    track_keyboard() {
+        const keyboard_box = Main.layoutManager?.keyboardBox;
+        this.track_container(keyboard_box);
+        if (!keyboard_box)
+            return;
+
+        this.connections.connect(
+            keyboard_box,
+            'child-added',
+            (_, child) => this.update_keyboard_style(child)
+        );
     }
 
     try_blur(actor) {
@@ -449,21 +464,68 @@ export const PopupBlur = class PopupBlur {
         this.surfaces.forEach(surface => surface.update_pipeline());
     }
 
+    _get_keyboard_actors() {
+        const actors = new Set();
+        if (Main.keyboard?.keyboardActor)
+            actors.add(Main.keyboard.keyboardActor);
+        if (Main.keyboard?._keyboard)
+            actors.add(Main.keyboard._keyboard);
+        (Main.layoutManager?.keyboardBox?.get_children?.() ?? []).forEach(child => actors.add(child));
+        return [...actors];
+    }
+
     update_background() {
         [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
             .forEach(style => Main.uiGroup.remove_style_class_name(style));
 
+        const keyboard_actors = this._get_keyboard_actors();
+        keyboard_actors.forEach(actor => this.clear_keyboard_style(actor));
+        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
+            .forEach(style =>  keyboard_actors.forEach(actor => actor.remove_style_class_name(style)));
+
+        let background_style = null;
         if (this.settings.popup.OVERRIDE_BACKGROUND) {
             const style = this.get_background_style();
-            const background_style = this.settings.popup.PRESERVE_SHELL_THEME ?
+            background_style = this.settings.popup.PRESERVE_SHELL_THEME ?
                 POPUP_SURFACE_STYLES[style] :
                 POPUP_BACKGROUND_STYLES[style];
             Main.uiGroup.add_style_class_name(
                 background_style
             );
         }
-
+        keyboard_actors.forEach(actor => this.update_keyboard_style(actor, background_style));
         this.surfaces.forEach(surface => surface.update_settings());
+    }
+
+    clear_keyboard_style(actor, remove_marker = false) {
+        if (!actor)
+            return;
+
+        if (remove_marker)
+            actor.remove_style_class_name(KEYBOARD_STYLE_CLASS);
+
+        if (!this.settings.popup.OVERRIDE_BACKGROUND)
+            return;
+
+        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
+            .forEach(style => actor.remove_style_class_name(style));
+    }
+
+    update_keyboard_style(actor, background_style = null) {
+        if (!actor)
+            return;
+
+        this.clear_keyboard_style(actor);
+        actor.add_style_class_name(KEYBOARD_STYLE_CLASS);
+        if (!this.settings.popup.OVERRIDE_BACKGROUND)
+            return;
+
+        const style = background_style ?? (
+            this.settings.popup.PRESERVE_SHELL_THEME ?
+                POPUP_SURFACE_STYLES[this.get_background_style()] :
+                POPUP_BACKGROUND_STYLES[this.get_background_style()]
+        );
+        actor.add_style_class_name(style);
     }
 
     get_background_style() {
@@ -505,6 +567,11 @@ export const PopupBlur = class PopupBlur {
 
         this._log("removing blur from popup surfaces");
         this.enabled = false;
+
+        const keyboard_actors = this._get_keyboard_actors();
+        keyboard_actors.forEach(actor => this.clear_keyboard_style(actor, true));
+        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
+            .forEach(style =>  keyboard_actors.forEach(actor => actor.remove_style_class_name(style)));
 
         [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
             .forEach(style => Main.uiGroup.remove_style_class_name(style));
