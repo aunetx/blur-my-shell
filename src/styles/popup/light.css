@@ -10,6 +10,58 @@
     box-shadow: none;
 }
 
+.bms-popup-background-light .message-media-control,
+.bms-popup-surface-light .message-media-control {
+  background-color: transparent;
+}
+
+.bms-popup-background-light .message-media-control:last-child,
+.bms-popup-surface-light .message-media-control:last-child {
+  background-color: transparent;
+}
+
+.bms-popup-background-light .message-media-control:first-child:last-child,
+.bms-popup-surface-light .message-media-control:first-child:last-child {
+  background-color: transparent;
+}
+
+.bms-popup-background-light .message-media-control:hover,
+.bms-popup-surface-light .message-media-control:hover,
+.bms-popup-background-light .message-expand-button:hover,
+.bms-popup-surface-light .message-expand-button:hover,
+.bms-popup-background-light .message-notification-group StButton:hover,
+.bms-popup-surface-light .message-notification-group StButton:hover,
+.bms-popup-background-light .switcher-list .item-box:hover,
+.bms-popup-surface-light .switcher-list .item-box:hover {
+  background-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+.bms-popup-background-light .message-media-control:active,
+.bms-popup-surface-light .message-media-control:active,
+.bms-popup-background-light .message-expand-button:active,
+.bms-popup-surface-light .message-expand-button:active,
+.bms-popup-background-light .message-notification-group StButton:active,
+.bms-popup-surface-light .message-notification-group StButton:active,
+.bms-popup-background-light .switcher-list .item-box:active,
+.bms-popup-surface-light .switcher-list .item-box:active {
+  background-color: rgba(0, 0, 0, 0.22) !important;
+}
+
+.bms-popup-background-light .message-media-control:focus,
+.bms-popup-background-light .message-media-control:checked,
+.bms-popup-surface-light .message-media-control:focus,
+.bms-popup-surface-light .message-media-control:checked,
+.bms-popup-background-light .message-expand-button:focus,
+.bms-popup-background-light .message-expand-button:checked,
+.bms-popup-surface-light .message-expand-button:focus,
+.bms-popup-surface-light .message-expand-button:checked,
+.bms-popup-background-light .message-notification-group StButton:focus,
+.bms-popup-background-light .message-notification-group StButton:checked,
+.bms-popup-surface-light .message-notification-group StButton:focus,
+.bms-popup-surface-light .message-notification-group StButton:checked {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
 .bms-popup-background-light .message .message-header,
 .bms-popup-background-light .message .message-header .message-header-content .event-time {
     color: rgba(34, 34, 38, 0.68);
