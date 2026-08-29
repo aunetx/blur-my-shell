@@ -198,7 +198,7 @@ export const PopupBlur = class PopupBlur {
 
         this.destroy_blurred_ancestors(target);
 
-        const { parent, sibling } = this.get_overlay_parent(root_actor);
+        const { parent, sibling } = this.get_overlay_parent(root_actor, target);
         const surface = new PopupBlurSurface(
             this.connections,
             this.settings,
@@ -260,7 +260,19 @@ export const PopupBlur = class PopupBlur {
         }
     }
 
-    get_overlay_parent(root_actor) {
+    get_overlay_parent(root_actor, target) {
+        if (this.has_any_style_class(target, ['screenshot-ui-panel'])) {
+            const parent = Main.screenshotUI ?? Main.uiGroup;
+            let sibling = target;
+            while (sibling && sibling.get_parent?.() && sibling.get_parent() !== parent) {
+                sibling = sibling.get_parent();
+            }
+            return {
+                parent,
+                sibling: sibling ?? target,
+            };
+        }
+
         let actor = root_actor;
         let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {

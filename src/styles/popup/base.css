@@ -15,6 +15,7 @@
 .bms-popup-background-transparent .workspace-switcher,
 .bms-popup-background-transparent .modal-dialog,
 .bms-popup-background-transparent .run-dialog,
+.bms-popup-background-transparent .screenshot-ui-panel,
 .bms-popup-surface-transparent .popup-menu-content,
 .bms-popup-surface-transparent .popup-sub-menu,
 .bms-popup-surface-transparent .candidate-popup-content,
@@ -25,7 +26,8 @@
 .bms-popup-surface-transparent .switcher-list,
 .bms-popup-surface-transparent .workspace-switcher,
 .bms-popup-surface-transparent .modal-dialog,
-.bms-popup-surface-transparent .run-dialog {
+.bms-popup-surface-transparent .run-dialog,
+.bms-popup-surface-transparent .screenshot-ui-panel {
     background: transparent !important;
     border-color: transparent;
     box-shadow: none;
@@ -42,7 +44,8 @@
 .bms-popup-background-light .switcher-list,
 .bms-popup-background-light .workspace-switcher,
 .bms-popup-background-light .modal-dialog,
-.bms-popup-background-light .run-dialog {
+.bms-popup-background-light .run-dialog,
+.bms-popup-background-light .screenshot-ui-panel {
     color: #222226;
 }
 
@@ -58,6 +61,7 @@
 .bms-popup-background-light .workspace-switcher,
 .bms-popup-background-light .modal-dialog,
 .bms-popup-background-light .run-dialog,
+.bms-popup-background-light .screenshot-ui-panel,
 .bms-popup-surface-light .popup-menu-content,
 .bms-popup-surface-light .popup-sub-menu,
 .bms-popup-surface-light .candidate-popup-content,
@@ -69,7 +73,8 @@
 .bms-popup-surface-light .switcher-list,
 .bms-popup-surface-light .workspace-switcher,
 .bms-popup-surface-light .modal-dialog,
-.bms-popup-surface-light .run-dialog {
+.bms-popup-surface-light .run-dialog,
+.bms-popup-surface-light .screenshot-ui-panel {
     background: rgba(255, 255, 255, 0.58) !important;
     border-color: rgba(0, 0, 0, 0.05);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
@@ -103,6 +108,7 @@
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .screenshot-ui-panel,
 .bms-popup-background-transparent .message {
     color: #ffffff;
 }
@@ -118,6 +124,8 @@
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .screenshot-ui-panel,
+.bms-popup-surface-dark .screenshot-ui-panel, 
 .bms-popup-surface-dark .popup-menu-content,
 .bms-popup-surface-dark .popup-sub-menu,
 .bms-popup-surface-dark .candidate-popup-content,
@@ -273,6 +281,90 @@
 .bms-popup-background-light .popup-sub-menu .popup-menu-item:insensitive,
 .bms-popup-background-dark .popup-sub-menu .popup-menu-item:insensitive {
     background-color: transparent !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-type-button,
+.bms-popup-background-light .screenshot-ui-type-button,
+.bms-popup-background-dark .screenshot-ui-type-button,
+.bms-popup-background-transparent .screenshot-ui-type-button:insensitive,
+.bms-popup-background-light .screenshot-ui-type-button:insensitive,
+.bms-popup-background-dark .screenshot-ui-type-button:insensitive {
+    background-color: transparent !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-type-button:checked,
+.bms-popup-background-transparent .screenshot-ui-type-button:focus,
+.bms-popup-background-dark .screenshot-ui-type-button:checked,
+.bms-popup-background-dark .screenshot-ui-type-button:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important
+}
+
+.bms-popup-background-transparent .screenshot-ui-type-button:hover,
+.bms-popup-background-dark .screenshot-ui-type-button:hover {
+    background-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-type-button:active,
+.bms-popup-background-transparent .screenshot-ui-type-button:outlined,
+.bms-popup-background-dark .screenshot-ui-type-button:active,
+.bms-popup-background-dark .screenshot-ui-type-button:outlined {
+    background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-type-button:hover {
+   background-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-type-button:checked,
+.bms-popup-background-light .screenshot-ui-type-button:focus {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-type-button:active,
+.bms-popup-background-light .screenshot-ui-type-button:outlined {
+    background-color: rgba(0, 0, 0, 0.16) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button,
+.bms-popup-background-light .screenshot-ui-show-pointer-button,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button,
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button:insensitive,
+.bms-popup-background-light .screenshot-ui-show-pointer-button:insensitive,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button:insensitive {
+    background-color: transparent !important;
+}
+
+.bms-popup-background-light .screenshot-ui-show-pointer-button:hover {
+    background-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-show-pointer-button:checked,
+.bms-popup-background-light .screenshot-ui-show-pointer-button:focus {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button:checked,
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button:focus,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button:checked,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important
+}
+
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button:hover,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button:hover {
+    background-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button:active,
+.bms-popup-background-transparent .screenshot-ui-show-pointer-button:outlined,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button:active,
+.bms-popup-background-dark .screenshot-ui-show-pointer-button:outlined {
+    background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-show-pointer-button:active,
+.bms-popup-background-light .screenshot-ui-show-pointer-button:outlined {
+    background-color: rgba(0, 0, 0, 0.16) !important;
 }
 
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-section,

@@ -1,5 +1,5 @@
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
-const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content'];
+const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content','screenshot-ui-panel'];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
@@ -12,7 +12,7 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
-        style_classes: ['quick-settings', 'quick-toggle-menu', 'datemenu-popover'],
+        style_classes: ['quick-settings', 'quick-toggle-menu', 'datemenu-popover','screenshot-ui-panel'],
     },
     {
         key: 'notification-corner-radius',
