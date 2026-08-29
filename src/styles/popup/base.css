@@ -124,6 +124,8 @@
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .screenshot-ui-panel,
+.bms-popup-surface-dark .screenshot-ui-panel, 
 .bms-popup-surface-dark .popup-menu-content,
 .bms-popup-surface-dark .popup-sub-menu,
 .bms-popup-surface-dark .candidate-popup-content,
@@ -279,14 +281,6 @@
 .bms-popup-background-light .popup-sub-menu .popup-menu-item:insensitive,
 .bms-popup-background-dark .popup-sub-menu .popup-menu-item:insensitive {
     background-color: transparent !important;
-}
-
-/* Temporary fix to resolve merge conflict */
-.bms-popup-background-dark .screenshot-ui-panel,
-.bms-popup-surface-dark .screenshot-ui-panel {
-    background: rgba(45, 45, 50, 0.22) !important;
-    border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 .bms-popup-background-transparent .screenshot-ui-type-button,
