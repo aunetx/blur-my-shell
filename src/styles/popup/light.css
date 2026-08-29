@@ -15,16 +15,6 @@
   background-color: transparent;
 }
 
-.bms-popup-background-light .message-media-control:last-child,
-.bms-popup-surface-light .message-media-control:last-child {
-  background-color: transparent;
-}
-
-.bms-popup-background-light .message-media-control:first-child:last-child,
-.bms-popup-surface-light .message-media-control:first-child:last-child {
-  background-color: transparent;
-}
-
 .bms-popup-background-light .message-media-control:hover,
 .bms-popup-surface-light .message-media-control:hover,
 .bms-popup-background-light .message-expand-button:hover,
