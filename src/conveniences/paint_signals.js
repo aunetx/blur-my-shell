@@ -17,11 +17,15 @@ export const PaintSignals = class PaintSignals {
 
         let last_repaint_at = 0;
         let repaint_timeout_id = 0;
+        let skip_next_paint = false;
         const queue_repaint = () => {
             last_repaint_at = GLib.get_monotonic_time();
+            skip_next_paint = true;
             try {
                 blur_effect.queue_repaint();
-            } catch (e) { }
+            } catch (e) {
+                skip_next_paint = false;
+            }
         };
         const cancel_repaint = () => {
             if (!repaint_timeout_id)
@@ -32,6 +36,11 @@ export const PaintSignals = class PaintSignals {
         };
         const paint_effect = new PaintCallbackEffect();
         paint_effect.set_callback(paint_flags => {
+            if (skip_next_paint) {
+                skip_next_paint = false;
+                return;
+            }
+
             if (!(paint_flags & Clutter.EffectPaintFlags.ACTOR_DIRTY))
                 return;
 
