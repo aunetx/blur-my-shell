@@ -12,11 +12,6 @@ export const Panel = GObject.registerClass({
         'pipeline_choose_row',
         'mode_static',
         'mode_dynamic',
-        'sigma_row',
-        'sigma',
-        'brightness_row',
-        'brightness',
-        'corner_radius_not_found_row',
         'corner_radius_row',
         'corner_radius',
         'unblur_in_overview',
@@ -59,14 +54,6 @@ export const Panel = GObject.registerClass({
             () => this.change_blur_mode(this.preferences.panel.STATIC_BLUR, false)
         );
 
-        this.preferences.panel.settings.bind(
-            'sigma', this._sigma, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.panel.settings.bind(
-            'brightness', this._brightness, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
         this.preferences.panel.settings.bind(
             'corner-radius', this._corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
@@ -135,12 +122,6 @@ export const Panel = GObject.registerClass({
         this._mode_static.set_active(is_static_blur);
         if (first_run)
             this._mode_dynamic.set_active(!is_static_blur);
-
-        this._pipeline_choose_row.set_visible(is_static_blur);
-        this._sigma_row.set_visible(!is_static_blur);
-        this._brightness_row.set_visible(!is_static_blur);
-        this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
-        this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
 
         this.proximity_option_changed();
     }

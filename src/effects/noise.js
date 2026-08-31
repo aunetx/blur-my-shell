@@ -62,8 +62,9 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
         }
 
         set noise(value) {
-            if (this._noise !== value) {
-                this._noise = value;
+            const noise = utils.clamp(value, 0, 1, DEFAULT_PARAMS.noise);
+            if (this._noise !== noise) {
+                this._noise = noise;
 
                 uniforms.set_uniform(this, 'noise', parseFloat(this._noise - 1e-6));
                 this.set_enabled(this.noise > 0. && this.lightness != 1);
@@ -75,8 +76,9 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
         }
 
         set lightness(value) {
-            if (this._lightness !== value) {
-                this._lightness = value;
+            const lightness = utils.clamp(value, 0, 2, DEFAULT_PARAMS.lightness);
+            if (this._lightness !== lightness) {
+                this._lightness = lightness;
 
                 uniforms.set_uniform(this, 'lightness', parseFloat(this._lightness - 1e-6));
                 this.set_enabled(this.noise > 0. && this.lightness != 1);
@@ -88,8 +90,9 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+            const opacityFactor = utils.clamp(value, 0, 1, DEFAULT_PARAMS.opacity_factor);
+            if (this._opacity_factor !== opacityFactor) {
+                this._opacity_factor = opacityFactor;
 
                 uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }

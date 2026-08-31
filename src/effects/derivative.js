@@ -4,6 +4,7 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
+const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'derivative.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -57,7 +58,7 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
 
             utils.initialize_shader_effect(this, SHADER_SOURCE);
 
-
+            this._filtered_pipeline = null;
             utils.setup_params(this, params);
         }
 
@@ -70,8 +71,9 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
         }
 
         set operation(value) {
-            if (this._operation !== value) {
-                this._operation = value;
+            const operation = utils.clamp_integer(value, 0, 2, DEFAULT_PARAMS.operation);
+            if (this._operation !== operation) {
+                this._operation = operation;
 
                 uniforms.set_uniform(this, 'operation', this._operation);
             }
@@ -82,8 +84,9 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+            const opacityFactor = utils.clamp(value, 0, 1, DEFAULT_PARAMS.opacity_factor);
+            if (this._opacity_factor !== opacityFactor) {
+                this._opacity_factor = opacityFactor;
 
                 uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
@@ -94,7 +97,7 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
         }
 
         set width(value) {
-            const v = Math.max(1, value || 1);
+            const v = utils.clamp(value, 1, Number.MAX_SAFE_INTEGER, 1);
             if (this._width !== v) {
                 this._width = v;
 
@@ -107,7 +110,7 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
         }
 
         set height(value) {
-            const v = Math.max(1, value || 1);
+            const v = utils.clamp(value, 1, Number.MAX_SAFE_INTEGER, 1);
             if (this._height !== v) {
                 this._height = v;
 
@@ -117,8 +120,10 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
 
         vfunc_set_actor(actor) {
             if (this._actor_connection_size_id) {
-                let old_actor = this.get_actor();
-                old_actor?.disconnect(this._actor_connection_size_id);
+                try {
+                    this.get_actor()?.disconnect(this._actor_connection_size_id);
+                } catch (e) { }
+                this._actor_connection_size_id = null;
             }
             if (actor) {
                 this.width = actor.width;
@@ -128,9 +133,6 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
                     this.height = actor.height;
                 });
             }
-            else
-                this._actor_connection_size_id = null;
-
             super.vfunc_set_actor(actor);
         }
 
@@ -138,9 +140,14 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
             uniforms.upload_uniforms(this);
 
             const pipeline = this.get_pipeline();
-            if (pipeline) {
+            if (pipeline && pipeline !== this._filtered_pipeline) {
                 try {
-                    pipeline.set_layer_filters(0, 9728, 9728);
+                    pipeline.set_layer_filters(
+                        0,
+                        Cogl.PipelineFilter.NEAREST,
+                        Cogl.PipelineFilter.NEAREST
+                    );
+                    this._filtered_pipeline = pipeline;
                 } catch (e) { }
             }
 

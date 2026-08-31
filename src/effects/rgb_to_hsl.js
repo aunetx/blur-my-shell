@@ -46,8 +46,9 @@ const RgbToHslEffectClass = utils.IS_IN_PREFERENCES ? null : class RgbToHslEffec
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+            const opacityFactor = utils.clamp(value, 0, 1, DEFAULT_PARAMS.opacity_factor);
+            if (this._opacity_factor !== opacityFactor) {
+                this._opacity_factor = opacityFactor;
 
                 uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }

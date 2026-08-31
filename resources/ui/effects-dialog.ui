@@ -10,8 +10,8 @@
       <object class="AdwPreferencesPage">
         <child>
           <object class="AdwPreferencesGroup" id="effects_list">
-            <property name="title">Effects list</property>
-            <property name="description">Effect on the top will be applied first.</property>
+            <property name="title" translatable="yes">Effects list</property>
+            <property name="description" translatable="yes">The top effect is applied first.</property>
 
             <property name="header-suffix">
               <object class="GtkBox">
@@ -60,11 +60,6 @@
                 </child>
               </object>
             </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwPreferencesGroup">
-            <property name="description">In order to have rounded corners on a component, add a “Corner” effect at the end of its pipeline.</property>
           </object>
         </child>
       </object>

@@ -5,7 +5,7 @@
         path="/org/gnome/shell/extensions/blur-my-shell/">
         <!-- SETTINGS VERSION -->
         <key type="i" name="settings-version">
-            <default>1</default>
+            <default>4</default>
             <summary>The version of the settings to update from.</summary>
         </key>
         <!-- PIPELINES -->
@@ -16,38 +16,18 @@
                         'name': <'Default'>,
                         'effects': <[
                             <{
-                                'type': <'native_static_gaussian_blur'>,
+                                'type': <'dual_kawase_blur'>,
                                 'id': <'effect_000000000000'>,
                                 'params': <{
-                                    'radius': <30>,
+                                    'unscaled_radius': <30>,
                                     'brightness': <0.6>
-                                }>
-                            }>
-                        ]>
-                    },
-                    'pipeline_default_rounded': {
-                        'name': <'Default rounded'>,
-                        'effects': <[
-                            <{
-                                'type': <'native_static_gaussian_blur'>,
-                                'id': <'effect_000000000001'>,
-                                'params': <{
-                                    'radius': <30>,
-                                    'brightness': <0.6>
-                                }>
-                            }>,
-                            <{
-                                'type': <'corner'>,
-                                'id': <'effect_000000000002'>,
-                                'params': <{
-                                    'radius': <24>
                                 }>
                             }>
                         ]>
                     }
                 }
             ]]></default>
-            <summary>A dictionnary describing the different pipelines and their effects.</summary>
+            <summary>A dictionary describing the different pipelines and their effects.</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
@@ -77,17 +57,7 @@
         <!-- COLOR AND NOISE -->
         <key type="b" name="color-and-noise">
             <default>true</default>
-            <summary>Boolean, controls wether or not the color and noise effects are in use globally</summary>
-        </key>
-        <!-- HACKS LEVEL -->
-        <key type="i" name="hacks-level">
-            <default>1</default>
-            <summary>Level of hacks to use (from 0 to 2, 2 disabling clipped redraws entirely)</summary>
-        </key>
-        <!-- ROUNDED BLUR FOUND -->
-        <key type="b" name="rounded-blur-found">
-            <default>false</default>
-            <summary>Boolean, set to true if a patched version of ShellBlurEffect was found</summary>
+            <summary>Boolean, controls whether or not the color and noise effects are in use globally</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
@@ -309,7 +279,7 @@
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
-            <default>"pipeline_default_rounded"</default>
+            <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- CUSTOMIZE -->
@@ -435,22 +405,22 @@
         <!-- DYNAMIC OPACITY -->
         <key type="b" name="dynamic-opacity">
             <default>true</default>
-            <summary>Wether or not to make the focused window opaque</summary>
+            <summary>Whether or not to make the focused window opaque</summary>
         </key>
         <!-- BLUR ON OVERVIEW -->
         <key type="b" name="blur-on-overview">
             <default>false</default>
-            <summary>Wether or not to blur applications on the overview</summary>
+            <summary>Whether or not to blur applications on the overview</summary>
         </key>
         <!-- UNBLUR WHEN FULLSCREEN -->
         <key type="b" name="unblur-when-fullscreen">
             <default>false</default>
-            <summary>Wether or not to unblur applications when they are fullscreen</summary>
+            <summary>Whether or not to unblur applications when they are fullscreen</summary>
         </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>
-            <summary>Wether or not to blur all applications by default</summary>
+            <summary>Whether or not to blur all applications by default</summary>
         </key>
         <!-- WHITELIST -->
         <key type="as" name="whitelist">
@@ -629,7 +599,7 @@
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
-            <default>"pipeline_default_rounded"</default>
+            <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
         <!-- SIGMA -->

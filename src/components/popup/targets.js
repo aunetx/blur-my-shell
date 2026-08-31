@@ -1,5 +1,5 @@
-const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
-const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content','screenshot-ui-panel'];
+const POPUP_STYLE_CLASSES = ['popup-menu', 'candidate-popup-boxpointer'];
+const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'notification-banner', 'candidate-popup-content','screenshot-ui-panel'];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
 const POPUP_TARGET_STYLE_CLASSES_OSK = ['bms-keyboard-surface']
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];

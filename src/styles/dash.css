@@ -1,10 +1,16 @@
-/*** DASH-TO-DOCK ***/
+/*** DOCKS ***/
 
 /*
 * `.transparent-dash`
 */
 .transparent-dash .dash-background {
     background: transparent !important;
+}
+
+.transparent-dash.plank-like-dock-bg {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 /*
@@ -15,6 +21,12 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.light-dash.plank-like-dock-bg {
+    background: rgba(255, 255, 255, 0.58) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: none !important;
+}
+
 /*
 * `.dark-dash`
 */
@@ -23,4 +35,8 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-
+.dark-dash.plank-like-dock-bg {
+    background: rgba(45, 45, 50, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: none !important;
+}

@@ -1,5 +1,4 @@
 import Meta from 'gi://Meta';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const SURFACE_SIGNALS = [
     'notify::allocation',
@@ -21,6 +20,14 @@ const SURFACE_SIGNALS = [
     'style-changed',
 ]; 
 
+const ANIMATION_SIGNALS = new Set([
+    'notify::opacity',
+    'notify::translation-x',
+    'notify::translation-y',
+    'notify::scale-x',
+    'notify::scale-y',
+]);
+
 export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
     constructor(surface) {
         this.surface = surface;
@@ -40,22 +47,32 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
 
         SURFACE_SIGNALS.forEach(signal => {
             try {
-            let id = actor.connect(signal, () => {
-                this.clear_pending_idles();
-                const is_visibility_change = signal === 'notify::visible' || signal === 'notify::mapped';
-                if (is_heavy_surface || is_visibility_change) {
-                    this.surface.queue_update();
-                    return;
-                }
-                else {
-                    this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
-                        this.updateId = 0;
+                const id = actor.connect(signal, () => {
+                    this.clear_pending_idles();
+                    const isVisibilityChange = signal === 'notify::visible'
+                        || signal === 'notify::mapped';
+                    if (isVisibilityChange && (!actor.visible || !actor.mapped)) {
+                        this.surface.hide_surface();
+                        return;
+                    }
+                    if (ANIMATION_SIGNALS.has(signal)) {
+                        this.surface.update();
+                        return;
+                    }
+                    if (is_heavy_surface || isVisibilityChange) {
                         this.surface.queue_update();
-                        return false;
-                    });
-                }
-            });
-            this.signal_ids.push([actor, id, signal]);
+                        return;
+                    }
+                    this.updateId = global.compositor.get_laters().add(
+                        Meta.LaterType.IDLE,
+                        () => {
+                            this.updateId = 0;
+                            this.surface.queue_update();
+                            return false;
+                        }
+                    );
+                });
+                this.signal_ids.push([actor, id, signal]);
             } catch (e) { }
         });
     }
@@ -82,32 +99,6 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
                 return;
             }
         }
-    }
-
-    connect_layout() {
-        if (!this.surface.static_blur)
-            return;
-
-        try {
-            this.signal_ids.push([
-                Main.layoutManager,
-                Main.layoutManager.connect('monitors-changed', () => this.surface.queue_update()),
-            ]);
-        } catch (e) { }
-    }
-
-    connect_settings() {
-        [
-            this.surface.corner_radius.key,
-            'override-background',
-            'style-popup',
-        ].forEach(key => {
-            const id = this.surface.settings.popup.settings.connect(
-                `changed::${key}`,
-                () => this.surface.update_settings()
-            );
-            this.signal_ids.push([this.surface.settings.popup.settings, id]);
-        });
     }
 
     clear_pending_idles() {

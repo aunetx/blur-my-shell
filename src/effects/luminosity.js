@@ -82,12 +82,15 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
         }
 
         get brightness_shift() {
-            return this._brightness;
+            return this._brightness_shift;
         }
 
         set brightness_shift(value) {
-            if (this._brightness_shift !== value) {
-                this._brightness_shift = value;
+            const brightnessShift = utils.clamp(
+                value, -1, 1, DEFAULT_PARAMS.brightness_shift
+            );
+            if (this._brightness_shift !== brightnessShift) {
+                this._brightness_shift = brightnessShift;
 
                 uniforms.set_uniform(this, 'brightness_shift', parseFloat(this._brightness_shift - 1e-6));
             }
@@ -99,12 +102,15 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
         }
 
         set brightness_multiplicator(value) {
-            if (this._brightness_multiplicator !== value) {
-                this._brightness_multiplicator = value;
+            const brightnessMultiplicator = utils.clamp(
+                value, 0, 2, DEFAULT_PARAMS.brightness_multiplicator
+            );
+            if (this._brightness_multiplicator !== brightnessMultiplicator) {
+                this._brightness_multiplicator = brightnessMultiplicator;
 
                 let brightness_mul = 600.;
-                if (value < 1.995)
-                    brightness_mul = 3. * (1. / (1. - (value / 2.) ** 2) - 1.);
+                if (brightnessMultiplicator < 1.995)
+                    brightness_mul = 3. * (1. / (1. - (brightnessMultiplicator / 2.) ** 2) - 1.);
                 uniforms.set_uniform(this, 'brightness_multiplicator', parseFloat(brightness_mul - 1e-6));
             }
         }
@@ -114,8 +120,9 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
         }
 
         set contrast(value) {
-            if (this._contrast !== value) {
-                this._contrast = value;
+            const contrast = utils.clamp(value, 0, 2, DEFAULT_PARAMS.contrast);
+            if (this._contrast !== contrast) {
+                this._contrast = contrast;
 
                 uniforms.set_uniform(this, 'contrast', parseFloat(this._contrast - 1e-6));
             }
@@ -126,8 +133,11 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
         }
 
         set contrast_center(value) {
-            if (this._contrast_center !== value) {
-                this._contrast_center = value;
+            const contrastCenter = utils.clamp(
+                value, 0, 1, DEFAULT_PARAMS.contrast_center
+            );
+            if (this._contrast_center !== contrastCenter) {
+                this._contrast_center = contrastCenter;
 
                 uniforms.set_uniform(this, 'contrast_center', parseFloat(this._contrast_center - 1e-6));
             }
@@ -138,12 +148,15 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
         }
 
         set saturation_multiplicator(value) {
-            if (this._saturation_multiplicator !== value) {
-                this._saturation_multiplicator = value;
+            const saturationMultiplicator = utils.clamp(
+                value, 0, 2, DEFAULT_PARAMS.saturation_multiplicator
+            );
+            if (this._saturation_multiplicator !== saturationMultiplicator) {
+                this._saturation_multiplicator = saturationMultiplicator;
 
                 let saturation_mul = 600.;
-                if (value < 1.995)
-                    saturation_mul = 3. * (1. / (1. - (value / 2.) ** 2) - 1.);
+                if (saturationMultiplicator < 1.995)
+                    saturation_mul = 3. * (1. / (1. - (saturationMultiplicator / 2.) ** 2) - 1.);
                 uniforms.set_uniform(this, 'saturation_multiplicator', parseFloat(saturation_mul - 1e-6));
             }
         }
@@ -153,8 +166,9 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+            const opacityFactor = utils.clamp(value, 0, 1, DEFAULT_PARAMS.opacity_factor);
+            if (this._opacity_factor !== opacityFactor) {
+                this._opacity_factor = opacityFactor;
 
                 uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }

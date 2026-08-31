@@ -1,3 +1,5 @@
+const LIQUID_GLASS_STYLE_CLASS = 'bms-popup-liquid-glass';
+
 export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     constructor(surface) {
         this.surface = surface;
@@ -14,6 +16,8 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     }
 
     update_target_style() {
+        this.update_liquid_glass_style();
+
         if (
             !this.surface.target.set_style
             || !this.surface.settings.popup.OVERRIDE_BACKGROUND
@@ -41,6 +45,8 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     }
 
     restore_target_style() {
+        this.remove_liquid_glass_style();
+
         if (!this.target_style_set || !this.surface.target.set_style)
             return;
 
@@ -63,5 +69,26 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
         } catch (e) {
             return false;
         }
+    }
+
+    update_liquid_glass_style() {
+        const enabled = this.surface.settings.popup.OVERRIDE_BACKGROUND
+            && (this.surface.pipeline?.effects ?? []).some(effect =>
+                effect._bms_effect_type === 'refraction'
+                && effect._bms_pixelize_role !== 'refraction-blur'
+            );
+
+        try {
+            if (enabled)
+                this.surface.target.add_style_class_name(LIQUID_GLASS_STYLE_CLASS);
+            else
+                this.remove_liquid_glass_style();
+        } catch (e) { }
+    }
+
+    remove_liquid_glass_style() {
+        try {
+            this.surface.target.remove_style_class_name(LIQUID_GLASS_STYLE_CLASS);
+        } catch (e) { }
     }
 };

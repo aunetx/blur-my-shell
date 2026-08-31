@@ -3,7 +3,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
 import { transform_to_actor_space } from './surface_geometry.js';
-import { PopupBlurStaticCorner } from './static_corner.js';
+import { RoundedPipeline } from '../../render/rounded_pipeline.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
     constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius) {
@@ -13,7 +13,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.root_actor = root_actor;
         this.parent = parent;
         this.get_corner_radius = get_corner_radius;
-        this.static_corner = new PopupBlurStaticCorner(effects_manager, get_corner_radius);
+        this.rounded_pipeline = new RoundedPipeline(effects_manager, get_corner_radius);
         this.background_group = null;
         this.blur_actor = null;
         this.bg_manager = null;
@@ -63,20 +63,17 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             null,
             {
                 effect_overrides: {
-                    native_static_gaussian_blur: params => this.get_blur_effect_overrides(params, 'unscaled_radius'),
-                    gaussian_blur: params => this.get_blur_effect_overrides(params, 'radius'),
-                    monte_carlo_blur: params => this.get_blur_effect_overrides(params, 'radius'),
-                    downscale: () => this.get_texture_effect_overrides(),
-                    upscale: () => this.get_texture_effect_overrides(),
-                    pixelize: () => this.get_texture_effect_overrides(),
-                    derivative: () => this.get_texture_effect_overrides(),
-                    refraction: () => this.get_texture_effect_overrides(),
+                    dual_kawase_blur: params => this.get_texture_effect_overrides(params),
+                    downscale: params => this.get_texture_effect_overrides(params),
+                    upscale: params => this.get_texture_effect_overrides(params),
+                    pixelize: params => this.get_pixelize_effect_overrides(params),
+                    derivative: params => this.get_texture_effect_overrides(params),
+                    refraction: params => this.get_refraction_effect_overrides(params),
                     color: params => this.get_color_effect_overrides(params),
-                    luminosity: () => this.get_luminosity_effect_overrides(),
+                    luminosity: params => this.get_luminosity_effect_overrides(params),
                     noise: params => this.get_noise_effect_overrides(params),
-                    rgb_to_hsl: () => this.get_texture_effect_overrides(),
-                    hsl_to_rgb: () => this.get_texture_effect_overrides(),
-                    corner: () => ({ radius: this.get_corner_radius() }),
+                    rgb_to_hsl: params => this.get_texture_effect_overrides(params),
+                    hsl_to_rgb: params => this.get_texture_effect_overrides(params),
                 },
             }
         );
@@ -93,7 +90,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.bg_manager = bg_manager_list[0];
         this.pipeline = pipeline;
         this.monitor_index = monitor.index;
-        this.static_corner.bind(this.pipeline, this.blur_actor);
+        this.rounded_pipeline.bind(this.pipeline, this.blur_actor);
 
         return true;
     }
@@ -222,19 +219,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         } catch (e) { }
     }
 
-    get_blur_effect_overrides(params, radius_key) {
-        const overrides = {};
-
-        if (radius_key in params)
-            overrides[radius_key] = params[radius_key] * this.opacity_factor;
-        if ('brightness' in params)
-            overrides.brightness = 1 - (1 - params.brightness) * this.opacity_factor;
-
-        return overrides;
-    }
-
     get_color_effect_overrides(params) {
-        const overrides = this.get_texture_effect_overrides();
+        const overrides = this.get_texture_effect_overrides(params);
 
         if (Array.isArray(params.color) && params.color.length >= 4)
             overrides.color = params.color;
@@ -242,12 +228,12 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         return overrides;
     }
 
-    get_luminosity_effect_overrides() {
-        return this.get_texture_effect_overrides();
+    get_luminosity_effect_overrides(params) {
+        return this.get_texture_effect_overrides(params);
     }
 
     get_noise_effect_overrides(params) {
-        const overrides = this.get_texture_effect_overrides();
+        const overrides = this.get_texture_effect_overrides(params);
 
         if ('noise' in params)
             overrides.noise = params.noise;
@@ -255,9 +241,22 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         return overrides;
     }
 
-    get_texture_effect_overrides() {
+    get_refraction_effect_overrides(params) {
         return {
-            opacity_factor: this.opacity_factor,
+            blur_radius: params.blur_radius ?? 10,
+            opacity_factor: (params.opacity_factor ?? 1) * this.opacity_factor,
+        };
+    }
+
+    get_pixelize_effect_overrides(params) {
+        return {
+            opacity_factor: (params.opacity_factor ?? 1) * this.opacity_factor,
+        };
+    }
+
+    get_texture_effect_overrides(params = {}) {
+        return {
+            opacity_factor: (params.opacity_factor ?? 1) * this.opacity_factor,
         };
     }
 
@@ -271,14 +270,14 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
     update_settings() {
         try {
-            this.static_corner.update();
+            this.rounded_pipeline.update();
         } catch (e) { }
     }
 
     update_pipeline() {
         try {
             this.bg_manager?._bms_pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
-            this.static_corner.update();
+            this.rounded_pipeline.update();
         } catch (e) { }
     }
 
@@ -298,12 +297,13 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     destroy_background(actor_already_destroyed = false) {
         const bg_manager = this.bg_manager;
         const background_group = this.background_group;
+        const blur_actor = this.blur_actor;
         this.bg_manager = null;
         this.blur_actor = null;
         this.pipeline = null;
 
         try {
-            this.static_corner.destroy();
+            this.rounded_pipeline.destroy();
         } catch (e) { }
 
         if (bg_manager) {
@@ -322,6 +322,11 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
                     background_group?.destroy_all_children?.();
             } catch (e) { }
         }
+
+        try {
+            if (!this.blur_actor_destroyed)
+                blur_actor?.destroy?.();
+        } catch (e) { }
 
         this.monitor_index = null;
         this.background_opacity = null;

@@ -141,7 +141,14 @@ export const EffectRow = GObject.registerClass({
                 case "dropdown":
                     row = new Adw.ComboRow({ model: new Gtk.StringList });
                     param.options.forEach(option => row.model.append(option));
-                    row.selected = this.get_effect_param(param_key);
+                    const selected = this.get_effect_param(param_key);
+                    const default_selected = this.get_default_effect_param(param_key);
+                    const is_valid_selection = value => Number.isInteger(value)
+                        && value >= 0
+                        && value < param.options.length;
+                    row.selected = is_valid_selection(selected)
+                        ? selected
+                        : (is_valid_selection(default_selected) ? default_selected : 0);
                     row.connect(
                         'notify::selected', () => this.set_effect_param(param_key, row.selected)
                     );
@@ -187,13 +194,13 @@ export const EffectRow = GObject.registerClass({
     }
 
     get_effect_param(key) {
-        let effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
         const gsettings_effect = effects.find(e => e.id == this.effect.id);
 
-        if ('params' in gsettings_effect && key in gsettings_effect.params)
+        if (gsettings_effect?.params && key in gsettings_effect.params)
             return gsettings_effect.params[key];
-        else
-            return this.get_default_effect_param(key);
+
+        return this.get_default_effect_param(key);
     }
 
     get_default_effect_param(key) {
@@ -203,20 +210,23 @@ export const EffectRow = GObject.registerClass({
     set_effect_param(key, value) {
         // we must pay attention not to change the effects in the pipelines manager before updating
         // it in gsettings, else it won't be updated (or every effect will be)
-        let effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects.map(effect => ({
+            ...effect,
+            params: {
+                ...(effect.params ?? {}),
+            },
+        }));
         const effect_index = effects.findIndex(e => e.id == this.effect.id);
 
         if (effect_index >= 0) {
-            effects[effect_index] = {
-                ...this.effect, params: { ...this.effect.params }
-            };
             effects[effect_index].params[key] = value;
-            this.effect = effects[effect_index];
-        }
-        else
+        } else {
             this._warn(`effect not found when setting key ${key}`);
+            return;
+        }
 
-        this.pipelines_manager.update_pipeline_effects(this.pipeline_id, effects, false);
+        if (this.pipelines_manager.update_pipeline_effects(this.pipeline_id, effects))
+            this.effect = effects[effect_index];
     }
 
     _warn(str) {

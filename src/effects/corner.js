@@ -12,8 +12,6 @@ const DEFAULT_PARAMS = {
     radius: 12, width: 0, height: 0,
     corners_top: true, corners_bottom: true,
     clip: [0, 0, -1, -1],
-    // Reset on reuse: `EffectsManager` pools `CornerEffect` instances, and a
-    // pooled instance could otherwise keep rendering square (see corner.glsl).
     straight_corners: false,
 };
 
@@ -89,8 +87,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set radius(value) {
-            if (this._radius !== value) {
-                this._radius = value;
+            const radius = utils.clamp(
+                value, 0, Number.MAX_SAFE_INTEGER, DEFAULT_PARAMS.radius
+            );
+            if (this._radius !== radius) {
+                this._radius = radius;
 
                 this.update_radius();
             }
@@ -102,8 +103,10 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
                 this.radius * theme_context.scale_factor,
                 this.width / 2, this.height / 2
             );
-            if (this._clip_width >= 0 || this._clip_height >= 0)
-                radius = Math.min(radius, this._clip_width / 2, this._clip_height / 2);
+            if (Number.isFinite(this._clip_width) && this._clip_width >= 0)
+                radius = Math.min(radius, this._clip_width / 2);
+            if (Number.isFinite(this._clip_height) && this._clip_height >= 0)
+                radius = Math.min(radius, this._clip_height / 2);
 
             uniforms.set_uniform(this, 'radius', parseFloat(radius - 1e-6));
         }
@@ -113,11 +116,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set width(value) {
-            const v = Math.max(1, value || 1);
+            const v = utils.clamp(value, 1, Number.MAX_SAFE_INTEGER, 1);
             if (this._width !== v) {
                 this._width = v;
 
-                uniforms.set_uniform(this, 'width', parseFloat(this._width + 3.0 - 1e-6));
+                uniforms.set_uniform(this, 'width', parseFloat(this._width));
                 this.update_radius();
             }
         }
@@ -127,11 +130,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set height(value) {
-            const v = Math.max(1, value || 1);
+            const v = utils.clamp(value, 1, Number.MAX_SAFE_INTEGER, 1);
             if (this._height !== v) {
                 this._height = v;
 
-                uniforms.set_uniform(this, 'height', parseFloat(this._height + 3.0 - 1e-6));
+                uniforms.set_uniform(this, 'height', parseFloat(this._height));
                 this.update_radius();
             }
         }
@@ -141,8 +144,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set corners_top(value) {
-            if (this._corners_top !== value) {
-                this._corners_top = value;
+            const cornersTop = typeof value === 'boolean'
+                ? value
+                : DEFAULT_PARAMS.corners_top;
+            if (this._corners_top !== cornersTop) {
+                this._corners_top = cornersTop;
 
                 uniforms.set_uniform(this, 'corners_top', this._corners_top ? 1 : 0);
             }
@@ -153,8 +159,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set corners_bottom(value) {
-            if (this._corners_bottom !== value) {
-                this._corners_bottom = value;
+            const cornersBottom = typeof value === 'boolean'
+                ? value
+                : DEFAULT_PARAMS.corners_bottom;
+            if (this._corners_bottom !== cornersBottom) {
+                this._corners_bottom = cornersBottom;
 
                 uniforms.set_uniform(this, 'corners_bottom', this._corners_bottom ? 1 : 0);
             }
@@ -165,8 +174,11 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set straight_corners(value) {
-            if (this._straight_corners !== value) {
-                this._straight_corners = value;
+            const straightCorners = typeof value === 'boolean'
+                ? value
+                : DEFAULT_PARAMS.straight_corners;
+            if (this._straight_corners !== straightCorners) {
+                this._straight_corners = straightCorners;
 
                 uniforms.set_uniform(this, 'straight_corners', this._straight_corners ? 1 : 0);
             }
@@ -196,18 +208,31 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
         }
 
         set clip(value) {
-            [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = value;
+            const rawClip = Array.isArray(value)
+                && value.length === 4
+                && value.every(Number.isFinite)
+                ? value
+                : DEFAULT_PARAMS.clip;
+            const clip = rawClip.map((component, index) => utils.clamp(
+                component,
+                -Number.MAX_SAFE_INTEGER,
+                Number.MAX_SAFE_INTEGER,
+                DEFAULT_PARAMS.clip[index]
+            ));
+            [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = clip;
             uniforms.set_uniform(this, 'clip_x0', parseFloat(this._clip_x0 - 1e-6));
             uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));
-            uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width + 3 - 1e-6));
-            uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height + 3 - 1e-6));
+            uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width));
+            uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height));
             this.update_radius();
         }
 
         vfunc_set_actor(actor) {
             if (this._actor_connection_size_id) {
-                let old_actor = this.get_actor();
-                old_actor?.disconnect(this._actor_connection_size_id);
+                try {
+                    this.get_actor()?.disconnect(this._actor_connection_size_id);
+                } catch (e) { }
+                this._actor_connection_size_id = null;
             }
             this.detach_actor_clip_sync();
 
@@ -221,10 +246,6 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
 
                 this.sync_actor_clip(actor);
             }
-            else {
-                this._actor_connection_size_id = null;
-            }
-
             super.vfunc_set_actor(actor);
         }
 

@@ -1,10 +1,7 @@
-import { NativeDynamicBlurEffect } from '../effects/native_dynamic_gaussian_blur.js';
-import { NativeStaticBlurEffect } from '../effects/native_static_gaussian_blur.js';
-import { GaussianBlurEffect } from '../effects/gaussian_blur.js';
-import { MonteCarloBlurEffect } from '../effects/monte_carlo_blur.js';
+import { DualKawaseBlurEffect } from './dual_kawase_blur.js';
 import { ColorEffect } from '../effects/color.js';
 import { NoiseEffect } from '../effects/noise.js';
-import { CornerEffect } from '../effects/corner.js';
+import { CornerEffect } from './corner.js';
 import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
 import { PixelizeEffect } from './pixelize.js';
@@ -17,14 +14,10 @@ export { get_effects_groups } from './effect_groups.js';
 
 export function get_supported_effects(_ = () => "") {
     return {
-        native_dynamic_gaussian_blur: {
-            class: NativeDynamicBlurEffect
-        },
-
-        native_static_gaussian_blur: {
-            class: NativeStaticBlurEffect,
-            name: _("Native gaussian blur"),
-            description: _("An optimized blur effect that smoothly blends pixels within a given radius."),
+        dual_kawase_blur: {
+            class: DualKawaseBlurEffect,
+            name: _("Dual Kawase blur"),
+            description: _("A fast multi-resolution blur shared by static and dynamic surfaces."),
             is_advanced: false,
             editable_params: {
                 unscaled_radius: {
@@ -50,82 +43,6 @@ export function get_supported_effects(_ = () => "") {
             }
         },
 
-        gaussian_blur: {
-            class: GaussianBlurEffect,
-            name: _("Gaussian blur (advanced effect)"),
-            description: _("A blur effect that smoothly blends pixels within a given radius. This effect is more precise, but way less optimized."),
-            is_advanced: true,
-            editable_params: {
-                radius: {
-                    name: _("Radius"),
-                    description: _("The intensity of the blur effect. The bigger it is, the slower it will be."),
-                    type: "float",
-                    min: 0.,
-                    max: 100.,
-                    increment: .1,
-                    big_increment: 10.,
-                    digits: 1
-                },
-                brightness: {
-                    name: _("Brightness"),
-                    description: _("The brightness of the blur effect, a high value might make the text harder to read."),
-                    type: "float",
-                    min: 0.,
-                    max: 1.,
-                    increment: 0.01,
-                    big_increment: 0.1,
-                    digits: 2
-                },
-            }
-        },
-
-        monte_carlo_blur: {
-            class: MonteCarloBlurEffect,
-            name: _("Monte Carlo blur"),
-            description: _("A blur effect that mimics a random walk, by picking pixels further and further away from its origin and mixing them all together."),
-            is_advanced: false,
-            editable_params: {
-                radius: {
-                    name: _("Radius"),
-                    description: _("The maximum travel distance for each step in the random walk. A higher value will make the blur more randomized."),
-                    type: "float",
-                    min: 0.,
-                    max: 10.,
-                    increment: 0.01,
-                    big_increment: 0.1,
-                    digits: 2
-                },
-                iterations: {
-                    name: _("Iterations"),
-                    description: _("The number of iterations. The more there are, the smoother the blur is."),
-                    type: "integer",
-                    min: 0,
-                    max: 50,
-                    increment: 1
-                },
-                brightness: {
-                    name: _("Brightness"),
-                    description: _("The brightness of the blur effect, a high value might make the text harder to read."),
-                    type: "float",
-                    min: 0.,
-                    max: 1.,
-                    increment: 0.01,
-                    big_increment: 0.1,
-                    digits: 2
-                },
-                use_base_pixel: {
-                    name: _("Use base pixel"),
-                    description: _("Whether or not the original pixel is counted for the blur. If it is, the image will be more legible."),
-                    type: "boolean"
-                },
-                prefer_closer_pixels: {
-                    name: _("Prefer closer pixels"),
-                    description: _("Whether or not the pixels that are closer to the original pixel will have more weight."),
-                    type: "boolean"
-                }
-            }
-        },
-
         color: {
             class: ColorEffect,
             name: _("Color"),
@@ -135,7 +52,7 @@ export function get_supported_effects(_ = () => "") {
             editable_params: {
                 color: {
                     name: _("Color"),
-                    description: _("The color to blend in. The blending amount is controled by the opacity of the color."),
+                    description: _("The color to blend in. The blending amount is controlled by the opacity of the color."),
                     type: "rgba",
                     use_alpha: true
                 },
@@ -175,7 +92,7 @@ export function get_supported_effects(_ = () => "") {
             editable_params: {
                 brightness_shift: {
                     name: _("Shift brightness"),
-                    description: _("The brightness to add of remove to the image."),
+                    description: _("The brightness to add or remove from the image."),
                     type: "float",
                     min: -1.,
                     max: 1.,
@@ -184,8 +101,8 @@ export function get_supported_effects(_ = () => "") {
                     digits: 2
                 },
                 brightness_multiplicator: {
-                    name: _("Multiply brightness"),
-                    description: _("The brightness multiplicator of the image, so that 0 means no brightness and 2 means infinite brightness."),
+                    name: _("Brightness multiplier"),
+                    description: _("Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."),
                     type: "float",
                     min: 0.,
                     max: 2.,
@@ -195,7 +112,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 contrast: {
                     name: _("Contrast"),
-                    description: _("The contrast of the image in regard to the center of the contrast."),
+                    description: _("Adjusts image contrast around the selected contrast center."),
                     type: "float",
                     min: 0.,
                     max: 2.,
@@ -215,7 +132,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 saturation_multiplicator: {
                     name: _("Saturation"),
-                    description: _("The saturation of the image, so that 0 means no saturation and 2 means infinite saturation."),
+                    description: _("Multiplies image saturation; 0 removes all color and 1 leaves saturation unchanged."),
                     type: "float",
                     min: 0.,
                     max: 2.,
@@ -256,7 +173,7 @@ export function get_supported_effects(_ = () => "") {
         downscale: {
             class: DownscaleEffect,
             name: _("Downscale (advanced effect)"),
-            description: _("An effect that downscales the image and put it on the top-left corner."),
+            description: _("An effect that downscales the image and puts it in the top-left corner."),
             is_advanced: true,
             editable_params: {
                 divider: {
@@ -319,7 +236,7 @@ export function get_supported_effects(_ = () => "") {
         noise: {
             class: NoiseEffect,
             name: _("Noise"),
-            description: _("An effect that adds a random noise. Prefer the Monte Carlo blur for a more organic effect if needed."),
+            description: _("An effect that adds random grain to the image."),
             is_advanced: false,
             editable_params: {
                 noise: {
@@ -401,16 +318,6 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 0.5,
                     digits: 2
                 },
-                corner_radius: {
-                    name: _("Corner radius"),
-                    description: _("The rounded shape used for the glass edge and highlight."),
-                    type: "float",
-                    min: 0.,
-                    max: 100.,
-                    increment: 1.,
-                    big_increment: 10.,
-                    digits: 0
-                },
                 gloss: {
                     name: _("Fresnel glare"),
                     description: _("Strength of the Schlick fresnel rim glare from the glass edge."),
@@ -482,7 +389,7 @@ export function get_supported_effects(_ = () => "") {
         rgb_to_hsl: {
             class: RgbToHslEffect,
             name: _("RGB to HSL (advanced effect)"),
-            description: _("Converts the image from RGBA colorspace to HSLA."),
+            description: _("Converts the image from RGBA color space to HSLA."),
             is_advanced: true,
             editable_params: {}
         },
@@ -490,36 +397,17 @@ export function get_supported_effects(_ = () => "") {
         hsl_to_rgb: {
             class: HslToRgbEffect,
             name: _("HSL to RGB (advanced effect)"),
-            description: _("Converts the image from HSLA colorspace to RGBA."),
+            description: _("Converts the image from HSLA color space to RGBA."),
             is_advanced: true,
             editable_params: {}
-        },
-
-        corner: {
-            class: CornerEffect,
-            name: _("Corner"),
-            description: _("An effect that draws corners. Add it last not to have the other effects perturb the corners."),
-            is_advanced: false,
-            editable_params: {
-                radius: {
-                    name: _("Radius"),
-                    description: _("The radius of the corner. GNOME apps use a radius of 15 px by default."),
-                    type: "integer",
-                    min: 0,
-                    max: 150,
-                    increment: 1,
-                },
-                corners_top: {
-                    name: _("Top corners"),
-                    description: _("Whether or not to round the top corners."),
-                    type: "boolean"
-                },
-                corners_bottom: {
-                    name: _("Bottom corners"),
-                    description: _("Whether or not to round the bottom corners."),
-                    type: "boolean"
-                }
-            }
         }
     };
 };
+
+export function get_internal_effects() {
+    return {
+        corner: {
+            class: CornerEffect,
+        },
+    };
+}

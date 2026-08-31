@@ -19,6 +19,8 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.update_ids = new Map();
         this.original_opacity = new WeakMap();
         this.original_message_opacity = new WeakMap();
+        this.original_clips = new WeakMap();
+        this.original_header_opacity = new WeakMap();
         this.enabled = false;
     }
 
@@ -26,14 +28,15 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.enabled = true;
     }
 
-    track_container(container) {
+    track_container(container, scan_children = true) {
         if (!container || this.containers.has(container))
             return;
         if (!this.watch_actor(container))
             return;
 
         this.containers.add(container);
-        this.scan(container);
+        if (scan_children)
+            this.scan(container);
 
         this.connect(
             container,
@@ -67,7 +70,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         seen.add(actor);
 
         if (this.has_any_style_class(actor, MESSAGE_CONTAINER_STYLE_CLASSES))
-            this.track_container(actor);
+            this.track_container(actor, false);
 
         if (this.has_style_class(actor, 'message-notification-group'))
             this.track_group(actor);
@@ -149,7 +152,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         }
     }
 
-    untrack_group(group) {
+    untrack_group(group, destroyed = false) {
         if (this.group_connections.has(group)) {
             const { lm, id } = this.group_connections.get(group);
             try {
@@ -157,6 +160,8 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             } catch (e) { }
             this.group_connections.delete(group);
         }
+        if (!destroyed)
+            this.restore_group_header(group);
         this.groups.delete(group);
     }
 
@@ -180,8 +185,14 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (!header)
                 return;
 
+            if (!this.original_header_opacity.has(header))
+                this.original_header_opacity.set(header, header.opacity);
+
             const expansion = group.layout_manager?.expansion ?? (group.expanded ? 1 : 0);
-            const target_opacity = this.enabled ? Math.round(expansion * 255) : 255;
+            const original_opacity = this.original_header_opacity.get(header);
+            const target_opacity = this.enabled
+                ? Math.round(expansion * original_opacity)
+                : original_opacity;
 
             header.opacity = target_opacity;
         } catch (e) { }
@@ -290,7 +301,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             const visible_edge = Math.round(base_edge + (height - base_edge) * expansion);
             const clip_y = Math.max(0, height - visible_edge);
 
-            message.set_clip(0, clip_y, width, visible_edge);
+            this.set_stack_clip(message, 0, clip_y, width, visible_edge);
             this.bms_clipped.add(message);
 
             // Staggered opacity progress for cards so they smoothly fade in as they unravel
@@ -325,24 +336,24 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
                 // 2nd card: tight visible strip of 10px (matches exact 10px bottom offset below card 1)
                 const visible_edge = 10;
                 const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
+                this.set_stack_clip(message, 0, clip_y, width, visible_edge);
                 this.bms_clipped.add(message);
             } else if (index === 2) {
                 // 3rd card: tight visible strip of 7px (matches exact 7px bottom offset below card 2)
                 const visible_edge = 7;
                 const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
+                this.set_stack_clip(message, 0, clip_y, width, visible_edge);
                 this.bms_clipped.add(message);
             } else if (index >= 3) {
                 // 4th+ cards: hidden when collapsed so they don't stack behind card 3
-                message.set_clip(0, height, width, 0);
+                this.set_stack_clip(message, 0, height, width, 0);
                 this.bms_clipped.add(message);
             } else {
                 // Fallback by pseudo class
                 const is_second = this.has_pseudo_class(message, 'second-in-stack');
                 const visible_edge = is_second ? 10 : 6;
                 const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
+                this.set_stack_clip(message, 0, clip_y, width, visible_edge);
                 this.bms_clipped.add(message);
             }
         } catch (e) { }
@@ -354,13 +365,40 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
 
         if (this.bms_clipped.has(message)) {
             try {
-                message.remove_clip();
+                const clip = this.original_clips.get(message);
+                if (clip)
+                    message.set_clip(...clip);
+                else
+                    message.remove_clip();
             } catch (e) { }
             this.bms_clipped.delete(message);
+            this.original_clips.delete(message);
         }
 
         this.restore_message_content(message);
         this.restore_message_opacity(message);
+    }
+
+    set_stack_clip(message, x, y, width, height) {
+        if (!this.original_clips.has(message)) {
+            let clip = null;
+            try {
+                if (message.has_clip)
+                    clip = message.get_clip();
+            } catch (e) { }
+            this.original_clips.set(message, clip);
+        }
+        message.set_clip(x, y, width, height);
+    }
+
+    restore_group_header(group) {
+        try {
+            const header = group?._headerBox;
+            if (header && this.original_header_opacity.has(header)) {
+                header.opacity = this.original_header_opacity.get(header);
+                this.original_header_opacity.delete(header);
+            }
+        } catch (e) { }
     }
 
     set_child_opacity(message, opacity) {
@@ -539,7 +577,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
                 this.destroyed_actors.add(actor);
                 this.containers.delete(actor);
                 if (this.groups.has(actor)) {
-                    this.untrack_group(actor);
+                    this.untrack_group(actor, true);
                 }
                 this.messages.delete(actor);
                 this.cancel_update(actor);
@@ -594,11 +632,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.update_ids.clear();
         this.messages.forEach(message => this.remove_stack_mask(message));
         this.groups.forEach(group => {
-            try {
-                if (group._headerBox) {
-                    group._headerBox.opacity = 255;
-                }
-            } catch (e) { }
             this.untrack_group(group);
         });
         this.group_connections.forEach(({ lm, id }) => {
@@ -615,6 +648,8 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.bms_clipped = new WeakSet();
         this.original_opacity = new WeakMap();
         this.original_message_opacity = new WeakMap();
+        this.original_clips = new WeakMap();
+        this.original_header_opacity = new WeakMap();
         this.enabled = false;
     }
 };

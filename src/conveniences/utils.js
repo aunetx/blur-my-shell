@@ -3,6 +3,20 @@ import GObject from 'gi://GObject';
 
 export const IS_IN_PREFERENCES = typeof global === 'undefined';
 
+export function clamp(value, minimum, maximum, fallback = minimum) {
+    const number = Number(value);
+    if (!Number.isFinite(number))
+        return fallback;
+    return Math.max(minimum, Math.min(maximum, number));
+}
+
+export function clamp_integer(value, minimum, maximum, fallback = minimum) {
+    const number = Number(value);
+    if (!Number.isFinite(number))
+        return fallback;
+    return Math.max(minimum, Math.min(maximum, Math.trunc(number)));
+}
+
 // Taken from https://github.com/Schneegans/Burn-My-Windows/blob/main/src/utils.js
 // This method can be used to import a module in the GNOME Shell process only. This
 // is useful if you want to use a module in extension.js, but not in the preferences
@@ -23,26 +37,15 @@ const Cogl = await import_in_shell_only('gi://Cogl');
 const USES_SHADER_SNIPPET_API =
     typeof Clutter?.ShaderEffect?.new_with_snippet === 'function';
 
-export function is_usable_blur_module(ns) {
-    if (!ns)
-        return false;
-    try {
-        const { BlurEffect } = ns;
-        if (typeof BlurEffect !== 'function' || !BlurEffect.$gtype)
-            return false;
-        GObject.type_name(BlurEffect.$gtype);
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
-
 // In use for the effects, to prevent boilerplate code
 export function setup_params(outer_this, params) {
-    // setup each parameter, either with the given or the default value
-    for (const params_name in outer_this.constructor.default_params) {
+    params ??= {};
+    const parameterNames = Object.keys(outer_this.constructor.default_params);
+    for (const params_name of parameterNames)
         outer_this["_" + params_name] = null;
-        outer_this[params_name] = params_name in params ?
+
+    for (const params_name of parameterNames) {
+        outer_this[params_name] = Object.hasOwn(params, params_name) ?
             params[params_name] :
             outer_this.constructor.default_params[params_name];
     }

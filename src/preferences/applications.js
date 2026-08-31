@@ -33,11 +33,6 @@ export const Applications = GObject.registerClass({
         'pipeline_choose_row',
         'mode_static',
         'mode_dynamic',
-        'sigma_row',
-        'sigma',
-        'brightness_row',
-        'brightness',
-        'corner_radius_not_found_row',
         'corner_radius_row',
         'corner_radius',
         'corner_when_maximized_row',
@@ -97,14 +92,6 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'enable-all', this._enable_all, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'sigma', this._sigma, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'brightness', this._brightness, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(
@@ -179,12 +166,14 @@ export const Applications = GObject.registerClass({
     }
 
     remove_all_widgets() {
-        this._whitelist_elements.forEach(
-            element => this._whitelist.remove(element)
-        );
-        this._blacklist_elements.forEach(
-            element => this._blacklist.remove(element)
-        );
+        this._whitelist_elements.forEach(element => {
+            element.cleanup();
+            this._whitelist.remove(element);
+        });
+        this._blacklist_elements.forEach(element => {
+            element.cleanup();
+            this._blacklist.remove(element);
+        });
     }
 
     add_to_whitelist(app_name = null) {
@@ -214,11 +203,13 @@ export const Applications = GObject.registerClass({
     }
 
     remove_from_whitelist(widget) {
+        widget.cleanup();
         this._whitelist.remove(widget);
         this.update_whitelist_titles();
     }
 
     remove_from_blacklist(widget) {
+        widget.cleanup();
         this._blacklist.remove(widget);
         this.update_blacklist_titles();
     }
@@ -228,12 +219,10 @@ export const Applications = GObject.registerClass({
         if (first_run)
             this._mode_dynamic.set_active(!is_static_blur);
 
-        this._pipeline_choose_row.set_visible(is_static_blur);
-        this._sigma_row.set_visible(!is_static_blur);
-        this._brightness_row.set_visible(!is_static_blur);
-        this._corner_radius_row.set_visible(!is_static_blur);
-        this._corner_radius_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
-        //this._corner_when_maximized_row.set_visible(!is_static_blur && this.preferences.ROUNDED_BLUR_FOUND);
-        this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
+    }
+
+    cleanup() {
+        [...this._whitelist_elements, ...this._blacklist_elements]
+            .forEach(element => element.cleanup());
     }
 });

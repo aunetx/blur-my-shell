@@ -5,8 +5,6 @@ export const KEYS = [
     {
         component: "general", schemas: [
             { type: Type.PIPELINES, name: "pipelines" },
-            { type: Type.I, name: "hacks-level" },
-            { type: Type.B, name: "rounded-blur-found" },
             { type: Type.B, name: "debug" },
         ]
     },
@@ -30,8 +28,6 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "force-light-text" },
@@ -48,8 +44,6 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
@@ -61,8 +55,6 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.B, name: "corner-when-maximized" },
             { type: Type.I, name: "opacity" },
@@ -84,8 +76,6 @@ export const KEYS = [
         component: "window-list", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
         ]
     },
     {
@@ -105,8 +95,6 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "menu-corner-radius" },
             { type: Type.I, name: "quick-settings-corner-radius" },
@@ -165,6 +153,8 @@ export const DEPRECATED_KEYS = [
     {
         component: "panel", schemas: [
             { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
@@ -173,15 +163,18 @@ export const DEPRECATED_KEYS = [
     {
         component: "dash-to-dock", schemas: [
             { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
-            { type: Type.I, name: "corner-radius" },
         ]
     },
     {
         component: "applications", schemas: [
             { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
@@ -200,6 +193,8 @@ export const DEPRECATED_KEYS = [
     {
         component: "window-list", schemas: [
             { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
@@ -213,6 +208,12 @@ export const DEPRECATED_KEYS = [
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },
+        ]
+    },
+    {
+        component: "popup", schemas: [
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
         ]
     },
 ];

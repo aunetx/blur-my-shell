@@ -20,26 +20,33 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     enable() {
+        if (this.enabled)
+            return;
+
         this._log("blurring lockscreen");
-
-        this.update_lockscreen();
-
         this.enabled = true;
-    }
-
-    update_lockscreen() {
         UnlockDialog.prototype._createBackground =
             this._createBackground;
         UnlockDialog.prototype._updateBackgroundEffects =
             this._updateBackgroundEffects;
         UnlockDialog.prototype._updateBackgrounds =
             this._updateBackgrounds;
+
+        this.update_lockscreen();
+    }
+
+    update_lockscreen() {
+        this._rebuild_active_dialog();
     }
 
     _createBackground(monitor_index) {
+        const extension = global.blur_my_shell;
+        if (!extension?._lockscreen_blur?.enabled)
+            return original_createBackground.call(this, monitor_index);
+
         let pipeline = new Pipeline(
-            global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager,
-            global.blur_my_shell._settings.lockscreen.PIPELINE
+            extension._effects_manager, extension._pipelines_manager,
+            extension._settings.lockscreen.PIPELINE
         );
 
         pipeline.create_background_with_effects(
@@ -55,31 +62,51 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     _updateBackgrounds() {
-        for (let i = 0; i < this._bgManagers.length; i++) {
-            this._bgManagers[i]._bms_pipeline.destroy();
-            this._bgManagers[i].destroy();
-        }
-
+        const managers = this._bgManagers;
         this._bgManagers = [];
+        managers.forEach(manager => {
+            try {
+                manager._bms_pipeline?.destroy();
+                manager.destroy();
+            } catch (error) {
+                logError(error, '[Blur my Shell > lockscreen] failed to remove background');
+            }
+        });
         this._backgroundGroup.destroy_all_children();
 
         for (let i = 0; i < Main.layoutManager.monitors.length; i++)
             this._createBackground(i);
     }
 
-    disable() {
-        this._log("removing blur from lockscreen");
+    _rebuild_active_dialog() {
+        const dialog = Main.screenShield?._dialog;
+        if (!(dialog instanceof UnlockDialog))
+            return;
 
-        UnlockDialog.prototype._createBackground =
-            original_createBackground;
-        UnlockDialog.prototype._updateBackgroundEffects =
-            original_updateBackgroundEffects;
-        UnlockDialog.prototype._updateBackgrounds =
-            original_updateBackgrounds;
+        try {
+            dialog._updateBackgrounds();
+        } catch (error) {
+            logError(error, '[Blur my Shell > lockscreen] failed to rebuild active dialog');
+        }
+    }
+
+    disable() {
+        if (!this.enabled)
+            return;
+
+        this._log("removing blur from lockscreen");
+        this.enabled = false;
+
+        if (UnlockDialog.prototype._createBackground === this._createBackground)
+            UnlockDialog.prototype._createBackground = original_createBackground;
+        if (UnlockDialog.prototype._updateBackgroundEffects === this._updateBackgroundEffects)
+            UnlockDialog.prototype._updateBackgroundEffects = original_updateBackgroundEffects;
+        if (UnlockDialog.prototype._updateBackgrounds === this._updateBackgrounds)
+            UnlockDialog.prototype._updateBackgrounds = original_updateBackgrounds;
+
+        this._rebuild_active_dialog();
 
         this.connections.disconnect_all();
-
-        this.enabled = false;
     }
 
     _log(str) {

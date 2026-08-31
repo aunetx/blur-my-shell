@@ -12,6 +12,7 @@ const INTEGRAL_UNIFORMS = new Set([
     'operation',
     'prefer_closer_pixels',
     'straight_corners',
+    'texture_repeat',
     'use_base_pixel',
 ]);
 
