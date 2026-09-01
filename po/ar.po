@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-06-20 09:08+0000\n"
-"Last-Translator: Proman4713 <proman4713@gmail.com>\n"
+"PO-Revision-Date: 2026-09-02 12:51+0000\n"
+"Last-Translator: HamzaSyrage <hamzasyrage@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
-msgstr "تأثيرات التمويه"
+msgstr "تأثيرات التضبيب"
 
 #: src/effects/effects.js:29
 msgid "Texture effects"
@@ -57,7 +57,7 @@ msgstr "شدة تأثير التمويه."
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr "السطوع"
+msgstr "مستوى السطوع"
 
 #: src/effects/effects.js:75 src/effects/effects.js:104
 #: src/effects/effects.js:141 resources/ui/applications.ui:94
@@ -183,14 +183,12 @@ msgid "Lighten"
 msgstr "تفتيح"
 
 #: src/effects/effects.js:186
-#, fuzzy
 msgid "Plus darker"
-msgstr "Plus darker"
+msgstr "زيادة التعتيم"
 
 #: src/effects/effects.js:187
-#, fuzzy
 msgid "Plus lighter"
-msgstr "Plus lighter"
+msgstr "زيادة التفتيح"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
@@ -201,14 +199,12 @@ msgid "Color burn"
 msgstr "حرق اللون"
 
 #: src/effects/effects.js:190
-#, fuzzy
 msgid "Hard light"
-msgstr "Hard light"
+msgstr "إضاءة قوية"
 
 #: src/effects/effects.js:191
-#, fuzzy
 msgid "Soft light"
-msgstr "Soft light"
+msgstr "إضاءة خافتة"
 
 #: src/effects/effects.js:192
 msgid "Difference"
@@ -504,39 +500,41 @@ msgstr "شدَّة التضبيب."
 #: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
 #: resources/ui/panel.ui:130
 msgid "Corner radius"
-msgstr ""
+msgstr "نصف قطر الزوايا"
 
 #: resources/ui/applications.ui:115 resources/ui/dash.ui:114
 #: resources/ui/panel.ui:114
 msgid ""
 "In order to use rounded corners, please install the GNOME Rounded Blur "
 "library."
-msgstr ""
+msgstr "لاستخدام الزوايا المستديرة، يُرجى تثبيت مكتبة GNOME Rounded Blur."
 
 #: resources/ui/applications.ui:132 resources/ui/dash.ui:131
 #: resources/ui/panel.ui:131
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "نصف القطر لتأثير استدارة الزوايا."
 
 #: resources/ui/applications.ui:140
 msgid "Enable corner rounding on maximized and fullscreen"
-msgstr ""
+msgstr "تفعيل استدارة الزوايا للنوافذ المكبرة وملء الشاشة"
 
 #: resources/ui/applications.ui:141
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
 msgstr ""
+"سيستمر تطبيق تأثير استدارة الزوايا على النوافذ المكبرة ونوافذ ملء الشاشة."
 
 #: resources/ui/applications.ui:155
 msgid "Opacity"
-msgstr "العتمة"
+msgstr "الشفافية"
 
 #: resources/ui/applications.ui:156
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
-msgstr "عتمة النافذة أعلى تأثيرِ التضبيب. ستكون القيم العليا أوضح."
+msgstr ""
+"درجة شفافية النافذة فوق تأثير التضبيب, القيم الأعلى ستؤدي إلى وضوح أكبر."
 
 #: resources/ui/applications.ui:177
 msgid "Opaque focused window"
@@ -580,6 +578,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"قائمة بالنوافذ التي سيُطبَّق عليها التضبيب.\n"
+"استخدم * لمطابقة أي تسلسل من الأحرف (مثل Firefox* أو *Code*)، واستخدم ? "
+"لمطابقة حرف واحد."
 
 #: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
@@ -595,6 +596,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"قائمة بالنوافذ التي لن يُطبَّق عليها التضبيب.\n"
+"استخدم * لمطابقة أي تسلسل من الأحرف (مثل Firefox* أو *Code*)، واستخدم ? "
+"لمطابقة حرف واحد."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
@@ -611,7 +615,7 @@ msgstr "ضبِّب خلفيَّة امتداد Dash to Dock إن كان مستخ
 #: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect."
-msgstr ""
+msgstr "التضبيب الديناميكي أبطأ ولا يتوافق إلا مع تأثير التضبيب الغاوسي."
 
 #: resources/ui/dash.ui:139 resources/ui/panel.ui:154
 msgid "Override background"
@@ -737,6 +741,9 @@ msgid ""
 "The “No artifact” option will entirely disable clipped redraws in GNOME "
 "shell, and will impact your computer performances significantly."
 msgstr ""
+"يغيّر سلوك تأثير التضبيب الديناميكي. يُنصح بشدة باستخدام القيمة الافتراضية.\n"
+"سيؤدي خيار \"بلا تشويش\" إلى تعطيل إعادة الرسم المقتصّة في GNOME Shell بالكامل"
+"، مما سيؤثر بشكل ملحوظ في أداء جهازك."
 
 #: resources/ui/other.ui:138
 msgid "Debug"
@@ -894,33 +901,36 @@ msgstr "متباين"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "مسار معالجة الرسوميات"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "مسار معالجة الرسوميات الذي سيُستخدم مع هذا المكوّن."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "اسم مسار معالجة الرسوميات"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "إدارة التأثيرات"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "مسارات معالجة الرسوميات"
 
 #: resources/ui/pipelines.ui:10
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"يستخدم كل مكوّن مسار معالجة رسوميات، يمكن اختياره من علامة التبويب المقابلة. "
+"ومن هنا يمكنك إنشاء مسارات معالجة الرسوميات وتعديلها وحذفها، بالإضافة إلى "
+"إدارة تأثيراتها."
 
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
-msgstr ""
+msgstr "اضف مسار معالجة الرسوميات"
 
 #~ msgid "A list of windows to blur."
 #~ msgstr "قائمة النوافذ التي تضبَّب."
