@@ -55,7 +55,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.actor_destroyed = false;
         this.blur_actor_destroyed = false;
         this.overview_hidden = false;
-        this._first_boot = true;
         this.destroyed = false;
     }
 
@@ -89,8 +88,14 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.signals.connect_settings();
         this.queue_update();
 
-        this.connect_to_overview();
-        this.hide_dash_first_boot();
+        if (
+            this.settings.popup.BLUR &&
+            this.settings.popup.UNBLUR_IN_OVERVIEW_DASH &&
+            this.is_dash_surface() &&
+            (Main.overview?.visible || Main.overview?.visibleTarget)
+        ) {
+            this.hide_surface_overview();
+        }
 
         return true;
     }
@@ -262,52 +267,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.queue_transition_update();
     }
 
-    hide_dash_first_boot() {
-        if (
-            this.settings.popup.BLUR &&
-            this.settings.popup.UNBLUR_IN_OVERVIEW_DASH &&
-            this._first_boot
-        ) {
-            const is_dash_surface = () =>
-            this.style.has_any_style_class(this.target, ["dash-background", "plank-like-dock-bg"]) ||
-            this.style.has_any_style_class(this.root_actor, ["dash-background", "plank-like-dock-bg"]);
-
-            if (!is_dash_surface())
-                return;
-
-            this._first_boot = false;
-
-            this.hide_surface_overview();
-
-            Main.overview.show();
-        }
-    }
-
-    connect_to_overview() {
-        if (
-            this.settings.popup.BLUR &&
-            this.settings.popup.UNBLUR_IN_OVERVIEW_DASH
-        ) {
-            const is_dash_surface = () =>
-                this.style.has_any_style_class(this.target, ["dash-background", "plank-like-dock-bg"]) ||
-                this.style.has_any_style_class(this.root_actor, ["dash-background", "plank-like-dock-bg"]);
-
-            this.connections.connect(
-                Main.overview, 'showing', _ => {
-                    if (!is_dash_surface())
-                        return;
-                    this.hide_surface_overview();
-                }
-            );
-
-            this.connections.connect(
-                Main.overview, 'hidden', _ => {
-                    if (!is_dash_surface())
-                        return;
-                    this.show_surface_overview();
-                }
-            );
-        }
+    is_dash_surface() {
+        return this.style.has_any_style_class(this.target, ['dash-background', 'plank-like-dock-bg'])
+            || this.style.has_any_style_class(this.root_actor, ['dash-background', 'plank-like-dock-bg']);
     }
 
     hide_surface_overview() {

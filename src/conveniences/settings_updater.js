@@ -18,32 +18,36 @@ export function update_from_old_settings(gsettings) {
         // Legacy Dash to Dock users could have custom values that need to survive the refactor away
         // from the dedicated dash schema. Keep the values available to the popup-based dash handling,
         // while removing the old runtime DashBlur implementation from the active code base.
-        const dash_settings = gsettings.get_child('dash-to-dock');
-        const dash_customized = {
-            BLUR: dash_settings.get_boolean('blur'),
-            STATIC_BLUR: dash_settings.get_boolean('static-blur'),
-            PIPELINE: dash_settings.get_string('pipeline'),
-            SIGMA: dash_settings.get_int('sigma'),
-            BRIGHTNESS: dash_settings.get_double('brightness'),
-            OVERRIDE_BACKGROUND: dash_settings.get_boolean('override-background'),
-            UNBLUR_IN_OVERVIEW: dash_settings.get_boolean('unblur-in-overview'),
-            CORNER_RADIUS: dash_settings.get_int('corner-radius'),
-        };
+        try {
+            const dash_settings = gsettings.get_child('dash-to-dock');
+            const dash_customized = {
+                BLUR: dash_settings.get_boolean('blur'),
+                STATIC_BLUR: dash_settings.get_boolean('static-blur'),
+                PIPELINE: dash_settings.get_string('pipeline'),
+                SIGMA: dash_settings.get_int('sigma'),
+                BRIGHTNESS: dash_settings.get_double('brightness'),
+                OVERRIDE_BACKGROUND: dash_settings.get_boolean('override-background'),
+                UNBLUR_IN_OVERVIEW: dash_settings.get_boolean('unblur-in-overview'),
+                CORNER_RADIUS: dash_settings.get_int('corner-radius'),
+            };
 
-        if (dash_customized.BLUR)
-            preferences.popup.BLUR = true;
-        if (dash_customized.STATIC_BLUR)
-            preferences.popup.STATIC_BLUR = true;
-        if (dash_customized.PIPELINE && dash_customized.PIPELINE !== 'pipeline_default_rounded')
-            preferences.popup.PIPELINE = dash_customized.PIPELINE;
-        preferences.popup.SIGMA = dash_customized.SIGMA;
-        preferences.popup.BRIGHTNESS = dash_customized.BRIGHTNESS;
-        preferences.popup.DASH_CORNER_RADIUS = dash_customized.CORNER_RADIUS;
-        preferences.popup.UNBLUR_IN_OVERVIEW_DASH = dash_customized.UNBLUR_IN_OVERVIEW;
-        preferences.popup.OVERRIDE_BACKGROUND = dash_customized.OVERRIDE_BACKGROUND;
+            if (dash_customized.BLUR)
+                preferences.popup.BLUR = true;
+            if (dash_customized.STATIC_BLUR)
+                preferences.popup.STATIC_BLUR = true;
+            if (dash_customized.PIPELINE && dash_customized.PIPELINE !== 'pipeline_default_rounded')
+                preferences.popup.PIPELINE = dash_customized.PIPELINE;
+            preferences.popup.SIGMA = dash_customized.SIGMA;
+            preferences.popup.BRIGHTNESS = dash_customized.BRIGHTNESS;
+            preferences.popup.DASH_CORNER_RADIUS = dash_customized.CORNER_RADIUS;
+            preferences.popup.UNBLUR_IN_OVERVIEW_DASH = dash_customized.UNBLUR_IN_OVERVIEW;
+            preferences.popup.OVERRIDE_BACKGROUND = dash_customized.OVERRIDE_BACKGROUND;
+        } catch (e) {
+            console.warn(`[Blur my Shell > settings updater] Could not migrate dash-to-dock settings: ${e}`);
+        }
 
         // 'customize' has been removed: we merge the current used settings
-        ['appfolder', 'panel', 'dash_to_dock', 'applications', 'window_list'].forEach(
+        ['appfolder', 'panel', 'applications', 'window_list'].forEach(
             component_name => {
                 const deprecated_component = deprecated_preferences[component_name];
                 const new_component = preferences[component_name];

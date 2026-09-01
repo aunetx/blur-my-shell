@@ -195,4 +195,21 @@ export const DEPRECATED_KEYS = [
             { type: Type.D, name: "noise-lightness" },
         ]
     },
+    {
+        component: "dash-to-dock", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "static-blur" },
+            { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+            { type: Type.C, name: "color" },
+            { type: Type.D, name: "noise-amount" },
+            { type: Type.D, name: "noise-lightness" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-dash-to-dock" },
+            { type: Type.B, name: "unblur-in-overview" },
+            { type: Type.I, name: "corner-radius" },
+        ]
+    },
 ];

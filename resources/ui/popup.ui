@@ -150,6 +150,13 @@
             </child>
 
             <child>
+              <object class="AdwSpinRow" id="dash_corner_radius">
+                <property name="title" translatable="yes">Dash to Dock</property>
+                <property name="adjustment">dash_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
               <object class="AdwSpinRow" id="osk_corner_radius">
                 <property name="title" translatable="yes">On-screen keyboard</property>
                 <property name="adjustment">osk_corner_radius_adjustment</property>
@@ -288,6 +295,12 @@
   </object>
 
   <object class="GtkAdjustment" id="dialog_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="dash_corner_radius_adjustment">
     <property name="lower">0</property>
     <property name="upper">150</property>
     <property name="step-increment">1</property>

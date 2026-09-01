@@ -24,10 +24,6 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
     - you can select the background of the panel itself (above the blur), to force transparency for example
     - in the same settings, panel blur can be deactivated when a window is near it, for example in fullscreen
     - you can deactivate the panel blur automatically when entering the overview if you need it
-  - [Dash to Dock](https://github.com/micheleg/dash-to-dock)
-    - you can choose between static blur and dynamic blur for Dash to Dock
-    - you can configure the background color of the dash itself for it not to interfere with the blur
-    - and you can deactivate the blur when entering the overview
   - application folders background
     - uses dynamic blur only
     - you can select the styling of the background of the folder when it is opened
@@ -35,7 +31,7 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
     - uses static blur only
   - popup blur
     - you can choose between static blur and dynamic blur
-    - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, and dialogs
+    - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, dialogs, and Dock
     - static blur uses the selected pipeline, like other static blur components
     - you can choose a transparent, light, dark, or automatic background above the blur
     - popup blur has separate corner-radius settings for the different popup surface types
@@ -87,7 +83,7 @@ For the difference between static blur and dynamic blur:
 
 Blur my Shell is guaranteed to be compatible, in the sense of at least not to mess around, with the following extensions:
 
-- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from “Dash” to Dock page)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from “Popup blur” page)
 - [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from “Panel” page)
 - [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
 - [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from “Other” page)

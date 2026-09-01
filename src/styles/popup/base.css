@@ -1,22 +1,3 @@
-/*** DASH TO DOCK ***/
-
-.transparent-dash .dash-background,
-.transparent-dash .plank-like-dock-bg {
-    background: transparent !important;
-}
-
-.light-dash .dash-background,
-.light-dash .plank-like-dock-bg {
-    background: rgba(255, 255, 255, 0.58) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.dark-dash .dash-background,
-.dark-dash .plank-like-dock-bg {
-    background: rgba(45, 45, 50, 0.22) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
 /*** POPUP ***/
 
 .bms-popup-blurred-widget {
@@ -671,4 +652,25 @@
 
 .bms-popup-background-light .keyboard-key.shift-key-uppercase:hover {
   background-color: rgba(0, 0, 0, 0.28);
+}
+
+.bms-popup-background-transparent .dash-background,
+.bms-popup-background-transparent .plank-like-dock-bg,
+.bms-popup-surface-transparent .dash-background,
+.bms-popup-surface-transparent .plank-like-dock-bg {
+    background-color: transparent !important;
+}
+
+.bms-popup-background-light .dash-background,
+.bms-popup-background-light .plank-like-dock-bg,
+.bms-popup-surface-light .dash-background,
+.bms-popup-surface-light .plank-like-dock-bg {
+    background-color: rgba(200, 200, 200, 0.2) !important;
+}
+
+.bms-popup-background-dark .dash-background,
+.bms-popup-background-dark .plank-like-dock-bg,
+.bms-popup-surface-dark .dash-background,
+.bms-popup-surface-dark .plank-like-dock-bg {
+    background-color: rgba(100, 100, 100, 0.35) !important;
 }

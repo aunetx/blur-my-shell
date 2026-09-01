@@ -78,6 +78,17 @@ export const PopupBlur = class PopupBlur {
         this.track_container(global.window_group);
         this.track_keyboard();
         this.track_container(Main.keyboard?.keyboardActor);
+
+        this.connections.connect(
+            Main.overview,
+            'showing',
+            () => this.on_overview_showing()
+        );
+        this.connections.connect(
+            Main.overview,
+            'hidden',
+            () => this.on_overview_hidden()
+        );
     }
 
     track_container(container) {
@@ -462,6 +473,24 @@ export const PopupBlur = class PopupBlur {
 
     update_pipeline() {
         this.surfaces.forEach(surface => surface.update_pipeline());
+    }
+
+    on_overview_showing() {
+        if (this.settings.popup.UNBLUR_IN_OVERVIEW_DASH) {
+            this.surfaces.forEach(surface => {
+                if (surface.is_dash_surface())
+                    surface.hide_surface_overview();
+            });
+        }
+    }
+
+    on_overview_hidden() {
+        if (this.settings.popup.UNBLUR_IN_OVERVIEW_DASH) {
+            this.surfaces.forEach(surface => {
+                if (surface.is_dash_surface())
+                    surface.show_surface_overview();
+            });
+        }
     }
 
     _get_keyboard_actors() {
