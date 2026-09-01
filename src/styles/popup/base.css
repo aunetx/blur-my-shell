@@ -1,3 +1,22 @@
+/*** DASH TO DOCK ***/
+
+.transparent-dash .dash-background,
+.transparent-dash .plank-like-dock-bg {
+    background: transparent !important;
+}
+
+.light-dash .dash-background,
+.light-dash .plank-like-dock-bg {
+    background: rgba(255, 255, 255, 0.58) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark-dash .dash-background,
+.dark-dash .plank-like-dock-bg {
+    background: rgba(45, 45, 50, 0.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 /*** POPUP ***/
 
 .bms-popup-blurred-widget {

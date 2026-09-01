@@ -14,7 +14,6 @@ import { KEYS } from './conveniences/keys.js';
 
 import { PanelBlur } from './components/panel.js';
 import { OverviewBlur } from './components/overview.js';
-import { DashBlur } from './components/dash_to_dock.js';
 import { LockscreenBlur } from './components/lockscreen.js';
 import { AppFoldersBlur } from './components/appfolders.js';
 import { WindowListBlur } from './components/window_list.js';
@@ -66,7 +65,6 @@ export default class BlurMyShell extends Extension {
         };
 
         this._panel_blur = new PanelBlur(...init());
-        this._dash_to_dock_blur = new DashBlur(...init());
         this._overview_blur = new OverviewBlur(...init());
         this._lockscreen_blur = new LockscreenBlur(...init());
         this._appfolder_blur = new AppFoldersBlur(...init());
@@ -125,14 +123,6 @@ export default class BlurMyShell extends Extension {
             this._log(e);
         }
         try {
-            if (this._settings.dash_to_dock.BLUR
-                && !this._dash_to_dock_blur.enabled)
-                this._dash_to_dock_blur.enable();
-        } catch (e) {
-            this._log("Could not enable dash-to-dock blur directly");
-            this._log(e);
-        }
-        try {
             if (this._settings.panel.BLUR && !this._panel_blur.enabled)
                 this._panel_blur.enable();
         } catch (e) {
@@ -172,7 +162,6 @@ export default class BlurMyShell extends Extension {
 
         // untrack them
         this._panel_blur = null;
-        this._dash_to_dock_blur = null;
         this._overview_blur = null;
         this._appfolder_blur = null;
         this._lockscreen_blur = null;
@@ -213,7 +202,6 @@ export default class BlurMyShell extends Extension {
 
         // disable every component except lockscreen blur and popup blur
         this._panel_blur.disable();
-        this._dash_to_dock_blur.disable();
         this._overview_blur.disable();
         this._appfolder_blur.disable();
         this._window_list_blur.disable();
@@ -309,9 +297,6 @@ export default class BlurMyShell extends Extension {
 
         if (this._settings.panel.BLUR && !this._panel_blur.enabled)
             this._panel_blur.enable();
-
-        if (this._settings.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
-            this._dash_to_dock_blur.enable();
 
         if (this._settings.overview.BLUR && !this._overview_blur.enabled)
             this._overview_blur.enable();
@@ -473,47 +458,6 @@ export default class BlurMyShell extends Extension {
                 this._panel_blur.update_visibility();
             }
         });
-
-        // ---------- DASH TO DOCK ----------
-
-        // toggled on/off
-        this._settings.dash_to_dock.BLUR_changed(() => {
-            if (this._settings.dash_to_dock.BLUR)
-                this._dash_to_dock_blur.enable();
-            else
-                this._dash_to_dock_blur.disable();
-        });
-
-        // static blur toggled on/off
-        this._settings.dash_to_dock.STATIC_BLUR_changed(() => {
-            if (this._settings.dash_to_dock.BLUR)
-                this._dash_to_dock_blur.change_blur_type();
-        });
-
-        // overview pipeline changed
-        this._settings.dash_to_dock.PIPELINE_changed(() => {
-            if (this._settings.dash_to_dock.BLUR)
-                this._dash_to_dock_blur.update_pipeline();
-        });
-
-        // dash-to-dock override background toggled on/off
-        this._settings.dash_to_dock.OVERRIDE_BACKGROUND_changed(() => {
-            if (this._settings.dash_to_dock.BLUR)
-                this._dash_to_dock_blur.update_background();
-        });
-
-        // dash-to-dock style changed
-        this._settings.dash_to_dock.STYLE_DASH_TO_DOCK_changed(() => {
-            if (this._settings.dash_to_dock.BLUR)
-                this._dash_to_dock_blur.update_background();
-        });
-
-        // dash-to-dock blur's overview connection toggled on/off
-        this._settings.dash_to_dock.UNBLUR_IN_OVERVIEW_changed(() => {
-            if (this._settings.dash_to_dock.BLUR)
-                this._dash_to_dock_blur.connect_to_overview();
-        });
-
 
         // ---------- APPLICATIONS ----------
 
@@ -705,6 +649,11 @@ export default class BlurMyShell extends Extension {
         this._settings.popup.STYLE_POPUP_changed(() => {
             if (this._settings.popup.BLUR)
                 this._popup.update_background();
+        });
+
+        this._settings.popup.UNBLUR_IN_OVERVIEW_DASH_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.reset();
         });
     }
 

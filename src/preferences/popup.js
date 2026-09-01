@@ -23,11 +23,13 @@ export const PopupBlur = GObject.registerClass({
         'notification_corner_radius',
         'osd_corner_radius',
         'dialog_corner_radius',
+        'dash_corner_radius',
         'osk_corner_radius',
         'corner_radius_not_found_row',
         'override_background',
         'preserve_shell_theme',
-        'style_popup'
+        'style_popup',
+        'unblur_in_overview_dash',
     ],
 }, class PopupBlur extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, pipelines_page) {
@@ -88,6 +90,10 @@ export const PopupBlur = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(
+            'dash-corner-radius', this._dash_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
             'osk-corner-radius', this._osk_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
@@ -103,6 +109,10 @@ export const PopupBlur = GObject.registerClass({
         );
         this.preferences.popup.settings.bind(
             'style-popup', this._style_popup, 'selected',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'unblur-in-overview-dash', this._unblur_in_overview_dash, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
     }
