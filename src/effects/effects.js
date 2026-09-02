@@ -503,7 +503,7 @@ export function get_supported_effects(_ = () => "") {
             editable_params: {
                 radius: {
                     name: _("Radius"),
-                    description: _("The radius of the corner. GNOME apps use a radius of 12 px by default."),
+                    description: _("The radius of the corner. GNOME apps use a radius of 15 px by default."),
                     type: "integer",
                     min: 0,
                     max: 150,
