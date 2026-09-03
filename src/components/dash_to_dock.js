@@ -425,6 +425,15 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             _ => this.update_size()
         );
 
+        const slider = dash_container._slider;
+        if (slider) {
+            this.connections.connect(
+                slider,
+                ['notify::slide-x', 'notify::allocation'],
+                _ => this.update_size()
+            );
+        }
+
         const dash_background = dash._background ||
             dash.get_children().find(child => child.get_style_class_name?.()?.includes('dash-background')) ||
             dash;
@@ -444,6 +453,12 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         );
 
         this.update_size();
+
+        global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
+            this.update_size();
+            return false;
+        });
+
         this.update_background();
 
         // returns infos
