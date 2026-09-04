@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2025-09-27 21:01+0000\n"
-"Last-Translator: SimonMaracine <simonmaracine@gmail.com>\n"
+"PO-Revision-Date: 2026-09-04 11:51+0000\n"
+"Last-Translator: Laur <necunoscut12@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ro/>\n"
 "Language: ro\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 2026.9\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -216,7 +216,7 @@ msgstr ""
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "Diferență"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
@@ -228,11 +228,11 @@ msgstr ""
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "Saturare"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "(Intensitate) Luminozitate"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
