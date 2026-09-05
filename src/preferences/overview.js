@@ -13,8 +13,7 @@ export const Overview = GObject.registerClass({
         'overview_style_components',
 
         'appfolder_blur',
-        'appfolder_sigma',
-        'appfolder_brightness',
+        'appfolder_pipeline_choose_row',
         'appfolder_style_dialogs'
     ],
 }, class Overview extends Adw.PreferencesPage {
@@ -43,13 +42,8 @@ export const Overview = GObject.registerClass({
             'blur', this._appfolder_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.appfolder.settings.bind(
-            'sigma', this._appfolder_sigma, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.appfolder.settings.bind(
-            'brightness', this._appfolder_brightness, 'value',
-            Gio.SettingsBindFlags.DEFAULT
+        this._appfolder_pipeline_choose_row.initialize(
+            this.preferences.appfolder, this.pipelines_manager, this.pipelines_page
         );
         this.preferences.appfolder.settings.bind(
             'style-dialogs', this._appfolder_style_dialogs, 'selected',

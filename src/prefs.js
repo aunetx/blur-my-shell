@@ -1,12 +1,12 @@
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
-import Gio from 'gi://Gio';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { update_from_old_settings } from './conveniences/settings_updater.js';
 import { PipelinesManager } from './conveniences/pipelines_manager.js';
 import { Settings } from './conveniences/settings.js';
 import { KEYS } from './conveniences/keys.js';
+import { cancel_pick } from './dbus/client.js';
 
 import { addMenu } from './preferences/menu.js';
 import { Pipelines } from './preferences/pipelines.js';
@@ -33,19 +33,8 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         addMenu(window);
 
-        // update from old settings, very important for hacks level specifically
+        // Update stored pipelines before building the editor.
         update_from_old_settings(this.getSettings());
-
-        const actionGroup = new Gio.SimpleActionGroup();
-        window.insert_action_group('link', actionGroup);
-        const action = new Gio.SimpleAction({ name: 'open-gnome-rounded-blur' });
-        action.connect('activate', () => {
-            Gio.AppInfo.launch_default_for_uri(
-                'https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md',
-                null
-            );
-        });
-        actionGroup.add_action(action);
 
         const preferences = new Settings(KEYS, this.getSettings());
         const pipelines_manager = new PipelinesManager(preferences);
@@ -56,9 +45,25 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(new Panel(preferences, pipelines_manager, pipelines_page));
         window.add(new Overview(preferences, pipelines_manager, pipelines_page));
         window.add(new Dash(preferences, pipelines_manager, pipelines_page));
-        window.add(new Applications(preferences, window, pipelines_manager, pipelines_page));
+        const applications_page = new Applications(
+            preferences, window, pipelines_manager, pipelines_page
+        );
+        window.add(applications_page);
         window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
         window.add(new Other(preferences, pipelines_manager, pipelines_page));
+
+        let cleaned_up = false;
+        window.connect('close-request', () => {
+            if (!cleaned_up) {
+                cleaned_up = true;
+                cancel_pick();
+                applications_page.cleanup();
+                pipelines_page.cleanup();
+                pipelines_manager.destroy();
+                preferences.disconnect_all_settings();
+            }
+            return false;
+        });
 
         window.search_enabled = true;
     }

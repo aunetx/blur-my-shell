@@ -28,10 +28,16 @@ export const OverviewBlur = class OverviewBlur {
         );
         this.enabled = false;
         this.proto_patched = false;
+        this.patch_generation = 0;
+        this.active_patch_generation = null;
     }
 
     enable() {
+        if (this.enabled)
+            return;
+
         this._log("blurring overview");
+        this.enabled = true;
 
         // add css class name for workspace-switch background
         Main.uiGroup.add_style_class_name("blurred-overview");
@@ -47,104 +53,70 @@ export const OverviewBlur = class OverviewBlur {
             _ => this.update_backgrounds()
         );
 
-        // part for the workspace animation switch
+        this.patch_workspace_switch();
+    }
 
-        // make sure not to do this part if the functions were patched prior, as
-        // the functions would call themselves and cause infinite recursion
-        if (!this.proto_patched) {
-            // store original workspace switching methods for restoring them on
-            // disable()
-            this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
-            this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
+    patch_workspace_switch() {
+        if (this.proto_patched)
+            return;
 
-            const w_m = global.workspace_manager;
-            const outer_this = this;
+        this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
+        this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
+        const generation = ++this.patch_generation;
+        this.active_patch_generation = generation;
 
-            // create a blurred background actor for each monitor during a
-            // workspace switch
-            wac_proto._prepareWorkspaceSwitch = function (...params) {
-                outer_this._log("prepare workspace switch");
-                outer_this._original_PrepareSwitch.apply(this, params);
-
-                // this permits to show the blur behind windows that are on
-                // workspaces on the left and right
+        const overview_blur = this;
+        this._patched_PrepareSwitch = function (...params) {
+            const had_switch = !!this._switchData;
+            const result = overview_blur._original_PrepareSwitch.apply(this, params);
+            if (
+                overview_blur.enabled
+                && overview_blur.active_patch_generation === generation
+                && !had_switch
+            )
+                overview_blur.prepare_workspace_switch();
+            return result;
+        };
+        this._patched_FinishSwitch = function (...params) {
+            try {
+                return overview_blur._original_FinishSwitch.apply(this, params);
+            } finally {
                 if (
-                    outer_this.settings.applications.BLUR
-                ) {
-                    let ws_index = w_m.get_active_workspace_index();
-                    [ws_index - 1, ws_index + 1].forEach(
-                        i => w_m.get_workspace_by_index(i)?.list_windows().forEach(
-                            window => window.get_compositor_private().show()
-                        )
-                    );
-                }
+                    overview_blur.enabled
+                    && overview_blur.active_patch_generation === generation
+                )
+                    overview_blur.finish_workspace_switch();
+            }
+        };
 
-                Main.uiGroup.insert_child_above(
-                    outer_this.animation_background_group,
-                    global.window_group
-                );
+        wac_proto._prepareWorkspaceSwitch = this._patched_PrepareSwitch;
+        wac_proto._finishWorkspaceSwitch = this._patched_FinishSwitch;
+        this.proto_patched = true;
+    }
 
-                outer_this.animation_background_managers.forEach(bg_manager => {
-                    if (bg_manager._bms_pipeline.actor)
-                        if (
-                            Meta.prefs_get_workspaces_only_on_primary() &&
-                            bg_manager._monitorIndex !== Main.layoutManager.primaryMonitor.index
-                        )
-                            bg_manager._bms_pipeline.actor.visible = false;
-                        else
-                            bg_manager._bms_pipeline.actor.visible = true;
-                });
-            };
+    prepare_workspace_switch() {
+        this._log("prepare workspace switch");
+        this.finish_workspace_switch();
 
-            // remove the workspace-switch actors when the switch is done
-            wac_proto._finishWorkspaceSwitch = function (...params) {
-                outer_this._log("finish workspace switch");
-                outer_this._original_FinishSwitch.apply(this, params);
+        Main.uiGroup.insert_child_above(
+            this.animation_background_group,
+            global.window_group
+        );
 
-                // this hides windows that are not on the current workspace
-                if (
-                    outer_this.settings.applications.BLUR
-                ) {
-                    // compile blacklist patterns once for this switch
-                    const blacklist = outer_this.settings.applications.BLACKLIST || [];
-                    const blacklist_regexes = blacklist.map(pattern => {
-                        const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
-                        return new RegExp('^' + escaped.replace(/\*/g, '.*').replace(/\?/g, '.') + '$', 'i');
-                    });
+        const primary_index = Main.layoutManager.primaryMonitor?.index;
+        this.animation_background_managers.forEach(bg_manager => {
+            const actor = bg_manager._bms_pipeline?.actor;
+            if (!actor)
+                return;
+            actor.visible = !Meta.prefs_get_workspaces_only_on_primary()
+                || primary_index === undefined
+                || bg_manager._monitorIndex === primary_index;
+        });
+    }
 
-                    for (let i = 0; i < w_m.get_n_workspaces(); i++) {
-                        if (i != w_m.get_active_workspace_index())
-                            w_m.get_workspace_by_index(i)?.list_windows().forEach(
-                                window => {
-                                    // skip windows on all workspaces (e.g. secondary
-                                    // monitor windows under `workspaces-only-on-primary`);
-                                    // hiding them on any inactive workspace hides them globally
-                                    if (window.is_on_all_workspaces()) return;
-
-                                    // skip desktop-type windows (e.g. DING, Nautilus desktop):
-                                    // they should always remain visible
-                                    if (window.get_window_type() === Meta.WindowType.DESKTOP)
-                                        return;
-
-                                    // skip blacklisted windows:
-                                    // they are not blurred and should always remain visible
-                                    const wm_class = window.get_wm_class();
-                                    if (wm_class && blacklist_regexes.some(re => re.test(wm_class)))
-                                        return;
-
-                                    window.get_compositor_private().hide();
-                                }
-                            );
-                    }
-                }
-
-                Main.uiGroup.remove_child(outer_this.animation_background_group);
-            };
-
-            this.proto_patched = true;
-        }
-
-        this.enabled = true;
+    finish_workspace_switch() {
+        if (this.animation_background_group.get_parent() === Main.uiGroup)
+            Main.uiGroup.remove_child(this.animation_background_group);
     }
 
     update_backgrounds() {
@@ -152,25 +124,29 @@ export const OverviewBlur = class OverviewBlur {
         this.remove_background_actors();
         // create new backgrounds for the overview and the animation
         for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
-            const pipeline_overview = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                this.settings.overview.PIPELINE
-            );
-            pipeline_overview.create_background_with_effects(
-                i, this.overview_background_managers,
-                this.overview_background_group, 'bms-overview-blurred-widget'
-            );
+            let overview_manager = null;
+            let animation_manager = null;
+            try {
+                overview_manager = this.create_background(
+                    i,
+                    this.overview_background_group,
+                    'bms-overview-blurred-widget'
+                );
+                animation_manager = this.create_background(
+                    i,
+                    this.animation_background_group,
+                    'bms-animation-blurred-widget'
+                );
 
-            const pipeline_animation = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                this.settings.overview.PIPELINE
-            );
-            pipeline_animation.create_background_with_effects(
-                i, this.animation_background_managers,
-                this.animation_background_group, 'bms-animation-blurred-widget'
-            );
+                this.overview_background_managers.push(overview_manager);
+                this.animation_background_managers.push(animation_manager);
+            } catch (error) {
+                if (overview_manager)
+                    this.destroy_background(overview_manager);
+                if (animation_manager)
+                    this.destroy_background(animation_manager);
+                logError(error, `[Blur my Shell > overview] failed to create monitor ${i} background`);
+            }
         }
         // add the container widget for the overview only to the overview group
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
@@ -184,6 +160,41 @@ export const OverviewBlur = class OverviewBlur {
         });
     }
 
+    create_background(monitor_index, background_group, widget_name) {
+        const background_managers = [];
+        let pipeline = null;
+
+        try {
+            pipeline = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                this.settings.overview.PIPELINE
+            );
+            pipeline.create_background_with_effects(
+                monitor_index,
+                background_managers,
+                background_group,
+                widget_name
+            );
+
+            if (background_managers.length !== 1)
+                throw new Error('overview pipeline did not create one background manager');
+
+            return background_managers[0];
+        } catch (error) {
+            if (background_managers.length > 0) {
+                background_managers.forEach(background_manager =>
+                    this.destroy_background(background_manager)
+                );
+            } else {
+                const actor = pipeline?.actor;
+                this.destroy_resource('partial pipeline', () => pipeline?.destroy());
+                this.destroy_resource('partial background actor', () => actor?.destroy());
+            }
+            throw error;
+        }
+    }
+
     /// Updates the classname to style overview components with semi-transparent
     /// backgrounds.
     update_components_classname() {
@@ -191,34 +202,63 @@ export const OverviewBlur = class OverviewBlur {
             style => Main.uiGroup.remove_style_class_name(style)
         );
 
-        if (this.settings.overview.STYLE_COMPONENTS > 0)
-            Main.uiGroup.add_style_class_name(
-                OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS - 1]
-            );
+        if (this.settings.overview.STYLE_COMPONENTS > 0) {
+            const style = OVERVIEW_COMPONENTS_STYLE[
+                this.settings.overview.STYLE_COMPONENTS - 1
+            ];
+            if (style)
+                Main.uiGroup.add_style_class_name(style);
+        }
     }
 
     remove_background_actors() {
-        this.overview_background_group.remove_all_children();
-        this.animation_background_group.remove_all_children();
-
         this.connections.disconnect_all_for(Main.layoutManager.overviewGroup);
         if (this.overview_background_group.get_parent())
             Main.layoutManager.overviewGroup.remove_child(this.overview_background_group);
 
-        this.overview_background_managers.forEach(background_manager => {
-            background_manager._bms_pipeline.destroy();
-            background_manager.destroy();
-        });
-        this.animation_background_managers.forEach(background_manager => {
-            background_manager._bms_pipeline.destroy();
-            background_manager.destroy();
-        });
+        this.overview_background_managers.forEach(background_manager =>
+            this.destroy_background(background_manager)
+        );
+        this.animation_background_managers.forEach(background_manager =>
+            this.destroy_background(background_manager)
+        );
+        this.overview_background_group.destroy_all_children();
+        this.animation_background_group.destroy_all_children();
         this.overview_background_managers = [];
         this.animation_background_managers = [];
     }
 
+    destroy_background(background_manager) {
+        const actor = background_manager._bms_pipeline?.actor;
+        this.destroy_resource(
+            'background pipeline',
+            () => background_manager._bms_pipeline?.destroy()
+        );
+        this.destroy_resource(
+            'background manager',
+            () => background_manager.destroy()
+        );
+        this.destroy_resource('background actor', () => actor?.destroy());
+    }
+
+    destroy_resource(name, callback) {
+        try {
+            callback();
+        } catch (error) {
+            this._log(`${name} was already destroyed: ${error}`);
+        }
+    }
+
     disable() {
+        if (!this.enabled) {
+            this.restore_patched_proto();
+            return;
+        }
+
         this._log("removing blur from overview");
+        this.enabled = false;
+        this.finish_workspace_switch();
+        this.restore_patched_proto();
 
         this.remove_background_actors();
         Main.uiGroup.remove_style_class_name("blurred-overview");
@@ -227,17 +267,18 @@ export const OverviewBlur = class OverviewBlur {
         );
 
         this.connections.disconnect_all();
-        this.enabled = false;
     }
 
     restore_patched_proto() {
         if (this.proto_patched) {
-            if (this._original_PrepareSwitch)
+            if (wac_proto._prepareWorkspaceSwitch === this._patched_PrepareSwitch)
                 wac_proto._prepareWorkspaceSwitch = this._original_PrepareSwitch;
-            if (this._original_FinishSwitch)
+            if (wac_proto._finishWorkspaceSwitch === this._patched_FinishSwitch)
                 wac_proto._finishWorkspaceSwitch = this._original_FinishSwitch;
-
             this.proto_patched = false;
+            this.active_patch_generation = null;
+            this._patched_PrepareSwitch = null;
+            this._patched_FinishSwitch = null;
         }
     }
 

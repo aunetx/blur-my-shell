@@ -1,6 +1,9 @@
+import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PopupBlurSurfaceGeometry, transform_to_actor_space } from './surface_geometry.js';
+
+const MIN_SURFACE_DIMENSION = 2;
 
 export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     constructor(surface) {
@@ -192,14 +195,15 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     has_valid_geometry(geometry) {
-        return geometry?.width > 0 && geometry?.height > 0;
+        return geometry?.width >= MIN_SURFACE_DIMENSION
+            && geometry?.height >= MIN_SURFACE_DIMENSION;
     }
 
     keep_transition_visible(transition_state) {
         if (this.offscreen || !this.ready || !this.has_cached_geometry() || !transition_state.running)
             return false;
 
-        const opacity = this.surface.update_opacity(transition_state);
+        const opacity = this.surface.update_opacity();
         if (opacity <= 0)
             return false;
 
@@ -273,7 +277,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             ))
                 return false;
         } else {
-            if (!this.update_dynamic_geometry(geometry.x, geometry.y, geometry.width, geometry.height))
+            if (!this.update_dynamic_geometry(geometry))
                 return false;
         }
 
@@ -281,24 +285,80 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         return true;
     }
 
-    update_dynamic_geometry(x, y, width, height) {
+    update_dynamic_geometry(geometry) {
         try {
-            if (this.x !== x || this.y !== y) {
-                this.surface.blur_actor.set_position(x, y);
-                this.x = x;
-                this.y = y;
-            }
+            const local = this.get_target_local_geometry(geometry);
+            if (!this.has_valid_geometry(local))
+                return false;
 
-            if (this.width !== width || this.height !== height) {
-                this.surface.blur_actor.set_size(width, height);
-                this.width = width;
-                this.height = height;
-            }
+            const transform = this.get_target_transform(local);
+            if (!transform)
+                return false;
+
+            this.surface.blur_actor.set_position(0, 0);
+            this.surface.blur_actor.set_size(local.width, local.height);
+            this.surface.blur_actor.set_pivot_point(0, 0);
+            this.surface.blur_actor.set_transform(transform);
+            this.x = geometry.x;
+            this.y = geometry.y;
+            this.width = local.width;
+            this.height = local.height;
         } catch (e) {
             return false;
         }
 
         return true;
+    }
+
+    get_target_local_geometry(geometry) {
+        const target = this.surface.get_geometry_actor();
+        const [top_left_ok, x1, y1] = target.transform_stage_point(
+            geometry.target_x,
+            geometry.target_y
+        );
+        const [bottom_right_ok, x2, y2] = target.transform_stage_point(
+            geometry.target_x + geometry.target_width,
+            geometry.target_y + geometry.target_height
+        );
+        if (!top_left_ok || !bottom_right_ok)
+            return null;
+
+        return {
+            x: x1,
+            y: y1,
+            width: x2 - x1,
+            height: y2 - y1,
+        };
+    }
+
+    get_target_transform(local) {
+        const target = this.surface.get_geometry_actor();
+        const parent = this.surface.parent;
+        const origin = target.apply_relative_transform_to_point(
+            parent,
+            new Graphene.Point3D({ x: local.x, y: local.y })
+        );
+        const horizontal = target.apply_relative_transform_to_point(
+            parent,
+            new Graphene.Point3D({ x: local.x + local.width, y: local.y })
+        );
+        const vertical = target.apply_relative_transform_to_point(
+            parent,
+            new Graphene.Point3D({ x: local.x, y: local.y + local.height })
+        );
+        if (!origin || !horizontal || !vertical)
+            return null;
+
+        const matrix = new Graphene.Matrix();
+        matrix.init_from_2d(
+            (horizontal.x - origin.x) / local.width,
+            (horizontal.y - origin.y) / local.width,
+            (vertical.x - origin.x) / local.height,
+            (vertical.y - origin.y) / local.height,
+            origin.x,
+            origin.y
+        );
+        return matrix;
     }
 
     update_static_geometry(target_x, target_y, width, height) {

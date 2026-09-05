@@ -1,10 +1,9 @@
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
-import Gio from 'gi://Gio';
 import Gtk from 'gi://Gtk';
 
-import { pick, on_picking, on_picked } from '../../dbus/client.js';
+import { pick } from '../../dbus/client.js';
 
 
 export const ApplicationRow = GObject.registerClass({
@@ -21,6 +20,8 @@ export const ApplicationRow = GObject.registerClass({
         super({});
         this._list = list;
         this._app_page = app_page;
+        this._cancel_pick = null;
+        this._pick_timeout_id = null;
 
         // add a 'remove' button before the text
         let action_row = this.child.get_first_child().get_first_child();
@@ -41,7 +42,7 @@ export const ApplicationRow = GObject.registerClass({
         // bind row title to text buffer
         this._window_class.buffer.bind_property(
             'text', this, 'title',
-            Gio.SettingsBindFlags.BIDIRECTIONNAL
+            GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         );
 
         // set application name if it exists, or open the revealer and pick one
@@ -71,31 +72,26 @@ export const ApplicationRow = GObject.registerClass({
     }
 
     _do_pick_window(remove_if_failed = false) {
-        // a mechanism to know if the extension is listening correcly
-        let has_responded = false;
-        let should_take_answer = true;
-        setTimeout(() => {
-            if (!has_responded) {
-                // show toast about failure
-                this._app_page._preferences_window.add_toast(
-                    this._picking_failure_toast
+        this._cancel_window_pick(false);
+
+        const show_failure = () => {
+            this._cancel_window_pick();
+            this._app_page._preferences_window.add_toast(this._picking_failure_toast);
+            if (remove_if_failed)
+                this._remove_row();
+        };
+
+        this._pick_timeout_id = setTimeout(show_failure, 1000);
+        this._cancel_pick = pick({
+            on_picking: () => {
+                this._clear_pick_timeout();
+                this._pick_timeout_id = setTimeout(
+                    () => this._cancel_window_pick(),
+                    60_000
                 );
-
-                // prevent title from changing with later picks
-                should_take_answer = false;
-
-                // remove row if asked
-                if (remove_if_failed)
-                    this._remove_row();
-            }
-        }, 250);
-
-        on_picking(() =>
-            has_responded = true
-        );
-
-        on_picked(wm_class => {
-            if (should_take_answer) {
+            },
+            on_picked: wm_class => {
+                this._finish_window_pick();
                 if (wm_class == 'window-not-found') {
                     console.warn("Can't pick window from here");
                     this._app_page._preferences_window.add_toast(
@@ -104,9 +100,38 @@ export const ApplicationRow = GObject.registerClass({
                     return;
                 }
                 this._window_class.buffer.text = wm_class;
-            }
+            },
+            on_error: show_failure,
+            on_cancelled: () => {
+                this._finish_window_pick();
+                if (remove_if_failed)
+                    this._remove_row();
+            },
         });
+    }
 
-        pick();
+    _clear_pick_timeout() {
+        if (this._pick_timeout_id) {
+            clearTimeout(this._pick_timeout_id);
+            this._pick_timeout_id = null;
+        }
+    }
+
+    _finish_window_pick() {
+        this._clear_pick_timeout();
+        this._cancel_pick = null;
+    }
+
+    _cancel_window_pick(cancel_remote = true) {
+        this._clear_pick_timeout();
+        if (this._cancel_pick) {
+            const cancel = this._cancel_pick;
+            this._cancel_pick = null;
+            cancel(cancel_remote);
+        }
+    }
+
+    cleanup() {
+        this._cancel_window_pick();
     }
 });

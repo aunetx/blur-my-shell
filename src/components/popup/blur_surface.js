@@ -1,9 +1,7 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
-import St from 'gi://St';
 
-import { DummyPipeline } from '../../conveniences/dummy_pipeline.js';
-import { PaintSignals } from '../../conveniences/paint_signals.js';
+import { DynamicPipeline } from '../../render/dynamic_surface.js';
 import { PopupBlurSurfaceFade } from './surface_fade.js';
 import { PopupBlurSurfacePlacement } from './surface_placement.js';
 import { PopupBlurSurfaceSignals } from './surface_signals.js';
@@ -39,7 +37,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.sibling = sibling;
         this.corner_radius = corner_radius;
         this.is_enabled = is_enabled;
-        this.paint_signals = new PaintSignals(connections);
         this.placement = new PopupBlurSurfacePlacement(this);
         this.signals = new PopupBlurSurfaceSignals(this);
         this.style = new PopupBlurSurfaceStyle(this);
@@ -70,19 +67,18 @@ export const PopupBlurSurface = class PopupBlurSurface {
         );
         this.actor.hide();
         this.parent.add_child(this.actor);
+        if (!this.static_blur)
+            this.pipeline?.attach_pipeline();
         this.set_actor_position();
         this.style.capture_target_style();
         this.style.update_target_style();
 
-        this.connect_repaints();
         this.signals.connect_actor(this.target);
         this.signals.connect_actor(this.root_actor);
         this.signals.connect_ancestors(this.target);
         this.signals.connect_ancestors(this.root_actor);
         if (this.style.has_any_style_class(this.target, ['screenshot-ui-panel']))
             this.signals.connect_actor(this.parent);
-        this.signals.connect_layout();
-        this.signals.connect_settings();
         this.queue_update();
 
         return true;
@@ -92,21 +88,17 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.static_blur)
             return this.create_static_actor();
 
-        this.blur_actor = new St.Widget({
-            name: 'bms-popup-blurred-widget',
-            reactive: false,
-        });
-        this.blur_actor.add_style_class_name('bms-popup-blurred-widget');
-        this.track_owned_actor(this.blur_actor, { actor: true, blur_actor: true });
-        this.pipeline = new DummyPipeline(
+        this.pipeline = new DynamicPipeline(
             this.effects_manager,
-            this.settings.popup,
-            this.blur_actor,
+            global.blur_my_shell._pipelines_manager,
+            this.settings.popup.PIPELINE,
             {
-                corner_radius_key: this.corner_radius.key,
-                corner_radius_getter: () => this.get_corner_radius(),
+                corner_radius: this.get_corner_radius(),
             }
         );
+        this.blur_actor = this.pipeline.create_actor('bms-popup-blurred-widget');
+        this.blur_actor.add_style_class_name('bms-popup-blurred-widget');
+        this.track_owned_actor(this.blur_actor, { actor: true, blur_actor: true });
         this.actor = this.blur_actor;
         return true;
     }
@@ -155,14 +147,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     is_below_sibling(sibling) {
-        const children = this.parent.get_children?.() ?? [];
-        const actor_index = children.indexOf(this.actor);
-        if (actor_index < 0)
+        if (this.actor.get_parent() !== this.parent)
             return false;
         if (!sibling)
-            return actor_index === 0;
-        const sibling_index = children.indexOf(sibling);
-        return sibling_index >= 0 && actor_index < sibling_index;
+            return this.parent.get_first_child() === this.actor;
+        return this.actor.get_next_sibling() === sibling;
     }
 
     is_quick_settings() {
@@ -216,7 +205,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
                 return;
             if (!this.placement.prepare_visible_geometry())
                 return;
-            const opacity = this.update_opacity(transition_state);
+            const opacity = this.update_opacity();
             if (opacity > 0)
                 this.show_actors();
             else
@@ -256,28 +245,16 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.placement.hide();
     }
 
-    update_opacity(transition_state = null) {
+    update_opacity() {
         const opacity = this.fade.get_opacity();
-        const transition_opacity = this.get_transition_opacity(opacity, transition_state);
         if (
-            this.opacity === transition_opacity
-            && this.has_surface_opacity(transition_opacity)
-        )
-            return transition_opacity;
-        this.update_surface_opacity(transition_opacity);
-        this.opacity = transition_opacity;
-        return transition_opacity;
-    }
-
-    get_transition_opacity(opacity, transition_state) {
-        if (
-            this.static_blur
-            || !transition_state?.geometry
-            || transition_state.opacity
-            || this.opacity <= 0
+            this.opacity === opacity
+            && this.has_surface_opacity(opacity)
         )
             return opacity;
-        return Math.max(opacity, this.opacity);
+        this.update_surface_opacity(opacity);
+        this.opacity = opacity;
+        return opacity;
     }
 
     has_surface_opacity(opacity) {
@@ -291,9 +268,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
     update_surface_opacity(opacity) {
         const pipeline_opacity = this.get_pipeline_opacity(opacity);
         if (this.static_blur) {
-            this.static_actor.set_opacity(opacity, pipeline_opacity);
+            this.static_actor.set_opacity(opacity);
             return;
         }
+        if (this.is_owned_actor_destroyed())
+            return;
         this.fade.set_opacity(opacity);
         try {
             this.pipeline?.set_opacity_factor(pipeline_opacity / 255);
@@ -382,25 +361,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
         );
     }
 
-    connect_repaints() {
-        if (this.static_blur || this.settings.HACKS_LEVEL !== 1)
-            return;
-        const repaint_source = {
-            queue_repaint: () => this.queue_repaint(),
-        };
-        [
-            this.blur_actor,
-            this.target,
-        ].forEach(actor => {
-            try {
-                this.paint_signals.disconnect_all_for_actor(actor);
-                this.paint_signals.connect(actor, repaint_source);
-            } catch (e) { }
-        });
-    }
-
     update_settings() {
         this.style.update_target_style();
+        this.pipeline?.set_corner_radius(this.get_corner_radius());
         this.static_actor?.update_settings();
     }
 
@@ -456,7 +419,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.static_blur) {
             this.static_actor.update_pipeline();
             this.sync_static_actor();
+        } else {
+            this.pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
         }
+        this.style.update_target_style();
     }
 
     destroy(actor_already_destroyed = false) {
@@ -470,11 +436,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.repaint_id)
             GLib.source_remove(this.repaint_id);
         this.repaint_id = 0;
-        try {
-            this.paint_signals.disconnect_all_for_actor(this.blur_actor);
-            if (!actor_already_destroyed)
-                this.paint_signals.disconnect_all_for_actor(this.target);
-        } catch (e) { }
         if (!actor_already_destroyed)
             this.style.restore_target_style();
         this.fade = null;

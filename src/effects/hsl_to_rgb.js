@@ -3,7 +3,6 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'hsl_to_rgb.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -26,7 +25,7 @@ const HSL_TO_RGB_EFFECT_META = {
         }
 };
 
-const HslToRgbEffectClass = utils.IS_IN_PREFERENCES ? null : class HslToRgbEffect extends Clutter.ShaderEffect {
+const HslToRgbEffectClass = utils.IS_IN_PREFERENCES ? null : class HslToRgbEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -46,8 +45,9 @@ const HslToRgbEffectClass = utils.IS_IN_PREFERENCES ? null : class HslToRgbEffec
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+            const opacityFactor = utils.clamp(value, 0, 1, DEFAULT_PARAMS.opacity_factor);
+            if (this._opacity_factor !== opacityFactor) {
+                this._opacity_factor = opacityFactor;
 
                 uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
@@ -61,4 +61,4 @@ const HslToRgbEffectClass = utils.IS_IN_PREFERENCES ? null : class HslToRgbEffec
 
 export const HslToRgbEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(HSL_TO_RGB_EFFECT_META, HslToRgbEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(HSL_TO_RGB_EFFECT_META, HslToRgbEffectClass);
