@@ -51,7 +51,7 @@ export const Dash = GObject.registerClass({
         this.preferences.dash_to_dock.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
-            Gio.SettingsBindFlags.DEFAULT
+            Gio.SettingsBindFlags.DEFAULT | Gio.SettingsBindFlags.NO_SENSITIVITY
         );
         this.preferences.dash_to_dock.settings.bind(
             'style-dash-to-dock', this._style_dash_to_dock, 'selected',

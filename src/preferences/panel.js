@@ -69,7 +69,7 @@ export const Panel = GObject.registerClass({
         this.preferences.panel.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
-            Gio.SettingsBindFlags.DEFAULT
+            Gio.SettingsBindFlags.DEFAULT | Gio.SettingsBindFlags.NO_SENSITIVITY
         );
         this.preferences.panel.settings.bind(
             'style-panel', this._style_panel, 'selected',

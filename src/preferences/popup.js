@@ -81,7 +81,7 @@ export const PopupBlur = GObject.registerClass({
         this.preferences.popup.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
-            Gio.SettingsBindFlags.DEFAULT
+            Gio.SettingsBindFlags.DEFAULT | Gio.SettingsBindFlags.NO_SENSITIVITY
         );
         this.preferences.popup.settings.bind(
             'preserve-shell-theme',

@@ -31,6 +31,7 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
   - application folders background
     - uses dynamic blur only
     - uses its own selected pipeline, with effects fading as the folder opens and closes
+    - follows the folder theme's corner radius and border, with subtle background dimming and click-outside dismissal
     - you can select the styling of the background of the folder when it is opened
   - window selector when taking a screenshot
     - uses static blur only

@@ -1,4 +1,5 @@
 import Meta from 'gi://Meta';
+import GLib from 'gi://GLib';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
@@ -78,10 +79,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     queue_discovery() {
         if (!this.enabled || this.discovery_id)
             return;
-        this.discovery_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
+        this.discovery_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.discovery_id = 0;
             this.blur_existing_dashes();
-            return false;
+            return GLib.SOURCE_REMOVE;
         });
     }
 
@@ -475,7 +476,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this._log("removing blur from dashes");
 
         if (this.discovery_id)
-            global.compositor.get_laters().remove(this.discovery_id);
+            GLib.Source.remove(this.discovery_id);
         this.discovery_id = 0;
         this.native_dash = null;
 

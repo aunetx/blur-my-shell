@@ -1,5 +1,4 @@
 import Clutter from 'gi://Clutter';
-import Cogl from 'gi://Cogl';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import St from 'gi://St';
@@ -7,22 +6,24 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 
-// TODO: Drop GNOME 46 backwards compatibility
-const transparent = Clutter.Color ?
-    Clutter.Color.from_pixel(0x00000000) :
-    new Cogl.Color({
-        red: 0,
-        green: 0,
-        blue: 0,
-        alpha: 0
-    });
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
+const FOLDER_DIALOG_SHADE_FACTOR = 0.25;
 
 const DIALOGS_STYLES = [
     "appfolder-dialogs-transparent",
     "appfolder-dialogs-light",
     "appfolder-dialogs-dark"
 ];
+
+const AppFolderSurface = GObject.registerClass({
+    GTypeName: 'BmsAppFolderSurface',
+}, class AppFolderSurface extends St.Widget {
+    vfunc_allocate(box) {
+        super.vfunc_allocate(box);
+        if (this.blurActor && this.viewBox)
+            this.blurActor.allocate(this.viewBox.get_allocation_box());
+    }
+});
 
 function disconnect_timeline_signals(timeline) {
     (timeline._bms_signal_ids ?? []).forEach(id => {
@@ -80,12 +81,29 @@ function animate_blur(dialog, target, mode) {
     timeline.start();
 }
 
-function keep_dialog_background_transparent(dialog) {
-    try {
-        dialog.remove_transition('background-color');
-        dialog.set_background_color(transparent);
-    } catch (e) { }
+function update_corner_radius(dialog) {
+    const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+    const radius = dialog._viewBox.get_theme_node().get_border_radius(St.Corner.TOPLEFT);
+    dialog._bms_appfolder_pipeline?.set_corner_radius(radius / scale);
 }
+
+function reduce_background_shade(dialog) {
+    const transition = dialog.get_transition('background-color');
+    const color = (transition
+        ? transition.get_interval().peek_final_value()
+        : dialog.get_background_color()).copy();
+    color.alpha = Math.round(color.alpha * FOLDER_DIALOG_SHADE_FACTOR);
+    if (transition)
+        transition.set_to(color);
+    else
+        dialog.set_background_color(color);
+}
+
+const setLighterBackground = function (...params) {
+    const result = this._bms_original_setLighterBackground.apply(this, params);
+    reduce_background_shade(this);
+    return result;
+};
 
 function create_surface(dialog) {
     if (dialog._bms_appfolder_surface)
@@ -93,17 +111,23 @@ function create_surface(dialog) {
 
     const viewBox = dialog._viewBox;
     const container = viewBox?.get_parent?.();
-    if (!viewBox || !container)
+    if (!viewBox || container !== dialog.child)
         return null;
 
-    const surface = new St.Widget({
+    const surface = new AppFolderSurface({
         layout_manager: new Clutter.BinLayout(),
-        x_align: Clutter.ActorAlign.CENTER,
-        y_align: Clutter.ActorAlign.CENTER,
+        style_class: container.style_class,
+        style: container.style,
+        x_align: container.x_align,
+        y_align: container.y_align,
+        x_expand: container.x_expand,
+        y_expand: container.y_expand,
     });
+    surface.viewBox = viewBox;
     container.remove_child(viewBox);
     surface.add_child(viewBox);
-    container.set_child(surface);
+    dialog.set_child(surface);
+    dialog._bms_appfolder_original_container = container;
     dialog._bms_appfolder_surface = surface;
     return surface;
 }
@@ -113,14 +137,15 @@ function destroy_surface(dialog) {
     if (!surface)
         return;
 
-    const container = surface.get_parent();
-    if (container && dialog._viewBox.get_parent() === surface) {
+    const container = dialog._bms_appfolder_original_container;
+    if (dialog.child === surface && dialog._viewBox.get_parent() === surface) {
         surface.remove_child(dialog._viewBox);
-        container.remove_child(surface);
         container.set_child(dialog._viewBox);
+        dialog.set_child(container);
     }
     surface.destroy();
     dialog._bms_appfolder_surface = null;
+    dialog._bms_appfolder_original_container = null;
 }
 
 const zoomAndFadeIn = function (...params) {
@@ -133,13 +158,13 @@ const zoomAndFadeIn = function (...params) {
     }
 
     const result = this._bms_original_zoomAndFadeIn?.apply(this, params);
+    reduce_background_shade(this);
     if (
         this._bms_original_sourceMappedId === 0
         && !this._bms_created_sourceMappedId
         && this._sourceMappedId
     )
         this._bms_created_sourceMappedId = this._sourceMappedId;
-    keep_dialog_background_transparent(this);
     return result;
 };
 
@@ -149,7 +174,6 @@ const zoomAndFadeOut = function (...params) {
     }
 
     const result = this._bms_original_zoomAndFadeOut?.apply(this, params);
-    keep_dialog_background_transparent(this);
     return result;
 };
 
@@ -218,14 +242,17 @@ export const AppFoldersBlur = class AppFoldersBlur {
             if (!this.dialogs.has(dialog)) {
                 dialog._bms_original_zoomAndFadeIn = dialog._zoomAndFadeIn;
                 dialog._bms_original_zoomAndFadeOut = dialog._zoomAndFadeOut;
+                dialog._bms_original_setLighterBackground = dialog._setLighterBackground;
                 dialog._bms_original_sourceMappedId = dialog._sourceMappedId;
-                dialog._bms_original_backgroundColor = dialog.get_background_color?.() ?? null;
                 this.dialogs.add(dialog);
                 this.connections.connect(dialog, 'destroy', () => {
                     stop_blur_animation(dialog);
                     dialog._bms_appfolder_pipeline?.destroy();
+                    dialog._bms_appfolder_original_container?.destroy();
                     this.dialogs.delete(dialog);
                 });
+                this.connections.connect(dialog._viewBox, 'style-changed',
+                    () => update_corner_radius(dialog));
                 this.connections.connect(dialog, 'notify::mapped', () => {
                     if (!dialog.mapped) {
                         stop_blur_animation(dialog);
@@ -240,24 +267,25 @@ export const AppFoldersBlur = class AppFoldersBlur {
                     this.effects_manager,
                     global.blur_my_shell._pipelines_manager,
                     this.settings.appfolder.PIPELINE,
-                    { corner_radius: 24, fixed_blur_passes: true }
+                    { corner_radius: 0, fixed_blur_passes: true }
                 );
                 const surface = create_surface(dialog);
                 if (!surface) {
                     pipeline.destroy();
                     continue;
                 }
-                pipeline.attach_to_container(
-                    surface,
-                    'bms-appfolder-blurred-widget'
-                );
+                const actor = pipeline.create_actor('bms-appfolder-blurred-widget');
+                pipeline.ownsActor = true;
+                surface.blurActor = actor;
+                surface.insert_child_below(actor, dialog._viewBox);
+                pipeline.attach_pipeline();
                 dialog._bms_appfolder_pipeline = pipeline;
+                update_corner_radius(dialog);
             }
 
             DIALOGS_STYLES.forEach(
                 style => {
                     dialog._viewBox.remove_style_class_name(style);
-                    pipeline.actor?.remove_style_class_name(style);
                 }
             );
 
@@ -266,13 +294,16 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 const style = DIALOGS_STYLES[styleIndex];
                 if (style) {
                     dialog._viewBox.add_style_class_name(style);
-                    pipeline.actor?.add_style_class_name(style);
                 }
             }
 
             dialog._zoomAndFadeIn = zoomAndFadeIn;
             dialog._zoomAndFadeOut = zoomAndFadeOut;
-
+            if (dialog._setLighterBackground !== setLighterBackground) {
+                dialog._setLighterBackground = setLighterBackground;
+                if (dialog._isOpen)
+                    dialog._setLighterBackground(false);
+            }
         }
     };
 
@@ -311,8 +342,11 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 dialog._zoomAndFadeIn = dialog._bms_original_zoomAndFadeIn;
             if (dialog._zoomAndFadeOut === zoomAndFadeOut)
                 dialog._zoomAndFadeOut = dialog._bms_original_zoomAndFadeOut;
-            if (dialog._bms_original_backgroundColor)
-                dialog.set_background_color(dialog._bms_original_backgroundColor);
+            if (dialog._setLighterBackground === setLighterBackground) {
+                dialog._setLighterBackground = dialog._bms_original_setLighterBackground;
+                if (dialog._isOpen)
+                    dialog._setLighterBackground(false);
+            }
             dialog._bms_appfolder_pipeline?.destroy();
             dialog._bms_appfolder_pipeline = null;
             destroy_surface(dialog);
@@ -323,9 +357,9 @@ export const AppFoldersBlur = class AppFoldersBlur {
             } catch (e) { }
             delete dialog._bms_original_zoomAndFadeIn;
             delete dialog._bms_original_zoomAndFadeOut;
+            delete dialog._bms_original_setLighterBackground;
             delete dialog._bms_original_sourceMappedId;
             delete dialog._bms_created_sourceMappedId;
-            delete dialog._bms_original_backgroundColor;
         });
         this.dialogs.clear();
 

@@ -43,7 +43,6 @@ export class DockSurface {
         this.settings = dash_blur.settings;
 
         this.updateId = 0;
-        this._first_boot = true;
         this.geometry_signal_records = [];
         this.destroyed = false;
 
@@ -95,13 +94,14 @@ export class DockSurface {
             this.dash_blur.connect('remove-dashes', () => this.remove_dash_blur()),
             this.dash_blur.connect('override-style', () => this.override_style()),
             this.dash_blur.connect('remove-style', () => this.remove_style()),
-            this.dash_blur.connect('show', () => this.background_group?.show()),
-            this.dash_blur.connect('hide', () => this.background_group?.hide()),
+            this.dash_blur.connect('show', () => this.update_visibility()),
+            this.dash_blur.connect('hide', () => this.update_visibility()),
             this.dash_blur.connect('update-size', () => this.schedule_update()),
             this.dash_blur.connect('change-blur-type', () => this.change_blur_type()),
             this.dash_blur.connect('update-pipeline', () => this.update_pipeline()),
             this.dash_blur.connect('update-corner-radius', () => this.update_corner_radius())
         );
+        this.update_visibility();
     }
 
     connect_geometry_signals(actor, signals, callback = () => this.schedule_update()) {
@@ -308,8 +308,8 @@ export class DockSurface {
             );
     }
 
-    update_size() {
-        if (!this.background || !this.background_group || !this.bg_manager)
+    update_visibility() {
+        if (!this.background_group)
             return;
 
         let opacity = 255;
@@ -324,6 +324,13 @@ export class DockSurface {
         this.background_group.opacity = opacity;
         this.background_group.visible = visible
             && !(this.settings.dash_to_dock.UNBLUR_IN_OVERVIEW && Main.overview.visible);
+    }
+
+    update_size() {
+        if (!this.background || !this.background_group || !this.bg_manager)
+            return;
+
+        this.update_visibility();
 
         if (!this.dash_blur._has_valid_allocation(this.dash_container) ||
             !this.dash_blur._has_valid_allocation(this.dash) ||
@@ -363,13 +370,6 @@ export class DockSurface {
 
             this.background.set_position(geometry.x, geometry.y);
             this.background.set_size(geometry.width, geometry.height);
-        }
-
-        if (this._first_boot) {
-            if (this.settings.dash_to_dock.UNBLUR_IN_OVERVIEW && Main.overview.visible) {
-                this.background_group?.hide();
-            }
-            this._first_boot = false;
         }
     }
 

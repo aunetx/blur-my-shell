@@ -147,14 +147,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     is_below_sibling(sibling) {
-        const children = this.parent.get_children?.() ?? [];
-        const actor_index = children.indexOf(this.actor);
-        if (actor_index < 0)
+        if (this.actor.get_parent() !== this.parent)
             return false;
         if (!sibling)
-            return actor_index === 0;
-        const sibling_index = children.indexOf(sibling);
-        return sibling_index >= 0 && actor_index < sibling_index;
+            return this.parent.get_first_child() === this.actor;
+        return this.actor.get_next_sibling() === sibling;
     }
 
     is_quick_settings() {
