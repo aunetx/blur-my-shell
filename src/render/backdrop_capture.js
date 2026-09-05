@@ -4,6 +4,7 @@ import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 import Mtk from 'gi://Mtk';
 import { BackdropContent } from './backdrop_content.js';
+import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './backdrop_damage.js';
 
 const PIXEL_EPSILON = 1 / 1024;
 
@@ -82,6 +83,24 @@ function captureRectangles(paintContext, view, geometry) {
             rectangles.push({ x, y, width: right - x, height: bottom - y });
     }
     return rectangles;
+}
+
+function coversCapture(rectangles, geometry) {
+    if (rectangles.length === 1) {
+        const rect = rectangles[0];
+        return rect.x === geometry.sourceX && rect.y === geometry.sourceY
+            && rect.width === geometry.copyWidth && rect.height === geometry.copyHeight;
+    }
+    const bounds = new Mtk.Rectangle({
+        x: geometry.sourceX,
+        y: geometry.sourceY,
+        width: geometry.copyWidth,
+        height: geometry.copyHeight,
+    });
+    const uncovered = Mtk.Region.create_rectangle(bounds);
+    for (const rect of rectangles)
+        uncovered.subtract_rectangle(new Mtk.Rectangle(rect));
+    return uncovered.is_empty();
 }
 
 export const BackdropCaptureEffect = GObject.registerClass({
@@ -167,7 +186,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
             view
         );
 
-        for (const rect of captureRectangles(paintContext, view, geometry)) {
+        const rectangles = captureRectangles(paintContext, view, geometry);
+        for (const rect of rectangles) {
             if (rect.width <= 0 || rect.height <= 0)
                 continue;
             sourceFramebuffer.blit(
@@ -182,6 +202,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
         }
 
         node.add_child(new Clutter.ActorNode(actor, -1));
+        if (rectangles.length > 0 && !coversCapture(rectangles, geometry))
+            queueBackdropRedraw(actor);
     }
 
     vfunc_set_actor(actor) {
@@ -189,9 +211,12 @@ export const BackdropCaptureEffect = GObject.registerClass({
             this.release(false);
 
         super.vfunc_set_actor(actor);
+        if (actor)
+            registerBackdrop(this);
     }
 
     release(clearContent = true) {
+        unregisterBackdrop(this);
         if (clearContent)
             this.contentActor?.set_content(null);
         this.contentActor = null;
