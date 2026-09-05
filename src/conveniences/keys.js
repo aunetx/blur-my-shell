@@ -18,8 +18,7 @@ export const KEYS = [
     {
         component: "appfolder", schemas: [
             { type: Type.B, name: "blur" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
+            { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "style-dialogs" },
         ]
     },
@@ -137,14 +136,6 @@ export const DEPRECATED_KEYS = [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
-        ]
-    },
-    {
-        component: "appfolder", schemas: [
-            { type: Type.B, name: "customize" },
             { type: Type.C, name: "color" },
             { type: Type.D, name: "noise-amount" },
             { type: Type.D, name: "noise-lightness" },

@@ -533,7 +533,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             && meta_window === this.focused_window;
         const is_fullscreen = this.settings.applications.UNBLUR_WHEN_FULLSCREEN
             && meta_window.fullscreen;
-        const visible_for_blur = window_actor.visible
+        const visible_for_blur = meta_window.showing_on_its_workspace()
             || (this.settings.applications.BLUR_ON_OVERVIEW && overview_visible);
         const show_blur = visible_for_blur
             && !is_focused

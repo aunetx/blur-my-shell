@@ -30,7 +30,6 @@ export const OverviewBlur = class OverviewBlur {
         this.proto_patched = false;
         this.patch_generation = 0;
         this.active_patch_generation = null;
-        this.workspace_switch_actors = new Map();
     }
 
     enable() {
@@ -99,22 +98,6 @@ export const OverviewBlur = class OverviewBlur {
         this._log("prepare workspace switch");
         this.finish_workspace_switch();
 
-        if (this.settings.applications.BLUR) {
-            const workspace_manager = global.workspace_manager;
-            const index = workspace_manager.get_active_workspace_index();
-            [index - 1, index + 1].forEach(workspace_index => {
-                workspace_manager.get_workspace_by_index(workspace_index)
-                    ?.list_windows()
-                    .forEach(window => {
-                        const actor = window.get_compositor_private();
-                        if (actor && !actor.visible) {
-                            actor.show();
-                            this.workspace_switch_actors.set(actor, window);
-                        }
-                    });
-            });
-        }
-
         Main.uiGroup.insert_child_above(
             this.animation_background_group,
             global.window_group
@@ -132,14 +115,6 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     finish_workspace_switch() {
-        this.workspace_switch_actors.forEach((window, actor) => {
-            try {
-                if (!window.showing_on_its_workspace())
-                    actor.hide();
-            } catch (e) { }
-        });
-        this.workspace_switch_actors.clear();
-
         if (this.animation_background_group.get_parent() === Main.uiGroup)
             Main.uiGroup.remove_child(this.animation_background_group);
     }

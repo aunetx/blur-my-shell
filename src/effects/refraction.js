@@ -1,5 +1,3 @@
-import GLib from 'gi://GLib';
-
 import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 import {
@@ -9,13 +7,11 @@ import {
 } from './refraction_config.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'refraction.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
-const CLIP_STABILIZE_EPSILON = 1.0;
 
-const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionEffect extends Clutter.ShaderEffect {
+const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -25,13 +21,6 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             this._clip_y0 = null;
             this._clip_width = null;
             this._clip_height = null;
-            this._stable_clip_x0 = null;
-            this._stable_clip_y0 = null;
-            this._stable_clip_width = null;
-            this._stable_clip_height = null;
-            this._stabilize_clip_x = false;
-            this._stabilize_clip_y = false;
-            this._clip_settle_timeout_id = null;
 
             utils.setup_params(this, params);
 
@@ -361,7 +350,6 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
         }
 
         set clip(value) {
-            const previous_clip = this.clip;
             const rawClip = Array.isArray(value)
                 && value.length === 4
                 && value.every(Number.isFinite)
@@ -375,7 +363,7 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             ));
             [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = clip;
 
-            let shader_clip = this._stabilized_clip(previous_clip);
+            const shader_clip = clip;
 
             uniforms.set_uniform(this, 'clip_x0', parseFloat(shader_clip[0] - 1e-6));
             uniforms.set_uniform(this, 'clip_y0', parseFloat(shader_clip[1] - 1e-6));
@@ -384,164 +372,18 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             this.update_scaled_uniforms();
         }
 
-        _stabilized_clip(previous_clip) {
-            if (this._clip_width < 0 || this._clip_height < 0) {
-                this._stable_clip_x0 = null;
-                this._stable_clip_y0 = null;
-                this._stable_clip_width = null;
-                this._stable_clip_height = null;
-                this._stabilize_clip_x = false;
-                this._stabilize_clip_y = false;
-                if (this._clip_settle_timeout_id) {
-                    GLib.Source.remove(this._clip_settle_timeout_id);
-                    this._clip_settle_timeout_id = null;
-                }
-                return [
-                    this._clip_x0,
-                    this._clip_y0,
-                    this._clip_width,
-                    this._clip_height
-                ];
-            }
-
-            const [previous_x0, previous_y0, previous_width, previous_height] = previous_clip;
-
-            [this._stable_clip_x0, this._stable_clip_width, this._stabilize_clip_x] =
-                this._stabilized_clip_axis(
-                    this._clip_x0,
-                    this._clip_width,
-                    previous_x0,
-                    previous_width,
-                    this._stable_clip_x0,
-                    this._stable_clip_width,
-                    this._stabilize_clip_x
-                );
-            [this._stable_clip_y0, this._stable_clip_height, this._stabilize_clip_y] =
-                this._stabilized_clip_axis(
-                    this._clip_y0,
-                    this._clip_height,
-                    previous_y0,
-                    previous_height,
-                    this._stable_clip_y0,
-                    this._stable_clip_height,
-                    this._stabilize_clip_y
-                );
-
-            if (this._clip_settle_timeout_id)
-                GLib.Source.remove(this._clip_settle_timeout_id);
-
-            if (!this._stabilize_clip_x && !this._stabilize_clip_y) {
-                this._clip_settle_timeout_id = null;
-                return [
-                    this._stable_clip_x0,
-                    this._stable_clip_y0,
-                    this._stable_clip_width,
-                    this._stable_clip_height
-                ];
-            }
-
-            this._clip_settle_timeout_id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 220, () => {
-                this._stable_clip_x0 = this._clip_x0;
-                this._stable_clip_y0 = this._clip_y0;
-                this._stable_clip_width = this._clip_width;
-                this._stable_clip_height = this._clip_height;
-                this._stabilize_clip_x = false;
-                this._stabilize_clip_y = false;
-                this._clip_settle_timeout_id = null;
-                this.clip = [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height];
-                this.queue_repaint();
-                return GLib.SOURCE_REMOVE;
-            });
-
-            return [
-                this._stable_clip_x0,
-                this._stable_clip_y0,
-                this._stable_clip_width,
-                this._stable_clip_height
-            ];
-        }
-
-        _stabilized_clip_axis(
-            start,
-            size,
-            previous_start,
-            previous_size,
-            stable_start,
-            stable_size,
-            stabilizing
-        ) {
-            const size_changed =
-                previous_size !== null &&
-                previous_size >= 0 &&
-                Math.abs(size - previous_size) > CLIP_STABILIZE_EPSILON;
-
-            if (!stabilizing && !size_changed)
-                return [start, size, false];
-
-            const end = start + size;
-            const resolved_stable_start = stable_start ?? previous_start ?? start;
-            const resolved_stable_size = stable_size ?? previous_size ?? size;
-            const stable_end = resolved_stable_start + resolved_stable_size;
-            const resolved_start = Math.min(resolved_stable_start, start);
-            const resolved_end = Math.max(stable_end, end);
-
-            return [resolved_start, resolved_end - resolved_start, true];
-        }
-
         update_scaled_uniforms() {
             const scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
             const rect_width =
-                this._stable_clip_width ?? (this._clip_width >= 0 ? this._clip_width : this.width);
+                this._clip_width >= 0 ? this._clip_width : this.width;
             const rect_height =
-                this._stable_clip_height ?? (this._clip_height >= 0 ? this._clip_height : this.height);
+                this._clip_height >= 0 ? this._clip_height : this.height;
             const max_edge = Math.max(1, Math.min(rect_width, rect_height) / 2);
             const edge_size = Math.min(this.edge_size * scale_factor, max_edge);
             const corner_radius = Math.min(this.corner_radius * scale_factor, max_edge);
 
             uniforms.set_uniform(this, 'edge_size', parseFloat(edge_size - 1e-6));
             uniforms.set_uniform(this, 'corner_radius', parseFloat(corner_radius - 1e-6));
-        }
-
-        vfunc_set_actor(actor) {
-            if (this._actor_connection_size_id) {
-                try {
-                    this.get_actor()?.disconnect(this._actor_connection_size_id);
-                } catch (e) { }
-                this._actor_connection_size_id = null;
-            }
-            if (this._actor_connection_clip_rect_id) {
-                try {
-                    this.get_actor()?.disconnect(this._actor_connection_clip_rect_id);
-                } catch (e) { }
-                this._actor_connection_clip_rect_id = null;
-            }
-            if (this._clip_settle_timeout_id) {
-                GLib.Source.remove(this._clip_settle_timeout_id);
-                this._clip_settle_timeout_id = null;
-            }
-            if (actor) {
-                this.width = actor.width;
-                this.height = actor.height;
-                this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                    this.width = actor.width;
-                    this.height = actor.height;
-                });
-
-                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
-                    this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-                });
-            }
-            else {
-                this._stable_clip_x0 = null;
-                this._stable_clip_y0 = null;
-                this._stable_clip_width = null;
-                this._stable_clip_height = null;
-                this._stabilize_clip_x = false;
-                this._stabilize_clip_y = false;
-            }
-
-            super.vfunc_set_actor(actor);
         }
 
         vfunc_paint_target(paint_node, paint_context) {
@@ -553,4 +395,4 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
 
 export const RefractionEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(REFRACTION_EFFECT_META, RefractionEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(REFRACTION_EFFECT_META, RefractionEffectClass);

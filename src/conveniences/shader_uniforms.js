@@ -1,5 +1,3 @@
-import GObject from 'gi://GObject';
-
 const INTEGRAL_UNIFORMS = new Set([
     'corners_bottom',
     'corners_top',
@@ -20,6 +18,8 @@ export function set_uniform(effect, name, value) {
     if (!effect._bms_uniforms)
         effect._bms_uniforms = new Map();
 
+    if (effect._bms_uniforms.get(name) === value)
+        return;
     effect._bms_uniforms.set(name, value);
     effect._bms_uniforms_dirty = true;
     try {
@@ -38,7 +38,7 @@ export function upload_uniforms(effect) {
 
     for (const [name, value] of effect._bms_uniforms) {
         try {
-            effect.set_uniform_value(name, get_shader_value(name, value));
+            effect.set_surface_uniform(name, value, INTEGRAL_UNIFORMS.has(name));
         } catch (e) {
             if (!effect._bms_uniform_warning_shown) {
                 effect._bms_uniform_warning_shown = true;
@@ -48,17 +48,4 @@ export function upload_uniforms(effect) {
     }
 
     effect._bms_uniforms_dirty = false;
-}
-
-function get_shader_value(name, value) {
-    if (typeof value !== 'number')
-        return value;
-
-    if (INTEGRAL_UNIFORMS.has(name))
-        return Math.trunc(value);
-
-    const float_value = new GObject.Value();
-    float_value.init(GObject.TYPE_FLOAT);
-    float_value.set_float(value);
-    return float_value;
 }

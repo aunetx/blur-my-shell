@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const St = await utils.import_in_shell_only('gi://St');
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'corner.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -60,7 +59,7 @@ const CORNER_EFFECT_META = {
         }
 };
 
-const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect extends Clutter.ShaderEffect {
+const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -184,25 +183,6 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             }
         }
 
-        detach_actor_clip_sync(actor = this.get_actor()) {
-            if (!actor || !this._actor_connection_clip_rect_id)
-                return;
-
-            try {
-                actor.disconnect(this._actor_connection_clip_rect_id);
-            } catch (e) { }
-
-            this._actor_connection_clip_rect_id = null;
-        }
-
-        sync_actor_clip(actor) {
-            this.detach_actor_clip_sync(actor);
-            this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-            this._actor_connection_clip_rect_id = actor.connect('notify::clip-rect', _ => {
-                this.clip = actor.has_clip ? actor.get_clip() : [0, 0, -10, -10];
-            });
-        }
-
         get clip() {
             return [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height];
         }
@@ -227,28 +207,6 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             this.update_radius();
         }
 
-        vfunc_set_actor(actor) {
-            if (this._actor_connection_size_id) {
-                try {
-                    this.get_actor()?.disconnect(this._actor_connection_size_id);
-                } catch (e) { }
-                this._actor_connection_size_id = null;
-            }
-            this.detach_actor_clip_sync();
-
-            if (actor) {
-                this.width = actor.width;
-                this.height = actor.height;
-                this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                    this.width = actor.width;
-                    this.height = actor.height;
-                });
-
-                this.sync_actor_clip(actor);
-            }
-            super.vfunc_set_actor(actor);
-        }
-
         vfunc_paint_target(paint_node, paint_context) {
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
@@ -257,4 +215,4 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
 
 export const CornerEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass);

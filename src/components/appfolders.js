@@ -24,9 +24,6 @@ const DIALOGS_STYLES = [
     "appfolder-dialogs-dark"
 ];
 
-let sigma;
-let brightness;
-
 function disconnect_timeline_signals(timeline) {
     (timeline._bms_signal_ids ?? []).forEach(id => {
         try {
@@ -49,27 +46,31 @@ function stop_blur_animation(dialog) {
 
 function animate_blur(dialog, target, mode) {
     stop_blur_animation(dialog);
-    const effect = dialog._bms_appfolder_pipeline?.effect;
-    const actor = dialog._bms_appfolder_pipeline?.contentActor;
-    if (!effect || !actor)
+    const pipeline = dialog._bms_appfolder_pipeline;
+    const actor = pipeline?.contentActor;
+    if (!actor)
         return;
 
-    const startRadius = effect.radius;
-    const startBrightness = effect.brightness;
+    const start = pipeline.opacityFactor;
+    const settings = St.Settings.get();
+    const duration = settings.enable_animations
+        ? FOLDER_DIALOG_ANIMATION_TIME * settings.slow_down_factor
+        : 0;
+    if (duration === 0 || start === target) {
+        pipeline.set_opacity_factor(target);
+        return;
+    }
     const timeline = new Clutter.Timeline({
         actor,
-        duration: FOLDER_DIALOG_ANIMATION_TIME,
+        duration,
     });
     timeline.set_progress_mode(mode);
     const frame_id = timeline.connect('new-frame', () => {
         const progress = timeline.get_progress();
-        effect.radius = startRadius + (target.radius - startRadius) * progress;
-        effect.brightness = startBrightness
-            + (target.brightness - startBrightness) * progress;
+        pipeline.set_opacity_factor(start + (target - start) * progress);
     });
     const completed_id = timeline.connect('completed', () => {
-        effect.radius = target.radius;
-        effect.brightness = target.brightness;
+        pipeline.set_opacity_factor(target);
         if (dialog._bms_appfolder_blur_timeline === timeline)
             dialog._bms_appfolder_blur_timeline = null;
         disconnect_timeline_signals(timeline);
@@ -123,19 +124,12 @@ function destroy_surface(dialog) {
 }
 
 const zoomAndFadeIn = function (...params) {
-    this._bms_appfolder_pipeline?.attach_pipeline();
-    const blur_effect = this._bms_appfolder_pipeline?.effect;
-    if (blur_effect) {
-        const passConfiguration = blur_effect.getPassConfiguration?.(sigma * 2);
-        if (passConfiguration)
-            blur_effect.fixed_passes = passConfiguration.passes;
-        blur_effect.radius = 0;
-        blur_effect.brightness = 1.0;
-        animate_blur(
-            this,
-            { radius: sigma * 2, brightness },
-            Clutter.AnimationMode.EASE_OUT_QUAD
-        );
+    const pipeline = this._bms_appfolder_pipeline;
+    if (pipeline) {
+        pipeline.attach_pipeline();
+        if (!this._bms_appfolder_blur_timeline)
+            pipeline.set_opacity_factor(0);
+        animate_blur(this, 1, Clutter.AnimationMode.EASE_OUT_QUAD);
     }
 
     const result = this._bms_original_zoomAndFadeIn?.apply(this, params);
@@ -151,11 +145,7 @@ const zoomAndFadeIn = function (...params) {
 
 const zoomAndFadeOut = function (...params) {
     if (this._isOpen && this._source?.mapped) {
-        animate_blur(
-            this,
-            { radius: 0, brightness: 1.0 },
-            Clutter.AnimationMode.EASE_IN_QUAD
-        );
+        animate_blur(this, 0, Clutter.AnimationMode.EASE_IN_QUAD);
     }
 
     const result = this._bms_original_zoomAndFadeOut?.apply(this, params);
@@ -165,8 +155,6 @@ const zoomAndFadeOut = function (...params) {
 
 
 export const AppFoldersBlur = class AppFoldersBlur {
-    // we do not use the effects manager and dummy pipelines here because we
-    // really want to manage our sigma value ourself during the transition
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.settings = settings;
@@ -182,9 +170,6 @@ export const AppFoldersBlur = class AppFoldersBlur {
 
         this._log("blurring appfolders");
         this.enabled = true;
-
-        brightness = this.settings.appfolder.BRIGHTNESS;
-        sigma = this.settings.appfolder.SIGMA;
 
         const appDisplay = this.get_app_display();
         if (!appDisplay) {
@@ -241,6 +226,12 @@ export const AppFoldersBlur = class AppFoldersBlur {
                     dialog._bms_appfolder_pipeline?.destroy();
                     this.dialogs.delete(dialog);
                 });
+                this.connections.connect(dialog, 'notify::mapped', () => {
+                    if (!dialog.mapped) {
+                        stop_blur_animation(dialog);
+                        dialog._bms_appfolder_pipeline?.set_opacity_factor(0);
+                    }
+                });
             }
 
             let pipeline = dialog._bms_appfolder_pipeline;
@@ -248,20 +239,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 pipeline = new DynamicPipeline(
                     this.effects_manager,
                     global.blur_my_shell._pipelines_manager,
-                    'pipeline_default',
-                    {
-                        effect_name: 'appfolder-blur',
-                        corner_radius: 24,
-                        effect_overrides: {
-                            dual_kawase_blur: () => ({
-                                unscaled_radius: sigma * 2,
-                                brightness,
-                            }),
-                            refraction: () => ({
-                                blur_radius: sigma * 2,
-                            }),
-                        },
-                    }
+                    this.settings.appfolder.PIPELINE,
+                    { corner_radius: 24, fixed_blur_passes: true }
                 );
                 const surface = create_surface(dialog);
                 if (!surface) {
@@ -273,9 +252,6 @@ export const AppFoldersBlur = class AppFoldersBlur {
                     'bms-appfolder-blurred-widget'
                 );
                 dialog._bms_appfolder_pipeline = pipeline;
-            } else {
-                stop_blur_animation(dialog);
-                pipeline.effect?.set({ radius: sigma * 2, brightness });
             }
 
             DIALOGS_STYLES.forEach(
@@ -300,28 +276,11 @@ export const AppFoldersBlur = class AppFoldersBlur {
         }
     };
 
-    set_sigma(s) {
-        sigma = s;
-        if (this.settings.appfolder.BLUR)
-            this.update_blur_effects({ radius: sigma * 2 });
-    }
-
-    set_brightness(b) {
-        brightness = b;
-        if (this.settings.appfolder.BLUR)
-            this.update_blur_effects({ brightness });
-    }
-
-    update_blur_effects(params) {
+    update_pipeline() {
         this.dialogs.forEach(dialog => {
-            stop_blur_animation(dialog);
-            const effect = dialog._bms_appfolder_pipeline?.effect;
-            if (effect && 'radius' in params) {
-                const passConfiguration = effect.getPassConfiguration?.(params.radius);
-                if (passConfiguration)
-                    effect.fixed_passes = passConfiguration.passes;
-            }
-            effect?.set(params);
+            dialog._bms_appfolder_pipeline?.change_pipeline_to(
+                this.settings.appfolder.PIPELINE
+            );
         });
     }
 

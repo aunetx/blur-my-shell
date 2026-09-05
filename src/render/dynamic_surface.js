@@ -10,8 +10,7 @@ export class DynamicPipeline {
         this.effectsManager = effectsManager;
         this.pipelinesManager = pipelinesManager;
         this.pipelineId = pipelineId;
-        this.pipelineOptions = { effect_overrides: options.effect_overrides ?? {} };
-        this.effectName = options.effect_name ?? null;
+        this.fixedBlurPasses = options.fixed_blur_passes ?? false;
         this.cornerRadius = options.corner_radius ?? null;
         this.opacityFactor = 1;
         this.actor = null;
@@ -41,6 +40,7 @@ export class DynamicPipeline {
             y_expand: true,
             content_gravity: Clutter.ContentGravity.RESIZE_FILL,
         });
+        this.contentActor._bms_live_input = true;
         this.actor.add_child(this.contentActor);
         this.actor.connect('destroy', () => {
             this.disconnectPipelineChanged();
@@ -78,7 +78,7 @@ export class DynamicPipeline {
             this.pipelinesManager,
             this.pipelineId,
             this.contentActor,
-            this.pipelineOptions
+            { on_effect_updated: () => this.set_opacity_factor(this.opacityFactor, true) }
         );
         this.pipelineId = this.pipeline.pipeline_id;
         if (this.cornerRadius !== null) {
@@ -90,8 +90,6 @@ export class DynamicPipeline {
         }
         this.connectPipelineChanged();
         this.set_opacity_factor(this.opacityFactor, true);
-        if (this.effectName)
-            this.effect?.set_name(this.effectName);
     }
 
     create_background_with_effect(container, name) {
@@ -140,13 +138,6 @@ export class DynamicPipeline {
 
     get effects() {
         return this.pipeline?.effects ?? [];
-    }
-
-    get effect() {
-        return this.effects.find(effect =>
-            effect._bms_effect_type === 'dual_kawase_blur'
-            || effect._bms_pixelize_role === 'refraction-blur'
-        ) ?? this.effects[0] ?? null;
     }
 
     change_pipeline_to(pipelineId) {
@@ -198,15 +189,26 @@ export class DynamicPipeline {
             const params = effect._bms_effect_params ?? {};
             if ('opacity_factor' in effect)
                 effect.opacity_factor = (params.opacity_factor ?? 1) * factor;
-            if (effect._bms_pixelize_role === 'refraction-blur')
-                effect.unscaled_radius = this.pipeline.get_refraction_blur_radius(
+            if (effect._bms_pixelize_role === 'refraction-blur') {
+                this.set_blur_radius(effect, this.pipeline.get_refraction_blur_radius(
                     params.blur_radius
-                );
+                ), factor);
+                effect.opacity_factor = params.opacity_factor ?? 1;
+            }
             if (effect._bms_effect_type === 'dual_kawase_blur') {
-                effect.unscaled_radius = params.unscaled_radius ?? 30;
-                effect.brightness = params.brightness ?? 0.6;
+                this.set_blur_radius(effect, params.unscaled_radius ?? 30, factor);
+                effect.brightness = 1 + ((params.brightness ?? 0.6) - 1) * factor;
+                effect.opacity_factor = params.opacity_factor ?? 1;
             }
         });
+    }
+
+    set_blur_radius(effect, radius, factor) {
+        if (this.fixedBlurPasses) {
+            effect.fixed_passes = null;
+            effect.fixed_passes = effect.getPassConfiguration(radius).passes;
+        }
+        effect.unscaled_radius = radius * factor;
     }
 
     set_straight_corners(straightCorners) {

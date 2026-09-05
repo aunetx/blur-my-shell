@@ -3,8 +3,6 @@ import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import * as utils from '../conveniences/utils.js';
-
 import { Pipeline } from '../conveniences/pipeline.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
@@ -449,20 +447,16 @@ export const PanelBlur = class PanelBlur {
             let is_bottom_panel = is_horizontal &&
                 distance_to_bottom < distance_to_top;
 
-            const inset = utils.static_blur_clip_inset();
-            const offset = utils.subpixel_stage_offset();
-            const workspace_edge_inset = is_bottom_panel
-                ? Math.max(inset, 1)
-                : inset;
-            const clip_x = Math.floor(x) - inset;
+            const workspace_edge_inset = is_bottom_panel ? 1 : 0;
+            const clip_x = Math.floor(x);
             const clip_y = Math.floor(y) - workspace_edge_inset;
-            const clip_w = Math.ceil(geometry_width) + inset * 2;
+            const clip_w = Math.ceil(geometry_width);
             const clip_h = Math.ceil(geometry_height) +
-                inset + workspace_edge_inset;
+                workspace_edge_inset;
 
             background.set_clip(clip_x, clip_y, clip_w, clip_h);
-            background.x = g_x - x + inset;
-            background.y = offset + g_y - y + inset;
+            background.x = g_x - x;
+            background.y = g_y - y;
         } else {
             // updated coordinates for dynamic blur
             if (actors.is_dtp_panel) {

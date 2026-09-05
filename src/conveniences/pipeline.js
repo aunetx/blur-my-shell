@@ -25,7 +25,7 @@ export const Pipeline = class Pipeline {
         this.effects_manager = effects_manager;
         this.pipelines_manager = pipelines_manager;
         this.effects = [];
-        this.effect_overrides = options.effect_overrides ?? {};
+        this.on_effect_updated = options.on_effect_updated ?? null;
         this.actor = null;
         this.actor_destroy_id = null;
         this.child_added_id = null;
@@ -61,7 +61,7 @@ export const Pipeline = class Pipeline {
         const actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
-            y: utils.subpixel_stage_offset() + (use_absolute_position ? monitor.y : 0),
+            y: use_absolute_position ? monitor.y : 0,
             z_position: 1, // seems to fix the multi-monitor glitch
             width: monitor.width,
             height: monitor.height
@@ -247,12 +247,7 @@ export const Pipeline = class Pipeline {
     }
 
     build_pixelize_effect(effect_infos) {
-        const effect_params = this.get_effect_params(effect_infos);
-        const effect_overrides = this.get_effect_overrides(effect_infos.type, effect_params);
-        const params = {
-            ...effect_params,
-            ...effect_overrides,
-        };
+        const params = this.get_effect_params(effect_infos);
 
         const downscale = this.effects_manager.new_downscale_effect({
             divider: params.factor,
@@ -264,35 +259,29 @@ export const Pipeline = class Pipeline {
             opacity_factor: params.opacity_factor,
         });
 
-        this.setup_effect(downscale, effect_infos, effect_params, 'downscale');
-        this.setup_effect(upscale, effect_infos, effect_params, 'upscale');
+        this.setup_effect(downscale, effect_infos, params, 'downscale');
+        this.setup_effect(upscale, effect_infos, params, 'upscale');
     }
 
     build_refraction_effect(effect_infos) {
-        const effect_params = this.get_effect_params(effect_infos);
-        const effect_overrides = this.get_effect_overrides(effect_infos.type, effect_params);
-        const params = { ...effect_params, ...effect_overrides };
+        const params = this.get_effect_params(effect_infos);
         const blurRadius = this.get_refraction_blur_radius(params.blur_radius);
 
         const blur = this.effects_manager.new_dual_kawase_blur_effect({
             unscaled_radius: blurRadius,
             brightness: 1,
         });
-        this.setup_effect(blur, effect_infos, effect_params, 'refraction-blur');
+        this.setup_effect(blur, effect_infos, params, 'refraction-blur');
 
         const effect = this.effects_manager.new_refraction_effect(params);
-        this.setup_effect(effect, effect_infos, effect_params);
+        this.setup_effect(effect, effect_infos, params);
     }
 
     /// Given an `effect_infos` object containing the effect type, id and params, build an effect
     /// and append it to the effects list
     build_effect(effect_infos) {
         const effect_params = this.get_effect_params(effect_infos);
-        const effect_overrides = this.get_effect_overrides(effect_infos.type, effect_params);
-        let effect = this.effects_manager['new_' + effect_infos.type + '_effect']({
-            ...effect_params,
-            ...effect_overrides,
-        });
+        const effect = this.effects_manager['new_' + effect_infos.type + '_effect'](effect_params);
         this.setup_effect(effect, effect_infos, effect_params);
     }
 
@@ -310,8 +299,8 @@ export const Pipeline = class Pipeline {
                     return;
                 const default_value = this.get_effect_default_param(effect, key);
                 effect._bms_effect_params[key] = default_value;
-                if (!this.apply_effect_override(effect, key))
-                    this.set_effect_param(effect, key, default_value);
+                this.set_effect_param(effect, key, default_value);
+                this.on_effect_updated?.();
             }
         );
         effect._effect_key_updated_id = this.pipelines_manager.connect(
@@ -319,8 +308,8 @@ export const Pipeline = class Pipeline {
                 if (!this.is_effect_param_supported(effect, key))
                     return;
                 effect._bms_effect_params[key] = value;
-                if (!this.apply_effect_override(effect, key))
-                    this.set_effect_param(effect, key, value);
+                this.set_effect_param(effect, key, value);
+                this.on_effect_updated?.();
             }
         );
         effect._effect_key_added_id = this.pipelines_manager.connect(
@@ -328,8 +317,8 @@ export const Pipeline = class Pipeline {
                 if (!this.is_effect_param_supported(effect, key))
                     return;
                 effect._bms_effect_params[key] = value;
-                if (!this.apply_effect_override(effect, key))
-                    this.set_effect_param(effect, key, value);
+                this.set_effect_param(effect, key, value);
+                this.on_effect_updated?.();
             }
         );
     }
@@ -353,30 +342,6 @@ export const Pipeline = class Pipeline {
             ?.class
             ?.default_params
             ?.[key];
-    }
-
-    get_effect_overrides(effect_type, effect_params = {}) {
-        const overrides = this.effect_overrides[effect_type] ?? {};
-        return typeof overrides === 'function' ? overrides(effect_params) : overrides;
-    }
-
-    apply_effect_override(effect, key) {
-        const overrides = this.get_effect_overrides(effect._bms_effect_type, effect._bms_effect_params);
-        if (!(key in overrides))
-            return false;
-
-        this.set_effect_param(effect, key, overrides[key]);
-        return true;
-    }
-
-    apply_effect_overrides(effect_type = null) {
-        this.effects.forEach(effect => {
-            if (effect_type && effect._bms_effect_type !== effect_type)
-                return;
-
-            const overrides = this.get_effect_overrides(effect._bms_effect_type, effect._bms_effect_params);
-            Object.keys(overrides).forEach(key => this.set_effect_param(effect, key, overrides[key]));
-        });
     }
 
     set_effect_param(effect, key, value) {

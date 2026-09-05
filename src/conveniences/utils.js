@@ -32,10 +32,10 @@ export async function import_in_shell_only(module) {
     }
 }
 
-const Clutter = await import_in_shell_only('gi://Clutter');
 const Cogl = await import_in_shell_only('gi://Cogl');
-const USES_SHADER_SNIPPET_API =
-    typeof Clutter?.ShaderEffect?.new_with_snippet === 'function';
+export const ShaderEffect = IS_IN_PREFERENCES ? null
+    : (await import('../render/shader_effect.js')).SurfaceShaderEffect;
+const SHADER_SNIPPETS = new Map();
 
 // In use for the effects, to prevent boilerplate code
 export function setup_params(outer_this, params) {
@@ -65,23 +65,7 @@ export const get_shader_source = (Shell, shader_filename, self_uri) => {
     }
 };
 
-export function subpixel_stage_offset() {
-    return USES_SHADER_SNIPPET_API ? 0 : 0.5;
-}
-
-export function static_blur_clip_inset() {
-    return USES_SHADER_SNIPPET_API ? 1 : 0;
-}
-
-export function register_shader_effect(meta, effect_class, source) {
-    if (USES_SHADER_SNIPPET_API) {
-        Object.defineProperty(effect_class.prototype, 'vfunc_get_static_snippet', {
-            value() {
-                return create_fragment_shader_snippet(source);
-            },
-        });
-    }
-
+export function register_shader_effect(meta, effect_class) {
     return GObject.registerClass(meta, effect_class);
 }
 
@@ -126,10 +110,10 @@ function create_fragment_shader_snippet(source) {
     try {
         const snippet = Cogl.Snippet.new(
             Cogl.SnippetHook.FRAGMENT,
-            parts.declarations,
+            `${parts.declarations}\nvoid bms_fragment() {\n${parts.body}\n}`,
             null
         );
-        snippet.set_replace(parts.body);
+        snippet.set_replace('bms_fragment(); cogl_color_out *= cogl_color_in.a;');
         return snippet;
     } catch (e) {
         console.warn(`[Blur my Shell > effect]       could not create shader snippet: ${e}`);
@@ -138,12 +122,9 @@ function create_fragment_shader_snippet(source) {
 }
 
 export function initialize_shader_effect(effect, source) {
-    if (!source || !effect || USES_SHADER_SNIPPET_API)
+    if (!source || !effect)
         return;
-
-    try {
-        effect.set_shader_source(source);
-    } catch (e) {
-        console.warn(`[Blur my Shell > effect]       set_shader_source failed: ${e}`);
-    }
+    if (!SHADER_SNIPPETS.has(source))
+        SHADER_SNIPPETS.set(source, create_fragment_shader_snippet(source));
+    effect.surfaceSnippet = SHADER_SNIPPETS.get(source);
 }

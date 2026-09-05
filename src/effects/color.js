@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'color.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -69,7 +68,7 @@ const COLOR_EFFECT_META = {
         }
 };
 
-const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect extends Clutter.ShaderEffect {
+const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -201,4 +200,4 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
 
 export const ColorEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(COLOR_EFFECT_META, ColorEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(COLOR_EFFECT_META, ColorEffectClass);

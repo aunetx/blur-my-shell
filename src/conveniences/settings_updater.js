@@ -296,23 +296,6 @@ export function update_from_old_settings(gsettings) {
             [preferences.dash_to_dock.settings, 'set_boolean', 'static-blur', true],
             [preferences.dash_to_dock.settings, 'set_int', 'style-dash-to-dock', 0],
         ];
-        if (!deprecated_preferences.appfolder.CUSTOMIZE) {
-            writes.push(
-                [
-                    preferences.appfolder.settings,
-                    'set_int',
-                    'sigma',
-                    deprecated_preferences.SIGMA,
-                ],
-                [
-                    preferences.appfolder.settings,
-                    'set_double',
-                    'brightness',
-                    deprecated_preferences.BRIGHTNESS,
-                ]
-            );
-        }
-
         if (!writes.every(write => write_setting(...write)))
             return;
     }

@@ -271,7 +271,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     update_surface_opacity(opacity) {
         const pipeline_opacity = this.get_pipeline_opacity(opacity);
         if (this.static_blur) {
-            this.static_actor.set_opacity(opacity, pipeline_opacity);
+            this.static_actor.set_opacity(opacity);
             return;
         }
         if (this.is_owned_actor_destroyed())

@@ -113,7 +113,8 @@ vec4 sampleBackdrop(vec2 uv) {
 }
 
 vec4 sampleGlassBackdrop(vec2 uv) {
-    return vec4(sampleBackdrop(uv).rgb, 1.0);
+    vec4 sampleColor = sampleBackdrop(uv);
+    return vec4(sampleColor.a > 0.0001 ? sampleColor.rgb / sampleColor.a : vec3(0.0), sampleColor.a);
 }
 
 float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
@@ -231,14 +232,13 @@ void main() {
     float W = glassSize.x;
     float H = glassSize.y;
     float shortestSide = min(W, H);
-    float cornerInset = max(pixelSize.x, pixelSize.y);
-    float R = clamp(corner_radius + cornerInset, 0.0, shortestSide * 0.5);
+    float R = clamp(corner_radius, 0.0, shortestSide * 0.5);
     float bezel = max(1.0, min(edge_size, shortestSide * 0.5));
     float glassThickness = max(0.5, edge_size * 0.55 * falloff);
     float eta = 1.0 / REFRACTIVE_INDEX;
 
     bool nearlySquare = abs(W - H) < max(4.0, shortestSide * 0.035);
-    bool useCircularSurface = nearlySquare && R >= shortestSide * 0.34;
+    bool useCircularSurface = nearlySquare && R >= shortestSide * 0.5 - 0.5;
 
     EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, R);
     if (edge.alpha <= 0.0) {
@@ -272,6 +272,7 @@ void main() {
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     } else {
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
+        rimRadius = min(rimRadius, max(1.0, R));
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     }
@@ -280,7 +281,7 @@ void main() {
         vec4 sourceSample = sampleGlassBackdrop(actorUV);
         vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
         vec4 flatSample = sampleGlassBackdrop(flatUV);
-        float finalOpacity = edgeOpacity;
+        float finalOpacity = edgeOpacity * mix(sourceSample.a, flatSample.a, opacity_factor);
         vec3 effectRGB = applyTintAndShadow(flatSample.rgb, localUV);
         vec3 outRGB = mix(sourceSample.rgb, effectRGB, opacity_factor);
 
@@ -308,6 +309,6 @@ void main() {
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
     outRGB = mix(sourceColor.rgb, outRGB, opacity_factor);
 
-    float finalOpacity = edgeOpacity;
+    float finalOpacity = edgeOpacity * mix(sourceColor.a, bgColor.a, opacity_factor);
     cogl_color_out = vec4(clamp(outRGB, 0.0, 1.0) * finalOpacity, finalOpacity);
 }

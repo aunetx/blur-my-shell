@@ -3,7 +3,6 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
 
 const SHADER_FILENAME = 'upscale.glsl';
@@ -51,7 +50,7 @@ const UPSCALE_EFFECT_META = {
         }
 };
 
-const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect extends Clutter.ShaderEffect {
+const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -118,24 +117,6 @@ const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect 
             }
         }
 
-        vfunc_set_actor(actor) {
-            if (this._actor_connection_size_id) {
-                try {
-                    this.get_actor()?.disconnect(this._actor_connection_size_id);
-                } catch (e) { }
-                this._actor_connection_size_id = null;
-            }
-            if (actor) {
-                this.width = actor.width;
-                this.height = actor.height;
-                this._actor_connection_size_id = actor.connect('notify::size', _ => {
-                    this.width = actor.width;
-                    this.height = actor.height;
-                });
-            }
-            super.vfunc_set_actor(actor);
-        }
-
         vfunc_paint_target(paint_node, paint_context) {
             uniforms.upload_uniforms(this);
 
@@ -157,4 +138,4 @@ const UpscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class UpscaleEffect 
 
 export const UpscaleEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(UPSCALE_EFFECT_META, UpscaleEffectClass);

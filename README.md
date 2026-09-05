@@ -24,12 +24,13 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
     - you can select the background of the panel itself (above the blur), to force transparency for example
     - in the same settings, panel blur can be deactivated when a window is near it, for example in fullscreen
     - you can deactivate the panel blur automatically when entering the overview if you need it
-  - supported docks: [Dash to Dock](https://github.com/micheleg/dash-to-dock) and [Dhruva](https://github.com/NarkAgni/dhruva)
+  - the native dash and supported docks: [Dash to Dock](https://github.com/micheleg/dash-to-dock), [Dhruva](https://github.com/NarkAgni/dhruva), and extensions that reuse the native dash, such as Dock!ng
     - you can choose between static blur and dynamic blur for supported docks
     - you can configure the dock background color so it does not interfere with the blur
     - and you can deactivate the blur when entering the overview
   - application folders background
     - uses dynamic blur only
+    - uses its own selected pipeline, with effects fading as the folder opens and closes
     - you can select the styling of the background of the folder when it is opened
   - window selector when taking a screenshot
     - uses static blur only
@@ -40,6 +41,7 @@ A GNOME Shell extension that adds a blur look to different parts of the GNOME Sh
     - you can choose a transparent, light, dark, or automatic background above the blur
     - popup blur has separate corner-radius settings for the different popup surface types
     - rounded corners are rendered by the extension for both blur modes
+    - static surfaces fade as a whole; dynamic blur also reduces its radius as the popup fades
   - lockscreen — to customize the already existing blur
     - uses static blur only
   - [Window List](https://extensions.gnome.org/extension/602/window-list/) extension
@@ -74,6 +76,7 @@ For the difference between static blur and dynamic blur:
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
 - dynamic blur makes the component translucent and blurs what is directly behind it
   - it uses the same pipeline and effects as static blur, but feeds them a live capture of only the surface region instead of the wallpaper
+  - partial redraws update only the changed parts of that capture, retaining the untouched backdrop rather than sampling an already blurred frame
   - Dual Kawase performs its expensive passes on progressively smaller textures, while effect textures are retained only while their surface is attached
   - liquid glass uses the same Dual Kawase backend for its optional blur prepass
   - rounded corners are handled automatically by the extension's antialiased mask and are not part of the configurable pipeline
@@ -84,6 +87,7 @@ Blur my Shell is designed to be compatible with the following extensions:
 
 - [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from the Dash page)
 - [Dhruva](https://extensions.gnome.org/extension/9495/dhruva/) (configurable from the Dash page)
+- [Dock!ng](https://extensions.gnome.org/extension/8682/dockng/) and other extensions that reuse the native dash (configurable from the Dash page)
 - [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from “Panel” page)
 - [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
 - [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from “Other” page)

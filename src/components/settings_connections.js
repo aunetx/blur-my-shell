@@ -43,13 +43,9 @@ export function connect_component_settings(extension) {
     ));
 
     connect_toggle(extension, settings.appfolder, appfolder, 'appfolder');
-    connect(settings.appfolder, 'SIGMA', when_enabled(
+    connect(settings.appfolder, 'PIPELINE', when_enabled(
         appfolder,
-        () => appfolder.set_sigma(settings.appfolder.SIGMA)
-    ));
-    connect(settings.appfolder, 'BRIGHTNESS', when_enabled(
-        appfolder,
-        () => appfolder.set_brightness(settings.appfolder.BRIGHTNESS)
+        () => appfolder.update_pipeline()
     ));
     connect(settings.appfolder, 'STYLE_DIALOGS', when_enabled(
         appfolder,

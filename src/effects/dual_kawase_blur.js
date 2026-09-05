@@ -51,7 +51,7 @@ uniform float opacity_factor;
 
 const UPSAMPLE_OUTPUT_CODE = `${UPSAMPLE_BODY}
 vec4 sourceColor = texture2D(cogl_sampler1, cogl_tex_coord1_in.xy);
-cogl_color_out = mix(sourceColor, color, opacity_factor);
+cogl_color_out = mix(sourceColor, color, opacity_factor) * cogl_color_in.a;
 `;
 
 const DEFAULT_PARAMS = {
@@ -426,6 +426,10 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             );
         }
 
+        const opacity = actor.get_paint_opacity() / 255;
+        const outputColor = new Cogl.Color();
+        outputColor.init_from_4f(opacity, opacity, opacity, opacity);
+        this.outputPipeline.set_color(outputColor);
         const outputNode = new Clutter.PipelineNode(this.outputPipeline);
         outputNode.set_name('BmsDualKawase output');
         outputNode.add_rectangle(new Clutter.ActorBox({

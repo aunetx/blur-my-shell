@@ -38,14 +38,41 @@ function resolve_dhruva(container) {
     };
 }
 
+function resolve_native_dash(container) {
+    if (container?.get_name?.() !== 'dash' || !container._background)
+        return null;
+    let ancestor = container.get_parent();
+    while (ancestor) {
+        if (is_supported_dock_container(ancestor))
+            return null;
+        ancestor = ancestor.get_parent();
+    }
+    let sibling = container;
+    let parent = sibling.get_parent();
+    while (parent && !['uiGroup', 'overviewGroup'].includes(parent.get_name?.())) {
+        sibling = parent;
+        parent = parent.get_parent();
+    }
+    if (!parent)
+        return null;
+    return {
+        content: container,
+        content_parent: parent,
+        background: container._background,
+        slider: null,
+        sibling,
+    };
+}
+
 export function is_supported_dock_container(actor) {
     const name = actor?.get_name?.();
     return (
         name === DASH_TO_DOCK_CONTAINER &&
         actor.constructor?.name === 'DashToDock'
-    ) || name === DHRUVA_CONTAINER;
+    ) || name === DHRUVA_CONTAINER || name === 'dash' && Boolean(actor._background);
 }
 
 export function resolve_dock_target(container) {
-    return resolve_dash_to_dock(container) ?? resolve_dhruva(container);
+    return resolve_dash_to_dock(container) ?? resolve_dhruva(container)
+        ?? resolve_native_dash(container);
 }

@@ -3,7 +3,6 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'luminosity.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -66,7 +65,7 @@ const LUMINOSITY_EFFECT_META = {
         }
 };
 
-const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityEffect extends Clutter.ShaderEffect {
+const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -182,4 +181,4 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
 
 export const LuminosityEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass);

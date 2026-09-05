@@ -19,7 +19,6 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.bg_manager = null;
         this.pipeline = null;
         this.monitor_index = null;
-        this.opacity_factor = 1;
         this.background_opacity = null;
         this.x = null;
         this.y = null;
@@ -60,22 +59,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
             this.settings.popup.PIPELINE,
-            null,
-            {
-                effect_overrides: {
-                    dual_kawase_blur: params => this.get_texture_effect_overrides(params),
-                    downscale: params => this.get_texture_effect_overrides(params),
-                    upscale: params => this.get_texture_effect_overrides(params),
-                    pixelize: params => this.get_pixelize_effect_overrides(params),
-                    derivative: params => this.get_texture_effect_overrides(params),
-                    refraction: params => this.get_refraction_effect_overrides(params),
-                    color: params => this.get_color_effect_overrides(params),
-                    luminosity: params => this.get_luminosity_effect_overrides(params),
-                    noise: params => this.get_noise_effect_overrides(params),
-                    rgb_to_hsl: params => this.get_texture_effect_overrides(params),
-                    hsl_to_rgb: params => this.get_texture_effect_overrides(params),
-                },
-            }
+            null
         );
 
         this.blur_actor = pipeline.create_background_with_effects(
@@ -182,90 +166,22 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             if (this.background_opacity !== opacity)
                 return false;
 
-            const background_actor = this.get_background_actor();
-            return !background_actor || background_actor.opacity === opacity;
+            return this.background_group.opacity === opacity;
         } catch (e) {
             return false;
         }
     }
 
-    set_opacity(opacity, pipeline_opacity = opacity) {
+    set_opacity(opacity) {
         try {
-            this.set_opacity_factor(pipeline_opacity / 255);
             if (!this.background_group_destroyed)
-                this.background_group.opacity = 255;
+                this.background_group.opacity = opacity;
             if (this.blur_actor && !this.blur_actor_destroyed)
                 this.blur_actor.opacity = 255;
 
             this.background_opacity = opacity;
 
-            const background_actor = this.get_background_actor();
-            if (background_actor)
-                background_actor.opacity = opacity;
-
-            if (!this.blur_actor_destroyed)
-                this.blur_actor?.get_children?.().forEach(child => child.opacity = opacity);
         } catch (e) { }
-    }
-
-    set_opacity_factor(opacity_factor) {
-        opacity_factor = Math.max(0, Math.min(1, opacity_factor));
-        if (this.opacity_factor === opacity_factor)
-            return;
-
-        this.opacity_factor = opacity_factor;
-        try {
-            this.pipeline?.apply_effect_overrides();
-        } catch (e) { }
-    }
-
-    get_color_effect_overrides(params) {
-        const overrides = this.get_texture_effect_overrides(params);
-
-        if (Array.isArray(params.color) && params.color.length >= 4)
-            overrides.color = params.color;
-
-        return overrides;
-    }
-
-    get_luminosity_effect_overrides(params) {
-        return this.get_texture_effect_overrides(params);
-    }
-
-    get_noise_effect_overrides(params) {
-        const overrides = this.get_texture_effect_overrides(params);
-
-        if ('noise' in params)
-            overrides.noise = params.noise;
-
-        return overrides;
-    }
-
-    get_refraction_effect_overrides(params) {
-        return {
-            blur_radius: params.blur_radius ?? 10,
-            opacity_factor: (params.opacity_factor ?? 1) * this.opacity_factor,
-        };
-    }
-
-    get_pixelize_effect_overrides(params) {
-        return {
-            opacity_factor: (params.opacity_factor ?? 1) * this.opacity_factor,
-        };
-    }
-
-    get_texture_effect_overrides(params = {}) {
-        return {
-            opacity_factor: (params.opacity_factor ?? 1) * this.opacity_factor,
-        };
-    }
-
-    get_background_actor() {
-        try {
-            return this.bg_manager?.backgroundActor ?? null;
-        } catch (e) {
-            return null;
-        }
     }
 
     update_settings() {
