@@ -62,6 +62,11 @@
     background-color: rgba(255, 255, 255, 0.18) !important;
 }
 
+.bms-popup-background-dark .modal-dialog .button:insensitive,
+.bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:insensitive {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
 .bms-popup-background-dark .quick-toggle,
 .bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
 .bms-popup-background-dark .notification-button {
@@ -231,4 +236,23 @@
 .bms-popup-background-dark .quick-toggle-has-menu:checked .quick-toggle-separator {
     background-color: rgba(255, 255, 255, 0.3);
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 30%);
+}
+
+.bms-popup-background-dark StEntry {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.bms-popup-background-dark StEntry:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important;
+    color: #ffffff !important;
+}
+
+.bms-popup-background-dark StEntry:insensitive {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.bms-popup-background-dark StEntry StLabel.hint-text {
+    color: rgba(255, 255, 255, 0.5) !important;
 }

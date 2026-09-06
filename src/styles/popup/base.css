@@ -338,6 +338,18 @@
     background-color: rgba(255, 255, 255, 0.13) !important
 }
 
+.bms-popup-background-light .screenshot-ui-type-button,
+.bms-popup-background-light .screenshot-ui-show-pointer-button,
+.bms-popup-background-light .screenshot-ui-shot-cast-button {
+    color: #1a1a1e !important;
+}
+
+.bms-popup-background-light .screenshot-ui-type-button:insensitive,
+.bms-popup-background-light .screenshot-ui-show-pointer-button:insensitive,
+.bms-popup-background-light .screenshot-ui-shot-cast-button:insensitive {
+    color: rgba(26, 26, 30, 0.5) !important;
+}
+
 .bms-popup-background-transparent .screenshot-ui-type-button:hover,
 .bms-popup-background-dark .screenshot-ui-type-button:hover {
     background-color: rgba(255, 255, 255, 0.20) !important;
@@ -386,7 +398,7 @@
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:focus,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:checked,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important
+    background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:hover,
@@ -404,6 +416,58 @@
 .bms-popup-background-light .screenshot-ui-show-pointer-button:active,
 .bms-popup-background-light .screenshot-ui-show-pointer-button:outlined {
     background-color: rgba(0, 0, 0, 0.16) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button {
+    border: 4px #1a1a1e !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button .screenshot-ui-capture-button-circle {
+    background-color: #1a1a1e !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button:hover .screenshot-ui-capture-button-circle,
+.bms-popup-background-light .screenshot-ui-capture-button:focus .screenshot-ui-capture-button-circle {
+    background-color: #3a3a3e !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button:active .screenshot-ui-capture-button-circle {
+    background-color: #5a5a5e !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button:cast .screenshot-ui-capture-button-circle {
+    background-color: #c01c28 !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button:cast:hover .screenshot-ui-capture-button-circle,
+.bms-popup-background-light .screenshot-ui-capture-button:cast:focus .screenshot-ui-capture-button-circle {
+    background-color: #d61f2d !important;
+}
+
+.bms-popup-background-light .screenshot-ui-capture-button:cast:active .screenshot-ui-capture-button-circle {
+    background-color: #a11722 !important;
+}
+
+.bms-popup-background-light .screenshot-ui-shot-cast-container {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-shot-cast-button:hover,
+.bms-popup-background-light .screenshot-ui-shot-cast-button:focus {
+    background-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-shot-cast-button:active {
+    background-color: rgba(0, 0, 0, 0.28) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-shot-cast-button:checked {
+    background-color: #1a1a1e !important;
+    color: #ffffff !important;
+}
+
+.bms-popup-background-light .screenshot-ui-shot-cast-button:insensitive {
+    color: rgba(26, 26, 30, 0.5) !important;
 }
 
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-section,
@@ -484,14 +548,19 @@
 
 .bms-popup-background-dark .keyboard-key:checked,
 .bms-popup-background-transparent .keyboard-key:checked,
-.bms-popup-background-dark .keyboard-key:focus,
-.bms-popup-background-transparent .keyboard-key:focus,
 .bms-popup-background-dark .keyboard-subkeys .keyboard-key:checked,
-.bms-popup-background-transparent .keyboard-subkeys .keyboard-key:checked,
-.bms-popup-background-dark .keyboard-subkeys .keyboard-key:focus,
-.bms-popup-background-transparent .keyboard-subkeys .keyboard-key:focus {
+.bms-popup-background-transparent .keyboard-subkeys .keyboard-key:checked {
   background-color: rgba(255, 255, 255, 0.13) !important;
   box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.6);
+  color: #ffffff;
+}
+
+.bms-popup-background-dark .keyboard-key:focus,
+.bms-popup-background-transparent .keyboard-key:focus,
+.bms-popup-background-dark .keyboard-subkeys .keyboard-key:focus,
+.bms-popup-background-transparent .keyboard-subkeys .keyboard-key:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: none;
   color: #ffffff;
 }
 
@@ -592,12 +661,17 @@
 }
 
 .bms-popup-background-light .keyboard-key:checked,
-.bms-popup-background-light .keyboard-key:focus,
-.bms-popup-background-light .keyboard-subkeys .keyboard-key:checked,
-.bms-popup-background-light .keyboard-subkeys .keyboard-key:focus {
+.bms-popup-background-light .keyboard-subkeys .keyboard-key:checked {
   background-color: rgba(0, 0, 0, 0.12) !important;
   box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.6);
   color: #000000;
+}
+
+.bms-popup-background-light .keyboard-key:focus,
+.bms-popup-background-light .keyboard-subkeys .keyboard-key:focus {
+  background-color: rgba(0, 0, 0, 0.07) !important;
+  box-shadow: none;
+  color: #1a1a1a;
 }
 
 .bms-popup-background-light .keyboard-key:grayed {
