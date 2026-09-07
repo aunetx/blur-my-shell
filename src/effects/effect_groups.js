@@ -6,6 +6,7 @@ export function get_effects_groups(_ = _ => '') {
                 'native_static_gaussian_blur',
                 'gaussian_blur',
                 'monte_carlo_blur',
+                'glass',
             ],
         },
         texture_effects: {

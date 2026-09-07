@@ -13,6 +13,8 @@ import { RgbToHslEffect } from './rgb_to_hsl.js';
 import { HslToRgbEffect } from './hsl_to_rgb.js';
 import { LuminosityEffect } from './luminosity.js';
 import { RefractionEffect } from './refraction.js';
+import { GlassEffect } from './glass.js';
+
 export { get_effects_groups } from './effect_groups.js';
 
 export function get_supported_effects(_ = () => "") {
@@ -493,6 +495,111 @@ export function get_supported_effects(_ = () => "") {
             description: _("Converts the image from HSLA colorspace to RGBA."),
             is_advanced: true,
             editable_params: {}
+        },
+
+        glass: {
+            class: GlassEffect,
+            name: _("Glass"),
+            description: _("A glass refraction effect that simulates a lens distorting the background."),
+            is_advanced: false,
+            editable_params: {
+                radius: {
+                    name: _("Corner radius"),
+                    description: _("The radius of the glass corners."),
+                    type: "integer",
+                    min: 5,
+                    max: 150,
+                    increment: 1,
+                },
+                refraction: {
+                    name: _("Refraction"),
+                    description: _("How strong the light refract along the edges."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+                depth: {
+                    name: _("Depth"),
+                    description: _("How thick your refraction appears from the edges."),
+                    type: "float",
+                    min: 0.,
+                    max: 50.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+                dispersion: {
+                    name: _("Dispersion"),
+                    description: _("Chromatic aberration at the edges of your glass."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+                splay: {
+                    name: _("Splay"),
+                    description: _("The spread of how light bends around edges."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+                light_angle: {
+                    name: _("Light angle"),
+                    description: _("The direction the light hits the glass surface."),
+                    type: "integer",
+                    min: 0,
+                    max: 360,
+                    increment: 1,
+                },
+                light_intensity: {
+                    name: _("Light intensity"),
+                    description: _("How bright the rim light and shadow appear."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+                light_ambient: {
+                    name: _("Light ambient"),
+                    description: _("The base brightness applied evenly around the edges."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+                light_depth: {
+                    name: _("Light depth"),
+                    description: _("How far the rim light extends inward from the border."),
+                    type: "float",
+                    min: 0.,
+                    max: 10.,
+                    increment: 1.,
+                    big_increment: 2.,
+                    digits: 0.
+                },
+                light_feather: {
+                    name: _("Light feather"),
+                    description: _("How softly the rim light fades toward the center."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0.
+                },
+            }
         },
 
         corner: {
