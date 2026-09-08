@@ -275,17 +275,21 @@ void main() {
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     } else {
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
-        rimRadius = min(rimRadius, max(1.0, R));
-        float horizontalDistance = min(glassPx.x, W - glassPx.x);
-        if (corners_top == 0)
-            rimRadius = min(rimRadius, max(1.0, max(glassPx.y, horizontalDistance)));
-        if (corners_bottom == 0)
-            rimRadius = min(rimRadius, max(1.0, max(H - glassPx.y, horizontalDistance)));
+        rimRadius = min(rimRadius, shortestSide * 0.5);
+        if (R > 0.0 && (corners_top != 0 || corners_bottom != 0))
+            rimRadius = min(rimRadius, max(1.0, R));
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
+        if (roundingRadius == 0.0 && distFromSide < refractionBand) {
+            vec2 sideDistances = min(glassPx, glassSize - glassPx);
+            vec2 sideWeights = vec2(1.0) - smoothstep(vec2(0.0), vec2(refractionBand), sideDistances);
+            vec2 sideNormal = sign(glassPx - halfSize) * sideWeights;
+            dir = sideNormal / max(length(sideNormal), 0.0001);
+        }
     }
 
-    if (!useCircularSurface && R < shortestSide * 0.45 && distFromSide >= refractionBand) {
+    if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
+        && distFromSide >= refractionBand) {
         vec4 sourceSample = sampleGlassBackdrop(actorUV);
         vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
         vec4 flatSample = sampleGlassBackdrop(flatUV);
