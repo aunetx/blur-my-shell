@@ -94,6 +94,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.settings.popup.PIPELINE,
             {
                 corner_radius: this.get_corner_radius(),
+                get_corners: () => this.settings.popup.ROUNDED_CORNERS,
             }
         );
         this.blur_actor = this.pipeline.create_actor('bms-popup-blurred-widget');

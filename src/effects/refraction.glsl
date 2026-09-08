@@ -6,6 +6,8 @@ uniform float strength;
 uniform float edge_size;
 uniform float falloff;
 uniform float corner_radius;
+uniform int corners_top;
+uniform int corners_bottom;
 uniform float rim_width;
 uniform float rgb_fringing;
 uniform float gloss;
@@ -126,8 +128,8 @@ float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
 float edgeCoverage(float signedDistance) {
     float antialiasWidth = max(fwidth(signedDistance), 0.0001);
     return 1.0 - smoothstep(
-        -antialiasWidth * 0.75,
-        antialiasWidth * 0.75,
+        -antialiasWidth * 0.5,
+        antialiasWidth * 0.5,
         signedDistance
     );
 }
@@ -220,10 +222,6 @@ void main() {
         ? vec4(0.0, 0.0, width, height)
         : vec4(clip_x0, clip_y0, clip_x0 + clip_width, clip_y0 + clip_height);
 
-    vec2 pixelSize = max(fwidth(actorPx), vec2(0.0001));
-    bounds.xy += pixelSize * 0.5;
-    bounds.zw -= pixelSize * 0.5;
-
     vec2 glassSize = max(bounds.zw - bounds.xy, vec2(1.0));
     vec2 glassPx = actorPx - bounds.xy;
     vec2 halfSize = glassSize * 0.5;
@@ -233,14 +231,19 @@ void main() {
     float H = glassSize.y;
     float shortestSide = min(W, H);
     float R = clamp(corner_radius, 0.0, shortestSide * 0.5);
+    float roundingRadius = R;
+    if ((glassPx.y < H * 0.5 && corners_top == 0)
+        || (glassPx.y >= H * 0.5 && corners_bottom == 0))
+        roundingRadius = 0.0;
     float bezel = max(1.0, min(edge_size, shortestSide * 0.5));
     float glassThickness = max(0.5, edge_size * 0.55 * falloff);
     float eta = 1.0 / REFRACTIVE_INDEX;
 
     bool nearlySquare = abs(W - H) < max(4.0, shortestSide * 0.035);
-    bool useCircularSurface = nearlySquare && R >= shortestSide * 0.5 - 0.5;
+    bool useCircularSurface = corners_top != 0 && corners_bottom != 0
+        && nearlySquare && R >= shortestSide * 0.5 - 0.5;
 
-    EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, R);
+    EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, roundingRadius);
     if (edge.alpha <= 0.0) {
         cogl_color_out = vec4(0.0);
         return;
@@ -273,6 +276,11 @@ void main() {
     } else {
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
         rimRadius = min(rimRadius, max(1.0, R));
+        float horizontalDistance = min(glassPx.x, W - glassPx.x);
+        if (corners_top == 0)
+            rimRadius = min(rimRadius, max(1.0, max(glassPx.y, horizontalDistance)));
+        if (corners_bottom == 0)
+            rimRadius = min(rimRadius, max(1.0, max(H - glassPx.y, horizontalDistance)));
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     }

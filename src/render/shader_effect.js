@@ -2,6 +2,7 @@ import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
+import { getEffectBounds } from './effect_bounds.js';
 
 export const SurfaceShaderEffect = GObject.registerClass({
     GTypeName: 'BmsSurfaceShaderEffect',
@@ -72,8 +73,8 @@ export const SurfaceShaderEffect = GObject.registerClass({
     }
 
     syncGeometry(actor) {
-        const [x, y, width, height] = actor.has_clip
-            ? actor.get_clip() : [0, 0, actor.width, actor.height];
+        const bounds = getEffectBounds(actor);
+        const {width, height} = bounds;
         const defaults = this.constructor.default_params;
         if (Object.hasOwn(defaults, 'width'))
             this.width = width;
@@ -84,7 +85,7 @@ export const SurfaceShaderEffect = GObject.registerClass({
             if (clip.some((value, index) => value !== this.clip[index]))
                 this.clip = clip;
         }
-        return {x, y, width, height};
+        return bounds;
     }
 
     vfunc_paint(node, paintContext, flags) {

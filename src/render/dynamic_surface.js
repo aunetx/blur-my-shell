@@ -12,6 +12,7 @@ export class DynamicPipeline {
         this.pipelineId = pipelineId;
         this.fixedBlurPasses = options.fixed_blur_passes ?? false;
         this.cornerRadius = options.corner_radius ?? null;
+        this.getCorners = options.get_corners;
         this.opacityFactor = 1;
         this.actor = null;
         this.contentActor = null;
@@ -84,7 +85,8 @@ export class DynamicPipeline {
         if (this.cornerRadius !== null) {
             this.roundedPipeline = new RoundedPipeline(
                 this.effectsManager,
-                () => this.cornerRadius
+                () => this.cornerRadius,
+                this.getCorners
             );
             this.roundedPipeline.bind(this.pipeline, this.contentActor);
         }

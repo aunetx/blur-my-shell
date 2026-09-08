@@ -271,7 +271,8 @@ export const PanelBlur = class PanelBlur {
                 bg_manager = bg_manager_list[0];
                 rounded_pipeline = new RoundedPipeline(
                     this.effects_manager,
-                    () => this.settings.panel.CORNER_RADIUS
+                    () => this.settings.panel.CORNER_RADIUS,
+                    () => this.settings.panel.ROUNDED_CORNERS
                 );
                 rounded_pipeline.bind(pipeline, background);
             } else {
@@ -281,6 +282,7 @@ export const PanelBlur = class PanelBlur {
                     this.settings.panel.PIPELINE,
                     {
                         corner_radius: this.settings.panel.CORNER_RADIUS,
+                        get_corners: () => this.settings.panel.ROUNDED_CORNERS,
                     }
                 );
                 [background, bg_manager] = pipeline.create_background_with_effect(

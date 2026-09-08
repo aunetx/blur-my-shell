@@ -437,7 +437,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 bg_manager = bg_managers[0];
                 rounded_pipeline = new RoundedPipeline(
                     this.effects_manager,
-                    () => this.settings.applications.CORNER_RADIUS
+                    () => this.settings.applications.CORNER_RADIUS,
+                    () => this.settings.applications.ROUNDED_CORNERS
                 );
                 rounded_pipeline.bind(pipeline, blur_actor);
             } else {
@@ -447,6 +448,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                     this.settings.applications.PIPELINE,
                     {
                         corner_radius: this.settings.applications.CORNER_RADIUS,
+                        get_corners: () => this.settings.applications.ROUNDED_CORNERS,
                     }
                 );
                 [blur_actor, bg_manager] = pipeline.create_background_with_effect(

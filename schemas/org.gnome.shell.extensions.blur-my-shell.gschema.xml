@@ -182,6 +182,11 @@
             <default>0</default>
             <summary>Radius for the corner rounding effect</summary>
         </key>
+        <key type="i" name="rounded-corners">
+            <default>0</default>
+            <range min="0" max="3"/>
+            <summary>Corners to round (0 all, 1 top, 2 bottom, 3 none)</summary>
+        </key>
         <!-- COLOR -->
         <key type="(dddd)" name="color">
             <default>(0.,0.,0.,0.)</default>
@@ -312,6 +317,11 @@
             <default>18</default>
             <summary>Radius for the corner rounding effect</summary>
         </key>
+        <key type="i" name="rounded-corners">
+            <default>0</default>
+            <range min="0" max="3"/>
+            <summary>Corners to round (0 all, 1 top, 2 bottom, 3 none)</summary>
+        </key>
     </schema>
 
     <!-- APPLICATIONS -->
@@ -351,6 +361,11 @@
         <key type="i" name="corner-radius">
             <default>15</default>
             <summary>Radius for the corner rounding effect</summary>
+        </key>
+        <key type="i" name="rounded-corners">
+            <default>0</default>
+            <range min="0" max="3"/>
+            <summary>Corners to round (0 all, 1 top, 2 bottom, 3 none)</summary>
         </key>
         <!-- CORNER WHEN MAXIMIZED -->
         <key type="b" name="corner-when-maximized">
@@ -591,6 +606,11 @@
         <key type="i" name="corner-radius">
             <default>18</default>
             <summary>Radius for the corner rounding effect</summary>
+        </key>
+        <key type="i" name="rounded-corners">
+            <default>0</default>
+            <range min="0" max="3"/>
+            <summary>Corners to round (0 all, 1 top, 2 bottom, 3 none)</summary>
         </key>
         <!-- MENU CORNER RADIUS -->
         <key type="i" name="menu-corner-radius">

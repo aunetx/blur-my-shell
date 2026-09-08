@@ -14,6 +14,7 @@ export const Panel = GObject.registerClass({
         'mode_dynamic',
         'corner_radius_row',
         'corner_radius',
+        'rounded_corners',
         'unblur_in_overview',
         'force_light_text',
         'override_background',
@@ -56,6 +57,10 @@ export const Panel = GObject.registerClass({
 
         this.preferences.panel.settings.bind(
             'corner-radius', this._corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.panel.settings.bind(
+            'rounded-corners', this._rounded_corners, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.panel.settings.bind(

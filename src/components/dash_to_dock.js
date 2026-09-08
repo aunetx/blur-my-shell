@@ -346,7 +346,8 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
                 bg_manager = bg_manager_list[0];
                 rounded_pipeline = new RoundedPipeline(
                     this.effects_manager,
-                    () => this.settings.dash_to_dock.CORNER_RADIUS
+                    () => this.settings.dash_to_dock.CORNER_RADIUS,
+                    () => this.settings.dash_to_dock.ROUNDED_CORNERS
                 );
                 rounded_pipeline.bind(pipeline, background);
                 if (bg_manager)
@@ -358,6 +359,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
                     this.settings.dash_to_dock.PIPELINE,
                     {
                         corner_radius: this.settings.dash_to_dock.CORNER_RADIUS,
+                        get_corners: () => this.settings.dash_to_dock.ROUNDED_CORNERS,
                     }
                 );
                 [background, bg_manager] = pipeline.create_background_with_effect(

@@ -25,9 +25,6 @@ void main() {
     vec4 bounds = clip_width < 0.0 || clip_height < 0.0
         ? vec4(0.0, 0.0, actorSize)
         : vec4(clip_x0, clip_y0, clip_x0 + clip_width, clip_y0 + clip_height);
-    vec2 pixelSize = max(fwidth(position), vec2(0.0001));
-    bounds.xy += pixelSize * 0.5;
-    bounds.zw -= pixelSize * 0.5;
     vec2 size = max(bounds.zw - bounds.xy, vec2(1.0));
     vec2 local = position - bounds.xy;
     float cornerRadius = min(radius, min(size.x, size.y) * 0.5);
@@ -40,8 +37,8 @@ void main() {
     float distance = roundedBoxDistance(local - size * 0.5, size * 0.5, cornerRadius);
     float antialiasWidth = max(fwidth(distance), 0.0001);
     float coverage = 1.0 - smoothstep(
-        -antialiasWidth * 0.75,
-        antialiasWidth * 0.75,
+        -antialiasWidth * 0.5,
+        antialiasWidth * 0.5,
         distance
     );
     cogl_color_out = texture2D(tex, uv) * coverage;

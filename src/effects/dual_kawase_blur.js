@@ -1,6 +1,7 @@
 import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
+import { getEffectBounds } from '../render/effect_bounds.js';
 
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
@@ -73,19 +74,20 @@ function createSnippet(declarations, code) {
     return snippet;
 }
 
-function configureFramebuffer(framebuffer, width, height, logicalWidth, logicalHeight) {
+function configureFramebuffer(framebuffer, width, height, bounds) {
     framebuffer.set_viewport(0, 0, width, height);
-    framebuffer.orthographic(0, 0, logicalWidth, logicalHeight, -1, 1);
+    framebuffer.orthographic(bounds.x, bounds.y,
+        bounds.x + bounds.width, bounds.y + bounds.height, -1, 1);
 }
 
-function createRenderTarget(context, width, height, logicalWidth, logicalHeight) {
+function createRenderTarget(context, width, height, bounds) {
     const texture = Cogl.Texture2D.new_with_size(context, width, height);
     texture.set_components(Cogl.TextureComponents.RGBA);
     texture.allocate();
 
     const framebuffer = Cogl.Offscreen.new_with_texture(texture);
     framebuffer.allocate();
-    configureFramebuffer(framebuffer, width, height, logicalWidth, logicalHeight);
+    configureFramebuffer(framebuffer, width, height, bounds);
 
     const layerPipeline = Cogl.Pipeline.new(context);
     layerPipeline.set_layer_texture(0, texture);
@@ -110,7 +112,7 @@ function setVector2(pipeline, name, x, y) {
     pipeline.set_uniform_float(pipeline.get_uniform_location(name), 2, 1, [x, y]);
 }
 
-function addPassNode(parent, target, pipeline, width, height, name) {
+function addPassNode(parent, target, pipeline, bounds, name) {
     const layerNode = Clutter.LayerNode.new_to_framebuffer(
         target.framebuffer,
         target.layerPipeline
@@ -121,10 +123,10 @@ function addPassNode(parent, target, pipeline, width, height, name) {
     const pipelineNode = new Clutter.PipelineNode(pipeline);
     pipelineNode.set_name(`${name} sample`);
     pipelineNode.add_rectangle(new Clutter.ActorBox({
-        x1: 0,
-        y1: 0,
-        x2: width,
-        y2: height,
+        x1: bounds.x,
+        y1: bounds.y,
+        x2: bounds.x + bounds.width,
+        y2: bounds.y + bounds.height,
     }));
     layerNode.add_child(pipelineNode);
 }
@@ -165,6 +167,8 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.height = 0;
         this.logicalWidth = 0;
         this.logicalHeight = 0;
+        this.x = 0;
+        this.y = 0;
         this.scale = 0;
         this.context = null;
         this.appliedOffset = null;
@@ -248,7 +252,8 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         return { passes, offset };
     }
 
-    ensureTargets(context, logicalWidth, logicalHeight, scale, passes) {
+    ensureTargets(context, bounds, scale, passes) {
+        const {x, y, width: logicalWidth, height: logicalHeight} = bounds;
         const width = Math.max(1, Math.ceil(logicalWidth * scale));
         const height = Math.max(1, Math.ceil(logicalHeight * scale));
         const canReuseTargets =
@@ -261,6 +266,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             if (
                 this.logicalWidth !== logicalWidth
                 || this.logicalHeight !== logicalHeight
+                || this.x !== x || this.y !== y
             ) {
                 [...this.downTargets, ...this.upTargets].forEach(target => {
                     if (target) {
@@ -268,13 +274,14 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                             target.framebuffer,
                             target.width,
                             target.height,
-                            logicalWidth,
-                            logicalHeight
+                            bounds
                         );
                     }
                 });
                 this.logicalWidth = logicalWidth;
                 this.logicalHeight = logicalHeight;
+                this.x = x;
+                this.y = y;
             }
             return;
         }
@@ -286,8 +293,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 context,
                 Math.max(1, Math.ceil(width / divider)),
                 Math.max(1, Math.ceil(height / divider)),
-                logicalWidth,
-                logicalHeight
+                bounds
             ));
         }
 
@@ -308,8 +314,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 context,
                 Math.max(1, Math.ceil(width / divider)),
                 Math.max(1, Math.ceil(height / divider)),
-                logicalWidth,
-                logicalHeight
+                bounds
             );
             this.upTargets[level] = target;
             this.upPipelines[level] = this.createPass(
@@ -333,6 +338,8 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.height = height;
         this.logicalWidth = logicalWidth;
         this.logicalHeight = logicalHeight;
+        this.x = x;
+        this.y = y;
         this.scale = scale;
         this.context = context;
         this.appliedOffset = this.offset;
@@ -380,8 +387,9 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
 
     vfunc_paint_node(node, paintContext, flags) {
         const actor = this.get_actor();
-        const logicalWidth = Math.max(1, actor.width);
-        const logicalHeight = Math.max(1, actor.height);
+        const bounds = getEffectBounds(actor);
+        if (bounds.width <= 0 || bounds.height <= 0)
+            return;
         const { passes, offset } = this.getPassConfiguration();
         if (passes === 0) {
             if (this.downTargets.length > 0)
@@ -393,7 +401,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const context = paintContext.get_framebuffer().get_context();
         const scale = actor.get_resource_scale();
         this.offset = offset;
-        this.ensureTargets(context, logicalWidth, logicalHeight, scale, passes);
+        this.ensureTargets(context, bounds, scale, passes);
         this.updatePassOffsets(offset);
 
         const actorLayer = Clutter.LayerNode.new_to_framebuffer(
@@ -409,8 +417,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 node,
                 this.downTargets[level],
                 this.downPipelines[level],
-                logicalWidth,
-                logicalHeight,
+                bounds,
                 `BmsDualKawase downsample ${level}`
             );
         }
@@ -420,8 +427,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 node,
                 this.upTargets[level],
                 this.upPipelines[level],
-                logicalWidth,
-                logicalHeight,
+                bounds,
                 `BmsDualKawase upsample ${level}`
             );
         }
@@ -433,10 +439,10 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const outputNode = new Clutter.PipelineNode(this.outputPipeline);
         outputNode.set_name('BmsDualKawase output');
         outputNode.add_rectangle(new Clutter.ActorBox({
-            x1: 0,
-            y1: 0,
-            x2: logicalWidth,
-            y2: logicalHeight,
+            x1: bounds.x,
+            y1: bounds.y,
+            x2: bounds.x + bounds.width,
+            y2: bounds.y + bounds.height,
         }));
         node.add_child(outputNode);
     }

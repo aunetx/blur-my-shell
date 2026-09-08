@@ -35,6 +35,7 @@ export const Applications = GObject.registerClass({
         'mode_dynamic',
         'corner_radius_row',
         'corner_radius',
+        'rounded_corners',
         'corner_when_maximized_row',
         'corner_when_maximized',
         'opacity',
@@ -96,6 +97,10 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'corner-radius', this._corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'rounded-corners', this._rounded_corners, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(

@@ -120,6 +120,23 @@
                 <property name="adjustment">corner_radius_adjustment</property>
               </object>
             </child>
+
+            <child>
+              <object class="AdwComboRow" id="rounded_corners">
+                <property name="title" translatable="yes">Rounded corners</property>
+                <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item translatable="yes">All</item>
+                      <item translatable="yes">Top only</item>
+                      <item translatable="yes">Bottom only</item>
+                      <item translatable="yes">None</item>
+                    </items>
+                  </object>
+                </property>
+              </object>
+            </child>
           </object>
         </child>
 

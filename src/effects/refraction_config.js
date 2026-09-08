@@ -8,6 +8,8 @@ export const DEFAULT_PARAMS = {
     edge_size: 22,
     falloff: 2.4,
     corner_radius: 0,
+    corners_top: true,
+    corners_bottom: true,
     rim_width: 4.8,
     rgb_fringing: 0.1,
     gloss: 1,
@@ -58,6 +60,14 @@ export const REFRACTION_EFFECT_META = {
         corner_radius: doubleProperty(
             'corner_radius', 'Corner Radius', 'Refraction corner radius',
             0, 200, DEFAULT_PARAMS.corner_radius
+        ),
+        corners_top: GObject.ParamSpec.boolean(
+            'corners_top', 'Round top corners', 'Round top corners',
+            GObject.ParamFlags.READWRITE, DEFAULT_PARAMS.corners_top
+        ),
+        corners_bottom: GObject.ParamSpec.boolean(
+            'corners_bottom', 'Round bottom corners', 'Round bottom corners',
+            GObject.ParamFlags.READWRITE, DEFAULT_PARAMS.corners_bottom
         ),
         rim_width: doubleProperty(
             'rim_width', 'Rim Width', 'Refraction rim width',

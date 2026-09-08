@@ -77,6 +77,7 @@ export const PopupBlur = class PopupBlur {
             () => this.surfaces.forEach(surface => surface.queue_update())
         );
         const radius_keys = new Set([
+            'rounded-corners',
             DEFAULT_CORNER_RADIUS.key,
             ...POPUP_CORNER_RADII.map(radius => radius.key),
         ]);

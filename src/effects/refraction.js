@@ -115,6 +115,28 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             return this._rim_width;
         }
 
+        get corners_top() {
+            return this._corners_top;
+        }
+
+        set corners_top(value) {
+            if (this._corners_top !== value) {
+                this._corners_top = value;
+                uniforms.set_uniform(this, 'corners_top', value ? 1 : 0);
+            }
+        }
+
+        get corners_bottom() {
+            return this._corners_bottom;
+        }
+
+        set corners_bottom(value) {
+            if (this._corners_bottom !== value) {
+                this._corners_bottom = value;
+                uniforms.set_uniform(this, 'corners_bottom', value ? 1 : 0);
+            }
+        }
+
         set rim_width(value) {
             const rim_width = utils.clamp(value, 1, 6.5, DEFAULT_PARAMS.rim_width);
             if (this._rim_width !== rim_width) {

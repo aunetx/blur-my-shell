@@ -81,6 +81,7 @@ For the difference between static blur and dynamic blur:
   - Dual Kawase performs its expensive passes on progressively smaller textures, while effect textures are retained only while their surface is attached
   - liquid glass uses the same Dual Kawase backend for its optional blur prepass
   - rounded corners are handled automatically by the extension's antialiased mask and are not part of the configurable pipeline
+  - panel, dock, application and popup settings let you round all corners, only the top or bottom corners, or none; this applies to both static and dynamic blur, including liquid glass
 
 ## Extensions compatibility
 

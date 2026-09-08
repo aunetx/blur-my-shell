@@ -1,7 +1,10 @@
+import { getRoundedCorners } from './corner_policy.js';
+
 export class RoundedPipeline {
-    constructor(effectsManager, getRadius) {
+    constructor(effectsManager, getRadius, getCorners = () => 0) {
         this.effectsManager = effectsManager;
         this.getRadius = getRadius;
+        this.getCorners = getCorners;
         this.pipeline = null;
         this.actor = null;
         this.effect = null;
@@ -45,12 +48,14 @@ export class RoundedPipeline {
             this.effect = this.effectsManager.new_corner_effect({
                 radius: this.getRadius(),
                 straight_corners: Boolean(this.straightCorners),
+                ...getRoundedCorners(this.getCorners()),
             });
             this.attachEffectAsOutermost(this.effect);
             return;
         }
 
         this.effect.radius = this.getRadius();
+        Object.assign(this.effect, getRoundedCorners(this.getCorners()));
     }
 
     attachEffectAsOutermost(outermostEffect) {
@@ -91,7 +96,10 @@ export class RoundedPipeline {
 
     updateRefractionCorners(effects = this.getRefractionEffects()) {
         const radius = this.straightCorners ? 0 : this.getRadius();
-        effects.forEach(effect => effect.corner_radius = radius);
+        effects.forEach(effect => {
+            effect.corner_radius = radius;
+            Object.assign(effect, getRoundedCorners(this.getCorners()));
+        });
     }
 
     syncPipelineSignals(force = false) {

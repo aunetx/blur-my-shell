@@ -62,13 +62,15 @@ export const OverviewBlur = class OverviewBlur {
 
         this._original_PrepareSwitch = wac_proto._prepareWorkspaceSwitch;
         this._original_FinishSwitch = wac_proto._finishWorkspaceSwitch;
+        const originalPrepareSwitch = this._original_PrepareSwitch;
+        const originalFinishSwitch = this._original_FinishSwitch;
         const generation = ++this.patch_generation;
         this.active_patch_generation = generation;
 
         const overview_blur = this;
         this._patched_PrepareSwitch = function (...params) {
             const had_switch = !!this._switchData;
-            const result = overview_blur._original_PrepareSwitch.apply(this, params);
+            const result = originalPrepareSwitch.apply(this, params);
             if (
                 overview_blur.enabled
                 && overview_blur.active_patch_generation === generation
@@ -79,7 +81,7 @@ export const OverviewBlur = class OverviewBlur {
         };
         this._patched_FinishSwitch = function (...params) {
             try {
-                return overview_blur._original_FinishSwitch.apply(this, params);
+                return originalFinishSwitch.apply(this, params);
             } finally {
                 if (
                     overview_blur.enabled

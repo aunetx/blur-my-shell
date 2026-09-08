@@ -1,3 +1,5 @@
+import { getRoundedCorners } from '../../render/corner_policy.js';
+
 const LIQUID_GLASS_STYLE_CLASS = 'bms-popup-liquid-glass';
 
 export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
@@ -33,10 +35,14 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
 
         const base_style = this.original_target_style ?? '';
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
+        const corners = getRoundedCorners(this.surface.settings.popup.ROUNDED_CORNERS);
+        const radius = this.surface.get_corner_radius();
+        const top = corners.corners_top ? radius : 0;
+        const bottom = corners.corners_bottom ? radius : 0;
 
         try {
             this.surface.target.set_style(
-                `${base_style}${separator}border-radius: ${this.surface.get_corner_radius()}px;`
+                `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`
             );
             this.target_style_set = true;
         } catch (e) {

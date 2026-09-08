@@ -76,6 +76,23 @@
         </child>
 
         <child>
+          <object class="AdwComboRow" id="rounded_corners">
+            <property name="title" translatable="yes">Rounded corners</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+            <property name="model">
+              <object class="GtkStringList">
+                <items>
+                  <item translatable="yes">All</item>
+                  <item translatable="yes">Top only</item>
+                  <item translatable="yes">Bottom only</item>
+                  <item translatable="yes">None</item>
+                </items>
+              </object>
+            </property>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwActionRow" id="corner_when_maximized_row">
             <property name="title" translatable="yes">Enable corner rounding on maximized and fullscreen</property>
             <property name="subtitle" translatable="yes">Corner rounding effect will keep being applied to maximized and fullscreen windows.</property>

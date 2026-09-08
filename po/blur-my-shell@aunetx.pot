@@ -1060,3 +1060,28 @@ msgstr[1] ""
 #: src/preferences/pipelines_management/pipeline_group.js:95
 msgid "Unknown effect"
 msgstr ""
+
+#: resources/ui/applications.ui:80 resources/ui/dash.ui:80
+#: resources/ui/panel.ui:80 resources/ui/popup.ui:126
+msgid "Rounded corners"
+msgstr ""
+
+#: resources/ui/applications.ui:85 resources/ui/dash.ui:85
+#: resources/ui/panel.ui:85 resources/ui/popup.ui:131
+msgid "All"
+msgstr ""
+
+#: resources/ui/applications.ui:86 resources/ui/dash.ui:86
+#: resources/ui/panel.ui:86 resources/ui/popup.ui:132
+msgid "Top only"
+msgstr ""
+
+#: resources/ui/applications.ui:87 resources/ui/dash.ui:87
+#: resources/ui/panel.ui:87 resources/ui/popup.ui:133
+msgid "Bottom only"
+msgstr ""
+
+#: resources/ui/applications.ui:88 resources/ui/dash.ui:88
+#: resources/ui/panel.ui:88 resources/ui/popup.ui:134
+msgid "None"
+msgstr ""

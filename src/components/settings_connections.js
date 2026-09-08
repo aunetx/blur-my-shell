@@ -62,10 +62,12 @@ export function connect_component_settings(extension) {
         panel,
         () => panel.update_pipeline()
     ));
-    connect(settings.panel, 'CORNER_RADIUS', when_enabled(
-        panel,
-        () => panel.update_corner_radius()
-    ));
+    ['CORNER_RADIUS', 'ROUNDED_CORNERS'].forEach(property =>
+        connect(settings.panel, property, when_enabled(
+            panel,
+            () => panel.update_corner_radius()
+        ))
+    );
     ['UNBLUR_IN_OVERVIEW', 'STYLE_PANEL'].forEach(property =>
         connect(settings.panel, property, when_enabled(
             panel,
@@ -92,10 +94,12 @@ export function connect_component_settings(extension) {
         dash,
         () => dash.update_pipeline()
     ));
-    connect(settings.dash_to_dock, 'CORNER_RADIUS', when_enabled(
-        dash,
-        () => dash.update_corner_radius()
-    ));
+    ['CORNER_RADIUS', 'ROUNDED_CORNERS'].forEach(property =>
+        connect(settings.dash_to_dock, property, when_enabled(
+            dash,
+            () => dash.update_corner_radius()
+        ))
+    );
     ['OVERRIDE_BACKGROUND', 'STYLE_DASH_TO_DOCK'].forEach(property =>
         connect(settings.dash_to_dock, property, when_enabled(
             dash,
@@ -116,7 +120,7 @@ export function connect_component_settings(extension) {
         applications,
         () => applications.change_pipeline()
     ));
-    ['CORNER_WHEN_MAXIMIZED', 'CORNER_RADIUS'].forEach(property =>
+    ['CORNER_WHEN_MAXIMIZED', 'CORNER_RADIUS', 'ROUNDED_CORNERS'].forEach(property =>
         connect(settings.applications, property, when_enabled(
             applications,
             () => applications.update_all_corner_radii()

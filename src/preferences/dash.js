@@ -14,6 +14,7 @@ export const Dash = GObject.registerClass({
         'mode_dynamic',
         'corner_radius_row',
         'corner_radius',
+        'rounded_corners',
         'override_background',
         'style_dash_to_dock',
         'unblur_in_overview'
@@ -46,6 +47,10 @@ export const Dash = GObject.registerClass({
 
         this.preferences.dash_to_dock.settings.bind(
             'corner-radius', this._corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.dash_to_dock.settings.bind(
+            'rounded-corners', this._rounded_corners, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_dock.settings.bind(
