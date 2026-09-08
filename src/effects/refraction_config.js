@@ -13,6 +13,7 @@ export const DEFAULT_PARAMS = {
     rim_width: 4.8,
     rgb_fringing: 0.1,
     gloss: 1,
+    fresnel_angle: -45,
     webcam_gloss: false,
     webcam_device: '',
     tint: 0.2,
@@ -47,7 +48,7 @@ export const REFRACTION_EFFECT_META = {
         ),
         edge_size: doubleProperty(
             'edge_size', 'Edge Size', 'Refraction edge size',
-            1, 200, DEFAULT_PARAMS.edge_size
+            1, 500, DEFAULT_PARAMS.edge_size
         ),
         blur_radius: doubleProperty(
             'blur_radius', 'Blur Radius', 'Internal glass blur radius',
@@ -55,7 +56,7 @@ export const REFRACTION_EFFECT_META = {
         ),
         falloff: doubleProperty(
             'falloff', 'Falloff', 'Refraction falloff',
-            0.25, 8, DEFAULT_PARAMS.falloff
+            0.25, 20, DEFAULT_PARAMS.falloff
         ),
         corner_radius: doubleProperty(
             'corner_radius', 'Corner Radius', 'Refraction corner radius',
@@ -80,6 +81,10 @@ export const REFRACTION_EFFECT_META = {
         gloss: doubleProperty(
             'gloss', 'Gloss', 'Specular highlight strength',
             0, 1, DEFAULT_PARAMS.gloss
+        ),
+        fresnel_angle: doubleProperty(
+            'fresnel_angle', 'Fresnel Angle', 'Light direction of the fresnel glare, in degrees',
+            -180, 180, DEFAULT_PARAMS.fresnel_angle
         ),
         webcam_gloss: GObject.ParamSpec.boolean(
             'webcam_gloss',

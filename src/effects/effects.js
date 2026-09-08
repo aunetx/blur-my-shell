@@ -293,7 +293,7 @@ export function get_supported_effects(_ = () => "") {
                     description: _("How far the liquid-glass lens reaches inward from the edge."),
                     type: "float",
                     min: 1.,
-                    max: 100.,
+                    max: 500.,
                     increment: 1.,
                     big_increment: 10.,
                     digits: 0
@@ -310,23 +310,33 @@ export function get_supported_effects(_ = () => "") {
                 },
                 falloff: {
                     name: _("Glass thickness"),
-                    description: _("Depth used by the Snell-style refraction profile."),
+                    description: _("Depth used by the refraction edge profile."),
                     type: "float",
                     min: 0.25,
-                    max: 8.,
+                    max: 20.,
                     increment: 0.05,
                     big_increment: 0.5,
                     digits: 2
                 },
                 gloss: {
                     name: _("Fresnel glare"),
-                    description: _("Strength of the Schlick fresnel rim glare from the glass edge."),
+                    description: _("Strength of the directional fresnel glare from the glass edge."),
                     type: "float",
                     min: 0.,
                     max: 1.,
                     increment: 0.01,
                     big_increment: 0.1,
                     digits: 2
+                },
+                fresnel_angle: {
+                    name: _("Fresnel glare angle"),
+                    description: _("Light direction of the fresnel glare, in degrees (0 is to the right, 90 is down)."),
+                    type: "float",
+                    min: -180.,
+                    max: 180.,
+                    increment: 5.,
+                    big_increment: 45.,
+                    digits: 0
                 },
                 tint: {
                     name: _("Tint strength"),
