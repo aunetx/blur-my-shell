@@ -263,7 +263,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return this.static_actor.has_opacity(opacity);
         if (this.is_owned_actor_destroyed())
             return false;
-        return this.actor.opacity === opacity;
+        return this.actor.opacity === opacity
+            && this.pipeline?.opacityFactor === this.get_pipeline_opacity(opacity) / 255;
     }
 
     update_surface_opacity(opacity) {
