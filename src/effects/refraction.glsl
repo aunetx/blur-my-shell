@@ -26,6 +26,7 @@ uniform float rim_width;
 uniform float rgb_fringing;
 uniform float gloss;
 uniform float fresnel_angle;
+uniform float fresnel_width;
 uniform float tint;
 uniform float tint_r;
 uniform float tint_g;
@@ -55,7 +56,8 @@ float quartzGlassHighlight(float distanceFromEdge,
                            float angle) {
     float normalLength = max(length(surfaceNormal), 0.001);
     vec2 normal = surfaceNormal / normalLength;
-    float ringWidth = clamp(bezelWidth * 0.24, 1.0, 2.5);
+    float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width, 1.0,
+                            2.5 * fresnel_width);
     float aa = 1.0;
 
     float outerCoverage = clamp(distanceFromEdge / aa + 0.5, 0.0, 1.0);

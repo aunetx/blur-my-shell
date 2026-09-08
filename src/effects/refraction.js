@@ -194,7 +194,21 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             }
         }
 
-        get webcam_gloss() {
+        get fresnel_width() {
+            return this._fresnel_width;
+        }
+
+        set fresnel_width(value) {
+            const fresnelWidth = utils.clamp(
+                value, 0.5, 6, DEFAULT_PARAMS.fresnel_width
+            );
+            if (this._fresnel_width !== fresnelWidth) {
+                this._fresnel_width = fresnelWidth;
+
+                uniforms.set_uniform(this, 'fresnel_width', parseFloat(this._fresnel_width - 1e-6));
+            }
+        }
+            get webcam_gloss() {
             return this._webcam_gloss;
         }
 

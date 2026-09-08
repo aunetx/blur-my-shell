@@ -14,6 +14,7 @@ export const DEFAULT_PARAMS = {
     rgb_fringing: 0.1,
     gloss: 1,
     fresnel_angle: -45,
+    fresnel_width: 1,
     webcam_gloss: false,
     webcam_device: '',
     tint: 0.2,
@@ -85,6 +86,10 @@ export const REFRACTION_EFFECT_META = {
         fresnel_angle: doubleProperty(
             'fresnel_angle', 'Fresnel Angle', 'Light direction of the fresnel glare, in degrees',
             -180, 180, DEFAULT_PARAMS.fresnel_angle
+        ),
+        fresnel_width: doubleProperty(
+            'fresnel_width', 'Fresnel Width', 'Thickness multiplier of the fresnel glare ring',
+            0.5, 6, DEFAULT_PARAMS.fresnel_width
         ),
         webcam_gloss: GObject.ParamSpec.boolean(
             'webcam_gloss',

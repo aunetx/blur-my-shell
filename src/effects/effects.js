@@ -338,6 +338,16 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 45.,
                     digits: 0
                 },
+                fresnel_width: {
+                    name: _("Fresnel glare width"),
+                    description: _("Thickness multiplier of the fresnel glare ring along the glass edge."),
+                    type: "float",
+                    min: 0.5,
+                    max: 6.,
+                    increment: 0.1,
+                    big_increment: 0.5,
+                    digits: 2
+                },
                 tint: {
                     name: _("Tint strength"),
                     description: _("Amount of subtle milky glass tint over the blurred texture."),
