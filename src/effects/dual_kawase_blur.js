@@ -2,9 +2,11 @@ import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
 import { getEffectBounds } from '../render/effect_bounds.js';
+import { getKawaseConfiguration, getKawaseOffset } from './kawase_sampling.js';
 
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
+const St = await utils.import_in_shell_only('gi://St');
 
 const DOWNSAMPLE_DECLARATIONS = `
 uniform vec2 halfpixel;
@@ -24,8 +26,7 @@ cogl_color_out = sum / 8.0;
 const UPSAMPLE_DECLARATIONS = `
 uniform vec2 halfpixel;
 uniform float offset;
-uniform float brightness;
-uniform float output_pass;
+uniform float level_blend;
 `;
 
 const UPSAMPLE_BODY = `
@@ -39,20 +40,28 @@ sum += texture2D(cogl_sampler0, uv + vec2(halfpixel.x, -halfpixel.y) * offset) *
 sum += texture2D(cogl_sampler0, uv + vec2(0.0, -halfpixel.y * 2.0) * offset);
 sum += texture2D(cogl_sampler0, uv + vec2(-halfpixel.x, -halfpixel.y) * offset) * 2.0;
 vec4 color = sum / 12.0;
-color.rgb *= mix(1.0, brightness, output_pass);
 `;
 
 const UPSAMPLE_CODE = `${UPSAMPLE_BODY}
+if (level_blend < 1.0)
+    color = mix(texture2D(cogl_sampler1, cogl_tex_coord1_in.xy), color, level_blend);
 cogl_color_out = color;
 `;
 
 const UPSAMPLE_OUTPUT_DECLARATIONS = `${UPSAMPLE_DECLARATIONS}
 uniform float opacity_factor;
+uniform float brightness;
 `;
 
-const UPSAMPLE_OUTPUT_CODE = `${UPSAMPLE_BODY}
+const UPSAMPLE_OUTPUT_CODE = `
 vec4 sourceColor = texture2D(cogl_sampler1, cogl_tex_coord1_in.xy);
-cogl_color_out = mix(sourceColor, color, opacity_factor) * cogl_color_in.a;
+vec4 filteredColor = sourceColor;
+if (level_blend > 0.0) {
+    ${UPSAMPLE_BODY}
+    filteredColor = mix(sourceColor, color, level_blend);
+}
+filteredColor.rgb *= brightness;
+cogl_color_out = mix(sourceColor, filteredColor, opacity_factor) * cogl_color_in.a;
 `;
 
 const DEFAULT_PARAMS = {
@@ -171,7 +180,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.y = 0;
         this.scale = 0;
         this.context = null;
-        this.appliedOffset = null;
+        this.appliedSampling = null;
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
@@ -193,6 +202,8 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (this._unscaled_radius === radius)
             return;
         this._unscaled_radius = radius;
+        if (radius === 0)
+            this.releaseTargets();
         this.queue_repaint();
         this.notify('unscaled-radius');
         this.notify('radius');
@@ -230,26 +241,12 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (this._opacity_factor === opacityFactor)
             return;
         this._opacity_factor = opacityFactor;
+        if (opacityFactor === 0)
+            this.releaseTargets();
         if (this.outputPipeline)
             setFloat(this.outputPipeline, 'opacity_factor', opacityFactor);
         this.queue_repaint();
         this.notify('opacity-factor');
-    }
-
-    getPassConfiguration(radius = this.unscaled_radius) {
-        radius = utils.clamp(radius, 0, 200, DEFAULT_PARAMS.unscaled_radius);
-        if (radius <= 0)
-            return { passes: 0, offset: 1 };
-
-        const thresholds = [0, 8, 20, 40, 100];
-        let calculatedPasses = thresholds.findIndex(threshold => radius <= threshold);
-        if (calculatedPasses < 1)
-            calculatedPasses = 4;
-        const fixedPasses = utils.clamp_integer(this.fixed_passes, 0, 4, 0);
-        const passes = Math.max(calculatedPasses, fixedPasses);
-        const offset = 0.5 + Math.min(radius, 100) / 100;
-
-        return { passes, offset };
     }
 
     ensureTargets(context, bounds, scale, passes) {
@@ -257,8 +254,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const width = Math.max(1, Math.ceil(logicalWidth * scale));
         const height = Math.max(1, Math.ceil(logicalHeight * scale));
         const canReuseTargets =
-            this.downTargets.length === passes + 1
-            && this.width === width
+            this.width === width
             && this.height === height
             && this.scale === scale
             && this.context === context;
@@ -283,11 +279,11 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 this.x = x;
                 this.y = y;
             }
-            return;
+        } else {
+            this.releaseTargets();
         }
 
-        this.releaseTargets();
-        for (let level = 0; level <= passes; level++) {
+        for (let level = this.downTargets.length; level <= passes; level++) {
             const divider = 2 ** level;
             this.downTargets.push(createRenderTarget(
                 context,
@@ -297,18 +293,17 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             ));
         }
 
-        for (let level = 1; level <= passes; level++) {
+        for (let level = Math.max(1, this.downPipelines.length); level <= passes; level++) {
             this.downPipelines[level] = this.createPass(
                 this.downTargets[level - 1],
                 context,
                 DOWNSAMPLE_DECLARATIONS,
                 DOWNSAMPLE_CODE,
-                this.offset
+                getKawaseOffset(level)
             );
         }
 
-        let upSource = this.downTargets[passes];
-        for (let level = passes - 1; level >= 1; level--) {
+        for (let level = Math.max(1, this.upTargets.length); level < passes; level++) {
             const divider = 2 ** level;
             const target = createRenderTarget(
                 context,
@@ -318,22 +313,21 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             );
             this.upTargets[level] = target;
             this.upPipelines[level] = this.createPass(
-                upSource,
+                this.downTargets[level + 1],
                 context,
                 UPSAMPLE_DECLARATIONS,
                 UPSAMPLE_CODE,
-                this.offset
+                getKawaseOffset(level + 1),
+                this.downTargets[level]
             );
-            upSource = target;
         }
-        this.outputPipeline = this.createPass(
-            upSource,
-            context,
-            UPSAMPLE_OUTPUT_DECLARATIONS,
-            UPSAMPLE_OUTPUT_CODE,
-            this.offset,
-            true
-        );
+        if (!this.outputPipeline) {
+            this.outputPipeline = this.createPass(
+                this.downTargets[1], context,
+                UPSAMPLE_OUTPUT_DECLARATIONS, UPSAMPLE_OUTPUT_CODE,
+                getKawaseOffset(1), this.downTargets[0], true
+            );
+        }
         this.width = width;
         this.height = height;
         this.logicalWidth = logicalWidth;
@@ -342,47 +336,48 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.y = y;
         this.scale = scale;
         this.context = context;
-        this.appliedOffset = this.offset;
     }
 
-    createPass(source, context, declarations, code, offset, outputPass = false) {
+    createPass(source, context, declarations, code, offset, original = null, outputPass = false) {
         const pipeline = createPassPipeline(context, source.texture, declarations, code);
         setVector2(pipeline, 'halfpixel', 0.5 / source.width, 0.5 / source.height);
         setFloat(pipeline, 'offset', offset);
-        if (declarations === UPSAMPLE_DECLARATIONS) {
-            setFloat(pipeline, 'brightness', this.brightness);
-            setFloat(pipeline, 'output_pass', outputPass ? 1 : 0);
-        }
-        if (outputPass) {
-            pipeline.set_layer_texture(1, this.downTargets[0].texture);
+        if (original) {
+            pipeline.set_layer_texture(1, original.texture);
             pipeline.set_layer_filters(
                 1,
                 Cogl.PipelineFilter.LINEAR,
                 Cogl.PipelineFilter.LINEAR
             );
             pipeline.set_layer_wrap_mode(1, Cogl.PipelineWrapMode.CLAMP_TO_EDGE);
+            setFloat(pipeline, 'level_blend', 1);
+        }
+        if (outputPass) {
             setFloat(pipeline, 'brightness', this.brightness);
-            setFloat(pipeline, 'output_pass', 1);
             setFloat(pipeline, 'opacity_factor', this.opacity_factor);
         }
         return pipeline;
     }
 
-    updatePassOffsets(offset) {
-        if (this.appliedOffset === offset)
+    configureUpsample(pipeline, level, passes, blend) {
+        const source = level === passes - 1
+            ? this.downTargets[level + 1] : this.upTargets[level + 1];
+        pipeline.set_layer_texture(0, source.texture);
+        setFloat(pipeline, 'level_blend', level === passes - 1 ? blend : 1);
+    }
+
+    updateSampling(passes, offset, blend) {
+        if (this.appliedSampling?.passes === passes
+            && this.appliedSampling.offset === offset
+            && this.appliedSampling.blend === blend)
             return;
 
-        this.downPipelines.forEach(pipeline => {
-            if (pipeline)
-                setFloat(pipeline, 'offset', offset);
-        });
-        this.upPipelines.forEach(pipeline => {
-            if (pipeline)
-                setFloat(pipeline, 'offset', offset);
-        });
-        if (this.outputPipeline)
-            setFloat(this.outputPipeline, 'offset', offset);
-        this.appliedOffset = offset;
+        setFloat(this.downPipelines[1], 'offset', offset);
+        setFloat(this.outputPipeline, 'offset', offset);
+        for (let level = passes - 1; level >= 1; level--)
+            this.configureUpsample(this.upPipelines[level], level, passes, blend);
+        this.configureUpsample(this.outputPipeline, 0, passes, blend);
+        this.appliedSampling = { passes, offset, blend };
     }
 
     vfunc_paint_node(node, paintContext, flags) {
@@ -390,19 +385,17 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const bounds = getEffectBounds(actor);
         if (bounds.width <= 0 || bounds.height <= 0)
             return;
-        const { passes, offset } = this.getPassConfiguration();
-        if (passes === 0) {
-            if (this.downTargets.length > 0)
-                this.releaseTargets();
+        if (this.opacity_factor === 0 || (this.unscaled_radius === 0 && this.brightness === 1)) {
             node.add_child(new Clutter.ActorNode(actor, -1));
             return;
         }
 
         const context = paintContext.get_framebuffer().get_context();
         const scale = actor.get_resource_scale();
-        this.offset = offset;
+        const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
+        const { passes, offset, blend } = getKawaseConfiguration(this.unscaled_radius * themeScale * scale);
         this.ensureTargets(context, bounds, scale, passes);
-        this.updatePassOffsets(offset);
+        this.updateSampling(passes, offset, blend);
 
         const actorLayer = Clutter.LayerNode.new_to_framebuffer(
             this.downTargets[0].framebuffer,
@@ -413,6 +406,8 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         node.add_child(actorLayer);
 
         for (let level = 1; level <= passes; level++) {
+            if (passes === 1 && blend === 0)
+                break;
             addPassNode(
                 node,
                 this.downTargets[level],
@@ -459,11 +454,10 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.logicalHeight = 0;
         this.scale = 0;
         this.context = null;
-        this.appliedOffset = null;
+        this.appliedSampling = null;
     }
 
     reset_for_pool() {
-        this.fixed_passes = null;
         this.releaseTargets();
     }
 

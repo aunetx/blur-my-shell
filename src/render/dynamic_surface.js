@@ -10,7 +10,6 @@ export class DynamicPipeline {
         this.effectsManager = effectsManager;
         this.pipelinesManager = pipelinesManager;
         this.pipelineId = pipelineId;
-        this.fixedBlurPasses = options.fixed_blur_passes ?? false;
         this.cornerRadius = options.corner_radius ?? null;
         this.getCorners = options.get_corners;
         this.opacityFactor = 1;
@@ -192,25 +191,17 @@ export class DynamicPipeline {
             if ('opacity_factor' in effect)
                 effect.opacity_factor = (params.opacity_factor ?? 1) * factor;
             if (effect._bms_pixelize_role === 'refraction-blur') {
-                this.set_blur_radius(effect, this.pipeline.get_refraction_blur_radius(
+                effect.unscaled_radius = this.pipeline.get_refraction_blur_radius(
                     params.blur_radius
-                ), factor);
+                ) * factor;
                 effect.opacity_factor = params.opacity_factor ?? 1;
             }
             if (effect._bms_effect_type === 'dual_kawase_blur') {
-                this.set_blur_radius(effect, params.unscaled_radius ?? 30, factor);
+                effect.unscaled_radius = (params.unscaled_radius ?? 30) * factor;
                 effect.brightness = 1 + ((params.brightness ?? 0.6) - 1) * factor;
                 effect.opacity_factor = params.opacity_factor ?? 1;
             }
         });
-    }
-
-    set_blur_radius(effect, radius, factor) {
-        if (this.fixedBlurPasses) {
-            effect.fixed_passes = null;
-            effect.fixed_passes = effect.getPassConfiguration(radius).passes;
-        }
-        effect.unscaled_radius = radius * factor;
     }
 
     set_straight_corners(straightCorners) {

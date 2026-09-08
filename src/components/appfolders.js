@@ -267,7 +267,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
                     this.effects_manager,
                     global.blur_my_shell._pipelines_manager,
                     this.settings.appfolder.PIPELINE,
-                    { corner_radius: 0, fixed_blur_passes: true }
+                    { corner_radius: 0 }
                 );
                 const surface = create_surface(dialog);
                 if (!surface) {
