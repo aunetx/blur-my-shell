@@ -614,8 +614,7 @@ export const PanelBlur = class PanelBlur {
         this.actors_list.forEach(actors => {
             const panel_box = actors.widgets.panel_box;
             const enabled = this.settings.panel.FORCE_LIGHT_TEXT
-                && !disable
-                && actors.should_override;
+                && !disable;
             this.destroy_resource(() => {
                 if (enabled)
                     panel_box.add_style_class_name("panel-light-text");

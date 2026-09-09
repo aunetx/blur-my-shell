@@ -61,7 +61,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         try {
             const [, stage_y] = this.target.get_transformed_position();
 
-            if (!Main.panel)
+            if (!Main.panel?.mapped || Main.panel.get_paint_opacity() === 0)
                 return 1;
 
             const monitor = Main.layoutManager.findMonitorForActor(Main.panel)
