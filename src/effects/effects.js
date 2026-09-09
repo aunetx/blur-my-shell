@@ -13,6 +13,8 @@ import { RgbToHslEffect } from './rgb_to_hsl.js';
 import { HslToRgbEffect } from './hsl_to_rgb.js';
 import { LuminosityEffect } from './luminosity.js';
 import { RefractionEffect } from './refraction.js';
+import { WaveEffect } from './wave.js';
+
 export { get_effects_groups } from './effect_groups.js';
 
 export function get_supported_effects(_ = () => "") {
@@ -476,6 +478,100 @@ export function get_supported_effects(_ = () => "") {
                         _("Mirror")
                     ]
                 }
+            }
+        },
+
+        wave: {
+            class: WaveEffect,
+            name: _("Vapor Wave"),
+            description: _("A flowing liquid wave distortion for a lively, dynamic feel."),
+            is_advanced: false,
+            editable_params: {
+                strength: {
+                    name: _("Strength"),
+                    description: _("How strongly the flowing noise displaces the image."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                noise_scale: {
+                    name: _("Noise scale"),
+                    description: _("The size of the wave ripples: lower values give broad, sweeping waves, higher values give finer ripples."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                grain: {
+                    name: _("Texture grain"),
+                    description: _("Adds a fine sandblasted texture to the box."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                saturation: {
+                    name: _("Saturation"),
+                    description: _("The saturation of the effect."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                brightness: {
+                    name: _("Brightness"),
+                    description: _("The brightness of the effect."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                zoom: {
+                    name: _("Zoom"),
+                    description: _("Magnifies the backdrop toward its center."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                dispersion: {
+                    name: _("Dispersion"),
+                    description: _("Chromatic aberration strength for a glitchy feel."),
+                    type: "float",
+                    min: 0.,
+                    max: 100.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
+                use_animation: {
+                    name: _("Animate"),
+                    description: _("Whether the wave noise continuously flows over time."),
+                    type: "boolean"
+                },
+                speed_factor: {
+                    name: _("Speed"),
+                    description: _("The base speed at which the wave pattern flows."),
+                    type: "float",
+                    min: 0.,
+                    max: 2.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
             }
         },
 
