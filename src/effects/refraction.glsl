@@ -3,14 +3,16 @@
 //
 // Original shader: Liquid (Gl)ass by winaviation
 // (https://github.com/winaviation-tweaks/liquid-ass)
-// This is modified/adapted material. The copyright holder confirmed in email
-// (2026) that the 0.1.1b shader may be used in blur-my-shell, subject to the
-// CC BY-NC 4.0 terms below. Attribution to the original work must be retained.
+// This is modified/adapted material. The copyright holder explicitly granted
+// in email and in pull request #987 (2026-09-10) that the 0.1.1b shader and
+// this GLSL port may be redistributed as part of Blur my Shell under the
+// GNU GPL v3, with that permission extending to downstream users. Attribution
+// to the original work must be retained.
 //
 // Original upstream license: CC BY-NC 4.0
 //   https://creativecommons.org/licenses/by-nc/4.0/
-// When the material is shared as-is or modified, you must comply with the
-// CC BY-NC 4.0 conditions: attribution (Section 3(a)), and NonCommercial
+// When this material is shared outside of Blur my Shell, the CC BY-NC 4.0
+// conditions still apply: attribution (Section 3(a)) and NonCommercial
 // use only (Section 2(a)(1)). The Licensor offers the material as-is and
 // disclaims all warranties and liability (Section 5).
 uniform sampler2D tex;
