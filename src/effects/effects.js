@@ -348,6 +348,16 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 0.5,
                     digits: 2
                 },
+                specular_strength: {
+                    name: _("Specular glare strength"),
+                    description: _("Strength of the specular glare showing the light direction (toggle in preferences)."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
                 tint: {
                     name: _("Tint strength"),
                     description: _("Amount of subtle milky glass tint over the blurred texture."),

@@ -9,6 +9,9 @@
 // GNU GPL v3, with that permission extending to downstream users. Attribution
 // to the original work must be retained.
 //
+// Optional specular glare (off by default) is an addition beyond the 0.1.1b
+// port and is not part of the original shader.
+//
 // Original upstream license: CC BY-NC 4.0
 //   https://creativecommons.org/licenses/by-nc/4.0/
 // When this material is shared outside of Blur my Shell, the CC BY-NC 4.0
@@ -29,6 +32,7 @@ uniform float rgb_fringing;
 uniform float gloss;
 uniform float fresnel_angle;
 uniform float fresnel_width;
+uniform float specular_strength;
 uniform float tint;
 uniform float tint_r;
 uniform float tint_g;
@@ -342,6 +346,18 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     highlight *= mix(0.32, 1.0, bgLuminance);
     highlight = min(highlight, 0.22);
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
+
+    if (specular_strength > 0.001) {
+        vec2 sourceDir = -vec2(cos(fresnel_angle), sin(fresnel_angle));
+        vec2 sourcePos = vec2(localUV.x - 0.5, 0.5 - localUV.y) * 2.0;
+        float sourceDist = length(sourcePos);
+        vec2 sourceNormal = sourceDist > 0.001 ? sourcePos / sourceDist
+                                              : vec2(0.0, 1.0);
+        float glint = pow(clamp(dot(sourceDir, sourceNormal), 0.0, 1.0), 14.0)
+                      * smoothstep(1.1, 0.4, sourceDist);
+        outRGB = 1.0 - (1.0 - outRGB) * (1.0 - glint * specular_strength);
+    }
+
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
     outRGB = mix(sourceColor.rgb, outRGB, opacity_factor);
 
