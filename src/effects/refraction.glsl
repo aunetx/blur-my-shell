@@ -75,9 +75,10 @@ float quartzGlassHighlight(float distanceFromEdge,
     }
 
     vec2 lightDirection = vec2(cos(angle), sin(angle));
-    float threshold = 0.15;
-    float directional = clamp((dot(lightDirection, normal) - threshold) /
-                              max(1.0 - threshold, 0.0001), 0.0, 1.0);
+    float cosT = clamp(dot(lightDirection, normal), 0.0, 1.0);
+    float fresnelBase = 0.04;
+    float schlick = fresnelBase + (1.0 - fresnelBase) * pow(1.0 - cosT, 3.0);
+    float directional = clamp(0.05 + 0.95 * schlick, 0.0, 1.0);
     float highlight = ring * directional;
 
     float oppositeAttenuation = 1.35;
