@@ -64,8 +64,15 @@ float quartzGlassHighlight(float distanceFromEdge,
 
     float outerCoverage = clamp(distanceFromEdge / aa + 0.5, 0.0, 1.0);
     float radial = clamp(distanceFromEdge / ringWidth, 0.0, 1.0);
-    float decayRate = 1.0 + ringWidth;
-    float ring = outerCoverage * exp(-decayRate * radial);
+    float ring;
+    if (ringWidth < 3.0) {
+        float innerCoverage = clamp((ringWidth - distanceFromEdge) / aa + 0.5, 0.0, 1.0);
+        ring = outerCoverage * innerCoverage;
+        ring *= 1.0 - radial;
+    } else {
+        float decayRate = 3.0;
+        ring = outerCoverage * exp(-decayRate * radial);
+    }
 
     vec2 lightDirection = vec2(cos(angle), sin(angle));
     float threshold = 0.15;
