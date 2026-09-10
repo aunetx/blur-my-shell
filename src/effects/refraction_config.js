@@ -13,7 +13,7 @@ export const DEFAULT_PARAMS = {
     rim_width: 4.8,
     rgb_fringing: 0.1,
     gloss: 1,
-    fresnel_angle: -45,
+    fresnel_angle: 45,
     fresnel_width: 1,
     webcam_gloss: false,
     webcam_device: '',

@@ -330,7 +330,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 fresnel_angle: {
                     name: _("Fresnel glare angle"),
-                    description: _("Light direction of the fresnel glare, in degrees (0 is to the right, 90 is down)."),
+                    description: _("Light direction of the fresnel glare, in degrees (0 is from above, positive rotates clockwise)."),
                     type: "float",
                     min: -180.,
                     max: 180.,

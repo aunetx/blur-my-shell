@@ -189,7 +189,7 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
                 uniforms.set_uniform(
                     this,
                     'fresnel_angle',
-                    parseFloat(this._fresnel_angle * Math.PI / 180.0)
+                    parseFloat((this._fresnel_angle + 90.0) * Math.PI / 180.0)
                 );
             }
         }
