@@ -103,6 +103,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
         const connections = [];
         let cleaned = false;
+        let map_retry_id = 0;
         let watched_content_parent = null;
         let watched_content = null;
         let watched_background = null;
@@ -145,6 +146,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             if (cleaned)
                 return;
             cleaned = true;
+            if (map_retry_id) {
+                global.compositor.get_laters().remove(map_retry_id);
+                map_retry_id = 0;
+            }
             this.pending_dash_containers.delete(dash_container);
             if (dash_container._bms_defer_cleanup === cleanup) {
                 delete dash_container._bms_pending_blur_setup;
@@ -216,6 +221,18 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         };
 
         connect(dash_container, 'notify::allocation', retry);
+        connect(dash_container, 'notify::mapped', () => {
+            if (!dash_container.mapped || map_retry_id)
+                return;
+            map_retry_id = global.compositor.get_laters().add(
+                Meta.LaterType.BEFORE_REDRAW,
+                () => {
+                    map_retry_id = 0;
+                    this.queue_discovery();
+                    return GLib.SOURCE_REMOVE;
+                }
+            );
+        });
         connect(dash_container, 'destroy', cleanup);
 
         const slider = resolve_dock_target(dash_container)?.slider;

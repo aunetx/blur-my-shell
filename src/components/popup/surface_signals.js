@@ -55,11 +55,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
                         this.surface.hide_surface();
                         return;
                     }
-                    if (ANIMATION_SIGNALS.has(signal)) {
-                        this.surface.update();
-                        return;
-                    }
-                    if (is_heavy_surface || isVisibilityChange) {
+                    if (ANIMATION_SIGNALS.has(signal) || is_heavy_surface || isVisibilityChange) {
                         this.surface.queue_update();
                         return;
                     }
