@@ -678,6 +678,11 @@ export default class BlurMyShell extends Extension {
                 this._popup.disable();
         });
 
+        this._settings.popup.BLUR_COPYOUS_changed(() => {
+            if (this._settings.popup.BLUR)
+                this._popup.reset();
+        });
+
         this._settings.popup.STATIC_BLUR_changed(() => {
             if (this._settings.popup.BLUR)
                 this._popup.reset();

@@ -21,6 +21,8 @@ export const Other = GObject.registerClass({
         'coverflow_alt_tab_blur',
         'coverflow_alt_tab_pipeline_choose_row',
 
+        'blur_copyous',
+
         'hack_level',
         'debug',
         'reset'
@@ -70,6 +72,11 @@ export const Other = GObject.registerClass({
         );
         this._coverflow_alt_tab_pipeline_choose_row.initialize(
             this.preferences.coverflow_alt_tab, this.pipelines_manager, this.pipelines_page
+        );
+
+        this.preferences.popup.settings.bind(
+            'blur-copyous', this._blur_copyous, 'active',
+            Gio.SettingsBindFlags.DEFAULT
         );
 
         this.preferences.settings.bind(

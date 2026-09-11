@@ -223,7 +223,8 @@ export const PopupBlur = class PopupBlur {
             parent,
             sibling,
             this.get_corner_radius(target, root_actor),
-            () => this.enabled && this.surfaces.has(target)
+            () => this.enabled && this.surfaces.has(target),
+            () => this.get_background_style()
         );
 
         this.surfaces.set(target, surface);
@@ -288,7 +289,10 @@ export const PopupBlur = class PopupBlur {
             };
         }
 
-        let actor = root_actor;
+        // Start at the surface: a scan can discover several dialogs at once
+        // with modalDialogGroup as their shared root. Each blur must sit above
+        // earlier dialogs and immediately below the dialog it belongs to.
+        let actor = target;
         let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {
             let parent = null;
@@ -301,7 +305,8 @@ export const PopupBlur = class PopupBlur {
             if (!parent)
                 break;
 
-            if (parent === Main.layoutManager?.unlockDialogGroup ||
+            if (parent === Main.layoutManager?.modalDialogGroup ||
+                parent === Main.layoutManager?.unlockDialogGroup ||
                 parent === Main.layoutManager?.screenShieldGroup ||
                 parent === Main.uiGroup || 
                 parent === Main.layoutManager?.uiGroup)

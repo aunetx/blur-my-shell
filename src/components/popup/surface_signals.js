@@ -41,6 +41,10 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         SURFACE_SIGNALS.forEach(signal => {
             try {
             let id = actor.connect(signal, () => {
+                if (signal === 'style-changed' && actor === this.surface.target
+                    && this.surface.copyous_style)
+                    this.surface.style.update_target_style();
+
                 this.clear_pending_idles();
                 const is_visibility_change = signal === 'notify::visible' || signal === 'notify::mapped';
                 if (is_heavy_surface || is_visibility_change) {

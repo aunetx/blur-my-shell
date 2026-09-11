@@ -622,6 +622,11 @@
             <default>true</default>
             <summary>Boolean, whether to blur popup menus, notifications, switchers, and dialogs or not</summary>
         </key>
+        <!-- COPYOUS -->
+        <key type="b" name="blur-copyous">
+            <default>true</default>
+            <summary>Boolean, whether to blur the Copyous clipboard popup</summary>
+        </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
             <default>false</default>

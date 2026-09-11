@@ -10,6 +10,7 @@ import { PopupBlurSurfaceSignals } from './surface_signals.js';
 import { PopupBlurSurfaceStyle } from './surface_style.js';
 import { PopupBlurSurfaceTransitions } from './surface_transitions.js';
 import { PopupBlurStaticActor } from './static_actor.js';
+import { CopyousContentStyle, is_copyous_surface } from './copyous_style.js';
 
 const NOTIFICATION_STYLE_CLASSES = ['notification-banner'];
 const FULL_GEOMETRY_STYLE_CLASSES = [
@@ -17,7 +18,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel',
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
-    'modal-dialog', 'run-dialog',
+    'modal-dialog', 'run-dialog', 'clipboard-dialog',
     'bms-keyboard-surface',
 ];
 const IS_HEAVY_SURFACE_STYLE_CLASSES = [
@@ -29,7 +30,7 @@ const IS_QUICK_SETTINGS_STYLE_CLASSES = [
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
-    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled) {
+    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled, get_background_style) {
         this.connections = connections;
         this.settings = settings;
         this.effects_manager = effects_manager;
@@ -39,10 +40,13 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.sibling = sibling;
         this.corner_radius = corner_radius;
         this.is_enabled = is_enabled;
+        this.get_background_style = get_background_style;
         this.paint_signals = new PaintSignals(connections);
         this.placement = new PopupBlurSurfacePlacement(this);
         this.signals = new PopupBlurSurfaceSignals(this);
         this.style = new PopupBlurSurfaceStyle(this);
+        this.copyous_style = settings.popup.BLUR_COPYOUS && is_copyous_surface(target)
+            ? new CopyousContentStyle(this) : null;
         this.transitions = new PopupBlurSurfaceTransitions(this);
         this.repaint_id = 0;
         this.update_id = 0;
@@ -73,6 +77,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.set_actor_position();
         this.style.capture_target_style();
         this.style.update_target_style();
+        this.copyous_style?.update();
 
         this.connect_repaints();
         this.signals.connect_actor(this.target);
@@ -401,6 +406,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     update_settings() {
         this.style.update_target_style();
+        this.copyous_style?.update();
         this.static_actor?.update_settings();
     }
 
@@ -461,6 +467,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     destroy(actor_already_destroyed = false) {
         this.destroyed = true;
+        this.copyous_style?.destroy();
         if (this.update_id)
             global.compositor.get_laters().remove(this.update_id);
         this.update_id = 0;

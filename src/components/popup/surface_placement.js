@@ -1,6 +1,7 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PopupBlurSurfaceGeometry, transform_to_actor_space } from './surface_geometry.js';
+import { PopupBlurAllocation } from './surface_allocation.js';
 
 export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     constructor(surface) {
@@ -283,6 +284,15 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
 
     update_dynamic_geometry(x, y, width, height) {
         try {
+            if (this.surface.parent === Main.layoutManager.modalDialogGroup
+                && (this.x !== x || this.y !== y || this.width !== width || this.height !== height)) {
+                if (!this.allocation_constraint) {
+                    this.allocation_constraint = new PopupBlurAllocation();
+                    this.surface.blur_actor.add_constraint(this.allocation_constraint);
+                }
+                this.allocation_constraint.set_geometry(x, y, width, height);
+            }
+
             if (this.x !== x || this.y !== y) {
                 this.surface.blur_actor.set_position(x, y);
                 this.x = x;

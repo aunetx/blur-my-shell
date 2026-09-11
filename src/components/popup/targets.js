@@ -33,7 +33,7 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'dialog-corner-radius',
         property: 'DIALOG_CORNER_RADIUS',
-        style_classes: ['modal-dialog', 'run-dialog'],
+        style_classes: ['modal-dialog', 'run-dialog', 'clipboard-dialog'],
     },
     {
         key: 'osk-corner-radius',
@@ -58,6 +58,9 @@ export const PopupBlurTargets = class PopupBlurTargets {
 
         const targets = this.create_targets();
         const delegate = this.actor.get_actor_delegate(actor);
+
+        if (this.is_copyous_target(actor))
+            this.add(targets, actor);
 
         if (this.prefers_descendant_targets(actor)) {
             this.find_target_children(actor, targets);
@@ -148,10 +151,16 @@ export const PopupBlurTargets = class PopupBlurTargets {
 
     is_blur_target_actor(actor) {
         return (
-            this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
+            this.is_copyous_target(actor)
+            || this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
             || this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES_OSK)
             || this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES)
         );
+    }
+
+    is_copyous_target(actor) {
+        return this.actor.settings.popup.BLUR_COPYOUS
+            && this.has_style_class(actor, 'clipboard-dialog');
     }
 
     get_corner_radius(target, root_actor) {

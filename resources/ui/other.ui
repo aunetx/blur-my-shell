@@ -115,6 +115,18 @@
 
     <child>
       <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Copyous extension blur</property>
+        <property name="description" translatable="yes">Blur the Copyous clipboard popup. Uses the blur settings and dialog corner radius from the Popups page. Popup blur must be enabled.</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="blur_copyous">
+            <property name="valign">center</property>
+          </object>
+        </property>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Performance</property>
         <property name="description" translatable="yes">Various options to tweak the performance.</property>
 
