@@ -326,7 +326,7 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     float normDisp = distFromSide < refractionBand
         ? quartzGlassEdgeProfile(distFromSide, max(glassThickness, 1.0))
         : 0.0;
-    float dispStrength = useCircularSurface ? edgeOpacity : edgeBand;
+    float dispStrength = edgeBand;
     vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength;
 
     float dispersion = clamp(rgb_fringing * DISPERSION_SCALE, 0.0, 20.0);
