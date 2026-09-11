@@ -58,7 +58,7 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
         }
 
         set edge_size(value) {
-            const edgeSize = utils.clamp(value, 1, 200, DEFAULT_PARAMS.edge_size);
+            const edgeSize = utils.clamp(value, 1, 500, DEFAULT_PARAMS.edge_size);
             if (this._edge_size !== edgeSize) {
                 this._edge_size = edgeSize;
 
@@ -86,7 +86,7 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
         }
 
         set falloff(value) {
-            const falloff = utils.clamp(value, 0.25, 8, DEFAULT_PARAMS.falloff);
+            const falloff = utils.clamp(value, 0.25, 20, DEFAULT_PARAMS.falloff);
             if (this._falloff !== falloff) {
                 this._falloff = falloff;
 
@@ -172,6 +172,58 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
                 this._gloss = gloss;
 
                 uniforms.set_uniform(this, 'gloss', parseFloat(this._gloss - 1e-6));
+            }
+        }
+
+        get fresnel_angle() {
+            return this._fresnel_angle;
+        }
+
+        set fresnel_angle(value) {
+            const fresnelAngle = utils.clamp(
+                value, -180, 180, DEFAULT_PARAMS.fresnel_angle
+            );
+            if (this._fresnel_angle !== fresnelAngle) {
+                this._fresnel_angle = fresnelAngle;
+
+                uniforms.set_uniform(
+                    this,
+                    'fresnel_angle',
+                    parseFloat((this._fresnel_angle + 90.0) * Math.PI / 180.0)
+                );
+            }
+        }
+
+        get fresnel_width() {
+            return this._fresnel_width;
+        }
+
+        set fresnel_width(value) {
+            const fresnelWidth = utils.clamp(
+                value, 0.5, 6, DEFAULT_PARAMS.fresnel_width
+            );
+            if (this._fresnel_width !== fresnelWidth) {
+                this._fresnel_width = fresnelWidth;
+
+                uniforms.set_uniform(this, 'fresnel_width', parseFloat(this._fresnel_width - 1e-6));
+            }
+        }
+            get specular_strength() {
+            return this._specular_strength;
+        }
+
+        set specular_strength(value) {
+            const specularStrength = utils.clamp(
+                value, 0, 1, DEFAULT_PARAMS.specular_strength
+            );
+            if (this._specular_strength !== specularStrength) {
+                this._specular_strength = specularStrength;
+
+                uniforms.set_uniform(
+                    this,
+                    'specular_strength',
+                    parseFloat(this._specular_strength - 1e-6)
+                );
             }
         }
 
