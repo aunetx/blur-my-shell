@@ -341,11 +341,16 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
 
     if (specular_strength > 0.001) {
-        float specular = quartzGlassHighlight(distFromSide, refractionBand, dir,
-                                              specular_strength, fresnel_angle) *
+        float specAngle = atan(dir.y, dir.x);
+        float sourceAngle = fresnel_angle + 3.14159265;
+        float dA = abs(mod(specAngle - sourceAngle + 3.14159265,
+                           6.2831853) - 3.14159265);
+        float lobe = exp(-dA * dA * 12.0);
+        float specular = lobe * quartzGlassHighlight(distFromSide, refractionBand,
+                                                     dir, 1.0, fresnel_angle) *
                          edgeOpacity;
         specular *= mix(0.32, 1.0, bgLuminance);
-        specular = min(specular, 0.35);
+        specular = min(specular * specular_strength, 0.4);
         outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specular);
     }
 
