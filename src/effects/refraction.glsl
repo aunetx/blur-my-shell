@@ -81,7 +81,7 @@ float quartzGlassHighlight(float distanceFromEdge,
     float threshold = 0.15;
     float directional = clamp((dot(lightDirection, normal) - threshold) /
                               max(1.0 - threshold, 0.0001), 0.0, 1.0);
-    float highlight = ring * (0.25 + 0.75 * directional);
+    float highlight = ring * (0.55 + 0.45 * directional);
 
     float oppositeAttenuation = 1.35;
     highlight /= max(1.0 + (1.0 - highlight) * oppositeAttenuation,
@@ -340,7 +340,7 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
                                            gloss, fresnel_angle) *
                       edgeOpacity;
     float bgLuminance = luminance(outRGB);
-    highlight *= mix(0.32, 1.0, bgLuminance);
+    highlight *= mix(0.5, 1.0, bgLuminance);
     highlight = min(highlight, 0.22);
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
 
