@@ -15,8 +15,7 @@ export const DEFAULT_PARAMS = {
     gloss: 1,
     fresnel_angle: 45,
     fresnel_width: 1,
-    specular_glare: false,
-    specular_strength: 0.35,
+    specular_strength: 0,
     webcam_gloss: false,
     webcam_device: '',
     tint: 0.2,
@@ -92,10 +91,6 @@ export const REFRACTION_EFFECT_META = {
         fresnel_width: doubleProperty(
             'fresnel_width', 'Fresnel Width', 'Thickness multiplier of the fresnel glare ring',
             0.5, 6, DEFAULT_PARAMS.fresnel_width
-        ),
-        specular_glare: GObject.ParamSpec.boolean(
-            'specular_glare', 'Specular Glare', 'Specular glare showing the light direction',
-            GObject.ParamFlags.READWRITE, DEFAULT_PARAMS.specular_glare
         ),
         specular_strength: doubleProperty(
             'specular_strength', 'Specular Glare Strength', 'Strength of the specular glare',

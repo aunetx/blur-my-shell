@@ -350,7 +350,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 specular_strength: {
                     name: _("Specular glare strength"),
-                    description: _("Strength of the specular glare showing the light direction (toggle in preferences)."),
+                    description: _("Strength of the specular glare showing the light direction (0 disables it)."),
                     type: "float",
                     min: 0.,
                     max: 1.,

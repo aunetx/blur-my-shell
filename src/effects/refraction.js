@@ -208,20 +208,7 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
                 uniforms.set_uniform(this, 'fresnel_width', parseFloat(this._fresnel_width - 1e-6));
             }
         }
-            get specular_glare() {
-            return this._specular_glare;
-        }
-
-        set specular_glare(value) {
-            const specularGlare = typeof value === 'boolean'
-                ? value : DEFAULT_PARAMS.specular_glare;
-            if (this._specular_glare !== specularGlare) {
-                this._specular_glare = specularGlare;
-                this._updateSpecularUniform();
-            }
-        }
-
-        get specular_strength() {
+            get specular_strength() {
             return this._specular_strength;
         }
 
@@ -231,16 +218,13 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             );
             if (this._specular_strength !== specularStrength) {
                 this._specular_strength = specularStrength;
-                this._updateSpecularUniform();
-            }
-        }
 
-        _updateSpecularUniform() {
-            uniforms.set_uniform(
-                this,
-                'specular_strength',
-                parseFloat(this._specular_glare ? this._specular_strength : 0.0)
-            );
+                uniforms.set_uniform(
+                    this,
+                    'specular_strength',
+                    parseFloat(this._specular_strength - 1e-6)
+                );
+            }
         }
 
         get webcam_gloss() {
