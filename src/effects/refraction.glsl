@@ -304,17 +304,6 @@ rimRadius = min(rimRadius, shortestSide * 0.5);
         }
     }
 
-float specularGlint = 0.0;
-    if (specular_strength > 0.001) {
-        vec2 sourceDir = -vec2(cos(fresnel_angle), sin(fresnel_angle));
-        vec2 sourcePos = vec2(localUV.x - 0.5, 0.5 - localUV.y) * 2.0;
-        float sourceDist = length(sourcePos);
-        vec2 sourceNormal = sourceDist > 0.001 ? sourcePos / sourceDist
-                                              : vec2(0.0, 1.0);
-        specularGlint = pow(clamp(dot(sourceDir, sourceNormal), 0.0, 1.0), 14.0)
-                        * smoothstep(1.1, 0.4, sourceDist);
-    }
-
 if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         && distFromSide >= refractionBand) {
         vec4 sourceSample = sampleGlassBackdrop(actorUV);
@@ -324,7 +313,6 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
                                                opacity_factor);
         vec3 effectRGB = applyTintAndShadow(flatSample.rgb, localUV);
         vec3 outRGB = mix(sourceSample.rgb, effectRGB, opacity_factor);
-        outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specularGlint * specular_strength);
 
         cogl_color_out = vec4(outRGB * finalOpacity, finalOpacity);
         return;
@@ -351,7 +339,15 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     highlight *= mix(0.32, 1.0, bgLuminance);
     highlight = min(highlight, 0.22);
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
-    outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specularGlint * specular_strength);
+
+    if (specular_strength > 0.001) {
+        float specular = quartzGlassHighlight(distFromSide, refractionBand, dir,
+                                              specular_strength, fresnel_angle) *
+                         edgeOpacity;
+        specular *= mix(0.32, 1.0, bgLuminance);
+        specular = min(specular, 0.35);
+        outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specular);
+    }
 
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
     outRGB = mix(sourceColor.rgb, outRGB, opacity_factor);
