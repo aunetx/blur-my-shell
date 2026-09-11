@@ -8,6 +8,7 @@ import { PopupBlurSurfaceSignals } from './surface_signals.js';
 import { PopupBlurSurfaceStyle } from './surface_style.js';
 import { PopupBlurSurfaceTransitions } from './surface_transitions.js';
 import { PopupBlurStaticActor } from './static_actor.js';
+import { getSurfaceSibling, registerSurface, unregisterSurface } from './surface_stack.js';
 
 const NOTIFICATION_STYLE_CLASSES = ['notification-banner'];
 const FULL_GEOMETRY_STYLE_CLASSES = [
@@ -66,6 +67,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.parent
         );
         this.actor.hide();
+        registerSurface(this);
         this.parent.add_child(this.actor);
         if (!this.static_blur)
             this.pipeline?.attach_pipeline();
@@ -140,7 +142,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.is_owned_actor_destroyed())
             return;
         try {
-            const sibling = this.sibling?.get_parent?.() === this.parent ? this.sibling : null;
+            const anchor = this.sibling?.get_parent?.() === this.parent ? this.sibling : null;
+            const sibling = getSurfaceSibling(this, anchor);
             if (this.is_below_sibling(sibling))
                 return;
             this.parent.set_child_below_sibling(this.actor, sibling);
@@ -429,6 +432,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     destroy(actor_already_destroyed = false) {
         this.destroyed = true;
+        unregisterSurface(this);
         if (this.update_id)
             global.compositor.get_laters().remove(this.update_id);
         this.update_id = 0;
