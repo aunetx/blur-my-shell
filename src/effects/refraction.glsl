@@ -324,8 +324,7 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     }
 
     float normDisp = distFromSide < refractionBand
-        ? quartzGlassEdgeProfile(distFromSide,
-                                 min(max(glassThickness, 1.0), refractionBand))
+        ? quartzGlassEdgeProfile(distFromSide, max(glassThickness, 1.0))
         : 0.0;
     float dispStrength = useCircularSurface ? edgeOpacity : edgeBand;
     vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength;
