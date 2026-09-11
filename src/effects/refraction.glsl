@@ -1,23 +1,16 @@
-// GLSL port of liquidass 0.1.1b (Tweak.mm kShaderSrc), blended on Blur my
-// Shell's clutter pipeline.
+// GLSL port of liquidass 0.1.1b (Tweak.mm kShaderSrc) from Liquid (Gl)ass by
+// winaviation (https://github.com/winaviation-tweaks/liquid-ass), blended on
+// Blur my Shell's clutter pipeline.
 //
-// Original shader: Liquid (Gl)ass by winaviation
-// (https://github.com/winaviation-tweaks/liquid-ass)
-// This is modified/adapted material. The copyright holder explicitly granted
-// in email and in pull request #987 (2026-09-10) that the 0.1.1b shader and
-// this GLSL port may be redistributed as part of Blur my Shell under the
-// GNU GPL v3, with that permission extending to downstream users. Attribution
-// to the original work must be retained.
+// The copyright holder explicitly granted, in email and in pull request #987
+// (2026-09-10), that this ported shader file may be re-licensed and
+// redistributed under the GNU GPL v3 for Blur my Shell, with the same rights
+// extending to anyone who reuses it from this repository. The original
+// upstream project remains licensed under CC BY-NC 4.0
+// (https://creativecommons.org/licenses/by-nc/4.0/).
 //
 // Optional specular glare (off by default) is an addition beyond the 0.1.1b
 // port and is not part of the original shader.
-//
-// Original upstream license: CC BY-NC 4.0
-//   https://creativecommons.org/licenses/by-nc/4.0/
-// When this material is shared outside of Blur my Shell, the CC BY-NC 4.0
-// conditions still apply: attribution (Section 3(a)) and NonCommercial
-// use only (Section 2(a)(1)). The Licensor offers the material as-is and
-// disclaims all warranties and liability (Section 5).
 uniform sampler2D tex;
 uniform float width;
 uniform float height;
