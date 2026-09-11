@@ -48,13 +48,8 @@ float quartzGlassEdgeProfile(float distanceFromEdge,
     return 1.0 - sqrt(t * (2.0 - t));
 }
 
-float quartzGlassHighlight(float distanceFromEdge,
-                           float bezelWidth,
-                           vec2 surfaceNormal,
-                           float strength,
-                           float angle) {
-    float normalLength = max(length(surfaceNormal), 0.001);
-    vec2 normal = surfaceNormal / normalLength;
+float quartzGlassRing(float distanceFromEdge,
+                      float bezelWidth) {
     float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width, 1.0,
                             2.5 * fresnel_width);
     float aa = 1.0;
@@ -70,12 +65,23 @@ float quartzGlassHighlight(float distanceFromEdge,
         float decayRate = 3.0;
         ring = outerCoverage * exp(-decayRate * radial);
     }
+    return ring;
+}
+
+float quartzGlassHighlight(float distanceFromEdge,
+                           float bezelWidth,
+                           vec2 surfaceNormal,
+                           float strength,
+                           float angle) {
+    float normalLength = max(length(surfaceNormal), 0.001);
+    vec2 normal = surfaceNormal / normalLength;
+    float ring = quartzGlassRing(distanceFromEdge, bezelWidth);
 
     vec2 lightDirection = vec2(cos(angle), sin(angle));
     float threshold = 0.15;
     float directional = clamp((dot(lightDirection, normal) - threshold) /
                               max(1.0 - threshold, 0.0001), 0.0, 1.0);
-    float highlight = ring * directional;
+    float highlight = ring * (0.25 + 0.75 * directional);
 
     float oppositeAttenuation = 1.35;
     highlight /= max(1.0 + (1.0 - highlight) * oppositeAttenuation,
@@ -345,9 +351,8 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         float dA = abs(mod(specAngle - sourceAngle + 3.14159265,
                            6.2831853) - 3.14159265);
         float lobe = exp(-dA * dA * 12.0);
-        float specular = lobe * quartzGlassHighlight(distFromSide, refractionBand,
-                                                     dir, 1.0, fresnel_angle) *
-                         edgeOpacity;
+        float specular = quartzGlassRing(distFromSide, refractionBand) *
+                         lobe * edgeOpacity;
         specular *= mix(0.32, 1.0, bgLuminance);
         specular = min(specular * specular_strength, 0.4);
         outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specular);
