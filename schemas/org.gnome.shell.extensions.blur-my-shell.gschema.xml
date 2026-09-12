@@ -652,10 +652,20 @@
             <default>20</default>
             <summary>Radius for popup menu corner rounding</summary>
         </key>
+        <!-- INPUT METHOD CANDIDATE CORNER RADIUS -->
+        <key type="i" name="candidate-corner-radius">
+            <default>12</default>
+            <summary>Radius for input method candidate popup corner rounding</summary>
+        </key>
         <!-- QUICK SETTINGS CORNER RADIUS -->
         <key type="i" name="quick-settings-corner-radius">
             <default>36</default>
-            <summary>Radius for quick settings and calendar corner rounding</summary>
+            <summary>Radius for quick settings corner rounding</summary>
+        </key>
+        <!-- CALENDAR CORNER RADIUS -->
+        <key type="i" name="calendar-corner-radius">
+            <default>30</default>
+            <summary>Radius for calendar and notification center corner rounding</summary>
         </key>
         <!-- NOTIFICATION CORNER RADIUS -->
         <key type="i" name="notification-corner-radius">

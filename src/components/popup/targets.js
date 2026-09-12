@@ -13,7 +13,12 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
-        style_classes: ['quick-settings', 'quick-toggle-menu', 'datemenu-popover','screenshot-ui-panel'],
+        style_classes: ['quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel'],
+    },
+    {
+        key: 'calendar-corner-radius',
+        property: 'CALENDAR_CORNER_RADIUS',
+        style_classes: ['datemenu-popover'],
     },
     {
         key: 'notification-corner-radius',
@@ -21,9 +26,14 @@ export const POPUP_CORNER_RADII = [
         style_classes: ['notification-banner', 'message', 'message-view', 'message-list'],
     },
     {
+        key: 'candidate-corner-radius',
+        property: 'CANDIDATE_CORNER_RADIUS',
+        style_classes: ['candidate-popup-content', 'candidate-popup-boxpointer'],
+    },
+    {
         key: 'menu-corner-radius',
         property: 'MENU_CORNER_RADIUS',
-        style_classes: ['popup-menu-content', 'popup-menu', 'candidate-popup-content', 'candidate-popup-boxpointer'],
+        style_classes: ['popup-menu-content', 'popup-menu'],
     },
     {
         key: 'osd-corner-radius',
