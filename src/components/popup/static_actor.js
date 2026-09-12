@@ -3,6 +3,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
 import { transform_to_actor_space } from './surface_geometry.js';
+import { PopupBlurAllocation } from './surface_allocation.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
@@ -37,6 +38,10 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         });
         this.background_group.hide();
         this.connect_destroy(this.background_group, () => this.background_group_destroyed = true);
+        if (this.parent === Main.layoutManager.modalDialogGroup) {
+            this.allocation_constraint = new PopupBlurAllocation();
+            this.background_group.add_constraint(this.allocation_constraint);
+        }
 
         return this.update_background();
     }
@@ -128,7 +133,11 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         const clip_height = Math.ceil(target_geometry.height);
 
         try {
-            if (this.is_screenshot_ui() && this.background_group && !this.background_group_destroyed) {
+            // The wallpaper child already uses monitor-relative positioning and
+            // clipping. Keep its container at the parent's origin under BinLayout.
+            this.allocation_constraint?.set_geometry(0, 0, monitor_geometry.width, monitor_geometry.height);
+            if ((this.allocation_constraint || this.is_screenshot_ui())
+                && this.background_group && !this.background_group_destroyed) {
                 this.background_group.set_position(0, 0);
                 this.background_group.set_size(monitor_geometry.width, monitor_geometry.height);
             }
