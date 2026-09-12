@@ -316,7 +316,9 @@ export const PopupBlur = class PopupBlur {
             };
         }
 
-        let actor = root_actor;
+        // A scan can discover several dialogs with a shared container as root.
+        // Place each blur above earlier dialogs and below its own dialog.
+        let actor = target;
         let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {
             let parent = null;
@@ -329,7 +331,8 @@ export const PopupBlur = class PopupBlur {
             if (!parent)
                 break;
 
-            if (parent === Main.layoutManager?.unlockDialogGroup ||
+            if (parent === Main.layoutManager?.modalDialogGroup ||
+                parent === Main.layoutManager?.unlockDialogGroup ||
                 parent === Main.layoutManager?.screenShieldGroup ||
                 parent === Main.uiGroup || 
                 parent === Main.layoutManager?.uiGroup)

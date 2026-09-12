@@ -2,6 +2,7 @@ import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PopupBlurSurfaceGeometry, transform_to_actor_space } from './surface_geometry.js';
+import { PopupBlurAllocation } from './surface_allocation.js';
 
 const MIN_SURFACE_DIMENSION = 2;
 
@@ -294,6 +295,16 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             const transform = this.get_target_transform(local);
             if (!transform)
                 return false;
+
+            if (this.surface.parent === Main.layoutManager.modalDialogGroup
+                && (!this.allocation_constraint || this.width !== local.width || this.height !== local.height)) {
+                if (!this.allocation_constraint) {
+                    this.allocation_constraint = new PopupBlurAllocation();
+                    this.surface.blur_actor.add_constraint(this.allocation_constraint);
+                }
+                // The transform positions the blur; constrain its local bounds only.
+                this.allocation_constraint.set_geometry(0, 0, local.width, local.height);
+            }
 
             this.surface.blur_actor.set_position(0, 0);
             this.surface.blur_actor.set_size(local.width, local.height);
