@@ -62,7 +62,8 @@ export const PipelineChooseRow = GObject.registerClass({
         const pipeline_id = this._pipeline_choose.selected_item.get_string();
         if (pipeline_id == 'create_new') {
             const id = this.pipelines_manager.create_pipeline(_("New pipeline"));
-            this.preferences.PIPELINE = id;
+            if (id)
+                this.preferences.PIPELINE = id;
         }
         else
             this.preferences.PIPELINE = pipeline_id;

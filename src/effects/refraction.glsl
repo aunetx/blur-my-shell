@@ -1,16 +1,31 @@
-// GLSL port of winaviation-tweaks/liquidass LiquidAssBackboardd/Tweak.mm kShaderSrc.
-// The sampling and blur pass are adapted for Blur my Shell's Clutter pipeline.
+// GLSL port of liquidass 0.1.1b (Tweak.mm kShaderSrc) from Liquid (Gl)ass by
+// winaviation (https://github.com/winaviation-tweaks/liquid-ass), blended on
+// Blur my Shell's clutter pipeline.
+//
+// The copyright holder explicitly granted, in email and in pull request #987
+// (2026-09-10), that this ported shader file may be re-licensed and
+// redistributed under the GNU GPL v3 for Blur my Shell, with the same rights
+// extending to anyone who reuses it from this repository. The original
+// upstream project remains licensed under CC BY-NC 4.0
+// (https://creativecommons.org/licenses/by-nc/4.0/).
+//
+// Optional specular glare (off by default) is an addition beyond the 0.1.1b
+// port and is not part of the original shader.
 uniform sampler2D tex;
 uniform float width;
 uniform float height;
 uniform float strength;
-uniform float blur_radius;
 uniform float edge_size;
 uniform float falloff;
 uniform float corner_radius;
+uniform int corners_top;
+uniform int corners_bottom;
 uniform float rim_width;
 uniform float rgb_fringing;
 uniform float gloss;
+uniform float fresnel_angle;
+uniform float fresnel_width;
+uniform float specular_strength;
 uniform float tint;
 uniform float tint_r;
 uniform float tint_g;
@@ -18,81 +33,60 @@ uniform float tint_b;
 uniform float tint_a;
 uniform float backdrop_zoom;
 uniform float shadow;
+uniform float opacity_factor;
 uniform int texture_repeat;
-uniform int blur_direction;
-uniform int private_pass;
 uniform float clip_x0;
 uniform float clip_y0;
 uniform float clip_width;
 uniform float clip_height;
-uniform float opacity_factor;
 
-const float PI = 3.14159265;
-const float REFRACTIVE_INDEX = 1.52;
 const float DISPERSION_SCALE = 20.0;
 
-const float kDispersionRedIndex = 0.98;
-const float kDispersionGreenIndex = 1.00;
-const float kDispersionBlueIndex = 1.02;
-
-float surfaceConvexSquircle(float x) {
-    return pow(1.0 - pow(1.0 - x, 4.0), 0.25);
+float quartzGlassEdgeProfile(float distanceFromEdge,
+                             float refractionHeight) {
+    float t = clamp(distanceFromEdge / max(refractionHeight, 0.001), 0.0, 1.0);
+    return 1.0 - sqrt(t * (2.0 - t));
 }
 
-vec2 refractRay(vec2 normal, float eta) {
-    float cosI = -normal.y;
-    float k = 1.0 - eta * eta * (1.0 - cosI * cosI);
-    if (k < 0.0)
-        return vec2(0.0);
+float quartzGlassRing(float distanceFromEdge,
+                      float bezelWidth) {
+    float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width, 1.0,
+                            2.5 * fresnel_width);
+    float aa = 1.0;
 
-    float kSqrt = sqrt(k);
-    return vec2(
-        -(eta * cosI + kSqrt) * normal.x,
-        eta - (eta * cosI + kSqrt) * normal.y
-    );
+    float outerCoverage = clamp(distanceFromEdge / aa + 0.5, 0.0, 1.0);
+    float radial = clamp(distanceFromEdge / ringWidth, 0.0, 1.0);
+    float ring;
+    if (ringWidth < 3.0) {
+        float innerCoverage = clamp((ringWidth - distanceFromEdge) / aa + 0.5, 0.0, 1.0);
+        ring = outerCoverage * innerCoverage;
+        ring *= 1.0 - radial;
+    } else {
+        float decayRate = 3.0;
+        ring = outerCoverage * exp(-decayRate * radial);
+    }
+    return ring;
 }
 
-float rawRefraction(float bezelRatio, float glassThickness, float bezelWidth, float eta) {
-    float x = clamp(bezelRatio, 0.05, 0.95);
-    float y = surfaceConvexSquircle(x);
-    float y2 = surfaceConvexSquircle(x + 0.001);
-    float deriv = (y2 - y) / 0.001;
-    float mag = sqrt(deriv * deriv + 1.0);
-    vec2 n = vec2(-deriv / mag, -1.0 / mag);
-    vec2 r = refractRay(n, eta);
-    if (length(r) < 0.0001 || abs(r.y) < 0.0001)
-        return 0.0;
+float quartzGlassHighlight(float distanceFromEdge,
+                           float bezelWidth,
+                           vec2 surfaceNormal,
+                           float strength,
+                           float angle) {
+    float normalLength = max(length(surfaceNormal), 0.001);
+    vec2 normal = surfaceNormal / normalLength;
+    float ring = quartzGlassRing(distanceFromEdge, bezelWidth);
 
-    float remaining = y * bezelWidth + glassThickness;
-    return r.x * (remaining / r.y);
-}
+    vec2 lightDirection = vec2(cos(angle), sin(angle));
+    float threshold = 0.15;
+    float directional = clamp((dot(lightDirection, normal) - threshold) /
+                              max(1.0 - threshold, 0.0001), 0.0, 1.0);
+    float highlight = ring * directional;
 
-float displacementAtRatio(float bezelRatio, float glassThickness, float bezelWidth, float eta) {
-    float peak = rawRefraction(0.05, glassThickness, bezelWidth, eta);
-    if (abs(peak) < 0.0001)
-        return 0.0;
-
-    float raw = rawRefraction(bezelRatio, glassThickness, bezelWidth, eta);
-    float norm = raw / peak;
-    float profileFalloff = 1.0 - smoothstep(0.0, 1.0, bezelRatio);
-    return norm * profileFalloff;
-}
-
-float fresnelAtRatio(float bezelRatio, float refractiveIndex) {
-    float x = clamp(bezelRatio, 0.02, 0.98);
-    float y0 = surfaceConvexSquircle(max(0.001, x - 0.001));
-    float y1 = surfaceConvexSquircle(min(0.999, x + 0.001));
-    float slope = (y1 - y0) / 0.002;
-    float cosTheta = inversesqrt(1.0 + slope * slope);
-    float f0Base = (refractiveIndex - 1.0) / (refractiveIndex + 1.0);
-    float f0 = f0Base * f0Base;
-    float grazing = pow(1.0 - clamp(cosTheta, 0.0, 1.0), 5.0);
-    float fresnel = f0 + (1.0 - f0) * grazing;
-    return fresnel * (1.0 - smoothstep(0.0, 1.0, bezelRatio));
-}
-
-float dispersionOffsetScale(float channelIndex, float strengthValue) {
-    return 1.0 - (channelIndex - 1.0) * strengthValue;
+    float oppositeAttenuation = 1.35;
+    highlight /= max(1.0 + (1.0 - highlight) * oppositeAttenuation,
+                     0.0001);
+    return highlight * max(strength, 0.0);
 }
 
 float luminance(vec3 color) {
@@ -106,7 +100,7 @@ vec2 clampUV(vec2 uv) {
 
 vec2 resolveUV(vec2 uv) {
     if (texture_repeat == 1) {
-        vec2 mirrored = abs(fract(uv * 0.5) * 2.0 - 1.0);
+        vec2 mirrored = 1.0 - abs(fract(uv * 0.5) * 2.0 - 1.0);
         return clampUV(mirrored);
     }
 
@@ -118,51 +112,8 @@ vec4 sampleBackdrop(vec2 uv) {
 }
 
 vec4 sampleGlassBackdrop(vec2 uv) {
-    if (blur_radius <= 0.01)
-        return sampleBackdrop(uv);
-
-    float sigma = max(0.1, blur_radius * 0.5);
-    float pixelStep = blur_direction == 1 ? 1.0 / width : 1.0 / height;
-    vec2 direction = vec2(float(blur_direction), 1.0 - float(blur_direction));
-
-    vec3 gauss;
-    gauss.x = 1.0 / (sqrt(2.0 * PI) * sigma);
-    gauss.y = exp(-0.5 / (sigma * sigma));
-    gauss.z = gauss.y * gauss.y;
-
-    vec4 accum = sampleBackdrop(uv) * gauss.x;
-    float weightSum = gauss.x;
-
-    gauss.xy *= gauss.yz;
-
-    int radius = int(ceil(1.5 * sigma)) * 2;
-    for (int i = 1; i <= radius; i += 2) {
-        float subtotal = gauss.x;
-
-        gauss.xy *= gauss.yz;
-        subtotal += gauss.x;
-
-        float gaussRatio = gauss.x / subtotal;
-        float offset = float(i) + gaussRatio;
-        vec2 uvOffset = direction * offset * pixelStep;
-
-        accum += sampleBackdrop(uv + uvOffset) * subtotal;
-        accum += sampleBackdrop(uv - uvOffset) * subtotal;
-        weightSum += subtotal * 2.0;
-
-        gauss.xy *= gauss.yz;
-    }
-
-    return accum / weightSum;
-}
-
-vec4 tintFallbackSample() {
-    return vec4(vec3(tint_r, tint_g, tint_b), 1.0);
-}
-
-vec4 sampleOrTintFallback(vec2 uv) {
-    vec4 sample = sampleGlassBackdrop(uv);
-    return sample.a < 0.01 ? tintFallbackSample() : sample;
+    vec4 sampleColor = sampleBackdrop(uv);
+    return vec4(sampleColor.a > 0.0001 ? sampleColor.rgb / sampleColor.a : vec3(0.0), sampleColor.a);
 }
 
 float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
@@ -171,20 +122,13 @@ float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
     return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
 }
 
-float squircleCornerDistance(vec2 p, vec2 halfSize, float radius) {
-    const float continuousCornerExtent = 1.528;
-
-    vec2 extent = min(vec2(radius * continuousCornerExtent), halfSize);
-    vec2 core = max(halfSize - extent, vec2(0.0));
-    vec2 q = abs(p) - core;
-    vec2 corner = max(q, vec2(0.0));
-    vec2 normalized = corner / max(extent, vec2(0.001));
-    float superLength = pow(pow(normalized.x, 4.0) + pow(normalized.y, 4.0), 0.25);
-
-    if (q.x <= 0.0 && q.y <= 0.0)
-        return -min(halfSize.x - abs(p.x), halfSize.y - abs(p.y));
-
-    return (superLength - 1.0) * min(extent.x, extent.y);
+float edgeCoverage(float signedDistance) {
+    float antialiasWidth = max(fwidth(signedDistance), 0.0001);
+    return 1.0 - smoothstep(
+        -antialiasWidth * 0.5,
+        antialiasWidth * 0.5,
+        signedDistance
+    );
 }
 
 struct EdgeInfo {
@@ -193,35 +137,17 @@ struct EdgeInfo {
     vec2 dir;
 };
 
-EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius, float shortest) {
+EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius) {
     vec2 p = px - halfSize;
-    float signedDistance;
-    vec2 core;
-
-    if (radius >= shortest * 0.49 || radius < 0.5) {
-        core = max(halfSize - vec2(radius), vec2(0.0));
-        signedDistance = roundedBoxDistance(p, halfSize, radius);
-    } else {
-        const float continuousCornerExtent = 1.528;
-        vec2 extent = min(vec2(radius * continuousCornerExtent), halfSize);
-        core = max(halfSize - extent, vec2(0.0));
-        signedDistance = squircleCornerDistance(p, halfSize, radius);
-    }
+    vec2 core = max(halfSize - vec2(radius), vec2(0.0));
+    float signedDistance = roundedBoxDistance(p, halfSize, radius);
 
     EdgeInfo info;
     info.distance = max(0.0, -signedDistance);
-    info.alpha = clamp(1.0 - max(0.0, signedDistance), 0.0, 1.0);
+    info.alpha = edgeCoverage(signedDistance);
 
-    vec2 cornerDelta = max(abs(p) - core, vec2(0.0));
-    vec2 normalDelta;
-
-    if (radius < shortest * 0.49 && radius >= 0.5 &&
-        cornerDelta.x > 0.0 && cornerDelta.y > 0.0) {
-        normalDelta = sign(p) * pow(cornerDelta, vec2(3.0));
-    } else {
-        vec2 nearestCore = clamp(p, -core, core);
-        normalDelta = p - nearestCore;
-    }
+    vec2 nearestCore = clamp(p, -core, core);
+    vec2 normalDelta = p - nearestCore;
 
     float normalLength = length(normalDelta);
 
@@ -252,72 +178,66 @@ vec2 backdropSampleUV(vec2 sampleUV, vec2 displacementPx) {
     return displaced;
 }
 
-vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, float dispersion) {
-    float greenScale = dispersionOffsetScale(kDispersionGreenIndex, dispersion);
-    vec2 greenUV = resolveUV(backdropSampleUV(sampleUV, dispPx * greenScale));
+vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, vec2 aberrationPx,
+                     float dispersion) {
+    vec2 greenUV = backdropSampleUV(sampleUV, dispPx);
     vec4 greenSample = sampleGlassBackdrop(greenUV);
 
     vec4 fallback = vec4(0.0);
-    bool loadedFallback = false;
     if (greenSample.a < 0.01) {
-        vec2 fallbackUV = resolveUV(backdropSampleUV(sampleUV, vec2(0.0)));
-
-        fallback = sampleOrTintFallback(fallbackUV);
-        loadedFallback = true;
+        fallback = sampleGlassBackdrop(sampleUV);
+        if (fallback.a < 0.01)
+            return vec4(0.0);
         greenSample = fallback;
     }
 
-    if (greenSample.a < 0.01)
-        return tintFallbackSample();
-
     vec4 bg = greenSample;
     if (dispersion > 0.001 && dot(dispPx, dispPx) > 0.0001) {
-        float redScale = dispersionOffsetScale(kDispersionRedIndex, dispersion);
-        float blueScale = dispersionOffsetScale(kDispersionBlueIndex, dispersion);
+        vec3 accumulated = vec3(0.0);
+        float accumulatedAlpha = 0.0;
 
-        vec2 redUV = resolveUV(backdropSampleUV(sampleUV, dispPx * redScale));
-        vec2 blueUV = resolveUV(backdropSampleUV(sampleUV, dispPx * blueScale));
-        vec4 redSample = sampleGlassBackdrop(redUV);
-        vec4 blueSample = sampleGlassBackdrop(blueUV);
-
-        if (redSample.a < 0.01 || blueSample.a < 0.01) {
-            if (!loadedFallback) {
-                vec2 fallbackUV = resolveUV(backdropSampleUV(sampleUV, vec2(0.0)));
-                fallback = sampleOrTintFallback(fallbackUV);
-            }
-
-            if (redSample.a < 0.01)
-                redSample = fallback.a < 0.01 ? tintFallbackSample() : fallback;
-
-            if (blueSample.a < 0.01)
-                blueSample = fallback.a < 0.01 ? tintFallbackSample() : fallback;
+        for (int i = 0; i < 3; i++) {
+            float weight = 1.0 - float(i) / 3.0;
+            vec2 uv = backdropSampleUV(sampleUV,
+                                       dispPx + aberrationPx * weight);
+            vec4 sample = sampleGlassBackdrop(uv);
+            if (sample.a < 0.01)
+                sample = fallback;
+            accumulated.r += sample.r * weight;
+            accumulated.g += sample.g * (1.0 - weight);
+            accumulatedAlpha += sample.a;
         }
 
-        bg.r = redSample.r;
-        bg.g = greenSample.g;
-        bg.b = blueSample.b;
-        bg.a = greenSample.a;
+        for (int i = 0; i < 4; i++) {
+            float weight = float(i) / 3.0;
+            vec2 uv = backdropSampleUV(sampleUV,
+                                       dispPx - aberrationPx * weight);
+            vec4 sample = sampleGlassBackdrop(uv);
+            if (sample.a < 0.01)
+                sample = fallback;
+            accumulated.g += sample.g * (1.0 - weight);
+            accumulated.b += sample.b * weight;
+            accumulatedAlpha += sample.a;
+        }
+
+        bg.rgb = accumulated * vec3(0.5, 1.0 / 3.0, 0.5);
+        bg.a = accumulatedAlpha / 7.0;
     }
     return bg;
 }
 
-vec4 applyTintAndShadow(vec4 sample, vec2 localUV, float alpha) {
+vec3 applyTintAndShadow(vec3 sample, vec2 localUV) {
     vec3 tintColor = vec3(tint_r, tint_g, tint_b);
-    vec3 outRGB = mix(sample.rgb, tintColor, tint * tint_a);
+    vec3 outRGB = mix(sample, tintColor, tint * tint_a);
 
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
 
-    return vec4(clamp(outRGB, 0.0, 1.0) * alpha, alpha);
+    return clamp(outRGB, 0.0, 1.0);
 }
 
 void main() {
     vec2 actorSize = vec2(width, height);
     vec2 actorUV = cogl_tex_coord_in[0].xy;
-
-    if (private_pass == 1) {
-        cogl_color_out = sampleGlassBackdrop(actorUV);
-        return;
-    }
 
     vec2 actorPx = actorUV * actorSize;
     vec4 bounds = clip_width < 0.0 || clip_height < 0.0
@@ -333,14 +253,18 @@ void main() {
     float H = glassSize.y;
     float shortestSide = min(W, H);
     float R = clamp(corner_radius, 0.0, shortestSide * 0.5);
+    float roundingRadius = R;
+    if ((glassPx.y < H * 0.5 && corners_top == 0)
+        || (glassPx.y >= H * 0.5 && corners_bottom == 0))
+        roundingRadius = 0.0;
     float bezel = max(1.0, min(edge_size, shortestSide * 0.5));
     float glassThickness = max(0.5, edge_size * 0.55 * falloff);
-    float eta = 1.0 / REFRACTIVE_INDEX;
 
     bool nearlySquare = abs(W - H) < max(4.0, shortestSide * 0.035);
-    bool useCircularSurface = nearlySquare && R >= shortestSide * 0.34;
+    bool useCircularSurface = corners_top != 0 && corners_bottom != 0
+        && nearlySquare && R >= shortestSide * 0.5 - 0.5;
 
-    EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, R, shortestSide);
+    EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, roundingRadius);
     if (edge.alpha <= 0.0) {
         cogl_color_out = vec4(0.0);
         return;
@@ -365,48 +289,78 @@ void main() {
 
         distFromSide = max(0.0, circleRadius - circleDistance);
         dir = circleDistance > 0.001 ? normalize(fromCenter) : vec2(0.0, -1.0);
-        edgeOpacity = clamp(1.0 - max(0.0, circleDistance - circleRadius), 0.0, 1.0);
+        edgeOpacity = edgeCoverage(circleDistance - circleRadius);
 
         float rimRadius = max(1.0, bezel * 0.35);
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     } else {
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
+rimRadius = min(rimRadius, shortestSide * 0.5);
+        if (R > 0.0 && (corners_top != 0 || corners_bottom != 0))
+            rimRadius = min(rimRadius, max(1.0, R));
         refractionBand = rimRadius;
         edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
+        if (roundingRadius == 0.0 && distFromSide < refractionBand) {
+            vec2 sideDistances = min(glassPx, glassSize - glassPx);
+            vec2 sideWeights = vec2(1.0) - smoothstep(vec2(0.0), vec2(refractionBand), sideDistances);
+            vec2 sideNormal = sign(glassPx - halfSize) * sideWeights;
+            dir = sideNormal / max(length(sideNormal), 0.0001);
+        }
     }
 
-    if (!useCircularSurface && R < shortestSide * 0.45 && distFromSide >= refractionBand) {
+if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
+        && distFromSide >= refractionBand) {
+        vec4 sourceSample = sampleGlassBackdrop(actorUV);
         vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
-        vec4 flatSample = sampleOrTintFallback(resolveUV(flatUV));
-        float finalOpacity = edgeOpacity * opacity_factor;
+        vec4 flatSample = sampleGlassBackdrop(flatUV);
+        float finalOpacity = edgeOpacity * mix(sourceSample.a, flatSample.a,
+                                               opacity_factor);
+        vec3 effectRGB = applyTintAndShadow(flatSample.rgb, localUV);
+        vec3 outRGB = mix(sourceSample.rgb, effectRGB, opacity_factor);
 
-        cogl_color_out = applyTintAndShadow(flatSample, localUV, finalOpacity);
+        cogl_color_out = vec4(outRGB * finalOpacity, finalOpacity);
         return;
     }
 
-    float bezelRatio = clamp(distFromSide / refractionBand, 0.0, 1.0);
     float normDisp = distFromSide < refractionBand
-        ? displacementAtRatio(bezelRatio, glassThickness, refractionBand, eta)
+        ? quartzGlassEdgeProfile(distFromSide, max(glassThickness, 1.0))
         : 0.0;
-    float dispStrength = useCircularSurface ? edgeOpacity : edgeBand;
+    float dispStrength = edgeBand;
     vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength;
 
     float dispersion = clamp(rgb_fringing * DISPERSION_SCALE, 0.0, 20.0);
-    vec4 bgColor = sampleDispersed(actorUV, dispPx, dispersion);
-    if (bgColor.a < 0.01) {
-        cogl_color_out = vec4(0.0);
-        return;
+    vec4 sourceColor = sampleGlassBackdrop(actorUV);
+    vec2 aberrationPx = -dir * normDisp * dispersion * 8.0 * dispStrength;
+    vec4 bgColor = sampleDispersed(actorUV, dispPx, aberrationPx, dispersion);
+
+    vec3 outRGB = mix(bgColor.rgb, vec3(tint_r, tint_g, tint_b),
+                      tint * tint_a);
+    float highlight = quartzGlassHighlight(distFromSide, refractionBand, dir,
+                                           gloss, fresnel_angle) *
+                      edgeOpacity;
+    float bgLuminance = luminance(outRGB);
+    highlight *= mix(0.32, 1.0, bgLuminance);
+    highlight = min(highlight, 0.22);
+    outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
+
+    if (specular_strength > 0.001) {
+        float specAngle = atan(dir.y, dir.x);
+        float sourceAngle = fresnel_angle + 3.14159265;
+        float dA = abs(mod(specAngle - sourceAngle + 3.14159265,
+                           6.2831853) - 3.14159265);
+        float lobe = exp(-dA * dA * 12.0);
+        float specular = quartzGlassRing(distFromSide, refractionBand) *
+                         lobe * edgeOpacity;
+        specular *= mix(0.32, 1.0, bgLuminance);
+        specular = min(specular * specular_strength, 0.4);
+        outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specular);
     }
 
-    vec3 outRGB = mix(bgColor.rgb, vec3(tint_r, tint_g, tint_b), tint * tint_a);
-    float fresnel = fresnelAtRatio(bezelRatio, REFRACTIVE_INDEX) * edgeOpacity;
-    float bgLuminance = luminance(outRGB);
-    float glare = clamp(fresnel * 0.70 * mix(0.40, 1.0, bgLuminance), 0.0, 0.18)
-        * clamp(gloss, 0.0, 1.0);
-    outRGB = 1.0 - (1.0 - outRGB) * (1.0 - glare);
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
+    outRGB = mix(sourceColor.rgb, outRGB, opacity_factor);
 
-    float finalOpacity = edgeOpacity * opacity_factor;
+    float finalOpacity = edgeOpacity * mix(sourceColor.a, bgColor.a,
+                                           opacity_factor);
     cogl_color_out = vec4(clamp(outRGB, 0.0, 1.0) * finalOpacity, finalOpacity);
 }

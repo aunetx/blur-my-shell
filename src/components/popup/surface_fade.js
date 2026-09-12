@@ -30,8 +30,10 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
             this.root_actor,
         ].forEach(actor => {
             const paint_opacity = this.get_paint_opacity(actor);
+            const parent_opacity = this.get_paint_opacity(this.parent) ?? 255;
             if (paint_opacity !== null)
-                opacity = Math.min(opacity, paint_opacity);
+                opacity = Math.min(opacity, parent_opacity > 0
+                    ? Math.round(paint_opacity * 255 / parent_opacity) : 0);
         });
 
         if (this.is_notification_banner()) {
@@ -59,7 +61,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         try {
             const [, stage_y] = this.target.get_transformed_position();
 
-            if (!Main.panel)
+            if (!Main.panel?.mapped || Main.panel.get_paint_opacity() === 0)
                 return 1;
 
             const monitor = Main.layoutManager.findMonitorForActor(Main.panel)

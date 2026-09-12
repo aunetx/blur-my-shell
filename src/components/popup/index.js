@@ -5,7 +5,9 @@ import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {
+    DEFAULT_CORNER_RADIUS,
     POPUP_BACKGROUND_STYLES,
+    POPUP_CORNER_RADII,
     POPUP_SURFACE_STYLES,
     PopupBlurTargets,
 } from './targets.js';
@@ -22,10 +24,12 @@ export const PopupBlur = class PopupBlur {
         this.settings = settings;
         this.effects_manager = effects_manager;
         this.surfaces = new Map();
+        this.surface_connections = new Map();
         this.containers = new Set();
         this.queued_actors = new Set();
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
+        this.keyboard_actors = new Set();
         this.interface_settings = new Gio.Settings({ schema_id: 'org.gnome.desktop.interface' });
         this.message_stacks = new PopupBlurMessageStacks(connections);
         this.targets = new PopupBlurTargets(this);
@@ -67,6 +71,21 @@ export const PopupBlur = class PopupBlur {
             'notify::color-scheme',
             () => this.update_background()
         );
+        this.connections.connect(
+            Main.layoutManager,
+            'monitors-changed',
+            () => this.surfaces.forEach(surface => surface.queue_update())
+        );
+        const radius_keys = new Set([
+            'rounded-corners',
+            DEFAULT_CORNER_RADIUS.key,
+            ...POPUP_CORNER_RADII.map(radius => radius.key),
+        ]);
+        radius_keys.forEach(key => this.connections.connect(
+            this.settings.popup.settings,
+            `changed::${key}`,
+            () => this.surfaces.forEach(surface => surface.update_settings())
+        ));
 
         this.track_container(Main.uiGroup);
         (Main.osdWindowManager?._osdWindows ?? []).forEach(window => this.track_container(window));
@@ -113,6 +132,14 @@ export const PopupBlur = class PopupBlur {
             keyboard_box,
             'child-added',
             (_, child) => this.update_keyboard_style(child)
+        );
+        this.connections.connect(
+            keyboard_box,
+            'child-removed',
+            (_, child) => {
+                this.clear_keyboard_style(child, true);
+                this.keyboard_actors.delete(child);
+            }
         );
     }
 
@@ -231,27 +258,28 @@ export const PopupBlur = class PopupBlur {
         try {
             if (surface.enable())
                 return this.connect_surface(target, root_actor);
-        } catch (e) { }
+        } catch (e) {
+            logError(e, '[Blur my Shell > popup] failed to enable surface');
+        }
 
-        this.surfaces.delete(target);
-        try {
-            surface.destroy();
-        } catch (e) { }
+        this.destroy_blur(target);
     }
 
     connect_surface(target, root_actor) {
-        this.connections.connect(
+        const records = [];
+        this.surface_connections.set(target, records);
+        records.push([target, this.connections.connect(
             target,
             'destroy',
             () => this.destroy_blur(target, true)
-        );
+        )]);
 
         if (root_actor !== target) {
-            this.connections.connect(
+            records.push([root_actor, this.connections.connect(
                 root_actor,
                 'destroy',
-                () => this.destroy_blur(target, true)
-            );
+                () => this.destroy_blur(target)
+            )]);
         }
     }
 
@@ -288,7 +316,9 @@ export const PopupBlur = class PopupBlur {
             };
         }
 
-        let actor = root_actor;
+        // A scan can discover several dialogs with a shared container as root.
+        // Place each blur above earlier dialogs and below its own dialog.
+        let actor = target;
         let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {
             let parent = null;
@@ -301,7 +331,8 @@ export const PopupBlur = class PopupBlur {
             if (!parent)
                 break;
 
-            if (parent === Main.layoutManager?.unlockDialogGroup ||
+            if (parent === Main.layoutManager?.modalDialogGroup ||
+                parent === Main.layoutManager?.unlockDialogGroup ||
                 parent === Main.layoutManager?.screenShieldGroup ||
                 parent === Main.uiGroup || 
                 parent === Main.layoutManager?.uiGroup)
@@ -386,6 +417,9 @@ export const PopupBlur = class PopupBlur {
             this.connections.connect(actor, 'destroy', () => {
                 this.destroyed_actors.add(actor);
                 this.containers.delete(actor);
+                this.queued_actors.delete(actor);
+                this.follow_up_actors.delete(actor);
+                this.keyboard_actors.delete(actor);
             });
         } catch (e) {
             return false;
@@ -438,6 +472,11 @@ export const PopupBlur = class PopupBlur {
             return;
 
         this.surfaces.delete(actor);
+        const records = this.surface_connections.get(actor) ?? [];
+        this.surface_connections.delete(actor);
+        records.forEach(([signal_actor, signal_id]) =>
+            this.connections.disconnect(signal_actor, signal_id)
+        );
         try {
             surface.destroy(actor_already_destroyed);
         } catch (e) { }
@@ -480,8 +519,6 @@ export const PopupBlur = class PopupBlur {
 
         const keyboard_actors = this._get_keyboard_actors();
         keyboard_actors.forEach(actor => this.clear_keyboard_style(actor));
-        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
-            .forEach(style =>  keyboard_actors.forEach(actor => actor.remove_style_class_name(style)));
 
         let background_style = null;
         if (this.settings.popup.OVERRIDE_BACKGROUND) {
@@ -501,22 +538,21 @@ export const PopupBlur = class PopupBlur {
         if (!actor)
             return;
 
-        if (remove_marker)
-            actor.remove_style_class_name(KEYBOARD_STYLE_CLASS);
-
-        if (!this.settings.popup.OVERRIDE_BACKGROUND)
-            return;
-
-        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
-            .forEach(style => actor.remove_style_class_name(style));
+        try {
+            if (remove_marker)
+                actor.remove_style_class_name?.(KEYBOARD_STYLE_CLASS);
+            [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
+                .forEach(style => actor.remove_style_class_name?.(style));
+        } catch (e) { }
     }
 
     update_keyboard_style(actor, background_style = null) {
-        if (!actor)
+        if (!this.watch_actor(actor))
             return;
 
+        this.keyboard_actors.add(actor);
         this.clear_keyboard_style(actor);
-        actor.add_style_class_name(KEYBOARD_STYLE_CLASS);
+        actor.add_style_class_name?.(KEYBOARD_STYLE_CLASS);
         if (!this.settings.popup.OVERRIDE_BACKGROUND)
             return;
 
@@ -525,7 +561,7 @@ export const PopupBlur = class PopupBlur {
                 POPUP_SURFACE_STYLES[this.get_background_style()] :
                 POPUP_BACKGROUND_STYLES[this.get_background_style()]
         );
-        actor.add_style_class_name(style);
+        actor.add_style_class_name?.(style);
     }
 
     get_background_style() {
@@ -568,10 +604,11 @@ export const PopupBlur = class PopupBlur {
         this._log("removing blur from popup surfaces");
         this.enabled = false;
 
-        const keyboard_actors = this._get_keyboard_actors();
+        const keyboard_actors = new Set([
+            ...this.keyboard_actors,
+            ...this._get_keyboard_actors(),
+        ]);
         keyboard_actors.forEach(actor => this.clear_keyboard_style(actor, true));
-        [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
-            .forEach(style =>  keyboard_actors.forEach(actor => actor.remove_style_class_name(style)));
 
         [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES]
             .forEach(style => Main.uiGroup.remove_style_class_name(style));
@@ -579,9 +616,11 @@ export const PopupBlur = class PopupBlur {
         const actors = [...this.surfaces.keys()];
         actors.forEach(actor => this.destroy_blur(actor));
         this.surfaces.clear();
+        this.surface_connections.clear();
         this.containers.clear();
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
+        this.keyboard_actors.clear();
         this.message_stacks.disable();
 
         this.connections.disconnect_all();

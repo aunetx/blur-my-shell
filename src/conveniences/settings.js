@@ -28,22 +28,26 @@ export const Settings = class Settings {
     constructor(keys, settings) {
         this.settings = settings;
         this.keys = keys;
+        this._invalid_values = new Set();
+
+        const owner = this;
 
         this.keys.forEach(bundle => {
             let component = this;
             let component_settings = settings;
             if (bundle.component !== "general") {
                 let bundle_component = bundle.component.replaceAll('-', '_');
+                component_settings = this.settings.get_child(bundle.component);
                 this[bundle_component] = {
-                    settings: this.settings.get_child(bundle.component)
+                    settings: component_settings
                 };
                 component = this[bundle_component];
-                component_settings = settings.get_child(bundle.component);
             }
 
 
             bundle.schemas.forEach(key => {
                 let property_name = this.get_property_name(key.name);
+                const value_id = `${bundle.component}/${key.name}`;
 
                 switch (key.type) {
                     case Type.B:
@@ -124,19 +128,27 @@ export const Settings = class Settings {
                         Object.defineProperty(component, property_name, {
                             get() {
                                 try {
-                                    return unpack_pipelines(component_settings.get_value(key.name));
+                                    const pipelines = unpack_pipelines(
+                                        component_settings.get_value(key.name)
+                                    );
+                                    owner._invalid_values.delete(value_id);
+                                    return pipelines;
                                 } catch (error) {
-                                    this._warn(`impossible to get pipelines, resetting: ${error.message}`);
-                                    component_settings.reset(key.name);
-                                    return unpack_pipelines(component_settings.get_value(key.name));
+                                    const first_failure = !owner._invalid_values.has(value_id);
+                                    owner._invalid_values.add(value_id);
+                                    if (first_failure) {
+                                        owner._warn(
+                                            `invalid pipelines setting, using the schema default `
+                                            + `without overwriting it: ${error.message}`
+                                        );
+                                    }
+                                    return unpack_pipelines(
+                                        component_settings.get_default_value(key.name)
+                                    );
                                 }
                             },
                             set(pipelines) {
-                                try {
-                                    component_settings.set_value(key.name, pack_pipelines(pipelines));
-                                } catch (error) {
-                                    this._warn(`impossible to set pipelines: ${error.message}`);
-                                }
+                                owner.set_pipelines(pipelines);
                             }
                         });
                         break;
@@ -144,7 +156,8 @@ export const Settings = class Settings {
 
 
                 component[property_name + '_reset'] = function () {
-                    return component_settings.reset(key.name);
+                    component_settings.reset(key.name);
+                    owner._invalid_values.delete(value_id);
                 };
 
                 component[property_name + '_signal_ids'] = [];
@@ -188,6 +201,25 @@ export const Settings = class Settings {
         return name.replaceAll('-', '_').toUpperCase();
     }
 
+    has_invalid_value(component, name) {
+        return this._invalid_values.has(`${component}/${name}`);
+    }
+
+    set_pipelines(pipelines) {
+        const value_id = 'general/pipelines';
+        try {
+            if (!this.settings.set_value('pipelines', pack_pipelines(pipelines))) {
+                this._warn('could not write pipelines setting');
+                return false;
+            }
+            this._invalid_values.delete(value_id);
+            return true;
+        } catch (error) {
+            this._warn(`impossible to set pipelines: ${error.message}`);
+            return false;
+        }
+    }
+
     /// Remove all connections managed by the Settings object, i.e. created with
     /// `settings.PROPERTY_changed(callback)`.
     disconnect_all_settings() {
@@ -203,6 +235,7 @@ export const Settings = class Settings {
                 component[property_name + '_disconnect']();
             });
         });
+        this.disconnectAll();
     }
 
     _warn(str) {

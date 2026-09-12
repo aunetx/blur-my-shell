@@ -1,7 +1,8 @@
 /*** POPUP ***/
 
-.bms-popup-blurred-widget {
-    background: rgba(0, 0, 0, 0.01);
+.bms-popup-liquid-glass {
+    border-color: transparent !important;
+    box-shadow: none !important;
 }
 
 .bms-popup-background-transparent .popup-menu-content,

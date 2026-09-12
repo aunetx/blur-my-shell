@@ -1,3 +1,7 @@
+import { getRoundedCorners } from '../../render/corner_policy.js';
+
+const LIQUID_GLASS_STYLE_CLASS = 'bms-popup-liquid-glass';
+
 export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     constructor(surface) {
         this.surface = surface;
@@ -14,6 +18,8 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     }
 
     update_target_style() {
+        this.update_liquid_glass_style();
+
         if (
             !this.surface.target.set_style
             || !this.surface.settings.popup.OVERRIDE_BACKGROUND
@@ -29,10 +35,14 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
 
         const base_style = this.original_target_style ?? '';
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
+        const corners = getRoundedCorners(this.surface.settings.popup.ROUNDED_CORNERS);
+        const radius = this.surface.get_corner_radius();
+        const top = corners.corners_top ? radius : 0;
+        const bottom = corners.corners_bottom ? radius : 0;
 
         try {
             this.surface.target.set_style(
-                `${base_style}${separator}border-radius: ${this.surface.get_corner_radius()}px;`
+                `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`
             );
             this.target_style_set = true;
         } catch (e) {
@@ -41,6 +51,8 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     }
 
     restore_target_style() {
+        this.remove_liquid_glass_style();
+
         if (!this.target_style_set || !this.surface.target.set_style)
             return;
 
@@ -63,5 +75,26 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
         } catch (e) {
             return false;
         }
+    }
+
+    update_liquid_glass_style() {
+        const enabled = this.surface.settings.popup.OVERRIDE_BACKGROUND
+            && (this.surface.pipeline?.effects ?? []).some(effect =>
+                effect._bms_effect_type === 'refraction'
+                && effect._bms_pixelize_role !== 'refraction-blur'
+            );
+
+        try {
+            if (enabled)
+                this.surface.target.add_style_class_name(LIQUID_GLASS_STYLE_CLASS);
+            else
+                this.remove_liquid_glass_style();
+        } catch (e) { }
+    }
+
+    remove_liquid_glass_style() {
+        try {
+            this.surface.target.remove_style_class_name(LIQUID_GLASS_STYLE_CLASS);
+        } catch (e) { }
     }
 };

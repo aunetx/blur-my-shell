@@ -8,92 +8,133 @@ const IFACE_XML = `
   <interface name="dev.aunetx.BlurMyShell">
     <!-- This method is called in preferences to pick a window -->
     <method name="pick" />
+    <method name="cancel" />
     <!-- When window is picking, send a signal to preferences -->
     <signal name="picking"></signal>
     <!-- If window is picked, send a signal to preferences -->
     <signal name="picked">
       <arg name="window" type="s" />
     </signal>
+    <signal name="cancelled" />
   </interface>
 </node>
 `;
 
+const OBJECT_PATH = '/dev/aunetx/BlurMyShell';
+
 export const ApplicationsService = class ApplicationsService {
     constructor() {
         this.DBusImpl = Gio.DBusExportedObject.wrapJSObject(IFACE_XML, this);
+        this.exported = false;
+        this.inspector = null;
+        this.looking_glass = null;
+        this.pick_completed = false;
+        this.pick_timeout_id = 0;
     }
 
     /// Pick Window for Preferences Page, exported to DBus client.
     pick() {
-        // emit `picking` signal to know we are listening
-        const send_picking_signal = _ =>
-            this.DBusImpl.emit_signal(
-                'picking',
-                null
-            );
+        this._cancel_pick(false);
+        this.DBusImpl.emit_signal('picking', null);
 
-        // emit `picked` signal to send wm_class
-        const send_picked_signal = wm_class =>
+        const looking_glass = Main.createLookingGlass();
+        looking_glass.open();
+        looking_glass.hide();
+
+        const inspector = new LookingGlass.Inspector(looking_glass);
+        this.inspector = inspector;
+        this.looking_glass = looking_glass;
+        this.pick_timeout_id = GLib.timeout_add_seconds(
+            GLib.PRIORITY_DEFAULT,
+            60,
+            () => {
+                this.pick_timeout_id = 0;
+                this._cancel_pick(true);
+                return GLib.SOURCE_REMOVE;
+            }
+        );
+
+        inspector.connect('target', (_inspector, target) => {
+            if (this.inspector !== inspector)
+                return;
+
+            const window_actor = this._find_window_actor(target);
+            const wm_class = window_actor?.meta_window?.get_wm_class()
+                ?? 'window-not-found';
+            this.pick_completed = true;
             this.DBusImpl.emit_signal(
                 'picked',
                 new GLib.Variant('(s)', [wm_class])
             );
-
-        // notify the preferences that we are listening
-        send_picking_signal();
-
-        // A very interesting way to pick a window:
-        // 1. Open LookingGlass to mask all event handles of window
-        // 2. Use inspector to pick window, thats is also lookingGlass do
-        // 3. Close LookingGlass when done
-        // It will restore event handles of window
-
-        // open then hide LookingGlass
-        const looking_class = Main.createLookingGlass();
-        looking_class.open();
-        looking_class.hide();
-
-        // inspect window now
-        const inspector = new LookingGlass.Inspector(Main.createLookingGlass());
-        inspector.connect('target', (me, target, _x, _y) => {
-            // remove border effect when window is picked.
-            const effect_name = 'lookingGlass_RedBorderEffect';
-            target
-                .get_effects()
-                .filter(e => e.toString().includes(effect_name))
-                .forEach(e => target.remove_effect(e));
-
-            // get wm_class_instance property of window, then pass it to DBus
-            // client
-            const type_str = target.toString();
-
-            let actor = target;
-            if (type_str.includes('MetaSurfaceActor'))
-                actor = target.get_parent();
-
-            if (!actor.toString().includes('WindowActor'))
-                actor = actor.get_parent();
-
-            if (!actor.toString().includes('WindowActor'))
-                return send_picked_signal('window-not-found');
-
-            send_picked_signal(
-                actor.meta_window.get_wm_class() ?? 'window-not-found'
-            );
         });
+        inspector.connect('closed', () => this._finish_pick(inspector));
+    }
 
-        // close LookingGlass when we're done
-        inspector.connect('closed', _ => looking_class.close());
+    cancel() {
+        this._cancel_pick(false);
+    }
+
+    _find_window_actor(target) {
+        let actor = target;
+        while (actor && !actor.meta_window)
+            actor = actor.get_parent?.() ?? null;
+        return actor;
+    }
+
+    _finish_pick(inspector) {
+        if (this.inspector !== inspector)
+            return;
+
+        this._clear_pick_timeout();
+        this.inspector = null;
+        const completed = this.pick_completed;
+        this.pick_completed = false;
+        const looking_glass = this.looking_glass;
+        this.looking_glass = null;
+        looking_glass?.close();
+        if (!completed)
+            this.DBusImpl.emit_signal('cancelled', null);
+    }
+
+    _cancel_pick(notify = false) {
+        this._clear_pick_timeout();
+        const inspector = this.inspector;
+        if (!inspector)
+            return;
+
+        this.inspector = null;
+        const completed = this.pick_completed;
+        this.pick_completed = false;
+        const looking_glass = this.looking_glass;
+        this.looking_glass = null;
+        inspector._close();
+        looking_glass?.close();
+        if (notify && !completed)
+            this.DBusImpl.emit_signal('cancelled', null);
+    }
+
+    _clear_pick_timeout() {
+        if (!this.pick_timeout_id)
+            return;
+
+        GLib.Source.remove(this.pick_timeout_id);
+        this.pick_timeout_id = 0;
     }
 
     export() {
-        this.DBusImpl.export(
-            Gio.DBus.session,
-            '/dev/aunetx/BlurMyShell'
-        );
-    };
+        if (this.exported)
+            return;
+
+        this.DBusImpl.export(Gio.DBus.session, OBJECT_PATH);
+        this.exported = true;
+    }
 
     unexport() {
+        if (!this.exported)
+            return;
+
+        this._cancel_pick(false);
         this.DBusImpl.unexport();
+        this.exported = false;
     }
 };
