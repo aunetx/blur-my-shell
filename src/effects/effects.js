@@ -421,12 +421,12 @@ export function get_supported_effects(_ = () => "") {
         wave: {
             class: WaveEffect,
             name: _("Vapor Wave"),
-            description: _("A flowing liquid wave distortion for a lively, dynamic feel."),
+            description: _("A flowing wave displacement for a lively and dynamic feel with natural movement."),
             is_advanced: false,
             editable_params: {
-                strength: {
-                    name: _("Strength"),
-                    description: _("How strongly the flowing noise displaces the image."),
+                frequency: {
+                    name: _("Wave frequency"),
+                    description: _("How tightly packed the ripples are."),
                     type: "float",
                     min: 0.,
                     max: 100.,
@@ -434,19 +434,45 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 10.,
                     digits: 0
                 },
-                noise_scale: {
-                    name: _("Noise scale"),
-                    description: _("The size of the wave ripples: lower values give broad, sweeping waves, higher values give finer ripples."),
+                amplitude: {
+                    name: _("Wave amplitude"),
+                    description: _("How strongly the image gets displaced by the waves."),
                     type: "float",
                     min: 0.,
                     max: 100.,
                     increment: 1.,
                     big_increment: 10.,
                     digits: 0
+                },
+                octaves: {
+                    name: _("Wave octaves"),
+                    description: _("Detail level of the wave shape. Higher adds more detail at the cost of performance."),
+                    type: "integer",
+                    min: 0,
+                    max: 6,
+                    increment: 1,
+                },
+                vapor_octaves: {
+                    name: _("Vapor octaves"),
+                    description: _("Detail level of the misty texture. Higher adds more detail at the cost of performance."),
+                    type: "integer",
+                    min: 0,
+                    max: 6,
+                    increment: 1,
+                },
+                vapor_speed: {
+                    name: _("Vapor speed"),
+                    description: _("How quickly the misty vapor texture drifts over time."),
+                    type: "float",
+                    min: 0.,
+                    max: 5.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
                 },
                 grain: {
                     name: _("Texture grain"),
-                    description: _("Adds a fine sandblasted texture to the box."),
+                    description: _("Adds a fine sandblasted texture to the image."),
                     type: "float",
                     min: 0.,
                     max: 100.,
@@ -469,16 +495,16 @@ export function get_supported_effects(_ = () => "") {
                     description: _("The brightness of the effect."),
                     type: "float",
                     min: 0.,
-                    max: 1.,
+                    max: 2.,
                     increment: 0.01,
                     big_increment: 0.1,
                     digits: 2
                 },
                 zoom: {
                     name: _("Zoom"),
-                    description: _("Magnifies the backdrop toward its center."),
+                    description: _("Magnifies the backdrop toward the surface's center."),
                     type: "float",
-                    min: 0.,
+                    min: 0.5,
                     max: 2.,
                     increment: 0.01,
                     big_increment: 0.1,
@@ -495,16 +521,16 @@ export function get_supported_effects(_ = () => "") {
                     digits: 0
                 },
                 use_animation: {
-                    name: _("Animate"),
+                    name: _("Use Animation"),
                     description: _("Whether the wave noise continuously flows over time."),
                     type: "boolean"
                 },
                 speed_factor: {
-                    name: _("Speed"),
+                    name: _("Animation Speed"),
                     description: _("The base speed at which the wave pattern flows."),
                     type: "float",
                     min: 0.,
-                    max: 2.,
+                    max: 5.,
                     increment: 0.01,
                     big_increment: 0.1,
                     digits: 2
