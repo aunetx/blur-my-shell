@@ -49,7 +49,7 @@ float quartzGlassEdgeProfile(float distanceFromEdge,
     return 1.0 - sqrt(t * (2.0 - t));
 }
 
-// ---- 0.1.0b Snell-style profile (convex squircle surface + IOR) ------
+// 0.1.0b Snell-style displacement profile
 float surfaceConvexSquircle(float x) {
     return pow(1.0 - pow(1.0 - x, 4.0), 0.25);
 }
