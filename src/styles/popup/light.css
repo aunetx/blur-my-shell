@@ -313,3 +313,23 @@
     background-color: rgba(255, 255, 255, 0.3);
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%);
 }
+
+.bms-popup-background-light StEntry {
+    color: #222226 !important;
+    background-color: rgba(255, 255, 255, 0.42) !important;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.bms-popup-background-light StEntry:focus {
+    color: #222226 !important;
+    background-color: rgba(255, 255, 255, 0.54) !important;
+}
+
+.bms-popup-background-light StEntry:insensitive {
+    color: rgba(34, 34, 38, 0.5) !important;
+    background-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+.bms-popup-background-light StEntry StLabel.hint-text {
+    color: rgba(34, 34, 38, 0.5) !important;
+}
