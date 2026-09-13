@@ -1,5 +1,7 @@
 import GLib from 'gi://GLib';
 
+import { StackMaskEffect, get_cover_geometry } from './stack_mask.js';
+
 const STACKED_PSEUDO_CLASSES = ['second-in-stack', 'lower-in-stack'];
 const MESSAGE_CONTAINER_STYLE_CLASSES = ['message-list', 'message-view', 'message-notification-group'];
 const INTERNAL_STYLE_CLASSES = ['bms-popup-blurred-widget', 'bms-popup-backgroundgroup'];
@@ -15,6 +17,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
         this.bms_clipped = new WeakSet();
+        this.stack_effects = new Map();
         this.group_connections = new Map();
         this.update_ids = new Map();
         this.original_opacity = new WeakMap();
@@ -92,7 +95,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.connect(
             message,
             'style-changed',
-            () => this.queue_update_message(message)
+            () => this.queue_update_all()
         );
 
         this.connect(
@@ -104,7 +107,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.connect(
             message,
             'notify::allocation',
-            () => this.queue_update_message(message)
+            () => this.queue_update_all()
         );
 
         this.connect(
@@ -286,12 +289,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (height <= 0 || width <= 0)
                 return;
 
-            const base_edge = (index === 1) ? 10 : (index === 2 ? 7 : 0);
-            const visible_edge = Math.round(base_edge + (height - base_edge) * expansion);
-            const clip_y = Math.max(0, height - visible_edge);
-
-            message.set_clip(0, clip_y, width, visible_edge);
-            this.bms_clipped.add(message);
+            this.apply_rounded_stack_mask(message, group, index);
 
             // Staggered opacity progress for cards so they smoothly fade in as they unravel
             const stagger_start = Math.min(0.8, index * 0.04);
@@ -320,25 +318,21 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
                 return;
 
             const index = this.get_message_index_in_group(message);
+            const group = this.get_message_group(message);
 
-            if (index === 1) {
-                // 2nd card: tight visible strip of 10px (matches exact 10px bottom offset below card 1)
-                const visible_edge = 10;
-                const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
-                this.bms_clipped.add(message);
-            } else if (index === 2) {
-                // 3rd card: tight visible strip of 7px (matches exact 7px bottom offset below card 2)
-                const visible_edge = 7;
-                const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
-                this.bms_clipped.add(message);
-            } else if (index >= 3) {
+            if (group && index > 0 && index < 3) {
+                this.apply_rounded_stack_mask(message, group, index);
+                return;
+            }
+
+            this.remove_stack_effects(message);
+
+            if (index >= 3) {
                 // 4th+ cards: hidden when collapsed so they don't stack behind card 3
                 message.set_clip(0, height, width, 0);
                 this.bms_clipped.add(message);
             } else {
-                // Fallback by pseudo class
+                // Older Shell layouts without notification groups keep the legacy clip.
                 const is_second = this.has_pseudo_class(message, 'second-in-stack');
                 const visible_edge = is_second ? 10 : 6;
                 const clip_y = Math.max(0, height - visible_edge);
@@ -348,7 +342,58 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         } catch (e) { }
     }
 
+    apply_rounded_stack_mask(message, group, index) {
+        if (this.bms_clipped.has(message)) {
+            message.remove_clip();
+            this.bms_clipped.delete(message);
+        }
+
+        const covers = this.get_group_messages(group).slice(0, index);
+        let effects = this.stack_effects.get(message);
+        if (!effects) {
+            effects = new Map();
+            this.stack_effects.set(message, effects);
+        }
+
+        // Subtract every overlapping card above this one. This also handles
+        // large radii where the nearest card does not cover the whole overlap.
+        const active = new Set();
+        covers.forEach(cover => {
+            if (this.destroyed_actors.has(cover) || !cover.visible)
+                return;
+            const geometry = get_cover_geometry(message, cover);
+            if (!geometry)
+                return;
+
+            active.add(cover);
+            let effect = effects.get(cover);
+            if (!effect) {
+                effect = new StackMaskEffect();
+                effects.set(cover, effect);
+                message.add_effect(effect);
+            }
+            effect.set_geometry(geometry);
+        });
+
+        effects.forEach((effect, cover) => {
+            if (!active.has(cover)) {
+                message.remove_effect(effect);
+                effects.delete(cover);
+            }
+        });
+    }
+
+    remove_stack_effects(message) {
+        const effects = this.stack_effects.get(message);
+        if (!effects)
+            return;
+        if (!this.destroyed_actors.has(message))
+            effects.forEach(effect => message.remove_effect(effect));
+        this.stack_effects.delete(message);
+    }
+
     remove_stack_mask(message) {
+        this.remove_stack_effects(message);
         if (!message || this.destroyed_actors.has(message))
             return;
 
@@ -542,6 +587,15 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
                     this.untrack_group(actor);
                 }
                 this.messages.delete(actor);
+                this.remove_stack_effects(actor);
+                this.stack_effects.forEach((effects, message) => {
+                    const effect = effects.get(actor);
+                    if (effect) {
+                        message.remove_effect(effect);
+                        effects.delete(actor);
+                        this.queue_update_message(message);
+                    }
+                });
                 this.cancel_update(actor);
             });
         } catch (e) {
@@ -613,6 +667,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.watched_actors = new WeakSet();
         this.destroyed_actors = new WeakSet();
         this.bms_clipped = new WeakSet();
+        this.stack_effects.clear();
         this.original_opacity = new WeakMap();
         this.original_message_opacity = new WeakMap();
         this.enabled = false;
