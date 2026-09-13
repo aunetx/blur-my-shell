@@ -318,6 +318,16 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 0.5,
                     digits: 2
                 },
+                refraction_style: {
+                    name: _("Refraction style"),
+                    description: _("0 is the vanilla 0.1.1b edge profile (soft, monotonic); higher blends toward the old 0.1.0b Snell-style S-curve that overbends at the very edge."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.05,
+                    big_increment: 0.25,
+                    digits: 2
+                },
                 gloss: {
                     name: _("Fresnel glare"),
                     description: _("Strength of the directional fresnel glare from the glass edge."),
