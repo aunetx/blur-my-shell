@@ -95,6 +95,20 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             }
         }
 
+        get refraction_style() {
+            return this._refraction_style;
+        }
+
+        set refraction_style(value) {
+            const refractionStyle = utils.clamp(value, 0, 1, DEFAULT_PARAMS.refraction_style);
+            if (this._refraction_style !== refractionStyle) {
+                this._refraction_style = refractionStyle;
+
+                uniforms.set_uniform(this, 'refraction_style', parseFloat(this._refraction_style - 1e-6));
+
+            }
+        }
+
         get corner_radius() {
             return this._corner_radius;
         }
