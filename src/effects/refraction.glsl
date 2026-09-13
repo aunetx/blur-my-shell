@@ -17,6 +17,7 @@ uniform float height;
 uniform float strength;
 uniform float edge_size;
 uniform float falloff;
+uniform float refraction_style;
 uniform float corner_radius;
 uniform int corners_top;
 uniform int corners_bottom;
@@ -40,12 +41,45 @@ uniform float clip_y0;
 uniform float clip_width;
 uniform float clip_height;
 
-const float DISPERSION_SCALE = 20.0;
+const float DISPERSION_SCALE = 10.0;
 
 float quartzGlassEdgeProfile(float distanceFromEdge,
                              float refractionHeight) {
     float t = clamp(distanceFromEdge / max(refractionHeight, 0.001), 0.0, 1.0);
     return 1.0 - sqrt(t * (2.0 - t));
+}
+
+// ---- 0.1.0b Snell-style profile (convex squircle surface + IOR) ------
+float surfaceConvexSquircle(float x) {
+    return pow(1.0 - pow(1.0 - x, 4.0), 0.25);
+}
+
+vec2 snellRefractRay(vec2 normal, float eta) {
+    float cosI = -normal.y;
+    float k = 1.0 - eta * eta * (1.0 - cosI * cosI);
+    if (k < 0.0) return vec2(0.0);
+    float sq = sqrt(k);
+    return vec2(-(eta * cosI + sq) * normal.x,
+                eta - (eta * cosI + sq) * normal.y);
+}
+
+float snellRawRefraction(float br, float gt, float bw, float eta) {
+    float x = clamp(br, 0.05, 0.95);
+    float y = surfaceConvexSquircle(x);
+    float y2 = surfaceConvexSquircle(x + 0.001);
+    float d = (y2 - y) / 0.001;
+    float m = sqrt(d * d + 1.0);
+    vec2 n = vec2(-d / m, -1.0 / m);
+    vec2 r = snellRefractRay(n, eta);
+    if (length(r) < 0.0001 || abs(r.y) < 0.0001) return 0.0;
+    return r.x * (y * bw + gt) / r.y;
+}
+
+float snellDisplacementAtRatio(float br, float gt, float bw, float eta) {
+    float peak = snellRawRefraction(0.05, gt, bw, eta);
+    if (abs(peak) < 0.0001) return 0.0;
+    float raw = snellRawRefraction(br, gt, bw, eta);
+    return (raw / peak) * (1.0 - smoothstep(0.0, 1.0, br));
 }
 
 float quartzGlassRing(float distanceFromEdge,
@@ -326,12 +360,21 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     float normDisp = distFromSide < refractionBand
         ? quartzGlassEdgeProfile(distFromSide, max(glassThickness, 1.0))
         : 0.0;
+    if (refraction_style > 0.001) {
+        float bezelRatio = clamp(distFromSide / max(refractionBand, 0.001), 0.0, 1.0);
+        float eta = 1.0 / 1.5;
+        float snellDisp = (distFromSide < refractionBand)
+            ? snellDisplacementAtRatio(bezelRatio, max(1.0, glassThickness),
+                                       max(1.0, refractionBand), eta)
+            : 0.0;
+        normDisp = mix(normDisp, snellDisp, clamp(refraction_style, 0.0, 1.0));
+    }
     float dispStrength = edgeBand;
     vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength;
 
     float dispersion = clamp(rgb_fringing * DISPERSION_SCALE, 0.0, 20.0);
     vec4 sourceColor = sampleGlassBackdrop(actorUV);
-    vec2 aberrationPx = -dir * normDisp * dispersion * 8.0 * dispStrength;
+    vec2 aberrationPx = -dir * normDisp * dispersion * 0.35 * dispStrength;
     vec4 bgColor = sampleDispersed(actorUV, dispPx, aberrationPx, dispersion);
 
     vec3 outRGB = mix(bgColor.rgb, vec3(tint_r, tint_g, tint_b),

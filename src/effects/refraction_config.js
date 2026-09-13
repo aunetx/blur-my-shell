@@ -7,6 +7,7 @@ export const DEFAULT_PARAMS = {
     blur_radius: 10,
     edge_size: 22,
     falloff: 2.4,
+    refraction_style: 0,
     corner_radius: 0,
     corners_top: true,
     corners_bottom: true,
@@ -59,6 +60,10 @@ export const REFRACTION_EFFECT_META = {
         falloff: doubleProperty(
             'falloff', 'Falloff', 'Refraction falloff',
             0.25, 20, DEFAULT_PARAMS.falloff
+        ),
+        refraction_style: doubleProperty(
+            'refraction_style', 'Refraction Style', '0 is vanilla 0.1.1b profile; higher blends toward the old Snell-style S-curve',
+            0, 1, DEFAULT_PARAMS.refraction_style
         ),
         corner_radius: doubleProperty(
             'corner_radius', 'Corner Radius', 'Refraction corner radius',
