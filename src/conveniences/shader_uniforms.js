@@ -12,6 +12,8 @@ const INTEGRAL_UNIFORMS = new Set([
     'straight_corners',
     'texture_repeat',
     'use_base_pixel',
+    'octaves',
+    'vapor_octaves',
 ]);
 
 export function set_uniform(effect, name, value) {
