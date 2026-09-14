@@ -38,7 +38,17 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'osd-corner-radius',
         property: 'OSD_CORNER_RADIUS',
-        style_classes: ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher'],
+        style_classes: ['switcher-list', 'workspace-switcher'],
+    },
+    {
+        key: 'osd-window-corner-radius',
+        property: 'OSD_WINDOW_CORNER_RADIUS',
+        style_classes: ['osd-window'],
+    },
+    {
+        key: 'resize-popup-corner-radius',
+        property: 'RESIZE_POPUP_CORNER_RADIUS',
+        style_classes: ['resize-popup'],
     },
     {
         key: 'dialog-corner-radius',

@@ -105,6 +105,8 @@ export const KEYS = [
             { type: Type.I, name: "calendar-corner-radius" },
             { type: Type.I, name: "notification-corner-radius" },
             { type: Type.I, name: "osd-corner-radius" },
+            { type: Type.I, name: "osd-window-corner-radius" },
+            { type: Type.I, name: "resize-popup-corner-radius" },
             { type: Type.I, name: "dialog-corner-radius" },
             { type: Type.I, name: "osk-corner-radius" },
             { type: Type.B, name: "override-background" },

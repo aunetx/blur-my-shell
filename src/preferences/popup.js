@@ -21,6 +21,8 @@ export const PopupBlur = GObject.registerClass({
         'calendar_corner_radius',
         'notification_corner_radius',
         'osd_corner_radius',
+        'osd_window_corner_radius',
+        'resize_popup_corner_radius',
         'dialog_corner_radius',
         'osk_corner_radius',
         'override_background',
@@ -83,6 +85,14 @@ export const PopupBlur = GObject.registerClass({
         );
         this.preferences.popup.settings.bind(
             'osd-corner-radius', this._osd_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'osd-window-corner-radius', this._osd_window_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'resize-popup-corner-radius', this._resize_popup_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(

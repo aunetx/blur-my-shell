@@ -637,10 +637,20 @@
             <default>18</default>
             <summary>Radius for notification corner rounding</summary>
         </key>
-        <!-- OSD CORNER RADIUS -->
+        <!-- SWITCHER CORNER RADIUS (keep the existing key for saved settings) -->
         <key type="i" name="osd-corner-radius">
             <default>28</default>
-            <summary>Radius for OSD and switcher corner rounding</summary>
+            <summary>Radius for window and workspace switcher corner rounding</summary>
+        </key>
+        <!-- VOLUME AND BRIGHTNESS OSD CORNER RADIUS -->
+        <key type="i" name="osd-window-corner-radius">
+            <default>48</default>
+            <summary>Radius for volume and brightness OSD corner rounding</summary>
+        </key>
+        <!-- WINDOW RESIZE POPUP CORNER RADIUS -->
+        <key type="i" name="resize-popup-corner-radius">
+            <default>12</default>
+            <summary>Radius for window resize popup corner rounding</summary>
         </key>
         <!-- DIALOG CORNER RADIUS -->
         <key type="i" name="dialog-corner-radius">
