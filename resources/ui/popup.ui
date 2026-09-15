@@ -80,9 +80,23 @@
             </child>
 
             <child>
+              <object class="AdwSpinRow" id="candidate_corner_radius">
+                <property name="title" translatable="yes">Input method candidates</property>
+                <property name="adjustment">candidate_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
               <object class="AdwSpinRow" id="quick_settings_corner_radius">
-                <property name="title" translatable="yes">Quick settings and calendar</property>
+                <property name="title" translatable="yes">Quick settings</property>
                 <property name="adjustment">quick_settings_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="calendar_corner_radius">
+                <property name="title" translatable="yes">Calendar and notification center</property>
+                <property name="adjustment">calendar_corner_radius_adjustment</property>
               </object>
             </child>
 
@@ -95,8 +109,22 @@
 
             <child>
               <object class="AdwSpinRow" id="osd_corner_radius">
-                <property name="title" translatable="yes">OSDs and switchers</property>
+                <property name="title" translatable="yes">Window and workspace switchers</property>
                 <property name="adjustment">osd_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="osd_window_corner_radius">
+                <property name="title" translatable="yes">Volume and brightness</property>
+                <property name="adjustment">osd_window_corner_radius_adjustment</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwSpinRow" id="resize_popup_corner_radius">
+                <property name="title" translatable="yes">Window resize hints</property>
+                <property name="adjustment">resize_popup_corner_radius_adjustment</property>
               </object>
             </child>
 
@@ -193,7 +221,19 @@
     <property name="step-increment">1</property>
   </object>
 
+  <object class="GtkAdjustment" id="candidate_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
   <object class="GtkAdjustment" id="quick_settings_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="calendar_corner_radius_adjustment">
     <property name="lower">0</property>
     <property name="upper">150</property>
     <property name="step-increment">1</property>
@@ -206,6 +246,18 @@
   </object>
 
   <object class="GtkAdjustment" id="osd_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="osd_window_corner_radius_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkAdjustment" id="resize_popup_corner_radius_adjustment">
     <property name="lower">0</property>
     <property name="upper">150</property>
     <property name="step-increment">1</property>
