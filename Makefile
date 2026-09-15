@@ -23,7 +23,7 @@ STYLESHEETS = src/styles/panel.css \
 build: clean
 	mkdir -p build/
 # St does not give CSS @imports the priority of the extension stylesheet.
-	cat $(STYLESHEETS) > build/stylesheet.css
+	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
 	cd src && gnome-extensions pack -f \
 			--extra-source=../build/stylesheet.css \
 			--extra-source=../metadata.json \
