@@ -13,11 +13,10 @@ export const DEFAULT_PARAMS = {
     corners_bottom: true,
     rim_width: 4.8,
     rgb_fringing: 0.1,
-    gloss: 1,
-    glow_strength: 0.8,
+    gloss: 0.6,
+    glow_strength: 0.6,
     fresnel_angle: 45,
     fresnel_width: 1,
-    specular_strength: 0,
     webcam_gloss: false,
     webcam_device: '',
     tint: 0.2,
@@ -91,7 +90,7 @@ export const REFRACTION_EFFECT_META = {
             0, 1, DEFAULT_PARAMS.gloss
         ),
         glow_strength: doubleProperty(
-            'glow_strength', 'Glow', 'Soft glow trailing the fresnel glare and specular, separate from the crisp glare line',
+            'glow_strength', 'Glow', 'Soft glow trailing the fresnel glare, separate from the crisp glare line',
             0, 1, DEFAULT_PARAMS.glow_strength
         ),
         fresnel_angle: doubleProperty(
@@ -101,10 +100,6 @@ export const REFRACTION_EFFECT_META = {
         fresnel_width: doubleProperty(
             'fresnel_width', 'Fresnel Width', 'Thickness multiplier of the fresnel glare ring',
             0.5, 6, DEFAULT_PARAMS.fresnel_width
-        ),
-        specular_strength: doubleProperty(
-            'specular_strength', 'Specular Glare Strength', 'Strength of the specular glare',
-            0, 1, DEFAULT_PARAMS.specular_strength
         ),
         webcam_gloss: GObject.ParamSpec.boolean(
             'webcam_gloss',

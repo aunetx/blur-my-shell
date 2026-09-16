@@ -340,7 +340,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 glow_strength: {
                     name: _("Glow"),
-                    description: _("Soft glow trailing the fresnel glare and specular. Wide and progressively blurred, fades out past the middle of the curve."),
+                    description: _("Soft glow trailing the fresnel glare. Wide and progressively blurred, fades out past the middle of the curve."),
                     type: "float",
                     min: 0.,
                     max: 1.,
@@ -366,16 +366,6 @@ export function get_supported_effects(_ = () => "") {
                     max: 6.,
                     increment: 0.1,
                     big_increment: 0.5,
-                    digits: 2
-                },
-                specular_strength: {
-                    name: _("Specular glare strength"),
-                    description: _("Strength of the specular glare showing the light direction (0 disables it)."),
-                    type: "float",
-                    min: 0.,
-                    max: 1.,
-                    increment: 0.01,
-                    big_increment: 0.1,
                     digits: 2
                 },
                 tint: {

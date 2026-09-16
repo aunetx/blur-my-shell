@@ -235,24 +235,6 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
                 uniforms.set_uniform(this, 'fresnel_width', parseFloat(this._fresnel_width - 1e-6));
             }
         }
-            get specular_strength() {
-            return this._specular_strength;
-        }
-
-        set specular_strength(value) {
-            const specularStrength = utils.clamp(
-                value, 0, 1, DEFAULT_PARAMS.specular_strength
-            );
-            if (this._specular_strength !== specularStrength) {
-                this._specular_strength = specularStrength;
-
-                uniforms.set_uniform(
-                    this,
-                    'specular_strength',
-                    parseFloat(this._specular_strength - 1e-6)
-                );
-            }
-        }
 
         get webcam_gloss() {
             return this._webcam_gloss;
