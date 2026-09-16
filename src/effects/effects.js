@@ -338,6 +338,16 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 0.1,
                     digits: 2
                 },
+                glow_strength: {
+                    name: _("Glow"),
+                    description: _("Soft glow trailing the fresnel glare and specular. Wide and progressively blurred, fades out past the middle of the curve."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
                 fresnel_angle: {
                     name: _("Fresnel glare angle"),
                     description: _("Light direction of the fresnel glare, in degrees (0 is from above, positive rotates clockwise)."),

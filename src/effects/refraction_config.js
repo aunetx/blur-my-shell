@@ -14,6 +14,7 @@ export const DEFAULT_PARAMS = {
     rim_width: 4.8,
     rgb_fringing: 0.1,
     gloss: 1,
+    glow_strength: 0.8,
     fresnel_angle: 45,
     fresnel_width: 1,
     specular_strength: 0,
@@ -88,6 +89,10 @@ export const REFRACTION_EFFECT_META = {
         gloss: doubleProperty(
             'gloss', 'Gloss', 'Specular highlight strength',
             0, 1, DEFAULT_PARAMS.gloss
+        ),
+        glow_strength: doubleProperty(
+            'glow_strength', 'Glow', 'Soft glow trailing the fresnel glare and specular, separate from the crisp glare line',
+            0, 1, DEFAULT_PARAMS.glow_strength
         ),
         fresnel_angle: doubleProperty(
             'fresnel_angle', 'Fresnel Angle', 'Light direction of the fresnel glare, in degrees',

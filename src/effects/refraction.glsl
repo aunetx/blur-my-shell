@@ -24,6 +24,7 @@ uniform int corners_bottom;
 uniform float rim_width;
 uniform float rgb_fringing;
 uniform float gloss;
+uniform float glow_strength;
 uniform float fresnel_angle;
 uniform float fresnel_width;
 uniform float specular_strength;
@@ -86,20 +87,23 @@ float quartzGlassRing(float distanceFromEdge,
                       float bezelWidth) {
     float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width, 1.0,
                             2.5 * fresnel_width);
-    float aa = 1.0;
-
-    float outerCoverage = clamp(distanceFromEdge / aa + 0.5, 0.0, 1.0);
+    float outerCoverage = clamp(distanceFromEdge + 0.5, 0.0, 1.0);
     float radial = clamp(distanceFromEdge / ringWidth, 0.0, 1.0);
-    float ring;
-    if (ringWidth < 3.0) {
-        float innerCoverage = clamp((ringWidth - distanceFromEdge) / aa + 0.5, 0.0, 1.0);
-        ring = outerCoverage * innerCoverage;
-        ring *= 1.0 - radial;
-    } else {
-        float decayRate = 3.0;
-        ring = outerCoverage * exp(-decayRate * radial);
-    }
-    return ring;
+
+    // Crisp glare: full through the middle of the curve, then thin out and
+    // fade to zero, with a soft scatter on the very end.
+    float taper = 1.0 - smoothstep(0.5, 1.0, radial);
+    float scatter = 0.25 * smoothstep(0.5, 1.0, radial) * (1.0 - radial);
+    return outerCoverage * (taper + scatter);
+}
+
+float quartzGlassGlareDirection(vec2 surfaceNormal,
+                                float angle) {
+    vec2 normal = surfaceNormal / max(length(surfaceNormal), 0.001);
+    vec2 lightDirection = vec2(cos(angle), sin(angle));
+    float threshold = 0.15;
+    return clamp((dot(lightDirection, normal) - threshold) /
+                 max(1.0 - threshold, 0.0001), 0.0, 1.0);
 }
 
 float quartzGlassHighlight(float distanceFromEdge,
@@ -107,20 +111,29 @@ float quartzGlassHighlight(float distanceFromEdge,
                            vec2 surfaceNormal,
                            float strength,
                            float angle) {
-    float normalLength = max(length(surfaceNormal), 0.001);
-    vec2 normal = surfaceNormal / normalLength;
-    float ring = quartzGlassRing(distanceFromEdge, bezelWidth);
-
-    vec2 lightDirection = vec2(cos(angle), sin(angle));
-    float threshold = 0.15;
-    float directional = clamp((dot(lightDirection, normal) - threshold) /
-                              max(1.0 - threshold, 0.0001), 0.0, 1.0);
-    float highlight = ring * directional;
+    float glare = quartzGlassRing(distanceFromEdge, bezelWidth) *
+                  quartzGlassGlareDirection(surfaceNormal, angle);
 
     float oppositeAttenuation = 1.35;
-    highlight /= max(1.0 + (1.0 - highlight) * oppositeAttenuation,
-                     0.0001);
-    return highlight * max(strength, 0.0);
+    glare /= max(1.0 + (1.0 - glare) * oppositeAttenuation,
+                 0.0001);
+    return glare * max(strength, 0.0);
+}
+
+float quartzGlassGlowGradient(float distanceFromEdge,
+                              float bezelWidth,
+                              float widthScale) {
+    float glowWidth = max(1.5, bezelWidth * 0.60 * fresnel_width * widthScale);
+    float radial = clamp(distanceFromEdge / max(glowWidth, 0.001), 0.0, 1.0);
+
+    // Defined and tight at the edge, then progressively blurred out until
+    // it fades to none. Consistent on every part of the surface.
+    float sharp = 1.0 - smoothstep(0.0, 0.35, radial);
+    float soft = 1.0 - smoothstep(0.15, 1.0, radial);
+    soft *= soft;
+    float glow = mix(sharp, soft, smoothstep(0.0, 1.0, radial));
+    glow *= 1.0 - smoothstep(0.4, 1.0, radial);
+    return glow;
 }
 
 float luminance(vec3 color) {
@@ -379,10 +392,21 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
 
     vec3 outRGB = mix(bgColor.rgb, vec3(tint_r, tint_g, tint_b),
                       tint * tint_a);
+    float bgLuminance = luminance(outRGB);
+
+    // Glow goes first so glare sits crisp on top.
+    if (glow_strength > 0.001) {
+        float directional = quartzGlassGlareDirection(dir, fresnel_angle);
+        float glow = quartzGlassGlowGradient(distFromSide, refractionBand, 1.0);
+        float trailing = glow * directional * glow_strength * edgeOpacity;
+        trailing *= mix(0.32, 1.0, bgLuminance) * 0.6;
+        trailing = min(trailing, 0.35);
+        outRGB = 1.0 - (1.0 - outRGB) * (1.0 - trailing);
+    }
+
     float highlight = quartzGlassHighlight(distFromSide, refractionBand, dir,
                                            gloss, fresnel_angle) *
                       edgeOpacity;
-    float bgLuminance = luminance(outRGB);
     highlight *= mix(0.32, 1.0, bgLuminance);
     highlight = min(highlight, 0.22);
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
@@ -392,12 +416,20 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         float sourceAngle = fresnel_angle + 3.14159265;
         float dA = abs(mod(specAngle - sourceAngle + 3.14159265,
                            6.2831853) - 3.14159265);
-        float lobe = exp(-dA * dA * 12.0);
+        float lobe = exp(-dA * dA * 9.0);
         float specular = quartzGlassRing(distFromSide, refractionBand) *
                          lobe * edgeOpacity;
         specular *= mix(0.32, 1.0, bgLuminance);
-        specular = min(specular * specular_strength, 0.4);
+        specular = min(specular * specular_strength * 0.65, 0.18);
         outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specular);
+
+        if (glow_strength > 0.001) {
+            float glow = quartzGlassGlowGradient(distFromSide, refractionBand, 0.6);
+            float specularGlow = glow * lobe * glow_strength * edgeOpacity;
+            specularGlow *= mix(0.32, 1.0, bgLuminance) * 0.6;
+            specularGlow = min(specularGlow, 0.15);
+            outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specularGlow);
+        }
     }
 
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;

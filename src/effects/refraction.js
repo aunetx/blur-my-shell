@@ -189,6 +189,19 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             }
         }
 
+        get glow_strength() {
+            return this._glow_strength;
+        }
+
+        set glow_strength(value) {
+            const glowStrength = utils.clamp(value, 0, 1, DEFAULT_PARAMS.glow_strength);
+            if (this._glow_strength !== glowStrength) {
+                this._glow_strength = glowStrength;
+
+                uniforms.set_uniform(this, 'glow_strength', parseFloat(this._glow_strength - 1e-6));
+            }
+        }
+
         get fresnel_angle() {
             return this._fresnel_angle;
         }
