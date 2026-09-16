@@ -253,6 +253,7 @@ Background on Window Proximity: Solid color background when a window is near the
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
       <item translatable="yes">Contrasted</item>
+      <item translatable="yes">Automatic</item>
     </items>
   </object>
 

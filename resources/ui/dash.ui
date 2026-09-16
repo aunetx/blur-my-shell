@@ -145,6 +145,7 @@
       <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
+      <item translatable="yes">Automatic</item>
     </items>
   </object>
 </interface>

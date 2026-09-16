@@ -4,6 +4,7 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
+import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
 
@@ -34,6 +35,7 @@ export const PanelBlur = class PanelBlur {
         this.enabled = false;
         this.dash_to_panel = null;
         this.main_panel_alive = true;
+        this._in_overview = false;
     }
 
     enable() {
@@ -104,7 +106,11 @@ export const PanelBlur = class PanelBlur {
                     }
                 });
             }
-        })
+        });
+
+        connect_system_style_changes(this.connections, () => {
+            this.update_visibility();
+        });
 
     }
 
@@ -483,21 +489,30 @@ export const PanelBlur = class PanelBlur {
     /// If HIDETOPBAR is set, we need just to hide the blur when showing appgrid
     /// (so no shadow is cropped)
     connect_to_overview() {
+        this._in_overview = Main.overview.visible;
         // may be called when panel blur is disabled, if hidetopbar
         // compatibility is toggled on/off
         // if this is the case, do nothing as only the panel blur interfers with
         // hidetopbar
         if (
-            this.settings.panel.BLUR &&
             this.settings.panel.UNBLUR_IN_OVERVIEW
         ) {
             if (!this.settings.hidetopbar.COMPATIBILITY) {
                 this.connections.connect(
-                    Main.overview, 'showing', _ => this.hide()
+                    Main.overview, 'showing', _ => {
+                        this._in_overview = true;
+                        this.hide();
+                    }
                 );
-                
+                this.connections.connect(
+                    Main.overview, 'shown', _ => {
+                        this._in_overview = true;
+                        this.hide();
+                    }
+                );
                 this.connections.connect(
                     Main.overview, 'hidden', _ => {
+                        this._in_overview = false;
                         this.panel_hide_blur_dynamically();
                         this.update_visibility();
                     }
@@ -508,14 +523,23 @@ export const PanelBlur = class PanelBlur {
                     return;
                 
                 this.connections.connect(
-                    appDisplay, 'show', _ => this.hide()
+                    appDisplay, 'show', _ => {
+                        this._in_overview = true;
+                        this.hide();
+                    }
                 );
 
                 this.connections.connect(
-                    appDisplay, 'hide', _ => this.update_visibility()
+                    appDisplay, 'hide', _ => {
+                        this._in_overview = false;
+                        this.update_visibility();
+                    }
                 );
                 this.connections.connect(
-                    Main.overview, 'hidden', _ => this.update_visibility()
+                    Main.overview, 'hidden', _ => {
+                        this._in_overview = false;
+                        this.update_visibility();
+                    }
                 );
             }
         }
@@ -744,12 +768,21 @@ export const PanelBlur = class PanelBlur {
                     actors, !window_overlap_panel
                 );
             });
+
+        this.actors_list
+            .filter(actors => actors.is_dtp_panel)
+            .forEach(actors => {
+                this.set_should_override_panel(
+                    actors, actors.should_override ?? true
+                );
+            });
     }
 
     /// Choose wether or not the panel background should be overriden, in
     /// respect to its argument and the `override-background` setting.
     set_should_override_panel(actors, should_override) {
         let panel = actors.widgets.panel;
+        let target_style = null;
         actors.should_override = should_override;
 
         if (this.settings.panel.OVERRIDE_BACKGROUND) {
@@ -766,14 +799,20 @@ export const PanelBlur = class PanelBlur {
                 }
                 if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 1) {
                     if (should_override) {
-                        this.update_panel_style_class(panel, PANEL_STYLES[this.settings.panel.STYLE_PANEL]);
+                        target_style = (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
+                            ? PANEL_STYLES[0]
+                            : PANEL_STYLES[this.get_panel_style()];
+                        this.update_panel_style_class(panel, target_style);
                     } else {
                         this.update_panel_style_class(panel, null); // Clear custom styles
                     }
                 }
             }
             else {
-                this.update_panel_style_class(panel, PANEL_STYLES[this.settings.panel.STYLE_PANEL]);
+                target_style = (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
+                            ? PANEL_STYLES[0]
+                            : PANEL_STYLES[this.get_panel_style()];
+                this.update_panel_style_class(panel, target_style);
             }
         }
         else {
@@ -800,6 +839,18 @@ export const PanelBlur = class PanelBlur {
         }
     }
 
+    get_panel_style() {
+        if (PANEL_STYLES == 3) {
+            return this.settings.panel.STYLE_PANEL;
+        } 
+        else {
+            return get_component_style(
+                this.settings.panel.STYLE_PANEL,
+                PANEL_STYLES
+            );
+        }
+    }
+
     panel_hide_blur_dynamically() {
         if (this.settings.panel.OVERRIDE_BACKGROUND && this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
             if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
@@ -815,7 +866,7 @@ export const PanelBlur = class PanelBlur {
     proximity_hide(actors, panel) {
         let target_style = null;
         if (this.settings.panel.GRADIENT_PANEL) {
-            if (!Main.overview.visible) {
+            if (!this._in_overview && !Main.overview.visible) {
                 target_style = GRADIENT_PANEL_STYLES[this.settings.panel.GRADIENT_PANEL_MODE];
             }
             else {
@@ -825,7 +876,10 @@ export const PanelBlur = class PanelBlur {
             }
         }
         else {
-            target_style = PANEL_STYLES[this.settings.panel.STYLE_PANEL];
+            // Hardcode to transparent so we get transparent top bar on Desktop
+            target_style = (!this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
+                                ? PANEL_STYLES[this.get_panel_style()]
+                                : PANEL_STYLES[0];
         }
 
         this.update_panel_style_class(panel, target_style);
@@ -833,7 +887,7 @@ export const PanelBlur = class PanelBlur {
     }
 
     proximity_show(actors, panel) {
-        this.update_panel_style_class(panel, PANEL_STYLES[this.settings.panel.STYLE_PANEL]);
+        this.update_panel_style_class(panel, PANEL_STYLES[this.get_panel_style()]);
         actors.widgets.background.show();
     }
 
@@ -865,12 +919,14 @@ export const PanelBlur = class PanelBlur {
     show() {
         this.actors_list.forEach(actors => {
             actors.widgets.background.show();
+            this.set_should_override_panel(actors, actors.should_override ?? true);
         });
     }
 
     hide() {
         this.actors_list.forEach(actors => {
             actors.widgets.background.hide();
+            this.set_should_override_panel(actors, actors.should_override ?? true);
         });
     }
 

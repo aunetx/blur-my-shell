@@ -5,6 +5,7 @@ import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/wor
 const wac_proto = WorkspaceAnimationController.prototype;
 
 import { Pipeline } from '../conveniences/pipeline.js';
+import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
     "overview-components-light",
@@ -52,6 +53,10 @@ export const OverviewBlur = class OverviewBlur {
         this.connections.connect(Main.layoutManager, 'monitors-changed',
             _ => this.update_backgrounds()
         );
+
+        connect_system_style_changes(this.connections, () => {
+            this.update_components_classname();
+        });
 
         this.patch_workspace_switch();
     }
@@ -197,6 +202,13 @@ export const OverviewBlur = class OverviewBlur {
         }
     }
 
+    get_overview_style() {
+        return get_component_style(
+            this.settings.overview.STYLE_COMPONENTS,
+            4
+        );
+    }
+
     /// Updates the classname to style overview components with semi-transparent
     /// backgrounds.
     update_components_classname() {
@@ -204,9 +216,11 @@ export const OverviewBlur = class OverviewBlur {
             style => Main.uiGroup.remove_style_class_name(style)
         );
 
-        if (this.settings.overview.STYLE_COMPONENTS > 0) {
+        const OVERVIEW_STYLE = this.get_overview_style();
+
+        if (OVERVIEW_STYLE > 0) {
             const style = OVERVIEW_COMPONENTS_STYLE[
-                this.settings.overview.STYLE_COMPONENTS - 1
+                OVERVIEW_STYLE - 1
             ];
             if (style)
                 Main.uiGroup.add_style_class_name(style);

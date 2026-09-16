@@ -50,6 +50,34 @@ function matchesAnyPattern(value, patterns) {
     return patterns.some(pattern => pattern.test(value));
 }
 
+function isDesktopWindow(meta_window) {
+    if (!meta_window)
+        return false;
+
+    const window_type = meta_window.get_window_type?.();
+    if (window_type === Meta.WindowType.DESKTOP)
+        return true;
+
+    const layer = meta_window.get_layer?.();
+    if (layer === Meta.StackLayer.DESKTOP || layer === Meta.StackLayer.BOTTOM)
+        return true;
+
+    if (meta_window.customJS_ding !== undefined)
+        return true;
+    
+    const ding = Main.extensionManager?.lookup('ding@rastersoft.com')
+        ?? Main.extensionManager?.lookup('dingubuntu@rastersoft.com');
+    if (ding?.stateObj?.data) {
+        const data = ding.stateObj.data;
+        if (data.x11Manager?._windowList?.includes(meta_window))
+            return true;
+        if (data.currentProcess?._waylandClient?.owns_window(meta_window))
+            return true;
+    }
+
+    return false;
+}
+
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
@@ -210,8 +238,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.meta_windows.add(meta_window);
 
         // update the blur when wm-class is changed
+        // update the blur when wm-class, window-type, or app-id changes
         this.connections.connect(
             meta_window, 'notify::wm-class',
+            _ => this.check_blur(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::window-type',
+            _ => this.check_blur(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::gtk-application-id',
             _ => this.check_blur(meta_window)
         );
 
@@ -381,11 +418,28 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// - ? matches any single character
     /// - Matching is case-insensitive
     check_blur(meta_window) {
+        // Exclude desktop background surfaces (DING, Nautilus desktop, Nemo, etc.)
+        if (isDesktopWindow(meta_window)) {
+            if (meta_window.blur_actor)
+                this.remove_blur(meta_window);
+            return;
+        }
+
         const window_wm_class = meta_window.get_wm_class();
         const enable_all = this.settings.applications.ENABLE_ALL;
         if (window_wm_class)
             this._log(`window associated to wm class name ${window_wm_class}`);
 
+        const title = meta_window.get_title() ?? '';
+        const is_desktop =  title.startsWith('Desktop Icons ')
+                            || title.includes('@!');
+
+        // remove blur from desktop windows if it exists
+        if (is_desktop) {
+            if (meta_window.blur_actor)
+                this.remove_blur(meta_window);
+            return
+        }    
 
         // if we are in blacklist mode and the window is not blacklisted
         // or if we are in whitelist mode and the window is whitelisted
@@ -406,8 +460,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
 
         // remove blur it is not explicitly whitelisted or un-blacklisted
-        else if (meta_window.blur_actor)
+        else if (meta_window.blur_actor) {
             this.remove_blur(meta_window);
+        }   
     }
 
     /// Add the blur effect to the window.
