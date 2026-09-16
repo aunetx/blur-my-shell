@@ -84,9 +84,10 @@ float snellDisplacementAtRatio(float br, float gt, float bw, float eta) {
 }
 
 float quartzGlassRing(float distanceFromEdge,
-                      float bezelWidth) {
-    float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width, 1.0,
-                            2.5 * fresnel_width);
+                      float bezelWidth,
+                      float widthScale) {
+    float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width * widthScale,
+                            1.0, 2.5 * fresnel_width);
     float outerCoverage = clamp(distanceFromEdge + 0.5, 0.0, 1.0);
     float radial = clamp(distanceFromEdge / ringWidth, 0.0, 1.0);
 
@@ -95,6 +96,26 @@ float quartzGlassRing(float distanceFromEdge,
     float taper = 1.0 - smoothstep(0.5, 1.0, radial);
     float scatter = 0.25 * smoothstep(0.5, 1.0, radial) * (1.0 - radial);
     return outerCoverage * (taper + scatter);
+}
+
+float quartzGlassEdgeEnvelope(vec2 px, vec2 halfSize, float radius,
+                              vec2 surfaceNormal) {
+    float W = halfSize.x * 2.0;
+    float H = halfSize.y * 2.0;
+    float c = max(radius, 0.0);
+
+    float fraction;
+    if (abs(surfaceNormal.y) >= abs(surfaceNormal.x)) {
+        fraction = clamp((px.x - c) / max(W - 2.0 * c, 1e-3), 0.0, 1.0);
+    } else {
+        fraction = clamp((px.y - c) / max(H - 2.0 * c, 1e-3), 0.0, 1.0);
+    }
+
+    // Full across the middle of the edge, thinning gradually towards the
+    // tangents where the corner arcs begin.
+    float ramp = 0.30;
+    return smoothstep(0.0, ramp, fraction) *
+           (1.0 - smoothstep(1.0 - ramp, 1.0, fraction));
 }
 
 float quartzGlassGlareDirection(vec2 surfaceNormal,
@@ -110,8 +131,9 @@ float quartzGlassHighlight(float distanceFromEdge,
                            float bezelWidth,
                            vec2 surfaceNormal,
                            float strength,
-                           float angle) {
-    float glare = quartzGlassRing(distanceFromEdge, bezelWidth) *
+                           float angle,
+                           float thinFactor) {
+    float glare = quartzGlassRing(distanceFromEdge, bezelWidth, thinFactor) *
                   quartzGlassGlareDirection(surfaceNormal, angle);
 
     float oppositeAttenuation = 1.35;
@@ -404,9 +426,12 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         outRGB = 1.0 - (1.0 - outRGB) * (1.0 - trailing);
     }
 
+    float glareEnvelope = useCircularSurface
+        ? 1.0 : quartzGlassEdgeEnvelope(glassPx, halfSize, roundingRadius, dir);
     float highlight = quartzGlassHighlight(distFromSide, refractionBand, dir,
-                                           gloss, fresnel_angle) *
-                      edgeOpacity;
+                                           gloss, fresnel_angle,
+                                           mix(0.35, 1.0, glareEnvelope)) *
+                      edgeOpacity * glareEnvelope;
     highlight *= mix(0.32, 1.0, bgLuminance);
     highlight = min(highlight, 0.22);
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
@@ -417,7 +442,7 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         float dA = abs(mod(specAngle - sourceAngle + 3.14159265,
                            6.2831853) - 3.14159265);
         float lobe = exp(-dA * dA * 9.0);
-        float specular = quartzGlassRing(distFromSide, refractionBand) *
+        float specular = quartzGlassRing(distFromSide, refractionBand, 1.0) *
                          lobe * edgeOpacity;
         specular *= mix(0.32, 1.0, bgLuminance);
         specular = min(specular * specular_strength * 0.65, 0.18);
