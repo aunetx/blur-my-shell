@@ -51,6 +51,8 @@ export const SurfaceShaderEffect = GObject.registerClass({
             width: textureWidth, height: textureHeight,
             logicalWidth: width, logicalHeight: height,
         };
+        this.target.viewportWidthLocation = pipeline.get_uniform_location('bms_viewport_width');
+        this.target.viewportHeightLocation = pipeline.get_uniform_location('bms_viewport_height');
         this.sourceValid = false;
         this._bms_uniforms_dirty = true;
     }
@@ -113,7 +115,24 @@ export const SurfaceShaderEffect = GObject.registerClass({
         this.vfunc_paint_target(node, paintContext);
     }
 
-    vfunc_paint_target(node, _paintContext) {
+    vfunc_paint_target(node, paintContext) {
+        if (this.target.viewportWidthLocation >= 0) {
+            const framebuffer = paintContext.get_framebuffer();
+            const width = framebuffer.get_viewport_width();
+            const height = framebuffer.get_viewport_height();
+            if (this.target.viewportWidth !== width || this.target.viewportHeight !== height) {
+                this.target.pipeline.set_uniform_1f(this.target.viewportWidthLocation, width);
+                this.target.pipeline.set_uniform_1f(this.target.viewportHeightLocation, height);
+                this.target.viewportWidth = width;
+                this.target.viewportHeight = height;
+            }
+            if (this.target.originX !== this.target.x || this.target.originY !== this.target.y) {
+                this.set_surface_uniform('bms_origin_x', this.target.x, false);
+                this.set_surface_uniform('bms_origin_y', this.target.y, false);
+                this.target.originX = this.target.x;
+                this.target.originY = this.target.y;
+            }
+        }
         const actor = this.get_actor();
         const opacity = actor.get_paint_opacity() / 255;
         const color = new Cogl.Color();

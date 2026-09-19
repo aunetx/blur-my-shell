@@ -156,8 +156,8 @@ float roundedBoxDistance(vec2 p, vec2 halfSize, float radius) {
     return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - radius;
 }
 
-float edgeCoverage(float signedDistance) {
-    float antialiasWidth = max(fwidth(signedDistance), 0.0001);
+float edgeCoverage(float signedDistance, vec2 position, vec2 normal) {
+    float antialiasWidth = bms_antialias_width(signedDistance, position, normal);
     return 1.0 - smoothstep(
         -antialiasWidth * 0.5,
         antialiasWidth * 0.5,
@@ -171,14 +171,13 @@ struct EdgeInfo {
     vec2 dir;
 };
 
-EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius) {
+EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius, vec2 actorPosition) {
     vec2 p = px - halfSize;
     vec2 core = max(halfSize - vec2(radius), vec2(0.0));
     float signedDistance = roundedBoxDistance(p, halfSize, radius);
 
     EdgeInfo info;
     info.distance = max(0.0, -signedDistance);
-    info.alpha = edgeCoverage(signedDistance);
 
     vec2 nearestCore = clamp(p, -core, core);
     vec2 normalDelta = p - nearestCore;
@@ -201,6 +200,7 @@ EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius) {
         );
     }
 
+    info.alpha = edgeCoverage(signedDistance, actorPosition, info.dir);
     return info;
 }
 
@@ -298,7 +298,7 @@ void main() {
     bool useCircularSurface = corners_top != 0 && corners_bottom != 0
         && nearlySquare && R >= shortestSide * 0.5 - 0.5;
 
-    EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, roundingRadius);
+    EdgeInfo edge = estimateAnalyticEdge(glassPx, halfSize, roundingRadius, actorPx);
     if (edge.alpha <= 0.0) {
         cogl_color_out = vec4(0.0);
         return;
@@ -323,7 +323,7 @@ void main() {
 
         distFromSide = max(0.0, circleRadius - circleDistance);
         dir = circleDistance > 0.001 ? normalize(fromCenter) : vec2(0.0, -1.0);
-        edgeOpacity = edgeCoverage(circleDistance - circleRadius);
+        edgeOpacity = edgeCoverage(circleDistance - circleRadius, actorPx, dir);
 
         float rimRadius = max(1.0, bezel * 0.35);
         refractionBand = rimRadius;

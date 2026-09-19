@@ -1,5 +1,6 @@
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
+import { ANTIALIASING_SOURCE } from '../render/shader_antialiasing.js';
 
 export const IS_IN_PREFERENCES = typeof global === 'undefined';
 
@@ -110,7 +111,7 @@ function create_fragment_shader_snippet(source) {
     try {
         const snippet = Cogl.Snippet.new(
             Cogl.SnippetHook.FRAGMENT,
-            `${parts.declarations}\nvoid bms_fragment() {\n${parts.body}\n}`,
+            `${source.includes('bms_antialias_width(') ? ANTIALIASING_SOURCE : ''}\n${parts.declarations}\nvoid bms_fragment() {\n${parts.body}\n}`,
             null
         );
         snippet.set_replace('bms_fragment(); cogl_color_out *= cogl_color_in.a;');

@@ -35,7 +35,13 @@ void main() {
         cornerRadius = 0.0;
 
     float distance = roundedBoxDistance(local - size * 0.5, size * 0.5, cornerRadius);
-    float antialiasWidth = max(fwidth(distance), 0.0001);
+    vec2 point = local - size * 0.5;
+    vec2 q = abs(point) - size * 0.5 + vec2(cornerRadius);
+    vec2 outside = max(q, vec2(0.0));
+    float outsideLength = length(outside);
+    vec2 normal = outsideLength > 0.0001 ? outside / outsideLength
+        : (q.x > q.y ? vec2(1.0, 0.0) : vec2(0.0, 1.0));
+    float antialiasWidth = bms_antialias_width(distance, position, normal * sign(point));
     float coverage = 1.0 - smoothstep(
         -antialiasWidth * 0.5,
         antialiasWidth * 0.5,
