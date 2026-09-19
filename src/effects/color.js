@@ -4,7 +4,6 @@ import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 
 const Shell = await utils.import_in_shell_only('gi://Shell');
-const Clutter = await utils.import_in_shell_only('gi://Clutter');
 
 const SHADER_FILENAME = 'color.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -69,7 +68,7 @@ const COLOR_EFFECT_META = {
         }
 };
 
-const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect extends Clutter.ShaderEffect {
+const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect extends utils.ShaderEffect {
 
         constructor(params) {
             super();
@@ -99,8 +98,9 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
         }
 
         set red(value) {
-            if (this._red !== value) {
-                this._red = value;
+            const red = utils.clamp(value, 0, 1, DEFAULT_PARAMS.color[0]);
+            if (this._red !== red) {
+                this._red = red;
 
                 uniforms.set_uniform(this, 'red', parseFloat(this._red - 1e-6));
             }
@@ -111,8 +111,9 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
         }
 
         set green(value) {
-            if (this._green !== value) {
-                this._green = value;
+            const green = utils.clamp(value, 0, 1, DEFAULT_PARAMS.color[1]);
+            if (this._green !== green) {
+                this._green = green;
 
                 uniforms.set_uniform(this, 'green', parseFloat(this._green - 1e-6));
             }
@@ -123,8 +124,9 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
         }
 
         set blue(value) {
-            if (this._blue !== value) {
-                this._blue = value;
+            const blue = utils.clamp(value, 0, 1, DEFAULT_PARAMS.color[2]);
+            if (this._blue !== blue) {
+                this._blue = blue;
 
                 uniforms.set_uniform(this, 'blue', parseFloat(this._blue - 1e-6));
             }
@@ -135,8 +137,9 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
         }
 
         set blend(value) {
-            if (this._blend !== value) {
-                this._blend = value;
+            const blend = utils.clamp(value, 0, 1, DEFAULT_PARAMS.color[3]);
+            if (this._blend !== blend) {
+                this._blend = blend;
 
                 uniforms.set_uniform(this, 'blend', parseFloat(this._blend - 1e-6));
                 this.set_enabled(this.blend > 0);
@@ -148,8 +151,9 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
         }
 
         set blend_mode(value) {
-            if (this._blend_mode !== value) {
-                this._blend_mode = value;
+            const blendMode = utils.clamp_integer(value, 0, 17, DEFAULT_PARAMS.blend_mode);
+            if (this._blend_mode !== blendMode) {
+                this._blend_mode = blendMode;
 
                 uniforms.set_uniform(this, 'mode', this._blend_mode);
             }
@@ -160,15 +164,16 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
         }
 
         set opacity_factor(value) {
-            if (this._opacity_factor !== value) {
-                this._opacity_factor = value;
+            const opacityFactor = utils.clamp(value, 0, 1, DEFAULT_PARAMS.opacity_factor);
+            if (this._opacity_factor !== opacityFactor) {
+                this._opacity_factor = opacityFactor;
 
                 uniforms.set_uniform(this, 'opacity_factor', parseFloat(this._opacity_factor));
             }
         }
 
         set color(rgba) {
-            let [r, g, b, a] = rgba;
+            const [r, g, b, a] = Array.isArray(rgba) ? rgba : DEFAULT_PARAMS.color;
             this.red = r;
             this.green = g;
             this.blue = b;
@@ -195,4 +200,4 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
 
 export const ColorEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(COLOR_EFFECT_META, ColorEffectClass, SHADER_SOURCE);
+    : utils.register_shader_effect(COLOR_EFFECT_META, ColorEffectClass);

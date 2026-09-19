@@ -8,6 +8,18 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 import { EffectRow } from './effect_row.js';
 import { get_effects_groups, get_supported_effects } from '../../effects/effects.js';
 
+function clone_effects(effects) {
+    return effects.map(effect => ({
+        ...effect,
+        params: Object.fromEntries(
+            Object.entries(effect.params ?? {}).map(([key, value]) => [
+                key,
+                Array.isArray(value) ? [...value] : value,
+            ])
+        ),
+    }));
+}
+
 export const EffectsDialog = GObject.registerClass({
     GTypeName: 'EffectsDialog',
     Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/effects-dialog.ui', GLib.UriFlags.NONE),
@@ -28,12 +40,16 @@ export const EffectsDialog = GObject.registerClass({
 
         let pipeline = pipelines_manager.pipelines[pipeline_id];
 
-        this.set_title(pipeline.name.length > 0 ? _(`Effects for "${pipeline.name}"`) : _("Effects"));
+        this.set_title(
+            pipeline.name.length > 0
+                ? _('Effects for “%s”').format(pipeline.name)
+                : _('Effects')
+        );
 
         pipeline.effects.forEach(effect => {
             const effect_row = new EffectRow(effect, this);
             this._effects_list.add(effect_row);
-            this.update_rows_insensitive_mover(effect_row);
+            this.update_move_buttons(effect_row.get_parent());
         });
 
         // setup advanced effects chooser action
@@ -109,66 +125,80 @@ export const EffectsDialog = GObject.registerClass({
 
     append_effect(effect_type) {
         const effect = {
-            type: effect_type, id: "effect_" + ("" + Math.random()).slice(2, 16)
+            type: effect_type,
+            id: `effect_${GLib.uuid_string_random()}`,
         };
-        this.pipelines_manager.update_pipeline_effects(
+        if (!this.pipelines_manager.update_pipeline_effects(
             this.pipeline_id,
             [...this.pipelines_manager.pipelines[this.pipeline_id].effects, effect]
-        );
+        ))
+            return;
 
         const effect_row = new EffectRow(effect, this);
         this._effects_list.add(effect_row);
         this.move_row_by(effect_row, 0);
-        this.update_rows_insensitive_mover(effect_row);
+        this.update_move_buttons(effect_row.get_parent());
     }
 
     move_row_by(row, number) {
-        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effects = clone_effects(
+            this.pipelines_manager.pipelines[this.pipeline_id].effects
+        );
         const effect_index = effects.findIndex(e => e.id == row.effect.id);
 
         if (effect_index >= 0) {
-            effects.splice(effect_index, 1);
-            effects.splice(effect_index + number, 0, row.effect);
+            const destination = Math.max(
+                0,
+                Math.min(effects.length - 1, effect_index + number)
+            );
+            const [effect] = effects.splice(effect_index, 1);
+            effects.splice(destination, 0, effect);
+            if (!this.pipelines_manager.update_pipeline_effects(this.pipeline_id, effects))
+                return;
+
+            row.effect = effect;
 
             const listbox = row.get_parent();
             listbox.set_sort_func((row_a, row_b) => {
                 const id_a = effects.findIndex(e => e.id == row_a.effect.id);
                 const id_b = effects.findIndex(e => e.id == row_b.effect.id);
-                return id_a > id_b;
+                return id_a - id_b;
             });
 
-            this.update_rows_insensitive_mover(row);
-
-            this.pipelines_manager.update_pipeline_effects(
-                this.pipeline_id, effects
-            );
+            this.update_move_buttons(listbox);
         }
     }
 
-    update_rows_insensitive_mover(any_row) {
+    update_move_buttons(listbox) {
         if (this._insensitive_top)
             this._insensitive_top.set_sensitive(true);
         if (this._insensitive_bottom)
             this._insensitive_bottom.set_sensitive(true);
 
-        const listbox = any_row.get_parent();
-        this._insensitive_top = listbox.get_first_child()._move_up_button;
+        this._insensitive_top = listbox.get_first_child()?._move_up_button ?? null;
         this._insensitive_top?.set_sensitive(false);
-        this._insensitive_bottom = listbox.get_last_child()._move_down_button;
+        this._insensitive_bottom = listbox.get_last_child()?._move_down_button ?? null;
         this._insensitive_bottom?.set_sensitive(false);
     }
 
     remove_row(row) {
-        const effects = this.pipelines_manager.pipelines[this.pipeline_id].effects;
+        const effects = clone_effects(
+            this.pipelines_manager.pipelines[this.pipeline_id].effects
+        );
         const effect_index = effects.findIndex(e => e.id == row.effect.id);
 
         if (effect_index >= 0) {
             effects.splice(effect_index, 1);
-            this.pipelines_manager.update_pipeline_effects(
+            if (!this.pipelines_manager.update_pipeline_effects(
                 this.pipeline_id, effects
-            );
+            ))
+                return;
+        } else {
+            return;
         }
 
+        const listbox = row.get_parent();
         this._effects_list.remove(row);
+        this.update_move_buttons(listbox);
     }
 });
