@@ -702,15 +702,19 @@ export const PanelBlur = class PanelBlur {
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
-            (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
-            || (this.main_panel_alive && Main.panel.has_style_pseudo_class('overview'))
-            || !Main.sessionMode.hasWindows
+            this.settings.panel.UNBLUR_IN_OVERVIEW &&
+            (this._in_overview || Main.overview.visible || (this.main_panel_alive && Main.panel.has_style_pseudo_class('overview')))
         ) {
+            this.actors_list.forEach(actors => {
+                actors.widgets.background.hide();
+                this.set_should_override_panel(actors, true);
+            });
+            return;
+        }
+
+        if (!Main.sessionMode.hasWindows) {
             this.actors_list.forEach(
-                actors => {
-                    actors.widgets.background.hide();
-                    this.set_should_override_panel(actors, true);
-                }
+                actors => this.set_should_override_panel(actors, true)
             );
             return;
         }
