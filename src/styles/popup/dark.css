@@ -60,6 +60,11 @@
     background-color: rgba(255, 255, 255, 0.18) !important;
 }
 
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:insensitive {
+    color: rgba(255, 255, 255, 0.35) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
 .bms-popup-background-dark .modal-dialog .button:insensitive,
 .bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:insensitive {
     background-color: rgba(255, 255, 255, 0.08) !important;
