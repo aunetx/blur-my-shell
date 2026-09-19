@@ -16,7 +16,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel',
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
-    'modal-dialog', 'run-dialog',
+    'modal-dialog', 'run-dialog', 'clipboard-dialog',
     'bms-keyboard-surface',
 ];
 const IS_HEAVY_SURFACE_STYLE_CLASSES = [

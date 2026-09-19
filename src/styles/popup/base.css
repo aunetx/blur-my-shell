@@ -18,6 +18,7 @@
 .bms-popup-background-transparent .workspace-switcher,
 .bms-popup-background-transparent .modal-dialog,
 .bms-popup-background-transparent .run-dialog,
+.bms-popup-background-transparent .clipboard-dialog,
 .bms-popup-background-transparent .screenshot-ui-panel,
 .bms-popup-surface-transparent .popup-menu-content,
 .bms-popup-surface-transparent .popup-sub-menu,
@@ -30,6 +31,7 @@
 .bms-popup-surface-transparent .workspace-switcher,
 .bms-popup-surface-transparent .modal-dialog,
 .bms-popup-surface-transparent .run-dialog,
+.bms-popup-surface-transparent .clipboard-dialog,
 .bms-popup-surface-transparent .screenshot-ui-panel {
     background: transparent !important;
     border-color: transparent;
@@ -47,6 +49,7 @@
 .bms-popup-background-light .workspace-switcher,
 .bms-popup-background-light .modal-dialog,
 .bms-popup-background-light .run-dialog,
+.bms-popup-background-light .clipboard-dialog,
 .bms-popup-background-light .screenshot-ui-panel {
     color: #222226;
 }
@@ -63,6 +66,7 @@
 .bms-popup-background-light .workspace-switcher,
 .bms-popup-background-light .modal-dialog,
 .bms-popup-background-light .run-dialog,
+.bms-popup-background-light .clipboard-dialog,
 .bms-popup-background-light .screenshot-ui-panel,
 .bms-popup-surface-light .popup-menu-content,
 .bms-popup-surface-light .popup-sub-menu,
@@ -76,6 +80,7 @@
 .bms-popup-surface-light .workspace-switcher,
 .bms-popup-surface-light .modal-dialog,
 .bms-popup-surface-light .run-dialog,
+.bms-popup-surface-light .clipboard-dialog,
 .bms-popup-surface-light .screenshot-ui-panel {
     background: rgba(255, 255, 255, 0.58) !important;
     border-color: rgba(0, 0, 0, 0.05);
@@ -83,12 +88,9 @@
 
 .bms-popup-background-light .modal-dialog,
 .bms-popup-background-light .run-dialog,
+.bms-popup-background-light .clipboard-dialog,
 .bms-popup-surface-light .modal-dialog,
-.bms-popup-surface-light .run-dialog,
-.bms-popup-background-dark .modal-dialog,
-.bms-popup-background-dark .run-dialog,
-.bms-popup-surface-dark .modal-dialog,
-.bms-popup-surface-dark .run-dialog {
+.bms-popup-surface-light .run-dialog {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -116,6 +118,7 @@
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .clipboard-dialog,
 .bms-popup-background-dark .screenshot-ui-panel,
 .bms-popup-background-transparent .message {
     color: #ffffff;
@@ -132,6 +135,7 @@
 .bms-popup-background-dark .workspace-switcher,
 .bms-popup-background-dark .modal-dialog,
 .bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .clipboard-dialog,
 .bms-popup-background-dark .screenshot-ui-panel,
 .bms-popup-surface-dark .screenshot-ui-panel, 
 .bms-popup-surface-dark .popup-menu-content,
@@ -144,8 +148,18 @@
 .bms-popup-surface-dark .switcher-list,
 .bms-popup-surface-dark .workspace-switcher,
 .bms-popup-surface-dark .modal-dialog,
-.bms-popup-surface-dark .run-dialog {
+.bms-popup-surface-dark .run-dialog,
+.bms-popup-surface-dark .clipboard-dialog {
     background: rgba(45, 45, 50, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.bms-popup-background-dark .modal-dialog,
+.bms-popup-background-dark .run-dialog,
+.bms-popup-background-dark .clipboard-dialog,
+.bms-popup-surface-dark .modal-dialog,
+.bms-popup-surface-dark .run-dialog,
+.bms-popup-surface-dark .clipboard-dialog {
     border-color: rgba(255, 255, 255, 0.05);
 }
 
