@@ -51,7 +51,7 @@
 .bms-popup-background-light .run-dialog,
 .bms-popup-background-light .clipboard-dialog,
 .bms-popup-background-light .screenshot-ui-panel {
-    color: #222226;
+    color: rgba(0, 0, 0, 0.85);
 }
 
 .bms-popup-background-light .popup-menu-content,
@@ -344,13 +344,13 @@
 .bms-popup-background-light .screenshot-ui-type-button,
 .bms-popup-background-light .screenshot-ui-show-pointer-button,
 .bms-popup-background-light .screenshot-ui-shot-cast-button {
-    color: #1a1a1e !important;
+    color: rgba(0, 0, 0, 0.92) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-type-button:insensitive,
 .bms-popup-background-light .screenshot-ui-show-pointer-button:insensitive,
 .bms-popup-background-light .screenshot-ui-shot-cast-button:insensitive {
-    color: rgba(26, 26, 30, 0.5) !important;
+    color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-type-button:hover,
@@ -470,7 +470,7 @@
 }
 
 .bms-popup-background-light .screenshot-ui-shot-cast-button:insensitive {
-    color: rgba(26, 26, 30, 0.5) !important;
+    color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-section,

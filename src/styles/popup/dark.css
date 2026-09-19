@@ -26,6 +26,8 @@
 .bms-popup-surface-dark .message-media-control:active,
 .bms-popup-background-dark .message-expand-button:active,
 .bms-popup-surface-dark .message-expand-button:active,
+.bms-popup-background-dark .message-notification-group StButton:active,
+.bms-popup-surface-dark .message-notification-group StButton:active,
 .bms-popup-background-dark .switcher-list .item-box:active,
 .bms-popup-surface-dark .switcher-list .item-box:active {
   background-color: rgba(255, 255, 255, 0.24) !important;
@@ -44,6 +46,12 @@
 .bms-popup-surface-dark .message-notification-group StButton:focus,
 .bms-popup-surface-dark .message-notification-group StButton:checked {
   background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+.bms-popup-background-dark .message .message-header,
+.bms-popup-background-dark .message .message-header .message-header-content .event-time,
+.bms-popup-background-dark .message .message-header .message-header-content .message-source-title {
+    color: rgba(255, 255, 255, 0.68);
 }
 
 .bms-popup-background-dark .message-list-controls .message-list-clear-button {
