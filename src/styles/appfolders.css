@@ -16,6 +16,38 @@
     box-shadow: none;
 }
 
+/* Dialog controls follow the folder style independently of the overview. */
+.appfolder-dialogs-transparent .edit-folder-button,
+.appfolder-dialogs-transparent .icon-button {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-color: transparent;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button StIcon,
+.appfolder-dialogs-transparent .icon-button StIcon {
+    color: #ffffff !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:hover,
+.appfolder-dialogs-transparent .edit-folder-button:focus,
+.appfolder-dialogs-transparent .icon-button:hover,
+.appfolder-dialogs-transparent .icon-button:focus {
+    background-color: rgba(230, 230, 230, 0.08) !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:active,
+.appfolder-dialogs-transparent .edit-folder-button:focus:hover,
+.appfolder-dialogs-transparent .icon-button:active,
+.appfolder-dialogs-transparent .icon-button:focus:hover {
+    background-color: rgba(230, 230, 230, 0.12) !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:focus:active,
+.appfolder-dialogs-transparent .icon-button:focus:active {
+    background-color: rgba(230, 230, 230, 0.15) !important;
+}
+
 
 /*
 * `.appfolder-dialogs-light`
