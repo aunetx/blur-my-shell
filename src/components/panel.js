@@ -702,11 +702,15 @@ export const PanelBlur = class PanelBlur {
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
-            this.main_panel_alive && Main.panel.has_style_pseudo_class('overview')
+            (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
+            || (this.main_panel_alive && Main.panel.has_style_pseudo_class('overview'))
             || !Main.sessionMode.hasWindows
         ) {
             this.actors_list.forEach(
-                actors => this.set_should_override_panel(actors, true)
+                actors => {
+                    actors.widgets.background.hide();
+                    this.set_should_override_panel(actors, true);
+                }
             );
             return;
         }
@@ -887,6 +891,12 @@ export const PanelBlur = class PanelBlur {
     }
 
     proximity_show(actors, panel) {
+        if (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible)) {
+            this.update_panel_style_class(panel, PANEL_STYLES[0]);
+            actors.widgets.background.hide();
+            return;
+        }
+
         this.update_panel_style_class(panel, PANEL_STYLES[this.get_panel_style()]);
         actors.widgets.background.show();
     }
@@ -926,7 +936,13 @@ export const PanelBlur = class PanelBlur {
     hide() {
         this.actors_list.forEach(actors => {
             actors.widgets.background.hide();
-            this.set_should_override_panel(actors, actors.should_override ?? true);
+            if (this.settings.panel.OVERRIDE_BACKGROUND) {
+                const target_style = (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
+                    ? PANEL_STYLES[0]
+                    : PANEL_STYLES[this.get_panel_style()];
+                this.update_panel_style_class(actors.widgets.panel, target_style);
+            }
+            this.update_light_text_classname();
         });
     }
 

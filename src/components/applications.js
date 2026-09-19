@@ -59,8 +59,15 @@ function isDesktopWindow(meta_window) {
         return true;
 
     const layer = meta_window.get_layer?.();
-    if (layer === Meta.StackLayer.DESKTOP || layer === Meta.StackLayer.BOTTOM)
-        return true;
+    if (typeof Meta.StackLayer !== 'undefined') {
+        if (layer === Meta.StackLayer.DESKTOP || layer === Meta.StackLayer.BOTTOM)
+            return true;
+    } else if (typeof layer === 'number') {
+        // Fallback for GNOME < 51 where Meta.StackLayer was not exposed in GJS
+        // (0 = META_LAYER_DESKTOP, 1 = META_LAYER_BOTTOM in Mutter's MetaStackLayer enum)
+        if (layer === 0 || layer === 1)
+            return true;
+    }
 
     if (meta_window.customJS_ding !== undefined)
         return true;
@@ -74,6 +81,10 @@ function isDesktopWindow(meta_window) {
         if (data.currentProcess?._waylandClient?.owns_window(meta_window))
             return true;
     }
+
+    const app_id = meta_window.get_gtk_application_id?.();
+    if (app_id === 'com.rastersoft.ding' || app_id === 'com.rastersoft.dingtest')
+        return true;
 
     return false;
 }
@@ -429,17 +440,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
         const enable_all = this.settings.applications.ENABLE_ALL;
         if (window_wm_class)
             this._log(`window associated to wm class name ${window_wm_class}`);
-
-        const title = meta_window.get_title() ?? '';
-        const is_desktop =  title.startsWith('Desktop Icons ')
-                            || title.includes('@!');
-
-        // remove blur from desktop windows if it exists
-        if (is_desktop) {
-            if (meta_window.blur_actor)
-                this.remove_blur(meta_window);
-            return
-        }    
 
         // if we are in blacklist mode and the window is not blacklisted
         // or if we are in whitelist mode and the window is whitelisted
