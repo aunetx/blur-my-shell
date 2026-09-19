@@ -10,6 +10,7 @@ import {
     is_supported_dock_container,
     resolve_dock_target,
 } from './dock_targets.js';
+import { connect_system_style_changes } from '../conveniences/style.js';
 
 import { DockSurface } from './dock_surface.js';
 
@@ -45,6 +46,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
         this.blur_existing_dashes();
         this.connect_to_overview();
+
+        connect_system_style_changes(this.connections, () => {
+            this.update_background();
+        });
 
         this.update_size();
 
