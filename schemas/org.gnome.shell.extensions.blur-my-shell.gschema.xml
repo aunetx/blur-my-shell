@@ -3,6 +3,10 @@
     <!-- GENERAL -->
     <schema id="org.gnome.shell.extensions.blur-my-shell"
         path="/org/gnome/shell/extensions/blur-my-shell/">
+        <key type="b" name="rounded-blur-notice-dismissed">
+            <default>false</default>
+            <summary>Whether the obsolete rounded-blur library notice has been dismissed</summary>
+        </key>
         <!-- SETTINGS VERSION -->
         <key type="i" name="settings-version">
             <default>4</default>
