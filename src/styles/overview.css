@@ -25,6 +25,7 @@
 }
 
 .overview-components-transparent .search-entry:focus {
+    background-color: rgba(230, 230, 230, 0.08) !important;
     box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
     box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, #ffffff, 60%), 0.2) !important;
 }
@@ -189,6 +190,7 @@
 .search-entry.overview-components-light:focus,
 .overview-components-light .search-entry:focus {
     border-color: transparent;
+    background-color: rgba(255, 255, 255, 0.78) !important;
     box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
 }
@@ -217,6 +219,12 @@
 .overview-components-light .page-navigation-arrow {
     background-color: rgba(255, 255, 255, 0.58) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.overview-components-light .search-statusbox,
+.overview-components-light .search-statustext {
+    /* The spinner and status text sit over the wallpaper, outside result cards. */
+    color: rgba(250, 250, 251, 0.8);
 }
 
 /* Text styling inside search section content */
@@ -413,6 +421,7 @@
 .search-entry.overview-components-dark:focus,
 .overview-components-dark .search-entry:focus {
     border-color: transparent;
+    background-color: rgba(255, 255, 255, 0.12) !important;
     box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
     box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, #ffffff, 60%), 0.2) !important;
 }
