@@ -48,6 +48,11 @@
   background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
+.bms-popup-background-dark .message-media-control:insensitive,
+.bms-popup-surface-dark .message-media-control:insensitive {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .bms-popup-background-dark .message .message-header,
 .bms-popup-background-dark .message .message-header .message-header-content .event-time,
 .bms-popup-background-dark .message .message-header .message-header-content .message-source-title {

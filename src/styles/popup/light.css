@@ -50,6 +50,11 @@
   background-color: rgba(0, 0, 0, 0.12) !important;
 }
 
+.bms-popup-background-light .message-media-control:insensitive,
+.bms-popup-surface-light .message-media-control:insensitive {
+    color: rgba(0, 0, 0, 0.4);
+}
+
 .bms-popup-background-light .message .message-header,
 .bms-popup-background-light .message .message-header .message-header-content .event-time,
 .bms-popup-background-light .message .message-header .message-header-content .message-source-title {
