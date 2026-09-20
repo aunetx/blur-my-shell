@@ -5,6 +5,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
+import { is_desktop_window } from '../conveniences/window.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
 
@@ -196,7 +197,7 @@ export const PanelBlur = class PanelBlur {
             }
 
             this._log("Blurring Dash to Panel panels after idle.");
-    
+
             // blur every panel found
             global.dashToPanel.panels.forEach(p => {
                 if (
@@ -521,7 +522,7 @@ export const PanelBlur = class PanelBlur {
                 const appDisplay = this.get_app_display();
                 if (!appDisplay)
                     return;
-                
+
                 this.connections.connect(
                     appDisplay, 'show', _ => {
                         this._in_overview = true;
@@ -734,9 +735,8 @@ export const PanelBlur = class PanelBlur {
                 Meta.WindowType.DIALOG,
                 Meta.WindowType.MODAL_DIALOG
             ].includes(meta_window.get_window_type())
-            // exclude Desktop Icons NG
-            && meta_window.get_gtk_application_id() !== "com.rastersoft.ding"
-            && meta_window.get_gtk_application_id() !== "com.desktop.ding"
+            // exclude desktop windows
+            && !is_desktop_window(meta_window)
         );
 
         // check if at least one window is near enough to each panel and act
@@ -796,8 +796,8 @@ export const PanelBlur = class PanelBlur {
         if (this.settings.panel.OVERRIDE_BACKGROUND) {
             if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
                 if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
-                    // This is an invert of the above behavior, 
-                    // Blur and all styling is hidden when "should_override" is true. 
+                    // This is an invert of the above behavior,
+                    // Blur and all styling is hidden when "should_override" is true.
                     if (!should_override) {
                         this.proximity_show(actors, panel);
                     }
@@ -850,7 +850,7 @@ export const PanelBlur = class PanelBlur {
     get_panel_style() {
         if (PANEL_STYLES == 3) {
             return this.settings.panel.STYLE_PANEL;
-        } 
+        }
         else {
             return get_component_style(
                 this.settings.panel.STYLE_PANEL,
