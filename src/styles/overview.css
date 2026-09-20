@@ -16,20 +16,23 @@
     border: 1px solid rgba(100, 100, 100, 0.35);
 }
 
-.overview-components-transparent .search-entry {
-    color: white;
+.overview-components-transparent .search-entry,
+.overview-components-transparent .search-entry:focus {
+    color: white !important;
     background-color: rgba(0, 0, 0, 0) !important;
     border-color: transparent;
     box-shadow: none;
 }
 
 .overview-components-transparent .search-entry:focus {
+    background-color: rgba(230, 230, 230, 0.08) !important;
     box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
     box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, #ffffff, 60%), 0.2) !important;
 }
 
-.overview-components-transparent .search-entry .search-entry-icon {
-    color: rgba(255, 255, 255, 0.65);
+.overview-components-transparent .search-entry .search-entry-icon,
+.overview-components-transparent .search-entry StLabel.hint-text {
+    color: rgba(255, 255, 255, 0.65) !important;
 }
 
 .overview-components-transparent #appDisplay .overview-tile,
@@ -143,25 +146,6 @@
     border-color: transparent !important;
 }
 
-/* App Folder Dialog */
-.overview-components-transparent .app-folder-dialog .icon-button {
-    background-color: rgba(0, 0, 0, 0) !important;
-}
-
-.overview-components-transparent .app-folder-dialog .icon-button:hover,
-.overview-components-transparent .app-folder-dialog .icon-button:focus {
-    background-color: rgba(230, 230, 230, 0.08) !important;
-}
-
-.overview-components-transparent .app-folder-dialog .icon-button:active,
-.overview-components-transparent .app-folder-dialog .icon-button:focus:hover {
-    background-color: rgba(230, 230, 230, 0.12) !important;
-}
-
-.overview-components-transparent .app-folder-dialog .icon-button:focus:active {
-    background-color: rgba(230, 230, 230, 0.15) !important;
-}
-
 /* remove the rectangular background from the dash */
 .overview-components-transparent #dash .overview-tile,
 .overview-components-transparent #dash .overview-tile:hover,
@@ -195,8 +179,10 @@
 */
 
 .search-entry.overview-components-light,
-.overview-components-light .search-entry {
-    color: rgba(0, 0, 0, 0.85);
+.overview-components-light .search-entry,
+.search-entry.overview-components-light:focus,
+.overview-components-light .search-entry:focus {
+    color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(255, 255, 255, 0.58) !important;
     box-shadow: none;
 }
@@ -204,13 +190,16 @@
 .search-entry.overview-components-light:focus,
 .overview-components-light .search-entry:focus {
     border-color: transparent;
+    background-color: rgba(255, 255, 255, 0.78) !important;
     box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
     box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
 }
 
 .search-entry.overview-components-light .search-entry-icon,
-.overview-components-light .search-entry .search-entry-icon {
-    color: rgba(0, 0, 0, 0.65);
+.overview-components-light .search-entry .search-entry-icon,
+.search-entry.overview-components-light StLabel.hint-text,
+.overview-components-light .search-entry StLabel.hint-text {
+    color: rgba(0, 0, 0, 0.65) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile,
@@ -232,6 +221,12 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.overview-components-light .search-statusbox,
+.overview-components-light .search-statustext {
+    /* The spinner and status text sit over the wallpaper, outside result cards. */
+    color: rgba(250, 250, 251, 0.8);
+}
+
 /* Text styling inside search section content */
 .overview-components-light .search-section-content,
 .overview-components-light .search-section-content StLabel,
@@ -240,7 +235,6 @@
 .overview-components-light .list-search-result-title,
 .overview-components-light .search-provider-icon,
 .overview-components-light .search-provider-icon StLabel,
-.overview-components-light .search-statustext,
 .overview-components-light .list-search-provider-details,
 .overview-components-light .page-navigation-arrow > StIcon {
     color: rgba(0, 0, 0, 0.85) !important;
@@ -383,43 +377,6 @@
     background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* App Folder Dialog */
-.overview-components-light .app-folder-dialog,
-.overview-components-light .app-folder-dialog StLabel,
-.overview-components-light .app-folder-dialog .folder-name-container .folder-name-entry,
-.overview-components-light .app-folder-dialog .folder-name-container .folder-name-label,
-.overview-components-light .app-folder-dialog .folder-name-entry,
-.overview-components-light .app-folder-dialog .folder-name-entry StLabel,
-.overview-components-light .app-folder-dialog .folder-name-entry StEntry,
-.overview-components-light .app-folder-dialog .overview-tile,
-.overview-components-light .app-folder-dialog .overview-tile StLabel,
-.overview-components-light .app-folder-dialog .app-well-app,
-.overview-components-light .app-folder-dialog .app-well-app StLabel,
-.overview-components-light .app-folder-dialog .edit-folder-button,
-.overview-components-light .app-folder-dialog .icon-button,
-.overview-components-light .app-folder-dialog .page-navigation-arrow {
-    color: rgba(0, 0, 0, 0.85) !important;
-}
-
-.overview-components-light .app-folder-dialog .icon-button {
-    background-color: rgba(255, 255, 255, 0.58) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.overview-components-light .app-folder-dialog .icon-button:hover,
-.overview-components-light .app-folder-dialog .icon-button:focus {
-    background-color: rgba(255, 255, 255, 0.78) !important;
-}
-
-.overview-components-light .app-folder-dialog .icon-button:active,
-.overview-components-light .app-folder-dialog .icon-button:focus:hover {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.overview-components-light .app-folder-dialog .icon-button:focus:active {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-}
-
 /* remove the rectangular background from the dash */
 .overview-components-light #dash .overview-tile,
 .overview-components-light #dash .overview-tile:hover,
@@ -453,8 +410,10 @@
 */
 
 .search-entry.overview-components-dark,
-.overview-components-dark .search-entry {
-    color: white;
+.overview-components-dark .search-entry,
+.search-entry.overview-components-dark:focus,
+.overview-components-dark .search-entry:focus {
+    color: white !important;
     background-color: rgba(255, 255, 255, 0.07) !important;
     box-shadow: none;
 }
@@ -462,13 +421,16 @@
 .search-entry.overview-components-dark:focus,
 .overview-components-dark .search-entry:focus {
     border-color: transparent;
+    background-color: rgba(255, 255, 255, 0.12) !important;
     box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
     box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, #ffffff, 60%), 0.2) !important;
 }
 
 .search-entry.overview-components-dark .search-entry-icon,
-.overview-components-dark .search-entry .search-entry-icon {
-    color: rgba(255, 255, 255, 0.65);
+.overview-components-dark .search-entry .search-entry-icon,
+.search-entry.overview-components-dark StLabel.hint-text,
+.overview-components-dark .search-entry StLabel.hint-text {
+    color: rgba(255, 255, 255, 0.65) !important;
 }
 
 .overview-components-dark #appDisplay .overview-tile,
@@ -599,26 +561,6 @@
 .overview-components-dark .overview-tile.app-folder:active,
 .overview-components-dark .app-folder:active {
     background-color: rgba(255, 255, 255, 0.18) !important;
-}
-
-/* App Folder Dialog */
-.overview-components-dark .app-folder-dialog .icon-button {
-    background-color: rgba(255, 255, 255, 0.07) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.overview-components-dark .app-folder-dialog .icon-button:hover,
-.overview-components-dark .app-folder-dialog .icon-button:focus {
-    background-color: rgba(255, 255, 255, 0.12) !important;
-}
-
-.overview-components-dark .app-folder-dialog .icon-button:active,
-.overview-components-dark .app-folder-dialog .icon-button:focus:hover {
-    background-color: rgba(255, 255, 255, 0.18) !important;
-}
-
-.overview-components-dark .app-folder-dialog .icon-button:focus:active {
-    background-color: rgba(255, 255, 255, 0.24) !important;
 }
 
 /* remove the rectangular background from the dash */

@@ -16,6 +16,73 @@
     box-shadow: none;
 }
 
+/* Dialog controls follow the folder style independently of the overview. */
+.appfolder-dialogs-transparent .edit-folder-button,
+.appfolder-dialogs-transparent .icon-button,
+.appfolder-dialogs-transparent .page-navigation-arrow {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-color: transparent;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button StIcon,
+.appfolder-dialogs-transparent .icon-button StIcon,
+.appfolder-dialogs-transparent .page-navigation-arrow StIcon,
+.appfolder-dialogs-transparent .page-navigation-arrow > StIcon {
+    color: #ffffff !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:hover,
+.appfolder-dialogs-transparent .edit-folder-button:focus,
+.appfolder-dialogs-transparent .icon-button:hover,
+.appfolder-dialogs-transparent .icon-button:focus,
+.appfolder-dialogs-transparent .page-navigation-arrow:hover,
+.appfolder-dialogs-transparent .page-navigation-arrow:focus {
+    background-color: rgba(230, 230, 230, 0.08) !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:active,
+.appfolder-dialogs-transparent .edit-folder-button:focus:hover,
+.appfolder-dialogs-transparent .icon-button:active,
+.appfolder-dialogs-transparent .icon-button:focus:hover,
+.appfolder-dialogs-transparent .page-navigation-arrow:active,
+.appfolder-dialogs-transparent .page-navigation-arrow:focus:hover {
+    background-color: rgba(230, 230, 230, 0.12) !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:focus:active,
+.appfolder-dialogs-transparent .icon-button:focus:active,
+.appfolder-dialogs-transparent .page-navigation-arrow:focus:active {
+    background-color: rgba(230, 230, 230, 0.15) !important;
+}
+
+/* Keep app highlights independent of the overview's selected style. */
+.appfolder-dialogs-transparent .overview-tile,
+.appfolder-dialogs-transparent .overview-tile .overview-icon {
+    background-color: transparent !important;
+}
+
+.appfolder-dialogs-transparent .overview-tile:hover,
+.appfolder-dialogs-transparent .overview-tile:focus,
+.appfolder-dialogs-transparent .overview-tile:selected,
+.appfolder-dialogs-transparent .overview-tile:highlighted {
+    background-color: rgba(230, 230, 230, 0.08) !important;
+}
+
+.appfolder-dialogs-transparent .overview-tile:active,
+.appfolder-dialogs-transparent .overview-tile:focus:hover,
+.appfolder-dialogs-transparent .overview-tile:drop,
+.appfolder-dialogs-transparent .overview-tile:selected:hover,
+.appfolder-dialogs-transparent .overview-tile:highlighted:hover {
+    background-color: rgba(230, 230, 230, 0.12) !important;
+}
+
+.appfolder-dialogs-transparent .overview-tile:focus:active,
+.appfolder-dialogs-transparent .overview-tile:selected:active,
+.appfolder-dialogs-transparent .overview-tile:highlighted:active {
+    background-color: rgba(230, 230, 230, 0.15) !important;
+}
+
 
 /*
 * `.appfolder-dialogs-light`
