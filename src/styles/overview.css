@@ -196,7 +196,7 @@
 
 .search-entry.overview-components-light,
 .overview-components-light .search-entry {
-    color: #222226;
+    color: rgba(0, 0, 0, 0.85);
     background-color: rgba(255, 255, 255, 0.58) !important;
     box-shadow: none;
 }
@@ -210,7 +210,7 @@
 
 .search-entry.overview-components-light .search-entry-icon,
 .overview-components-light .search-entry .search-entry-icon {
-    color: rgba(34, 34, 38, 0.65);
+    color: rgba(0, 0, 0, 0.65);
 }
 
 .overview-components-light #appDisplay .overview-tile,
@@ -241,12 +241,13 @@
 .overview-components-light .search-provider-icon,
 .overview-components-light .search-provider-icon StLabel,
 .overview-components-light .search-statustext,
-.overview-components-light .list-search-provider-details {
-    color: #222226 !important;
+.overview-components-light .list-search-provider-details,
+.overview-components-light .page-navigation-arrow > StIcon {
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .overview-components-light .list-search-result .list-search-result-description {
-    color: rgba(34, 34, 38, 0.7) !important;
+    color: rgba(0, 0, 0, 0.55) !important;
 }
 
 /* Hover and active states (lighter highlight) */
@@ -361,7 +362,7 @@
 .overview-components-light .overview-tile.app-folder StLabel,
 .overview-components-light .app-folder,
 .overview-components-light .app-folder StLabel {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile.app-folder:hover,
@@ -397,7 +398,7 @@
 .overview-components-light .app-folder-dialog .edit-folder-button,
 .overview-components-light .app-folder-dialog .icon-button,
 .overview-components-light .app-folder-dialog .page-navigation-arrow {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .overview-components-light .app-folder-dialog .icon-button {

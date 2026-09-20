@@ -22,7 +22,7 @@
 */
 
 .app-folder-dialog.appfolder-dialogs-light {
-    color: #222226;
+    color: rgba(0, 0, 0, 0.85);
     background-color: rgba(255, 255, 255, 0.58) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -32,7 +32,7 @@
 .appfolder-dialogs-light .folder-name-entry,
 .appfolder-dialogs-light .folder-name-entry StLabel,
 .appfolder-dialogs-light .folder-name-entry StEntry {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
     background-color: transparent !important;
     border: 0;
     box-shadow: none;
@@ -42,13 +42,13 @@
 .appfolder-dialogs-light .overview-tile StLabel,
 .appfolder-dialogs-light .app-well-app,
 .appfolder-dialogs-light .app-well-app StLabel {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .appfolder-dialogs-light .edit-folder-button,
 .appfolder-dialogs-light .icon-button,
 .appfolder-dialogs-light .page-navigation-arrow {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(255, 255, 255, 0.58) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -58,7 +58,7 @@
 .appfolder-dialogs-light .page-navigation-arrow StIcon,
 .appfolder-dialogs-light .page-navigation-arrow > StIcon,
 .appfolder-dialogs-light .page-navigation-arrow StWidget {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
     background-color: transparent !important;
 }
 
@@ -68,7 +68,7 @@
 .appfolder-dialogs-light .icon-button:focus,
 .appfolder-dialogs-light .page-navigation-arrow:hover,
 .appfolder-dialogs-light .page-navigation-arrow:focus {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(255, 255, 255, 0.78) !important;
     border-color: rgba(0, 0, 0, 0.08);
 }
@@ -76,7 +76,7 @@
 .appfolder-dialogs-light .edit-folder-button:active,
 .appfolder-dialogs-light .icon-button:active,
 .appfolder-dialogs-light .page-navigation-arrow:active {
-    color: #222226 !important;
+    color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(255, 255, 255, 0.9) !important;
     border-color: rgba(0, 0, 0, 0.12);
 }
