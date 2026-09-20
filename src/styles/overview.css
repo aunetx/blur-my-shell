@@ -241,7 +241,8 @@
 .overview-components-light .search-provider-icon,
 .overview-components-light .search-provider-icon StLabel,
 .overview-components-light .search-statustext,
-.overview-components-light .list-search-provider-details {
+.overview-components-light .list-search-provider-details,
+.overview-components-light .page-navigation-arrow > StIcon {
     color: rgba(0, 0, 0, 0.85) !important;
 }
 
