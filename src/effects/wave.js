@@ -190,10 +190,10 @@ class WaveTicker {
             if(this._timeline){
                 this._timeline.stop();
                 this._timeline.disconnect(this._connectionId);
-                
-                this._connectionId = undefined;
             }
 
+            this._timeline = null;
+            this._connectionId = null;
             this.tasks.clear();
         }
 }
@@ -374,7 +374,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 this.enabled &&
                 !!actor &&
                 actor.is_mapped() &&
-                actor.opacity !== 0;
+                actor.get_paint_opacity() !== 0;
 
             if(active === this._prev_active_state) {
                 return;
@@ -443,30 +443,49 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height));
         }
 
+        _syncParentOpacity(old_parent, actor) {
+            this._disconnectActor(old_parent, '_actor_parent_connection_opacity_id');
+
+            const parent = actor?.get_parent();
+
+            if(parent){
+                this._actor_parent_connection_opacity_id = parent?.connect('notify::opacity', _ => 
+                    this.update_animation_state()
+                );
+            }
+        }
+
+        _disconnectActor(actor, propName) {
+            if (this[propName]) {
+                actor?.disconnect(this[propName]);
+                this[propName] = null;
+            }
+        }
+
         vfunc_set_actor(actor) {
-            let old_actor = this.get_actor();
+            const old_actor = this.get_actor();
+            const old_parent = old_actor?.get_parent();
 
-            if (this._actor_connection_mapped_id) {        
-                old_actor?.disconnect(this._actor_connection_mapped_id);
-            }
-
-            if (this._actor_connection_opacity_id) {        
-                old_actor?.disconnect(this._actor_connection_opacity_id);
-            }
+            this._syncParentOpacity(old_parent, actor);
+            
+            this._disconnectActor(old_actor, '_actor_connection_mapped_id');
+            this._disconnectActor(old_actor, '_actor_connection_opacity_id');
+            this._disconnectActor(old_actor, '_actor_connection_parent_id');
 
             if (actor) {
-                this._actor_connection_mapped_id = actor.connect('notify::mapped', _ => {
-                    this.update_animation_state();
-                });
+                this._actor_connection_mapped_id = actor.connect('notify::mapped', _ => 
+                    this.update_animation_state()
+                );
 
-                this._actor_connection_opacity_id = actor.connect('notify::opacity', _ => {
+                this._actor_connection_opacity_id = actor.connect('notify::opacity', _ => 
+                    this.update_animation_state()
+                );
+
+                this._actor_connection_parent_id = actor.connect('parent-set', (actor, old_parent) => {
+                    this._syncParentOpacity(old_parent, actor);
                     this.update_animation_state();
                 });
-            }
-            else {
-                this._actor_connection_mapped_id = null;
-                this._actor_connection_opacity_id = null;
-            }
+            }  
 
             super.vfunc_set_actor(actor);
 
