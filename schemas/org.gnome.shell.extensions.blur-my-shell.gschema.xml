@@ -3,6 +3,10 @@
     <!-- GENERAL -->
     <schema id="org.gnome.shell.extensions.blur-my-shell"
         path="/org/gnome/shell/extensions/blur-my-shell/">
+        <key type="b" name="rounded-blur-notice-dismissed">
+            <default>false</default>
+            <summary>Whether the obsolete rounded-blur library notice has been dismissed</summary>
+        </key>
         <!-- SETTINGS VERSION -->
         <key type="i" name="settings-version">
             <default>4</default>
@@ -124,8 +128,8 @@
         </key>
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
-            <default>1</default>
-            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent)</summary>
+            <default>4</default>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent, 4 automatic)</summary>
         </key>
     </schema>
 
@@ -144,8 +148,8 @@
         </key>
         <!-- STYLE DIALOGS -->
         <key type="i" name="style-dialogs">
-            <default>1</default>
-            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark)</summary>
+            <default>4</default>
+            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark, 4 automatic)</summary>
         </key>
     </schema>
 
@@ -224,8 +228,8 @@
         </key>
         <!-- STYLE PANEL -->
         <key type="i" name="style-panel">
-            <default>0</default>
-            <summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark, 3 contrasted)</summary>
+            <default>4</default>
+            <summary>Enum to select the style of the panel (0 transparent, 1 light, 2 dark, 3 contrasted, 4 automatic)</summary>
         </key>
         <!-- OVERRIDE BACKGROUND DYNAMICALLY -->
         <key type="b" name="override-background-dynamically">
@@ -304,8 +308,8 @@
         </key>
         <!-- STYLE DASH TO DOCK -->
         <key type="i" name="style-dash-to-dock">
-            <default>0</default>
-            <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark)</summary>
+            <default>3</default>
+            <summary>Enum to select the style of dash to dock (0 transparent, 1 light, 2 dark, 3 automatic)</summary>
         </key>
         <!-- UNBLUR IN OVERVIEW -->
         <key type="b" name="unblur-in-overview">
@@ -419,7 +423,7 @@
         </key>
         <!-- BLACKLIST -->
         <key type="as" name="blacklist">
-            <default>["Plank","com.desktop.ding", "Conky"]</default>
+            <default>["Plank","com.desktop.ding", "com.rastersoft.ding", "Conky"]</default>
             <summary>List of applications not to blur</summary>
         </key>
     </schema>
@@ -617,20 +621,40 @@
             <default>20</default>
             <summary>Radius for popup menu corner rounding</summary>
         </key>
+        <!-- INPUT METHOD CANDIDATE CORNER RADIUS -->
+        <key type="i" name="candidate-corner-radius">
+            <default>12</default>
+            <summary>Radius for input method candidate popup corner rounding</summary>
+        </key>
         <!-- QUICK SETTINGS CORNER RADIUS -->
         <key type="i" name="quick-settings-corner-radius">
             <default>36</default>
-            <summary>Radius for quick settings and calendar corner rounding</summary>
+            <summary>Radius for quick settings corner rounding</summary>
+        </key>
+        <!-- CALENDAR CORNER RADIUS -->
+        <key type="i" name="calendar-corner-radius">
+            <default>30</default>
+            <summary>Radius for calendar and notification center corner rounding</summary>
         </key>
         <!-- NOTIFICATION CORNER RADIUS -->
         <key type="i" name="notification-corner-radius">
             <default>18</default>
             <summary>Radius for notification corner rounding</summary>
         </key>
-        <!-- OSD CORNER RADIUS -->
+        <!-- SWITCHER CORNER RADIUS (keep the existing key for saved settings) -->
         <key type="i" name="osd-corner-radius">
             <default>28</default>
-            <summary>Radius for OSD and switcher corner rounding</summary>
+            <summary>Radius for window and workspace switcher corner rounding</summary>
+        </key>
+        <!-- VOLUME AND BRIGHTNESS OSD CORNER RADIUS -->
+        <key type="i" name="osd-window-corner-radius">
+            <default>48</default>
+            <summary>Radius for volume and brightness OSD corner rounding</summary>
+        </key>
+        <!-- WINDOW RESIZE POPUP CORNER RADIUS -->
+        <key type="i" name="resize-popup-corner-radius">
+            <default>12</default>
+            <summary>Radius for window resize popup corner rounding</summary>
         </key>
         <!-- DIALOG CORNER RADIUS -->
         <key type="i" name="dialog-corner-radius">

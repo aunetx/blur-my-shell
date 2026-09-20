@@ -4,6 +4,7 @@ import Meta from 'gi://Meta';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import { get_component_style, connect_system_style_changes } from '../../conveniences/style.js';
 import {
     DEFAULT_CORNER_RADIUS,
     POPUP_BACKGROUND_STYLES,
@@ -51,26 +52,7 @@ export const PopupBlur = class PopupBlur {
 
         this.update_background();
         this.message_stacks.enable();
-        this.connections.connect(
-            this.interface_settings,
-            'changed::color-scheme',
-            () => this.update_background()
-        );
-        this.connections.connect(
-            this.interface_settings,
-            'changed::gtk-theme',
-            () => this.update_background()
-        );
-        this.connections.connect(
-            Main.sessionMode,
-            'updated',
-            () => this.update_background()
-        );
-        this.connections.connect(
-            St.Settings.get(),
-            'notify::color-scheme',
-            () => this.update_background()
-        );
+        connect_system_style_changes(this.connections, () => this.update_background());
         this.connections.connect(
             Main.layoutManager,
             'monitors-changed',
@@ -565,27 +547,10 @@ export const PopupBlur = class PopupBlur {
     }
 
     get_background_style() {
-        const style = this.settings.popup.STYLE_POPUP;
-
-        if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
-            return style;
-
-        const theme = St.ThemeContext.get_for_stage(global.stage).get_theme?.();
-        let uri = theme?.default_stylesheet?.get_uri?.();
-        if (theme?.application_stylesheet)
-            uri = theme?.application_stylesheet?.get_uri?.();
-        const lower_uri = typeof uri === 'string' ? uri.toLowerCase() : '';
-        if (lower_uri.includes('yaru'))
-            return lower_uri.includes('dark') ? 2 : 1;
-
-        const shell_style = Main.getStyleVariant?.();
-        if (shell_style === 'light')
-            return 1;
-
-        if (shell_style === 'dark')
-            return 2;
-
-        return this.interface_settings.get_string('color-scheme') === 'prefer-dark' ? 2 : 1;
+        return get_component_style(
+            this.settings.popup.STYLE_POPUP,
+            POPUP_BACKGROUND_STYLES
+        );
     }
 
     disable() {

@@ -5,13 +5,27 @@ POT = po/$(UUID).pot
 UI_SOURCES = $(shell find resources/ui -type f -name '*.ui' | sort)
 EFFECT_I18N_SOURCES = src/effects/effects.js src/effects/effect_groups.js
 PREFERENCES_I18N_SOURCES = $(shell find src/preferences -type f -name '*.js' | sort) src/prefs.js
+# Preserve cascade order when bundling the component stylesheets.
+STYLESHEETS = src/styles/panel.css \
+	src/styles/dash.css \
+	src/styles/popup/base.css \
+	src/styles/popup/transparent.css \
+	src/styles/popup/light.css \
+	src/styles/popup/dark.css \
+	src/styles/popup/menu-items.css \
+	src/styles/overview.css \
+	src/styles/appfolders.css \
+	src/styles/panel-light-text.css
 
 .PHONY: build install pot test-shell test-prefs test-vm remove clean
 
 
 build: clean
 	mkdir -p build/
+# St does not give CSS @imports the priority of the extension stylesheet.
+	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
 	cd src && gnome-extensions pack -f \
+			--extra-source=../build/stylesheet.css \
 			--extra-source=../metadata.json \
 			--extra-source=../LICENSE \
 			--extra-source=../resources/icons \
@@ -22,7 +36,6 @@ build: clean
 			--extra-source=./preferences \
 			--extra-source=./dbus \
 			--extra-source=./render \
-			--extra-source=./styles \
 			--podir=../po \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
 			-o ../build

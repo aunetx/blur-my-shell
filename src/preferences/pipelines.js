@@ -5,13 +5,15 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 import { PipelineGroup } from './pipelines_management/pipeline_group.js';
 import { EffectsDialog } from './pipelines_management/effects_dialog.js';
+import { initialize_legacy_blur_notice } from './legacy_blur_notice.js';
 
 
 export const Pipelines = GObject.registerClass({
     GTypeName: 'Pipelines',
     Template: GLib.uri_resolve_relative(import.meta.url, '../ui/pipelines.ui', GLib.UriFlags.NONE),
     InternalChildren: [
-        'add_pipeline'
+        'add_pipeline',
+        'legacy_blur_notice'
     ],
 }, class Pipelines extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, window) {
@@ -20,6 +22,8 @@ export const Pipelines = GObject.registerClass({
         this.preferences = preferences;
         this.pipelines_manager = pipelines_manager;
         this.window = window;
+
+        initialize_legacy_blur_notice(this._legacy_blur_notice, preferences.settings);
 
         this.pipelines_map = new Map;
         this._scroll_timeout_ids = new Set;

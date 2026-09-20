@@ -2,6 +2,7 @@ import Meta from 'gi://Meta';
 import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { resolve_dock_target } from './dock_targets.js';
+import { get_component_style } from '../conveniences/style.js';
 
 const DASH_STYLES = [
     "transparent-dash",
@@ -187,9 +188,12 @@ export class DockSurface {
     override_style() {
         this.remove_style();
 
-        const style = DASH_STYLES[
-            this.settings.dash_to_dock.STYLE_DASH_TO_DOCK
-        ];
+        const style_index = get_component_style(
+            this.settings.dash_to_dock.STYLE_DASH_TO_DOCK,
+            DASH_STYLES
+        );
+
+        const style = DASH_STYLES[style_index];
 
         // Dash to Dock owns its style class list. Replacing it removes the
         // extension's layout and border-radius rules. Add Blur My Shell's
@@ -197,7 +201,7 @@ export class DockSurface {
         if (!style)
             return;
 
-        for (const actor of new Set([this.dash, this.dash_background])) {
+        for (const actor of new Set([this.dash, this.dash_container, this.dash_background])) {
             if (actor && !actor.has_style_class_name(style))
                 actor.add_style_class_name(style);
         }
@@ -207,6 +211,7 @@ export class DockSurface {
         try {
             DASH_STYLES.forEach(style => {
                 this.dash?.remove_style_class_name(style);
+                this.dash_container?.remove_style_class_name(style);
                 this.dash_background?.remove_style_class_name(style);
             });
         } catch (error) {

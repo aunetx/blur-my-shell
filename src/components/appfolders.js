@@ -5,6 +5,7 @@ import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DynamicPipeline } from '../render/dynamic_surface.js';
+import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
 
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const FOLDER_DIALOG_SHADE_FACTOR = 0.25;
@@ -208,6 +209,10 @@ export const AppFoldersBlur = class AppFoldersBlur {
         this.connections.connect(
             appDisplay, 'view-loaded', _ => this.queue_blur_appfolders()
         );
+
+        connect_system_style_changes(this.connections, () => {
+            this.blur_appfolders();
+        });
     }
 
     queue_blur_appfolders() {
@@ -289,9 +294,9 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 }
             );
 
-            const styleIndex = this.settings.appfolder.STYLE_DIALOGS - 1;
+            const styleIndex = this.get_folder_style();
             if (styleIndex >= 0) {
-                const style = DIALOGS_STYLES[styleIndex];
+                const style = DIALOGS_STYLES[styleIndex -1 ];
                 if (style) {
                     dialog._viewBox.add_style_class_name(style);
                 }
@@ -306,6 +311,19 @@ export const AppFoldersBlur = class AppFoldersBlur {
             }
         }
     };
+
+    get_folder_style() {
+        const style = this.settings.appfolder.STYLE_DIALOGS;
+        if (style >= 0 && style <= 3)
+            return style;
+
+        const FOLDER_STYLE = get_component_style(
+            this.settings.appfolder.STYLE_DIALOGS,
+            DIALOGS_STYLES
+        )
+
+        return FOLDER_STYLE + 1;
+    }
 
     update_pipeline() {
         this.dialogs.forEach(dialog => {

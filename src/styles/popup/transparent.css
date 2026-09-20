@@ -1,13 +1,11 @@
 .bms-popup-background-transparent .message:second-in-stack,
 .bms-popup-surface-transparent .message:second-in-stack {
     background: rgba(255, 255, 255, 0.05) !important;
-    box-shadow: 0 1px 1px 0 transparent;
 }
 
 .bms-popup-background-transparent .message:lower-in-stack,
 .bms-popup-surface-transparent .message:lower-in-stack {
     background: rgba(255, 255, 255, 0.02) !important;
-    box-shadow: none;
 }
 
 .bms-popup-background-transparent .message-media-control,
@@ -64,6 +62,16 @@
 
 .bms-popup-background-transparent .message-list-controls .message-list-clear-button:active {
     background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.bms-popup-background-transparent .message-list-controls .message-list-clear-button:insensitive {
+    color: rgba(255, 255, 255, 0.35) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.bms-popup-background-transparent .modal-dialog .button:insensitive,
+.bms-popup-background-transparent .modal-dialog .modal-dialog-button-box .modal-dialog-button:insensitive {
+    background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 .bms-popup-background-transparent .quick-toggle,
@@ -235,4 +243,23 @@
 .bms-popup-background-transparent .quick-toggle-has-menu:checked .quick-toggle-separator {
     background-color: rgba(255, 255, 255, 0.3);
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 30%);
+}
+
+.bms-popup-background-transparent StEntry {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.bms-popup-background-transparent StEntry:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important;
+    color: #ffffff !important;
+}
+
+.bms-popup-background-transparent StEntry:insensitive {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.bms-popup-background-transparent StEntry StLabel.hint-text {
+    color: rgba(255, 255, 255, 0.5) !important;
 }

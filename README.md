@@ -10,6 +10,9 @@
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
+The old rounded-blur library is no longer required. If you installed it previously,
+see the [removal instructions](docs/rounded-blur-removal.md).
+
 [<img src="https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/multi-auto.svg" align="right">](https://hosted.weblate.org/engage/blur-my-shell/)
 
 ## Functionalities
