@@ -5,6 +5,7 @@ import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import { ApplicationsService } from '../dbus/services.js';
 import { Pipeline } from '../conveniences/pipeline.js';
+import { is_desktop_window } from '../conveniences/window.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
 
@@ -50,44 +51,6 @@ function matchesAnyPattern(value, patterns) {
     return patterns.some(pattern => pattern.test(value));
 }
 
-function isDesktopWindow(meta_window) {
-    if (!meta_window)
-        return false;
-
-    const window_type = meta_window.get_window_type?.();
-    if (window_type === Meta.WindowType.DESKTOP)
-        return true;
-
-    const layer = meta_window.get_layer?.();
-    if (typeof Meta.StackLayer !== 'undefined') {
-        if (layer === Meta.StackLayer.DESKTOP)
-            return true;
-    } else if (typeof layer === 'number') {
-        // Fallback for GNOME < 51 where Meta.StackLayer was not exposed in GJS
-        // (0 = META_LAYER_DESKTOP in Mutter's MetaStackLayer enum)
-        if (layer === 0)
-            return true;
-    }
-
-    if (meta_window.customJS_ding !== undefined)
-        return true;
-    
-    const ding = Main.extensionManager?.lookup('ding@rastersoft.com')
-        ?? Main.extensionManager?.lookup('dingubuntu@rastersoft.com');
-    if (ding?.stateObj?.data) {
-        const data = ding.stateObj.data;
-        if (data.x11Manager?._windowList?.includes(meta_window))
-            return true;
-        if (data.currentProcess?._waylandClient?.owns_window(meta_window))
-            return true;
-    }
-
-    const app_id = meta_window.get_gtk_application_id?.();
-    if (app_id === 'com.rastersoft.ding' || app_id === 'com.rastersoft.dingtest')
-        return true;
-
-    return false;
-}
 
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
@@ -430,7 +393,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// - Matching is case-insensitive
     check_blur(meta_window) {
         // Exclude desktop background surfaces (DING, Nautilus desktop, Nemo, etc.)
-        if (isDesktopWindow(meta_window)) {
+        if (is_desktop_window(meta_window)) {
             if (meta_window.blur_actor)
                 this.remove_blur(meta_window);
             return;
@@ -462,7 +425,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         // remove blur it is not explicitly whitelisted or un-blacklisted
         else if (meta_window.blur_actor) {
             this.remove_blur(meta_window);
-        }   
+        }
     }
 
     /// Add the blur effect to the window.
