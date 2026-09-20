@@ -17,14 +17,15 @@ export function is_desktop_window(meta_window) {
         return true;
 
     const layer = meta_window.get_layer?.();
-    if (typeof Meta.StackLayer !== 'undefined')
+    if (typeof Meta.StackLayer !== 'undefined') {
         if (layer === Meta.StackLayer.DESKTOP)
             return true;
-    else if (typeof layer === 'number')
+    } else if (typeof layer === 'number') {
         // Fallback for GNOME < 51 where Meta.StackLayer was not exposed in GJS
         // (0 = META_LAYER_DESKTOP in Mutter's MetaStackLayer enum)
         if (layer === 0)
             return true;
+    }
 
     if (meta_window.customJS_ding !== undefined)
         return true;
