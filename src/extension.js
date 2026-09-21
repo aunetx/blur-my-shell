@@ -19,6 +19,7 @@ import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
 import { PopupBlur } from './components/popup.js';
+import { WallpaperBlur } from './components/wallpaper.js';
 import { connect_component_settings } from './components/settings_connections.js';
 
 
@@ -42,6 +43,7 @@ export default class BlurMyShell extends Extension {
         this._applications_blur = null;
         this._screenshot_blur = null;
         this._popup = null;
+        this._wallpaper_blur = null;
         this._user_session_mode_enabled = false;
 
         try {
@@ -88,6 +90,7 @@ export default class BlurMyShell extends Extension {
             this._coverflow_alt_tab_blur = new CoverflowAltTabBlur(...init());
             this._applications_blur = new ApplicationsBlur(...init());
             this._screenshot_blur = new ScreenshotBlur(...init());
+            this._wallpaper_blur = new WallpaperBlur(...init());
             this._popup = new PopupBlur(...init());
 
             // connect each component to preferences change
@@ -201,6 +204,7 @@ export default class BlurMyShell extends Extension {
         this._applications_blur = null;
         this._screenshot_blur = null;
         this._popup = null;
+        this._wallpaper_blur = null;
 
         this._run_cleanup(
             'destroy effects',
@@ -273,6 +277,7 @@ export default class BlurMyShell extends Extension {
         this._disable_component(this._coverflow_alt_tab_blur, 'coverflow-alt-tab');
         this._disable_component(this._applications_blur, 'applications');
         this._disable_component(this._screenshot_blur, 'screenshot');
+        this._disable_component(this._wallpaper_blur, 'wallpaper');
 
         // tells the extension we have disabled the user session components, so that we do not
         // disable them later again if they were already disabled
@@ -319,6 +324,7 @@ export default class BlurMyShell extends Extension {
             [this._coverflow_alt_tab_blur, this._settings.coverflow_alt_tab.BLUR, 'coverflow-alt-tab'],
             [this._screenshot_blur, this._settings.screenshot.BLUR, 'screenshot'],
             [this._popup, this._settings.popup.BLUR, 'popup'],
+            [this._wallpaper_blur, this._settings.wallpaper.BLUR, 'wallpaper'],
         ].forEach(([component, should_enable, name]) =>
             this._enable_component(component, should_enable, name)
         );

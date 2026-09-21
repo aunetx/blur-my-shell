@@ -75,6 +75,12 @@ export const KEYS = [
         ]
     },
     {
+        component: "wallpaper", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+        ]
+    },
+    {
         component: "window-list", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
