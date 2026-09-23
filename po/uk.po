@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-03 06:56+0200\n"
-"PO-Revision-Date: 2026-06-11 10:01+0000\n"
+"PO-Revision-Date: 2026-09-20 05:51+0000\n"
 "Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: src/effects/effects.js:19
 msgid "Dual Kawase blur"
@@ -45,7 +45,7 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Яскравість ефекту розмиття, високе значення може ускладнити читабельність."
+"Яскравість ефекту розмиття. Високе значення може ускладнити читабельність."
 
 #: src/effects/effects.js:48 src/effects/effects.js:54
 #: src/effects/effects.js:80
@@ -68,7 +68,7 @@ msgstr "Режим змішування"
 
 #: src/effects/effects.js:61
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Спосіб змішування кольору."
 
 #: src/effects/effects.js:64
 msgid "Normal"
@@ -96,11 +96,11 @@ msgstr "Заміна світлим"
 
 #: src/effects/effects.js:70
 msgid "Plus darker"
-msgstr ""
+msgstr "Темніше"
 
 #: src/effects/effects.js:71
 msgid "Plus lighter"
-msgstr ""
+msgstr "Світліше"
 
 #: src/effects/effects.js:72
 msgid "Color dodge"
@@ -144,7 +144,7 @@ msgstr "Ефект, що впливає на яскравість зображе
 
 #: src/effects/effects.js:94
 msgid "Shift brightness"
-msgstr ""
+msgstr "Зсув яскравості"
 
 #: src/effects/effects.js:95
 msgid "The brightness to add or remove from the image."
@@ -169,11 +169,11 @@ msgstr ""
 
 #: src/effects/effects.js:124
 msgid "Contrast center"
-msgstr ""
+msgstr "Центр контрасту"
 
 #: src/effects/effects.js:125
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Центр контрасту, який використовуватиметься."
 
 #: src/effects/effects.js:135
 msgid ""
@@ -483,22 +483,24 @@ msgstr "Динамічне"
 #: resources/ui/applications.ui:71 resources/ui/dash.ui:71
 #: resources/ui/panel.ui:71 resources/ui/popup.ui:71
 msgid "Corner radius"
-msgstr ""
+msgstr "Радіус кутів"
 
 #: resources/ui/applications.ui:72 resources/ui/dash.ui:72
 #: resources/ui/panel.ui:72
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "Радіус ефекту заокруглення кутів."
 
 #: resources/ui/applications.ui:80
 msgid "Enable corner rounding on maximized and fullscreen"
-msgstr ""
+msgstr "Заокруглення кутів для розгорнутих та повноекранних вікон"
 
 #: resources/ui/applications.ui:81
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
 msgstr ""
+"Ефект заокруглення кутів застосовуватиметься навіть до розгорнутих і "
+"повноекранних вікон."
 
 #: resources/ui/applications.ui:95
 msgid "Opacity"
@@ -561,6 +563,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Список вікон для розмиття.\n"
+"* для позначення будь-якої послідовності символів (наприклад, Firefox* або "
+"*Code*), та ? для одного символу."
 
 #: resources/ui/applications.ui:200 resources/ui/applications.ui:238
 msgid "Add Window"
@@ -576,6 +581,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Список вікон, які не потрібно розмивати.\n"
+"* для позначення будь-якої послідовності символів (наприклад, Firefox* або "
+"*Code*), та ? для одного символу."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
