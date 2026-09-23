@@ -14,9 +14,14 @@ float noise_gen(in vec2 xy) {
 
 void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
+    if (c.a <= 0.0) {
+        cogl_color_out = c;
+        return;
+    }
+
     float blend = noise * (1. - noise_gen(gl_FragCoord.xy)) * opacity_factor;
-    vec3 pix_color = c.rgb;
+    vec3 pix_color = c.rgb / c.a;
     vec3 noise_color = vec3(lightness);
 
-    cogl_color_out = vec4(mix(pix_color, noise_color, blend), c.a);
+    cogl_color_out = vec4(mix(pix_color, noise_color, blend) * c.a, c.a);
 }

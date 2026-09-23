@@ -1,6 +1,6 @@
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content','screenshot-ui-panel'];
-const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
+const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog', 'clipboard-dialog'];
 const POPUP_TARGET_STYLE_CLASSES_OSK = ['bms-keyboard-surface']
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
@@ -13,7 +13,12 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
-        style_classes: ['quick-settings', 'quick-toggle-menu', 'datemenu-popover','screenshot-ui-panel'],
+        style_classes: ['quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel'],
+    },
+    {
+        key: 'calendar-corner-radius',
+        property: 'CALENDAR_CORNER_RADIUS',
+        style_classes: ['datemenu-popover'],
     },
     {
         key: 'notification-corner-radius',
@@ -21,19 +26,34 @@ export const POPUP_CORNER_RADII = [
         style_classes: ['notification-banner', 'message', 'message-view', 'message-list'],
     },
     {
+        key: 'candidate-corner-radius',
+        property: 'CANDIDATE_CORNER_RADIUS',
+        style_classes: ['candidate-popup-content', 'candidate-popup-boxpointer'],
+    },
+    {
         key: 'menu-corner-radius',
         property: 'MENU_CORNER_RADIUS',
-        style_classes: ['popup-menu-content', 'popup-menu', 'candidate-popup-content', 'candidate-popup-boxpointer'],
+        style_classes: ['popup-menu-content', 'popup-menu'],
     },
     {
         key: 'osd-corner-radius',
         property: 'OSD_CORNER_RADIUS',
-        style_classes: ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher'],
+        style_classes: ['switcher-list', 'workspace-switcher'],
+    },
+    {
+        key: 'osd-window-corner-radius',
+        property: 'OSD_WINDOW_CORNER_RADIUS',
+        style_classes: ['osd-window'],
+    },
+    {
+        key: 'resize-popup-corner-radius',
+        property: 'RESIZE_POPUP_CORNER_RADIUS',
+        style_classes: ['resize-popup'],
     },
     {
         key: 'dialog-corner-radius',
         property: 'DIALOG_CORNER_RADIUS',
-        style_classes: ['modal-dialog', 'run-dialog'],
+        style_classes: ['modal-dialog', 'run-dialog', 'clipboard-dialog'],
     },
     {
         key: 'osk-corner-radius',

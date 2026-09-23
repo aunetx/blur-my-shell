@@ -4,34 +4,181 @@
 * `.appfolder-dialogs-transparent`
 */
 
-.appfolder-dialogs-transparent {
+.app-folder-dialog.appfolder-dialogs-transparent {
+    color: #ffffff;
     background-color: rgba(0, 0, 0, 0);
-    border: none;
-    box-shadow: none;
 }
 
 .appfolder-dialogs-transparent .folder-name-entry {
-    color: white;
+    color: #ffffff;
     background-color: rgba(0, 0, 0, 0);
     border: 0;
     box-shadow: none;
 }
+
+/* Dialog controls follow the folder style independently of the overview. */
+.appfolder-dialogs-transparent .edit-folder-button,
+.appfolder-dialogs-transparent .icon-button,
+.appfolder-dialogs-transparent .page-navigation-arrow {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-color: transparent;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button StIcon,
+.appfolder-dialogs-transparent .icon-button StIcon,
+.appfolder-dialogs-transparent .page-navigation-arrow StIcon,
+.appfolder-dialogs-transparent .page-navigation-arrow > StIcon {
+    color: #ffffff !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:hover,
+.appfolder-dialogs-transparent .edit-folder-button:focus,
+.appfolder-dialogs-transparent .icon-button:hover,
+.appfolder-dialogs-transparent .icon-button:focus,
+.appfolder-dialogs-transparent .page-navigation-arrow:hover,
+.appfolder-dialogs-transparent .page-navigation-arrow:focus {
+    background-color: rgba(230, 230, 230, 0.08) !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:active,
+.appfolder-dialogs-transparent .edit-folder-button:focus:hover,
+.appfolder-dialogs-transparent .icon-button:active,
+.appfolder-dialogs-transparent .icon-button:focus:hover,
+.appfolder-dialogs-transparent .page-navigation-arrow:active,
+.appfolder-dialogs-transparent .page-navigation-arrow:focus:hover {
+    background-color: rgba(230, 230, 230, 0.12) !important;
+}
+
+.appfolder-dialogs-transparent .edit-folder-button:focus:active,
+.appfolder-dialogs-transparent .icon-button:focus:active,
+.appfolder-dialogs-transparent .page-navigation-arrow:focus:active {
+    background-color: rgba(230, 230, 230, 0.15) !important;
+}
+
+/* Keep app highlights independent of the overview's selected style. */
+.appfolder-dialogs-transparent .overview-tile,
+.appfolder-dialogs-transparent .overview-tile .overview-icon {
+    background-color: transparent !important;
+}
+
+.appfolder-dialogs-transparent .overview-tile:hover,
+.appfolder-dialogs-transparent .overview-tile:focus,
+.appfolder-dialogs-transparent .overview-tile:selected,
+.appfolder-dialogs-transparent .overview-tile:highlighted {
+    background-color: rgba(230, 230, 230, 0.08) !important;
+}
+
+.appfolder-dialogs-transparent .overview-tile:active,
+.appfolder-dialogs-transparent .overview-tile:focus:hover,
+.appfolder-dialogs-transparent .overview-tile:drop,
+.appfolder-dialogs-transparent .overview-tile:selected:hover,
+.appfolder-dialogs-transparent .overview-tile:highlighted:hover {
+    background-color: rgba(230, 230, 230, 0.12) !important;
+}
+
+.appfolder-dialogs-transparent .overview-tile:focus:active,
+.appfolder-dialogs-transparent .overview-tile:selected:active,
+.appfolder-dialogs-transparent .overview-tile:highlighted:active {
+    background-color: rgba(230, 230, 230, 0.15) !important;
+}
+
 
 /*
 * `.appfolder-dialogs-light`
 */
 
-.appfolder-dialogs-light {
-    background-color: rgba(200, 200, 200, 0.2);
-    border: none;
+.app-folder-dialog.appfolder-dialogs-light {
+    color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(255, 255, 255, 0.58) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.appfolder-dialogs-light .folder-name-container .folder-name-entry,
+.appfolder-dialogs-light .folder-name-container .folder-name-label,
+.appfolder-dialogs-light .folder-name-entry,
+.appfolder-dialogs-light .folder-name-entry StLabel,
+.appfolder-dialogs-light .folder-name-entry StEntry {
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: transparent !important;
+    border: 0;
     box-shadow: none;
 }
 
-.appfolder-dialogs-light .folder-name-entry {
-    color: white;
-    background-color: rgba(200, 200, 200, 0.2);
-    border: 0;
-    box-shadow: none;
+.appfolder-dialogs-light .overview-tile,
+.appfolder-dialogs-light .overview-tile StLabel,
+.appfolder-dialogs-light .app-well-app,
+.appfolder-dialogs-light .app-well-app StLabel {
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.appfolder-dialogs-light .edit-folder-button,
+.appfolder-dialogs-light .icon-button,
+.appfolder-dialogs-light .page-navigation-arrow {
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: rgba(255, 255, 255, 0.58) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.appfolder-dialogs-light .edit-folder-button StIcon,
+.appfolder-dialogs-light .icon-button StIcon,
+.appfolder-dialogs-light .page-navigation-arrow StIcon,
+.appfolder-dialogs-light .page-navigation-arrow > StIcon,
+.appfolder-dialogs-light .page-navigation-arrow StWidget {
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: transparent !important;
+}
+
+.appfolder-dialogs-light .edit-folder-button:hover,
+.appfolder-dialogs-light .edit-folder-button:focus,
+.appfolder-dialogs-light .icon-button:hover,
+.appfolder-dialogs-light .icon-button:focus,
+.appfolder-dialogs-light .page-navigation-arrow:hover,
+.appfolder-dialogs-light .page-navigation-arrow:focus {
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: rgba(255, 255, 255, 0.78) !important;
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+.appfolder-dialogs-light .edit-folder-button:active,
+.appfolder-dialogs-light .icon-button:active,
+.appfolder-dialogs-light .page-navigation-arrow:active {
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Prevent double hover box on app icons inside folder dialog */
+.appfolder-dialogs-light .overview-tile .overview-icon,
+.appfolder-dialogs-light .overview-tile:hover .overview-icon,
+.appfolder-dialogs-light .overview-tile:focus .overview-icon,
+.appfolder-dialogs-light .overview-tile:active .overview-icon {
+    background-color: transparent !important;
+}
+
+.appfolder-dialogs-light .overview-tile:hover,
+.appfolder-dialogs-light .overview-tile:focus {
+    background-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.appfolder-dialogs-light .overview-tile:active {
+    background-color: rgba(255, 255, 255, 0.32) !important;
+}
+
+
+.appfolder-dialogs-light .page-indicators .page-indicator-icon,
+.appfolder-dialogs-light .page-indicator .page-indicator-icon,
+.appfolder-dialogs-light .page-indicator-icon {
+    background-color: rgba(34, 34, 38, 0.55) !important;
+}
+
+.appfolder-dialogs-light .page-indicator:hover .page-indicator-icon {
+    background-color: rgba(34, 34, 38, 0.75) !important;
+}
+
+.appfolder-dialogs-light .page-indicator.active .page-indicator-icon,
+.appfolder-dialogs-light .page-indicator:checked .page-indicator-icon {
+    background-color: #222226 !important;
 }
 
 
@@ -39,17 +186,92 @@
 * `.appfolder-dialogs-dark`
 */
 
-.appfolder-dialogs-dark {
-    background-color: rgba(100, 100, 100, 0.35);
-    border: none;
-    box-shadow: none;
+.app-folder-dialog.appfolder-dialogs-dark {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.appfolder-dialogs-dark .folder-name-container .folder-name-entry,
+.appfolder-dialogs-dark .folder-name-container .folder-name-label,
 .appfolder-dialogs-dark .folder-name-entry {
-    color: white;
-    background-color: rgba(100, 100, 100, 0.35);
+    color: #ffffff !important;
+    background-color: transparent !important;
     border: 0;
     box-shadow: none;
 }
 
+.appfolder-dialogs-dark .overview-tile,
+.appfolder-dialogs-dark .overview-tile StLabel,
+.appfolder-dialogs-dark .app-well-app,
+.appfolder-dialogs-dark .app-well-app StLabel {
+    color: #ffffff !important;
+}
 
+.appfolder-dialogs-dark .edit-folder-button,
+.appfolder-dialogs-dark .icon-button,
+.appfolder-dialogs-dark .page-navigation-arrow {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.appfolder-dialogs-dark .edit-folder-button StIcon,
+.appfolder-dialogs-dark .icon-button StIcon,
+.appfolder-dialogs-dark .page-navigation-arrow StIcon,
+.appfolder-dialogs-dark .page-navigation-arrow > StIcon,
+.appfolder-dialogs-dark .page-navigation-arrow StWidget {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+.appfolder-dialogs-dark .edit-folder-button:hover,
+.appfolder-dialogs-dark .edit-folder-button:focus,
+.appfolder-dialogs-dark .icon-button:hover,
+.appfolder-dialogs-dark .icon-button:focus,
+.appfolder-dialogs-dark .page-navigation-arrow:hover,
+.appfolder-dialogs-dark .page-navigation-arrow:focus {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.13) !important;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.appfolder-dialogs-dark .edit-folder-button:active,
+.appfolder-dialogs-dark .icon-button:active,
+.appfolder-dialogs-dark .page-navigation-arrow:active {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Prevent double hover box on app icons inside folder dialog */
+.appfolder-dialogs-dark .overview-tile .overview-icon,
+.appfolder-dialogs-dark .overview-tile:hover .overview-icon,
+.appfolder-dialogs-dark .overview-tile:focus .overview-icon,
+.appfolder-dialogs-dark .overview-tile:active .overview-icon {
+    background-color: transparent !important;
+}
+
+.appfolder-dialogs-dark .overview-tile:hover,
+.appfolder-dialogs-dark .overview-tile:focus {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.appfolder-dialogs-dark .overview-tile:active {
+    background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.appfolder-dialogs-dark .page-indicators .page-indicator-icon,
+.appfolder-dialogs-dark .page-indicator .page-indicator-icon,
+.appfolder-dialogs-dark .page-indicator-icon {
+    background-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.appfolder-dialogs-dark .page-indicator:hover .page-indicator-icon {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.appfolder-dialogs-dark .page-indicator.active .page-indicator-icon,
+.appfolder-dialogs-dark .page-indicator:checked .page-indicator-icon {
+    background-color: #ffffff !important;
+}
