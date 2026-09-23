@@ -9,7 +9,9 @@ const Cogl = await utils.import_in_shell_only('gi://Cogl');
 const St = await utils.import_in_shell_only('gi://St');
 
 const DOWNSAMPLE_DECLARATIONS = `
-uniform vec2 halfpixel;
+uniform float halfpixel_x;
+uniform float halfpixel_y;
+#define halfpixel vec2(halfpixel_x, halfpixel_y)
 `;
 
 const DOWNSAMPLE_CODE = `
@@ -23,7 +25,9 @@ cogl_color_out = sum / 8.0;
 `;
 
 const UPSAMPLE_DECLARATIONS = `
-uniform vec2 halfpixel;
+uniform float halfpixel_x;
+uniform float halfpixel_y;
+#define halfpixel vec2(halfpixel_x, halfpixel_y)
 uniform float level_blend;
 `;
 
@@ -112,7 +116,11 @@ function setFloat(pipeline, name, value) {
 }
 
 function setVector2(pipeline, name, x, y) {
-    pipeline.set_uniform_float(pipeline.get_uniform_location(name), 2, 1, [x, y]);
+    // Backwards compatibility: Mutter < 48.6/49.1 has broken array introspection for set_uniform_float().
+    // Scalar uploads avoid a crash.
+    // See https://github.com/aunetx/blur-my-shell/pull/1017
+    setFloat(pipeline, `${name}_x`, x);
+    setFloat(pipeline, `${name}_y`, y);
 }
 
 function addPassNode(parent, target, pipeline, bounds, name) {
