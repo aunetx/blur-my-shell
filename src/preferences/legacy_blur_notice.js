@@ -51,7 +51,6 @@ export function initialize_legacy_blur_notice(group, settings) {
 function show_removal_instructions(parent) {
     const dialog = new Adw.AlertDialog({
         heading: _('Removing the old blur library'),
-        prefer_wide_layout: true,
         body_use_markup: true,
         body: [
             _('Removal is optional. Keep the library if another extension still needs it.'),
@@ -61,6 +60,8 @@ function show_removal_instructions(parent) {
             _('Log out and back in after removal. Blur my Shell will not uninstall anything for you.'),
         ].join('\n\n'),
     });
+    // Backwards compatibility: libadwaita on GNOME < 47 does not support prefer_wide_layout
+    dialog.set_prefer_wide_layout?.(true);
     dialog.add_response('close', _('Close'));
     dialog.add_response('copy', _('Copy command'));
     dialog.set_response_appearance('copy', Adw.ResponseAppearance.SUGGESTED);
