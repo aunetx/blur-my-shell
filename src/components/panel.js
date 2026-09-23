@@ -276,6 +276,7 @@ export const PanelBlur = class PanelBlur {
                     monitor.index, bg_manager_list,
                     background_group, 'bms-panel-blurred-widget'
                 );
+                background.z_position = 0;
                 bg_manager = bg_manager_list[0];
                 rounded_pipeline = new RoundedPipeline(
                     this.effects_manager,
