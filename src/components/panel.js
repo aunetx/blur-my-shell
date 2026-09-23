@@ -1053,7 +1053,7 @@ export const PanelBlur = class PanelBlur {
         immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
         this.actors_list = [];
 
-        this.queued_updates.values().forEach(id => GLib.Source.remove(id));
+        this.queued_updates.forEach(id => GLib.Source.remove(id));
         this.queued_updates.clear();
         if (this.dtp_blur_idle_id) {
             GLib.Source.remove(this.dtp_blur_idle_id);

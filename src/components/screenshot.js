@@ -78,7 +78,7 @@ export const ScreenshotBlur = class ScreenshotBlur {
     }
 
     update_pipeline() {
-        this.backgrounds.values().forEach(({ background_manager }) =>
+        this.backgrounds.forEach(({ background_manager }) =>
             background_manager._bms_pipeline?.change_pipeline_to(
                 this.settings.screenshot.PIPELINE
             )
