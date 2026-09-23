@@ -5,6 +5,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
+import { getRoundedCorners } from '../render/corner_policy.js';
 import { is_desktop_window } from '../conveniences/window.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
@@ -311,6 +312,7 @@ export const PanelBlur = class PanelBlur {
                     background_group,
                     geometry_actor
                 },
+                original_style: panel.get_style?.() ?? null,
                 static_blur,
                 monitor,
                 bg_manager,
@@ -483,6 +485,8 @@ export const PanelBlur = class PanelBlur {
         const current_monitor = Main.layoutManager.findMonitorForActor(geometry_actor);
         if (current_monitor)
             actors.monitor = current_monitor;
+
+        this.set_should_override_panel(actors, actors.should_override ?? true);
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly
@@ -845,18 +849,49 @@ export const PanelBlur = class PanelBlur {
         if (target_class && !panel.has_style_class_name(target_class)) {
             panel.add_style_class_name(target_class);
         }
+
+        // Apply or restore border-radius style as part of the styling flow
+        this.update_panel_border_radius(panel, target_class);
+    }
+
+    update_panel_border_radius(panel, target_class = null) {
+        if (!panel || !panel.set_style)
+            return;
+
+        const actors = this.actors_list.find(a => a.widgets.panel === panel);
+        const original_style = actors?.original_style ?? null;
+
+        if (!target_class || !this.settings.panel.OVERRIDE_BACKGROUND) {
+            try {
+                panel.set_style(original_style);
+            } catch (e) { }
+            return;
+        }
+
+        const radius = this.settings.panel.CORNER_RADIUS;
+        const panel_height = panel.get_height?.() ?? 0;
+        const max_radius = panel_height > 0 ? Math.floor(panel_height / 2) : radius;
+        const clamped_radius = Math.min(radius, max_radius);
+
+        const corners = getRoundedCorners(this.settings.panel.ROUNDED_CORNERS);
+        const top = corners.corners_top ? clamped_radius : 0;
+        const bottom = corners.corners_bottom ? clamped_radius : 0;
+
+        const base_style = original_style ?? '';
+        const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
+
+        try {
+            panel.set_style(
+                `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px; border-top-left-radius: ${top}px; border-top-right-radius: ${top}px; border-bottom-right-radius: ${bottom}px; border-bottom-left-radius: ${bottom}px;`
+            );
+        } catch (e) { }
     }
 
     get_panel_style() {
-        if (PANEL_STYLES == 3) {
-            return this.settings.panel.STYLE_PANEL;
-        }
-        else {
-            return get_component_style(
-                this.settings.panel.STYLE_PANEL,
-                PANEL_STYLES
-            );
-        }
+        return get_component_style(
+            this.settings.panel.STYLE_PANEL,
+            PANEL_STYLES
+        );
     }
 
     panel_hide_blur_dynamically() {
@@ -927,6 +962,7 @@ export const PanelBlur = class PanelBlur {
                 actors.bg_manager?._bms_pipeline?.set_corner_radius?.(
                     this.settings.panel.CORNER_RADIUS
                 );
+            this.set_should_override_panel(actors, actors.should_override ?? true);
         });
     }
 
@@ -964,6 +1000,12 @@ export const PanelBlur = class PanelBlur {
 
         if (!panel_already_destroyed)
             this.update_panel_style_class(actors.widgets.panel, null);
+
+        if (!panel_already_destroyed && actors.widgets.panel?.set_style) {
+            try {
+                actors.widgets.panel.set_style(actors.original_style ?? null);
+            } catch (e) { }
+        }
 
         actors.signal_records.forEach(({ actor, ids }) => {
             if (panel_already_destroyed && actor === actors.widgets.panel)
