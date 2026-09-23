@@ -76,6 +76,7 @@
         <child name='applications' schema='org.gnome.shell.extensions.blur-my-shell.applications'></child>
         <child name='screenshot' schema='org.gnome.shell.extensions.blur-my-shell.screenshot'></child>
         <child name='lockscreen' schema='org.gnome.shell.extensions.blur-my-shell.lockscreen'></child>
+        <child name='wallpaper' schema='org.gnome.shell.extensions.blur-my-shell.wallpaper'></child>
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='coverflow-alt-tab' schema='org.gnome.shell.extensions.blur-my-shell.coverflow-alt-tab'></child>
         <child name='popup' schema='org.gnome.shell.extensions.blur-my-shell.popup'></child>
@@ -515,6 +516,21 @@
         <key type="d" name="noise-lightness">
             <default>0.</default>
             <summary>Lightness of the noise added to the blur effect</summary>
+        </key>
+    </schema>
+
+    <!-- WALLPAPER -->
+    <schema id="org.gnome.shell.extensions.blur-my-shell.wallpaper"
+        path="/org/gnome/shell/extensions/blur-my-shell/wallpaper/">
+        <!-- BLUR -->
+        <key type="b" name="blur">
+            <default>false</default>
+            <summary>Boolean, whether to blur the desktop wallpaper or not</summary>
+        </key>
+        <!-- PIPELINE -->
+        <key type="s" name="pipeline">
+            <default>"pipeline_default"</default>
+            <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
     </schema>
 

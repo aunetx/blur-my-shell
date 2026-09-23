@@ -66,6 +66,7 @@ export const Pipeline = class Pipeline {
             width: monitor.width,
             height: monitor.height
         });
+        actor._bms_skip_wallpaper_pipeline = true;
         this.actor = actor;
         let bg_manager = null;
 

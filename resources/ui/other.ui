@@ -25,6 +25,24 @@
 
     <child>
       <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Wallpaper blur</property>
+        <property name="description" translatable="yes">Add blur to the desktop wallpaper.</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="wallpaper_blur">
+            <property name="valign">center</property>
+          </object>
+        </property>
+
+        <child>
+          <object class="PipelineChooseRow" id="wallpaper_pipeline_choose_row">
+            <property name="sensitive" bind-source="wallpaper_blur" bind-property="state" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Screenshot blur</property>
         <property name="description" translatable="yes">Add blur to the background of the window selector in the screenshot UI.</property>
         <property name="header-suffix">
