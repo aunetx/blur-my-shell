@@ -8,6 +8,14 @@ import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './bac
 
 const PIXEL_EPSILON = 1 / 1024;
 
+// Backwards compatibility: GNOME 46/47 expose blitting as a namespace function.
+// See https://github.com/aunetx/blur-my-shell/pull/1017
+function blitFramebuffer(source, ...args) {
+    if (typeof source.blit === 'function')
+        return source.blit(...args);
+    return Cogl.blit_framebuffer(source, ...args);
+}
+
 function captureGeometry(actor, framebuffer) {
     const modelview = framebuffer.get_modelview_matrix();
     const projection = framebuffer.get_projection_matrix();
@@ -190,7 +198,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         for (const rect of rectangles) {
             if (rect.width <= 0 || rect.height <= 0)
                 continue;
-            sourceFramebuffer.blit(
+            blitFramebuffer(sourceFramebuffer,
                 this.target.framebuffer,
                 rect.x,
                 rect.y,
