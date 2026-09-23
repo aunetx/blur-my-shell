@@ -861,7 +861,7 @@ export const PanelBlur = class PanelBlur {
         const actors = this.actors_list.find(a => a.widgets.panel === panel);
         const original_style = actors?.original_style ?? null;
 
-        if (!target_class && !this.settings.panel.OVERRIDE_BACKGROUND) {
+        if (!target_class || !this.settings.panel.OVERRIDE_BACKGROUND) {
             try {
                 panel.set_style(original_style);
             } catch (e) { }
@@ -881,13 +881,9 @@ export const PanelBlur = class PanelBlur {
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
 
         try {
-            if (clamped_radius > 0 && (top > 0 || bottom > 0)) {
-                panel.set_style(
-                    `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px; border-top-left-radius: ${top}px; border-top-right-radius: ${top}px; border-bottom-right-radius: ${bottom}px; border-bottom-left-radius: ${bottom}px;`
-                );
-            } else {
-                panel.set_style(original_style);
-            }
+            panel.set_style(
+                `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px; border-top-left-radius: ${top}px; border-top-right-radius: ${top}px; border-bottom-right-radius: ${bottom}px; border-bottom-left-radius: ${bottom}px;`
+            );
         } catch (e) { }
     }
 
