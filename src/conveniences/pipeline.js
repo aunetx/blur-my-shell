@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
@@ -29,6 +30,7 @@ export const Pipeline = class Pipeline {
         this.actor = null;
         this.actor_destroy_id = null;
         this.child_added_id = null;
+        this.child_added_actor = null;
         this._pipeline_changed_id = null;
         this._pipeline_destroyed_id = null;
         this.set_pipeline_id(pipeline_id);
@@ -52,20 +54,39 @@ export const Pipeline = class Pipeline {
 
         this.remove_pipeline_from_actor();
 
+        // render a wallpaper copy to prevent partial painting of the blur input
+        // normally only the damaged area is painted
+        let source = new St.Widget({
+            name: `${widget_name}-source`,
+            width: monitor.width,
+            height: monitor.height,
+            visible: false,
+        });
         const actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
             y: use_absolute_position ? monitor.y : 0,
-            z_position: 1, // seems to fix the multi-monitor glitch
+            z_position: 0,
             width: monitor.width,
             height: monitor.height
         });
+        actor.add_child(new Clutter.Clone({
+            source,
+            width: monitor.width,
+            height: monitor.height,
+        }));
+        source.connect('destroy', () => {
+            if (this.child_added_actor === source)
+                this.disconnect_child_added();
+            source = null;
+        });
+        actor.connect('destroy', () => source?.destroy());
         this.actor = actor;
         if (this.pipeline_id)
             this.attach_pipeline_to_actor(actor);
 
         const bg_manager = new Background.BackgroundManager({
-            container: actor,
+            container: source,
             monitorIndex: monitor_index,
             controlPosition: false,
         });
@@ -75,13 +96,15 @@ export const Pipeline = class Pipeline {
         // sibling re-ordering.
         // Without it, new actors render on top while loading, causing a solid color flash through
         // on the surface.
-        this.child_added_id = actor.connect(
+        this.child_added_actor = source;
+        this.child_added_id = source.connect(
             'child-added', (container, child) => {
                 if (child instanceof Meta.BackgroundActor)
                     container.set_child_below_sibling(child, null);
             }
         );
 
+        background_group.insert_child_at_index(source, 0);
         background_group.insert_child_at_index(actor, 0);
         background_managers.push(bg_manager);
         return actor;
@@ -154,9 +177,10 @@ export const Pipeline = class Pipeline {
     }
 
     disconnect_child_added() {
-        if (this.child_added_id)
-            this.actor.disconnect(this.child_added_id);
+        if (this.child_added_actor && this.child_added_id)
+            this.child_added_actor.disconnect(this.child_added_id);
         this.child_added_id = null;
+        this.child_added_actor = null;
     }
 
     /// Update the effects from the given pipeline object, the hard way.
