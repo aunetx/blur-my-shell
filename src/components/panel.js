@@ -862,9 +862,7 @@ export const PanelBlur = class PanelBlur {
         const original_style = actors?.original_style ?? null;
 
         if (!target_class || !this.settings.panel.OVERRIDE_BACKGROUND) {
-            try {
-                panel.set_style(original_style);
-            } catch (e) { }
+            panel.set_style(original_style);
             return;
         }
 
