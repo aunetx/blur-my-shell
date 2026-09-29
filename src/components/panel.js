@@ -312,7 +312,7 @@ export const PanelBlur = class PanelBlur {
                     background_group,
                     geometry_actor
                 },
-                original_style: panel.get_style?.(),
+                original_style: panel.get_style(),
                 static_blur,
                 monitor,
                 bg_manager,
