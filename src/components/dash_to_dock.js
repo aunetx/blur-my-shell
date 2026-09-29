@@ -46,7 +46,7 @@ class DashInfos {
         let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
         this.current_monitor_index = monitor ? monitor.index : null;
 
-        this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur(false));
+        this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur());
         this.dash_blur_connections_ids = [];
         this.dash_blur_connections_ids.push(
             this.dash_blur.connect('remove-dashes', () => this.remove_dash_blur()),
@@ -77,10 +77,10 @@ class DashInfos {
     }
 
     // IMPORTANT: do never call this in a mutable `this.dash_blur.forEach`
-    remove_dash_blur(dash_not_already_destroyed = true) {
+    remove_dash_blur() {
         // remove the style and destroy the effects
         this.remove_style();
-        this.destroy_dash(dash_not_already_destroyed);
+        this.destroy_dash();
 
         // remove the dash infos from their list
         const dash_infos_index = this.dash_blur.dashes.indexOf(this);
@@ -125,26 +125,39 @@ class DashInfos {
         );
     }
 
-    destroy_dash(dash_not_already_destroyed = true) {
+    destroy_dash() {
         this.clear_pending_idles();
 
-        if (!dash_not_already_destroyed)
-            this.bg_manager.backgroundActor = null;
+        if (this.paint_signals)
+            this.paint_signals.disconnect_all();
 
-        this.paint_signals?.disconnect_all();
-        if (this.background_group && this.dash?.get_parent())
-            this.dash.get_parent().remove_child(this.background_group);
-        if (this.bg_manager?._bms_pipeline) {
-            this.bg_manager._bms_pipeline.destroy();
-            this.bg_manager._bms_pipeline = null;
+        if (this.background_group && this.dash) {
+            const parent = this.dash.get_parent();
+            if (parent)
+                parent.remove_child(this.background_group);
         }
+
+        if (this.bg_manager) {
+            if (this.bg_manager._bms_pipeline) {
+                this.bg_manager._bms_pipeline.destroy();
+                this.bg_manager._bms_pipeline = null;
+            }
+            this.bg_manager.backgroundActor = null;
+            this.bg_manager.destroy();
+            this.bg_manager = null;
+        }
+
         if (this.bg_allocation_id && this.background_group) {
             this.background_group.disconnect(this.bg_allocation_id);
             this.bg_allocation_id = null;
         }
         
-        this.bg_manager?.destroy();
-        this.background_group?.destroy();
+        this._first_boot = null;
+
+        if (this.background_group) {
+            this.background_group.destroy();
+            this.background_group = null;
+        }
     }
 
     change_blur_type() {

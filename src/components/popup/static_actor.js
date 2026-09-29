@@ -260,18 +260,17 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.static_corner.update();
     }
 
-    destroy(actor_already_destroyed = false) {
+    destroy() {
         const background_group = this.background_group;
-        this.destroy_background(actor_already_destroyed);
+        this.destroy_background();
         this.background_group = null;
 
-        if (!actor_already_destroyed)
-            background_group?.destroy();
+        if (background_group)
+            background_group.destroy();
     }
 
-    destroy_background(actor_already_destroyed = false) {
+    destroy_background() {
         const bg_manager = this.bg_manager;
-        const blur_actor_was_destroyed = !this.blur_actor;
         this.bg_manager = null;
         this.blur_actor = null;
         this.pipeline = null;
@@ -279,13 +278,14 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.static_corner.destroy();
 
         if (bg_manager) {
-            bg_manager._bms_pipeline?.destroy();
-
-            if (actor_already_destroyed || blur_actor_was_destroyed)
-                bg_manager.backgroundActor = null;
+            if (bg_manager._bms_pipeline) {
+                bg_manager._bms_pipeline.destroy();
+                bg_manager._bms_pipeline = null;
+            }
+            bg_manager.backgroundActor = null;
             bg_manager.destroy();
-        } else {
-            this.background_group?.destroy_all_children();
+        } else if (this.background_group) {
+            this.background_group.destroy_all_children();
         }
 
         this.monitor_index = null;

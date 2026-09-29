@@ -133,10 +133,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     track_owned_actor(actor, flags = {}) {
         this.connections.connect(actor, 'destroy', () => {
-            if (flags.actor)
-                this.actor = null;
-            if (flags.blur_actor)
-                this.blur_actor = null;
+            this.actor = null;
+            this.blur_actor = null;
         });
     }
 
@@ -436,7 +434,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         }
     }
 
-    destroy(actor_already_destroyed = false) {
+    destroy() {
         if (this.update_id) {
             global.compositor.get_laters().remove(this.update_id);
             this.update_id = 0;
@@ -452,33 +450,32 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
         this.signals.disconnect_all();
         this.paint_signals.disconnect_all_for_actor(this.blur_actor);
-        if (!actor_already_destroyed) {
-            this.paint_signals.disconnect_all_for_actor(this.target);
-            this.style.restore_target_style();
-        }
+        this.paint_signals.disconnect_all_for_actor(this.target);
+        this.style.restore_target_style();
 
         if (this.static_blur)
-            this.destroy_static_actor(actor_already_destroyed);
+            this.destroy_static_actor();
         else
-            this.destroy_dynamic_actor(actor_already_destroyed);
-            
-            
+            this.destroy_dynamic_actor();
+
         this.fade = null;
     }
 
-    destroy_dynamic_actor(actor_already_destroyed = false) {
+    destroy_dynamic_actor() {
         const pipeline = this.pipeline;
         const blur_actor = this.blur_actor;
         this.pipeline = null;
         this.blur_actor = null;
         this.actor = null;
-        pipeline?.destroy();
-        if (!actor_already_destroyed)
-            blur_actor?.destroy();
+        if (pipeline)
+            pipeline.destroy();
+        if (blur_actor)
+            blur_actor.destroy();
     }
 
-    destroy_static_actor(actor_already_destroyed = false) {
-        this.static_actor?.destroy(actor_already_destroyed);
+    destroy_static_actor() {
+        if (this.static_actor)
+            this.static_actor.destroy();
         this.static_actor = null;
         this.actor = null;
         this.blur_actor = null;

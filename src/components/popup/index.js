@@ -237,14 +237,14 @@ export const PopupBlur = class PopupBlur {
         this.connections.connect(
             target,
             'destroy',
-            () => this.destroy_blur(target, true)
+            () => this.destroy_blur(target)
         );
 
         if (root_actor !== target) {
             this.connections.connect(
                 root_actor,
                 'destroy',
-                () => this.destroy_blur(target, true)
+                () => this.destroy_blur(target)
             );
         }
     }
@@ -390,13 +390,13 @@ export const PopupBlur = class PopupBlur {
         return actor.dialogLayout || null;
     }
 
-    destroy_blur(actor, actor_already_destroyed = false) {
+    destroy_blur(actor) {
         const surface = this.surfaces.get(actor);
         if (!surface)
             return;
 
         this.surfaces.delete(actor);
-        surface.destroy(actor_already_destroyed);
+        surface.destroy();
     }
 
     reset() {

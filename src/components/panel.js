@@ -335,7 +335,7 @@ export const PanelBlur = class PanelBlur {
         this.connections.connect(
             panel,
             'destroy',
-            _ => this.destroy_blur(actors, true)
+            _ => this.destroy_blur(actors)
         );
     }
 
@@ -770,19 +770,26 @@ export const PanelBlur = class PanelBlur {
     }
 
     // IMPORTANT: do never call this in a mutable `this.actors_list.forEach`
-    destroy_blur(actors, panel_already_destroyed) {
+    destroy_blur(actors) {
         this.set_should_override_panel(actors, false);
 
-        actors.bg_manager._bms_pipeline.destroy();
-
-        if (panel_already_destroyed)
+        if (actors.bg_manager) {
+            if (actors.bg_manager._bms_pipeline) {
+                actors.bg_manager._bms_pipeline.destroy();
+                actors.bg_manager._bms_pipeline = null;
+            }
             actors.bg_manager.backgroundActor = null;
-        actors.bg_manager.destroy();
+            actors.bg_manager.destroy();
+            actors.bg_manager = null;
+        }
 
-        if (!panel_already_destroyed) {
-            actors.widgets.panel_box.remove_child(actors.widgets.background_group);
-            actors.widgets.background_group.destroy_all_children();
-            actors.widgets.background_group.destroy();
+        if (actors.widgets && actors.widgets.background_group) {
+            const bg_group = actors.widgets.background_group;
+            const parent = bg_group.get_parent();
+            if (parent)
+                parent.remove_child(bg_group);
+            bg_group.destroy();
+            actors.widgets.background_group = null;
         }
 
         let index = this.actors_list.indexOf(actors);
@@ -803,11 +810,12 @@ export const PanelBlur = class PanelBlur {
         this.update_light_text_classname(true);
 
         const immutable_actors_list = [...this.actors_list];
-        immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
+        immutable_actors_list.forEach(actors => this.destroy_blur(actors));
         this.actors_list = [];
         this.queued_updates.clear();
 
         this._dirty = true;
+        this._first_boot = null;
 
         this.connections.disconnect_all();
 
