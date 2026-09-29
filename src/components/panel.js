@@ -312,7 +312,7 @@ export const PanelBlur = class PanelBlur {
                     background_group,
                     geometry_actor
                 },
-                original_style: panel.get_style?.() ?? null,
+                original_style: panel.get_style?.(),
                 static_blur,
                 monitor,
                 bg_manager,
@@ -855,7 +855,7 @@ export const PanelBlur = class PanelBlur {
     }
 
     update_panel_border_radius(panel, target_class = null) {
-        if (!panel || !panel.set_style)
+        if (!panel)
             return;
 
         const actors = this.actors_list.find(a => a.widgets.panel === panel);
@@ -880,11 +880,9 @@ export const PanelBlur = class PanelBlur {
         const base_style = original_style ?? '';
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
 
-        try {
-            panel.set_style(
-                `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px; border-top-left-radius: ${top}px; border-top-right-radius: ${top}px; border-bottom-right-radius: ${bottom}px; border-bottom-left-radius: ${bottom}px;`
-            );
-        } catch (e) { }
+        panel.set_style(
+            `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px; border-top-left-radius: ${top}px; border-top-right-radius: ${top}px; border-bottom-right-radius: ${bottom}px; border-bottom-left-radius: ${bottom}px;`
+        );
     }
 
     get_panel_style() {
@@ -1002,9 +1000,7 @@ export const PanelBlur = class PanelBlur {
             this.update_panel_style_class(actors.widgets.panel, null);
 
         if (!panel_already_destroyed && actors.widgets.panel?.set_style) {
-            try {
-                actors.widgets.panel.set_style(actors.original_style ?? null);
-            } catch (e) { }
+            actors.widgets.panel.set_style(actors.original_style ?? null);
         }
 
         actors.signal_records.forEach(({ actor, ids }) => {
