@@ -311,10 +311,12 @@ export const PopupBlur = class PopupBlur {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
 
-        const class_names = actor.get_style_class_name();
-        if (typeof class_names === 'string') {
-            const normalized = ` ${class_names.trim().replace(/\s+/g, ' ')} `;
-            return style_classes.some(style_class => normalized.includes(` ${style_class} `));
+        if (actor.get_style_class_name) {
+            const class_names = actor.get_style_class_name();
+            if (typeof class_names === 'string') {
+                const normalized = ` ${class_names.trim().replace(/\s+/g, ' ')} `;
+                return style_classes.some(style_class => normalized.includes(` ${style_class} `));
+            }
         }
 
         return style_classes.some(style => this.has_style_class(actor, style));
@@ -324,16 +326,19 @@ export const PopupBlur = class PopupBlur {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
 
-        if (actor?.has_style_class_name)
+        if (actor.has_style_class_name)
             return actor.has_style_class_name(style_class);
 
-        return (actor?.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+        if (actor.get_style_class_name)
+            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+        return false;
     }
 
     is_window_actor(actor) {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
-        return actor?.get_parent() === global.window_group;
+        return actor.get_parent() === global.window_group;
     }
 
     is_internal_actor(actor) {

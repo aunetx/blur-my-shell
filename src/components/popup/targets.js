@@ -187,10 +187,13 @@ export const PopupBlurTargets = class PopupBlurTargets {
         if (!actor)
             return false;
 
-        if (actor?.has_style_class_name)
+        if (actor.has_style_class_name)
             return actor.has_style_class_name(style_class);
 
-        return (actor?.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+        if (actor.get_style_class_name)
+            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+        return false;
     }
 
     get_style_classes(actor) {
@@ -199,6 +202,11 @@ export const PopupBlurTargets = class PopupBlurTargets {
 
         if (this.style_cache.has(actor))
             return this.style_cache.get(actor);
+
+        if (!actor.get_style_class_name) {
+            this.style_cache.set(actor, null);
+            return null;
+        }
 
         const class_names = actor.get_style_class_name();
         if (typeof class_names !== 'string') {

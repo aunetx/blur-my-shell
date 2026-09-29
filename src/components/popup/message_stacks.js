@@ -420,7 +420,11 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
 
         if (actor.has_style_pseudo_class)
             return actor.has_style_pseudo_class(pseudo_class);
-        return (actor.get_style_pseudo_class() ?? '').split(/\s+/).includes(pseudo_class);
+
+        if (actor.get_style_pseudo_class)
+            return (actor.get_style_pseudo_class() ?? '').split(/\s+/).includes(pseudo_class);
+
+        return false;
     }
 
     get_message_group(message) {
@@ -456,7 +460,10 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             if (message.has_style_pseudo_class)
                 return message.has_style_pseudo_class(pseudo_class);
 
-            return (message.get_style_pseudo_class() ?? '').split(/\s+/).includes(pseudo_class);
+            if (message.get_style_pseudo_class)
+                return (message.get_style_pseudo_class() ?? '').split(/\s+/).includes(pseudo_class);
+
+            return false;
         });
     }
 
@@ -481,10 +488,13 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
 
-        if (actor?.has_style_class_name)
+        if (actor.has_style_class_name)
             return actor.has_style_class_name(style_class);
 
-        return (actor?.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+        if (actor.get_style_class_name)
+            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+        return false;
     }
 
     watch_actor(actor) {

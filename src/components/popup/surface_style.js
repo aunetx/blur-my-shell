@@ -48,9 +48,12 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
         if (!actor)
             return false;
 
-        if (actor?.has_style_class_name)
+        if (actor.has_style_class_name)
             return actor.has_style_class_name(style_class);
 
-        return (actor?.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+        if (actor.get_style_class_name)
+            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+        return false;
     }
 };
