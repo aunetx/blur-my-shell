@@ -1,7 +1,7 @@
 import Meta from 'gi://Meta';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
-import { Pipeline } from '../conveniences/pipeline.js';
+import { WallpaperSurface } from '../render/wallpaper_surface.js';
 
 
 const background_manager_proto = Background.BackgroundManager.prototype;
@@ -13,7 +13,7 @@ export const WallpaperBlur = class WallpaperBlur {
         this.settings = settings;
         this.effects_manager = effects_manager;
 
-        this.pipelines = new Map();
+        this.surfaces = new Map();
 
         this.enabled = false;
         this.proto_patched = false;
@@ -34,7 +34,7 @@ export const WallpaperBlur = class WallpaperBlur {
 
         this.patch_background_manager();
 
-        // backgrounds that already existed before the prototype was patched need to be handled once manually
+        // Pick up backgrounds that existed before the hook.
         this.blur_existing_backgrounds();
     }
 
@@ -103,7 +103,7 @@ export const WallpaperBlur = class WallpaperBlur {
         if (!(actor instanceof Meta.BackgroundActor))
             return;
 
-        if (this.pipelines.has(actor))
+        if (this.surfaces.has(actor))
             return;
 
         if (this.should_ignore(actor))
@@ -111,27 +111,27 @@ export const WallpaperBlur = class WallpaperBlur {
 
         this._log('found wallpaper actor to blur');
 
-        let pipeline = null;
+        let surface = null;
 
         try {
-            pipeline = new Pipeline(
+            surface = new WallpaperSurface(
+                actor,
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                this.settings.wallpaper.PIPELINE,
-                actor
+                this.settings.wallpaper.PIPELINE
             );
 
-            this.pipelines.set(actor, pipeline);
+            this.surfaces.set(actor, surface);
 
             this.connections.connect(actor, 'destroy', () => {
-                this.pipelines.delete(actor);
-                pipeline.destroy();
+                this.surfaces.delete(actor);
+                surface.destroy();
             });
         } catch (error) {
-            pipeline?.destroy();
-            this.pipelines.delete(actor);
+            surface?.destroy();
+            this.surfaces.delete(actor);
 
-            logError(error, '[Blur my Shell > wallpaper] failed to attach pipeline');
+            logError(error, '[Blur my Shell > wallpaper] failed to attach wallpaper surface');
         }
     }
 
@@ -148,7 +148,7 @@ export const WallpaperBlur = class WallpaperBlur {
     }
 
     update_pipeline() {
-        this.pipelines.forEach(pipeline => pipeline.change_pipeline_to(this.settings.wallpaper.PIPELINE));
+        this.surfaces.forEach(surface => surface.change_pipeline_to(this.settings.wallpaper.PIPELINE));
     }
 
     disable() {
@@ -160,13 +160,13 @@ export const WallpaperBlur = class WallpaperBlur {
         this._log('removing blur from wallpaper');
         this.enabled = false;
 
-        // stop affecting newly created backgrounds first
+        // Stop hooking new backgrounds before cleanup.
         this.restore_patched_proto();
 
         this.connections.disconnect_all();
 
-        this.pipelines.forEach(pipeline => pipeline.destroy());
-        this.pipelines.clear();
+        this.surfaces.forEach(surface => surface.destroy());
+        this.surfaces.clear();
     }
 
     _log(str) {
