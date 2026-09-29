@@ -1,5 +1,4 @@
 import Meta from 'gi://Meta';
-import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
@@ -272,6 +271,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
     destroy_background() {
         const bg_manager = this.bg_manager;
+        const blur_actor = this.blur_actor;
         this.bg_manager = null;
         this.blur_actor = null;
         this.pipeline = null;
@@ -283,11 +283,13 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
                 bg_manager._bms_pipeline.destroy();
                 bg_manager._bms_pipeline = null;
             }
-            bg_manager.backgroundActor = null;
+            if (!blur_actor)
+                bg_manager.backgroundActor = null;
             bg_manager.destroy();
         } else if (this.background_group) {
             this.background_group.destroy_all_children();
         }
+        blur_actor.destroy();
 
         this.monitor_index = null;
         this.background_opacity = null;
