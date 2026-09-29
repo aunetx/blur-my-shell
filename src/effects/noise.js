@@ -105,4 +105,4 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
 
 export const NoiseEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(NOISE_EFFECT_META, NoiseEffectClass);
+    : GObject.registerClass(NOISE_EFFECT_META, NoiseEffectClass);

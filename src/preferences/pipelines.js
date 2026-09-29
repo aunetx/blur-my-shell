@@ -70,7 +70,6 @@ export const Pipelines = GObject.registerClass({
 
         this.add(pipeline_group);
 
-        // scroll to the bottom of the page
         if (scroll_to_bottom) {
             this.window.set_visible_page(this);
             const timeout_id = setTimeout(() => {

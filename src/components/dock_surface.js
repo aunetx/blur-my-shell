@@ -1,7 +1,10 @@
+import St from 'gi://St';
 import Meta from 'gi://Meta';
 import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { resolve_dock_target } from './dock_targets.js';
+
+import { Connections } from '../conveniences/connections.js';
+import { has_valid_allocation, resolve_dock_target } from './dock_targets.js';
 import { get_component_style } from '../conveniences/style.js';
 
 const DASH_STYLES = [
@@ -29,160 +32,97 @@ const GEOMETRY_SIGNALS = [
 ///
 /// This allows to dynamically track the created dashes for each screen.
 export class DockSurface {
-    constructor(
-        dash_blur, dash, dash_container, dash_background,
-        background, background_group, bg_manager
-    ) {
-        // the parent DashBlur object, to communicate
+    constructor(dash_blur, dash_container, target, blur) {
         this.dash_blur = dash_blur;
-        this.dash = dash;
+        this.dash = target.content;
         this.dash_container = dash_container;
-        this.dash_background = dash_background;
-        this.background = background;
-        this.background_group = background_group;
-        this.bg_manager = bg_manager;
+        this.dash_background = target.background;
         this.settings = dash_blur.settings;
+        this.connections = new Connections();
+        this.update_id = 0;
 
-        this.updateId = 0;
-        this.geometry_signal_records = [];
-        this.destroyed = false;
-
-        this.connect_geometry_signals(
-            dash,
-            GEOMETRY_SIGNALS
-        );
-        const dash_box = dash.get_parent();
-        if (dash_box && dash_box !== dash_container)
-            this.connect_geometry_signals(
-                dash_box,
-                GEOMETRY_SIGNALS
-            );
-        if (dash_background !== dash)
-            this.connect_geometry_signals(
-                dash_background,
-                GEOMETRY_SIGNALS
-            );
-        this.connect_geometry_signals(
+        const schedule_update = () => this.schedule_update();
+        this.connections.connect(this.dash, GEOMETRY_SIGNALS, schedule_update);
+        const dash_box = this.dash.get_parent();
+        if (dash_box !== dash_container)
+            this.connections.connect(dash_box, GEOMETRY_SIGNALS, schedule_update);
+        if (this.dash_background !== this.dash)
+            this.connections.connect(this.dash_background, GEOMETRY_SIGNALS, schedule_update);
+        this.connections.connect(
             dash_container,
-            [
-                ...GEOMETRY_SIGNALS,
-                'notify::style-class-name',
-            ]
+            [...GEOMETRY_SIGNALS, 'notify::style-class-name'],
+            schedule_update
         );
         const slider = dash_container._slider;
         if (slider)
-            this.connect_geometry_signals(
+            this.connections.connect(
                 slider,
-                ['notify::slide-x', 'notify::allocation']
+                ['notify::slide-x', 'notify::allocation'],
+                schedule_update
             );
-        for (const actor of new Set([dash, dash_container]))
-            this.connect_geometry_signals(actor, ['child-added', 'child-removed'],
+        for (const actor of new Set([this.dash, dash_container]))
+            this.connections.connect(actor, ['child-added', 'child-removed'],
                 () => this.dash_blur.queue_discovery());
 
-        this.bg_allocation_id = 0;
-        this.bg_destroy_id = 0;
-        this.connect_background_group();
+        this.set_blur(blur);
 
-        let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
+        let monitor = Main.layoutManager.findMonitorForActor(dash_container);
         this.current_monitor_index = monitor ? monitor.index : null;
 
-        this.dash_destroy_id = dash.connect('destroy', () => {
-            this.remove_dash_blur(false);
+        this.connections.connect(this.dash, 'destroy', () => {
+            this.remove_dash_blur();
             this.dash_blur.queue_discovery();
         });
-        this.dash_blur_connections_ids = [];
-        this.dash_blur_connections_ids.push(
-            this.dash_blur.connect('remove-dashes', () => this.remove_dash_blur()),
-            this.dash_blur.connect('override-style', () => this.override_style()),
-            this.dash_blur.connect('remove-style', () => this.remove_style()),
-            this.dash_blur.connect('show', () => this.update_visibility()),
-            this.dash_blur.connect('hide', () => this.update_visibility()),
-            this.dash_blur.connect('update-size', () => this.schedule_update()),
-            this.dash_blur.connect('change-blur-type', () => this.change_blur_type()),
-            this.dash_blur.connect('update-pipeline', () => this.update_pipeline()),
-            this.dash_blur.connect('update-corner-radius', () => this.update_corner_radius())
-        );
+        this.connections.connect(dash_blur, 'remove-dashes', () => this.remove_dash_blur());
+        this.connections.connect(dash_blur, 'override-style', () => this.override_style());
+        this.connections.connect(dash_blur, 'remove-style', () => this.remove_style());
+        this.connections.connect(dash_blur, ['show', 'hide'], () => this.update_visibility());
+        this.connections.connect(dash_blur, 'update-size', schedule_update);
+        this.connections.connect(dash_blur, 'change-blur-type', () => this.change_blur_type());
+        this.connections.connect(dash_blur, 'update-pipeline', () => this.update_pipeline());
+        this.connections.connect(dash_blur, 'update-corner-radius', () => this.update_corner_radius());
         this.update_visibility();
     }
 
-    connect_geometry_signals(actor, signals, callback = () => this.schedule_update()) {
-        const ids = this.dash_blur.connections.connect(
-            actor,
-            signals,
-            callback
-        );
-        this.geometry_signal_records.push({
-            actor,
-            ids: Array.isArray(ids) ? ids : [ids],
-        });
+    set_blur({ background, background_group, bg_manager, pipeline, rounded_pipeline }) {
+        this.background = background;
+        this.background_group = background_group;
+        this.bg_manager = bg_manager;
+        this.pipeline = pipeline;
+        this.rounded_pipeline = rounded_pipeline;
+
+        this.connections.connect(background_group, 'notify::allocation', () => this.schedule_update());
+        // destroyed with its parent, possibly before the dash itself
+        this.connections.connect(background_group, 'destroy', () => this.remove_dash_blur());
     }
 
     schedule_update() {
-        if (this.destroyed)
-            return;
-
-        this.clear_pending_idles();
-        this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
-            this.updateId = 0;
+        this.clear_pending_update();
+        this.update_id = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
+            this.update_id = 0;
             this.update_size();
             return false;
         });
     }
 
-    connect_background_group() {
-        if (!this.background_group)
-            return;
-
-        this.bg_allocation_id = this.background_group.connect(
-            'notify::allocation',
-            () => this.schedule_update()
-        );
-        this.bg_destroy_id = this.background_group.connect('destroy', () => {
-            this.background_group = null;
-            this.bg_allocation_id = 0;
-            this.bg_destroy_id = 0;
-            if (!this.destroyed)
-                this.remove_dash_blur();
-        });
-    }
-
-    clear_pending_idles() {
-        if (this.updateId) {
-            global.compositor.get_laters().remove(this.updateId);
-            this.updateId = 0;
+    clear_pending_update() {
+        if (this.update_id) {
+            global.compositor.get_laters().remove(this.update_id);
+            this.update_id = 0;
         }
     }
 
-    // IMPORTANT: do never call this in a mutable `this.dash_blur.forEach`
-    remove_dash_blur(dash_not_already_destroyed = true) {
-        if (this.destroyed)
-            return;
-        this.destroyed = true;
-
-        // remove the style and destroy the effects
+    // IMPORTANT: do never call this in a mutable `this.dash_blur.dashes.forEach`
+    remove_dash_blur() {
+        this.connections.disconnect_all();
         this.remove_style();
-        this.destroy_dash(dash_not_already_destroyed);
+        this.destroy_dash();
+        this.dash_blur.dashes.splice(this.dash_blur.dashes.indexOf(this), 1);
+    }
 
-        // remove the dash infos from their list
-        const dash_infos_index = this.dash_blur.dashes.indexOf(this);
-        if (dash_infos_index >= 0)
-            this.dash_blur.dashes.splice(dash_infos_index, 1);
-
-        // disconnect everything
-        this.dash_blur_connections_ids.forEach(id => { if (id) this.dash_blur.disconnect(id); });
-        this.dash_blur_connections_ids = [];
-        this.geometry_signal_records.forEach(({ actor, ids }) => {
-            if (!dash_not_already_destroyed && actor === this.dash)
-                return;
-            ids.forEach(id => this.dash_blur.connections.disconnect(actor, id));
-        });
-        this.geometry_signal_records = [];
-        if (dash_not_already_destroyed && this.dash_destroy_id) {
-            try {
-                this.dash.disconnect(this.dash_destroy_id);
-            } catch (e) { }
-        }
-        this.dash_destroy_id = null;
+    get_styled_actors() {
+        return new Set([this.dash, this.dash_container, this.dash_background]
+            .filter(actor => actor instanceof St.Widget));
     }
 
     override_style() {
@@ -201,116 +141,63 @@ export class DockSurface {
         if (!style)
             return;
 
-        for (const actor of new Set([this.dash, this.dash_container, this.dash_background])) {
-            if (actor && !actor.has_style_class_name(style))
-                actor.add_style_class_name(style);
-        }
+        this.get_styled_actors().forEach(actor => actor.add_style_class_name(style));
     }
 
     remove_style() {
-        try {
-            DASH_STYLES.forEach(style => {
-                this.dash?.remove_style_class_name(style);
-                this.dash_container?.remove_style_class_name(style);
-                this.dash_background?.remove_style_class_name(style);
-            });
-        } catch (error) {
-            this._log(`dash style owner was already destroyed: ${error}`);
-        }
+        this.get_styled_actors().forEach(actor =>
+            DASH_STYLES.forEach(style => actor.remove_style_class_name(style))
+        );
     }
 
-    destroy_dash(dash_not_already_destroyed = true) {
-        this.clear_pending_idles();
+    destroy_dash() {
+        this.clear_pending_update();
+        if (!this.background_group)
+            return;
 
-        if (!dash_not_already_destroyed && this.bg_manager)
-            this.bg_manager.backgroundActor = null;
+        this.connections.disconnect_all_for(this.background_group);
+        this.rounded_pipeline?.destroy();
+        this.pipeline.destroy();
+        this.bg_manager.destroy();
+        this.background_group.destroy();
 
-        const background_group = this.background_group;
-        this.background_group = null;
-        if (background_group) {
-            try {
-                if (this.bg_allocation_id)
-                    background_group.disconnect(this.bg_allocation_id);
-                if (this.bg_destroy_id)
-                    background_group.disconnect(this.bg_destroy_id);
-                const parent = background_group.get_parent();
-                parent?.remove_child(background_group);
-            } catch (error) {
-                this._log(`dash background was already detached: ${error}`);
-            }
-        }
-        this.bg_allocation_id = 0;
-        this.bg_destroy_id = 0;
-
-        this.bg_manager?._bms_rounded_pipeline?.destroy();
-        if (this.bg_manager?._bms_pipeline) {
-            this.bg_manager._bms_pipeline.destroy();
-            this.bg_manager._bms_pipeline = null;
-        }
-
-        try {
-            this.bg_manager?.destroy();
-        } catch (error) {
-            this._log(`dash background manager was already destroyed: ${error}`);
-        }
-        try {
-            background_group?.destroy();
-        } catch (error) {
-            this._log(`dash background actor was already destroyed: ${error}`);
-        }
         this.background = null;
+        this.background_group = null;
         this.bg_manager = null;
+        this.pipeline = null;
+        this.rounded_pipeline = null;
     }
 
     change_blur_type() {
-        if (this.destroyed)
-            return;
-
         this.destroy_dash();
 
-        let blur_result = this.dash_blur.add_blur(this.dash, this.dash_container);
-        if (!blur_result)
-            return;
-
-        let [background, background_group, bg_manager] = blur_result;
-
-        this.background = background;
-        this.background_group = background_group;
-        this.bg_manager = bg_manager;
-
         const target = resolve_dock_target(this.dash_container);
-        const parent = target?.content_parent;
-        if (!parent) {
-            this.destroy_dash(false);
+        if (!target)
             return;
-        }
-        parent.insert_child_below(this.background_group, target.sibling ?? this.dash);
+
+        const blur = this.dash_blur.add_blur(this.dash_container);
+        if (!blur)
+            return;
+
+        target.content_parent.insert_child_below(blur.background_group, target.sibling ?? this.dash);
+        this.set_blur(blur);
 
         if (this.settings.dash_to_dock.UNBLUR_IN_OVERVIEW && Main.overview.visible)
             this.background_group.hide();
-
-        // Apply the layout instantly before drawing the first frame
-        this.connect_background_group();
 
         this.schedule_update();
     }
 
     update_pipeline() {
-        if (this.bg_manager?._bms_pipeline) {
-            this.bg_manager._bms_pipeline.change_pipeline_to(
-                this.settings.dash_to_dock.PIPELINE
-            );
-            this.bg_manager._bms_rounded_pipeline?.update();
-        }
+        this.pipeline?.change_pipeline_to(this.settings.dash_to_dock.PIPELINE);
+        this.rounded_pipeline?.update();
     }
 
     update_corner_radius() {
-        if (this.bg_manager?._bms_rounded_pipeline)
-            this.bg_manager._bms_rounded_pipeline.update();
+        if (this.rounded_pipeline)
+            this.rounded_pipeline.update();
         else
-            this.bg_manager?._bms_pipeline?.set_corner_radius?.(
-                this.settings.dash_to_dock.CORNER_RADIUS
-            );
+            this.pipeline?.set_corner_radius(this.settings.dash_to_dock.CORNER_RADIUS);
     }
 
     update_visibility() {
@@ -332,14 +219,14 @@ export class DockSurface {
     }
 
     update_size() {
-        if (!this.background || !this.background_group || !this.bg_manager)
+        if (!this.background_group)
             return;
 
         this.update_visibility();
 
-        if (!this.dash_blur._has_valid_allocation(this.dash_container) ||
-            !this.dash_blur._has_valid_allocation(this.dash) ||
-            !this.dash_blur._has_valid_allocation(this.dash_background))
+        if (!has_valid_allocation(this.dash_container) ||
+            !has_valid_allocation(this.dash) ||
+            !has_valid_allocation(this.dash_background))
             return;
 
         if (this.dash_blur.is_static) {
@@ -352,7 +239,7 @@ export class DockSurface {
                 return;
             }
 
-            let dash_box = this.get_dash_position(this.dash_container);
+            let dash_box = this.get_dash_position(monitor);
             if (!dash_box)
                 return;
 
@@ -370,22 +257,13 @@ export class DockSurface {
             this.background.set_clip(clip_x, clip_y, clip_w, clip_h);
         } else {
             const geometry = this.get_dynamic_geometry();
-            if (!geometry)
-                return;
-
             this.background.set_position(geometry.x, geometry.y);
             this.background.set_size(geometry.width, geometry.height);
         }
     }
 
-    get_dash_position(dash_container) {
-        let monitor = Main.layoutManager.findMonitorForActor(this.dash_container);
-        if (!monitor)
-            return;
-
-        let parent = this.background_group?.get_parent();
-        if (!parent)
-            return;
+    get_dash_position(monitor) {
+        let parent = this.background_group.get_parent();
 
         let [parent_stage_x, parent_stage_y] = parent.get_transformed_position();
         let [parent_stage_width, parent_stage_height] = parent.get_transformed_size();
@@ -398,11 +276,8 @@ export class DockSurface {
         const parent_scale_y = parent.height > 0
             ? parent_stage_height / parent.height
             : 1;
-        if (
-            !Number.isFinite(parent_scale_x) || parent_scale_x <= 0 ||
-            !Number.isFinite(parent_scale_y) || parent_scale_y <= 0
-        )
-            return;
+        if (parent_scale_x <= 0 || parent_scale_y <= 0)
+            return null;
 
         let background_x = (monitor.x - parent_stage_x) / parent_scale_x;
         let background_y = (monitor.y - parent_stage_y) / parent_scale_y;
@@ -423,14 +298,9 @@ export class DockSurface {
     }
 
     get_dynamic_geometry() {
-        const parent = this.background_group?.get_parent();
-        if (!parent)
-            return null;
-
+        const parent = this.background_group.get_parent();
         const target = this.get_relative_geometry(this.dash_background, parent);
         const group = this.get_relative_geometry(this.background_group, parent);
-        if (!target || !group)
-            return null;
 
         return {
             x: target.x - group.x,
@@ -441,57 +311,25 @@ export class DockSurface {
     }
 
     get_relative_geometry(actor, parent) {
-        const width = actor?.width ?? 0;
-        const height = actor?.height ?? 0;
-        if (
-            !actor ||
-            actor !== this.background_group && (width <= 0 || height <= 0)
-        )
-            return null;
-
-        try {
-            const corners = [
-                [0, 0],
-                [width, 0],
-                [0, height],
-                [width, height],
-            ].map(([x, y]) => actor.apply_relative_transform_to_point(
-                parent,
-                new Graphene.Point3D({ x, y })
-            ));
-            const xs = corners.map(point => point.x);
-            const ys = corners.map(point => point.y);
-            if ([...xs, ...ys].every(Number.isFinite)) {
-                const x1 = Math.min(...xs);
-                const x2 = Math.max(...xs);
-                const y1 = Math.min(...ys);
-                const y2 = Math.max(...ys);
-                return { x: x1, y: y1, width: x2 - x1, height: y2 - y1 };
-            }
-        } catch (error) {
-            this._log(`could not transform dash geometry: ${error}`);
-        }
-
-        let current = actor;
-        let x = 0;
-        let y = 0;
-        while (current && current !== parent) {
-            x += current.x;
-            y += current.y;
-            current = current.get_parent();
-        }
-        if (current !== parent)
-            return null;
-
-        return { x, y, width, height };
-    }
-
-    _log(str) {
-        if (this.settings.DEBUG)
-            console.log(`[Blur my Shell > dash]         ${str}`);
-    }
-
-    _warn(str) {
-        console.warn(`[Blur my Shell > dash] ${str}`);
+        const { width, height } = actor;
+        const corners = [
+            [0, 0],
+            [width, 0],
+            [0, height],
+            [width, height],
+        ].map(([x, y]) => actor.apply_relative_transform_to_point(
+            parent,
+            new Graphene.Point3D({ x, y })
+        ));
+        const xs = corners.map(point => point.x);
+        const ys = corners.map(point => point.y);
+        const x1 = Math.min(...xs);
+        const y1 = Math.min(...ys);
+        return {
+            x: x1,
+            y: y1,
+            width: Math.max(...xs) - x1,
+            height: Math.max(...ys) - y1,
+        };
     }
 }

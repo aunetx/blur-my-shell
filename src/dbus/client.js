@@ -6,7 +6,8 @@ const obj_path = '/dev/aunetx/BlurMyShell';
 let active_pick = null;
 
 export function cancel_pick() {
-    active_pick?.(true, true);
+    if (active_pick)
+        active_pick(true, true);
 }
 
 function cancel_remote_pick() {
@@ -52,7 +53,8 @@ function subscribe_once(signal, callback) {
 /// Call pick() from the DBus service, it will open the Inspector from
 /// gnome-shell to pick an actor on stage.
 export function pick({ on_picking, on_picked, on_error, on_cancelled }) {
-    active_pick?.(true, false);
+    if (active_pick)
+        active_pick(true, false);
 
     let active = true;
     const unsubscribes = [];
@@ -66,19 +68,19 @@ export function pick({ on_picking, on_picked, on_error, on_cancelled }) {
         if (cancel_remote)
             cancel_remote_pick();
         if (notify)
-            on_cancelled?.();
+            on_cancelled();
     };
 
     unsubscribes.push(
-        subscribe_once('picking', () => on_picking?.()),
+        subscribe_once('picking', () => on_picking()),
         subscribe_once('picked', (_connection, _sender, _path, _iface, _signal, params) => {
             const wm_class = params.get_child_value(0).get_string()[0];
             cancel();
-            on_picked?.(wm_class);
+            on_picked(wm_class);
         }),
         subscribe_once('cancelled', () => {
             cancel();
-            on_cancelled?.();
+            on_cancelled();
         })
     );
     active_pick = cancel;
@@ -100,7 +102,7 @@ export function pick({ on_picking, on_picked, on_error, on_cancelled }) {
                 if (!active)
                     return;
                 cancel(false, true);
-                on_error?.(error);
+                on_error(error);
             }
         }
     );

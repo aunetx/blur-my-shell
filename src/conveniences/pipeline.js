@@ -25,19 +25,14 @@ export const Pipeline = class Pipeline {
         this.effects_manager = effects_manager;
         this.pipelines_manager = pipelines_manager;
         this.effects = [];
-        this.on_effect_updated = options.on_effect_updated ?? null;
+        this.on_effect_updated = options.on_effect_updated ?? (() => {});
         this.actor = null;
         this.actor_destroy_id = null;
         this.child_added_id = null;
         this._pipeline_changed_id = null;
         this._pipeline_destroyed_id = null;
-        try {
-            this.set_pipeline_id(pipeline_id);
-            this.attach_pipeline_to_actor(actor);
-        } catch (error) {
-            this.destroy();
-            throw error;
-        }
+        this.set_pipeline_id(pipeline_id);
+        this.attach_pipeline_to_actor(actor);
     }
 
     /// Create a background linked to the monitor with index `monitor_index`, with a
@@ -57,7 +52,6 @@ export const Pipeline = class Pipeline {
 
         this.remove_pipeline_from_actor();
 
-        // create the new actor
         const actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
@@ -67,61 +61,45 @@ export const Pipeline = class Pipeline {
             height: monitor.height
         });
         this.actor = actor;
-        let bg_manager = null;
+        if (this.pipeline_id)
+            this.attach_pipeline_to_actor(actor);
 
-        try {
-            if (this.pipeline_id)
-                this.attach_pipeline_to_actor(actor);
+        const bg_manager = new Background.BackgroundManager({
+            container: actor,
+            monitorIndex: monitor_index,
+            controlPosition: false,
+        });
+        bg_manager._bms_pipeline = this;
 
-            bg_manager = new Background.BackgroundManager({
-                container: actor,
-                monitorIndex: monitor_index,
-                controlPosition: false,
-            });
-            bg_manager._bms_pipeline = this;
-
-            // 'controlPosition: false' skips BackgroundManager's default layout pass, which also diables
-            // sibling re-ordering.
-            // Without it, new actors render on top while loading, causing a solid color flash through
-            // on the surface.
-            this.child_added_id = actor.connect(
-                'child-added', (container, child) => {
-                    if (child instanceof Meta.BackgroundActor)
-                        container.set_child_below_sibling(child, null);
-                }
-            );
-
-            background_group.insert_child_at_index(actor, 0);
-            background_managers.push(bg_manager);
-            return actor;
-        } catch (error) {
-            this.remove_pipeline_from_actor();
-            if (bg_manager) {
-                bg_manager._bms_pipeline = null;
-                try {
-                    bg_manager.destroy();
-                } catch (e) { }
+        // 'controlPosition: false' skips BackgroundManager's default layout pass, which also diables
+        // sibling re-ordering.
+        // Without it, new actors render on top while loading, causing a solid color flash through
+        // on the surface.
+        this.child_added_id = actor.connect(
+            'child-added', (container, child) => {
+                if (child instanceof Meta.BackgroundActor)
+                    container.set_child_below_sibling(child, null);
             }
-            actor.destroy();
-            throw error;
-        }
+        );
+
+        background_group.insert_child_at_index(actor, 0);
+        background_managers.push(bg_manager);
+        return actor;
     };
 
     /// Set the pipeline id, correctly connecting the `Pipeline` object to listen the pipelines
     /// manager for pipeline-wide changes. This does not update the effects in consequence, call
     /// `change_pipeline_to` instead if you want to reconstruct the effects too.
     set_pipeline_id(pipeline_id) {
-        // disconnect ancient signals
         this.remove_connections();
 
-        // change the id
+        // the pipeline may have been deleted while still being referenced
         if (!Object.hasOwn(this.pipelines_manager.pipelines, pipeline_id)) {
             this._warn(`pipeline "${pipeline_id}" not found, using "pipeline_default"`);
             pipeline_id = 'pipeline_default';
         }
         this.pipeline_id = pipeline_id;
 
-        // connect to settings changes
         this._pipeline_changed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::pipeline-updated',
             (_, new_pipeline) => this.update_effects_from_pipeline(new_pipeline)
@@ -155,21 +133,11 @@ export const Pipeline = class Pipeline {
         this.disconnect_actor_destroy();
         this.actor = actor;
 
-        // attach the pipeline
-        let pipeline = this.pipelines_manager.pipelines[this.pipeline_id];
-        if (!pipeline) {
-            this._warn(`could not attach pipeline to actor, pipeline "${this.pipeline_id}" not found`);
-            pipeline = this.pipelines_manager.pipelines.pipeline_default;
-            if (!pipeline)
-                return;
-        }
-
         this.actor_destroy_id = this.actor.connect(
             "destroy", () => this.remove_pipeline_from_actor()
         );
 
-        // update the effects
-        this.update_effects_from_pipeline(pipeline);
+        this.update_effects_from_pipeline(this.pipelines_manager.pipelines[this.pipeline_id]);
     }
 
     remove_pipeline_from_actor() {
@@ -180,70 +148,40 @@ export const Pipeline = class Pipeline {
     }
 
     disconnect_actor_destroy() {
-        if (this.actor && this.actor_destroy_id) {
-            try {
-                this.actor.disconnect(this.actor_destroy_id);
-            } catch (e) { }
-        }
+        if (this.actor_destroy_id)
+            this.actor.disconnect(this.actor_destroy_id);
         this.actor_destroy_id = null;
     }
 
     disconnect_child_added() {
-        if (this.actor && this.child_added_id) {
-            try {
-                this.actor.disconnect(this.child_added_id);
-            } catch (e) { }
-        }
+        if (this.child_added_id)
+            this.actor.disconnect(this.child_added_id);
         this.child_added_id = null;
     }
 
     /// Update the effects from the given pipeline object, the hard way.
     update_effects_from_pipeline(pipeline) {
-        // remove all effects
         this.remove_all_effects();
 
         if (!this.actor)
             return;
-        if (!Array.isArray(pipeline?.effects)) {
-            this._warn(`could not update pipeline "${this.pipeline_id}", invalid descriptor`);
-            return;
-        }
 
-        // build the new effects to be added
         pipeline.effects.forEach(effect => {
-            const firstNewEffect = this.effects.length;
-            try {
-                if (effect.type === 'pixelize')
-                    this.build_pixelize_effect(effect);
-                else if (effect.type === 'refraction')
-                    this.build_refraction_effect(effect);
-                else if (
-                    Object.hasOwn(this.effects_manager.PIPELINE_EFFECTS, effect.type)
-                    && typeof this.effects_manager['new_' + effect.type + '_effect'] === 'function'
-                )
-                    this.build_effect(effect);
-                else
-                    this._warn(`could not add effect to actor, effect "${effect.type}" not found`);
-            } catch (error) {
-                this.effects.splice(firstNewEffect).forEach(
-                    partialEffect => this.release_effect(partialEffect)
-                );
-                this._warn(`could not build effect "${effect.type}": ${error}`);
-            }
+            if (effect.type === 'pixelize')
+                this.build_pixelize_effect(effect);
+            else if (effect.type === 'refraction')
+                this.build_refraction_effect(effect);
+            else if (Object.hasOwn(this.effects_manager.PIPELINE_EFFECTS, effect.type))
+                this.build_effect(effect);
+            else
+                this._warn(`could not add effect to actor, effect "${effect.type}" not found`);
         });
         this.effects.reverse();
 
-        // add the effects to the actor
         this.effects.forEach(effect => {
-            try {
-                this.actor.add_effect(effect);
-                uniforms.mark_dirty(effect);
-            } catch (error) {
-                this._warn(`could not attach effect "${effect._bms_effect_type}": ${error}`);
-                this.release_effect(effect);
-            }
+            this.actor.add_effect(effect);
+            uniforms.mark_dirty(effect);
         });
-        this.effects = this.effects.filter(effect => effect.get_actor?.() === this.actor);
     }
 
     build_pixelize_effect(effect_infos) {
@@ -292,7 +230,6 @@ export const Pipeline = class Pipeline {
         effect._bms_pixelize_role = pixelize_role;
         this.effects.push(effect);
 
-        // connect to settings changes
         effect._effect_key_removed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-removed', (_, key) => {
                 if (!this.is_effect_param_supported(effect, key))
@@ -300,7 +237,7 @@ export const Pipeline = class Pipeline {
                 const default_value = this.get_effect_default_param(effect, key);
                 effect._bms_effect_params[key] = default_value;
                 this.set_effect_param(effect, key, default_value);
-                this.on_effect_updated?.();
+                this.on_effect_updated();
             }
         );
         effect._effect_key_updated_id = this.pipelines_manager.connect(
@@ -309,7 +246,7 @@ export const Pipeline = class Pipeline {
                     return;
                 effect._bms_effect_params[key] = value;
                 this.set_effect_param(effect, key, value);
-                this.on_effect_updated?.();
+                this.on_effect_updated();
             }
         );
         effect._effect_key_added_id = this.pipelines_manager.connect(
@@ -318,16 +255,15 @@ export const Pipeline = class Pipeline {
                     return;
                 effect._bms_effect_params[key] = value;
                 this.set_effect_param(effect, key, value);
-                this.on_effect_updated?.();
+                this.on_effect_updated();
             }
         );
     }
 
     get_effect_params(effect_infos) {
-        const effect_class = this.effects_manager.SUPPORTED_EFFECTS[effect_infos.type]?.class;
-        const defaults = effect_class?.default_params ?? {};
+        const defaults = this.get_default_params(effect_infos.type);
         const params = Object.fromEntries(
-            Object.entries(effect_infos.params ?? {}).filter(
+            Object.entries(effect_infos.params).filter(
                 ([key]) => Object.hasOwn(defaults, key)
             )
         );
@@ -337,17 +273,15 @@ export const Pipeline = class Pipeline {
         };
     }
 
+    get_default_params(effect_type) {
+        return this.effects_manager.SUPPORTED_EFFECTS[effect_type].class.default_params;
+    }
+
     get_effect_default_param(effect, key) {
-        return this.effects_manager.SUPPORTED_EFFECTS[effect._bms_effect_type]
-            ?.class
-            ?.default_params
-            ?.[key];
+        return this.get_default_params(effect._bms_effect_type)[key];
     }
 
     set_effect_param(effect, key, value) {
-        if (!this.is_effect_param_supported(effect, key))
-            return;
-
         if (effect._bms_pixelize_role === 'refraction-blur') {
             if (key === 'blur_radius')
                 effect.unscaled_radius = this.get_refraction_blur_radius(value);
@@ -380,10 +314,7 @@ export const Pipeline = class Pipeline {
     }
 
     is_effect_param_supported(effect, key) {
-        const defaultParams = this.effects_manager.SUPPORTED_EFFECTS[effect._bms_effect_type]
-            ?.class
-            ?.default_params ?? {};
-        return Object.hasOwn(defaultParams, key);
+        return Object.hasOwn(this.get_default_params(effect._bms_effect_type), key);
     }
 
     get_refraction_blur_radius(value) {

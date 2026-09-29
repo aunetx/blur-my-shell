@@ -181,4 +181,4 @@ const LuminosityEffectClass = utils.IS_IN_PREFERENCES ? null : class LuminosityE
 
 export const LuminosityEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(LUMINOSITY_EFFECT_META, LuminosityEffectClass);
+    : GObject.registerClass(LUMINOSITY_EFFECT_META, LuminosityEffectClass);

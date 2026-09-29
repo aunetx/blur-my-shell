@@ -61,4 +61,4 @@ const HslToRgbEffectClass = utils.IS_IN_PREFERENCES ? null : class HslToRgbEffec
 
 export const HslToRgbEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(HSL_TO_RGB_EFFECT_META, HslToRgbEffectClass);
+    : GObject.registerClass(HSL_TO_RGB_EFFECT_META, HslToRgbEffectClass);

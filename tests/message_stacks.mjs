@@ -11,18 +11,19 @@ class ShaderEffect {
     get_actor() { return this.actor; }
     vfunc_paint_target() { this.painted = true; }
 }
+class Widget {}
 const stubs = {
     'gi://GLib': {default: {
         PRIORITY_DEFAULT_IDLE: 0, SOURCE_REMOVE: false,
         idle_add(_priority, callback) { pending.set(++nextId, callback); return nextId; },
         source_remove(id) { pending.delete(id); },
     }},
+    'gi://GObject': {default: {registerClass(_meta, type) { return type; }}},
     'gi://Shell': {default: {}},
-    'gi://St': {default: {Corner: {TOPLEFT: 0, TOPRIGHT: 1, BOTTOMRIGHT: 2, BOTTOMLEFT: 3}}},
+    'gi://St': {default: {Widget, Corner: {TOPLEFT: 0, TOPRIGHT: 1, BOTTOMRIGHT: 2, BOTTOMLEFT: 3}}},
     'utils.js': {
         ShaderEffect,
         get_shader_source() { return ''; }, initialize_shader_effect() {},
-        register_shader_effect(_meta, type) { return type; },
     },
     'shader_uniforms.js': {
         set_uniform(effect, name, value) {
@@ -52,8 +53,9 @@ await module.evaluate();
 const {PopupBlurMessageStacks} = module.namespace;
 const {get_cover_geometry} = modules.get(new URL('../src/components/popup/stack_mask.js', import.meta.url).href).namespace;
 
-class Actor {
+class Actor extends Widget {
     constructor(style, x = 0, y = 0, width = 500, height = 100) {
+        super();
         Object.assign(this, {style, x, y, width, height, visible: true, opacity: 255,
             scale: 1, radius: 32, children: [], effects: [], signals: new Map(), allocated: true});
     }
@@ -81,8 +83,11 @@ class Actor {
 }
 function fixture(originalClip = null) {
     pending.clear();
-    const connections = {connect: (actor, signal, handler) => actor.connect(signal, handler)};
+    const connections = {
+        connect: (actor, signals, handler) => [signals].flat().map(signal => actor.connect(signal, handler)),
+    };
     const group = new Actor('message-notification-group');
+    group._headerBox = new Actor('message-group-header');
     group.layout_manager = new Actor('layout');
     group.layout_manager.expansion = 0;
     const cards = [0, 1, 2, 3].map(i => {
@@ -92,7 +97,7 @@ function fixture(originalClip = null) {
         return card;
     });
     const controller = new PopupBlurMessageStacks(connections);
-    controller.enable(); controller.track_container(group);
+    controller.track_container(group);
     return {group, cards, controller};
 }
 function flush() {

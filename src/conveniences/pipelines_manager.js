@@ -62,6 +62,7 @@ export class PipelinesManager {
         this.settings.PIPELINES_changed(_ => this.on_pipeline_update());
     }
 
+    /// Returns the id of the new pipeline, or null if the pipelines setting is not writable.
     create_pipeline(name, effects = []) {
         const id = new_id('pipeline');
         effects = effects.map(effect => ({
@@ -69,85 +70,29 @@ export class PipelinesManager {
             id: new_id('effect'),
         }));
 
-        const pipelines = {
-            ...this.pipelines,
-            [id]: { name, effects },
-        };
-        if (!this.settings.set_pipelines(pipelines))
-            return;
-
+        if (!this.settings.set_pipelines({ ...this.pipelines, [id]: { name, effects } }))
+            return null;
         return id;
     }
 
     duplicate_pipeline(id) {
-        if (!Object.hasOwn(this.pipelines, id)) {
-            this._warn(`could not duplicate pipeline, id ${id} does not exist`);
-            return;
-        }
         const pipeline = this.pipelines[id];
-        return this.create_pipeline(
-            `${pipeline.name} - duplicate`,
-            pipeline.effects.map(clone_effect)
-        );
+        return this.create_pipeline(`${pipeline.name} - duplicate`, pipeline.effects);
     }
 
     delete_pipeline(id) {
-        if (!Object.hasOwn(this.pipelines, id)) {
-            this._warn(`could not delete pipeline, id ${id} does not exist`);
-            return;
-        }
-        if (id == "pipeline_default") {
-            this._warn(`could not delete pipeline "pipeline_default" as it is immutable`);
-            return;
-        }
-        const replaced_references = this.replace_pipeline_references(id, 'pipeline_default');
-        if (!replaced_references)
-            return false;
+        this.settings.keys
+            .filter(bundle => bundle.schemas.some(key => key.name === 'pipeline'))
+            .map(bundle => this.settings[bundle.component.replaceAll('-', '_')])
+            .filter(component => component.PIPELINE === id)
+            .forEach(component => component.PIPELINE = 'pipeline_default');
 
         const pipelines = { ...this.pipelines };
         delete pipelines[id];
-        if (!this.settings.set_pipelines(pipelines)) {
-            this.restore_pipeline_references(replaced_references, id);
-            return false;
-        }
-
-        return true;
-    }
-
-    replace_pipeline_references(id, replacement) {
-        const replaced = [];
-        for (const bundle of this.settings.keys) {
-            if (!bundle.schemas.some(key => key.name === 'pipeline'))
-                continue;
-
-            const component_name = bundle.component.replaceAll('-', '_');
-            const component = this.settings[component_name];
-            if (component.PIPELINE !== id)
-                continue;
-            if (!component.settings.set_string('pipeline', replacement)) {
-                this._warn(`could not replace pipeline reference for ${bundle.component}`);
-                this.restore_pipeline_references(replaced, id);
-                return null;
-            }
-            replaced.push({ component, name: bundle.component });
-        }
-
-        return replaced;
-    }
-
-    restore_pipeline_references(references, id) {
-        for (const { component, name } of references) {
-            if (!component.settings.set_string('pipeline', id))
-                this._warn(`could not restore pipeline reference for ${name}`);
-        }
+        return this.settings.set_pipelines(pipelines);
     }
 
     update_pipeline_effects(id, effects) {
-        if (!Object.hasOwn(this.pipelines, id)) {
-            this._warn(`could not update pipeline effects, id ${id} does not exist`);
-            return false;
-        }
-
         return this.settings.set_pipelines({
             ...this.pipelines,
             [id]: {
@@ -158,11 +103,6 @@ export class PipelinesManager {
     }
 
     rename_pipeline(id, name) {
-        if (!Object.hasOwn(this.pipelines, id)) {
-            this._warn(`could not rename pipeline, id ${id} does not exist`);
-            return false;
-        }
-
         return this.settings.set_pipelines({
             ...this.pipelines,
             [id]: {
@@ -183,18 +123,14 @@ export class PipelinesManager {
 
         for (const pipeline_id of new_ids) {
             if (!Object.hasOwn(old_pipelines, pipeline_id)) {
-                this._emit('pipeline-created', pipeline_id, this.pipelines[pipeline_id]);
-                this._emit(
-                    pipeline_id + '::pipeline-updated',
-                    this.pipelines[pipeline_id]
-                );
+                this.emit('pipeline-created', pipeline_id, this.pipelines[pipeline_id]);
+                this.emit(pipeline_id + '::pipeline-updated', this.pipelines[pipeline_id]);
             }
         }
 
         for (const pipeline_id of old_ids) {
-            // if we find a pipeline that does not exist anymore, signal it
             if (!Object.hasOwn(this.pipelines, pipeline_id)) {
-                this._emit(pipeline_id + '::pipeline-destroyed');
+                this.emit(pipeline_id + '::pipeline-destroyed');
                 continue;
             }
 
@@ -202,12 +138,12 @@ export class PipelinesManager {
             const new_pipeline = this.pipelines[pipeline_id];
 
             if (old_pipeline.name !== new_pipeline.name) {
-                this._emit(pipeline_id + '::pipeline-renamed', new_pipeline.name);
+                this.emit(pipeline_id + '::pipeline-renamed', new_pipeline.name);
                 names_changed = true;
             }
 
-            // verify if both pipelines have effects in the same order
-            // if they have, then check for their parameters
+            // effects in the same order only need their parameters to be updated, otherwise the
+            // whole pipeline is rebuilt
             if (
                 old_pipeline.effects.length == new_pipeline.effects.length &&
                 old_pipeline.effects.every((effect, i) =>
@@ -220,48 +156,35 @@ export class PipelinesManager {
                     const new_effect = new_pipeline.effects[i];
                     const id = old_effect.id;
                     for (const key of Object.keys(old_effect.params)) {
-                        // if a key was removed, we emit to tell the effect to use the default value
                         if (!Object.hasOwn(new_effect.params, key))
-                            this._emit(
+                            this.emit(
                                 pipeline_id + '::effect-' + id + '-key-removed', key
                             );
-                        // if a key was updated, we emit to tell the effect to change its value
                         else if (!values_equal(old_effect.params[key], new_effect.params[key]))
-                            this._emit(
+                            this.emit(
                                 pipeline_id + '::effect-' + id + '-key-updated', key, new_effect.params[key]
                             );
                     }
                     for (const key of Object.keys(new_effect.params)) {
-                        // if a key was added, we emit to tell the effect the key and its value
                         if (!Object.hasOwn(old_effect.params, key))
-                            this._emit(
+                            this.emit(
                                 pipeline_id + '::effect-' + id + '-key-added', key, new_effect.params[key]
                             );
                     }
                 }
-            }
-            // if either the order has changed, or there are new effects, then rebuild it
-            else
-                this._emit(pipeline_id + '::pipeline-updated', new_pipeline);
+            } else
+                this.emit(pipeline_id + '::pipeline-updated', new_pipeline);
         }
 
         if (list_changed)
-            this._emit('pipeline-list-changed');
+            this.emit('pipeline-list-changed');
         if (names_changed)
-            this._emit('pipeline-names-changed');
+            this.emit('pipeline-names-changed');
     }
 
     destroy() {
         this.settings.PIPELINES_disconnect();
         this.disconnectAll();
-    }
-
-    _emit(signal, ...args) {
-        this.emit(signal, ...args);
-    }
-
-    _warn(str) {
-        console.warn(`[Blur my Shell > pipelines]    ${str}`);
     }
 }
 

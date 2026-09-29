@@ -1,3 +1,4 @@
+import GObject from 'gi://GObject';
 import Shell from 'gi://Shell';
 import St from 'gi://St';
 
@@ -72,5 +73,5 @@ const StackMaskEffectClass = class StackMaskEffect extends utils.ShaderEffect {
     }
 };
 
-export const StackMaskEffect = utils.register_shader_effect(
+export const StackMaskEffect = GObject.registerClass(
     { GTypeName: 'BmsPopupStackMaskEffect' }, StackMaskEffectClass);

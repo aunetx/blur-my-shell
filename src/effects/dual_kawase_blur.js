@@ -115,10 +115,9 @@ function setFloat(pipeline, name, value) {
     pipeline.set_uniform_1f(pipeline.get_uniform_location(name), value);
 }
 
+// vec2 uniforms are split into two floats, as set_uniform_float() crashes on Mutter < 48.6/49.1
+// (broken array introspection)
 function setVector2(pipeline, name, x, y) {
-    // Backwards compatibility: Mutter < 48.6/49.1 has broken array introspection for set_uniform_float().
-    // Scalar uploads avoid a crash.
-    // See https://github.com/aunetx/blur-my-shell/pull/1017
     setFloat(pipeline, `${name}_x`, x);
     setFloat(pipeline, `${name}_y`, y);
 }
@@ -451,10 +450,6 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.scale = 0;
         this.context = null;
         this.appliedSampling = null;
-    }
-
-    reset_for_pool() {
-        this.releaseTargets();
     }
 
     vfunc_set_actor(actor) {

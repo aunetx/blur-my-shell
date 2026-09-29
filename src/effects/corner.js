@@ -72,9 +72,6 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             this._clip_height = null;
 
             utils.setup_params(this, params);
-
-            const theme_context = St.ThemeContext.get_for_stage(global.stage);
-            theme_context.connectObject('notify::scale-factor', _ => this.update_radius(), this);
         }
 
         static get default_params() {
@@ -211,8 +208,20 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             uniforms.upload_uniforms(this);
             super.vfunc_paint_target(paint_node, paint_context);
         }
+
+        vfunc_set_actor(actor) {
+            const theme_context = St.ThemeContext.get_for_stage(global.stage);
+            theme_context.disconnectObject(this);
+            if (actor) {
+                theme_context.connectObject(
+                    'notify::scale-factor', () => this.update_radius(), this
+                );
+                this.update_radius();
+            }
+            super.vfunc_set_actor(actor);
+        }
 };
 
 export const CornerEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(CORNER_EFFECT_META, CornerEffectClass);
+    : GObject.registerClass(CORNER_EFFECT_META, CornerEffectClass);

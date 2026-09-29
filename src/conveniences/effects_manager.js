@@ -12,25 +12,18 @@ export const EffectsManager = class EffectsManager {
         };
 
         Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
-            // init the arrays containing each unused effect
+            // the unused effects, ready to be reused
             this[effect_name + '_effects'] = [];
 
-            // init the functions for each effect
             this['new_' + effect_name + '_effect'] = function (params) {
-                let effect;
-                if (this[effect_name + '_effects'].length > 0) {
-                    effect = this[effect_name + '_effects'].pop();
-                    if ('_bms_enabled_before_failed_removal' in effect) {
-                        effect.set_enabled(effect._bms_enabled_before_failed_removal);
-                        delete effect._bms_enabled_before_failed_removal;
-                    }
-                    effect.set({
-                        ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
-                    });
-                } else {
-                    effect = new this.SUPPORTED_EFFECTS[effect_name].class({
-                        ...this.SUPPORTED_EFFECTS[effect_name].class.default_params, ...params
-                    });
+                const effect_class = this.SUPPORTED_EFFECTS[effect_name].class;
+                params = { ...effect_class.default_params, ...params };
+
+                let effect = this[effect_name + '_effects'].pop();
+                if (effect)
+                    effect.set(params);
+                else {
+                    effect = new effect_class(params);
                     this.connect_to_destroy(effect);
                 }
 
@@ -41,6 +34,7 @@ export const EffectsManager = class EffectsManager {
         });
     }
 
+    /// Puts the effect back in the pool when the actor it is attached to is destroyed.
     connect_to_destroy(effect) {
         const update_actor = () => {
             const actor = effect.get_actor();
@@ -50,9 +44,7 @@ export const EffectsManager = class EffectsManager {
             this.disconnect_actor_destroy(effect);
             effect._bms_actor = actor;
             if (actor)
-                effect._bms_actor_destroy_id = actor.connect(
-                    'destroy', () => this.remove(effect, true)
-                );
+                effect._bms_actor_destroy_id = actor.connect('destroy', () => this.remove(effect));
         };
 
         this.connections.connect(effect, 'notify::actor', update_actor);
@@ -60,50 +52,24 @@ export const EffectsManager = class EffectsManager {
     }
 
     disconnect_actor_destroy(effect) {
-        if (effect._bms_actor && effect._bms_actor_destroy_id) {
-            try {
-                effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
-            } catch (e) { }
-        }
+        if (effect._bms_actor_destroy_id)
+            effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
         effect._bms_actor = null;
-        effect._bms_actor_destroy_id = null;
+        effect._bms_actor_destroy_id = 0;
     }
 
-    remove(effect, actor_already_destroyed = false) {
-        if (!actor_already_destroyed) {
-            try {
-                effect.get_actor()?.remove_effect(effect);
-            } catch (e) {
-                this._warn(`could not remove the effect, continuing: ${e}`);
-            }
-
-            if (effect.get_actor?.()) {
-                effect._bms_enabled_before_failed_removal = effect.get_enabled?.() ?? true;
-                effect.set_enabled?.(false);
-                this._warn('effect remained attached and will not be pooled');
-                return false;
-            }
-        }
+    remove(effect) {
+        effect.get_actor()?.remove_effect(effect);
         this.disconnect_actor_destroy(effect);
 
-        if (this.used.delete(effect)) {
-            effect.reset_for_pool?.();
-            const effect_name = effect._bms_manager_type;
-            if (effect_name && this[effect_name + '_effects'])
-                this[effect_name + '_effects'].push(effect);
-        }
-        return true;
+        if (this.used.delete(effect))
+            this[effect._bms_manager_type + '_effects'].push(effect);
     }
 
     destroy_all() {
-        const immutable_used_list = [...this.used];
-        immutable_used_list.forEach(effect => this.remove(effect));
+        [...this.used].forEach(effect => this.remove(effect));
         Object.keys(this.SUPPORTED_EFFECTS).forEach(effect_name => {
-            this[effect_name + '_effects'].splice(0, this[effect_name + '_effects'].length);
+            this[effect_name + '_effects'] = [];
         });
-    }
-
-    _warn(str) {
-        console.warn(`[Blur my Shell > effects mng]  ${str}`);
     }
 };

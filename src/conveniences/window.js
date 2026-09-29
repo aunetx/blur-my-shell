@@ -9,40 +9,20 @@ const DESKTOP_APP_IDS = new Set([
 
 // Check if a window is a desktop window (DING, Nautilus desktop, Nemo, etc.)
 export function is_desktop_window(meta_window) {
-    if (!meta_window)
-        return false;
-
-    const window_type = meta_window.get_window_type?.();
-    if (window_type === Meta.WindowType.DESKTOP)
+    if (
+        meta_window.get_window_type() === Meta.WindowType.DESKTOP
+        || meta_window.get_layer() === Meta.StackLayer.DESKTOP
+        || meta_window.customJS_ding !== undefined
+        || DESKTOP_APP_IDS.has(meta_window.get_gtk_application_id())
+    )
         return true;
 
-    const layer = meta_window.get_layer?.();
-    if (typeof Meta.StackLayer !== 'undefined') {
-        if (layer === Meta.StackLayer.DESKTOP)
-            return true;
-    } else if (typeof layer === 'number') {
-        // Fallback for GNOME < 51 where Meta.StackLayer was not exposed in GJS
-        // (0 = META_LAYER_DESKTOP in Mutter's MetaStackLayer enum)
-        if (layer === 0)
-            return true;
-    }
-
-    if (meta_window.customJS_ding !== undefined)
-        return true;
-
-    const ding = Main.extensionManager?.lookup('ding@rastersoft.com')
-        ?? Main.extensionManager?.lookup('dingubuntu@rastersoft.com');
-    if (ding?.stateObj?.data) {
-        const data = ding.stateObj.data;
-        if (data.x11Manager?._windowList?.includes(meta_window))
-            return true;
-        if (data.currentProcess?._waylandClient?.owns_window(meta_window))
-            return true;
-    }
-
-    const app_id = meta_window.get_gtk_application_id?.();
-    if (DESKTOP_APP_IDS.has(app_id))
-        return true;
-
-    return false;
+    // DING keeps track of its own windows, which are not always flagged as desktop windows
+    const ding = Main.extensionManager.lookup('ding@rastersoft.com')
+        ?? Main.extensionManager.lookup('dingubuntu@rastersoft.com');
+    const data = ding?.stateObj?.data;
+    return Boolean(
+        data?.x11Manager?._windowList?.includes(meta_window)
+        || data?.currentProcess?._waylandClient?.owns_window(meta_window)
+    );
 }

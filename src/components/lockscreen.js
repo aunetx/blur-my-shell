@@ -36,12 +36,13 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     update_lockscreen() {
-        this._rebuild_active_dialog();
+        this.get_active_dialog()?._updateBackgrounds();
     }
 
     _createBackground(monitor_index) {
         const extension = global.blur_my_shell;
-        if (!extension?._lockscreen_blur?.enabled)
+        // an extension that patched this after us keeps calling it once we are disabled
+        if (!extension?._lockscreen_blur.enabled)
             return original_createBackground.call(this, monitor_index);
 
         let pipeline = new Pipeline(
@@ -62,32 +63,21 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     _updateBackgrounds() {
-        const managers = this._bgManagers;
-        this._bgManagers = [];
-        managers.forEach(manager => {
-            try {
-                manager._bms_pipeline?.destroy();
-                manager.destroy();
-            } catch (error) {
-                logError(error, '[Blur my Shell > lockscreen] failed to remove background');
-            }
+        // the dialog can hold the shell's own backgrounds if it was created before enabling
+        this._bgManagers.forEach(manager => {
+            manager._bms_pipeline?.destroy();
+            manager.destroy();
         });
+        this._bgManagers = [];
         this._backgroundGroup.destroy_all_children();
 
         for (let i = 0; i < Main.layoutManager.monitors.length; i++)
             this._createBackground(i);
     }
 
-    _rebuild_active_dialog() {
+    get_active_dialog() {
         const dialog = Main.screenShield?._dialog;
-        if (!(dialog instanceof UnlockDialog))
-            return;
-
-        try {
-            dialog._updateBackgrounds();
-        } catch (error) {
-            logError(error, '[Blur my Shell > lockscreen] failed to rebuild active dialog');
-        }
+        return dialog instanceof UnlockDialog ? dialog : null;
     }
 
     disable() {
@@ -104,7 +94,11 @@ export const LockscreenBlur = class LockscreenBlur {
         if (UnlockDialog.prototype._updateBackgrounds === this._updateBackgrounds)
             UnlockDialog.prototype._updateBackgrounds = original_updateBackgrounds;
 
-        this._rebuild_active_dialog();
+        const dialog = this.get_active_dialog();
+        if (dialog) {
+            dialog._bgManagers.forEach(manager => manager._bms_pipeline?.destroy());
+            dialog._updateBackgrounds();
+        }
 
         this.connections.disconnect_all();
     }

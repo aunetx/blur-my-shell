@@ -8,7 +8,7 @@ function is_plain_object(value) {
 }
 
 function unpack_string(value, label) {
-    const unpacked = value?.deep_unpack?.();
+    const unpacked = value.deep_unpack();
     if (typeof unpacked !== 'string')
         throw new Error(`${label} is not a string`);
 
@@ -24,7 +24,7 @@ function validate_id(value, label) {
 }
 
 function unpack_param(value, label) {
-    const unpacked = value?.deep_unpack?.();
+    const unpacked = value.deep_unpack();
     if (
         typeof unpacked === 'boolean'
         || typeof unpacked === 'string'
@@ -45,7 +45,7 @@ function unpack_param(value, label) {
 }
 
 function unpack_effect(effect_variant) {
-    const effect = effect_variant?.deep_unpack?.();
+    const effect = effect_variant.deep_unpack();
     if (!is_plain_object(effect))
         throw new Error('effect is not an object');
     if (!Object.hasOwn(effect, 'type'))
@@ -119,102 +119,33 @@ export function unpack_pipelines(value) {
     return pipelines;
 }
 
-function pack_param(value, label) {
+function pack_param(value) {
     if (typeof value === 'boolean')
         return GLib.Variant.new_boolean(value);
-    if (typeof value === 'number' && Number.isFinite(value))
-        return Number.isInteger(value)
-            ? GLib.Variant.new_int32(value)
-            : GLib.Variant.new_double(value);
     if (typeof value === 'string')
         return GLib.Variant.new_string(value);
-    if (
-        Array.isArray(value)
-        && value.length === 4
-        && value.every(component =>
-            typeof component === 'number' && Number.isFinite(component)
-        )
-    )
+    if (Array.isArray(value))
         return new GLib.Variant('(dddd)', value);
-
-    throw new Error(`${label} has an unsupported type`);
+    return Number.isInteger(value)
+        ? GLib.Variant.new_int32(value)
+        : GLib.Variant.new_double(value);
 }
 
-function pack_effect(effect, label) {
-    if (!is_plain_object(effect))
-        throw new Error(`${label} is not an object`);
-    if (!Object.hasOwn(effect, 'type'))
-        throw new Error(`${label} has no type`);
-    if (!Object.hasOwn(effect, 'id'))
-        throw new Error(`${label} has no id`);
-    if (typeof effect.type !== 'string')
-        throw new Error(`${label} type is not a string`);
-    if (typeof effect.id !== 'string')
-        throw new Error(`${label} id is not a string`);
-    if (effect.type.length === 0)
-        throw new Error(`${label} type is empty`);
-    if (effect.id.length === 0)
-        throw new Error(`${label} id is empty`);
-    validate_id(effect.type, `${label} type`);
-    validate_id(effect.id, `${label} id`);
-
-    const params = Object.hasOwn(effect, 'params') ? effect.params : {};
-    if (!is_plain_object(params))
-        throw new Error(`${label} params is not an object`);
-
-    const packed_params = Object.fromEntries(
-        Object.entries(params).map(([key, value]) => {
-            validate_id(key, `${label} parameter name`);
-            return [
-                key,
-                pack_param(value, `${label} parameter ${key}`),
-            ];
-        })
+function pack_effect(effect) {
+    const params = Object.entries(effect.params ?? {}).map(
+        ([key, value]) => [key, pack_param(value)]
     );
-
     return new GLib.Variant('a{sv}', {
         type: GLib.Variant.new_string(effect.type),
         id: GLib.Variant.new_string(effect.id),
-        params: new GLib.Variant('a{sv}', packed_params),
+        params: new GLib.Variant('a{sv}', Object.fromEntries(params)),
     });
 }
 
 export function pack_pipelines(pipelines) {
-    if (!is_plain_object(pipelines))
-        throw new Error('pipelines is not an object');
-    if (!Object.hasOwn(pipelines, 'pipeline_default'))
-        throw new Error('default pipeline is missing');
-
-    const packed = Object.create(null);
-    for (const [pipeline_id, pipeline] of Object.entries(pipelines)) {
-        if (pipeline_id.length === 0)
-            throw new Error('pipeline id is empty');
-        validate_id(pipeline_id, 'pipeline id');
-        if (!is_plain_object(pipeline))
-            throw new Error(`pipeline ${pipeline_id} is not an object`);
-        if (!Object.hasOwn(pipeline, 'name'))
-            throw new Error(`pipeline ${pipeline_id} has no name`);
-        if (!Object.hasOwn(pipeline, 'effects'))
-            throw new Error(`pipeline ${pipeline_id} has no effects`);
-        if (typeof pipeline.name !== 'string')
-            throw new Error(`pipeline ${pipeline_id} name is not a string`);
-        if (!Array.isArray(pipeline.effects))
-            throw new Error(`pipeline ${pipeline_id} effects is not an array`);
-
-        const effect_ids = new Set(pipeline.effects.map(effect => effect?.id));
-        if (effect_ids.size !== pipeline.effects.length)
-            throw new Error(`pipeline ${pipeline_id} has duplicate effect ids`);
-
-        packed[pipeline_id] = {
-            name: GLib.Variant.new_string(pipeline.name),
-            effects: new GLib.Variant(
-                'av',
-                pipeline.effects.map((effect, index) =>
-                    pack_effect(effect, `pipeline ${pipeline_id} effect ${index}`)
-                )
-            ),
-        };
-    }
-
-    return new GLib.Variant('a{sa{sv}}', packed);
+    const packed = Object.entries(pipelines).map(([pipeline_id, pipeline]) => [pipeline_id, {
+        name: GLib.Variant.new_string(pipeline.name),
+        effects: new GLib.Variant('av', pipeline.effects.map(pack_effect)),
+    }]);
+    return new GLib.Variant('a{sa{sv}}', Object.fromEntries(packed));
 }

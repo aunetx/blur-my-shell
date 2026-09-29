@@ -26,33 +26,14 @@ const AppFolderSurface = GObject.registerClass({
     }
 });
 
-function disconnect_timeline_signals(timeline) {
-    (timeline._bms_signal_ids ?? []).forEach(id => {
-        try {
-            if (id && GObject.signal_handler_is_connected(timeline, id))
-                timeline.disconnect(id);
-        } catch (e) { }
-    });
-    timeline._bms_signal_ids = [];
-}
-
 function stop_blur_animation(dialog) {
-    const timeline = dialog._bms_appfolder_blur_timeline;
-    if (!timeline)
-        return;
-
+    dialog._bms_appfolder_blur_timeline?.stop();
     dialog._bms_appfolder_blur_timeline = null;
-    timeline.stop();
-    disconnect_timeline_signals(timeline);
 }
 
 function animate_blur(dialog, target, mode) {
     stop_blur_animation(dialog);
     const pipeline = dialog._bms_appfolder_pipeline;
-    const actor = pipeline?.contentActor;
-    if (!actor)
-        return;
-
     const start = pipeline.opacityFactor;
     const settings = St.Settings.get();
     const duration = settings.enable_animations
@@ -63,21 +44,18 @@ function animate_blur(dialog, target, mode) {
         return;
     }
     const timeline = new Clutter.Timeline({
-        actor,
+        actor: pipeline.contentActor,
         duration,
     });
     timeline.set_progress_mode(mode);
-    const frame_id = timeline.connect('new-frame', () => {
+    timeline.connect('new-frame', () => {
         const progress = timeline.get_progress();
         pipeline.set_opacity_factor(start + (target - start) * progress);
     });
-    const completed_id = timeline.connect('completed', () => {
+    timeline.connect('completed', () => {
         pipeline.set_opacity_factor(target);
-        if (dialog._bms_appfolder_blur_timeline === timeline)
-            dialog._bms_appfolder_blur_timeline = null;
-        disconnect_timeline_signals(timeline);
+        dialog._bms_appfolder_blur_timeline = null;
     });
-    timeline._bms_signal_ids = [frame_id, completed_id];
     dialog._bms_appfolder_blur_timeline = timeline;
     timeline.start();
 }
@@ -111,8 +89,9 @@ function create_surface(dialog) {
         return dialog._bms_appfolder_surface;
 
     const viewBox = dialog._viewBox;
-    const container = viewBox?.get_parent?.();
-    if (!viewBox || container !== dialog.child)
+    const container = viewBox.get_parent();
+    // another extension may have restructured the dialog
+    if (container !== dialog.child)
         return null;
 
     const surface = new AppFolderSurface({
@@ -151,14 +130,12 @@ function destroy_surface(dialog) {
 
 const zoomAndFadeIn = function (...params) {
     const pipeline = this._bms_appfolder_pipeline;
-    if (pipeline) {
-        pipeline.attach_pipeline();
-        if (!this._bms_appfolder_blur_timeline)
-            pipeline.set_opacity_factor(0);
-        animate_blur(this, 1, Clutter.AnimationMode.EASE_OUT_QUAD);
-    }
+    pipeline.attach_pipeline();
+    if (!this._bms_appfolder_blur_timeline)
+        pipeline.set_opacity_factor(0);
+    animate_blur(this, 1, Clutter.AnimationMode.EASE_OUT_QUAD);
 
-    const result = this._bms_original_zoomAndFadeIn?.apply(this, params);
+    const result = this._bms_original_zoomAndFadeIn.apply(this, params);
     reduce_background_shade(this);
     if (
         this._bms_original_sourceMappedId === 0
@@ -170,12 +147,10 @@ const zoomAndFadeIn = function (...params) {
 };
 
 const zoomAndFadeOut = function (...params) {
-    if (this._isOpen && this._source?.mapped) {
+    if (this._isOpen && this._source.mapped)
         animate_blur(this, 0, Clutter.AnimationMode.EASE_IN_QUAD);
-    }
 
-    const result = this._bms_original_zoomAndFadeOut?.apply(this, params);
-    return result;
+    return this._bms_original_zoomAndFadeOut.apply(this, params);
 };
 
 
@@ -197,14 +172,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
         this.enabled = true;
 
         const appDisplay = this.get_app_display();
-        if (!appDisplay) {
-            this.enabled = false;
-            return;
-        }
-
-        if (appDisplay._folderIcons?.length > 0) {
+        if (appDisplay._folderIcons.length > 0)
             this.queue_blur_appfolders();
-        }
 
         this.connections.connect(
             appDisplay, 'view-loaded', _ => this.queue_blur_appfolders()
@@ -216,33 +185,26 @@ export const AppFoldersBlur = class AppFoldersBlur {
     }
 
     queue_blur_appfolders() {
-        if (!this.enabled || this.blur_idle_id)
+        if (this.blur_idle_id)
             return;
 
         this.blur_idle_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.blur_idle_id = 0;
-            if (this.enabled)
-                this.blur_appfolders();
+            this.blur_appfolders();
             return GLib.SOURCE_REMOVE;
         });
     }
 
     get_app_display() {
-        return Main.overview?._overview?.controls?._appDisplay
-            ?? Main.overview?._overview?._controls?._appDisplay
-            ?? null;
+        return Main.overview._overview.controls._appDisplay;
     }
 
     blur_appfolders() {
-        const appDisplay = this.get_app_display();
-        if (!appDisplay)
-            return;
+        const style = DIALOGS_STYLES[this.get_folder_style() - 1];
 
-        for (const icon of appDisplay._folderIcons ?? []) {
-            icon._ensureFolderDialog?.();
+        for (const icon of this.get_app_display()._folderIcons) {
+            icon._ensureFolderDialog();
             const dialog = icon._dialog;
-            if (!dialog?._viewBox)
-                continue;
 
             if (!this.dialogs.has(dialog)) {
                 dialog._bms_original_zoomAndFadeIn = dialog._zoomAndFadeIn;
@@ -266,19 +228,17 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 });
             }
 
-            let pipeline = dialog._bms_appfolder_pipeline;
-            if (!pipeline) {
-                pipeline = new DynamicPipeline(
+            if (!dialog._bms_appfolder_pipeline) {
+                const surface = create_surface(dialog);
+                if (!surface)
+                    continue;
+
+                const pipeline = new DynamicPipeline(
                     this.effects_manager,
                     global.blur_my_shell._pipelines_manager,
                     this.settings.appfolder.PIPELINE,
                     { corner_radius: 0 }
                 );
-                const surface = create_surface(dialog);
-                if (!surface) {
-                    pipeline.destroy();
-                    continue;
-                }
                 const actor = pipeline.create_actor('bms-appfolder-blurred-widget');
                 pipeline.ownsActor = true;
                 surface.blurActor = actor;
@@ -289,18 +249,10 @@ export const AppFoldersBlur = class AppFoldersBlur {
             }
 
             DIALOGS_STYLES.forEach(
-                style => {
-                    dialog._viewBox.remove_style_class_name(style);
-                }
+                style => dialog._viewBox.remove_style_class_name(style)
             );
-
-            const styleIndex = this.get_folder_style();
-            if (styleIndex >= 0) {
-                const style = DIALOGS_STYLES[styleIndex -1 ];
-                if (style) {
-                    dialog._viewBox.add_style_class_name(style);
-                }
-            }
+            if (style)
+                dialog._viewBox.add_style_class_name(style);
 
             dialog._zoomAndFadeIn = zoomAndFadeIn;
             dialog._zoomAndFadeOut = zoomAndFadeOut;
@@ -351,9 +303,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 dialog._bms_created_sourceMappedId
                 && dialog._sourceMappedId === dialog._bms_created_sourceMappedId
             ) {
-                try {
-                    dialog._source.disconnect(dialog._sourceMappedId);
-                } catch (e) { }
+                dialog._source.disconnect(dialog._sourceMappedId);
                 dialog._sourceMappedId = 0;
             }
             if (dialog._zoomAndFadeIn === zoomAndFadeIn)
@@ -368,11 +318,9 @@ export const AppFoldersBlur = class AppFoldersBlur {
             dialog._bms_appfolder_pipeline?.destroy();
             dialog._bms_appfolder_pipeline = null;
             destroy_surface(dialog);
-            try {
-                DIALOGS_STYLES.forEach(
-                    style => dialog._viewBox.remove_style_class_name(style)
-                );
-            } catch (e) { }
+            DIALOGS_STYLES.forEach(
+                style => dialog._viewBox.remove_style_class_name(style)
+            );
             delete dialog._bms_original_zoomAndFadeIn;
             delete dialog._bms_original_zoomAndFadeOut;
             delete dialog._bms_original_setLighterBackground;

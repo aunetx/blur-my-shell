@@ -200,4 +200,4 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
 
 export const ColorEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(COLOR_EFFECT_META, ColorEffectClass);
+    : GObject.registerClass(COLOR_EFFECT_META, ColorEffectClass);

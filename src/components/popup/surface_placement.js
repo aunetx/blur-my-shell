@@ -10,8 +10,9 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     constructor(surface) {
         this.surface = surface;
         this.geometry = new PopupBlurSurfaceGeometry();
-        this.clear();
+        this.allocation_constraint = null;
         this.ready = false;
+        this.clear();
     }
 
     get_surface_geometry() {
@@ -25,13 +26,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         if (!this.has_valid_geometry(clipped_geometry))
             return null;
 
-        const monitor_geometry = this.get_monitor_clipped_surface_geometry(clipped_geometry);
-        if (!this.has_valid_geometry(monitor_geometry)) {
-            this.offscreen = true;
-            return null;
-        }
-
-        return monitor_geometry;
+        return this.get_monitor_surface_geometry(clipped_geometry);
     }
 
     get_unclipped_monitor_surface_geometry() {
@@ -41,6 +36,10 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         if (!this.has_valid_geometry(geometry))
             return null;
 
+        return this.get_monitor_surface_geometry(geometry);
+    }
+
+    get_monitor_surface_geometry(geometry) {
         const monitor_geometry = this.get_monitor_clipped_surface_geometry(geometry);
         if (!this.has_valid_geometry(monitor_geometry)) {
             this.offscreen = true;
@@ -51,41 +50,24 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     get_unclipped_surface_geometry() {
-        try {
-            const geometry_actor = this.surface.get_geometry_actor();
-            const geometry = this.geometry.get(geometry_actor, {
-                use_content: this.surface.should_use_content_geometry(),
-                use_margins: this.surface.should_use_margin_geometry(),
-            });
-            if (!this.has_valid_geometry(geometry))
-                return null;
-
-            return this.create_surface_geometry(
-                geometry.x,
-                geometry.y,
-                geometry.width,
-                geometry.height
-            );
-        } catch (e) {
+        const geometry = this.geometry.get(
+            this.surface.target,
+            !this.surface.uses_full_actor_geometry()
+        );
+        if (!this.has_valid_geometry(geometry))
             return null;
-        }
+
+        return this.create_surface_geometry(geometry);
     }
 
-    create_surface_geometry(target_x, target_y, width, height) {
-        const local_geometry = transform_to_actor_space(this.surface.parent, {
-            x: target_x,
-            y: target_y,
-            width,
-            height,
-        });
-        if (!local_geometry)
-            return null;
+    create_surface_geometry(geometry) {
+        const local_geometry = transform_to_actor_space(this.surface.parent, geometry);
 
         return {
-            target_x,
-            target_y,
-            target_width: width,
-            target_height: height,
+            target_x: geometry.x,
+            target_y: geometry.y,
+            target_width: geometry.width,
+            target_height: geometry.height,
             x: Math.round(local_geometry.x),
             y: Math.round(local_geometry.y),
             width: Math.ceil(local_geometry.width),
@@ -93,48 +75,40 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         };
     }
 
-    get_clipped_surface_geometry(geometry) {
-        let clipped = {
+    get_target_rect(geometry) {
+        return {
             x: geometry.target_x,
             y: geometry.target_y,
             width: geometry.target_width,
             height: geometry.target_height,
         };
+    }
 
-        let actor = this.surface.get_geometry_actor();
-        while (actor && actor !== this.surface.parent) {
+    get_clipped_surface_geometry(geometry) {
+        let clipped = this.get_target_rect(geometry);
+
+        for (
+            let actor = this.surface.target;
+            actor && actor !== this.surface.parent;
+            actor = actor.get_parent()
+        ) {
             const clip = this.geometry.get_transformed_clip(actor);
-            if (clip) {
-                clipped = this.geometry.intersect(clipped, clip);
-                if (!this.has_valid_geometry(clipped))
-                    return null;
-            }
+            if (!clip)
+                continue;
 
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                break;
-            }
+            clipped = this.geometry.intersect(clipped, clip);
+            if (!this.has_valid_geometry(clipped))
+                return null;
         }
 
-        return this.create_surface_geometry(
-            clipped.x,
-            clipped.y,
-            clipped.width,
-            clipped.height
-        );
+        return this.create_surface_geometry(clipped);
     }
 
     get_monitor_clipped_surface_geometry(geometry) {
-        const rect = {
-            x: geometry.target_x,
-            y: geometry.target_y,
-            width: geometry.target_width,
-            height: geometry.target_height,
-        };
+        const rect = this.get_target_rect(geometry);
         const cached_monitor = this.get_cached_monitor();
         const match = cached_monitor
-            ? this.get_monitor_intersection(rect, cached_monitor.monitor, cached_monitor.index)
+            ? this.get_monitor_intersection(rect, cached_monitor, this.monitor_index)
             : this.find_best_monitor_intersection(rect);
 
         if (!match)
@@ -142,12 +116,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
 
         this.monitor_index = match.monitor_index;
 
-        const surface_geometry = this.create_surface_geometry(
-            rect.x,
-            rect.y,
-            rect.width,
-            rect.height
-        );
+        const surface_geometry = this.create_surface_geometry(rect);
         surface_geometry.monitor_index = match.monitor_index;
         return surface_geometry;
     }
@@ -156,20 +125,19 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         if (this.monitor_index === null)
             return null;
 
-        const monitor = Main.layoutManager.monitors?.[this.monitor_index];
-        if (!monitor) {
-            this.monitor_index = null;
-            return null;
-        }
+        const monitor = Main.layoutManager.monitors[this.monitor_index];
+        if (monitor)
+            return monitor;
 
-        return { monitor, index: this.monitor_index };
+        this.monitor_index = null;
+        return null;
     }
 
     find_best_monitor_intersection(rect) {
         let best_match = null;
         let best_area = 0;
 
-        (Main.layoutManager.monitors ?? []).forEach((monitor, index) => {
+        Main.layoutManager.monitors.forEach((monitor, index) => {
             const match = this.get_monitor_intersection(rect, monitor, index);
             if (!match)
                 return;
@@ -189,32 +157,24 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         if (!this.has_valid_geometry(intersection))
             return null;
 
-        return {
-            monitor_index,
-            intersection,
-        };
+        return { monitor_index, intersection };
     }
 
     has_valid_geometry(geometry) {
         return geometry?.width >= MIN_SURFACE_DIMENSION
-            && geometry?.height >= MIN_SURFACE_DIMENSION;
+            && geometry.height >= MIN_SURFACE_DIMENSION;
     }
 
     keep_transition_visible(transition_state) {
         if (this.offscreen || !this.ready || !this.has_cached_geometry() || !transition_state.running)
             return false;
 
-        const opacity = this.surface.update_opacity();
-        if (opacity <= 0)
+        if (this.surface.update_opacity() <= 0)
             return false;
 
-        if (this.surface.static_blur) {
-            try {
-                if (!this.surface.static_actor?.blur_actor_destroyed)
-                    this.surface.blur_actor?.show?.();
-            } catch (e) { }
-        }
-        this.surface.show_actors();
+        if (this.surface.static_blur)
+            this.surface.blur_actor.show();
+        this.surface.actor.show();
         return true;
     }
 
@@ -263,66 +223,51 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         this.ready = true;
         this.surface.opacity = 0;
         this.surface.update_surface_opacity(0);
-        this.surface.hide_actors();
+        this.surface.actor.hide();
         this.surface.queue_update();
         return false;
     }
 
     update_surface_geometry(geometry) {
-        if (this.surface.static_blur) {
-            if (!this.update_static_geometry(
-                geometry.target_x,
-                geometry.target_y,
-                geometry.target_width,
-                geometry.target_height
-            ))
-                return false;
-        } else {
-            if (!this.update_dynamic_geometry(geometry))
-                return false;
-        }
+        const updated = this.surface.static_blur
+            ? this.update_static_geometry(geometry)
+            : this.update_dynamic_geometry(geometry);
+        if (!updated)
+            return false;
 
         this.store_surface_geometry(geometry);
         return true;
     }
 
     update_dynamic_geometry(geometry) {
-        try {
-            const local = this.get_target_local_geometry(geometry);
-            if (!this.has_valid_geometry(local))
-                return false;
-
-            const transform = this.get_target_transform(local);
-            if (!transform)
-                return false;
-
-            if (this.surface.parent === Main.layoutManager.modalDialogGroup
-                && (!this.allocation_constraint || this.width !== local.width || this.height !== local.height)) {
-                if (!this.allocation_constraint) {
-                    this.allocation_constraint = new PopupBlurAllocation();
-                    this.surface.blur_actor.add_constraint(this.allocation_constraint);
-                }
-                // The transform positions the blur; constrain its local bounds only.
-                this.allocation_constraint.set_geometry(0, 0, local.width, local.height);
-            }
-
-            this.surface.blur_actor.set_position(0, 0);
-            this.surface.blur_actor.set_size(local.width, local.height);
-            this.surface.blur_actor.set_pivot_point(0, 0);
-            this.surface.blur_actor.set_transform(transform);
-            this.x = geometry.x;
-            this.y = geometry.y;
-            this.width = local.width;
-            this.height = local.height;
-        } catch (e) {
+        const local = this.get_target_local_geometry(geometry);
+        if (!this.has_valid_geometry(local))
             return false;
+
+        const blur_actor = this.surface.blur_actor;
+        if (this.surface.parent === Main.layoutManager.modalDialogGroup
+            && (!this.allocation_constraint || this.width !== local.width || this.height !== local.height)) {
+            if (!this.allocation_constraint) {
+                this.allocation_constraint = new PopupBlurAllocation();
+                blur_actor.add_constraint(this.allocation_constraint);
+            }
+            // The transform positions the blur; constrain its local bounds only.
+            this.allocation_constraint.set_geometry(0, 0, local.width, local.height);
         }
 
+        blur_actor.set_position(0, 0);
+        blur_actor.set_size(local.width, local.height);
+        blur_actor.set_pivot_point(0, 0);
+        blur_actor.set_transform(this.get_target_transform(local));
+        this.x = geometry.x;
+        this.y = geometry.y;
+        this.width = local.width;
+        this.height = local.height;
         return true;
     }
 
     get_target_local_geometry(geometry) {
-        const target = this.surface.get_geometry_actor();
+        const target = this.surface.target;
         const [top_left_ok, x1, y1] = target.transform_stage_point(
             geometry.target_x,
             geometry.target_y
@@ -343,7 +288,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     get_target_transform(local) {
-        const target = this.surface.get_geometry_actor();
+        const target = this.surface.target;
         const parent = this.surface.parent;
         const origin = target.apply_relative_transform_to_point(
             parent,
@@ -357,8 +302,6 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             parent,
             new Graphene.Point3D({ x: local.x, y: local.y + local.height })
         );
-        if (!origin || !horizontal || !vertical)
-            return null;
 
         const matrix = new Graphene.Matrix();
         matrix.init_from_2d(
@@ -372,25 +315,22 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         return matrix;
     }
 
-    update_static_geometry(target_x, target_y, width, height) {
-        const geometry = this.surface.static_actor.update_geometry(
-            target_x,
-            target_y,
-            width,
-            height,
+    update_static_geometry(geometry) {
+        const clip = this.surface.static_actor.update_geometry(
+            this.get_target_rect(geometry),
             this.monitor_index
         );
         this.surface.sync_static_actor();
 
-        if (!geometry) {
-            this.surface.hide_actors();
+        if (!clip) {
+            this.surface.actor.hide();
             return false;
         }
 
-        this.x = geometry.x;
-        this.y = geometry.y;
-        this.width = geometry.width;
-        this.height = geometry.height;
+        this.x = clip.x;
+        this.y = clip.y;
+        this.width = clip.width;
+        this.height = clip.height;
         return true;
     }
 

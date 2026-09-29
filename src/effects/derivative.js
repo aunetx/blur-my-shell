@@ -121,15 +121,13 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
             uniforms.upload_uniforms(this);
 
             const pipeline = this.get_pipeline();
-            if (pipeline && pipeline !== this._filtered_pipeline) {
-                try {
-                    pipeline.set_layer_filters(
-                        0,
-                        Cogl.PipelineFilter.NEAREST,
-                        Cogl.PipelineFilter.NEAREST
-                    );
-                    this._filtered_pipeline = pipeline;
-                } catch (e) { }
+            if (pipeline !== this._filtered_pipeline) {
+                pipeline.set_layer_filters(
+                    0,
+                    Cogl.PipelineFilter.NEAREST,
+                    Cogl.PipelineFilter.NEAREST
+                );
+                this._filtered_pipeline = pipeline;
             }
 
             super.vfunc_paint_target(paint_node, paint_context);
@@ -138,4 +136,4 @@ const DerivativeEffectClass = utils.IS_IN_PREFERENCES ? null : class DerivativeE
 
 export const DerivativeEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(DERIVATIVE_EFFECT_META, DerivativeEffectClass);
+    : GObject.registerClass(DERIVATIVE_EFFECT_META, DerivativeEffectClass);

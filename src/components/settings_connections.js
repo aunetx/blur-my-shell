@@ -9,13 +9,13 @@ function when_enabled(component, callback) {
     };
 }
 
-function connect_toggle(extension, settings, component, name, user_session = true) {
+function connect_toggle(extension, settings, component, user_session = true) {
     connect(settings, 'BLUR', () => {
         const allowed = !user_session || extension._user_session_mode_enabled;
         if (settings.BLUR && allowed)
-            extension._enable_component(component, true, name);
+            component.enable();
         else
-            extension._disable_component(component, name);
+            component.disable();
     });
 }
 
@@ -32,7 +32,7 @@ export function connect_component_settings(extension) {
     const screenshot = extension._screenshot_blur;
     const popup = extension._popup;
 
-    connect_toggle(extension, settings.overview, overview, 'overview');
+    connect_toggle(extension, settings.overview, overview);
     connect(settings.overview, 'PIPELINE', when_enabled(
         overview,
         () => overview.update_backgrounds()
@@ -42,7 +42,7 @@ export function connect_component_settings(extension) {
         () => overview.update_components_classname()
     ));
 
-    connect_toggle(extension, settings.appfolder, appfolder, 'appfolder');
+    connect_toggle(extension, settings.appfolder, appfolder);
     connect(settings.appfolder, 'PIPELINE', when_enabled(
         appfolder,
         () => appfolder.update_pipeline()
@@ -52,7 +52,7 @@ export function connect_component_settings(extension) {
         () => appfolder.blur_appfolders()
     ));
 
-    connect_toggle(extension, settings.panel, panel, 'panel');
+    connect_toggle(extension, settings.panel, panel);
     ['STATIC_BLUR', 'OVERRIDE_BACKGROUND',
         'OVERRIDE_BACKGROUND_DYNAMICALLY',
         'OVERRIDE_BACKGROUND_DYNAMICALLY_MODE'].forEach(property =>
@@ -85,7 +85,7 @@ export function connect_component_settings(extension) {
         ))
     );
 
-    connect_toggle(extension, settings.dash_to_dock, dash, 'dash-to-dock');
+    connect_toggle(extension, settings.dash_to_dock, dash);
     connect(settings.dash_to_dock, 'STATIC_BLUR', when_enabled(
         dash,
         () => dash.change_blur_type()
@@ -111,7 +111,7 @@ export function connect_component_settings(extension) {
         () => dash.connect_to_overview()
     ));
 
-    connect_toggle(extension, settings.applications, applications, 'applications');
+    connect_toggle(extension, settings.applications, applications);
     connect(settings.applications, 'STATIC_BLUR', when_enabled(
         applications,
         () => applications.change_blur_type()
@@ -161,19 +161,19 @@ export function connect_component_settings(extension) {
         }
     ));
 
-    connect_toggle(extension, settings.lockscreen, lockscreen, 'lockscreen', false);
+    connect_toggle(extension, settings.lockscreen, lockscreen, false);
     connect(settings.lockscreen, 'PIPELINE', when_enabled(
         lockscreen,
         () => lockscreen.update_lockscreen()
     ));
 
-    connect_toggle(extension, settings.window_list, window_list, 'window-list');
+    connect_toggle(extension, settings.window_list, window_list);
     connect(settings.window_list, 'PIPELINE', when_enabled(
         window_list,
         () => window_list.update_pipeline()
     ));
 
-    connect_toggle(extension, settings.coverflow_alt_tab, coverflow, 'coverflow-alt-tab');
+    connect_toggle(extension, settings.coverflow_alt_tab, coverflow);
     connect(settings.coverflow_alt_tab, 'PIPELINE', when_enabled(
         coverflow,
         () => coverflow.update_pipeline()
@@ -188,13 +188,13 @@ export function connect_component_settings(extension) {
         () => panel.reset()
     ));
 
-    connect_toggle(extension, settings.screenshot, screenshot, 'screenshot');
+    connect_toggle(extension, settings.screenshot, screenshot);
     connect(settings.screenshot, 'PIPELINE', when_enabled(
         screenshot,
         () => screenshot.update_pipeline()
     ));
 
-    connect_toggle(extension, settings.popup, popup, 'popup', false);
+    connect_toggle(extension, settings.popup, popup, false);
     connect(settings.popup, 'STATIC_BLUR', when_enabled(
         popup,
         () => popup.reset()

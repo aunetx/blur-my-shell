@@ -52,7 +52,6 @@ export const EffectsDialog = GObject.registerClass({
             this.update_move_buttons(effect_row.get_parent());
         });
 
-        // setup advanced effects chooser action
         this.show_advanced_effects = false;
         let action_group = new Gio.SimpleActionGroup();
         this.insert_action_group('effects-dialog', action_group);
