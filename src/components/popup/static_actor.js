@@ -1,4 +1,5 @@
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
@@ -25,8 +26,6 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.y = null;
         this.width = null;
         this.height = null;
-        this.background_group_destroyed = false;
-        this.blur_actor_destroyed = false;
     }
 
     create() {
@@ -36,7 +35,9 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             height: 0,
         });
         this.background_group.hide();
-        this.connect_destroy(this.background_group, () => this.background_group_destroyed = true);
+        this.background_group.connect('destroy', () => {
+            this.background_group = null;
+        });
 
         return this.update_background();
     }
@@ -50,7 +51,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         if (!monitor)
             return false;
 
-        if (monitor.index === this.monitor_index && this.blur_actor && !this.blur_actor_destroyed)
+        if (monitor.index === this.monitor_index && this.blur_actor)
             return true;
 
         this.destroy_background();
@@ -87,8 +88,9 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             this.background_group,
             'bms-popup-blurred-widget'
         );
-        this.blur_actor_destroyed = false;
-        this.connect_destroy(this.blur_actor, () => this.blur_actor_destroyed = true);
+        this.blur_actor.connect('destroy', () => {
+            this.blur_actor = null;
+        });
         this.blur_actor.hide();
         this.bg_manager = bg_manager_list[0];
         this.pipeline = pipeline;
@@ -98,15 +100,9 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         return true;
     }
 
-    connect_destroy(actor, callback) {
-        try {
-            actor.connect('destroy', callback);
-        } catch (e) { }
-    }
-
     find_monitor(monitor_index = null) {
         if (monitor_index !== null)
-            return Main.layoutManager.monitors?.[monitor_index] ?? null;
+            return Main.layoutManager.monitors[monitor_index] || null;
 
         return (
             Main.layoutManager.findMonitorForActor(this.target)
@@ -116,14 +112,14 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     is_screenshot_ui() {
-        return this.target?.has_style_class_name?.('screenshot-ui-panel')
-            || this.root_actor?.has_style_class_name?.('screenshot-ui-panel');
+        return this.target.has_style_class_name.('screenshot-ui-panel')
+            || this.root_actor.has_style_class_name.('screenshot-ui-panel');
     }
 
     update_geometry(target_x, target_y, width, height, monitor_index = null) {
         if (!this.update_background(monitor_index))
             return false;
-        if (!this.blur_actor || this.blur_actor_destroyed)
+        if (!this.blur_actor)
             return false;
 
         const monitor = Main.layoutManager.monitors[this.monitor_index];
@@ -145,70 +141,62 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         const clip_width = Math.ceil(target_geometry.width);
         const clip_height = Math.ceil(target_geometry.height);
 
-        try {
-            if (this.is_screenshot_ui() && this.background_group && !this.background_group_destroyed) {
-                this.background_group.set_position(0, 0);
-                this.background_group.set_size(monitor_geometry.width, monitor_geometry.height);
-            }
-
-            if (this.blur_actor.x !== monitor_geometry.x || this.blur_actor.y !== monitor_geometry.y)
-                this.blur_actor.set_position(monitor_geometry.x, monitor_geometry.y);
-            if (
-                this.blur_actor.width !== monitor_geometry.width
-                || this.blur_actor.height !== monitor_geometry.height
-            )
-                this.blur_actor.set_size(monitor_geometry.width, monitor_geometry.height);
-
-            if (
-                this.x !== clip_x
-                || this.y !== clip_y
-                || this.width !== clip_width
-                || this.height !== clip_height
-            ) {
-                this.blur_actor.set_clip(clip_x, clip_y, clip_width, clip_height);
-                this.x = clip_x;
-                this.y = clip_y;
-                this.width = clip_width;
-                this.height = clip_height;
-            }
-
-            this.blur_actor.show();
-        } catch (e) {
+        if (!this.blur_actor)
             return false;
+
+        if (this.is_screenshot_ui() && this.background_group) {
+            this.background_group.set_position(0, 0);
+            this.background_group.set_size(monitor_geometry.width, monitor_geometry.height);
         }
+
+        if (this.blur_actor.x !== monitor_geometry.x || this.blur_actor.y !== monitor_geometry.y)
+            this.blur_actor.set_position(monitor_geometry.x, monitor_geometry.y);
+        if (
+            this.blur_actor.width !== monitor_geometry.width
+            || this.blur_actor.height !== monitor_geometry.height
+        )
+            this.blur_actor.set_size(monitor_geometry.width, monitor_geometry.height);
+
+        if (
+            this.x !== clip_x
+            || this.y !== clip_y
+            || this.width !== clip_width
+            || this.height !== clip_height
+        ) {
+            this.blur_actor.set_clip(clip_x, clip_y, clip_width, clip_height);
+            this.x = clip_x;
+            this.y = clip_y;
+            this.width = clip_width;
+            this.height = clip_height;
+        }
+
+        this.blur_actor.show();
 
         return { x: clip_x, y: clip_y, width: clip_width, height: clip_height };
     }
 
     has_opacity(opacity) {
-        try {
-            if (this.background_opacity !== opacity)
-                return false;
-
-            const background_actor = this.get_background_actor();
-            return !background_actor || background_actor.opacity === opacity;
-        } catch (e) {
+        if (this.background_opacity !== opacity)
             return false;
-        }
+
+        const background_actor = this.get_background_actor();
+        return !background_actor || background_actor.opacity === opacity;
     }
 
     set_opacity(opacity, pipeline_opacity = opacity) {
-        try {
-            this.set_opacity_factor(pipeline_opacity / 255);
-            if (!this.background_group_destroyed)
-                this.background_group.opacity = 255;
-            if (this.blur_actor && !this.blur_actor_destroyed)
-                this.blur_actor.opacity = 255;
+        this.set_opacity_factor(pipeline_opacity / 255);
+        if (this.background_group)
+            this.background_group.opacity = 255;
+        if (this.blur_actor)
+            this.blur_actor.opacity = 255;
 
-            this.background_opacity = opacity;
+        this.background_opacity = opacity;
 
-            const background_actor = this.get_background_actor();
-            if (background_actor)
-                background_actor.opacity = opacity;
+        const background_actor = this.get_background_actor();
+        if (background_actor)
+            background_actor.opacity = opacity;
 
-            if (!this.blur_actor_destroyed)
-                this.blur_actor?.get_children?.().forEach(child => child.opacity = opacity);
-        } catch (e) { }
+        this.blur_actor?.get_children().forEach(child => child.opacity = opacity);
     }
 
     set_opacity_factor(opacity_factor) {
@@ -217,9 +205,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             return;
 
         this.opacity_factor = opacity_factor;
-        try {
-            this.pipeline?.apply_effect_overrides();
-        } catch (e) { }
+        this.pipeline?.apply_effect_overrides();
     }
 
     get_blur_effect_overrides(params, radius_key) {
@@ -262,24 +248,16 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     get_background_actor() {
-        try {
-            return this.bg_manager?.backgroundActor ?? null;
-        } catch (e) {
-            return null;
-        }
+        return this.bg_manager ? (this.bg_manager.backgroundActor || null) : null;
     }
 
     update_settings() {
-        try {
-            this.static_corner.update();
-        } catch (e) { }
+        this.static_corner.update();
     }
 
     update_pipeline() {
-        try {
-            this.bg_manager?._bms_pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
-            this.static_corner.update();
-        } catch (e) { }
+        this.bg_manager?._bms_pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
+        this.static_corner.update();
     }
 
     destroy(actor_already_destroyed = false) {
@@ -287,40 +265,27 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.destroy_background(actor_already_destroyed);
         this.background_group = null;
 
-        // Always destroy our owned overlay — `actor_already_destroyed` is about
-        // the popup target, not this background group.
-        try {
-            if (!this.background_group_destroyed)
-                background_group?.destroy?.();
-        } catch (e) { }
+        if (!actor_already_destroyed)
+            background_group?.destroy();
     }
 
     destroy_background(actor_already_destroyed = false) {
         const bg_manager = this.bg_manager;
-        const background_group = this.background_group;
+        const blur_actor_was_destroyed = !this.blur_actor;
         this.bg_manager = null;
         this.blur_actor = null;
         this.pipeline = null;
 
-        try {
-            this.static_corner.destroy();
-        } catch (e) { }
+        this.static_corner.destroy();
 
         if (bg_manager) {
-            try {
-                bg_manager._bms_pipeline?.destroy();
-            } catch (e) { }
+            bg_manager._bms_pipeline?.destroy();
 
-            try {
-                if (actor_already_destroyed || this.blur_actor_destroyed)
-                    bg_manager.backgroundActor = null;
-                bg_manager.destroy();
-            } catch (e) { }
+            if (actor_already_destroyed || blur_actor_was_destroyed)
+                bg_manager.backgroundActor = null;
+            bg_manager.destroy();
         } else {
-            try {
-                if (!this.background_group_destroyed)
-                    background_group?.destroy_all_children?.();
-            } catch (e) { }
+            this.background_group?.destroy_all_children();
         }
 
         this.monitor_index = null;

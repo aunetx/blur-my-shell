@@ -1,22 +1,20 @@
 import St from 'gi://St';
 
 export function transform_to_actor_space(actor, { x, y, width, height }) {
-    try {
-        const [actor_x, actor_y] = actor.get_transformed_position();
-        const [actor_width, actor_height] = actor.get_size();
-        const [transformed_width, transformed_height] = actor.get_transformed_size();
-        const scale_x = actor_width > 0 ? transformed_width / actor_width : 1;
-        const scale_y = actor_height > 0 ? transformed_height / actor_height : 1;
-
-        return {
-            x: (x - actor_x) / scale_x,
-            y: (y - actor_y) / scale_y,
-            width: width / scale_x,
-            height: height / scale_y,
-        };
-    } catch (e) {
+    if (!actor)
         return null;
-    }
+    const [actor_x, actor_y] = actor.get_transformed_position();
+    const [actor_width, actor_height] = actor.get_size();
+    const [transformed_width, transformed_height] = actor.get_transformed_size();
+    const scale_x = actor_width > 0 ? transformed_width / actor_width : 1;
+    const scale_y = actor_height > 0 ? transformed_height / actor_height : 1;
+
+    return {
+        x: (x - actor_x) / scale_x,
+        y: (y - actor_y) / scale_y,
+        width: width / scale_x,
+        height: height / scale_y,
+    };
 }
 
 export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
@@ -40,53 +38,45 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
     }
 
     get_transformed_actor(actor) {
-        try {
-            const extents = actor.get_transformed_extents?.();
-            const top_left = extents?.get_top_left?.();
-            const bottom_right = extents?.get_bottom_right?.();
+        const extents = actor.get_transformed_extents();
+        const top_left = extents?.get_top_left();
+        const bottom_right = extents?.get_bottom_right();
 
-            if (top_left && bottom_right) {
-                return {
-                    x: top_left.x,
-                    y: top_left.y,
-                    width: bottom_right.x - top_left.x,
-                    height: bottom_right.y - top_left.y,
-                };
-            }
-        } catch (e) { }
-
-        try {
-            const [x, y] = actor.get_transformed_position();
-            const [width, height] = actor.get_transformed_size();
-            return { x, y, width, height };
-        } catch (e) {
-            return null;
+        if (top_left && bottom_right) {
+            return {
+                x: top_left.x,
+                y: top_left.y,
+                width: bottom_right.x - top_left.x,
+                height: bottom_right.y - top_left.y,
+            };
         }
+
+        if (!actor)
+            return null;
+        const [x, y] = actor.get_transformed_position();
+        const [width, height] = actor.get_transformed_size();
+        return { x, y, width, height };
     }
 
     get_transformed_clip(actor) {
-        try {
-            if (!actor?.has_clip)
-                return null;
+        if (!actor?.has_clip)
+            return null;
 
-            const [clip_x, clip_y, clip_width, clip_height] = actor.get_clip();
-            if (clip_width <= 0 || clip_height <= 0)
-                return null;
+        const [clip_x, clip_y, clip_width, clip_height] = actor.get_clip();
+        if (clip_width <= 0 || clip_height <= 0)
+            return null;
 
-            const [actor_x, actor_y] = actor.get_transformed_position();
-            const [actor_width, actor_height] = actor.get_transformed_size();
-            const scale_x = this.get_actor_scale(actor, actor_width, 'width');
-            const scale_y = this.get_actor_scale(actor, actor_height, 'height');
+        const [actor_x, actor_y] = actor.get_transformed_position();
+        const [actor_width, actor_height] = actor.get_transformed_size();
+        const scale_x = this.get_actor_scale(actor, actor_width, 'width');
+        const scale_y = this.get_actor_scale(actor, actor_height, 'height');
 
-            return {
-                x: actor_x + clip_x * scale_x,
+        return {
+            x: actor_x + clip_x * scale_x,
                 y: actor_y + clip_y * scale_y,
                 width: clip_width * scale_x,
                 height: clip_height * scale_y,
-            };
-        } catch (e) {
-            return null;
-        }
+        };
     }
 
     get_margin_adjusted(actor, geometry) {
@@ -157,29 +147,26 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
         ];
 
         for (const property of property_names) {
-            try {
-                const value = actor[property];
-                if (typeof value === 'number')
-                    return value;
-            } catch (e) { }
+            const value = actor[property];
+            if (typeof value === 'number')
+                return value;
+        }
+
+        const getter = actor[`get_margin_${side_name}`];
+        if (getter) {
+            const value = getter.call(actor);
+            if (typeof value === 'number')
+                return value;
         }
 
         try {
-            const getter = actor[`get_margin_${side_name}`];
-            if (getter) {
-                const value = getter.call(actor);
-                if (typeof value === 'number')
-                    return value;
-            }
-        } catch (e) { }
-
-        try {
-            const theme_node = actor.get_theme_node?.();
+            const theme_node = actor.get_theme_node();
             if (!theme_node?.get_margin)
                 return 0;
 
             return theme_node.get_margin(side);
         } catch (e) {
+            // get_theme_node() may throw when actor is not yet mapped to a stage
             return 0;
         }
     }
@@ -198,7 +185,7 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
 
     get_inset(actor, side) {
         try {
-            const theme_node = actor.get_theme_node?.();
+            const theme_node = actor.get_theme_node();
             if (!theme_node)
                 return 0;
 
@@ -209,17 +196,14 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
                 inset += theme_node.get_border_width(side);
             return inset;
         } catch (e) {
+            // get_theme_node() may throw when actor is not yet mapped to a stage
             return 0;
         }
     }
 
     get_actor_scale(actor, transformed_size, property) {
-        try {
-            const size = actor[property] ?? actor[`get_${property}`]?.();
-            return size > 0 ? transformed_size / size : 1;
-        } catch (e) {
-            return 1;
-        }
+        const size = actor ? (actor[property] ?? (actor[`get_${property}`] ? actor[`get_${property}`]() : 0)) : 0;
+        return size > 0 ? transformed_size / size : 1;
     }
 
     should_use_content(outer, content) {
@@ -236,19 +220,11 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
     }
 
     is_visible(actor) {
-        try {
-            return actor?.visible && actor.mapped;
-        } catch (e) {
-            return false;
-        }
+        return actor?.visible && actor.mapped;
     }
 
     get_children(actor) {
-        try {
-            return actor?.get_children?.() ?? [];
-        } catch (e) {
-            return [];
-        }
+        return actor ? actor.get_children() : [];
     }
 
     has_valid_geometry(geometry) {

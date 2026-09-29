@@ -176,9 +176,7 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             if (!actor || !this._actor_connection_clip_rect_id)
                 return;
 
-            try {
-                actor.disconnect(this._actor_connection_clip_rect_id);
-            } catch (e) { }
+            actor.disconnect(this._actor_connection_clip_rect_id);
 
             this._actor_connection_clip_rect_id = null;
         }

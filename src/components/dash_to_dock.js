@@ -88,6 +88,10 @@ class DashInfos {
             this.dash_blur.dashes.splice(dash_infos_index, 1);
 
         // disconnect everything
+        if (this.bg_allocation_id && this.background_group) {
+            this.background_group.disconnect(this.bg_allocation_id);
+            this.bg_allocation_id = null;
+        }
         this.dash_blur_connections_ids.forEach(id => { if (id) this.dash_blur.disconnect(id); });
         this.dash_blur_connections_ids = [];
         if (this.dash_destroy_id)
@@ -324,8 +328,8 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             if (!dash_container._bms_pending_blur_setup)
                 return;
 
-            let current_dash_box = dash_container._slider?.get_child?.();
-            let current_dash = dash || current_dash_box?.get_children?.().find(child => child.get_name() === 'dash');
+            let current_dash_box = dash_container._slider?.get_child();
+            let current_dash = dash || current_dash_box?.get_children().find(child => child.get_name() === 'dash');
 
             if (!this._has_valid_allocation(dash_container) ||
                 !this._has_valid_allocation(current_dash_box) ||
@@ -352,7 +356,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
     // Tries to blur the dash contained in the given actor
     try_blur(dash_container) {
-        let dash_box = dash_container._slider?.get_child?.();
+        let dash_box = dash_container._slider?.get_child();
         if (!dash_box){
             this._defer_blur_until_allocated(dash_container);
             return;
@@ -380,7 +384,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         );
 
         if (existing_bg) {
-            if (dash_box.contains?.(existing_bg))
+            if (dash_box.contains(existing_bg))
                 dash_box.remove_child(existing_bg);
             
             existing_bg.destroy();
@@ -435,7 +439,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         }
 
         const dash_background = dash._background ||
-            dash.get_children().find(child => child.get_style_class_name?.()?.includes('dash-background')) ||
+            dash.get_children().find(child => child.has_style_class_name('dash-background')) ||
             dash;
 
         if (!dash_background)

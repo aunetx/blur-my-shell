@@ -155,18 +155,14 @@ export const Pipeline = class Pipeline {
 
     disconnect_actor_destroy() {
         if (this.actor && this.actor_destroy_id) {
-            try {
-                this.actor.disconnect(this.actor_destroy_id);
-            } catch (e) { }
+            this.actor.disconnect(this.actor_destroy_id);
         }
         this.actor_destroy_id = null;
     }
 
     disconnect_child_added() {
         if (this.actor && this.child_added_id) {
-            try {
-                this.actor.disconnect(this.child_added_id);
-            } catch (e) { }
+            this.actor.disconnect(this.child_added_id);
         }
         this.child_added_id = null;
     }

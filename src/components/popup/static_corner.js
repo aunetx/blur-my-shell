@@ -39,17 +39,13 @@ export const PopupBlurStaticCorner = class PopupBlurStaticCorner {
         const existing_effects = this.pipeline?.effects ?? [];
 
         existing_effects.forEach(effect => {
-            try {
-                this.actor.remove_effect(effect);
-            } catch (e) { }
+            this.actor.remove_effect(effect);
         });
 
         this.actor.add_effect(this.effect);
 
         existing_effects.forEach(effect => {
-            try {
-                this.actor.add_effect(effect);
-            } catch (e) { }
+            this.actor.add_effect(effect);
         });
     }
 

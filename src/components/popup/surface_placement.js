@@ -47,24 +47,20 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     get_unclipped_surface_geometry() {
-        try {
-            const geometry_actor = this.surface.get_geometry_actor();
-            const geometry = this.geometry.get(geometry_actor, {
-                use_content: this.surface.should_use_content_geometry(),
-                use_margins: this.surface.should_use_margin_geometry(),
-            });
-            if (!this.has_valid_geometry(geometry))
-                return null;
-
-            return this.create_surface_geometry(
-                geometry.x,
-                geometry.y,
-                geometry.width,
-                geometry.height
-            );
-        } catch (e) {
+        const geometry_actor = this.surface.get_geometry_actor();
+        const geometry = this.geometry.get(geometry_actor, {
+            use_content: this.surface.should_use_content_geometry(),
+            use_margins: this.surface.should_use_margin_geometry(),
+        });
+        if (!this.has_valid_geometry(geometry))
             return null;
-        }
+
+        return this.create_surface_geometry(
+            geometry.x,
+            geometry.y,
+            geometry.width,
+            geometry.height
+        );
     }
 
     create_surface_geometry(target_x, target_y, width, height) {
@@ -106,11 +102,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
                     return null;
             }
 
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                break;
-            }
+            actor = actor.get_parent();
         }
 
         return this.create_surface_geometry(
@@ -204,10 +196,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             return false;
 
         if (this.surface.static_blur) {
-            try {
-                if (!this.surface.static_actor?.blur_actor_destroyed)
-                    this.surface.blur_actor?.show?.();
-            } catch (e) { }
+            this.surface.blur_actor?.show();
         }
         this.surface.show_actors();
         return true;
@@ -282,20 +271,16 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     }
 
     update_dynamic_geometry(x, y, width, height) {
-        try {
-            if (this.x !== x || this.y !== y) {
-                this.surface.blur_actor.set_position(x, y);
-                this.x = x;
-                this.y = y;
-            }
+        if (this.x !== x || this.y !== y) {
+            this.surface.blur_actor.set_position(x, y);
+            this.x = x;
+            this.y = y;
+        }
 
-            if (this.width !== width || this.height !== height) {
-                this.surface.blur_actor.set_size(width, height);
-                this.width = width;
-                this.height = height;
-            }
-        } catch (e) {
-            return false;
+        if (this.width !== width || this.height !== height) {
+            this.surface.blur_actor.set_size(width, height);
+            this.width = width;
+            this.height = height;
         }
 
         return true;

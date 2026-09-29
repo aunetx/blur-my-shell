@@ -52,9 +52,7 @@ export const EffectsManager = class EffectsManager {
 
     disconnect_actor_destroy(effect) {
         if (effect._bms_actor && effect._bms_actor_destroy_id) {
-            try {
-                effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
-            } catch (e) { }
+            effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
         }
         effect._bms_actor = null;
         effect._bms_actor_destroy_id = null;

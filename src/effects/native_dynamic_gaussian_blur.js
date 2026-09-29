@@ -7,7 +7,7 @@ const BlurModule = await utils.import_in_shell_only('gi://Blur');
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const BlurOrShell = utils.is_usable_blur_module(BlurModule) ? BlurModule : Shell;
 const SUPPORTS_CORNER_RADIUS = Boolean(
-    BlurOrShell?.BlurEffect?.list_properties?.()
+    BlurOrShell?.BlurEffect?.list_properties()
         .some(property => property.name === 'corner-radius')
 );
 

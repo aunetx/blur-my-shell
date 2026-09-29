@@ -108,7 +108,7 @@ export const WindowListBlur = class WindowListBlur {
 
         let index = this.pipelines.indexOf(pipeline);
         if (index >= 0)
-            this.pipelines.splice(pipeline, 1);
+            this.pipelines.splice(index, 1);
     }
 
     remove_style(actor) {

@@ -15,12 +15,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
 
         while (actor && actor !== this.parent) {
             opacity = this.apply_actor_opacity(opacity, actor, visited);
-
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                break;
-            }
+            actor = actor.get_parent();
         }
 
         opacity = this.apply_actor_opacity(opacity, this.root_actor, visited);
@@ -42,15 +37,15 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     }
 
     is_notification_banner() {
-        if (this.target?.has_style_class_name?.('notification-banner'))
+        if (this.target?.has_style_class_name('notification-banner'))
             return true;
         if (this.root_actor?.name === 'notification-container')
             return true;
         let a = this.target;
         while (a && a !== this.parent) {
-            if (a.has_style_class_name?.('notification-banner'))
+            if (a.has_style_class_name('notification-banner'))
                 return true;
-            a = a.get_parent?.();
+            a = a.get_parent();
         }
         return false;
     }
@@ -94,9 +89,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     }
 
     set_opacity(opacity) {
-        try {
-            this.actor.opacity = opacity;
-        } catch (e) { }
+        this.actor.opacity = opacity;
     }
 
     apply_actor_opacity(opacity, actor, visited) {
@@ -105,39 +98,33 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
 
         visited.add(actor);
 
-        try {
-            let visible = actor.visible;
-            let mapped = actor.mapped;
-            if (!visible && this.is_keyboard_actor(actor)) {
-                const parent = actor.get_parent?.();
-                visible = parent?.visible && parent?.mapped;
-                mapped = parent?.mapped;
-            }
-            if (!visible || !mapped)
-                return 0;
-
-            return Math.round(opacity * (actor.opacity ?? 255) / 255);
-        } catch (e) {
-            return opacity;
+        let visible = actor.visible;
+        let mapped = actor.mapped;
+        if (!visible && this.is_keyboard_actor(actor)) {
+            const parent = actor.get_parent();
+            visible = parent?.visible && parent?.mapped;
+            mapped = parent?.mapped;
         }
+        if (!visible || !mapped)
+            return 0;
+
+        return Math.round(opacity * (actor.opacity ?? 255) / 255);
     }
 
     is_keyboard_actor(actor) {
         return (
-            actor?.has_style_class_name?.('bms-keyboard-surface')
+            actor?.has_style_class_name('bms-keyboard-surface')
         );
     }
 
     get_paint_opacity(actor) {
-        try {
-            if (this.is_keyboard_actor(actor) && (!actor.visible || !actor.mapped)) {
-                const parent = actor.get_parent?.();
-                if (parent?.visible && parent?.mapped)
-                    return null;
-            }
-            if (actor?.get_paint_opacity)
-                return actor.get_paint_opacity();
-        } catch (e) { }
+        if (this.is_keyboard_actor(actor) && (!actor.visible || !actor.mapped)) {
+            const parent = actor.get_parent();
+            if (parent?.visible && parent?.mapped)
+                return null;
+        }
+        if (actor?.get_paint_opacity)
+            return actor.get_paint_opacity();
 
         return null;
     }

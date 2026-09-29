@@ -22,10 +22,6 @@ const GRADIENT_PANEL_STYLES = [
     "gradient-panel-reverse"
 ];
 
-// global listener, so we don't miss the panel destruction event
-let isMainPanelAlive = true;
-Main.panel.connect('destroy', () => isMainPanelAlive = false);
-
 export const PanelBlur = class PanelBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
@@ -43,6 +39,12 @@ export const PanelBlur = class PanelBlur {
             this._log("blur already enabled");
             return;
         }
+
+        // global listener, so we don't miss the panel destruction event
+        this._isMainPanelAlive = true;
+        this.connections.connect(Main.panel, 'destroy', () => {
+            this._isMainPanelAlive = false;
+        });
 
         this._log("blurring top panel");
 
@@ -126,14 +128,14 @@ export const PanelBlur = class PanelBlur {
                 this.blur_dtp_panels();
         } else {
             // if no dash-to-panel, blur the main panel
-            if (isMainPanelAlive)
+            if (this._isMainPanelAlive)
                 this.maybe_blur_panel(Main.panel);
 
             // blur panels already created by extension multi-monitors-bar@frederykabryan
             Main.uiGroup.get_children().forEach(actor => {
                 if (actor.get_name() === "panelBox" && actor.get_n_children() === 1) {
                     let multi_monitor_panel = actor.get_child_at_index(0);
-                    if (isMainPanelAlive && multi_monitor_panel != Main.panel)
+                    if (this._isMainPanelAlive && multi_monitor_panel != Main.panel)
                         this.maybe_blur_panel(multi_monitor_panel);
                 }
             })
@@ -169,7 +171,7 @@ export const PanelBlur = class PanelBlur {
                 &&
                 this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
                 &&
-                isMainPanelAlive
+                this._isMainPanelAlive
             )
                 this.maybe_blur_panel(Main.panel);
 
@@ -546,7 +548,7 @@ export const PanelBlur = class PanelBlur {
 
     /// Update the css classname of the panel for light theme
     update_light_text_classname(disable = false) {
-        if (!isMainPanelAlive)
+        if (!this._isMainPanelAlive)
             return;
 
         if (this.settings.panel.FORCE_LIGHT_TEXT && !disable)
@@ -580,7 +582,7 @@ export const PanelBlur = class PanelBlur {
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
-            isMainPanelAlive && Main.panel.has_style_pseudo_class('overview')
+            this._isMainPanelAlive && Main.panel.has_style_pseudo_class('overview')
             || !Main.sessionMode.hasWindows
         ) {
             this.actors_list.forEach(
