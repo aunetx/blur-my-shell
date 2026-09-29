@@ -96,7 +96,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             reactive: false,
         });
         this.blur_actor.add_style_class_name('bms-popup-blurred-widget');
-        this.track_owned_actor(this.blur_actor, { actor: true, blur_actor: true });
+        this.track_owned_actor(this.blur_actor);
         this.pipeline = new DummyPipeline(
             this.effects_manager,
             this.settings.popup,
@@ -131,7 +131,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.pipeline = this.static_actor.pipeline;
     }
 
-    track_owned_actor(actor, flags = {}) {
+    track_owned_actor(actor) {
         this.connections.connect(actor, 'destroy', () => {
             this.actor = null;
             this.blur_actor = null;

@@ -112,8 +112,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     is_screenshot_ui() {
-        return this.target.has_style_class_name.('screenshot-ui-panel')
-            || this.root_actor.has_style_class_name.('screenshot-ui-panel');
+        return this.target.has_style_class_name('screenshot-ui-panel')
+            || this.root_actor.has_style_class_name('screenshot-ui-panel');
     }
 
     update_geometry(target_x, target_y, width, height, monitor_index = null) {
