@@ -5,6 +5,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { Pipeline } from '../../conveniences/pipeline.js';
 import { transform_to_actor_space } from './surface_geometry.js';
 import { PopupBlurStaticCorner } from './static_corner.js';
+import { has_style_class } from './targets.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
     constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius) {
@@ -112,8 +113,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     is_screenshot_ui() {
-        return this.target.has_style_class_name('screenshot-ui-panel')
-            || this.root_actor.has_style_class_name('screenshot-ui-panel');
+        return has_style_class(this.target, 'screenshot-ui-panel')
+            || has_style_class(this.root_actor, 'screenshot-ui-panel');
     }
 
     update_geometry(target_x, target_y, width, height, monitor_index = null) {

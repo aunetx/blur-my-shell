@@ -1,4 +1,5 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { has_style_class } from './targets.js';
 
 export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     constructor(actor, target, root_actor, parent) {
@@ -37,13 +38,13 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
     }
 
     is_notification_banner() {
-        if (this.target?.has_style_class_name('notification-banner'))
+        if (has_style_class(this.target, 'notification-banner'))
             return true;
         if (this.root_actor?.name === 'notification-container')
             return true;
         let a = this.target;
         while (a && a !== this.parent) {
-            if (a.has_style_class_name('notification-banner'))
+            if (has_style_class(a, 'notification-banner'))
                 return true;
             a = a.get_parent();
         }
@@ -113,7 +114,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
 
     is_keyboard_actor(actor) {
         return (
-            actor?.has_style_class_name('bms-keyboard-surface')
+            has_style_class(actor, 'bms-keyboard-surface')
         );
     }
 

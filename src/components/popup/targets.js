@@ -184,16 +184,7 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     has_style_class(actor, style_class) {
-        if (!actor)
-            return false;
-
-        if (actor.has_style_class_name)
-            return actor.has_style_class_name(style_class);
-
-        if (actor.get_style_class_name)
-            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
-
-        return false;
+        return has_style_class(actor, style_class);
     }
 
     get_style_classes(actor) {
@@ -249,3 +240,16 @@ export const PopupBlurTargets = class PopupBlurTargets {
         targets.actors.push(target);
     }
 };
+
+export function has_style_class(actor, style_class) {
+    if (!actor || !style_class)
+        return false;
+
+    if (actor.has_style_class_name)
+        return actor.has_style_class_name(style_class);
+
+    if (actor.get_style_class_name)
+        return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+    return false;
+}
