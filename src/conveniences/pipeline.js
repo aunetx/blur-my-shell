@@ -56,7 +56,7 @@ export const Pipeline = class Pipeline {
 
         // render a wallpaper copy to prevent partial painting of the blur input
         // normally only the damaged area is painted
-        let source = new St.Widget({
+        const source = new St.Widget({
             name: `${widget_name}-source`,
             width: monitor.width,
             height: monitor.height,
@@ -74,6 +74,7 @@ export const Pipeline = class Pipeline {
             source: actor,
             coordinate: Clutter.BindCoordinate.SIZE,
         }));
+        actor.add_child(source);
         const clone = new Clutter.Clone({
             source,
             width: monitor.width,
@@ -84,12 +85,6 @@ export const Pipeline = class Pipeline {
             coordinate: Clutter.BindCoordinate.SIZE,
         }));
         actor.add_child(clone);
-        source.connect('destroy', () => {
-            if (this.child_added_actor === source)
-                this.disconnect_child_added();
-            source = null;
-        });
-        actor.connect('destroy', () => source?.destroy());
         this.actor = actor;
         if (this.pipeline_id)
             this.attach_pipeline_to_actor(actor);
@@ -113,7 +108,6 @@ export const Pipeline = class Pipeline {
             }
         );
 
-        background_group.insert_child_at_index(source, 0);
         background_group.insert_child_at_index(actor, 0);
         background_managers.push(bg_manager);
         return actor;
