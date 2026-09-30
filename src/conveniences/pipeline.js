@@ -70,11 +70,20 @@ export const Pipeline = class Pipeline {
             width: monitor.width,
             height: monitor.height
         });
-        actor.add_child(new Clutter.Clone({
+        source.add_constraint(new Clutter.BindConstraint({
+            source: actor,
+            coordinate: Clutter.BindCoordinate.SIZE,
+        }));
+        const clone = new Clutter.Clone({
             source,
             width: monitor.width,
             height: monitor.height,
+        });
+        clone.add_constraint(new Clutter.BindConstraint({
+            source: actor,
+            coordinate: Clutter.BindCoordinate.SIZE,
         }));
+        actor.add_child(clone);
         source.connect('destroy', () => {
             if (this.child_added_actor === source)
                 this.disconnect_child_added();
