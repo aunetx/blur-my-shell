@@ -52,12 +52,7 @@ export const get_shader_source = (Shell, shader_filename, self_uri) => {
     const shader_path = GLib.filename_from_uri(
         GLib.uri_resolve_relative(self_uri, shader_filename, GLib.UriFlags.NONE)
     )[0];
-    try {
-        return Shell.get_file_contents_utf8_sync(shader_path);
-    } catch (e) {
-        console.warn(`[Blur my Shell > effect]       error loading shader from ${shader_path}: ${e}`);
-        return null;
-    }
+    return Shell.get_file_contents_utf8_sync(shader_path);
 };
 
 /// Splits a fragment shader into its declarations and the body of its `main` function.

@@ -102,11 +102,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     }
 
     enable_service() {
-        try {
-            this.service.export();
-        } catch (error) {
-            logError(error, '[Blur my Shell > applications] failed to export window picker');
-        }
+        this.service.export();
     }
 
     disable_service() {

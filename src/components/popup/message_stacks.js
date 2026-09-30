@@ -17,7 +17,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.stack_effects = new Map();
         this.update_ids = new Map();
         this.original_clips = new WeakMap();
-        this.original_opacity = new WeakMap();
+        this.original_child_opacity = new WeakMap();
         this.original_message_opacity = new WeakMap();
         this.original_header_opacity = new WeakMap();
     }
@@ -366,19 +366,17 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     }
 
     set_child_opacity(message, opacity) {
-        const child = message.child;
-        if (!this.original_opacity.has(child))
-            this.original_opacity.set(child, child.opacity);
-        child.opacity = opacity;
+        if (!this.original_child_opacity.has(message))
+            this.original_child_opacity.set(message, message.child.opacity);
+        message.child.opacity = opacity;
     }
 
     restore_child_opacity(message) {
-        const child = message.child;
-        if (!this.original_opacity.has(child))
+        if (!this.original_child_opacity.has(message))
             return;
 
-        child.opacity = this.original_opacity.get(child);
-        this.original_opacity.delete(child);
+        message.child.opacity = this.original_child_opacity.get(message);
+        this.original_child_opacity.delete(message);
     }
 
     set_message_opacity(message, opacity) {
@@ -418,7 +416,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.stack_effects.clear();
         this.watched_actors = new WeakSet();
         this.original_clips = new WeakMap();
-        this.original_opacity = new WeakMap();
+        this.original_child_opacity = new WeakMap();
         this.original_message_opacity = new WeakMap();
         this.original_header_opacity = new WeakMap();
     }

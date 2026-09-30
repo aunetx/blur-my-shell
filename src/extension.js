@@ -42,6 +42,10 @@ export default class BlurMyShell extends Extension {
         this._startup_complete_id = 0;
         this._user_session_mode_enabled = false;
 
+        // the shell destroys its UI on shutdown without disabling extensions, and runs the idle
+        // callbacks queued during that teardown afterwards, when every actor is already disposed
+        this._connection.connect(Main.uiGroup, 'destroy', () => this.disable());
+
         // shared by every component so that effects are pooled instead of re-created
         this._effects_manager = new EffectsManager(this._connection);
         this._pipelines_manager = new PipelinesManager(this._settings);
