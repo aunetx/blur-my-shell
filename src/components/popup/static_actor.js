@@ -289,7 +289,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         } else if (this.background_group) {
             this.background_group.destroy_all_children();
         }
-        blur_actor.destroy();
+        blur_actor?.destroy();
 
         this.monitor_index = null;
         this.background_opacity = null;
