@@ -1,6 +1,8 @@
 import Meta from 'gi://Meta';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
 
+import { WallpaperCache } from '../render/wallpaper_cache.js';
 import { WallpaperSurface } from '../render/wallpaper_surface.js';
 
 
@@ -30,7 +32,13 @@ export const WallpaperBlur = class WallpaperBlur {
             return;
 
         this._log('blurring wallpaper');
+        this.cache = new WallpaperCache(this.effects_manager,
+            global.blur_my_shell._pipelines_manager, this.settings.wallpaper.PIPELINE);
         this.enabled = true;
+        this.connections.connect(this.settings.settings, 'changed::pipelines',
+            () => this.update_pipeline());
+        this.connections.connect(Main.layoutManager, 'monitors-changed',
+            () => this.cache.refresh());
 
         this.patch_background_manager();
 
@@ -114,12 +122,7 @@ export const WallpaperBlur = class WallpaperBlur {
         let surface = null;
 
         try {
-            surface = new WallpaperSurface(
-                actor,
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                this.settings.wallpaper.PIPELINE
-            );
+            surface = new WallpaperSurface(actor, this.cache);
 
             this.surfaces.set(actor, surface);
 
@@ -148,7 +151,7 @@ export const WallpaperBlur = class WallpaperBlur {
     }
 
     update_pipeline() {
-        this.surfaces.forEach(surface => surface.change_pipeline_to(this.settings.wallpaper.PIPELINE));
+        this.cache?.refresh(this.settings.wallpaper.PIPELINE);
     }
 
     disable() {
@@ -167,6 +170,8 @@ export const WallpaperBlur = class WallpaperBlur {
 
         this.surfaces.forEach(surface => surface.destroy());
         this.surfaces.clear();
+        this.cache?.destroy();
+        this.cache = null;
     }
 
     _log(str) {
