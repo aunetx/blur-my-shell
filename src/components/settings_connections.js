@@ -31,6 +31,7 @@ export function connect_component_settings(extension) {
     const coverflow = extension._coverflow_alt_tab_blur;
     const screenshot = extension._screenshot_blur;
     const popup = extension._popup;
+    const wallpaper = extension._wallpaper_blur;
 
     connect_toggle(extension, settings.overview, overview, 'overview');
     connect(settings.overview, 'PIPELINE', when_enabled(
@@ -165,6 +166,12 @@ export function connect_component_settings(extension) {
     connect(settings.lockscreen, 'PIPELINE', when_enabled(
         lockscreen,
         () => lockscreen.update_lockscreen()
+    ));
+
+    connect_toggle(extension, settings.wallpaper, wallpaper, 'wallpaper');
+    connect(settings.wallpaper, 'PIPELINE', when_enabled(
+        wallpaper,
+        () => wallpaper.update_pipeline()
     ));
 
     connect_toggle(extension, settings.window_list, window_list, 'window-list');

@@ -12,6 +12,9 @@ export const Other = GObject.registerClass({
         'lockscreen_blur',
         'lockscreen_pipeline_choose_row',
 
+        'wallpaper_blur',
+        'wallpaper_pipeline_choose_row',
+
         'screenshot_blur',
         'screenshot_pipeline_choose_row',
 
@@ -39,6 +42,15 @@ export const Other = GObject.registerClass({
 
         this._lockscreen_pipeline_choose_row.initialize(
             this.preferences.lockscreen, this.pipelines_manager, this.pipelines_page
+        );
+
+        this.preferences.wallpaper.settings.bind(
+            'blur', this._wallpaper_blur, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
+        this._wallpaper_pipeline_choose_row.initialize(
+            this.preferences.wallpaper, this.pipelines_manager, this.pipelines_page
         );
 
         this.preferences.screenshot.settings.bind(
