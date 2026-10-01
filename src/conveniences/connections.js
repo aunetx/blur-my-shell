@@ -5,8 +5,9 @@ function has_destroy_signal(object) {
     return gtype && GObject.signal_lookup('destroy', gtype) !== 0;
 }
 
-/// An object to easily manage signals. Connections to an object that gets destroyed are forgotten,
-/// as the object drops them itself.
+/// An object to easily manage signals. When an object starts being destroyed, every handler but the
+/// destroy ones is disconnected from it, so nothing reacts to the signals it still emits while it
+/// disposes of itself, and the object is forgotten.
 export const Connections = class Connections {
     constructor() {
         this.records = new Map();
@@ -18,7 +19,7 @@ export const Connections = class Connections {
         const record = this.get_record(object);
         const ids = [signals].flat().map(signal => {
             const id = object.connect(signal, handler);
-            record.ids.add(id);
+            record.ids.set(id, signal);
             return id;
         });
         return Array.isArray(signals) ? ids : ids[0];
@@ -29,12 +30,21 @@ export const Connections = class Connections {
         if (record)
             return record;
 
-        record = { ids: new Set(), destroy_id: 0 };
+        record = { ids: new Map(), destroy_id: 0 };
         this.records.set(object, record);
         if (has_destroy_signal(object))
-            record.destroy_id = object.connect('destroy', () => this.records.delete(object));
+            record.destroy_id = object.connect('destroy', () => this.release(object));
 
         return record;
+    }
+
+    release(object) {
+        const record = this.records.get(object);
+        this.records.delete(object);
+        record.ids.forEach((signal, id) => {
+            if (signal !== 'destroy')
+                object.disconnect(id);
+        });
     }
 
     disconnect_all_for(object) {
@@ -43,7 +53,7 @@ export const Connections = class Connections {
             return;
 
         this.records.delete(object);
-        record.ids.forEach(id => object.disconnect(id));
+        record.ids.forEach((_, id) => object.disconnect(id));
         if (record.destroy_id)
             object.disconnect(record.destroy_id);
     }
