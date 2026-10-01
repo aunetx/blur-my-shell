@@ -29,7 +29,7 @@ const IS_QUICK_SETTINGS_STYLE_CLASSES = [
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
-    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled) {
+    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius) {
         this.connections = connections;
         this.settings = settings;
         this.effects_manager = effects_manager;
@@ -38,7 +38,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.parent = parent;
         this.sibling = sibling;
         this.corner_radius = corner_radius;
-        this.is_enabled = is_enabled;
         this.paint_signals = new PaintSignals(connections);
         this.placement = new PopupBlurSurfacePlacement(this);
         this.signals = new PopupBlurSurfaceSignals(this);
@@ -343,7 +342,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.update_id = 0;
-                if (this.is_enabled())
+                if (this.actor)
                     this.update();
                 return GLib.SOURCE_REMOVE;
             }
@@ -358,7 +357,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.transition_update_id = 0;
-                if (this.is_enabled())
+                if (this.actor)
                     this.update();
                 return GLib.SOURCE_REMOVE;
             }
@@ -401,7 +400,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     should_repaint() {
-        return this.is_enabled() && this.is_visible();
+        return this.is_visible();
     }
 
     is_visible() {
