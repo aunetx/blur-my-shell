@@ -7,7 +7,7 @@ function is_plain_object(value) {
 }
 
 function unpack_string(value, label) {
-    const unpacked = value?.deep_unpack?.();
+    const unpacked = value?.deep_unpack();
     if (typeof unpacked !== 'string')
         throw new Error(`${label} is not a string`);
 
@@ -15,7 +15,7 @@ function unpack_string(value, label) {
 }
 
 function unpack_effect(effect_variant) {
-    const effect = effect_variant?.deep_unpack?.();
+    const effect = effect_variant?.deep_unpack();
     if (!is_plain_object(effect))
         throw new Error('effect is not an object');
     if (!('type' in effect))

@@ -66,7 +66,7 @@ export const WindowListBlur = class WindowListBlur {
             this.connections.connect(
                 actor,
                 'destroy',
-                _ => this.destroy_blur(pipeline, true)
+                _ => this.destroy_blur(pipeline)
             );
 
 
@@ -98,8 +98,8 @@ export const WindowListBlur = class WindowListBlur {
     }
 
     // IMPORTANT: do never call this in a mutable `this.pipelines.forEach`
-    destroy_blur(pipeline, actor_destroyed = false) {
-        if (!actor_destroyed) {
+    destroy_blur(pipeline) {
+        if (pipeline.actor) {
             this.remove_style(pipeline.actor);
             this.paint_signals.disconnect_all_for_actor(pipeline.actor);
         }
@@ -108,7 +108,7 @@ export const WindowListBlur = class WindowListBlur {
 
         let index = this.pipelines.indexOf(pipeline);
         if (index >= 0)
-            this.pipelines.splice(pipeline, 1);
+            this.pipelines.splice(index, 1);
     }
 
     remove_style(actor) {

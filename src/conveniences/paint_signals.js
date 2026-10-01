@@ -21,9 +21,7 @@ export const PaintSignals = class PaintSignals {
             }
 
             paints_to_skip = PAINTS_BETWEEN_REPAINTS;
-            try {
-                blur_effect.queue_repaint();
-            } catch (e) { }
+            blur_effect.queue_repaint();
         });
 
         actor.add_effect(paint_effect);
@@ -42,9 +40,7 @@ export const PaintSignals = class PaintSignals {
         this.entries.delete(actor);
         entry.paint_effect.set_callback(null);
         this.connections.disconnect(actor, entry.destroy_id);
-        try {
-            actor.remove_effect(entry.paint_effect);
-        } catch (e) { }
+        actor.remove_effect(entry.paint_effect);
     }
 
     disconnect_all() {
@@ -61,7 +57,7 @@ const PaintCallbackEffect = GObject.registerClass(
         }
 
         vfunc_paint(node, paint_context, paint_flags) {
-            this._callback?.();
+            this._callback();
             super.vfunc_paint(node, paint_context, paint_flags);
         }
     }

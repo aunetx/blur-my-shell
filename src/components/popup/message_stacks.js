@@ -139,22 +139,18 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
 
         if (group.layout_manager) {
             const lm = group.layout_manager;
-            try {
-                const id = lm.connect('notify::expansion', () => {
-                    this.update_group_header(group);
-                    this.update_group_messages(group);
-                });
-                this.group_connections.set(group, { lm, id });
-            } catch (e) { }
+            const id = lm.connect('notify::expansion', () => {
+                this.update_group_header(group);
+                this.update_group_messages(group);
+            });
+            this.group_connections.set(group, { lm, id });
         }
     }
 
     untrack_group(group) {
         if (this.group_connections.has(group)) {
             const { lm, id } = this.group_connections.get(group);
-            try {
-                lm.disconnect(id);
-            } catch (e) { }
+            lm.disconnect(id);
             this.group_connections.delete(group);
         }
         this.groups.delete(group);
@@ -175,16 +171,14 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!this.watch_actor(group))
             return;
 
-        try {
-            const header = group._headerBox;
-            if (!header)
-                return;
+        const header = group._headerBox;
+        if (!header)
+            return;
 
-            const expansion = group.layout_manager?.expansion ?? (group.expanded ? 1 : 0);
-            const target_opacity = this.enabled ? Math.round(expansion * 255) : 255;
+        const expansion = group.layout_manager?.expansion ?? (group.expanded ? 1 : 0);
+        const target_opacity = this.enabled ? Math.round(expansion * 255) : 255;
 
-            header.opacity = target_opacity;
-        } catch (e) { }
+        header.opacity = target_opacity;
     }
 
     get_group_messages(group) {
@@ -279,73 +273,69 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         }
 
         // 0.01 < expansion < 0.99: Animating unravel / collapse
-        try {
-            const height = message.height || message.get_height() || 0;
-            const width = message.width || message.get_width() || 0;
+        const height = message.height || message.get_height() || 0;
+        const width = message.width || message.get_width() || 0;
 
-            if (height <= 0 || width <= 0)
-                return;
+        if (height <= 0 || width <= 0)
+            return;
 
-            const base_edge = (index === 1) ? 10 : (index === 2 ? 7 : 0);
-            const visible_edge = Math.round(base_edge + (height - base_edge) * expansion);
-            const clip_y = Math.max(0, height - visible_edge);
+        const base_edge = (index === 1) ? 10 : (index === 2 ? 7 : 0);
+        const visible_edge = Math.round(base_edge + (height - base_edge) * expansion);
+        const clip_y = Math.max(0, height - visible_edge);
 
-            message.set_clip(0, clip_y, width, visible_edge);
-            this.bms_clipped.add(message);
+        message.set_clip(0, clip_y, width, visible_edge);
+        this.bms_clipped.add(message);
 
-            // Staggered opacity progress for cards so they smoothly fade in as they unravel
-            const stagger_start = Math.min(0.8, index * 0.04);
-            const progress = Math.min(1.0, Math.max(0.0, (expansion - stagger_start) / (1.0 - stagger_start)));
-            const target_alpha = Math.round(255 * progress);
+        // Staggered opacity progress for cards so they smoothly fade in as they unravel
+        const stagger_start = Math.min(0.8, index * 0.04);
+        const progress = Math.min(1.0, Math.max(0.0, (expansion - stagger_start) / (1.0 - stagger_start)));
+        const target_alpha = Math.round(255 * progress);
 
-            this.set_child_opacity(message, target_alpha);
+        this.set_child_opacity(message, target_alpha);
 
-            if (index >= 3) {
-                this.set_message_opacity(message, target_alpha);
-            } else {
-                this.restore_message_opacity(message);
-            }
-        } catch (e) { }
+        if (index >= 3) {
+            this.set_message_opacity(message, target_alpha);
+        } else {
+            this.restore_message_opacity(message);
+        }
     }
 
     apply_stack_mask(message) {
         if (!this.watch_actor(message))
             return;
 
-        try {
-            const height = message.height || message.get_height() || 0;
-            const width = message.width || message.get_width() || 0;
+        const height = message.height || message.get_height() || 0;
+        const width = message.width || message.get_width() || 0;
 
-            if (height <= 0 || width <= 0)
-                return;
+        if (height <= 0 || width <= 0)
+            return;
 
-            const index = this.get_message_index_in_group(message);
+        const index = this.get_message_index_in_group(message);
 
-            if (index === 1) {
-                // 2nd card: tight visible strip of 10px (matches exact 10px bottom offset below card 1)
-                const visible_edge = 10;
-                const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
-                this.bms_clipped.add(message);
-            } else if (index === 2) {
-                // 3rd card: tight visible strip of 7px (matches exact 7px bottom offset below card 2)
-                const visible_edge = 7;
-                const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
-                this.bms_clipped.add(message);
-            } else if (index >= 3) {
-                // 4th+ cards: hidden when collapsed so they don't stack behind card 3
-                message.set_clip(0, height, width, 0);
-                this.bms_clipped.add(message);
-            } else {
-                // Fallback by pseudo class
-                const is_second = this.has_pseudo_class(message, 'second-in-stack');
-                const visible_edge = is_second ? 10 : 6;
-                const clip_y = Math.max(0, height - visible_edge);
-                message.set_clip(0, clip_y, width, visible_edge);
-                this.bms_clipped.add(message);
-            }
-        } catch (e) { }
+        if (index === 1) {
+            // 2nd card: tight visible strip of 10px (matches exact 10px bottom offset below card 1)
+            const visible_edge = 10;
+            const clip_y = Math.max(0, height - visible_edge);
+            message.set_clip(0, clip_y, width, visible_edge);
+            this.bms_clipped.add(message);
+        } else if (index === 2) {
+            // 3rd card: tight visible strip of 7px (matches exact 7px bottom offset below card 2)
+            const visible_edge = 7;
+            const clip_y = Math.max(0, height - visible_edge);
+            message.set_clip(0, clip_y, width, visible_edge);
+            this.bms_clipped.add(message);
+        } else if (index >= 3) {
+            // 4th+ cards: hidden when collapsed so they don't stack behind card 3
+            message.set_clip(0, height, width, 0);
+            this.bms_clipped.add(message);
+        } else {
+            // Fallback by pseudo class
+            const is_second = this.has_pseudo_class(message, 'second-in-stack');
+            const visible_edge = is_second ? 10 : 6;
+            const clip_y = Math.max(0, height - visible_edge);
+            message.set_clip(0, clip_y, width, visible_edge);
+            this.bms_clipped.add(message);
+        }
     }
 
     remove_stack_mask(message) {
@@ -353,9 +343,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             return;
 
         if (this.bms_clipped.has(message)) {
-            try {
-                message.remove_clip();
-            } catch (e) { }
+            message.remove_clip();
             this.bms_clipped.delete(message);
         }
 
@@ -368,12 +356,10 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!child)
             return;
 
-        try {
-            if (!this.original_opacity.has(child))
-                this.original_opacity.set(child, child.opacity ?? 255);
+        if (!this.original_opacity.has(child))
+            this.original_opacity.set(child, child.opacity ?? 255);
 
-            child.opacity = opacity;
-        } catch (e) { }
+        child.opacity = opacity;
     }
 
     hide_message_content(message) {
@@ -385,34 +371,30 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!child)
             return;
 
-        try {
-            if (this.original_opacity.has(child)) {
-                child.opacity = this.original_opacity.get(child);
-                this.original_opacity.delete(child);
-            }
-        } catch (e) { }
+        if (this.original_opacity.has(child)) {
+            child.opacity = this.original_opacity.get(child);
+            this.original_opacity.delete(child);
+        }
     }
 
     set_message_opacity(message, opacity) {
         if (!this.watch_actor(message))
             return;
-        try {
-            if (!this.original_message_opacity.has(message))
-                this.original_message_opacity.set(message, message.opacity ?? 255);
 
-            message.opacity = opacity;
-        } catch (e) { }
+        if (!this.original_message_opacity.has(message))
+            this.original_message_opacity.set(message, message.opacity ?? 255);
+
+        message.opacity = opacity;
     }
 
     restore_message_opacity(message) {
         if (!message || this.destroyed_actors.has(message))
             return;
-        try {
-            if (this.original_message_opacity.has(message)) {
-                message.opacity = this.original_message_opacity.get(message);
-                this.original_message_opacity.delete(message);
-            }
-        } catch (e) { }
+
+        if (this.original_message_opacity.has(message)) {
+            message.opacity = this.original_message_opacity.get(message);
+            this.original_message_opacity.delete(message);
+        }
     }
 
     get_message_index_in_group(message) {
@@ -420,79 +402,68 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (!group)
             return -1;
 
-        try {
-            const list = [];
-            const find_messages = actor => {
-                if (this.has_style_class(actor, 'message')) {
-                    list.push(actor);
-                    return;
-                }
-                actor.get_children?.().forEach(find_messages);
-            };
-            find_messages(group);
-            return list.indexOf(message);
-        } catch (e) {
-            return -1;
-        }
+        const list = [];
+        const find_messages = actor => {
+            if (this.has_style_class(actor, 'message')) {
+                list.push(actor);
+                return;
+            }
+            actor.get_children().forEach(find_messages);
+        };
+        find_messages(group);
+        return list.indexOf(message);
     }
 
     has_pseudo_class(actor, pseudo_class) {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
-        try {
-            if (actor.has_style_pseudo_class)
-                return actor.has_style_pseudo_class(pseudo_class);
-            return (actor.get_style_pseudo_class?.() ?? '').split(/\s+/).includes(pseudo_class);
-        } catch (e) {
-            return false;
-        }
+
+        if (actor.has_style_pseudo_class)
+            return actor.has_style_pseudo_class(pseudo_class);
+
+        if (actor.get_style_pseudo_class)
+            return (actor.get_style_pseudo_class() ?? '').split(/\s+/).includes(pseudo_class);
+
+        return false;
     }
 
     get_message_group(message) {
-        let actor = message;
-        while (actor) {
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                return null;
-            }
+        let actor = message ? message.get_parent() : null;
 
+        while (actor && !this.destroyed_actors.has(actor)) {
             if (this.has_style_class(actor, 'message-notification-group'))
                 return actor;
+            actor = actor.get_parent();
         }
         return null;
     }
 
     is_in_expanded_group(message) {
-        let actor = message;
+        let actor = message ? message.get_parent() : null;
 
-        while (actor) {
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                return false;
-            }
-
+        while (actor && !this.destroyed_actors.has(actor)) {
             if (
                 this.has_style_class(actor, 'message-notification-group')
                 && actor.expanded
             )
                 return true;
+            actor = actor.get_parent();
         }
 
         return false;
     }
 
     is_stacked(message) {
+        if (!message || this.destroyed_actors.has(message))
+            return false;
         return STACKED_PSEUDO_CLASSES.some(pseudo_class => {
-            try {
-                if (message.has_style_pseudo_class)
-                    return message.has_style_pseudo_class(pseudo_class);
+            if (message.has_style_pseudo_class)
+                return message.has_style_pseudo_class(pseudo_class);
 
-                return (message.get_style_pseudo_class?.() ?? '').split(/\s+/).includes(pseudo_class);
-            } catch (e) {
-                return false;
-            }
+            if (message.get_style_pseudo_class)
+                return (message.get_style_pseudo_class() ?? '').split(/\s+/).includes(pseudo_class);
+
+            return false;
         });
     }
 
@@ -507,25 +478,23 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (this.has_any_style_class(actor, INTERNAL_STYLE_CLASSES))
             return true;
 
-        try {
-            return INTERNAL_NAMES.includes(actor.name ?? actor.get_name?.());
-        } catch (e) {
+        if (this.destroyed_actors.has(actor))
             return false;
-        }
+
+        return INTERNAL_NAMES.includes(actor.name ?? actor.get_name());
     }
 
     has_style_class(actor, style_class) {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
 
-        try {
-            if (actor?.has_style_class_name)
-                return actor.has_style_class_name(style_class);
+        if (actor.has_style_class_name)
+            return actor.has_style_class_name(style_class);
 
-            return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
-        } catch (e) {
-            return false;
-        }
+        if (actor.get_style_class_name)
+            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+        return false;
     }
 
     watch_actor(actor) {
@@ -534,19 +503,15 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (this.watched_actors.has(actor))
             return true;
 
-        try {
-            this.connections.connect(actor, 'destroy', () => {
-                this.destroyed_actors.add(actor);
-                this.containers.delete(actor);
-                if (this.groups.has(actor)) {
-                    this.untrack_group(actor);
-                }
-                this.messages.delete(actor);
-                this.cancel_update(actor);
-            });
-        } catch (e) {
-            return false;
-        }
+        this.connections.connect(actor, 'destroy', () => {
+            this.destroyed_actors.add(actor);
+            this.containers.delete(actor);
+            if (this.groups.has(actor)) {
+                this.untrack_group(actor);
+            }
+            this.messages.delete(actor);
+            this.cancel_update(actor);
+        });
 
         this.watched_actors.add(actor);
         return true;
@@ -556,22 +521,14 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         if (this.is_internal_actor(actor) || !this.watch_actor(actor))
             return [];
 
-        try {
-            return actor.get_children?.() ?? [];
-        } catch (e) {
-            return [];
-        }
+        return actor.get_children();
     }
 
     get_child(actor) {
         if (!this.watch_actor(actor))
             return null;
 
-        try {
-            return actor.get_child?.() ?? actor.child ?? null;
-        } catch (e) {
-            return null;
-        }
+        return (actor.get_child ? actor.get_child() : actor.child) || null;
     }
 
     cancel_update(message) {
@@ -584,9 +541,7 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
     }
 
     connect(actor, signal, handler) {
-        try {
-            this.connections.connect(actor, signal, handler);
-        } catch (e) { }
+        this.connections.connect(actor, signal, handler);
     }
 
     disable() {
@@ -594,17 +549,13 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.update_ids.clear();
         this.messages.forEach(message => this.remove_stack_mask(message));
         this.groups.forEach(group => {
-            try {
-                if (group._headerBox) {
-                    group._headerBox.opacity = 255;
-                }
-            } catch (e) { }
+            if (group._headerBox) {
+                group._headerBox.opacity = 255;
+            }
             this.untrack_group(group);
         });
         this.group_connections.forEach(({ lm, id }) => {
-            try {
-                lm.disconnect(id);
-            } catch (e) { }
+            lm.disconnect(id);
         });
         this.group_connections.clear();
         this.messages.clear();

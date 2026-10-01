@@ -29,7 +29,7 @@ const IS_QUICK_SETTINGS_STYLE_CLASSES = [
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
-    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius, is_enabled) {
+    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius) {
         this.connections = connections;
         this.settings = settings;
         this.effects_manager = effects_manager;
@@ -38,7 +38,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.parent = parent;
         this.sibling = sibling;
         this.corner_radius = corner_radius;
-        this.is_enabled = is_enabled;
         this.paint_signals = new PaintSignals(connections);
         this.placement = new PopupBlurSurfacePlacement(this);
         this.signals = new PopupBlurSurfaceSignals(this);
@@ -50,9 +49,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.opacity = null;
         this.static_blur = settings.popup.STATIC_BLUR;
         this.static_actor = null;
-        this.actor_destroyed = false;
-        this.blur_actor_destroyed = false;
-        this.destroyed = false;
+        this.actor = null;
+        this.blur_actor = null;
     }
 
     enable() {
@@ -97,7 +95,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             reactive: false,
         });
         this.blur_actor.add_style_class_name('bms-popup-blurred-widget');
-        this.track_owned_actor(this.blur_actor, { actor: true, blur_actor: true });
+        this.track_owned_actor(this.blur_actor);
         this.pipeline = new DummyPipeline(
             this.effects_manager,
             this.settings.popup,
@@ -132,30 +130,24 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.pipeline = this.static_actor.pipeline;
     }
 
-    track_owned_actor(actor, flags = {}) {
-        try {
-            this.connections.connect(actor, 'destroy', () => {
-                if (flags.actor)
-                    this.actor_destroyed = true;
-                if (flags.blur_actor)
-                    this.blur_actor_destroyed = true;
-            });
-        } catch (e) { }
+    track_owned_actor(actor) {
+        this.connections.connect(actor, 'destroy', () => {
+            this.actor = null;
+            this.blur_actor = null;
+        });
     }
 
     set_actor_position() {
-        if (this.is_owned_actor_destroyed())
+        if (!this.is_actor_valid())
             return;
-        try {
-            const sibling = this.sibling?.get_parent?.() === this.parent ? this.sibling : null;
-            if (this.is_below_sibling(sibling))
-                return;
-            this.parent.set_child_below_sibling(this.actor, sibling);
-        } catch (e) { }
+        const sibling = this.sibling?.get_parent() === this.parent ? this.sibling : null;
+        if (this.is_below_sibling(sibling))
+            return;
+        this.parent.set_child_below_sibling(this.actor, sibling);
     }
 
     is_below_sibling(sibling) {
-        const children = this.parent.get_children?.() ?? [];
+        const children = this.parent.get_children();
         const actor_index = children.indexOf(this.actor);
         if (actor_index < 0)
             return false;
@@ -176,56 +168,52 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     update() {
-        try {
-            if (this.is_notification_surface()) {
-                this.update_live_surface();
-                return;
-            }
-            let transition_state = this.transitions.get_state();
-            let geometry = this.placement.get_surface_geometry();
-            const visible = this.is_visible();
-            const geometry_changed = this.placement.has_surface_geometry_changed(geometry);
-            if (
-                !visible
-                || !this.placement.has_valid_geometry(geometry)
-                || (!transition_state.geometry && geometry_changed)
-            )
-                transition_state = this.transitions.complete_state(transition_state);
-            if (!visible && !transition_state.running) {
-                this.hide_surface();
-                return;
-            }
-            if (!this.placement.has_valid_geometry(geometry)) {
-                if (this.placement.offscreen)
-                    return this.hide_surface();
-                if (this.placement.keep_transition_visible(transition_state)) {
-                    this.queue_repaint(true);
-                    this.queue_transition_update(transition_state);
-                    return;
-                }
-
-                if (transition_state.running) {
-                    this.queue_transition_update(transition_state);
-                    return;
-                }
-                this.hide_surface();
-                return;
-            }
-            this.set_actor_position();
-            if (!this.placement.update_surface_geometry(geometry))
-                return;
-            if (!this.placement.prepare_visible_geometry())
-                return;
-            const opacity = this.update_opacity(transition_state);
-            if (opacity > 0)
-                this.show_actors();
-            else
-                this.hide_actors();
-            this.queue_repaint(!visible);
-            this.queue_transition_update(transition_state);
-        } catch (e) {
-            this.hide_surface();
+        if (this.is_notification_surface()) {
+            this.update_live_surface();
+            return;
         }
+        let transition_state = this.transitions.get_state();
+        let geometry = this.placement.get_surface_geometry();
+        const visible = this.is_visible();
+        const geometry_changed = this.placement.has_surface_geometry_changed(geometry);
+        if (
+            !visible
+            || !this.placement.has_valid_geometry(geometry)
+            || (!transition_state.geometry && geometry_changed)
+        )
+            transition_state = this.transitions.complete_state(transition_state);
+        if (!visible && !transition_state.running) {
+            this.hide_surface();
+            return;
+        }
+        if (!this.placement.has_valid_geometry(geometry)) {
+            if (this.placement.offscreen)
+                return this.hide_surface();
+            if (this.placement.keep_transition_visible(transition_state)) {
+                this.queue_repaint(true);
+                this.queue_transition_update(transition_state);
+                return;
+            }
+
+            if (transition_state.running) {
+                this.queue_transition_update(transition_state);
+                return;
+            }
+            this.hide_surface();
+            return;
+        }
+        this.set_actor_position();
+        if (!this.placement.update_surface_geometry(geometry))
+            return;
+        if (!this.placement.prepare_visible_geometry())
+            return;
+        const opacity = this.update_opacity(transition_state);
+        if (opacity > 0)
+            this.show_actors();
+        else
+            this.hide_actors();
+        this.queue_repaint(!visible);
+        this.queue_transition_update(transition_state);
     }
 
     update_live_surface() {
@@ -283,7 +271,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     has_surface_opacity(opacity) {
         if (this.static_blur)
             return this.static_actor.has_opacity(opacity);
-        if (this.is_owned_actor_destroyed())
+        if (!this.is_actor_valid())
             return false;
         return this.actor.opacity === opacity;
     }
@@ -295,9 +283,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         }
         this.fade.set_opacity(opacity);
-        try {
-            this.pipeline?.set_opacity_factor(pipeline_opacity / 255);
-        } catch (e) { }
+        this.pipeline?.set_opacity_factor(pipeline_opacity / 255);
     }
 
     get_pipeline_opacity(opacity) {
@@ -333,34 +319,30 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     show_actors() {
-        try {
-            if (!this.is_owned_actor_destroyed())
-                this.actor?.show?.();
-        } catch (e) { }
+        if (this.is_actor_valid())
+            this.actor?.show();
     }
 
     hide_actors() {
-        try {
-            if (!this.is_owned_actor_destroyed())
-                this.actor?.hide?.();
-        } catch (e) { }
+        if (this.is_actor_valid())
+            this.actor?.hide();
     }
 
-    is_owned_actor_destroyed() {
+    is_actor_valid() {
         return (
-            this.actor_destroyed
-            || (this.static_blur && this.static_actor?.background_group_destroyed)
+            !!this.actor
+            && (!this.static_blur || !!this.static_actor?.background_group)
         );
     }
 
     queue_update() {
-        if (this.destroyed || this.update_id || this.transition_update_id)
+        if (!this.actor || this.update_id || this.transition_update_id)
             return;
         this.update_id = global.compositor.get_laters().add(
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.update_id = 0;
-                if (this.is_enabled())
+                if (this.actor)
                     this.update();
                 return GLib.SOURCE_REMOVE;
             }
@@ -369,13 +351,13 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     queue_transition_update(transition_state = null) {
         const has_running_transition = transition_state?.running ?? this.transitions.has_running();
-        if (this.destroyed || this.transition_update_id || this.update_id || !has_running_transition)
+        if (!this.actor || this.transition_update_id || this.update_id || !has_running_transition)
             return;
         this.transition_update_id = global.compositor.get_laters().add(
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.transition_update_id = 0;
-                if (this.is_enabled())
+                if (this.actor)
                     this.update();
                 return GLib.SOURCE_REMOVE;
             }
@@ -392,10 +374,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.blur_actor,
             this.target,
         ].forEach(actor => {
-            try {
-                this.paint_signals.disconnect_all_for_actor(actor);
-                this.paint_signals.connect(actor, repaint_source);
-            } catch (e) { }
+            this.paint_signals.disconnect_all_for_actor(actor);
+            this.paint_signals.connect(actor, repaint_source);
         });
     }
 
@@ -413,16 +393,14 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         this.repaint_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.repaint_id = 0;
-            try {
-                if (force || this.should_repaint())
-                    this.pipeline?.repaint_effect();
-            } catch (e) { }
+            if (force || this.should_repaint())
+                this.pipeline?.repaint_effect();
             return GLib.SOURCE_REMOVE;
         });
     }
 
     should_repaint() {
-        return this.is_enabled() && this.is_visible();
+        return this.is_visible();
     }
 
     is_visible() {
@@ -437,19 +415,15 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     is_actor_visible(actor) {
-        try {
-            if (!actor)
-                return false;
-            if (actor.visible && actor.mapped)
-                return true;
-            if (!this.is_keyboard_surface())
-                return false;
-
-            const parent = actor.get_parent?.();
-            return parent?.visible && parent?.mapped;
-        } catch (e) {
+        if (!actor)
             return false;
-        }
+        if (actor.visible && actor.mapped)
+            return true;
+        if (!this.is_keyboard_surface())
+            return false;
+
+        const parent = actor.get_parent();
+        return parent?.visible && parent?.mapped;
     }
 
     update_pipeline() {
@@ -459,30 +433,31 @@ export const PopupBlurSurface = class PopupBlurSurface {
         }
     }
 
-    destroy(actor_already_destroyed = false) {
-        this.destroyed = true;
-        if (this.update_id)
+    destroy() {
+        if (this.update_id) {
             global.compositor.get_laters().remove(this.update_id);
-        this.update_id = 0;
-        if (this.transition_update_id)
+            this.update_id = 0;
+        }
+        if (this.transition_update_id) {
             global.compositor.get_laters().remove(this.transition_update_id);
-        this.transition_update_id = 0;
-        if (this.repaint_id)
-            GLib.source_remove(this.repaint_id);
-        this.repaint_id = 0;
-        try {
-            this.paint_signals.disconnect_all_for_actor(this.blur_actor);
-            if (!actor_already_destroyed)
-                this.paint_signals.disconnect_all_for_actor(this.target);
-        } catch (e) { }
-        if (!actor_already_destroyed)
-            this.style.restore_target_style();
-        this.fade = null;
+            this.transition_update_id = 0;
+        }
+        if (this.repaint_id) {
+            GLib.Source.remove(this.repaint_id);
+            this.repaint_id = 0;
+        }
+
         this.signals.disconnect_all();
+        this.paint_signals.disconnect_all_for_actor(this.blur_actor);
+        this.paint_signals.disconnect_all_for_actor(this.target);
+        this.style.restore_target_style();
+
         if (this.static_blur)
-            this.destroy_static_actor(actor_already_destroyed);
+            this.destroy_static_actor();
         else
             this.destroy_dynamic_actor();
+
+        this.fade = null;
     }
 
     destroy_dynamic_actor() {
@@ -491,17 +466,15 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.pipeline = null;
         this.blur_actor = null;
         this.actor = null;
-        try {
-            pipeline?.destroy();
-        } catch (e) { }
-        try {
-            if (!this.blur_actor_destroyed)
-                blur_actor?.destroy?.();
-        } catch (e) { }
+        if (pipeline)
+            pipeline.destroy();
+        if (blur_actor)
+            blur_actor.destroy();
     }
 
-    destroy_static_actor(actor_already_destroyed = false) {
-        this.static_actor?.destroy(actor_already_destroyed);
+    destroy_static_actor() {
+        if (this.static_actor)
+            this.static_actor.destroy();
         this.static_actor = null;
         this.actor = null;
         this.blur_actor = null;

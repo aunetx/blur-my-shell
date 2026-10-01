@@ -228,14 +228,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         if (this.settings.applications.STATIC_BLUR && meta_window.get_client_type() === Meta.WindowClientType.X11) {
             const window_actor = meta_window.get_compositor_private();
-            window_actor.connect('child-added', _ => {
-                if (!meta_window.blur_actor) {
-                    this._warn("can't move blur actor to back, it doesn't exist");
-                    return;
-                }
+            if (window_actor) {
+                this.connections.connect(window_actor, 'child-added', _ => {
+                    if (!meta_window.blur_actor)
+                        return;
 
-                window_actor.set_child_below_sibling(meta_window.blur_actor, null);
-            });
+                    window_actor.set_child_below_sibling(meta_window.blur_actor, null);
+                });
+            }
         }
     }
 

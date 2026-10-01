@@ -179,10 +179,8 @@ export const PopupBlur = class PopupBlur {
             return;
 
         actors.forEach(actor => {
-            try {
-                if (!this.destroyed_actors.has(actor) && !this.is_internal_actor(actor))
-                    this.try_blur(actor);
-            } catch (e) { }
+            if (!this.destroyed_actors.has(actor) && !this.is_internal_actor(actor))
+                this.try_blur(actor);
         });
     }
 
@@ -228,50 +226,38 @@ export const PopupBlur = class PopupBlur {
 
         this.surfaces.set(target, surface);
 
-        try {
-            if (surface.enable())
-                return this.connect_surface(target, root_actor);
-        } catch (e) { }
+        if (surface.enable())
+            return this.connect_surface(target, root_actor);
 
         this.surfaces.delete(target);
-        try {
-            surface.destroy();
-        } catch (e) { }
+        surface.destroy();
     }
 
     connect_surface(target, root_actor) {
         this.connections.connect(
             target,
             'destroy',
-            () => this.destroy_blur(target, true)
+            () => this.destroy_blur(target)
         );
 
         if (root_actor !== target) {
             this.connections.connect(
                 root_actor,
                 'destroy',
-                () => this.destroy_blur(target, true)
+                () => this.destroy_blur(target)
             );
         }
     }
 
     destroy_blurred_ancestors(actor) {
-        try {
-            actor = actor.get_parent?.();
-        } catch (e) {
-            return;
-        }
+        actor = actor ? actor.get_parent() : null;
 
         while (actor && !this.destroyed_actors.has(actor)) {
             if (this.surfaces.has(actor) && this.targets.prefers_descendant_targets(actor)) {
                 this.destroy_blur(actor);
             }
 
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                return;
-            }
+            actor = actor.get_parent();
         }
     }
 
@@ -279,7 +265,7 @@ export const PopupBlur = class PopupBlur {
         if (this.has_any_style_class(target, ['screenshot-ui-panel'])) {
             const parent = Main.screenshotUI ?? Main.uiGroup;
             let sibling = target;
-            while (sibling && sibling.get_parent?.() && sibling.get_parent() !== parent) {
+            while (sibling && sibling.get_parent() && sibling.get_parent() !== parent) {
                 sibling = sibling.get_parent();
             }
             return {
@@ -292,23 +278,19 @@ export const PopupBlur = class PopupBlur {
         let child = null;
         while (actor && !this.destroyed_actors.has(actor)) {
             let parent = null;
-            try {
-                parent = actor.get_parent?.();
-            } catch (e) {
-                break;
-            }
+            parent = actor.get_parent();
 
             if (!parent)
                 break;
 
-            if (parent === Main.layoutManager?.unlockDialogGroup ||
-                parent === Main.layoutManager?.screenShieldGroup ||
+            if (parent === Main.layoutManager.unlockDialogGroup ||
+                parent === Main.layoutManager.screenShieldGroup ||
                 parent === Main.uiGroup || 
-                parent === Main.layoutManager?.uiGroup)
+                parent === Main.layoutManager.uiGroup)
                 return { parent, sibling: actor };
 
             if (parent === global.window_group)
-                return { parent: actor, sibling: child ?? actor.get_last_child?.() ?? null };
+                return { parent: actor, sibling: child ?? actor.get_last_child() };
 
             child = actor;
             actor = parent;
@@ -329,13 +311,13 @@ export const PopupBlur = class PopupBlur {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
 
-        try {
-            const class_names = actor.get_style_class_name?.();
+        if (actor.get_style_class_name) {
+            const class_names = actor.get_style_class_name();
             if (typeof class_names === 'string') {
                 const normalized = ` ${class_names.trim().replace(/\s+/g, ' ')} `;
                 return style_classes.some(style_class => normalized.includes(` ${style_class} `));
             }
-        } catch (e) { }
+        }
 
         return style_classes.some(style => this.has_style_class(actor, style));
     }
@@ -344,22 +326,19 @@ export const PopupBlur = class PopupBlur {
         if (!actor || this.destroyed_actors.has(actor))
             return false;
 
-        try {
-            if (actor?.has_style_class_name)
-                return actor.has_style_class_name(style_class);
+        if (actor.has_style_class_name)
+            return actor.has_style_class_name(style_class);
 
-            return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
-        } catch (e) {
-            return false;
-        }
+        if (actor.get_style_class_name)
+            return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+        return false;
     }
 
     is_window_actor(actor) {
-        try {
-            return actor?.get_parent?.() === global.window_group;
-        } catch (e) {
+        if (!actor || this.destroyed_actors.has(actor))
             return false;
-        }
+        return actor.get_parent() === global.window_group;
     }
 
     is_internal_actor(actor) {
@@ -369,11 +348,10 @@ export const PopupBlur = class PopupBlur {
         if (this.has_any_style_class(actor, POPUP_INTERNAL_STYLE_CLASSES))
             return true;
 
-        try {
-            return POPUP_INTERNAL_NAMES.includes(actor.name ?? actor.get_name?.());
-        } catch (e) {
+        if (this.destroyed_actors.has(actor))
             return false;
-        }
+
+        return POPUP_INTERNAL_NAMES.includes(actor.name ?? actor.get_name());
     }
 
     watch_actor(actor) {
@@ -382,14 +360,10 @@ export const PopupBlur = class PopupBlur {
         if (this.watched_actors.has(actor))
             return true;
 
-        try {
-            this.connections.connect(actor, 'destroy', () => {
-                this.destroyed_actors.add(actor);
-                this.containers.delete(actor);
-            });
-        } catch (e) {
-            return false;
-        }
+        this.connections.connect(actor, 'destroy', () => {
+            this.destroyed_actors.add(actor);
+            this.containers.delete(actor);
+        });
 
         this.watched_actors.add(actor);
         return true;
@@ -399,48 +373,35 @@ export const PopupBlur = class PopupBlur {
         if (!this.watch_actor(actor))
             return [];
 
-        try {
-            return actor.get_children?.() ?? [];
-        } catch (e) {
-            return [];
-        }
+        return actor.get_children();
     }
 
     get_actor_delegate(actor) {
         if (!this.watch_actor(actor))
             return null;
 
-        try {
-            return actor._delegate ?? null;
-        } catch (e) {
-            return null;
-        }
+        return actor._delegate || null;
     }
 
     get_actor_overlay(actor) {
-        return this.get_actor_delegate(actor)?._overlay ?? null;
+        const delegate = this.get_actor_delegate(actor);
+        return (delegate && delegate._overlay) || null;
     }
 
     get_actor_dialog_layout(actor) {
         if (!this.watch_actor(actor))
             return null;
 
-        try {
-            return actor.dialogLayout ?? null;
-        } catch (e) {
-            return null;
-        }
+        return actor.dialogLayout || null;
     }
 
-    destroy_blur(actor, actor_already_destroyed = false) {
+    destroy_blur(actor) {
         const surface = this.surfaces.get(actor);
         if (!surface)
             return;
 
         this.surfaces.delete(actor);
-        try {
-            surface.destroy(actor_already_destroyed);
-        } catch (e) { }
+        surface.destroy();
     }
 
     reset() {
@@ -466,11 +427,12 @@ export const PopupBlur = class PopupBlur {
 
     _get_keyboard_actors() {
         const actors = new Set();
-        if (Main.keyboard?.keyboardActor)
+        if (Main.keyboard && Main.keyboard.keyboardActor)
             actors.add(Main.keyboard.keyboardActor);
-        if (Main.keyboard?._keyboard)
+        if (Main.keyboard && Main.keyboard._keyboard)
             actors.add(Main.keyboard._keyboard);
-        (Main.layoutManager?.keyboardBox?.get_children?.() ?? []).forEach(child => actors.add(child));
+        if (Main.layoutManager.keyboardBox)
+            Main.layoutManager.keyboardBox.get_children().forEach(child => actors.add(child));
         return [...actors];
     }
 
@@ -534,15 +496,15 @@ export const PopupBlur = class PopupBlur {
         if (style >= 0 && style < POPUP_BACKGROUND_STYLES.length)
             return style;
 
-        const theme = St.ThemeContext.get_for_stage(global.stage).get_theme?.();
-        let uri = theme?.default_stylesheet?.get_uri?.();
+        const theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
+        let uri = theme?.default_stylesheet?.get_uri();
         if (theme?.application_stylesheet)
-            uri = theme?.application_stylesheet?.get_uri?.();
+            uri = theme?.application_stylesheet?.get_uri();
         const lower_uri = typeof uri === 'string' ? uri.toLowerCase() : '';
         if (lower_uri.includes('yaru'))
             return lower_uri.includes('dark') ? 2 : 1;
 
-        const shell_style = Main.getStyleVariant?.();
+        const shell_style = Main.getStyleVariant();
         if (shell_style === 'light')
             return 1;
 

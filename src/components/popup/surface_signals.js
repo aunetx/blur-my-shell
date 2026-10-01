@@ -18,7 +18,6 @@ const SURFACE_SIGNALS = [
     'notify::scale-x',
     'notify::scale-y',
     'notify::pseudo-class',
-    'style-changed',
 ]; 
 
 export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
@@ -39,7 +38,6 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         const is_heavy_surface = this.surface.is_heavy_surface();
 
         SURFACE_SIGNALS.forEach(signal => {
-            try {
             let id = actor.connect(signal, () => {
                 this.clear_pending_idles();
                 const is_visibility_change = signal === 'notify::visible' || signal === 'notify::mapped';
@@ -56,31 +54,20 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
                 }
             });
             this.signal_ids.push([actor, id, signal]);
-            } catch (e) { }
         });
     }
 
     track_destroy(actor) {
-        try {
-            const id = actor.connect('destroy', () => this.destroyed_actors.add(actor));
-            this.signal_ids.push([actor, id]);
-        } catch (e) { }
+        const id = actor.connect('destroy', () => this.destroyed_actors.add(actor));
+        this.signal_ids.push([actor, id]);
     }
 
     connect_ancestors(actor) {
-        try {
-            actor = actor?.get_parent?.();
-        } catch (e) {
-            return;
-        }
+        actor = actor ? actor.get_parent() : null;
 
         while (actor && actor !== this.surface.parent) {
             this.connect_actor(actor);
-            try {
-                actor = actor.get_parent?.();
-            } catch (e) {
-                return;
-            }
+            actor = actor.get_parent();
         }
     }
 
@@ -88,12 +75,10 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         if (!this.surface.static_blur)
             return;
 
-        try {
-            this.signal_ids.push([
-                Main.layoutManager,
-                Main.layoutManager.connect('monitors-changed', () => this.surface.queue_update()),
-            ]);
-        } catch (e) { }
+        this.signal_ids.push([
+            Main.layoutManager,
+            Main.layoutManager.connect('monitors-changed', () => this.surface.queue_update()),
+        ]);
     }
 
     connect_settings() {
@@ -123,9 +108,7 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
             if (this.destroyed_actors.has(signal_actor))
                 return;
 
-            try {
-                signal_actor.disconnect(signal_id);
-            } catch (e) { }
+            signal_actor.disconnect(signal_id);
         });
         this.signal_ids = [];
         this.signal_actors = new WeakSet();

@@ -117,28 +117,14 @@ export default class BlurMyShell extends Extension {
 
         // try to enable the components as soon as possible anyway, this way the
         // overview may load before the user sees it
-        try {
-            if (this._settings.overview.BLUR && !this._overview_blur.enabled)
-                this._overview_blur.enable();
-        } catch (e) {
-            this._log("Could not enable overview blur directly");
-            this._log(e);
-        }
-        try {
-            if (this._settings.dash_to_dock.BLUR
-                && !this._dash_to_dock_blur.enabled)
-                this._dash_to_dock_blur.enable();
-        } catch (e) {
-            this._log("Could not enable dash-to-dock blur directly");
-            this._log(e);
-        }
-        try {
-            if (this._settings.panel.BLUR && !this._panel_blur.enabled)
-                this._panel_blur.enable();
-        } catch (e) {
-            this._log("Could not enable panel blur directly");
-            this._log(e);
-        }
+        if (this._settings.overview.BLUR && !this._overview_blur.enabled)
+            this._overview_blur.enable();
+
+        if (this._settings.dash_to_dock.BLUR && !this._dash_to_dock_blur.enabled)
+            this._dash_to_dock_blur.enable();
+
+        if (this._settings.panel.BLUR && !this._panel_blur.enabled)
+            this._panel_blur.enable();
 
         // tells the extension we have enabled the user session components, so that we do not
         // disable them later if they were not even enabled to begin with

@@ -160,9 +160,7 @@ const DownscaleEffectClass = utils.IS_IN_PREFERENCES ? null : class DownscaleEff
 
             const pipeline = this.get_pipeline();
             if (pipeline) {
-                try {
-                    pipeline.set_layer_filters(0, 9728, 9728);
-                } catch (e) { }
+                pipeline.set_layer_filters(0, 9728, 9728);
             }
 
             super.vfunc_paint_target(paint_node, paint_context);

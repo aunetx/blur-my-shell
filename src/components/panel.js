@@ -22,10 +22,6 @@ const GRADIENT_PANEL_STYLES = [
     "gradient-panel-reverse"
 ];
 
-// global listener, so we don't miss the panel destruction event
-let isMainPanelAlive = true;
-Main.panel.connect('destroy', () => isMainPanelAlive = false);
-
 export const PanelBlur = class PanelBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
@@ -43,6 +39,12 @@ export const PanelBlur = class PanelBlur {
             this._log("blur already enabled");
             return;
         }
+
+        // global listener, so we don't miss the panel destruction event
+        this._isMainPanelAlive = true;
+        this.connections.connect(Main.panel, 'destroy', () => {
+            this._isMainPanelAlive = false;
+        });
 
         this._log("blurring top panel");
 
@@ -126,14 +128,14 @@ export const PanelBlur = class PanelBlur {
                 this.blur_dtp_panels();
         } else {
             // if no dash-to-panel, blur the main panel
-            if (isMainPanelAlive)
+            if (this._isMainPanelAlive)
                 this.maybe_blur_panel(Main.panel);
 
             // blur panels already created by extension multi-monitors-bar@frederykabryan
             Main.uiGroup.get_children().forEach(actor => {
                 if (actor.get_name() === "panelBox" && actor.get_n_children() === 1) {
                     let multi_monitor_panel = actor.get_child_at_index(0);
-                    if (isMainPanelAlive && multi_monitor_panel != Main.panel)
+                    if (this._isMainPanelAlive && multi_monitor_panel != Main.panel)
                         this.maybe_blur_panel(multi_monitor_panel);
                 }
             })
@@ -169,7 +171,7 @@ export const PanelBlur = class PanelBlur {
                 &&
                 this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
                 &&
-                isMainPanelAlive
+                this._isMainPanelAlive
             )
                 this.maybe_blur_panel(Main.panel);
 
@@ -299,6 +301,9 @@ export const PanelBlur = class PanelBlur {
             is_dtp_panel
         };
         this.actors_list.push(actors);
+        background_group.connect('destroy', () => {
+            actors.widgets.background_group = null;
+        });
 
         // defer size update to idle to avoid allocation race
         this.queue_update_size(actors);
@@ -333,7 +338,7 @@ export const PanelBlur = class PanelBlur {
         this.connections.connect(
             panel,
             'destroy',
-            _ => this.destroy_blur(actors, true)
+            _ => this.destroy_blur(actors)
         );
     }
 
@@ -546,7 +551,7 @@ export const PanelBlur = class PanelBlur {
 
     /// Update the css classname of the panel for light theme
     update_light_text_classname(disable = false) {
-        if (!isMainPanelAlive)
+        if (!this._isMainPanelAlive)
             return;
 
         if (this.settings.panel.FORCE_LIGHT_TEXT && !disable)
@@ -580,7 +585,7 @@ export const PanelBlur = class PanelBlur {
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
-            isMainPanelAlive && Main.panel.has_style_pseudo_class('overview')
+            this._isMainPanelAlive && Main.panel.has_style_pseudo_class('overview')
             || !Main.sessionMode.hasWindows
         ) {
             this.actors_list.forEach(
@@ -768,19 +773,22 @@ export const PanelBlur = class PanelBlur {
     }
 
     // IMPORTANT: do never call this in a mutable `this.actors_list.forEach`
-    destroy_blur(actors, panel_already_destroyed) {
+    destroy_blur(actors) {
         this.set_should_override_panel(actors, false);
 
-        actors.bg_manager._bms_pipeline.destroy();
-
-        if (panel_already_destroyed)
+        if (actors.bg_manager) {
+            if (actors.bg_manager._bms_pipeline) {
+                actors.bg_manager._bms_pipeline.destroy();
+                actors.bg_manager._bms_pipeline = null;
+            }
             actors.bg_manager.backgroundActor = null;
-        actors.bg_manager.destroy();
+            actors.bg_manager.destroy();
+            actors.bg_manager = null;
+        }
 
-        if (!panel_already_destroyed) {
-            actors.widgets.panel_box.remove_child(actors.widgets.background_group);
-            actors.widgets.background_group.destroy_all_children();
+        if (actors.widgets && actors.widgets.background_group) {
             actors.widgets.background_group.destroy();
+            actors.widgets.background_group = null;
         }
 
         let index = this.actors_list.indexOf(actors);
@@ -801,11 +809,12 @@ export const PanelBlur = class PanelBlur {
         this.update_light_text_classname(true);
 
         const immutable_actors_list = [...this.actors_list];
-        immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
+        immutable_actors_list.forEach(actors => this.destroy_blur(actors));
         this.actors_list = [];
         this.queued_updates.clear();
 
         this._dirty = true;
+        this._first_boot = null;
 
         this.connections.disconnect_all();
 

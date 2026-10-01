@@ -52,21 +52,16 @@ export const EffectsManager = class EffectsManager {
 
     disconnect_actor_destroy(effect) {
         if (effect._bms_actor && effect._bms_actor_destroy_id) {
-            try {
-                effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
-            } catch (e) { }
+            effect._bms_actor.disconnect(effect._bms_actor_destroy_id);
         }
         effect._bms_actor = null;
         effect._bms_actor_destroy_id = null;
     }
 
-    remove(effect, actor_already_destroyed = false) {
-        if (!actor_already_destroyed)
-            try {
-                effect.get_actor()?.remove_effect(effect);
-            } catch (e) {
-                this._warn(`could not remove the effect, continuing: ${e}`);
-            }
+    remove(effect) {
+        const actor = effect.get_actor();
+        if (actor)
+            actor.remove_effect(effect);
         this.disconnect_actor_destroy(effect);
 
         if (this.used.delete(effect)) {

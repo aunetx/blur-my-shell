@@ -21,9 +21,7 @@ export function set_uniform(effect, name, value) {
 
     effect._bms_uniforms.set(name, value);
     effect._bms_uniforms_dirty = true;
-    try {
-        effect.queue_repaint();
-    } catch (e) { }
+    effect.queue_repaint();
 }
 
 export function mark_dirty(effect) {
@@ -32,7 +30,7 @@ export function mark_dirty(effect) {
 }
 
 export function upload_uniforms(effect) {
-    if (!effect._bms_uniforms_dirty || !effect._bms_uniforms || !effect.get_actor?.())
+    if (!effect._bms_uniforms_dirty || !effect._bms_uniforms || !effect.get_actor())
         return;
 
     for (const [name, value] of effect._bms_uniforms) {

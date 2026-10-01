@@ -184,14 +184,7 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     has_style_class(actor, style_class) {
-        try {
-            if (actor?.has_style_class_name)
-                return actor.has_style_class_name(style_class);
-
-            return (actor?.get_style_class_name?.() ?? '').split(/\s+/).includes(style_class);
-        } catch (e) { }
-
-        return false;
+        return has_style_class(actor, style_class);
     }
 
     get_style_classes(actor) {
@@ -201,20 +194,20 @@ export const PopupBlurTargets = class PopupBlurTargets {
         if (this.style_cache.has(actor))
             return this.style_cache.get(actor);
 
-        try {
-            const class_names = actor.get_style_class_name?.();
-            if (typeof class_names !== 'string') {
-                this.style_cache.set(actor, null);
-                return null;
-            }
-
-            const classes = new Set(class_names.split(/\s+/).filter(Boolean));
-            this.style_cache.set(actor, classes);
-            return classes;
-        } catch (e) {
+        if (!actor.get_style_class_name) {
             this.style_cache.set(actor, null);
             return null;
         }
+
+        const class_names = actor.get_style_class_name();
+        if (typeof class_names !== 'string') {
+            this.style_cache.set(actor, null);
+            return null;
+        }
+
+        const classes = new Set(class_names.split(/\s+/).filter(Boolean));
+        this.style_cache.set(actor, classes);
+        return classes;
     }
 
     create_targets() {
@@ -225,11 +218,7 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     get_children(actor) {
-        try {
-            return actor?.get_children?.() ?? [];
-        } catch (e) {
-            return [];
-        }
+        return actor ? actor.get_children() : [];
     }
 
     push_children(stack, children) {
@@ -251,3 +240,16 @@ export const PopupBlurTargets = class PopupBlurTargets {
         targets.actors.push(target);
     }
 };
+
+export function has_style_class(actor, style_class) {
+    if (!actor || !style_class)
+        return false;
+
+    if (actor.has_style_class_name)
+        return actor.has_style_class_name(style_class);
+
+    if (actor.get_style_class_name)
+        return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
+
+    return false;
+}
