@@ -58,15 +58,12 @@ export const Pipeline = class Pipeline {
         // normally only the damaged area is painted
         const source = new St.Widget({
             name: `${widget_name}-source`,
-            width: monitor.width,
-            height: monitor.height,
             visible: false,
         });
         const actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
             y: use_absolute_position ? monitor.y : 0,
-            z_position: 0,
             width: monitor.width,
             height: monitor.height
         });
@@ -77,8 +74,6 @@ export const Pipeline = class Pipeline {
         actor.add_child(source);
         const clone = new Clutter.Clone({
             source,
-            width: monitor.width,
-            height: monitor.height,
         });
         clone.add_constraint(new Clutter.BindConstraint({
             source: actor,
