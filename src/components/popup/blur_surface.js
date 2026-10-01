@@ -289,7 +289,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.update_id = 0;
-                this.update();
+                if (this.actor)
+                    this.update();
                 return GLib.SOURCE_REMOVE;
             }
         );
@@ -303,7 +304,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.transition_update_id = 0;
-                this.update();
+                if (this.actor)
+                    this.update();
                 return GLib.SOURCE_REMOVE;
             }
         );
@@ -314,7 +316,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         this.repaint_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.repaint_id = 0;
-            if (force || this.is_visible())
+            if (this.actor && (force || this.is_visible()))
                 this.pipeline.repaint_effect();
             return GLib.SOURCE_REMOVE;
         });
