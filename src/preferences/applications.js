@@ -108,7 +108,6 @@ export const Applications = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        // connect 'enable all' button to whitelist/blacklist visibility
         this._enable_all.bind_property(
             'active', this._whitelist, 'visible',
             GObject.BindingFlags.INVERT_BOOLEAN
@@ -118,12 +117,10 @@ export const Applications = GObject.registerClass({
             GObject.BindingFlags.DEFAULT
         );
 
-        // make sure that blacklist / whitelist is correctly hidden
         if (this._enable_all.active)
             this._whitelist.visible = false;
         this._blacklist.visible = !this._whitelist.visible;
 
-        // listen to app row addition
         this._add_window_whitelist.connect('clicked',
             () => this.add_to_whitelist()
         );
@@ -131,7 +128,6 @@ export const Applications = GObject.registerClass({
             () => this.add_to_blacklist()
         );
 
-        // add initial applications
         this.add_widgets_from_lists();
 
         this.preferences.connect('reset', () => {
@@ -140,12 +136,10 @@ export const Applications = GObject.registerClass({
         });
     }
 
-    // A way to retriew the whitelist widgets.
     get _whitelist_elements() {
         return make_array(this._whitelist);
     }
 
-    // A way to retriew the blacklist widgets.
     get _blacklist_elements() {
         return make_array(this._blacklist);
     }

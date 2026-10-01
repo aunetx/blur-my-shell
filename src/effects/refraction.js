@@ -1,3 +1,5 @@
+import GObject from 'gi://GObject';
+
 import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 import {
@@ -451,12 +453,10 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             ));
             [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = clip;
 
-            const shader_clip = clip;
-
-            uniforms.set_uniform(this, 'clip_x0', parseFloat(shader_clip[0] - 1e-6));
-            uniforms.set_uniform(this, 'clip_y0', parseFloat(shader_clip[1] - 1e-6));
-            uniforms.set_uniform(this, 'clip_width', parseFloat(shader_clip[2] - 1e-6));
-            uniforms.set_uniform(this, 'clip_height', parseFloat(shader_clip[3] - 1e-6));
+            uniforms.set_uniform(this, 'clip_x0', parseFloat(clip[0] - 1e-6));
+            uniforms.set_uniform(this, 'clip_y0', parseFloat(clip[1] - 1e-6));
+            uniforms.set_uniform(this, 'clip_width', parseFloat(clip[2] - 1e-6));
+            uniforms.set_uniform(this, 'clip_height', parseFloat(clip[3] - 1e-6));
             this.update_scaled_uniforms();
         }
 
@@ -483,4 +483,4 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
 
 export const RefractionEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(REFRACTION_EFFECT_META, RefractionEffectClass);
+    : GObject.registerClass(REFRACTION_EFFECT_META, RefractionEffectClass);

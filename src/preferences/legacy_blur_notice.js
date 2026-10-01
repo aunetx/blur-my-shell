@@ -8,8 +8,15 @@ const LEGACY_SCRIPT = 'https://github.com/aunetx/blur-my-shell/blob/f69c69e8693b
 const REMOVAL_COMMAND = `curl -fLO ${LEGACY_SCRIPT.replace('github.com/', 'raw.githubusercontent.com/').replace('/blob/', '/')} &&
 bash rounded_blur_build.sh -u`;
 
-export function has_legacy_blur() {
-    const repository = GIRepository.Repository.get_default?.() ?? new GIRepository.Repository();
+// GIRepository 3.0 has no process-wide default repository anymore
+const repository = 'get_default' in GIRepository.Repository
+    ? GIRepository.Repository.get_default()
+    : new GIRepository.Repository();
+
+// libadwaita 1.6 (GNOME 47) added wide alert dialogs
+const HAS_WIDE_ALERT_DIALOGS = Adw.get_minor_version() >= 6;
+
+function has_legacy_blur() {
     return repository.enumerate_versions('Blur').includes('1.0');
 }
 
@@ -60,8 +67,8 @@ function show_removal_instructions(parent) {
             _('Log out and back in after removal. Blur my Shell will not uninstall anything for you.'),
         ].join('\n\n'),
     });
-    // Backwards compatibility: libadwaita on GNOME < 47 does not support prefer_wide_layout
-    dialog.set_prefer_wide_layout?.(true);
+    if (HAS_WIDE_ALERT_DIALOGS)
+        dialog.prefer_wide_layout = true;
     dialog.add_response('close', _('Close'));
     dialog.add_response('copy', _('Copy command'));
     dialog.set_response_appearance('copy', Adw.ResponseAppearance.SUGGESTED);

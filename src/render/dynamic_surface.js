@@ -19,6 +19,7 @@ export class DynamicPipeline {
         this.pipeline = null;
         this.roundedPipeline = null;
         this.pipelineChangedIds = [];
+        this.destroyId = 0;
         this.mapId = 0;
         this.allocationId = 0;
         this.container = null;
@@ -42,7 +43,8 @@ export class DynamicPipeline {
         });
         this.contentActor._bms_live_input = true;
         this.actor.add_child(this.contentActor);
-        this.actor.connect('destroy', () => {
+        this.destroyId = this.actor.connect('destroy', () => {
+            this.disconnectContainer();
             this.disconnectPipelineChanged();
             this.roundedPipeline?.destroy();
             this.pipeline?.destroy();
@@ -51,6 +53,7 @@ export class DynamicPipeline {
             this.actor = null;
             this.contentActor = null;
             this.captureEffect = null;
+            this.destroyId = 0;
             this.mapId = 0;
         });
 
@@ -95,46 +98,36 @@ export class DynamicPipeline {
 
     create_background_with_effect(container, name) {
         const actor = this.create_actor(name);
-        let manager = null;
-        try {
-            manager = new Clutter.Actor();
-            manager.backgroundActor = actor;
-            manager._bms_pipeline = this;
-            container.insert_child_at_index(actor, 0);
-            this.attach_pipeline();
-            return [actor, manager];
-        } catch (error) {
-            if (manager) {
-                manager._bms_pipeline = null;
-                manager.destroy();
-            }
-            this.destroy();
-            actor.destroy();
-            throw error;
-        }
+        const manager = new Clutter.Actor();
+        manager.backgroundActor = actor;
+        manager._bms_pipeline = this;
+        container.insert_child_at_index(actor, 0);
+        this.attach_pipeline();
+        return [actor, manager];
     }
 
+    /// The actor follows the size of the container, and is destroyed with this pipeline.
     attach_to_container(container, name) {
         const actor = this.create_actor(name);
-        try {
-            container.insert_child_at_index(actor, 0);
-            const updateSize = () => actor.set_size(
-                Math.max(1, container.width),
-                Math.max(1, container.height)
-            );
-            this.allocationId = container.connect(
-                'notify::allocation', updateSize
-            );
-            this.container = container;
-            this.ownsActor = true;
-            updateSize();
-            this.attach_pipeline();
-            return actor;
-        } catch (error) {
-            this.ownsActor = true;
-            this.destroy();
-            throw error;
-        }
+        container.insert_child_at_index(actor, 0);
+        const updateSize = () => actor.set_size(
+            Math.max(1, container.width),
+            Math.max(1, container.height)
+        );
+        this.allocationId = container.connect('notify::allocation', updateSize);
+        this.container = container;
+        this.ownsActor = true;
+        updateSize();
+        this.attach_pipeline();
+        return actor;
+    }
+
+    /// Our actor is a child of the container, so this also runs when the container is destroyed.
+    disconnectContainer() {
+        if (this.allocationId)
+            this.container.disconnect(this.allocationId);
+        this.allocationId = 0;
+        this.container = null;
     }
 
     get effects() {
@@ -217,24 +210,18 @@ export class DynamicPipeline {
 
     repaint_effect() {
         this.captureEffect?.queue_repaint();
-        this.effects.forEach(effect => effect.queue_repaint?.());
+        this.effects.forEach(effect => effect.queue_repaint());
         this.actor?.queue_redraw();
     }
 
     destroy() {
-        if (this.container && this.allocationId) {
-            try {
-                this.container.disconnect(this.allocationId);
-            } catch (e) { }
-        }
-        this.allocationId = 0;
-        this.container = null;
-        if (this.actor && this.mapId) {
-            try {
-                this.actor.disconnect(this.mapId);
-            } catch (e) { }
-        }
+        this.disconnectContainer();
+        if (this.mapId)
+            this.actor.disconnect(this.mapId);
         this.mapId = 0;
+        if (this.destroyId)
+            this.actor.disconnect(this.destroyId);
+        this.destroyId = 0;
         this.disconnectPipelineChanged();
         this.roundedPipeline?.destroy();
         this.roundedPipeline = null;

@@ -56,76 +56,39 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
             managers: [],
             pipelines: [],
         };
+        for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
+            const pipeline = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                this.settings.coverflow_alt_tab.PIPELINE
+            );
+            entry.pipelines.push(pipeline);
+            entry.actors.push(pipeline.create_background_with_effects(
+                i,
+                entry.managers,
+                actor,
+                'bms-coverflow-alt-tab-blurred-widget'
+            ));
+        }
         this.entries.set(actor, entry);
 
-        try {
-            for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
-                const pipeline = new Pipeline(
-                    this.effects_manager,
-                    global.blur_my_shell._pipelines_manager,
-                    this.settings.coverflow_alt_tab.PIPELINE
-                );
-                entry.pipelines.push(pipeline);
-
-                entry.actors.push(pipeline.create_background_with_effects(
-                    i,
-                    entry.managers,
-                    actor,
-                    'bms-coverflow-alt-tab-blurred-widget'
-                ));
-            }
-        } catch (error) {
-            this.remove_entry(actor);
-            logError(error, '[Blur my Shell > coverflow alt-tab] failed to create backgrounds');
-            return;
-        }
-
-        entry.destroy_id = this.connections.connect(
-            actor,
-            'destroy',
-            () => this.remove_entry(actor, true)
-        );
+        this.connections.connect(actor, 'destroy', () => this.remove_entry(actor));
     }
 
     update_pipeline() {
-        this.entries.forEach(({ managers }) => managers.forEach(manager =>
-            manager._bms_pipeline?.change_pipeline_to(
-                this.settings.coverflow_alt_tab.PIPELINE
-            )
+        this.entries.forEach(({ pipelines }) => pipelines.forEach(pipeline =>
+            pipeline.change_pipeline_to(this.settings.coverflow_alt_tab.PIPELINE)
         ));
     }
 
-    remove_entry(container, container_destroyed = false) {
+    remove_entry(container) {
         const entry = this.entries.get(container);
-        if (!entry)
-            return;
         this.entries.delete(container);
-        if (!container_destroyed)
-            this.connections.disconnect(container, entry.destroy_id);
+        this.connections.disconnect_all_for(container);
 
-        entry.pipelines.forEach(pipeline => {
-            try {
-                pipeline.destroy();
-            } catch (error) {
-                this._log(`pipeline was already destroyed: ${error}`);
-            }
-        });
-        entry.managers.forEach(manager => {
-            try {
-                if (container_destroyed)
-                    manager.backgroundActor = null;
-                manager.destroy();
-            } catch (error) {
-                this._log(`background was already destroyed: ${error}`);
-            }
-        });
-        if (!container_destroyed) {
-            entry.actors.forEach(actor => {
-                try {
-                    actor.destroy();
-                } catch (e) { }
-            });
-        }
+        entry.pipelines.forEach(pipeline => pipeline.destroy());
+        entry.managers.forEach(manager => manager.destroy());
+        entry.actors.forEach(actor => actor.destroy());
     }
 
     remove_background_actors() {

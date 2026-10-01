@@ -23,7 +23,6 @@ export const ApplicationRow = GObject.registerClass({
         this._cancel_pick = null;
         this._pick_timeout_id = null;
 
-        // add a 'remove' button before the text
         let action_row = this.child.get_first_child().get_first_child();
         let remove_button = new Gtk.Button({
             'icon-name': 'remove-row-symbolic',
@@ -36,16 +35,13 @@ export const ApplicationRow = GObject.registerClass({
         remove_button.add_css_class('flat');
         action_row.add_prefix(remove_button);
 
-        // connect the button to the whitelist / blacklist removal
         remove_button.connect('clicked', () => this._remove_row());
 
-        // bind row title to text buffer
         this._window_class.buffer.bind_property(
             'text', this, 'title',
             GObject.BindingFlags.BIDIRECTIONAL | GObject.BindingFlags.SYNC_CREATE
         );
 
-        // set application name if it exists, or open the revealer and pick one
         if (app_name)
             this._window_class.buffer.text = app_name;
         else {
@@ -54,10 +50,8 @@ export const ApplicationRow = GObject.registerClass({
             this._do_pick_window(true);
         }
 
-        // pick a window when the picker button is clicked
         this._window_picker.connect('clicked', () => this._do_pick_window());
 
-        // update list on text buffer change
         this._window_class.connect('changed',
             () => this._update_rows_titles()
         );

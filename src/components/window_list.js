@@ -49,13 +49,7 @@ export const WindowListBlur = class WindowListBlur {
             global.blur_my_shell._pipelines_manager,
             this.settings.window_list.PIPELINE
         );
-        try {
-            pipeline.attach_to_container(actor, 'bms-window-list-blurred-widget');
-        } catch (error) {
-            pipeline.destroy();
-            logError(error, '[Blur my Shell > window list] failed to create background');
-            return;
-        }
+        pipeline.attach_to_container(actor, 'bms-window-list-blurred-widget');
 
         const entry = {
             actor,
@@ -66,80 +60,68 @@ export const WindowListBlur = class WindowListBlur {
         this.entries.set(actor, entry);
         actor.set_style(WINDOW_LIST_STYLE);
 
-        actor._windowList?.get_children().forEach(
+        actor._windowList.get_children().forEach(
             window => this.style_window_button(entry, window)
         );
-
-        if (actor._windowList) {
-            this.connections.connect(
-                actor._windowList,
-                'child-added',
-                (_, window) => this.style_window_button(entry, window)
-            );
-            this.connections.connect(
-                actor._windowList,
-                'child-removed',
-                (_, window) => this.restore_window_button(entry, window)
-            );
-        }
-
         this.connections.connect(
-            actor,
-            'destroy',
-            () => this.destroy_blur(actor, true)
+            actor._windowList,
+            'child-added',
+            (_, window) => this.style_window_button(entry, window)
+        );
+        this.connections.connect(
+            actor._windowList,
+            'child-removed',
+            (_, window) => this.restore_window_button(entry, window)
         );
 
+        this.connections.connect(actor, 'destroy', () => this.destroy_blur(actor));
+
         if (Main.overview.visible)
-            pipeline.actor?.hide();
+            pipeline.actor.hide();
     }
 
     style_window_button(entry, window) {
-        const button = window?.get_child_at_index?.(0);
-        if (!button)
-            return;
-
-        if (!entry.button_styles.has(button))
+        const button = window.get_child_at_index(0);
+        if (!entry.button_styles.has(button)) {
             entry.button_styles.set(button, button.style);
+            this.connections.connect(button, 'destroy',
+                () => entry.button_styles.delete(button));
+        }
         button.set_style(WINDOW_BUTTON_STYLE);
     }
 
     restore_window_button(entry, window) {
-        const button = window?.get_child_at_index?.(0);
-        if (!button || !entry.button_styles.has(button))
+        // a destroyed window is removed once its button is already gone
+        const button = window.get_child_at_index(0);
+        if (!entry.button_styles.has(button))
             return;
 
-        try {
-            button.set_style(entry.button_styles.get(button));
-        } catch (e) { }
+        this.connections.disconnect_all_for(button);
+        button.set_style(entry.button_styles.get(button));
         entry.button_styles.delete(button);
     }
 
-    destroy_blur(actor, actor_destroyed = false) {
+    destroy_blur(actor) {
         const entry = this.entries.get(actor);
-        if (!entry)
-            return;
         this.entries.delete(actor);
 
-        if (!actor_destroyed) {
-            try {
-                actor.set_style(entry.actor_style);
-            } catch (e) { }
-            entry.button_styles.forEach((style, button) => {
-                try {
-                    button.set_style(style);
-                } catch (e) { }
-            });
-        }
+        this.connections.disconnect_all_for(actor);
+        this.connections.disconnect_all_for(actor._windowList);
+        entry.button_styles.forEach((style, button) => {
+            this.connections.disconnect_all_for(button);
+            button.set_style(style);
+        });
         entry.button_styles.clear();
+        actor.set_style(entry.actor_style);
         entry.pipeline.destroy();
     }
 
     hide() {
-        this.entries.forEach(({ pipeline }) => pipeline.actor?.hide());
+        this.entries.forEach(({ pipeline }) => pipeline.actor.hide());
     }
 
     show() {
-        this.entries.forEach(({ pipeline }) => pipeline.actor?.show());
+        this.entries.forEach(({ pipeline }) => pipeline.actor.show());
     }
 
     update_pipeline() {

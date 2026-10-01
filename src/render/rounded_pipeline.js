@@ -63,20 +63,11 @@ export class RoundedPipeline {
         if (existingEffects[0] === outermostEffect)
             return;
 
-        existingEffects.forEach(effect => {
-            try {
-                this.actor.remove_effect(effect);
-            } catch (e) { }
-        });
-
+        existingEffects.forEach(effect => this.actor.remove_effect(effect));
         this.actor.add_effect(outermostEffect);
-
         existingEffects.forEach(effect => {
-            if (effect === outermostEffect)
-                return;
-            try {
+            if (effect !== outermostEffect)
                 this.actor.add_effect(effect);
-            } catch (e) { }
         });
 
         if (existingEffects.includes(outermostEffect)) {
@@ -152,11 +143,8 @@ export class RoundedPipeline {
     }
 
     disconnectActorDestroy() {
-        if (this.actor && this.actorDestroyId) {
-            try {
-                this.actor.disconnect(this.actorDestroyId);
-            } catch (e) { }
-        }
+        if (this.actorDestroyId)
+            this.actor.disconnect(this.actorDestroyId);
         this.actorDestroyId = 0;
     }
 

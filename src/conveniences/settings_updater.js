@@ -11,21 +11,6 @@ const LEGACY_DYNAMIC_COMPONENTS = [
     { name: 'popup', supports_static: true },
 ];
 
-function write_setting(settings, setter, key, value) {
-    try {
-        if (settings[setter](key, value))
-            return true;
-    } catch (error) {
-        console.warn(
-            `[Blur my Shell > settings]     could not migrate ${key}: ${error.message}`
-        );
-        return false;
-    }
-
-    console.warn(`[Blur my Shell > settings]     could not migrate ${key}`);
-    return false;
-}
-
 function remove_manual_corner_effects(pipelines) {
     let changed = false;
     Object.values(pipelines).forEach(pipeline => {
@@ -161,55 +146,15 @@ function migrate_dynamic_blur_pipelines(
     return { assignments, changed };
 }
 
-function queue_pipeline_assignment(assignments, name, component, pipeline_id) {
-    const previous = assignments.get(name);
-    assignments.set(name, {
-        settings: component.settings,
-        old_pipeline: previous?.old_pipeline ?? component.PIPELINE,
-        pipeline_id,
-    });
-}
-
 function queue_pipeline_references(preferences, assignments, from, to) {
     preferences.keys.forEach(bundle => {
         if (!bundle.schemas.some(key => key.name === 'pipeline'))
             return;
 
-        const property = bundle.component.replaceAll('-', '_');
-        const component = preferences[property];
-        if (component.PIPELINE === from && !assignments.has(bundle.component))
-            queue_pipeline_assignment(assignments, bundle.component, component, to);
+        const component = preferences[bundle.component.replaceAll('-', '_')];
+        if (component.PIPELINE === from && !assignments.has(component))
+            assignments.set(component, to);
     });
-}
-
-function apply_pipeline_assignments(assignments) {
-    const written = [];
-    for (const assignment of assignments.values()) {
-        if (assignment.old_pipeline === assignment.pipeline_id)
-            continue;
-        if (!write_setting(
-            assignment.settings,
-            'set_string',
-            'pipeline',
-            assignment.pipeline_id
-        )) {
-            restore_pipeline_assignments(written);
-            return false;
-        }
-        written.push(assignment);
-    }
-    return true;
-}
-
-function restore_pipeline_assignments(assignments) {
-    [...assignments].reverse().forEach(assignment =>
-        write_setting(
-            assignment.settings,
-            'set_string',
-            'pipeline',
-            assignment.old_pipeline
-        )
-    );
 }
 
 function update_native_static_radius(pipelines) {
@@ -267,13 +212,6 @@ export function update_from_old_settings(gsettings) {
     const old_version = preferences.settings.get_int('settings-version');
     if (old_version >= CURRENT_SETTINGS_VERSION)
         return;
-    if (old_version < 0) {
-        console.warn(
-            `[Blur my Shell > settings]     settings migration skipped because version `
-            + `${old_version} is invalid`
-        );
-        return;
-    }
 
     const pipelines = preferences.PIPELINES;
     if (preferences.has_invalid_value('general', 'pipelines')) {
@@ -291,13 +229,9 @@ export function update_from_old_settings(gsettings) {
     const pipeline_assignments = new Map();
 
     if (old_version < 2) {
-        const writes = [
-            [preferences.dash_to_dock.settings, 'set_boolean', 'blur', true],
-            [preferences.dash_to_dock.settings, 'set_boolean', 'static-blur', true],
-            [preferences.dash_to_dock.settings, 'set_int', 'style-dash-to-dock', 0],
-        ];
-        if (!writes.every(write => write_setting(...write)))
-            return;
+        preferences.dash_to_dock.BLUR = true;
+        preferences.dash_to_dock.STATIC_BLUR = true;
+        preferences.dash_to_dock.STYLE_DASH_TO_DOCK = 0;
     }
 
     let pipelines_changed = false;
@@ -313,15 +247,9 @@ export function update_from_old_settings(gsettings) {
             old_version
         );
         pipelines_changed = migration.changed || pipelines_changed;
-        migration.assignments.forEach(({ name, pipeline_id }) => {
-            const property = name.replaceAll('-', '_');
-            queue_pipeline_assignment(
-                pipeline_assignments,
-                name,
-                preferences[property],
-                pipeline_id
-            );
-        });
+        migration.assignments.forEach(({ name, pipeline_id }) =>
+            pipeline_assignments.set(preferences[name.replaceAll('-', '_')], pipeline_id)
+        );
     }
 
     if (old_version < 5)
@@ -341,18 +269,14 @@ export function update_from_old_settings(gsettings) {
         pipelines_changed = true;
     }
 
-    if (!apply_pipeline_assignments(pipeline_assignments))
-        return;
+    pipeline_assignments.forEach((pipeline_id, component) => {
+        if (component.PIPELINE !== pipeline_id)
+            component.PIPELINE = pipeline_id;
+    });
 
-    if (pipelines_changed && !preferences.set_pipelines(pipelines)) {
-        restore_pipeline_assignments(pipeline_assignments.values());
-        return;
-    }
+    if (pipelines_changed)
+        preferences.set_pipelines(pipelines);
 
-    if (!preferences.settings.set_int('settings-version', CURRENT_SETTINGS_VERSION)) {
-        console.warn('[Blur my Shell > settings]     could not update settings version');
-        return;
-    }
-
+    preferences.settings.set_int('settings-version', CURRENT_SETTINGS_VERSION);
     deprecated_preferences?.reset();
 }

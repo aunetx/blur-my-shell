@@ -11,16 +11,16 @@ export function addMenu(window) {
     builder.add_from_file(GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, '../ui/menu.ui', GLib.UriFlags.NONE))[0]);
     let menu_util = builder.get_object('menu_util');
     window.add(menu_util);
+    // the header bar is found by walking libadwaita's internal widget tree, which may change
     try {
         addMenuToHeader(window, builder);
     } catch (error) {
-        // could not add menu... not so bad
+        console.warn(`[Blur my Shell > menu]         could not add the menu: ${error}`);
     }
     window.remove(menu_util);
 }
 
 function addMenuToHeader(window, builder) {
-    // a little hack to get to the headerbar
     const page = builder.get_object('menu_util');
     const pages_stack = page.get_parent(); // AdwViewStack
     const content_stack = pages_stack.get_parent().get_parent(); // GtkStack
@@ -29,11 +29,9 @@ function addMenuToHeader(window, builder) {
         .get_first_child().get_first_child().get_first_child(); // AdwHeaderBar
     headerbar.pack_start(builder.get_object('info_menu'));
 
-    // setup menu actions
     const actionGroup = new Gio.SimpleActionGroup();
     window.insert_action_group('prefs', actionGroup);
 
-    // a list of actions with their associated link
     const actions = [
         {
             name: 'open-bug-report',

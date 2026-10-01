@@ -6,12 +6,13 @@ import GObject from 'gi://GObject';
 export const PopupBlurAllocation = GObject.registerClass(
 class PopupBlurAllocation extends Clutter.Constraint {
     set_geometry(x, y, width, height) {
-        if (this.geometry?.x === x && this.geometry?.y === y
-            && this.geometry?.width === width && this.geometry?.height === height)
+        const geometry = this.geometry;
+        if (geometry && geometry.x === x && geometry.y === y
+            && geometry.width === width && geometry.height === height)
             return;
 
         this.geometry = { x, y, width, height };
-        this.actor?.queue_relayout();
+        this.actor.queue_relayout();
     }
 
     vfunc_update_allocation(_actor, box) {

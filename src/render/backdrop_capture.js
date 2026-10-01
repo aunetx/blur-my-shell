@@ -8,13 +8,10 @@ import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './bac
 
 const PIXEL_EPSILON = 1 / 1024;
 
-// Backwards compatibility: GNOME 46/47 expose blitting as a namespace function.
-// See https://github.com/aunetx/blur-my-shell/pull/1017
-function blitFramebuffer(source, ...args) {
-    if (typeof source.blit === 'function')
-        return source.blit(...args);
-    return Cogl.blit_framebuffer(source, ...args);
-}
+// Mutter 48 renamed `cogl_blit_framebuffer()` to `cogl_framebuffer_blit()`
+const blitFramebuffer = Cogl.Framebuffer.prototype.blit
+    ? (source, ...args) => source.blit(...args)
+    : Cogl.blit_framebuffer;
 
 function captureGeometry(actor, framebuffer) {
     const modelview = framebuffer.get_modelview_matrix();

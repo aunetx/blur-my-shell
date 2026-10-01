@@ -205,19 +205,12 @@ export const Settings = class Settings {
         return this._invalid_values.has(`${component}/${name}`);
     }
 
+    /// Returns false if the setting is not writable.
     set_pipelines(pipelines) {
-        const value_id = 'general/pipelines';
-        try {
-            if (!this.settings.set_value('pipelines', pack_pipelines(pipelines))) {
-                this._warn('could not write pipelines setting');
-                return false;
-            }
-            this._invalid_values.delete(value_id);
-            return true;
-        } catch (error) {
-            this._warn(`impossible to set pipelines: ${error.message}`);
-            return false;
-        }
+        const written = this.settings.set_value('pipelines', pack_pipelines(pipelines));
+        if (written)
+            this._invalid_values.delete('general/pipelines');
+        return written;
     }
 
     /// Remove all connections managed by the Settings object, i.e. created with

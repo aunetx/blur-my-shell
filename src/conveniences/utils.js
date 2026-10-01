@@ -1,5 +1,4 @@
 import GLib from 'gi://GLib';
-import GObject from 'gi://GObject';
 import { ANTIALIASING_SOURCE } from '../render/shader_antialiasing.js';
 
 export const IS_IN_PREFERENCES = typeof global === 'undefined';
@@ -25,12 +24,7 @@ export function clamp_integer(value, minimum, maximum, fallback = minimum) {
 export async function import_in_shell_only(module) {
     if (IS_IN_PREFERENCES)
         return null;
-    try {
-        const imported = await import(module);
-        return imported.default ?? imported;
-    } catch (e) {
-        return null;
-    }
+    return (await import(module)).default;
 }
 
 const Cogl = await import_in_shell_only('gi://Cogl');
@@ -58,72 +52,44 @@ export const get_shader_source = (Shell, shader_filename, self_uri) => {
     const shader_path = GLib.filename_from_uri(
         GLib.uri_resolve_relative(self_uri, shader_filename, GLib.UriFlags.NONE)
     )[0];
-    try {
-        return Shell.get_file_contents_utf8_sync(shader_path);
-    } catch (e) {
-        console.warn(`[Blur my Shell > effect]       error loading shader from ${shader_path}: ${e}`);
-        return null;
-    }
+    return Shell.get_file_contents_utf8_sync(shader_path);
 };
 
-export function register_shader_effect(meta, effect_class) {
-    return GObject.registerClass(meta, effect_class);
-}
-
+/// Splits a fragment shader into its declarations and the body of its `main` function.
 function split_fragment_shader(source) {
     const main_index = source.search(/void\s+main\s*(?:\(\s*(?:void)?\s*\))?\s*\{/);
-    if (main_index < 0)
-        return null;
-
-    const declarations = source.slice(0, main_index).trim();
     const brace_index = source.indexOf('{', main_index);
-    if (brace_index < 0)
-        return null;
 
     let depth = 0;
-    for (let i = brace_index; i < source.length; i++) {
-        if (source[i] === '{')
+    let end_index = brace_index;
+    do {
+        if (source[end_index] === '{')
             depth++;
-        else if (source[i] === '}') {
+        else if (source[end_index] === '}')
             depth--;
-            if (depth === 0) {
-                return {
-                    declarations,
-                    body: source.slice(brace_index + 1, i).trim(),
-                };
-            }
-        }
-    }
+        end_index++;
+    } while (depth > 0);
 
-    return null;
+    return {
+        declarations: source.slice(0, main_index).trim(),
+        body: source.slice(brace_index + 1, end_index - 1).trim(),
+    };
 }
 
 function create_fragment_shader_snippet(source) {
-    if (!Cogl || !source)
-        return null;
-
-    const parts = split_fragment_shader(source);
-    if (!parts) {
-        console.warn('[Blur my Shell > effect]       could not split shader source');
-        return null;
-    }
-
-    try {
-        const snippet = Cogl.Snippet.new(
-            Cogl.SnippetHook.FRAGMENT,
-            `${source.includes('bms_antialias_width(') ? ANTIALIASING_SOURCE : ''}\n${parts.declarations}\nvoid bms_fragment() {\n${parts.body}\n}`,
-            null
-        );
-        snippet.set_replace('bms_fragment(); cogl_color_out *= cogl_color_in.a;');
-        return snippet;
-    } catch (e) {
-        console.warn(`[Blur my Shell > effect]       could not create shader snippet: ${e}`);
-        return null;
-    }
+    const { declarations, body } = split_fragment_shader(source);
+    const antialiasing = source.includes('bms_antialias_width(') ? ANTIALIASING_SOURCE : '';
+    const snippet = Cogl.Snippet.new(
+        Cogl.SnippetHook.FRAGMENT,
+        `${antialiasing}\n${declarations}\nvoid bms_fragment() {\n${body}\n}`,
+        null
+    );
+    snippet.set_replace('bms_fragment(); cogl_color_out *= cogl_color_in.a;');
+    return snippet;
 }
 
 export function initialize_shader_effect(effect, source) {
-    if (!source || !effect)
+    if (!source)
         return;
     if (!SHADER_SNIPPETS.has(source))
         SHADER_SNIPPETS.set(source, create_fragment_shader_snippet(source));

@@ -24,7 +24,6 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     constructor(metadata) {
         super(metadata);
 
-        // load the icon theme
         let iconPath = this.dir.get_child("icons").get_path();
         let iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
         iconTheme.add_search_path(iconPath);
@@ -33,10 +32,10 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         addMenu(window);
 
-        // Update stored pipelines before building the editor.
-        update_from_old_settings(this.getSettings());
+        const gsettings = this.getSettings();
+        update_from_old_settings(gsettings);
 
-        const preferences = new Settings(KEYS, this.getSettings());
+        const preferences = new Settings(KEYS, gsettings);
         const pipelines_manager = new PipelinesManager(preferences);
 
         const pipelines_page = new Pipelines(preferences, pipelines_manager, window);
@@ -52,16 +51,12 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
         window.add(new Other(preferences, pipelines_manager, pipelines_page));
 
-        let cleaned_up = false;
         window.connect('close-request', () => {
-            if (!cleaned_up) {
-                cleaned_up = true;
-                cancel_pick();
-                applications_page.cleanup();
-                pipelines_page.cleanup();
-                pipelines_manager.destroy();
-                preferences.disconnect_all_settings();
-            }
+            cancel_pick();
+            applications_page.cleanup();
+            pipelines_page.cleanup();
+            pipelines_manager.destroy();
+            preferences.disconnect_all_settings();
             return false;
         });
 

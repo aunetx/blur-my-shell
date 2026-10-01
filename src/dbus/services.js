@@ -77,7 +77,7 @@ export const ApplicationsService = class ApplicationsService {
     _find_window_actor(target) {
         let actor = target;
         while (actor && !actor.meta_window)
-            actor = actor.get_parent?.() ?? null;
+            actor = actor.get_parent();
         return actor;
     }
 

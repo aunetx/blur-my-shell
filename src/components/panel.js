@@ -36,7 +36,7 @@ export const PanelBlur = class PanelBlur {
         this.visibility_update_id = 0;
         this.enabled = false;
         this.dash_to_panel = null;
-        this.main_panel_alive = true;
+        this.main_panel = null;
         this._in_overview = false;
     }
 
@@ -48,9 +48,9 @@ export const PanelBlur = class PanelBlur {
 
         this._log("blurring top panel");
         this.enabled = true;
-        this.main_panel_alive = true;
+        this.main_panel = Main.panel;
         this.connections.connect(Main.panel, 'destroy', () => {
-            this.main_panel_alive = false;
+            this.main_panel = null;
         });
 
         // check for panels when Dash to Panel is activated
@@ -91,7 +91,6 @@ export const PanelBlur = class PanelBlur {
 
         this.connections.connect(global.display, 'workareas-changed', _ => {
             if (this._dirty) {
-                // the monitors chaned
                 this.reset();
                 this._dirty = false;
             }
@@ -148,26 +147,22 @@ export const PanelBlur = class PanelBlur {
 
     /// Check for already existing panels and blur them if they are not already
     blur_existing_panels() {
-        // check if dash-to-panel is present
-        if (global.dashToPanel) {
-            // blur already existing ones
-            if (global.dashToPanel.panels)
-                this.blur_dtp_panels();
-        } else {
+        if (global.dashToPanel)
+            this.blur_dtp_panels();
+        else
             this.blur_stock_panels();
-        }
     }
 
     blur_stock_panels() {
-        if (this.main_panel_alive)
-            this.maybe_blur_panel(Main.panel);
+        if (this.main_panel)
+            this.maybe_blur_panel(this.main_panel);
 
         Main.uiGroup.get_children().forEach(actor => {
             if (actor.get_name() !== "panelBox" || actor.get_n_children() !== 1)
                 return;
 
             const panel = actor.get_child_at_index(0);
-            if (this.main_panel_alive && panel !== Main.panel)
+            if (this.main_panel && panel !== this.main_panel)
                 this.maybe_blur_panel(panel);
         });
     }
@@ -180,8 +175,7 @@ export const PanelBlur = class PanelBlur {
             GLib.PRIORITY_DEFAULT_IDLE,
             () => {
                 this.panel_rescan_idle_id = 0;
-                if (this.enabled)
-                    this.blur_stock_panels();
+                this.blur_stock_panels();
                 return GLib.SOURCE_REMOVE;
             }
         );
@@ -193,13 +187,11 @@ export const PanelBlur = class PanelBlur {
 
         this.dtp_blur_idle_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.dtp_blur_idle_id = 0;
-            if (!this.enabled || !global.dashToPanel?.panels) {
+            if (!global.dashToPanel?.panels)
                 return GLib.SOURCE_REMOVE;
-            }
 
             this._log("Blurring Dash to Panel panels after idle.");
 
-            // blur every panel found
             global.dashToPanel.panels.forEach(p => {
                 if (
                     p.panel != Main.panel ||
@@ -216,9 +208,9 @@ export const PanelBlur = class PanelBlur {
                 &&
                 this.settings.dash_to_panel.BLUR_ORIGINAL_PANEL
                 &&
-                this.main_panel_alive
+                this.main_panel
             )
-                this.maybe_blur_panel(Main.panel);
+                this.maybe_blur_panel(this.main_panel);
 
             return GLib.SOURCE_REMOVE;
         });
@@ -226,26 +218,18 @@ export const PanelBlur = class PanelBlur {
 
     /// Blur a panel only if it is not already blurred (contained in the list)
     maybe_blur_panel(panel) {
-        // check if the panel is contained in the list
-        let actors = this.actors_list.find(
-            actors => actors.widgets.panel == panel
-        );
-
-        if (!actors)
-            // if the actors is not blurred, blur it
+        if (!this.actors_list.some(actors => actors.widgets.panel === panel))
             this.blur_panel(panel);
     }
 
     /// Blur a panel
     blur_panel(panel) {
-        let geometry_actor = panel;
         let wrapper = null;
         let panel_box = panel.get_parent();
         let is_dtp_panel = false;
         if (!panel_box.name) {
             is_dtp_panel = true;
             wrapper = panel_box;
-            geometry_actor = panel; // Track the inner panel dynamically
             panel_box = panel_box.get_parent();
         }
 
@@ -257,143 +241,106 @@ export const PanelBlur = class PanelBlur {
             { name: 'bms-panel-backgroundgroup', width: 0, height: 0 }
         );
 
-        let background = null;
-        let bg_manager = null;
-        const static_blur = this.settings.panel.STATIC_BLUR;
-        let pipeline = null;
+        let background, bg_manager, pipeline;
         let rounded_pipeline = null;
-        let actors = null;
+        const static_blur = this.settings.panel.STATIC_BLUR;
 
-        try {
-            if (static_blur) {
-                const bg_manager_list = [];
-                pipeline = new Pipeline(
-                    this.effects_manager,
-                    global.blur_my_shell._pipelines_manager,
-                    this.settings.panel.PIPELINE
-                );
-                background = pipeline.create_background_with_effects(
-                    monitor.index, bg_manager_list,
-                    background_group, 'bms-panel-blurred-widget'
-                );
-                bg_manager = bg_manager_list[0];
-                rounded_pipeline = new RoundedPipeline(
-                    this.effects_manager,
-                    () => this.settings.panel.CORNER_RADIUS,
-                    () => this.settings.panel.ROUNDED_CORNERS
-                );
-                rounded_pipeline.bind(pipeline, background);
-            } else {
-                pipeline = new DynamicPipeline(
-                    this.effects_manager,
-                    global.blur_my_shell._pipelines_manager,
-                    this.settings.panel.PIPELINE,
-                    {
-                        corner_radius: this.settings.panel.CORNER_RADIUS,
-                        get_corners: () => this.settings.panel.ROUNDED_CORNERS,
-                    }
-                );
-                [background, bg_manager] = pipeline.create_background_with_effect(
-                    background_group, 'bms-panel-blurred-widget'
-                );
-            }
+        if (static_blur) {
+            const bg_manager_list = [];
+            pipeline = new Pipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                this.settings.panel.PIPELINE
+            );
+            background = pipeline.create_background_with_effects(
+                monitor.index, bg_manager_list,
+                background_group, 'bms-panel-blurred-widget'
+            );
+            bg_manager = bg_manager_list[0];
+            rounded_pipeline = new RoundedPipeline(
+                this.effects_manager,
+                () => this.settings.panel.CORNER_RADIUS,
+                () => this.settings.panel.ROUNDED_CORNERS
+            );
+            rounded_pipeline.bind(pipeline, background);
+        } else {
+            pipeline = new DynamicPipeline(
+                this.effects_manager,
+                global.blur_my_shell._pipelines_manager,
+                this.settings.panel.PIPELINE,
+                {
+                    corner_radius: this.settings.panel.CORNER_RADIUS,
+                    get_corners: () => this.settings.panel.ROUNDED_CORNERS,
+                }
+            );
+            [background, bg_manager] = pipeline.create_background_with_effect(
+                background_group, 'bms-panel-blurred-widget'
+            );
+        }
 
-            if (!background || !bg_manager)
-                throw new Error('panel blur has no background owner');
+        panel_box.insert_child_at_index(background_group, 0);
 
-            panel_box.insert_child_at_index(background_group, 0);
+        const actors = {
+            widgets: {
+                panel,
+                wrapper,
+                panel_box,
+                background,
+                background_group,
+            },
+            original_style: panel.get_style(),
+            static_blur,
+            monitor,
+            bg_manager,
+            pipeline,
+            rounded_pipeline,
+            signal_records: [],
+            is_dtp_panel,
+            should_override: true,
+        };
+        this.actors_list.push(actors);
 
-            actors = {
-                widgets: {
-                    panel,
-                    wrapper,
-                    panel_box,
-                    background,
-                    background_group,
-                    geometry_actor
-                },
-                original_style: panel.get_style?.() ?? null,
-                static_blur,
-                monitor,
-                bg_manager,
-                rounded_pipeline,
-                signal_records: [],
-                is_dtp_panel,
-                should_override: true,
-            };
-            this.actors_list.push(actors);
+        this.queue_update_size(actors);
 
-            this.queue_update_size(actors);
+        this.connect_actor_signals(actors,
+            panel,
+            ['notify::allocation', 'notify::size', 'notify::position'],
+            _ => this.queue_update_size(actors)
+        );
 
+        if (wrapper) {
             this.connect_actor_signals(actors,
-                geometry_actor,
+                wrapper,
                 ['notify::allocation', 'notify::size', 'notify::position'],
                 _ => this.queue_update_size(actors)
             );
-
-            if (wrapper) {
-                this.connect_actor_signals(actors,
-                    wrapper,
-                    ['notify::allocation', 'notify::size', 'notify::position'],
-                    _ => this.queue_update_size(actors)
-                );
-            }
-            this.connect_actor_signals(actors,
-                panel_box,
-                ['notify::size', 'notify::position'],
-                _ => this.queue_update_size(actors)
-            );
-            this.connect_actor_signals(actors,
-                panel_box.get_parent(),
-                'notify::position',
-                _ => this.queue_update_size(actors)
-            );
-            this.connect_actor_signals(actors,
-                panel,
-                'destroy',
-                _ => this.destroy_blur(actors, true)
-            );
-        } catch (error) {
-            if (actors)
-                this.destroy_blur(actors, false);
-            else
-                this.destroy_partial_blur(
-                    background_group,
-                    bg_manager,
-                    pipeline,
-                    rounded_pipeline
-                );
-            this._warn(`could not create panel blur: ${error}`);
         }
-    }
+        this.connect_actor_signals(actors,
+            panel_box,
+            ['notify::size', 'notify::position'],
+            _ => this.queue_update_size(actors)
+        );
+        this.connect_actor_signals(actors,
+            panel_box.get_parent(),
+            'notify::position',
+            _ => this.queue_update_size(actors)
+        );
 
-    destroy_partial_blur(background_group, bg_manager, pipeline, rounded_pipeline) {
-        this.destroy_resource(() => rounded_pipeline?.destroy());
-        this.destroy_resource(() => pipeline?.destroy());
-        if (bg_manager) {
-            bg_manager._bms_pipeline = null;
-            this.destroy_resource(() => bg_manager.destroy());
-        }
-        this.destroy_resource(() => {
-            const parent = background_group.get_parent();
-            parent?.remove_child(background_group);
-            background_group.destroy_all_children();
-            background_group.destroy();
-        });
-    }
-
-    destroy_resource(callback) {
-        try {
-            callback();
-        } catch (error) {
-            this._log(`resource was already destroyed: ${error}`);
-        }
+        // the background group is destroyed before the panel when their
+        // shared parent goes away (e.g. Dash to Panel being disabled)
+        this.connect_actor_signals(actors,
+            panel,
+            'destroy',
+            _ => this.destroy_blur(actors)
+        );
+        this.connect_actor_signals(actors,
+            background_group,
+            'destroy',
+            _ => this.destroy_blur(actors)
+        );
     }
 
     connect_actor_signals(actors, actor, signals, handler) {
-        if (!actor)
-            return;
-
         const ids = this.connections.connect(actor, signals, handler);
         actors.signal_records.push({
             actor,
@@ -407,10 +354,6 @@ export const PanelBlur = class PanelBlur {
 
         const source_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
             this.queued_updates.delete(actors);
-
-            if (!this.enabled || !this.actors_list.includes(actors))
-                return GLib.SOURCE_REMOVE;
-
             this.update_size(actors);
             return GLib.SOURCE_REMOVE;
         });
@@ -418,7 +361,7 @@ export const PanelBlur = class PanelBlur {
     }
 
     update_size(actors) {
-        let geometry_actor = actors.widgets.geometry_actor;
+        let geometry_actor = actors.widgets.panel;
         let panel_box = actors.widgets.panel_box;
         let wrapper = actors.widgets.wrapper;
         let background = actors.widgets.background;
@@ -486,7 +429,7 @@ export const PanelBlur = class PanelBlur {
         if (current_monitor)
             actors.monitor = current_monitor;
 
-        this.set_should_override_panel(actors, actors.should_override ?? true);
+        this.set_should_override_panel(actors, actors.should_override);
     }
 
     /// Connect when overview if opened/closed to hide/show the blur accordingly
@@ -495,13 +438,7 @@ export const PanelBlur = class PanelBlur {
     /// (so no shadow is cropped)
     connect_to_overview() {
         this._in_overview = Main.overview.visible;
-        // may be called when panel blur is disabled, if hidetopbar
-        // compatibility is toggled on/off
-        // if this is the case, do nothing as only the panel blur interfers with
-        // hidetopbar
-        if (
-            this.settings.panel.UNBLUR_IN_OVERVIEW
-        ) {
+        if (this.settings.panel.UNBLUR_IN_OVERVIEW) {
             if (!this.settings.hidetopbar.COMPATIBILITY) {
                 this.connections.connect(
                     Main.overview, 'showing', _ => {
@@ -524,9 +461,6 @@ export const PanelBlur = class PanelBlur {
                 );
             } else {
                 const appDisplay = this.get_app_display();
-                if (!appDisplay)
-                    return;
-
                 this.connections.connect(
                     appDisplay, 'show', _ => {
                         this._in_overview = true;
@@ -600,8 +534,6 @@ export const PanelBlur = class PanelBlur {
     /// inconsistencies with signals not being disconnected.
     connect_to_windows_and_overview() {
         this.disconnect_from_windows_and_overview();
-        if (!this.enabled)
-            return;
         this.connect_to_overview();
         this.connect_to_windows();
 
@@ -612,9 +544,7 @@ export const PanelBlur = class PanelBlur {
     }
 
     get_app_display() {
-        return Main.overview?._overview?.controls?._appDisplay
-            ?? Main.overview?._overview?._controls?._appDisplay
-            ?? null;
+        return Main.overview._overview.controls._appDisplay;
     }
 
     /// Disconnect all the connections created by connect_to_windows
@@ -624,10 +554,8 @@ export const PanelBlur = class PanelBlur {
             Main.overview, Main.sessionMode,
             global.window_group, global.window_manager,
             this.get_app_display()
-        ]) {
-            if (actor)
-                this.connections.disconnect_all_for(actor);
-        }
+        ])
+            this.connections.disconnect_all_for(actor);
 
         // disconnect the connections from windows
         for (const actor of this.window_signal_ids.keys())
@@ -637,19 +565,14 @@ export const PanelBlur = class PanelBlur {
 
     /// Update the css classname of the panel for light theme
     update_light_text_classname(disable = false) {
-        this.destroy_resource(() =>
-            Main.uiGroup.remove_style_class_name("panel-light-text")
-        );
+        Main.uiGroup.remove_style_class_name("panel-light-text");
+        const enabled = this.settings.panel.FORCE_LIGHT_TEXT && !disable;
         this.actors_list.forEach(actors => {
             const panel_box = actors.widgets.panel_box;
-            const enabled = this.settings.panel.FORCE_LIGHT_TEXT
-                && !disable;
-            this.destroy_resource(() => {
-                if (enabled)
-                    panel_box.add_style_class_name("panel-light-text");
-                else
-                    panel_box.remove_style_class_name("panel-light-text");
-            });
+            if (enabled)
+                panel_box.add_style_class_name("panel-light-text");
+            else
+                panel_box.remove_style_class_name("panel-light-text");
         });
     }
 
@@ -689,8 +612,7 @@ export const PanelBlur = class PanelBlur {
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.visibility_update_id = 0;
-                if (this.enabled)
-                    this.update_visibility();
+                this.update_visibility();
                 return GLib.SOURCE_REMOVE;
             }
         );
@@ -708,7 +630,7 @@ export const PanelBlur = class PanelBlur {
     update_visibility() {
         if (
             this.settings.panel.UNBLUR_IN_OVERVIEW &&
-            (this._in_overview || Main.overview.visible || (this.main_panel_alive && Main.panel.has_style_pseudo_class('overview')))
+            (this._in_overview || Main.overview.visible || this.main_panel?.has_style_pseudo_class('overview'))
         ) {
             this.actors_list.forEach(actors => {
                 actors.widgets.background.hide();
@@ -785,7 +707,7 @@ export const PanelBlur = class PanelBlur {
             .filter(actors => actors.is_dtp_panel)
             .forEach(actors => {
                 this.set_should_override_panel(
-                    actors, actors.should_override ?? true
+                    actors, actors.should_override
                 );
             });
     }
@@ -793,30 +715,26 @@ export const PanelBlur = class PanelBlur {
     /// Choose wether or not the panel background should be overriden, in
     /// respect to its argument and the `override-background` setting.
     set_should_override_panel(actors, should_override) {
-        let panel = actors.widgets.panel;
         let target_style = null;
         actors.should_override = should_override;
 
         if (this.settings.panel.OVERRIDE_BACKGROUND) {
             if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
                 if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
-                    // This is an invert of the above behavior,
-                    // Blur and all styling is hidden when "should_override" is true.
-                    if (!should_override) {
-                        this.proximity_show(actors, panel);
-                    }
-                    else {
-                        this.proximity_hide(actors, panel);
-                    };
+                    // blur and styling are shown only when a window is near
+                    if (!should_override)
+                        this.proximity_show(actors);
+                    else
+                        this.proximity_hide(actors);
                 }
                 if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 1) {
                     if (should_override) {
                         target_style = (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
                             ? PANEL_STYLES[0]
                             : PANEL_STYLES[this.get_panel_style()];
-                        this.update_panel_style_class(panel, target_style);
+                        this.update_panel_style_class(actors, target_style);
                     } else {
-                        this.update_panel_style_class(panel, null); // Clear custom styles
+                        this.update_panel_style_class(actors, null);
                     }
                 }
             }
@@ -824,52 +742,40 @@ export const PanelBlur = class PanelBlur {
                 target_style = (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
                             ? PANEL_STYLES[0]
                             : PANEL_STYLES[this.get_panel_style()];
-                this.update_panel_style_class(panel, target_style);
+                this.update_panel_style_class(actors, target_style);
             }
         }
         else {
-            this.update_panel_style_class(panel, null);
+            this.update_panel_style_class(actors, null);
         }
 
-        // update the classname if the panel to have or have not light text
         this.update_light_text_classname();
     }
 
-    update_panel_style_class(panel, target_class) {
-        const ALL_STYLES = [...PANEL_STYLES, ...GRADIENT_PANEL_STYLES];
+    update_panel_style_class(actors, target_class) {
+        const panel = actors.widgets.panel;
 
-        // Remove all managed classes EXCEPT the target class we are moving to
-        ALL_STYLES.forEach(style => {
-            if (style !== target_class) {
+        [...PANEL_STYLES, ...GRADIENT_PANEL_STYLES].forEach(style => {
+            if (style !== target_class)
                 panel.remove_style_class_name(style);
-            }
         });
 
-        // Add the target class if specified and not already present
-        if (target_class && !panel.has_style_class_name(target_class)) {
+        if (target_class && !panel.has_style_class_name(target_class))
             panel.add_style_class_name(target_class);
-        }
 
-        // Apply or restore border-radius style as part of the styling flow
-        this.update_panel_border_radius(panel, target_class);
+        this.update_panel_border_radius(actors, target_class);
     }
 
-    update_panel_border_radius(panel, target_class = null) {
-        if (!panel || !panel.set_style)
-            return;
-
-        const actors = this.actors_list.find(a => a.widgets.panel === panel);
-        const original_style = actors?.original_style ?? null;
+    update_panel_border_radius(actors, target_class) {
+        const panel = actors.widgets.panel;
 
         if (!target_class || !this.settings.panel.OVERRIDE_BACKGROUND) {
-            try {
-                panel.set_style(original_style);
-            } catch (e) { }
+            panel.set_style(actors.original_style);
             return;
         }
 
         const radius = this.settings.panel.CORNER_RADIUS;
-        const panel_height = panel.get_height?.() ?? 0;
+        const panel_height = panel.get_height();
         const max_radius = panel_height > 0 ? Math.floor(panel_height / 2) : radius;
         const clamped_radius = Math.min(radius, max_radius);
 
@@ -877,14 +783,12 @@ export const PanelBlur = class PanelBlur {
         const top = corners.corners_top ? clamped_radius : 0;
         const bottom = corners.corners_bottom ? clamped_radius : 0;
 
-        const base_style = original_style ?? '';
-        const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
+        const base_style = actors.original_style?.trim() ?? '';
+        const separator = base_style && !base_style.endsWith(';') ? '; ' : '';
 
-        try {
-            panel.set_style(
-                `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px; border-top-left-radius: ${top}px; border-top-right-radius: ${top}px; border-bottom-right-radius: ${bottom}px; border-bottom-left-radius: ${bottom}px;`
-            );
-        } catch (e) { }
+        panel.set_style(
+            `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`
+        );
     }
 
     get_panel_style() {
@@ -906,7 +810,7 @@ export const PanelBlur = class PanelBlur {
         }
     }
 
-    proximity_hide(actors, panel) {
+    proximity_hide(actors) {
         let target_style = null;
         if (this.settings.panel.GRADIENT_PANEL) {
             if (!this._in_overview && !Main.overview.visible) {
@@ -925,18 +829,18 @@ export const PanelBlur = class PanelBlur {
                                 : PANEL_STYLES[0];
         }
 
-        this.update_panel_style_class(panel, target_style);
+        this.update_panel_style_class(actors, target_style);
         actors.widgets.background.hide();
     }
 
-    proximity_show(actors, panel) {
+    proximity_show(actors) {
         if (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible)) {
-            this.update_panel_style_class(panel, PANEL_STYLES[0]);
+            this.update_panel_style_class(actors, PANEL_STYLES[0]);
             actors.widgets.background.hide();
             return;
         }
 
-        this.update_panel_style_class(panel, PANEL_STYLES[this.get_panel_style()]);
+        this.update_panel_style_class(actors, PANEL_STYLES[this.get_panel_style()]);
         actors.widgets.background.show();
     }
 
@@ -947,9 +851,7 @@ export const PanelBlur = class PanelBlur {
 
     update_pipeline() {
         this.actors_list.forEach(actors => {
-            actors.bg_manager?._bms_pipeline?.change_pipeline_to(
-                this.settings.panel.PIPELINE
-            );
+            actors.pipeline.change_pipeline_to(this.settings.panel.PIPELINE);
             actors.rounded_pipeline?.update();
         });
     }
@@ -959,17 +861,15 @@ export const PanelBlur = class PanelBlur {
             if (actors.rounded_pipeline)
                 actors.rounded_pipeline.update();
             else
-                actors.bg_manager?._bms_pipeline?.set_corner_radius?.(
-                    this.settings.panel.CORNER_RADIUS
-                );
-            this.set_should_override_panel(actors, actors.should_override ?? true);
+                actors.pipeline.set_corner_radius(this.settings.panel.CORNER_RADIUS);
+            this.set_should_override_panel(actors, actors.should_override);
         });
     }
 
     show() {
         this.actors_list.forEach(actors => {
             actors.widgets.background.show();
-            this.set_should_override_panel(actors, actors.should_override ?? true);
+            this.set_should_override_panel(actors, actors.should_override);
         });
     }
 
@@ -980,61 +880,34 @@ export const PanelBlur = class PanelBlur {
                 const target_style = (this.settings.panel.UNBLUR_IN_OVERVIEW && (this._in_overview || Main.overview.visible))
                     ? PANEL_STYLES[0]
                     : PANEL_STYLES[this.get_panel_style()];
-                this.update_panel_style_class(actors.widgets.panel, target_style);
+                this.update_panel_style_class(actors, target_style);
             }
-            this.update_light_text_classname();
         });
+        this.update_light_text_classname();
     }
 
     // IMPORTANT: do never call this in a mutable `this.actors_list.forEach`
-    destroy_blur(actors, panel_already_destroyed) {
+    destroy_blur(actors) {
         const size_update_id = this.queued_updates.get(actors);
         if (size_update_id) {
             GLib.Source.remove(size_update_id);
             this.queued_updates.delete(actors);
         }
 
-        this.destroy_resource(() =>
-            actors.widgets.panel_box.remove_style_class_name("panel-light-text")
+        actors.signal_records.forEach(({ actor, ids }) =>
+            ids.forEach(id => this.connections.disconnect(actor, id))
         );
-
-        if (!panel_already_destroyed)
-            this.update_panel_style_class(actors.widgets.panel, null);
-
-        if (!panel_already_destroyed && actors.widgets.panel?.set_style) {
-            try {
-                actors.widgets.panel.set_style(actors.original_style ?? null);
-            } catch (e) { }
-        }
-
-        actors.signal_records.forEach(({ actor, ids }) => {
-            if (panel_already_destroyed && actor === actors.widgets.panel)
-                return;
-            ids.forEach(id => this.destroy_resource(
-                () => this.connections.disconnect(actor, id)
-            ));
-        });
         actors.signal_records = [];
 
-        this.destroy_resource(() => actors.rounded_pipeline?.destroy());
-        this.destroy_resource(() => actors.bg_manager?._bms_pipeline?.destroy());
+        actors.widgets.panel_box.remove_style_class_name("panel-light-text");
+        this.update_panel_style_class(actors, null);
 
-        if (panel_already_destroyed && actors.bg_manager)
-            actors.bg_manager.backgroundActor = null;
-        this.destroy_resource(() => actors.bg_manager?.destroy());
+        actors.rounded_pipeline?.destroy();
+        actors.pipeline.destroy();
+        actors.bg_manager.destroy();
+        actors.widgets.background_group.destroy();
 
-        if (!panel_already_destroyed) {
-            try {
-                if (actors.widgets.background_group.get_parent() === actors.widgets.panel_box)
-                    actors.widgets.panel_box.remove_child(actors.widgets.background_group);
-                actors.widgets.background_group.destroy_all_children();
-                actors.widgets.background_group.destroy();
-            } catch (e) { }
-        }
-
-        let index = this.actors_list.indexOf(actors);
-        if (index >= 0)
-            this.actors_list.splice(index, 1);
+        this.actors_list.splice(this.actors_list.indexOf(actors), 1);
     }
 
     disable() {
@@ -1049,12 +922,8 @@ export const PanelBlur = class PanelBlur {
 
         this.update_light_text_classname(true);
 
-        const immutable_actors_list = [...this.actors_list];
-        immutable_actors_list.forEach(actors => this.destroy_blur(actors, false));
-        this.actors_list = [];
+        [...this.actors_list].forEach(actors => this.destroy_blur(actors));
 
-        this.queued_updates.forEach(id => GLib.Source.remove(id));
-        this.queued_updates.clear();
         if (this.dtp_blur_idle_id) {
             GLib.Source.remove(this.dtp_blur_idle_id);
             this.dtp_blur_idle_id = 0;
@@ -1069,6 +938,7 @@ export const PanelBlur = class PanelBlur {
 
         this.connections.disconnect_all();
         this.dash_to_panel = null;
+        this.main_panel = null;
 
         this.enabled = false;
     }
@@ -1076,9 +946,5 @@ export const PanelBlur = class PanelBlur {
     _log(str) {
         if (this.settings.DEBUG)
             console.log(`[Blur my Shell > panel]        ${str}`);
-    }
-
-    _warn(str) {
-        console.warn(`[Blur my Shell > panel]        ${str}`);
     }
 };

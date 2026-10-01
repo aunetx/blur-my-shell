@@ -2,33 +2,44 @@ const DASH_TO_DOCK_CONTAINER = 'dashtodockContainer';
 const DHRUVA_CONTAINER = 'DhruvaContainer';
 
 function find_child(actor, name) {
-    return actor?.get_children?.().find(child => child.get_name?.() === name) ?? null;
+    return actor.get_children().find(child => child.get_name() === name);
+}
+
+function is_dash_to_dock(actor) {
+    return actor.get_name() === DASH_TO_DOCK_CONTAINER &&
+        actor.constructor.name === 'DashToDock';
+}
+
+function is_dhruva(actor) {
+    return actor.get_name() === DHRUVA_CONTAINER;
+}
+
+function is_native_dash(actor) {
+    return actor.get_name() === 'dash' && Boolean(actor._background);
 }
 
 function resolve_dash_to_dock(container) {
-    if (
-        container?.get_name?.() !== DASH_TO_DOCK_CONTAINER ||
-        container.constructor?.name !== 'DashToDock'
-    )
+    if (!is_dash_to_dock(container))
         return null;
 
-    const slider = container._slider ?? null;
-    const content_parent = slider?.get_child?.() ?? null;
-    const content = find_child(content_parent, 'dash');
-    const background = content?._background ??
-        content?.get_children?.().find(child =>
-            child.get_style_class_name?.()?.includes('dash-background')
-        ) ?? content;
+    const slider = container._slider;
+    const content_parent = slider.get_child();
+    const content = content_parent && find_child(content_parent, 'dash');
+    if (!content)
+        return null;
 
-    return { content, content_parent, background, slider };
+    return { content, content_parent, background: content._background, slider };
 }
 
 function resolve_dhruva(container) {
-    if (container?.get_name?.() !== DHRUVA_CONTAINER)
+    if (!is_dhruva(container))
         return null;
 
+    // Dhruva releases before August 2026 don't expose boxActor and bgActor
     const content = container.boxActor ?? find_child(container, 'Dhruva');
     const background = container.bgActor ?? find_child(container, 'DhruvaBackground');
+    if (!content || !background)
+        return null;
 
     return {
         content,
@@ -39,7 +50,7 @@ function resolve_dhruva(container) {
 }
 
 function resolve_native_dash(container) {
-    if (container?.get_name?.() !== 'dash' || !container._background)
+    if (!is_native_dash(container))
         return null;
     let ancestor = container.get_parent();
     while (ancestor) {
@@ -49,7 +60,7 @@ function resolve_native_dash(container) {
     }
     let sibling = container;
     let parent = sibling.get_parent();
-    while (parent && !['uiGroup', 'overviewGroup'].includes(parent.get_name?.())) {
+    while (parent && !['uiGroup', 'overviewGroup'].includes(parent.get_name())) {
         sibling = parent;
         parent = parent.get_parent();
     }
@@ -64,12 +75,18 @@ function resolve_native_dash(container) {
     };
 }
 
+export function has_valid_allocation(actor) {
+    return actor.has_allocation() && actor.width > 0 && actor.height > 0;
+}
+
+export function is_dock_ready(container, target) {
+    return Boolean(target) && [
+        container, target.content_parent, target.content, target.background,
+    ].every(has_valid_allocation);
+}
+
 export function is_supported_dock_container(actor) {
-    const name = actor?.get_name?.();
-    return (
-        name === DASH_TO_DOCK_CONTAINER &&
-        actor.constructor?.name === 'DashToDock'
-    ) || name === DHRUVA_CONTAINER || name === 'dash' && Boolean(actor._background);
+    return is_dash_to_dock(actor) || is_dhruva(actor) || is_native_dash(actor);
 }
 
 export function resolve_dock_target(container) {
