@@ -3,6 +3,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../../conveniences/pipeline.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { getLocalClip } from '../../render/effect_bounds.js';
 import { has_style_class } from './actors.js';
 import { transform_to_actor_space } from './surface_geometry.js';
 import { PopupBlurAllocation } from './surface_allocation.js';
@@ -89,12 +90,6 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
 
         const monitor_geometry = transform_to_actor_space(this.parent, monitor);
         const target_geometry = transform_to_actor_space(this.parent, target_rect);
-        const clip = {
-            x: Math.round(target_geometry.x - monitor_geometry.x),
-            y: Math.round(target_geometry.y - monitor_geometry.y),
-            width: Math.ceil(target_geometry.width),
-            height: Math.ceil(target_geometry.height),
-        };
 
         // The wallpaper child already uses monitor-relative positioning and
         // clipping. Keep its container at the parent's origin under BinLayout.
@@ -111,6 +106,24 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             || this.blur_actor.height !== monitor_geometry.height
         )
             this.blur_actor.set_size(monitor_geometry.width, monitor_geometry.height);
+
+        const clip = getLocalClip(this.blur_actor, target_rect) ?? {
+            x: Math.round(target_geometry.x - monitor_geometry.x),
+            y: Math.round(target_geometry.y - monitor_geometry.y),
+            width: Math.ceil(target_geometry.width),
+            height: Math.ceil(target_geometry.height),
+        };
+
+        const rounded_rect = this.blur_actor._bms_rounded_rect;
+        if (
+            rounded_rect?.x !== target_rect.x
+            || rounded_rect.y !== target_rect.y
+            || rounded_rect.width !== target_rect.width
+            || rounded_rect.height !== target_rect.height
+        ) {
+            this.blur_actor._bms_rounded_rect = { ...target_rect };
+            this.blur_actor.queue_redraw();
+        }
 
         if (
             this.clip?.x !== clip.x

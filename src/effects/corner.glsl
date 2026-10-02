@@ -11,6 +11,11 @@ uniform float clip_y0;
 uniform float clip_width;
 uniform float clip_height;
 
+uniform float bounds_x0;
+uniform float bounds_y0;
+uniform float bounds_width;
+uniform float bounds_height;
+
 float roundedBoxDistance(vec2 point, vec2 halfSize, float cornerRadius) {
     vec2 q = abs(point) - halfSize + vec2(cornerRadius);
     return length(max(q, vec2(0.0)))
@@ -25,6 +30,8 @@ void main() {
     vec4 bounds = clip_width < 0.0 || clip_height < 0.0
         ? vec4(0.0, 0.0, actorSize)
         : vec4(clip_x0, clip_y0, clip_x0 + clip_width, clip_y0 + clip_height);
+    if (bounds_width > 0.0 && bounds_height > 0.0)
+        bounds = vec4(bounds_x0, bounds_y0, bounds_x0 + bounds_width, bounds_y0 + bounds_height);
     vec2 size = max(bounds.zw - bounds.xy, vec2(1.0));
     vec2 local = position - bounds.xy;
     float cornerRadius = min(radius, min(size.x, size.y) * 0.5);

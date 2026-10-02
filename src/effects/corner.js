@@ -11,6 +11,7 @@ const DEFAULT_PARAMS = {
     radius: 12, width: 0, height: 0,
     corners_top: true, corners_bottom: true,
     clip: [0, 0, -1, -1],
+    bounds: [0, 0, -1, -1],
     straight_corners: false,
 };
 
@@ -103,6 +104,8 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
                 radius = Math.min(radius, this._clip_width / 2);
             if (Number.isFinite(this._clip_height) && this._clip_height >= 0)
                 radius = Math.min(radius, this._clip_height / 2);
+            if (this._bounds_width > 0 && this._bounds_height > 0)
+                radius = Math.min(radius, this._bounds_width / 2, this._bounds_height / 2);
 
             uniforms.set_uniform(this, 'radius', parseFloat(radius - 1e-6));
         }
@@ -202,6 +205,49 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
             uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width));
             uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height));
             this.update_radius();
+        }
+
+        get bounds() {
+            return [this._bounds_x0, this._bounds_y0, this._bounds_width, this._bounds_height];
+        }
+
+        set bounds(value) {
+            [this._bounds_x0, this._bounds_y0, this._bounds_width, this._bounds_height] = value;
+            uniforms.set_uniform(this, 'bounds_x0', parseFloat(this._bounds_x0));
+            uniforms.set_uniform(this, 'bounds_y0', parseFloat(this._bounds_y0));
+            uniforms.set_uniform(this, 'bounds_width', parseFloat(this._bounds_width > 0 ? this._bounds_width : -1));
+            uniforms.set_uniform(this, 'bounds_height', parseFloat(this._bounds_height > 0 ? this._bounds_height : -1));
+            this.update_radius();
+        }
+
+        syncGeometry(actor) {
+            const effect_bounds = super.syncGeometry(actor);
+            this.sync_rounded_bounds(actor, effect_bounds);
+            return effect_bounds;
+        }
+
+        sync_rounded_bounds(actor, effect_bounds) {
+            const geometry = actor._bms_rounded_geometry;
+            let rect = actor._bms_rounded_rect ?? null;
+            if (geometry?.get_stage()) {
+                const [x, y] = geometry.get_transformed_position();
+                const [width, height] = geometry.get_transformed_size();
+                rect = { x, y, width, height };
+            }
+
+            let bounds = [0, 0, -1, -1];
+            if (rect && actor.get_stage()) {
+                const { x, y, width, height } = rect;
+                const [ok1, x1, y1] = actor.transform_stage_point(x, y);
+                const [ok2, x2, y2] = actor.transform_stage_point(x + width, y + height);
+                if (ok1 && ok2)
+                    bounds = [x1 - effect_bounds.x, y1 - effect_bounds.y, x2 - x1, y2 - y1];
+            }
+
+            if (this.bounds.every((value, i) => value === bounds[i]))
+                return;
+
+            this.bounds = bounds;
         }
 
         vfunc_paint_target(paint_node, paint_context) {

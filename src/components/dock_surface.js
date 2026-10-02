@@ -6,6 +6,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { Connections } from '../conveniences/connections.js';
 import { has_valid_allocation, resolve_dock_target } from './dock_targets.js';
 import { get_component_style } from '../conveniences/style.js';
+import { getLocalClip } from '../render/effect_bounds.js';
 
 const DASH_STYLES = [
     "transparent-dash",
@@ -243,18 +244,26 @@ export class DockSurface {
             if (!dash_box)
                 return;
 
-            const clip_x = Math.floor(dash_box.clip_x);
-            const clip_y = Math.floor(dash_box.clip_y);
-            const clip_w = Math.ceil(dash_box.clip_width);
-            const clip_h = Math.ceil(dash_box.clip_height);
-
             this.background.set_pivot_point(0, 0);
             this.background.scale_x = 1 / dash_box.parent_scale_x;
             this.background.scale_y = 1 / dash_box.parent_scale_y;
             this.background.x = dash_box.background_x;
             this.background.y = dash_box.background_y;
 
-            this.background.set_clip(clip_x, clip_y, clip_w, clip_h);
+            const rect = {
+                x: monitor.x + dash_box.clip_x,
+                y: monitor.y + dash_box.clip_y,
+                width: dash_box.clip_width,
+                height: dash_box.clip_height,
+            };
+            const clip = getLocalClip(this.background, rect) ?? {
+                x: Math.floor(dash_box.clip_x),
+                y: Math.floor(dash_box.clip_y),
+                width: Math.ceil(dash_box.clip_width),
+                height: Math.ceil(dash_box.clip_height),
+            };
+            this.background._bms_rounded_rect = rect;
+            this.background.set_clip(clip.x, clip.y, clip.width, clip.height);
         } else {
             const geometry = this.get_dynamic_geometry();
             this.background.set_position(geometry.x, geometry.y);

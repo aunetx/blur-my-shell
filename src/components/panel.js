@@ -408,6 +408,7 @@ export const PanelBlur = class PanelBlur {
             const clip_h = Math.ceil(geometry_height) +
                 workspace_edge_inset;
 
+            background._bms_rounded_geometry = geometry_actor;
             background.set_clip(clip_x, clip_y, clip_w, clip_h);
             background.x = g_x - x;
             background.y = g_y - y;
