@@ -29,5 +29,5 @@ void main(void) {
     float uncovered = smoothstep(-0.5, 0.5, distance);
 
     // Cogl textures use premultiplied alpha; mask all four channels.
-    cogl_color_out = texture2D(tex, uv) * uncovered;
+    cogl_color_out = bms_texture2D(tex, uv) * uncovered;
 }

@@ -11,7 +11,7 @@ vec4 get_texture_at_position(vec2 position) {
     vec2 raw_position = position + vec2(CORRECTION, CORRECTION);
     vec2 raw_uv = raw_position / vec2(max(1.0, width + SIZE_ADDITION), max(1.0, height + SIZE_ADDITION));
 
-    return texture2D(tex, raw_uv);
+    return bms_texture2D(tex, raw_uv);
 }
 
 vec4 try_get_texture_at_position(vec2 position, inout int count) {

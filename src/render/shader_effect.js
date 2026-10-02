@@ -3,6 +3,11 @@ import Cogl from 'gi://Cogl';
 import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 import { getEffectBounds } from './effect_bounds.js';
+import {
+    getTextureCapacity,
+    setTextureRegion,
+    SURFACE_TEXTURE_REGION,
+} from './texture_region.js';
 
 export const SurfaceShaderEffect = GObject.registerClass({
     GTypeName: 'BmsSurfaceShaderEffect',
@@ -15,31 +20,39 @@ export const SurfaceShaderEffect = GObject.registerClass({
 
     ensureTarget(context, bounds, scale) {
         const { x, y, width, height } = bounds;
-        const textureWidth = Math.max(1, Math.ceil(width * scale));
-        const textureHeight = Math.max(1, Math.ceil(height * scale));
-        if (this.target?.context === context
-            && this.target.width === textureWidth
-            && this.target.height === textureHeight) {
-            if (this.target.logicalWidth !== width || this.target.logicalHeight !== height
-                || this.target.x !== x || this.target.y !== y) {
-                this.target.framebuffer.orthographic(x, y, x + width, y + height, -1, 1);
-                this.target.x = x;
-                this.target.y = y;
-                this.target.logicalWidth = width;
-                this.target.logicalHeight = height;
-                this.sourceValid = false;
-            }
-            return;
-        }
+        const usedWidth = Math.max(1, Math.ceil(width * scale));
+        const usedHeight = Math.max(1, Math.ceil(height * scale));
+        const current = this.target?.context === context ? this.target : null;
+        const textureWidth = getTextureCapacity(usedWidth, current?.width ?? 0,
+            Math.ceil(global.stage.width * scale));
+        const textureHeight = getTextureCapacity(usedHeight, current?.height ?? 0,
+            Math.ceil(global.stage.height * scale));
+        if (textureWidth !== current?.width || textureHeight !== current?.height)
+            this.createTarget(context, textureWidth, textureHeight);
 
+        const target = this.target;
+        if (target.usedWidth === usedWidth && target.usedHeight === usedHeight
+            && target.logicalWidth === width && target.logicalHeight === height
+            && target.x === x && target.y === y)
+            return;
+
+        target.framebuffer.set_viewport(0, 0, usedWidth, usedHeight);
+        target.framebuffer.orthographic(x, y, x + width, y + height, -1, 1);
+        setTextureRegion(target.pipeline, SURFACE_TEXTURE_REGION,
+            usedWidth, usedHeight, target.width, target.height);
+        Object.assign(target, {
+            x, y, usedWidth, usedHeight, logicalWidth: width, logicalHeight: height,
+        });
+        this.sourceValid = false;
+    }
+
+    createTarget(context, textureWidth, textureHeight) {
         const texture = Cogl.Texture2D.new_with_size(context, textureWidth, textureHeight);
         texture.set_components(Cogl.TextureComponents.RGBA);
         texture.allocate();
         const framebuffer = Cogl.Offscreen.new_with_texture(texture);
         framebuffer.allocate();
-        framebuffer.set_viewport(0, 0, textureWidth, textureHeight);
         framebuffer.set_modelview_matrix(new Graphene.Matrix().init_identity());
-        framebuffer.orthographic(x, y, x + width, y + height, -1, 1);
 
         const pipeline = Cogl.Pipeline.new(context);
         pipeline.set_layer_texture(0, texture);
@@ -47,9 +60,9 @@ export const SurfaceShaderEffect = GObject.registerClass({
         pipeline.set_layer_wrap_mode(0, Cogl.PipelineWrapMode.CLAMP_TO_EDGE);
         pipeline.add_snippet(this.surfaceSnippet);
         this.target = {
-            context, texture, framebuffer, pipeline, x, y,
+            context, texture, framebuffer, pipeline,
             width: textureWidth, height: textureHeight,
-            logicalWidth: width, logicalHeight: height,
+            usedWidth: 0, usedHeight: 0,
         };
         this.target.viewportWidthLocation = pipeline.get_uniform_location('bms_viewport_width');
         this.target.viewportHeightLocation = pipeline.get_uniform_location('bms_viewport_height');
