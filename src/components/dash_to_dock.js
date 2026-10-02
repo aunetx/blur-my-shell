@@ -341,10 +341,6 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
         this._log("removing blur from dashes");
 
-        if (this.discovery_id)
-            GLib.Source.remove(this.discovery_id);
-        this.discovery_id = 0;
-
         this.native_dash_connections.disconnect_all();
         this.native_dash = null;
 
@@ -352,6 +348,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this.pending_docks.forEach(pending => pending.destroy());
 
         this.connections.disconnect_all();
+
+        if (this.discovery_id)
+            GLib.Source.remove(this.discovery_id);
+        this.discovery_id = 0;
 
         this.enabled = false;
     }
