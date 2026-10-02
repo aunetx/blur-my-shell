@@ -8,7 +8,7 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Dock blur</property>
-        <property name="description" translatable="yes">Blur the background of supported dock extensions, including Dash to Dock, Dhruva and Simple Taskbar.</property>
+        <property name="description" translatable="yes">Blur the background of supported docks, including Dash to Dock, Dhruva and Simple Taskbar&apos;s dock.</property>
         <property name="header-suffix">
           <object class="GtkSwitch" id="blur">
             <property name="valign">center</property>
