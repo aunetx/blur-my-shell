@@ -63,6 +63,9 @@ export class DockSurface {
         for (const actor of new Set([this.dash, dash_container]))
             this.connections.connect(actor, ['child-added', 'child-removed'],
                 () => this.dash_blur.queue_discovery());
+        if (target.get_corner_radius)
+            this.connections.connect(this.dash_background, 'style-changed',
+                () => this.update_corner_radius());
 
         this.set_blur(blur);
 
@@ -197,7 +200,9 @@ export class DockSurface {
         if (this.rounded_pipeline)
             this.rounded_pipeline.update();
         else
-            this.pipeline?.set_corner_radius(this.settings.dash_to_dock.CORNER_RADIUS);
+            this.pipeline?.set_corner_radius(
+                this.dash_blur.get_corner_radius(this.dash_container)
+            );
     }
 
     update_visibility() {
@@ -224,9 +229,9 @@ export class DockSurface {
 
         this.update_visibility();
 
-        if (!has_valid_allocation(this.dash_container) ||
-            !has_valid_allocation(this.dash) ||
-            !has_valid_allocation(this.dash_background))
+        if (!this.has_valid_geometry(this.dash_container) ||
+            !this.has_valid_geometry(this.dash) ||
+            !this.has_valid_geometry(this.dash_background))
             return;
 
         if (this.dash_blur.is_static) {
@@ -265,33 +270,30 @@ export class DockSurface {
     get_dash_position(monitor) {
         let parent = this.background_group.get_parent();
 
-        let [parent_stage_x, parent_stage_y] = parent.get_transformed_position();
-        let [parent_stage_width, parent_stage_height] = parent.get_transformed_size();
-        let [bg_stage_x, bg_stage_y] = this.dash_background.get_transformed_position();
-        let [bg_stage_width, bg_stage_height] = this.dash_background.get_transformed_size();
-
-        const parent_scale_x = parent.width > 0
-            ? parent_stage_width / parent.width
-            : 1;
-        const parent_scale_y = parent.height > 0
-            ? parent_stage_height / parent.height
-            : 1;
+        const {
+            x: parent_stage_x,
+            y: parent_stage_y,
+            scale_x: parent_scale_x,
+            scale_y: parent_scale_y,
+        } = this.get_stage_placement(parent);
         if (parent_scale_x <= 0 || parent_scale_y <= 0)
             return null;
+
+        const target = this.get_relative_geometry(this.dash_background, parent);
 
         let background_x = (monitor.x - parent_stage_x) / parent_scale_x;
         let background_y = (monitor.y - parent_stage_y) / parent_scale_y;
 
-        let clip_x = bg_stage_x - monitor.x;
-        let clip_y = bg_stage_y - monitor.y;
+        let clip_x = parent_stage_x + target.x * parent_scale_x - monitor.x;
+        let clip_y = parent_stage_y + target.y * parent_scale_y - monitor.y;
 
         return {
             background_x,
             background_y,
             clip_x,
             clip_y,
-            clip_width: bg_stage_width,
-            clip_height: bg_stage_height,
+            clip_width: target.width * parent_scale_x,
+            clip_height: target.height * parent_scale_y,
             parent_scale_x,
             parent_scale_y,
         };
@@ -310,8 +312,53 @@ export class DockSurface {
         };
     }
 
+    get_stage_placement(actor) {
+        const grandparent = actor.get_parent();
+        if (grandparent && !actor.is_scaled() && !actor.is_rotated()
+            && this.uses_set_geometry(this.dash_background, actor)) {
+            const [x, y] = grandparent.get_transformed_position();
+            const [width, height] = grandparent.get_transformed_size();
+            const scale_x = grandparent.width > 0 ? width / grandparent.width : 1;
+            const scale_y = grandparent.height > 0 ? height / grandparent.height : 1;
+            return {
+                x: x + (actor.x + actor.translation_x) * scale_x,
+                y: y + (actor.y + actor.translation_y) * scale_y,
+                scale_x,
+                scale_y,
+            };
+        }
+
+        const [x, y] = actor.get_transformed_position();
+        const [width, height] = actor.get_transformed_size();
+        return {
+            x,
+            y,
+            scale_x: actor.width > 0 ? width / actor.width : 1,
+            scale_y: actor.height > 0 ? height / actor.height : 1,
+        };
+    }
+
+    uses_set_geometry(actor, parent) {
+        return actor.get_parent() === parent
+            && actor.translation_x === 0
+            && actor.translation_y === 0
+            && !actor.is_scaled()
+            && !actor.is_rotated();
+    }
+
+    has_valid_geometry(actor) {
+        const parent = this.background_group.get_parent();
+        if (this.uses_set_geometry(this.dash_background, parent))
+            return actor.width > 0 && actor.height > 0;
+
+        return has_valid_allocation(actor);
+    }
+
     get_relative_geometry(actor, parent) {
         const { width, height } = actor;
+        if (this.uses_set_geometry(actor, parent))
+            return { x: actor.x, y: actor.y, width, height };
+
         const corners = [
             [0, 0],
             [width, 0],

@@ -236,7 +236,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             );
             const rounded_pipeline = new RoundedPipeline(
                 this.effects_manager,
-                () => this.settings.dash_to_dock.CORNER_RADIUS,
+                () => this.get_corner_radius(dash_container),
                 () => this.settings.dash_to_dock.ROUNDED_CORNERS
             );
             rounded_pipeline.bind(pipeline, background);
@@ -255,7 +255,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             global.blur_my_shell._pipelines_manager,
             this.settings.dash_to_dock.PIPELINE,
             {
-                corner_radius: this.settings.dash_to_dock.CORNER_RADIUS,
+                corner_radius: this.get_corner_radius(dash_container),
                 get_corners: () => this.settings.dash_to_dock.ROUNDED_CORNERS,
             }
         );
@@ -270,6 +270,11 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             pipeline,
             rounded_pipeline: null,
         };
+    }
+
+    get_corner_radius(dash_container) {
+        return resolve_dock_target(dash_container)?.get_corner_radius?.()
+            ?? this.settings.dash_to_dock.CORNER_RADIUS;
     }
 
     change_blur_type() {
@@ -336,10 +341,6 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
         this._log("removing blur from dashes");
 
-        if (this.discovery_id)
-            GLib.Source.remove(this.discovery_id);
-        this.discovery_id = 0;
-
         this.native_dash_connections.disconnect_all();
         this.native_dash = null;
 
@@ -347,6 +348,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this.pending_docks.forEach(pending => pending.destroy());
 
         this.connections.disconnect_all();
+
+        if (this.discovery_id)
+            GLib.Source.remove(this.discovery_id);
+        this.discovery_id = 0;
 
         this.enabled = false;
     }

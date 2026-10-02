@@ -1,5 +1,9 @@
+import St from 'gi://St';
+
 const DASH_TO_DOCK_CONTAINER = 'dashtodockContainer';
 const DHRUVA_CONTAINER = 'DhruvaContainer';
+const SIMPLE_TASKBAR_CONTAINER = 'SimpleTaskbarDock';
+const SIMPLE_TASKBAR_DOCK = 'panel';
 
 function find_child(actor, name) {
     return actor.get_children().find(child => child.get_name() === name);
@@ -12,6 +16,10 @@ function is_dash_to_dock(actor) {
 
 function is_dhruva(actor) {
     return actor.get_name() === DHRUVA_CONTAINER;
+}
+
+function is_simple_taskbar(actor) {
+    return actor.get_name() === SIMPLE_TASKBAR_CONTAINER;
 }
 
 function is_native_dash(actor) {
@@ -46,6 +54,28 @@ function resolve_dhruva(container) {
         content_parent: container,
         background,
         slider: null,
+    };
+}
+
+function theme_corner_radius(actor) {
+    const scale_factor = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+    return actor.get_theme_node().get_border_radius(St.Corner.TOPLEFT) / scale_factor;
+}
+
+function resolve_simple_taskbar(container) {
+    if (!is_simple_taskbar(container))
+        return null;
+
+    const content = find_child(container, SIMPLE_TASKBAR_DOCK);
+    if (!content)
+        return null;
+
+    return {
+        content,
+        content_parent: container,
+        background: content,
+        slider: null,
+        get_corner_radius: () => theme_corner_radius(content),
     };
 }
 
@@ -86,10 +116,11 @@ export function is_dock_ready(container, target) {
 }
 
 export function is_supported_dock_container(actor) {
-    return is_dash_to_dock(actor) || is_dhruva(actor) || is_native_dash(actor);
+    return is_dash_to_dock(actor) || is_dhruva(actor) || is_simple_taskbar(actor)
+        || is_native_dash(actor);
 }
 
 export function resolve_dock_target(container) {
     return resolve_dash_to_dock(container) ?? resolve_dhruva(container)
-        ?? resolve_native_dash(container);
+        ?? resolve_simple_taskbar(container) ?? resolve_native_dash(container);
 }
