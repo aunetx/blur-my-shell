@@ -63,6 +63,9 @@ export class DockSurface {
         for (const actor of new Set([this.dash, dash_container]))
             this.connections.connect(actor, ['child-added', 'child-removed'],
                 () => this.dash_blur.queue_discovery());
+        if (target.get_corner_radius)
+            this.connections.connect(this.dash_background, 'style-changed',
+                () => this.update_corner_radius());
 
         this.set_blur(blur);
 
@@ -197,7 +200,9 @@ export class DockSurface {
         if (this.rounded_pipeline)
             this.rounded_pipeline.update();
         else
-            this.pipeline?.set_corner_radius(this.settings.dash_to_dock.CORNER_RADIUS);
+            this.pipeline?.set_corner_radius(
+                this.dash_blur.get_corner_radius(this.dash_container)
+            );
     }
 
     update_visibility() {
