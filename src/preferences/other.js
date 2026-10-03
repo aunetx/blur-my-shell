@@ -2,6 +2,7 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 
 export const Other = GObject.registerClass({
@@ -15,13 +16,11 @@ export const Other = GObject.registerClass({
         'screenshot_pipeline_choose_row',
 
         'window_list_blur',
-        'window_list_sigma',
-        'window_list_brightness',
+        'window_list_pipeline_choose_row',
 
         'coverflow_alt_tab_blur',
         'coverflow_alt_tab_pipeline_choose_row',
 
-        'hack_level',
         'debug',
         'reset'
     ],
@@ -55,13 +54,8 @@ export const Other = GObject.registerClass({
             'blur', this._window_list_blur, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
-        this.preferences.window_list.settings.bind(
-            'sigma', this._window_list_sigma, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.window_list.settings.bind(
-            'brightness', this._window_list_brightness, 'value',
-            Gio.SettingsBindFlags.DEFAULT
+        this._window_list_pipeline_choose_row.initialize(
+            this.preferences.window_list, this.pipelines_manager, this.pipelines_page
         );
 
         this.preferences.coverflow_alt_tab.settings.bind(
@@ -73,14 +67,27 @@ export const Other = GObject.registerClass({
         );
 
         this.preferences.settings.bind(
-            'hacks-level', this._hack_level, 'selected',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.settings.bind(
             'debug', this._debug, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
 
-        this._reset.connect('clicked', () => this.preferences.reset());
+        this._reset.connect('clicked', () => this.confirm_reset());
+    }
+
+    confirm_reset() {
+        const dialog = new Adw.AlertDialog({
+            heading: _('Reset all preferences?'),
+            body: _('Pipelines and component settings will return to their defaults.'),
+        });
+        dialog.add_response('cancel', _('Cancel'));
+        dialog.add_response('reset', _('Reset'));
+        dialog.set_response_appearance('reset', Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_default_response('cancel');
+        dialog.set_close_response('cancel');
+        dialog.connect('response', (_dialog, response) => {
+            if (response === 'reset')
+                this.preferences.reset();
+        });
+        dialog.present(this);
     }
 });

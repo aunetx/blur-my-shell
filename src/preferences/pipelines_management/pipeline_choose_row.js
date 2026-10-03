@@ -62,7 +62,8 @@ export const PipelineChooseRow = GObject.registerClass({
         const pipeline_id = this._pipeline_choose.selected_item.get_string();
         if (pipeline_id == 'create_new') {
             const id = this.pipelines_manager.create_pipeline(_("New pipeline"));
-            this.preferences.PIPELINE = id;
+            if (id)
+                this.preferences.PIPELINE = id;
         }
         else
             this.preferences.PIPELINE = pipeline_id;
@@ -89,10 +90,8 @@ export const PipelineChooseRow = GObject.registerClass({
         // prevent the pipeline selector from being updated while re-creating the list
         this._is_creating_pipelines_list = true;
 
-        // remove ancient items
         this._pipeline_model.splice(0, this._pipeline_model.n_items, null);
 
-        // add new ones
         let i = 0;
         for (let pipeline_id in this.pipelines_manager.pipelines) {
             this._pipeline_model.append(pipeline_id);
@@ -102,7 +101,6 @@ export const PipelineChooseRow = GObject.registerClass({
         }
         this._pipeline_model.append('create_new');
 
-        // now update the drop-down selector
         this._is_creating_pipelines_list = false;
         this.on_selected_pipeline_changed();
     }

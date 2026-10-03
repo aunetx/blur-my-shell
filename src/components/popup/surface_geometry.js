@@ -1,8 +1,6 @@
 import St from 'gi://St';
 
 export function transform_to_actor_space(actor, { x, y, width, height }) {
-    if (!actor)
-        return null;
     const [actor_x, actor_y] = actor.get_transformed_position();
     const [actor_width, actor_height] = actor.get_size();
     const [transformed_width, transformed_height] = actor.get_transformed_size();
@@ -18,48 +16,34 @@ export function transform_to_actor_space(actor, { x, y, width, height }) {
 }
 
 export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
-    get(actor, { use_content = true, use_margins = true } = {}) {
+    get(actor, use_content) {
         const actor_geometry = this.get_transformed_actor(actor);
-        if (!this.has_valid_geometry(actor_geometry))
+        if (!use_content || !this.has_valid_geometry(actor_geometry))
             return actor_geometry;
 
-        const margin_geometry = use_margins
-            ? this.get_margin_adjusted(actor, actor_geometry)
-            : actor_geometry;
-        if (!use_content)
-            return margin_geometry;
-
+        const margin_geometry = this.get_margin_adjusted(actor, actor_geometry);
         const content_geometry = this.get_transformed_content(actor, margin_geometry);
 
-        if (!this.should_use_content(margin_geometry, content_geometry))
-            return margin_geometry;
-
-        return content_geometry;
+        return this.should_use_content(margin_geometry, content_geometry)
+            ? content_geometry
+            : margin_geometry;
     }
 
     get_transformed_actor(actor) {
         const extents = actor.get_transformed_extents();
-        const top_left = extents?.get_top_left();
-        const bottom_right = extents?.get_bottom_right();
+        const top_left = extents.get_top_left();
+        const bottom_right = extents.get_bottom_right();
 
-        if (top_left && bottom_right) {
-            return {
-                x: top_left.x,
-                y: top_left.y,
-                width: bottom_right.x - top_left.x,
-                height: bottom_right.y - top_left.y,
-            };
-        }
-
-        if (!actor)
-            return null;
-        const [x, y] = actor.get_transformed_position();
-        const [width, height] = actor.get_transformed_size();
-        return { x, y, width, height };
+        return {
+            x: top_left.x,
+            y: top_left.y,
+            width: bottom_right.x - top_left.x,
+            height: bottom_right.y - top_left.y,
+        };
     }
 
     get_transformed_clip(actor) {
-        if (!actor?.has_clip)
+        if (!actor.has_clip)
             return null;
 
         const [clip_x, clip_y, clip_width, clip_height] = actor.get_clip();
@@ -68,30 +52,30 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
 
         const [actor_x, actor_y] = actor.get_transformed_position();
         const [actor_width, actor_height] = actor.get_transformed_size();
-        const scale_x = this.get_actor_scale(actor, actor_width, 'width');
-        const scale_y = this.get_actor_scale(actor, actor_height, 'height');
+        const scale_x = this.get_actor_scale(actor.width, actor_width);
+        const scale_y = this.get_actor_scale(actor.height, actor_height);
 
         return {
             x: actor_x + clip_x * scale_x,
-                y: actor_y + clip_y * scale_y,
-                width: clip_width * scale_x,
-                height: clip_height * scale_y,
+            y: actor_y + clip_y * scale_y,
+            width: clip_width * scale_x,
+            height: clip_height * scale_y,
         };
     }
 
     get_margin_adjusted(actor, geometry) {
-        const margins = this.get_margins(actor);
-        if (!margins)
+        const { margin_top, margin_right, margin_bottom, margin_left } = actor;
+        if (Math.max(margin_top, margin_right, margin_bottom, margin_left) <= 0)
             return geometry;
 
-        const scale_x = this.get_actor_scale(actor, geometry.width, 'width');
-        const scale_y = this.get_actor_scale(actor, geometry.height, 'height');
+        const scale_x = this.get_actor_scale(actor.width, geometry.width);
+        const scale_y = this.get_actor_scale(actor.height, geometry.height);
 
         return this.shrink(geometry,
-            margins.top * scale_y,
-            margins.right * scale_x,
-            margins.bottom * scale_y,
-            margins.left * scale_x
+            margin_top * scale_y,
+            margin_right * scale_x,
+            margin_bottom * scale_y,
+            margin_left * scale_x
         ) ?? geometry;
     }
 
@@ -100,13 +84,17 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
         if (!this.has_valid_geometry(children))
             return null;
 
-        const insets = this.get_paint_insets(actor, boundary);
+        const scale_x = this.get_actor_scale(actor.width, boundary.width);
+        const scale_y = this.get_actor_scale(actor.height, boundary.height);
+        const theme_node = actor.get_theme_node();
+        const inset = side => theme_node.get_padding(side) + theme_node.get_border_width(side);
+
         const geometry = this.inflate(
             children,
-            insets.top,
-            insets.right,
-            insets.bottom,
-            insets.left
+            inset(St.Side.TOP) * scale_y,
+            inset(St.Side.RIGHT) * scale_x,
+            inset(St.Side.BOTTOM) * scale_y,
+            inset(St.Side.LEFT) * scale_x
         );
 
         return this.intersect(geometry, boundary);
@@ -115,94 +103,19 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
     get_transformed_children(actor) {
         let geometry = null;
 
-        this.get_children(actor).forEach(child => {
-            if (!this.is_visible(child))
+        actor.get_children().forEach(child => {
+            if (!child.visible || !child.mapped)
                 return;
 
             const child_geometry = this.get_transformed_actor(child);
-            if (!this.has_valid_geometry(child_geometry))
-                return;
-
-            geometry = this.union(geometry, child_geometry);
+            if (this.has_valid_geometry(child_geometry))
+                geometry = this.union(geometry, child_geometry);
         });
 
         return geometry;
     }
 
-    get_margins(actor) {
-        const margins = {
-            top: this.get_margin(actor, 'top', St.Side.TOP),
-            right: this.get_margin(actor, 'right', St.Side.RIGHT),
-            bottom: this.get_margin(actor, 'bottom', St.Side.BOTTOM),
-            left: this.get_margin(actor, 'left', St.Side.LEFT),
-        };
-
-        return Object.values(margins).some(margin => margin > 0) ? margins : null;
-    }
-
-    get_margin(actor, side_name, side) {
-        const property_names = [
-            `margin_${side_name}`,
-            `margin${side_name[0].toUpperCase()}${side_name.slice(1)}`,
-        ];
-
-        for (const property of property_names) {
-            const value = actor[property];
-            if (typeof value === 'number')
-                return value;
-        }
-
-        const getter = actor[`get_margin_${side_name}`];
-        if (getter) {
-            const value = getter.call(actor);
-            if (typeof value === 'number')
-                return value;
-        }
-
-        try {
-            const theme_node = actor.get_theme_node();
-            if (!theme_node?.get_margin)
-                return 0;
-
-            return theme_node.get_margin(side);
-        } catch (e) {
-            // get_theme_node() may throw when actor is not yet mapped to a stage
-            return 0;
-        }
-    }
-
-    get_paint_insets(actor, geometry) {
-        const scale_x = this.get_actor_scale(actor, geometry.width, 'width');
-        const scale_y = this.get_actor_scale(actor, geometry.height, 'height');
-
-        return {
-            top: this.get_inset(actor, St.Side.TOP) * scale_y,
-            right: this.get_inset(actor, St.Side.RIGHT) * scale_x,
-            bottom: this.get_inset(actor, St.Side.BOTTOM) * scale_y,
-            left: this.get_inset(actor, St.Side.LEFT) * scale_x,
-        };
-    }
-
-    get_inset(actor, side) {
-        try {
-            const theme_node = actor.get_theme_node();
-            if (!theme_node)
-                return 0;
-
-            let inset = 0;
-            if (theme_node.get_padding)
-                inset += theme_node.get_padding(side);
-            if (theme_node.get_border_width)
-                inset += theme_node.get_border_width(side);
-            return inset;
-        } catch (e) {
-            // get_theme_node() may throw when actor is not yet mapped to a stage
-            return 0;
-        }
-    }
-
-    get_actor_scale(actor, transformed_size, property) {
-        const size = actor ? (actor[property] ?? (actor[`get_${property}`] ? actor[`get_${property}`]() : 0)) : 0;
+    get_actor_scale(size, transformed_size) {
         return size > 0 ? transformed_size / size : 1;
     }
 
@@ -219,16 +132,8 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
         return outer.width - content.width > 2 || outer.height - content.height > 2;
     }
 
-    is_visible(actor) {
-        return actor?.visible && actor.mapped;
-    }
-
-    get_children(actor) {
-        return actor ? actor.get_children() : [];
-    }
-
     has_valid_geometry(geometry) {
-        return geometry?.width > 0 && geometry?.height > 0;
+        return geometry?.width > 0 && geometry.height > 0;
     }
 
     shrink(geometry, top, right, bottom, left) {

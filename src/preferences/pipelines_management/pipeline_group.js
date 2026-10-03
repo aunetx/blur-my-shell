@@ -2,7 +2,10 @@ import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
-import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import {
+    gettext as _,
+    ngettext,
+} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { get_supported_effects } from '../../effects/effects.js';
 
@@ -25,10 +28,8 @@ export const PipelineGroup = GObject.registerClass({
         this._pipelines_page = pipelines_page;
         this._pipeline_id = pipeline_id;
 
-        // set the description
-        this.set_description(_(`Pipeline id: "${pipeline_id}"`));
+        this.set_description(_('Pipeline id: “%s”').format(pipeline_id));
 
-        // set the title and connect it to the text entry
         this.set_title(pipeline.name.length > 0 ? pipeline.name : " ");
         this._title.set_text(pipeline.name);
         this._title.connect(
@@ -36,12 +37,10 @@ export const PipelineGroup = GObject.registerClass({
             () => pipelines_manager.rename_pipeline(pipeline_id, this._title.get_text())
         );
 
-        // the bin containing the actions
         let prefix_bin = new Gtk.Box;
         prefix_bin.add_css_class('linked');
         this._title.add_prefix(prefix_bin);
 
-        // add a 'remove' button if we are not the default pipeline
         if (pipeline_id != "pipeline_default") {
             let remove_button = new Gtk.Button({
                 'icon-name': 'remove-row-symbolic',
@@ -54,7 +53,6 @@ export const PipelineGroup = GObject.registerClass({
             prefix_bin.append(remove_button);
             remove_button.connect('clicked', () => pipelines_manager.delete_pipeline(pipeline_id));
         }
-        // add a 'duplicate' button
         let duplicate_button = new Gtk.Button({
             'icon-name': 'duplicate-row-symbolic',
             'width-request': 38,
@@ -66,7 +64,7 @@ export const PipelineGroup = GObject.registerClass({
         duplicate_button.connect('clicked', () => pipelines_manager.duplicate_pipeline(pipeline_id));
 
         this.update_effects_description_row();
-        this._pipelines_manager.connect(
+        this._pipeline_updated_id = this._pipelines_manager.connect(
             pipeline_id + '::pipeline-updated',
             () => this.update_effects_description_row()
         );
@@ -82,18 +80,22 @@ export const PipelineGroup = GObject.registerClass({
 
         if (effects.length == 0)
             this._effects_description_row.set_title(_("No effect"));
-        else if (effects.length == 1)
-            this._effects_description_row.set_title(_("1 effect"));
         else
-            this._effects_description_row.set_title(_(`${effects.length} effects`));
+            this._effects_description_row.set_title(
+                ngettext('%d effect', '%d effects', effects.length).format(effects.length)
+            );
 
-        let subtitle = "";
-        effects.forEach(effect => {
-            if (effect.type in this.SUPPORTED_EFFECTS)
-                subtitle += _(`${this.SUPPORTED_EFFECTS[effect.type].name}, `);
-            else
-                subtitle += _("Unknown effect, ");
-        });
-        this._effects_description_row.set_subtitle(subtitle.slice(0, -2));
+        const subtitle = effects.map(effect =>
+            effect.type in this.SUPPORTED_EFFECTS
+                ? this.SUPPORTED_EFFECTS[effect.type].name
+                : _('Unknown effect')
+        ).join(', ');
+        this._effects_description_row.set_subtitle(subtitle);
+    }
+
+    cleanup() {
+        if (this._pipeline_updated_id)
+            this._pipelines_manager.disconnect(this._pipeline_updated_id);
+        this._pipeline_updated_id = null;
     }
 });

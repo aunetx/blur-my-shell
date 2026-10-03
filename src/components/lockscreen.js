@@ -20,26 +20,34 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     enable() {
+        if (this.enabled)
+            return;
+
         this._log("blurring lockscreen");
-
-        this.update_lockscreen();
-
         this.enabled = true;
-    }
-
-    update_lockscreen() {
         UnlockDialog.prototype._createBackground =
             this._createBackground;
         UnlockDialog.prototype._updateBackgroundEffects =
             this._updateBackgroundEffects;
         UnlockDialog.prototype._updateBackgrounds =
             this._updateBackgrounds;
+
+        this.update_lockscreen();
+    }
+
+    update_lockscreen() {
+        this.get_active_dialog()?._updateBackgrounds();
     }
 
     _createBackground(monitor_index) {
+        const extension = global.blur_my_shell;
+        // an extension that patched this after us keeps calling it once we are disabled
+        if (!extension?._lockscreen_blur.enabled)
+            return original_createBackground.call(this, monitor_index);
+
         let pipeline = new Pipeline(
-            global.blur_my_shell._effects_manager, global.blur_my_shell._pipelines_manager,
-            global.blur_my_shell._settings.lockscreen.PIPELINE
+            extension._effects_manager, extension._pipelines_manager,
+            extension._settings.lockscreen.PIPELINE
         );
 
         pipeline.create_background_with_effects(
@@ -55,11 +63,11 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     _updateBackgrounds() {
-        for (let i = 0; i < this._bgManagers.length; i++) {
-            this._bgManagers[i]._bms_pipeline.destroy();
-            this._bgManagers[i].destroy();
-        }
-
+        // the dialog can hold the shell's own backgrounds if it was created before enabling
+        this._bgManagers.forEach(manager => {
+            manager._bms_pipeline?.destroy();
+            manager.destroy();
+        });
         this._bgManagers = [];
         this._backgroundGroup.destroy_all_children();
 
@@ -67,19 +75,32 @@ export const LockscreenBlur = class LockscreenBlur {
             this._createBackground(i);
     }
 
-    disable() {
-        this._log("removing blur from lockscreen");
+    get_active_dialog() {
+        const dialog = Main.screenShield?._dialog;
+        return dialog instanceof UnlockDialog ? dialog : null;
+    }
 
-        UnlockDialog.prototype._createBackground =
-            original_createBackground;
-        UnlockDialog.prototype._updateBackgroundEffects =
-            original_updateBackgroundEffects;
-        UnlockDialog.prototype._updateBackgrounds =
-            original_updateBackgrounds;
+    disable() {
+        if (!this.enabled)
+            return;
+
+        this._log("removing blur from lockscreen");
+        this.enabled = false;
+
+        if (UnlockDialog.prototype._createBackground === this._createBackground)
+            UnlockDialog.prototype._createBackground = original_createBackground;
+        if (UnlockDialog.prototype._updateBackgroundEffects === this._updateBackgroundEffects)
+            UnlockDialog.prototype._updateBackgroundEffects = original_updateBackgroundEffects;
+        if (UnlockDialog.prototype._updateBackgrounds === this._updateBackgrounds)
+            UnlockDialog.prototype._updateBackgrounds = original_updateBackgrounds;
+
+        const dialog = this.get_active_dialog();
+        if (dialog) {
+            dialog._bgManagers.forEach(manager => manager._bms_pipeline?.destroy());
+            dialog._updateBackgrounds();
+        }
 
         this.connections.disconnect_all();
-
-        this.enabled = false;
     }
 
     _log(str) {

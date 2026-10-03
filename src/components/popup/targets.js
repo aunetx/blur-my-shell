@@ -1,7 +1,13 @@
+import St from 'gi://St';
+
+import { has_any_style_class, is_internal_actor } from './actors.js';
+
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
-const POPUP_TARGET_STYLE_CLASSES = ['popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner', 'candidate-popup-content','screenshot-ui-panel'];
-const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog'];
-const POPUP_TARGET_STYLE_CLASSES_OSK = ['bms-keyboard-surface']
+const POPUP_TARGET_STYLE_CLASSES = [
+    'popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner',
+    'candidate-popup-content', 'screenshot-ui-panel', 'bms-keyboard-surface',
+];
+const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog', 'clipboard-dialog'];
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
 
 export const POPUP_BACKGROUND_STYLES = ['bms-popup-background-transparent', 'bms-popup-background-light', 'bms-popup-background-dark'];
@@ -13,7 +19,12 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
-        style_classes: ['quick-settings', 'quick-toggle-menu', 'datemenu-popover','screenshot-ui-panel'],
+        style_classes: ['quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel'],
+    },
+    {
+        key: 'calendar-corner-radius',
+        property: 'CALENDAR_CORNER_RADIUS',
+        style_classes: ['datemenu-popover'],
     },
     {
         key: 'notification-corner-radius',
@@ -21,19 +32,34 @@ export const POPUP_CORNER_RADII = [
         style_classes: ['notification-banner', 'message', 'message-view', 'message-list'],
     },
     {
+        key: 'candidate-corner-radius',
+        property: 'CANDIDATE_CORNER_RADIUS',
+        style_classes: ['candidate-popup-content', 'candidate-popup-boxpointer'],
+    },
+    {
         key: 'menu-corner-radius',
         property: 'MENU_CORNER_RADIUS',
-        style_classes: ['popup-menu-content', 'popup-menu', 'candidate-popup-content', 'candidate-popup-boxpointer'],
+        style_classes: ['popup-menu-content', 'popup-menu'],
     },
     {
         key: 'osd-corner-radius',
         property: 'OSD_CORNER_RADIUS',
-        style_classes: ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher'],
+        style_classes: ['switcher-list', 'workspace-switcher'],
+    },
+    {
+        key: 'osd-window-corner-radius',
+        property: 'OSD_WINDOW_CORNER_RADIUS',
+        style_classes: ['osd-window'],
+    },
+    {
+        key: 'resize-popup-corner-radius',
+        property: 'RESIZE_POPUP_CORNER_RADIUS',
+        style_classes: ['resize-popup'],
     },
     {
         key: 'dialog-corner-radius',
         property: 'DIALOG_CORNER_RADIUS',
-        style_classes: ['modal-dialog', 'run-dialog'],
+        style_classes: ['modal-dialog', 'run-dialog', 'clipboard-dialog'],
     },
     {
         key: 'osk-corner-radius',
@@ -43,103 +69,87 @@ export const POPUP_CORNER_RADII = [
 ];
 
 export const PopupBlurTargets = class PopupBlurTargets {
-    constructor(actor) {
-        this.actor = actor;
+    constructor() {
         this.style_cache = null;
     }
 
     find(actor) {
-        return this.with_style_cache(() => this.find_actor(actor));
+        this.style_cache = new WeakMap();
+        const targets = this.find_actor(actor);
+        this.style_cache = null;
+        return [...targets];
     }
 
     find_actor(actor) {
-        if (this.actor.is_internal_actor(actor) || !this.actor.watch_actor(actor))
-            return [];
-
-        const targets = this.create_targets();
-        const delegate = this.actor.get_actor_delegate(actor);
+        const targets = new Set();
 
         if (this.prefers_descendant_targets(actor)) {
             this.find_target_children(actor, targets);
-            if (targets.actors.length > 0)
-                return targets.actors;
+            if (targets.size > 0)
+                return targets;
         }
 
-        if (this.actor.watch_actor(delegate?.box) && (this.has_any_style_class(delegate.box, POPUP_TARGET_STYLE_CLASSES) || this.has_any_style_class(delegate.box, POPUP_TARGET_STYLE_CLASSES_OSK)))
-            this.add(targets, delegate.box);
+        const box = actor._delegate?.box;
+        if (this.has_any_style_class(box, POPUP_TARGET_STYLE_CLASSES))
+            targets.add(box);
 
-        if (this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES))
-            this.add(targets, actor);
+        if (this.is_blur_target_actor(actor))
+            targets.add(actor);
 
-        if (this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES_OSK))
-            this.add(targets, actor);
+        const dialog_layout = actor.dialogLayout;
+        if (this.has_any_style_class(dialog_layout, POPUP_CHILD_STYLE_CLASSES))
+            targets.add(dialog_layout);
 
-        if (this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES))
-            this.add(targets, actor);
-
-        const dialog_layout = this.actor.get_actor_dialog_layout(actor);
-        if (this.actor.watch_actor(dialog_layout) && this.has_any_style_class(dialog_layout, POPUP_CHILD_STYLE_CLASSES))
-            this.add(targets, dialog_layout);
-
-        if (targets.actors.length === 0)
+        if (targets.size === 0)
             this.find_target_children(actor, targets);
 
-        if (
-            targets.actors.length === 0
-            && this.has_any_style_class(actor, POPUP_STYLE_CLASSES)
-        )
-            this.add(targets, actor);
+        if (targets.size === 0 && this.has_any_style_class(actor, POPUP_STYLE_CLASSES))
+            targets.add(actor);
 
-        return targets.actors;
+        return targets;
     }
 
-    find_target_children(actor, targets, seen = new WeakSet()) {
-        const stack = this.get_children(actor)
-            .slice()
-            .reverse()
-            .map(child => ({ actor: child, fallback_count: null }));
+    find_target_children(actor, targets) {
+        const seen = new WeakSet();
+        const stack = [];
+        this.push_children(stack, actor.get_children());
 
         while (stack.length > 0) {
             const { actor: child, fallback_count } = stack.pop();
-            if (
-                !child
-                || this.actor.is_internal_actor(child)
-            )
+            if (is_internal_actor(child))
                 continue;
 
             if (fallback_count !== null) {
-                if (
-                    targets.actors.length === fallback_count
-                    && this.is_blur_target_actor(child)
-                )
-                    this.add(targets, child);
+                if (targets.size === fallback_count && this.is_blur_target_actor(child))
+                    targets.add(child);
                 continue;
             }
 
             if (seen.has(child))
                 continue;
-
             seen.add(child);
 
             if (this.prefers_descendant_targets(child)) {
-                const children = this.get_children(child);
+                const children = child.get_children();
                 if (children.length > 0) {
-                    stack.push({
-                        actor: child,
-                        fallback_count: targets.actors.length,
-                    });
+                    stack.push({ actor: child, fallback_count: targets.size });
                     this.push_children(stack, children);
                     continue;
                 }
             }
 
             if (this.is_blur_target_actor(child)) {
-                this.add(targets, child);
+                targets.add(child);
                 continue;
             }
 
-            this.push_children(stack, this.get_children(child));
+            this.push_children(stack, child.get_children());
         }
+    }
+
+    push_children(stack, children) {
+        for (let index = children.length - 1; index >= 0; index--)
+            stack.push({ actor: children[index], fallback_count: null });
     }
 
     prefers_descendant_targets(actor) {
@@ -147,109 +157,28 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     is_blur_target_actor(actor) {
-        return (
-            this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
-            || this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES_OSK)
-            || this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES)
-        );
+        return this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
+            || this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES);
     }
 
     get_corner_radius(target, root_actor) {
         return POPUP_CORNER_RADII.find(radius =>
-            this.has_any_style_class(target, radius.style_classes)
-            || this.has_any_style_class(root_actor, radius.style_classes)
+            has_any_style_class(target, radius.style_classes)
+            || has_any_style_class(root_actor, radius.style_classes)
         ) ?? DEFAULT_CORNER_RADIUS;
     }
 
-    with_style_cache(callback) {
-        const previous_cache = this.style_cache;
-        this.style_cache = new WeakMap();
-
-        try {
-            return callback();
-        } finally {
-            this.style_cache = previous_cache;
-        }
-    }
-
     has_any_style_class(actor, style_classes) {
-        if (!actor)
+        if (!this.style_cache)
+            return has_any_style_class(actor, style_classes);
+        if (!(actor instanceof St.Widget))
             return false;
 
-        const classes = this.get_style_classes(actor);
-        if (classes)
-            return style_classes.some(style_class => classes.has(style_class));
-
-        return style_classes.some(style_class => this.has_style_class(actor, style_class));
-    }
-
-    has_style_class(actor, style_class) {
-        return has_style_class(actor, style_class);
-    }
-
-    get_style_classes(actor) {
-        if (!actor || !this.style_cache)
-            return null;
-
-        if (this.style_cache.has(actor))
-            return this.style_cache.get(actor);
-
-        if (!actor.get_style_class_name) {
-            this.style_cache.set(actor, null);
-            return null;
+        let classes = this.style_cache.get(actor);
+        if (!classes) {
+            classes = new Set(actor.get_style_class_name()?.split(/\s+/));
+            this.style_cache.set(actor, classes);
         }
-
-        const class_names = actor.get_style_class_name();
-        if (typeof class_names !== 'string') {
-            this.style_cache.set(actor, null);
-            return null;
-        }
-
-        const classes = new Set(class_names.split(/\s+/).filter(Boolean));
-        this.style_cache.set(actor, classes);
-        return classes;
-    }
-
-    create_targets() {
-        return {
-            actors: [],
-            seen: new WeakSet(),
-        };
-    }
-
-    get_children(actor) {
-        return actor ? actor.get_children() : [];
-    }
-
-    push_children(stack, children) {
-        children
-            .slice()
-            .reverse()
-            .forEach(child => stack.push({ actor: child, fallback_count: null }));
-    }
-
-    add(targets, target) {
-        if (
-            this.actor.is_internal_actor(target)
-            || !this.actor.watch_actor(target)
-            || targets.seen.has(target)
-        )
-            return;
-
-        targets.seen.add(target);
-        targets.actors.push(target);
+        return style_classes.some(style_class => classes.has(style_class));
     }
 };
-
-export function has_style_class(actor, style_class) {
-    if (!actor || !style_class)
-        return false;
-
-    if (actor.has_style_class_name)
-        return actor.has_style_class_name(style_class);
-
-    if (actor.get_style_class_name)
-        return (actor.get_style_class_name() ?? '').split(/\s+/).includes(style_class);
-
-    return false;
-}

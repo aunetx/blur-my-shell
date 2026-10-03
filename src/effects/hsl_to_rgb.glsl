@@ -10,6 +10,11 @@ vec3 hsl_to_rgb(vec3 c) {
 void main(void) {
     vec2 uv = cogl_tex_coord_in[0].xy;
     vec4 hsla = texture2D(tex, uv);
-    vec4 rgba = vec4(hsl_to_rgb(hsla.xyz), hsla.w);
+    if (hsla.a <= 0.0) {
+        cogl_color_out = hsla;
+        return;
+    }
+
+    vec4 rgba = vec4(hsl_to_rgb(hsla.rgb / hsla.a) * hsla.a, hsla.a);
     cogl_color_out = mix(hsla, rgba, opacity_factor);
 }

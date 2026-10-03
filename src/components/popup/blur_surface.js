@@ -1,15 +1,15 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
-import St from 'gi://St';
 
-import { DummyPipeline } from '../../conveniences/dummy_pipeline.js';
-import { PaintSignals } from '../../conveniences/paint_signals.js';
+import { DynamicPipeline } from '../../render/dynamic_surface.js';
+import { has_any_style_class, has_style_class } from './actors.js';
 import { PopupBlurSurfaceFade } from './surface_fade.js';
 import { PopupBlurSurfacePlacement } from './surface_placement.js';
 import { PopupBlurSurfaceSignals } from './surface_signals.js';
 import { PopupBlurSurfaceStyle } from './surface_style.js';
 import { PopupBlurSurfaceTransitions } from './surface_transitions.js';
 import { PopupBlurStaticActor } from './static_actor.js';
+import { getSurfaceSibling, registerSurface, unregisterSurface } from './surface_stack.js';
 
 const NOTIFICATION_STYLE_CLASSES = ['notification-banner'];
 const FULL_GEOMETRY_STYLE_CLASSES = [
@@ -17,20 +17,19 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel',
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
-    'modal-dialog', 'run-dialog',
+    'modal-dialog', 'run-dialog', 'clipboard-dialog',
     'bms-keyboard-surface',
 ];
-const IS_HEAVY_SURFACE_STYLE_CLASSES = [
+const HEAVY_SURFACE_STYLE_CLASSES = [
     'datemenu-popover', 'quick-settings', 'modal-dialog',
     'candidate-popup-content', 'candidate-popup-boxpointer',
 ];
-const IS_QUICK_SETTINGS_STYLE_CLASSES = [
-    'quick-toggle-menu', 'quick-settings', 'datemenu-popover', 
+const QUICK_SETTINGS_STYLE_CLASSES = [
+    'quick-toggle-menu', 'quick-settings', 'datemenu-popover',
 ];
 
 export const PopupBlurSurface = class PopupBlurSurface {
-    constructor(connections, settings, effects_manager, target, root_actor, parent, sibling, corner_radius) {
-        this.connections = connections;
+    constructor(settings, effects_manager, target, root_actor, parent, sibling, corner_radius, request_destroy) {
         this.settings = settings;
         this.effects_manager = effects_manager;
         this.target = target;
@@ -38,7 +37,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.parent = parent;
         this.sibling = sibling;
         this.corner_radius = corner_radius;
-        this.paint_signals = new PaintSignals(connections);
+        this.request_destroy = request_destroy;
+        this.fade = new PopupBlurSurfaceFade(target, root_actor, parent);
         this.placement = new PopupBlurSurfacePlacement(this);
         this.signals = new PopupBlurSurfaceSignals(this);
         this.style = new PopupBlurSurfaceStyle(this);
@@ -49,68 +49,70 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.opacity = null;
         this.static_blur = settings.popup.STATIC_BLUR;
         this.static_actor = null;
-        this.actor = null;
+        this.pipeline = null;
         this.blur_actor = null;
+        this.actor = null;
     }
 
     enable() {
-        if (!this.create_actor()) {
-            if (this.static_blur)
-                this.destroy_static_actor();
+        if (!this.create_actor())
             return false;
-        }
 
-        this.fade = new PopupBlurSurfaceFade(
-            this.actor,
-            this.target,
-            this.root_actor,
-            this.parent
-        );
         this.actor.hide();
+        registerSurface(this);
         this.parent.add_child(this.actor);
+        if (!this.static_blur)
+            this.pipeline.attach_pipeline();
         this.set_actor_position();
         this.style.capture_target_style();
         this.style.update_target_style();
 
-        this.connect_repaints();
+        this.connect_lifetime();
         this.signals.connect_actor(this.target);
         this.signals.connect_actor(this.root_actor);
         this.signals.connect_ancestors(this.target);
         this.signals.connect_ancestors(this.root_actor);
-        if (this.style.has_any_style_class(this.target, ['screenshot-ui-panel']))
+        if (has_style_class(this.target, 'screenshot-ui-panel'))
             this.signals.connect_actor(this.parent);
-        this.signals.connect_layout();
-        this.signals.connect_settings();
         this.queue_update();
 
         return true;
+    }
+
+    // Our overlay lives in `parent`, so tear it down before a destroyed
+    // parent disposes of it as one of its children.
+    connect_lifetime() {
+        this.signals.connect_destroy(this.target, () => {
+            this.style.forget_target_style();
+            this.request_destroy();
+        });
+        new Set([this.root_actor, this.parent]).forEach(actor => {
+            if (actor !== this.target)
+                this.signals.connect_destroy(actor, () => this.request_destroy());
+        });
     }
 
     create_actor() {
         if (this.static_blur)
             return this.create_static_actor();
 
-        this.blur_actor = new St.Widget({
-            name: 'bms-popup-blurred-widget',
-            reactive: false,
-        });
-        this.blur_actor.add_style_class_name('bms-popup-blurred-widget');
-        this.track_owned_actor(this.blur_actor);
-        this.pipeline = new DummyPipeline(
+        this.pipeline = new DynamicPipeline(
             this.effects_manager,
-            this.settings.popup,
-            this.blur_actor,
+            global.blur_my_shell._pipelines_manager,
+            this.settings.popup.PIPELINE,
             {
-                corner_radius_key: this.corner_radius.key,
-                corner_radius_getter: () => this.get_corner_radius(),
+                corner_radius: this.get_corner_radius(),
+                get_corners: () => this.settings.popup.ROUNDED_CORNERS,
             }
         );
+        this.blur_actor = this.pipeline.create_actor('bms-popup-blurred-widget');
+        this.blur_actor.add_style_class_name('bms-popup-blurred-widget');
         this.actor = this.blur_actor;
         return true;
     }
 
     create_static_actor() {
-        this.static_actor = new PopupBlurStaticActor(
+        const static_actor = new PopupBlurStaticActor(
             this.settings,
             this.effects_manager,
             this.target,
@@ -118,8 +120,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.parent,
             () => this.get_corner_radius()
         );
-        if (!this.static_actor.create())
+        if (!static_actor.create())
             return false;
+
+        this.static_actor = static_actor;
         this.sync_static_actor();
         return true;
     }
@@ -130,41 +134,44 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.pipeline = this.static_actor.pipeline;
     }
 
-    track_owned_actor(actor) {
-        this.connections.connect(actor, 'destroy', () => {
-            this.actor = null;
-            this.blur_actor = null;
-        });
-    }
-
     set_actor_position() {
-        if (!this.is_actor_valid())
-            return;
-        const sibling = this.sibling?.get_parent() === this.parent ? this.sibling : null;
-        if (this.is_below_sibling(sibling))
-            return;
-        this.parent.set_child_below_sibling(this.actor, sibling);
+        const anchor = this.sibling?.get_parent() === this.parent ? this.sibling : null;
+        const sibling = getSurfaceSibling(this, anchor);
+        if (!this.is_below_sibling(sibling))
+            this.parent.set_child_below_sibling(this.actor, sibling);
     }
 
     is_below_sibling(sibling) {
-        const children = this.parent.get_children();
-        const actor_index = children.indexOf(this.actor);
-        if (actor_index < 0)
+        if (this.actor.get_parent() !== this.parent)
             return false;
         if (!sibling)
-            return actor_index === 0;
-        const sibling_index = children.indexOf(sibling);
-        return sibling_index >= 0 && actor_index < sibling_index;
+            return this.parent.get_first_child() === this.actor;
+        return this.actor.get_next_sibling() === sibling;
+    }
+
+    matches_any_style_class(style_classes) {
+        return has_any_style_class(this.target, style_classes)
+            || has_any_style_class(this.root_actor, style_classes);
     }
 
     is_quick_settings() {
-        return this.style.has_any_style_class(this.target, IS_QUICK_SETTINGS_STYLE_CLASSES)
-            || this.style.has_any_style_class(this.root_actor, IS_QUICK_SETTINGS_STYLE_CLASSES);
+        return this.matches_any_style_class(QUICK_SETTINGS_STYLE_CLASSES);
     }
 
     is_heavy_surface() {
-        return this.style.has_any_style_class(this.target, IS_HEAVY_SURFACE_STYLE_CLASSES)
-            || this.style.has_any_style_class(this.root_actor, IS_HEAVY_SURFACE_STYLE_CLASSES);
+        return this.matches_any_style_class(HEAVY_SURFACE_STYLE_CLASSES);
+    }
+
+    is_notification_surface() {
+        return this.matches_any_style_class(NOTIFICATION_STYLE_CLASSES);
+    }
+
+    is_keyboard_surface() {
+        return this.matches_any_style_class(['bms-keyboard-surface']);
+    }
+
+    uses_full_actor_geometry() {
+        return this.matches_any_style_class(FULL_GEOMETRY_STYLE_CLASSES);
     }
 
     update() {
@@ -172,8 +179,9 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.update_live_surface();
             return;
         }
+
         let transition_state = this.transitions.get_state();
-        let geometry = this.placement.get_surface_geometry();
+        const geometry = this.placement.get_surface_geometry();
         const visible = this.is_visible();
         const geometry_changed = this.placement.has_surface_geometry_changed(geometry);
         if (
@@ -187,19 +195,16 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         }
         if (!this.placement.has_valid_geometry(geometry)) {
-            if (this.placement.offscreen)
-                return this.hide_surface();
-            if (this.placement.keep_transition_visible(transition_state)) {
+            if (this.placement.offscreen) {
+                this.hide_surface();
+            } else if (this.placement.keep_transition_visible(transition_state)) {
                 this.queue_repaint(true);
                 this.queue_transition_update(transition_state);
-                return;
-            }
-
-            if (transition_state.running) {
+            } else if (transition_state.running) {
                 this.queue_transition_update(transition_state);
-                return;
+            } else {
+                this.hide_surface();
             }
-            this.hide_surface();
             return;
         }
         this.set_actor_position();
@@ -207,11 +212,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         if (!this.placement.prepare_visible_geometry())
             return;
-        const opacity = this.update_opacity(transition_state);
-        if (opacity > 0)
-            this.show_actors();
-        else
-            this.hide_actors();
+        this.update_actors_visibility();
         this.queue_repaint(!visible);
         this.queue_transition_update(transition_state);
     }
@@ -223,127 +224,72 @@ export const PopupBlurSurface = class PopupBlurSurface {
         }
         this.set_actor_position();
         const geometry = this.placement.get_unclipped_monitor_surface_geometry();
-        if (!this.placement.has_valid_geometry(geometry))
-            return this.hide_surface();
+        if (!this.placement.has_valid_geometry(geometry)) {
+            this.hide_surface();
+            return;
+        }
         if (!this.placement.update_surface_geometry(geometry))
             return;
         if (!this.placement.prepare_visible_geometry())
             return;
-        if (this.update_opacity() > 0)
-            this.show_actors();
-        else
-            this.hide_actors();
+        this.update_actors_visibility();
         this.queue_repaint();
         this.queue_transition_update();
+    }
+
+    update_actors_visibility() {
+        if (this.update_opacity() > 0)
+            this.actor.show();
+        else
+            this.actor.hide();
     }
 
     hide_surface() {
         this.opacity = 0;
         this.update_surface_opacity(0);
-        this.hide_actors();
+        this.actor.hide();
         this.placement.hide();
     }
 
-    update_opacity(transition_state = null) {
+    update_opacity() {
         const opacity = this.fade.get_opacity();
-        const transition_opacity = this.get_transition_opacity(opacity, transition_state);
-        if (
-            this.opacity === transition_opacity
-            && this.has_surface_opacity(transition_opacity)
-        )
-            return transition_opacity;
-        this.update_surface_opacity(transition_opacity);
-        this.opacity = transition_opacity;
-        return transition_opacity;
-    }
-
-    get_transition_opacity(opacity, transition_state) {
-        if (
-            this.static_blur
-            || !transition_state?.geometry
-            || transition_state.opacity
-            || this.opacity <= 0
-        )
-            return opacity;
-        return Math.max(opacity, this.opacity);
+        if (this.opacity !== opacity || !this.has_surface_opacity(opacity)) {
+            this.update_surface_opacity(opacity);
+            this.opacity = opacity;
+        }
+        return opacity;
     }
 
     has_surface_opacity(opacity) {
         if (this.static_blur)
             return this.static_actor.has_opacity(opacity);
-        if (!this.is_actor_valid())
-            return false;
-        return this.actor.opacity === opacity;
+        return this.actor.opacity === opacity
+            && this.pipeline.opacityFactor === this.get_pipeline_opacity(opacity) / 255;
     }
 
     update_surface_opacity(opacity) {
-        const pipeline_opacity = this.get_pipeline_opacity(opacity);
         if (this.static_blur) {
-            this.static_actor.set_opacity(opacity, pipeline_opacity);
+            this.static_actor.set_opacity(opacity);
             return;
         }
-        this.fade.set_opacity(opacity);
-        this.pipeline?.set_opacity_factor(pipeline_opacity / 255);
+        this.actor.opacity = opacity;
+        this.pipeline.set_opacity_factor(this.get_pipeline_opacity(opacity) / 255);
     }
 
     get_pipeline_opacity(opacity) {
-        if (!this.style.has_any_style_class(this.target, ['screenshot-ui-panel']))
+        if (!has_style_class(this.target, 'screenshot-ui-panel'))
             return opacity;
-        return Math.round(opacity * (this.parent?.opacity ?? 255) / 255);
-    }
-
-    get_geometry_actor() {
-        return this.target;
-    }
-
-    should_use_content_geometry() {
-        return !this.uses_full_actor_geometry();
-    }
-
-    should_use_margin_geometry() {
-        return !this.uses_full_actor_geometry();
-    }
-
-    uses_full_actor_geometry() {
-        return (
-            this.style.has_any_style_class(this.target, FULL_GEOMETRY_STYLE_CLASSES)
-            || this.style.has_any_style_class(this.root_actor, FULL_GEOMETRY_STYLE_CLASSES)
-        );
-    }
-
-    is_notification_surface() {
-        return (
-            this.style.has_any_style_class(this.target, NOTIFICATION_STYLE_CLASSES)
-            || this.style.has_any_style_class(this.root_actor, NOTIFICATION_STYLE_CLASSES)
-        );
-    }
-
-    show_actors() {
-        if (this.is_actor_valid())
-            this.actor?.show();
-    }
-
-    hide_actors() {
-        if (this.is_actor_valid())
-            this.actor?.hide();
-    }
-
-    is_actor_valid() {
-        return (
-            !!this.actor
-            && (!this.static_blur || !!this.static_actor?.background_group)
-        );
+        return Math.round(opacity * this.parent.opacity / 255);
     }
 
     queue_update() {
-        if (!this.actor || this.update_id || this.transition_update_id)
+        if (this.update_id || this.transition_update_id)
             return;
         this.update_id = global.compositor.get_laters().add(
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.update_id = 0;
-                if (this.actor)
-                    this.update();
+                this.update();
                 return GLib.SOURCE_REMOVE;
             }
         );
@@ -351,134 +297,88 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
     queue_transition_update(transition_state = null) {
         const has_running_transition = transition_state?.running ?? this.transitions.has_running();
-        if (!this.actor || this.transition_update_id || this.update_id || !has_running_transition)
+        if (this.transition_update_id || this.update_id || !has_running_transition)
             return;
         this.transition_update_id = global.compositor.get_laters().add(
             Meta.LaterType.BEFORE_REDRAW,
             () => {
                 this.transition_update_id = 0;
-                if (this.actor)
-                    this.update();
+                this.update();
                 return GLib.SOURCE_REMOVE;
             }
         );
     }
 
-    connect_repaints() {
-        if (this.static_blur || this.settings.HACKS_LEVEL !== 1)
+    queue_repaint(force = false) {
+        if (this.static_blur || this.repaint_id || (!force && !this.is_visible()))
             return;
-        const repaint_source = {
-            queue_repaint: () => this.queue_repaint(),
-        };
-        [
-            this.blur_actor,
-            this.target,
-        ].forEach(actor => {
-            this.paint_signals.disconnect_all_for_actor(actor);
-            this.paint_signals.connect(actor, repaint_source);
+        this.repaint_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+            this.repaint_id = 0;
+            if (force || this.is_visible())
+                this.pipeline.repaint_effect();
+            return GLib.SOURCE_REMOVE;
         });
     }
 
     update_settings() {
         this.style.update_target_style();
-        this.static_actor?.update_settings();
+        if (this.static_blur)
+            this.static_actor.update_settings();
+        else
+            this.pipeline.set_corner_radius(this.get_corner_radius());
     }
 
     get_corner_radius() {
-        return this.settings.popup[this.corner_radius.property] ?? this.settings.popup.CORNER_RADIUS;
-    }
-
-    queue_repaint(force = false) {
-        if (this.static_blur || this.repaint_id || (!force && !this.should_repaint()))
-            return;
-        this.repaint_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
-            this.repaint_id = 0;
-            if (force || this.should_repaint())
-                this.pipeline?.repaint_effect();
-            return GLib.SOURCE_REMOVE;
-        });
-    }
-
-    should_repaint() {
-        return this.is_visible();
+        return this.settings.popup[this.corner_radius.property];
     }
 
     is_visible() {
         return this.is_actor_visible(this.target) && this.is_actor_visible(this.root_actor);
     }
 
-    is_keyboard_surface() {
-        return (
-            this.style.has_style_class(this.target, 'bms-keyboard-surface')
-            || this.style.has_style_class(this.root_actor, 'bms-keyboard-surface')
-        );
-    }
-
     is_actor_visible(actor) {
-        if (!actor)
-            return false;
         if (actor.visible && actor.mapped)
             return true;
         if (!this.is_keyboard_surface())
             return false;
 
         const parent = actor.get_parent();
-        return parent?.visible && parent?.mapped;
+        return parent !== null && parent.visible && parent.mapped;
     }
 
     update_pipeline() {
-        if (this.static_blur) {
+        if (this.static_blur)
             this.static_actor.update_pipeline();
-            this.sync_static_actor();
-        }
+        else
+            this.pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
+        this.style.update_target_style();
     }
 
     destroy() {
-        if (this.update_id) {
-            global.compositor.get_laters().remove(this.update_id);
-            this.update_id = 0;
-        }
-        if (this.transition_update_id) {
-            global.compositor.get_laters().remove(this.transition_update_id);
-            this.transition_update_id = 0;
-        }
-        if (this.repaint_id) {
-            GLib.Source.remove(this.repaint_id);
-            this.repaint_id = 0;
-        }
+        const laters = global.compositor.get_laters();
+        if (this.update_id)
+            laters.remove(this.update_id);
+        if (this.transition_update_id)
+            laters.remove(this.transition_update_id);
+        if (this.repaint_id)
+            GLib.source_remove(this.repaint_id);
+        this.update_id = 0;
+        this.transition_update_id = 0;
+        this.repaint_id = 0;
 
-        this.signals.disconnect_all();
-        this.paint_signals.disconnect_all_for_actor(this.blur_actor);
-        this.paint_signals.disconnect_all_for_actor(this.target);
+        this.signals.destroy();
         this.style.restore_target_style();
+        unregisterSurface(this);
 
-        if (this.static_blur)
-            this.destroy_static_actor();
-        else
-            this.destroy_dynamic_actor();
-
-        this.fade = null;
-    }
-
-    destroy_dynamic_actor() {
-        const pipeline = this.pipeline;
-        const blur_actor = this.blur_actor;
-        this.pipeline = null;
-        this.blur_actor = null;
-        this.actor = null;
-        if (pipeline)
-            pipeline.destroy();
-        if (blur_actor)
-            blur_actor.destroy();
-    }
-
-    destroy_static_actor() {
-        if (this.static_actor)
+        if (this.static_blur) {
             this.static_actor.destroy();
+        } else {
+            this.pipeline.destroy();
+            this.blur_actor.destroy();
+        }
         this.static_actor = null;
-        this.actor = null;
-        this.blur_actor = null;
         this.pipeline = null;
-        this.placement.clear();
+        this.blur_actor = null;
+        this.actor = null;
     }
 };

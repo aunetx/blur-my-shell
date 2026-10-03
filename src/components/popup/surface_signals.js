@@ -1,7 +1,10 @@
+import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import St from 'gi://St';
 
-const SURFACE_SIGNALS = [
+import { Connections } from '../../conveniences/connections.js';
+
+const ACTOR_SIGNALS = [
     'notify::allocation',
     'notify::position',
     'notify::size',
@@ -17,101 +20,99 @@ const SURFACE_SIGNALS = [
     'notify::translation-y',
     'notify::scale-x',
     'notify::scale-y',
+];
+const WIDGET_SIGNALS = [
+    ...ACTOR_SIGNALS,
     'notify::pseudo-class',
-]; 
+    'style-changed',
+];
+const VISIBILITY_SIGNALS = new Set([
+    'notify::visible',
+    'notify::mapped',
+]);
+const ANIMATION_SIGNALS = new Set([
+    'notify::opacity',
+    'notify::translation-x',
+    'notify::translation-y',
+    'notify::scale-x',
+    'notify::scale-y',
+]);
 
 export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
     constructor(surface) {
         this.surface = surface;
-        this.signal_ids = [];
-        this.signal_actors = new WeakSet();
-        this.destroyed_actors = new WeakSet();
+        this.connections = new Connections();
+        this.connected_actors = new WeakSet();
+        this.idle_update_id = 0;
+    }
+
+    connect_destroy(actor, callback) {
+        this.connections.connect(actor, 'destroy', callback);
     }
 
     connect_actor(actor) {
-        if (!actor || this.signal_actors.has(actor))
+        if (this.connected_actors.has(actor))
             return;
 
-        this.signal_actors.add(actor);
-        this.track_destroy(actor);
+        this.connected_actors.add(actor);
 
         const is_heavy_surface = this.surface.is_heavy_surface();
-
-        SURFACE_SIGNALS.forEach(signal => {
-            let id = actor.connect(signal, () => {
-                this.clear_pending_idles();
-                const is_visibility_change = signal === 'notify::visible' || signal === 'notify::mapped';
-                if (is_heavy_surface || is_visibility_change) {
-                    this.surface.queue_update();
-                    return;
-                }
-                else {
-                    this.updateId = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
-                        this.updateId = 0;
-                        this.surface.queue_update();
-                        return false;
-                    });
-                }
-            });
-            this.signal_ids.push([actor, id, signal]);
-        });
-    }
-
-    track_destroy(actor) {
-        const id = actor.connect('destroy', () => this.destroyed_actors.add(actor));
-        this.signal_ids.push([actor, id]);
+        const signals = actor instanceof St.Widget ? WIDGET_SIGNALS : ACTOR_SIGNALS;
+        signals.forEach(signal => this.connections.connect(
+            actor,
+            signal,
+            () => this.on_actor_changed(actor, signal, is_heavy_surface)
+        ));
     }
 
     connect_ancestors(actor) {
-        actor = actor ? actor.get_parent() : null;
-
-        while (actor && actor !== this.surface.parent) {
-            this.connect_actor(actor);
-            actor = actor.get_parent();
-        }
+        for (
+            let ancestor = actor.get_parent();
+            ancestor && ancestor !== this.surface.parent;
+            ancestor = ancestor.get_parent()
+        )
+            this.connect_actor(ancestor);
     }
 
-    connect_layout() {
-        if (!this.surface.static_blur)
+    on_actor_changed(actor, signal, is_heavy_surface) {
+        const is_visibility_change = VISIBILITY_SIGNALS.has(signal);
+        if (is_visibility_change && (!actor.visible || !actor.mapped)) {
+            this.remove_idle_update();
+            this.surface.hide_surface();
+            return;
+        }
+
+        if (is_visibility_change || is_heavy_surface || ANIMATION_SIGNALS.has(signal)) {
+            this.remove_idle_update();
+            this.surface.queue_update();
+            return;
+        }
+
+        this.queue_idle_update();
+    }
+
+    queue_idle_update() {
+        this.remove_idle_update();
+        this.idle_update_id = global.compositor.get_laters().add(
+            Meta.LaterType.IDLE,
+            () => {
+                this.idle_update_id = 0;
+                this.surface.queue_update();
+                return GLib.SOURCE_REMOVE;
+            }
+        );
+    }
+
+    remove_idle_update() {
+        if (!this.idle_update_id)
             return;
 
-        this.signal_ids.push([
-            Main.layoutManager,
-            Main.layoutManager.connect('monitors-changed', () => this.surface.queue_update()),
-        ]);
+        global.compositor.get_laters().remove(this.idle_update_id);
+        this.idle_update_id = 0;
     }
 
-    connect_settings() {
-        [
-            this.surface.corner_radius.key,
-            'override-background',
-            'style-popup',
-        ].forEach(key => {
-            const id = this.surface.settings.popup.settings.connect(
-                `changed::${key}`,
-                () => this.surface.update_settings()
-            );
-            this.signal_ids.push([this.surface.settings.popup.settings, id]);
-        });
-    }
-
-    clear_pending_idles() {
-        if (this.updateId) {
-            global.compositor.get_laters().remove(this.updateId);
-            this.updateId = 0;
-        }
-    }
-
-    disconnect_all() {
-        this.clear_pending_idles();
-        this.signal_ids.forEach(([signal_actor, signal_id]) => {
-            if (this.destroyed_actors.has(signal_actor))
-                return;
-
-            signal_actor.disconnect(signal_id);
-        });
-        this.signal_ids = [];
-        this.signal_actors = new WeakSet();
-        this.destroyed_actors = new WeakSet();
+    destroy() {
+        this.remove_idle_update();
+        this.connections.disconnect_all();
     }
 };

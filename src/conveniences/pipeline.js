@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Background from 'resource:///org/gnome/shell/ui/background.js';
@@ -25,7 +26,13 @@ export const Pipeline = class Pipeline {
         this.effects_manager = effects_manager;
         this.pipelines_manager = pipelines_manager;
         this.effects = [];
-        this.effect_overrides = options.effect_overrides ?? {};
+        this.on_effect_updated = options.on_effect_updated ?? (() => {});
+        this.actor = null;
+        this.actor_destroy_id = null;
+        this.child_added_id = null;
+        this.child_added_actor = null;
+        this._pipeline_changed_id = null;
+        this._pipeline_destroyed_id = null;
         this.set_pipeline_id(pipeline_id);
         this.attach_pipeline_to_actor(actor);
     }
@@ -47,21 +54,38 @@ export const Pipeline = class Pipeline {
 
         this.remove_pipeline_from_actor();
 
-        // create the new actor
-        this.actor = new St.Widget({
+        // render a wallpaper copy to prevent partial painting of the blur input
+        // normally only the damaged area is painted
+        const source = new St.Widget({
+            name: `${widget_name}-source`,
+            visible: false,
+        });
+        const actor = new St.Widget({
             name: widget_name,
             x: use_absolute_position ? monitor.x : 0,
-            y: utils.subpixel_stage_offset() + (use_absolute_position ? monitor.y : 0),
-            z_position: 1, // seems to fix the multi-monitor glitch
+            y: use_absolute_position ? monitor.y : 0,
             width: monitor.width,
             height: monitor.height
         });
-
+        source.add_constraint(new Clutter.BindConstraint({
+            source: actor,
+            coordinate: Clutter.BindCoordinate.SIZE,
+        }));
+        actor.add_child(source);
+        const clone = new Clutter.Clone({
+            source,
+        });
+        clone.add_constraint(new Clutter.BindConstraint({
+            source: actor,
+            coordinate: Clutter.BindCoordinate.SIZE,
+        }));
+        actor.add_child(clone);
+        this.actor = actor;
         if (this.pipeline_id)
-            this.attach_pipeline_to_actor(this.actor);
+            this.attach_pipeline_to_actor(actor);
 
-        let bg_manager = new Background.BackgroundManager({
-            container: this.actor,
+        const bg_manager = new Background.BackgroundManager({
+            container: source,
             monitorIndex: monitor_index,
             controlPosition: false,
         });
@@ -71,30 +95,32 @@ export const Pipeline = class Pipeline {
         // sibling re-ordering.
         // Without it, new actors render on top while loading, causing a solid color flash through
         // on the surface.
-        this.child_added_id = this.actor.connect(
+        this.child_added_actor = source;
+        this.child_added_id = source.connect(
             'child-added', (container, child) => {
                 if (child instanceof Meta.BackgroundActor)
                     container.set_child_below_sibling(child, null);
             }
         );
 
+        background_group.insert_child_at_index(actor, 0);
         background_managers.push(bg_manager);
-        background_group.insert_child_at_index(this.actor, 0);
-
-        return this.actor;
+        return actor;
     };
 
     /// Set the pipeline id, correctly connecting the `Pipeline` object to listen the pipelines
     /// manager for pipeline-wide changes. This does not update the effects in consequence, call
     /// `change_pipeline_to` instead if you want to reconstruct the effects too.
     set_pipeline_id(pipeline_id) {
-        // disconnect ancient signals
         this.remove_connections();
 
-        // change the id
+        // the pipeline may have been deleted while still being referenced
+        if (!Object.hasOwn(this.pipelines_manager.pipelines, pipeline_id)) {
+            this._warn(`pipeline "${pipeline_id}" not found, using "pipeline_default"`);
+            pipeline_id = 'pipeline_default';
+        }
         this.pipeline_id = pipeline_id;
 
-        // connect to settings changes
         this._pipeline_changed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::pipeline-updated',
             (_, new_pipeline) => this.update_effects_from_pipeline(new_pipeline)
@@ -123,27 +149,16 @@ export const Pipeline = class Pipeline {
             return;
         }
 
+        if (this.actor !== actor)
+            this.disconnect_child_added();
         this.disconnect_actor_destroy();
         this.actor = actor;
-
-        // attach the pipeline
-        let pipeline = this.pipelines_manager.pipelines[this.pipeline_id];
-        if (!pipeline) {
-            this._warn(`could not attach pipeline to actor, pipeline "${this.pipeline_id}" not found`);
-            // do not recurse...
-            if ("pipeline_default" in this.pipelines_manager.pipelines) {
-                this.set_pipeline_id("pipeline_default");
-                pipeline = this.pipelines_manager.pipelines["pipeline_default"];
-            } else
-                return;
-        }
 
         this.actor_destroy_id = this.actor.connect(
             "destroy", () => this.remove_pipeline_from_actor()
         );
 
-        // update the effects
-        this.update_effects_from_pipeline(pipeline);
+        this.update_effects_from_pipeline(this.pipelines_manager.pipelines[this.pipeline_id]);
     }
 
     remove_pipeline_from_actor() {
@@ -154,52 +169,45 @@ export const Pipeline = class Pipeline {
     }
 
     disconnect_actor_destroy() {
-        if (this.actor && this.actor_destroy_id) {
+        if (this.actor_destroy_id)
             this.actor.disconnect(this.actor_destroy_id);
-        }
         this.actor_destroy_id = null;
     }
 
     disconnect_child_added() {
-        if (this.actor && this.child_added_id) {
-            this.actor.disconnect(this.child_added_id);
-        }
+        if (this.child_added_actor && this.child_added_id)
+            this.child_added_actor.disconnect(this.child_added_id);
         this.child_added_id = null;
+        this.child_added_actor = null;
     }
 
     /// Update the effects from the given pipeline object, the hard way.
     update_effects_from_pipeline(pipeline) {
-        // remove all effects
         this.remove_all_effects();
 
-        // build the new effects to be added
+        if (!this.actor)
+            return;
+
         pipeline.effects.forEach(effect => {
             if (effect.type === 'pixelize')
                 this.build_pixelize_effect(effect);
-            else if ('new_' + effect.type + '_effect' in this.effects_manager)
+            else if (effect.type === 'refraction')
+                this.build_refraction_effect(effect);
+            else if (Object.hasOwn(this.effects_manager.PIPELINE_EFFECTS, effect.type))
                 this.build_effect(effect);
             else
                 this._warn(`could not add effect to actor, effect "${effect.type}" not found`);
         });
         this.effects.reverse();
 
-        // add the effects to the actor
-        if (this.actor)
-            this.effects.forEach(effect => {
-                this.actor.add_effect(effect);
-                uniforms.mark_dirty(effect);
-            });
-        else
-            this._warn(`could not add effect to actor, actor does not exist anymore`);
+        this.effects.forEach(effect => {
+            this.actor.add_effect(effect);
+            uniforms.mark_dirty(effect);
+        });
     }
 
     build_pixelize_effect(effect_infos) {
-        const effect_params = this.get_effect_params(effect_infos);
-        const effect_overrides = this.get_effect_overrides(effect_infos.type, effect_params);
-        const params = {
-            ...effect_params,
-            ...effect_overrides,
-        };
+        const params = this.get_effect_params(effect_infos);
 
         const downscale = this.effects_manager.new_downscale_effect({
             divider: params.factor,
@@ -211,19 +219,29 @@ export const Pipeline = class Pipeline {
             opacity_factor: params.opacity_factor,
         });
 
-        this.setup_effect(downscale, effect_infos, effect_params, 'downscale');
-        this.setup_effect(upscale, effect_infos, effect_params, 'upscale');
+        this.setup_effect(downscale, effect_infos, params, 'downscale');
+        this.setup_effect(upscale, effect_infos, params, 'upscale');
+    }
+
+    build_refraction_effect(effect_infos) {
+        const params = this.get_effect_params(effect_infos);
+        const blurRadius = this.get_refraction_blur_radius(params.blur_radius);
+
+        const blur = this.effects_manager.new_dual_kawase_blur_effect({
+            unscaled_radius: blurRadius,
+            brightness: 1,
+        });
+        this.setup_effect(blur, effect_infos, params, 'refraction-blur');
+
+        const effect = this.effects_manager.new_refraction_effect(params);
+        this.setup_effect(effect, effect_infos, params);
     }
 
     /// Given an `effect_infos` object containing the effect type, id and params, build an effect
     /// and append it to the effects list
     build_effect(effect_infos) {
         const effect_params = this.get_effect_params(effect_infos);
-        const effect_overrides = this.get_effect_overrides(effect_infos.type, effect_params);
-        let effect = this.effects_manager['new_' + effect_infos.type + '_effect']({
-            ...effect_params,
-            ...effect_overrides,
-        });
+        const effect = this.effects_manager['new_' + effect_infos.type + '_effect'](effect_params);
         this.setup_effect(effect, effect_infos, effect_params);
     }
 
@@ -234,71 +252,66 @@ export const Pipeline = class Pipeline {
         effect._bms_pixelize_role = pixelize_role;
         this.effects.push(effect);
 
-        // connect to settings changes
         effect._effect_key_removed_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-removed', (_, key) => {
+                if (!this.is_effect_param_supported(effect, key))
+                    return;
                 const default_value = this.get_effect_default_param(effect, key);
                 effect._bms_effect_params[key] = default_value;
-                if (!this.apply_effect_override(effect, key))
-                    this.set_effect_param(effect, key, default_value);
+                this.set_effect_param(effect, key, default_value);
+                this.on_effect_updated();
             }
         );
         effect._effect_key_updated_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-updated', (_, key, value) => {
+                if (!this.is_effect_param_supported(effect, key))
+                    return;
                 effect._bms_effect_params[key] = value;
-                if (!this.apply_effect_override(effect, key))
-                    this.set_effect_param(effect, key, value);
+                this.set_effect_param(effect, key, value);
+                this.on_effect_updated();
             }
         );
         effect._effect_key_added_id = this.pipelines_manager.connect(
             this.pipeline_id + '::effect-' + effect_infos.id + '-key-added', (_, key, value) => {
+                if (!this.is_effect_param_supported(effect, key))
+                    return;
                 effect._bms_effect_params[key] = value;
-                if (!this.apply_effect_override(effect, key))
-                    this.set_effect_param(effect, key, value);
+                this.set_effect_param(effect, key, value);
+                this.on_effect_updated();
             }
         );
     }
 
     get_effect_params(effect_infos) {
-        const effect_class = this.effects_manager.SUPPORTED_EFFECTS[effect_infos.type]?.class;
+        const defaults = this.get_default_params(effect_infos.type);
+        const params = Object.fromEntries(
+            Object.entries(effect_infos.params).filter(
+                ([key]) => Object.hasOwn(defaults, key)
+            )
+        );
         return {
-            ...(effect_class?.default_params ?? {}),
-            ...(effect_infos.params ?? {}),
+            ...defaults,
+            ...params,
         };
     }
 
+    get_default_params(effect_type) {
+        return this.effects_manager.SUPPORTED_EFFECTS[effect_type].class.default_params;
+    }
+
     get_effect_default_param(effect, key) {
-        return this.effects_manager.SUPPORTED_EFFECTS[effect._bms_effect_type]
-            ?.class
-            ?.default_params
-            ?.[key];
-    }
-
-    get_effect_overrides(effect_type, effect_params = {}) {
-        const overrides = this.effect_overrides[effect_type] ?? {};
-        return typeof overrides === 'function' ? overrides(effect_params) : overrides;
-    }
-
-    apply_effect_override(effect, key) {
-        const overrides = this.get_effect_overrides(effect._bms_effect_type, effect._bms_effect_params);
-        if (!(key in overrides))
-            return false;
-
-        this.set_effect_param(effect, key, overrides[key]);
-        return true;
-    }
-
-    apply_effect_overrides(effect_type = null) {
-        this.effects.forEach(effect => {
-            if (effect_type && effect._bms_effect_type !== effect_type)
-                return;
-
-            const overrides = this.get_effect_overrides(effect._bms_effect_type, effect._bms_effect_params);
-            Object.keys(overrides).forEach(key => this.set_effect_param(effect, key, overrides[key]));
-        });
+        return this.get_default_params(effect._bms_effect_type)[key];
     }
 
     set_effect_param(effect, key, value) {
+        if (effect._bms_pixelize_role === 'refraction-blur') {
+            if (key === 'blur_radius')
+                effect.unscaled_radius = this.get_refraction_blur_radius(value);
+            else if (key === 'opacity_factor' && 'opacity_factor' in effect)
+                effect.opacity_factor = value;
+            return;
+        }
+
         if (effect._bms_effect_type !== 'pixelize') {
             effect[key] = value;
             return;
@@ -322,27 +335,44 @@ export const Pipeline = class Pipeline {
             effect[key] = value;
     }
 
+    is_effect_param_supported(effect, key) {
+        return Object.hasOwn(this.get_default_params(effect._bms_effect_type), key);
+    }
+
+    get_refraction_blur_radius(value) {
+        const refractionClass = this.effects_manager.SUPPORTED_EFFECTS.refraction.class;
+        return utils.clamp(
+            value,
+            0,
+            refractionClass.max_blur_radius,
+            refractionClass.default_params.blur_radius
+        );
+    }
+
     /// Remove every effect from the actor it is attached to. Please note that they are not
     /// destroyed, but rather stored (thanks to the `EffectManager` class) to be reused later.
     remove_all_effects() {
-        this.effects.forEach(effect => {
-            this.effects_manager.remove(effect);
-            [
-                effect._effect_key_removed_id,
-                effect._effect_key_updated_id,
-                effect._effect_key_added_id
-            ].forEach(
-                id => { if (id) this.pipelines_manager.disconnect(id); }
-            );
-            delete effect._effect_key_removed_id;
-            delete effect._effect_key_updated_id;
-            delete effect._effect_key_added_id;
-            delete effect._bms_effect_type;
-            delete effect._bms_effect_id;
-            delete effect._bms_effect_params;
-            delete effect._bms_pixelize_role;
-        });
+        this.effects.forEach(effect => this.release_effect(effect));
         this.effects = [];
+    }
+
+    release_effect(effect) {
+        this.effects_manager.remove(effect);
+        [
+            effect._effect_key_removed_id,
+            effect._effect_key_updated_id,
+            effect._effect_key_added_id
+        ].forEach(id => {
+            if (id)
+                this.pipelines_manager.disconnect(id);
+        });
+        delete effect._effect_key_removed_id;
+        delete effect._effect_key_updated_id;
+        delete effect._effect_key_added_id;
+        delete effect._bms_effect_type;
+        delete effect._bms_effect_id;
+        delete effect._bms_effect_params;
+        delete effect._bms_pixelize_role;
     }
 
     /// Change the pipeline id, and update the effects according to this change.

@@ -12,19 +12,19 @@ export const PopupBlur = GObject.registerClass({
         'pipeline_choose_row',
         'mode_static',
         'mode_dynamic',
-        'sigma_row',
-        'sigma',
-        'brightness_row',
-        'brightness',
         'corner_radius_row',
         'corner_radius',
+        'rounded_corners',
         'menu_corner_radius',
+        'candidate_corner_radius',
         'quick_settings_corner_radius',
+        'calendar_corner_radius',
         'notification_corner_radius',
         'osd_corner_radius',
+        'osd_window_corner_radius',
+        'resize_popup_corner_radius',
         'dialog_corner_radius',
         'osk_corner_radius',
-        'corner_radius_not_found_row',
         'override_background',
         'preserve_shell_theme',
         'style_popup'
@@ -56,15 +56,11 @@ export const PopupBlur = GObject.registerClass({
         );
 
         this.preferences.popup.settings.bind(
-            'sigma', this._sigma, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.popup.settings.bind(
-            'brightness', this._brightness, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.popup.settings.bind(
             'corner-radius', this._corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'rounded-corners', this._rounded_corners, 'selected',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(
@@ -72,7 +68,15 @@ export const PopupBlur = GObject.registerClass({
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(
+            'candidate-corner-radius', this._candidate_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
             'quick-settings-corner-radius', this._quick_settings_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'calendar-corner-radius', this._calendar_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(
@@ -81,6 +85,14 @@ export const PopupBlur = GObject.registerClass({
         );
         this.preferences.popup.settings.bind(
             'osd-corner-radius', this._osd_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'osd-window-corner-radius', this._osd_window_corner_radius, 'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.popup.settings.bind(
+            'resize-popup-corner-radius', this._resize_popup_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.popup.settings.bind(
@@ -94,7 +106,7 @@ export const PopupBlur = GObject.registerClass({
         this.preferences.popup.settings.bind(
             'override-background',
             this._override_background, 'enable-expansion',
-            Gio.SettingsBindFlags.DEFAULT
+            Gio.SettingsBindFlags.DEFAULT | Gio.SettingsBindFlags.NO_SENSITIVITY
         );
         this.preferences.popup.settings.bind(
             'preserve-shell-theme',
@@ -112,10 +124,6 @@ export const PopupBlur = GObject.registerClass({
         if (first_run)
             this._mode_dynamic.set_active(!is_static_blur);
 
-        this._pipeline_choose_row.set_visible(is_static_blur);
-        this._sigma_row.set_visible(!is_static_blur);
-        this._brightness_row.set_visible(!is_static_blur);
-        this._corner_radius_row.set_visible(is_static_blur || this.preferences.ROUNDED_BLUR_FOUND);
-        this._corner_radius_not_found_row.set_visible(!is_static_blur && !this.preferences.ROUNDED_BLUR_FOUND);
+        this._corner_radius_row.set_visible(true);
     }
 });

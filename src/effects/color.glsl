@@ -105,9 +105,14 @@ vec3 get_blend(vec3 base, vec3 _blend) {
 
 void main() {
     vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
-    vec3 pix_color = c.xyz;
+    if (c.a <= 0.0) {
+        cogl_color_out = c;
+        return;
+    }
+
+    vec3 pix_color = c.rgb / c.a;
     vec3 color = get_blend(pix_color, vec3(red, green, blue));
     float amount = blend * opacity_factor;
 
-    cogl_color_out = vec4(mix(pix_color, color, amount), c.a);
+    cogl_color_out = vec4(mix(pix_color, color, amount) * c.a, c.a);
 }

@@ -90,11 +90,11 @@
 .bms-popup-background-light .popup-menu-item:selected,
 .bms-popup-background-light .popup-menu-item:active,
 .bms-popup-background-light .popup-menu-item:checked {
-    color: #222226;
+    color: rgba(0, 0, 0, 0.85);
 }
 
 .bms-popup-background-light .popup-menu-item:insensitive {
-    color: rgba(34, 34, 38, 0.5);
+    color: rgba(0, 0, 0, 0.4);
 }
 
 .bms-popup-background-light .popup-menu-item:hover,

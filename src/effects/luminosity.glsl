@@ -30,7 +30,7 @@ void main() {
         return;
     }
 
-    vec3 pix_hsl = rgb_to_hsl(c.xyz) / c.a;
+    vec3 pix_hsl = rgb_to_hsl(c.rgb / c.a);
     pix_hsl.z = clamp(pix_hsl.z * brightness_multiplicator, 0., 1.);
     pix_hsl.z = clamp((pix_hsl.z - contrast_center) * contrast + contrast_center + brightness_shift, 0., 1.);
     pix_hsl.y = clamp(pix_hsl.y * saturation_multiplicator, 0., 1.);

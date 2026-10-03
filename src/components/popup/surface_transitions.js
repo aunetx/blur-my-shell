@@ -33,7 +33,7 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
             GEOMETRY_TRANSITION_PROPERTIES,
             actors
         );
-        const opacity = this.has_running_for(['opacity'], surface_actors);
+        const opacity = surface_actors.some(actor => this.has_transition(actor, 'opacity'));
 
         return {
             complete: include_descendants,
@@ -51,33 +51,22 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
         return this.get_state(true);
     }
 
-    has_running_for(properties, actors) {
-        return actors.some(actor =>
-            properties.some(property => this.has_transition(actor, property))
-        );
-    }
-
     get_running_properties(properties, actors) {
         const running_properties = new Set();
 
         actors.forEach(actor => {
             properties.forEach(property => {
                 if (this.has_transition(actor, property))
-                    running_properties.add(this.normalize_property(property));
+                    running_properties.add(property.replace(/_/g, '-'));
             });
         });
 
         return running_properties;
     }
 
-    normalize_property(property) {
-        return property.replace(/_/g, '-');
-    }
-
-    get_actors(surface_actors = this.get_surface_actors()) {
+    get_actors(surface_actors) {
         const actors = [...surface_actors];
-        const seen = new WeakSet();
-        actors.forEach(actor => seen.add(actor));
+        const seen = new WeakSet(surface_actors);
 
         if (!this.surface.is_quick_settings()) {
             this.add_descendants(actors, seen, this.surface.target);
@@ -93,7 +82,6 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
 
         this.add_actor(actors, seen, this.surface.target);
         this.add_actor(actors, seen, this.surface.root_actor);
-        this.add_actor(actors, seen, this.surface.get_geometry_actor());
         this.add_ancestors(actors, seen, this.surface.target);
         this.add_ancestors(actors, seen, this.surface.root_actor);
 
@@ -101,7 +89,7 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
     }
 
     add_actor(actors, seen, actor) {
-        if (!actor || seen.has(actor))
+        if (seen.has(actor))
             return;
 
         seen.add(actor);
@@ -109,15 +97,16 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
     }
 
     add_ancestors(actors, seen, actor) {
-        actor = actor?.get_parent();
-        while (actor && actor !== this.surface.parent) {
-            this.add_actor(actors, seen, actor);
-            actor = actor.get_parent();
-        }
+        for (
+            let ancestor = actor.get_parent();
+            ancestor && ancestor !== this.surface.parent;
+            ancestor = ancestor.get_parent()
+        )
+            this.add_actor(actors, seen, ancestor);
     }
 
     add_descendants(actors, seen, actor) {
-        const stack = this.get_children(actor).slice().reverse();
+        const stack = actor.get_children().reverse();
 
         while (stack.length > 0) {
             const child = stack.pop();
@@ -125,15 +114,11 @@ export const PopupBlurSurfaceTransitions = class PopupBlurSurfaceTransitions {
                 continue;
 
             this.add_actor(actors, seen, child);
-            stack.push(...this.get_children(child).slice().reverse());
+            stack.push(...child.get_children().reverse());
         }
     }
 
     has_transition(actor, property) {
-        return !!actor?.get_transition(property);
-    }
-
-    get_children(actor) {
-        return actor ? actor.get_children() : [];
+        return actor.get_transition(property) !== null;
     }
 };
