@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ "$EUID" -eq 0 ]; then
+	echo "--------------------------------------------------------"
+	echo "This script should not be run as root."
+	echo "--------------------------------------------------------"
+	exit 1
+fi
+
 is_os_family(){
 	local target="$1"
 	local os_id
@@ -25,23 +32,27 @@ check_env(){
 			echo "To install this library on Arch, please do so via the AUR"
 			echo "https://aur.archlinux.org/packages/gnome-rounded-blur"
 			echo "--------------------------------------------------------"
-		elif [[ $i = "n" ]] && [[ $u = "y" ]]; then	
+			sleep 5
+			exit 1
+		elif [[ $i = "n" ]] && [[ $u = "y" ]] && [[ "$f" = "n" ]]; then	
 			echo "--------------------------------------------------------"
 			echo "Please do not use this script to uninstall gnome-rounded-blur on Arch Linux"
 			echo "To uninstall this library on Arch, please use the following command"
 			echo "< sudo pacman -R gnome-rounded-blur >"
 			echo "--------------------------------------------------------"
+			sleep 5
+			exit 1
 		fi
-		sleep 5
-		exit 1
 	fi
 
 	if is_os_family "fedora"; then
-		if [[ $i = "y" ]] && [[ $u = "n" ]]; then		
+		if [[ $i = "y" ]] && [[ $u = "n" ]] && [[ "$f" = "n" ]]; then		
 			echo "--------------------------------------------------------"
 			echo "Please do not use this script to install gnome-rounded-blur on Fedora"
 			echo "To install this library on Fedora, follow the guide below"
 			echo "https://github.com/aunetx/blur-my-shell/blob/master/scripts/GUIDE.md"
+			echo "--------------------------------------------------------"
+			echo "If you still want to install this library on Fedora via this script, considering adding --force to the command line arguments"
 			echo "--------------------------------------------------------"
 			sleep 5
 			exit 1
@@ -95,7 +106,12 @@ install_dep(){
 		echo "--------------------------------------------------------"
 		echo "Installing dependency"
 		echo "--------------------------------------------------------"
-		sudo apt -y install libglib2.0-dev build-essential libmutter-"$DIFF_VALUE_2"-dev gobject-introspection meson
+		sudo apt -y install libglib2.0-dev build-essential libmutter-"$DIFF_VALUE_2"-dev gobject-introspection meson patch
+	elif is_os_family "fedora" && [[ "$f" = "y" ]]; then
+		echo "--------------------------------------------------------"
+		echo "Installing dependency"
+		echo "--------------------------------------------------------"
+		sudo dnf -y install git glib2-devel @c-development meson mutter-devel gobject-introspection-devel patch
 	else
 		echo "--------------------------------------------------------"
 		echo "Please manually install the equivalent of libglib2.0-dev build-essential libmutter-$DIFF_VALUE_2-dev gobject-introspection meson on your computer"
@@ -107,6 +123,15 @@ install_dep(){
 
 install_lib(){
 	prep_stage
+
+	if [[ $e = "y" ]]; then 
+		echo "--------------------------------------------------------"
+		echo "Downloading patch for GNOME 51"
+		echo "--------------------------------------------------------"
+		# Apply the pinned GNOME 51 patch commit.
+		curl -o ../gnome_51.patch https://github.com/kancko/gnome-rounded-blur/commit/c0d67c886ac0b54fedaddf75817e85264d16322e.patch
+		patch -Np1 -i ../gnome_51.patch
+	fi
 		
 	echo "--------------------------------------------------------"
 	echo "Building the library"
@@ -178,7 +203,7 @@ prep_stage(){
 	fi
 	git clone --depth 1 "$REPO"
 	cd gnome-rounded-blur
-	
+
 	# Get mutter version
 	if command -v mutter >/dev/null 2>&1; then
 		MUTTER_SYS_VER=$(mutter --version | grep -o -P '(?<=mutter ).*' | sed -e 's/"//g' -e "s/'//g" -e 's/\..*//g')
@@ -191,34 +216,36 @@ prep_stage(){
 	HARDCODE_MUTTER_SYS_VER=$(cat meson.build | grep -o -P '(?<=mutter_req = ).*' | sed -e 's/"//g' -e "s/'//g" -e 's/\..*//g' -e 's/>//g' -e 's/=//g' -e 's/ //g' | head -n 1)
 	MUTTER_API_REPO_VER=$(cat meson.build | grep -o -P '(?<=mutter_api_version = ).*' | sed -e 's/"//g' -e "s/'//g" -e 's/ //g' | head -n 1)
 	
-	# Edit meson.build to allow builing
-	if grep -q "mutter_api_versions" meson.build; then
-		if [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
-			DIFF_VALUE_2="$MUTTER_SYS_VER"
-			if ! grep -q "'$MUTTER_SYS_VER'" meson.build; then
-				sed -i -e "s/mutter_api_versions = \[/mutter_api_versions = ['$MUTTER_SYS_VER', /g" meson.build
+	if [[ $e = "n" ]]; then 
+		# Edit meson.build to allow builing
+		if grep -q "mutter_api_versions" meson.build; then
+			if [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
+				DIFF_VALUE_2="$MUTTER_SYS_VER"
+				if ! grep -q "'$MUTTER_SYS_VER'" meson.build; then
+					sed -i -e "s/mutter_api_versions = \[/mutter_api_versions = ['$MUTTER_SYS_VER', /g" meson.build
+				fi
+			elif [[ "$MUTTER_SYS_VER" -eq 50 ]]; then
+				DIFF_VALUE_2="18"
+			else
+				DIFF_VALUE_2=$((MUTTER_SYS_VER - 32))
+				sed -i -e "s/mutter_api_versions = \[/mutter_api_versions = ['$DIFF_VALUE_2', /g" meson.build
+				sed -i -e "s/mutter_req = '>= 50.0'/mutter_req = '>= $MUTTER_SYS_VER.0'/g" meson.build
 			fi
-		elif [[ "$MUTTER_SYS_VER" -eq 50 ]]; then
-			DIFF_VALUE_2="18"
 		else
-			DIFF_VALUE_2=$((MUTTER_SYS_VER - 32))
-			sed -i -e "s/mutter_api_versions = \[/mutter_api_versions = ['$DIFF_VALUE_2', /g" meson.build
-			sed -i -e "s/mutter_req = '>= 50.0'/mutter_req = '>= $MUTTER_SYS_VER.0'/g" meson.build
-		fi
-	else
-		if [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
-			DIFF_VALUE_2="$MUTTER_SYS_VER"
-		elif [[ "$MUTTER_SYS_VER" -ge "$HARDCODE_MUTTER_SYS_VER" ]]; then
-			DIFF_VALUE=$((MUTTER_SYS_VER - HARDCODE_MUTTER_SYS_VER))
-			DIFF_VALUE_2=$((MUTTER_API_REPO_VER + DIFF_VALUE))
-		else
-			DIFF_VALUE=$((HARDCODE_MUTTER_SYS_VER - MUTTER_SYS_VER))
-			DIFF_VALUE_2=$((MUTTER_API_REPO_VER - DIFF_VALUE))
-		fi
+			if [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
+				DIFF_VALUE_2="$MUTTER_SYS_VER"
+			elif [[ "$MUTTER_SYS_VER" -ge "$HARDCODE_MUTTER_SYS_VER" ]]; then
+				DIFF_VALUE=$((MUTTER_SYS_VER - HARDCODE_MUTTER_SYS_VER))
+				DIFF_VALUE_2=$((MUTTER_API_REPO_VER + DIFF_VALUE))
+			else
+				DIFF_VALUE=$((HARDCODE_MUTTER_SYS_VER - MUTTER_SYS_VER))
+				DIFF_VALUE_2=$((MUTTER_API_REPO_VER - DIFF_VALUE))
+			fi
 
-		sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
-		sed -i -E "s/mutter_req = '>= [0-9.]+'/mutter_req = '>= $MUTTER_SYS_VER.0'/" meson.build
-		sed -i -E "s/dependency\('libmutter-[0-9]+'\)/dependency('libmutter-' + mutter_api_version)/" meson.build
+			sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
+			sed -i -E "s/mutter_req = '>= [0-9.]+'/mutter_req = '>= $MUTTER_SYS_VER.0'/" meson.build
+			sed -i -E "s/dependency\('libmutter-[0-9]+'\)/dependency('libmutter-' + mutter_api_version)/" meson.build
+		fi
 	fi
 	
 	install_dep
@@ -228,9 +255,10 @@ help_doc(){
 	echo "--------------------------------------------------------"
 	echo "gnome-rounded-blur install helper"
 	echo "--------------------------------------------------------"
-	echo "-i 			Install the library"
-	echo "-u			Uninstall the library"
-	echo "-h			Help"
+	echo "-i, --install 		Install the library"
+	echo "-u, --uninstall		Uninstall the library"
+	echo "-f, --force		Force install on Fedora / bypass checks"
+	echo "-h, --help		Help"
 }
 
 
@@ -242,32 +270,34 @@ if [[ $? -ne 4 ]]; then
     exit 1
 fi
 
-LONGOPTS=install,uninstall,help
-OPTIONS=iuh
+LONGOPTS=install,uninstall,help,force,experimental
+OPTIONS=iuhfe
 
 PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@") || exit 2
 eval set -- "$PARSED"
 
-i=n u=n h=n
+i=n u=n h=n f=n e=n
 while true; do
     case "$1" in
         -i|--install)
             i=y
-            install_lib
             shift
-            break
             ;;
-		-u|--uninstall)
-			u=y
-            uninstall_lib
+        -u|--uninstall)
+            u=y
             shift
-            break
             ;;
-		-h|--help)
-			h=y
-            help_doc
+        -h|--help)
+            h=y
             shift
-            break
+            ;;
+		-e|--experimental)
+            e=y
+            shift
+            ;;
+        -f|--force)
+            f=y
+            shift
             ;;
         --)
             shift
@@ -280,9 +310,22 @@ while true; do
     esac
 done
 
-# handle non-option arguments
-if [[ "$i" = "n" && "$u" = "n" && "$h" = "n" ]]; then
-	help_doc
+if [[ "$h" = "y" ]]; then
+    help_doc
+    exit 0
+fi
+
+if [[ "$i" = "y" && "$u" = "y" ]]; then
+    echo "Cannot specify both --install and --uninstall"
+    exit 1
+fi
+
+if [[ "$i" = "y" ]]; then
+    install_lib
+elif [[ "$u" = "y" ]]; then
+    uninstall_lib
+else
+    help_doc
     exit 4
 fi
 

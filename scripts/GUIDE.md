@@ -50,6 +50,14 @@ sudo dnf install gnome-rounded-blur
 ```
 
 **Note:**
+- If you want to install this library via the script on Fedora (useful if you are using experimental version of Fedora), use the following command
+```
+curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i -f
+```
+  - Fedora 45 (GNOME 51) users may want to use the command below (once upstream merges this patch, use the command above or install via the copr)
+```
+curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i -f -e
+```
 - Fedora Atomic user may want to manually add the copr by downloading the copr `.repo` from [here](https://copr.fedorainfracloud.org/coprs/aneagle/gnome-rounded-blur/) and copy the file into `/etc/yum.repos.d/`, then use the following command to refresh the metadata
 ```
 sudo rpm-ostree refresh-md --force 
