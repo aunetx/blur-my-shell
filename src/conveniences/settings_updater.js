@@ -1,7 +1,7 @@
 import { Settings } from './settings.js';
 import { KEYS, DEPRECATED_KEYS } from './keys.js';
 
-const CURRENT_SETTINGS_VERSION = 6;
+const CURRENT_SETTINGS_VERSION = 7;
 
 const LEGACY_DYNAMIC_COMPONENTS = [
     { name: 'panel', supports_static: true },
@@ -146,14 +146,24 @@ function migrate_dynamic_blur_pipelines(
     return { assignments, changed };
 }
 
-function queue_pipeline_references(preferences, assignments, from, to) {
-    preferences.keys.forEach(bundle => {
-        if (!bundle.schemas.some(key => key.name === 'pipeline'))
-            return;
+function pipeline_components(preferences) {
+    return preferences.keys
+        .filter(bundle => bundle.schemas.some(key => key.name === 'pipeline'))
+        .map(bundle => preferences[bundle.component.replaceAll('-', '_')]);
+}
 
-        const component = preferences[bundle.component.replaceAll('-', '_')];
+function queue_pipeline_references(preferences, assignments, from, to) {
+    pipeline_components(preferences).forEach(component => {
         if (component.PIPELINE === from && !assignments.has(component))
             assignments.set(component, to);
+    });
+}
+
+function queue_missing_pipeline_references(preferences, assignments, pipelines) {
+    pipeline_components(preferences).forEach(component => {
+        const pipeline_id = assignments.get(component) ?? component.PIPELINE;
+        if (!Object.hasOwn(pipelines, pipeline_id))
+            assignments.set(component, 'pipeline_default');
     });
 }
 
@@ -268,6 +278,9 @@ export function update_from_old_settings(gsettings) {
         delete pipelines.pipeline_default_rounded;
         pipelines_changed = true;
     }
+
+    if (old_version < 7)
+        queue_missing_pipeline_references(preferences, pipeline_assignments, pipelines);
 
     pipeline_assignments.forEach((pipeline_id, component) => {
         if (component.PIPELINE !== pipeline_id)
