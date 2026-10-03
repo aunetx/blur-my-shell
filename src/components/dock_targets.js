@@ -28,7 +28,13 @@ function resolve_dash_to_dock(container) {
     if (!content)
         return null;
 
-    return { content, content_parent, background: content._background, slider };
+    return {
+        content,
+        content_parent,
+        background: content._background,
+        slider,
+        theme_manager: container._themeManager,
+    };
 }
 
 function resolve_dhruva(container) {
@@ -46,6 +52,7 @@ function resolve_dhruva(container) {
         content_parent: container,
         background,
         slider: null,
+        theme_manager: null,
     };
 }
 
@@ -71,6 +78,7 @@ function resolve_native_dash(container) {
         content_parent: parent,
         background: container._background,
         slider: null,
+        theme_manager: null,
         sibling,
     };
 }

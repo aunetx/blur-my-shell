@@ -37,6 +37,7 @@ export class DockSurface {
         this.dash = target.content;
         this.dash_container = dash_container;
         this.dash_background = target.background;
+        this.theme_manager = target.theme_manager;
         this.settings = dash_blur.settings;
         this.connections = new Connections();
         this.update_id = 0;
@@ -115,7 +116,7 @@ export class DockSurface {
     // IMPORTANT: do never call this in a mutable `this.dash_blur.dashes.forEach`
     remove_dash_blur() {
         this.connections.disconnect_all();
-        this.remove_style();
+        this.remove_style_classes();
         this.destroy_dash();
         this.dash_blur.dashes.splice(this.dash_blur.dashes.indexOf(this), 1);
     }
@@ -126,7 +127,7 @@ export class DockSurface {
     }
 
     override_style() {
-        this.remove_style();
+        this.remove_style_classes();
 
         const style_index = get_component_style(
             this.settings.dash_to_dock.STYLE_DASH_TO_DOCK,
@@ -138,16 +139,27 @@ export class DockSurface {
         // Dash to Dock owns its style class list. Replacing it removes the
         // extension's layout and border-radius rules. Add Blur My Shell's
         // visual modifier alongside the native classes instead.
-        if (!style)
-            return;
-
-        this.get_styled_actors().forEach(actor => actor.add_style_class_name(style));
+        if (style)
+            this.get_styled_actors().forEach(actor => actor.add_style_class_name(style));
+        this.refresh_dock_theme();
     }
 
     remove_style() {
+        this.remove_style_classes();
+        this.refresh_dock_theme();
+    }
+
+    remove_style_classes() {
         this.get_styled_actors().forEach(actor =>
             DASH_STYLES.forEach(style => actor.remove_style_class_name(style))
         );
+    }
+
+    // Dash to Dock copies the background's top border to its open side as an inline style, which
+    // only follows theme changes, so it has to be recomputed once our style classes changed
+    refresh_dock_theme() {
+        if (this.theme_manager)
+            this.theme_manager.updateCustomTheme();
     }
 
     destroy_dash() {
@@ -224,6 +236,9 @@ export class DockSurface {
 
         this.update_visibility();
 
+        // docks can queue another relayout that leaves their boxes unchanged, so no allocation
+        // signal would follow; getting the allocation box runs that pending layout right away
+        this.dash_background.get_allocation_box();
         if (!has_valid_allocation(this.dash_container) ||
             !has_valid_allocation(this.dash) ||
             !has_valid_allocation(this.dash_background))
