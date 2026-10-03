@@ -2,7 +2,7 @@
 
 if [ "$EUID" -eq 0 ]; then
 	echo "--------------------------------------------------------"
-    echo "This script shoud not be run as root."
+	echo "This script should not be run as root."
 	echo "--------------------------------------------------------"
 	exit 1
 fi
@@ -128,8 +128,8 @@ install_lib(){
 		echo "--------------------------------------------------------"
 		echo "Downloading patch for GNOME 51"
 		echo "--------------------------------------------------------"
-		# Apply patch for GNOME 51, will remove when upstream merged
-		curl -o ../gnome_51.patch https://patch-diff.githubusercontent.com/raw/kancko/gnome-rounded-blur/pull/7.patch
+		# Apply the pinned GNOME 51 patch commit.
+		curl -o ../gnome_51.patch https://github.com/kancko/gnome-rounded-blur/commit/c0d67c886ac0b54fedaddf75817e85264d16322e.patch
 		patch -Np1 -i ../gnome_51.patch
 	fi
 		

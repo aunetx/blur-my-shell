@@ -54,7 +54,7 @@ sudo dnf install gnome-rounded-blur
 ```
 curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i -f
 ```
-  - Fedora 51 user specifically may want to use the command below (once upstream merge this patch please use the command above or install via the copr)
+  - Fedora 45 (GNOME 51) users may want to use the command below (once upstream merges this patch, use the command above or install via the copr)
 ```
 curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i -f -e
 ```
