@@ -14,7 +14,8 @@ const DEFAULT_PARAMS = {
     vapor_octaves: 4, vapor_speed: 0.5,
     zoom: 1.0, grain: 15, dispersion: 20,
     saturation: 1.0, brightness: 1.0,
-    use_animation: true, speed_factor: 0.5,
+    flow_animation_enabled: true, flow_speed_factor: 0.5,
+    resize_duration: 1000,
     clip: [0, 0, -1, -1], width: 0, height: 0, 
 };
 
@@ -101,20 +102,28 @@ const WAVE_EFFECT_META = {
                 0.0, 2.0,
                 1.0,
             ),      
-            'use_animation': GObject.ParamSpec.boolean(
-                `use_animation`,
-                `Use Animation`,
-                `Use Animation`,
+            'flow_animation_enabled': GObject.ParamSpec.boolean(
+                `flow_animation_enabled`,
+                `Flow Animation Enabled`,
+                `Flow Animation Enabled`,
                 GObject.ParamFlags.READWRITE,
                 true,
             ),      
-            'speed_factor': GObject.ParamSpec.double(
-                `speed_factor`,
-                `Speed Factor`,
-                `Speed Factor`,
+            'flow_speed_factor': GObject.ParamSpec.double(
+                `flow_speed_factor`,
+                `Flow Speed Factor`,
+                `Flow Speed Factor`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 5.0,
                 0.5,
+            ),
+            'resize_duration': GObject.ParamSpec.int(
+                `resize_duration`,
+                `Resize Duration`,
+                `Resize Duration`,
+                GObject.ParamFlags.READWRITE,
+                0, 10000,
+                1000,
             ),
             'width': GObject.ParamSpec.double(
                 `width`,
@@ -165,38 +174,43 @@ class WaveTicker {
             }
         }
     
-        static _updateFrame() {
-            this._currentTime += this._timeline.get_delta();
-            for (const task of this.tasks) task(this._currentTime);
+        static _update_frame() {
+            const delta = this._timeline.get_delta();
+            for (const task of this.tasks) task(delta);
         }
 
         static _initialize() {
             this._timeline = new Clutter.Timeline({
                 actor: Main.layoutManager.uiGroup,
                 duration: 5000,
-                repeatCount: -1,
+                repeat_count: -1,
             });
 
-            this._connectionId = this._timeline.connect(
+            this._connection_id = this._timeline.connect(
                 "new-frame",
-                this._updateFrame.bind(this),
+                this._update_frame.bind(this),
             );
 
-            this._currentTime = 0;
             this._timeline.start();
         }
 
         static _destroy() {
             if(this._timeline){
                 this._timeline.stop();
-                this._timeline.disconnect(this._connectionId);
+                this._timeline.disconnect(this._connection_id);
             }
 
             this._timeline = null;
-            this._connectionId = null;
+            this._connection_id = null;
             this.tasks.clear();
         }
 }
+
+// Small utils for animation 
+const lerp = (a, b, t) => a + (b - a) * t;
+
+const TAU = Math.PI * 2;
+const TIME_FACTOR = 0.001;
 
 const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extends utils.ShaderEffect {
 
@@ -336,62 +350,129 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 uniforms.set_uniform(this, "brightness", parseFloat(this._brightness));
             }
         }
-        
-        get use_animation() {
-            return this._use_animation;
+
+        get flow_animation_enabled() {
+            return this._flow_animation_enabled;
         }
 
-        set use_animation(value) {
-            if (this._use_animation !== value) {
-                this._use_animation = value;
+        set flow_animation_enabled(value) {
+            if (this._flow_animation_enabled !== value) {
+                this._flow_animation_enabled = value;
 
-                this.update_animation_state();   
+                this._flow_update_animation_state();   
             }
         }
 
-        get speed_factor() {
-            return this._speed_factor;
+        get flow_speed_factor() {
+            return this._flow_speed_factor;
         }
 
-        set speed_factor(value) {
-            if (this._speed_factor !== value) {
-                this._speed_factor = value;
+        set flow_speed_factor(value) {
+            if (this._flow_speed_factor !== value) {
+                this._flow_speed_factor = value;
 
-                this.update_animation_state();
+                this._flow_update_animation_state();
             }
         }
 
-        update_animation_state() {
-            if (!this._update_time_ref) {
-                this._update_time_ref = this.update_time.bind(this)
-            }
 
+        _can_animate() {
             const actor = this.get_actor();
 
-            const active = 
-                this._use_animation && 
-                this._speed_factor !== 0 && 
-                this.enabled &&
-                !!actor &&
-                actor.is_mapped() &&
-                actor.get_paint_opacity() !== 0;
+            return this.enabled &&
+                   !!actor &&
+                     actor.is_mapped() &&
+                     actor.get_paint_opacity() !== 0;
+        }
 
-            if(active === this._prev_active_state) {
-                return;
+        _flow_update_animation_state() {
+            if (!this._flow_update_ref) {
+                this._flow_update_ref = this._flow_animation_update.bind(this)
             }
 
+            const active = 
+                this._flow_animation_enabled && 
+                this._flow_speed_factor !== 0 && 
+                this._can_animate();
+            
+            if (active === this._prev_active_state) return;
             this._prev_active_state = active;
             
             if (active) {
-                WaveTicker.add(this._update_time_ref)
+                WaveTicker.add(this._flow_update_ref)
             } else {
-                WaveTicker.remove(this._update_time_ref)
+                WaveTicker.remove(this._flow_update_ref)
             }
         }
 
-        update_time(time) {
-            const current_time = time * this._speed_factor;
-            uniforms.set_uniform(this, 'time', current_time - 1e-6);
+        _flow_animation_update(delta) {
+            this._flow_update_animation_state();
+            if (!this._prev_active_state) return;
+
+            this._flow_time = ((this._flow_time || 0) + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
+            uniforms.set_uniform(this, 'time', this._flow_time);
+        }
+
+        get resize_duration() {
+            return this._resize_duration;
+        }
+
+        set resize_duration(value) {
+            if (this._resize_duration !== value) {
+                this._resize_duration = value;
+            }
+        }
+
+        get surface_max_size() {
+            return this._surface_max_size;
+        }
+
+        set surface_max_size(value) {
+            if (this._surface_max_size !== value) {
+                this._surface_max_size = value;
+
+                uniforms.set_uniform(this, "surface_max_size", parseFloat(this._surface_max_size));
+            }
+        }
+        
+        _resize_animation_start() {
+            if (!this._resize_update_ref) {
+                this._resize_update_ref = this._resize_animation_update.bind(this)
+            }
+
+            const max_size = Math.max(this._width, this._height);
+            WaveTicker.remove(this._resize_update_ref);
+
+            // Set it instantly and return to avoid unnecessary animation;
+            if (
+                !this._can_animate() ||
+                !this._resize_duration ||  
+                this.surface_max_size <= 1 ||
+                this.surface_max_size === max_size
+            ) {
+                this.surface_max_size = max_size;
+                return;
+            }
+
+            // _resize_from is using current max size for smooth interuption
+            this._resize_from = this.surface_max_size;
+            this._resize_to = max_size;
+            this._resize_elapsed = 0;
+    
+            WaveTicker.add(this._resize_update_ref);
+        }
+
+        _resize_animation_update(delta) {
+            this._resize_elapsed += delta;
+            const progress = Math.min(this._resize_elapsed / this._resize_duration, 1);
+            const eased_progress = 1 - (1 - progress) ** 3;
+            
+            this.surface_max_size = lerp(this._resize_from, this._resize_to, eased_progress);
+
+            if (progress >= 1) {
+                this.surface_max_size = this._resize_to;
+                WaveTicker.remove(this._resize_update_ref);
+            }
         }
 
         get width() {
@@ -404,6 +485,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 this._width = clamped;
 
                 uniforms.set_uniform(this, 'width', parseFloat(this._width))
+                this._resize_animation_start();
             }
         }
 
@@ -417,6 +499,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 this._height = clamped;
 
                 uniforms.set_uniform(this, 'height', parseFloat(this._height));
+                this._resize_animation_start();
             }
         }
 
@@ -443,63 +526,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height));
         }
 
-        _syncParentOpacity(old_parent, actor) {
-            this._disconnectActor(old_parent, '_actor_parent_connection_opacity_id');
-
-            const parent = actor?.get_parent();
-
-            if(parent){
-                this._actor_parent_connection_opacity_id = parent?.connect('notify::opacity', _ => 
-                    this.update_animation_state()
-                );
-            }
-        }
-
-        _disconnectActor(actor, propName) {
-            if (this[propName]) {
-                actor?.disconnect(this[propName]);
-                this[propName] = null;
-            }
-        }
-
-        vfunc_set_actor(actor) {
-            const old_actor = this.get_actor();
-            const old_parent = old_actor?.get_parent();
-
-            this._syncParentOpacity(old_parent, actor);
-            
-            this._disconnectActor(old_actor, '_actor_connection_mapped_id');
-            this._disconnectActor(old_actor, '_actor_connection_opacity_id');
-            this._disconnectActor(old_actor, '_actor_connection_parent_id');
-
-            if (actor) {
-                this._actor_connection_mapped_id = actor.connect('notify::mapped', _ => 
-                    this.update_animation_state()
-                );
-
-                this._actor_connection_opacity_id = actor.connect('notify::opacity', _ => 
-                    this.update_animation_state()
-                );
-
-                this._actor_connection_parent_id = actor.connect('parent-set', (actor, old_parent) => {
-                    this._syncParentOpacity(old_parent, actor);
-                    this.update_animation_state();
-                });
-            }  
-
-            super.vfunc_set_actor(actor);
-
-            this.update_animation_state();
-        }
-
-        vfunc_set_enabled(enabled) {
-            super.vfunc_set_enabled(enabled);  
-            
-            this.update_animation_state();
-        }
-
         vfunc_paint_target(paint_node, paint_context) {
             uniforms.upload_uniforms(this);
+            this._flow_update_animation_state();
             super.vfunc_paint_target(paint_node, paint_context);
         }
 }

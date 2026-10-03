@@ -3,6 +3,7 @@ uniform sampler2D tex;
 // Resolution
 uniform float width;
 uniform float height;
+uniform float surface_max_size;
 
 // Clipping
 uniform float clip_x0;
@@ -28,9 +29,10 @@ uniform float brightness;
 // Time
 uniform float time;
 
-// Macro Constant
-#define TIME_FACTOR 0.1
-#define GLASS_REFERENCE_SIZE 300.0
+// Macro Constants
+#define REFERENCE_SIZE 300.0
+#define WAVE_RADIUS 150.0
+#define VAPOR_RADIUS 60.0
 
 vec4 getTextureColorAt(vec2 coord) {
     vec2 uv = coord / vec2(width, height);
@@ -56,13 +58,12 @@ vec4 get_clipped_bounding() {
     float w = clip_width;
     float h = clip_height;
 
-
-    if(clip_width < 0.0)
+    if (clip_width < 0.0)
         w = width;
-    
-    if(clip_height < 0.0)
+
+    if (clip_height < 0.0)
         h = height;
-    
+
     return vec4(x0, y0, w, h);
 }
 
@@ -210,31 +211,38 @@ void main() {
         discard;
     }
 
-    float surface_max_size = max(surface_size.x, surface_size.y);
-    float glass_scale = max(0.15, GLASS_REFERENCE_SIZE / surface_max_size);
+    float surface_scale = max(0.15, REFERENCE_SIZE / surface_max_size);
 
     // Scale the surface based on reference size,
     // make it more subtle on smaller size and less subtle on bigger size
-    vec2 surface_space = surface_coord * glass_scale;
+    vec2 surface_space = surface_coord * surface_scale;
 
     // This used to reduce displacement on bigger size, make the visual looks smoother
-    float surface_large_factor = min(1.0, glass_scale);
+    float surface_large_factor = min(1.0, surface_scale);
 
+    // Loop motion: the noise sample point travels around a circle.
+    // `time` is a phase (0..TAU), so the animation loops seamlessly
+    // and never depends on an ever-growing timer.
+    // Everything must use an INTEGER multiple of the same phase to keep the loop.
+    vec2 wave_a = WAVE_RADIUS * vec2(cos(time), sin(time));
+    vec2 wave_b =
+        WAVE_RADIUS * vec2(cos(time + 2.1), sin(time + 2.1)) + vec2(37.0, 91.0);
 
-    // Scaled Time;
-    float scaled_time = time * TIME_FACTOR;
+    // Vapor travels the opposite direction (-time), radius scaled by vapor_speed
+    vec2 vapor_offset =
+        VAPOR_RADIUS * vapor_speed * vec2(cos(-time), sin(-time));
 
     // Wave: Big displacement on surface to create wavy looking like blob
     vec2 wave_displacement = vec2(
         fbm(
-            surface_space + vec2(scaled_time, 0.0),
+            surface_space + wave_a,
             amplitude * surface_large_factor,
             frequency * surface_large_factor,
             octaves,
             false
         ),
         fbm(
-            surface_space + vec2(0.0, scaled_time),
+            surface_space + wave_b,
             amplitude * surface_large_factor,
             frequency * surface_large_factor,
             octaves,
@@ -256,7 +264,7 @@ void main() {
     float vapor_displacement =
         1.0 -
         fbm(
-            surface_coord + vec2(0.0, scaled_time * vapor_speed),
+            surface_coord + vapor_offset,
             vapor_amplitude,
             vapor_frequency,
             vapor_octaves,
@@ -286,10 +294,8 @@ void main() {
             base_color.a
         );
     }
-    
+
     // Simple color effect
     vec3 desaturated = czm_luminance(final_color.rgb, saturation);
     cogl_color_out = vec4(desaturated * brightness, final_color.a);
-} 
-
-
+}

@@ -530,13 +530,13 @@ export function get_supported_effects(_ = () => "") {
                     big_increment: 10.,
                     digits: 0
                 },
-                use_animation: {
-                    name: _("Use Animation"),
+                flow_animation_enabled: {
+                    name: _("Enable Flow Animaiton"),
                     description: _("Whether the wave noise continuously flows over time."),
                     type: "boolean"
                 },
-                speed_factor: {
-                    name: _("Animation Speed"),
+                flow_speed_factor: {
+                    name: _("Flow Animation Speed"),
                     description: _("The base speed at which the wave pattern flows."),
                     type: "float",
                     min: 0.,
@@ -544,6 +544,14 @@ export function get_supported_effects(_ = () => "") {
                     increment: 0.01,
                     big_increment: 0.1,
                     digits: 2
+                },
+                resize_duration: {
+                    name: _("Resize Ease Duration"),
+                    description: _("How long the effect takes to adjust when a window changes size (in seconds)."),
+                    type: "integer",
+                    min: 50,
+                    max: 5_0000,
+                    increment: 1,
                 },
             }
         },
