@@ -469,7 +469,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             
             this.surface_max_size = lerp(this._resize_from, this._resize_to, eased_progress);
 
-            if (progress >= 1) {
+            if (progress >= 1 || !this._can_animate()) {
                 this.surface_max_size = this._resize_to;
                 WaveTicker.remove(this._resize_update_ref);
             }
