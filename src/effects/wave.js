@@ -11,7 +11,7 @@ const SHADER_FILENAME = 'wave.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
 const DEFAULT_PARAMS = {
     frequency: 50, amplitude: 10, octaves: 2,
-    vapor_octaves: 4, vapor_speed: 0.5,
+    vapor_octaves: 4, vapor_speed: 1.5,
     zoom: 1.0, grain: 15, dispersion: 20,
     saturation: 1.0, brightness: 1.0,
     flow_animation_enabled: true, flow_speed_factor: 0.5,
@@ -60,7 +60,7 @@ const WAVE_EFFECT_META = {
                 `Vapor speed`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 5.0,
-                0.5,
+                1.5,
             ),
             'grain': GObject.ParamSpec.double(
                 `grain`,
