@@ -393,20 +393,10 @@ export const PanelBlur = class PanelBlur {
 
             let x = p_x + p_p_x - monitor.x + g_x;
             let y = p_y + p_p_y - monitor.y + g_y;
-            let is_horizontal = geometry_width >= geometry_height;
-            let distance_to_top = Math.abs(y);
-            let distance_to_bottom = Math.abs(
-                monitor.height - (y + geometry_height)
-            );
-            let is_bottom_panel = is_horizontal &&
-                distance_to_bottom < distance_to_top;
-
-            const workspace_edge_inset = is_bottom_panel ? 1 : 0;
             const clip_x = Math.floor(x);
-            const clip_y = Math.floor(y) - workspace_edge_inset;
+            const clip_y = Math.floor(y);
             const clip_w = Math.ceil(geometry_width);
-            const clip_h = Math.ceil(geometry_height) +
-                workspace_edge_inset;
+            const clip_h = Math.ceil(geometry_height);
 
             background.set_clip(clip_x, clip_y, clip_w, clip_h);
             background.x = g_x - x;
