@@ -34,6 +34,7 @@ export const PanelBlur = class PanelBlur {
         this.dtp_blur_idle_id = 0;
         this.panel_rescan_idle_id = 0;
         this.visibility_update_id = 0;
+        this.panel_radius_update_id = 0;
         this.enabled = false;
         this.dash_to_panel = null;
         this.main_panel = null;
@@ -288,7 +289,8 @@ export const PanelBlur = class PanelBlur {
                 background,
                 background_group,
             },
-            original_style: panel.get_style(),
+            radius_style: null,
+            last_target_class: null,
             static_blur,
             monitor,
             bg_manager,
@@ -447,6 +449,7 @@ export const PanelBlur = class PanelBlur {
                         this._in_overview = false;
                         this.panel_hide_blur_dynamically();
                         this.update_visibility();
+                        this.queue_panel_border_radius_update();
                     }
                 );
             } else {
@@ -462,12 +465,14 @@ export const PanelBlur = class PanelBlur {
                     appDisplay, 'hide', _ => {
                         this._in_overview = false;
                         this.update_visibility();
+                        this.queue_panel_border_radius_update();
                     }
                 );
                 this.connections.connect(
                     Main.overview, 'hidden', _ => {
                         this._in_overview = false;
                         this.update_visibility();
+                        this.queue_panel_border_radius_update();
                     }
                 );
             }
@@ -616,6 +621,30 @@ export const PanelBlur = class PanelBlur {
         this.visibility_update_id = 0;
     }
 
+    queue_panel_border_radius_update() {
+        if (this.panel_radius_update_id)
+            return;
+
+        this.panel_radius_update_id = global.compositor.get_laters().add(
+            Meta.LaterType.BEFORE_REDRAW,
+            () => {
+                this.panel_radius_update_id = 0;
+                this.actors_list.forEach(actors =>
+                    this.update_panel_border_radius(actors, actors.last_target_class)
+                );
+                return GLib.SOURCE_REMOVE;
+            }
+        );
+    }
+
+    clear_panel_border_radius_update() {
+        if (!this.panel_radius_update_id)
+            return;
+
+        global.compositor.get_laters().remove(this.panel_radius_update_id);
+        this.panel_radius_update_id = 0;
+    }
+
     /// Update the visibility of the blur effect
     update_visibility() {
         if (
@@ -753,32 +782,38 @@ export const PanelBlur = class PanelBlur {
         if (target_class && !panel.has_style_class_name(target_class))
             panel.add_style_class_name(target_class);
 
+        actors.last_target_class = target_class;
         this.update_panel_border_radius(actors, target_class);
     }
 
     update_panel_border_radius(actors, target_class) {
         const panel = actors.widgets.panel;
 
-        if (!target_class || !this.settings.panel.OVERRIDE_BACKGROUND) {
-            panel.set_style(actors.original_style);
-            return;
+        const should_round = !!target_class && this.settings.panel.OVERRIDE_BACKGROUND;
+
+        let top = 0;
+        let bottom = 0;
+        if (should_round) {
+            const radius = this.settings.panel.CORNER_RADIUS;
+            const panel_height = panel.get_height();
+            const max_radius = panel_height > 0 ? Math.floor(panel_height / 2) : radius;
+            const clamped_radius = Math.min(radius, max_radius);
+
+            const corners = getRoundedCorners(this.settings.panel.ROUNDED_CORNERS);
+            top = corners.corners_top ? clamped_radius : 0;
+            bottom = corners.corners_bottom ? clamped_radius : 0;
         }
 
-        const radius = this.settings.panel.CORNER_RADIUS;
-        const panel_height = panel.get_height();
-        const max_radius = panel_height > 0 ? Math.floor(panel_height / 2) : radius;
-        const clamped_radius = Math.min(radius, max_radius);
+        const new_radius_style = should_round
+            ? `border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`
+            : null;
 
-        const corners = getRoundedCorners(this.settings.panel.ROUNDED_CORNERS);
-        const top = corners.corners_top ? clamped_radius : 0;
-        const bottom = corners.corners_bottom ? clamped_radius : 0;
-
-        const base_style = actors.original_style?.trim() ?? '';
-        const separator = base_style && !base_style.endsWith(';') ? '; ' : '';
-
-        panel.set_style(
-            `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`
-        );
+        const others = (panel.get_style() ?? '').replace(actors.radius_style ?? '', '').replace(/[\s;]+$/, '');
+        actors.radius_style = new_radius_style;
+        const target_style = [others, new_radius_style].filter(Boolean).join('; ') || null;
+        if (panel.get_style() === target_style)
+            return;
+        panel.set_style(target_style);
     }
 
     get_panel_style() {
@@ -923,6 +958,7 @@ export const PanelBlur = class PanelBlur {
             this.panel_rescan_idle_id = 0;
         }
         this.clear_visibility_update();
+        this.clear_panel_border_radius_update();
 
         this._dirty = true;
 
