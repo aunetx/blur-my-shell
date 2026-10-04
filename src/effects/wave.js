@@ -434,11 +434,6 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         _flow_animation_update(delta) {
-            if (!this._can_animate()) {
-                WaveTicker.remove(this._flow_update_ref);
-                return;
-            }
-
             this._flow_time = (this._flow_time + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
             this._flow_time_dirty = true;
             this.queue_repaint();
