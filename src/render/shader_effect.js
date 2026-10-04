@@ -5,8 +5,10 @@ import Graphene from 'gi://Graphene';
 import { getEffectBounds } from './effect_bounds.js';
 import {
     getTextureCapacity,
-    setTextureRegion,
+    largestViewSize,
     SURFACE_TEXTURE_REGION,
+    TextureRegion,
+    textureFits,
 } from './texture_region.js';
 
 export const SurfaceShaderEffect = GObject.registerClass({
@@ -22,27 +24,30 @@ export const SurfaceShaderEffect = GObject.registerClass({
         const { x, y, width, height } = bounds;
         const usedWidth = Math.max(1, Math.ceil(width * scale));
         const usedHeight = Math.max(1, Math.ceil(height * scale));
-        const current = this.target?.context === context ? this.target : null;
-        const textureWidth = getTextureCapacity(usedWidth, current?.width ?? 0,
-            Math.ceil(global.stage.width * scale));
-        const textureHeight = getTextureCapacity(usedHeight, current?.height ?? 0,
-            Math.ceil(global.stage.height * scale));
-        if (textureWidth !== current?.width || textureHeight !== current?.height)
-            this.createTarget(context, textureWidth, textureHeight);
+        const current = this.target !== null && this.target.context === context ? this.target : null;
+        if (current === null) {
+            this.createTarget(context, usedWidth, usedHeight);
+        } else if (!textureFits(usedWidth, current.width) || !textureFits(usedHeight, current.height)) {
+            const limit = largestViewSize();
+            this.createTarget(context,
+                getTextureCapacity(usedWidth, current.width, limit.width),
+                getTextureCapacity(usedHeight, current.height, limit.height));
+        }
 
         const target = this.target;
-        if (target.usedWidth === usedWidth && target.usedHeight === usedHeight
-            && target.logicalWidth === width && target.logicalHeight === height
+        const resized = target.usedWidth !== usedWidth || target.usedHeight !== usedHeight;
+        if (!resized && target.logicalWidth === width && target.logicalHeight === height
             && target.x === x && target.y === y)
             return;
 
-        target.framebuffer.set_viewport(0, 0, usedWidth, usedHeight);
+        if (resized) {
+            target.usedWidth = usedWidth;
+            target.usedHeight = usedHeight;
+            target.framebuffer.set_viewport(0, 0, usedWidth, usedHeight);
+            target.region.update(target);
+        }
         target.framebuffer.orthographic(x, y, x + width, y + height, -1, 1);
-        setTextureRegion(target.pipeline, SURFACE_TEXTURE_REGION,
-            usedWidth, usedHeight, target.width, target.height);
-        Object.assign(target, {
-            x, y, usedWidth, usedHeight, logicalWidth: width, logicalHeight: height,
-        });
+        Object.assign(target, { x, y, logicalWidth: width, logicalHeight: height });
         this.sourceValid = false;
     }
 
@@ -64,8 +69,11 @@ export const SurfaceShaderEffect = GObject.registerClass({
             width: textureWidth, height: textureHeight,
             usedWidth: 0, usedHeight: 0,
         };
+        this.target.region = new TextureRegion(pipeline, SURFACE_TEXTURE_REGION);
         this.target.viewportWidthLocation = pipeline.get_uniform_location('bms_viewport_width');
         this.target.viewportHeightLocation = pipeline.get_uniform_location('bms_viewport_height');
+        this.target.originXLocation = pipeline.get_uniform_location('bms_origin_x');
+        this.target.originYLocation = pipeline.get_uniform_location('bms_origin_y');
         this.sourceValid = false;
         this._bms_uniforms_dirty = true;
     }
@@ -140,8 +148,8 @@ export const SurfaceShaderEffect = GObject.registerClass({
                 this.target.viewportHeight = height;
             }
             if (this.target.originX !== this.target.x || this.target.originY !== this.target.y) {
-                this.set_surface_uniform('bms_origin_x', this.target.x, false);
-                this.set_surface_uniform('bms_origin_y', this.target.y, false);
+                this.target.pipeline.set_uniform_1f(this.target.originXLocation, this.target.x);
+                this.target.pipeline.set_uniform_1f(this.target.originYLocation, this.target.y);
                 this.target.originX = this.target.x;
                 this.target.originY = this.target.y;
             }

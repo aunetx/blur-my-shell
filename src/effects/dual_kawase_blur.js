@@ -5,8 +5,10 @@ import { getEffectBounds } from '../render/effect_bounds.js';
 import { getKawaseConfiguration } from './kawase_sampling.js';
 import {
     getTextureCapacity,
-    setTextureRegion,
+    largestViewSize,
     TEXTURE_REGION_SOURCE,
+    TextureRegion,
+    textureFits,
     textureRegionDeclarations,
 } from '../render/texture_region.js';
 
@@ -108,10 +110,13 @@ function levelSize(size, level) {
     return Math.max(1, Math.ceil(size / 2 ** level));
 }
 
-function configureRenderTarget(target, level, width, height, bounds) {
+function resizeRenderTarget(target, level, width, height) {
     target.usedWidth = levelSize(width, level);
     target.usedHeight = levelSize(height, level);
     target.framebuffer.set_viewport(0, 0, target.usedWidth, target.usedHeight);
+}
+
+function projectRenderTarget(target, bounds) {
     target.framebuffer.orthographic(bounds.x, bounds.y,
         bounds.x + bounds.width, bounds.y + bounds.height, -1, 1);
 }
@@ -128,10 +133,6 @@ function createRenderTarget(context, width, height) {
     layerPipeline.set_layer_texture(0, texture);
 
     return { texture, framebuffer, layerPipeline, width, height, usedWidth: 0, usedHeight: 0 };
-}
-
-function setRegion(pipeline, name, target) {
-    setTextureRegion(pipeline, name, target.usedWidth, target.usedHeight, target.width, target.height);
 }
 
 function createPassPipeline(context, texture, declarations, code) {
@@ -205,6 +206,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.downPipelines = [];
         this.upPipelines = [];
         this.outputPipeline = null;
+        this.regions = new Map();
         this.width = 0;
         this.height = 0;
         this.logicalWidth = 0;
@@ -287,13 +289,15 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const {x, y, width: logicalWidth, height: logicalHeight} = bounds;
         const width = Math.max(1, Math.ceil(logicalWidth * scale));
         const height = Math.max(1, Math.ceil(logicalHeight * scale));
-        const sameContext = this.context === context;
-        const capacityWidth = getTextureCapacity(width, sameContext ? this.capacityWidth : 0,
-            Math.ceil(global.stage.width * scale));
-        const capacityHeight = getTextureCapacity(height, sameContext ? this.capacityHeight : 0,
-            Math.ceil(global.stage.height * scale));
-        if (!sameContext || capacityWidth !== this.capacityWidth
-            || capacityHeight !== this.capacityHeight) {
+        if (this.context !== context) {
+            this.releaseTargets();
+            this.capacityWidth = width;
+            this.capacityHeight = height;
+            this.context = context;
+        } else if (!textureFits(width, this.capacityWidth) || !textureFits(height, this.capacityHeight)) {
+            const limit = largestViewSize();
+            const capacityWidth = getTextureCapacity(width, this.capacityWidth, limit.width);
+            const capacityHeight = getTextureCapacity(height, this.capacityHeight, limit.height);
             this.releaseTargets();
             this.capacityWidth = capacityWidth;
             this.capacityHeight = capacityHeight;
@@ -340,17 +344,21 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             );
         }
 
-        if (targetCount === this.downTargets.length
-            && this.width === width && this.height === height
-            && this.logicalWidth === logicalWidth && this.logicalHeight === logicalHeight
+        const resized = targetCount !== this.downTargets.length
+            || this.width !== width || this.height !== height;
+        if (!resized && this.logicalWidth === logicalWidth && this.logicalHeight === logicalHeight
             && this.x === x && this.y === y)
             return;
 
-        this.downTargets.forEach((target, level) =>
-            configureRenderTarget(target, level, width, height, bounds));
-        this.upTargets.forEach((target, level) =>
-            configureRenderTarget(target, level, width, height, bounds));
-        this.updateRegions();
+        if (resized) {
+            this.downTargets.forEach((target, level) =>
+                resizeRenderTarget(target, level, width, height));
+            this.upTargets.forEach((target, level) =>
+                resizeRenderTarget(target, level, width, height));
+            this.updateRegions();
+        }
+        this.downTargets.forEach(target => projectRenderTarget(target, bounds));
+        this.upTargets.forEach(target => projectRenderTarget(target, bounds));
         this.width = width;
         this.height = height;
         this.logicalWidth = logicalWidth;
@@ -361,17 +369,23 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
 
     updateRegions() {
         this.downPipelines.forEach((pipeline, level) =>
-            setRegion(pipeline, SOURCE_REGION, this.downTargets[level - 1]));
+            this.regions.get(pipeline).source.update(this.downTargets[level - 1]));
         this.upPipelines.forEach((pipeline, level) => {
-            setRegion(pipeline, SOURCE_REGION, this.downTargets[level + 1]);
-            setRegion(pipeline, ORIGINAL_REGION, this.downTargets[level]);
+            const regions = this.regions.get(pipeline);
+            regions.source.update(this.downTargets[level + 1]);
+            regions.original.update(this.downTargets[level]);
         });
-        setRegion(this.outputPipeline, SOURCE_REGION, this.downTargets[1]);
-        setRegion(this.outputPipeline, ORIGINAL_REGION, this.downTargets[0]);
+        const outputRegions = this.regions.get(this.outputPipeline);
+        outputRegions.source.update(this.downTargets[1]);
+        outputRegions.original.update(this.downTargets[0]);
     }
 
     createPass(source, context, declarations, code, original = null, outputPass = false) {
         const pipeline = createPassPipeline(context, source.texture, declarations, code);
+        this.regions.set(pipeline, {
+            source: new TextureRegion(pipeline, SOURCE_REGION),
+            original: original ? new TextureRegion(pipeline, ORIGINAL_REGION) : null,
+        });
         setVector2(pipeline, 'halfpixel', 0.5 / source.width, 0.5 / source.height);
         if (original) {
             pipeline.set_layer_texture(1, original.texture);
@@ -476,6 +490,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.downPipelines = [];
         this.upPipelines = [];
         this.outputPipeline = null;
+        this.regions.clear();
         this.width = 0;
         this.height = 0;
         this.logicalWidth = 0;
