@@ -16,7 +16,7 @@ const DEFAULT_PARAMS = {
     saturation: 1.0, brightness: 1.0,
     flow_animation_enabled: true, flow_speed_factor: 0.5,
     resize_duration: 1000,
-    clip: [0, 0, -1, -1], width: 0, height: 0, 
+    clip: [0, 0, -1, -1], width: 0, height: 0,
 };
 
 const WAVE_EFFECT_META = {
@@ -85,7 +85,7 @@ const WAVE_EFFECT_META = {
                 GObject.ParamFlags.READWRITE,
                 0.0, 100.0,
                 20.0,
-            ),    
+            ),
             'saturation': GObject.ParamSpec.double(
                 `saturation`,
                 `Saturation`,
@@ -101,14 +101,14 @@ const WAVE_EFFECT_META = {
                 GObject.ParamFlags.READWRITE,
                 0.0, 2.0,
                 1.0,
-            ),      
+            ),
             'flow_animation_enabled': GObject.ParamSpec.boolean(
                 `flow_animation_enabled`,
                 `Flow Animation Enabled`,
                 `Flow Animation Enabled`,
                 GObject.ParamFlags.READWRITE,
                 true,
-            ),      
+            ),
             'flow_speed_factor': GObject.ParamSpec.double(
                 `flow_speed_factor`,
                 `Flow Speed Factor`,
@@ -144,8 +144,8 @@ const WAVE_EFFECT_META = {
         }
 };
 
-// Unified ticker shared across all wave effects, 
-// instead of each effect ticking separately, 
+// Unified ticker shared across all wave effects,
+// instead of each effect ticking separately,
 // for better efficiency
 class WaveTicker {
         static tasks = new Set();
@@ -156,24 +156,24 @@ class WaveTicker {
             }
 
             this.tasks.add(task);
-    
+
             if (this.tasks.size === 1) {
                 this._initialize();
             }
         }
-    
+
         static remove(task) {
             if (!this.tasks.has(task)) {
                 return;
             }
 
             this.tasks.delete(task);
-        
+
             if (this.tasks.size === 0) {
                 this._destroy();
             }
         }
-    
+
         static _update_frame() {
             const delta = this._timeline.get_delta();
             for (const task of this.tasks) task(delta);
@@ -223,6 +223,14 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._clip_width = null;
             this._clip_height = null;
 
+            this._flow_time = 0;
+            this._resize_from = 0;
+            this._resize_to = 0;
+            this._resize_elapsed = 0;
+            this._uniform_locations = new Map();
+            this._flow_update_ref = this._flow_animation_update.bind(this);
+            this._resize_update_ref = this._resize_animation_update.bind(this);
+
             utils.setup_params(this, params);
         }
 
@@ -233,7 +241,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         get frequency() {
             return this._frequency;
         }
-        
+
         set frequency(value) {
             const frequency = utils.clamp(value, 0, 100, DEFAULT_PARAMS.frequency);
             if (this._frequency !== frequency) {
@@ -242,122 +250,121 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 uniforms.set_uniform(this, "frequency", parseFloat(this._frequency / 100));
             }
         }
-        
+
         get amplitude() {
             return this._amplitude;
         }
-        
+
         set amplitude(value) {
             const amplitude = utils.clamp(value, 0, 100, DEFAULT_PARAMS.amplitude);
             if (this._amplitude !== amplitude) {
                 this._amplitude = amplitude;
-        
+
                 uniforms.set_uniform(this, "amplitude", parseFloat(this._amplitude / 100));
             }
         }
-        
+
         get octaves() {
             return this._octaves;
         }
-        
+
         set octaves(value) {
             const octaves = utils.clamp(value, 0, 6, DEFAULT_PARAMS.octaves);
             if (this._octaves !== octaves) {
                 this._octaves = octaves;
-        
+
                 uniforms.set_uniform(this, "octaves", this._octaves);
             }
         }
-        
+
         get vapor_octaves() {
             return this._vapor_octaves;
         }
-        
+
         set vapor_octaves(value) {
             const vapor_octaves = utils.clamp(value, 0, 6, DEFAULT_PARAMS.vapor_octaves);
             if (this._vapor_octaves !== vapor_octaves) {
                 this._vapor_octaves = vapor_octaves;
-        
+
                 uniforms.set_uniform(this, "vapor_octaves", this._vapor_octaves);
             }
         }
-        
+
         get vapor_speed() {
             return this._vapor_speed;
         }
-        
+
         set vapor_speed(value) {
             const vapor_speed = utils.clamp(value, 0, 5, DEFAULT_PARAMS.vapor_speed);
             if (this._vapor_speed !== vapor_speed) {
                 this._vapor_speed = vapor_speed;
-        
+
                 uniforms.set_uniform(this, "vapor_speed", parseFloat(this._vapor_speed));
             }
         }
-        
+
         get grain() {
-             return this._grain;
+            return this._grain;
         }
-        
+
         set grain(value) {
             const grain = utils.clamp(value, 0, 100, DEFAULT_PARAMS.grain);
             if (this._grain !== grain) {
                 this._grain = grain;
-        
+
                 uniforms.set_uniform(this, "grain", parseFloat(this._grain / 100));
             }
         }
-        
+
         get zoom() {
-             return this._zoom;
+            return this._zoom;
         }
-        
+
         set zoom(value) {
             const zoom = utils.clamp(value, 0.5, 2, DEFAULT_PARAMS.zoom);
             if (this._zoom !== zoom) {
                 this._zoom = zoom;
-        
+
                 uniforms.set_uniform(this, "zoom", parseFloat(this._zoom));
             }
         }
-        
+
         get dispersion() {
             return this._dispersion;
         }
-        
+
         set dispersion(value) {
             const dispersion = utils.clamp(value, 0, 100, DEFAULT_PARAMS.dispersion);
             if (this._dispersion !== dispersion) {
                 this._dispersion = dispersion;
-        
+
                 uniforms.set_uniform(this, "dispersion", parseFloat(this._dispersion / 100));
             }
         }
-        
+
         get saturation() {
-             return this._saturation;
+            return this._saturation;
         }
-        
+
         set saturation(value) {
             const saturation = utils.clamp(value, 0, 2, DEFAULT_PARAMS.saturation);
             if (this._saturation !== saturation) {
                 this._saturation = saturation;
-        
+
                 uniforms.set_uniform(this, "saturation", parseFloat(this._saturation));
             }
         }
-        
+
         get brightness() {
-             return this._brightness;
+            return this._brightness;
         }
-        
+
         set brightness(value) {
             const brightness = utils.clamp(value, 0, 2, DEFAULT_PARAMS.brightness);
             if (this._brightness !== brightness) {
                 this._brightness = brightness;
-        
-                uniforms.set_uniform(this, "brightness", parseFloat(this._brightness));
-                
+
+                uniforms.set_uniform(this, "brightness", parseFloat(this._brightness));                
             }
         }
 
@@ -366,13 +373,13 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set flow_animation_enabled(value) {
-            const enabled = typeof value === "boolean" ? 
-                            value :
-                            DEFAULT_PARAMS.flow_animation_enabled;
+            const enabled = typeof value === "boolean" ?
+                  value :
+                  DEFAULT_PARAMS.flow_animation_enabled;
             if (this._flow_animation_enabled !== enabled) {
                 this._flow_animation_enabled = enabled;
 
-                this._flow_update_animation_state();   
+                this._flow_update_animation_state();
             }
         }
 
@@ -389,38 +396,38 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             }
         }
 
-
         _can_animate() {
             const actor = this.get_actor();
 
             return this.enabled &&
-                   !!actor &&
-                     actor.is_mapped() &&
-                     actor.get_paint_opacity() !== 0;
+                   actor &&
+                   actor.is_mapped() &&
+                   actor.get_paint_opacity() !== 0;
         }
 
+        // Set directly on the pipeline cause going through uniforms.set_uniform
+        // would mark all uniforms dirty and re-upload them every frame.
         _set_animation_uniform(name, value) {
             const pipeline = this.get_pipeline();
-            if (!pipeline) return;
-
-            const prop = `${name}_location`;
-            if (this[prop] === undefined) {
-               this[prop] =  pipeline.get_uniform_location(name);
+            if (!pipeline) {
+                return;
             }
 
-            pipeline.set_uniform_1f(this[prop], value);
+            let location = this._uniform_locations.get(name);
+            if (location === undefined) {
+                location = pipeline.get_uniform_location(name);
+                this._uniform_locations.set(name, location);
+            }
+
+            pipeline.set_uniform_1f(location, value);
         }
 
         _flow_update_animation_state() {
-            if (!this._flow_update_ref) {
-                this._flow_update_ref = this._flow_animation_update.bind(this);
-            }
-
-            const active = 
-                this._flow_animation_enabled && 
-                this._flow_speed_factor !== 0 && 
+            const active =
+                this._flow_animation_enabled &&
+                this._flow_speed_factor !== 0 &&
                 this._can_animate();
-            
+
             if (active) {
                 WaveTicker.add(this._flow_update_ref);
             } else {
@@ -429,14 +436,13 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         _flow_animation_update(delta) {
-            if (!this._can_animate()){
+            if (!this._can_animate()) {
                 WaveTicker.remove(this._flow_update_ref);
                 return;
             }
 
-            const prevTime = this._flow_time || 0;
-            this._flow_time = (prevTime + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
-            this._set_animation_uniform("time", parseFloat(this._flow_time));
+            this._flow_time = (this._flow_time + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
+            this._set_animation_uniform("time", this._flow_time);
             this.queue_repaint();
         }
 
@@ -463,18 +469,23 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 this._set_animation_uniform("surface_max_size", parseFloat(this._surface_max_size));
             }
         }
-        
-        _resize_animation_start() {
-            if (!this._resize_update_ref) {
-                this._resize_update_ref = this._resize_animation_update.bind(this);
-            }
 
-            const max_size = Math.max(this._width, this._height);
+        _target_max_size() {
+            const has_clip = this._clip_width > 0 && this._clip_height > 0;
+
+            return has_clip ?
+                   Math.max(this._clip_width, this._clip_height) :
+                   Math.max(this._width, this._height);
+        }
+
+        _resize_animation_start() {
             WaveTicker.remove(this._resize_update_ref);
+
+            const max_size = this._target_max_size();
 
             if (
                 !this._can_animate() ||
-                !this._resize_duration ||  
+                !this._resize_duration ||
                 this.surface_max_size <= 1 ||
                 this.surface_max_size === max_size
             ) {
@@ -488,7 +499,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._resize_from = this.surface_max_size;
             this._resize_to = max_size;
             this._resize_elapsed = 0;
-    
+
             WaveTicker.add(this._resize_update_ref);
         }
 
@@ -496,7 +507,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._resize_elapsed += delta;
             const progress = Math.min(this._resize_elapsed / Math.max(this._resize_duration, 1), 1);
             const eased_progress = 1 - (1 - progress) ** 3;
-            
+
             this.surface_max_size = lerp(this._resize_from, this._resize_to, eased_progress);
 
             if (progress >= 1 || !this._can_animate()) {
@@ -554,6 +565,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));
             uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width));
             uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height));
+            this._resize_animation_start();
         }
 
         vfunc_set_actor(actor) {
@@ -562,8 +574,6 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             if (!actor) {
                 WaveTicker.remove(this._flow_update_ref);
                 WaveTicker.remove(this._resize_update_ref);
-            } else {
-                this._flow_update_animation_state();
             }
         }
 
@@ -572,7 +582,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._flow_update_animation_state();
             super.vfunc_paint_target(paint_node, paint_context);
         }
-}
+};
 
 export const WaveEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
