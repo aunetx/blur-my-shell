@@ -343,9 +343,9 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this.native_dash_connections.disconnect_all();
         this.native_dash = null;
 
+        this.pending_docks.forEach(pending => pending.destroy());
         this.emit('remove-style');
         this.emit('remove-dashes');
-        this.pending_docks.forEach(pending => pending.destroy());
 
         this.connections.disconnect_all();
 
