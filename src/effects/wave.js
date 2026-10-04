@@ -227,7 +227,6 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._resize_from = 0;
             this._resize_to = 0;
             this._resize_elapsed = 0;
-            this._uniform_locations = new Map();
             this._flow_update_ref = this._flow_animation_update.bind(this);
             this._resize_update_ref = this._resize_animation_update.bind(this);
 
@@ -364,7 +363,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             if (this._brightness !== brightness) {
                 this._brightness = brightness;
 
-                uniforms.set_uniform(this, "brightness", parseFloat(this._brightness));                
+                uniforms.set_uniform(this, "brightness", parseFloat(this._brightness));
             }
         }
 
@@ -405,23 +404,6 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                    actor.get_paint_opacity() !== 0;
         }
 
-        // Set directly on the pipeline cause going through uniforms.set_uniform
-        // would mark all uniforms dirty and re-upload them every frame.
-        _set_animation_uniform(name, value) {
-            const pipeline = this.get_pipeline();
-            if (!pipeline) {
-                return;
-            }
-
-            let location = this._uniform_locations.get(name);
-            if (location === undefined) {
-                location = pipeline.get_uniform_location(name);
-                this._uniform_locations.set(name, location);
-            }
-
-            pipeline.set_uniform_1f(location, value);
-        }
-
         _flow_update_animation_state() {
             const active =
                 this._flow_animation_enabled &&
@@ -435,6 +417,22 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             }
         }
 
+        // Set directly on the pipeline cause going through uniforms.set_uniform
+        // would mark all uniforms dirty and re-upload them every frame.
+        _flow_upload_time_uniform() {
+            const pipeline = this.get_pipeline();
+            if (!pipeline || !this._flow_time_dirty) {
+                return;
+            }
+        
+            if (this._flow_time_location === undefined) {
+                this._flow_time_location = pipeline.get_uniform_location("time");
+            }
+        
+            pipeline.set_uniform_1f(this._flow_time_location, this._flow_time);
+            this._flow_time_dirty = false;
+        }
+
         _flow_animation_update(delta) {
             if (!this._can_animate()) {
                 WaveTicker.remove(this._flow_update_ref);
@@ -442,7 +440,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             }
 
             this._flow_time = (this._flow_time + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
-            this._set_animation_uniform("time", this._flow_time);
+            this._flow_time_dirty = true;
             this.queue_repaint();
         }
 
@@ -451,10 +449,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set resize_duration(value) {
-            const duration = utils.clamp(value, 0, 10000, DEFAULT_PARAMS.resize_duration);
-            if (this._resize_duration !== duration) {
-                this._resize_duration = duration;
-            }
+            this._resize_duration = utils.clamp(value, 0, 10000, DEFAULT_PARAMS.resize_duration);
         }
 
         get surface_max_size() {
@@ -466,7 +461,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             if (this._surface_max_size !== max_size) {
                 this._surface_max_size = max_size;
 
-                this._set_animation_uniform("surface_max_size", parseFloat(this._surface_max_size));
+                uniforms.set_uniform(this, "surface_max_size", parseFloat(this._surface_max_size));
             }
         }
 
@@ -579,6 +574,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
 
         vfunc_paint_target(paint_node, paint_context) {
             uniforms.upload_uniforms(this);
+            this._flow_upload_time_uniform();
             this._flow_update_animation_state();
             super.vfunc_paint_target(paint_node, paint_context);
         }
