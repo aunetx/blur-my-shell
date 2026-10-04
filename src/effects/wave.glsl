@@ -30,6 +30,7 @@ uniform float brightness;
 uniform float time;
 
 // Macro Constants
+#define MAX_OCTAVES 8
 #define REFERENCE_SIZE 300.0
 #define WAVE_RADIUS 150.0
 #define VAPOR_RADIUS 60.0
@@ -49,6 +50,7 @@ vec4 getTextureColorAt(vec2 coord) {
     if (uv.y > 1. - 3. / height)
         uv.y = 1. - 3. / height;
 
+    // return bms_texture2D(tex, uv);
     return texture2D(tex, uv);
 }
 
@@ -173,7 +175,9 @@ float fbm(
     float f = 0.01 * frequency;
     float value = 0.0;
 
-    for (int i = 0; i < octaves; i++) {
+    for (int i = 0; i < MAX_OCTAVES; i++) {
+        if (i >= octaves) break;
+
         float n = snoise(coord * f);
         value += a * (ridged ? smoothAbs(n, 1.5) : n);
         f *= 2.0; // lacunarity: frequency growth per octave

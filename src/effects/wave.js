@@ -151,26 +151,26 @@ class WaveTicker {
         static tasks = new Set();
 
         static add(task) {
-            if(this.tasks.has(task)) {
-                return
+            if (this.tasks.has(task)) {
+                return;
             }
 
             this.tasks.add(task);
     
             if (this.tasks.size === 1) {
-                this._initialize()
+                this._initialize();
             }
         }
     
         static remove(task) {
-            if(!this.tasks.has(task)) {
-                return
+            if (!this.tasks.has(task)) {
+                return;
             }
 
             this.tasks.delete(task);
         
             if (this.tasks.size === 0) {
-                this._destroy()
+                this._destroy();
             }
         }
     
@@ -195,7 +195,7 @@ class WaveTicker {
         }
 
         static _destroy() {
-            if(this._timeline){
+            if (this._timeline) {
                 this._timeline.stop();
                 this._timeline.disconnect(this._connection_id);
             }
@@ -206,7 +206,6 @@ class WaveTicker {
         }
 }
 
-// Small utils for animation 
 const lerp = (a, b, t) => a + (b - a) * t;
 
 const TAU = Math.PI * 2;
@@ -236,8 +235,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set frequency(value) {
-            if (this._frequency !== value) {
-                this._frequency = value;
+            const frequency = utils.clamp(value, 0, 100, DEFAULT_PARAMS.frequency);
+            if (this._frequency !== frequency) {
+                this._frequency = frequency;
 
                 uniforms.set_uniform(this, "frequency", parseFloat(this._frequency / 100));
             }
@@ -248,8 +248,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set amplitude(value) {
-            if (this._amplitude !== value) {
-                this._amplitude = value;
+            const amplitude = utils.clamp(value, 0, 100, DEFAULT_PARAMS.amplitude);
+            if (this._amplitude !== amplitude) {
+                this._amplitude = amplitude;
         
                 uniforms.set_uniform(this, "amplitude", parseFloat(this._amplitude / 100));
             }
@@ -260,8 +261,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set octaves(value) {
-            if (this._octaves !== value) {
-                this._octaves = value;
+            const octaves = utils.clamp(value, 0, 6, DEFAULT_PARAMS.octaves);
+            if (this._octaves !== octaves) {
+                this._octaves = octaves;
         
                 uniforms.set_uniform(this, "octaves", this._octaves);
             }
@@ -272,8 +274,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set vapor_octaves(value) {
-            if (this._vapor_octaves !== value) {
-                this._vapor_octaves = value;
+            const vapor_octaves = utils.clamp(value, 0, 6, DEFAULT_PARAMS.vapor_octaves);
+            if (this._vapor_octaves !== vapor_octaves) {
+                this._vapor_octaves = vapor_octaves;
         
                 uniforms.set_uniform(this, "vapor_octaves", this._vapor_octaves);
             }
@@ -284,8 +287,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set vapor_speed(value) {
-            if (this._vapor_speed !== value) {
-                this._vapor_speed = value;
+            const vapor_speed = utils.clamp(value, 0, 5, DEFAULT_PARAMS.vapor_speed);
+            if (this._vapor_speed !== vapor_speed) {
+                this._vapor_speed = vapor_speed;
         
                 uniforms.set_uniform(this, "vapor_speed", parseFloat(this._vapor_speed));
             }
@@ -296,8 +300,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set grain(value) {
-            if (this._grain !== value) {
-                this._grain = value;
+            const grain = utils.clamp(value, 0, 100, DEFAULT_PARAMS.grain);
+            if (this._grain !== grain) {
+                this._grain = grain;
         
                 uniforms.set_uniform(this, "grain", parseFloat(this._grain / 100));
             }
@@ -308,8 +313,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set zoom(value) {
-            if (this._zoom !== value) {
-                this._zoom = value;
+            const zoom = utils.clamp(value, 0.5, 2, DEFAULT_PARAMS.zoom);
+            if (this._zoom !== zoom) {
+                this._zoom = zoom;
         
                 uniforms.set_uniform(this, "zoom", parseFloat(this._zoom));
             }
@@ -320,8 +326,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set dispersion(value) {
-            if (this._dispersion !== value) {
-                this._dispersion = value;
+            const dispersion = utils.clamp(value, 0, 100, DEFAULT_PARAMS.dispersion);
+            if (this._dispersion !== dispersion) {
+                this._dispersion = dispersion;
         
                 uniforms.set_uniform(this, "dispersion", parseFloat(this._dispersion / 100));
             }
@@ -332,8 +339,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set saturation(value) {
-            if (this._saturation !== value) {
-                this._saturation = value;
+            const saturation = utils.clamp(value, 0, 2, DEFAULT_PARAMS.saturation);
+            if (this._saturation !== saturation) {
+                this._saturation = saturation;
         
                 uniforms.set_uniform(this, "saturation", parseFloat(this._saturation));
             }
@@ -344,10 +352,12 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
         
         set brightness(value) {
-            if (this._brightness !== value) {
-                this._brightness = value;
+            const brightness = utils.clamp(value, 0, 2, DEFAULT_PARAMS.brightness);
+            if (this._brightness !== brightness) {
+                this._brightness = brightness;
         
                 uniforms.set_uniform(this, "brightness", parseFloat(this._brightness));
+                
             }
         }
 
@@ -356,8 +366,11 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set flow_animation_enabled(value) {
-            if (this._flow_animation_enabled !== value) {
-                this._flow_animation_enabled = value;
+            const enabled = typeof value === "boolean" ? 
+                            value :
+                            DEFAULT_PARAMS.flow_animation_enabled;
+            if (this._flow_animation_enabled !== enabled) {
+                this._flow_animation_enabled = enabled;
 
                 this._flow_update_animation_state();   
             }
@@ -368,8 +381,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set flow_speed_factor(value) {
-            if (this._flow_speed_factor !== value) {
-                this._flow_speed_factor = value;
+            const flow_speed_factor = utils.clamp(value, 0, 5, DEFAULT_PARAMS.flow_speed_factor);
+            if (this._flow_speed_factor !== flow_speed_factor) {
+                this._flow_speed_factor = flow_speed_factor;
 
                 this._flow_update_animation_state();
             }
@@ -385,9 +399,21 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                      actor.get_paint_opacity() !== 0;
         }
 
+        _set_animation_uniform(name, value) {
+            const pipeline = this.get_pipeline();
+            if (!pipeline) return;
+
+            const prop = `${name}_location`;
+            if (this[prop] === undefined) {
+               this[prop] =  pipeline.get_uniform_location(name);
+            }
+
+            pipeline.set_uniform_1f(this[prop], value);
+        }
+
         _flow_update_animation_state() {
             if (!this._flow_update_ref) {
-                this._flow_update_ref = this._flow_animation_update.bind(this)
+                this._flow_update_ref = this._flow_animation_update.bind(this);
             }
 
             const active = 
@@ -395,22 +421,23 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
                 this._flow_speed_factor !== 0 && 
                 this._can_animate();
             
-            if (active === this._prev_active_state) return;
-            this._prev_active_state = active;
-            
             if (active) {
-                WaveTicker.add(this._flow_update_ref)
+                WaveTicker.add(this._flow_update_ref);
             } else {
-                WaveTicker.remove(this._flow_update_ref)
+                WaveTicker.remove(this._flow_update_ref);
             }
         }
 
         _flow_animation_update(delta) {
-            this._flow_update_animation_state();
-            if (!this._prev_active_state) return;
+            if (!this._can_animate()){
+                WaveTicker.remove(this._flow_update_ref);
+                return;
+            }
 
-            this._flow_time = ((this._flow_time || 0) + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
-            uniforms.set_uniform(this, 'time', this._flow_time);
+            const prevTime = this._flow_time || 0;
+            this._flow_time = (prevTime + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
+            this._set_animation_uniform("time", parseFloat(this._flow_time));
+            this.queue_repaint();
         }
 
         get resize_duration() {
@@ -418,8 +445,9 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set resize_duration(value) {
-            if (this._resize_duration !== value) {
-                this._resize_duration = value;
+            const duration = utils.clamp(value, 0, 10000, DEFAULT_PARAMS.resize_duration);
+            if (this._resize_duration !== duration) {
+                this._resize_duration = duration;
             }
         }
 
@@ -428,33 +456,35 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set surface_max_size(value) {
-            if (this._surface_max_size !== value) {
-                this._surface_max_size = value;
+            const max_size = utils.clamp(value, 1, Number.MAX_SAFE_INTEGER, 1);
+            if (this._surface_max_size !== max_size) {
+                this._surface_max_size = max_size;
 
-                uniforms.set_uniform(this, "surface_max_size", parseFloat(this._surface_max_size));
+                this._set_animation_uniform("surface_max_size", parseFloat(this._surface_max_size));
             }
         }
         
         _resize_animation_start() {
             if (!this._resize_update_ref) {
-                this._resize_update_ref = this._resize_animation_update.bind(this)
+                this._resize_update_ref = this._resize_animation_update.bind(this);
             }
 
             const max_size = Math.max(this._width, this._height);
             WaveTicker.remove(this._resize_update_ref);
 
-            // Set it instantly and return to avoid unnecessary animation;
             if (
                 !this._can_animate() ||
                 !this._resize_duration ||  
                 this.surface_max_size <= 1 ||
                 this.surface_max_size === max_size
             ) {
+                // Ensure max size is always updated before return
                 this.surface_max_size = max_size;
                 return;
             }
 
-            // _resize_from is using current max size for smooth interuption
+            // Let resize from use current max size for to avoid sudden jump
+            // when animation is interrupted with new one
             this._resize_from = this.surface_max_size;
             this._resize_to = max_size;
             this._resize_elapsed = 0;
@@ -464,7 +494,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
 
         _resize_animation_update(delta) {
             this._resize_elapsed += delta;
-            const progress = Math.min(this._resize_elapsed / this._resize_duration, 1);
+            const progress = Math.min(this._resize_elapsed / Math.max(this._resize_duration, 1), 1);
             const eased_progress = 1 - (1 - progress) ** 3;
             
             this.surface_max_size = lerp(this._resize_from, this._resize_to, eased_progress);
@@ -484,7 +514,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             if (this._width !== clamped) {
                 this._width = clamped;
 
-                uniforms.set_uniform(this, 'width', parseFloat(this._width))
+                uniforms.set_uniform(this, 'width', parseFloat(this._width));
                 this._resize_animation_start();
             }
         }
@@ -524,6 +554,17 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));
             uniforms.set_uniform(this, 'clip_width', parseFloat(this._clip_width <= 0 ? -1 : this._clip_width));
             uniforms.set_uniform(this, 'clip_height', parseFloat(this._clip_height <= 0 ? -1 : this._clip_height));
+        }
+
+        vfunc_set_actor(actor) {
+            super.vfunc_set_actor(actor);
+
+            if (!actor) {
+                WaveTicker.remove(this._flow_update_ref);
+                WaveTicker.remove(this._resize_update_ref);
+            } else {
+                this._flow_update_animation_state();
+            }
         }
 
         vfunc_paint_target(paint_node, paint_context) {
