@@ -1,3 +1,5 @@
+import St from 'gi://St';
+
 const DASH_TO_DOCK_CONTAINER = 'dashtodockContainer';
 const DHRUVA_CONTAINER = 'DhruvaContainer';
 const SIMPLE_TASKBAR_CONTAINER = 'SimpleTaskbarDock';
@@ -108,6 +110,19 @@ function resolve_native_dash(container) {
 
 export function has_valid_allocation(actor) {
     return actor.has_allocation() && actor.width > 0 && actor.height > 0;
+}
+
+export function get_dock_corners(background) {
+    const node = background.get_theme_node();
+    const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+    const top = node.get_border_radius(St.Corner.TOPLEFT);
+    const bottom = node.get_border_radius(St.Corner.BOTTOMLEFT);
+    const radius = Math.floor(Math.min(Math.max(top, bottom),
+        background.width / 2, background.height / 2)) / scale;
+    return {
+        radius,
+        corners: top > 0 && bottom === 0 ? 1 : bottom > 0 && top === 0 ? 2 : 0,
+    };
 }
 
 export function is_dock_ready(container, target) {

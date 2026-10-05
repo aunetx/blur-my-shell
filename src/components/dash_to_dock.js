@@ -8,6 +8,7 @@ import { Pipeline } from '../conveniences/pipeline.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
 import {
+    get_dock_corners,
     is_dock_ready,
     is_supported_dock_container,
     resolve_dock_target,
@@ -195,6 +196,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         const dash_exist = this.dashes.find(infos => infos.dash === dash);
         if (dash_exist) {
             if (dash_exist.dash_background === dash_background
+                && dash_exist.theme_manager === target.theme_manager
                 && dash_exist.background_group?.get_parent() === dash_box)
                 return;
             dash_exist.remove_dash_blur();
@@ -214,6 +216,11 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     }
 
     add_blur(dash_container) {
+        const target = resolve_dock_target(dash_container);
+        if (!target)
+            return null;
+        const get_radius = () => get_dock_corners(target.background).radius;
+        const get_corners = () => get_dock_corners(target.background).corners;
         const monitor = Main.layoutManager.findMonitorForActor(dash_container)
             ?? Main.layoutManager.primaryMonitor;
         if (!monitor)
@@ -236,8 +243,8 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             );
             const rounded_pipeline = new RoundedPipeline(
                 this.effects_manager,
-                () => this.settings.dash_to_dock.CORNER_RADIUS,
-                () => this.settings.dash_to_dock.ROUNDED_CORNERS
+                get_radius,
+                get_corners
             );
             rounded_pipeline.bind(pipeline, background);
 
@@ -255,8 +262,8 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             global.blur_my_shell._pipelines_manager,
             this.settings.dash_to_dock.PIPELINE,
             {
-                corner_radius: this.settings.dash_to_dock.CORNER_RADIUS,
-                get_corners: () => this.settings.dash_to_dock.ROUNDED_CORNERS,
+                corner_radius: get_radius(),
+                get_corners,
             }
         );
         const [background, bg_manager] = pipeline.create_background_with_effect(
@@ -313,10 +320,6 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
     update_pipeline() {
         this.emit('update-pipeline');
-    }
-
-    update_corner_radius() {
-        this.emit('update-corner-radius');
     }
 
     update_size() {

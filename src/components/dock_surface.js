@@ -4,7 +4,7 @@ import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Connections } from '../conveniences/connections.js';
-import { has_valid_allocation, resolve_dock_target } from './dock_targets.js';
+import { get_dock_corners, has_valid_allocation, resolve_dock_target } from './dock_targets.js';
 import { get_component_style } from '../conveniences/style.js';
 
 const DASH_STYLES = [
@@ -54,6 +54,13 @@ export class DockSurface {
             [...GEOMETRY_SIGNALS, 'notify::style-class-name'],
             schedule_update
         );
+        // DTD briefly clears its inline style to read the theme colors
+        // read the radius after DTD finishes changing the style
+        this.connections.connect(this.dash_background, 'style-changed', schedule_update);
+        this.connections.connect(St.ThemeContext.get_for_stage(global.stage),
+            'notify::scale-factor', schedule_update);
+        if (this.theme_manager)
+            this.connections.connect(this.theme_manager, 'updated', schedule_update);
         const slider = dash_container._slider;
         if (slider)
             this.connections.connect(
@@ -81,7 +88,6 @@ export class DockSurface {
         this.connections.connect(dash_blur, 'update-size', schedule_update);
         this.connections.connect(dash_blur, 'change-blur-type', () => this.change_blur_type());
         this.connections.connect(dash_blur, 'update-pipeline', () => this.update_pipeline());
-        this.connections.connect(dash_blur, 'update-corner-radius', () => this.update_corner_radius());
         this.update_visibility();
     }
 
@@ -98,7 +104,8 @@ export class DockSurface {
     }
 
     schedule_update() {
-        this.clear_pending_update();
+        if (this.update_id)
+            return;
         this.update_id = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
             this.update_id = 0;
             this.update_size();
@@ -209,7 +216,7 @@ export class DockSurface {
         if (this.rounded_pipeline)
             this.rounded_pipeline.update();
         else
-            this.pipeline?.set_corner_radius(this.settings.dash_to_dock.CORNER_RADIUS);
+            this.pipeline?.set_corner_radius(get_dock_corners(this.dash_background).radius);
     }
 
     update_visibility() {
@@ -275,6 +282,7 @@ export class DockSurface {
             this.background.set_position(geometry.x, geometry.y);
             this.background.set_size(geometry.width, geometry.height);
         }
+        this.update_corner_radius();
     }
 
     get_dash_position(monitor) {
