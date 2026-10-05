@@ -341,7 +341,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// - is whitelisted in the user preferences if not enable-all
     /// - is not blacklisted if enable-all
     ///
-    /// And, if not enable-all, it must also pass the filters:
+    /// And, if not enable-all, it must also pass the checks:
     /// - frame type: normal, dialog and modal dialog windows can each be
     ///   allowed or excluded, or all allowed with enable-frame-all
     /// - application type: libadwaita, libhandy and GTK 3 applications can each
@@ -368,14 +368,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         // if we are in blacklist mode and the window is not blacklisted
         // or if we are in whitelist mode and the window is whitelisted
-        if (
-            window_wm_class !== ""
-            && ((enable_all && !matchesAnyPattern(window_wm_class, this._compiled_blacklist))
-                || (!enable_all && matchesAnyPattern(window_wm_class, this._compiled_whitelist))
-            )
-            && this._matches_frame_type(meta_window)
-            && this._matches_app_type(meta_window)
-        ) {
+       const passes_list = enable_all
+                        ? !matchesAnyPattern(window_wm_class, this._compiled_blacklist)
+                        :  matchesAnyPattern(window_wm_class, this._compiled_whitelist);
+
+        const matches_the_type = this._matches_frame_type(meta_window)
+                              && this._matches_app_type(meta_window, window_wm_class);
+
+        if (window_wm_class !== "" && (passes_list || matches_the_type)) {
             // only blur the window if it is not already done
             if (!meta_window.blur_actor)
                 this.create_blur_effect(meta_window);
@@ -408,14 +408,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
     }
 
 
-    _matches_app_type(meta_window) {
+    _matches_app_type(meta_window, wm_class) {
         const applications = this.settings.applications;
 
         if (applications.ENABLE_ALL || applications.ENABLE_APP_ALL) {
             return true;
         }
 
-        const type = this.get_application_type(meta_window);
+        const type = this.get_application_type(meta_window, wm_class);
 
         if (type === 'libadwaita') {
             return applications.ENABLE_APP_LIBADWAITA;
@@ -703,9 +703,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             this.focused_window = null;
     }
 
-    get_application_type(win) {
-        const wm_class = win.get_wm_class();
-
+    get_application_type(win, wm_class) {
         const cached_type = this._cached_application_type.get(wm_class);
         if (cached_type) {
             return cached_type;
