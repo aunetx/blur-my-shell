@@ -59,7 +59,6 @@
 .bms-popup-background-light .candidate-popup-content,
 .bms-popup-background-light .quick-settings,
 .bms-popup-background-light .quick-toggle-menu,
-.bms-popup-background-light .message,
 .bms-popup-background-light .osd-window,
 .bms-popup-background-light .resize-popup,
 .bms-popup-background-light .switcher-list,
@@ -73,7 +72,6 @@
 .bms-popup-surface-light .candidate-popup-content,
 .bms-popup-surface-light .quick-settings,
 .bms-popup-surface-light .quick-toggle-menu,
-.bms-popup-surface-light .message,
 .bms-popup-surface-light .osd-window,
 .bms-popup-surface-light .resize-popup,
 .bms-popup-surface-light .switcher-list,
@@ -82,8 +80,8 @@
 .bms-popup-surface-light .run-dialog,
 .bms-popup-surface-light .clipboard-dialog,
 .bms-popup-surface-light .screenshot-ui-panel {
-    background: rgba(255, 255, 255, 0.58) !important;
-    border-color: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.65) !important;
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .bms-popup-background-light .modal-dialog,
@@ -91,7 +89,12 @@
 .bms-popup-background-light .clipboard-dialog,
 .bms-popup-surface-light .modal-dialog,
 .bms-popup-surface-light .run-dialog {
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bms-popup-background-light .message,
+.bms-popup-surface-light .message {
+    background: rgba(255, 255, 255, 0.58) !important;
 }
 
 .bms-popup-background-light .message:hover,
@@ -137,7 +140,7 @@
 .bms-popup-background-dark .run-dialog,
 .bms-popup-background-dark .clipboard-dialog,
 .bms-popup-background-dark .screenshot-ui-panel,
-.bms-popup-surface-dark .screenshot-ui-panel, 
+.bms-popup-surface-dark .screenshot-ui-panel,
 .bms-popup-surface-dark .popup-menu-content,
 .bms-popup-surface-dark .popup-sub-menu,
 .bms-popup-surface-dark .candidate-popup-content,
@@ -150,7 +153,7 @@
 .bms-popup-surface-dark .modal-dialog,
 .bms-popup-surface-dark .run-dialog,
 .bms-popup-surface-dark .clipboard-dialog {
-    background: rgba(45, 45, 50, 0.22) !important;
+    background: rgba(45, 45, 50, 0.5) !important;
     border-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -300,13 +303,13 @@
 
 .bms-popup-background-dark .popup-sub-menu > StBoxLayout,
 .bms-popup-surface-dark .popup-sub-menu > StBoxLayout {
-    background-color: rgba(58, 58, 64, 0.36) !important;
+    background-color: rgba(255, 255, 255, 0.18) !important;
     border-radius: 0 0 13px 13px;
 }
 
 .bms-popup-background-light .popup-sub-menu > StBoxLayout,
 .bms-popup-surface-light .popup-sub-menu > StBoxLayout {
-    background-color: rgba(255, 255, 255, 0.58) !important;
+    background-color: rgba(0, 0, 0, 0.14) !important;
     border-radius: 0 0 13px 13px;
 }
 

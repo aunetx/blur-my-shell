@@ -93,7 +93,8 @@
     color: rgba(0, 0, 0, 0.85);
 }
 
-.bms-popup-background-light .popup-menu-item:insensitive {
+.bms-popup-background-light .popup-menu-item:insensitive,
+.bms-popup-background-dark .popup-inactive-menu-item:insensitive {
     color: rgba(0, 0, 0, 0.4);
 }
 
@@ -106,6 +107,20 @@
 .bms-popup-background-light .popup-menu-item:open,
 .bms-popup-background-light .popup-menu-item:checked {
     background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bms-popup-background-dark .popup-menu-item,
+.bms-popup-background-dark .popup-menu-item:hover,
+.bms-popup-background-dark .popup-menu-item:focus,
+.bms-popup-background-dark .popup-menu-item:selected,
+.bms-popup-background-dark .popup-menu-item:active,
+.bms-popup-background-dark .popup-menu-item:checked {
+    color: #ffffff;
+}
+
+.bms-popup-background-dark .popup-menu-item:insensitive,
+.bms-popup-background-dark .popup-inactive-menu-item:insensitive {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .bms-popup-background-dark .popup-menu-item:hover,

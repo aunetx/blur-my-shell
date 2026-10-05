@@ -90,7 +90,7 @@
 
 .app-folder-dialog.appfolder-dialogs-light {
     color: rgba(0, 0, 0, 0.85);
-    background-color: rgba(255, 255, 255, 0.58) !important;
+    background-color: rgba(255, 255, 255, 0.65) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -116,7 +116,7 @@
 .appfolder-dialogs-light .icon-button,
 .appfolder-dialogs-light .page-navigation-arrow {
     color: rgba(0, 0, 0, 0.85) !important;
-    background-color: rgba(255, 255, 255, 0.58) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -136,7 +136,7 @@
 .appfolder-dialogs-light .page-navigation-arrow:hover,
 .appfolder-dialogs-light .page-navigation-arrow:focus {
     color: rgba(0, 0, 0, 0.85) !important;
-    background-color: rgba(255, 255, 255, 0.78) !important;
+    background-color: rgba(0, 0, 0, 0.15) !important;
     border-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -144,7 +144,7 @@
 .appfolder-dialogs-light .icon-button:active,
 .appfolder-dialogs-light .page-navigation-arrow:active {
     color: rgba(0, 0, 0, 0.85) !important;
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
     border-color: rgba(0, 0, 0, 0.12);
 }
 
@@ -158,11 +158,11 @@
 
 .appfolder-dialogs-light .overview-tile:hover,
 .appfolder-dialogs-light .overview-tile:focus {
-    background-color: rgba(255, 255, 255, 0.22) !important;
+    background-color: rgba(0, 0, 0, 0.15) !important;
 }
 
 .appfolder-dialogs-light .overview-tile:active {
-    background-color: rgba(255, 255, 255, 0.32) !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 
@@ -212,7 +212,7 @@
 .appfolder-dialogs-dark .icon-button,
 .appfolder-dialogs-dark .page-navigation-arrow {
     color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.07) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -232,7 +232,7 @@
 .appfolder-dialogs-dark .page-navigation-arrow:hover,
 .appfolder-dialogs-dark .page-navigation-arrow:focus {
     color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.13) !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
     border-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -240,7 +240,7 @@
 .appfolder-dialogs-dark .icon-button:active,
 .appfolder-dialogs-dark .page-navigation-arrow:active {
     color: #ffffff !important;
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
     border-color: rgba(255, 255, 255, 0.16);
 }
 
@@ -254,11 +254,11 @@
 
 .appfolder-dialogs-dark .overview-tile:hover,
 .appfolder-dialogs-dark .overview-tile:focus {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .appfolder-dialogs-dark .overview-tile:active {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .appfolder-dialogs-dark .page-indicators .page-indicator-icon,

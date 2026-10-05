@@ -17,22 +17,18 @@
 .bms-popup-surface-dark .message-media-control:hover,
 .bms-popup-background-dark .message-expand-button:hover,
 .bms-popup-surface-dark .message-expand-button:hover,
-.bms-popup-background-dark .message-notification-group StButton:hover,
-.bms-popup-surface-dark .message-notification-group StButton:hover,
 .bms-popup-background-dark .switcher-list .item-box:hover,
 .bms-popup-surface-dark .switcher-list .item-box:hover {
-  background-color: rgba(255, 255, 255, 0.20) !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .bms-popup-background-dark .message-media-control:active,
 .bms-popup-surface-dark .message-media-control:active,
 .bms-popup-background-dark .message-expand-button:active,
 .bms-popup-surface-dark .message-expand-button:active,
-.bms-popup-background-dark .message-notification-group StButton:active,
-.bms-popup-surface-dark .message-notification-group StButton:active,
 .bms-popup-background-dark .switcher-list .item-box:active,
 .bms-popup-surface-dark .switcher-list .item-box:active {
-  background-color: rgba(255, 255, 255, 0.24) !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .bms-popup-background-dark .message-media-control:focus,
@@ -42,12 +38,8 @@
 .bms-popup-background-dark .message-expand-button:focus,
 .bms-popup-background-dark .message-expand-button:checked,
 .bms-popup-surface-dark .message-expand-button:focus,
-.bms-popup-surface-dark .message-expand-button:checked,
-.bms-popup-background-dark .message-notification-group StButton:focus,
-.bms-popup-background-dark .message-notification-group StButton:checked,
-.bms-popup-surface-dark .message-notification-group StButton:focus,
-.bms-popup-surface-dark .message-notification-group StButton:checked {
-  background-color: rgba(255, 255, 255, 0.13) !important;
+.bms-popup-surface-dark .message-expand-button:checked {
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .bms-popup-background-dark .message-media-control:insensitive,
@@ -61,66 +53,82 @@
     color: rgba(255, 255, 255, 0.68);
 }
 
-.bms-popup-background-dark .message-list-controls .message-list-clear-button {
+.bms-popup-background-dark .notification-button,
+.bms-popup-background-dark .message .message-header .message-expand-button,
+.bms-popup-background-dark .message .message-header .message-close-button,
+.bms-popup-background-dark .message-notification-group .message-collapse-button,
+.bms-popup-background-dark .message-list-controls .message-list-clear-button,
+.bms-popup-background-dark .modal-dialog .button,
+.bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button,
+.bms-popup-background-dark .quick-toggle,
+.bms-popup-background-dark .quick-settings-system-item .button,
+.bms-popup-background-dark .quick-settings-system-item .icon-button,
+.bms-popup-background-dark .quick-settings-system-item .power-item {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+.bms-popup-background-dark .notification-button:hover,
+.bms-popup-background-dark .message .message-header .message-close-button:hover,
+.bms-popup-background-dark .message .message-header .message-expand-button:hover,
+.bms-popup-background-dark .message-notification-group .message-collapse-button:hover,
 .bms-popup-background-dark .message-list-controls .message-list-clear-button:hover,
-.bms-popup-background-dark .message-list-controls .message-list-clear-button:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important;
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:focus,
+.bms-popup-background-dark .modal-dialog .button:hover,
+.bms-popup-background-dark .modal-dialog .button:focus,
+.bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:hover,
+.bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:focus,
+.bms-popup-background-dark .quick-toggle:hover,
+.bms-popup-background-dark .quick-toggle:focus,
+.bms-popup-background-dark .quick-settings-system-item .button:hover,
+.bms-popup-background-dark .quick-settings-system-item .button:focus,
+.bms-popup-background-dark .quick-settings-system-item .icon-button:hover,
+.bms-popup-background-dark .quick-settings-system-item .icon-button:focus,
+.bms-popup-background-dark .quick-settings-system-item .power-item:hover,
+.bms-popup-background-dark .quick-settings-system-item .power-item:focus {
+    background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
-.bms-popup-background-dark .message-list-controls .message-list-clear-button:active {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+.bms-popup-background-dark .notification-button:active,
+.bms-popup-background-dark .message .message-header .message-expand-button:active,
+.bms-popup-background-dark .message .message-header .message-close-button:active,
+.bms-popup-background-dark .message-notification-group .message-collapse-button:active,
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:active,
+.bms-popup-background-dark .modal-dialog .button:active,
+.bms-popup-background-dark .modal-dialog .button:checked,
+.bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:active,
+.bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:checked,
+.bms-popup-background-dark .quick-toggle:active,
+.bms-popup-background-dark .quick-settings-system-item .icon-button:active,
+.bms-popup-background-dark .quick-settings-system-item .button:active,
+.bms-popup-background-dark .quick-settings-system-item .power-item:active {
+    background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-.bms-popup-background-dark .message-list-controls .message-list-clear-button:insensitive {
-    color: rgba(255, 255, 255, 0.35) !important;
-    background-color: rgba(255, 255, 255, 0.04) !important;
-}
-
+.bms-popup-background-dark .notification-button:insensitive,
+.bms-popup-background-dark .message-list-controls .message-list-clear-button:insensitive,
 .bms-popup-background-dark .modal-dialog .button:insensitive,
 .bms-popup-background-dark .modal-dialog .modal-dialog-button-box .modal-dialog-button:insensitive {
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
-.bms-popup-background-dark .quick-toggle,
-.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
-.bms-popup-background-dark .notification-button {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.11) !important;
+.bms-popup-background-dark .quick-toggle {
     border-color: rgba(255, 255, 255, 0.08);
 }
 
-.bms-popup-background-dark .quick-settings .icon-button,
-.bms-popup-background-dark .quick-settings-system-item .button,
-.bms-popup-background-dark .quick-settings-system-item .power-item {
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(255, 255, 255, 0.06);
-    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
-.bms-popup-background-dark .quick-toggle:hover,
-.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover,
-.bms-popup-background-dark .notification-button:hover {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
-.bms-popup-background-dark .quick-settings .icon-button:hover,
-.bms-popup-background-dark .quick-settings .icon-button:focus,
-.bms-popup-background-dark .quick-settings-system-item .button:hover,
-.bms-popup-background-dark .quick-settings-system-item .button:focus,
-.bms-popup-background-dark .quick-settings-system-item .power-item:hover,
-.bms-popup-background-dark .quick-settings-system-item .power-item:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important;
-}
-
-.bms-popup-background-dark .quick-settings .icon-button:active,
-.bms-popup-background-dark .quick-settings-system-item .button:active,
-.bms-popup-background-dark .quick-settings-system-item .power-item:active {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:active {
+    background-color: rgba(255, 255, 255, 0.34) !important;
 }
 
 .bms-popup-background-dark .calendar {
@@ -137,12 +145,12 @@
 
 .bms-popup-background-dark .datemenu-today-button:hover,
 .bms-popup-background-dark .datemenu-today-button:focus {
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.07) !important;
 }
 
 .bms-popup-background-dark .datemenu-today-button:active,
 .bms-popup-background-dark .datemenu-today-button:checked {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+    background-color: rgba(255, 255, 255, 0.09) !important;
 }
 
 .bms-popup-background-dark .datemenu-today-button StLabel,
@@ -157,7 +165,6 @@
 .bms-popup-background-dark .events-button,
 .bms-popup-background-dark .world-clocks-button,
 .bms-popup-background-dark .weather-button {
-    color: #ffffff;
     background-color: rgba(255, 255, 255, 0.07) !important;
     border-color: rgba(255, 255, 255, 0.05);
     box-shadow: none;
@@ -167,6 +174,26 @@
 .bms-popup-background-dark .world-clocks-button:hover,
 .bms-popup-background-dark .weather-button:hover {
     background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bms-popup-background-dark .events-button:active,
+.bms-popup-background-dark .world-clocks-button:active,
+.bms-popup-background-dark .weather-button:active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.bms-popup-background-dark .world-clocks-button .world-clocks-header.no-world-clocks,
+.bms-popup-background-dark .weather-button .weather-box .weather-header-box .weather-header.no-location {
+    color: #ffffff;
+}
+
+.bms-popup-background-dark .events-button .events-box .events-title,
+.bms-popup-background-dark .events-box .events-list .event-box .event-time,
+.bms-popup-background-dark .events-button .events-box .events-list .event-placeholder,
+.bms-popup-background-dark .world-clocks-button .world-clocks-header,
+.bms-popup-background-dark .world-clocks-button .world-clocks-grid .world-clocks-timezone,
+.bms-popup-background-dark .weather-button .weather-box .weather-header-box .weather-header {
+    color: rgba(255, 255, 255, 0.68);
 }
 
 .bms-popup-background-dark .calendar .calendar-month-header .calendar-month-label,
@@ -257,12 +284,12 @@
 }
 
 .bms-popup-background-dark StEntry {
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .bms-popup-background-dark StEntry:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important;
+    background-color: st-mix(-st-accent-color, rgba(255, 255, 255, 0.1), 5%) !important;
     color: #ffffff !important;
 }
 
