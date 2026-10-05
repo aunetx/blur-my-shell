@@ -142,10 +142,22 @@ export function connect_component_settings(extension) {
         applications,
         () => applications.update_fullscreen_status()
     ));
-    connect(settings.applications, 'ENABLE_ALL', when_enabled(
-        applications,
-        () => applications.update_all_windows()
-    ));
+    [
+        'ENABLE_ALL',
+        'ENABLE_FRAME_ALL',
+        'ENABLE_FRAME_NORMAL',
+        'ENABLE_FRAME_DIALOG',
+        'ENABLE_FRAME_MODAL',
+        'ENABLE_APP_ALL',
+        'ENABLE_APP_LIBADWAITA',
+        'ENABLE_APP_LIBHANDY',
+        'ENABLE_APP_GTK',
+    ].forEach(property =>
+        connect(settings.applications, property, when_enabled(
+            applications,
+            () => applications.update_all_windows()
+        ))
+    );
     connect(settings.applications, 'WHITELIST', when_enabled(
         applications,
         () => {

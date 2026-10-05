@@ -416,6 +416,40 @@
             <default>false</default>
             <summary>Whether or not to blur all applications by default</summary>
         </key>
+        <!-- ENABLE BY FRAME TYPE -->
+        <key type="b" name="enable-frame-all">
+            <default>true</default>
+            <summary>Whether or not to blur all frame types</summary>
+        </key>
+        <key type="b" name="enable-frame-normal">
+            <default>true</default>
+            <summary>Whether or not to blur normal windows</summary>
+        </key>
+        <key type="b" name="enable-frame-dialog">
+            <default>true</default>
+            <summary>Whether or not to blur dialogs</summary>
+        </key>
+        <key type="b" name="enable-frame-modal">
+            <default>true</default>
+            <summary>Whether or not to blur modal dialogs</summary>
+        </key>
+        <!-- ENABLE BY APPLICATION TYPE -->
+        <key type="b" name="enable-app-all">
+            <default>true</default>
+            <summary>Whether or not to blur all application types</summary>
+        </key>
+        <key type="b" name="enable-app-libadwaita">
+            <default>true</default>
+            <summary>Whether or not to blur libadwaita applications</summary>
+        </key>
+        <key type="b" name="enable-app-libhandy">
+            <default>false</default>
+            <summary>Whether or not to blur libhandy applications</summary>
+        </key>
+        <key type="b" name="enable-app-gtk">
+            <default>false</default>
+            <summary>Whether or not to blur GTK applications</summary>
+        </key>
         <!-- WHITELIST -->
         <key type="as" name="whitelist">
             <default>[]</default>

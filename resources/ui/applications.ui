@@ -174,17 +174,148 @@ This may cause some latency or performance issues.</property>
             </child>
           </object>
         </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Enable selected windows</property>
+        <property name="description" translatable="yes">Choose which windows get blur.</property>
+        <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Enable all by default</property>
             <property name="subtitle" translatable="yes">Adds blur behind all windows by default.</property>
             <property name="activatable-widget">enable_all</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
 
             <child>
               <object class="GtkSwitch" id="enable_all">
                 <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwExpanderRow" id="frame_type_enable">
+            <property name="title" translatable="yes">Enable by frame type</property>
+            <property name="subtitle" translatable="yes">Only blur certain kinds of frame types.</property>
+            <property name="sensitive" bind-source="enable_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for all frame types</property>
+                <property name="activatable-widget">enable_frame_all</property>
+                <child>
+                  <object class="GtkSwitch" id="enable_frame_all">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for normal windows</property>
+                <property name="subtitle" translatable="yes">Regular application windows.</property>
+                <property name="activatable-widget">enable_frame_normal</property>
+                <property name="sensitive" bind-source="enable_frame_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+                <child>
+                  <object class="GtkSwitch" id="enable_frame_normal">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for dialogs</property>
+                <property name="subtitle" translatable="yes">Popup windows such as preferences or file choosers.</property>
+                <property name="activatable-widget">enable_frame_dialog</property>
+                <property name="sensitive" bind-source="enable_frame_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+                <child>
+                  <object class="GtkSwitch" id="enable_frame_dialog">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for modal dialogs</property>
+                <property name="subtitle" translatable="yes">Dialogs that block their parent window.</property>
+                <property name="activatable-widget">enable_frame_modal</property>
+                <property name="sensitive" bind-source="enable_frame_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+                <child>
+                  <object class="GtkSwitch" id="enable_frame_modal">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwExpanderRow" id="app_type_enable">
+            <property name="title" translatable="yes">Enable by application type</property>
+            <property name="subtitle" translatable="yes">Only blur certain kinds of applications.</property>
+            <property name="sensitive" bind-source="enable_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for all application types</property>
+                <property name="activatable-widget">enable_app_all</property>
+                <child>
+                  <object class="GtkSwitch" id="enable_app_all">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for libadwaita applications</property>
+                <property name="subtitle" translatable="yes">Modern GNOME apps.</property>
+                <property name="activatable-widget">enable_app_libadwaita</property>
+                <property name="sensitive" bind-source="enable_app_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+                <child>
+                  <object class="GtkSwitch" id="enable_app_libadwaita">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for libhandy applications</property>
+                <property name="subtitle" translatable="yes">GNOME apps that look modern but use GTK 3.</property>
+                <property name="activatable-widget">enable_app_libhandy</property>
+                <property name="sensitive" bind-source="enable_app_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+                <child>
+                  <object class="GtkSwitch" id="enable_app_libhandy">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Enable for GTK applications</property>
+                <property name="subtitle" translatable="yes">Classic GNOME apps (GTK 3 without libhandy).</property>
+                <property name="activatable-widget">enable_app_gtk</property>
+                <property name="sensitive" bind-source="enable_app_all" bind-property="active" bind-flags="sync-create|invert-boolean" />
+                <child>
+                  <object class="GtkSwitch" id="enable_app_gtk">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

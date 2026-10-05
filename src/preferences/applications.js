@@ -43,6 +43,14 @@ export const Applications = GObject.registerClass({
         'blur_on_overview',
         'unblur_when_fullscreen',
         'enable_all',
+        'enable_frame_all',
+        'enable_frame_normal',
+        'enable_frame_dialog',
+        'enable_frame_modal',
+        'enable_app_all',
+        'enable_app_libadwaita',
+        'enable_app_libhandy',
+        'enable_app_gtk',
         'whitelist',
         'add_window_whitelist',
         'blacklist',
@@ -93,6 +101,38 @@ export const Applications = GObject.registerClass({
         );
         this.preferences.applications.settings.bind(
             'enable-all', this._enable_all, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-frame-all', this._enable_frame_all, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-frame-normal', this._enable_frame_normal, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-frame-dialog', this._enable_frame_dialog, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-frame-modal', this._enable_frame_modal, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-app-all', this._enable_app_all, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-app-libadwaita', this._enable_app_libadwaita, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-app-libhandy', this._enable_app_libhandy, 'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        this.preferences.applications.settings.bind(
+            'enable-app-gtk', this._enable_app_gtk, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.applications.settings.bind(

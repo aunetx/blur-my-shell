@@ -46,6 +46,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.original_child_opacities = new WeakMap();
         this.enabled = false;
 
+        this._cached_application_type = new Map();
+
         // compile initial patterns
         this._update_patterns();
 
@@ -339,6 +341,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// - is whitelisted in the user preferences if not enable-all
     /// - is not blacklisted if enable-all
     ///
+    /// And, if not enable-all, it must also pass the filters:
+    /// - frame type: normal, dialog and modal dialog windows can each be
+    ///   allowed or excluded, or all allowed with enable-frame-all
+    /// - application type: libadwaita, libhandy and GTK 3 applications can each
+    ///   be allowed or excluded, or all allowed with enable-app-all
+    ///   (applications using none of these toolkits are only blurred when
+    ///   enable-app-all is on)
+    ///
     /// Whitelist and blacklist support wildcard patterns:
     /// - * matches any sequence of characters
     /// - ? matches any single character
@@ -363,11 +373,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
             && ((enable_all && !matchesAnyPattern(window_wm_class, this._compiled_blacklist))
                 || (!enable_all && matchesAnyPattern(window_wm_class, this._compiled_whitelist))
             )
-            && [
-                Meta.FrameType.NORMAL,
-                Meta.FrameType.DIALOG,
-                Meta.FrameType.MODAL_DIALOG
-            ].includes(meta_window.get_frame_type())
+            && this._matches_frame_type(meta_window)
+            && this._matches_app_type(meta_window)
         ) {
             // only blur the window if it is not already done
             if (!meta_window.blur_actor)
@@ -378,6 +385,51 @@ export const ApplicationsBlur = class ApplicationsBlur {
         else if (meta_window.blur_actor) {
             this.remove_blur(meta_window);
         }
+    }
+
+    _matches_frame_type(meta_window) {
+        const applications = this.settings.applications;
+        const frame_type = meta_window.get_frame_type();
+        const allow_all = applications.ENABLE_ALL || applications.ENABLE_FRAME_ALL;
+
+        if (frame_type === Meta.FrameType.NORMAL) {
+            return allow_all || applications.ENABLE_FRAME_NORMAL;
+        }
+
+        if (frame_type === Meta.FrameType.DIALOG) {
+            return allow_all || applications.ENABLE_FRAME_DIALOG;
+        }
+
+        if (frame_type === Meta.FrameType.MODAL_DIALOG) {
+            return allow_all || applications.ENABLE_FRAME_MODAL;
+        }
+
+        return false;
+    }
+
+
+    _matches_app_type(meta_window) {
+        const applications = this.settings.applications;
+
+        if (applications.ENABLE_ALL || applications.ENABLE_APP_ALL) {
+            return true;
+        }
+
+        const type = this.get_application_type(meta_window);
+
+        if (type === 'libadwaita') {
+            return applications.ENABLE_APP_LIBADWAITA;
+        }
+
+        if (type === 'libhandy') {
+            return applications.ENABLE_APP_LIBHANDY;
+        }
+
+        if (type === 'gtk') {
+            return applications.ENABLE_APP_GTK;
+        }
+
+        return false;
     }
 
     /// Add the blur effect to the window.
@@ -651,12 +703,73 @@ export const ApplicationsBlur = class ApplicationsBlur {
             this.focused_window = null;
     }
 
+    get_application_type(win) {
+        const wm_class = win.get_wm_class();
+
+        const cached_type = this._cached_application_type.get(wm_class);
+        if (cached_type) {
+            return cached_type;
+        }
+
+        const type = this._detect_application_type(win, wm_class);
+
+        // Don't cache if the read is failed so
+        // it's not be skipped on next check
+        if (type === null) {
+            return 'other';
+        }
+
+        if (wm_class) {
+            this._cached_application_type.set(wm_class, type);
+        }
+
+        return type;
+    }
+
+    _detect_application_type(win, wm_class) {
+        try {
+            const pid = win.get_pid();
+            const file = Gio.File.new_for_path(`/proc/${pid}/maps`);
+            const [ok, contents] = file.load_contents(null);
+
+            if (!ok) {
+                return null;
+            }
+
+            const maps = new TextDecoder('utf-8').decode(contents);
+
+            if (maps.includes('libadwaita-1.so')) {
+                return 'libadwaita';
+            }
+
+            if (maps.includes('libhandy-1.so')) {
+                return 'libhandy';
+            }
+
+            if (maps.includes('libgtk-3.so')) {
+                return 'gtk';
+            }
+
+            return 'other';
+        } catch (error) {
+            if (error.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.PERMISSION_DENIED)) {
+                this._log(`Permission denied reading /proc maps for ${wm_class}`);
+            } else {
+                this._log(error);
+            }
+
+            return null;
+        }
+    }
+
     disable() {
         if (!this.enabled)
             return;
 
         this._log("removing blur from applications...");
         this.enabled = false;
+
+        this._cached_application_type.clear();
 
         delete this.mutter_gsettings;
 
