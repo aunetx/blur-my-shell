@@ -144,14 +144,6 @@ export const BackdropCaptureEffect = GObject.registerClass({
         contentActor.set_content(new BackdropContent(this));
     }
 
-    get texture() {
-        return this.target?.texture ?? null;
-    }
-
-    get pipeline() {
-        return this.target?.pipeline ?? null;
-    }
-
     ensureFramebuffer(width, height, sourceFramebuffer, view) {
         const context = sourceFramebuffer.get_context();
         const cached = this.targets.get(view) ?? null;
