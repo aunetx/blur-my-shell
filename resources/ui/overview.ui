@@ -36,6 +36,46 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow" id="overview_custom_background_row">
+            <property name="title" translatable="yes">Background color</property>
+            <property name="subtitle" translatable="yes">Choose a custom background color and opacity.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">overview_custom_background_color</property>
+
+            <child>
+              <object class="GtkColorButton" id="overview_custom_background_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="overview_custom_text_row">
+            <property name="title" translatable="yes">Text color</property>
+            <property name="subtitle" translatable="yes">Choose a custom text color.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">overview_custom_text_color</property>
+
+            <child>
+              <object class="GtkColorButton" id="overview_custom_text_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">false</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
 
@@ -106,6 +146,46 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwActionRow" id="appfolder_custom_background_row">
+            <property name="title" translatable="yes">Background color</property>
+            <property name="subtitle" translatable="yes">Choose a custom background color and opacity.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_custom_background_color</property>
+
+            <child>
+              <object class="GtkColorButton" id="appfolder_custom_background_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="appfolder_custom_text_row">
+            <property name="title" translatable="yes">Text color</property>
+            <property name="subtitle" translatable="yes">Choose a custom text color.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_custom_text_color</property>
+
+            <child>
+              <object class="GtkColorButton" id="appfolder_custom_text_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">false</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>
@@ -116,6 +196,7 @@
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
       <item translatable="yes">Transparent</item>
+      <item translatable="yes">Custom</item>
     </items>
   </object>
 
@@ -138,6 +219,7 @@
       <item translatable="yes">Transparent</item>
       <item translatable="yes">Light</item>
       <item translatable="yes">Dark</item>
+      <item translatable="yes">Custom</item>
     </items>
   </object>
 </interface>

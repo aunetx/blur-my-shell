@@ -1,0 +1,61 @@
+/* Custom folder colors; numeric tokens are replaced at runtime.
+ *
+ * Repeating the folder's own class deliberately gives these rules higher
+ * specificity than all overview presets, including their dialog button rules.
+ * Folder colors must stay independent when overview stylesheets reload later;
+ * relying on load order or the selected overview mode would lose that priority.
+ */
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom {
+    color: @TEXT@;
+    background-color: @BACKGROUND@;
+    border: none;
+    box-shadow: none;
+}
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .folder-name-entry {
+    color: @TEXT@;
+    background-color: @BACKGROUND@;
+    border: 0;
+    box-shadow: none;
+}
+
+
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom StLabel,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile StLabel,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button {
+    color: @TEXT@;
+}
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button {
+    background-color: @BACKGROUND@ !important;
+}
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .folder-name-entry:hover,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .folder-name-entry:focus,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:hover,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:focus,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:selected,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:highlighted,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button:hover,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button:focus {
+    background-color: @HOVER@ !important;
+}
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:active,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:focus:hover,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:selected:hover,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:highlighted:hover,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button:active,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button:focus:hover {
+    background-color: @ACTIVE@ !important;
+}
+
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:focus:active,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:selected:active,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .overview-tile:highlighted:active,
+.appfolder-dialogs-custom.appfolder-dialogs-custom.appfolder-dialogs-custom .icon-button:focus:active {
+    background-color: @PRESSED@ !important;
+}

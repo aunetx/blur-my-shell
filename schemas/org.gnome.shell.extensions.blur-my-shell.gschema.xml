@@ -155,7 +155,16 @@
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>1</default>
-            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent)</summary>
+            <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent, 4 custom)</summary>
+        </key>
+        <!-- CUSTOM COMPONENT COLORS -->
+        <key type="(dddd)" name="custom-background-color">
+            <default>(0.39215686274509803, 0.39215686274509803, 0.39215686274509803, 0.35)</default>
+            <summary>Background RGBA color for custom overview styling, with channels between 0 and 1</summary>
+        </key>
+        <key type="(dddd)" name="custom-text-color">
+            <default>(1., 1., 1., 1.)</default>
+            <summary>Text RGBA color for custom overview styling, with channels between 0 and 1</summary>
         </key>
     </schema>
 
@@ -200,7 +209,16 @@
         <!-- STYLE DIALOGS -->
         <key type="i" name="style-dialogs">
             <default>1</default>
-            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark)</summary>
+            <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark, 4 custom)</summary>
+        </key>
+        <!-- CUSTOM DIALOG COLORS -->
+        <key type="(dddd)" name="custom-background-color">
+            <default>(0.39215686274509803, 0.39215686274509803, 0.39215686274509803, 0.35)</default>
+            <summary>Background RGBA color for custom folder dialog styling, with channels between 0 and 1</summary>
+        </key>
+        <key type="(dddd)" name="custom-text-color">
+            <default>(1., 1., 1., 1.)</default>
+            <summary>Text RGBA color for custom folder dialog styling, with channels between 0 and 1</summary>
         </key>
     </schema>
 

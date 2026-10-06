@@ -1,0 +1,132 @@
+/* Custom overview colors; numeric tokens are replaced at runtime. */
+
+.overview-components-custom .search-entry {
+    color: @TEXT@;
+    background-color: @BACKGROUND@ !important;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.overview-components-custom .search-entry .search-entry-icon {
+    color: @ICON@;
+}
+
+.overview-components-custom .overview-tile,
+.overview-components-custom .overview-icon,
+.overview-components-custom .grid-search-result,
+.overview-components-custom .list-search-result,
+.overview-components-custom .search-provider-icon,
+/* prevents the extension from interfering with Just Perfection */
+.overview-components-custom.just-perfection .search-section-content,
+/* remove the rectangular background from the dash */
+.overview-components-custom #dash .overview-tile,
+.overview-components-custom #dashtopanelScrollview .overview-tile,
+.overview-components-custom .multimonitor-dock .overview-tile {
+    background-color: transparent !important;
+}
+
+.overview-components-custom .workspace-thumbnail,
+.overview-components-custom .search-section-content,
+.overview-components-custom .overview-tile.app-folder,
+.overview-components-custom .page-navigation-arrow,
+.overview-components-custom .app-folder-dialog .icon-button,
+/* this shouldn't apply to Dash to Dock */
+.overview-components-custom StBoxLayout>StWidget>#dash>.dash-background,
+.overview-components-custom .multimonitor-dock .dash-background {
+    background-color: @BACKGROUND@ !important;
+}
+
+.overview-components-custom .overview-tile:hover,
+.overview-components-custom .overview-tile:focus,
+.overview-components-custom .overview-tile:selected,
+.overview-components-custom .overview-tile:highlighted,
+.overview-components-custom .grid-search-result:hover,
+.overview-components-custom .grid-search-result:focus,
+.overview-components-custom .grid-search-result:selected,
+.overview-components-custom .grid-search-result:highlighted,
+.overview-components-custom .list-search-result:hover,
+.overview-components-custom .list-search-result:focus,
+.overview-components-custom .list-search-result:selected,
+.overview-components-custom .list-search-result:highlighted,
+.overview-components-custom .search-provider-icon:hover,
+.overview-components-custom .search-provider-icon:focus,
+.overview-components-custom .page-navigation-arrow:hover,
+.overview-components-custom .page-navigation-arrow:focus,
+.overview-components-custom .app-folder-dialog .icon-button:hover,
+.overview-components-custom .app-folder-dialog .icon-button:focus,
+.overview-components-custom #dash .overview-tile:hover .overview-icon,
+.overview-components-custom #dash .overview-tile:focus .overview-icon,
+.overview-components-custom #dash .show-apps:hover .overview-icon,
+.overview-components-custom #dash .show-apps:focus .overview-icon,
+.overview-components-custom .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-custom .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-custom .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-custom .multimonitor-dock .show-apps:focus .overview-icon {
+    background-color: @HOVER@ !important;
+}
+
+.overview-components-custom .overview-tile:active,
+.overview-components-custom .overview-tile:focus:hover,
+.overview-components-custom .overview-tile:drop,
+.overview-components-custom .overview-tile:selected:hover,
+.overview-components-custom .overview-tile:highlighted:hover,
+.overview-components-custom .grid-search-result:active,
+.overview-components-custom .grid-search-result:focus:hover,
+.overview-components-custom .grid-search-result:selected:hover,
+.overview-components-custom .grid-search-result:highlighted:hover,
+.overview-components-custom .list-search-result:active,
+.overview-components-custom .list-search-result:focus:hover,
+.overview-components-custom .list-search-result:selected:hover,
+.overview-components-custom .list-search-result:highlighted:hover,
+.overview-components-custom .search-provider-icon:active,
+.overview-components-custom .search-provider-icon:focus:hover,
+.overview-components-custom .page-navigation-arrow:active,
+.overview-components-custom .page-navigation-arrow:focus:hover,
+.overview-components-custom .app-folder-dialog .icon-button:active,
+.overview-components-custom .app-folder-dialog .icon-button:focus:hover,
+.overview-components-custom #dash .overview-tile:active .overview-icon,
+.overview-components-custom #dash .overview-tile:focus:hover .overview-icon,
+.overview-components-custom #dash .overview-tile:drop .overview-icon,
+.overview-components-custom #dash .show-apps:checked .overview-icon,
+.overview-components-custom .multimonitor-dock .overview-tile:hover .overview-icon,
+.overview-components-custom .multimonitor-dock .overview-tile:focus .overview-icon,
+.overview-components-custom .multimonitor-dock .show-apps:hover .overview-icon,
+.overview-components-custom .multimonitor-dock .show-apps:focus .overview-icon {
+    background-color: @ACTIVE@ !important;
+}
+
+.overview-components-custom .overview-tile:focus:active,
+.overview-components-custom .overview-tile:selected:active,
+.overview-components-custom .overview-tile:highlighted:active,
+.overview-components-custom .grid-search-result:focus:active,
+.overview-components-custom .grid-search-result:selected:active,
+.overview-components-custom .grid-search-result:highlighted:active,
+.overview-components-custom .list-search-result:focus:active,
+.overview-components-custom .list-search-result:selected:active,
+.overview-components-custom .list-search-result:highlighted:active,
+.overview-components-custom .search-provider-icon:focus:active,
+.overview-components-custom .page-navigation-arrow:focus:active,
+.overview-components-custom .app-folder-dialog .icon-button:focus:active,
+.overview-components-custom #dash .show-apps:checked .overview-icon:hover,
+.overview-components-custom .multimonitor-dock .show-apps:checked .overview-icon:hover {
+    background-color: @PRESSED@ !important;
+}
+
+
+/* Apply the selected foreground to labels which Shell themes color explicitly.
+ * Keep the selectors within overview components, since the scope is on uiGroup.
+ */
+.overview-components-custom .overview-tile,
+.overview-components-custom .overview-tile StLabel,
+.overview-components-custom .grid-search-result,
+.overview-components-custom .grid-search-result StLabel,
+.overview-components-custom .list-search-result,
+.overview-components-custom .list-search-result StLabel,
+.overview-components-custom .search-provider-icon,
+.overview-components-custom .search-provider-icon StLabel,
+.overview-components-custom .search-section-content,
+.overview-components-custom .search-section-content StLabel,
+.overview-components-custom .page-navigation-arrow,
+.overview-components-custom .app-folder-dialog .icon-button {
+    color: @TEXT@;
+}

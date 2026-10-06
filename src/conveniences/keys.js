@@ -15,6 +15,8 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "style-components" },
+            { type: Type.C, name: "custom-background-color" },
+            { type: Type.C, name: "custom-text-color" },
         ]
     },
     {
@@ -23,6 +25,8 @@ export const KEYS = [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
             { type: Type.I, name: "style-dialogs" },
+            { type: Type.C, name: "custom-background-color" },
+            { type: Type.C, name: "custom-text-color" },
         ]
     },
     {

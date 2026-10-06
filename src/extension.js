@@ -352,6 +352,13 @@ export default class BlurMyShell extends Extension {
                 this._overview_blur.update_components_classname();
         });
 
+        for (const key of ['CUSTOM_BACKGROUND_COLOR', 'CUSTOM_TEXT_COLOR']) {
+            this._settings.overview[`${key}_changed`](() => {
+                if (this._overview_blur.enabled && this._settings.overview.STYLE_COMPONENTS === 4)
+                    this._overview_blur.update_components_classname();
+            });
+        }
+
 
         // ---------- APPFOLDER ----------
 
@@ -381,9 +388,16 @@ export default class BlurMyShell extends Extension {
 
         // appfolder dialogs style changed
         this._settings.appfolder.STYLE_DIALOGS_changed(() => {
-            if (this._settings.appfolder.BLUR)
-                this._appfolder_blur.blur_appfolders();
+            if (this._appfolder_blur.enabled)
+                this._appfolder_blur.update_dialog_styles();
         });
+
+        for (const key of ['CUSTOM_BACKGROUND_COLOR', 'CUSTOM_TEXT_COLOR']) {
+            this._settings.appfolder[`${key}_changed`](() => {
+                if (this._appfolder_blur.enabled && this._settings.appfolder.STYLE_DIALOGS === 4)
+                    this._appfolder_blur.update_dialog_styles();
+            });
+        }
 
 
         // ---------- PANEL ----------

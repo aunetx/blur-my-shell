@@ -5,11 +5,13 @@ import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/wor
 const wac_proto = WorkspaceAnimationController.prototype;
 
 import { Pipeline } from '../conveniences/pipeline.js';
+import { CustomStyle } from '../conveniences/custom_style.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
     "overview-components-light",
     "overview-components-dark",
-    "overview-components-transparent"
+    "overview-components-transparent",
+    "overview-components-custom"
 ];
 
 
@@ -28,6 +30,7 @@ export const OverviewBlur = class OverviewBlur {
         );
         this.enabled = false;
         this.proto_patched = false;
+        this._custom_style = new CustomStyle('overview');
     }
 
     enable() {
@@ -191,10 +194,20 @@ export const OverviewBlur = class OverviewBlur {
             style => Main.uiGroup.remove_style_class_name(style)
         );
 
-        if (this.settings.overview.STYLE_COMPONENTS > 0)
-            Main.uiGroup.add_style_class_name(
-                OVERVIEW_COMPONENTS_STYLE[this.settings.overview.STYLE_COMPONENTS - 1]
-            );
+        const style = this.settings.overview.STYLE_COMPONENTS;
+        if (style === 4) {
+            if (!this._custom_style.update(
+                this.settings.overview.CUSTOM_BACKGROUND_COLOR,
+                this.settings.overview.CUSTOM_TEXT_COLOR
+            ))
+                return;
+        } else {
+            this._custom_style.clear();
+        }
+
+        const className = OVERVIEW_COMPONENTS_STYLE[style - 1];
+        if (className)
+            Main.uiGroup.add_style_class_name(className);
     }
 
     remove_background_actors() {
@@ -225,6 +238,7 @@ export const OverviewBlur = class OverviewBlur {
         OVERVIEW_COMPONENTS_STYLE.forEach(
             style => Main.uiGroup.remove_style_class_name(style)
         );
+        this._custom_style.clear();
 
         this.connections.disconnect_all();
         this.enabled = false;

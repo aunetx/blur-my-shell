@@ -4,6 +4,7 @@ import Cogl from 'gi://Cogl';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
+import { CustomStyle } from '../conveniences/custom_style.js';
 
 // TODO: Drop GNOME 46 backwards compatibility
 const transparent = Clutter.Color ?
@@ -19,7 +20,8 @@ const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const DIALOGS_STYLES = [
     "appfolder-dialogs-transparent",
     "appfolder-dialogs-light",
-    "appfolder-dialogs-dark"
+    "appfolder-dialogs-dark",
+    "appfolder-dialogs-custom"
 ];
 
 let original_zoomAndFadeIn = null;
@@ -147,13 +149,19 @@ export const AppFoldersBlur = class AppFoldersBlur {
         this.connections = connections;
         this.paint_signals = new PaintSignals(connections);
         this.settings = settings;
+        this.enabled = false;
+        this._custom_style = new CustomStyle('appfolders');
     }
 
     enable() {
+        if (this.enabled)
+            return;
+
         this._log("blurring appfolders");
 
         brightness = this.settings.appfolder.BRIGHTNESS;
         sigma = this.settings.appfolder.SIGMA;
+        this.enabled = true;
 
         let appDisplay = Main.overview._overview.controls._appDisplay;
 
@@ -196,15 +204,6 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 blur_effect.set({ radius: sigma * 2, brightness });
             }
 
-            DIALOGS_STYLES.forEach(
-                style => icon._dialog._viewBox.remove_style_class_name(style)
-            );
-
-            if (this.settings.appfolder.STYLE_DIALOGS > 0)
-                icon._dialog._viewBox.add_style_class_name(
-                    DIALOGS_STYLES[this.settings.appfolder.STYLE_DIALOGS - 1]
-                );
-
             // finally override the builtin functions
             icon._dialog._zoomAndFadeIn = _zoomAndFadeIn;
             icon._dialog._zoomAndFadeOut = _zoomAndFadeOut;
@@ -227,7 +226,32 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 this.paint_signals.disconnect_all();
             }
         });
+        this.update_dialog_styles();
     };
+
+    update_dialog_styles() {
+        const style = this.settings.appfolder.STYLE_DIALOGS;
+        let customReady = true;
+        if (style === 4) {
+            customReady = this._custom_style.update(
+                this.settings.appfolder.CUSTOM_BACKGROUND_COLOR,
+                this.settings.appfolder.CUSTOM_TEXT_COLOR
+            );
+        } else {
+            this._custom_style.clear();
+        }
+
+        const className = customReady ? DIALOGS_STYLES[style - 1] : null;
+        const appDisplay = Main.overview._overview.controls._appDisplay;
+        appDisplay._folderIcons.forEach(icon => {
+            if (!icon._dialog)
+                return;
+            DIALOGS_STYLES.forEach(name =>
+                icon._dialog._viewBox.remove_style_class_name(name));
+            if (className)
+                icon._dialog._viewBox.add_style_class_name(className);
+        });
+    }
 
     set_sigma(s) {
         sigma = s;
@@ -283,6 +307,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
         });
 
         this.connections.disconnect_all();
+        this._custom_style.clear();
+        this.enabled = false;
     }
 
     _log(str) {
