@@ -3,24 +3,47 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 import { getEffectBounds } from '../render/effect_bounds.js';
 import { getKawaseConfiguration } from './kawase_sampling.js';
+import {
+    getTextureCapacity,
+    largestViewSize,
+    TEXTURE_REGION_SOURCE,
+    TextureRegion,
+    textureFits,
+    textureRegionDeclarations,
+} from '../render/texture_region.js';
 
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
 const St = await utils.import_in_shell_only('gi://St');
 
+const SOURCE_REGION = 'source_region';
+const ORIGINAL_REGION = 'original_region';
+
+const SOURCE_SAMPLING_DECLARATIONS = `
+${textureRegionDeclarations(SOURCE_REGION)}
+${TEXTURE_REGION_SOURCE}
+#define source_sample(uv) bms_sample_region(cogl_sampler0, uv, ${SOURCE_REGION})
+`;
+
+const ORIGINAL_SAMPLING_DECLARATIONS = `
+${textureRegionDeclarations(ORIGINAL_REGION)}
+#define original_sample() bms_sample_region(cogl_sampler1, cogl_tex_coord1_in.xy * ${ORIGINAL_REGION}.xy, ${ORIGINAL_REGION})
+`;
+
 const DOWNSAMPLE_DECLARATIONS = `
 uniform float halfpixel_x;
 uniform float halfpixel_y;
 #define halfpixel vec2(halfpixel_x, halfpixel_y)
+${SOURCE_SAMPLING_DECLARATIONS}
 `;
 
 const DOWNSAMPLE_CODE = `
-vec2 uv = cogl_tex_coord_in[0].xy;
-vec4 sum = texture2D(cogl_sampler0, uv) * 4.0;
-sum += texture2D(cogl_sampler0, uv - halfpixel * 2.0);
-sum += texture2D(cogl_sampler0, uv + halfpixel * 2.0);
-sum += texture2D(cogl_sampler0, uv + vec2(halfpixel.x, -halfpixel.y) * 2.0);
-sum += texture2D(cogl_sampler0, uv - vec2(halfpixel.x, -halfpixel.y) * 2.0);
+vec2 uv = cogl_tex_coord_in[0].xy * ${SOURCE_REGION}.xy;
+vec4 sum = source_sample(uv) * 4.0;
+sum += source_sample(uv - halfpixel * 2.0);
+sum += source_sample(uv + halfpixel * 2.0);
+sum += source_sample(uv + vec2(halfpixel.x, -halfpixel.y) * 2.0);
+sum += source_sample(uv - vec2(halfpixel.x, -halfpixel.y) * 2.0);
 cogl_color_out = sum / 8.0;
 `;
 
@@ -29,20 +52,22 @@ uniform float halfpixel_x;
 uniform float halfpixel_y;
 #define halfpixel vec2(halfpixel_x, halfpixel_y)
 uniform float level_blend;
+${SOURCE_SAMPLING_DECLARATIONS}
+${ORIGINAL_SAMPLING_DECLARATIONS}
 `;
 
 const UPSAMPLE_BODY = `
-vec2 uv = cogl_tex_coord_in[0].xy;
-vec4 sum = texture2D(cogl_sampler0, uv - halfpixel);
-sum += texture2D(cogl_sampler0, uv + halfpixel);
-sum += texture2D(cogl_sampler0, uv + vec2(halfpixel.x, -halfpixel.y));
-sum += texture2D(cogl_sampler0, uv - vec2(halfpixel.x, -halfpixel.y));
+vec2 uv = cogl_tex_coord_in[0].xy * ${SOURCE_REGION}.xy;
+vec4 sum = source_sample(uv - halfpixel);
+sum += source_sample(uv + halfpixel);
+sum += source_sample(uv + vec2(halfpixel.x, -halfpixel.y));
+sum += source_sample(uv - vec2(halfpixel.x, -halfpixel.y));
 vec4 color = sum / 4.0;
 `;
 
 const UPSAMPLE_CODE = `${UPSAMPLE_BODY}
 if (level_blend < 1.0)
-    color = mix(texture2D(cogl_sampler1, cogl_tex_coord1_in.xy), color, level_blend);
+    color = mix(original_sample(), color, level_blend);
 cogl_color_out = color;
 `;
 
@@ -52,10 +77,10 @@ uniform float brightness;
 `;
 
 const UPSAMPLE_OUTPUT_CODE = `
-vec4 sourceColor = texture2D(cogl_sampler1, cogl_tex_coord1_in.xy);
+vec4 sourceColor = original_sample();
 vec4 filteredColor = sourceColor;
 if (level_blend > 0.0) {
-    vec4 color = texture2D(cogl_sampler0, cogl_tex_coord_in[0].xy);
+    vec4 color = source_sample(cogl_tex_coord_in[0].xy * ${SOURCE_REGION}.xy);
     filteredColor = mix(sourceColor, color, level_blend);
 }
 filteredColor.rgb *= brightness;
@@ -81,25 +106,33 @@ function createSnippet(declarations, code) {
     return snippet;
 }
 
-function configureFramebuffer(framebuffer, width, height, bounds) {
-    framebuffer.set_viewport(0, 0, width, height);
-    framebuffer.orthographic(bounds.x, bounds.y,
+function levelSize(size, level) {
+    return Math.max(1, Math.ceil(size / 2 ** level));
+}
+
+function resizeRenderTarget(target, level, width, height) {
+    target.usedWidth = levelSize(width, level);
+    target.usedHeight = levelSize(height, level);
+    target.framebuffer.set_viewport(0, 0, target.usedWidth, target.usedHeight);
+}
+
+function projectRenderTarget(target, bounds) {
+    target.framebuffer.orthographic(bounds.x, bounds.y,
         bounds.x + bounds.width, bounds.y + bounds.height, -1, 1);
 }
 
-function createRenderTarget(context, width, height, bounds) {
+function createRenderTarget(context, width, height) {
     const texture = Cogl.Texture2D.new_with_size(context, width, height);
     texture.set_components(Cogl.TextureComponents.RGBA);
     texture.allocate();
 
     const framebuffer = Cogl.Offscreen.new_with_texture(texture);
     framebuffer.allocate();
-    configureFramebuffer(framebuffer, width, height, bounds);
 
     const layerPipeline = Cogl.Pipeline.new(context);
     layerPipeline.set_layer_texture(0, texture);
 
-    return { texture, framebuffer, layerPipeline, width, height };
+    return { texture, framebuffer, layerPipeline, width, height, usedWidth: 0, usedHeight: 0 };
 }
 
 function createPassPipeline(context, texture, declarations, code) {
@@ -173,13 +206,15 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.downPipelines = [];
         this.upPipelines = [];
         this.outputPipeline = null;
+        this.regions = new Map();
         this.width = 0;
         this.height = 0;
         this.logicalWidth = 0;
         this.logicalHeight = 0;
         this.x = 0;
         this.y = 0;
-        this.scale = 0;
+        this.capacityWidth = 0;
+        this.capacityHeight = 0;
         this.context = null;
         this.appliedSampling = null;
         this._unscaled_radius = null;
@@ -254,43 +289,27 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const {x, y, width: logicalWidth, height: logicalHeight} = bounds;
         const width = Math.max(1, Math.ceil(logicalWidth * scale));
         const height = Math.max(1, Math.ceil(logicalHeight * scale));
-        const canReuseTargets =
-            this.width === width
-            && this.height === height
-            && this.scale === scale
-            && this.context === context;
-        if (canReuseTargets) {
-            if (
-                this.logicalWidth !== logicalWidth
-                || this.logicalHeight !== logicalHeight
-                || this.x !== x || this.y !== y
-            ) {
-                [...this.downTargets, ...this.upTargets].forEach(target => {
-                    if (target) {
-                        configureFramebuffer(
-                            target.framebuffer,
-                            target.width,
-                            target.height,
-                            bounds
-                        );
-                    }
-                });
-                this.logicalWidth = logicalWidth;
-                this.logicalHeight = logicalHeight;
-                this.x = x;
-                this.y = y;
-            }
-        } else {
+        if (this.context !== context) {
             this.releaseTargets();
+            this.capacityWidth = width;
+            this.capacityHeight = height;
+            this.context = context;
+        } else if (!textureFits(width, this.capacityWidth) || !textureFits(height, this.capacityHeight)) {
+            const limit = largestViewSize();
+            const capacityWidth = getTextureCapacity(width, this.capacityWidth, limit.width);
+            const capacityHeight = getTextureCapacity(height, this.capacityHeight, limit.height);
+            this.releaseTargets();
+            this.capacityWidth = capacityWidth;
+            this.capacityHeight = capacityHeight;
+            this.context = context;
         }
 
+        const targetCount = this.downTargets.length;
         for (let level = this.downTargets.length; level <= passes; level++) {
-            const divider = 2 ** level;
             this.downTargets.push(createRenderTarget(
                 context,
-                Math.max(1, Math.ceil(width / divider)),
-                Math.max(1, Math.ceil(height / divider)),
-                bounds
+                levelSize(this.capacityWidth, level),
+                levelSize(this.capacityHeight, level)
             ));
         }
 
@@ -304,14 +323,11 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         }
 
         for (let level = Math.max(1, this.upTargets.length); level < passes; level++) {
-            const divider = 2 ** level;
-            const target = createRenderTarget(
+            this.upTargets[level] = createRenderTarget(
                 context,
-                Math.max(1, Math.ceil(width / divider)),
-                Math.max(1, Math.ceil(height / divider)),
-                bounds
+                levelSize(this.capacityWidth, level),
+                levelSize(this.capacityHeight, level)
             );
-            this.upTargets[level] = target;
             this.upPipelines[level] = this.createPass(
                 this.downTargets[level + 1],
                 context,
@@ -327,18 +343,49 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 this.downTargets[0], true
             );
         }
+
+        const resized = targetCount !== this.downTargets.length
+            || this.width !== width || this.height !== height;
+        if (!resized && this.logicalWidth === logicalWidth && this.logicalHeight === logicalHeight
+            && this.x === x && this.y === y)
+            return;
+
+        if (resized) {
+            this.downTargets.forEach((target, level) =>
+                resizeRenderTarget(target, level, width, height));
+            this.upTargets.forEach((target, level) =>
+                resizeRenderTarget(target, level, width, height));
+            this.updateRegions();
+        }
+        this.downTargets.forEach(target => projectRenderTarget(target, bounds));
+        this.upTargets.forEach(target => projectRenderTarget(target, bounds));
         this.width = width;
         this.height = height;
         this.logicalWidth = logicalWidth;
         this.logicalHeight = logicalHeight;
         this.x = x;
         this.y = y;
-        this.scale = scale;
-        this.context = context;
+    }
+
+    updateRegions() {
+        this.downPipelines.forEach((pipeline, level) =>
+            this.regions.get(pipeline).source.update(this.downTargets[level - 1]));
+        this.upPipelines.forEach((pipeline, level) => {
+            const regions = this.regions.get(pipeline);
+            regions.source.update(this.downTargets[level + 1]);
+            regions.original.update(this.downTargets[level]);
+        });
+        const outputRegions = this.regions.get(this.outputPipeline);
+        outputRegions.source.update(this.downTargets[1]);
+        outputRegions.original.update(this.downTargets[0]);
     }
 
     createPass(source, context, declarations, code, original = null, outputPass = false) {
         const pipeline = createPassPipeline(context, source.texture, declarations, code);
+        this.regions.set(pipeline, {
+            source: new TextureRegion(pipeline, SOURCE_REGION),
+            original: original ? new TextureRegion(pipeline, ORIGINAL_REGION) : null,
+        });
         setVector2(pipeline, 'halfpixel', 0.5 / source.width, 0.5 / source.height);
         if (original) {
             pipeline.set_layer_texture(1, original.texture);
@@ -443,11 +490,13 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.downPipelines = [];
         this.upPipelines = [];
         this.outputPipeline = null;
+        this.regions.clear();
         this.width = 0;
         this.height = 0;
         this.logicalWidth = 0;
         this.logicalHeight = 0;
-        this.scale = 0;
+        this.capacityWidth = 0;
+        this.capacityHeight = 0;
         this.context = null;
         this.appliedSampling = null;
     }
