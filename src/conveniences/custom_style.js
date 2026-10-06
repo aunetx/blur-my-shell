@@ -23,7 +23,7 @@ export class CustomStyle {
         this._updating = false;
     }
 
-    update(background, text) {
+    update(background, text, options = {}) {
         let file = null;
         this._updating = true;
         try {
@@ -36,7 +36,7 @@ export class CustomStyle {
                 this._template = new TextDecoder().decode(contents);
             }
 
-            const css = renderCustomStyle(this._template, background, text);
+            const css = renderCustomStyle(this._template, background, text, options);
             if (this._file && css === this._css)
                 return true;
 

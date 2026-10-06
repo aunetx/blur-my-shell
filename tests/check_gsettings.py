@@ -92,7 +92,7 @@ for component, style_key in [('overview', 'style-components'), ('appfolder', 'st
     schema_id = 'org.gnome.shell.extensions.blur-my-shell.' + component
     schema_node = document.find(f"./schema[@id='{schema_id}']")
     assert schema_node is not None
-    for key in ['custom-background-color', 'custom-text-color']:
+    for key in ['custom-background-color', 'custom-text-color', 'custom-secondary-text-color', 'custom-highlight-color']:
         assert schema_node.find(f"./key[@name='{key}']") is not None, f'Missing schema key: {component}.{key}'
     schema = lookup(schema_source, schema_id.encode(), 0)
     assert schema
@@ -106,7 +106,18 @@ for component, style_key in [('overview', 'style-components'), ('appfolder', 'st
         unref_object(other)
     reset(settings, style_key.encode())
     assert get_int(settings, style_key.encode()) == 1
-    for key in ['custom-background-color', 'custom-text-color']:
+    for key, expected, values in [('custom-text-style', 0, range(3)),
+                                 ('custom-highlight-style', 0, range(2)),
+                                 ('custom-secondary-text-strength', 100, [0, 50, 100])]:
+        assert get_int(settings, key.encode()) == expected
+        for item in values:
+            assert set_int(settings, key.encode(), item)
+            other = new_settings(schema, None, None)
+            assert get_int(other, key.encode()) == item
+            unref_object(other)
+        reset(settings, key.encode())
+        assert get_int(settings, key.encode()) == expected
+    for key in ['custom-background-color', 'custom-text-color', 'custom-secondary-text-color', 'custom-highlight-color']:
         default = unpack_tuple(get_default(settings, key.encode()))
         assert unpack_tuple(get_value(settings, key.encode())) == default
         for rgba in tests:

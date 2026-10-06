@@ -352,7 +352,9 @@ export default class BlurMyShell extends Extension {
                 this._overview_blur.update_components_classname();
         });
 
-        for (const key of ['CUSTOM_BACKGROUND_COLOR', 'CUSTOM_TEXT_COLOR']) {
+        for (const key of ['CUSTOM_BACKGROUND_COLOR', 'CUSTOM_TEXT_COLOR', 'CUSTOM_TEXT_STYLE',
+            'CUSTOM_SECONDARY_TEXT_COLOR', 'CUSTOM_SECONDARY_TEXT_STRENGTH',
+            'CUSTOM_HIGHLIGHT_STYLE', 'CUSTOM_HIGHLIGHT_COLOR']) {
             this._settings.overview[`${key}_changed`](() => {
                 if (this._overview_blur.enabled && this._settings.overview.STYLE_COMPONENTS === 4)
                     this._overview_blur.update_components_classname();
@@ -392,7 +394,9 @@ export default class BlurMyShell extends Extension {
                 this._appfolder_blur.update_dialog_styles();
         });
 
-        for (const key of ['CUSTOM_BACKGROUND_COLOR', 'CUSTOM_TEXT_COLOR']) {
+        for (const key of ['CUSTOM_BACKGROUND_COLOR', 'CUSTOM_TEXT_COLOR', 'CUSTOM_TEXT_STYLE',
+            'CUSTOM_SECONDARY_TEXT_COLOR', 'CUSTOM_SECONDARY_TEXT_STRENGTH',
+            'CUSTOM_HIGHLIGHT_STYLE', 'CUSTOM_HIGHLIGHT_COLOR']) {
             this._settings.appfolder[`${key}_changed`](() => {
                 if (this._appfolder_blur.enabled && this._settings.appfolder.STYLE_DIALOGS === 4)
                     this._appfolder_blur.update_dialog_styles();

@@ -15,7 +15,7 @@ class Actor {
 }
 async function loadComponents() {
     const folder = () => ({ _dialog: Object.assign(new Actor(), { _viewBox: new Actor() }) });
-    const appDisplay = { _folderIcons: [folder(), { _dialog: null }], _folderIconsLoaded: false };
+    const appDisplay = Object.assign(new Actor(), { _folderIcons: [folder(), { _dialog: null }], _folderIconsLoaded: false });
     const Main = {
         uiGroup: new Actor(),
         layoutManager: { overviewGroup: new Actor() },
@@ -23,7 +23,7 @@ async function loadComponents() {
     };
     class CustomStyle {
         constructor(kind) { this.kind = kind; this.loaded = false; this.fail = false; this.updates = 0; }
-        update() { this.updates++; if (!this.fail) this.loaded = true; return this.loaded; }
+        update(background, text, options) { this.options = options; this.updates++; if (!this.fail) this.loaded = true; return this.loaded; }
         clear() { this.loaded = false; }
     }
     const mocks = {
@@ -34,6 +34,11 @@ async function loadComponents() {
         'resource:///org/gnome/shell/ui/workspaceAnimation.js': { WorkspaceAnimationController: class {} },
         '../conveniences/pipeline.js': { Pipeline: class {} },
         '../conveniences/custom_style.js': { CustomStyle },
+        '../conveniences/custom_colors.js': { customStyleOptions: component => ({
+            textStyle: component.CUSTOM_TEXT_STYLE ?? 0,
+            secondaryStrength: component.CUSTOM_SECONDARY_TEXT_STRENGTH ?? 100,
+            highlightStyle: component.CUSTOM_HIGHLIGHT_STYLE ?? 0,
+        }) },
         '../conveniences/paint_signals.js': { PaintSignals: class { disconnect_all() {} } },
     };
     const context = vm.createContext({ console });
@@ -66,10 +71,13 @@ test('overview preset switching and disable remove Custom while retaining unrela
     const h = await loadComponents();
     h.overview.update_components_classname();
     assert.ok(h.Main.uiGroup.classes.has('overview-components-custom'));
+    assert.ok(h.appDisplay.classes.has('bms-overview-color-scope'));
+    assert.equal(h.overview._custom_style.options.textStyle, 0);
     for (const [value, expected] of [[1, 'light'], [2, 'dark'], [3, 'transparent'], [0, null]]) {
         h.settings.overview.STYLE_COMPONENTS = value;
         h.overview.update_components_classname();
         assert.equal(h.overview._custom_style.loaded, false);
+        assert.equal(h.appDisplay.classes.has('bms-overview-color-scope'), false);
         const actual = [...h.Main.uiGroup.classes].filter(name => name.startsWith('overview-components-'));
         assert.deepEqual(actual, expected ? ['overview-components-' + expected] : []);
     }
@@ -78,6 +86,7 @@ test('overview preset switching and disable remove Custom while retaining unrela
     h.overview.disable();
     assert.equal(h.overview._custom_style.loaded, false);
     assert.deepEqual([...h.Main.uiGroup.classes], ['another-extension-class']);
+    assert.deepEqual([...h.appDisplay.classes], ['another-extension-class']);
 });
 
 test('folder Custom reaches recreated dialogs and preset/disable cleanup leaves other styles', async () => {

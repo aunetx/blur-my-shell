@@ -17,6 +17,11 @@ export const KEYS = [
             { type: Type.I, name: "style-components" },
             { type: Type.C, name: "custom-background-color" },
             { type: Type.C, name: "custom-text-color" },
+            { type: Type.I, name: "custom-text-style" },
+            { type: Type.C, name: "custom-secondary-text-color" },
+            { type: Type.I, name: "custom-secondary-text-strength" },
+            { type: Type.I, name: "custom-highlight-style" },
+            { type: Type.C, name: "custom-highlight-color" },
         ]
     },
     {
@@ -27,6 +32,11 @@ export const KEYS = [
             { type: Type.I, name: "style-dialogs" },
             { type: Type.C, name: "custom-background-color" },
             { type: Type.C, name: "custom-text-color" },
+            { type: Type.I, name: "custom-text-style" },
+            { type: Type.C, name: "custom-secondary-text-color" },
+            { type: Type.I, name: "custom-secondary-text-strength" },
+            { type: Type.I, name: "custom-highlight-style" },
+            { type: Type.C, name: "custom-highlight-color" },
         ]
     },
     {

@@ -5,6 +5,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { PaintSignals } from '../conveniences/paint_signals.js';
 import { CustomStyle } from '../conveniences/custom_style.js';
+import { customStyleOptions } from '../conveniences/custom_colors.js';
 
 // TODO: Drop GNOME 46 backwards compatibility
 const transparent = Clutter.Color ?
@@ -235,7 +236,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
         if (style === 4) {
             customReady = this._custom_style.update(
                 this.settings.appfolder.CUSTOM_BACKGROUND_COLOR,
-                this.settings.appfolder.CUSTOM_TEXT_COLOR
+                this.settings.appfolder.CUSTOM_TEXT_COLOR,
+                customStyleOptions(this.settings.appfolder)
             );
         } else {
             this._custom_style.clear();

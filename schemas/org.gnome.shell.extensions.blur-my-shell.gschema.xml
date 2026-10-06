@@ -166,6 +166,29 @@
             <default>(1., 1., 1., 1.)</default>
             <summary>Text RGBA color for custom overview styling, with channels between 0 and 1</summary>
         </key>
+        <key type="i" name="custom-text-style">
+            <default>0</default>
+            <range min="0" max="2"/>
+            <summary>Custom text style: 0 keep theme colors, 1 primary with dimmed secondary, 2 primary and secondary colors</summary>
+        </key>
+        <key type="(dddd)" name="custom-secondary-text-color">
+            <default>(1., 1., 1., 1.)</default>
+            <summary>Secondary text base RGBA; each text role retains its relative strength</summary>
+        </key>
+        <key type="i" name="custom-secondary-text-strength">
+            <default>100</default>
+            <range min="0" max="100"/>
+            <summary>Percentage multiplier for the normal hint, description and status text levels</summary>
+        </key>
+        <key type="i" name="custom-highlight-style">
+            <default>0</default>
+            <range min="0" max="1"/>
+            <summary>Interaction highlight style: 0 neutral, 1 custom color, independent of text</summary>
+        </key>
+        <key type="(dddd)" name="custom-highlight-color">
+            <default>(1., 1., 1., 0.15)</default>
+            <summary>Custom interaction highlight RGBA color</summary>
+        </key>
     </schema>
 
     <!-- APPFOLDER -->
@@ -219,6 +242,29 @@
         <key type="(dddd)" name="custom-text-color">
             <default>(1., 1., 1., 1.)</default>
             <summary>Text RGBA color for custom folder dialog styling, with channels between 0 and 1</summary>
+        </key>
+        <key type="i" name="custom-text-style">
+            <default>0</default>
+            <range min="0" max="2"/>
+            <summary>Custom text style: 0 keep theme colors, 1 primary with dimmed secondary, 2 primary and secondary colors</summary>
+        </key>
+        <key type="(dddd)" name="custom-secondary-text-color">
+            <default>(1., 1., 1., 1.)</default>
+            <summary>Secondary text base RGBA; each text role retains its relative strength</summary>
+        </key>
+        <key type="i" name="custom-secondary-text-strength">
+            <default>100</default>
+            <range min="0" max="100"/>
+            <summary>Percentage multiplier for the normal hint, description and status text levels</summary>
+        </key>
+        <key type="i" name="custom-highlight-style">
+            <default>0</default>
+            <range min="0" max="1"/>
+            <summary>Interaction highlight style: 0 neutral, 1 custom color, independent of text</summary>
+        </key>
+        <key type="(dddd)" name="custom-highlight-color">
+            <default>(1., 1., 1., 0.15)</default>
+            <summary>Custom interaction highlight RGBA color</summary>
         </key>
     </schema>
 

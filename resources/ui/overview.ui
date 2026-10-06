@@ -58,9 +58,25 @@
         </child>
 
         <child>
+          <object class="AdwActionRow" id="overview_custom_text_style_row">
+            <property name="title" translatable="yes">Text style</property>
+            <property name="subtitle" translatable="yes">Keep theme colors or configure primary and secondary text.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">overview_custom_text_style</property>
+            <child>
+              <object class="GtkDropDown" id="overview_custom_text_style">
+                <property name="valign">center</property>
+                <property name="model">custom_text_style_model</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwActionRow" id="overview_custom_text_row">
-            <property name="title" translatable="yes">Text color</property>
-            <property name="subtitle" translatable="yes">Choose a custom text color.</property>
+            <property name="title" translatable="yes">Primary text color</property>
+            <property name="subtitle" translatable="yes">Color for titles, application names and normal text.</property>
             <property name="visible">false</property>
             <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">overview_custom_text_color</property>
@@ -72,6 +88,78 @@
                 <property name="height-request">45</property>
                 <property name="show-editor">true</property>
                 <property name="use-alpha">false</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="overview_custom_secondary_color_row">
+            <property name="title" translatable="yes">Secondary text color</property>
+            <property name="subtitle" translatable="yes">Base color for muted text; hints and descriptions retain different strengths.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">overview_custom_secondary_color</property>
+            <child>
+              <object class="GtkColorButton" id="overview_custom_secondary_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="overview_custom_secondary_strength_row">
+            <property name="title" translatable="yes">Secondary text strength</property>
+            <property name="subtitle" translatable="yes">100% keeps normal relative dimming; lower values make secondary text fainter.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkScale">
+                <property name="valign">center</property>
+                <property name="width-request">200</property>
+                <property name="draw-value">true</property>
+                <property name="digits">0</property>
+                <property name="adjustment">overview_custom_secondary_strength</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="overview_custom_highlight_style_row">
+            <property name="title" translatable="yes">Highlight style</property>
+            <property name="subtitle" translatable="yes">Hover and pressed backgrounds are independent of text colors.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">overview_custom_highlight_style</property>
+            <child>
+              <object class="GtkDropDown" id="overview_custom_highlight_style">
+                <property name="valign">center</property>
+                <property name="model">custom_highlight_style_model</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="overview_custom_highlight_color_row">
+            <property name="title" translatable="yes">Highlight color</property>
+            <property name="subtitle" translatable="yes">Choose the hover color and opacity; pressed states are derived from it.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">overview_custom_highlight_color</property>
+            <child>
+              <object class="GtkColorButton" id="overview_custom_highlight_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
               </object>
             </child>
           </object>
@@ -168,9 +256,25 @@
         </child>
 
         <child>
+          <object class="AdwActionRow" id="appfolder_custom_text_style_row">
+            <property name="title" translatable="yes">Text style</property>
+            <property name="subtitle" translatable="yes">Keep theme colors or configure primary and secondary text.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_custom_text_style</property>
+            <child>
+              <object class="GtkDropDown" id="appfolder_custom_text_style">
+                <property name="valign">center</property>
+                <property name="model">custom_text_style_model</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwActionRow" id="appfolder_custom_text_row">
-            <property name="title" translatable="yes">Text color</property>
-            <property name="subtitle" translatable="yes">Choose a custom text color.</property>
+            <property name="title" translatable="yes">Primary text color</property>
+            <property name="subtitle" translatable="yes">Color for titles, application names and normal text.</property>
             <property name="visible">false</property>
             <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
             <property name="activatable-widget">appfolder_custom_text_color</property>
@@ -182,6 +286,78 @@
                 <property name="height-request">45</property>
                 <property name="show-editor">true</property>
                 <property name="use-alpha">false</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="appfolder_custom_secondary_color_row">
+            <property name="title" translatable="yes">Secondary text color</property>
+            <property name="subtitle" translatable="yes">Base color for muted text; hints and descriptions retain different strengths.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_custom_secondary_color</property>
+            <child>
+              <object class="GtkColorButton" id="appfolder_custom_secondary_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="appfolder_custom_secondary_strength_row">
+            <property name="title" translatable="yes">Secondary text strength</property>
+            <property name="subtitle" translatable="yes">100% keeps normal relative dimming; lower values make secondary text fainter.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <child>
+              <object class="GtkScale">
+                <property name="valign">center</property>
+                <property name="width-request">200</property>
+                <property name="draw-value">true</property>
+                <property name="digits">0</property>
+                <property name="adjustment">appfolder_custom_secondary_strength</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="appfolder_custom_highlight_style_row">
+            <property name="title" translatable="yes">Highlight style</property>
+            <property name="subtitle" translatable="yes">Hover and pressed backgrounds are independent of text colors.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_custom_highlight_style</property>
+            <child>
+              <object class="GtkDropDown" id="appfolder_custom_highlight_style">
+                <property name="valign">center</property>
+                <property name="model">custom_highlight_style_model</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwActionRow" id="appfolder_custom_highlight_color_row">
+            <property name="title" translatable="yes">Highlight color</property>
+            <property name="subtitle" translatable="yes">Choose the hover color and opacity; pressed states are derived from it.</property>
+            <property name="visible">false</property>
+            <property name="sensitive" bind-source="appfolder_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="activatable-widget">appfolder_custom_highlight_color</property>
+            <child>
+              <object class="GtkColorButton" id="appfolder_custom_highlight_color">
+                <property name="valign">center</property>
+                <property name="width-request">75</property>
+                <property name="height-request">45</property>
+                <property name="show-editor">true</property>
+                <property name="use-alpha">true</property>
               </object>
             </child>
           </object>
@@ -221,5 +397,30 @@
       <item translatable="yes">Dark</item>
       <item translatable="yes">Custom</item>
     </items>
+  </object>
+  <object class="GtkStringList" id="custom_text_style_model">
+    <items>
+      <item translatable="yes">Keep theme text colors</item>
+      <item translatable="yes">Custom primary, dimmed secondary</item>
+      <item translatable="yes">Custom primary and secondary</item>
+    </items>
+  </object>
+  <object class="GtkStringList" id="custom_highlight_style_model">
+    <items>
+      <item translatable="yes">Neutral</item>
+      <item translatable="yes">Custom color</item>
+    </items>
+  </object>
+  <object class="GtkAdjustment" id="overview_custom_secondary_strength">
+    <property name="lower">0</property>
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+    <property name="value">100</property>
+  </object>
+  <object class="GtkAdjustment" id="appfolder_custom_secondary_strength">
+    <property name="lower">0</property>
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+    <property name="value">100</property>
   </object>
 </interface>

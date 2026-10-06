@@ -1,15 +1,9 @@
 /* Custom overview colors; numeric tokens are replaced at runtime. */
 
 .overview-components-custom .search-entry {
-    color: @TEXT@;
     background-color: @BACKGROUND@ !important;
-    border-color: transparent;
-    box-shadow: none;
 }
 
-.overview-components-custom .search-entry .search-entry-icon {
-    color: @ICON@;
-}
 
 .overview-components-custom .overview-tile,
 .overview-components-custom .overview-icon,
@@ -25,6 +19,7 @@
     background-color: transparent !important;
 }
 
+
 .overview-components-custom .workspace-thumbnail,
 .overview-components-custom .search-section-content,
 .overview-components-custom .overview-tile.app-folder,
@@ -35,6 +30,7 @@
 .overview-components-custom .multimonitor-dock .dash-background {
     background-color: @BACKGROUND@ !important;
 }
+
 
 .overview-components-custom .overview-tile:hover,
 .overview-components-custom .overview-tile:focus,
@@ -64,6 +60,7 @@
 .overview-components-custom .multimonitor-dock .show-apps:focus .overview-icon {
     background-color: @HOVER@ !important;
 }
+
 
 .overview-components-custom .overview-tile:active,
 .overview-components-custom .overview-tile:focus:hover,
@@ -95,6 +92,7 @@
     background-color: @ACTIVE@ !important;
 }
 
+
 .overview-components-custom .overview-tile:focus:active,
 .overview-components-custom .overview-tile:selected:active,
 .overview-components-custom .overview-tile:highlighted:active,
@@ -112,21 +110,40 @@
     background-color: @PRESSED@ !important;
 }
 
-
-/* Apply the selected foreground to labels which Shell themes color explicitly.
- * Keep the selectors within overview components, since the scope is on uiGroup.
+/* CUSTOM_TEXT_BEGIN */
+/* Only real foreground actors are targeted. AppDisplay owns grid labels;
+ * its folder views move into separate dialogs with independent text settings.
+ * Never put foreground color on uiGroup, tiles or whole result containers.
  */
-.overview-components-custom .overview-tile,
-.overview-components-custom .overview-tile StLabel,
-.overview-components-custom .grid-search-result,
-.overview-components-custom .grid-search-result StLabel,
-.overview-components-custom .list-search-result,
-.overview-components-custom .list-search-result StLabel,
-.overview-components-custom .search-provider-icon,
-.overview-components-custom .search-provider-icon StLabel,
-.overview-components-custom .search-section-content,
-.overview-components-custom .search-section-content StLabel,
-.overview-components-custom .page-navigation-arrow,
-.overview-components-custom .app-folder-dialog .icon-button {
+.overview-components-custom .search-entry,
+.overview-components-custom .bms-overview-color-scope .overview-icon StLabel,
+.overview-components-custom .grid-search-result .overview-icon StLabel,
+.overview-components-custom .list-search-result-title StLabel,
+.overview-components-custom .list-search-provider-details StLabel,
+.overview-components-custom .dash-label,
+.overview-components-custom .window-caption {
     color: @TEXT@;
 }
+
+.overview-components-custom .search-entry StLabel.hint-text {
+    color: @HINT@;
+}
+.overview-components-custom .search-entry .search-entry-icon {
+    color: @ICON@;
+}
+.overview-components-custom .list-search-result-description {
+    color: @DESCRIPTION@;
+}
+.overview-components-custom .search-statustext {
+    color: @STATUS@;
+}
+.overview-components-custom .search-entry:insensitive,
+.overview-components-custom .search-entry:insensitive StLabel,
+.overview-components-custom .search-entry:insensitive .search-entry-icon,
+.overview-components-custom .bms-overview-color-scope .overview-tile:insensitive StLabel,
+.overview-components-custom .grid-search-result:insensitive StLabel,
+.overview-components-custom .list-search-result:insensitive StLabel,
+.overview-components-custom .search-provider-icon:insensitive StLabel {
+    color: @DISABLED@;
+}
+/* CUSTOM_TEXT_END */

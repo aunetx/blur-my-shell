@@ -150,3 +150,24 @@ test('overview and folder style instances have independent lifetimes', async () 
     folder.clear();
     assert.equal(h.files.size, 0); assert.equal(h.signals.size, 0);
 });
+
+test('live text mode changes remove overrides without reloading blur or retaining stale sheets', async () => {
+    const h = await harness();
+    const style = new h.CustomStyle('overview');
+    style.update([0, 0, 0, 0.3], [1, 0, 0, 1], { textStyle: 1 });
+    assert.match([...h.files.values()][0], /color: rgba\(255, 0, 0, 0.63\)/);
+    style.update([0, 0, 0, 0.3], [1, 0, 0, 1], {
+        textStyle: 2, secondary: [0, 1, 0, 1], highlightStyle: 1, highlight: [0, 0, 1, 0.3],
+    });
+    assert.match([...h.files.values()][0], /color: rgba\(0, 255, 0, 0.63\)/);
+    assert.equal(h.context.theme.loaded.size, 1);
+    style.update([0, 0, 0, 0.3], [1, 0, 0, 1], { textStyle: 0 });
+    assert.doesNotMatch([...h.files.values()][0], /(?:^|[;{])\s*color\s*:/);
+    const loads = h.context.theme.loads;
+    style.update([0, 0, 0, 0.3], [0, 1, 0, 1], { textStyle: 0 });
+    assert.equal(h.context.theme.loads, loads, 'hidden foreground changes cannot rewrite theme-mode CSS');
+    assert.equal(h.files.size, 1);
+    style.clear();
+    assert.equal(h.files.size, 0);
+    assert.equal(h.signals.size, 0);
+});

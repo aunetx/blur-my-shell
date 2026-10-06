@@ -6,6 +6,7 @@ const wac_proto = WorkspaceAnimationController.prototype;
 
 import { Pipeline } from '../conveniences/pipeline.js';
 import { CustomStyle } from '../conveniences/custom_style.js';
+import { customStyleOptions } from '../conveniences/custom_colors.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
     "overview-components-light",
@@ -195,12 +196,18 @@ export const OverviewBlur = class OverviewBlur {
         );
 
         const style = this.settings.overview.STYLE_COMPONENTS;
+        const appDisplay = Main.overview._overview.controls._appDisplay;
+        // Folder views are reparented out of AppDisplay into their dialogs.
+        // Scope grid labels to this root so folder Theme text remains independent.
+        appDisplay.remove_style_class_name('bms-overview-color-scope');
         if (style === 4) {
             if (!this._custom_style.update(
                 this.settings.overview.CUSTOM_BACKGROUND_COLOR,
-                this.settings.overview.CUSTOM_TEXT_COLOR
+                this.settings.overview.CUSTOM_TEXT_COLOR,
+                customStyleOptions(this.settings.overview)
             ))
                 return;
+            appDisplay.add_style_class_name('bms-overview-color-scope');
         } else {
             this._custom_style.clear();
         }
@@ -235,6 +242,7 @@ export const OverviewBlur = class OverviewBlur {
 
         this.remove_background_actors();
         Main.uiGroup.remove_style_class_name("blurred-overview");
+        Main.overview._overview.controls._appDisplay.remove_style_class_name('bms-overview-color-scope');
         OVERVIEW_COMPONENTS_STYLE.forEach(
             style => Main.uiGroup.remove_style_class_name(style)
         );
