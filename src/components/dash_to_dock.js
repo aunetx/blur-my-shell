@@ -1,4 +1,5 @@
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
@@ -13,6 +14,23 @@ const DASH_STYLES = [
     "light-dash",
     "dark-dash"
 ];
+
+function find_dash_background(dash) {
+    return dash._background ||
+        dash.get_children().find(child => child.has_style_class_name('dash-background')) ||
+        dash;
+}
+
+/// The static blur is clipped to the dash background, so its corner effect
+/// must round with the radius the theme gives that background; a different
+/// pipeline radius leaves square blurred wedges outside the dash's curve.
+/// Returns no override when the theme has no radius (or is not styled yet),
+/// which keeps the pipeline's own value.
+function theme_corner_override(dash) {
+    const radius = find_dash_background(dash)?.peek_theme_node()
+        ?.get_border_radius(St.Corner.TOPLEFT);
+    return radius > 0 ? { radius } : {};
+}
 
 
 /// This type of object is created for every dash found, and talks to the main
@@ -47,6 +65,9 @@ class DashInfos {
         this.current_monitor_index = monitor ? monitor.index : null;
 
         this.dash_destroy_id = dash.connect('destroy', () => this.remove_dash_blur());
+        // A theme switch can change the dash radius the corner effect follows.
+        this.dash_background_style_id = dash_background?.connect('style-changed', () =>
+            this.bg_manager?._bms_pipeline?.apply_effect_overrides('corner'));
         this.dash_blur_connections_ids = [];
         this.dash_blur_connections_ids.push(
             this.dash_blur.connect('remove-dashes', () => this.remove_dash_blur()),
@@ -97,6 +118,9 @@ class DashInfos {
         if (this.dash_destroy_id)
             this.dash.disconnect(this.dash_destroy_id);
         this.dash_destroy_id = null;
+        if (this.dash_background_style_id)
+            this.dash_background.disconnect(this.dash_background_style_id);
+        this.dash_background_style_id = null;
     }
 
     override_style() {
@@ -451,9 +475,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             );
         }
 
-        const dash_background = dash._background ||
-            dash.get_children().find(child => child.has_style_class_name('dash-background')) ||
-            dash;
+        const dash_background = find_dash_background(dash);
 
         if (!dash_background)
             return null;
@@ -499,7 +521,9 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             const pipeline = new Pipeline(
                 global.blur_my_shell._effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                this.settings.dash_to_dock.PIPELINE
+                this.settings.dash_to_dock.PIPELINE,
+                null,
+                { effect_overrides: { corner: () => theme_corner_override(dash) } }
             );
             background = pipeline.create_background_with_effects(
                 monitor.index, bg_manager_list,
