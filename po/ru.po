@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-09-24 14:51+0000\n"
-"Last-Translator: Dertefter Labs <dertefter@gmail.com>\n"
+"PO-Revision-Date: 2026-10-08 02:51+0000\n"
+"Last-Translator: Skartorion De Pier <skartorion@icloud.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ru/>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -165,35 +165,35 @@ msgstr "Каким образом цвета будут смешиваться."
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "Нормальный"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "Умножить"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "Экран"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "Наложить"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Затемнить"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "Осветлить"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
-msgstr ""
+msgstr "Темнее"
 
 #: src/effects/effects.js:187
 msgid "Plus lighter"
-msgstr ""
+msgstr "Светлее"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
@@ -201,11 +201,11 @@ msgstr ""
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "Затемнение основы"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "Жёсткий свет"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
@@ -480,6 +480,8 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect, "
 "but shows content behind windows."
 msgstr ""
+"Динамическое размытие медленнее и совместимо только с гауссовским эффектом "
+"размытия, но показывает контент за окнами."
 
 #: resources/ui/applications.ui:42 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41
@@ -507,23 +509,23 @@ msgstr "Интенсивность размытия."
 #: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
 #: resources/ui/panel.ui:130
 msgid "Corner radius"
-msgstr ""
+msgstr "Радиус углов"
 
 #: resources/ui/applications.ui:115 resources/ui/dash.ui:114
 #: resources/ui/panel.ui:114
 msgid ""
 "In order to use rounded corners, please install the GNOME Rounded Blur "
 "library."
-msgstr ""
+msgstr "Для закругления углов, установите библиотеку GNOME Rounded Blur."
 
 #: resources/ui/applications.ui:132 resources/ui/dash.ui:131
 #: resources/ui/panel.ui:131
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "Радиус эффекта закругления углов."
 
 #: resources/ui/applications.ui:140
 msgid "Enable corner rounding on maximized and fullscreen"
-msgstr ""
+msgstr "Закругления углов для развёрнутых и полноэкранных окон"
 
 #: resources/ui/applications.ui:141
 msgid ""
