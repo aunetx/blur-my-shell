@@ -50,8 +50,7 @@ vec4 getTextureColorAt(vec2 coord) {
     if (uv.y > 1. - 3. / height)
         uv.y = 1. - 3. / height;
 
-    // return bms_texture2D(tex, uv);
-    return texture2D(tex, uv);
+    return bms_texture2D(tex, uv);
 }
 
 vec4 get_clipped_bounding() {

@@ -3,9 +3,10 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 import * as uniforms from '../conveniences/shader_uniforms.js';
 
+import { Connections } from '../conveniences/connections.js';
+
 const Shell = await utils.import_in_shell_only('gi://Shell');
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
-const Main = await utils.import_in_shell_only('resource:///org/gnome/shell/ui/main.js');
 
 const SHADER_FILENAME = 'wave.glsl';
 const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.meta.url);
@@ -157,7 +158,7 @@ class WaveTicker {
 
             this.tasks.add(task);
 
-            if (this.tasks.size === 1) {
+            if (this.tasks.size === 1 || !this._initialized) {
                 this._initialize();
             }
         }
@@ -180,8 +181,13 @@ class WaveTicker {
         }
 
         static _initialize() {
+            const target_actor = this._get_target_actor();
+            if (!target_actor) {
+                return;
+            }
+
             this._timeline = new Clutter.Timeline({
-                actor: Main.layoutManager.uiGroup,
+                actor: target_actor,
                 duration: 5000,
                 repeat_count: -1,
             });
@@ -192,6 +198,8 @@ class WaveTicker {
             );
 
             this._timeline.start();
+            
+            this._initialized = true;
         }
 
         static _destroy() {
@@ -203,6 +211,12 @@ class WaveTicker {
             this._timeline = null;
             this._connection_id = null;
             this.tasks.clear();
+
+            this._initialized = false;
+        }
+
+        static _get_target_actor() {
+            return global?.stage ?? global?.get_stage?.() ?? null;
         }
 }
 
@@ -229,6 +243,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._resize_elapsed = 0;
             this._flow_update_ref = this._flow_animation_update.bind(this);
             this._resize_update_ref = this._resize_animation_update.bind(this);
+            this._ancestor_connections = new Connections();
 
             utils.setup_params(this, params);
         }
@@ -558,23 +573,35 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._resize_animation_start();
         }
 
+        _watch_ancestors() {
+            this._flow_update_animation_state();
+            this._ancestor_connections.disconnect_all();
+            for (let actor = this.get_actor(); actor; actor = actor.get_parent?.()) {
+                this._ancestor_connections.connect(actor, ['notify::opacity', 'notify::mapped'],
+                    () => this._flow_update_animation_state());
+                this._ancestor_connections.connect(actor, 'parent-set', () => this._watch_ancestors());
+            }
+        }
+
         vfunc_set_actor(actor) {
             super.vfunc_set_actor(actor);
 
             if (!actor) {
                 WaveTicker.remove(this._flow_update_ref);
                 WaveTicker.remove(this._resize_update_ref);
+                this._ancestor_connections.disconnect_all();
+            } else {
+                this._watch_ancestors();
             }
         }
 
         vfunc_paint_target(paint_node, paint_context) {
             uniforms.upload_uniforms(this);
             this._flow_upload_time_uniform();
-            this._flow_update_animation_state();
             super.vfunc_paint_target(paint_node, paint_context);
         }
 };
 
 export const WaveEffect = utils.IS_IN_PREFERENCES
     ? { default_params: DEFAULT_PARAMS }
-    : utils.register_shader_effect(WAVE_EFFECT_META, WaveEffectClass);
+    : GObject.registerClass(WAVE_EFFECT_META, WaveEffectClass);
