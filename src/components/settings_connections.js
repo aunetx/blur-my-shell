@@ -94,12 +94,6 @@ export function connect_component_settings(extension) {
         dash,
         () => dash.update_pipeline()
     ));
-    ['CORNER_RADIUS', 'ROUNDED_CORNERS'].forEach(property =>
-        connect(settings.dash_to_dock, property, when_enabled(
-            dash,
-            () => dash.update_corner_radius()
-        ))
-    );
     ['OVERRIDE_BACKGROUND', 'STYLE_DASH_TO_DOCK'].forEach(property =>
         connect(settings.dash_to_dock, property, when_enabled(
             dash,
