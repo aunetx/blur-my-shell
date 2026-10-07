@@ -181,6 +181,13 @@
     background-color: #222226 !important;
 }
 
+.appfolder-dialogs-light .app-grid-running-dot,
+.appfolder-dialogs-light .app-well-app-running-dot,
+.appfolder-dialogs-light .running-dot {
+    background-color: #222226 !important;
+    color: #222226 !important;
+}
+
 
 /*
 * `.appfolder-dialogs-dark`

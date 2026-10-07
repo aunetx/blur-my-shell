@@ -380,7 +380,7 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 .multimonitor-dock.light-dash .app-well-app:focus .overview-icon,
 .multimonitor-dock.light-dash .show-apps:hover .overview-icon,
 .multimonitor-dock.light-dash .show-apps:focus .overview-icon {
-    background-color: rgba(0, 0, 0, 0.08) !important;
+    background-color: rgba(0, 0, 0, 0.13) !important;
 }
 
 /* Active / drop on icon box */
@@ -408,14 +408,14 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 .multimonitor-dock.light-dash .overview-tile:drop .overview-icon,
 .multimonitor-dock.light-dash .app-well-app:active .overview-icon,
 .multimonitor-dock.light-dash .show-apps:checked .overview-icon {
-    background-color: rgba(0, 0, 0, 0.14) !important;
+    background-color: rgba(0, 0, 0, 0.19) !important;
 }
 
 .light-dash .show-apps:checked .overview-icon:hover,
 #dash.light-dash .show-apps:checked .overview-icon:hover,
 .light-dash .multimonitor-dock .show-apps:checked .overview-icon:hover,
 .multimonitor-dock.light-dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(0, 0, 0, 0.18) !important;
+    background-color: rgba(0, 0, 0, 0.25) !important;
 }
 
 
@@ -594,7 +594,7 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 .multimonitor-dock.dark-dash .app-well-app:focus .overview-icon,
 .multimonitor-dock.dark-dash .show-apps:hover .overview-icon,
 .multimonitor-dock.dark-dash .show-apps:focus .overview-icon {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+    background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 /* Active / drop on icon box */
@@ -622,12 +622,12 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 .multimonitor-dock.dark-dash .overview-tile:drop .overview-icon,
 .multimonitor-dock.dark-dash .app-well-app:active .overview-icon,
 .multimonitor-dock.dark-dash .show-apps:checked .overview-icon {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
 .dark-dash .show-apps:checked .overview-icon:hover,
 #dash.dark-dash .show-apps:checked .overview-icon:hover,
 .dark-dash .multimonitor-dock .show-apps:checked .overview-icon:hover,
 .multimonitor-dock.dark-dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(255, 255, 255, 0.24) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
 }
