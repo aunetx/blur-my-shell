@@ -67,32 +67,6 @@
         </child>
 
         <child>
-          <object class="AdwSpinRow" id="corner_radius_row">
-            <property name="title" translatable="yes">Corner radius</property>
-            <property name="subtitle" translatable="yes">Radius for the corner rounding effect.</property>
-            <property name="adjustment">corner_radius</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
-          </object>
-        </child>
-
-        <child>
-          <object class="AdwComboRow" id="rounded_corners">
-            <property name="title" translatable="yes">Rounded corners</property>
-            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
-            <property name="model">
-              <object class="GtkStringList">
-                <items>
-                  <item translatable="yes">All</item>
-                  <item translatable="yes">Top only</item>
-                  <item translatable="yes">Bottom only</item>
-                  <item translatable="yes">None</item>
-                </items>
-              </object>
-            </property>
-          </object>
-        </child>
-
-        <child>
           <object class="AdwExpanderRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
             <property name="subtitle" translatable="yes">Makes the dock background transparent or semi-transparent. Disable this to use the dock extension's own appearance.</property>
@@ -133,12 +107,6 @@
       </object>
     </child>
   </template>
-
-  <object class="GtkAdjustment" id="corner_radius">
-    <property name="lower">0</property>
-    <property name="upper">150</property>
-    <property name="step-increment">1</property>
-  </object>
 
   <object class="GtkStringList" id="style_dash_to_dock_model">
     <items>

@@ -91,12 +91,13 @@ export class DockSurface {
         this.update_visibility();
     }
 
-    set_blur({ background, background_group, bg_manager, pipeline, rounded_pipeline }) {
+    set_blur({ background, background_group, bg_manager, pipeline, rounded_pipeline, corner_settings }) {
         this.background = background;
         this.background_group = background_group;
         this.bg_manager = bg_manager;
         this.pipeline = pipeline;
         this.rounded_pipeline = rounded_pipeline;
+        this.corner_settings = corner_settings;
 
         this.connections.connect(background_group, 'notify::allocation', () => this.schedule_update());
         // destroyed with its parent, possibly before the dash itself
@@ -104,6 +105,7 @@ export class DockSurface {
     }
 
     schedule_update() {
+        // keep the pending update, it will read the latest geometry and style
         if (this.update_id)
             return;
         this.update_id = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
@@ -185,6 +187,7 @@ export class DockSurface {
         this.bg_manager = null;
         this.pipeline = null;
         this.rounded_pipeline = null;
+        this.corner_settings = null;
     }
 
     change_blur_type() {
@@ -194,7 +197,7 @@ export class DockSurface {
         if (!target)
             return;
 
-        const blur = this.dash_blur.add_blur(this.dash_container);
+        const blur = this.dash_blur.add_blur(this.dash_container, target);
         if (!blur)
             return;
 
@@ -213,10 +216,15 @@ export class DockSurface {
     }
 
     update_corner_radius() {
+        const { radius, corners } = get_dock_corners(this.dash_background);
+        if (radius === this.corner_settings.radius && corners === this.corner_settings.corners)
+            return;
+
+        Object.assign(this.corner_settings, { radius, corners });
         if (this.rounded_pipeline)
             this.rounded_pipeline.update();
         else
-            this.pipeline?.set_corner_radius(get_dock_corners(this.dash_background).radius);
+            this.pipeline?.set_corner_radius(radius);
     }
 
     update_visibility() {

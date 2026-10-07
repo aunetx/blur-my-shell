@@ -44,8 +44,6 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
-            { type: Type.I, name: "corner-radius" },
-            { type: Type.I, name: "rounded-corners" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-dash-to-dock" },

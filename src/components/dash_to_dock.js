@@ -204,7 +204,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
         this._log("supported dock found, blurring it");
 
-        const blur = this.add_blur(dash_container);
+        const blur = this.add_blur(dash_container, target);
         if (!blur)
             return;
 
@@ -215,12 +215,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this.update_background();
     }
 
-    add_blur(dash_container) {
-        const target = resolve_dock_target(dash_container);
-        if (!target)
-            return null;
-        const get_radius = () => get_dock_corners(target.background).radius;
-        const get_corners = () => get_dock_corners(target.background).corners;
+    add_blur(dash_container, target) {
+        const corner_settings = get_dock_corners(target.background);
+        const get_radius = () => corner_settings.radius;
+        const get_corners = () => corner_settings.corners;
         const monitor = Main.layoutManager.findMonitorForActor(dash_container)
             ?? Main.layoutManager.primaryMonitor;
         if (!monitor)
@@ -254,6 +252,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
                 bg_manager: bg_managers[0],
                 pipeline,
                 rounded_pipeline,
+                corner_settings,
             };
         }
 
@@ -276,6 +275,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             bg_manager,
             pipeline,
             rounded_pipeline: null,
+            corner_settings,
         };
     }
 
