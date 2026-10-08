@@ -119,6 +119,13 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         this.connections.connect(actor, 'destroy', () => this.forget_actor(actor));
     }
 
+    untrack_actor(actor) {
+        this.remove_stack_mask(actor);
+        this.restore_group_header(actor);
+        this.forget_actor(actor);
+        this.watched_actors.delete(actor);
+    }
+
     forget_actor(actor) {
         this.containers.delete(actor);
         this.messages.delete(actor);

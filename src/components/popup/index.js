@@ -110,7 +110,7 @@ export const PopupBlur = class PopupBlur {
     }
 
     try_blur(actor) {
-        if (is_internal_actor(actor))
+        if (is_internal_actor(actor) || !actor.get_stage())
             return;
 
         this.message_stacks.scan(actor);
@@ -129,7 +129,7 @@ export const PopupBlur = class PopupBlur {
     }
 
     queue_try_blur(actor) {
-        if (is_internal_actor(actor))
+        if (is_internal_actor(actor) || !actor.get_stage())
             return;
 
         this.watch_actor(actor);
@@ -246,12 +246,31 @@ export const PopupBlur = class PopupBlur {
             return;
 
         this.watched_actors.add(actor);
+        this.connections.connect(actor, 'parent-set', () => {
+            if (actor.get_stage()) {
+                this.queue_try_blur(actor);
+                return;
+            }
+            this.forget_detached_actor(actor);
+        });
         this.connections.connect(actor, 'destroy', () => {
             this.containers.delete(actor);
             this.queued_actors.delete(actor);
             this.follow_up_actors.delete(actor);
             this.keyboard_actors.delete(actor);
         });
+    }
+
+    forget_detached_actor(actor) {
+        actor.get_children().forEach(child => this.forget_detached_actor(child));
+        this.containers.delete(actor);
+        this.queued_actors.delete(actor);
+        this.follow_up_actors.delete(actor);
+        if (this.keyboard_actors.delete(actor))
+            this.clear_keyboard_style(actor);
+        this.message_stacks.untrack_actor(actor);
+        this.connections.disconnect_all_for(actor);
+        this.watched_actors.delete(actor);
     }
 
     destroy_blur(target) {
