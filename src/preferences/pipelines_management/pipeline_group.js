@@ -30,7 +30,7 @@ export const PipelineGroup = GObject.registerClass({
 
         this.set_description(_('Pipeline id: “%s”').replace('%s', () => pipeline_id));
 
-        this.set_title(pipeline.name.length > 0 ? pipeline.name : " ");
+        this.set_title(GLib.markup_escape_text(pipeline.name.length > 0 ? pipeline.name : " ", -1));
         this._title.set_text(pipeline.name);
         this._title.connect(
             'changed',
