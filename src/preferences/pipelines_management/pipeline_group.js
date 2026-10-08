@@ -28,7 +28,7 @@ export const PipelineGroup = GObject.registerClass({
         this._pipelines_page = pipelines_page;
         this._pipeline_id = pipeline_id;
 
-        this.set_description(_('Pipeline id: “%s”').format(pipeline_id));
+        this.set_description(_('Pipeline id: “%s”').replace('%s', () => pipeline_id));
 
         this.set_title(pipeline.name.length > 0 ? pipeline.name : " ");
         this._title.set_text(pipeline.name);
@@ -82,7 +82,8 @@ export const PipelineGroup = GObject.registerClass({
             this._effects_description_row.set_title(_("No effect"));
         else
             this._effects_description_row.set_title(
-                ngettext('%d effect', '%d effects', effects.length).format(effects.length)
+                ngettext('%d effect', '%d effects', effects.length)
+                    .replace('%d', effects.length)
             );
 
         const subtitle = effects.map(effect =>
