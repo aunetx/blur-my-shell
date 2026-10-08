@@ -42,7 +42,7 @@ export const EffectsDialog = GObject.registerClass({
 
         this.set_title(
             pipeline.name.length > 0
-                ? _('Effects for “%s”').format(pipeline.name)
+                ? _('Effects for “%s”').replace('%s', () => pipeline.name)
                 : _('Effects')
         );
 
