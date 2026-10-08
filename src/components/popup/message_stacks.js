@@ -142,6 +142,13 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
         });
     }
 
+    untrack_actor(actor) {
+        this.remove_stack_mask(actor);
+        this.restore_group_header(actor);
+        this.forget_actor(actor);
+        this.watched_actors.delete(actor);
+    }
+
     update_all() {
         this.groups.forEach((_, group) => {
             this.update_group_header(group);

@@ -88,6 +88,11 @@ export const PopupBlur = class PopupBlur {
             'child-added',
             (_, child) => this.queue_try_blur(child)
         );
+        this.connections.connect(container, 'child-removed', (_, child) => {
+            // Destroy handlers have already forgotten actors removed during disposal.
+            if (this.watched_actors.has(child) || this.surfaces.has(child))
+                this.queue_try_blur(child);
+        });
     }
 
     track_keyboard() {
@@ -112,6 +117,11 @@ export const PopupBlur = class PopupBlur {
     try_blur(actor) {
         if (is_internal_actor(actor))
             return;
+
+        if (!actor.get_stage()) {
+            this.forget_detached_actor(actor);
+            return;
+        }
 
         this.message_stacks.scan(actor);
         this.track_container(actor._delegate?._overlay);
@@ -150,7 +160,8 @@ export const PopupBlur = class PopupBlur {
     }
 
     queue_follow_up_blurs(actors) {
-        actors.forEach(actor => this.follow_up_actors.add(actor));
+        actors.filter(actor => actor.get_stage())
+            .forEach(actor => this.follow_up_actors.add(actor));
 
         if (this.follow_up_queue_id || this.follow_up_actors.size === 0)
             return;
@@ -251,6 +262,7 @@ export const PopupBlur = class PopupBlur {
             this.queued_actors.delete(actor);
             this.follow_up_actors.delete(actor);
             this.keyboard_actors.delete(actor);
+            this.watched_actors.delete(actor);
         });
     }
 
@@ -261,6 +273,20 @@ export const PopupBlur = class PopupBlur {
 
         this.surfaces.delete(target);
         surface.destroy();
+    }
+
+    forget_detached_actor(actor) {
+        // The queued scan lets ordinary reparenting finish before releasing an offstage subtree.
+        this.destroy_blur(actor);
+        actor.get_children().forEach(child => this.forget_detached_actor(child));
+        this.containers.delete(actor);
+        this.queued_actors.delete(actor);
+        this.follow_up_actors.delete(actor);
+        if (this.keyboard_actors.delete(actor))
+            this.clear_keyboard_style(actor);
+        this.message_stacks.untrack_actor(actor);
+        this.connections.disconnect_all_for(actor);
+        this.watched_actors.delete(actor);
     }
 
     reset() {
