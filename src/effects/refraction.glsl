@@ -142,7 +142,7 @@ vec2 resolveUV(vec2 uv) {
 }
 
 vec4 sampleBackdrop(vec2 uv) {
-    return texture2D(tex, resolveUV(uv));
+    return bms_texture2D(tex, resolveUV(uv));
 }
 
 vec4 sampleGlassBackdrop(vec2 uv) {

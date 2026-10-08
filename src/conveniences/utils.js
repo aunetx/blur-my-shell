@@ -1,5 +1,6 @@
 import GLib from 'gi://GLib';
 import { ANTIALIASING_SOURCE } from '../render/shader_antialiasing.js';
+import { SURFACE_SAMPLING_SOURCE } from '../render/texture_region.js';
 
 export const IS_IN_PREFERENCES = typeof global === 'undefined';
 
@@ -79,9 +80,10 @@ function split_fragment_shader(source) {
 function create_fragment_shader_snippet(source) {
     const { declarations, body } = split_fragment_shader(source);
     const antialiasing = source.includes('bms_antialias_width(') ? ANTIALIASING_SOURCE : '';
+    const sampling = source.includes('bms_texture2D(') ? SURFACE_SAMPLING_SOURCE : '';
     const snippet = Cogl.Snippet.new(
         Cogl.SnippetHook.FRAGMENT,
-        `${antialiasing}\n${declarations}\nvoid bms_fragment() {\n${body}\n}`,
+        `${antialiasing}\n${sampling}\n${declarations}\nvoid bms_fragment() {\n${body}\n}`,
         null
     );
     snippet.set_replace('bms_fragment(); cogl_color_out *= cogl_color_in.a;');

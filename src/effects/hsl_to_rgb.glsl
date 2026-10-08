@@ -9,7 +9,7 @@ vec3 hsl_to_rgb(vec3 c) {
 
 void main(void) {
     vec2 uv = cogl_tex_coord_in[0].xy;
-    vec4 hsla = texture2D(tex, uv);
+    vec4 hsla = bms_texture2D(tex, uv);
     if (hsla.a <= 0.0) {
         cogl_color_out = hsla;
         return;

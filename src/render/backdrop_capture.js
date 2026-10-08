@@ -5,8 +5,33 @@ import Graphene from 'gi://Graphene';
 import Mtk from 'gi://Mtk';
 import { BackdropContent } from './backdrop_content.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './backdrop_damage.js';
+import {
+    getTextureCapacity,
+    largestViewSize,
+    TEXTURE_REGION_SOURCE,
+    TextureRegion,
+    textureFits,
+    textureRegionDeclarations,
+} from './texture_region.js';
 
 const PIXEL_EPSILON = 1 / 1024;
+const CAPTURE_TEXTURE_REGION = 'bms_capture_region';
+
+let captureSnippet = null;
+
+function getCaptureSnippet() {
+    if (captureSnippet === null) {
+        captureSnippet = Cogl.Snippet.new(
+            Cogl.SnippetHook.TEXTURE_LOOKUP,
+            `${textureRegionDeclarations(CAPTURE_TEXTURE_REGION)}\n${TEXTURE_REGION_SOURCE}`,
+            null
+        );
+        captureSnippet.set_replace(
+            `cogl_texel = bms_sample_region(cogl_sampler, cogl_tex_coord.st, ${CAPTURE_TEXTURE_REGION});`
+        );
+    }
+    return captureSnippet;
+}
 
 // Mutter 48 renamed `cogl_blit_framebuffer()` to `cogl_framebuffer_blit()`
 const blitFramebuffer = Cogl.Framebuffer.prototype.blit
@@ -119,24 +144,30 @@ export const BackdropCaptureEffect = GObject.registerClass({
         contentActor.set_content(new BackdropContent(this));
     }
 
-    get texture() {
-        return this.target?.texture ?? null;
-    }
-
-    get pipeline() {
-        return this.target?.pipeline ?? null;
-    }
-
     ensureFramebuffer(width, height, sourceFramebuffer, view) {
         const context = sourceFramebuffer.get_context();
-        const cached = this.targets.get(view);
-        if (cached?.width === width && cached?.height === height
-            && cached.context === context
-            && (!view || cached.sourceFramebuffer === sourceFramebuffer)) {
+        const cached = this.targets.get(view) ?? null;
+        const reusable = cached !== null && cached.context === context
+            && (!view || cached.sourceFramebuffer === sourceFramebuffer);
+        if (reusable && textureFits(width, cached.width) && textureFits(height, cached.height)) {
+            if (cached.usedWidth !== width || cached.usedHeight !== height) {
+                cached.usedWidth = width;
+                cached.usedHeight = height;
+                cached.framebuffer.clear4f(Cogl.BufferBit.COLOR, 0, 0, 0, 0);
+                cached.region.update(cached);
+            }
             this.target = cached;
             return;
         }
-        const texture = Cogl.Texture2D.new_with_size(context, width, height);
+
+        let textureWidth = width;
+        let textureHeight = height;
+        if (reusable) {
+            const limit = largestViewSize();
+            textureWidth = getTextureCapacity(width, cached.width, limit.width);
+            textureHeight = getTextureCapacity(height, cached.height, limit.height);
+        }
+        const texture = Cogl.Texture2D.new_with_size(context, textureWidth, textureHeight);
         texture.set_components(Cogl.TextureComponents.RGBA);
         texture.allocate();
 
@@ -152,13 +183,20 @@ export const BackdropCaptureEffect = GObject.registerClass({
             Cogl.PipelineFilter.LINEAR
         );
         pipeline.set_layer_wrap_mode(0, Cogl.PipelineWrapMode.CLAMP_TO_EDGE);
+        pipeline.add_layer_snippet(0, getCaptureSnippet());
 
         this.target = {
-            texture, framebuffer, pipeline, width, height, context,
+            texture, framebuffer, pipeline, context,
+            width: textureWidth,
+            height: textureHeight,
+            usedWidth: width,
+            usedHeight: height,
+            region: new TextureRegion(pipeline, CAPTURE_TEXTURE_REGION),
             sourceFramebuffer: view ? sourceFramebuffer : null,
             destroyId: cached?.destroyId
                 ?? view?.connect('destroy', () => this.releaseTarget(view)) ?? 0,
         };
+        this.target.region.update(this.target);
         this.targets.set(view, this.target);
     }
 

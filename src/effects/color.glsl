@@ -104,7 +104,7 @@ vec3 get_blend(vec3 base, vec3 _blend) {
 }
 
 void main() {
-    vec4 c = texture2D(tex, cogl_tex_coord_in[0].st);
+    vec4 c = bms_texture2D(tex, cogl_tex_coord_in[0].st);
     if (c.a <= 0.0) {
         cogl_color_out = c;
         return;

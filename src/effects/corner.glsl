@@ -47,5 +47,5 @@ void main() {
         antialiasWidth * 0.5,
         distance
     );
-    cogl_color_out = texture2D(tex, uv) * coverage;
+    cogl_color_out = bms_texture2D(tex, uv) * coverage;
 }
