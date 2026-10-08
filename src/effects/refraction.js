@@ -26,12 +26,6 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
 
             utils.setup_params(this, params);
 
-            this._theme_context = St.ThemeContext.get_for_stage(global.stage);
-            this._theme_context.connectObject(
-                'notify::scale-factor',
-                _ => this.update_scaled_uniforms(),
-                this
-            );
         }
 
         static get default_params() {
@@ -472,6 +466,18 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
 
             uniforms.set_uniform(this, 'edge_size', parseFloat(edge_size - 1e-6));
             uniforms.set_uniform(this, 'corner_radius', parseFloat(corner_radius - 1e-6));
+        }
+
+        vfunc_set_actor(actor) {
+            const theme_context = St.ThemeContext.get_for_stage(global.stage);
+            theme_context.disconnectObject(this);
+            if (actor) {
+                theme_context.connectObject(
+                    'notify::scale-factor', () => this.update_scaled_uniforms(), this
+                );
+                this.update_scaled_uniforms();
+            }
+            super.vfunc_set_actor(actor);
         }
 
         vfunc_paint_target(paint_node, paint_context) {
