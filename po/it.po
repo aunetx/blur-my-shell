@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-03-31 07:09+0000\n"
-"Last-Translator: tfr tint <tfrtint@gmail.com>\n"
+"PO-Revision-Date: 2026-10-06 08:51+0000\n"
+"Last-Translator: Hosted Weblate user 168043 "
+"<stormseal@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/it/>\n"
 "Language: it\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -56,7 +57,7 @@ msgstr "L'intensità dell'effetto sfocato."
 #: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
 #: resources/ui/panel.ui:92
 msgid "Brightness"
-msgstr "Luminosità"
+msgstr "Brillantezza"
 
 #: src/effects/effects.js:75 src/effects/effects.js:104
 #: src/effects/effects.js:141 resources/ui/applications.ui:94
@@ -66,7 +67,7 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"La luminosità dell'effetto sfocato, un valore elevato potrebbe rendere il "
+"La brillantezza dell'effetto sfocato, un valore elevato potrebbe rendere il "
 "testo più difficile da leggere."
 
 #: src/effects/effects.js:88
@@ -157,123 +158,127 @@ msgstr ""
 
 #: src/effects/effects.js:176
 msgid "Blend mode"
-msgstr ""
+msgstr "Metodo di fusione"
 
 #: src/effects/effects.js:177
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Come viene fuso il colore."
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "Moltiplica"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "Schermo"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "Sovrapponi"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "Scurisci"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "Schiarisci"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
-msgstr ""
+msgstr "Più scuro"
 
 #: src/effects/effects.js:187
 msgid "Plus lighter"
-msgstr ""
+msgstr "Più chiaro"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "Colore scherma"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "Colore brucia"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "Luce intensa"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
-msgstr ""
+msgstr "Luce soffusa"
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "Differenza"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr ""
+msgstr "Esclusione"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "Tonalità"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "Saturazione"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "Luminosità"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "Un effetto che influisce sulla luminosità dell'immagine."
 
 #: src/effects/effects.js:210
 msgid "Shift brightness"
-msgstr ""
+msgstr "Regola brillantezza"
 
 #: src/effects/effects.js:211
 msgid "The brightness to add of remove to the image."
-msgstr ""
+msgstr "La brillantezza da aggiungere o sottrarre all'immagine."
 
 #: src/effects/effects.js:220
 msgid "Multiply brightness"
-msgstr ""
+msgstr "Moltiplica brillantezza"
 
 #: src/effects/effects.js:221
 msgid ""
 "The brightness multiplicator of the image, so that 0 means no brightness and "
 "2 means infinite brightness."
 msgstr ""
+"Il moltiplicatore di brilantezza dell'immagine, dove 0 indica assenza di "
+"brilantezza e 2 indica brillantezza infinita."
 
 #: src/effects/effects.js:230
 msgid "Contrast"
-msgstr ""
+msgstr "Contrasto"
 
 #: src/effects/effects.js:231
 msgid "The contrast of the image in regard to the center of the contrast."
-msgstr ""
+msgstr "Il contrasto dell'immagine rispetto al centro del contrasto."
 
 #: src/effects/effects.js:240
 msgid "Contrast center"
-msgstr ""
+msgstr "Centro del comtrasto"
 
 #: src/effects/effects.js:241
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Il centro del contrasto da utilizzare."
 
 #: src/effects/effects.js:251
 msgid ""
 "The saturation of the image, so that 0 means no saturation and 2 means "
 "infinite saturation."
 msgstr ""
+"La saturazione dell'immagine, dove 0 indica l'assenza di saturazione e 2 "
+"indica una saturazione infinita."
 
 #: src/effects/effects.js:264
 msgid "Pixelize"
@@ -482,6 +487,8 @@ msgid ""
 "The dynamic blur is slower and only compatible with a gaussian blur effect, "
 "but shows content behind windows."
 msgstr ""
+"La sfocatura dinamica è più lenta ed è compatibile solo con l'effetto di "
+"sfocatura gaussiana, ma mostra i contenuti che si trovano dietro le finestre."
 
 #: resources/ui/applications.ui:42 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41
@@ -509,7 +516,7 @@ msgstr "L'intensità della sfocatura."
 #: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
 #: resources/ui/panel.ui:130
 msgid "Corner radius"
-msgstr ""
+msgstr "Raggio dell'angolo"
 
 #: resources/ui/applications.ui:115 resources/ui/dash.ui:114
 #: resources/ui/panel.ui:114
@@ -517,21 +524,27 @@ msgid ""
 "In order to use rounded corners, please install the GNOME Rounded Blur "
 "library."
 msgstr ""
+"Per poter utilizzare gli angoli arrotondati, è necessario installare la "
+"libreria GNOME Rounded Blur."
 
 #: resources/ui/applications.ui:132 resources/ui/dash.ui:131
 #: resources/ui/panel.ui:131
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "Raggio per l'effetto di arrotondamento degli angoli."
 
 #: resources/ui/applications.ui:140
 msgid "Enable corner rounding on maximized and fullscreen"
 msgstr ""
+"Abilita l'arrotondamento degli angoli quando la finestra è massimizzata o in "
+"modalità a schermo intero"
 
 #: resources/ui/applications.ui:141
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
 msgstr ""
+"L'effetto di arrotondamento degli angoli continuerà ad essere applicato alle "
+"finestre massimizzate e a schermo intero."
 
 #: resources/ui/applications.ui:155
 msgid "Opacity"
@@ -589,6 +602,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Un elenco di finestre da sfocare.\n"
+"Utilizza * per trovare qualsiasi sequenza di caratteri (ad esempio, Firefox* "
+"o *Code*) e ? per un singolo carattere."
 
 #: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
@@ -604,6 +620,9 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"Un elenco di finestre da non sfocare.\n"
+"Utilizza * per trovare qualsiasi sequenza di caratteri (ad esempio, Firefox* "
+"o *Code*) e ? per un singolo carattere."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
