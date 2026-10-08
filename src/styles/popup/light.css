@@ -313,16 +313,19 @@
 }
 
 .bms-popup-background-light .calendar .calendar-day.calendar-today:hover,
-.bms-popup-background-light .calendar .calendar-day.calendar-today:checked:hover {
-    background-color: rgba(0, 0, 0, 0.35) !important;
-    background-color: st-darken(-st-accent-color, 8%) !important;
-}
-
+.bms-popup-background-light .calendar .calendar-day.calendar-today:checked:hover,
 .bms-popup-background-light .calendar .calendar-day.calendar-today:selected:hover {
     color: #ffffff !important;
-    background-color: #1c71d8 !important;
-    color: -st-accent-fg-color !important;
-    background-color: st-darken(-st-accent-color, 8%) !important;
+    background-color: #2379e1 !important;
+    background-color: st-darken(-st-accent-color, 4%) !important;
+}
+
+.bms-popup-background-light .calendar .calendar-day.calendar-today:active,
+.bms-popup-background-light .calendar .calendar-day.calendar-today:checked:active,
+.bms-popup-background-light .calendar .calendar-day.calendar-today:selected:active {
+    color: #ffffff !important;
+    background-color: #1b6ccf !important;
+    background-color: st-darken(-st-accent-color, 9%) !important;
 }
 
 .bms-popup-background-light .calendar .calendar-day.calendar-today:focus,
@@ -337,44 +340,55 @@
     box-shadow: inset 0 0 0 2px st-transparentize(st-darken(-st-accent-color, 20%), 0.2) !important;
 }
 
-.bms-popup-background-light .quick-toggle:checked,
-.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked {
+.bms-popup-background-light .quick-toggle:checked {
     color: #ffffff;
-    background-color: #1c71d8 !important;
+    background-color: #3584e4 !important;
     color: -st-accent-fg-color;
     background-color: -st-accent-color !important;
 }
 
-.bms-popup-background-light .quick-toggle:checked:focus,
-.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked:focus,
-.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:focus,
-.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:focus {
-    box-shadow: inset 0 0 0 2px rgba(28, 113, 216, 0.5) !important;
-    box-shadow: inset 0 0 0 2px st-transparentize(st-darken(-st-accent-color, 20%), 0.2)  !important;
+.bms-popup-background-light .quick-toggle:checked:hover,
+.bms-popup-background-light .quick-toggle:hover:checked {
+    color: #ffffff;
+    background-color: #2379e1 !important;
+    color: -st-accent-fg-color;
+    background-color: st-darken(-st-accent-color, 4%) !important;
 }
 
-.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button,
+.bms-popup-background-light .quick-toggle:checked:active,
+.bms-popup-background-light .quick-toggle:active:checked {
+    color: #ffffff;
+    background-color: #2379e1 !important;
+    color: -st-accent-fg-color;
+    background-color: st-darken(-st-accent-color, 9%) !important;
+}
+
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
     color: #ffffff;
-    background-color: #1c71d8 !important;
+    background-color: #327bd4 !important;
     color: -st-accent-fg-color;
-    background-color: st-mix(-st-accent-color, rgba(0, 0, 0, 0.85), 92%) !important;
+    background-color: st-mix(-st-accent-color, rgba(0, 0, 0, 0.9), 92%) !important;
 }
 
-.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:hover,
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
     color: #ffffff;
-    background-color: #134e94 !important;
+    background-color: #2b71c6 !important;
     color: -st-accent-fg-color;
-    background-color: st-mix(-st-accent-color, st-darken(st-mix(-st-accent-color, rgba(0, 0, 0, 0.85), 92%), 4%), 5%) !important;
+    background-color: st-darken(st-mix(-st-accent-color, rgba(0, 0, 0, 0.9), 92%), 4%) !important;
 }
 
-.bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-menu-button:active,
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:active {
     color: #ffffff;
-    background-color: #134e94 !important;
+    background-color: #2665b1 !important;
     color: -st-accent-fg-color;
-    background-color: st-darken(st-mix(-st-accent-color, rgba(0, 0, 0, 0.85), 92%), 9%) !important;
+    background-color: st-darken(st-mix(-st-accent-color, rgba(0, 0, 0, 0.9), 92%), 9%) !important;
+}
+
+.bms-popup-background-light .quick-toggle:checked:focus,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:focus,
+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:focus:checked {
+    box-shadow: inset 0 0 0 2px rgba(28, 113, 216, 0.5) !important;
+    box-shadow: inset 0 0 0 2px st-transparentize(st-darken(-st-accent-color, 20%), 0.2)  !important;
 }
 
 .bms-popup-background-light .quick-toggle-has-menu:checked .quick-toggle-separator {
