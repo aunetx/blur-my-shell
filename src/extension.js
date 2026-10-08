@@ -162,7 +162,6 @@ export default class BlurMyShell extends Extension {
         this._enable_before_startup(
             this._dash_to_dock_blur, this._settings.dash_to_dock.BLUR, 'dash-to-dock'
         );
-        this._enable_before_startup(this._panel_blur, this._settings.panel.BLUR, 'panel');
     }
 
     /// The shell is not fully loaded yet, so this may fail; the component is then enabled again
