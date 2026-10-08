@@ -237,6 +237,10 @@
 .overview-components-light .overview-tile:focus,
 .overview-components-light .grid-search-result:hover,
 .overview-components-light .grid-search-result:focus,
+.overview-components-light #dash .overview-tile:hover .overview-icon,
+.overview-components-light #dash .overview-tile:focus .overview-icon,
+.overview-components-light #dash .show-apps:hover .overview-icon,
+.overview-components-light #dash .show-apps:focus .overview-icon,
 .overview-components-light .multimonitor-dock .overview-tile:hover .overview-icon,
 .overview-components-light .multimonitor-dock .overview-tile:focus .overview-icon,
 .overview-components-light .multimonitor-dock .show-apps:hover .overview-icon,
@@ -298,7 +302,15 @@
 .overview-components-light .grid-search-result:active,
 .overview-components-light .grid-search-result:focus:hover,
 .overview-components-light .grid-search-result:selected:hover,
-.overview-components-light .grid-search-result:highlighted:hover {
+.overview-components-light .grid-search-result:highlighted:hover,
+.overview-components-light #dash .overview-tile:active .overview-icon,
+.overview-components-light #dash .overview-tile:focus:hover .overview-icon,
+.overview-components-light #dash .overview-tile:drop .overview-icon,
+.overview-components-light #dash .show-apps:checked .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:active .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:focus:hover .overview-icon,
+.overview-components-light .multimonitor-dock .overview-tile:drop .overview-icon,
+.overview-components-light .multimonitor-dock .show-apps:checked .overview-icon {
     background-color: rgba(255, 255, 255, 0.25) !important;
 }
 
@@ -316,7 +328,9 @@
 .overview-components-light .grid-search-result:focus:active,
 .overview-components-light .grid-search-result:selected:active,
 .overview-components-light .grid-search-result:highlighted:active,
-.overview-components-light .page-navigation-arrow:focus:active {
+.overview-components-light .page-navigation-arrow:focus:active,
+.overview-components-light #dash .show-apps:checked .overview-icon:hover,
+.overview-components-light .multimonitor-dock .show-apps:checked .overview-icon:hover {
     background-color: rgba(255, 255, 255, 0.38) !important;
 }
 
@@ -456,6 +470,10 @@
 .overview-components-dark .list-search-result:highlighted,
 .overview-components-dark .search-provider-icon:hover,
 .overview-components-dark .search-provider-icon:focus,
+.overview-components-dark #dash .overview-tile:hover .overview-icon,
+.overview-components-dark #dash .overview-tile:focus .overview-icon,
+.overview-components-dark #dash .show-apps:hover .overview-icon,
+.overview-components-dark #dash .show-apps:focus .overview-icon,
 .overview-components-dark .page-navigation-arrow:hover,
 .overview-components-dark .page-navigation-arrow:focus {
     background-color: rgba(255, 255, 255, 0.13) !important;
@@ -483,6 +501,10 @@
 .overview-components-dark .search-provider-icon:focus:hover,
 .overview-components-dark .page-navigation-arrow:active,
 .overview-components-dark .page-navigation-arrow:focus:hover,
+.overview-components-dark #dash .overview-tile:active .overview-icon,
+.overview-components-dark #dash .overview-tile:focus:hover .overview-icon,
+.overview-components-dark #dash .overview-tile:drop .overview-icon,
+.overview-components-dark #dash .show-apps:checked .overview-icon,
 .overview-components-dark .multimonitor-dock .overview-tile:active .overview-icon,
 .overview-components-dark .multimonitor-dock .overview-tile:focus:hover .overview-icon,
 .overview-components-dark .multimonitor-dock .overview-tile:drop .overview-icon,
@@ -503,7 +525,9 @@
 .overview-components-dark .list-search-result:selected:active,
 .overview-components-dark .list-search-result:highlighted:active,
 .overview-components-dark .search-provider-icon:focus:active,
-.overview-components-dark .page-navigation-arrow:focus:active {
+.overview-components-dark .page-navigation-arrow:focus:active,
+.overview-components-dark #dash .show-apps:checked .overview-icon:hover,
+.overview-components-dark .multimonitor-dock .show-apps:checked .overview-icon:hover {
     background-color: rgba(255, 255, 255, 0.24) !important;
 }
 
