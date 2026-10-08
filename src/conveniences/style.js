@@ -2,7 +2,15 @@ import Gio from 'gi://Gio';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const interface_settings = new Gio.Settings({ schema_id: 'org.gnome.desktop.interface' });
+let interface_settings = null;
+
+export function enable_system_style() {
+    interface_settings = new Gio.Settings({ schema_id: 'org.gnome.desktop.interface' });
+}
+
+export function disable_system_style() {
+    interface_settings = null;
+}
 
 export function get_background_style() {
     const theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
