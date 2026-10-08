@@ -62,29 +62,7 @@ pot:
 
 
 test-shell: build
-	test_root=$$(mktemp -d); \
-	trap 'rm -rf -- "$$test_root"' EXIT; \
-	mkdir -p "$$test_root/config" "$$test_root/cache" "$$test_root/data" \
-		"$$test_root/state" \
-		"$$test_root/data/gnome-shell/extensions/$(UUID)"; \
-	unzip -q build/$(UUID).shell-extension.zip \
-		-d "$$test_root/data/gnome-shell/extensions/$(UUID)"; \
-	glib-compile-schemas \
-		"$$test_root/data/gnome-shell/extensions/$(UUID)/schemas"; \
-	export XDG_CONFIG_HOME="$$test_root/config" \
-		XDG_CACHE_HOME="$$test_root/cache" \
-		XDG_DATA_HOME="$$test_root/data" \
-		XDG_STATE_HOME="$$test_root/state" \
-		GSETTINGS_BACKEND=keyfile; \
-	gsettings set org.gnome.shell enabled-extensions "['$(UUID)']"; \
-	shell_mode="--nested --wayland"; \
-	if gnome-shell --help 2>&1 | grep -q -- '--devkit'; then \
-		shell_mode="--devkit"; \
-	fi; \
-	env GNOME_SHELL_SLOWDOWN_FACTOR=2 \
-		MUTTER_DEBUG_DUMMY_MODE_SPECS=1500x1000 \
-	 	MUTTER_DEBUG_DUMMY_MONITOR_SCALES=1 \
-		dbus-run-session -- sh scripts/test-shell.sh "$(UUID)" $$shell_mode
+	sh scripts/test-shell.sh "$(UUID)" "build/$(UUID).shell-extension.zip"
 
 
 test-prefs: install
