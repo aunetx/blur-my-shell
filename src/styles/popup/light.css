@@ -144,16 +144,16 @@
 
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
     color: rgba(0, 0, 0, 0.85);
-    background-color: rgba(0, 0, 0, 0.12) !important;
+    background-color: rgba(0, 0, 0, 0.14) !important;
     border-color: rgba(0, 0, 0, 0.2);
 }
 
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:hover {
-    background-color: rgba(0, 0, 0, 0.17) !important;
+    background-color: rgba(0, 0, 0, 0.19) !important;
 }
 
 .bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:active {
-    background-color: rgba(0, 0, 0, 0.32) !important;
+    background-color: rgba(0, 0, 0, 0.34) !important;
 }
 
 .bms-popup-background-light .calendar {
