@@ -72,15 +72,7 @@
 .overview-components-transparent .search-provider-icon:hover,
 .overview-components-transparent .search-provider-icon:focus,
 .overview-components-transparent .page-navigation-arrow:hover,
-.overview-components-transparent .page-navigation-arrow:focus,
-.overview-components-transparent #dash .overview-tile:hover .overview-icon,
-.overview-components-transparent #dash .overview-tile:focus .overview-icon,
-.overview-components-transparent #dash .show-apps:hover .overview-icon,
-.overview-components-transparent #dash .show-apps:focus .overview-icon,
-.overview-components-transparent .multimonitor-dock .overview-tile:hover .overview-icon,
-.overview-components-transparent .multimonitor-dock .overview-tile:focus .overview-icon,
-.overview-components-transparent .multimonitor-dock .show-apps:hover .overview-icon,
-.overview-components-transparent .multimonitor-dock .show-apps:focus .overview-icon {
+.overview-components-transparent .page-navigation-arrow:focus {
     background-color: rgba(230, 230, 230, 0.08) !important;
 }
 
@@ -105,15 +97,7 @@
 .overview-components-transparent .search-provider-icon:active,
 .overview-components-transparent .search-provider-icon:focus:hover,
 .overview-components-transparent .page-navigation-arrow:active,
-.overview-components-transparent .page-navigation-arrow:focus:hover,
-.overview-components-transparent #dash .overview-tile:active .overview-icon,
-.overview-components-transparent #dash .overview-tile:focus:hover .overview-icon,
-.overview-components-transparent #dash .overview-tile:drop .overview-icon,
-.overview-components-transparent #dash .show-apps:checked .overview-icon,
-.overview-components-transparent .multimonitor-dock .overview-tile:active .overview-icon,
-.overview-components-transparent .multimonitor-dock .overview-tile:focus:hover .overview-icon,
-.overview-components-transparent .multimonitor-dock .overview-tile:drop .overview-icon,
-.overview-components-transparent .multimonitor-dock .show-apps:checked .overview-icon {
+.overview-components-transparent .page-navigation-arrow:focus:hover {
     background-color: rgba(230, 230, 230, 0.12) !important;
 }
 
@@ -130,9 +114,7 @@
 .overview-components-transparent .list-search-result:selected:active,
 .overview-components-transparent .list-search-result:highlighted:active,
 .overview-components-transparent .search-provider-icon:focus:active,
-.overview-components-transparent .page-navigation-arrow:focus:active,
-.overview-components-transparent #dash .show-apps:checked .overview-icon:hover,
-.overview-components-transparent .multimonitor-dock .show-apps:checked .overview-icon:hover {
+.overview-components-transparent .page-navigation-arrow:focus:active {
     background-color: rgba(230, 230, 230, 0.15) !important;
 }
 
@@ -214,7 +196,11 @@
     background-color: transparent !important;
 }
 
-.overview-components-light .workspace-thumbnail,
+.overview-components-light .workspace-thumbnail {
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .overview-components-light .search-section-content,
 .overview-components-light .page-navigation-arrow {
     background-color: rgba(255, 255, 255, 0.58) !important;
@@ -244,17 +230,13 @@
     color: rgba(0, 0, 0, 0.55) !important;
 }
 
-/* Hover and active states (lighter highlight) */
+/* Hover and active states */
 .overview-components-light #appDisplay .overview-tile:hover,
 .overview-components-light #appDisplay .overview-tile:focus,
 .overview-components-light .overview-tile:hover,
 .overview-components-light .overview-tile:focus,
 .overview-components-light .grid-search-result:hover,
 .overview-components-light .grid-search-result:focus,
-.overview-components-light .list-search-result:hover,
-.overview-components-light .list-search-result:focus,
-.overview-components-light .search-provider-icon:hover,
-.overview-components-light .search-provider-icon:focus,
 .overview-components-light #dash .overview-tile:hover .overview-icon,
 .overview-components-light #dash .overview-tile:focus .overview-icon,
 .overview-components-light #dash .show-apps:hover .overview-icon,
@@ -263,7 +245,33 @@
 .overview-components-light .multimonitor-dock .overview-tile:focus .overview-icon,
 .overview-components-light .multimonitor-dock .show-apps:hover .overview-icon,
 .overview-components-light .multimonitor-dock .show-apps:focus .overview-icon {
-    background-color: rgba(255, 255, 255, 0.22) !important;
+    background-color: rgba(255, 255, 255, 0.13) !important;
+}
+
+/* (Light mode) Use darker states in search result lists */
+.overview-components-light .list-search-result:hover,
+.overview-components-light .search-provider-icon:hover {
+    background-color: rgba(0, 0, 0, 0.13) !important;
+}
+
+.overview-components-light .list-search-result:focus,
+.overview-components-light .list-search-result:highlighted,
+.overview-components-light .search-provider-icon:focus {
+    background-color: rgba(0, 0, 0, 0.13) !important;
+}
+
+.overview-components-light .list-search-result:active,
+.overview-components-light .list-search-result:selected,
+.overview-components-light .list-search-result:focus:hover,
+.overview-components-light .list-search-result:selected:hover,
+.overview-components-light .list-search-result:highlighted:hover,
+.overview-components-light .list-search-result:focus:active,
+.overview-components-light .list-search-result:selected:active,
+.overview-components-light .list-search-result:highlighted:active,
+.overview-components-light .search-provider-icon:active,
+.overview-components-light .search-provider-icon:focus:hover,
+.overview-components-light .search-provider-icon:focus:active {
+    background-color: rgba(0, 0, 0, 0.19) !important;
 }
 
 .overview-components-light .page-navigation-arrow:hover,
@@ -271,16 +279,14 @@
     background-color: rgba(255, 255, 255, 0.78) !important;
 }
 
-/* Highlighted / selected search results (brighter) */
+/* Highlighted / selected search results */
 .overview-components-light #appDisplay .overview-tile:selected,
 .overview-components-light #appDisplay .overview-tile:highlighted,
 .overview-components-light .overview-tile:selected,
 .overview-components-light .overview-tile:highlighted,
 .overview-components-light .grid-search-result:selected,
-.overview-components-light .grid-search-result:highlighted,
-.overview-components-light .list-search-result:selected,
-.overview-components-light .list-search-result:highlighted {
-    background-color: rgba(255, 255, 255, 0.28) !important;
+.overview-components-light .grid-search-result:highlighted {
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile:active,
@@ -297,12 +303,6 @@
 .overview-components-light .grid-search-result:focus:hover,
 .overview-components-light .grid-search-result:selected:hover,
 .overview-components-light .grid-search-result:highlighted:hover,
-.overview-components-light .list-search-result:active,
-.overview-components-light .list-search-result:focus:hover,
-.overview-components-light .list-search-result:selected:hover,
-.overview-components-light .list-search-result:highlighted:hover,
-.overview-components-light .search-provider-icon:active,
-.overview-components-light .search-provider-icon:focus:hover,
 .overview-components-light #dash .overview-tile:active .overview-icon,
 .overview-components-light #dash .overview-tile:focus:hover .overview-icon,
 .overview-components-light #dash .overview-tile:drop .overview-icon,
@@ -311,7 +311,7 @@
 .overview-components-light .multimonitor-dock .overview-tile:focus:hover .overview-icon,
 .overview-components-light .multimonitor-dock .overview-tile:drop .overview-icon,
 .overview-components-light .multimonitor-dock .show-apps:checked .overview-icon {
-    background-color: rgba(255, 255, 255, 0.32) !important;
+    background-color: rgba(255, 255, 255, 0.25) !important;
 }
 
 .overview-components-light .page-navigation-arrow:active,
@@ -328,10 +328,6 @@
 .overview-components-light .grid-search-result:focus:active,
 .overview-components-light .grid-search-result:selected:active,
 .overview-components-light .grid-search-result:highlighted:active,
-.overview-components-light .list-search-result:focus:active,
-.overview-components-light .list-search-result:selected:active,
-.overview-components-light .list-search-result:highlighted:active,
-.overview-components-light .search-provider-icon:focus:active,
 .overview-components-light .page-navigation-arrow:focus:active,
 .overview-components-light #dash .show-apps:checked .overview-icon:hover,
 .overview-components-light .multimonitor-dock .show-apps:checked .overview-icon:hover {
@@ -343,7 +339,7 @@
 .overview-components-light #appDisplay .app-folder,
 .overview-components-light .overview-tile.app-folder,
 .overview-components-light .app-folder {
-    background-color: rgba(255, 255, 255, 0.58) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
     border: none !important;
     border-color: transparent !important;
 }
@@ -356,7 +352,7 @@
 .overview-components-light .overview-tile.app-folder StLabel,
 .overview-components-light .app-folder,
 .overview-components-light .app-folder StLabel {
-    color: rgba(0, 0, 0, 0.85) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile.app-folder:hover,
@@ -367,14 +363,14 @@
 .overview-components-light .overview-tile.app-folder:focus,
 .overview-components-light .app-folder:hover,
 .overview-components-light .app-folder:focus {
-    background-color: rgba(255, 255, 255, 0.78) !important;
+    background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile.app-folder:active,
 .overview-components-light #appDisplay .app-folder:active,
 .overview-components-light .overview-tile.app-folder:active,
 .overview-components-light .app-folder:active {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
 /* remove the rectangular background from the dash */
@@ -433,6 +429,10 @@
     color: rgba(255, 255, 255, 0.65) !important;
 }
 
+.overview-components-dark .list-search-result .list-search-result-description {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
 .overview-components-dark #appDisplay .overview-tile,
 .overview-components-dark #appDisplay .overview-icon,
 .overview-components-dark .overview-tile,
@@ -470,17 +470,13 @@
 .overview-components-dark .list-search-result:highlighted,
 .overview-components-dark .search-provider-icon:hover,
 .overview-components-dark .search-provider-icon:focus,
-.overview-components-dark .page-navigation-arrow:hover,
-.overview-components-dark .page-navigation-arrow:focus,
 .overview-components-dark #dash .overview-tile:hover .overview-icon,
 .overview-components-dark #dash .overview-tile:focus .overview-icon,
 .overview-components-dark #dash .show-apps:hover .overview-icon,
 .overview-components-dark #dash .show-apps:focus .overview-icon,
-.overview-components-dark .multimonitor-dock .overview-tile:hover .overview-icon,
-.overview-components-dark .multimonitor-dock .overview-tile:focus .overview-icon,
-.overview-components-dark .multimonitor-dock .show-apps:hover .overview-icon,
-.overview-components-dark .multimonitor-dock .show-apps:focus .overview-icon {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+.overview-components-dark .page-navigation-arrow:hover,
+.overview-components-dark .page-navigation-arrow:focus {
+    background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 .overview-components-dark #appDisplay .overview-tile:active,
@@ -513,7 +509,7 @@
 .overview-components-dark .multimonitor-dock .overview-tile:focus:hover .overview-icon,
 .overview-components-dark .multimonitor-dock .overview-tile:drop .overview-icon,
 .overview-components-dark .multimonitor-dock .show-apps:checked .overview-icon {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
 .overview-components-dark #appDisplay .overview-tile:focus:active,
@@ -540,7 +536,7 @@
 .overview-components-dark #appDisplay .app-folder,
 .overview-components-dark .overview-tile.app-folder,
 .overview-components-dark .app-folder {
-    background-color: rgba(255, 255, 255, 0.07) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
     border: none !important;
     border-color: transparent !important;
 }
@@ -553,14 +549,14 @@
 .overview-components-dark .overview-tile.app-folder:focus,
 .overview-components-dark .app-folder:hover,
 .overview-components-dark .app-folder:focus {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+    background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 .overview-components-dark #appDisplay .overview-tile.app-folder:active,
 .overview-components-dark #appDisplay .app-folder:active,
 .overview-components-dark .overview-tile.app-folder:active,
 .overview-components-dark .app-folder:active {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
 /* remove the rectangular background from the dash */
@@ -589,4 +585,3 @@
 .overview-components-dark .multimonitor-dock .overview-tile:active {
     background-color: transparent !important;
 }
-

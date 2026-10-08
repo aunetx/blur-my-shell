@@ -36,8 +36,8 @@ StBoxLayout > StWidget > #dash.transparent-dash > .dash-background,
 .multimonitor-dock.transparent-dash .app-grid-running-dot,
 .multimonitor-dock.transparent-dash .app-well-app-running-dot,
 .multimonitor-dock.transparent-dash .running-dot {
-    background-color: #ffffff !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 /* Outer dock item buttons must remain completely transparent (suppress full-height column slot) */
@@ -215,13 +215,13 @@ StBoxLayout > StWidget > #dash.transparent-dash > .dash-background,
 StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 .light-dash .multimonitor-dock .dash-background,
 .multimonitor-dock.light-dash .dash-background {
-    background: rgba(255, 255, 255, 0.58) !important;
-    background-color: rgba(255, 255, 255, 0.58) !important;
+    background: rgba(255, 255, 255, 0.65) !important;
+    background-color: rgba(255, 255, 255, 0.65) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .light-dash.plank-like-dock-bg {
-    background: rgba(255, 255, 255, 0.58) !important;
+    background: rgba(255, 255, 255, 0.65) !important;
     border: 1px solid rgba(0, 0, 0, 0.05) !important;
     box-shadow: none !important;
 }
@@ -358,64 +358,64 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 }
 
 /* Hover on icon box */
-.light-dash .overview-tile:hover .overview-icon,
-.light-dash .overview-tile:focus .overview-icon,
-.light-dash .app-well-app:hover .overview-icon,
-.light-dash .app-well-app:focus .overview-icon,
-.light-dash .show-apps:hover .overview-icon,
-.light-dash .show-apps:focus .overview-icon,
-#dash.light-dash .overview-tile:hover .overview-icon,
-#dash.light-dash .overview-tile:focus .overview-icon,
-#dash.light-dash .app-well-app:hover .overview-icon,
-#dash.light-dash .app-well-app:focus .overview-icon,
-#dash.light-dash .show-apps:hover .overview-icon,
-#dash.light-dash .show-apps:focus .overview-icon,
-.light-dash .multimonitor-dock .overview-tile:hover .overview-icon,
-.light-dash .multimonitor-dock .overview-tile:focus .overview-icon,
-.light-dash .multimonitor-dock .show-apps:hover .overview-icon,
-.light-dash .multimonitor-dock .show-apps:focus .overview-icon,
-.multimonitor-dock.light-dash .overview-tile:hover .overview-icon,
-.multimonitor-dock.light-dash .overview-tile:focus .overview-icon,
-.multimonitor-dock.light-dash .app-well-app:hover .overview-icon,
-.multimonitor-dock.light-dash .app-well-app:focus .overview-icon,
-.multimonitor-dock.light-dash .show-apps:hover .overview-icon,
-.multimonitor-dock.light-dash .show-apps:focus .overview-icon {
-    background-color: rgba(0, 0, 0, 0.08) !important;
+.light-dash .dash-item-container .overview-tile:hover .overview-icon,
+.light-dash .dash-item-container .overview-tile:focus .overview-icon,
+.light-dash .dash-item-container .app-well-app:hover .overview-icon,
+.light-dash .dash-item-container .app-well-app:focus .overview-icon,
+.light-dash .dash-item-container .show-apps:hover .overview-icon,
+.light-dash .dash-item-container .show-apps:focus .overview-icon,
+#dash.light-dash .dash-item-container .overview-tile:hover .overview-icon,
+#dash.light-dash .dash-item-container .overview-tile:focus .overview-icon,
+#dash.light-dash .dash-item-container .app-well-app:hover .overview-icon,
+#dash.light-dash .dash-item-container .app-well-app:focus .overview-icon,
+#dash.light-dash .dash-item-container .show-apps:hover .overview-icon,
+#dash.light-dash .dash-item-container .show-apps:focus .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .overview-tile:hover .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .overview-tile:focus .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .show-apps:hover .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .show-apps:focus .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .overview-tile:hover .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .overview-tile:focus .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .app-well-app:hover .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .app-well-app:focus .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .show-apps:hover .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .show-apps:focus .overview-icon {
+    background-color: rgba(0, 0, 0, 0.13) !important;
 }
 
 /* Active / drop on icon box */
-.light-dash .overview-tile:active .overview-icon,
-.light-dash .overview-tile:focus:hover .overview-icon,
-.light-dash .overview-tile:drop .overview-icon,
-.light-dash .app-well-app:active .overview-icon,
-.light-dash .app-well-app:focus:hover .overview-icon,
-.light-dash .app-well-app:drop .overview-icon,
-.light-dash .show-apps:checked .overview-icon,
-#dash.light-dash .overview-tile:active .overview-icon,
-#dash.light-dash .overview-tile:focus:hover .overview-icon,
-#dash.light-dash .overview-tile:drop .overview-icon,
-#dash.light-dash .app-well-app:active .overview-icon,
-#dash.light-dash .app-well-app:focus:hover .overview-icon,
-#dash.light-dash .app-well-app:drop .overview-icon,
-#dash.light-dash .show-apps:checked .overview-icon,
-.light-dash .multimonitor-dock .overview-tile:active .overview-icon,
-.light-dash .multimonitor-dock .overview-tile:focus:hover .overview-icon,
-.light-dash .multimonitor-dock .overview-tile:drop .overview-icon,
-.light-dash .multimonitor-dock .app-well-app:active .overview-icon,
-.light-dash .multimonitor-dock .show-apps:checked .overview-icon,
-.multimonitor-dock.light-dash .overview-tile:active .overview-icon,
-.multimonitor-dock.light-dash .overview-tile:focus:hover .overview-icon,
-.multimonitor-dock.light-dash .overview-tile:drop .overview-icon,
-.multimonitor-dock.light-dash .app-well-app:active .overview-icon,
-.multimonitor-dock.light-dash .show-apps:checked .overview-icon {
-    background-color: rgba(0, 0, 0, 0.14) !important;
+.light-dash .dash-item-container .overview-tile:active .overview-icon,
+.light-dash .dash-item-container .overview-tile:focus:hover .overview-icon,
+.light-dash .dash-item-container .overview-tile:drop .overview-icon,
+.light-dash .dash-item-container .app-well-app:active .overview-icon,
+.light-dash .dash-item-container .app-well-app:focus:hover .overview-icon,
+.light-dash .dash-item-container .app-well-app:drop .overview-icon,
+.light-dash .dash-item-container .show-apps:checked .overview-icon,
+#dash.light-dash .dash-item-container .overview-tile:active .overview-icon,
+#dash.light-dash .dash-item-container .overview-tile:focus:hover .overview-icon,
+#dash.light-dash .dash-item-container .overview-tile:drop .overview-icon,
+#dash.light-dash .dash-item-container .app-well-app:active .overview-icon,
+#dash.light-dash .dash-item-container .app-well-app:focus:hover .overview-icon,
+#dash.light-dash .dash-item-container .app-well-app:drop .overview-icon,
+#dash.light-dash .dash-item-container .show-apps:checked .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .overview-tile:active .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .overview-tile:focus:hover .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .overview-tile:drop .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .app-well-app:active .overview-icon,
+.light-dash .multimonitor-dock .dash-item-container .show-apps:checked .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .overview-tile:active .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .overview-tile:focus:hover .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .overview-tile:drop .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .app-well-app:active .overview-icon,
+.multimonitor-dock.light-dash .dash-item-container .show-apps:checked .overview-icon {
+    background-color: rgba(0, 0, 0, 0.19) !important;
 }
 
-.light-dash .show-apps:checked .overview-icon:hover,
-#dash.light-dash .show-apps:checked .overview-icon:hover,
-.light-dash .multimonitor-dock .show-apps:checked .overview-icon:hover,
-.multimonitor-dock.light-dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(0, 0, 0, 0.18) !important;
+.light-dash .dash-item-container .show-apps:checked .overview-icon:hover,
+#dash.light-dash .dash-item-container .show-apps:checked .overview-icon:hover,
+.light-dash .multimonitor-dock .dash-item-container .show-apps:checked .overview-icon:hover,
+.multimonitor-dock.light-dash .dash-item-container .show-apps:checked .overview-icon:hover {
+    background-color: rgba(0, 0, 0, 0.25) !important;
 }
 
 
@@ -429,13 +429,13 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 .dark-dash .multimonitor-dock .dash-background,
 .multimonitor-dock.dark-dash .dash-background {
-    background: rgba(45, 45, 50, 0.22) !important;
-    background-color: rgba(45, 45, 50, 0.22) !important;
+    background: rgba(45, 45, 50, 0.5) !important;
+    background-color: rgba(45, 45, 50, 0.5) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .dark-dash.plank-like-dock-bg {
-    background: rgba(45, 45, 50, 0.22) !important;
+    background: rgba(45, 45, 50, 0.5) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
     box-shadow: none !important;
 }
@@ -455,8 +455,8 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 .multimonitor-dock.dark-dash .app-grid-running-dot,
 .multimonitor-dock.dark-dash .app-well-app-running-dot,
 .multimonitor-dock.dark-dash .running-dot {
-    background-color: #ffffff !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .dark-dash .show-apps-icon,
@@ -465,7 +465,7 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 #dash.dark-dash .show-apps .overview-icon,
 .multimonitor-dock.dark-dash .show-apps-icon,
 .multimonitor-dock.dark-dash .show-apps .overview-icon {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Outer dock item buttons must remain completely transparent (suppress full-height column slot) */
@@ -572,62 +572,62 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 }
 
 /* Hover on icon box */
-.dark-dash .overview-tile:hover .overview-icon,
-.dark-dash .overview-tile:focus .overview-icon,
-.dark-dash .app-well-app:hover .overview-icon,
-.dark-dash .app-well-app:focus .overview-icon,
-.dark-dash .show-apps:hover .overview-icon,
-.dark-dash .show-apps:focus .overview-icon,
-#dash.dark-dash .overview-tile:hover .overview-icon,
-#dash.dark-dash .overview-tile:focus .overview-icon,
-#dash.dark-dash .app-well-app:hover .overview-icon,
-#dash.dark-dash .app-well-app:focus .overview-icon,
-#dash.dark-dash .show-apps:hover .overview-icon,
-#dash.dark-dash .show-apps:focus .overview-icon,
-.dark-dash .multimonitor-dock .overview-tile:hover .overview-icon,
-.dark-dash .multimonitor-dock .overview-tile:focus .overview-icon,
-.dark-dash .multimonitor-dock .show-apps:hover .overview-icon,
-.dark-dash .multimonitor-dock .show-apps:focus .overview-icon,
-.multimonitor-dock.dark-dash .overview-tile:hover .overview-icon,
-.multimonitor-dock.dark-dash .overview-tile:focus .overview-icon,
-.multimonitor-dock.dark-dash .app-well-app:hover .overview-icon,
-.multimonitor-dock.dark-dash .app-well-app:focus .overview-icon,
-.multimonitor-dock.dark-dash .show-apps:hover .overview-icon,
-.multimonitor-dock.dark-dash .show-apps:focus .overview-icon {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+.dark-dash .dash-item-container .overview-tile:hover .overview-icon,
+.dark-dash .dash-item-container .overview-tile:focus .overview-icon,
+.dark-dash .dash-item-container .app-well-app:hover .overview-icon,
+.dark-dash .dash-item-container .app-well-app:focus .overview-icon,
+.dark-dash .dash-item-container .show-apps:hover .overview-icon,
+.dark-dash .dash-item-container .show-apps:focus .overview-icon,
+#dash.dark-dash .dash-item-container .overview-tile:hover .overview-icon,
+#dash.dark-dash .dash-item-container .overview-tile:focus .overview-icon,
+#dash.dark-dash .dash-item-container .app-well-app:hover .overview-icon,
+#dash.dark-dash .dash-item-container .app-well-app:focus .overview-icon,
+#dash.dark-dash .dash-item-container .show-apps:hover .overview-icon,
+#dash.dark-dash .dash-item-container .show-apps:focus .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .overview-tile:hover .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .overview-tile:focus .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .show-apps:hover .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .show-apps:focus .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .overview-tile:hover .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .overview-tile:focus .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .app-well-app:hover .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .app-well-app:focus .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .show-apps:hover .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .show-apps:focus .overview-icon {
+    background-color: rgba(255, 255, 255, 0.13) !important;
 }
 
 /* Active / drop on icon box */
-.dark-dash .overview-tile:active .overview-icon,
-.dark-dash .overview-tile:focus:hover .overview-icon,
-.dark-dash .overview-tile:drop .overview-icon,
-.dark-dash .app-well-app:active .overview-icon,
-.dark-dash .app-well-app:focus:hover .overview-icon,
-.dark-dash .app-well-app:drop .overview-icon,
-.dark-dash .show-apps:checked .overview-icon,
-#dash.dark-dash .overview-tile:active .overview-icon,
-#dash.dark-dash .overview-tile:focus:hover .overview-icon,
-#dash.dark-dash .overview-tile:drop .overview-icon,
-#dash.dark-dash .app-well-app:active .overview-icon,
-#dash.dark-dash .app-well-app:focus:hover .overview-icon,
-#dash.dark-dash .app-well-app:drop .overview-icon,
-#dash.dark-dash .show-apps:checked .overview-icon,
-.dark-dash .multimonitor-dock .overview-tile:active .overview-icon,
-.dark-dash .multimonitor-dock .overview-tile:focus:hover .overview-icon,
-.dark-dash .multimonitor-dock .overview-tile:drop .overview-icon,
-.dark-dash .multimonitor-dock .app-well-app:active .overview-icon,
-.dark-dash .multimonitor-dock .show-apps:checked .overview-icon,
-.multimonitor-dock.dark-dash .overview-tile:active .overview-icon,
-.multimonitor-dock.dark-dash .overview-tile:focus:hover .overview-icon,
-.multimonitor-dock.dark-dash .overview-tile:drop .overview-icon,
-.multimonitor-dock.dark-dash .app-well-app:active .overview-icon,
-.multimonitor-dock.dark-dash .show-apps:checked .overview-icon {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+.dark-dash .dash-item-container .overview-tile:active .overview-icon,
+.dark-dash .dash-item-container .overview-tile:focus:hover .overview-icon,
+.dark-dash .dash-item-container .overview-tile:drop .overview-icon,
+.dark-dash .dash-item-container .app-well-app:active .overview-icon,
+.dark-dash .dash-item-container .app-well-app:focus:hover .overview-icon,
+.dark-dash .dash-item-container .app-well-app:drop .overview-icon,
+.dark-dash .dash-item-container .show-apps:checked .overview-icon,
+#dash.dark-dash .dash-item-container .overview-tile:active .overview-icon,
+#dash.dark-dash .dash-item-container .overview-tile:focus:hover .overview-icon,
+#dash.dark-dash .dash-item-container .overview-tile:drop .overview-icon,
+#dash.dark-dash .dash-item-container .app-well-app:active .overview-icon,
+#dash.dark-dash .dash-item-container .app-well-app:focus:hover .overview-icon,
+#dash.dark-dash .dash-item-container .app-well-app:drop .overview-icon,
+#dash.dark-dash .dash-item-container .show-apps:checked .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .overview-tile:active .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .overview-tile:focus:hover .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .overview-tile:drop .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .app-well-app:active .overview-icon,
+.dark-dash .multimonitor-dock .dash-item-container .show-apps:checked .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .overview-tile:active .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .overview-tile:focus:hover .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .overview-tile:drop .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .app-well-app:active .overview-icon,
+.multimonitor-dock.dark-dash .dash-item-container .show-apps:checked .overview-icon {
+    background-color: rgba(255, 255, 255, 0.19) !important;
 }
 
-.dark-dash .show-apps:checked .overview-icon:hover,
-#dash.dark-dash .show-apps:checked .overview-icon:hover,
-.dark-dash .multimonitor-dock .show-apps:checked .overview-icon:hover,
-.multimonitor-dock.dark-dash .show-apps:checked .overview-icon:hover {
-    background-color: rgba(255, 255, 255, 0.24) !important;
+.dark-dash .dash-item-container .show-apps:checked .overview-icon:hover,
+#dash.dark-dash .dash-item-container .show-apps:checked .overview-icon:hover,
+.dark-dash .multimonitor-dock .dash-item-container .show-apps:checked .overview-icon:hover,
+.multimonitor-dock.dark-dash .dash-item-container .show-apps:checked .overview-icon:hover {
+    background-color: rgba(255, 255, 255, 0.25) !important;
 }
