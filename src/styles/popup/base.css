@@ -303,13 +303,13 @@
 
 .bms-popup-background-dark .popup-sub-menu > StBoxLayout,
 .bms-popup-surface-dark .popup-sub-menu > StBoxLayout {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.11) !important;
     border-radius: 0 0 13px 13px;
 }
 
 .bms-popup-background-light .popup-sub-menu > StBoxLayout,
 .bms-popup-surface-light .popup-sub-menu > StBoxLayout {
-    background-color: rgba(0, 0, 0, 0.14) !important;
+    background-color: rgba(0, 0, 0, 0.11) !important;
     border-radius: 0 0 13px 13px;
 }
 
