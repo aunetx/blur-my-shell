@@ -621,6 +621,11 @@
             <default>36</default>
             <summary>Radius for quick settings corner rounding</summary>
         </key>
+        <!-- QUICK SETTINGS SUBMENU CORNER RADIUS -->
+        <key type="i" name="submenu-corner-radius">
+            <default>36</default>
+            <summary>Radius for quick settings submenu corner rounding</summary>
+        </key>
         <!-- CALENDAR CORNER RADIUS -->
         <key type="i" name="calendar-corner-radius">
             <default>30</default>
