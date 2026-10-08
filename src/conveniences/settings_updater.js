@@ -1,3 +1,5 @@
+import GLib from 'gi://GLib';
+
 import { Settings } from './settings.js';
 import { KEYS, DEPRECATED_KEYS } from './keys.js';
 
@@ -100,7 +102,8 @@ function migrate_dynamic_blur_pipelines(
         const property = name.replaceAll('-', '_');
         const component = preferences[property];
         const legacy = deprecated_preferences[property];
-        if (supports_static && component.STATIC_BLUR)
+        if ((supports_static && component.STATIC_BLUR)
+            || (old_version < 2 && name === 'dash-to-dock'))
             return;
 
         const use_global = old_version < 2
@@ -238,12 +241,6 @@ export function update_from_old_settings(gsettings) {
         && is_stock_default_rounded(pipelines.pipeline_default_rounded);
     const pipeline_assignments = new Map();
 
-    if (old_version < 2) {
-        preferences.dash_to_dock.BLUR = true;
-        preferences.dash_to_dock.STATIC_BLUR = true;
-        preferences.dash_to_dock.STYLE_DASH_TO_DOCK = 0;
-    }
-
     let pipelines_changed = false;
     if (old_version < 3)
         pipelines_changed = update_native_static_radius(pipelines) || pipelines_changed;
@@ -282,14 +279,48 @@ export function update_from_old_settings(gsettings) {
     if (old_version < 7)
         queue_missing_pipeline_references(preferences, pipeline_assignments, pipelines);
 
+    const updates = [];
+    if (old_version < 2) {
+        const settings = preferences.dash_to_dock.settings;
+        updates.push(
+            { settings, key: 'blur', value: new GLib.Variant('b', true) },
+            { settings, key: 'static-blur', value: new GLib.Variant('b', true) },
+            { settings, key: 'style-dash-to-dock', value: new GLib.Variant('i', 0) }
+        );
+    }
     pipeline_assignments.forEach((pipeline_id, component) => {
         if (component.PIPELINE !== pipeline_id)
-            component.PIPELINE = pipeline_id;
+            updates.push({
+                settings: component.settings,
+                key: 'pipeline',
+                value: new GLib.Variant('s', pipeline_id),
+            });
+    });
+    const changed_updates = updates.filter(({ settings, key, value }) =>
+        !settings.get_value(key).equal(value)
+    );
+    const resets = (deprecated_preferences?.keys ?? []).flatMap(bundle => {
+        const settings = bundle.component === 'general'
+            ? gsettings : gsettings.get_child(bundle.component);
+        return bundle.schemas
+            .filter(key => settings.get_user_value(key.name) !== null)
+            .map(key => ({ settings, key: key.name }));
     });
 
-    if (pipelines_changed)
-        preferences.set_pipelines(pipelines);
+    // Check every destination before changing saved data. A failed migration must remain retryable.
+    if (!gsettings.is_writable('settings-version')
+        || (pipelines_changed && !gsettings.is_writable('pipelines'))
+        || [...changed_updates, ...resets].some(({ settings, key }) => !settings.is_writable(key)))
+        return;
 
-    preferences.settings.set_int('settings-version', CURRENT_SETTINGS_VERSION);
-    deprecated_preferences?.reset();
+    // Save pipelines before their references, and keep legacy values until all writes succeed.
+    if (pipelines_changed && !preferences.set_pipelines(pipelines))
+        return;
+    for (const { settings, key, value } of changed_updates) {
+        if (!settings.set_value(key, value))
+            return;
+    }
+    if (!gsettings.set_int('settings-version', CURRENT_SETTINGS_VERSION))
+        return;
+    resets.forEach(({ settings, key }) => settings.reset(key));
 }
