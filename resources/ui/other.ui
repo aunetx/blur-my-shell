@@ -79,21 +79,13 @@
 
     <child>
       <object class="AdwPreferencesGroup">
-        <property name="title" translatable="yes">Performance</property>
-        <property name="description" translatable="yes">Various options to tweak the performance.</property>
-
-        <child>
-          <object class="AdwActionRow">
-            <property name="title" translatable="yes">Debug</property>
-            <property name="subtitle" translatable="yes">Makes the extension verbose in logs, activate when you need to report an issue.</property>
-            <property name="activatable-widget">debug</property>
-            <child>
-              <object class="GtkSwitch" id="debug">
-                <property name="valign">center</property>
-              </object>
-            </child>
+        <property name="title" translatable="yes">Debug</property>
+        <property name="description" translatable="yes">Makes the extension verbose in logs, activate when you need to report an issue.</property>
+        <property name="header-suffix">
+          <object class="GtkSwitch" id="debug">
+            <property name="valign">center</property>
           </object>
-        </child>
+        </property>
       </object>
     </child>
 
