@@ -367,7 +367,6 @@ export const PanelBlur = class PanelBlur {
         let [geometry_width, geometry_height] = geometry_actor.get_size();
 
         if (!width || !height || !geometry_width || !geometry_height) {
-            this.queue_update_size(actors);
             return;
         }
 
@@ -375,7 +374,6 @@ export const PanelBlur = class PanelBlur {
         if (actors.static_blur) {
             let monitor = Main.layoutManager.findMonitorForActor(geometry_actor);
             if (!monitor) {
-                this.queue_update_size(actors);
                 return;
             }
 
