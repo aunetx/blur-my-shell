@@ -49,6 +49,7 @@ export const PanelBlur = class PanelBlur {
 
         this._log("blurring top panel");
         this.enabled = true;
+        this.watched_panels = new WeakSet();
         this.main_panel = Main.panel;
         this.connections.connect(Main.panel, 'destroy', () => {
             this.main_panel = null;
@@ -219,7 +220,18 @@ export const PanelBlur = class PanelBlur {
 
     /// Blur a panel only if it is not already blurred (contained in the list)
     maybe_blur_panel(panel) {
-        if (!this.actors_list.some(actors => actors.widgets.panel === panel))
+        if (!this.watched_panels.has(panel)) {
+            this.watched_panels.add(panel);
+            this.connections.connect(panel, 'parent-set', () => {
+                const actors = this.actors_list.find(actors => actors.widgets.panel === panel);
+                if (actors)
+                    this.destroy_blur(actors);
+                if (panel.get_stage()) {
+                    this.maybe_blur_panel(panel);
+                }
+            });
+        }
+        if (panel.get_stage() && !this.actors_list.some(actors => actors.widgets.panel === panel))
             this.blur_panel(panel);
     }
 
@@ -340,6 +352,7 @@ export const PanelBlur = class PanelBlur {
             'destroy',
             _ => this.destroy_blur(actors)
         );
+        this.update_visibility();
     }
 
     connect_actor_signals(actors, actor, signals, handler) {
@@ -965,6 +978,7 @@ export const PanelBlur = class PanelBlur {
         this.connections.disconnect_all();
         this.dash_to_panel = null;
         this.main_panel = null;
+        this.watched_panels = null;
 
         this.enabled = false;
     }
