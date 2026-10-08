@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-03 06:56+0200\n"
-"PO-Revision-Date: 2026-09-24 14:51+0000\n"
+"PO-Revision-Date: 2026-10-08 02:51+0000\n"
 "Last-Translator: Dertefter Labs <dertefter@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: src/effects/effects.js:19
 msgid "Dual Kawase blur"
@@ -73,35 +73,35 @@ msgstr "Каким образом цвета будут смешиваться."
 
 #: src/effects/effects.js:64
 msgid "Normal"
-msgstr ""
+msgstr "Нормальный"
 
 #: src/effects/effects.js:65
 msgid "Multiply"
-msgstr ""
+msgstr "Умножить"
 
 #: src/effects/effects.js:66
 msgid "Screen"
-msgstr ""
+msgstr "Экран"
 
 #: src/effects/effects.js:67
 msgid "Overlay"
-msgstr ""
+msgstr "Наложить"
 
 #: src/effects/effects.js:68
 msgid "Darken"
-msgstr ""
+msgstr "Затемнить"
 
 #: src/effects/effects.js:69
 msgid "Lighten"
-msgstr ""
+msgstr "Осветлить"
 
 #: src/effects/effects.js:70
 msgid "Plus darker"
-msgstr ""
+msgstr "Темнее"
 
 #: src/effects/effects.js:71
 msgid "Plus lighter"
-msgstr ""
+msgstr "Светлее"
 
 #: src/effects/effects.js:72
 msgid "Color dodge"
@@ -109,43 +109,43 @@ msgstr ""
 
 #: src/effects/effects.js:73
 msgid "Color burn"
-msgstr ""
+msgstr "Затемнение основы"
 
 #: src/effects/effects.js:74
 msgid "Hard light"
-msgstr ""
+msgstr "Жёсткий свет"
 
 #: src/effects/effects.js:75
 msgid "Soft light"
-msgstr ""
+msgstr "Мягкий свет"
 
 #: src/effects/effects.js:76
 msgid "Difference"
-msgstr ""
+msgstr "Разность"
 
 #: src/effects/effects.js:77
 msgid "Exclusion"
-msgstr ""
+msgstr "Исключение"
 
 #: src/effects/effects.js:78
 msgid "Hue"
-msgstr ""
+msgstr "Цветовой тон"
 
 #: src/effects/effects.js:79 src/effects/effects.js:134
 msgid "Saturation"
-msgstr ""
+msgstr "Насыщенность"
 
 #: src/effects/effects.js:81 src/effects/effects.js:89
 msgid "Luminosity"
-msgstr ""
+msgstr "Яркость"
 
 #: src/effects/effects.js:90
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "Эффект, влияющий на яркость изображения."
 
 #: src/effects/effects.js:94
 msgid "Shift brightness"
-msgstr ""
+msgstr "Сдвиг яркости"
 
 #: src/effects/effects.js:95
 msgid "The brightness to add or remove from the image."
@@ -162,7 +162,7 @@ msgstr ""
 
 #: src/effects/effects.js:114
 msgid "Contrast"
-msgstr ""
+msgstr "Контраст"
 
 #: src/effects/effects.js:115
 msgid "Adjusts image contrast around the selected contrast center."
@@ -170,11 +170,11 @@ msgstr ""
 
 #: src/effects/effects.js:124
 msgid "Contrast center"
-msgstr ""
+msgstr "Центр контраста"
 
 #: src/effects/effects.js:125
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Используемый центр контраста."
 
 #: src/effects/effects.js:135
 msgid ""
@@ -484,16 +484,16 @@ msgstr "Динамическое"
 #: resources/ui/applications.ui:71 resources/ui/dash.ui:71
 #: resources/ui/panel.ui:71 resources/ui/popup.ui:71
 msgid "Corner radius"
-msgstr ""
+msgstr "Радиус углов"
 
 #: resources/ui/applications.ui:72 resources/ui/dash.ui:72
 #: resources/ui/panel.ui:72
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "Радиус эффекта закругления углов."
 
 #: resources/ui/applications.ui:80
 msgid "Enable corner rounding on maximized and fullscreen"
-msgstr ""
+msgstr "Закругления углов для развёрнутых и полноэкранных окон"
 
 #: resources/ui/applications.ui:81
 msgid ""
@@ -1088,48 +1088,30 @@ msgstr[2] ""
 msgid "Unknown effect"
 msgstr ""
 
-#~ msgid "Dash to Dock blur"
-#~ msgstr "Размытие Dash to Dock"
+#: resources/ui/applications.ui:80 resources/ui/dash.ui:80
+#: resources/ui/panel.ui:80 resources/ui/popup.ui:126
+msgid "Rounded corners"
+msgstr ""
 
-#~ msgid "Blur the background of the Dash to Dock extension, if it is used."
-#~ msgstr "Размытие фона расширения Dash to Dock, если оно используется."
+#: resources/ui/applications.ui:85 resources/ui/dash.ui:85
+#: resources/ui/panel.ui:85 resources/ui/popup.ui:131
+msgid "All"
+msgstr ""
 
-#~ msgid ""
-#~ "Makes the background either transparent or semi-transparent, disable this "
-#~ "to use Dash to Dock preferences instead."
-#~ msgstr ""
-#~ "Делает фон прозрачным или полупрозрачным, отключите его, чтобы вместо "
-#~ "него использовать настройки Dash to Dock."
+#: resources/ui/applications.ui:86 resources/ui/dash.ui:86
+#: resources/ui/panel.ui:86 resources/ui/popup.ui:132
+msgid "Top only"
+msgstr ""
 
-#~ msgid "Disables the blur from Dash to Dock when entering the overview."
-#~ msgstr "Отключает размытие из Dash to Dock при входе в Обзор."
+#: resources/ui/applications.ui:87 resources/ui/dash.ui:87
+#: resources/ui/panel.ui:87 resources/ui/popup.ui:133
+msgid "Bottom only"
+msgstr ""
 
-#~ msgid ""
-#~ "The color to blend in. The blending amount is controled by the opacity of "
-#~ "the color."
-#~ msgstr ""
-#~ "Цвет для смешивания. Величина смешивания регулируется непрозрачностью "
-#~ "цвета."
-
-#~ msgid ""
-#~ "An effect that downscales the image and put it on the top-left corner."
-#~ msgstr ""
-#~ "Эффект, который уменьшает масштаб изображения и помещает его в левый "
-#~ "верхний угол."
-
-#~ msgid "Converts the image from RGBA colorspace to HSLA."
-#~ msgstr "Преобразует изображение из цветового пространства RGBA в HSLA."
-
-#~ msgid "Converts the image from HSLA colorspace to RGBA."
-#~ msgstr "Преобразует изображение из цветового пространства HSLA в RGBA."
-
-#~ msgid "Resets preferences of Blur my Shell irreversibly."
-#~ msgstr "Необратимо сбрасывает настройки Blur my Shell."
-
-#~ msgid "Does not disable the blur in overview, best used with static blur."
-#~ msgstr ""
-#~ "Не отключает размытие в Обзоре, лучше всего использовать со статическим "
-#~ "размытием."
+#: resources/ui/applications.ui:88 resources/ui/dash.ui:88
+#: resources/ui/panel.ui:88 resources/ui/popup.ui:134
+msgid "None"
+msgstr ""
 
 #~ msgid "Shape effects"
 #~ msgstr "Эффекты фигур"
@@ -1204,11 +1186,53 @@ msgstr ""
 #~ msgstr "Будут ли пиксели которые ближе к оригинальному иметь больший вес."
 
 #~ msgid ""
+#~ "The color to blend in. The blending amount is controled by the opacity of "
+#~ "the color."
+#~ msgstr ""
+#~ "Цвет для смешивания. Величина смешивания регулируется непрозрачностью "
+#~ "цвета."
+
+#~ msgid "The brightness to add of remove to the image."
+#~ msgstr "Яркость, добавляемая к изображению или вычитаемая из него."
+
+#~ msgid "Multiply brightness"
+#~ msgstr "Множитель яркости"
+
+#~ msgid ""
+#~ "The brightness multiplicator of the image, so that 0 means no brightness "
+#~ "and 2 means infinite brightness."
+#~ msgstr ""
+#~ "Множитель яркости изображения: 0 означает отсутствие яркости, а 2 — "
+#~ "бесконечную яркость."
+
+#~ msgid "The contrast of the image in regard to the center of the contrast."
+#~ msgstr "Контрастность изображения относительно центра контраста."
+
+#~ msgid ""
+#~ "The saturation of the image, so that 0 means no saturation and 2 means "
+#~ "infinite saturation."
+#~ msgstr ""
+#~ "Насыщенность изображения: 0 означает отсутствие насыщенности, а 2 — "
+#~ "бесконечную насыщенность."
+
+#~ msgid ""
+#~ "An effect that downscales the image and put it on the top-left corner."
+#~ msgstr ""
+#~ "Эффект, который уменьшает масштаб изображения и помещает его в левый "
+#~ "верхний угол."
+
+#~ msgid ""
 #~ "An effect that adds a random noise. Prefer the Monte Carlo blur for a "
 #~ "more organic effect if needed."
 #~ msgstr ""
 #~ "Эффект, добавляющий случайный шум. При необходимости предпочесть размытие "
 #~ "Монте-Карло для более органичного эффекта."
+
+#~ msgid "Converts the image from RGBA colorspace to HSLA."
+#~ msgstr "Преобразует изображение из цветового пространства RGBA в HSLA."
+
+#~ msgid "Converts the image from HSLA colorspace to RGBA."
+#~ msgstr "Преобразует изображение из цветового пространства HSLA в RGBA."
 
 #~ msgid "Corner"
 #~ msgstr "Угол"
@@ -1250,10 +1274,38 @@ msgstr ""
 
 #~ msgid ""
 #~ "The dynamic blur is slower and only compatible with a gaussian blur "
+#~ "effect, but shows content behind windows."
+#~ msgstr ""
+#~ "Динамическое размытие медленнее и совместимо только с гауссовским "
+#~ "эффектом размытия, но показывает контент за окнами."
+
+#~ msgid ""
+#~ "In order to use rounded corners, please install the GNOME Rounded Blur "
+#~ "library."
+#~ msgstr "Для закругления углов, установите библиотеку GNOME Rounded Blur."
+
+#~ msgid "Dash to Dock blur"
+#~ msgstr "Размытие Dash to Dock"
+
+#~ msgid "Blur the background of the Dash to Dock extension, if it is used."
+#~ msgstr "Размытие фона расширения Dash to Dock, если оно используется."
+
+#~ msgid ""
+#~ "The dynamic blur is slower and only compatible with a gaussian blur "
 #~ "effect."
 #~ msgstr ""
 #~ "Динамическое размытие работает медленнее и совместимо только с эффектом "
 #~ "гауссова размытия."
+
+#~ msgid ""
+#~ "Makes the background either transparent or semi-transparent, disable this "
+#~ "to use Dash to Dock preferences instead."
+#~ msgstr ""
+#~ "Делает фон прозрачным или полупрозрачным, отключите его, чтобы вместо "
+#~ "него использовать настройки Dash to Dock."
+
+#~ msgid "Disables the blur from Dash to Dock when entering the overview."
+#~ msgstr "Отключает размытие из Dash to Dock при входе в Обзор."
 
 #~ msgid "Hack level"
 #~ msgstr "Уровень взлома"
@@ -1270,6 +1322,9 @@ msgstr ""
 #~ "оболочке GNOME и существенно повлияет на производительность вашего "
 #~ "компьютера."
 
+#~ msgid "Resets preferences of Blur my Shell irreversibly."
+#~ msgstr "Необратимо сбрасывает настройки Blur my Shell."
+
 #~ msgid "High performances"
 #~ msgstr "Высокая производительность"
 
@@ -1285,6 +1340,11 @@ msgstr ""
 #~ msgid "Disables the transparency of the panel when a window is near it."
 #~ msgstr ""
 #~ "Отключает прозрачность верхней панели, когда рядом с ней находится окно."
+
+#~ msgid "Does not disable the blur in overview, best used with static blur."
+#~ msgstr ""
+#~ "Не отключает размытие в Обзоре, лучше всего использовать со статическим "
+#~ "размытием."
 
 #~ msgid "A list of windows to blur."
 #~ msgstr "Список окон для размытия."
