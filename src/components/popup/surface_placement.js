@@ -107,9 +107,9 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     get_monitor_clipped_surface_geometry(geometry) {
         const rect = this.get_target_rect(geometry);
         const cached_monitor = this.get_cached_monitor();
-        const match = cached_monitor
+        const match = (cached_monitor
             ? this.get_monitor_intersection(rect, cached_monitor, this.monitor_index)
-            : this.find_best_monitor_intersection(rect);
+            : null) ?? this.find_best_monitor_intersection(rect);
 
         if (!match)
             return null;

@@ -26,7 +26,7 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         });
 
         if (this.is_notification_banner())
-            opacity = Math.round(opacity * this.get_banner_position_alpha());
+            opacity = Math.round(opacity * this.get_banner_visible_fraction());
 
         return opacity;
     }
@@ -42,34 +42,16 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
         return false;
     }
 
-    get_banner_position_alpha() {
-        const panel = Main.panel;
-        if (!panel.mapped || panel.get_paint_opacity() === 0)
-            return 1;
-
-        const monitor = Main.layoutManager.findMonitorForActor(panel)
-            ?? Main.layoutManager.primaryMonitor;
-        if (!monitor)
-            return 1;
-
-        const [, stage_y] = this.target.get_transformed_position();
-        const [, panel_y] = panel.get_transformed_position();
-        const [panel_width, panel_height] = panel.get_size();
-
-        const is_horizontal = panel_width > panel_height;
-        const is_at_monitor_top = Math.abs(panel_y - monitor.y) <= 5;
-
-        if (!is_horizontal || !is_at_monitor_top)
-            return 1;
-
-        const threshold = panel_y + panel_height + 5;
-
-        if (stage_y <= panel_y)
+    /// The message tray clips banners sliding in at its top edge, which our blur, living outside of
+    /// the tray, isn't clipped by.
+    get_banner_visible_fraction() {
+        const [, tray_y] = Main.messageTray.get_transformed_position();
+        const [, banner_y] = this.target.get_transformed_position();
+        const [, banner_height] = this.target.get_transformed_size();
+        if (banner_height <= 0)
             return 0;
-        if (stage_y >= threshold)
-            return 1;
 
-        return Math.clamp((stage_y - panel_y) / (threshold - panel_y), 0, 1);
+        return Math.clamp((banner_y + banner_height - tray_y) / banner_height, 0, 1);
     }
 
     apply_actor_opacity(opacity, actor, visited) {

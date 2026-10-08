@@ -41,6 +41,7 @@ export const Connections = class Connections {
     release(object) {
         const record = this.records.get(object);
         this.records.delete(object);
+        object.disconnect(record.destroy_id);
         record.ids.forEach((signal, id) => {
             if (signal !== 'destroy')
                 object.disconnect(id);
