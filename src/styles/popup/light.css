@@ -10,7 +10,8 @@
 
 .bms-popup-background-light .message-media-control,
 .bms-popup-surface-light .message-media-control {
-  background-color: transparent;
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: transparent;
 }
 
 .bms-popup-background-light .message-media-control:hover,
