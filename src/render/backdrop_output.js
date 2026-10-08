@@ -2,20 +2,24 @@ import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 import GObject from 'gi://GObject';
 
-export const BackdropContent = GObject.registerClass({
-    GTypeName: 'BmsBackdropContent',
-    Implements: [Clutter.Content],
-}, class BackdropContent extends GObject.Object {
+/// Draws the captured backdrop in place of its actor. This is an effect rather than a content or an
+/// actor painting itself: those are handed a root node holding the framebuffer being painted, which
+/// GJS keeps alive until the next garbage collection, along with every framebuffer a screencast
+/// paints the stage into.
+export const BackdropOutputEffect = GObject.registerClass({
+    GTypeName: 'BmsBackdropOutputEffect',
+}, class BackdropOutputEffect extends Clutter.Effect {
     _init(capture) {
         super._init();
         this.capture = capture;
     }
 
-    vfunc_paint_content(actor, node, _paintContext) {
+    vfunc_paint_node(node, _paintContext, _flags) {
         const target = this.capture.target;
         if (target === null)
             return;
 
+        const actor = this.get_actor();
         const opacity = actor.get_paint_opacity() / 255;
         const color = new Cogl.Color();
         color.init_from_4f(opacity, opacity, opacity, opacity);

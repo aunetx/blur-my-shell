@@ -3,6 +3,7 @@ import Cogl from 'gi://Cogl';
 import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 import { getEffectBounds } from './effect_bounds.js';
+import { get_view_framebuffer } from './painted_view.js';
 import {
     getTextureCapacity,
     largestViewSize,
@@ -122,10 +123,17 @@ export const SurfaceShaderEffect = GObject.registerClass({
         const bounds = this.syncGeometry(actor);
         if (bounds.width <= 0 || bounds.height <= 0)
             return;
-        this.ensureTarget(paintContext.get_framebuffer().get_context(),
-            bounds, actor.get_resource_scale());
-        if (!this.sourceValid || actor._bms_live_input
-            || flags & Clutter.EffectPaintFlags.ACTOR_DIRTY) {
+        const framebuffer = get_view_framebuffer(paintContext);
+        const context = framebuffer ? framebuffer.get_context() : this.target?.context;
+        if (!context) {
+            node.add_child(new Clutter.ActorNode(actor, -1));
+            return;
+        }
+        this.ensureTarget(context, bounds, actor.get_resource_scale());
+        // outside of a stage view, like in a screencast, the input from the last view paint is reused
+        const refreshes_input = framebuffer !== null
+            && (actor._bms_live_input || flags & Clutter.EffectPaintFlags.ACTOR_DIRTY);
+        if (!this.sourceValid || refreshes_input) {
             const layer = Clutter.LayerNode.new_to_framebuffer(
                 this.target.framebuffer, this.target.pipeline);
             layer.set_name('BmsShader input');
@@ -137,8 +145,8 @@ export const SurfaceShaderEffect = GObject.registerClass({
     }
 
     vfunc_paint_target(node, paintContext) {
-        if (this.target.viewportWidthLocation >= 0) {
-            const framebuffer = paintContext.get_framebuffer();
+        const framebuffer = get_view_framebuffer(paintContext);
+        if (framebuffer) {
             const width = framebuffer.get_viewport_width();
             const height = framebuffer.get_viewport_height();
             if (this.target.viewportWidth !== width || this.target.viewportHeight !== height) {
@@ -147,12 +155,12 @@ export const SurfaceShaderEffect = GObject.registerClass({
                 this.target.viewportWidth = width;
                 this.target.viewportHeight = height;
             }
-            if (this.target.originX !== this.target.x || this.target.originY !== this.target.y) {
-                this.target.pipeline.set_uniform_1f(this.target.originXLocation, this.target.x);
-                this.target.pipeline.set_uniform_1f(this.target.originYLocation, this.target.y);
-                this.target.originX = this.target.x;
-                this.target.originY = this.target.y;
-            }
+        }
+        if (this.target.originX !== this.target.x || this.target.originY !== this.target.y) {
+            this.target.pipeline.set_uniform_1f(this.target.originXLocation, this.target.x);
+            this.target.pipeline.set_uniform_1f(this.target.originYLocation, this.target.y);
+            this.target.originX = this.target.x;
+            this.target.originY = this.target.y;
         }
         const actor = this.get_actor();
         const opacity = actor.get_paint_opacity() / 255;

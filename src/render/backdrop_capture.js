@@ -3,8 +3,10 @@ import Cogl from 'gi://Cogl';
 import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 import Mtk from 'gi://Mtk';
-import { BackdropContent } from './backdrop_content.js';
+import St from 'gi://St';
+import { BackdropOutputEffect } from './backdrop_output.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './backdrop_damage.js';
+import { get_view_framebuffer } from './painted_view.js';
 import {
     getTextureCapacity,
     largestViewSize,
@@ -138,10 +140,16 @@ export const BackdropCaptureEffect = GObject.registerClass({
 }, class BackdropCaptureEffect extends Clutter.Effect {
     _init(contentActor) {
         super._init();
-        this.contentActor = contentActor;
         this.target = null;
         this.targets = new Map();
-        contentActor.set_content(new BackdropContent(this));
+        this.output = new St.Widget();
+        this.output.add_constraint(new Clutter.BindConstraint({
+            source: contentActor,
+            coordinate: Clutter.BindCoordinate.SIZE,
+        }));
+        this.output.add_effect(new BackdropOutputEffect(this));
+        this.output.connect('destroy', () => this.output = null);
+        contentActor.add_child(this.output);
     }
 
     ensureFramebuffer(width, height, sourceFramebuffer, view) {
@@ -214,7 +222,11 @@ export const BackdropCaptureEffect = GObject.registerClass({
 
     vfunc_paint_node(node, paintContext) {
         const actor = this.get_actor();
-        const sourceFramebuffer = paintContext.get_framebuffer();
+        const sourceFramebuffer = get_view_framebuffer(paintContext);
+        if (!sourceFramebuffer) {
+            node.add_child(new Clutter.ActorNode(actor, -1));
+            return;
+        }
         const geometry = captureGeometry(actor, sourceFramebuffer);
         if (!geometry)
             return;
@@ -251,18 +263,17 @@ export const BackdropCaptureEffect = GObject.registerClass({
 
     vfunc_set_actor(actor) {
         if (!actor)
-            this.release(false);
+            this.release();
 
         super.vfunc_set_actor(actor);
         if (actor)
             registerBackdrop(this);
     }
 
-    release(clearContent = true) {
+    release() {
         unregisterBackdrop(this);
-        if (clearContent)
-            this.contentActor?.set_content(null);
-        this.contentActor = null;
+        if (this.output)
+            this.output.destroy();
         for (const view of this.targets.keys())
             this.releaseTarget(view);
         this.target = null;
