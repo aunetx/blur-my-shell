@@ -341,7 +341,13 @@
 .bms-popup-background-transparent .screenshot-ui-type-button:focus,
 .bms-popup-background-dark .screenshot-ui-type-button:checked,
 .bms-popup-background-dark .screenshot-ui-type-button:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important
+    background-color: rgba(255, 255, 255, 0.1) !important
+}
+
+.bms-popup-background-transparent .screenshot-ui-type-button:focus,
+.bms-popup-background-dark .screenshot-ui-type-button:focus {
+    box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.5) !important;
+    box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, rgba(255, 255, 255, 0.9), 60%), 0.2) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-type-button,
@@ -358,28 +364,33 @@
 
 .bms-popup-background-transparent .screenshot-ui-type-button:hover,
 .bms-popup-background-dark .screenshot-ui-type-button:hover {
-    background-color: rgba(255, 255, 255, 0.20) !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-type-button:active,
 .bms-popup-background-transparent .screenshot-ui-type-button:outlined,
 .bms-popup-background-dark .screenshot-ui-type-button:active,
 .bms-popup-background-dark .screenshot-ui-type-button:outlined {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-type-button:hover {
-   background-color: rgba(0, 0, 0, 0.18) !important;
+   background-color: rgba(0, 0, 0, 0.15) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-type-button:checked,
 .bms-popup-background-light .screenshot-ui-type-button:focus {
-    background-color: rgba(0, 0, 0, 0.12) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bms-popup-background-light .screenshot-ui-type-button:focus {
+    box-shadow: inset 0 0 0 2px rgba(28, 113, 216, 0.5) !important;
+    box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-type-button:active,
 .bms-popup-background-light .screenshot-ui-type-button:outlined {
-    background-color: rgba(0, 0, 0, 0.16) !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button,
@@ -392,31 +403,31 @@
 }
 
 .bms-popup-background-light .screenshot-ui-show-pointer-button:hover {
-    background-color: rgba(0, 0, 0, 0.18) !important;
+    background-color: rgba(0, 0, 0, 0.15) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-show-pointer-button:checked,
 .bms-popup-background-light .screenshot-ui-show-pointer-button:focus {
-    background-color: rgba(0, 0, 0, 0.12) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:checked,
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:focus,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:checked,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:hover,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:hover {
-    background-color: rgba(255, 255, 255, 0.20) !important;
+    background-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:active,
 .bms-popup-background-transparent .screenshot-ui-show-pointer-button:outlined,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:active,
 .bms-popup-background-dark .screenshot-ui-show-pointer-button:outlined {
-    background-color: rgba(255, 255, 255, 0.18) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-show-pointer-button:active,
@@ -460,11 +471,11 @@
 
 .bms-popup-background-light .screenshot-ui-shot-cast-button:hover,
 .bms-popup-background-light .screenshot-ui-shot-cast-button:focus {
-    background-color: rgba(0, 0, 0, 0.18) !important;
+    background-color: rgba(0, 0, 0, 0.15) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-shot-cast-button:active {
-    background-color: rgba(0, 0, 0, 0.28) !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
 .bms-popup-background-light .screenshot-ui-shot-cast-button:checked {
@@ -474,6 +485,29 @@
 
 .bms-popup-background-light .screenshot-ui-shot-cast-button:insensitive {
     color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-shot-cast-container,
+.bms-popup-background-dark .screenshot-ui-shot-cast-container {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-shot-cast-button:hover,
+.bms-popup-background-transparent .screenshot-ui-shot-cast-button:focus,
+.bms-popup-background-dark .screenshot-ui-shot-cast-button:hover,
+.bms-popup-background-dark .screenshot-ui-shot-cast-button:focus {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-shot-cast-button:active,
+.bms-popup-background-dark .screenshot-ui-shot-cast-button:active {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.bms-popup-background-transparent .screenshot-ui-shot-cast-button:checked,
+.bms-popup-background-dark .screenshot-ui-shot-cast-button:checked {
+    background-color: #ffffff !important;
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .bms-popup-background-transparent .popup-sub-menu .popup-menu-section,
