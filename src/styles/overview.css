@@ -196,12 +196,12 @@
     background-color: transparent !important;
 }
 
-.overview-components-light .workspace-thumbnail,
-.overview-components-light .search-section-content {
+.overview-components-light .workspace-thumbnail {
     background-color: rgba(255, 255, 255, 0.07) !important;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.overview-components-light .search-section-content,
 .overview-components-light .page-navigation-arrow {
     background-color: rgba(255, 255, 255, 0.58) !important;
     border: 1px solid rgba(0, 0, 0, 0.05);
