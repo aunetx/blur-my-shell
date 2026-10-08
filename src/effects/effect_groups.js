@@ -19,6 +19,7 @@ export function get_effects_groups(_ = _ => '') {
                 'luminosity',
                 'rgb_to_hsl',
                 'hsl_to_rgb',
+                'wave',
             ],
         },
     };
