@@ -197,7 +197,6 @@
 .bms-popup-background-light .weather-button {
     background-color: rgba(255, 255, 255, 0.58) !important;
     border-color: rgba(0, 0, 0, 0.1);
-    box-shadow: none;
 }
 
 .bms-popup-background-light .events-button:hover,
