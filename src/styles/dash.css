@@ -36,8 +36,8 @@ StBoxLayout > StWidget > #dash.transparent-dash > .dash-background,
 .multimonitor-dock.transparent-dash .app-grid-running-dot,
 .multimonitor-dock.transparent-dash .app-well-app-running-dot,
 .multimonitor-dock.transparent-dash .running-dot {
-    background-color: #ffffff !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 /* Outer dock item buttons must remain completely transparent (suppress full-height column slot) */
@@ -455,8 +455,8 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 .multimonitor-dock.dark-dash .app-grid-running-dot,
 .multimonitor-dock.dark-dash .app-well-app-running-dot,
 .multimonitor-dock.dark-dash .running-dot {
-    background-color: #ffffff !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .dark-dash .show-apps-icon,
@@ -465,7 +465,7 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 #dash.dark-dash .show-apps .overview-icon,
 .multimonitor-dock.dark-dash .show-apps-icon,
 .multimonitor-dock.dark-dash .show-apps .overview-icon {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Outer dock item buttons must remain completely transparent (suppress full-height column slot) */

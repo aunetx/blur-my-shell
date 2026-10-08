@@ -124,7 +124,7 @@
 .bms-popup-background-dark .clipboard-dialog,
 .bms-popup-background-dark .screenshot-ui-panel,
 .bms-popup-background-transparent .message {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .bms-popup-background-dark .popup-menu-content,
@@ -519,7 +519,7 @@
 .bms-popup-background-transparent .keyboard-key,
 .bms-popup-background-dark .keyboard-subkeys .keyboard-key,
 .bms-popup-background-transparent .keyboard-subkeys .keyboard-key {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
   background-color: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.06);
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.25);
@@ -535,7 +535,7 @@
 .bms-popup-background-dark .keyboard-subkeys .keyboard-key:focus:hover,
 .bms-popup-background-transparent .keyboard-subkeys .keyboard-key:focus:hover {
   background-color: rgba(255, 255, 255, 0.20) !important;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .bms-popup-background-dark .keyboard-key:active,
@@ -547,7 +547,7 @@
 .bms-popup-background-dark .keyboard-subkeys .keyboard-key:focus:active,
 .bms-popup-background-transparent .keyboard-subkeys .keyboard-key:focus:active {
   background-color: rgba(255, 255, 255, 0.18) !important;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .bms-popup-background-dark .keyboard-key:checked,
@@ -556,7 +556,7 @@
 .bms-popup-background-transparent .keyboard-subkeys .keyboard-key:checked {
   background-color: rgba(255, 255, 255, 0.13) !important;
   box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.6);
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .bms-popup-background-dark .keyboard-key:focus,
@@ -565,7 +565,7 @@
 .bms-popup-background-transparent .keyboard-subkeys .keyboard-key:focus {
   background-color: rgba(255, 255, 255, 0.08) !important;
   box-shadow: none;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .bms-popup-background-dark .keyboard-key:grayed,
@@ -578,7 +578,7 @@
 /* Modifier & Function Keys */
 .bms-popup-background-dark .keyboard-key.default-key,
 .bms-popup-background-transparent .keyboard-key.default-key {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
   background-color: rgba(255, 255, 255, 0.05);
 }
 
