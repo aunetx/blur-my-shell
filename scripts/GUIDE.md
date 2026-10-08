@@ -37,16 +37,20 @@ yay -S gnome-rounded-blur
 
 ### For Fedora (or any of its derivatives, including Atomic based distro) users
 
-Fedora user can follow the following steps to install the library
+Fedora user can follow the following steps to install the library (Please note that this only apply to Fedora 44, Fedora 45 and newer should check the notes below)
 
 - **REMEMBER TO UNINSTALL THE LIBRARY FIRST IF YOU ALREADY INSTALL IT VIA THE SCRIPT HERE**, you can uninstall it by following the uninstall command below
 - Enable the following copr using this command 
 ```
-sudo dnf copr enable aneagle/gnome-rounded-blur
+sudo dnf copr enable ublue-os/packages
+```
+- Disable the repo globally to prevent overwriting your main packages
+```
+sudo dnf config-manager setopt copr:copr.fedorainfracloud.org:ublue-os:packages.enabled=0
 ```
 - Then, install the library using `dnf`
 ```
-sudo dnf install gnome-rounded-blur
+sudo dnf -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages install gnome-rounded-blur
 ```
 
 **Note:**
@@ -58,10 +62,7 @@ curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/sc
 ```
 curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i -f -e
 ```
-- Fedora Atomic user may want to manually add the copr by downloading the copr `.repo` from [here](https://copr.fedorainfracloud.org/coprs/aneagle/gnome-rounded-blur/) and copy the file into `/etc/yum.repos.d/`, then use the following command to refresh the metadata
-```
-sudo rpm-ostree refresh-md --force 
-```
+- Fedora Atomic user may want to manually download the RPM from [here](https://copr.fedorainfracloud.org/coprs/ublue-os/packages/package/gnome-rounded-blur/) and install it manually using `rpm-ostree`
 - Bazzite (or any of ublue atomic distro) can directly install the library via the following command (Fedora Atomic user after following the previous step can use this as well)
 ```
 rpm-ostree install gnome-rounded-blur
