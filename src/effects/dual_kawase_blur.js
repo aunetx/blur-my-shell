@@ -2,6 +2,7 @@ import GObject from 'gi://GObject';
 
 import * as utils from '../conveniences/utils.js';
 import { getEffectBounds } from '../render/effect_bounds.js';
+import { get_view_framebuffer } from '../render/painted_view.js';
 import { getKawaseConfiguration } from './kawase_sampling.js';
 import {
     getTextureCapacity,
@@ -432,7 +433,12 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             return;
         }
 
-        const context = paintContext.get_framebuffer().get_context();
+        const framebuffer = get_view_framebuffer(paintContext);
+        const context = framebuffer ? framebuffer.get_context() : this.context;
+        if (!context) {
+            node.add_child(new Clutter.ActorNode(actor, -1));
+            return;
+        }
         const scale = actor.get_resource_scale();
         const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
         const { passes, blend } = getKawaseConfiguration(this.unscaled_radius * themeScale * scale);

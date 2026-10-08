@@ -20,6 +20,7 @@ import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
 import { PopupBlur } from './components/popup.js';
 import { connect_component_settings } from './components/settings_connections.js';
+import { track_painted_views } from './render/painted_view.js';
 
 
 /// The main extension class, created when the GNOME Shell is loaded.
@@ -45,6 +46,7 @@ export default class BlurMyShell extends Extension {
         // the shell destroys its UI on shutdown without disabling extensions, and runs the idle
         // callbacks queued during that teardown afterwards, when every actor is already disposed
         this._connection.connect(Main.uiGroup, 'destroy', () => this.disable());
+        track_painted_views(this._connection);
 
         // shared by every component so that effects are pooled instead of re-created
         this._effects_manager = new EffectsManager(this._connection);

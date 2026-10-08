@@ -39,7 +39,6 @@ export class DynamicPipeline {
             y_align: Clutter.ActorAlign.FILL,
             x_expand: true,
             y_expand: true,
-            content_gravity: Clutter.ContentGravity.RESIZE_FILL,
         });
         this.contentActor._bms_live_input = true;
         this.actor.add_child(this.contentActor);
