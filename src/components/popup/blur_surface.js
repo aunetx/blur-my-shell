@@ -64,9 +64,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (!this.static_blur)
             this.pipeline.attach_pipeline();
         this.set_actor_position();
-        this.style.capture_target_style();
         this.style.update_target_style();
 
+        this.signals.connections.connect(
+            this.settings.settings, 'changed::pipelines',
+            () => this.style.update_liquid_glass_style()
+        );
         this.connect_lifetime();
         this.signals.connect_actor(this.target);
         this.signals.connect_actor(this.root_actor);

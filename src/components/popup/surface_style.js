@@ -6,13 +6,10 @@ const LIQUID_GLASS_STYLE_CLASS = 'bms-popup-liquid-glass';
 export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     constructor(surface) {
         this.surface = surface;
-        this.original_target_style = null;
-        this.target_style_set = false;
+        this.radius_style = null;
+        this.style_before_radius = null;
+        this.style_with_radius = null;
         this.liquid_glass = false;
-    }
-
-    capture_target_style() {
-        this.original_target_style = this.surface.target.get_style();
     }
 
     update_target_style() {
@@ -27,32 +24,50 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
         if (has_style_class(target, 'bms-keyboard-surface'))
             return;
 
-        const base_style = this.original_target_style ?? '';
+        const base_style = this.get_style_without_radius() ?? '';
         const separator = base_style.trim() && !base_style.trim().endsWith(';') ? '; ' : '';
         const corners = getRoundedCorners(settings.popup.ROUNDED_CORNERS);
         const radius = this.surface.get_corner_radius();
         const top = corners.corners_top ? radius : 0;
         const bottom = corners.corners_bottom ? radius : 0;
 
-        target.set_style(
-            `${base_style}${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`
-        );
-        this.target_style_set = true;
+        this.style_before_radius = this.get_style_without_radius();
+        this.radius_style = `${separator}border-radius: ${top}px ${top}px ${bottom}px ${bottom}px;`;
+        this.style_with_radius = `${base_style}${this.radius_style}`;
+        target.set_style(this.style_with_radius);
     }
 
     restore_target_style() {
         this.set_liquid_glass(false);
 
-        if (!this.target_style_set)
+        if (!this.radius_style)
             return;
 
-        this.surface.target.set_style(this.original_target_style);
-        this.target_style_set = false;
+        this.surface.target.set_style(this.get_style_without_radius());
+        this.forget_radius_style();
     }
 
     forget_target_style() {
         this.liquid_glass = false;
-        this.target_style_set = false;
+        this.forget_radius_style();
+    }
+
+    get_style_without_radius() {
+        const style = this.surface.target.get_style();
+        if (!this.radius_style || style === null)
+            return style;
+        if (style === this.style_with_radius)
+            return this.style_before_radius;
+
+        const index = style.lastIndexOf(this.radius_style);
+        return index < 0 ? style
+            : style.slice(0, index) + style.slice(index + this.radius_style.length);
+    }
+
+    forget_radius_style() {
+        this.radius_style = null;
+        this.style_before_radius = null;
+        this.style_with_radius = null;
     }
 
     update_liquid_glass_style() {
