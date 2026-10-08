@@ -5,7 +5,6 @@ import St from 'gi://St';
 import { Connections } from '../../conveniences/connections.js';
 
 const ACTOR_SIGNALS = [
-    'parent-set',
     'notify::allocation',
     'notify::position',
     'notify::size',
@@ -76,11 +75,6 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
     }
 
     on_actor_changed(actor, signal, is_heavy_surface) {
-        if (signal === 'parent-set') {
-            this.surface.request_destroy();
-            return;
-        }
-
         const is_visibility_change = VISIBILITY_SIGNALS.has(signal);
         if (is_visibility_change && (!actor.visible || !actor.mapped)) {
             this.remove_idle_update();
