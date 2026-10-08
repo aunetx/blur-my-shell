@@ -145,79 +145,41 @@ const WAVE_EFFECT_META = {
         }
 };
 
-// Unified ticker shared across all wave effects,
-// instead of each effect ticking separately,
-// for better efficiency
 class WaveTicker {
-        static tasks = new Set();
+    static tasks = new Set();
+    static timeline = null;
 
-        static add(task) {
-            if (this.tasks.has(task)) {
-                return;
-            }
+    static add(task) {
+        this.tasks.add(task);
 
-            this.tasks.add(task);
-
-            if (this.tasks.size === 1 || !this._initialized) {
-                this._initialize();
-            }
+        if (this.timeline) {
+            return;
         }
 
-        static remove(task) {
-            if (!this.tasks.has(task)) {
-                return;
+        this.timeline = new Clutter.Timeline({
+            actor: global.stage,
+            duration: 5000,
+            repeat_count: -1
+        });
+
+        this.timeline.connect('new-frame', timeline => {
+            const delta = timeline.get_delta();
+            for (const tick of this.tasks) {
+                tick(delta);
             }
+        });
 
-            this.tasks.delete(task);
+        this.timeline.start();
+    }
 
-            if (this.tasks.size === 0) {
-                this._destroy();
-            }
+    static remove(task) {
+        if (!this.tasks.delete(task) || this.tasks.size > 0) {
+            return;
         }
 
-        static _update_frame() {
-            const delta = this._timeline.get_delta();
-            for (const task of this.tasks) task(delta);
-        }
-
-        static _initialize() {
-            const target_actor = this._get_target_actor();
-            if (!target_actor) {
-                return;
-            }
-
-            this._timeline = new Clutter.Timeline({
-                actor: target_actor,
-                duration: 5000,
-                repeat_count: -1,
-            });
-
-            this._connection_id = this._timeline.connect(
-                "new-frame",
-                this._update_frame.bind(this),
-            );
-
-            this._timeline.start();
-            
-            this._initialized = true;
-        }
-
-        static _destroy() {
-            if (this._timeline) {
-                this._timeline.stop();
-                this._timeline.disconnect(this._connection_id);
-            }
-
-            this._timeline = null;
-            this._connection_id = null;
-            this.tasks.clear();
-
-            this._initialized = false;
-        }
-
-        static _get_target_actor() {
-            return global?.stage ?? global?.get_stage?.() ?? null;
-        }
+        this.timeline.stop();
+        this.timeline = null;
+    }
 }
 
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -238,12 +200,16 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this._clip_height = null;
 
             this._flow_time = 0;
+            this._flow_uploaded_time = 0;
             this._resize_from = 0;
             this._resize_to = 0;
             this._resize_elapsed = 0;
+            this._surface_max_size = 0;
+            this._uploaded_surface_max_size = 0;
             this._flow_update_ref = this._flow_animation_update.bind(this);
             this._resize_update_ref = this._resize_animation_update.bind(this);
             this._ancestor_connections = new Connections();
+            this._current_pipeline = null;
 
             utils.setup_params(this, params);
         }
@@ -283,7 +249,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set octaves(value) {
-            const octaves = utils.clamp(value, 0, 6, DEFAULT_PARAMS.octaves);
+            const octaves = utils.clamp_integer(value, 0, 6, DEFAULT_PARAMS.octaves);
             if (this._octaves !== octaves) {
                 this._octaves = octaves;
 
@@ -296,7 +262,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set vapor_octaves(value) {
-            const vapor_octaves = utils.clamp(value, 0, 6, DEFAULT_PARAMS.vapor_octaves);
+            const vapor_octaves = utils.clamp_integer(value, 0, 6, DEFAULT_PARAMS.vapor_octaves);
             if (this._vapor_octaves !== vapor_octaves) {
                 this._vapor_octaves = vapor_octaves;
 
@@ -432,25 +398,8 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             }
         }
 
-        // Set directly on the pipeline cause going through uniforms.set_uniform
-        // would mark all uniforms dirty and re-upload them every frame.
-        _flow_upload_time_uniform() {
-            const pipeline = this.get_pipeline();
-            if (!pipeline || !this._flow_time_dirty) {
-                return;
-            }
-        
-            if (this._flow_time_location === undefined) {
-                this._flow_time_location = pipeline.get_uniform_location("time");
-            }
-        
-            pipeline.set_uniform_1f(this._flow_time_location, this._flow_time);
-            this._flow_time_dirty = false;
-        }
-
         _flow_animation_update(delta) {
             this._flow_time = (this._flow_time + delta * TIME_FACTOR * this._flow_speed_factor) % TAU;
-            this._flow_time_dirty = true;
             this.queue_repaint();
         }
 
@@ -459,20 +408,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set resize_duration(value) {
-            this._resize_duration = utils.clamp(value, 0, 10000, DEFAULT_PARAMS.resize_duration);
-        }
-
-        get surface_max_size() {
-            return this._surface_max_size;
-        }
-
-        set surface_max_size(value) {
-            const max_size = utils.clamp(value, 1, Number.MAX_SAFE_INTEGER, 1);
-            if (this._surface_max_size !== max_size) {
-                this._surface_max_size = max_size;
-
-                uniforms.set_uniform(this, "surface_max_size", parseFloat(this._surface_max_size));
-            }
+            this._resize_duration = utils.clamp_integer(value, 0, 10000, DEFAULT_PARAMS.resize_duration);
         }
 
         _target_max_size() {
@@ -491,17 +427,14 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             if (
                 !this._can_animate() ||
                 !this._resize_duration ||
-                this.surface_max_size <= 1 ||
-                this.surface_max_size === max_size
+                this._surface_max_size <= 1 ||
+                this._surface_max_size === max_size
             ) {
-                // Ensure max size is always updated before return
-                this.surface_max_size = max_size;
+                this._surface_max_size = max_size;
                 return;
             }
 
-            // Let resize from use current max size for to avoid sudden jump
-            // when animation is interrupted with new one
-            this._resize_from = this.surface_max_size;
+            this._resize_from = this._surface_max_size;
             this._resize_to = max_size;
             this._resize_elapsed = 0;
 
@@ -513,12 +446,33 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             const progress = Math.min(this._resize_elapsed / Math.max(this._resize_duration, 1), 1);
             const eased_progress = 1 - (1 - progress) ** 3;
 
-            this.surface_max_size = lerp(this._resize_from, this._resize_to, eased_progress);
+            this._surface_max_size = lerp(this._resize_from, this._resize_to, eased_progress);
 
             if (progress >= 1 || !this._can_animate()) {
-                this.surface_max_size = this._resize_to;
+                this._surface_max_size = this._resize_to;
                 WaveTicker.remove(this._resize_update_ref);
             }
+
+            this.queue_repaint();
+        }
+
+        // Set directly on the pipeline cause going through uniforms.set_uniform
+        // would mark all uniforms dirty and re-upload them every frame.
+        _upload_animated_uniform() {
+            const pipeline = this.get_pipeline();
+            const pipeline_changed = this._current_pipeline !== pipeline;
+
+            if (pipeline_changed || this._flow_uploaded_time !== this._flow_time) {
+                pipeline.set_uniform_1f(pipeline.get_uniform_location('time'), this._flow_time);
+                this._flow_uploaded_time = this._flow_time;
+            }
+
+            if (pipeline_changed || this._uploaded_surface_max_size !== this._surface_max_size) {
+                pipeline.set_uniform_1f(pipeline.get_uniform_location('surface_max_size'), this._surface_max_size);
+                this._uploaded_surface_max_size = this._surface_max_size;
+            }
+
+            this._current_pipeline = pipeline;
         }
 
         get width() {
@@ -576,7 +530,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         _watch_ancestors() {
             this._flow_update_animation_state();
             this._ancestor_connections.disconnect_all();
-            for (let actor = this.get_actor(); actor; actor = actor.get_parent?.()) {
+            for (let actor = this.get_actor(); actor; actor = actor.get_parent()) {
                 this._ancestor_connections.connect(actor, ['notify::opacity', 'notify::mapped'],
                     () => this._flow_update_animation_state());
                 this._ancestor_connections.connect(actor, 'parent-set', () => this._watch_ancestors());
@@ -595,9 +549,14 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             }
         }
 
+        vfunc_set_enabled(is_enabled) {
+            super.vfunc_set_enabled(is_enabled);
+            this._flow_update_animation_state();
+        }
+
         vfunc_paint_target(paint_node, paint_context) {
             uniforms.upload_uniforms(this);
-            this._flow_upload_time_uniform();
+            this._upload_animated_uniform();
             super.vfunc_paint_target(paint_node, paint_context);
         }
 };

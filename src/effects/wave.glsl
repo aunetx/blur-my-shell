@@ -70,10 +70,10 @@ vec4 get_clipped_bounding() {
 
 // Simplex noise implementation from webgl-noise:
 // https://github.com/ashima/webgl-noise/blob/master/src/noise2D.glsl
-// 
+//
 // Copyright (C) 2011 by Ashima Arts (Simplex noise)
 // Copyright (C) 2011-2016 by Stefan Gustavson (Classic noise and others)
-// 
+//
 // MIT LICENSE:
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -81,10 +81,10 @@ vec4 get_clipped_bounding() {
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -164,18 +164,18 @@ float smoothAbs(float x, float k) {
 
 float fbm(
     vec2 coord,
-    float amplitude,
-    float frequency,
-    int octaves,
+    float ampl,
+    float freq,
+    int oct,
     bool ridged
 ) {
     // Tuned props
-    float a = 2.0 * amplitude;
-    float f = 0.01 * frequency;
+    float a = 2.0 * ampl;
+    float f = 0.01 * freq;
     float value = 0.0;
 
     for (int i = 0; i < MAX_OCTAVES; i++) {
-        if (i >= octaves) break;
+        if (i >= oct) break;
 
         float n = snoise(coord * f);
         value += a * (ridged ? smoothAbs(n, 1.5) : n);
@@ -186,7 +186,7 @@ float fbm(
     return value;
 }
 
-vec3 czm_luminance(vec3 color, float amount) {
+vec3 adjust_saturation(vec3 color, float amount) {
     float lum = dot(color, vec3(0.2125, 0.7154, 0.0721));
     return mix(vec3(lum), color, amount);
 }
@@ -299,6 +299,6 @@ void main() {
     }
 
     // Simple color effect
-    vec3 desaturated = czm_luminance(final_color.rgb, saturation);
+    vec3 desaturated = adjust_saturation(final_color.rgb, saturation);
     cogl_color_out = vec4(desaturated * brightness, final_color.a);
 }
