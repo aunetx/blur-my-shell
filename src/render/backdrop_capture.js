@@ -142,6 +142,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         super._init();
         this.target = null;
         this.targets = new Map();
+        this.actorGeometry = null;
         this.output = new St.Widget();
         this.output.add_constraint(new Clutter.BindConstraint({
             source: contentActor,
@@ -231,6 +232,14 @@ export const BackdropCaptureEffect = GObject.registerClass({
         if (!geometry)
             return;
 
+        const actorGeometry = actor.get_abs_allocation_vertices()
+            .flatMap(vertex => [vertex.x, vertex.y, vertex.z]);
+        if (!this.actorGeometry?.every((value, i) => value === actorGeometry[i])) {
+            for (const target of this.targets.values())
+                target.geometry = null;
+            this.actorGeometry = actorGeometry;
+        }
+
         const view = global.stage.peek_stage_views().find(
             stageView => stageView.get_framebuffer() === sourceFramebuffer
         ) ?? null;
@@ -241,6 +250,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
             view
         );
 
+        this.target.geometry = geometry;
         const rectangles = captureRectangles(paintContext, view, geometry);
         for (const rect of rectangles) {
             if (rect.width <= 0 || rect.height <= 0)
@@ -277,5 +287,6 @@ export const BackdropCaptureEffect = GObject.registerClass({
         for (const view of this.targets.keys())
             this.releaseTarget(view);
         this.target = null;
+        this.actorGeometry = null;
     }
 });
