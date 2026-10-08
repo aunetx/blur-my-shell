@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
 "PO-Revision-Date: 2026-10-08 02:51+0000\n"
-"Last-Translator: muqianchen <lonki123456789@outlook.com>\n"
+"Last-Translator: Aliorpse <Aliorpse@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -212,7 +212,7 @@ msgstr ""
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
-msgstr ""
+msgstr "饱和度"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
