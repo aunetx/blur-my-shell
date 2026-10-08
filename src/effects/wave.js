@@ -26,7 +26,7 @@ const WAVE_EFFECT_META = {
             'frequency': GObject.ParamSpec.double(
                 `frequency`,
                 `Frequency`,
-                `Frequency`,
+                `Wave fbm frequency`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 100.0,
                 50.0,
@@ -34,7 +34,7 @@ const WAVE_EFFECT_META = {
             'amplitude': GObject.ParamSpec.double(
                 `amplitude`,
                 `Amplitude`,
-                `Amplitude`,
+                `Wave fbm amplitude`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 100.0,
                 10.0,
@@ -42,7 +42,7 @@ const WAVE_EFFECT_META = {
             'octaves': GObject.ParamSpec.int(
                 `octaves`,
                 `Octaves`,
-                `Octaves`,
+                `Wave fbm octave count`,
                 GObject.ParamFlags.READWRITE,
                 0, 6,
                 2,
@@ -50,7 +50,7 @@ const WAVE_EFFECT_META = {
             'vapor_octaves': GObject.ParamSpec.int(
                 `vapor_octaves`,
                 `Vapor octaves`,
-                `Vapor octaves`,
+                `Vapor fbm octave count`,
                 GObject.ParamFlags.READWRITE,
                 0, 6,
                 4,
@@ -58,7 +58,7 @@ const WAVE_EFFECT_META = {
             'vapor_speed': GObject.ParamSpec.double(
                 `vapor_speed`,
                 `Vapor speed`,
-                `Vapor speed`,
+                `Speed of the vapor texture to drift`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 5.0,
                 1.5,
@@ -66,7 +66,7 @@ const WAVE_EFFECT_META = {
             'grain': GObject.ParamSpec.double(
                 `grain`,
                 `Grain`,
-                `Grain`,
+                `Fine grain noise added to the displacement`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 100.0,
                 15.0,
@@ -74,7 +74,7 @@ const WAVE_EFFECT_META = {
             'zoom': GObject.ParamSpec.double(
                 `zoom`,
                 `Zoom`,
-                `Zoom`,
+                `Zooms the backdrop toward the surface center`,
                 GObject.ParamFlags.READWRITE,
                 0.5, 2.0,
                 1.0,
@@ -82,7 +82,7 @@ const WAVE_EFFECT_META = {
             'dispersion': GObject.ParamSpec.double(
                 `dispersion`,
                 `Dispersion`,
-                `Dispersion`,
+                `Chromatic aberration shift between the red and blue samples`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 100.0,
                 20.0,
@@ -90,7 +90,7 @@ const WAVE_EFFECT_META = {
             'saturation': GObject.ParamSpec.double(
                 `saturation`,
                 `Saturation`,
-                `Saturation`,
+                `Final color saturation amount`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 2.0,
                 1.0,
@@ -98,30 +98,30 @@ const WAVE_EFFECT_META = {
             'brightness': GObject.ParamSpec.double(
                 `brightness`,
                 `Brightness`,
-                `Brightness`,
+                `Final color brightness multiplier`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 2.0,
                 1.0,
             ),
             'flow_animation_enabled': GObject.ParamSpec.boolean(
                 `flow_animation_enabled`,
-                `Flow Animation Enabled`,
-                `Flow Animation Enabled`,
+                `Flow animation enabled`,
+                `Enable the flow animation`,
                 GObject.ParamFlags.READWRITE,
                 true,
             ),
             'flow_speed_factor': GObject.ParamSpec.double(
                 `flow_speed_factor`,
-                `Flow Speed Factor`,
-                `Flow Speed Factor`,
+                `Flow speed factor`,
+                `Overall flow speed of the wave and vapor animation`,
                 GObject.ParamFlags.READWRITE,
                 0.0, 5.0,
                 0.5,
             ),
             'resize_duration': GObject.ParamSpec.int(
                 `resize_duration`,
-                `Resize Duration`,
-                `Resize Duration`,
+                `Resize duration`,
+                `Width and height ease duration on resize, in milliseconds`,
                 GObject.ParamFlags.READWRITE,
                 0, 10000,
                 1000,
@@ -379,8 +379,7 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         _can_animate() {
             const actor = this.get_actor();
 
-            return this.enabled &&
-                   actor &&
+            return actor &&
                    actor.is_mapped() &&
                    actor.get_paint_opacity() !== 0;
         }
@@ -456,19 +455,24 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             this.queue_repaint();
         }
 
-        // Set directly on the pipeline cause going through uniforms.set_uniform
+        // Set directly on the pipeline because going through uniforms.set_uniform
         // would mark all uniforms dirty and re-upload them every frame.
         _upload_animated_uniform() {
             const pipeline = this.get_pipeline();
             const pipeline_changed = this._current_pipeline !== pipeline;
 
+            if (pipeline_changed) {
+                this._time_location = pipeline.get_uniform_location('time');
+                this._surface_max_size_location = pipeline.get_uniform_location('surface_max_size');
+            }
+
             if (pipeline_changed || this._flow_uploaded_time !== this._flow_time) {
-                pipeline.set_uniform_1f(pipeline.get_uniform_location('time'), this._flow_time);
+                pipeline.set_uniform_1f(this._time_location, this._flow_time);
                 this._flow_uploaded_time = this._flow_time;
             }
 
             if (pipeline_changed || this._uploaded_surface_max_size !== this._surface_max_size) {
-                pipeline.set_uniform_1f(pipeline.get_uniform_location('surface_max_size'), this._surface_max_size);
+                pipeline.set_uniform_1f(this._surface_max_size_location, this._surface_max_size);
                 this._uploaded_surface_max_size = this._surface_max_size;
             }
 
@@ -508,17 +512,11 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
         }
 
         set clip(value) {
-            const rawClip = Array.isArray(value)
+            const clip = Array.isArray(value)
                 && value.length === 4
                 && value.every(Number.isFinite)
                 ? value
                 : DEFAULT_PARAMS.clip;
-            const clip = rawClip.map((component, index) => utils.clamp(
-                component,
-                -Number.MAX_SAFE_INTEGER,
-                Number.MAX_SAFE_INTEGER,
-                DEFAULT_PARAMS.clip[index]
-            ));
             [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = clip;
             uniforms.set_uniform(this, 'clip_x0', parseFloat(this._clip_x0 - 1e-6));
             uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));
@@ -547,11 +545,6 @@ const WaveEffectClass = utils.IS_IN_PREFERENCES ? null : class WaveEffect extend
             } else {
                 this._watch_ancestors();
             }
-        }
-
-        vfunc_set_enabled(is_enabled) {
-            super.vfunc_set_enabled(is_enabled);
-            this._flow_update_animation_state();
         }
 
         vfunc_paint_target(paint_node, paint_context) {

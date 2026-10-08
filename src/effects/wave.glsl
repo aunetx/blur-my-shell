@@ -1,17 +1,14 @@
 uniform sampler2D tex;
 
-// Resolution
 uniform float width;
 uniform float height;
 uniform float surface_max_size;
 
-// Clipping
 uniform float clip_x0;
 uniform float clip_y0;
 uniform float clip_width;
 uniform float clip_height;
 
-// Vapor
 uniform float frequency;
 uniform float amplitude;
 uniform int octaves;
@@ -26,10 +23,8 @@ uniform float dispersion;
 uniform float saturation;
 uniform float brightness;
 
-// Time
 uniform float time;
 
-// Macro Constants
 #define MAX_OCTAVES 8
 #define REFERENCE_SIZE 300.0
 #define WAVE_RADIUS 150.0
@@ -169,7 +164,6 @@ float fbm(
     int oct,
     bool ridged
 ) {
-    // Tuned props
     float a = 2.0 * ampl;
     float f = 0.01 * freq;
     float value = 0.0;
@@ -255,7 +249,7 @@ void main() {
 
     vec2 wave_offset = 1.0 - wave_displacement * 0.5;
 
-    // Grain Texture
+    // Grain texture for more fluid and vintage look
     if (grain > 0.0) {
         wave_offset += snoise(frag_coord) * grain * 0.05;
     }
@@ -277,11 +271,11 @@ void main() {
     // Zoom: Relative to surface
     vec2 zoomed_local = surface_coord / max(zoom, 0.001);
 
-    // Sampling: Combine all effect;
+    // Sampling: Combine all effect
     vec2 sample_coord =
         surface_center + zoomed_local * vapor_displacement * wave_offset;
 
-    // Chromatic aberration
+    // Chromatic aberration to make the effect look more liquid
     vec4 base_color = getTextureColorAt(sample_coord);
     vec4 final_color = base_color;
 
@@ -298,7 +292,7 @@ void main() {
         );
     }
 
-    // Simple color effect
+    // Saturation and brightness to make the backdrop feel more alive
     vec3 desaturated = adjust_saturation(final_color.rgb, saturation);
     cogl_color_out = vec4(desaturated * brightness, final_color.a);
 }

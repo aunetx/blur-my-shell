@@ -547,7 +547,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 resize_duration: {
                     name: _("Resize ease duration"),
-                    description: _("How long the effect takes to adjust when a window changes size (millisecond)."),
+                    description: _("How long the effect takes to adjust when a window changes size (milliseconds)."),
                     type: "integer",
                     min: 0,
                     max: 10000,
