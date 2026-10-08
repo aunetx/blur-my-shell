@@ -19,7 +19,12 @@ export const POPUP_CORNER_RADII = [
     {
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
-        style_classes: ['quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel'],
+        style_classes: ['quick-settings', 'screenshot-ui-panel'],
+    },
+    {
+        key: 'submenu-corner-radius',
+        property: 'SUBMENU_CORNER_RADIUS',
+        style_classes: ['quick-toggle-menu'],
     },
     {
         key: 'calendar-corner-radius',

@@ -15,19 +15,34 @@ export const BackdropOutputEffect = GObject.registerClass({
     }
 
     vfunc_paint_node(node, _paintContext, _flags) {
-        const target = this.capture.target;
-        if (target === null)
-            return;
-
         const actor = this.get_actor();
         const opacity = actor.get_paint_opacity() / 255;
         const color = new Cogl.Color();
         color.init_from_4f(opacity, opacity, opacity, opacity);
-        target.pipeline.set_color(color);
-        const textureNode = new Clutter.PipelineNode(target.pipeline);
-        textureNode.add_texture_rectangle(new Clutter.ActorBox({
-            x1: 0, y1: 0, x2: actor.width, y2: actor.height,
-        }), 0, 0, target.usedWidth / target.width, target.usedHeight / target.height);
-        node.add_child(textureNode);
+        const offscreenTarget = this.capture.targets.get(null);
+        const targets = this.capture.target === offscreenTarget
+            ? [offscreenTarget]
+            : [...this.capture.targets.entries()].filter(([view]) => view).map(([, target]) => target);
+
+        // Each view only captures its intersection with the actor. Compose those intersections
+        // before filtering, so offscreen paints can reuse a complete backdrop without wrapping
+        // the temporary screenshot or screencast framebuffer in JS.
+        for (const target of targets) {
+            const geometry = target.geometry;
+            if (!geometry || geometry.copyWidth <= 0 || geometry.copyHeight <= 0)
+                continue;
+
+            const { destinationX: x, destinationY: y, copyWidth: width, copyHeight: height } = geometry;
+            target.pipeline.set_color(color);
+            const textureNode = new Clutter.PipelineNode(target.pipeline);
+            textureNode.add_texture_rectangle(new Clutter.ActorBox({
+                x1: actor.width * x / target.usedWidth,
+                y1: actor.height * y / target.usedHeight,
+                x2: actor.width * (x + width) / target.usedWidth,
+                y2: actor.height * (y + height) / target.usedHeight,
+            }), x / target.width, y / target.height,
+            (x + width) / target.width, (y + height) / target.height);
+            node.add_child(textureNode);
+        }
     }
 });

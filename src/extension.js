@@ -20,6 +20,7 @@ import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
 import { PopupBlur } from './components/popup.js';
 import { connect_component_settings } from './components/settings_connections.js';
+import { enable_system_style, disable_system_style } from './conveniences/style.js';
 import { track_painted_views } from './render/painted_view.js';
 
 
@@ -47,6 +48,7 @@ export default class BlurMyShell extends Extension {
         // callbacks queued during that teardown afterwards, when every actor is already disposed
         this._connection.connect(Main.uiGroup, 'destroy', () => this.disable());
         track_painted_views(this._connection);
+        enable_system_style();
 
         // shared by every component so that effects are pooled instead of re-created
         this._effects_manager = new EffectsManager(this._connection);
@@ -128,6 +130,7 @@ export default class BlurMyShell extends Extension {
         this._connections.forEach(connections => connections.disconnect_all());
         this._connections = null;
         this._connection = null;
+        disable_system_style();
 
         delete global.blur_my_shell;
 
@@ -162,7 +165,6 @@ export default class BlurMyShell extends Extension {
         this._enable_before_startup(
             this._dash_to_dock_blur, this._settings.dash_to_dock.BLUR, 'dash-to-dock'
         );
-        this._enable_before_startup(this._panel_blur, this._settings.panel.BLUR, 'panel');
     }
 
     /// The shell is not fully loaded yet, so this may fail; the component is then enabled again

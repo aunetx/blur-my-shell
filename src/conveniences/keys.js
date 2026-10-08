@@ -100,6 +100,7 @@ export const KEYS = [
             { type: Type.I, name: "menu-corner-radius" },
             { type: Type.I, name: "candidate-corner-radius" },
             { type: Type.I, name: "quick-settings-corner-radius" },
+            { type: Type.I, name: "submenu-corner-radius" },
             { type: Type.I, name: "calendar-corner-radius" },
             { type: Type.I, name: "notification-corner-radius" },
             { type: Type.I, name: "osd-corner-radius" },

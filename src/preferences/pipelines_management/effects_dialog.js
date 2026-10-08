@@ -135,7 +135,6 @@ export const EffectsDialog = GObject.registerClass({
 
         const effect_row = new EffectRow(effect, this);
         this._effects_list.add(effect_row);
-        this.move_row_by(effect_row, 0);
         this.update_move_buttons(effect_row.get_parent());
     }
 
@@ -158,11 +157,8 @@ export const EffectsDialog = GObject.registerClass({
             row.effect = effect;
 
             const listbox = row.get_parent();
-            listbox.set_sort_func((row_a, row_b) => {
-                const id_a = effects.findIndex(e => e.id == row_a.effect.id);
-                const id_b = effects.findIndex(e => e.id == row_b.effect.id);
-                return id_a - id_b;
-            });
+            listbox.remove(row);
+            listbox.insert(row, destination);
 
             this.update_move_buttons(listbox);
         }

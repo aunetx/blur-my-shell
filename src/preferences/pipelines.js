@@ -98,7 +98,7 @@ export const Pipelines = GObject.registerClass({
     rename_pipeline(pipeline_id, name) {
         let pipeline_infos = this.pipelines_map.get(pipeline_id);
         if (pipeline_infos)
-            pipeline_infos.pipeline_group.set_title(name.length > 0 ? name : " ");
+            pipeline_infos.pipeline_group.set_title(GLib.markup_escape_text(name.length > 0 ? name : " ", -1));
     }
 
     open_effects_dialog(pipeline_id) {

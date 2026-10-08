@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-03 06:56+0200\n"
-"PO-Revision-Date: 2026-06-11 10:01+0000\n"
-"Last-Translator: zlx0000 <zlx20010815@gmail.com>\n"
+"PO-Revision-Date: 2026-10-08 02:51+0000\n"
+"Last-Translator: Aliorpse <Aliorpse@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: src/effects/effects.js:19
 msgid "Dual Kawase blur"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: src/effects/effects.js:79 src/effects/effects.js:134
 msgid "Saturation"
-msgstr ""
+msgstr "饱和度"
 
 #: src/effects/effects.js:81 src/effects/effects.js:89
 msgid "Luminosity"
@@ -1069,43 +1069,30 @@ msgstr[0] ""
 msgid "Unknown effect"
 msgstr ""
 
-#~ msgid "Dash to Dock blur"
-#~ msgstr "Dash to Dock 模糊"
+#: resources/ui/applications.ui:80 resources/ui/dash.ui:80
+#: resources/ui/panel.ui:80 resources/ui/popup.ui:126
+msgid "Rounded corners"
+msgstr ""
 
-#~ msgid "Blur the background of the Dash to Dock extension, if it is used."
-#~ msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
+#: resources/ui/applications.ui:85 resources/ui/dash.ui:85
+#: resources/ui/panel.ui:85 resources/ui/popup.ui:131
+msgid "All"
+msgstr ""
 
-#~ msgid ""
-#~ "Makes the background either transparent or semi-transparent, disable this "
-#~ "to use Dash to Dock preferences instead."
-#~ msgstr "使背景透明或半透明，禁用此选项以改用 Dash to Dock 的首选项。"
+#: resources/ui/applications.ui:86 resources/ui/dash.ui:86
+#: resources/ui/panel.ui:86 resources/ui/popup.ui:132
+msgid "Top only"
+msgstr ""
 
-#~ msgid "Disables the blur from Dash to Dock when entering the overview."
-#~ msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
+#: resources/ui/applications.ui:87 resources/ui/dash.ui:87
+#: resources/ui/panel.ui:87 resources/ui/popup.ui:133
+msgid "Bottom only"
+msgstr ""
 
-#~ msgid ""
-#~ "The color to blend in. The blending amount is controled by the opacity of "
-#~ "the color."
-#~ msgstr "要融入的颜色。混合量由颜色透明度控制。"
-
-#~ msgid "The contrast of the image in regard to the center of the contrast."
-#~ msgstr "图像相对于对比度中心的对比度。"
-
-#~ msgid ""
-#~ "An effect that downscales the image and put it on the top-left corner."
-#~ msgstr "缩小图像并将其放在左上角的效果。"
-
-#~ msgid "Converts the image from RGBA colorspace to HSLA."
-#~ msgstr "将图像从RGBA色彩空间转换为HSLA色彩空间。"
-
-#~ msgid "Converts the image from HSLA colorspace to RGBA."
-#~ msgstr "将图像从HSLA色彩空间转换为RGBA色彩空间。"
-
-#~ msgid "Resets preferences of Blur my Shell irreversibly."
-#~ msgstr "不可逆转地重置 Blur my Shell 的首选项。"
-
-#~ msgid "Does not disable the blur in overview, best used with static blur."
-#~ msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"
+#: resources/ui/applications.ui:88 resources/ui/dash.ui:88
+#: resources/ui/panel.ui:88 resources/ui/popup.ui:134
+msgid "None"
+msgstr ""
 
 #~ msgid "Shape effects"
 #~ msgstr "形状效果"
@@ -1144,7 +1131,7 @@ msgstr ""
 #~ msgid ""
 #~ "The maximum travel distance for each step in the random walk. A higher "
 #~ "value will make the blur more randomized."
-#~ msgstr "随机行走中，每一步的最大长度。数值更高则模糊越随机。"
+#~ msgstr "随机游走中每一步的最大长度，数值更高则模糊越随机。"
 
 #~ msgid "Iterations"
 #~ msgstr "迭代"
@@ -1170,9 +1157,27 @@ msgstr ""
 #~ msgstr "是否更接近原始像素的像素将具有更大的权重。"
 
 #~ msgid ""
+#~ "The color to blend in. The blending amount is controled by the opacity of "
+#~ "the color."
+#~ msgstr "要融入的颜色。混合量由颜色透明度控制。"
+
+#~ msgid "The contrast of the image in regard to the center of the contrast."
+#~ msgstr "图像相对于对比度中心的对比度。"
+
+#~ msgid ""
+#~ "An effect that downscales the image and put it on the top-left corner."
+#~ msgstr "缩小图像并将其放在左上角的效果。"
+
+#~ msgid ""
 #~ "An effect that adds a random noise. Prefer the Monte Carlo blur for a "
 #~ "more organic effect if needed."
 #~ msgstr "添加随机噪点的效果。若想要模糊更自然，更建议使用蒙特卡洛模糊。"
+
+#~ msgid "Converts the image from RGBA colorspace to HSLA."
+#~ msgstr "将图像从RGBA色彩空间转换为HSLA色彩空间。"
+
+#~ msgid "Converts the image from HSLA colorspace to RGBA."
+#~ msgstr "将图像从HSLA色彩空间转换为RGBA色彩空间。"
 
 #~ msgid "Corner"
 #~ msgstr "圆角"
@@ -1212,10 +1217,24 @@ msgstr ""
 #~ "effect, but shows content behind windows."
 #~ msgstr "动态模糊更慢且只与高斯模糊兼容，但它能够显示窗口背后的内容。"
 
+#~ msgid "Dash to Dock blur"
+#~ msgstr "Dash to Dock 模糊"
+
+#~ msgid "Blur the background of the Dash to Dock extension, if it is used."
+#~ msgstr "如果 Dash to Dock 扩展被使用，将其背景进行模糊。"
+
 #~ msgid ""
 #~ "The dynamic blur is slower and only compatible with a gaussian blur "
 #~ "effect."
 #~ msgstr "动态模糊较慢，只与高斯模糊效果兼容。"
+
+#~ msgid ""
+#~ "Makes the background either transparent or semi-transparent, disable this "
+#~ "to use Dash to Dock preferences instead."
+#~ msgstr "使背景透明或半透明，禁用此选项以改用 Dash to Dock 的首选项。"
+
+#~ msgid "Disables the blur from Dash to Dock when entering the overview."
+#~ msgstr "在进入总览时禁用 Dash to Dock 的模糊。"
 
 #~ msgid "Hack level"
 #~ msgstr "Hack 级别"
@@ -1228,6 +1247,9 @@ msgstr ""
 #~ msgstr ""
 #~ "改变动态模糊效果的行为。强烈推荐使用默认值。\n"
 #~ "“无阴影”选项会禁用 GNOME Shell 中的剪裁重绘，并会大幅影响电脑性能。"
+
+#~ msgid "Resets preferences of Blur my Shell irreversibly."
+#~ msgstr "不可逆转地重置 Blur my Shell 的首选项。"
 
 #~ msgid "High performances"
 #~ msgstr "高性能"
@@ -1243,6 +1265,9 @@ msgstr ""
 
 #~ msgid "Disables the transparency of the panel when a window is near it."
 #~ msgstr "当窗口靠近面板时禁用面板的透明度。"
+
+#~ msgid "Does not disable the blur in overview, best used with static blur."
+#~ msgstr "在概览界面时不禁用模糊，最好与静态模糊一起使用。"
 
 #~ msgid "A list of windows to blur."
 #~ msgstr "要模糊的窗口列表。"
