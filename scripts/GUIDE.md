@@ -12,6 +12,8 @@ curl https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/sc
 
 **Note:** You will need to rerun this script everytime GNOME Shell / mutter is updated because the library need to be built against the version that you have running on your computer.
 
+**Important:** After installing the library, you must log out of your GNOME session and log back in for GNOME Shell to load it. In some cases, a full system reboot may be necessary.
+
 ### Uninstalling the library
 
 The library can be uninstalled by running the following command
