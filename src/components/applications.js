@@ -54,6 +54,17 @@ function matchesAnyPattern(value, patterns) {
     return patterns.some(pattern => pattern.test(value));
 }
 
+
+/// True when any of a window's classes matches. A window is filed under more
+/// than one name: its own wm_class, the GApplication id GTK stamps on every
+/// window one app opens, and the wm_class of each window it is transient for.
+/// Matching only get_wm_class() leaves a dialog, a tool palette or a portal
+/// file chooser unblurred beside the window it came out of — this list is
+/// what makes "blur this app" mean the app rather than one of its windows.
+function matchesAnyClass(values, patterns) {
+    return values.some(value => matchesAnyPattern(value, patterns));
+}
+
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
@@ -206,6 +217,19 @@ export const ApplicationsBlur = class ApplicationsBlur {
             _ => this.check_blur(meta_window)
         );
 
+        // same for the GApplication id, and for a window's own transient-for
+        // chain settling — 'shown' fires once the window is mapped, and for
+        // some clients transient-for is only set by then, after this window
+        // was already tracked from 'window-created'.
+        this.connections.connect(
+            meta_window, 'notify::gtk-application-id',
+            _ => this.check_blur(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'shown',
+            _ => this.check_blur(meta_window)
+        );
+
         // update the clip, position, and/or size when the window changes
         this.connections.connect(
             meta_window, 'size-changed',
@@ -288,6 +312,30 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Checks if the given actor needs to be blurred.
     /// Accepts only tracked meta window, be it blurred or not.
     ///
+    /// Every class a window can be matched under: its own wm_class, its GTK
+    /// application id, and the same two for each window up its transient-for
+    /// chain — so a dialog, a tool palette, or a cross-process file chooser
+    /// inherits the decision made for the app it came out of. Bounded and
+    /// cycle-guarded: transient-for loops are malformed, but a client can
+    /// still set one, and this runs on every window event.
+    window_classes(meta_window) {
+        const classes = [];
+        const push = v => { if (v && !classes.includes(v)) classes.push(v); };
+
+        push(meta_window.get_wm_class());
+        push(meta_window.get_gtk_application_id());
+
+        const seen = new Set([meta_window]);
+        let parent = meta_window.get_transient_for();
+        for (let depth = 0; parent && depth < 8 && !seen.has(parent); depth++) {
+            seen.add(parent);
+            push(parent.get_wm_class());
+            push(parent.get_gtk_application_id());
+            parent = parent.get_transient_for();
+        }
+        return classes;
+    }
+
     /// In order to be blurred, a window either:
     /// - is whitelisted in the user preferences if not enable-all
     /// - is not blacklisted if enable-all
@@ -297,23 +345,31 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// - ? matches any single character
     /// - Matching is case-insensitive
     check_blur(meta_window) {
-        const window_wm_class = meta_window.get_wm_class();
+        const window_classes = this.window_classes(meta_window);
         const enable_all = this.settings.applications.ENABLE_ALL;
-        if (window_wm_class)
-            this._log(`pid ${meta_window.bms_pid} associated to wm class name ${window_wm_class}`);
+        if (window_classes.length > 0)
+            this._log(`pid ${meta_window.bms_pid} associated to classes ${window_classes.join(', ')}`);
 
 
         // if we are in blacklist mode and the window is not blacklisted
         // or if we are in whitelist mode and the window is whitelisted
         if (
-            window_wm_class !== ""
-            && ((enable_all && !matchesAnyPattern(window_wm_class, this._compiled_blacklist))
-                || (!enable_all && matchesAnyPattern(window_wm_class, this._compiled_whitelist))
+            window_classes.length > 0
+            && ((enable_all && !matchesAnyClass(window_classes, this._compiled_blacklist))
+                || (!enable_all && matchesAnyClass(window_classes, this._compiled_whitelist))
             )
             && [
                 Meta.FrameType.NORMAL,
                 Meta.FrameType.DIALOG,
-                Meta.FrameType.MODAL_DIALOG
+                Meta.FrameType.MODAL_DIALOG,
+                // attach-modal-dialogs is true out of the box on GNOME, and
+                // Mutter reports an attached modal as ATTACHED rather than
+                // MODAL_DIALOG — which is why every modal dialog was the
+                // place the glass stopped. UTILITY covers tool palettes and
+                // floating panels the same NORMAL/DIALOG/MODAL_DIALOG set
+                // was already meant to include.
+                Meta.FrameType.ATTACHED,
+                Meta.FrameType.UTILITY
             ].includes(meta_window.get_frame_type())
         ) {
             // only blur the window if it is not already done
@@ -471,10 +527,31 @@ export const ApplicationsBlur = class ApplicationsBlur {
             && !is_fullscreen
             && (this.settings.applications.BLUR_ON_OVERVIEW || !overview_visible);
 
-        if (show_blur)
+        if (show_blur) {
             blur_actor.show();
-        else
+            blur_actor.opacity = 255;
+        } else {
             blur_actor.hide();
+            // The blur actor is a child of the window actor, so the overview's
+            // window previews clone it along with the window they preview. Its
+            // effect samples the framebuffer wherever it is painted, and with
+            // clipped redraws on it only samples again when something damages
+            // the preview — hovering it, for instance. That leaves a preview
+            // showing a frozen picture of the desktop that jumps to a different
+            // one when the pointer arrives.
+            //
+            // Setting opacity to 0 ensures Clutter.Clone takes the blur out of the
+            // overview preview, and turning off the pipeline effects stops shaders
+            // running for something nothing can see.
+            blur_actor.opacity = 0;
+        }
+
+        const pipeline = meta_window.bg_manager?._bms_pipeline;
+        if (pipeline) {
+            if (pipeline.effect)
+                pipeline.effect.set_enabled(show_blur);
+            pipeline.effects?.forEach(effect => effect.set_enabled(show_blur));
+        }
 
         this.set_window_opacity(window_actor, show_blur
             ? this.settings.applications.OPACITY
