@@ -61,8 +61,9 @@ pot:
 	done
 
 
+TEST_SHELL_MODE ?= auto
 test-shell: build
-	sh scripts/test-shell.sh "$(UUID)" "build/$(UUID).shell-extension.zip"
+	sh scripts/test-shell.sh "$(UUID)" "build/$(UUID).shell-extension.zip" "$(TEST_SHELL_MODE)"
 
 
 test-prefs: install
