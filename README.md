@@ -130,7 +130,8 @@ make install
 
 You will then need to reload GNOME Shell, for example by logging out and in again, or under Xorg, pressing `alt+f2` and typing `r`.
 
-For a disposable nested session that does not read or modify your desktop settings, run `make test-shell`.
+For a disposable session that does not read or modify your desktop settings, run `make test-shell`. This will start a nested/devkit session, or a native session when run from a TTY.
+To exit from a native session press `alt+f2` and type `debugexit`.
 
 To debug the extension, you can use Looking Glass (`alt+f2`, type `lg`); I stored the extension object in `global.blur_my_shell`.
 
