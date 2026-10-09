@@ -76,10 +76,6 @@ export const PopupBlurMessageStacks = class PopupBlurMessageStacks {
             this.track_message(actor);
 
         this.get_children(actor).forEach(child => this.scan(child, seen));
-
-        const child = this.get_child(actor);
-        if (child)
-            this.scan(child, seen);
     }
 
     track_message(message) {
