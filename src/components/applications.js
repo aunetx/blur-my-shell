@@ -4,7 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
 import { ApplicationsService } from '../dbus/services.js';
-import { Pipeline } from '../conveniences/pipeline.js';
+import { Pipeline } from '../pipelines/pipeline.js';
 import { is_desktop_window } from '../conveniences/window.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';

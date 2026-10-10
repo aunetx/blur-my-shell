@@ -3,7 +3,7 @@ import Shell from 'gi://Shell';
 import St from 'gi://St';
 
 import * as utils from '../../conveniences/utils.js';
-import * as uniforms from '../../conveniences/shader_uniforms.js';
+import * as uniforms from '../../render/shader/uniforms.js';
 
 const SHADER_SOURCE = utils.get_shader_source(Shell, 'stack_mask.glsl', import.meta.url);
 

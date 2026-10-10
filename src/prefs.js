@@ -2,22 +2,22 @@ import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-import { update_from_old_settings } from './conveniences/settings_updater.js';
-import { PipelinesManager } from './conveniences/pipelines_manager.js';
-import { Settings } from './conveniences/settings.js';
-import { KEYS } from './conveniences/keys.js';
+import { update_from_old_settings } from './settings/settings_updater.js';
+import { PipelinesManager } from './pipelines/pipelines_manager.js';
+import { Settings } from './settings/settings.js';
+import { KEYS } from './settings/keys.js';
 import { cancel_pick } from './dbus/client.js';
 
 import { addMenu } from './preferences/menu.js';
-import { Pipelines } from './preferences/pipelines.js';
-import { Panel } from './preferences/panel.js';
-import { Overview } from './preferences/overview.js';
-import { Dash } from './preferences/dash.js';
-import { Applications } from './preferences/applications.js';
-import { PopupBlur } from './preferences/popup.js';
-import { Other } from './preferences/other.js';
+import { Pipelines } from './preferences/pages/pipelines.js';
+import { Panel } from './preferences/pages/panel.js';
+import { Overview } from './preferences/pages/overview.js';
+import { Dash } from './preferences/pages/dash.js';
+import { Applications } from './preferences/pages/applications.js';
+import { PopupBlur } from './preferences/pages/popup.js';
+import { Other } from './preferences/pages/other.js';
 
-import './preferences/pipelines_management/pipeline_choose_row.js';
+import './preferences/widgets/pipeline_choose_row.js';
 
 
 export default class BlurMyShellPreferences extends ExtensionPreferences {

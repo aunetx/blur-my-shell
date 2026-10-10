@@ -4,7 +4,7 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Connections } from '../conveniences/connections.js';
-import { Pipeline } from '../conveniences/pipeline.js';
+import { Pipeline } from '../pipelines/pipeline.js';
 import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
 import { getRoundedCorners } from '../render/corner_policy.js';
 import { is_desktop_window } from '../conveniences/window.js';

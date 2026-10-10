@@ -1,7 +1,7 @@
 import GLib from 'gi://GLib';
-import { ANTIALIASING_SOURCE } from '../render/shader_antialiasing.js';
-import { SURFACE_SAMPLING_SOURCE } from '../render/texture_region.js';
-import { get_snippet } from '../render/snippet_cache.js';
+import { ANTIALIASING_SOURCE } from '../render/shader/antialiasing.js';
+import { SURFACE_SAMPLING_SOURCE } from '../render/shader/texture_region.js';
+import { get_snippet } from '../render/shader/snippet_cache.js';
 
 export const IS_IN_PREFERENCES = typeof global === 'undefined';
 
@@ -31,7 +31,7 @@ export async function import_in_shell_only(module) {
 
 const Cogl = await import_in_shell_only('gi://Cogl');
 export const ShaderEffect = IS_IN_PREFERENCES ? null
-    : (await import('../render/shader_effect.js')).SurfaceShaderEffect;
+    : (await import('../render/shader/shader_effect.js')).SurfaceShaderEffect;
 
 // In use for the effects, to prevent boilerplate code
 export function setup_params(outer_this, params) {

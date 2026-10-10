@@ -5,6 +5,7 @@ POT = po/$(UUID).pot
 UI_SOURCES = $(shell find resources/ui -type f -name '*.ui' | sort)
 EFFECT_I18N_SOURCES = src/effects/effects.js src/effects/effect_groups.js
 PREFERENCES_I18N_SOURCES = $(shell find src/preferences -type f -name '*.js' | sort) src/prefs.js
+SOURCE_DIRS = $(filter-out styles,$(patsubst src/%/,%,$(wildcard src/*/)))
 # Preserve cascade order when bundling the component stylesheets.
 STYLESHEETS = src/styles/panel.css \
 	src/styles/dash.css \
@@ -30,12 +31,7 @@ build: clean
 			--extra-source=../LICENSE \
 			--extra-source=../resources/icons \
 			--extra-source=../resources/ui \
-			--extra-source=./components \
-			--extra-source=./conveniences \
-			--extra-source=./effects \
-			--extra-source=./preferences \
-			--extra-source=./dbus \
-			--extra-source=./render \
+			$(foreach dir,$(SOURCE_DIRS),--extra-source=./$(dir)) \
 			--podir=../po \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
 			-o ../build

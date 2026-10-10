@@ -1,8 +1,8 @@
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 
-import { Pipeline } from '../conveniences/pipeline.js';
-import { BackdropCaptureEffect } from './backdrop_capture.js';
+import { Pipeline } from '../pipelines/pipeline.js';
+import { BackdropCaptureEffect } from './backdrop/capture.js';
 import { RoundedPipeline } from './rounded_pipeline.js';
 
 export class DynamicPipeline {

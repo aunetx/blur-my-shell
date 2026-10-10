@@ -1,7 +1,7 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-import { Pipeline } from '../conveniences/pipeline.js';
+import { Pipeline } from '../pipelines/pipeline.js';
 
 const original_createBackground =
     UnlockDialog.prototype._createBackground;

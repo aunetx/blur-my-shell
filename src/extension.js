@@ -2,16 +2,16 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-import { update_from_old_settings } from './conveniences/settings_updater.js';
-import { PipelinesManager } from './conveniences/pipelines_manager.js';
-import { EffectsManager } from './conveniences/effects_manager.js';
+import { update_from_old_settings } from './settings/settings_updater.js';
+import { PipelinesManager } from './pipelines/pipelines_manager.js';
+import { EffectsManager } from './pipelines/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
-import { Settings } from './conveniences/settings.js';
-import { KEYS } from './conveniences/keys.js';
+import { Settings } from './settings/settings.js';
+import { KEYS } from './settings/keys.js';
 
 import { PanelBlur } from './components/panel.js';
 import { OverviewBlur } from './components/overview.js';
-import { DashBlur } from './components/dash_to_dock.js';
+import { DashBlur } from './components/dock/dash_to_dock.js';
 import { LockscreenBlur } from './components/lockscreen.js';
 import { AppFoldersBlur } from './components/appfolders.js';
 import { WindowListBlur } from './components/window_list.js';
@@ -21,8 +21,8 @@ import { ScreenshotBlur } from './components/screenshot.js';
 import { PopupBlur } from './components/popup/index.js';
 import { connect_component_settings } from './components/settings_connections.js';
 import { enable_system_style, disable_system_style } from './conveniences/style.js';
-import { track_painted_views } from './render/painted_view.js';
-import { clear_snippets } from './render/snippet_cache.js';
+import { track_painted_views } from './render/backdrop/painted_view.js';
+import { clear_snippets } from './render/shader/snippet_cache.js';
 
 
 /// The main extension class, created when the GNOME Shell is loaded.

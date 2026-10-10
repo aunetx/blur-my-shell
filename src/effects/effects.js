@@ -1,16 +1,16 @@
-import { DualKawaseBlurEffect } from './dual_kawase_blur.js';
-import { ColorEffect } from './color.js';
-import { NoiseEffect } from './noise.js';
-import { CornerEffect } from './corner.js';
-import { DownscaleEffect } from './downscale.js';
-import { UpscaleEffect } from './upscale.js';
-import { PixelizeEffect } from './pixelize.js';
-import { DerivativeEffect } from './derivative.js';
-import { RgbToHslEffect } from './rgb_to_hsl.js';
-import { HslToRgbEffect } from './hsl_to_rgb.js';
-import { LuminosityEffect } from './luminosity.js';
-import { RefractionEffect } from './refraction.js';
-import { WaveEffect } from './wave.js';
+import { DualKawaseBlurEffect } from './blur/dual_kawase_blur.js';
+import { ColorEffect } from './color/color.js';
+import { NoiseEffect } from './texture/noise.js';
+import { CornerEffect } from './corner/corner.js';
+import { DownscaleEffect } from './texture/downscale.js';
+import { UpscaleEffect } from './texture/upscale.js';
+import { PixelizeEffect } from './texture/pixelize.js';
+import { DerivativeEffect } from './texture/derivative.js';
+import { RgbToHslEffect } from './color/rgb_to_hsl.js';
+import { HslToRgbEffect } from './color/hsl_to_rgb.js';
+import { LuminosityEffect } from './color/luminosity.js';
+import { RefractionEffect } from './refraction/refraction.js';
+import { WaveEffect } from './wave/wave.js';
 
 export { get_effects_groups } from './effect_groups.js';
 

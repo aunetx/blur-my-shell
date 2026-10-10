@@ -4,7 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
 
-import { Pipeline } from '../conveniences/pipeline.js';
+import { Pipeline } from '../pipelines/pipeline.js';
 import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
