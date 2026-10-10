@@ -4,6 +4,7 @@ import { KEYS, DEPRECATED_KEYS } from './keys.js';
 const CURRENT_SETTINGS_VERSION = 7;
 
 const LEGACY_DYNAMIC_COMPONENTS = [
+    { name: 'appfolder', supports_static: false },
     { name: 'panel', supports_static: true },
     { name: 'dash-to-dock', supports_static: true },
     { name: 'applications', supports_static: true },
@@ -76,6 +77,10 @@ function is_matching_dynamic_pipeline(pipeline, radius, brightness) {
         });
 }
 
+function has_user_value(settings, keys) {
+    return keys.some(key => settings.get_user_value(key) !== null);
+}
+
 function next_migrated_pipeline_id(pipelines) {
     const base = 'pipeline_migrated_dynamic_blur';
     let index = 1;
@@ -100,17 +105,21 @@ function migrate_dynamic_blur_pipelines(
         const property = name.replaceAll('-', '_');
         const component = preferences[property];
         const legacy = deprecated_preferences[property];
-        if (supports_static && component.STATIC_BLUR)
+        if (!component.BLUR || (supports_static && component.STATIC_BLUR))
             return;
 
         const use_global = old_version < 2
             && 'CUSTOMIZE' in legacy
             && !legacy.CUSTOMIZE;
+        const legacy_settings = use_global ? deprecated_preferences.settings : legacy.settings;
+        if (!has_user_value(legacy_settings, ['sigma', 'brightness']))
+            return;
+
         const sigma = use_global ? deprecated_preferences.SIGMA : legacy.SIGMA;
         const brightness = use_global
             ? deprecated_preferences.BRIGHTNESS
             : legacy.BRIGHTNESS;
-        const radius = Math.max(0, Math.min(200, sigma * 2));
+        const radius = Math.max(0, Math.min(100, sigma * 2));
         const clamped_brightness = Math.max(0, Math.min(1, brightness));
 
         let pipeline_id = Object.keys(pipelines).find(id =>

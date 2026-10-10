@@ -132,20 +132,13 @@ export const DEPRECATED_KEYS = [
         component: "general", schemas: [
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
-            { type: Type.B, name: "color-and-noise" },
         ]
     },
     {
-        component: "overview", schemas: [
+        component: "appfolder", schemas: [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
@@ -153,9 +146,6 @@ export const DEPRECATED_KEYS = [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
@@ -163,9 +153,6 @@ export const DEPRECATED_KEYS = [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
@@ -173,19 +160,6 @@ export const DEPRECATED_KEYS = [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
-        ]
-    },
-    {
-        component: "lockscreen", schemas: [
-            { type: Type.B, name: "customize" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
@@ -193,19 +167,6 @@ export const DEPRECATED_KEYS = [
             { type: Type.B, name: "customize" },
             { type: Type.I, name: "sigma" },
             { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
-        ]
-    },
-    {
-        component: "screenshot", schemas: [
-            { type: Type.B, name: "customize" },
-            { type: Type.I, name: "sigma" },
-            { type: Type.D, name: "brightness" },
-            { type: Type.C, name: "color" },
-            { type: Type.D, name: "noise-amount" },
-            { type: Type.D, name: "noise-lightness" },
         ]
     },
     {
