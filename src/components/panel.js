@@ -3,6 +3,7 @@ import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import { Connections } from '../conveniences/connections.js';
 import { Pipeline } from '../conveniences/pipeline.js';
 import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
 import { getRoundedCorners } from '../render/corner_policy.js';
@@ -26,6 +27,7 @@ const GRADIENT_PANEL_STYLES = [
 export const PanelBlur = class PanelBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
+        this.window_connections = new Connections();
         this.window_signal_ids = new Map();
         this.settings = settings;
         this.effects_manager = effects_manager;
@@ -440,19 +442,19 @@ export const PanelBlur = class PanelBlur {
         this._in_overview = Main.overview.visible;
         if (this.settings.panel.UNBLUR_IN_OVERVIEW) {
             if (!this.settings.hidetopbar.COMPATIBILITY) {
-                this.connections.connect(
+                this.window_connections.connect(
                     Main.overview, 'showing', _ => {
                         this._in_overview = true;
                         this.hide();
                     }
                 );
-                this.connections.connect(
+                this.window_connections.connect(
                     Main.overview, 'shown', _ => {
                         this._in_overview = true;
                         this.hide();
                     }
                 );
-                this.connections.connect(
+                this.window_connections.connect(
                     Main.overview, 'hidden', _ => {
                         this._in_overview = false;
                         this.panel_hide_blur_dynamically();
@@ -462,21 +464,21 @@ export const PanelBlur = class PanelBlur {
                 );
             } else {
                 const appDisplay = this.get_app_display();
-                this.connections.connect(
+                this.window_connections.connect(
                     appDisplay, 'show', _ => {
                         this._in_overview = true;
                         this.hide();
                     }
                 );
 
-                this.connections.connect(
+                this.window_connections.connect(
                     appDisplay, 'hide', _ => {
                         this._in_overview = false;
                         this.update_visibility();
                         this.queue_panel_border_radius_update();
                     }
                 );
-                this.connections.connect(
+                this.window_connections.connect(
                     Main.overview, 'hidden', _ => {
                         this._in_overview = false;
                         this.update_visibility();
@@ -492,11 +494,11 @@ export const PanelBlur = class PanelBlur {
         if (
             this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY
         ) {
-            this.connections.connect(Main.overview, ['showing', 'hiding'],
+            this.window_connections.connect(Main.overview, ['showing', 'hiding'],
                 _ => this.update_visibility()
             );
 
-            this.connections.connect(Main.sessionMode, 'updated',
+            this.window_connections.connect(Main.sessionMode, 'updated',
                 _ => this.update_visibility()
             );
 
@@ -506,14 +508,14 @@ export const PanelBlur = class PanelBlur {
                 );
             }
 
-            this.connections.connect(global.window_group, 'child-added',
+            this.window_connections.connect(global.window_group, 'child-added',
                 this.on_window_actor_added.bind(this)
             );
-            this.connections.connect(global.window_group, 'child-removed',
+            this.window_connections.connect(global.window_group, 'child-removed',
                 this.on_window_actor_removed.bind(this)
             );
 
-            this.connections.connect(global.window_manager, 'switch-workspace',
+            this.window_connections.connect(global.window_manager, 'switch-workspace',
                 _ => this.update_visibility()
             );
 
@@ -545,15 +547,7 @@ export const PanelBlur = class PanelBlur {
 
     /// Disconnect all the connections created by connect_to_windows
     disconnect_from_windows_and_overview() {
-        for (const actor of [
-            Main.overview, Main.sessionMode,
-            global.window_group, global.window_manager,
-            this.get_app_display()
-        ])
-            this.connections.disconnect_all_for(actor);
-
-        for (const actor of this.window_signal_ids.keys())
-            this.connections.disconnect_all_for(actor);
+        this.window_connections.disconnect_all();
         this.window_signal_ids = new Map();
     }
 
@@ -576,12 +570,12 @@ export const PanelBlur = class PanelBlur {
             return;
 
         this.window_signal_ids.set(meta_window_actor, true);
-        this.connections.connect(
+        this.window_connections.connect(
             meta_window_actor,
             ['notify::allocation', 'notify::visible'],
             () => this.queue_visibility_update()
         );
-        this.connections.connect(meta_window_actor, 'destroy', () => {
+        this.window_connections.connect(meta_window_actor, 'destroy', () => {
             this.window_signal_ids.delete(meta_window_actor);
             this.queue_visibility_update();
         });
@@ -593,7 +587,7 @@ export const PanelBlur = class PanelBlur {
         if (!this.window_signal_ids.has(meta_window_actor))
             return;
 
-        this.connections.disconnect_all_for(meta_window_actor);
+        this.window_connections.disconnect_all_for(meta_window_actor);
         this.window_signal_ids.delete(meta_window_actor);
         this.queue_visibility_update();
     }
