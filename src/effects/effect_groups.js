@@ -1,11 +1,9 @@
-export function get_effects_groups(_ = _ => '') {
+export function get_effects_groups(_) {
     return {
         blur_effects: {
             name: _('Blur effects'),
             contains: [
-                'native_static_gaussian_blur',
-                'gaussian_blur',
-                'monte_carlo_blur',
+                'dual_kawase_blur',
             ],
         },
         texture_effects: {
@@ -21,11 +19,8 @@ export function get_effects_groups(_ = _ => '') {
                 'luminosity',
                 'rgb_to_hsl',
                 'hsl_to_rgb',
+                'wave',
             ],
-        },
-        shape_effects: {
-            name: _('Shape effects'),
-            contains: ['corner'],
         },
     };
 }

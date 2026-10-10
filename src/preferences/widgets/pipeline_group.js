@@ -1,0 +1,101 @@
+import Adw from 'gi://Adw';
+import GLib from 'gi://GLib';
+import GObject from 'gi://GObject';
+import Gtk from 'gi://Gtk';
+import {
+    gettext as _,
+    ngettext,
+} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+
+import { get_supported_effects } from '../../effects/effects.js';
+
+
+export const PipelineGroup = GObject.registerClass({
+    GTypeName: 'PipelineGroup',
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipeline-group.ui', GLib.UriFlags.NONE),
+    InternalChildren: [
+        "title",
+        "effects_description_row",
+        "manage_effects"
+    ],
+}, class PipelineGroup extends Adw.PreferencesGroup {
+    constructor(pipelines_manager, pipeline_id, pipeline, pipelines_page) {
+        super({});
+
+        this.SUPPORTED_EFFECTS = get_supported_effects(_);
+
+        this._pipelines_manager = pipelines_manager;
+        this._pipeline_id = pipeline_id;
+
+        this.set_description(_('Pipeline id: “%s”').replace('%s', () => pipeline_id));
+
+        this.set_title(GLib.markup_escape_text(pipeline.name.length > 0 ? pipeline.name : " ", -1));
+        this._title.set_text(pipeline.name);
+        this._title.connect(
+            'changed',
+            () => pipelines_manager.rename_pipeline(pipeline_id, this._title.get_text())
+        );
+
+        let prefix_bin = new Gtk.Box;
+        prefix_bin.add_css_class('linked');
+        this._title.add_prefix(prefix_bin);
+
+        if (pipeline_id != "pipeline_default") {
+            let remove_button = new Gtk.Button({
+                'icon-name': 'remove-row-symbolic',
+                'width-request': 38,
+                'height-request': 38,
+                'margin-top': 6,
+                'margin-bottom': 6
+            });
+            remove_button.add_css_class('destructive-action');
+            prefix_bin.append(remove_button);
+            remove_button.connect('clicked', () => pipelines_manager.delete_pipeline(pipeline_id));
+        }
+        let duplicate_button = new Gtk.Button({
+            'icon-name': 'duplicate-row-symbolic',
+            'width-request': 38,
+            'height-request': 38,
+            'margin-top': 6,
+            'margin-bottom': 6
+        });
+        prefix_bin.append(duplicate_button);
+        duplicate_button.connect('clicked', () => pipelines_manager.duplicate_pipeline(pipeline_id));
+
+        this.update_effects_description_row();
+        this._pipeline_updated_id = this._pipelines_manager.connect(
+            pipeline_id + '::pipeline-updated',
+            () => this.update_effects_description_row()
+        );
+
+        this._manage_effects.connect(
+            'clicked',
+            () => pipelines_page.open_effects_dialog(pipeline_id)
+        );
+    }
+
+    update_effects_description_row() {
+        const effects = this._pipelines_manager.pipelines[this._pipeline_id].effects;
+
+        if (effects.length == 0)
+            this._effects_description_row.set_title(_("No effect"));
+        else
+            this._effects_description_row.set_title(
+                ngettext('%d effect', '%d effects', effects.length)
+                    .replace('%d', effects.length)
+            );
+
+        const subtitle = effects.map(effect =>
+            effect.type in this.SUPPORTED_EFFECTS
+                ? this.SUPPORTED_EFFECTS[effect.type].name
+                : _('Unknown effect')
+        ).join(', ');
+        this._effects_description_row.set_subtitle(subtitle);
+    }
+
+    cleanup() {
+        if (this._pipeline_updated_id)
+            this._pipelines_manager.disconnect(this._pipeline_updated_id);
+        this._pipeline_updated_id = null;
+    }
+});

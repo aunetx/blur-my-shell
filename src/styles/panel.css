@@ -13,7 +13,7 @@
 * `.dark-panel`
 */
 #panel.dark-panel {
-    background-color: rgba(100, 100, 100, 0.35) !important;
+    background-color: rgba(45, 45, 50, 0.22) !important;
     box-shadow: none !important;
     transition-duration: 500ms;
 }
@@ -22,7 +22,7 @@
 * `.light-panel`
 */
 #panel.light-panel {
-    background-color: rgba(200, 200, 200, 0.2) !important;
+    background-color: rgba(255, 255, 255, 0.58) !important;
     box-shadow: none !important;
     transition-duration: 500ms;
 }
