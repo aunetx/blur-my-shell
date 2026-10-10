@@ -55,7 +55,6 @@ export const PanelBlur = class PanelBlur {
             this.main_panel = null;
         });
 
-        // check for panels when Dash to Panel is activated
         this.connections.connect(
             Main.extensionManager,
             'extension-state-changed',
@@ -80,8 +79,6 @@ export const PanelBlur = class PanelBlur {
         // Hide the panel blur first to avoid the panel background from display on login
         this.panel_hide_blur_startup();
 
-        // connect to overview being opened/closed, and dynamically show or not
-        // the blur when a window is near a panel
         this.connect_to_windows_and_overview();
 
         // connect to monitors change, and set a dirty flag to tell the extension that it should be
@@ -202,7 +199,6 @@ export const PanelBlur = class PanelBlur {
                     this.maybe_blur_panel(p.panel);
             });
 
-            // if main panel is not included in the previous panels, blur it
             if (
                 !global.dashToPanel.panels
                     .map(p => p.panel)
@@ -216,7 +212,7 @@ export const PanelBlur = class PanelBlur {
 
             return GLib.SOURCE_REMOVE;
         });
-    };
+    }
 
     /// Blur a panel only if it is not already blurred (contained in the list)
     maybe_blur_panel(panel) {
@@ -429,7 +425,6 @@ export const PanelBlur = class PanelBlur {
             background.height = geometry_height;
         }
 
-        // update the monitor panel is on
         const current_monitor = Main.layoutManager.findMonitorForActor(geometry_actor);
         if (current_monitor)
             actors.monitor = current_monitor;
@@ -497,24 +492,20 @@ export const PanelBlur = class PanelBlur {
         if (
             this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY
         ) {
-            // connect to overview opening/closing
             this.connections.connect(Main.overview, ['showing', 'hiding'],
                 _ => this.update_visibility()
             );
 
-            // connect to session mode update
             this.connections.connect(Main.sessionMode, 'updated',
                 _ => this.update_visibility()
             );
 
-            // manage already-existing windows
             for (const meta_window_actor of global.get_window_actors()) {
                 this.on_window_actor_added(
                     meta_window_actor.get_parent(), meta_window_actor
                 );
             }
 
-            // manage windows at their creation/removal
             this.connections.connect(global.window_group, 'child-added',
                 this.on_window_actor_added.bind(this)
             );
@@ -522,15 +513,12 @@ export const PanelBlur = class PanelBlur {
                 this.on_window_actor_removed.bind(this)
             );
 
-            // connect to a workspace change
             this.connections.connect(global.window_manager, 'switch-workspace',
                 _ => this.update_visibility()
             );
 
-            // perform early update
             this.update_visibility();
         } else {
-            // reset transparency for every panels
             this.actors_list.forEach(
                 actors => this.set_should_override_panel(actors, true)
             );
@@ -557,7 +545,6 @@ export const PanelBlur = class PanelBlur {
 
     /// Disconnect all the connections created by connect_to_windows
     disconnect_from_windows_and_overview() {
-        // disconnect the connections to actors
         for (const actor of [
             Main.overview, Main.sessionMode,
             global.window_group, global.window_manager,
@@ -565,7 +552,6 @@ export const PanelBlur = class PanelBlur {
         ])
             this.connections.disconnect_all_for(actor);
 
-        // disconnect the connections from windows
         for (const actor of this.window_signal_ids.keys())
             this.connections.disconnect_all_for(actor);
         this.window_signal_ids = new Map();
@@ -681,7 +667,6 @@ export const PanelBlur = class PanelBlur {
         if (!Main.layoutManager.primaryMonitor)
             return;
 
-        // get all the windows in the active workspace that are visible
         const workspace = global.workspace_manager.get_active_workspace();
         const windows = workspace.list_windows().filter(meta_window =>
             meta_window.showing_on_its_workspace()
@@ -693,12 +678,9 @@ export const PanelBlur = class PanelBlur {
                 Meta.WindowType.DIALOG,
                 Meta.WindowType.MODAL_DIALOG
             ].includes(meta_window.get_window_type())
-            // exclude desktop windows
             && !is_desktop_window(meta_window)
         );
 
-        // check if at least one window is near enough to each panel and act
-        // accordingly
         const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
         this.actors_list
             // do not apply for dtp panels, as it would only cause bugs and it
@@ -709,7 +691,6 @@ export const PanelBlur = class PanelBlur {
                 let panel_top = panel.get_transformed_position()[1];
                 let panel_bottom = panel_top + panel.get_height();
 
-                // check if at least a window is near enough the panel
                 let window_overlap_panel = false;
                 windows.forEach(meta_window => {
                     let window_monitor_i = meta_window.get_monitor();
@@ -718,7 +699,6 @@ export const PanelBlur = class PanelBlur {
                     let window_vertical_pos = meta_window.get_frame_rect().y;
                     let window_vertical_bottom = window_vertical_pos + meta_window.get_frame_rect().height;
 
-                    // if so, and if in the same monitor, then it overlaps
                     if (same_monitor
                         &&
                         // check if panel is on top (relative to the monitor's Y origin)
@@ -729,7 +709,6 @@ export const PanelBlur = class PanelBlur {
                         window_overlap_panel = true;
                 });
 
-                // if no window overlaps, then the panel is transparent
                 this.set_should_override_panel(
                     actors, !window_overlap_panel
                 );
@@ -837,15 +816,12 @@ export const PanelBlur = class PanelBlur {
     }
 
     panel_hide_blur_dynamically() {
-        if (this.settings.panel.OVERRIDE_BACKGROUND && this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY) {
-            if (this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0) {
-                this.hide()
-            }
-            else {this.show()}
-        }
-        else {
-            this.show()
-        }
+        if (this.settings.panel.OVERRIDE_BACKGROUND
+            && this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY
+            && this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE === 0)
+            this.hide();
+        else
+            this.show();
     }
 
     proximity_hide(actors) {
@@ -882,7 +858,7 @@ export const PanelBlur = class PanelBlur {
         actors.widgets.background.show();
     }
 
-    panel_hide_blur_startup(){
+    panel_hide_blur_startup() {
         if (this.settings.panel.UNBLUR_IN_OVERVIEW && Main.overview.visible)
             this.hide();
     }

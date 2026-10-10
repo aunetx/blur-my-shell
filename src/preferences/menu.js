@@ -1,4 +1,3 @@
-import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
@@ -59,7 +58,7 @@ function addMenuToHeader(window, builder) {
         let act = new Gio.SimpleAction({ name: action.name });
         act.connect(
             'activate',
-            () => Gtk.show_uri(window, action.link, Gdk.CURRENT_TIME)
+            () => new Gtk.UriLauncher({ uri: action.link }).launch(window, null, null)
         );
         actionGroup.add_action(act);
     });

@@ -3,6 +3,7 @@ import GObject from 'gi://GObject';
 import * as utils from '../conveniences/utils.js';
 import { getEffectBounds } from '../render/effect_bounds.js';
 import { get_view_framebuffer } from '../render/painted_view.js';
+import { get_snippet } from '../render/snippet_cache.js';
 import { getKawaseConfiguration } from './kawase_sampling.js';
 import {
     getTextureCapacity,
@@ -94,17 +95,12 @@ const DEFAULT_PARAMS = {
     opacity_factor: 1,
 };
 
-const SNIPPETS = new Map();
-
 function createSnippet(declarations, code) {
-    const key = `${declarations}\n${code}`;
-    if (SNIPPETS.has(key))
-        return SNIPPETS.get(key);
-
-    const snippet = Cogl.Snippet.new(Cogl.SnippetHook.FRAGMENT, declarations, null);
-    snippet.set_replace(code);
-    SNIPPETS.set(key, snippet);
-    return snippet;
+    return get_snippet(`${declarations}\n${code}`, () => {
+        const snippet = Cogl.Snippet.new(Cogl.SnippetHook.FRAGMENT, declarations, null);
+        snippet.set_replace(code);
+        return snippet;
+    });
 }
 
 function levelSize(size, level) {

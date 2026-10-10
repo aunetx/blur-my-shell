@@ -25,7 +25,6 @@ export const PipelineGroup = GObject.registerClass({
         this.SUPPORTED_EFFECTS = get_supported_effects(_);
 
         this._pipelines_manager = pipelines_manager;
-        this._pipelines_page = pipelines_page;
         this._pipeline_id = pipeline_id;
 
         this.set_description(_('Pipeline id: “%s”').replace('%s', () => pipeline_id));

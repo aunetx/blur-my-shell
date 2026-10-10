@@ -237,26 +237,6 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             }
         }
 
-        get webcam_gloss() {
-            return this._webcam_gloss;
-        }
-
-        set webcam_gloss(value) {
-            this._webcam_gloss = typeof value === 'boolean'
-                ? value
-                : DEFAULT_PARAMS.webcam_gloss;
-        }
-
-        get webcam_device() {
-            return this._webcam_device;
-        }
-
-        set webcam_device(value) {
-            this._webcam_device = typeof value === 'string'
-                ? value
-                : DEFAULT_PARAMS.webcam_device;
-        }
-
         get tint() {
             return this._tint;
         }

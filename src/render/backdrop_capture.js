@@ -7,6 +7,7 @@ import St from 'gi://St';
 import { BackdropOutputEffect } from './backdrop_output.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './backdrop_damage.js';
 import { get_view_framebuffer } from './painted_view.js';
+import { get_snippet } from './snippet_cache.js';
 import {
     getTextureCapacity,
     largestViewSize,
@@ -19,20 +20,18 @@ import {
 const PIXEL_EPSILON = 1 / 1024;
 const CAPTURE_TEXTURE_REGION = 'bms_capture_region';
 
-let captureSnippet = null;
-
 function getCaptureSnippet() {
-    if (captureSnippet === null) {
-        captureSnippet = Cogl.Snippet.new(
+    return get_snippet(CAPTURE_TEXTURE_REGION, () => {
+        const snippet = Cogl.Snippet.new(
             Cogl.SnippetHook.TEXTURE_LOOKUP,
             `${textureRegionDeclarations(CAPTURE_TEXTURE_REGION)}\n${TEXTURE_REGION_SOURCE}`,
             null
         );
-        captureSnippet.set_replace(
+        snippet.set_replace(
             `cogl_texel = bms_sample_region(cogl_sampler, cogl_tex_coord.st, ${CAPTURE_TEXTURE_REGION});`
         );
-    }
-    return captureSnippet;
+        return snippet;
+    });
 }
 
 // Mutter 48 renamed `cogl_blit_framebuffer()` to `cogl_framebuffer_blit()`

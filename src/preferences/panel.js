@@ -12,7 +12,6 @@ export const Panel = GObject.registerClass({
         'pipeline_choose_row',
         'mode_static',
         'mode_dynamic',
-        'corner_radius_row',
         'corner_radius',
         'rounded_corners',
         'unblur_in_overview',
@@ -118,9 +117,12 @@ export const Panel = GObject.registerClass({
     }
 
     proximity_option_changed() {
-        this._override_background_dynamically_mode_row.set_visible(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY);
-        this._gradient_panel_row.set_visible(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0);
-        this._gradient_panel_mode_row.set_visible(this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY && this.preferences.panel.GRADIENT_PANEL && this.preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE == 0);
+        const panel = this.preferences.panel;
+        const dynamic = panel.OVERRIDE_BACKGROUND_DYNAMICALLY;
+        const blur_on_proximity = dynamic && panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE === 0;
+        this._override_background_dynamically_mode_row.set_visible(dynamic);
+        this._gradient_panel_row.set_visible(blur_on_proximity);
+        this._gradient_panel_mode_row.set_visible(blur_on_proximity && panel.GRADIENT_PANEL);
     }
 
     change_blur_mode(is_static_blur, first_run) {

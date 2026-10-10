@@ -1,4 +1,4 @@
-export function get_effects_groups(_ = _ => '') {
+export function get_effects_groups(_) {
     return {
         blur_effects: {
             name: _('Blur effects'),

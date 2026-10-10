@@ -91,7 +91,7 @@ export const Pipeline = class Pipeline {
         });
         bg_manager._bms_pipeline = this;
 
-        // 'controlPosition: false' skips BackgroundManager's default layout pass, which also diables
+        // 'controlPosition: false' skips BackgroundManager's default layout pass, which also disables
         // sibling re-ordering.
         // Without it, new actors render on top while loading, causing a solid color flash through
         // on the surface.
@@ -106,7 +106,7 @@ export const Pipeline = class Pipeline {
         background_group.insert_child_at_index(actor, 0);
         background_managers.push(bg_manager);
         return actor;
-    };
+    }
 
     /// Set the pipeline id, correctly connecting the `Pipeline` object to listen the pipelines
     /// manager for pipeline-wide changes. This does not update the effects in consequence, call

@@ -306,7 +306,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         } else {
             this.show();
         }
-    };
+    }
 
     /// Updates the background to either remove it or not, according to the
     /// user preferences.

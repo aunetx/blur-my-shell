@@ -43,16 +43,12 @@ export const OverviewBlur = class OverviewBlur {
             { name: 'bms-animation-backgroundgroup' }
         );
 
-        // add css class name for workspace-switch background
         Main.uiGroup.add_style_class_name("blurred-overview");
 
-        // add css class name to make components semi-transparent if wanted
         this.update_components_classname();
 
-        // update backgrounds when the component is enabled
         this.update_backgrounds();
 
-        // connect to monitors change
         this.connections.connect(Main.layoutManager, 'monitors-changed',
             _ => this.update_backgrounds()
         );
@@ -138,9 +134,7 @@ export const OverviewBlur = class OverviewBlur {
                 'bms-animation-blurred-widget'
             ));
         }
-        // add the container widget for the overview only to the overview group
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
-        // make sure it stays below
         this.connections.connect(Main.layoutManager.overviewGroup, "child-added", (_, child) => {
             if (child !== this.overview_background_group)
                 Main.layoutManager.overviewGroup.set_child_at_index(this.overview_background_group, 0);

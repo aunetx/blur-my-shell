@@ -17,8 +17,6 @@ export const DEFAULT_PARAMS = {
     fresnel_angle: 45,
     fresnel_width: 1,
     specular_strength: 0,
-    webcam_gloss: false,
-    webcam_device: '',
     tint: 0.2,
     tint_color: [1, 1, 1, 1],
     backdrop_zoom: 1,
@@ -100,20 +98,6 @@ export const REFRACTION_EFFECT_META = {
         specular_strength: doubleProperty(
             'specular_strength', 'Specular Glare Strength', 'Strength of the specular glare',
             0, 1, DEFAULT_PARAMS.specular_strength
-        ),
-        webcam_gloss: GObject.ParamSpec.boolean(
-            'webcam_gloss',
-            'Deprecated Webcam Gloss',
-            'Deprecated compatibility property',
-            GObject.ParamFlags.READWRITE,
-            DEFAULT_PARAMS.webcam_gloss
-        ),
-        webcam_device: GObject.ParamSpec.string(
-            'webcam_device',
-            'Deprecated Webcam Device',
-            'Deprecated compatibility property',
-            GObject.ParamFlags.READWRITE,
-            DEFAULT_PARAMS.webcam_device
         ),
         tint: doubleProperty(
             'tint', 'Tint', 'Glass tint strength', 0, 1, DEFAULT_PARAMS.tint

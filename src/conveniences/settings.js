@@ -175,7 +175,7 @@ export const Settings = class Settings {
                 };
             });
         });
-    };
+    }
 
     /// Reset the preferences.
     reset() {

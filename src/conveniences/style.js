@@ -12,7 +12,7 @@ export function disable_system_style() {
     interface_settings = null;
 }
 
-export function get_background_style() {
+function get_background_style() {
     const theme = St.ThemeContext.get_for_stage(global.stage).get_theme();
     const stylesheet = theme.application_stylesheet ?? theme.default_stylesheet;
     const uri = stylesheet?.get_uri().toLowerCase() ?? '';

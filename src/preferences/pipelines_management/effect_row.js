@@ -16,7 +16,6 @@ export const EffectRow = GObject.registerClass({
         this.SUPPORTED_EFFECTS = get_supported_effects(_);
 
         this.effect = effect;
-        this.effects_dialog = effects_dialog;
         this.pipeline_id = effects_dialog.pipeline_id;
         this.pipelines_manager = effects_dialog.pipelines_manager;
 

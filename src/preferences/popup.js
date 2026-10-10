@@ -12,7 +12,6 @@ export const PopupBlur = GObject.registerClass({
         'pipeline_choose_row',
         'mode_static',
         'mode_dynamic',
-        'corner_radius_row',
         'corner_radius',
         'rounded_corners',
         'menu_corner_radius',
@@ -128,7 +127,5 @@ export const PopupBlur = GObject.registerClass({
         this._mode_static.set_active(is_static_blur);
         if (first_run)
             this._mode_dynamic.set_active(!is_static_blur);
-
-        this._corner_radius_row.set_visible(true);
     }
 });

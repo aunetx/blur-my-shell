@@ -9,10 +9,7 @@ import { is_desktop_window } from '../conveniences/window.js';
 import { DynamicPipeline } from '../render/dynamic_surface.js';
 import { RoundedPipeline } from '../render/rounded_pipeline.js';
 
-const LEGACY_BLUR_ACTOR_NAMES = new Set([
-    'blur-actor',
-    'bms-application-blurred-widget',
-]);
+const BLUR_ACTOR_NAME = 'bms-application-blurred-widget';
 
 
 /// Converts a case-insensitive wildcard pattern, where `*` matches any sequence and `?` any single
@@ -46,7 +43,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.original_child_opacities = new WeakMap();
         this.enabled = false;
 
-        // compile initial patterns
         this._update_patterns();
 
         this.service = new ApplicationsService;
@@ -73,10 +69,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         this.mutter_gsettings = new Gio.Settings({ schema: 'org.gnome.mutter' });
 
-        // blur already existing windows
         this.update_all_windows();
 
-        // blur every new window
         this.connections.connect(
             global.display,
             'window-created',
@@ -86,7 +80,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
             }
         );
 
-        // update window blur when focus is changed
         this.focused_window = null;
         this.init_dynamic_opacity();
         this.connections.connect(
@@ -113,11 +106,9 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// This is used both when enabling the component, and when changing the dynamic-opacity pref.
     init_dynamic_opacity() {
         if (this.settings.applications.DYNAMIC_OPACITY) {
-            // make the currently focused window solid
             if (global.display.focus_window)
                 this.set_focus_for_window(global.display.focus_window);
         } else {
-            // remove old focused window if the pref was changed
             if (this.focused_window)
                 this.set_focus_for_window(null);
         }
@@ -172,10 +163,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         this._log('new window tracked');
 
-        // register the blurred window
         this.meta_windows.add(meta_window);
 
-        // update the blur when wm-class, window-type, or app-id changes
         this.connections.connect(
             meta_window, 'notify::wm-class',
             _ => this.check_blur(meta_window)
@@ -189,7 +178,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
             _ => this.check_blur(meta_window)
         );
 
-        // remove the blur when the window is unmanaged
         this.connections.connect(
             meta_window, 'unmanaging',
             _ => this.untrack_meta_window(meta_window)
@@ -369,12 +357,10 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 Meta.FrameType.MODAL_DIALOG
             ].includes(meta_window.get_frame_type())
         ) {
-            // only blur the window if it is not already done
             if (!meta_window.blur_actor)
                 this.create_blur_effect(meta_window);
         }
 
-        // remove blur it is not explicitly whitelisted or un-blacklisted
         else if (meta_window.blur_actor) {
             this.remove_blur(meta_window);
         }
@@ -399,7 +385,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             const bg_managers = [];
             blur_actor = pipeline.create_background_with_effects(
                 meta_window.get_monitor(), bg_managers, window_actor,
-                'bms-application-blurred-widget'
+                BLUR_ACTOR_NAME
             );
             bg_manager = bg_managers[0];
             rounded_pipeline = new RoundedPipeline(
@@ -419,7 +405,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 }
             );
             [blur_actor, bg_manager] = pipeline.create_background_with_effect(
-                window_actor, 'bms-application-blurred-widget'
+                window_actor, BLUR_ACTOR_NAME
             );
         }
 
@@ -519,7 +505,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
 
         window_actor.get_children().forEach(child => {
-            if (child === blur_actor || LEGACY_BLUR_ACTOR_NAMES.has(child.name))
+            if (child === blur_actor || child.name === BLUR_ACTOR_NAME)
                 return;
 
             if (opacity === 255) {

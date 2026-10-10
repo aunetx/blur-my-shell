@@ -18,10 +18,11 @@ import { WindowListBlur } from './components/window_list.js';
 import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
 import { ApplicationsBlur } from './components/applications.js';
 import { ScreenshotBlur } from './components/screenshot.js';
-import { PopupBlur } from './components/popup.js';
+import { PopupBlur } from './components/popup/index.js';
 import { connect_component_settings } from './components/settings_connections.js';
 import { enable_system_style, disable_system_style } from './conveniences/style.js';
 import { track_painted_views } from './render/painted_view.js';
+import { clear_snippets } from './render/snippet_cache.js';
 
 
 /// The main extension class, created when the GNOME Shell is loaded.
@@ -100,7 +101,6 @@ export default class BlurMyShell extends Extension {
 
         if (this._user_session_mode_enabled)
             this._disable_user_session();
-        this._overview_blur.restore_patched_proto();
 
         // these stay active outside of the user session
         this._popup.disable();
@@ -122,6 +122,7 @@ export default class BlurMyShell extends Extension {
         this._effects_manager = null;
         this._pipelines_manager.destroy();
         this._pipelines_manager = null;
+        clear_snippets();
 
         // make sure no settings change can re-enable a component
         this._settings.disconnect_all_settings();
@@ -160,22 +161,9 @@ export default class BlurMyShell extends Extension {
             }
         );
 
-        // try to enable those anyway, so that the overview may load before the user sees it
-        this._enable_before_startup(this._overview_blur, this._settings.overview.BLUR, 'overview');
-        this._enable_before_startup(
-            this._dash_to_dock_blur, this._settings.dash_to_dock.BLUR, 'dash-to-dock'
-        );
-    }
-
-    /// The shell is not fully loaded yet, so this may fail; the component is then enabled again
-    /// once startup is complete.
-    _enable_before_startup(component, should_enable, name) {
-        try {
-            this._enable_component(component, should_enable);
-        } catch (error) {
-            logError(error, `[Blur my Shell > extension] could not enable ${name} during startup`);
-            component.disable();
-        }
+        // the startup animation shows the overview and the dash, so they are blurred right away
+        this._enable_component(this._overview_blur, this._settings.overview.BLUR);
+        this._enable_component(this._dash_to_dock_blur, this._settings.dash_to_dock.BLUR);
     }
 
     /// Disables the components related to the user session (everything except lockscreen blur and

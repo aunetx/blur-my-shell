@@ -262,7 +262,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
                     dialog._setLighterBackground(false);
             }
         }
-    };
+    }
 
     get_folder_style() {
         const style = this.settings.appfolder.STYLE_DIALOGS;
@@ -272,7 +272,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
         const FOLDER_STYLE = get_component_style(
             this.settings.appfolder.STYLE_DIALOGS,
             DIALOGS_STYLES
-        )
+        );
 
         return FOLDER_STYLE + 1;
     }
