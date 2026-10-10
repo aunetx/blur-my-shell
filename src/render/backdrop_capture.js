@@ -6,7 +6,7 @@ import Mtk from 'gi://Mtk';
 import St from 'gi://St';
 import { BackdropOutputEffect } from './backdrop_output.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './backdrop_damage.js';
-import { get_view_framebuffer } from './painted_view.js';
+import { get_painted_view, get_view_framebuffer } from './painted_view.js';
 import { get_snippet } from './snippet_cache.js';
 import {
     getTextureCapacity,
@@ -239,9 +239,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
             this.actorGeometry = actorGeometry;
         }
 
-        const view = global.stage.peek_stage_views().find(
-            stageView => stageView.get_framebuffer() === sourceFramebuffer
-        ) ?? null;
+        const painted_view = get_painted_view();
+        const view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         this.ensureFramebuffer(
             geometry.width,
             geometry.height,

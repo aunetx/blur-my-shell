@@ -5,6 +5,10 @@ export function track_painted_views(connections) {
     connections.connect(global.stage, 'after-paint', () => painted_view = null);
 }
 
+export function get_painted_view() {
+    return painted_view;
+}
+
 /// The framebuffer being painted, but only while a stage view is painted. Screencasts using shared
 /// memory paint the stage into a new framebuffer for every frame, and holding one from JS would keep
 /// each of them alive until the next garbage collection.
