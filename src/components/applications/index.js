@@ -1,33 +1,15 @@
-import Meta from 'gi://Meta';
 import Gio from 'gi://Gio';
+import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import * as Config from 'resource:///org/gnome/shell/misc/config.js';
 
-import { ApplicationsService } from '../dbus/services.js';
-import { Pipeline } from '../pipelines/pipeline.js';
-import { is_desktop_window } from '../conveniences/window.js';
-import { DynamicPipeline } from '../render/dynamic_surface.js';
-import { RoundedPipeline } from '../render/rounded_pipeline.js';
-
-const BLUR_ACTOR_NAME = 'bms-application-blurred-widget';
-
-
-/// Converts a case-insensitive wildcard pattern, where `*` matches any sequence and `?` any single
-/// character, to a RegExp.
-function wildcardToRegex(pattern) {
-    const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
-    const regex = '^' + escaped.replace(/\*/g, '.*').replace(/\?/g, '.') + '$';
-    return new RegExp(regex, 'i');
-}
-
-function compilePatterns(patterns) {
-    return patterns.map(wildcardToRegex);
-}
-
-function matchesAnyPattern(value, patterns) {
-    return Boolean(value) && patterns.some(pattern => pattern.test(value));
-}
-
+import { ApplicationsService } from '../../dbus/services.js';
+import { Pipeline } from '../../pipelines/pipeline.js';
+import { is_desktop_window } from '../../conveniences/window.js';
+import { DynamicPipeline } from '../../render/dynamic_surface.js';
+import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { WindowRules } from './window_rules.js';
+import { BLUR_ACTOR_NAME, WindowOpacity } from './window_opacity.js';
+import { compute_scale, place_dynamic_blur, place_static_blur } from './window_geometry.js';
 
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
@@ -38,26 +20,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.meta_windows = new Set();
         this.blur_signal_ids = new Map();
 
-        this._compiled_whitelist = [];
-        this._compiled_blacklist = [];
-        this.original_child_opacities = new WeakMap();
+        this.rules = new WindowRules(settings);
+        this.window_opacity = new WindowOpacity();
         this.enabled = false;
 
-        this._update_patterns();
-
         this.service = new ApplicationsService;
-    }
-
-    /// Updates the compiled whitelist and blacklist patterns from settings.
-    /// Called during initialization and when whitelist/blacklist settings change.
-    _update_patterns() {
-        const whitelist = this.settings.applications.WHITELIST;
-        const blacklist = this.settings.applications.BLACKLIST;
-
-        this._compiled_whitelist = compilePatterns(whitelist);
-        this._compiled_blacklist = compilePatterns(blacklist);
-
-        this._log(`Patterns updated - whitelist: ${whitelist.length}, blacklist: ${blacklist.length}`);
     }
 
     enable() {
@@ -139,7 +106,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
     /// Iterate through all existing windows and add blur as needed.
     update_all_windows() {
-        this._update_patterns();
+        this.rules.update();
 
         for (
             let i = 0;
@@ -264,7 +231,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             meta_window,
             window_actor,
             'child-removed',
-            (_, child) => this.restore_window_child_opacity(window_actor, child)
+            (_, child) => this.window_opacity.restore(window_actor, child)
         );
         this.connect_blur_signal(
             meta_window,
@@ -301,69 +268,22 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 blur_actor.height = monitor.height;
             }
 
-            const scale = this.compute_scale(meta_window);
-            const frame = meta_window.get_frame_rect();
-            const buffer = meta_window.get_buffer_rect();
-            blur_actor.set_scale(1 / scale, 1 / scale);
-            blur_actor.x = (monitor.x - buffer.x) / scale;
-            blur_actor.y = (monitor.y - buffer.y) / scale;
-            blur_actor.set_clip(
-                frame.x - monitor.x,
-                frame.y - monitor.y,
-                frame.width,
-                frame.height
+            place_static_blur(
+                blur_actor, meta_window, monitor, compute_scale(meta_window, this.mutter_gsettings)
             );
         } else {
-            const allocation = this.compute_allocation(meta_window);
-            blur_actor.x = allocation.x;
-            blur_actor.y = allocation.y;
-            blur_actor.width = allocation.width;
-            blur_actor.height = allocation.height;
+            place_dynamic_blur(
+                blur_actor, meta_window, compute_scale(meta_window, this.mutter_gsettings)
+            );
         }
     }
 
-    /// Checks if the given actor needs to be blurred.
-    /// Accepts only tracked meta window, be it blurred or not.
-    ///
-    /// In order to be blurred, a window either:
-    /// - is whitelisted in the user preferences if not enable-all
-    /// - is not blacklisted if enable-all
-    ///
-    /// Whitelist and blacklist support wildcard patterns:
-    /// - * matches any sequence of characters
-    /// - ? matches any single character
-    /// - Matching is case-insensitive
+    /// Adds or removes the blur of a tracked window, following the window rules.
     check_blur(meta_window) {
-        // Exclude desktop background surfaces (DING, Nautilus desktop, Nemo, etc.)
-        if (is_desktop_window(meta_window)) {
-            if (meta_window.blur_actor)
-                this.remove_blur(meta_window);
-            return;
-        }
-
-        const window_wm_class = meta_window.get_wm_class();
-        const enable_all = this.settings.applications.ENABLE_ALL;
-        if (window_wm_class)
-            this._log(`window associated to wm class name ${window_wm_class}`);
-
-        // if we are in blacklist mode and the window is not blacklisted
-        // or if we are in whitelist mode and the window is whitelisted
-        if (
-            window_wm_class !== ""
-            && ((enable_all && !matchesAnyPattern(window_wm_class, this._compiled_blacklist))
-                || (!enable_all && matchesAnyPattern(window_wm_class, this._compiled_whitelist))
-            )
-            && [
-                Meta.FrameType.NORMAL,
-                Meta.FrameType.DIALOG,
-                Meta.FrameType.MODAL_DIALOG
-            ].includes(meta_window.get_frame_type())
-        ) {
+        if (!is_desktop_window(meta_window) && this.rules.matches(meta_window)) {
             if (!meta_window.blur_actor)
                 this.create_blur_effect(meta_window);
-        }
-
-        else if (meta_window.blur_actor) {
+        } else if (meta_window.blur_actor) {
             this.remove_blur(meta_window);
         }
     }
@@ -478,7 +398,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         else
             blur_actor.hide();
 
-        this.set_window_opacity(
+        this.window_opacity.set(
             window_actor,
             show_blur ? this.settings.applications.OPACITY : 255,
             blur_actor
@@ -498,89 +418,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
     }
 
-    /// Set the opacity of the window actor that sits on top of the blur effect.
-    set_window_opacity(window_actor, opacity, blur_actor) {
-        let originals = this.original_child_opacities.get(window_actor);
-        if (!originals) {
-            originals = new Map();
-            this.original_child_opacities.set(window_actor, originals);
-        }
-
-        window_actor.get_children().forEach(child => {
-            if (child === blur_actor || child.name === BLUR_ACTOR_NAME)
-                return;
-
-            if (opacity === 255) {
-                if (originals.has(child)) {
-                    child.opacity = originals.get(child);
-                    originals.delete(child);
-                }
-                return;
-            }
-
-            if (!originals.has(child))
-                originals.set(child, child.opacity);
-            if (child.opacity !== opacity)
-                child.opacity = opacity;
-        });
-
-        if (opacity === 255)
-            this.original_child_opacities.delete(window_actor);
-    }
-
-    restore_window_child_opacity(window_actor, child) {
-        const originals = this.original_child_opacities.get(window_actor);
-        if (!originals?.has(child))
-            return;
-
-        child.opacity = originals.get(child);
-        originals.delete(child);
-        if (originals.size === 0)
-            this.original_child_opacities.delete(window_actor);
-    }
-
     /// Update the opacity of all window actors.
     set_opacity() {
         this.meta_windows.forEach(meta_window =>
             this.reconcile_window_visibility(meta_window)
         );
-    }
-
-    /// Find the system's window scaling.
-    /// If `scale-monitor-framebuffer` experimental feature if on, we don't need to manage scaling.
-    /// Else, on wayland, we need to divide by the scale to get the correct result.
-    compute_scale(meta_window) {
-        // TODO: Drop GNOME <50 compatibility
-        const gnome_shell_major_version = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
-        const scale_monitor_framebuffer =
-            gnome_shell_major_version >= 50 ||
-            this.mutter_gsettings
-                .get_strv('experimental-features')
-                .includes('scale-monitor-framebuffer');
-        const is_wayland = gnome_shell_major_version >= 50 || Meta.is_wayland_compositor();
-        const monitor_index = meta_window.get_monitor();
-        // check if the window is using wayland, or xwayland/xorg for rendering
-        return !scale_monitor_framebuffer
-            && is_wayland
-            && meta_window.get_client_type() === Meta.WindowClientType.WAYLAND
-            ? Main.layoutManager.monitors[monitor_index]?.geometry_scale ?? 1
-            : 1;
-    }
-
-    /// Compute the size and position for a blur actor.
-    /// Coordinates are relative to window buffer's corner.
-    compute_allocation(meta_window) {
-        const scale = this.compute_scale(meta_window);
-
-        let frame = meta_window.get_frame_rect();
-        let buffer = meta_window.get_buffer_rect();
-
-        return {
-            x: (frame.x - buffer.x) / scale,
-            y: (frame.y - buffer.y) / scale,
-            width: frame.width / scale,
-            height: frame.height / scale
-        };
     }
 
     change_blur_type() {
@@ -613,7 +455,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
         this.blur_signal_ids.delete(meta_window);
 
-        this.set_window_opacity(meta_window.get_compositor_private(), 255, blur_actor);
+        this.window_opacity.set(meta_window.get_compositor_private(), 255, blur_actor);
 
         const bg_manager = meta_window.bg_manager;
         meta_window.bms_rounded_pipeline?.destroy();
@@ -653,7 +495,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
 
         this.connections.disconnect_all();
-        this.original_child_opacities = new WeakMap();
+        this.window_opacity.clear();
     }
 
     destroy() {

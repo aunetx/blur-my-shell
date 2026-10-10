@@ -16,7 +16,7 @@ import { LockscreenBlur } from './components/lockscreen.js';
 import { AppFoldersBlur } from './components/appfolders.js';
 import { WindowListBlur } from './components/window_list.js';
 import { CoverflowAltTabBlur } from './components/coverflow_alt_tab.js';
-import { ApplicationsBlur } from './components/applications.js';
+import { ApplicationsBlur } from './components/applications/index.js';
 import { ScreenshotBlur } from './components/screenshot.js';
 import { PopupBlur } from './components/popup/index.js';
 import { connect_component_settings } from './components/settings_connections.js';
