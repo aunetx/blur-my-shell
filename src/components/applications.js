@@ -301,10 +301,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 blur_actor.height = monitor.height;
             }
 
+            const scale = this.compute_scale(meta_window);
             const frame = meta_window.get_frame_rect();
             const buffer = meta_window.get_buffer_rect();
-            blur_actor.x = monitor.x - buffer.x;
-            blur_actor.y = monitor.y - buffer.y;
+            blur_actor.set_scale(1 / scale, 1 / scale);
+            blur_actor.x = (monitor.x - buffer.x) / scale;
+            blur_actor.y = (monitor.y - buffer.y) / scale;
             blur_actor.set_clip(
                 frame.x - monitor.x,
                 frame.y - monitor.y,
