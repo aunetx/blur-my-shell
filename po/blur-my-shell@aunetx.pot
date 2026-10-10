@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-03 06:56+0200\n"
+"POT-Creation-Date: 2026-10-08 23:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,400 +18,550 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: src/effects/effects.js:19
+#: src/effects/effects.js:21
 msgid "Dual Kawase blur"
 msgstr ""
 
-#: src/effects/effects.js:20
-msgid "A fast multi-resolution blur shared by static and dynamic surfaces."
+#: src/effects/effects.js:22
+msgid "A fast, high-quality blur."
 msgstr ""
 
-#: src/effects/effects.js:24
+#: src/effects/effects.js:26
 msgid "Radius"
 msgstr ""
 
-#: src/effects/effects.js:25
+#: src/effects/effects.js:27
 msgid "The intensity of the blur effect."
 msgstr ""
 
-#: src/effects/effects.js:34 resources/ui/overview.ui:75
+#: src/effects/effects.js:36 src/effects/effects.js:504
 msgid "Brightness"
 msgstr ""
 
-#: src/effects/effects.js:35 resources/ui/overview.ui:76
+#: src/effects/effects.js:37
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
 
-#: src/effects/effects.js:48 src/effects/effects.js:54
-#: src/effects/effects.js:80
+#: src/effects/effects.js:50 src/effects/effects.js:56
+#: src/effects/effects.js:82
 msgid "Color"
 msgstr ""
 
-#: src/effects/effects.js:49
+#: src/effects/effects.js:51
 msgid "An effect that blends a color into the pipeline."
 msgstr ""
 
-#: src/effects/effects.js:55
+#: src/effects/effects.js:57
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
 
-#: src/effects/effects.js:60
+#: src/effects/effects.js:62
 msgid "Blend mode"
 msgstr ""
 
-#: src/effects/effects.js:61
+#: src/effects/effects.js:63
 msgid "How the color is blended in."
 msgstr ""
 
-#: src/effects/effects.js:64
+#: src/effects/effects.js:66
 msgid "Normal"
 msgstr ""
 
-#: src/effects/effects.js:65
+#: src/effects/effects.js:67
 msgid "Multiply"
 msgstr ""
 
-#: src/effects/effects.js:66
+#: src/effects/effects.js:68
 msgid "Screen"
 msgstr ""
 
-#: src/effects/effects.js:67
+#: src/effects/effects.js:69
 msgid "Overlay"
 msgstr ""
 
-#: src/effects/effects.js:68
+#: src/effects/effects.js:70
 msgid "Darken"
 msgstr ""
 
-#: src/effects/effects.js:69
+#: src/effects/effects.js:71
 msgid "Lighten"
 msgstr ""
 
-#: src/effects/effects.js:70
+#: src/effects/effects.js:72
 msgid "Plus darker"
 msgstr ""
 
-#: src/effects/effects.js:71
+#: src/effects/effects.js:73
 msgid "Plus lighter"
 msgstr ""
 
-#: src/effects/effects.js:72
+#: src/effects/effects.js:74
 msgid "Color dodge"
 msgstr ""
 
-#: src/effects/effects.js:73
+#: src/effects/effects.js:75
 msgid "Color burn"
 msgstr ""
 
-#: src/effects/effects.js:74
+#: src/effects/effects.js:76
 msgid "Hard light"
 msgstr ""
 
-#: src/effects/effects.js:75
+#: src/effects/effects.js:77
 msgid "Soft light"
 msgstr ""
 
-#: src/effects/effects.js:76
+#: src/effects/effects.js:78
 msgid "Difference"
 msgstr ""
 
-#: src/effects/effects.js:77
+#: src/effects/effects.js:79
 msgid "Exclusion"
 msgstr ""
 
-#: src/effects/effects.js:78
+#: src/effects/effects.js:80
 msgid "Hue"
 msgstr ""
 
-#: src/effects/effects.js:79 src/effects/effects.js:134
+#: src/effects/effects.js:81 src/effects/effects.js:136
+#: src/effects/effects.js:494
 msgid "Saturation"
 msgstr ""
 
-#: src/effects/effects.js:81 src/effects/effects.js:89
+#: src/effects/effects.js:83 src/effects/effects.js:91
 msgid "Luminosity"
 msgstr ""
 
-#: src/effects/effects.js:90
+#: src/effects/effects.js:92
 msgid "An effect that affects the luminosity of the image."
 msgstr ""
 
-#: src/effects/effects.js:94
+#: src/effects/effects.js:96
 msgid "Shift brightness"
 msgstr ""
 
-#: src/effects/effects.js:95
+#: src/effects/effects.js:97
 msgid "The brightness to add or remove from the image."
 msgstr ""
 
-#: src/effects/effects.js:104
+#: src/effects/effects.js:106
 msgid "Brightness multiplier"
 msgstr ""
 
-#: src/effects/effects.js:105
+#: src/effects/effects.js:107
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
 
-#: src/effects/effects.js:114
+#: src/effects/effects.js:116
 msgid "Contrast"
 msgstr ""
 
-#: src/effects/effects.js:115
+#: src/effects/effects.js:117
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
 
-#: src/effects/effects.js:124
+#: src/effects/effects.js:126
 msgid "Contrast center"
 msgstr ""
 
-#: src/effects/effects.js:125
+#: src/effects/effects.js:127
 msgid "The center of the contrast to use."
 msgstr ""
 
-#: src/effects/effects.js:135
+#: src/effects/effects.js:137
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
 
-#: src/effects/effects.js:148
+#: src/effects/effects.js:150
 msgid "Pixelize"
 msgstr ""
 
-#: src/effects/effects.js:149
+#: src/effects/effects.js:151
 msgid "An effect that pixelizes the image."
 msgstr ""
 
-#: src/effects/effects.js:153 src/effects/effects.js:180
-#: src/effects/effects.js:207
+#: src/effects/effects.js:155 src/effects/effects.js:182
+#: src/effects/effects.js:209
 msgid "Factor"
 msgstr ""
 
-#: src/effects/effects.js:154 src/effects/effects.js:181
+#: src/effects/effects.js:156 src/effects/effects.js:183
 msgid "How much to scale down the image."
 msgstr ""
 
-#: src/effects/effects.js:161 src/effects/effects.js:188
+#: src/effects/effects.js:163 src/effects/effects.js:190
 msgid "Downsampling mode"
 msgstr ""
 
-#: src/effects/effects.js:162 src/effects/effects.js:189
+#: src/effects/effects.js:164 src/effects/effects.js:191
 msgid "The downsampling method that is used."
 msgstr ""
 
-#: src/effects/effects.js:165 src/effects/effects.js:192
+#: src/effects/effects.js:167 src/effects/effects.js:194
 msgid "Boxcar"
 msgstr ""
 
-#: src/effects/effects.js:166 src/effects/effects.js:193
+#: src/effects/effects.js:168 src/effects/effects.js:195
 msgid "Triangular"
 msgstr ""
 
-#: src/effects/effects.js:167 src/effects/effects.js:194
+#: src/effects/effects.js:169 src/effects/effects.js:196
 msgid "Dirac"
 msgstr ""
 
-#: src/effects/effects.js:175
+#: src/effects/effects.js:177
 msgid "Downscale (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:176
+#: src/effects/effects.js:178
 msgid "An effect that downscales the image and puts it in the top-left corner."
 msgstr ""
 
-#: src/effects/effects.js:202
+#: src/effects/effects.js:204
 msgid "Upscale (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:203
+#: src/effects/effects.js:205
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
 
-#: src/effects/effects.js:208
+#: src/effects/effects.js:210
 msgid "How much to scale up the image."
 msgstr ""
 
-#: src/effects/effects.js:219
+#: src/effects/effects.js:221
 msgid "Derivative"
 msgstr ""
 
-#: src/effects/effects.js:220
+#: src/effects/effects.js:222
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr ""
 
-#: src/effects/effects.js:224
+#: src/effects/effects.js:226
 msgid "Operation"
 msgstr ""
 
-#: src/effects/effects.js:225
+#: src/effects/effects.js:227
 msgid "The mathematical operation to apply."
 msgstr ""
 
-#: src/effects/effects.js:228
+#: src/effects/effects.js:230
 msgid "1-step derivative"
 msgstr ""
 
-#: src/effects/effects.js:229
+#: src/effects/effects.js:231
 msgid "2-step derivative"
 msgstr ""
 
-#: src/effects/effects.js:230
+#: src/effects/effects.js:232
 msgid "Laplacian"
 msgstr ""
 
-#: src/effects/effects.js:238 src/effects/effects.js:243
+#: src/effects/effects.js:240 src/effects/effects.js:245
 msgid "Noise"
 msgstr ""
 
-#: src/effects/effects.js:239
+#: src/effects/effects.js:241
 msgid "An effect that adds random grain to the image."
 msgstr ""
 
-#: src/effects/effects.js:244
+#: src/effects/effects.js:246
 msgid "The amount of noise to add."
 msgstr ""
 
-#: src/effects/effects.js:253
+#: src/effects/effects.js:255
 msgid "Lightness"
 msgstr ""
 
-#: src/effects/effects.js:254
+#: src/effects/effects.js:256
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
 
-#: src/effects/effects.js:267
+#: src/effects/effects.js:269
 msgid "Liquid Glass"
 msgstr ""
 
-#: src/effects/effects.js:268
+#: src/effects/effects.js:270
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
 
-#: src/effects/effects.js:272
+#: src/effects/effects.js:274
 msgid "Refraction scale"
 msgstr ""
 
-#: src/effects/effects.js:273
+#: src/effects/effects.js:275
 msgid "How strongly the glass bends the sampled blur texture."
 msgstr ""
 
-#: src/effects/effects.js:282
+#: src/effects/effects.js:284
 msgid "Blur radius"
 msgstr ""
 
-#: src/effects/effects.js:283
+#: src/effects/effects.js:285
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr ""
 
-#: src/effects/effects.js:292
+#: src/effects/effects.js:294
 msgid "Bezel width"
 msgstr ""
 
-#: src/effects/effects.js:293
+#: src/effects/effects.js:295
 msgid "How far the liquid-glass lens reaches inward from the edge."
 msgstr ""
 
-#: src/effects/effects.js:302
+#: src/effects/effects.js:304
 msgid "Rim spread"
 msgstr ""
 
-#: src/effects/effects.js:303
+#: src/effects/effects.js:305
 msgid "How far the refraction eases inward from the glass edge."
 msgstr ""
 
-#: src/effects/effects.js:312
+#: src/effects/effects.js:314
 msgid "Glass thickness"
 msgstr ""
 
-#: src/effects/effects.js:313
-msgid "Depth used by the Snell-style refraction profile."
+#: src/effects/effects.js:315
+msgid "Depth used by the refraction edge profile."
 msgstr ""
 
-#: src/effects/effects.js:322
+#: src/effects/effects.js:324
+msgid "Refraction style"
+msgstr ""
+
+#: src/effects/effects.js:325
+msgid ""
+"Shape of the bend near the edge. Low values bend softly, higher values bend "
+"more sharply right at the edge."
+msgstr ""
+
+#: src/effects/effects.js:334
 msgid "Fresnel glare"
 msgstr ""
 
-#: src/effects/effects.js:323
-msgid "Strength of the Schlick fresnel rim glare from the glass edge."
+#: src/effects/effects.js:335
+msgid "Strength of the directional fresnel glare from the glass edge."
 msgstr ""
 
-#: src/effects/effects.js:332
+#: src/effects/effects.js:344
+msgid "Fresnel glare angle"
+msgstr ""
+
+#: src/effects/effects.js:345
+msgid ""
+"Light direction of the fresnel glare, in degrees (0 is from above, positive "
+"rotates clockwise)."
+msgstr ""
+
+#: src/effects/effects.js:354
+msgid "Fresnel glare width"
+msgstr ""
+
+#: src/effects/effects.js:355
+msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
+msgstr ""
+
+#: src/effects/effects.js:364
+msgid "Specular glare strength"
+msgstr ""
+
+#: src/effects/effects.js:365
+msgid ""
+"Strength of the specular glare showing the light direction (0 disables it)."
+msgstr ""
+
+#: src/effects/effects.js:374
 msgid "Tint strength"
 msgstr ""
 
-#: src/effects/effects.js:333
+#: src/effects/effects.js:375
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr ""
 
-#: src/effects/effects.js:342
+#: src/effects/effects.js:384
 msgid "Tint color"
 msgstr ""
 
-#: src/effects/effects.js:343
+#: src/effects/effects.js:385
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
 
-#: src/effects/effects.js:348
+#: src/effects/effects.js:390
 msgid "Backdrop zoom"
 msgstr ""
 
-#: src/effects/effects.js:349
+#: src/effects/effects.js:391
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr ""
 
-#: src/effects/effects.js:358
+#: src/effects/effects.js:400
 msgid "Inner shadow"
 msgstr ""
 
-#: src/effects/effects.js:359
+#: src/effects/effects.js:401
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
 
-#: src/effects/effects.js:368
+#: src/effects/effects.js:410
 msgid "Chromatic dispersion"
 msgstr ""
 
-#: src/effects/effects.js:369
+#: src/effects/effects.js:411
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr ""
 
-#: src/effects/effects.js:378
+#: src/effects/effects.js:420
 msgid "Edge behavior"
 msgstr ""
 
-#: src/effects/effects.js:379
+#: src/effects/effects.js:421
 msgid "How texture coordinates outside the actor are sampled."
 msgstr ""
 
-#: src/effects/effects.js:382
+#: src/effects/effects.js:424
 msgid "Clamp"
 msgstr ""
 
-#: src/effects/effects.js:383
+#: src/effects/effects.js:425
 msgid "Mirror"
 msgstr ""
 
-#: src/effects/effects.js:391
+#: src/effects/effects.js:433
+msgid "Vapor Wave"
+msgstr ""
+
+#: src/effects/effects.js:434
+msgid ""
+"A flowing wave displacement for a lively and dynamic feel with natural "
+"movement."
+msgstr ""
+
+#: src/effects/effects.js:438
+msgid "Wave frequency"
+msgstr ""
+
+#: src/effects/effects.js:439
+msgid "How tightly packed the ripples are."
+msgstr ""
+
+#: src/effects/effects.js:448
+msgid "Wave amplitude"
+msgstr ""
+
+#: src/effects/effects.js:449
+msgid "How strongly the image gets displaced by the waves."
+msgstr ""
+
+#: src/effects/effects.js:458
+msgid "Wave octaves"
+msgstr ""
+
+#: src/effects/effects.js:459
+msgid ""
+"Detail level of the wave shape. Higher adds more detail at the cost of "
+"performance."
+msgstr ""
+
+#: src/effects/effects.js:466
+msgid "Vapor octaves"
+msgstr ""
+
+#: src/effects/effects.js:467
+msgid ""
+"Detail level of the misty texture. Higher adds more detail at the cost of "
+"performance."
+msgstr ""
+
+#: src/effects/effects.js:474
+msgid "Vapor speed"
+msgstr ""
+
+#: src/effects/effects.js:475
+msgid "How quickly the misty vapor texture drifts over time."
+msgstr ""
+
+#: src/effects/effects.js:484
+msgid "Texture grain"
+msgstr ""
+
+#: src/effects/effects.js:485
+msgid "Adds a fine sandblasted texture to the image."
+msgstr ""
+
+#: src/effects/effects.js:495
+msgid "The saturation of the effect."
+msgstr ""
+
+#: src/effects/effects.js:505
+msgid "The brightness of the effect."
+msgstr ""
+
+#: src/effects/effects.js:514
+msgid "Zoom"
+msgstr ""
+
+#: src/effects/effects.js:515
+msgid "Magnifies the backdrop toward the surface's center."
+msgstr ""
+
+#: src/effects/effects.js:524
+msgid "Dispersion"
+msgstr ""
+
+#: src/effects/effects.js:525
+msgid "Chromatic aberration strength for a glitchy feel."
+msgstr ""
+
+#: src/effects/effects.js:534
+msgid "Enable flow animation"
+msgstr ""
+
+#: src/effects/effects.js:535
+msgid "Whether the wave noise continuously flows over time."
+msgstr ""
+
+#: src/effects/effects.js:539
+msgid "Flow animation speed"
+msgstr ""
+
+#: src/effects/effects.js:540
+msgid "The base speed at which the wave pattern flows."
+msgstr ""
+
+#: src/effects/effects.js:549
+msgid "Resize ease duration"
+msgstr ""
+
+#: src/effects/effects.js:550
+msgid ""
+"How long the effect takes to adjust when a window changes size "
+"(milliseconds)."
+msgstr ""
+
+#: src/effects/effects.js:561
 msgid "RGB to HSL (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:392
+#: src/effects/effects.js:562
 msgid "Converts the image from RGBA color space to HSLA."
 msgstr ""
 
-#: src/effects/effects.js:399
+#: src/effects/effects.js:569
 msgid "HSL to RGB (advanced effect)"
 msgstr ""
 
-#: src/effects/effects.js:400
+#: src/effects/effects.js:570
 msgid "Converts the image from HSLA color space to RGBA."
 msgstr ""
 
@@ -476,92 +626,116 @@ msgstr ""
 msgid "Dynamic"
 msgstr ""
 
-#: resources/ui/applications.ui:71 resources/ui/dash.ui:71
-#: resources/ui/panel.ui:71 resources/ui/popup.ui:71
+#: resources/ui/applications.ui:71 resources/ui/panel.ui:71
+#: resources/ui/popup.ui:71
 msgid "Corner radius"
 msgstr ""
 
-#: resources/ui/applications.ui:72 resources/ui/dash.ui:72
-#: resources/ui/panel.ui:72
+#: resources/ui/applications.ui:72 resources/ui/panel.ui:72
 msgid "Radius for the corner rounding effect."
 msgstr ""
 
-#: resources/ui/applications.ui:80
-msgid "Enable corner rounding on maximized and fullscreen"
+#: resources/ui/applications.ui:80 resources/ui/panel.ui:80
+#: resources/ui/popup.ui:161
+msgid "Rounded corners"
 msgstr ""
 
-#: resources/ui/applications.ui:81
+#: resources/ui/applications.ui:85 resources/ui/panel.ui:85
+#: resources/ui/popup.ui:166
+msgid "All"
+msgstr ""
+
+#: resources/ui/applications.ui:86 resources/ui/panel.ui:86
+#: resources/ui/popup.ui:167
+msgid "Top only"
+msgstr ""
+
+#: resources/ui/applications.ui:87 resources/ui/panel.ui:87
+#: resources/ui/popup.ui:168
+msgid "Bottom only"
+msgstr ""
+
+#: resources/ui/applications.ui:88 resources/ui/panel.ui:88
+#: resources/ui/popup.ui:169
+msgid "None"
+msgstr ""
+
+#: resources/ui/applications.ui:97
+msgid "Round maximized and fullscreen windows"
+msgstr ""
+
+#: resources/ui/applications.ui:98
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
 msgstr ""
 
-#: resources/ui/applications.ui:95
+#: resources/ui/applications.ui:112
 msgid "Opacity"
 msgstr ""
 
-#: resources/ui/applications.ui:96
+#: resources/ui/applications.ui:113
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
 
-#: resources/ui/applications.ui:117
+#: resources/ui/applications.ui:134
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/applications.ui:118
+#: resources/ui/applications.ui:135
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 
-#: resources/ui/applications.ui:132
+#: resources/ui/applications.ui:149
 msgid "Blur on overview"
 msgstr ""
 
-#: resources/ui/applications.ui:133
+#: resources/ui/applications.ui:150
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
 
-#: resources/ui/applications.ui:148
+#: resources/ui/applications.ui:165
 msgid "Unblur when Fullscreen"
 msgstr ""
 
-#: resources/ui/applications.ui:149
+#: resources/ui/applications.ui:166
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr ""
 
-#: resources/ui/applications.ui:163
+#: resources/ui/applications.ui:180
 msgid "Enable all by default"
 msgstr ""
 
-#: resources/ui/applications.ui:164
+#: resources/ui/applications.ui:181
 msgid "Adds blur behind all windows by default."
 msgstr ""
 
-#: resources/ui/applications.ui:180
+#: resources/ui/applications.ui:197
 msgid "Whitelist"
 msgstr ""
 
-#: resources/ui/applications.ui:181
+#: resources/ui/applications.ui:198
 msgid ""
 "A list of windows to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
 
-#: resources/ui/applications.ui:200 resources/ui/applications.ui:238
+#: resources/ui/applications.ui:217 resources/ui/applications.ui:255
 msgid "Add Window"
 msgstr ""
 
-#: resources/ui/applications.ui:218
+#: resources/ui/applications.ui:235
 msgid "Blacklist"
 msgstr ""
 
-#: resources/ui/applications.ui:219
+#: resources/ui/applications.ui:236
 msgid ""
 "A list of windows not to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -578,8 +752,8 @@ msgstr ""
 
 #: resources/ui/dash.ui:11
 msgid ""
-"Blur the background of supported dock extensions, including Dash to Dock and "
-"Dhruva."
+"Blur the background of supported docks, including Dash to Dock, Dhruva and "
+"Simple Taskbar's dock."
 msgstr ""
 
 #: resources/ui/dash.ui:21
@@ -588,48 +762,54 @@ msgid ""
 "the dash. Both use the selected pipeline."
 msgstr ""
 
-#: resources/ui/dash.ui:80 resources/ui/panel.ui:95 resources/ui/popup.ui:128
+#: resources/ui/dash.ui:71 resources/ui/panel.ui:112 resources/ui/popup.ui:180
 msgid "Override background"
 msgstr ""
 
-#: resources/ui/dash.ui:81
+#: resources/ui/dash.ui:72
 msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
 
-#: resources/ui/dash.ui:87 resources/ui/panel.ui:103 resources/ui/popup.ui:149
+#: resources/ui/dash.ui:78 resources/ui/panel.ui:120 resources/ui/popup.ui:201
 msgid "Background style"
 msgstr ""
 
-#: resources/ui/dash.ui:88
+#: resources/ui/dash.ui:79
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr ""
 
-#: resources/ui/dash.ui:104 resources/ui/panel.ui:180
+#: resources/ui/dash.ui:95 resources/ui/panel.ui:197
 msgid "Disable in overview"
 msgstr ""
 
-#: resources/ui/dash.ui:105
+#: resources/ui/dash.ui:96
 msgid "Disables dock blur when entering the overview."
 msgstr ""
 
-#: resources/ui/dash.ui:128 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:235
-#: resources/ui/popup.ui:211
+#: resources/ui/dash.ui:113 resources/ui/overview.ui:82
+#: resources/ui/overview.ui:90 resources/ui/panel.ui:252
+#: resources/ui/popup.ui:293
 msgid "Transparent"
 msgstr ""
 
-#: resources/ui/dash.ui:129 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:236
-#: resources/ui/popup.ui:212
+#: resources/ui/dash.ui:114 resources/ui/overview.ui:80
+#: resources/ui/overview.ui:91 resources/ui/panel.ui:253
+#: resources/ui/popup.ui:294
 msgid "Light"
 msgstr ""
 
-#: resources/ui/dash.ui:130 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:237
-#: resources/ui/popup.ui:213
+#: resources/ui/dash.ui:115 resources/ui/overview.ui:81
+#: resources/ui/overview.ui:92 resources/ui/panel.ui:254
+#: resources/ui/popup.ui:295
 msgid "Dark"
+msgstr ""
+
+#: resources/ui/dash.ui:116 resources/ui/overview.ui:83
+#: resources/ui/overview.ui:93 resources/ui/panel.ui:256
+#: resources/ui/popup.ui:296
+msgid "Automatic"
 msgstr ""
 
 #: resources/ui/effects-dialog.ui:4
@@ -706,32 +886,24 @@ msgid "Make the coverflow alt-tab extension blurred, if it is used."
 msgstr ""
 
 #: resources/ui/other.ui:82
-msgid "Performance"
-msgstr ""
-
-#: resources/ui/other.ui:83
-msgid "Various options to tweak the performance."
-msgstr ""
-
-#: resources/ui/other.ui:87
 msgid "Debug"
 msgstr ""
 
-#: resources/ui/other.ui:88
+#: resources/ui/other.ui:83
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
 
-#: resources/ui/other.ui:103
+#: resources/ui/other.ui:95
 msgid "Reset preferences"
 msgstr ""
 
-#: resources/ui/other.ui:104
+#: resources/ui/other.ui:96
 msgid "Restore all Blur my Shell preferences to their defaults."
 msgstr ""
 
-#: resources/ui/other.ui:123 src/preferences/other.js:83
+#: resources/ui/other.ui:115 src/preferences/other.js:83
 msgid "Reset"
 msgstr ""
 
@@ -765,23 +937,15 @@ msgstr ""
 msgid "Makes the background of application folder dialogs blurred."
 msgstr ""
 
-#: resources/ui/overview.ui:54
-msgid "Sigma"
-msgstr ""
-
-#: resources/ui/overview.ui:55
-msgid "The intensity of the blur."
-msgstr ""
-
-#: resources/ui/overview.ui:96
+#: resources/ui/overview.ui:60
 msgid "Application folder dialogs style"
 msgstr ""
 
-#: resources/ui/overview.ui:97
+#: resources/ui/overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr ""
 
-#: resources/ui/overview.ui:115 resources/ui/overview.ui:137
+#: resources/ui/overview.ui:79 resources/ui/overview.ui:89
 msgid "Do not style"
 msgstr ""
 
@@ -794,7 +958,7 @@ msgid "Panel blur"
 msgstr ""
 
 #: resources/ui/panel.ui:11
-msgid "Blur the top panel using the background image."
+msgid "Add blur to the top panel."
 msgstr ""
 
 #: resources/ui/panel.ui:21
@@ -803,111 +967,109 @@ msgid ""
 "the panel. Both use the selected pipeline."
 msgstr ""
 
-#: resources/ui/panel.ui:80
+#: resources/ui/panel.ui:97
 msgid "Force light text"
 msgstr ""
 
-#: resources/ui/panel.ui:81
+#: resources/ui/panel.ui:98
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 
-#: resources/ui/panel.ui:96
+#: resources/ui/panel.ui:113
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
 
-#: resources/ui/panel.ui:104
+#: resources/ui/panel.ui:121
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr ""
 
-#: resources/ui/panel.ui:118
+#: resources/ui/panel.ui:135
 msgid "Override background dynamically"
 msgstr ""
 
-#: resources/ui/panel.ui:119
-msgid ""
-"Override the background of the panel and apply certain effect when a window "
-"is near it."
-msgstr ""
-
-#: resources/ui/panel.ui:132
-msgid "When window is near:"
-msgstr ""
-
-#: resources/ui/panel.ui:133
-msgid ""
-"Blur on Window Proximity: Blur only when a window is near the panel and "
-"transparent when it is not. \n"
-"Background on Window Proximity: Solid color background when a window is near "
-"the panel and blur when it is not"
-msgstr ""
-
-#: resources/ui/panel.ui:148
-msgid "Gradient background"
+#: resources/ui/panel.ui:136
+msgid "Change the panel background when a window is near it."
 msgstr ""
 
 #: resources/ui/panel.ui:149
+msgid "When a window is near"
+msgstr ""
+
+#: resources/ui/panel.ui:150
+msgid ""
+"Blur on Window Proximity: Blur only when a window is near the panel and "
+"transparent when it is not.\n"
+"Background on Window Proximity: Solid color background when a window is near "
+"the panel and blur when it is not."
+msgstr ""
+
+#: resources/ui/panel.ui:165
+msgid "Gradient background"
+msgstr ""
+
+#: resources/ui/panel.ui:166
 msgid "Apply a gradient effect to the panel background."
 msgstr ""
 
-#: resources/ui/panel.ui:162
+#: resources/ui/panel.ui:179
 msgid "Gradient direction"
 msgstr ""
 
-#: resources/ui/panel.ui:163
+#: resources/ui/panel.ui:180
 msgid "Change the direction of the gradient background."
 msgstr ""
 
-#: resources/ui/panel.ui:181
+#: resources/ui/panel.ui:198
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
 
-#: resources/ui/panel.ui:197
+#: resources/ui/panel.ui:214
 msgid "Compatibility"
 msgstr ""
 
-#: resources/ui/panel.ui:198
+#: resources/ui/panel.ui:215
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 
-#: resources/ui/panel.ui:203
+#: resources/ui/panel.ui:220
 msgid "Hidetopbar extension"
 msgstr ""
 
-#: resources/ui/panel.ui:204
+#: resources/ui/panel.ui:221
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
 
-#: resources/ui/panel.ui:218
+#: resources/ui/panel.ui:235
 msgid "Blur original panel with Dash to Panel"
 msgstr ""
 
-#: resources/ui/panel.ui:219
+#: resources/ui/panel.ui:236
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
 
-#: resources/ui/panel.ui:238
+#: resources/ui/panel.ui:255
 msgid "Contrasted"
 msgstr ""
 
-#: resources/ui/panel.ui:244
+#: resources/ui/panel.ui:262
 msgid "Blur on Window Proximity"
 msgstr ""
 
-#: resources/ui/panel.ui:245
+#: resources/ui/panel.ui:263
 msgid "Background on Window Proximity"
 msgstr ""
 
-#: resources/ui/panel.ui:251
+#: resources/ui/panel.ui:269
 msgid "Top"
 msgstr ""
 
-#: resources/ui/panel.ui:252
+#: resources/ui/panel.ui:270
 msgid "Bottom"
 msgstr ""
 
@@ -931,13 +1093,13 @@ msgstr ""
 msgid "Pipelines"
 msgstr ""
 
-#: resources/ui/pipelines.ui:10
+#: resources/ui/pipelines.ui:16
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
 
-#: resources/ui/pipelines.ui:29
+#: resources/ui/pipelines.ui:35
 msgid "Add Pipeline"
 msgstr ""
 
@@ -970,49 +1132,126 @@ msgid "Menus"
 msgstr ""
 
 #: resources/ui/popup.ui:84
-msgid "Quick settings and calendar"
+msgid "Input method candidates"
 msgstr ""
 
 #: resources/ui/popup.ui:91
-msgid "Notifications"
+msgid "Quick settings"
 msgstr ""
 
 #: resources/ui/popup.ui:98
-msgid "OSDs and switchers"
+msgid "Quick settings submenus"
 msgstr ""
 
 #: resources/ui/popup.ui:105
-msgid "Dialogs"
+msgid "Calendar and notification center"
 msgstr ""
 
 #: resources/ui/popup.ui:112
-msgid "On-screen keyboard"
+msgid "Notifications"
 msgstr ""
 
 #: resources/ui/popup.ui:119
+msgid "Window and workspace switchers"
+msgstr ""
+
+#: resources/ui/popup.ui:126
+msgid "Volume and brightness"
+msgstr ""
+
+#: resources/ui/popup.ui:133
+msgid "Window resize hints"
+msgstr ""
+
+#: resources/ui/popup.ui:140
+msgid "Dialogs"
+msgstr ""
+
+#: resources/ui/popup.ui:147
+msgid "On-screen keyboard"
+msgstr ""
+
+#: resources/ui/popup.ui:154
 msgid "Other popup surfaces"
 msgstr ""
 
-#: resources/ui/popup.ui:129
+#: resources/ui/popup.ui:181
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
 msgstr ""
 
-#: resources/ui/popup.ui:135
+#: resources/ui/popup.ui:187
 msgid "Preserve shell theme"
 msgstr ""
 
-#: resources/ui/popup.ui:136
+#: resources/ui/popup.ui:188
 msgid "Keep your shell theme's colors for popup controls."
 msgstr ""
 
-#: resources/ui/popup.ui:150
+#: resources/ui/popup.ui:202
 msgid "The transparent/semi-transparent style for popups."
 msgstr ""
 
-#: resources/ui/popup.ui:214
-msgid "Automatic"
+#: src/preferences/legacy_blur_notice.js:26
+msgid "Rounded-blur is no longer needed"
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:27
+msgid ""
+"Blur my Shell handles rounded corners directly. You can remove the old "
+"library if nothing else uses it."
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:31
+msgid "Removal instructions"
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:37
+#: src/preferences/legacy_blur_notice.js:43
+msgid "Dismiss"
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:58
+msgid "Removing the old blur library"
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:60
+msgid ""
+"Removal is optional. Keep the library if another extension still needs it."
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:61
+msgid ""
+"Installed through a package manager? Remove the gnome-rounded-blur package "
+"with the same package manager. Review its proposed changes before confirming."
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:62
+msgid ""
+"Installed with the old Blur my Shell helper? The instructions explain how to "
+"run its uninstaller."
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:63
+msgid ""
+"Built from source? Use “sudo ninja -C build uninstall” from the original "
+"build directory, or follow its install log. Do not use the helper to remove "
+"a package-managed installation."
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:64
+msgid ""
+"Log out and back in after removal. Blur my Shell will not uninstall anything "
+"for you."
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:69
+msgid "Close"
+msgstr ""
+
+#: src/preferences/legacy_blur_notice.js:70
+msgid "Open instructions"
 msgstr ""
 
 #: src/preferences/other.js:79
@@ -1027,7 +1266,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/preferences/pipelines.js:38
+#: src/preferences/pipelines.js:42
 #: src/preferences/pipelines_management/pipeline_choose_row.js:64
 msgid "New pipeline"
 msgstr ""
@@ -1041,47 +1280,22 @@ msgstr ""
 msgid "Create new pipeline"
 msgstr ""
 
-#: src/preferences/pipelines_management/pipeline_group.js:31
+#: src/preferences/pipelines_management/pipeline_group.js:30
 #, javascript-format
 msgid "Pipeline id: “%s”"
 msgstr ""
 
-#: src/preferences/pipelines_management/pipeline_group.js:86
+#: src/preferences/pipelines_management/pipeline_group.js:81
 msgid "No effect"
 msgstr ""
 
-#: src/preferences/pipelines_management/pipeline_group.js:89
+#: src/preferences/pipelines_management/pipeline_group.js:84
 #, javascript-format
 msgid "%d effect"
 msgid_plural "%d effects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/preferences/pipelines_management/pipeline_group.js:95
+#: src/preferences/pipelines_management/pipeline_group.js:91
 msgid "Unknown effect"
-msgstr ""
-
-#: resources/ui/applications.ui:80 resources/ui/dash.ui:80
-#: resources/ui/panel.ui:80 resources/ui/popup.ui:126
-msgid "Rounded corners"
-msgstr ""
-
-#: resources/ui/applications.ui:85 resources/ui/dash.ui:85
-#: resources/ui/panel.ui:85 resources/ui/popup.ui:131
-msgid "All"
-msgstr ""
-
-#: resources/ui/applications.ui:86 resources/ui/dash.ui:86
-#: resources/ui/panel.ui:86 resources/ui/popup.ui:132
-msgid "Top only"
-msgstr ""
-
-#: resources/ui/applications.ui:87 resources/ui/dash.ui:87
-#: resources/ui/panel.ui:87 resources/ui/popup.ui:133
-msgid "Bottom only"
-msgstr ""
-
-#: resources/ui/applications.ui:88 resources/ui/dash.ui:88
-#: resources/ui/panel.ui:88 resources/ui/popup.ui:134
-msgid "None"
 msgstr ""

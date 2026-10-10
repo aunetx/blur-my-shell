@@ -41,7 +41,7 @@ glib-compile-schemas "$extension_dir/schemas"
 cat > "$XDG_DATA_HOME/applications/blur-my-shell-settings.desktop" <<EOF
 [Desktop Entry]
 Type=Application
-Name=Blur My Shell Settings
+Name=Blur my Shell Settings
 Icon=org.gnome.Shell.Extensions
 Exec=gnome-extensions prefs $uuid
 Terminal=false

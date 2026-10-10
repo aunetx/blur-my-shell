@@ -1,6 +1,6 @@
 import { DualKawaseBlurEffect } from './dual_kawase_blur.js';
-import { ColorEffect } from '../effects/color.js';
-import { NoiseEffect } from '../effects/noise.js';
+import { ColorEffect } from './color.js';
+import { NoiseEffect } from './noise.js';
 import { CornerEffect } from './corner.js';
 import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
@@ -19,7 +19,7 @@ export function get_supported_effects(_ = () => "") {
         dual_kawase_blur: {
             class: DualKawaseBlurEffect,
             name: _("Dual Kawase blur"),
-            description: _("A fast multi-resolution blur shared by static and dynamic surfaces."),
+            description: _("A fast, high-quality blur."),
             is_advanced: false,
             editable_params: {
                 unscaled_radius: {
@@ -322,7 +322,7 @@ export function get_supported_effects(_ = () => "") {
                 },
                 refraction_style: {
                     name: _("Refraction style"),
-                    description: _("0 is the vanilla 0.1.1b edge profile (soft, monotonic); higher blends toward the old 0.1.0b Snell-style S-curve that overbends at the very edge."),
+                    description: _("Shape of the bend near the edge. Low values bend softly, higher values bend more sharply right at the edge."),
                     type: "float",
                     min: 0.,
                     max: 1.,

@@ -94,7 +94,7 @@
 
         <child>
           <object class="AdwActionRow" id="corner_when_maximized_row">
-            <property name="title" translatable="yes">Enable corner rounding on maximized and fullscreen</property>
+            <property name="title" translatable="yes">Round maximized and fullscreen windows</property>
             <property name="subtitle" translatable="yes">Corner rounding effect will keep being applied to maximized and fullscreen windows.</property>
             <property name="activatable-widget">corner_when_maximized</property>
             <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
