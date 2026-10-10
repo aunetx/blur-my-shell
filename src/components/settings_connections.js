@@ -76,7 +76,7 @@ export function connect_component_settings(extension) {
     );
     connect(settings.panel, 'FORCE_LIGHT_TEXT', when_enabled(
         panel,
-        () => panel.update_light_text_classname()
+        () => panel.update_light_text()
     ));
     ['GRADIENT_PANEL', 'GRADIENT_PANEL_MODE'].forEach(property =>
         connect(settings.panel, property, when_enabled(

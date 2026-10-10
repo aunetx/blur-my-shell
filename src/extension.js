@@ -9,7 +9,7 @@ import { Connections } from './conveniences/connections.js';
 import { Settings } from './settings/settings.js';
 import { KEYS } from './settings/keys.js';
 
-import { PanelBlur } from './components/panel.js';
+import { PanelBlur } from './components/panel/index.js';
 import { OverviewBlur } from './components/overview.js';
 import { DashBlur } from './components/dock/dash_to_dock.js';
 import { LockscreenBlur } from './components/lockscreen.js';
