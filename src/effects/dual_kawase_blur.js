@@ -214,6 +214,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.capacityHeight = 0;
         this.context = null;
         this.appliedSampling = null;
+        this.blurValid = false;
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
@@ -347,6 +348,8 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             && this.x === x && this.y === y)
             return;
 
+        this.blurValid = false;
+
         if (resized) {
             this.downTargets.forEach((target, level) =>
                 resizeRenderTarget(target, level, width, height));
@@ -417,6 +420,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             this.configureUpsample(this.upPipelines[level], level, passes, blend);
         this.configureUpsample(this.outputPipeline, 0, passes, blend);
         this.appliedSampling = { passes, blend };
+        this.blurValid = false;
     }
 
     vfunc_paint_node(node, paintContext, flags) {
@@ -426,6 +430,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             return;
         if (this.opacity_factor === 0 || (this.unscaled_radius === 0 && this.brightness === 1)) {
             node.add_child(new Clutter.ActorNode(actor, -1));
+            this.blurValid = false;
             return;
         }
 
@@ -441,6 +446,30 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.ensureTargets(context, bounds, scale, passes);
         this.updateSampling(passes, blend);
 
+        // outside of a stage view, like in a screencast, the blur from the last view paint is reused
+        const refreshes_input = framebuffer !== null
+            && (actor._bms_live_input || flags & Clutter.EffectPaintFlags.ACTOR_DIRTY);
+        if (!this.blurValid || refreshes_input) {
+            this.addBlurPasses(node, actor, bounds, passes, blend);
+            this.blurValid = true;
+        }
+
+        const opacity = actor.get_paint_opacity() / 255;
+        const outputColor = new Cogl.Color();
+        outputColor.init_from_4f(opacity, opacity, opacity, opacity);
+        this.outputPipeline.set_color(outputColor);
+        const outputNode = new Clutter.PipelineNode(this.outputPipeline);
+        outputNode.set_name('BmsDualKawase output');
+        outputNode.add_rectangle(new Clutter.ActorBox({
+            x1: bounds.x,
+            y1: bounds.y,
+            x2: bounds.x + bounds.width,
+            y2: bounds.y + bounds.height,
+        }));
+        node.add_child(outputNode);
+    }
+
+    addBlurPasses(node, actor, bounds, passes, blend) {
         const actorLayer = Clutter.LayerNode.new_to_framebuffer(
             this.downTargets[0].framebuffer,
             this.downTargets[0].layerPipeline
@@ -470,20 +499,6 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
                 `BmsDualKawase upsample ${level}`
             );
         }
-
-        const opacity = actor.get_paint_opacity() / 255;
-        const outputColor = new Cogl.Color();
-        outputColor.init_from_4f(opacity, opacity, opacity, opacity);
-        this.outputPipeline.set_color(outputColor);
-        const outputNode = new Clutter.PipelineNode(this.outputPipeline);
-        outputNode.set_name('BmsDualKawase output');
-        outputNode.add_rectangle(new Clutter.ActorBox({
-            x1: bounds.x,
-            y1: bounds.y,
-            x2: bounds.x + bounds.width,
-            y2: bounds.y + bounds.height,
-        }));
-        node.add_child(outputNode);
     }
 
     releaseTargets() {
@@ -501,6 +516,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.capacityHeight = 0;
         this.context = null;
         this.appliedSampling = null;
+        this.blurValid = false;
     }
 
     vfunc_set_actor(actor) {
