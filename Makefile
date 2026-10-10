@@ -3,7 +3,7 @@ UUID = $(NAME)@aunetx
 VM_PATH = ~/Projects/shared/extensions
 POT = po/$(UUID).pot
 UI_SOURCES = $(shell find resources/ui -type f -name '*.ui' | sort)
-EFFECT_I18N_SOURCES = src/effects/effects.js src/effects/effect_groups.js
+EFFECT_I18N_SOURCES = $(shell find src/effects -type f -name '*.js' | sort)
 PREFERENCES_I18N_SOURCES = $(shell find src/preferences -type f -name '*.js' | sort) src/prefs.js
 SOURCE_DIRS = $(filter-out styles,$(patsubst src/%/,%,$(wildcard src/*/)))
 # Preserve cascade order when bundling the component stylesheets.
