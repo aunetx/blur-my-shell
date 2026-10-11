@@ -1,6 +1,6 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { Pipeline } from '../conveniences/pipeline.js';
+import { Pipeline } from '../pipelines/pipeline.js';
 
 export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
     constructor(connections, settings, effects_manager) {

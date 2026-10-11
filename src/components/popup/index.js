@@ -11,7 +11,7 @@ import {
     POPUP_SURFACE_STYLES,
     PopupBlurTargets,
 } from './targets.js';
-import { PopupBlurSurface } from './blur_surface.js';
+import { PopupBlurSurface } from './surface/blur_surface.js';
 import { PopupBlurMessageStacks } from './message_stacks.js';
 
 const KEYBOARD_STYLE_CLASS = 'bms-keyboard-surface';

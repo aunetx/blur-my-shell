@@ -36,32 +36,12 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Global gaussian sigma to use</summary>
+            <summary>Deprecated, only read for migration: Global gaussian sigma to use</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>0.6</default>
-            <summary>Global brightness to use</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
-        </key>
-        <!-- COLOR AND NOISE -->
-        <key type="b" name="color-and-noise">
-            <default>true</default>
-            <summary>Boolean, controls whether or not the color and noise effects are in use globally</summary>
+            <summary>Deprecated, only read for migration: Global brightness to use</summary>
         </key>
         <!-- DEBUG -->
         <key type="b" name="debug">
@@ -89,42 +69,12 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
-        </key>
-        <!-- CUSTOMIZE -->
-        <key type="b" name="customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
-        </key>
-        <!-- SIGMA -->
-        <key type="i" name="sigma">
-            <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
-        </key>
-        <!-- BRIGHTNESS -->
-        <key type="d" name="brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
@@ -139,12 +89,27 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- CUSTOMIZE -->
+        <key type="b" name="customize">
+            <default>false</default>
+            <summary>Deprecated, only read for migration: Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+        </key>
+        <!-- SIGMA -->
+        <key type="i" name="sigma">
+            <default>30</default>
+            <summary>Deprecated, only read for migration: Gaussian sigma to use for the blur effect</summary>
+        </key>
+        <!-- BRIGHTNESS -->
+        <key type="d" name="brightness">
+            <default>0.6</default>
+            <summary>Deprecated, only read for migration: Brightness to use for the blur effect</summary>
         </key>
         <!-- STYLE DIALOGS -->
         <key type="i" name="style-dialogs">
@@ -159,7 +124,7 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
@@ -169,17 +134,17 @@
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+            <summary>Deprecated, only read for migration: Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Brightness to use for the blur effect</summary>
         </key>
         <!-- CORNER RADIUS -->
         <key type="i" name="corner-radius">
@@ -190,21 +155,6 @@
             <default>0</default>
             <range min="0" max="3"/>
             <summary>Corners to round (0 all, 1 top, 2 bottom, 3 none)</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -239,7 +189,7 @@
         <!-- OVERRIDE BACKGROUND DYNAMICALLY MODE -->
         <key type="i" name="override-background-dynamically-mode">
             <default>1</default>
-            <summary>Enum to select the override mode (0 Blur on Window Proximity, 1 Background on Window Proximity). Required "override-background-dynamically" to be enabled.</summary>
+            <summary>Enum to select the override mode (0 Blur on Window Proximity, 1 Background on Window Proximity). Requires "override-background-dynamically" to be enabled.</summary>
         </key>
         <!-- GRADIENT PANEL -->
         <key type="b" name="gradient-panel">
@@ -249,7 +199,7 @@
         <!-- GRADIENT PANEL MODE -->
         <key type="i" name="gradient-panel-mode">
             <default>0</default>
-            <summary>Enum to select the gradient panel mode (0 Top, 1 Bottom). Required "gradient-panel" to be enabled.</summary>
+            <summary>Enum to select the gradient panel mode (0 Top, 1 Bottom). Requires "gradient-panel" to be enabled.</summary>
         </key>
     </schema>
 
@@ -259,7 +209,7 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
@@ -269,32 +219,17 @@
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+            <summary>Deprecated, only read for migration: Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
+            <summary>Deprecated, only read for migration: Brightness to use for the blur effect</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -324,7 +259,7 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>false</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
@@ -339,17 +274,17 @@
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>true</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+            <summary>Deprecated, only read for migration: Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>1.</default>
-            <summary>Brightness to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Brightness to use for the blur effect</summary>
         </key>
         <!-- CORNER RADIUS -->
         <key type="i" name="corner-radius">
@@ -365,21 +300,6 @@
         <key type="b" name="corner-when-maximized">
             <default>false</default>
             <summary>Boolean, whether to keep rounding the corners of fullscreen and maximized window or not</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
         <!-- OPACITY -->
         <key type="i" name="opacity">
@@ -424,42 +344,12 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
-        </key>
-        <!-- CUSTOMIZE -->
-        <key type="b" name="customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
-        </key>
-        <!-- SIGMA -->
-        <key type="i" name="sigma">
-            <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
-        </key>
-        <!-- BRIGHTNESS -->
-        <key type="d" name="brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
     </schema>
 
@@ -469,42 +359,12 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
-        </key>
-        <!-- CUSTOMIZE -->
-        <key type="b" name="customize">
-            <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
-        </key>
-        <!-- SIGMA -->
-        <key type="i" name="sigma">
-            <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
-        </key>
-        <!-- BRIGHTNESS -->
-        <key type="d" name="brightness">
-            <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
         </key>
     </schema>
 
@@ -514,7 +374,7 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
@@ -524,32 +384,17 @@
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
-            <summary>Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
+            <summary>Deprecated, only read for migration: Boolean, whether to customize the blur effect sigma/brightness or use general values</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
-        </key>
-        <!-- COLOR -->
-        <key type="(dddd)" name="color">
-            <default>(0.,0.,0.,0.)</default>
-            <summary>Color to mix with the blur effect</summary>
-        </key>
-        <!-- NOISE AMOUNT -->
-        <key type="d" name="noise-amount">
-            <default>0.</default>
-            <summary>Amount of noise to add to the blur effect</summary>
-        </key>
-        <!-- NOISE LIGHTNESS -->
-        <key type="d" name="noise-lightness">
-            <default>0.</default>
-            <summary>Lightness of the noise added to the blur effect</summary>
+            <summary>Deprecated, only read for migration: Brightness to use for the blur effect</summary>
         </key>
     </schema>
 
@@ -559,7 +404,7 @@
         <!-- BLUR -->
         <key type="b" name="blur">
             <default>true</default>
-            <summary>Boolean, whether to blur activate the blur for this component or not</summary>
+            <summary>Boolean, whether to activate the blur for this component or not</summary>
         </key>
         <!-- PIPELINE -->
         <key type="s" name="pipeline">
@@ -589,12 +434,12 @@
         <!-- SIGMA -->
         <key type="i" name="sigma">
             <default>30</default>
-            <summary>Gaussian sigma to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Gaussian sigma to use for the blur effect</summary>
         </key>
         <!-- BRIGHTNESS -->
         <key type="d" name="brightness">
             <default>0.6</default>
-            <summary>Brightness to use for the blur effect</summary>
+            <summary>Deprecated, only read for migration: Brightness to use for the blur effect</summary>
         </key>
         <!-- CORNER RADIUS -->
         <key type="i" name="corner-radius">

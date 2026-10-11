@@ -1,11 +1,11 @@
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { Pipeline } from '../../conveniences/pipeline.js';
+import { Pipeline } from '../../pipelines/pipeline.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
 import { has_style_class } from './actors.js';
-import { transform_to_actor_space } from './surface_geometry.js';
-import { PopupBlurAllocation } from './surface_allocation.js';
+import { transform_to_actor_space } from './surface/geometry.js';
+import { PopupBlurAllocation } from './surface/allocation.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
     constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius) {
