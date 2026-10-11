@@ -217,12 +217,12 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 .multimonitor-dock.light-dash .dash-background {
     background: rgba(255, 255, 255, 0.65) !important;
     background-color: rgba(255, 255, 255, 0.65) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .light-dash.plank-like-dock-bg {
     background: rgba(255, 255, 255, 0.65) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.25) !important;
     box-shadow: none !important;
 }
 
@@ -429,14 +429,14 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
 StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
 .dark-dash .multimonitor-dock .dash-background,
 .multimonitor-dock.dark-dash .dash-background {
-    background: rgba(45, 45, 50, 0.5) !important;
-    background-color: rgba(45, 45, 50, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(12, 12, 16, 0.5) !important;
+    background-color: rgba(12, 12, 16, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .dark-dash.plank-like-dock-bg {
-    background: rgba(45, 45, 50, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: rgba(12, 12, 16, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     box-shadow: none !important;
 }
 
