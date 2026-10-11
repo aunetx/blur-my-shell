@@ -6,6 +6,7 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 import { PipelineGroup } from '../widgets/pipeline_group.js';
 import { EffectsDialog } from '../widgets/effects_dialog.js';
 import { initialize_legacy_blur_notice } from '../legacy_blur_notice.js';
+import { create_pipeline_undo_toast } from '../widgets/pipeline_undo_toast.js';
 
 
 export const Pipelines = GObject.registerClass({
@@ -27,6 +28,8 @@ export const Pipelines = GObject.registerClass({
 
         this.pipelines_map = new Map;
         this._scroll_timeout_ids = new Set;
+        this._deleted_pipelines = [];
+        this._undo_toast = null;
 
         for (let pipeline_id in this.pipelines_manager.pipelines)
             this.add_pipeline(pipeline_id, false);
@@ -35,6 +38,7 @@ export const Pipelines = GObject.registerClass({
             this.pipelines_map.forEach((_infos, pid) => this.remove_pipeline(pid));
             for (let pipeline_id in this.pipelines_manager.pipelines)
                 this.add_pipeline(pipeline_id, false);
+            this.clear_pipeline_undo();
         });
 
         this._add_pipeline.connect(
@@ -95,6 +99,58 @@ export const Pipelines = GObject.registerClass({
         }
     }
 
+    delete_pipeline(pipeline_id) {
+        const pipeline = this.pipelines_manager.pipelines[pipeline_id];
+        const components = this.preferences.keys
+            .filter(bundle => bundle.schemas.some(key => key.name === 'pipeline'))
+            .map(bundle => this.preferences[bundle.component.replaceAll('-', '_')])
+            .filter(component => component.PIPELINE === pipeline_id);
+
+        if (!this.pipelines_manager.delete_pipeline(pipeline_id))
+            return;
+
+        this._deleted_pipelines.push({ pipeline_id, pipeline, components });
+        this.show_pipeline_undo();
+    }
+
+    show_pipeline_undo() {
+        const deleted = this._deleted_pipelines.at(-1);
+        const prev_toast = this._undo_toast;
+        this._undo_toast = create_pipeline_undo_toast(
+            deleted.pipeline.name,
+            () => this.undo_pipeline_deletion(),
+            toast => {
+                // do not clear on dismiss when toast is being replaced
+                if (this._undo_toast === toast) {
+                    this._undo_toast = null;
+                    this._deleted_pipelines = [];
+                }
+            }
+        );
+        prev_toast?.dismiss();
+        this.window.add_toast(this._undo_toast);
+    }
+
+    undo_pipeline_deletion() {
+        const deleted = this._deleted_pipelines.at(-1);
+        if (!deleted || !this.pipelines_manager.restore_pipeline(deleted.pipeline_id, deleted.pipeline))
+            return;
+
+        this._deleted_pipelines.pop();
+        for (const component of deleted.components)
+            component.PIPELINE = deleted.pipeline_id;
+
+        if (this._deleted_pipelines.length > 0)
+            this.show_pipeline_undo();
+        else
+            this._undo_toast.dismiss();
+    }
+
+    clear_pipeline_undo() {
+        this._deleted_pipelines = [];
+        this._undo_toast?.dismiss();
+    }
+
     rename_pipeline(pipeline_id, name) {
         let pipeline_infos = this.pipelines_map.get(pipeline_id);
         if (pipeline_infos)
@@ -109,5 +165,6 @@ export const Pipelines = GObject.registerClass({
     cleanup() {
         this._scroll_timeout_ids.forEach(timeout_id => clearTimeout(timeout_id));
         this._scroll_timeout_ids.clear();
+        this.clear_pipeline_undo();
     }
 });

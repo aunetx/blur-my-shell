@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <object class="AdwToast" id="undo_toast">
+    <property name="timeout">5</property>
+    <property name="priority">high</property>
+    <property name="custom-title">
+      <object class="GtkBox" id="undo_content">
+        <property name="spacing">24</property>
+        <style>
+          <class name="bms-pipeline-undo-content" />
+        </style>
+        <child>
+          <object class="GtkLabel" id="undo_label">
+            <property name="ellipsize">end</property>
+            <property name="max-width-chars">40</property>
+            <property name="hexpand">true</property>
+            <property name="xalign">0</property>
+            <style>
+              <class name="heading" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="undo_button">
+            <property name="valign">center</property>
+            <property name="icon-name">edit-undo-symbolic</property>
+            <property name="focus-on-click">false</property>
+            <property name="tooltip-text" translatable="yes">Undo</property>
+            <style>
+              <class name="circular" />
+              <class name="flat" />
+            </style>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>

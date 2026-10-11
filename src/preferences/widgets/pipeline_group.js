@@ -50,7 +50,7 @@ export const PipelineGroup = GObject.registerClass({
             });
             remove_button.add_css_class('destructive-action');
             prefix_bin.append(remove_button);
-            remove_button.connect('clicked', () => pipelines_manager.delete_pipeline(pipeline_id));
+            remove_button.connect('clicked', () => pipelines_page.delete_pipeline(pipeline_id));
         }
         let duplicate_button = new Gtk.Button({
             'icon-name': 'duplicate-row-symbolic',
