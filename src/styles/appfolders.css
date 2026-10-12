@@ -205,7 +205,7 @@
 .appfolder-dialogs-dark .folder-name-container .folder-name-entry,
 .appfolder-dialogs-dark .folder-name-container .folder-name-label,
 .appfolder-dialogs-dark .folder-name-entry {
-    color: rgba(255, ) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
     background-color: transparent !important;
     border: 0;
     box-shadow: none;

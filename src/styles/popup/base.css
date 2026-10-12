@@ -547,14 +547,14 @@
 .bms-popup-surface-dark .bms-keyboard-surface,
 .bms-popup-background-transparent .bms-keyboard-surface,
 .bms-popup-surface-transparent .bms-keyboard-surface {
-    background: rgba(45, 45, 50, 0.22) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);;
+    background: rgba(12, 12, 16, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .bms-popup-background-light .bms-keyboard-surface,
 .bms-popup-surface-light .bms-keyboard-surface {
-    background: rgba(255, 255, 255, 0.58) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.65) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .bms-popup-background-dark .keyboard-subkeys,
