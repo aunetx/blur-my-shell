@@ -51,12 +51,32 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
         window.add(new Other(preferences, pipelines_manager, pipelines_page));
 
+        window.add_css_class('bms-preferences');
+        const undo_css = new Gtk.CssProvider();
+        undo_css.load_from_string(`
+            /* 46px (tab bar height) + 8px = 54px */
+            .bms-preferences toast {
+                margin-bottom: 54px;
+            }
+            /* -12px would be no gap */
+            .bms-pipeline-undo-content:dir(ltr) {
+                margin-right: -10px;
+            }
+            .bms-pipeline-undo-content:dir(rtl) {
+                margin-left: -10px;
+            }
+        `);
+        const display = window.get_display();
+        Gtk.StyleContext.add_provider_for_display(display, undo_css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
         window.connect('close-request', () => {
             cancel_pick();
             applications_page.cleanup();
             pipelines_page.cleanup();
             pipelines_manager.destroy();
             preferences.disconnect_all_settings();
+            Gtk.StyleContext.remove_provider_for_display(display, undo_css);
+            window.remove_css_class('bms-preferences');
             return false;
         });
 

@@ -92,6 +92,19 @@ export class PipelinesManager {
         return this.settings.set_pipelines(pipelines);
     }
 
+    restore_pipeline(id, pipeline) {
+        if (Object.hasOwn(this.pipelines, id))
+            return false;
+
+        return this.settings.set_pipelines({
+            ...this.pipelines,
+            [id]: {
+                name: pipeline.name,
+                effects: pipeline.effects.map(clone_effect),
+            },
+        });
+    }
+
     update_pipeline_effects(id, effects) {
         return this.settings.set_pipelines({
             ...this.pipelines,
