@@ -117,9 +117,10 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
 
         this.enabled = true;
         this.is_static = this.settings.dash_to_dock.STATIC_BLUR;
+        // dock may not be ready when child-added is emitted
         this.connections.connect(Main.uiGroup, 'child-added', (_, actor) => {
             if (is_supported_dock_container(actor))
-                this.try_blur(actor);
+                this.queue_discovery();
         });
         this.connections.connect(Main.extensionManager, 'extension-state-changed',
             () => this.queue_discovery());
@@ -161,7 +162,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     queue_discovery() {
         if (this.discovery_id)
             return;
-        this.discovery_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+        this.discovery_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
             this.discovery_id = 0;
             this.blur_existing_dashes();
             return GLib.SOURCE_REMOVE;
@@ -180,6 +181,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     // Tries to blur the dash contained in the given actor
     try_blur(dash_container) {
         const target = resolve_dock_target(dash_container);
+        target?.background.get_allocation_box();
         if (!is_dock_ready(dash_container, target)) {
             this._defer_blur_until_allocated(dash_container);
             return;
@@ -340,7 +342,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this._log("removing blur from dashes");
 
         if (this.discovery_id)
-            GLib.Source.remove(this.discovery_id);
+            global.compositor.get_laters().remove(this.discovery_id);
         this.discovery_id = 0;
 
         this.native_dash_connections.disconnect_all();

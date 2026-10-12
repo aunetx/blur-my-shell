@@ -108,7 +108,7 @@ export class DockSurface {
         // keep the pending update, it will read the latest geometry and style
         if (this.update_id)
             return;
-        this.update_id = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
+        this.update_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
             this.update_id = 0;
             this.update_size();
             return false;
@@ -266,7 +266,7 @@ export class DockSurface {
             if (this.current_monitor_index !== monitor.index) {
                 this.current_monitor_index = monitor.index;
                 this.change_blur_type();
-                return;
+                // no return here, so we can position and clip the replacement before the next paint
             }
 
             let dash_box = this.get_dash_position(monitor);
