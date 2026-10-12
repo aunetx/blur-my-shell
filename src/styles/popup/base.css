@@ -135,7 +135,6 @@
 .bms-popup-background-dark .popup-sub-menu,
 .bms-popup-background-dark .candidate-popup-content,
 .bms-popup-background-dark .quick-settings,
-.bms-popup-background-dark .quick-toggle-menu,
 .bms-popup-background-dark .osd-window,
 .bms-popup-background-dark .resize-popup,
 .bms-popup-background-dark .switcher-list,
@@ -150,7 +149,6 @@
 .bms-popup-surface-dark .popup-sub-menu,
 .bms-popup-surface-dark .candidate-popup-content,
 .bms-popup-surface-dark .quick-settings,
-.bms-popup-surface-dark .quick-toggle-menu,
 .bms-popup-surface-dark .osd-window,
 .bms-popup-surface-dark .resize-popup,
 .bms-popup-surface-dark .switcher-list,
@@ -159,8 +157,14 @@
 .bms-popup-surface-dark .modal-dialog,
 .bms-popup-surface-dark .run-dialog,
 .bms-popup-surface-dark .clipboard-dialog {
-    background: rgba(12, 12, 16, 0.5) !important;
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(30, 30, 33, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.bms-popup-background-dark .quick-toggle-menu,
+.bms-popup-surface-dark .quick-toggle-menu {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.06);
 }
 
 .bms-popup-background-dark .modal-dialog,
@@ -547,8 +551,8 @@
 .bms-popup-surface-dark .bms-keyboard-surface,
 .bms-popup-background-transparent .bms-keyboard-surface,
 .bms-popup-surface-transparent .bms-keyboard-surface {
-    background: rgba(12, 12, 16, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(30, 30, 33, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .bms-popup-background-light .bms-keyboard-surface,

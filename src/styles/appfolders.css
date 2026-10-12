@@ -197,8 +197,8 @@
 
 .app-folder-dialog.appfolder-dialogs-dark {
     color: rgba(255, 255, 255, 0.9);
-    background-color: rgba(12, 12, 16, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(30, 30, 33, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: none;
 }
 
