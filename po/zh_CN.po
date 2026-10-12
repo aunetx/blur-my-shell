@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-10-08 02:51+0000\n"
-"Last-Translator: Aliorpse <Aliorpse@qq.com>\n"
+"PO-Revision-Date: 2026-10-13 10:51+0000\n"
+"Last-Translator: Cold-Mint <cold_mint@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.10.1.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -144,71 +144,71 @@ msgstr "要融入的颜色。混合量由颜色透明度控制。"
 
 #: src/effects/effects.js:176
 msgid "Blend mode"
-msgstr ""
+msgstr "混合模式"
 
 #: src/effects/effects.js:177
 msgid "How the color is blended in."
-msgstr ""
+msgstr "颜色的混合方式。"
 
 #: src/effects/effects.js:180
 msgid "Normal"
-msgstr ""
+msgstr "正常"
 
 #: src/effects/effects.js:181
 msgid "Multiply"
-msgstr ""
+msgstr "正片叠底"
 
 #: src/effects/effects.js:182
 msgid "Screen"
-msgstr ""
+msgstr "滤色"
 
 #: src/effects/effects.js:183
 msgid "Overlay"
-msgstr ""
+msgstr "叠加"
 
 #: src/effects/effects.js:184
 msgid "Darken"
-msgstr ""
+msgstr "变暗"
 
 #: src/effects/effects.js:185
 msgid "Lighten"
-msgstr ""
+msgstr "变亮"
 
 #: src/effects/effects.js:186
 msgid "Plus darker"
-msgstr ""
+msgstr "相加变暗"
 
 #: src/effects/effects.js:187
 msgid "Plus lighter"
-msgstr ""
+msgstr "相加变亮"
 
 #: src/effects/effects.js:188
 msgid "Color dodge"
-msgstr ""
+msgstr "颜色减淡"
 
 #: src/effects/effects.js:189
 msgid "Color burn"
-msgstr ""
+msgstr "颜色加深"
 
 #: src/effects/effects.js:190
 msgid "Hard light"
-msgstr ""
+msgstr "强光"
 
 #: src/effects/effects.js:191
 msgid "Soft light"
-msgstr ""
+msgstr "柔光"
 
 #: src/effects/effects.js:192
 msgid "Difference"
-msgstr ""
+msgstr "差值"
 
 #: src/effects/effects.js:193
 msgid "Exclusion"
-msgstr ""
+msgstr "排除"
 
 #: src/effects/effects.js:194
 msgid "Hue"
-msgstr ""
+msgstr "色相"
 
 #: src/effects/effects.js:195 src/effects/effects.js:250
 msgid "Saturation"
@@ -216,7 +216,7 @@ msgstr "饱和度"
 
 #: src/effects/effects.js:197 src/effects/effects.js:205
 msgid "Luminosity"
-msgstr ""
+msgstr "亮度"
 
 #: src/effects/effects.js:206
 msgid "An effect that affects the luminosity of the image."
@@ -224,21 +224,21 @@ msgstr "影响图像亮度的效果。"
 
 #: src/effects/effects.js:210
 msgid "Shift brightness"
-msgstr ""
+msgstr "偏移亮度"
 
 #: src/effects/effects.js:211
 msgid "The brightness to add of remove to the image."
-msgstr ""
+msgstr "要为图像增加或减少的亮度值。"
 
 #: src/effects/effects.js:220
 msgid "Multiply brightness"
-msgstr ""
+msgstr "亮度相乘"
 
 #: src/effects/effects.js:221
 msgid ""
 "The brightness multiplicator of the image, so that 0 means no brightness and "
 "2 means infinite brightness."
-msgstr ""
+msgstr "图像的亮度乘数：0 代表无亮度，2 代表无限亮度。"
 
 #: src/effects/effects.js:230
 msgid "Contrast"
@@ -260,7 +260,7 @@ msgstr "要使用的对比度中心。"
 msgid ""
 "The saturation of the image, so that 0 means no saturation and 2 means "
 "infinite saturation."
-msgstr ""
+msgstr "图像饱和度：0 代表无饱和度，2 代表无限饱和度。"
 
 #: src/effects/effects.js:264
 msgid "Pixelize"
@@ -484,29 +484,29 @@ msgstr "模糊效果的强度。"
 #: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
 #: resources/ui/panel.ui:130
 msgid "Corner radius"
-msgstr ""
+msgstr "圆角半径"
 
 #: resources/ui/applications.ui:115 resources/ui/dash.ui:114
 #: resources/ui/panel.ui:114
 msgid ""
 "In order to use rounded corners, please install the GNOME Rounded Blur "
 "library."
-msgstr ""
+msgstr "如需使用圆角功能，请安装 GNOME Rounded Blur 库。"
 
 #: resources/ui/applications.ui:132 resources/ui/dash.ui:131
 #: resources/ui/panel.ui:131
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "圆角效果的半径。"
 
 #: resources/ui/applications.ui:140
 msgid "Enable corner rounding on maximized and fullscreen"
-msgstr ""
+msgstr "最大化与全屏时启用圆角"
 
 #: resources/ui/applications.ui:141
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
-msgstr ""
+msgstr "圆角效果将持续作用于最大化和全屏窗口。"
 
 #: resources/ui/applications.ui:155
 msgid "Opacity"
@@ -558,6 +558,8 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"需要模糊的窗口列表。\n"
+"使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
 
 #: resources/ui/applications.ui:245 resources/ui/applications.ui:283
 msgid "Add Window"
@@ -573,6 +575,8 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"不进行模糊处理的窗口列表。\n"
+"使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
