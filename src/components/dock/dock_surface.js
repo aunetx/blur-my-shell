@@ -108,7 +108,7 @@ export class DockSurface {
         // keep the pending update, it will read the latest geometry and style
         if (this.update_id)
             return;
-        this.update_id = global.compositor.get_laters().add(Meta.LaterType.IDLE, () => {
+        this.update_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
             this.update_id = 0;
             this.update_size();
             return false;
@@ -251,8 +251,9 @@ export class DockSurface {
 
         this.update_visibility();
 
-        // docks can queue another relayout that leaves their boxes unchanged, so no allocation
-        // signal would follow; getting the allocation box runs that pending layout right away
+        // The container can need layout while its background is still allocated. Complete
+        // that layout too: unchanged boxes may not emit another allocation signal.
+        this.dash_container.get_allocation_box();
         this.dash_background.get_allocation_box();
         if (!has_valid_allocation(this.dash_container) ||
             !has_valid_allocation(this.dash) ||
@@ -266,7 +267,7 @@ export class DockSurface {
             if (this.current_monitor_index !== monitor.index) {
                 this.current_monitor_index = monitor.index;
                 this.change_blur_type();
-                return;
+                // no return here, so we can position and clip the replacement before the next paint
             }
 
             let dash_box = this.get_dash_position(monitor);
