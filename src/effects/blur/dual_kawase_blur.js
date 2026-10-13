@@ -20,6 +20,7 @@ import {
     projectRenderTarget,
     resizeRenderTarget,
     setFloat,
+    setInt,
     setVector2,
 } from './kawase_passes.js';
 import {
@@ -37,6 +38,10 @@ const DEFAULT_PARAMS = {
     unscaled_radius: 30,
     brightness: 0.6,
     opacity_factor: 1,
+    corner_radius: 0,
+    corners_top: true,
+    corners_bottom: true,
+    straight_corners: false,
 };
 
 const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.registerClass({
@@ -62,6 +67,26 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             GObject.ParamFlags.READWRITE,
             0, 1, DEFAULT_PARAMS.opacity_factor
         ),
+        'corner-radius': GObject.ParamSpec.double(
+            'corner-radius', null, null,
+            GObject.ParamFlags.READWRITE,
+            0, Number.MAX_SAFE_INTEGER, DEFAULT_PARAMS.corner_radius
+        ),
+        'corners-top': GObject.ParamSpec.boolean(
+            'corners-top', null, null,
+            GObject.ParamFlags.READWRITE,
+            DEFAULT_PARAMS.corners_top
+        ),
+        'corners-bottom': GObject.ParamSpec.boolean(
+            'corners-bottom', null, null,
+            GObject.ParamFlags.READWRITE,
+            DEFAULT_PARAMS.corners_bottom
+        ),
+        'straight-corners': GObject.ParamSpec.boolean(
+            'straight-corners', null, null,
+            GObject.ParamFlags.READWRITE,
+            DEFAULT_PARAMS.straight_corners
+        ),
     },
 }, class DualKawaseBlurEffect extends Clutter.Effect {
     _init(params = {}) {
@@ -83,12 +108,17 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.context = null;
         this.appliedSampling = null;
         this.blurValid = false;
+        this.appliedCornerMask = null;
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
         this.unscaled_radius = params.unscaled_radius ?? DEFAULT_PARAMS.unscaled_radius;
         this.brightness = params.brightness ?? DEFAULT_PARAMS.brightness;
         this.opacity_factor = params.opacity_factor ?? DEFAULT_PARAMS.opacity_factor;
+        this.corner_radius = params.corner_radius ?? DEFAULT_PARAMS.corner_radius;
+        this.corners_top = params.corners_top ?? DEFAULT_PARAMS.corners_top;
+        this.corners_bottom = params.corners_bottom ?? DEFAULT_PARAMS.corners_bottom;
+        this.straight_corners = params.straight_corners ?? DEFAULT_PARAMS.straight_corners;
     }
 
     static get default_params() {
@@ -149,6 +179,87 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             setFloat(this.outputPipeline, 'opacity_factor', opacityFactor);
         this.queue_repaint();
         this.notify('opacity-factor');
+    }
+
+    get corner_radius() {
+        return this._corner_radius;
+    }
+
+    set corner_radius(value) {
+        this.setCornerParam('_corner_radius', 'corner-radius', utils.clamp(value, 0, Number.MAX_SAFE_INTEGER));
+    }
+
+    get corners_top() {
+        return this._corners_top;
+    }
+
+    set corners_top(value) {
+        this.setCornerParam('_corners_top', 'corners-top', Boolean(value));
+    }
+
+    get corners_bottom() {
+        return this._corners_bottom;
+    }
+
+    set corners_bottom(value) {
+        this.setCornerParam('_corners_bottom', 'corners-bottom', Boolean(value));
+    }
+
+    get straight_corners() {
+        return this._straight_corners;
+    }
+
+    set straight_corners(value) {
+        this.setCornerParam('_straight_corners', 'straight-corners', Boolean(value));
+    }
+
+    setCornerParam(field, property, value) {
+        if (this[field] === value)
+            return;
+        this[field] = value;
+        this.queue_repaint();
+        this.notify(property);
+    }
+
+    roundsCorners() {
+        return this.corner_radius > 0 && !this.straight_corners
+            && (this.corners_top || this.corners_bottom);
+    }
+
+    /// The corners are cut out in the output pass, against the surface bounds rather than the
+    /// padded area that is blurred.
+    updateCornerMask(actor, outputBounds, framebuffer) {
+        const surface = getEffectBounds(actor);
+        const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
+        const radius = this.roundsCorners()
+            ? Math.min(this.corner_radius * themeScale, surface.width / 2, surface.height / 2)
+            : 0;
+        const mask = [
+            radius, this.corners_top, this.corners_bottom,
+            outputBounds.width, outputBounds.height, outputBounds.x, outputBounds.y,
+            surface.x - outputBounds.x, surface.y - outputBounds.y, surface.width, surface.height,
+            framebuffer?.get_viewport_width(), framebuffer?.get_viewport_height(),
+        ];
+        if (this.appliedCornerMask?.every((value, index) => value === mask[index]))
+            return;
+
+        const pipeline = this.outputPipeline;
+        setFloat(pipeline, 'corner_radius', radius);
+        setInt(pipeline, 'corners_top', this.corners_top ? 1 : 0);
+        setInt(pipeline, 'corners_bottom', this.corners_bottom ? 1 : 0);
+        setFloat(pipeline, 'output_width', outputBounds.width);
+        setFloat(pipeline, 'output_height', outputBounds.height);
+        setFloat(pipeline, 'mask_x', surface.x - outputBounds.x);
+        setFloat(pipeline, 'mask_y', surface.y - outputBounds.y);
+        setFloat(pipeline, 'mask_width', surface.width);
+        setFloat(pipeline, 'mask_height', surface.height);
+        setFloat(pipeline, 'bms_origin_x', outputBounds.x);
+        setFloat(pipeline, 'bms_origin_y', outputBounds.y);
+        if (framebuffer) {
+            setFloat(pipeline, 'bms_viewport_width', framebuffer.get_viewport_width());
+            setFloat(pipeline, 'bms_viewport_height', framebuffer.get_viewport_height());
+        }
+        this.appliedCornerMask = mask;
     }
 
     ensureTargets(context, bounds, scale, passes) {
@@ -307,7 +418,9 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const bounds = getEffectBounds(actor, this);
         if (bounds.width <= 0 || bounds.height <= 0)
             return;
-        if (this.opacity_factor === 0 || (this.unscaled_radius === 0 && this.brightness === 1)) {
+        const unchanged = this.opacity_factor === 0
+            || (this.unscaled_radius === 0 && this.brightness === 1);
+        if (unchanged && !this.roundsCorners()) {
             node.add_child(new Clutter.ActorNode(actor, -1));
             this.blurValid = false;
             return;
@@ -336,6 +449,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             this.blurValid = true;
         }
 
+        this.updateCornerMask(actor, inputBounds, framebuffer);
         const opacity = actor.get_paint_opacity() / 255;
         const outputColor = new Cogl.Color();
         outputColor.init_from_4f(opacity, opacity, opacity, opacity);
@@ -398,6 +512,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.capacityHeight = 0;
         this.context = null;
         this.appliedSampling = null;
+        this.appliedCornerMask = null;
         this.blurValid = false;
     }
 

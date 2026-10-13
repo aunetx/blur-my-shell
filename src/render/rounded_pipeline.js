@@ -44,6 +44,18 @@ export class RoundedPipeline {
             return;
         }
 
+        // a blur drawn last cuts the corners in its own output, sparing a full-size pass
+        const [outermostEffect] = this.pipeline.effects;
+        if (outermostEffect?._bms_effect_type === 'dual_kawase_blur') {
+            this.destroyExternalEffect();
+            Object.assign(outermostEffect, {
+                corner_radius: this.getRadius(),
+                straight_corners: Boolean(this.straightCorners),
+                ...getRoundedCorners(this.getCorners()),
+            });
+            return;
+        }
+
         if (!this.effect) {
             this.effect = this.effectsManager.new_corner_effect({
                 radius: this.getRadius(),
@@ -55,6 +67,7 @@ export class RoundedPipeline {
         }
 
         this.effect.radius = this.getRadius();
+        this.effect.straight_corners = Boolean(this.straightCorners);
         Object.assign(this.effect, getRoundedCorners(this.getCorners()));
     }
 
@@ -150,10 +163,7 @@ export class RoundedPipeline {
 
     setStraightCorners(straightCorners) {
         this.straightCorners = straightCorners;
-        if (this.effect)
-            this.effect.straight_corners = straightCorners;
-        else
-            this.updateRefractionCorners();
+        this.update();
     }
 
     destroyExternalEffect() {
