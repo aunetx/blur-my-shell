@@ -197,15 +197,15 @@
 
 .app-folder-dialog.appfolder-dialogs-dark {
     color: rgba(255, 255, 255, 0.9);
-    background-color: rgba(255, 255, 255, 0.07) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(30, 30, 33, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: none;
 }
 
 .appfolder-dialogs-dark .folder-name-container .folder-name-entry,
 .appfolder-dialogs-dark .folder-name-container .folder-name-label,
 .appfolder-dialogs-dark .folder-name-entry {
-    color: rgba(255, ) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
     background-color: transparent !important;
     border: 0;
     box-shadow: none;
