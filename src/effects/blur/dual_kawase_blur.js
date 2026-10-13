@@ -3,7 +3,7 @@ import GObject from 'gi://GObject';
 import * as utils from '../../conveniences/utils.js';
 import { getEffectBounds } from '../../render/effect_bounds.js';
 import { get_view_framebuffer } from '../../render/backdrop/painted_view.js';
-import { getKawaseConfiguration } from './kawase_sampling.js';
+import { getKawaseConfiguration, getKawaseInputBounds } from './kawase_sampling.js';
 import {
     DOWNSAMPLE_CODE,
     DOWNSAMPLE_DECLARATIONS,
@@ -291,9 +291,20 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.blurValid = false;
     }
 
+    get_input_bounds(bounds) {
+        const actor = this.get_actor();
+        if (!actor.has_clip || this.opacity_factor === 0 || this.unscaled_radius === 0)
+            return bounds;
+
+        const scale = actor.get_resource_scale();
+        const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
+        const { passes } = getKawaseConfiguration(this.unscaled_radius * themeScale * scale);
+        return getKawaseInputBounds(bounds, actor.width, actor.height, scale, passes);
+    }
+
     vfunc_paint_node(node, paintContext, flags) {
         const actor = this.get_actor();
-        const bounds = getEffectBounds(actor);
+        const bounds = getEffectBounds(actor, this);
         if (bounds.width <= 0 || bounds.height <= 0)
             return;
         if (this.opacity_factor === 0 || (this.unscaled_radius === 0 && this.brightness === 1)) {
@@ -311,14 +322,17 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const scale = actor.get_resource_scale();
         const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
         const { passes, blend } = getKawaseConfiguration(this.unscaled_radius * themeScale * scale);
-        this.ensureTargets(context, bounds, scale, passes);
+        const inputBounds = this.get_input_bounds(bounds);
+        if (inputBounds.width <= 0 || inputBounds.height <= 0)
+            return;
+        this.ensureTargets(context, inputBounds, scale, passes);
         this.updateSampling(passes, blend);
 
         // outside of a stage view, like in a screencast, the blur from the last view paint is reused
         const refreshes_input = framebuffer !== null
             && (actor._bms_live_input || flags & Clutter.EffectPaintFlags.ACTOR_DIRTY);
         if (!this.blurValid || refreshes_input) {
-            this.addBlurPasses(node, actor, bounds, passes, blend);
+            this.addBlurPasses(node, actor, inputBounds, passes, blend);
             this.blurValid = true;
         }
 
@@ -329,10 +343,10 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         const outputNode = new Clutter.PipelineNode(this.outputPipeline);
         outputNode.set_name('BmsDualKawase output');
         outputNode.add_rectangle(new Clutter.ActorBox({
-            x1: bounds.x,
-            y1: bounds.y,
-            x2: bounds.x + bounds.width,
-            y2: bounds.y + bounds.height,
+            x1: inputBounds.x,
+            y1: inputBounds.y,
+            x2: inputBounds.x + inputBounds.width,
+            y2: inputBounds.y + inputBounds.height,
         }));
         node.add_child(outputNode);
     }

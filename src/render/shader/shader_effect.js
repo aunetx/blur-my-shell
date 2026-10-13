@@ -93,7 +93,7 @@ export const SurfaceShaderEffect = GObject.registerClass({
     }
 
     syncGeometry(actor) {
-        const bounds = getEffectBounds(actor);
+        const bounds = getEffectBounds(actor, this);
         const {width, height} = bounds;
         const defaults = this.constructor.default_params;
         if (Object.hasOwn(defaults, 'width'))
@@ -101,7 +101,12 @@ export const SurfaceShaderEffect = GObject.registerClass({
         if (Object.hasOwn(defaults, 'height'))
             this.height = height;
         if (Object.hasOwn(defaults, 'clip')) {
-            const clip = [0, 0, -1, -1];
+            // Filter padding enlarges the texture, not the surface shape.
+            const surface = getEffectBounds(actor);
+            const clip = surface.x === bounds.x && surface.y === bounds.y
+                && surface.width === width && surface.height === height
+                ? [0, 0, -1, -1]
+                : [surface.x - bounds.x, surface.y - bounds.y, surface.width, surface.height];
             if (clip.some((value, index) => value !== this.clip[index]))
                 this.clip = clip;
         }
