@@ -19,9 +19,13 @@ export const BackdropOutputEffect = GObject.registerClass({
         const opacity = actor.get_paint_opacity() / 255;
         const color = new Cogl.Color();
         color.init_from_4f(opacity, opacity, opacity, opacity);
-        const offscreenTarget = this.capture.targets.get(null);
-        const targets = this.capture.target === offscreenTarget
-            ? [offscreenTarget]
+        const current = this.capture.target;
+        if (!current)
+            return;
+
+        // clones and offscreen paints only show their own capture
+        const targets = current.inClone || current === this.capture.targets.get(null)
+            ? [current]
             : [...this.capture.targets.entries()].filter(([view]) => view).map(([, target]) => target);
 
         // Each view only captures its intersection with the actor. Compose those intersections

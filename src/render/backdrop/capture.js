@@ -1,5 +1,6 @@
 import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
+import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 import Mtk from 'gi://Mtk';
@@ -18,6 +19,8 @@ import {
 } from '../shader/texture_region.js';
 
 const PIXEL_EPSILON = 1 / 1024;
+// clones of animated actors change size every frame, and only the last few sizes get painted again
+const CLONE_TARGET_LIFETIME_US = 1000000;
 const CAPTURE_TEXTURE_REGION = 'bms_capture_region';
 
 function getCaptureSnippet() {
@@ -141,6 +144,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
         super._init();
         this.target = null;
         this.targets = new Map();
+        this.cloneTargets = new Map();
+        this.viewDestroyIds = new Map();
         this.actorGeometry = null;
         this.output = new St.Widget();
         this.output.add_constraint(new Clutter.BindConstraint({
@@ -152,9 +157,9 @@ export const BackdropCaptureEffect = GObject.registerClass({
         contentActor.add_child(this.output);
     }
 
-    ensureFramebuffer(width, height, sourceFramebuffer, view) {
+    ensureFramebuffer(targets, key, width, height, sourceFramebuffer, view) {
         const context = sourceFramebuffer.get_context();
-        const cached = this.targets.get(view) ?? null;
+        const cached = targets.get(key) ?? null;
         const reusable = cached !== null && cached.context === context
             && (!view || cached.sourceFramebuffer === sourceFramebuffer);
         if (reusable && textureFits(width, cached.width) && textureFits(height, cached.height)) {
@@ -201,23 +206,40 @@ export const BackdropCaptureEffect = GObject.registerClass({
             usedHeight: height,
             region: new TextureRegion(pipeline, CAPTURE_TEXTURE_REGION),
             sourceFramebuffer: view ? sourceFramebuffer : null,
-            destroyId: cached?.destroyId
-                ?? view?.connect('destroy', () => this.releaseTarget(view)) ?? 0,
         };
         this.target.region.update(this.target);
-        this.targets.set(view, this.target);
+        targets.set(key, this.target);
+        if (view && !this.viewDestroyIds.has(view))
+            this.viewDestroyIds.set(view, view.connect('destroy', () => this.releaseView(view)));
     }
 
-    releaseTarget(view) {
-        const target = this.targets.get(view);
-        if (!target)
-            return;
+    /// Clones are painted at their own size and place, like window previews in the overview and
+    /// their workspace thumbnails, so each keeps its own capture instead of overwriting another's.
+    cloneTargetsFor(view) {
+        let targets = this.cloneTargets.get(view);
+        if (!targets) {
+            targets = new Map();
+            this.cloneTargets.set(view, targets);
+        }
 
-        this.targets.delete(view);
-        if (target.destroyId)
-            view.disconnect(target.destroyId);
-        if (this.target === target)
+        const now = GLib.get_monotonic_time();
+        for (const [key, target] of targets) {
+            if (now - target.lastUsed > CLONE_TARGET_LIFETIME_US)
+                targets.delete(key);
+        }
+        return targets;
+    }
+
+    releaseView(view) {
+        if (this.target && [this.targets.get(view), ...this.cloneTargets.get(view)?.values() ?? []]
+            .includes(this.target))
             this.target = null;
+        this.targets.delete(view);
+        this.cloneTargets.delete(view);
+        const destroyId = this.viewDestroyIds.get(view);
+        if (destroyId)
+            view.disconnect(destroyId);
+        this.viewDestroyIds.delete(view);
     }
 
     vfunc_paint_node(node, paintContext) {
@@ -231,24 +253,27 @@ export const BackdropCaptureEffect = GObject.registerClass({
         if (!geometry)
             return;
 
-        const actorGeometry = actor.get_abs_allocation_vertices()
-            .flatMap(vertex => [vertex.x, vertex.y, vertex.z]);
-        if (!this.actorGeometry?.every((value, i) => value === actorGeometry[i])) {
-            for (const target of this.targets.values())
-                target.geometry = null;
-            this.actorGeometry = actorGeometry;
-        }
-
         const painted_view = get_painted_view();
         const view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
-        this.ensureFramebuffer(
-            geometry.width,
-            geometry.height,
-            sourceFramebuffer,
-            view
-        );
+        const inClone = actor.is_in_clone_paint();
+        if (inClone) {
+            this.ensureFramebuffer(this.cloneTargetsFor(view), `${geometry.width}x${geometry.height}`,
+                geometry.width, geometry.height, sourceFramebuffer, view);
+        } else {
+            const actorGeometry = actor.get_abs_allocation_vertices()
+                .flatMap(vertex => [vertex.x, vertex.y, vertex.z]);
+            if (!this.actorGeometry?.every((value, i) => value === actorGeometry[i])) {
+                for (const target of this.targets.values())
+                    target.geometry = null;
+                this.actorGeometry = actorGeometry;
+            }
+            this.ensureFramebuffer(this.targets, view,
+                geometry.width, geometry.height, sourceFramebuffer, view);
+        }
 
         this.target.geometry = geometry;
+        this.target.inClone = inClone;
+        this.target.lastUsed = GLib.get_monotonic_time();
         const rectangles = captureRectangles(paintContext, view, geometry);
         for (const rect of rectangles) {
             if (rect.width <= 0 || rect.height <= 0)
@@ -282,8 +307,10 @@ export const BackdropCaptureEffect = GObject.registerClass({
         unregisterBackdrop(this);
         if (this.output)
             this.output.destroy();
-        for (const view of this.targets.keys())
-            this.releaseTarget(view);
+        for (const view of [...this.viewDestroyIds.keys()])
+            this.releaseView(view);
+        this.targets.clear();
+        this.cloneTargets.clear();
         this.target = null;
         this.actorGeometry = null;
     }
