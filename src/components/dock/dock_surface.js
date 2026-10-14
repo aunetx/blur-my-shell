@@ -287,7 +287,11 @@ export class DockSurface {
 
             this.background.set_clip(clip_x, clip_y, clip_w, clip_h);
         } else {
+            // a hidden group has no allocation, so the geometry relative to it isn't a number yet:
+            // Clutter can't allocate an actor at a NaN position, and wouldn't relayout it afterwards
             const geometry = this.get_dynamic_geometry();
+            if (!Object.values(geometry).every(Number.isFinite))
+                return;
             this.background.set_position(geometry.x, geometry.y);
             this.background.set_size(geometry.width, geometry.height);
         }
