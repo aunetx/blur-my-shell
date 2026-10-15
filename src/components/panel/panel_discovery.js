@@ -1,4 +1,5 @@
 import GLib from 'gi://GLib';
+import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
@@ -12,8 +13,8 @@ export class PanelDiscovery {
         this.on_panel_found = on_panel_found;
         this.dash_to_panel = null;
         this.main_panel = null;
-        this.dtp_blur_idle_id = 0;
-        this.panel_rescan_idle_id = 0;
+        this.dtp_blur_id = 0;
+        this.panel_rescan_id = 0;
     }
 
     enable() {
@@ -97,13 +98,13 @@ export class PanelDiscovery {
     }
 
     queue_stock_panel_rescan() {
-        if (this.panel_rescan_idle_id)
+        if (this.panel_rescan_id)
             return;
 
-        this.panel_rescan_idle_id = GLib.idle_add(
-            GLib.PRIORITY_DEFAULT_IDLE,
+        this.panel_rescan_id = global.compositor.get_laters().add(
+            Meta.LaterType.BEFORE_REDRAW,
             () => {
-                this.panel_rescan_idle_id = 0;
+                this.panel_rescan_id = 0;
                 this.blur_stock_panels();
                 return GLib.SOURCE_REMOVE;
             }
@@ -111,11 +112,11 @@ export class PanelDiscovery {
     }
 
     blur_dtp_panels() {
-        if (this.dtp_blur_idle_id)
+        if (this.dtp_blur_id)
             return;
 
-        this.dtp_blur_idle_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
-            this.dtp_blur_idle_id = 0;
+        this.dtp_blur_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
+            this.dtp_blur_id = 0;
             if (!global.dashToPanel?.panels)
                 return GLib.SOURCE_REMOVE;
 
@@ -143,13 +144,13 @@ export class PanelDiscovery {
     }
 
     disable() {
-        if (this.dtp_blur_idle_id) {
-            GLib.Source.remove(this.dtp_blur_idle_id);
-            this.dtp_blur_idle_id = 0;
+        if (this.dtp_blur_id) {
+            global.compositor.get_laters().remove(this.dtp_blur_id);
+            this.dtp_blur_id = 0;
         }
-        if (this.panel_rescan_idle_id) {
-            GLib.Source.remove(this.panel_rescan_idle_id);
-            this.panel_rescan_idle_id = 0;
+        if (this.panel_rescan_id) {
+            global.compositor.get_laters().remove(this.panel_rescan_id);
+            this.panel_rescan_id = 0;
         }
         this.dash_to_panel = null;
         this.main_panel = null;
