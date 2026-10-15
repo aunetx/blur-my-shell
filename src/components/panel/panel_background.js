@@ -56,6 +56,10 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
 export function place_panel_background(actors) {
     const geometry_actor = actors.widgets.panel;
     const { panel_box, wrapper, background } = actors.widgets;
+
+    // complete pending layout before reading geometry
+    panel_box.get_allocation_box();
+    geometry_actor.get_allocation_box();
     const [width, height] = panel_box.get_size();
     const [geometry_width, geometry_height] = geometry_actor.get_size();
 

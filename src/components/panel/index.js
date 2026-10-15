@@ -42,6 +42,7 @@ export const PanelBlur = class PanelBlur {
         this._log("blurring top panel");
         this.enabled = true;
         this.watched_panels = new WeakSet();
+        this._in_overview = Main.overview.visible;
         this.discovery.enable();
 
         // Hide the panel blur first to avoid the panel background from display on login
@@ -137,8 +138,6 @@ export const PanelBlur = class PanelBlur {
         };
         this.actors_list.push(actors);
 
-        this.queue_update_size(actors);
-
         this.connect_actor_signals(actors,
             panel,
             ['notify::allocation', 'notify::size', 'notify::position'],
@@ -175,6 +174,8 @@ export const PanelBlur = class PanelBlur {
             'destroy',
             _ => this.destroy_blur(actors)
         );
+        // discovery can run in BEFORE_REDRAW, deferring geometry again would miss this frame
+        this.update_size(actors);
         this.update_visibility();
     }
 
@@ -190,7 +191,7 @@ export const PanelBlur = class PanelBlur {
         if (this.queued_updates.has(actors))
             return;
 
-        const source_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+        const source_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
             this.queued_updates.delete(actors);
             this.update_size(actors);
             return GLib.SOURCE_REMOVE;
@@ -512,7 +513,7 @@ export const PanelBlur = class PanelBlur {
     destroy_blur(actors) {
         const size_update_id = this.queued_updates.get(actors);
         if (size_update_id) {
-            GLib.Source.remove(size_update_id);
+            global.compositor.get_laters().remove(size_update_id);
             this.queued_updates.delete(actors);
         }
 
