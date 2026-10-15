@@ -10,6 +10,7 @@ import { RoundedPipeline } from '../../render/rounded_pipeline.js';
 import { WindowRules } from './window_rules.js';
 import { BLUR_ACTOR_NAME, WindowOpacity } from './window_opacity.js';
 import { compute_scale, place_dynamic_blur, place_static_blur } from './window_geometry.js';
+import { finish_preview_fade } from './overview_drag.js';
 
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
@@ -97,6 +98,10 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(Main.overview, 'hidden', _ => {
             this.overview_visible = false;
             reconcile_windows();
+        });
+        this.connections.connect(Main.overview, 'window-drag-end', (_, meta_window) => {
+            if (this.settings.applications.BLUR_ON_OVERVIEW)
+                finish_preview_fade(meta_window);
         });
 
         this.meta_windows.forEach(meta_window =>
