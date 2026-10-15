@@ -16,13 +16,6 @@ function overlaps(a, b) {
 }
 
 export function queueBackdropRedraw(actor) {
-    // only painted through clones, like window previews in the overview, which can't be found from
-    // here: redraw everything once so that their captures are complete
-    if (!actor.mapped) {
-        global.stage.queue_redraw();
-        return;
-    }
-
     const affected = [{ actor, bounds: actor.get_transformed_extents() }];
     const candidates = new Map();
     for (const capture of captures) {
