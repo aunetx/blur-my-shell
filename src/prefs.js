@@ -4,6 +4,7 @@ import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/
 
 import { update_from_old_settings } from './settings/settings_updater.js';
 import { PipelinesManager } from './pipelines/pipelines_manager.js';
+import { ExtensionStateTracker } from './conveniences/extension_state.js';
 import { Settings } from './settings/settings.js';
 import { KEYS } from './settings/keys.js';
 import { cancel_pick } from './dbus/client.js';
@@ -37,6 +38,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
 
         const preferences = new Settings(KEYS, gsettings);
         const pipelines_manager = new PipelinesManager(preferences);
+        const extension_state = new ExtensionStateTracker();
 
         const pipelines_page = new Pipelines(preferences, pipelines_manager, window);
 
@@ -74,6 +76,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
             applications_page.cleanup();
             pipelines_page.cleanup();
             pipelines_manager.destroy();
+            extension_state.destroy();
             preferences.disconnect_all_settings();
             Gtk.StyleContext.remove_provider_for_display(display, undo_css);
             window.remove_css_class('bms-preferences');
