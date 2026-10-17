@@ -3,6 +3,31 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 
+import { Connections } from '../../conveniences/connections.js';
+
+
+function get_dash_to_dock_settings() {
+    const schema_id = 'org.gnome.shell.extensions.dash-to-dock';
+    const default_source = Gio.SettingsSchemaSource.get_default();
+    let schema = default_source.lookup(schema_id, true);
+
+    for (const data_dir of [GLib.get_user_data_dir(), ...GLib.get_system_data_dirs()]) {
+        if (schema)
+            break;
+
+        const schema_dir = GLib.build_filenamev([
+            data_dir, 'gnome-shell', 'extensions', 'dash-to-dock@micxgx.gmail.com', 'schemas'
+        ]);
+        if (!GLib.file_test(GLib.build_filenamev([schema_dir, 'gschemas.compiled']), GLib.FileTest.IS_REGULAR))
+            continue;
+
+        const source = Gio.SettingsSchemaSource.new_from_directory(schema_dir, default_source, false);
+        schema = source.lookup(schema_id, false);
+    }
+
+    return schema ? new Gio.Settings({ settings_schema: schema }) : null;
+}
+
 
 export const Dash = GObject.registerClass({
     GTypeName: 'Dash',
@@ -13,6 +38,7 @@ export const Dash = GObject.registerClass({
         'mode_static',
         'mode_dynamic',
         'override_background',
+        'opacity_warning',
         'style_dash_to_dock',
         'unblur_in_overview'
     ],
@@ -55,6 +81,45 @@ export const Dash = GObject.registerClass({
             'unblur-in-overview', this._unblur_in_overview, 'active',
             Gio.SettingsBindFlags.DEFAULT
         );
+
+        this.opacity_connections = new Connections();
+        this.dock_settings = get_dash_to_dock_settings();
+        this.shell_settings = new Gio.Settings({ schema_id: 'org.gnome.shell' });
+        this.opacity_connections.connect(
+            this.preferences.dash_to_dock.settings,
+            ['changed::blur', 'changed::override-background'],
+            () => this.update_opacity_warning()
+        );
+        this.opacity_connections.connect(
+            this.shell_settings,
+            ['changed::enabled-extensions', 'changed::disable-user-extensions'],
+            () => this.update_opacity_warning()
+        );
+        if (this.dock_settings)
+            this.opacity_connections.connect(
+                this.dock_settings,
+                ['changed::transparency-mode', 'changed::apply-custom-theme'],
+                () => this.update_opacity_warning()
+            );
+        this.update_opacity_warning();
+    }
+
+    update_opacity_warning() {
+        this._opacity_warning.visible = Boolean(
+            this.preferences.dash_to_dock.BLUR
+            && this.preferences.dash_to_dock.OVERRIDE_BACKGROUND
+            && !this.shell_settings.get_boolean('disable-user-extensions')
+            && this.shell_settings.get_strv('enabled-extensions').includes('dash-to-dock@micxgx.gmail.com')
+            && this.dock_settings
+            && !this.dock_settings.get_boolean('apply-custom-theme')
+            && this.dock_settings.get_string('transparency-mode') !== 'DEFAULT'
+        );
+    }
+
+    cleanup() {
+        this.opacity_connections.disconnect_all();
+        this.dock_settings = null;
+        this.shell_settings = null;
     }
 
     change_blur_mode(is_static_blur, first_run) {
