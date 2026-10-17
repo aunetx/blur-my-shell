@@ -35,6 +35,7 @@ export const KEYS = [
             { type: Type.I, name: "corner-radius" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "force-light-text" },
+            { type: Type.B, name: "match-theme-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-panel" },
             { type: Type.B, name: "override-background-dynamically" },

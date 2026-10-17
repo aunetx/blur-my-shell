@@ -267,6 +267,11 @@
             <default>false</default>
             <summary>Boolean, whether or not to force the panel to have light text, useful when using light theme</summary>
         </key>
+        <!-- MATCH THEME IN OVERVIEW -->
+        <key type="b" name="match-theme-in-overview">
+            <default>false</default>
+            <summary>Boolean, whether to keep panel text and icons matched to the system theme in overview</summary>
+        </key>
         <!-- OVERRIDE BACKGROUND -->
         <key type="b" name="override-background">
             <default>true</default>

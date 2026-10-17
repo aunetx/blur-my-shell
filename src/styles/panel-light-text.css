@@ -90,3 +90,44 @@
 .panel-light-text #panel .panel-button.screen-sharing-indicator:hover {
     box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.9);
 }
+
+/*
+* `.bms-panel-overview-light-theme`, keeps panel text and icons dark in overview when using light theme
+*/
+
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button .clock,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button StLabel,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button StIcon,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button .system-status-icon {
+    color: rgba(0, 0, 0, 0.8) !important;
+    text-shadow: none !important;
+    icon-shadow: none !important;
+}
+
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button#panelActivities .workspace-dot {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button:hover,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:hover .clock {
+    box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.10) !important;
+}
+
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button:active,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button:focus,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button:checked,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:active .clock,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:focus .clock,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:checked .clock {
+    box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.15) !important;
+}
+
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:hover,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:active,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:focus,
+#uiGroup.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:checked {
+    box-shadow: none !important;
+}

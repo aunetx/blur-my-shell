@@ -1,4 +1,5 @@
 import St from 'gi://St';
+import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -10,6 +11,7 @@ import { Pipeline } from '../conveniences/pipeline.js';
 import { DummyPipeline } from '../conveniences/dummy_pipeline.js';
 
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
+const OVERVIEW_LIGHT_THEME_CLASS = 'bms-panel-overview-light-theme';
 const PANEL_STYLES = [
     "transparent-panel",
     "light-panel",
@@ -32,6 +34,7 @@ export const PanelBlur = class PanelBlur {
         this.queued_updates = new Set();
         this.enabled = false;
         this._first_boot = true;
+        this._interface_settings = null;
     }
 
     enable() {
@@ -72,9 +75,25 @@ export const PanelBlur = class PanelBlur {
         // Hide the panel blur first to avoid the panel background from display on login
         this.panel_hide_blur_startup();
 
+        this._interface_settings = new Gio.Settings({
+            schema_id: 'org.gnome.desktop.interface',
+        });
+        this.connections.connect(
+            this._interface_settings,
+            'changed::color-scheme',
+            _ => this.update_light_text_classname()
+        );
+        this.settings.panel.MATCH_THEME_IN_OVERVIEW_changed(
+            _ => this.update_light_text_classname()
+        );
+        this.settings.panel.FORCE_LIGHT_TEXT_changed(
+            _ => this.update_light_text_classname()
+        );
+
         // connect to overview being opened/closed, and dynamically show or not
         // the blur when a window is near a panel
         this.connect_to_windows_and_overview();
+        this.update_light_text_classname();
 
         // connect to monitors change, and set a dirty flag to tell the extension that it should be
         // reset on 'workareas-changed' signal
@@ -547,6 +566,12 @@ export const PanelBlur = class PanelBlur {
         this.window_signal_ids = new Map();
     }
 
+    is_light_color_scheme() {
+        if (!this._interface_settings)
+            return false;
+        return this._interface_settings.get_string('color-scheme') !== 'prefer-dark';
+    }
+
     /// Update the css classname of the panel for light theme
     update_light_text_classname(disable = false) {
         if (!this._isMainPanelAlive)
@@ -556,6 +581,18 @@ export const PanelBlur = class PanelBlur {
             Main.uiGroup.add_style_class_name("panel-light-text");
         else
             Main.uiGroup.remove_style_class_name("panel-light-text");
+
+        const match_light_overview = (
+            !disable &&
+            this.settings.panel.BLUR &&
+            this.settings.panel.MATCH_THEME_IN_OVERVIEW &&
+            this.is_light_color_scheme()
+        );
+
+        if (match_light_overview)
+            Main.uiGroup.add_style_class_name(OVERVIEW_LIGHT_THEME_CLASS);
+        else
+            Main.uiGroup.remove_style_class_name(OVERVIEW_LIGHT_THEME_CLASS);
     }
 
     /// Callback when a new window is added
@@ -805,6 +842,7 @@ export const PanelBlur = class PanelBlur {
         this.disconnect_from_windows_and_overview();
 
         this.update_light_text_classname(true);
+        this._interface_settings = null;
 
         const immutable_actors_list = [...this.actors_list];
         immutable_actors_list.forEach(actors => this.destroy_blur(actors));
