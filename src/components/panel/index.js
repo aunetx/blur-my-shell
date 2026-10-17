@@ -1,6 +1,7 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { ControlsState } from 'resource:///org/gnome/shell/ui/overviewControls.js';
 
 import { Connections } from '../../conveniences/connections.js';
 import { connect_system_style_changes } from '../../conveniences/style.js';
@@ -17,13 +18,16 @@ import {
     update_panel_border_radius,
 } from './panel_style.js';
 
+const HIDETOPBAR_UUID = 'hidetopbar@mathieu.bidon.ca';
+
 export const PanelBlur = class PanelBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings, effects_manager, extension_state) {
         this.connections = connections;
         this.window_connections = new Connections();
         this.window_signal_ids = new Map();
         this.settings = settings;
         this.effects_manager = effects_manager;
+        this.extension_state = extension_state;
         this.actors_list = [];
         this.queued_updates = new Map();
         this.discovery = new PanelDiscovery(connections, settings, panel => this.maybe_blur_panel(panel));
@@ -43,6 +47,18 @@ export const PanelBlur = class PanelBlur {
         this.enabled = true;
         this.watched_panels = new WeakSet();
         this._in_overview = Main.overview.visible;
+        this.hidetopbar_active = this.extension_state.get(HIDETOPBAR_UUID)?.active ?? false;
+        this.connections.connect(this.extension_state, 'changed', (_tracker, uuid) => {
+            if (uuid !== HIDETOPBAR_UUID)
+                return;
+
+            const active = this.extension_state.get(uuid)?.active ?? false;
+            if (active === this.hidetopbar_active)
+                return;
+
+            this.hidetopbar_active = active;
+            this.connect_to_windows_and_overview();
+        });
         this.discovery.enable();
 
         // Hide the panel blur first to avoid the panel background from display on login
@@ -222,23 +238,30 @@ export const PanelBlur = class PanelBlur {
         };
         const left = () => {
             this._in_overview = false;
+            this.panel_hide_blur_dynamically();
             this.update_visibility();
             this.queue_panel_border_radius_update();
         };
 
         // Hide Top Bar shows the panel above the overview, only the app grid needs it unblurred
-        if (this.settings.hidetopbar.COMPATIBILITY) {
-            const app_display = Main.overview._overview.controls._appDisplay;
-            this.window_connections.connect(app_display, 'show', entered);
-            this.window_connections.connect(app_display, 'hide', left);
+        if (this.hidetopbar_active) {
+            const controls = Main.overview._overview.controls;
+            this._in_overview = this.in_overview();
+            const update = () => {
+                const in_overview = this.in_overview();
+                if (in_overview === this._in_overview)
+                    return;
+                if (in_overview)
+                    entered();
+                else
+                    left();
+            };
+            this.window_connections.connect(controls._stateAdjustment, 'notify::value', update);
+            this.window_connections.connect(controls._appDisplay, ['show', 'hide'], update);
             this.window_connections.connect(Main.overview, 'hidden', left);
         } else {
             this.window_connections.connect(Main.overview, ['showing', 'shown'], entered);
-            this.window_connections.connect(Main.overview, 'hidden', () => {
-                this._in_overview = false;
-                this.panel_hide_blur_dynamically();
-                left();
-            });
+            this.window_connections.connect(Main.overview, 'hidden', left);
         }
     }
 
@@ -288,10 +311,9 @@ export const PanelBlur = class PanelBlur {
         this.connect_to_overview();
         this.connect_to_windows();
 
-        if (this.settings.panel.UNBLUR_IN_OVERVIEW && Main.overview.visible)
-            this.hide();
-        else if (!this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY)
-            this.show();
+        // Reconcile immediately if compatibility changes while the overview is open.
+        this.panel_hide_blur_dynamically();
+        this.update_visibility();
     }
 
     /// Disconnect all the connections created by connect_to_windows
@@ -378,7 +400,8 @@ export const PanelBlur = class PanelBlur {
     update_visibility() {
         if (
             this.settings.panel.UNBLUR_IN_OVERVIEW &&
-            (this._in_overview || Main.overview.visible || this.discovery.main_panel?.has_style_pseudo_class('overview'))
+            (this.in_overview() || (!this.hidetopbar_active
+                && this.discovery.main_panel?.has_style_pseudo_class('overview')))
         ) {
             this.actors_list.forEach(actors => {
                 actors.widgets.background.hide();
@@ -462,6 +485,13 @@ export const PanelBlur = class PanelBlur {
     }
 
     in_overview() {
+        // the appDisplay actor can stay visible offscreen after leaving the app grid
+        if (this.hidetopbar_active && this.settings.panel.UNBLUR_IN_OVERVIEW) {
+            const controls = Main.overview._overview.controls;
+            return Main.overview.visible
+                && controls._stateAdjustment.value > ControlsState.WINDOW_PICKER
+                && controls._appDisplay.visible;
+        }
         return this._in_overview || Main.overview.visible;
     }
 
@@ -470,7 +500,7 @@ export const PanelBlur = class PanelBlur {
     }
 
     panel_hide_blur_startup() {
-        if (this.settings.panel.UNBLUR_IN_OVERVIEW && Main.overview.visible)
+        if (this.settings.panel.UNBLUR_IN_OVERVIEW && this.in_overview())
             this.hide();
     }
 

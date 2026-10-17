@@ -63,7 +63,7 @@ export default class BlurMyShell extends Extension {
             return [connection, this._settings, this._effects_manager];
         };
 
-        this._panel_blur = new PanelBlur(...init());
+        this._panel_blur = new PanelBlur(...init(), this._extension_state);
         this._dash_to_dock_blur = new DashBlur(...init());
         this._overview_blur = new OverviewBlur(...init());
         this._lockscreen_blur = new LockscreenBlur(...init());
