@@ -23,6 +23,7 @@ case "$mode" in
     *) echo "Invalid mode. Use auto, native or devkit/nested." >&2; exit 1 ;;
 esac
 
+numlock_state=$(gsettings get org.gnome.desktop.peripherals.keyboard numlock-state)
 test_root=$(mktemp -d)
 trap 'rm -rf -- "$test_root"' EXIT
 
@@ -49,6 +50,8 @@ EOF
 gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps \
     | sed "s/\[/['blur-my-shell-settings.desktop', /")"
 gsettings set org.gnome.shell welcome-dialog-last-shown-version 999 # hide welcome dialog
+gsettings set org.gnome.desktop.peripherals.keyboard remember-numlock-state true
+gsettings set org.gnome.desktop.peripherals.keyboard numlock-state "$numlock_state"
 gsettings --schemadir "$extension_dir/schemas" set org.gnome.shell.extensions.blur-my-shell debug true
 gsettings set org.gnome.shell enabled-extensions "['$uuid']"
 
