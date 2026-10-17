@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 10:41+0200\n"
-"PO-Revision-Date: 2026-09-20 05:51+0000\n"
+"PO-Revision-Date: 2026-10-13 10:51+0000\n"
 "Last-Translator: Димко <Dymkovych@proton.me>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/effects.js:21
 msgid "Blur effects"
@@ -614,7 +614,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr "Панель застосунків"
+msgstr "Полиця"
 
 #: resources/ui/dash.ui:10
 msgid "Dash to Dock blur"
@@ -690,7 +690,7 @@ msgstr "Сторінка проекту"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr "Повідомити про помилку"
+msgstr "Повідомити про ваду"
 
 #: resources/ui/menu.ui:14
 msgid "License"
@@ -845,7 +845,7 @@ msgstr "Не стилізувати"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr "Верхня панель"
+msgstr "Панель"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
