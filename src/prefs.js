@@ -45,7 +45,8 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(pipelines_page);
         window.add(new Panel(preferences, pipelines_manager, pipelines_page));
         window.add(new Overview(preferences, pipelines_manager, pipelines_page));
-        window.add(new Dash(preferences, pipelines_manager, pipelines_page));
+        const dash_page = new Dash(preferences, pipelines_manager, pipelines_page, extension_state);
+        window.add(dash_page);
         const applications_page = new Applications(
             preferences, window, pipelines_manager, pipelines_page
         );
@@ -73,6 +74,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
 
         window.connect('close-request', () => {
             cancel_pick();
+            dash_page.cleanup();
             applications_page.cleanup();
             pipelines_page.cleanup();
             pipelines_manager.destroy();

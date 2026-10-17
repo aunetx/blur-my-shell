@@ -91,6 +91,10 @@
         </child>
 
         <child>
+          <object class="AdwActionRow" id="opacity_warning" />
+        </child>
+
+        <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Disable in overview</property>
             <property name="subtitle" translatable="yes">Disables dock blur when entering the overview.</property>
