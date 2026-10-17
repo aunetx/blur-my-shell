@@ -1,91 +1,113 @@
-import * as Main from "resource:///org/gnome/shell/ui/main.js";
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { PaintSignals } from "../conveniences/paint_signals.js";
-import { Pipeline } from "../conveniences/pipeline.js";
+import { Pipeline } from '../pipelines/pipeline.js';
 
 export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
         this.settings = settings;
-        this.paint_signals = new PaintSignals(connections);
         this.effects_manager = effects_manager;
-        this.background_actors = [];
-        this.background_managers = [];
+        this.entries = new Map();
+        this.enabled = false;
     }
 
     enable() {
-        this._log("blurring coverflow alt-tab");
+        if (this.enabled)
+            return;
+
+        this._log('blurring coverflow alt-tab');
+        this.enabled = true;
 
         this.update_backgrounds();
 
         this.connections.connect(
             Main.layoutManager.uiGroup,
-            "child-added",
+            'child-added',
             (_, child) => this.try_blur(child)
         );
 
-        this.connections.connect(Main.layoutManager, "monitors-changed", (_) => {
-            this.update_backgrounds();
-        });
+        this.connections.connect(
+            Main.layoutManager,
+            'monitors-changed',
+            () => this.update_backgrounds()
+        );
     }
 
     update_backgrounds() {
         this.remove_background_actors();
-
         Main.layoutManager.uiGroup
             .get_children()
-            .forEach((child) => this.try_blur(child));
+            .forEach(child => this.try_blur(child));
     }
 
     try_blur(actor) {
         if (
-            actor.constructor.name !== "Meta_BackgroundGroup" ||
-            actor.get_name() !== "coverflow-alt-tab-background-group"
+            actor.constructor.name !== 'Meta_BackgroundGroup'
+            || actor.get_name() !== 'coverflow-alt-tab-background-group'
+            || this.entries.has(actor)
         ) {
             return;
         }
 
-        this._log("found coverflow alt-tab to blur");
+        this._log('found coverflow alt-tab to blur');
 
+        const entry = {
+            actors: [],
+            managers: [],
+            pipelines: [],
+        };
         for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
                 this.settings.coverflow_alt_tab.PIPELINE
             );
-
-            const background_actor = pipeline.create_background_with_effects(
+            entry.pipelines.push(pipeline);
+            entry.actors.push(pipeline.create_background_with_effects(
                 i,
-                this.background_managers,
+                entry.managers,
                 actor,
-                "bms-coverflow-alt-tab-blurred-widget"
-            );
-
-            this.background_actors.push(background_actor);
+                'bms-coverflow-alt-tab-blurred-widget'
+            ));
         }
+        this.entries.set(actor, entry);
+
+        this.connections.connect(actor, 'destroy', () => this.remove_entry(actor));
+    }
+
+    update_pipeline() {
+        this.entries.forEach(({ pipelines }) => pipelines.forEach(pipeline =>
+            pipeline.change_pipeline_to(this.settings.coverflow_alt_tab.PIPELINE)
+        ));
+    }
+
+    remove_entry(container) {
+        const entry = this.entries.get(container);
+        this.entries.delete(container);
+        this.connections.disconnect_all_for(container);
+
+        entry.pipelines.forEach(pipeline => pipeline.destroy());
+        entry.managers.forEach(manager => manager.destroy());
+        entry.actors.forEach(actor => actor.destroy());
     }
 
     remove_background_actors() {
-        this.background_actors.forEach((actor) => actor.destroy());
-        this.background_actors = [];
-
-        this.background_managers.forEach((background_manager) => {
-            background_manager._bms_pipeline.destroy();
-            background_manager.destroy();
-        });
-        this.background_managers = [];
+        [...this.entries.keys()].forEach(actor => this.remove_entry(actor));
     }
 
     disable() {
-        this._log("removing blur from coverflow alt-tab");
+        if (!this.enabled)
+            return;
+
+        this._log('removing blur from coverflow alt-tab');
+        this.enabled = false;
 
         this.remove_background_actors();
         this.connections.disconnect_all();
     }
 
     _log(str) {
-        if (this.settings.DEBUG) {
+        if (this.settings.DEBUG)
             console.log(`[Blur my Shell > coverflow alt-tab]  ${str}`);
-        }
     }
 };

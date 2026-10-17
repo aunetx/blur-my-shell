@@ -1,0 +1,178 @@
+import { Type } from './settings.js';
+
+// This lists the preferences keys
+export const KEYS = [
+    {
+        component: "general", schemas: [
+            { type: Type.PIPELINES, name: "pipelines" },
+            { type: Type.B, name: "debug" },
+        ]
+    },
+    {
+        component: "overview", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.I, name: "style-components" },
+        ]
+    },
+    {
+        component: "appfolder", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.I, name: "style-dialogs" },
+        ]
+    },
+    {
+        component: "panel", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.B, name: "static-blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.I, name: "corner-radius" },
+            { type: Type.I, name: "rounded-corners" },
+            { type: Type.B, name: "unblur-in-overview" },
+            { type: Type.B, name: "force-light-text" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-panel" },
+            { type: Type.B, name: "override-background-dynamically" },
+            { type: Type.I, name: "override-background-dynamically-mode" },
+            { type: Type.B, name: "gradient-panel" },
+            { type: Type.I, name: "gradient-panel-mode" },
+        ]
+    },
+    {
+        component: "dash-to-dock", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.B, name: "static-blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "unblur-in-overview" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.I, name: "style-dash-to-dock" },
+        ]
+    },
+    {
+        component: "applications", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.B, name: "static-blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.I, name: "corner-radius" },
+            { type: Type.I, name: "rounded-corners" },
+            { type: Type.B, name: "corner-when-maximized" },
+            { type: Type.I, name: "opacity" },
+            { type: Type.B, name: "dynamic-opacity" },
+            { type: Type.B, name: "blur-on-overview" },
+            { type: Type.B, name: "unblur-when-fullscreen" },
+            { type: Type.B, name: "enable-all" },
+            { type: Type.AS, name: "whitelist" },
+            { type: Type.AS, name: "blacklist" },
+        ]
+    },
+    {
+        component: "lockscreen", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+        ]
+    },
+    {
+        component: "window-list", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+        ]
+    },
+    {
+        component: "coverflow-alt-tab", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+        ]
+    },
+    {
+        component: "screenshot", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.S, name: "pipeline" },
+        ]
+    },
+    {
+        component: "popup", schemas: [
+            { type: Type.B, name: "blur" },
+            { type: Type.B, name: "static-blur" },
+            { type: Type.S, name: "pipeline" },
+            { type: Type.I, name: "corner-radius" },
+            { type: Type.I, name: "rounded-corners" },
+            { type: Type.I, name: "menu-corner-radius" },
+            { type: Type.I, name: "candidate-corner-radius" },
+            { type: Type.I, name: "quick-settings-corner-radius" },
+            { type: Type.I, name: "submenu-corner-radius" },
+            { type: Type.I, name: "calendar-corner-radius" },
+            { type: Type.I, name: "notification-corner-radius" },
+            { type: Type.I, name: "osd-corner-radius" },
+            { type: Type.I, name: "osd-window-corner-radius" },
+            { type: Type.I, name: "resize-popup-corner-radius" },
+            { type: Type.I, name: "dialog-corner-radius" },
+            { type: Type.I, name: "osk-corner-radius" },
+            { type: Type.B, name: "override-background" },
+            { type: Type.B, name: "preserve-shell-theme" },
+            { type: Type.I, name: "style-popup" },
+        ]
+    },
+    {
+        component: "hidetopbar", schemas: [
+            { type: Type.B, name: "compatibility" },
+        ]
+    },
+    {
+        component: "dash-to-panel", schemas: [
+            { type: Type.B, name: "blur-original-panel" },
+        ]
+    },
+];
+
+
+// This lists the deprecated preferences keys
+export const DEPRECATED_KEYS = [
+    {
+        component: "general", schemas: [
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+    {
+        component: "appfolder", schemas: [
+            { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+    {
+        component: "panel", schemas: [
+            { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+    {
+        component: "dash-to-dock", schemas: [
+            { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+    {
+        component: "applications", schemas: [
+            { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+    {
+        component: "window-list", schemas: [
+            { type: Type.B, name: "customize" },
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+    {
+        component: "popup", schemas: [
+            { type: Type.I, name: "sigma" },
+            { type: Type.D, name: "brightness" },
+        ]
+    },
+];

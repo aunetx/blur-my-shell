@@ -5,6 +5,5 @@
 .vscode/
 jsconfig.json
 @types/
-resources/blur-my-shell.gresource
 schemas/gschemas.compiled
 po/*.mo

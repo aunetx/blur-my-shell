@@ -1,25 +1,27 @@
 import GObject from 'gi://GObject';
 
-function supports_destroy_signal(object) {
-    const gtype = object?.constructor?.$gtype;
+function has_destroy_signal(object) {
+    const gtype = object.constructor.$gtype;
     return gtype && GObject.signal_lookup('destroy', gtype) !== 0;
 }
 
+/// An object to easily manage signals. When an object starts being destroyed, every handler but the
+/// destroy ones is disconnected from it, so nothing reacts to the signals it still emits while it
+/// disposes of itself, and the object is forgotten.
 export const Connections = class Connections {
     constructor() {
         this.records = new Map();
     }
 
+    /// Connects the handler to one signal (returning its id) or to an array of signals (returning
+    /// an array of ids).
     connect(object, signals, handler) {
-        const names = Array.isArray(signals) ? signals : [signals];
         const record = this.get_record(object);
-        const ids = [];
-
-        for (const signal of names) {
+        const ids = [signals].flat().map(signal => {
             const id = object.connect(signal, handler);
-            record.ids.add(id);
-            ids.push(id);
-        }
+            record.ids.set(id, signal);
+            return id;
+        });
         return Array.isArray(signals) ? ids : ids[0];
     }
 
@@ -28,20 +30,22 @@ export const Connections = class Connections {
         if (record)
             return record;
 
-        record = {
-            ids: new Set(),
-            destroy_id: null,
-        };
+        record = { ids: new Map(), destroy_id: 0 };
         this.records.set(object, record);
-
-        if (supports_destroy_signal(object))
-            record.destroy_id = object.connect('destroy', () => {
-                this.records.delete(object);
-                record.ids.clear();
-                record.destroy_id = null;
-            });
+        if (has_destroy_signal(object))
+            record.destroy_id = object.connect('destroy', () => this.release(object));
 
         return record;
+    }
+
+    release(object) {
+        const record = this.records.get(object);
+        this.records.delete(object);
+        object.disconnect(record.destroy_id);
+        record.ids.forEach((signal, id) => {
+            if (signal !== 'destroy')
+                object.disconnect(id);
+        });
     }
 
     disconnect_all_for(object) {
@@ -50,49 +54,22 @@ export const Connections = class Connections {
             return;
 
         this.records.delete(object);
-        for (const id of record.ids)
-            this.raw_disconnect(object, id);
+        record.ids.forEach((_, id) => object.disconnect(id));
         if (record.destroy_id)
-            this.raw_disconnect(object, record.destroy_id);
+            object.disconnect(record.destroy_id);
     }
 
     disconnect_all() {
-        for (const object of [...this.records.keys()])
-            this.disconnect_all_for(object);
+        [...this.records.keys()].forEach(object => this.disconnect_all_for(object));
     }
 
     disconnect(object, id) {
         const record = this.records.get(object);
-        if (record)
-            record.ids.delete(id);
-
-        this.raw_disconnect(object, id);
-
-        if (record && record.ids.size === 0) {
-            this.records.delete(object);
-            if (record.destroy_id)
-                this.raw_disconnect(object, record.destroy_id);
-        }
-    }
-
-    raw_disconnect(object, id) {
-        if (!id)
+        if (!record?.ids.delete(id))
             return;
 
-        try {
-            if (
-                object instanceof GObject.Object
-                && !GObject.signal_handler_is_connected(object, id)
-            )
-                return;
-
-            object.disconnect(id);
-        } catch (error) {
-            this._warn(`error removing connection: ${error}; continuing`);
-        }
-    }
-
-    _warn(str) {
-        console.warn(`[Blur my Shell > connections]  ${str}`);
+        object.disconnect(id);
+        if (record.ids.size === 0)
+            this.disconnect_all_for(object);
     }
 };

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 10:41+0200\n"
+"POT-Creation-Date: 2026-09-03 06:56+0200\n"
 "PO-Revision-Date: 2026-06-08 18:01+0000\n"
 "Last-Translator: Libre <6n0n1m0s@proton.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -19,49 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.6\n"
 
-#: src/effects/effects.js:21
-msgid "Blur effects"
-msgstr "Efectos de difuminado"
-
-#: src/effects/effects.js:29
-msgid "Texture effects"
-msgstr "Efectos de textura"
-
-#: src/effects/effects.js:43
-msgid "Shape effects"
-msgstr "Efectos de forma"
-
-#: src/effects/effects.js:59
-msgid "Native gaussian blur"
-msgstr "Difuminado gaussiano nativo"
-
-#: src/effects/effects.js:60
-msgid ""
-"An optimized blur effect that smoothly blends pixels within a given radius."
+#: src/effects/effects.js:19
+msgid "Dual Kawase blur"
 msgstr ""
-"Un efecto de difuminado optimizado que combina suavemente los píxeles dentro "
-"de un radio determinado."
 
-#: src/effects/effects.js:64 src/effects/effects.js:93
-#: src/effects/effects.js:122 src/effects/effects.js:404
+#: src/effects/effects.js:20
+msgid "A fast multi-resolution blur shared by static and dynamic surfaces."
+msgstr ""
+
+#: src/effects/effects.js:24
 msgid "Radius"
 msgstr "Radio"
 
-#: src/effects/effects.js:65
+#: src/effects/effects.js:25
 msgid "The intensity of the blur effect."
 msgstr "La intensidad del efecto de difuminado."
 
-#: src/effects/effects.js:74 src/effects/effects.js:103
-#: src/effects/effects.js:140 resources/ui/applications.ui:93
-#: resources/ui/dash.ui:92 resources/ui/other.ui:77 resources/ui/overview.ui:75
-#: resources/ui/panel.ui:92
+#: src/effects/effects.js:34 resources/ui/overview.ui:75
 msgid "Brightness"
 msgstr "Brillo"
 
-#: src/effects/effects.js:75 src/effects/effects.js:104
-#: src/effects/effects.js:141 resources/ui/applications.ui:94
-#: resources/ui/dash.ui:93 resources/ui/other.ui:78 resources/ui/overview.ui:76
-#: resources/ui/panel.ui:93
+#: src/effects/effects.js:35 resources/ui/overview.ui:76
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
@@ -69,329 +47,244 @@ msgstr ""
 "El brillo del efecto de difuminado, un valor alto puede hacer que el texto "
 "sea más difícil de leer."
 
-#: src/effects/effects.js:88
-msgid "Gaussian blur (advanced effect)"
-msgstr "Difuminado gaussiano (efecto avanzado)"
-
-#: src/effects/effects.js:89
-msgid ""
-"A blur effect that smoothly blends pixels within a given radius. This effect "
-"is more precise, but way less optimized."
-msgstr ""
-"Un efecto de difuminado que combina suavemente los píxeles dentro de un "
-"radio determinado. Este efecto es más preciso, pero mucho menos optimizado."
-
-#: src/effects/effects.js:94
-msgid ""
-"The intensity of the blur effect. The bigger it is, the slower it will be."
-msgstr ""
-"La intensidad del efecto de difuminado. Cuanto más grande sea, más lento "
-"será."
-
-#: src/effects/effects.js:117
-msgid "Monte Carlo blur"
-msgstr "Difuminado de Montecarlo"
-
-#: src/effects/effects.js:118
-msgid ""
-"A blur effect that mimics a random walk, by picking pixels further and "
-"further away from its origin and mixing them all together."
-msgstr ""
-"Un efecto de difuminado que imita un paseo aleatorio, seleccionando píxeles "
-"cada vez más lejos de su origen y mezclándolos todos."
-
-#: src/effects/effects.js:123
-msgid ""
-"The maximum travel distance for each step in the random walk. A higher value "
-"will make the blur more randomized."
-msgstr ""
-"La distancia máxima recorrida para cada paso en la caminata aleatoria. Un "
-"valor más alto hará que el difuminado sea más aleatorio."
-
-#: src/effects/effects.js:132
-msgid "Iterations"
-msgstr "Iteraciones"
-
-#: src/effects/effects.js:133
-msgid "The number of iterations. The more there are, the smoother the blur is."
-msgstr ""
-"El número de iteraciones. Cuantos más haya, más suave será el difuminado."
-
-#: src/effects/effects.js:150
-msgid "Use base pixel"
-msgstr "Usar píxel base"
-
-#: src/effects/effects.js:151
-msgid ""
-"Whether or not the original pixel is counted for the blur. If it is, the "
-"image will be more legible."
-msgstr ""
-"Si el píxel original se cuenta o no para el difuminado. Si es así, la imagen "
-"será más legible."
-
-#: src/effects/effects.js:155
-msgid "Prefer closer pixels"
-msgstr "Preferir píxeles más cercanos"
-
-#: src/effects/effects.js:156
-msgid ""
-"Whether or not the pixels that are closer to the original pixel will have "
-"more weight."
-msgstr ""
-"Elegir si los píxeles que están más cerca del píxel original tendrán mayor "
-"peso."
-
-#: src/effects/effects.js:164 src/effects/effects.js:170
-#: src/effects/effects.js:196
+#: src/effects/effects.js:48 src/effects/effects.js:54
+#: src/effects/effects.js:80
 msgid "Color"
 msgstr "Color"
 
-#: src/effects/effects.js:165
+#: src/effects/effects.js:49
 msgid "An effect that blends a color into the pipeline."
 msgstr "Un efecto que mezcla un color en el flujo."
 
-#: src/effects/effects.js:171
+#: src/effects/effects.js:55
 msgid ""
-"The color to blend in. The blending amount is controled by the opacity of "
+"The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
-"El color a mezclar. La cantidad de mezcla se controla mediante la opacidad "
-"del color."
 
-#: src/effects/effects.js:176
+#: src/effects/effects.js:60
 msgid "Blend mode"
 msgstr "Modo mezcla"
 
-#: src/effects/effects.js:177
+#: src/effects/effects.js:61
 msgid "How the color is blended in."
 msgstr "Cómo se mezcla el color."
 
-#: src/effects/effects.js:180
+#: src/effects/effects.js:64
 msgid "Normal"
 msgstr "Normal"
 
-#: src/effects/effects.js:181
+#: src/effects/effects.js:65
 msgid "Multiply"
 msgstr "Multiplicar"
 
-#: src/effects/effects.js:182
+#: src/effects/effects.js:66
 msgid "Screen"
 msgstr "Pantalla"
 
-#: src/effects/effects.js:183
+#: src/effects/effects.js:67
 msgid "Overlay"
 msgstr "Cobertura"
 
-#: src/effects/effects.js:184
+#: src/effects/effects.js:68
 msgid "Darken"
 msgstr "Oscuridad"
 
-#: src/effects/effects.js:185
+#: src/effects/effects.js:69
 msgid "Lighten"
 msgstr "Aclarar"
 
-#: src/effects/effects.js:186
+#: src/effects/effects.js:70
 msgid "Plus darker"
 msgstr "Más oscuridad"
 
-#: src/effects/effects.js:187
+#: src/effects/effects.js:71
 msgid "Plus lighter"
 msgstr "Más claridad"
 
-#: src/effects/effects.js:188
+#: src/effects/effects.js:72
 msgid "Color dodge"
 msgstr "Esquivar color"
 
-#: src/effects/effects.js:189
+#: src/effects/effects.js:73
 msgid "Color burn"
 msgstr "Quemado de color"
 
-#: src/effects/effects.js:190
+#: src/effects/effects.js:74
 msgid "Hard light"
 msgstr "Luz intensa"
 
-#: src/effects/effects.js:191
+#: src/effects/effects.js:75
 msgid "Soft light"
 msgstr "Luz difusa"
 
-#: src/effects/effects.js:192
+#: src/effects/effects.js:76
 msgid "Difference"
 msgstr "Diferencia"
 
-#: src/effects/effects.js:193
+#: src/effects/effects.js:77
 msgid "Exclusion"
 msgstr "Exclusión"
 
-#: src/effects/effects.js:194
+#: src/effects/effects.js:78
 msgid "Hue"
 msgstr "Matiz"
 
-#: src/effects/effects.js:195 src/effects/effects.js:250
+#: src/effects/effects.js:79 src/effects/effects.js:134
 msgid "Saturation"
 msgstr "Saturación"
 
-#: src/effects/effects.js:197 src/effects/effects.js:205
+#: src/effects/effects.js:81 src/effects/effects.js:89
 msgid "Luminosity"
 msgstr "Luminosidad"
 
-#: src/effects/effects.js:206
+#: src/effects/effects.js:90
 msgid "An effect that affects the luminosity of the image."
 msgstr "Un efecto que afecta la luminosidad de la imagen."
 
-#: src/effects/effects.js:210
+#: src/effects/effects.js:94
 msgid "Shift brightness"
 msgstr "Cambiar el brillo"
 
-#: src/effects/effects.js:211
-msgid "The brightness to add of remove to the image."
-msgstr "El brillo que se añade o se quita a la imagen."
-
-#: src/effects/effects.js:220
-msgid "Multiply brightness"
-msgstr "Multiplicar brillo"
-
-#: src/effects/effects.js:221
-msgid ""
-"The brightness multiplicator of the image, so that 0 means no brightness and "
-"2 means infinite brightness."
+#: src/effects/effects.js:95
+msgid "The brightness to add or remove from the image."
 msgstr ""
-"El multiplicador de brillo de la imagen, de modo que 0 significa ausencia de "
-"brillo y 2 significa brillo infinito."
 
-#: src/effects/effects.js:230
+#: src/effects/effects.js:104
+msgid "Brightness multiplier"
+msgstr ""
+
+#: src/effects/effects.js:105
+msgid ""
+"Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
+msgstr ""
+
+#: src/effects/effects.js:114
 msgid "Contrast"
 msgstr "Contraste"
 
-#: src/effects/effects.js:231
-msgid "The contrast of the image in regard to the center of the contrast."
-msgstr "El contraste de la imagen con respecto al centro del contraste."
+#: src/effects/effects.js:115
+msgid "Adjusts image contrast around the selected contrast center."
+msgstr ""
 
-#: src/effects/effects.js:240
+#: src/effects/effects.js:124
 msgid "Contrast center"
 msgstr "Centro de contraste"
 
-#: src/effects/effects.js:241
+#: src/effects/effects.js:125
 msgid "The center of the contrast to use."
 msgstr "El centro del contraste a utilizar."
 
-#: src/effects/effects.js:251
+#: src/effects/effects.js:135
 msgid ""
-"The saturation of the image, so that 0 means no saturation and 2 means "
-"infinite saturation."
+"Multiplies image saturation; 0 removes all color and 1 leaves saturation "
+"unchanged."
 msgstr ""
-"La saturación de la imagen, de modo que 0 significa sin saturación y 2 "
-"significa saturación infinita."
 
-#: src/effects/effects.js:264
+#: src/effects/effects.js:148
 msgid "Pixelize"
 msgstr "Pixelizar"
 
-#: src/effects/effects.js:265
+#: src/effects/effects.js:149
 msgid "An effect that pixelizes the image."
 msgstr "Un efecto que pixeliza la imagen."
 
-#: src/effects/effects.js:269 src/effects/effects.js:296
-#: src/effects/effects.js:323
+#: src/effects/effects.js:153 src/effects/effects.js:180
+#: src/effects/effects.js:207
 msgid "Factor"
 msgstr "Factor"
 
-#: src/effects/effects.js:270 src/effects/effects.js:297
+#: src/effects/effects.js:154 src/effects/effects.js:181
 msgid "How much to scale down the image."
 msgstr "Cuánto reducir la imagen."
 
-#: src/effects/effects.js:277 src/effects/effects.js:304
+#: src/effects/effects.js:161 src/effects/effects.js:188
 msgid "Downsampling mode"
 msgstr "Modo de muestreo reducido"
 
-#: src/effects/effects.js:278 src/effects/effects.js:305
+#: src/effects/effects.js:162 src/effects/effects.js:189
 msgid "The downsampling method that is used."
 msgstr "El método de reducción de la muestra utilizado."
 
-#: src/effects/effects.js:281 src/effects/effects.js:308
+#: src/effects/effects.js:165 src/effects/effects.js:192
 msgid "Boxcar"
 msgstr "Vagón de caja"
 
-#: src/effects/effects.js:282 src/effects/effects.js:309
+#: src/effects/effects.js:166 src/effects/effects.js:193
 msgid "Triangular"
 msgstr "Triangular"
 
-#: src/effects/effects.js:283 src/effects/effects.js:310
+#: src/effects/effects.js:167 src/effects/effects.js:194
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/effects.js:291
+#: src/effects/effects.js:175
 msgid "Downscale (advanced effect)"
 msgstr "Reducción de escala (efecto avanzado)"
 
-#: src/effects/effects.js:292
-msgid "An effect that downscales the image and put it on the top-left corner."
+#: src/effects/effects.js:176
+msgid "An effect that downscales the image and puts it in the top-left corner."
 msgstr ""
-"Un efecto que reduce la escala de la imagen y la coloca en la esquina "
-"superior izquierda."
 
-#: src/effects/effects.js:318
+#: src/effects/effects.js:202
 msgid "Upscale (advanced effect)"
 msgstr "Upscale (efecto avanzado)"
 
-#: src/effects/effects.js:319
+#: src/effects/effects.js:203
 msgid "An effect that upscales the image from the top-left corner."
 msgstr ""
 "Efecto que aumenta la escala de la imagen desde la esquina superior "
 "izquierda."
 
-#: src/effects/effects.js:324
+#: src/effects/effects.js:208
 msgid "How much to scale up the image."
 msgstr "Cuánto escalar la imagen."
 
-#: src/effects/effects.js:335
+#: src/effects/effects.js:219
 msgid "Derivative"
 msgstr "Derivada"
 
-#: src/effects/effects.js:336
+#: src/effects/effects.js:220
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Aplicar una derivada espacial, o un laplaciano."
 
-#: src/effects/effects.js:340
+#: src/effects/effects.js:224
 msgid "Operation"
 msgstr "Operación"
 
-#: src/effects/effects.js:341
+#: src/effects/effects.js:225
 msgid "The mathematical operation to apply."
 msgstr "La operación matemática a aplicar."
 
-#: src/effects/effects.js:344
+#: src/effects/effects.js:228
 msgid "1-step derivative"
 msgstr "Derivada en 1 paso"
 
-#: src/effects/effects.js:345
+#: src/effects/effects.js:229
 msgid "2-step derivative"
 msgstr "Derivada en 2 pasos"
 
-#: src/effects/effects.js:346
+#: src/effects/effects.js:230
 msgid "Laplacian"
 msgstr "Operador laplaciano"
 
-#: src/effects/effects.js:354 src/effects/effects.js:359
+#: src/effects/effects.js:238 src/effects/effects.js:243
 msgid "Noise"
 msgstr "Ruido"
 
-#: src/effects/effects.js:355
-msgid ""
-"An effect that adds a random noise. Prefer the Monte Carlo blur for a more "
-"organic effect if needed."
+#: src/effects/effects.js:239
+msgid "An effect that adds random grain to the image."
 msgstr ""
-"Un efecto que añade un ruido aleatorio. Prefiere el difuminado Monte Carlo "
-"para obtener un efecto más orgánico si es necesario."
 
-#: src/effects/effects.js:360
+#: src/effects/effects.js:244
 msgid "The amount of noise to add."
 msgstr "La cantidad de ruido a agregar."
 
-#: src/effects/effects.js:369
+#: src/effects/effects.js:253
 msgid "Lightness"
 msgstr "Claridad"
 
-#: src/effects/effects.js:370
+#: src/effects/effects.js:254
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -399,55 +292,143 @@ msgstr ""
 "La luminosidad del ruido. Una configuración de '1.0' hará que el efecto sea "
 "transparente."
 
+#: src/effects/effects.js:267
+msgid "Liquid Glass"
+msgstr ""
+
+#: src/effects/effects.js:268
+msgid ""
+"A glossy translucent material with edge refraction, rim lighting, tint, and "
+"inner shadow."
+msgstr ""
+
+#: src/effects/effects.js:272
+msgid "Refraction scale"
+msgstr ""
+
+#: src/effects/effects.js:273
+msgid "How strongly the glass bends the sampled blur texture."
+msgstr ""
+
+#: src/effects/effects.js:282
+msgid "Blur radius"
+msgstr ""
+
+#: src/effects/effects.js:283
+msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
+msgstr ""
+
+#: src/effects/effects.js:292
+msgid "Bezel width"
+msgstr ""
+
+#: src/effects/effects.js:293
+msgid "How far the liquid-glass lens reaches inward from the edge."
+msgstr ""
+
+#: src/effects/effects.js:302
+msgid "Rim spread"
+msgstr ""
+
+#: src/effects/effects.js:303
+msgid "How far the refraction eases inward from the glass edge."
+msgstr ""
+
+#: src/effects/effects.js:312
+msgid "Glass thickness"
+msgstr ""
+
+#: src/effects/effects.js:313
+msgid "Depth used by the Snell-style refraction profile."
+msgstr ""
+
+#: src/effects/effects.js:322
+msgid "Fresnel glare"
+msgstr ""
+
+#: src/effects/effects.js:323
+msgid "Strength of the Schlick fresnel rim glare from the glass edge."
+msgstr ""
+
+#: src/effects/effects.js:332
+msgid "Tint strength"
+msgstr ""
+
+#: src/effects/effects.js:333
+msgid "Amount of subtle milky glass tint over the blurred texture."
+msgstr ""
+
+#: src/effects/effects.js:342
+msgid "Tint color"
+msgstr ""
+
+#: src/effects/effects.js:343
+msgid "Color blended over the blurred texture, weighted by the tint strength."
+msgstr ""
+
+#: src/effects/effects.js:348
+msgid "Backdrop zoom"
+msgstr ""
+
+#: src/effects/effects.js:349
+msgid "Zoom level of the backdrop visible through the glass."
+msgstr ""
+
+#: src/effects/effects.js:358
+msgid "Inner shadow"
+msgstr ""
+
+#: src/effects/effects.js:359
+msgid "Darkens the lower and inner edge for a deeper glass surface."
+msgstr ""
+
+#: src/effects/effects.js:368
+msgid "Chromatic dispersion"
+msgstr ""
+
+#: src/effects/effects.js:369
+msgid "Physical per-channel refraction dispersion at the glass edge."
+msgstr ""
+
+#: src/effects/effects.js:378
+msgid "Edge behavior"
+msgstr ""
+
+#: src/effects/effects.js:379
+msgid "How texture coordinates outside the actor are sampled."
+msgstr ""
+
+#: src/effects/effects.js:382
+msgid "Clamp"
+msgstr ""
+
 #: src/effects/effects.js:383
+msgid "Mirror"
+msgstr ""
+
+#: src/effects/effects.js:391
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB a HSL (efecto avanzado)"
 
-#: src/effects/effects.js:384
-msgid "Converts the image from RGBA colorspace to HSLA."
-msgstr "Convierte la imagen del espacio de color RGBA a HSLA."
+#: src/effects/effects.js:392
+msgid "Converts the image from RGBA color space to HSLA."
+msgstr ""
 
-#: src/effects/effects.js:391
+#: src/effects/effects.js:399
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL a RGB (efecto avanzado)"
 
-#: src/effects/effects.js:392
-msgid "Converts the image from HSLA colorspace to RGBA."
-msgstr "Convierte la imagen de espacio de color HSLA a RGBA."
-
-#: src/effects/effects.js:399
-msgid "Corner"
-msgstr "Esquina"
-
 #: src/effects/effects.js:400
-msgid ""
-"An effect that draws corners. Add it last not to have the other effects "
-"perturb the corners."
+msgid "Converts the image from HSLA color space to RGBA."
 msgstr ""
-"Un efecto que dibuja esquinas. Agréguelo al final para que los otros efectos "
-"no perturben las esquinas."
 
-#: src/effects/effects.js:405
-msgid "The radius of the corner. GNOME apps use a radius of 12 px by default."
-msgstr ""
-"El radio de la esquina. Las aplicaciones GNOME utilizan un radio de 12 px de "
-"forma predeterminada."
+#: src/effects/effect_groups.js:4
+msgid "Blur effects"
+msgstr "Efectos de difuminado"
 
-#: src/effects/effects.js:412
-msgid "Top corners"
-msgstr "Esquinas superiores"
-
-#: src/effects/effects.js:413
-msgid "Whether or not to round the top corners."
-msgstr "Redondear o no las esquinas superiores."
-
-#: src/effects/effects.js:417
-msgid "Bottom corners"
-msgstr "Esquinas inferiores"
-
-#: src/effects/effects.js:418
-msgid "Whether or not to round the bottom corners."
-msgstr "Redondear o no las esquinas inferiores."
+#: src/effects/effect_groups.js:10
+msgid "Texture effects"
+msgstr "Efectos de textura"
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -461,6 +442,14 @@ msgstr "Seleccionar ventana"
 msgid "Pick a window or select it by its classname."
 msgstr "Elija una ventana o selecciónela por su nombre de clase."
 
+#: resources/ui/application-row.ui:41
+msgid "Window selection failed. Make sure the extension is enabled."
+msgstr ""
+
+#: resources/ui/application-row.ui:45
+msgid "The selected actor is not a window."
+msgstr ""
+
 #: resources/ui/applications.ui:5
 msgid "Applications"
 msgstr "Aplicaciones"
@@ -470,76 +459,45 @@ msgid "Applications blur"
 msgstr "Difuminado de las aplicaciones"
 
 #: resources/ui/applications.ui:11
-msgid ""
-"Adds blur to the applications.\n"
-"To get the best results possible, although with reduced performances, you "
-"can choose the option “No artifact” in the “Other → Hack level” tab."
+msgid "Adds blur to applications."
 msgstr ""
-"Añade difuminado a las aplicaciones.\n"
-"Para obtener los mejores resultados posibles, aunque con prestaciones "
-"reducidas, puede elegir la opción \"Sin artefacto\" en la pestaña \"Otros → "
-"Nivel de hack\"."
 
-#: resources/ui/applications.ui:21 resources/ui/dash.ui:20
-#: resources/ui/panel.ui:20
+#: resources/ui/applications.ui:20 resources/ui/dash.ui:20
+#: resources/ui/panel.ui:20 resources/ui/popup.ui:20
 msgid "Blur type"
 msgstr "Tipo de difuminado"
 
-#: resources/ui/applications.ui:22
+#: resources/ui/applications.ui:21
 msgid ""
-"The dynamic blur is slower and only compatible with a gaussian blur effect, "
-"but shows content behind windows."
+"Static blur follows the wallpaper; dynamic blur samples live content behind "
+"windows. Both use the selected pipeline."
 msgstr ""
-"El desenfoque dinámico es más lento y solo es compatible con un efecto de "
-"desenfoque gaussiano, pero muestra el contenido que se encuentra detrás de "
-"las ventanas."
 
-#: resources/ui/applications.ui:42 resources/ui/dash.ui:41
-#: resources/ui/panel.ui:41
+#: resources/ui/applications.ui:41 resources/ui/dash.ui:41
+#: resources/ui/panel.ui:41 resources/ui/popup.ui:41
 msgid "Static"
 msgstr "Estático"
 
-#: resources/ui/applications.ui:54 resources/ui/dash.ui:53
-#: resources/ui/panel.ui:53
+#: resources/ui/applications.ui:53 resources/ui/dash.ui:53
+#: resources/ui/panel.ui:53 resources/ui/popup.ui:53
 msgid "Dynamic"
 msgstr "Dinámico"
 
-#: resources/ui/applications.ui:72 resources/ui/dash.ui:71
-#: resources/ui/other.ui:56 resources/ui/overview.ui:54
-#: resources/ui/panel.ui:71
-msgid "Sigma"
-msgstr "Sigma"
-
-#: resources/ui/applications.ui:73 resources/ui/dash.ui:72
-#: resources/ui/other.ui:57 resources/ui/overview.ui:55
-#: resources/ui/panel.ui:72
-msgid "The intensity of the blur."
-msgstr "La intensidad del difuminado."
-
-#: resources/ui/applications.ui:114 resources/ui/applications.ui:131
-#: resources/ui/dash.ui:113 resources/ui/dash.ui:130 resources/ui/panel.ui:113
-#: resources/ui/panel.ui:130
+#: resources/ui/applications.ui:71 resources/ui/dash.ui:71
+#: resources/ui/panel.ui:71 resources/ui/popup.ui:71
 msgid "Corner radius"
 msgstr "Radio de esquina"
 
-#: resources/ui/applications.ui:115 resources/ui/dash.ui:114
-#: resources/ui/panel.ui:114
-msgid ""
-"In order to use rounded corners, please install the GNOME Rounded Blur "
-"library."
-msgstr ""
-"Para utilizar esquinas redondeadas, instale la biblioteca GNOME Rounded Blur."
-
-#: resources/ui/applications.ui:132 resources/ui/dash.ui:131
-#: resources/ui/panel.ui:131
+#: resources/ui/applications.ui:72 resources/ui/dash.ui:72
+#: resources/ui/panel.ui:72
 msgid "Radius for the corner rounding effect."
 msgstr "Radio para el efecto de redondeo de esquinas."
 
-#: resources/ui/applications.ui:140
+#: resources/ui/applications.ui:80
 msgid "Enable corner rounding on maximized and fullscreen"
 msgstr "Habilitar el redondeo de esquinas en pantalla maximizada y completa"
 
-#: resources/ui/applications.ui:141
+#: resources/ui/applications.ui:81
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
@@ -547,11 +505,11 @@ msgstr ""
 "El efecto de redondeo de esquinas se seguirá aplicando a las ventanas "
 "maximizadas y a las de pantalla completa."
 
-#: resources/ui/applications.ui:155
+#: resources/ui/applications.ui:95
 msgid "Opacity"
 msgstr "Opacidad"
 
-#: resources/ui/applications.ui:156
+#: resources/ui/applications.ui:96
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
@@ -559,11 +517,11 @@ msgstr ""
 "La opacidad de la ventana sobre el efecto de difuminado, un valor más alto "
 "será más legible."
 
-#: resources/ui/applications.ui:177
+#: resources/ui/applications.ui:117
 msgid "Opaque focused window"
 msgstr "Ventana enfocada opaca"
 
-#: resources/ui/applications.ui:178
+#: resources/ui/applications.ui:118
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -571,11 +529,11 @@ msgstr ""
 "Hace que la ventana enfocada sea opaca y las demás borrosas, ayudando con la "
 "legibilidad."
 
-#: resources/ui/applications.ui:192
+#: resources/ui/applications.ui:132
 msgid "Blur on overview"
 msgstr "Difuminado en la vista general"
 
-#: resources/ui/applications.ui:193
+#: resources/ui/applications.ui:133
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -584,19 +542,27 @@ msgstr ""
 "trabajo en la vista general.\n"
 "Esto puede causar algunos problemas de latencia o rendimiento."
 
-#: resources/ui/applications.ui:208
+#: resources/ui/applications.ui:148
+msgid "Unblur when Fullscreen"
+msgstr ""
+
+#: resources/ui/applications.ui:149
+msgid "Forces the blur to be removed when a window is in fullscreen mode."
+msgstr ""
+
+#: resources/ui/applications.ui:163
 msgid "Enable all by default"
 msgstr "Activar todo por defecto"
 
-#: resources/ui/applications.ui:209
+#: resources/ui/applications.ui:164
 msgid "Adds blur behind all windows by default."
 msgstr "Añade difuminado detrás de todas las ventanas de forma predeterminada."
 
-#: resources/ui/applications.ui:225
+#: resources/ui/applications.ui:180
 msgid "Whitelist"
 msgstr "Lista blanca"
 
-#: resources/ui/applications.ui:226
+#: resources/ui/applications.ui:181
 msgid ""
 "A list of windows to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -606,15 +572,15 @@ msgstr ""
 "Utilice * para que coincida con cualquier secuencia de caracteres (p. ej., "
 "Firefox* o *Code*), y ? para que coincida con un solo carácter."
 
-#: resources/ui/applications.ui:245 resources/ui/applications.ui:283
+#: resources/ui/applications.ui:200 resources/ui/applications.ui:238
 msgid "Add Window"
 msgstr "Añadir ventana"
 
-#: resources/ui/applications.ui:263
+#: resources/ui/applications.ui:218
 msgid "Blacklist"
 msgstr "Lista negra"
 
-#: resources/ui/applications.ui:264
+#: resources/ui/applications.ui:219
 msgid ""
 "A list of windows not to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -629,72 +595,83 @@ msgid "Dash"
 msgstr "Tablero"
 
 #: resources/ui/dash.ui:10
-msgid "Dash to Dock blur"
-msgstr "Difuminado de Dash to Dock"
+msgid "Dock blur"
+msgstr ""
 
 #: resources/ui/dash.ui:11
-msgid "Blur the background of the Dash to Dock extension, if it is used."
-msgstr "Difumina el fondo de la extensión Dash to Dock, si se usa."
-
-#: resources/ui/dash.ui:21 resources/ui/panel.ui:21
 msgid ""
-"The dynamic blur is slower and only compatible with a gaussian blur effect."
+"Blur the background of supported dock extensions, including Dash to Dock and "
+"Dhruva."
 msgstr ""
-"El difuminado dinámico es más lento y solo es compatible con un efecto de "
-"difuminado gaussiano."
 
-#: resources/ui/dash.ui:139 resources/ui/panel.ui:154
+#: resources/ui/dash.ui:21
+msgid ""
+"Static blur follows the wallpaper; dynamic blur samples live content behind "
+"the dash. Both use the selected pipeline."
+msgstr ""
+
+#: resources/ui/dash.ui:80 resources/ui/panel.ui:95 resources/ui/popup.ui:128
 msgid "Override background"
 msgstr "Sobrescribir el fondo"
 
-#: resources/ui/dash.ui:140
+#: resources/ui/dash.ui:81
 msgid ""
-"Makes the background either transparent or semi-transparent, disable this to "
-"use Dash to Dock preferences instead."
+"Makes the dock background transparent or semi-transparent. Disable this to "
+"use the dock extension's own appearance."
 msgstr ""
-"Hace el fondo transparente o semi-transparente, desactive esta opción para "
-"utilizar las preferencias de Dash to Dock."
 
-#: resources/ui/dash.ui:146 resources/ui/panel.ui:162
+#: resources/ui/dash.ui:87 resources/ui/panel.ui:103 resources/ui/popup.ui:149
 msgid "Background style"
 msgstr "Estilo del fondo"
 
-#: resources/ui/dash.ui:147
+#: resources/ui/dash.ui:88
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "El estilo transparente/semi-transparente para el fondo del dock."
 
-#: resources/ui/dash.ui:163 resources/ui/panel.ui:193
+#: resources/ui/dash.ui:104 resources/ui/panel.ui:180
 msgid "Disable in overview"
 msgstr "Desactivar en la vista general"
 
-#: resources/ui/dash.ui:164
-msgid "Disables the blur from Dash to Dock when entering the overview."
-msgstr "Desactiva el difuminado de Dash a Dock al entrar en la vista general."
+#: resources/ui/dash.ui:105
+msgid "Disables dock blur when entering the overview."
+msgstr ""
 
-#: resources/ui/dash.ui:199 resources/ui/overview.ui:118
-#: resources/ui/overview.ui:138 resources/ui/panel.ui:248
+#: resources/ui/dash.ui:128 resources/ui/overview.ui:118
+#: resources/ui/overview.ui:138 resources/ui/panel.ui:235
+#: resources/ui/popup.ui:211
 msgid "Transparent"
 msgstr "Transparente"
 
-#: resources/ui/dash.ui:200 resources/ui/overview.ui:116
-#: resources/ui/overview.ui:139 resources/ui/panel.ui:249
+#: resources/ui/dash.ui:129 resources/ui/overview.ui:116
+#: resources/ui/overview.ui:139 resources/ui/panel.ui:236
+#: resources/ui/popup.ui:212
 msgid "Light"
 msgstr "Claro"
 
-#: resources/ui/dash.ui:201 resources/ui/overview.ui:117
-#: resources/ui/overview.ui:140 resources/ui/panel.ui:250
+#: resources/ui/dash.ui:130 resources/ui/overview.ui:117
+#: resources/ui/overview.ui:140 resources/ui/panel.ui:237
+#: resources/ui/popup.ui:213
 msgid "Dark"
 msgstr "Oscuro"
 
 #: resources/ui/effects-dialog.ui:4
+#: src/preferences/pipelines_management/effects_dialog.js:46
 msgid "Effects"
 msgstr "Efectos"
+
+#: resources/ui/effects-dialog.ui:13
+msgid "Effects list"
+msgstr ""
+
+#: resources/ui/effects-dialog.ui:14
+msgid "The top effect is applied first."
+msgstr ""
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
 msgstr "Agregar efecto"
 
-#: resources/ui/effects-dialog.ui:77
+#: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
 msgstr "Incluye efectos avanzados"
 
@@ -746,44 +723,27 @@ msgstr "Difuminado de la lista de ventanas"
 msgid "Make the window-list extension blurred, if it is used."
 msgstr "Hacer borrosa la extensión de la lista de ventanas, si se usa."
 
-#: resources/ui/other.ui:100
+#: resources/ui/other.ui:64
 msgid "Coverflow Alt-Tab extension blur"
 msgstr "Difuminado de la extensión Coverflow Alt-Tab"
 
-#: resources/ui/other.ui:101
+#: resources/ui/other.ui:65
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
 msgstr "Hacer que la extensión alt-tab de Coverflow quede borrosa, si se usa."
 
-#: resources/ui/other.ui:118
+#: resources/ui/other.ui:82
 msgid "Performance"
 msgstr "Rendimiento"
 
-#: resources/ui/other.ui:119
+#: resources/ui/other.ui:83
 msgid "Various options to tweak the performance."
 msgstr "Varias opciones para ajustar el rendimiento."
 
-#: resources/ui/other.ui:123
-msgid "Hack level"
-msgstr "Nivel de hack"
-
-#: resources/ui/other.ui:124
-msgid ""
-"Changes the behaviour of the dynamic blur effect. The default value is "
-"highly recommended.\n"
-"The “No artifact” option will entirely disable clipped redraws in GNOME "
-"shell, and will impact your computer performances significantly."
-msgstr ""
-"Cambia el comportamiento del efecto de difuminado dinámico. El valor "
-"predeterminado es muy recomendable.\n"
-"La opción \"Sin artefacto\" desactivará por completo los redibujados "
-"recortados en el shell de GNOME, e impactará significativamente en el "
-"rendimiento de su ordenador."
-
-#: resources/ui/other.ui:138
+#: resources/ui/other.ui:87
 msgid "Debug"
 msgstr "Depurar"
 
-#: resources/ui/other.ui:139
+#: resources/ui/other.ui:88
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
@@ -791,29 +751,17 @@ msgstr ""
 "Hace que la extensión sea verbosa en los registros, se activa cuando se "
 "necesita informar de un problema."
 
-#: resources/ui/other.ui:154
+#: resources/ui/other.ui:103
 msgid "Reset preferences"
 msgstr "Restablecer preferencias"
 
-#: resources/ui/other.ui:155
-msgid "Resets preferences of Blur my Shell irreversibly."
-msgstr "Restablece las preferencias de Blur my Shell de forma irreversible."
+#: resources/ui/other.ui:104
+msgid "Restore all Blur my Shell preferences to their defaults."
+msgstr ""
 
-#: resources/ui/other.ui:174
+#: resources/ui/other.ui:123 src/preferences/other.js:83
 msgid "Reset"
 msgstr "Restablecer"
-
-#: resources/ui/other.ui:203
-msgid "High performances"
-msgstr "Altos rendimientos"
-
-#: resources/ui/other.ui:204
-msgid "Default"
-msgstr "Predeterminado"
-
-#: resources/ui/other.ui:205
-msgid "No artifact"
-msgstr "Sin artefacto"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
@@ -849,6 +797,14 @@ msgstr "Desenfoque de la carpeta de aplicaciones"
 msgid "Makes the background of application folder dialogs blurred."
 msgstr "Desenfoca el fondo de los diálogos de la carpeta de aplicaciones."
 
+#: resources/ui/overview.ui:54
+msgid "Sigma"
+msgstr "Sigma"
+
+#: resources/ui/overview.ui:55
+msgid "The intensity of the blur."
+msgstr "La intensidad del difuminado."
+
 #: resources/ui/overview.ui:96
 msgid "Application folder dialogs style"
 msgstr "Estilo de los diálogos de la carpeta de aplicaciones"
@@ -874,18 +830,24 @@ msgstr "Difuminado del panel"
 msgid "Blur the top panel using the background image."
 msgstr "Difumina el panel superior con la imagen de fondo."
 
-#: resources/ui/panel.ui:139
+#: resources/ui/panel.ui:21
+msgid ""
+"Static blur follows the wallpaper; dynamic blur samples live content behind "
+"the panel. Both use the selected pipeline."
+msgstr ""
+
+#: resources/ui/panel.ui:80
 msgid "Force light text"
 msgstr "Forzar el texto claro"
 
-#: resources/ui/panel.ui:140
+#: resources/ui/panel.ui:81
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "Utiliza un texto claro para el panel, útil cuando se utiliza el tema claro "
 "de gnome-shell."
 
-#: resources/ui/panel.ui:155
+#: resources/ui/panel.ui:96
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -894,47 +856,74 @@ msgstr ""
 "Sobreescribe el fondo del panel por uno transparente o semi-transparente.\n"
 "Recomendado a menos que quieras modificar tu tema de GNOME."
 
-#: resources/ui/panel.ui:163
+#: resources/ui/panel.ui:104
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "El estilo transparente/semi-transparente para el fondo del panel."
 
-#: resources/ui/panel.ui:177
-msgid "Disable when a window is near"
-msgstr "Desactivar cuando una ventana está cerca"
-
-#: resources/ui/panel.ui:178
-msgid "Disables the transparency of the panel when a window is near it."
+#: resources/ui/panel.ui:118
+msgid "Override background dynamically"
 msgstr ""
-"Desactiva la transparencia del panel cuando una ventana está cerca de él."
 
-#: resources/ui/panel.ui:194
+#: resources/ui/panel.ui:119
+msgid ""
+"Override the background of the panel and apply certain effect when a window "
+"is near it."
+msgstr ""
+
+#: resources/ui/panel.ui:132
+msgid "When window is near:"
+msgstr ""
+
+#: resources/ui/panel.ui:133
+msgid ""
+"Blur on Window Proximity: Blur only when a window is near the panel and "
+"transparent when it is not. \n"
+"Background on Window Proximity: Solid color background when a window is near "
+"the panel and blur when it is not"
+msgstr ""
+
+#: resources/ui/panel.ui:148
+msgid "Gradient background"
+msgstr ""
+
+#: resources/ui/panel.ui:149
+msgid "Apply a gradient effect to the panel background."
+msgstr ""
+
+#: resources/ui/panel.ui:162
+msgid "Gradient direction"
+msgstr ""
+
+#: resources/ui/panel.ui:163
+msgid "Change the direction of the gradient background."
+msgstr ""
+
+#: resources/ui/panel.ui:181
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "Desactiva el difuminado del panel al entrar en la vista general."
 
-#: resources/ui/panel.ui:210
+#: resources/ui/panel.ui:197
 msgid "Compatibility"
 msgstr "Compatibilidad"
 
-#: resources/ui/panel.ui:211
+#: resources/ui/panel.ui:198
 msgid "Various options to provide compatibility with other extensions."
 msgstr ""
 "Varias opciones para proporcionar compatibilidad con otras extensiones."
 
-#: resources/ui/panel.ui:216
+#: resources/ui/panel.ui:203
 msgid "Hidetopbar extension"
 msgstr "Extensión Hidetopbar"
 
-#: resources/ui/panel.ui:217
-msgid "Does not disable the blur in overview, best used with static blur."
+#: resources/ui/panel.ui:204
+msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
-"No desactiva el difuminado en la vista general, se usa mejor con el "
-"difuminado estático."
 
-#: resources/ui/panel.ui:231
+#: resources/ui/panel.ui:218
 msgid "Blur original panel with Dash to Panel"
 msgstr "Difuminar el panel original con Dash to Panel"
 
-#: resources/ui/panel.ui:232
+#: resources/ui/panel.ui:219
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -942,9 +931,25 @@ msgstr ""
 "Activa el difuminado del panel original con Dash to Panel, si está "
 "seleccionado en las opciones de la extensión."
 
-#: resources/ui/panel.ui:251
+#: resources/ui/panel.ui:238
 msgid "Contrasted"
 msgstr "Contrastado"
+
+#: resources/ui/panel.ui:244
+msgid "Blur on Window Proximity"
+msgstr ""
+
+#: resources/ui/panel.ui:245
+msgid "Background on Window Proximity"
+msgstr ""
+
+#: resources/ui/panel.ui:251
+msgid "Top"
+msgstr ""
+
+#: resources/ui/panel.ui:252
+msgid "Bottom"
+msgstr ""
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
@@ -978,6 +983,366 @@ msgstr ""
 #: resources/ui/pipelines.ui:29
 msgid "Add Pipeline"
 msgstr "Añadir flujo"
+
+#: resources/ui/popup.ui:5
+msgid "Popups"
+msgstr ""
+
+#: resources/ui/popup.ui:10
+msgid "Popup blur"
+msgstr ""
+
+#: resources/ui/popup.ui:11
+msgid ""
+"Add blur to GNOME Shell menus, the calendar and notifications popup, "
+"notification banners, OSD popups, and dialogs."
+msgstr ""
+
+#: resources/ui/popup.ui:21
+msgid ""
+"Static blur follows the wallpaper; dynamic blur samples live content behind "
+"popups. Both use the selected pipeline."
+msgstr ""
+
+#: resources/ui/popup.ui:72
+msgid "Adjust the rounded corners for each popup surface."
+msgstr ""
+
+#: resources/ui/popup.ui:77
+msgid "Menus"
+msgstr ""
+
+#: resources/ui/popup.ui:84
+msgid "Quick settings and calendar"
+msgstr ""
+
+#: resources/ui/popup.ui:91
+msgid "Notifications"
+msgstr ""
+
+#: resources/ui/popup.ui:98
+msgid "OSDs and switchers"
+msgstr ""
+
+#: resources/ui/popup.ui:105
+msgid "Dialogs"
+msgstr ""
+
+#: resources/ui/popup.ui:112
+msgid "On-screen keyboard"
+msgstr ""
+
+#: resources/ui/popup.ui:119
+msgid "Other popup surfaces"
+msgstr ""
+
+#: resources/ui/popup.ui:129
+msgid ""
+"Override the background of popups to use a transparent or semi-transparent "
+"one."
+msgstr ""
+
+#: resources/ui/popup.ui:135
+msgid "Preserve shell theme"
+msgstr ""
+
+#: resources/ui/popup.ui:136
+msgid "Keep your shell theme's colors for popup controls."
+msgstr ""
+
+#: resources/ui/popup.ui:150
+msgid "The transparent/semi-transparent style for popups."
+msgstr ""
+
+#: resources/ui/popup.ui:214
+msgid "Automatic"
+msgstr ""
+
+#: src/preferences/other.js:79
+msgid "Reset all preferences?"
+msgstr ""
+
+#: src/preferences/other.js:80
+msgid "Pipelines and component settings will return to their defaults."
+msgstr ""
+
+#: src/preferences/other.js:82
+msgid "Cancel"
+msgstr ""
+
+#: src/preferences/pipelines.js:38
+#: src/preferences/pipelines_management/pipeline_choose_row.js:64
+msgid "New pipeline"
+msgstr ""
+
+#: src/preferences/pipelines_management/effects_dialog.js:45
+#, javascript-format
+msgid "Effects for “%s”"
+msgstr ""
+
+#: src/preferences/pipelines_management/pipeline_choose_row.js:28
+msgid "Create new pipeline"
+msgstr ""
+
+#: src/preferences/pipelines_management/pipeline_group.js:31
+#, javascript-format
+msgid "Pipeline id: “%s”"
+msgstr ""
+
+#: src/preferences/pipelines_management/pipeline_group.js:86
+msgid "No effect"
+msgstr ""
+
+#: src/preferences/pipelines_management/pipeline_group.js:89
+#, javascript-format
+msgid "%d effect"
+msgid_plural "%d effects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/preferences/pipelines_management/pipeline_group.js:95
+msgid "Unknown effect"
+msgstr ""
+
+#~ msgid "Dash to Dock blur"
+#~ msgstr "Difuminado de Dash to Dock"
+
+#~ msgid "Blur the background of the Dash to Dock extension, if it is used."
+#~ msgstr "Difumina el fondo de la extensión Dash to Dock, si se usa."
+
+#~ msgid ""
+#~ "Makes the background either transparent or semi-transparent, disable this "
+#~ "to use Dash to Dock preferences instead."
+#~ msgstr ""
+#~ "Hace el fondo transparente o semi-transparente, desactive esta opción "
+#~ "para utilizar las preferencias de Dash to Dock."
+
+#~ msgid "Disables the blur from Dash to Dock when entering the overview."
+#~ msgstr ""
+#~ "Desactiva el difuminado de Dash a Dock al entrar en la vista general."
+
+#~ msgid ""
+#~ "The color to blend in. The blending amount is controled by the opacity of "
+#~ "the color."
+#~ msgstr ""
+#~ "El color a mezclar. La cantidad de mezcla se controla mediante la "
+#~ "opacidad del color."
+
+#~ msgid "The brightness to add of remove to the image."
+#~ msgstr "El brillo que se añade o se quita a la imagen."
+
+#~ msgid "Multiply brightness"
+#~ msgstr "Multiplicar brillo"
+
+#~ msgid ""
+#~ "The brightness multiplicator of the image, so that 0 means no brightness "
+#~ "and 2 means infinite brightness."
+#~ msgstr ""
+#~ "El multiplicador de brillo de la imagen, de modo que 0 significa ausencia "
+#~ "de brillo y 2 significa brillo infinito."
+
+#~ msgid "The contrast of the image in regard to the center of the contrast."
+#~ msgstr "El contraste de la imagen con respecto al centro del contraste."
+
+#~ msgid ""
+#~ "The saturation of the image, so that 0 means no saturation and 2 means "
+#~ "infinite saturation."
+#~ msgstr ""
+#~ "La saturación de la imagen, de modo que 0 significa sin saturación y 2 "
+#~ "significa saturación infinita."
+
+#~ msgid ""
+#~ "An effect that downscales the image and put it on the top-left corner."
+#~ msgstr ""
+#~ "Un efecto que reduce la escala de la imagen y la coloca en la esquina "
+#~ "superior izquierda."
+
+#~ msgid "Converts the image from RGBA colorspace to HSLA."
+#~ msgstr "Convierte la imagen del espacio de color RGBA a HSLA."
+
+#~ msgid "Converts the image from HSLA colorspace to RGBA."
+#~ msgstr "Convierte la imagen de espacio de color HSLA a RGBA."
+
+#~ msgid "Resets preferences of Blur my Shell irreversibly."
+#~ msgstr "Restablece las preferencias de Blur my Shell de forma irreversible."
+
+#~ msgid "Does not disable the blur in overview, best used with static blur."
+#~ msgstr ""
+#~ "No desactiva el difuminado en la vista general, se usa mejor con el "
+#~ "difuminado estático."
+
+#~ msgid "Shape effects"
+#~ msgstr "Efectos de forma"
+
+#~ msgid "Native gaussian blur"
+#~ msgstr "Difuminado gaussiano nativo"
+
+#~ msgid ""
+#~ "An optimized blur effect that smoothly blends pixels within a given "
+#~ "radius."
+#~ msgstr ""
+#~ "Un efecto de difuminado optimizado que combina suavemente los píxeles "
+#~ "dentro de un radio determinado."
+
+#~ msgid "Gaussian blur (advanced effect)"
+#~ msgstr "Difuminado gaussiano (efecto avanzado)"
+
+#~ msgid ""
+#~ "A blur effect that smoothly blends pixels within a given radius. This "
+#~ "effect is more precise, but way less optimized."
+#~ msgstr ""
+#~ "Un efecto de difuminado que combina suavemente los píxeles dentro de un "
+#~ "radio determinado. Este efecto es más preciso, pero mucho menos "
+#~ "optimizado."
+
+#~ msgid ""
+#~ "The intensity of the blur effect. The bigger it is, the slower it will be."
+#~ msgstr ""
+#~ "La intensidad del efecto de difuminado. Cuanto más grande sea, más lento "
+#~ "será."
+
+#~ msgid "Monte Carlo blur"
+#~ msgstr "Difuminado de Montecarlo"
+
+#~ msgid ""
+#~ "A blur effect that mimics a random walk, by picking pixels further and "
+#~ "further away from its origin and mixing them all together."
+#~ msgstr ""
+#~ "Un efecto de difuminado que imita un paseo aleatorio, seleccionando "
+#~ "píxeles cada vez más lejos de su origen y mezclándolos todos."
+
+#~ msgid ""
+#~ "The maximum travel distance for each step in the random walk. A higher "
+#~ "value will make the blur more randomized."
+#~ msgstr ""
+#~ "La distancia máxima recorrida para cada paso en la caminata aleatoria. Un "
+#~ "valor más alto hará que el difuminado sea más aleatorio."
+
+#~ msgid "Iterations"
+#~ msgstr "Iteraciones"
+
+#~ msgid ""
+#~ "The number of iterations. The more there are, the smoother the blur is."
+#~ msgstr ""
+#~ "El número de iteraciones. Cuantos más haya, más suave será el difuminado."
+
+#~ msgid "Use base pixel"
+#~ msgstr "Usar píxel base"
+
+#~ msgid ""
+#~ "Whether or not the original pixel is counted for the blur. If it is, the "
+#~ "image will be more legible."
+#~ msgstr ""
+#~ "Si el píxel original se cuenta o no para el difuminado. Si es así, la "
+#~ "imagen será más legible."
+
+#~ msgid "Prefer closer pixels"
+#~ msgstr "Preferir píxeles más cercanos"
+
+#~ msgid ""
+#~ "Whether or not the pixels that are closer to the original pixel will have "
+#~ "more weight."
+#~ msgstr ""
+#~ "Elegir si los píxeles que están más cerca del píxel original tendrán "
+#~ "mayor peso."
+
+#~ msgid ""
+#~ "An effect that adds a random noise. Prefer the Monte Carlo blur for a "
+#~ "more organic effect if needed."
+#~ msgstr ""
+#~ "Un efecto que añade un ruido aleatorio. Prefiere el difuminado Monte "
+#~ "Carlo para obtener un efecto más orgánico si es necesario."
+
+#~ msgid "Corner"
+#~ msgstr "Esquina"
+
+#~ msgid ""
+#~ "An effect that draws corners. Add it last not to have the other effects "
+#~ "perturb the corners."
+#~ msgstr ""
+#~ "Un efecto que dibuja esquinas. Agréguelo al final para que los otros "
+#~ "efectos no perturben las esquinas."
+
+#~ msgid ""
+#~ "The radius of the corner. GNOME apps use a radius of 12 px by default."
+#~ msgstr ""
+#~ "El radio de la esquina. Las aplicaciones GNOME utilizan un radio de 12 px "
+#~ "de forma predeterminada."
+
+#~ msgid "Top corners"
+#~ msgstr "Esquinas superiores"
+
+#~ msgid "Whether or not to round the top corners."
+#~ msgstr "Redondear o no las esquinas superiores."
+
+#~ msgid "Bottom corners"
+#~ msgstr "Esquinas inferiores"
+
+#~ msgid "Whether or not to round the bottom corners."
+#~ msgstr "Redondear o no las esquinas inferiores."
+
+#~ msgid ""
+#~ "Adds blur to the applications.\n"
+#~ "To get the best results possible, although with reduced performances, you "
+#~ "can choose the option “No artifact” in the “Other → Hack level” tab."
+#~ msgstr ""
+#~ "Añade difuminado a las aplicaciones.\n"
+#~ "Para obtener los mejores resultados posibles, aunque con prestaciones "
+#~ "reducidas, puede elegir la opción \"Sin artefacto\" en la pestaña \"Otros "
+#~ "→ Nivel de hack\"."
+
+#~ msgid ""
+#~ "The dynamic blur is slower and only compatible with a gaussian blur "
+#~ "effect, but shows content behind windows."
+#~ msgstr ""
+#~ "El desenfoque dinámico es más lento y solo es compatible con un efecto de "
+#~ "desenfoque gaussiano, pero muestra el contenido que se encuentra detrás "
+#~ "de las ventanas."
+
+#~ msgid ""
+#~ "In order to use rounded corners, please install the GNOME Rounded Blur "
+#~ "library."
+#~ msgstr ""
+#~ "Para utilizar esquinas redondeadas, instale la biblioteca GNOME Rounded "
+#~ "Blur."
+
+#~ msgid ""
+#~ "The dynamic blur is slower and only compatible with a gaussian blur "
+#~ "effect."
+#~ msgstr ""
+#~ "El difuminado dinámico es más lento y solo es compatible con un efecto de "
+#~ "difuminado gaussiano."
+
+#~ msgid "Hack level"
+#~ msgstr "Nivel de hack"
+
+#~ msgid ""
+#~ "Changes the behaviour of the dynamic blur effect. The default value is "
+#~ "highly recommended.\n"
+#~ "The “No artifact” option will entirely disable clipped redraws in GNOME "
+#~ "shell, and will impact your computer performances significantly."
+#~ msgstr ""
+#~ "Cambia el comportamiento del efecto de difuminado dinámico. El valor "
+#~ "predeterminado es muy recomendable.\n"
+#~ "La opción \"Sin artefacto\" desactivará por completo los redibujados "
+#~ "recortados en el shell de GNOME, e impactará significativamente en el "
+#~ "rendimiento de su ordenador."
+
+#~ msgid "High performances"
+#~ msgstr "Altos rendimientos"
+
+#~ msgid "Default"
+#~ msgstr "Predeterminado"
+
+#~ msgid "No artifact"
+#~ msgstr "Sin artefacto"
+
+#~ msgid "Disable when a window is near"
+#~ msgstr "Desactivar cuando una ventana está cerca"
+
+#~ msgid "Disables the transparency of the panel when a window is near it."
+#~ msgstr ""
+#~ "Desactiva la transparencia del panel cuando una ventana está cerca de él."
 
 #~ msgid "A list of windows to blur."
 #~ msgstr "Una lista de ventanas para difuminar."

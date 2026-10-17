@@ -1,56 +1,65 @@
 NAME = blur-my-shell
 UUID = $(NAME)@aunetx
 VM_PATH = ~/Projects/shared/extensions
+POT = po/$(UUID).pot
+UI_SOURCES = $(shell find resources/ui -type f -name '*.ui' | sort)
+EFFECT_I18N_SOURCES = $(shell find src/effects -type f -name '*.js' | sort)
+PREFERENCES_I18N_SOURCES = $(shell find src/preferences -type f -name '*.js' | sort) src/prefs.js
+SOURCE_DIRS = $(filter-out styles,$(patsubst src/%/,%,$(wildcard src/*/)))
+# Preserve cascade order when bundling the component stylesheets.
+STYLESHEETS = src/styles/panel.css \
+	src/styles/dash.css \
+	src/styles/popup/base.css \
+	src/styles/popup/transparent.css \
+	src/styles/popup/light.css \
+	src/styles/popup/dark.css \
+	src/styles/popup/menu-items.css \
+	src/styles/overview.css \
+	src/styles/appfolders.css \
+	src/styles/panel-light-text.css
 
-.PHONY: build install pot test-shell test-prefs remove clean
+.PHONY: build install pot test-shell test-prefs test-vm remove clean
 
 
 build: clean
 	mkdir -p build/
+# St does not give CSS @imports the priority of the extension stylesheet.
+	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
 	cd src && gnome-extensions pack -f \
+			--extra-source=../build/stylesheet.css \
 			--extra-source=../metadata.json \
 			--extra-source=../LICENSE \
 			--extra-source=../resources/icons \
 			--extra-source=../resources/ui \
-			--extra-source=./components \
-			--extra-source=./conveniences \
-			--extra-source=./effects \
-			--extra-source=./preferences \
-			--extra-source=./dbus \
-			--extra-source=./styles \
+			$(foreach dir,$(SOURCE_DIRS),--extra-source=./$(dir)) \
 			--podir=../po \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
 			-o ../build
 
 
-install: build remove
+install: build
 	gnome-extensions install -f build/$(UUID).shell-extension.zip
 
 
 pot:
-	find resources/ui -iname "*.ui" -printf "%p\n" | sort | \
-		xargs xgettext --output=po/$(UUID).pot src/effects/effects.js src/effects/effect_groups.js \
-		--from-code=utf-8 --package-name=$(UUID)
-
-	rm po/LINGUAS
-	for l in $$(ls po/*.po); do \
-		basename $$l .po >> po/LINGUAS; \
-	done
-
-	cd po && \
-	for lang in $$(cat LINGUAS); do \
-    	mv $${lang}.po $${lang}.po.old; \
-    	msginit --no-translator --locale=$$lang --input $(UUID).pot -o $${lang}.po.new; \
-    	msgmerge -N $${lang}.po.old $${lang}.po.new > $${lang}.po; \
-    	rm $${lang}.po.old $${lang}.po.new; \
+	xgettext --language=JavaScript --from-code=utf-8 --package-name=$(UUID) \
+		--keyword=_ --keyword=ngettext:1,2 \
+		--output=$(POT) $(EFFECT_I18N_SOURCES)
+	xgettext --language=Glade --from-code=utf-8 --package-name=$(UUID) \
+		--join-existing --output=$(POT) $(UI_SOURCES)
+	xgettext --language=JavaScript --from-code=utf-8 --package-name=$(UUID) \
+		--keyword=_ --keyword=ngettext:1,2 --join-existing \
+		--output=$(POT) $(PREFERENCES_I18N_SOURCES)
+	find po -maxdepth 1 -type f -name '*.po' -printf '%f\n' | \
+		sed 's/\.po$$//' | sort > po/LINGUAS
+	for catalog in po/*.po; do \
+		msgmerge --update --backup=none --no-fuzzy-matching "$$catalog" $(POT); \
 	done
 
 
-test-shell: install
-	env GNOME_SHELL_SLOWDOWN_FACTOR=2 \
-		MUTTER_DEBUG_DUMMY_MODE_SPECS=1500x1000 \
-	 	MUTTER_DEBUG_DUMMY_MONITOR_SCALES=1 \
-		dbus-run-session -- gnome-shell --nested --wayland
+TEST_SHELL_MODE ?= auto
+test-shell: build
+	sh scripts/test-shell.sh "$(UUID)" "build/$(UUID).shell-extension.zip" "$(TEST_SHELL_MODE)"
 
 
 test-prefs: install
@@ -58,7 +67,7 @@ test-prefs: install
 
 
 test-vm: build
-	unzip build/$(UUID).shell-extension.zip -d $(VM_PATH)/$(UUID)
+	unzip -oq build/$(UUID).shell-extension.zip -d $(VM_PATH)/$(UUID)
 
 
 remove:
@@ -66,4 +75,4 @@ remove:
 
 
 clean:
-	rm -rf build/ po/*.mo
+	rm -rf build/ po/*.mo schemas/gschemas.compiled
