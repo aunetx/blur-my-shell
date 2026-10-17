@@ -150,6 +150,21 @@
         </child>
 
         <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Match theme in overview</property>
+            <property name="subtitle" translatable="yes">Keep panel text and icons matched to the system theme in the overview.</property>
+            <property name="activatable-widget">match_theme_in_overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="state" bind-flags="sync-create" />
+
+            <child>
+              <object class="GtkSwitch" id="match_theme_in_overview">
+                <property name="valign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwExpanderRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
             <property name="subtitle" translatable="yes">Override the background of the panel to use a transparent or semi-transparent one.
