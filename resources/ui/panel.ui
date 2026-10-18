@@ -217,21 +217,6 @@ Background on Window Proximity: Solid color background when a window is near the
 
         <child>
           <object class="AdwActionRow">
-            <property name="title" translatable="yes">Hidetopbar extension</property>
-            <property name="subtitle" translatable="yes">Keeps the blur visible in the overview; best used with static blur.</property>
-            <property name="activatable-widget">hidetopbar_compatibility</property>
-            <property name="sensitive" bind-source="unblur_in_overview" bind-property="state" bind-flags="sync-create" />
-
-            <child>
-              <object class="GtkSwitch" id="hidetopbar_compatibility">
-                <property name="valign">center</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
-        <child>
-          <object class="AdwActionRow">
             <property name="title" translatable="yes">Blur original panel with Dash to Panel</property>
             <property name="subtitle" translatable="yes">Enables the blurring of the original panel with Dash to Panel, if selected in the extension's options.</property>
             <property name="activatable-widget">dtp_blur_original_panel</property>

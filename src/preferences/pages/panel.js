@@ -25,7 +25,6 @@ export const Panel = GObject.registerClass({
         'gradient_panel',
         'gradient_panel_mode_row',
         'gradient_panel_mode',
-        'hidetopbar_compatibility',
         'dtp_blur_original_panel'
     ],
 }, class Panel extends Adw.PreferencesPage {
@@ -105,10 +104,6 @@ export const Panel = GObject.registerClass({
         );
         this.preferences.panel.GRADIENT_PANEL_changed(
             () => this.proximity_option_changed()
-        );
-        this.preferences.hidetopbar.settings.bind(
-            'compatibility', this._hidetopbar_compatibility, 'active',
-            Gio.SettingsBindFlags.DEFAULT
         );
         this.preferences.dash_to_panel.settings.bind(
             'blur-original-panel', this._dtp_blur_original_panel, 'active',

@@ -173,10 +173,6 @@ export function connect_component_settings(extension) {
         () => coverflow.update_pipeline()
     ));
 
-    connect(settings.hidetopbar, 'COMPATIBILITY', when_enabled(
-        panel,
-        () => panel.connect_to_windows_and_overview()
-    ));
     connect(settings.dash_to_panel, 'BLUR_ORIGINAL_PANEL', when_enabled(
         panel,
         () => panel.reset()

@@ -4,6 +4,7 @@ import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/
 
 import { update_from_old_settings } from './settings/settings_updater.js';
 import { PipelinesManager } from './pipelines/pipelines_manager.js';
+import { ExtensionStateTracker } from './conveniences/extension_state.js';
 import { Settings } from './settings/settings.js';
 import { KEYS } from './settings/keys.js';
 import { cancel_pick } from './dbus/client.js';
@@ -37,19 +38,22 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
 
         const preferences = new Settings(KEYS, gsettings);
         const pipelines_manager = new PipelinesManager(preferences);
+        const extension_state = new ExtensionStateTracker();
 
         const pipelines_page = new Pipelines(preferences, pipelines_manager, window);
 
         window.add(pipelines_page);
         window.add(new Panel(preferences, pipelines_manager, pipelines_page));
         window.add(new Overview(preferences, pipelines_manager, pipelines_page));
-        window.add(new Dash(preferences, pipelines_manager, pipelines_page));
+        const dash_page = new Dash(preferences, pipelines_manager, pipelines_page, extension_state);
+        window.add(dash_page);
         const applications_page = new Applications(
             preferences, window, pipelines_manager, pipelines_page
         );
         window.add(applications_page);
         window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
-        window.add(new Other(preferences, pipelines_manager, pipelines_page));
+        const other_page = new Other(preferences, pipelines_manager, pipelines_page, extension_state);
+        window.add(other_page);
 
         window.add_css_class('bms-preferences');
         const undo_css = new Gtk.CssProvider();
@@ -71,9 +75,12 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
 
         window.connect('close-request', () => {
             cancel_pick();
+            dash_page.cleanup();
+            other_page.cleanup();
             applications_page.cleanup();
             pipelines_page.cleanup();
             pipelines_manager.destroy();
+            extension_state.destroy();
             preferences.disconnect_all_settings();
             Gtk.StyleContext.remove_provider_for_display(display, undo_css);
             window.remove_css_class('bms-preferences');

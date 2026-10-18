@@ -96,7 +96,7 @@ Blur my Shell is designed to be compatible with the following extensions:
 - [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
 - [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from “Other” page)
 - [Coverflow Alt-Tab](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) (configurable from “Other” page)
-- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from dedicated switch in “Panel” page)
+- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/)
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
 - [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), although corners can't be blurred
 - [Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/), although nothing is blurred either

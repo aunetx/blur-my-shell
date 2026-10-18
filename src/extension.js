@@ -6,6 +6,7 @@ import { update_from_old_settings } from './settings/settings_updater.js';
 import { PipelinesManager } from './pipelines/pipelines_manager.js';
 import { EffectsManager } from './pipelines/effects_manager.js';
 import { Connections } from './conveniences/connections.js';
+import { ExtensionStateTracker } from './conveniences/extension_state.js';
 import { Settings } from './settings/settings.js';
 import { KEYS } from './settings/keys.js';
 
@@ -54,6 +55,7 @@ export default class BlurMyShell extends Extension {
         // shared by every component so that effects are pooled instead of re-created
         this._effects_manager = new EffectsManager(this._connection);
         this._pipelines_manager = new PipelinesManager(this._settings);
+        this._extension_state = new ExtensionStateTracker(Main.extensionManager);
 
         const init = () => {
             const connection = new Connections;
@@ -61,7 +63,7 @@ export default class BlurMyShell extends Extension {
             return [connection, this._settings, this._effects_manager];
         };
 
-        this._panel_blur = new PanelBlur(...init());
+        this._panel_blur = new PanelBlur(...init(), this._extension_state);
         this._dash_to_dock_blur = new DashBlur(...init());
         this._overview_blur = new OverviewBlur(...init());
         this._lockscreen_blur = new LockscreenBlur(...init());
@@ -131,6 +133,8 @@ export default class BlurMyShell extends Extension {
         this._connections.forEach(connections => connections.disconnect_all());
         this._connections = null;
         this._connection = null;
+        this._extension_state.destroy();
+        this._extension_state = null;
         disable_system_style();
 
         delete global.blur_my_shell;
