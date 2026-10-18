@@ -4,6 +4,8 @@ import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { Connections } from '../../conveniences/connections.js';
+
 
 export const Other = GObject.registerClass({
     GTypeName: 'Other',
@@ -15,9 +17,11 @@ export const Other = GObject.registerClass({
         'screenshot_blur',
         'screenshot_pipeline_choose_row',
 
+        'window_list_group',
         'window_list_blur',
         'window_list_pipeline_choose_row',
 
+        'coverflow_alt_tab_group',
         'coverflow_alt_tab_blur',
         'coverflow_alt_tab_pipeline_choose_row',
 
@@ -25,12 +29,14 @@ export const Other = GObject.registerClass({
         'reset'
     ],
 }, class Other extends Adw.PreferencesPage {
-    constructor(preferences, pipelines_manager, pipelines_page) {
+    constructor(preferences, pipelines_manager, pipelines_page, extension_state) {
         super({});
 
         this.preferences = preferences;
         this.pipelines_manager = pipelines_manager;
         this.pipelines_page = pipelines_page;
+        this.extension_state = extension_state;
+        this.connections = new Connections();
 
         this.preferences.lockscreen.settings.bind(
             'blur', this._lockscreen_blur, 'active',
@@ -72,6 +78,23 @@ export const Other = GObject.registerClass({
         );
 
         this._reset.connect('clicked', () => this.confirm_reset());
+
+        this.connections.connect(extension_state, 'changed', () => this.update_extension_sensitivity());
+        this.update_extension_sensitivity();
+    }
+
+    update_extension_sensitivity() {
+        this._window_list_group.sensitive = this.extension_state.get(
+            'window-list@gnome-shell-extensions.gcampax.github.com'
+        )?.active ?? false;
+        this._coverflow_alt_tab_group.sensitive = this.extension_state.get(
+            'CoverflowAltTab@palatis.blogspot.com'
+        )?.active ?? false;
+    }
+
+    cleanup() {
+        this.connections.disconnect_all();
+        this.extension_state = null;
     }
 
     confirm_reset() {

@@ -52,7 +52,8 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         );
         window.add(applications_page);
         window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
-        window.add(new Other(preferences, pipelines_manager, pipelines_page));
+        const other_page = new Other(preferences, pipelines_manager, pipelines_page, extension_state);
+        window.add(other_page);
 
         window.add_css_class('bms-preferences');
         const undo_css = new Gtk.CssProvider();
@@ -75,6 +76,7 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.connect('close-request', () => {
             cancel_pick();
             dash_page.cleanup();
+            other_page.cleanup();
             applications_page.cleanup();
             pipelines_page.cleanup();
             pipelines_manager.destroy();
