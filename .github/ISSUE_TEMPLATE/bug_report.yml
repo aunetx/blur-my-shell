@@ -1,0 +1,86 @@
+name: Bug report
+description: Something looks or behaves wrong.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this! A lot of bugs get fixed before they reach extensions.gnome.org, so please check the latest version from GitHub first, it only takes a minute: see [Testing the latest version](https://github.com/aunetx/blur-my-shell#testing-the-latest-version).
+  - type: checkboxes
+    attributes:
+      label: Before reporting
+      options:
+        - label: I searched the open and closed issues and this hasn't been reported yet.
+          required: true
+        - label: I can still reproduce it with the latest version from GitHub.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happens
+      description: What you see, and what you expected instead. Screenshots or a short screen recording help a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce it
+      description: The steps to make it happen, starting from a fresh login if you can.
+      placeholder: |
+        1. Enable dynamic blur for the panel
+        2. Open the overview
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Blur my Shell settings involved
+      description: Which component (panel, dash, applications, popups...), static or dynamic blur, and the effects in its pipeline.
+  - type: input
+    id: bms-version
+    attributes:
+      label: Blur my Shell version
+      description: The commit you tested from GitHub (shown by `git log -1 --oneline`), or the version from extensions.gnome.org.
+    validations:
+      required: true
+  - type: input
+    id: gnome-version
+    attributes:
+      label: GNOME Shell version
+      description: Shown by `gnome-shell --version`.
+    validations:
+      required: true
+  - type: input
+    id: distribution
+    attributes:
+      label: Distribution
+      placeholder: Fedora 44, Ubuntu 26.04, Arch...
+    validations:
+      required: true
+  - type: dropdown
+    id: session
+    attributes:
+      label: Session
+      options:
+        - Wayland
+        - X11
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: GPU and displays
+      description: Graphics card, number of monitors and their scaling.
+      placeholder: Intel Iris Xe, one 2560x1440 monitor at 125%
+  - type: textarea
+    id: extensions
+    attributes:
+      label: Other extensions
+      description: Other enabled extensions (`gnome-extensions list --enabled`). If you can, check whether it still happens with them disabled.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Enable Debug in Blur my Shell's preferences, reproduce the bug, then paste the output of `journalctl -b /usr/bin/gnome-shell | grep -i blur`.
+      render: shell

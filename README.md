@@ -117,9 +117,9 @@ If you wish to help me with this extension, there is quite a lot you can do!
 
 You can help to translate the extension into your language, either by directly opening a pull request with the additions you've made, or by using [Weblate](https://hosted.weblate.org/engage/blur-my-shell/)!
 
-### Development
+### Testing the latest version
 
-To install the extension from source:
+The version on extensions.gnome.org is often a few fixes behind GitHub. To try the latest one, you need `git`, `make` and `gettext`:
 
 ```sh
 git clone https://github.com/aunetx/blur-my-shell
@@ -127,7 +127,19 @@ cd blur-my-shell
 make install
 ```
 
-You will then need to reload GNOME Shell, for example by logging out and in again, or under Xorg, pressing `alt+f2` and typing `r`.
+You will then need to reload GNOME Shell, for example by logging out and in again, or under Xorg, pressing `alt+f2` and typing `r`. To update it later, run `git pull && make install` in the same folder. To go back to the released version, reinstall the extension from extensions.gnome.org.
+
+### Reporting issues
+
+Before opening an issue, please:
+
+- check that it still happens with the latest version from GitHub, as described above
+- search the open and closed issues, someone may already have reported it, in which case adding your details there helps more than a new issue
+- keep to one problem per issue, and fill in the template, especially the versions and the steps to reproduce it
+
+Questions, help with your setup and ideas that aren't fully formed yet are better suited to the [discussions](https://github.com/aunetx/blur-my-shell/discussions).
+
+### Development
 
 For a disposable session that does not read or modify your desktop settings, run `make test-shell`. This will start a nested/devkit session, or a native session when run from a TTY.
 To exit from a native session press `alt+f2` and type `debugexit`.
