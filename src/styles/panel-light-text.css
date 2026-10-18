@@ -50,43 +50,41 @@
 }
 
 .panel-light-text #panel .panel-button.screen-recording-indicator {
-    color: #f6f5f4;
-    box-shadow: inset 0 0 0 100px rgba(192, 28, 40, 0.8);
-}
-
-.panel-light-text #panel .panel-button.screen-recording-indicator:active,
-.panel-light-text #panel .panel-button.screen-recording-indicator:focus,
-.panel-light-text #panel .panel-button.screen-recording-indicator:checked {
+    color: #fafafb;
     box-shadow: inset 0 0 0 100px #c01c28;
 }
 
-.panel-light-text #panel .panel-button.screen-recording-indicator:active:hover,
-.panel-light-text #panel .panel-button.screen-recording-indicator:focus:hover,
-.panel-light-text #panel .panel-button.screen-recording-indicator:checked:hover {
-    box-shadow: inset 0 0 0 100px rgba(192, 28, 40, 0.95);
+.panel-light-text #panel .panel-button.screen-recording-indicator:focus,
+.panel-light-text #panel .panel-button.screen-recording-indicator:hover {
+    box-shadow: inset 0 0 0 100px #d61f2d;
 }
 
-.panel-light-text #panel .panel-button.screen-recording-indicator:hover {
-    box-shadow: inset 0 0 0 100px rgba(192, 28, 40, 0.9);
+.panel-light-text #panel .panel-button.screen-recording-indicator:active,
+.panel-light-text #panel .panel-button.screen-recording-indicator:checked {
+    box-shadow: inset 0 0 0 100px #e02a37;
+}
+
+.panel-light-text #panel .panel-button.screen-recording-indicator:active:hover,
+.panel-light-text #panel .panel-button.screen-recording-indicator:checked:hover {
+    box-shadow: inset 0 0 0 100px #e13340;
 }
 
 .panel-light-text #panel .panel-button.screen-sharing-indicator {
-    color: #282828;
-    box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.8);
-}
-
-.panel-light-text #panel .panel-button.screen-sharing-indicator:active,
-.panel-light-text #panel .panel-button.screen-sharing-indicator:focus,
-.panel-light-text #panel .panel-button.screen-sharing-indicator:checked {
+    color: #fafafb;
     box-shadow: inset 0 0 0 100px #ff7800;
 }
 
-.panel-light-text #panel .panel-button.screen-sharing-indicator:active:hover,
-.panel-light-text #panel .panel-button.screen-sharing-indicator:focus:hover,
-.panel-light-text #panel .panel-button.screen-sharing-indicator:checked:hover {
-    box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.95);
+.panel-light-text #panel .panel-button.screen-sharing-indicator:focus,
+.panel-light-text #panel .panel-button.screen-sharing-indicator:hover {
+    box-shadow: inset 0 0 0 100px #ff861a;
 }
 
-.panel-light-text #panel .panel-button.screen-sharing-indicator:hover {
-    box-shadow: inset 0 0 0 100px rgba(255, 120, 0, 0.9);
+.panel-light-text #panel .panel-button.screen-sharing-indicator:active,
+.panel-light-text #panel .panel-button.screen-sharing-indicator:checked {
+    box-shadow: inset 0 0 0 100px #ff902e;
+}
+
+.panel-light-text #panel .panel-button.screen-sharing-indicator:active:hover,
+.panel-light-text #panel .panel-button.screen-sharing-indicator:checked:hover {
+    box-shadow: inset 0 0 0 100px #ff9638;
 }
