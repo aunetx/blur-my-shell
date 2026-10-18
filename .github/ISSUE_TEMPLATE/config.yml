@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions, help and ideas
+    url: https://github.com/aunetx/blur-my-shell/discussions
+    about: Ask how to set something up, share your setup or talk about an idea before it becomes a request.
+  - name: Translations
+    url: https://hosted.weblate.org/engage/blur-my-shell/
+    about: Translations are done on Weblate.

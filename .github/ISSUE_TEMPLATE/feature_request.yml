@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest something new or a change to how something works.
+labels: ["enhancement"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before requesting
+      options:
+        - label: I searched the open and closed issues and discussions and this hasn't been requested yet.
+          required: true
+        - label: It isn't already possible with the latest version from GitHub.
+          required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: What you'd like
+      description: Describe the feature and how you'd use it. Mockups or screenshots of something similar are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: The problem it solves, or what's missing today.
+    validations:
+      required: true
