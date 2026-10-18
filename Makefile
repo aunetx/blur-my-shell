@@ -25,9 +25,10 @@ build: clean
 	mkdir -p build/
 # St does not give CSS @imports the priority of the extension stylesheet.
 	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
+	sed -E -z '$(METADATA_FILTER)' metadata.json > build/metadata.json
 	cd src && gnome-extensions pack -f \
 			--extra-source=../build/stylesheet.css \
-			--extra-source=../metadata.json \
+			--extra-source=../build/metadata.json \
 			--extra-source=../LICENSE \
 			--extra-source=../resources/icons \
 			--extra-source=../resources/ui \
@@ -37,7 +38,11 @@ build: clean
 			-o ../build
 
 
+# GNOME replaces an installed version that extensions.gnome.org doesn't know with the released one,
+# but leaves an extension without a version alone
+install: METADATA_FILTER = s/,[[:space:]]*"version":[[:space:]]*[0-9]+//
 install: build
+	rm -rf "$${XDG_DATA_HOME:-$$HOME/.local/share}/gnome-shell/extension-updates/$(UUID)"
 	gnome-extensions install -f build/$(UUID).shell-extension.zip
 
 

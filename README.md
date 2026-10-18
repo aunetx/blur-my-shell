@@ -127,7 +127,9 @@ cd blur-my-shell
 make install
 ```
 
-You will then need to reload GNOME Shell, for example by logging out and in again, or under Xorg, pressing `alt+f2` and typing `r`. To update it later, run `git pull && make install` in the same folder. To go back to the released version, reinstall the extension from extensions.gnome.org.
+You will then need to reload GNOME Shell, for example by logging out and in again, or under Xorg, pressing `alt+f2` and typing `r`. To update it later, run `git pull && make install` in the same folder.
+
+An extension installed this way isn't updated from extensions.gnome.org, so it stays on the version from GitHub until you update it yourself. To go back to the released version, install the extension from extensions.gnome.org again.
 
 ### Reporting issues
 
