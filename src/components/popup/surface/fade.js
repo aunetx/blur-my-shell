@@ -17,13 +17,16 @@ export const PopupBlurSurfaceFade = class PopupBlurSurfaceFade {
             opacity = this.apply_actor_opacity(opacity, actor, visited);
         opacity = this.apply_actor_opacity(opacity, this.root_actor, visited);
 
+        // the blur shares the parent, so a transparent parent hides it already, and the magnifier
+        // shows the UI through a clone while keeping it transparent
         const parent_opacity = this.parent.get_paint_opacity();
-        [this.target, this.root_actor].forEach(actor => {
-            const paint_opacity = this.get_paint_opacity(actor);
-            if (paint_opacity !== null)
-                opacity = Math.min(opacity, parent_opacity > 0
-                    ? Math.round(paint_opacity * 255 / parent_opacity) : 0);
-        });
+        if (parent_opacity > 0) {
+            [this.target, this.root_actor].forEach(actor => {
+                const paint_opacity = this.get_paint_opacity(actor);
+                if (paint_opacity !== null)
+                    opacity = Math.min(opacity, Math.round(paint_opacity * 255 / parent_opacity));
+            });
+        }
 
         if (this.is_notification_banner())
             opacity = Math.round(opacity * this.get_banner_visible_fraction());
