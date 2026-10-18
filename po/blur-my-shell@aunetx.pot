@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-10 18:05+0200\n"
+"POT-Creation-Date: 2026-10-18 09:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1089,6 +1089,10 @@ msgstr ""
 msgid "Manage effects"
 msgstr ""
 
+#: resources/ui/pipeline-undo-toast.ui:28
+msgid "Undo"
+msgstr ""
+
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
 msgstr ""
@@ -1266,7 +1270,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/preferences/pages/pipelines.js:42
+#: src/preferences/pages/pipelines.js:46
 #: src/preferences/widgets/pipeline_choose_row.js:64
 msgid "New pipeline"
 msgstr ""
@@ -1298,4 +1302,13 @@ msgstr[1] ""
 
 #: src/preferences/widgets/pipeline_group.js:91
 msgid "Unknown effect"
+msgstr ""
+
+#: src/preferences/widgets/pipeline_undo_toast.js:16
+#, javascript-format
+msgid "\"%s\" deleted"
+msgstr ""
+
+#: src/preferences/widgets/pipeline_undo_toast.js:17
+msgid "Pipeline deleted"
 msgstr ""
