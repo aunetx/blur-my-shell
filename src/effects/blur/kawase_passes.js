@@ -75,6 +75,11 @@ uniform float mask_width;
 uniform float mask_height;
 ${ANTIALIASING_SOURCE}
 
+// interleaved gradient noise, breaking up the 8-bit steps a smooth gradient gets once it is darkened
+float dither(vec2 position) {
+    return fract(52.9829189 * fract(dot(position, vec2(0.06711056, 0.00583715)))) - 0.5;
+}
+
 // the coverage of the rounded surface, so that its corners don't need a pass of their own
 float corner_coverage(vec2 position) {
     vec2 size = max(vec2(mask_width, mask_height), vec2(1.0));
@@ -101,6 +106,7 @@ if (level_blend > 0.0) {
 }
 filteredColor.rgb *= brightness;
 cogl_color_out = mix(sourceColor, filteredColor, opacity_factor) * cogl_color_in.a;
+cogl_color_out.rgb += dither(gl_FragCoord.xy) * 2.0 / 255.0 * cogl_color_out.a;
 if (corner_radius > 0.0)
     cogl_color_out *= corner_coverage(cogl_tex_coord_in[0].xy * vec2(output_width, output_height));
 `;
