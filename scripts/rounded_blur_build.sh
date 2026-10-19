@@ -234,6 +234,10 @@ prep_stage(){
 		else
 			if [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
 				DIFF_VALUE_2="$MUTTER_SYS_VER"
+			elif grep -q "libmutter_pc" meson.build; then
+				# meson.build detects the mutter API version itself; only mutter_req needs patching
+				# DIFF_VALUE_2 is still needed for the libmutter-N-dev package name
+				DIFF_VALUE_2=$((MUTTER_SYS_VER - 32))
 			elif [[ "$MUTTER_SYS_VER" -ge "$HARDCODE_MUTTER_SYS_VER" ]]; then
 				DIFF_VALUE=$((MUTTER_SYS_VER - HARDCODE_MUTTER_SYS_VER))
 				DIFF_VALUE_2=$((MUTTER_API_REPO_VER + DIFF_VALUE))
@@ -242,9 +246,11 @@ prep_stage(){
 				DIFF_VALUE_2=$((MUTTER_API_REPO_VER - DIFF_VALUE))
 			fi
 
-			sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
+			if ! grep -q "libmutter_pc" meson.build || [[ "$MUTTER_SYS_VER" -ge 51 ]]; then
+				sed -i -E "s/mutter_api_version = '[0-9]+'/mutter_api_version = '$DIFF_VALUE_2'/" meson.build
+				sed -i -E "s/dependency\('libmutter-[0-9]+'\)/dependency('libmutter-' + mutter_api_version)/" meson.build
+			fi
 			sed -i -E "s/mutter_req = '>= [0-9.]+'/mutter_req = '>= $MUTTER_SYS_VER.0'/" meson.build
-			sed -i -E "s/dependency\('libmutter-[0-9]+'\)/dependency('libmutter-' + mutter_api_version)/" meson.build
 		fi
 	fi
 	
