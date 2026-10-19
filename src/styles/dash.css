@@ -143,7 +143,12 @@ StBoxLayout > StWidget > #dash.transparent-dash > .dash-background,
     background-color: transparent !important;
 }
 
-/* Hover on icon box */
+/* Hover on icon box, and the focused app as Dash to Dock highlights it */
+.transparent-dash .overview-tile.focused .overview-icon,
+.transparent-dash .app-well-app.focused .overview-icon,
+#dash.transparent-dash .overview-tile.focused .overview-icon,
+#dash.transparent-dash .app-well-app.focused .overview-icon,
+.multimonitor-dock.transparent-dash .overview-tile.focused .overview-icon,
 .transparent-dash .overview-tile:hover .overview-icon,
 .transparent-dash .overview-tile:focus .overview-icon,
 .transparent-dash .app-well-app:hover .overview-icon,
@@ -357,7 +362,12 @@ StBoxLayout > StWidget > #dash.light-dash > .dash-background,
     background-color: transparent !important;
 }
 
-/* Hover on icon box */
+/* Hover on icon box, and the focused app as Dash to Dock highlights it */
+.light-dash .overview-tile.focused .overview-icon,
+.light-dash .app-well-app.focused .overview-icon,
+#dash.light-dash .overview-tile.focused .overview-icon,
+#dash.light-dash .app-well-app.focused .overview-icon,
+.multimonitor-dock.light-dash .overview-tile.focused .overview-icon,
 .light-dash .dash-item-container .overview-tile:hover .overview-icon,
 .light-dash .dash-item-container .overview-tile:focus .overview-icon,
 .light-dash .dash-item-container .app-well-app:hover .overview-icon,
@@ -571,7 +581,12 @@ StBoxLayout > StWidget > #dash.dark-dash > .dash-background,
     background-color: transparent !important;
 }
 
-/* Hover on icon box */
+/* Hover on icon box, and the focused app as Dash to Dock highlights it */
+.dark-dash .overview-tile.focused .overview-icon,
+.dark-dash .app-well-app.focused .overview-icon,
+#dash.dark-dash .overview-tile.focused .overview-icon,
+#dash.dark-dash .app-well-app.focused .overview-icon,
+.multimonitor-dock.dark-dash .overview-tile.focused .overview-icon,
 .dark-dash .dash-item-container .overview-tile:hover .overview-icon,
 .dark-dash .dash-item-container .overview-tile:focus .overview-icon,
 .dark-dash .dash-item-container .app-well-app:hover .overview-icon,

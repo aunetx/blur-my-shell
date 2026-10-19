@@ -83,7 +83,16 @@
 .contrasted-panel .panel-button:hover,
 .contrasted-panel .panel-button:hover .clock {
     color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(42, 42, 42, 0.85);
+}
+
+.contrasted-panel .panel-button:active,
+.contrasted-panel .panel-button:checked,
+.contrasted-panel .panel-button:focus,
+.contrasted-panel .panel-button:active .clock,
+.contrasted-panel .panel-button:checked .clock {
+    color: #ffffff;
+    background-color: rgba(64, 64, 64, 0.9);
 }
 
 .contrasted-panel .clock-display {

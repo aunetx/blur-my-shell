@@ -222,24 +222,31 @@ export const PanelBlur = class PanelBlur {
         };
         const left = () => {
             this._in_overview = false;
+            this.panel_hide_blur_dynamically();
             this.update_visibility();
             this.queue_panel_border_radius_update();
         };
 
-        // Hide Top Bar shows the panel above the overview, only the app grid needs it unblurred
         if (this.settings.hidetopbar.COMPATIBILITY) {
             const app_display = Main.overview._overview.controls._appDisplay;
+            this._in_overview = app_display.visible;
             this.window_connections.connect(app_display, 'show', entered);
             this.window_connections.connect(app_display, 'hide', left);
             this.window_connections.connect(Main.overview, 'hidden', left);
         } else {
             this.window_connections.connect(Main.overview, ['showing', 'shown'], entered);
-            this.window_connections.connect(Main.overview, 'hidden', () => {
-                this._in_overview = false;
-                this.panel_hide_blur_dynamically();
-                left();
-            });
+            this.window_connections.connect(Main.overview, 'hidden', left);
         }
+    }
+
+    /// Hide Top Bar shows the panel above the overview, so only the app grid unblurs it
+    is_unblurred_by_overview() {
+        if (!this.settings.panel.UNBLUR_IN_OVERVIEW)
+            return false;
+        if (this.settings.hidetopbar.COMPATIBILITY)
+            return this._in_overview;
+        return this._in_overview || Main.overview.visible
+            || this.discovery.main_panel?.has_style_pseudo_class('overview');
     }
 
     /// Connect to windows disable transparency when a window is too close
@@ -288,7 +295,7 @@ export const PanelBlur = class PanelBlur {
         this.connect_to_overview();
         this.connect_to_windows();
 
-        if (this.settings.panel.UNBLUR_IN_OVERVIEW && Main.overview.visible)
+        if (this.is_unblurred_by_overview())
             this.hide();
         else if (!this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY)
             this.show();
@@ -376,10 +383,7 @@ export const PanelBlur = class PanelBlur {
 
     /// Update the visibility of the blur effect
     update_visibility() {
-        if (
-            this.settings.panel.UNBLUR_IN_OVERVIEW &&
-            (this._in_overview || Main.overview.visible || this.discovery.main_panel?.has_style_pseudo_class('overview'))
-        ) {
+        if (this.is_unblurred_by_overview()) {
             this.actors_list.forEach(actors => {
                 actors.widgets.background.hide();
                 this.set_should_override_panel(actors, true);
@@ -470,7 +474,7 @@ export const PanelBlur = class PanelBlur {
     }
 
     panel_hide_blur_startup() {
-        if (this.settings.panel.UNBLUR_IN_OVERVIEW && Main.overview.visible)
+        if (this.is_unblurred_by_overview())
             this.hide();
     }
 
