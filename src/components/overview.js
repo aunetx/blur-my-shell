@@ -116,7 +116,7 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     finish_workspace_switch() {
-        if (this.animation_background_group.get_parent() === Main.uiGroup)
+        if (this.animation_background_group?.get_parent() === Main.uiGroup)
             Main.uiGroup.remove_child(this.animation_background_group);
     }
 
@@ -181,7 +181,7 @@ export const OverviewBlur = class OverviewBlur {
 
     remove_background_actors() {
         this.connections.disconnect_all_for(Main.layoutManager.overviewGroup);
-        if (this.overview_background_group.get_parent())
+        if (this.overview_background_group?.get_parent())
             Main.layoutManager.overviewGroup.remove_child(this.overview_background_group);
 
         this.overview_background_managers.forEach(background_manager =>
@@ -203,18 +203,15 @@ export const OverviewBlur = class OverviewBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log("removing blur from overview");
         this.enabled = false;
         this.finish_workspace_switch();
         this.restore_patched_proto();
 
         this.remove_background_actors();
-        this.overview_background_group.destroy();
+        this.overview_background_group?.destroy();
         this.overview_background_group = null;
-        this.animation_background_group.destroy();
+        this.animation_background_group?.destroy();
         this.animation_background_group = null;
 
         Main.uiGroup.remove_style_class_name("blurred-overview");

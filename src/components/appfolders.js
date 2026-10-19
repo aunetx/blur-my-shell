@@ -286,9 +286,6 @@ export const AppFoldersBlur = class AppFoldersBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log("removing blur from appfolders");
         this.enabled = false;
 

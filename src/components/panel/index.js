@@ -538,11 +538,6 @@ export const PanelBlur = class PanelBlur {
     }
 
     disable() {
-        if (!this.enabled) {
-            this._log("blur already removed");
-            return;
-        }
-
         this._log("removing blur from top panel");
 
         this.disconnect_from_windows_and_overview();
