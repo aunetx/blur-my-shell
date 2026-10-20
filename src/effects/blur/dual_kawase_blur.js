@@ -112,7 +112,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.context = null;
         this.appliedSampling = null;
         this.blurValid = false;
-        this.appliedCornerMask = null;
+        this.appliedOutputUniforms = null;
         this.releaseId = 0;
         this._unscaled_radius = null;
         this._brightness = null;
@@ -229,21 +229,22 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             && (this.corners_top || this.corners_bottom);
     }
 
-    /// The corners are cut out in the output pass, against the surface bounds rather than the
-    /// padded area that is blurred.
-    updateCornerMask(actor, outputBounds, framebuffer) {
+    /// The output pass cuts out the corners against the surface bounds rather than the padded area
+    /// that is blurred, and dithers in the actor's own pixels.
+    updateOutputUniforms(actor, outputBounds, framebuffer) {
         const surface = getEffectBounds(actor);
+        const resourceScale = actor.get_resource_scale();
         const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
         const radius = this.roundsCorners()
             ? Math.min(this.corner_radius * themeScale, surface.width / 2, surface.height / 2)
             : 0;
-        const mask = [
+        const uniforms = [
             radius, this.corners_top, this.corners_bottom,
             outputBounds.width, outputBounds.height, outputBounds.x, outputBounds.y,
             surface.x - outputBounds.x, surface.y - outputBounds.y, surface.width, surface.height,
-            framebuffer?.get_viewport_width(), framebuffer?.get_viewport_height(),
+            framebuffer?.get_viewport_width(), framebuffer?.get_viewport_height(), resourceScale,
         ];
-        if (this.appliedCornerMask?.every((value, index) => value === mask[index]))
+        if (this.appliedOutputUniforms?.every((value, index) => value === uniforms[index]))
             return;
 
         const pipeline = this.outputPipeline;
@@ -258,11 +259,12 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         setFloat(pipeline, 'mask_height', surface.height);
         setFloat(pipeline, 'bms_origin_x', outputBounds.x);
         setFloat(pipeline, 'bms_origin_y', outputBounds.y);
+        setFloat(pipeline, 'bms_resource_scale', resourceScale);
         if (framebuffer) {
             setFloat(pipeline, 'bms_viewport_width', framebuffer.get_viewport_width());
             setFloat(pipeline, 'bms_viewport_height', framebuffer.get_viewport_height());
         }
-        this.appliedCornerMask = mask;
+        this.appliedOutputUniforms = uniforms;
     }
 
     ensureTargets(context, bounds, scale, passes) {
@@ -452,7 +454,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             this.blurValid = true;
         }
 
-        this.updateCornerMask(actor, inputBounds, framebuffer);
+        this.updateOutputUniforms(actor, inputBounds, framebuffer);
         const opacity = actor.get_paint_opacity() / 255;
         const outputColor = new Cogl.Color();
         outputColor.init_from_4f(opacity, opacity, opacity, opacity);
@@ -516,7 +518,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.shrinkableSince = 0;
         this.context = null;
         this.appliedSampling = null;
-        this.appliedCornerMask = null;
+        this.appliedOutputUniforms = null;
         this.blurValid = false;
     }
 
