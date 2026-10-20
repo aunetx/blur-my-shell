@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-18 09:34+0200\n"
-"PO-Revision-Date: 2025-07-15 14:01+0000\n"
-"Last-Translator: Akhil Raj <akhilakae07@gmail.com>\n"
+"PO-Revision-Date: 2026-10-20 16:24+0000\n"
+"Last-Translator: Shadil Rayyan "
+"<shadilrayyan1@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Malayalam <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ml/>\n"
 "Language: ml\n"
@@ -17,15 +18,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "ഡ്യുവൽ കവാസെ ബ്ലർ"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "വേഗതയേറിയതും ഉയർന്ന നിലവാരമുള്ളതുമായ ബ്ലർ."
 
 #: src/effects/blur/info.js:12
 msgid "Radius"
@@ -33,693 +34,729 @@ msgstr "ആരം"
 
 #: src/effects/blur/info.js:13
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "ബ്ലർ ഇഫക്റ്റിന്റെ തീവ്രത."
 
 #: src/effects/blur/info.js:22 src/effects/wave/info.js:78
 msgid "Brightness"
-msgstr ""
+msgstr "തെളിച്ചം"
 
 #: src/effects/blur/info.js:23
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"ബ്ലർ ഇഫക്റ്റിന്റെ തെളിച്ചം; ഉയർന്ന മൂല്യം നൽകിയാൽ വാചകം വായിക്കാൻ ബുദ്ധിമുട്ടായേക്കാം."
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:16
 #: src/effects/color/info.js:42
 msgid "Color"
-msgstr ""
+msgstr "നിറം"
 
 #: src/effects/color/info.js:11
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈനിലേക്ക് ഒരു നിറം മിശ്രണം ചെയ്യുന്ന ഇഫക്റ്റ്."
 
 #: src/effects/color/info.js:17
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"ചേർക്കേണ്ട നിറം. ബ്ലെൻഡിംഗ് അളവ് നിയന്ത്രിക്കുന്നത് നിറത്തിന്റെ അതാര്യതയാണ് (ഒപ്പാസിറ്റി)."
 
 #: src/effects/color/info.js:22
 msgid "Blend mode"
-msgstr ""
+msgstr "ബ്ലെൻഡ് മോഡ്"
 
 #: src/effects/color/info.js:23
 msgid "How the color is blended in."
-msgstr ""
+msgstr "നിറം എങ്ങനെ മിശ്രണം ചെയ്യപ്പെടുന്നു."
 
 #: src/effects/color/info.js:26
 msgid "Normal"
-msgstr ""
+msgstr "സാധാരണ"
 
 #: src/effects/color/info.js:27
 msgid "Multiply"
-msgstr ""
+msgstr "ഗുണിക്കുക (Multiply)"
 
 #: src/effects/color/info.js:28
 msgid "Screen"
-msgstr ""
+msgstr "സ്ക്രീൻ"
 
 #: src/effects/color/info.js:29
 msgid "Overlay"
-msgstr ""
+msgstr "ഓവർലേ"
 
 #: src/effects/color/info.js:30
 msgid "Darken"
-msgstr ""
+msgstr "ഇരുണ്ടതാക്കുക"
 
 #: src/effects/color/info.js:31
 msgid "Lighten"
-msgstr ""
+msgstr "തെളിച്ചമുള്ളതാക്കുക"
 
 #: src/effects/color/info.js:32
 msgid "Plus darker"
-msgstr ""
+msgstr "കൂടുതൽ ഇരുണ്ടത്"
 
 #: src/effects/color/info.js:33
 msgid "Plus lighter"
-msgstr ""
+msgstr "കൂടുതൽ തെളിച്ചമുള്ളത്"
 
 #: src/effects/color/info.js:34
 msgid "Color dodge"
-msgstr ""
+msgstr "കളർ ഡോഡ്ജ്"
 
 #: src/effects/color/info.js:35
 msgid "Color burn"
-msgstr ""
+msgstr "കളർ ബേൺ"
 
 #: src/effects/color/info.js:36
 msgid "Hard light"
-msgstr ""
+msgstr "ഹാർഡ് ലൈറ്റ്"
 
 #: src/effects/color/info.js:37
 msgid "Soft light"
-msgstr ""
+msgstr "സോഫ്റ്റ് ലൈറ്റ്"
 
 #: src/effects/color/info.js:38
 msgid "Difference"
-msgstr ""
+msgstr "വ്യത്യാസം"
 
 #: src/effects/color/info.js:39
 msgid "Exclusion"
-msgstr ""
+msgstr "ഒഴിവാക്കൽ"
 
 #: src/effects/color/info.js:40
 msgid "Hue"
-msgstr ""
+msgstr "നിറവ്യത്യാസം (Hue)"
 
 #: src/effects/color/info.js:41 src/effects/color/info.js:95
 #: src/effects/wave/info.js:68
 msgid "Saturation"
-msgstr ""
+msgstr "സാച്ചുറേഷൻ"
 
 #: src/effects/color/info.js:43 src/effects/color/info.js:50
 msgid "Luminosity"
-msgstr ""
+msgstr "പ്രകാശതീവ്രത (Luminosity)"
 
 #: src/effects/color/info.js:51
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "ചിത്രത്തിന്റെ പ്രകാശതീവ്രതയെ ബാധിക്കുന്ന ഇഫക്റ്റ്."
 
 #: src/effects/color/info.js:55
 msgid "Shift brightness"
-msgstr ""
+msgstr "തെളിച്ചം മാറ്റുക"
 
 #: src/effects/color/info.js:56
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "ചിത്രത്തിലേക്ക് ചേർക്കേണ്ടതോ നീക്കം ചെയ്യേണ്ടതോ ആയ തെളിച്ചം."
 
 #: src/effects/color/info.js:65
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "തെളിച്ച ഗുണകം"
 
 #: src/effects/color/info.js:66
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"ചിത്രത്തിന്റെ തെളിച്ചം വർദ്ധിപ്പിക്കുന്നു; 0 എന്നാൽ കറുപ്പും 1 എന്നാൽ തെളിച്ചം മാറ്റമില്ലാതെ "
+"തുടരുകയും ചെയ്യുന്നു."
 
 #: src/effects/color/info.js:75
 msgid "Contrast"
-msgstr ""
+msgstr "കോൺട്രാസ്റ്റ്"
 
 #: src/effects/color/info.js:76
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
+"തിരഞ്ഞെടുത്ത കോൺട്രാസ്റ്റ് കേന്ദ്രത്തിന് ചുറ്റുമുള്ള ചിത്രത്തിന്റെ കോൺട്രാസ്റ്റ് ക്രമീകരിക്കുന്നു."
 
 #: src/effects/color/info.js:85
 msgid "Contrast center"
-msgstr ""
+msgstr "കോൺട്രാസ്റ്റ് കേന്ദ്രം"
 
 #: src/effects/color/info.js:86
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "ഉപയോഗിക്കേണ്ട കോൺട്രാസ്റ്റിന്റെ കേന്ദ്രം."
 
 #: src/effects/color/info.js:96
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"ചിത്രത്തിന്റെ സാച്ചുറേഷൻ വർദ്ധിപ്പിക്കുന്നു; 0 എല്ലാ നിറങ്ങളും നീക്കം ചെയ്യുന്നു, 1 സാച്ചുറേഷൻ "
+"മാറ്റമില്ലാതെ നിലനിർത്തുന്നു."
 
 #: src/effects/color/info.js:108
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB-യിൽ നിന്ന് HSL-ലേക്ക് (വിപുലമായ ഇഫക്റ്റ്)"
 
 #: src/effects/color/info.js:109
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "ചിത്രത്തെ RGBA കളർ സ്പേസിൽ നിന്ന് HSLA-യിലേക്ക് മാറ്റുന്നു."
 
 #: src/effects/color/info.js:115
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL-ൽ നിന്ന് RGB-യിലേക്ക് (വിപുലമായ ഇഫക്റ്റ്)"
 
 #: src/effects/color/info.js:116
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "ചിത്രത്തെ HSLA കളർ സ്പേസിൽ നിന്ന് RGBA-യിലേക്ക് മാറ്റുന്നു."
 
 #: src/effects/effect_groups.js:4
 msgid "Blur effects"
-msgstr ""
+msgstr "ബ്ലർ ഇഫക്റ്റുകൾ"
 
 #: src/effects/effect_groups.js:10
 msgid "Texture effects"
-msgstr ""
+msgstr "ടെക്സ്ചർ ഇഫക്റ്റുകൾ"
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "ലിക്വിഡ് ഗ്ലാസ്"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"എഡ്ജ് റിഫ്രാക്ഷൻ, റിം ലൈറ്റിംഗ്, ടിന്റ്, ഇന്നർ ഷാഡോ എന്നിവയുള്ള തിളങ്ങുന്ന അർദ്ധസുതാര്യ മെറ്റീരിയൽ."
 
 #: src/effects/refraction/info.js:12
 msgid "Refraction scale"
-msgstr ""
+msgstr "പ്രതിസരണ അളവ് (Refraction scale)"
 
 #: src/effects/refraction/info.js:13
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "സാമ്പിൾ ചെയ്ത ബ്ലർ ടെക്സ്ചറിനെ ഗ്ലാസ് എത്ര ശക്തമായി വളയ്ക്കുന്നു."
 
 #: src/effects/refraction/info.js:22
 msgid "Blur radius"
-msgstr ""
+msgstr "ബ്ലർ ആരം"
 
 #: src/effects/refraction/info.js:23
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr ""
+"ലിക്വിഡ്-ഗ്ലാസ് ഷെയ്ഡർ പ്രയോഗിക്കുന്നതിന് മുമ്പ് സാമ്പിൾ ചെയ്ത പശ്ചാത്തലം ബ്ലർ ചെയ്യുന്നു."
 
 #: src/effects/refraction/info.js:32
 msgid "Bezel width"
-msgstr ""
+msgstr "ബെസൽ വീതി"
 
 #: src/effects/refraction/info.js:33
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "ലിക്വിഡ്-ഗ്ലാസ് ലെൻസ് അരികിൽ നിന്ന് എത്ര ദൂരം അകത്തേക്ക് എത്തുന്നു."
 
 #: src/effects/refraction/info.js:42
 msgid "Rim spread"
-msgstr ""
+msgstr "റിം സ്പ്രെഡ്"
 
 #: src/effects/refraction/info.js:43
 msgid "How far the refraction eases inward from the glass edge."
 msgstr ""
+"ഗ്ലാസ് അരികിൽ നിന്ന് പ്രതിസരണം അകത്തേക്ക് എത്രത്തോളം എളുപ്പത്തിൽ വ്യാപിക്കുന്നു."
 
 #: src/effects/refraction/info.js:52
 msgid "Glass thickness"
-msgstr ""
+msgstr "ഗ്ലാസ് കട്ടി"
 
 #: src/effects/refraction/info.js:53
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "പ്രതിസരണ എഡ്ജ് പ്രൊഫൈൽ ഉപയോഗിക്കുന്ന ആഴം."
 
 #: src/effects/refraction/info.js:62
 msgid "Refraction style"
-msgstr ""
+msgstr "പ്രതിസരണ ശൈലി"
 
 #: src/effects/refraction/info.js:63
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"അരികിന് സമീപമുള്ള വളവിന്റെ ആകൃതി. കുറഞ്ഞ മൂല്യങ്ങൾ മൃദുവായി വളയുന്നു, ഉയർന്ന മൂല്യങ്ങൾ അരികിൽ "
+"തന്നെ കൂടുതൽ მკვรമായി വളയുന്നു."
 
 #: src/effects/refraction/info.js:72
 msgid "Fresnel glare"
-msgstr ""
+msgstr "ഫ്രെനെൽ ഗ്ലെയർ"
 
 #: src/effects/refraction/info.js:73
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "ഗ്ലാസ് അരികിൽ നിന്നുള്ള ഡയറക്ഷണൽ ഫ്രെനെൽ ഗ്ലെയറിന്റെ ശക്തി."
 
 #: src/effects/refraction/info.js:82
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "ഫ്രെനെൽ ഗ്ലെയർ കോൺ"
 
 #: src/effects/refraction/info.js:83
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"ഫ്രെനെൽ ഗ്ലെയറിന്റെ പ്രകാശ ദിശ, ഡിഗ്രിയിൽ (0 മുകളിൽ നിന്നാണ്, പോസിറ്റീവ് ഘടികാരദിശയിൽ "
+"കറങ്ങുന്നു)."
 
 #: src/effects/refraction/info.js:92
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "ഫ്രെനെൽ ഗ്ലെയർ വീതി"
 
 #: src/effects/refraction/info.js:93
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
-msgstr ""
+msgstr "ഗ്ലാസ് അരികിലുള്ള ഫ്രെനെൽ ഗ്ലെയർ റിങ്ങിന്റെ കട്ടി ഗുണകം."
 
 #: src/effects/refraction/info.js:102
 msgid "Specular glare strength"
-msgstr ""
+msgstr "സ്പെക്കുലാർ ഗ്ലെയർ ശക്തി"
 
 #: src/effects/refraction/info.js:103
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr ""
+"പ്രകാശ ദിശ കാണിക്കുന്ന സ്പെക്കുലാർ ഗ്ലെയറിന്റെ ശക്തി (0 ഇത് പ്രവർത്തനരഹിതമാക്കുന്നു)."
 
 #: src/effects/refraction/info.js:112
 msgid "Tint strength"
-msgstr ""
+msgstr "ടിന്റ് ശക്തി"
 
 #: src/effects/refraction/info.js:113
 msgid "Amount of subtle milky glass tint over the blurred texture."
-msgstr ""
+msgstr "ബ്ലർ ചെയ്ത ടെക്സ്ചറിന് മുകളിലുള്ള ചെറിയ മിൽക്കി ഗ്ലാസ് ടിന്റിന്റെ അളവ്."
 
 #: src/effects/refraction/info.js:122
 msgid "Tint color"
-msgstr ""
+msgstr "ടിന്റ് നിറം"
 
 #: src/effects/refraction/info.js:123
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
+"ടിന്റ് ശക്തിയാൽ ഭാരപ്പെടുത്തി, ബ്ലർ ചെയ്ത ടെക്സ്ചറിന് മുകളിൽ മിശ്രണം ചെയ്ത നിറം."
 
 #: src/effects/refraction/info.js:128
 msgid "Backdrop zoom"
-msgstr ""
+msgstr "പശ്ചാത്തല സൂം"
 
 #: src/effects/refraction/info.js:129
 msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
+msgstr "ഗ്ലാസിലൂടെ ദൃശ്യമാകുന്ന പശ്ചാത്തലത്തിന്റെ സൂം ലെവൽ."
 
 #: src/effects/refraction/info.js:138
 msgid "Inner shadow"
-msgstr ""
+msgstr "ഉള്ളിലെ നിഴൽ"
 
 #: src/effects/refraction/info.js:139
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
+"കൂടുതൽ ആഴമുള്ള ഗ്ലാസ് പ്രതലത്തിനായി താഴത്തെയും ഉള്ളിലെയും അരികുകൾ ഇരുണ്ടതാക്കുന്നു."
 
 #: src/effects/refraction/info.js:148
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "ക്രോമാറ്റിക് ഡിസ്പേർഷൻ"
 
 #: src/effects/refraction/info.js:149
 msgid "Physical per-channel refraction dispersion at the glass edge."
-msgstr ""
+msgstr "ഗ്ലാസ് അരികിലെ ഫിസിക്കൽ പെർ-ചാനൽ പ്രതിസരണ ഡിസ്പേർഷൻ."
 
 #: src/effects/refraction/info.js:158
 msgid "Edge behavior"
-msgstr ""
+msgstr "എഡ്ജ് പെരുമാറ്റം"
 
 #: src/effects/refraction/info.js:159
 msgid "How texture coordinates outside the actor are sampled."
 msgstr ""
+"ആക്ടറിന് പുറത്തുള്ള ടെക്സ്ചർ കോർഡിനേറ്റുകൾ എങ്ങനെ സാമ്പിൾ ചെയ്യപ്പെടുന്നു."
 
 #: src/effects/refraction/info.js:162
 msgid "Clamp"
-msgstr ""
+msgstr "ക്ലാമ്പ്"
 
 #: src/effects/refraction/info.js:163
 msgid "Mirror"
-msgstr ""
+msgstr "മിറർ"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
-msgstr ""
+msgstr "പിക്സലൈസ് ചെയ്യുക"
 
 #: src/effects/texture/info.js:12
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "ചിത്രത്തെ പിക്സലുകളാക്കി മാറ്റുന്ന ഇഫക്റ്റ്."
 
 #: src/effects/texture/info.js:16 src/effects/texture/info.js:42
 #: src/effects/texture/info.js:68
 msgid "Factor"
-msgstr ""
+msgstr "ഘടകം (Factor)"
 
 #: src/effects/texture/info.js:17 src/effects/texture/info.js:43
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "ചിത്രം എത്രത്തോളം ചെറുതാക്കണം."
 
 #: src/effects/texture/info.js:24 src/effects/texture/info.js:50
 msgid "Downsampling mode"
-msgstr ""
+msgstr "ഡൗൺസാപ്ലിംഗ് മോഡ്"
 
 #: src/effects/texture/info.js:25 src/effects/texture/info.js:51
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "ഉപയോഗിക്കുന്ന ഡൗൺസാപ്ലിംഗ് രീതി."
 
 #: src/effects/texture/info.js:28 src/effects/texture/info.js:54
 msgid "Boxcar"
-msgstr ""
+msgstr "ബോക്സ്കാർ"
 
 #: src/effects/texture/info.js:29 src/effects/texture/info.js:55
 msgid "Triangular"
-msgstr ""
+msgstr "ത്രികോണാകൃതി"
 
 #: src/effects/texture/info.js:30 src/effects/texture/info.js:56
 msgid "Dirac"
-msgstr ""
+msgstr "ഡിറാക്ക്"
 
 #: src/effects/texture/info.js:37
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "ഡൗൺസ്‌കെയിൽ (വിപുലമായ ഇഫക്റ്റ്)"
 
 #: src/effects/texture/info.js:38
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "ചിത്രം ചെറുതാക്കി മുകളിൽ ഇടത് മൂലയിൽ വെക്കുന്ന ഇഫക്റ്റ്."
 
 #: src/effects/texture/info.js:63
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "അപ്‌സ്‌കെയിൽ (വിപുലമായ ഇഫക്റ്റ്)"
 
 #: src/effects/texture/info.js:64
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "മുകളിൽ ഇടത് മൂലയിൽ നിന്ന് ചിത്രത്തിന്റെ വലിപ്പം കൂട്ടുന്ന ഇഫക്റ്റ്."
 
 #: src/effects/texture/info.js:69
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "ചിത്രത്തിന്റെ വലിപ്പം എത്രത്തോളം കൂട്ടണം."
 
 #: src/effects/texture/info.js:79
 msgid "Derivative"
-msgstr ""
+msgstr "ഡെറിവേറ്റീവ്"
 
 #: src/effects/texture/info.js:80
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "സ്പേഷ്യൽ ഡെറിവേറ്റീവോ ലാപ്ലാസിയനോ പ്രയോഗിക്കുക."
 
 #: src/effects/texture/info.js:84
 msgid "Operation"
-msgstr ""
+msgstr "പ്രവർത്തനം"
 
 #: src/effects/texture/info.js:85
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "പ്രയോഗിക്കേണ്ട ഗണിതശാസ്ത്ര പ്രവർത്തനം."
 
 #: src/effects/texture/info.js:88
 msgid "1-step derivative"
-msgstr ""
+msgstr "1-ഘട്ട ഡെറിവേറ്റീവ്"
 
 #: src/effects/texture/info.js:89
 msgid "2-step derivative"
-msgstr ""
+msgstr "2-ഘട്ട ഡെറിവേറ്റീവ്"
 
 #: src/effects/texture/info.js:90
 msgid "Laplacian"
-msgstr ""
+msgstr "ലാപ്ലാസിയൻ"
 
 #: src/effects/texture/info.js:97 src/effects/texture/info.js:102
 msgid "Noise"
-msgstr ""
+msgstr "ശബ്ദം (Noise)"
 
 #: src/effects/texture/info.js:98
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "ചിത്രത്തിലേക്ക് റാൻഡം ഗ്രെയിൻ ചേർക്കുന്ന ഇഫക്റ്റ്."
 
 #: src/effects/texture/info.js:103
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "ചേർക്കേണ്ട നോയ്സിന്റെ അളവ്."
 
 #: src/effects/texture/info.js:112
 msgid "Lightness"
-msgstr ""
+msgstr "വെളിച്ചം"
 
 #: src/effects/texture/info.js:113
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"നോയ്സിന്റെ പ്രകാശതീവ്രത. '1.0' ആയി സജ്ജമാക്കുന്നത് ഇഫക്റ്റ് സുതാര്യമാക്കും."
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "വേപ്പർ വേവ്"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
 msgstr ""
+"സ്വാഭാവിക ചലനത്തോടുകൂടിയ സജീവവും ഡൈനാമിക്കുമായ അനുഭവത്തിനായി ഒഴുകുന്ന തരംഗ സ്ഥാനഭ്രംശം."
 
 #: src/effects/wave/info.js:12
 msgid "Wave frequency"
-msgstr ""
+msgstr "തരംഗ ആവൃത്തി"
 
 #: src/effects/wave/info.js:13
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "അലകൾ എത്രത്തോളം അടുപ്പത്തിരിക്കുന്നു."
 
 #: src/effects/wave/info.js:22
 msgid "Wave amplitude"
-msgstr ""
+msgstr "തരംഗ വ്യാപ്തി"
 
 #: src/effects/wave/info.js:23
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "തരംഗങ്ങൾ കാരണം ചിത്രം എത്ര ശക്തമായി സ്ഥാനഭ്രംശം സംഭവിക്കുന്നു."
 
 #: src/effects/wave/info.js:32
 msgid "Wave octaves"
-msgstr ""
+msgstr "വേവ് ഒക്ടേവ്സ്"
 
 #: src/effects/wave/info.js:33
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"തരംഗ ആകൃതിയുടെ വിശദാംശ നിലവാരം. ഉയർന്ന മൂല്യം പെർഫോമൻസിനെ ബാധിച്ചുകൊണ്ട് കൂടുതൽ വിശദാംശങ്ങൾ "
+"നൽകുന്നു."
 
 #: src/effects/wave/info.js:40
 msgid "Vapor octaves"
-msgstr ""
+msgstr "വേപ്പർ ഒക്ടേവ്സ്"
 
 #: src/effects/wave/info.js:41
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"മൂടൽമഞ്ഞ് പോലുള്ള ടെക്സ്ചറിന്റെ വിശദാംശ നിലവാരം. ഉയർന്ന മൂല്യം പെർഫോമൻസിനെ ബാധിച്ചുകൊണ്ട് കൂടുതൽ "
+"വിശദാംശങ്ങൾ നൽകുന്നു."
 
 #: src/effects/wave/info.js:48
 msgid "Vapor speed"
-msgstr ""
+msgstr "വേപ്പർ വേഗത"
 
 #: src/effects/wave/info.js:49
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "മൂടൽമഞ്ഞ് ടെക്സ്ചർ കാലക്രമേണ എത്ര വേഗത്തിൽ നീങ്ങുന്നു."
 
 #: src/effects/wave/info.js:58
 msgid "Texture grain"
-msgstr ""
+msgstr "ടെക്സ്ചർ ഗ്രെയിൻ"
 
 #: src/effects/wave/info.js:59
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "ചിത്രത്തിലേക്ക് മണൽ വാരിയതുപോലെയുള്ള ഒരു സൂക്ഷ്മ ടെക്സ്ചർ ചേർക്കുന്നു."
 
 #: src/effects/wave/info.js:69
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "ഇഫക്റ്റിന്റെ സാച്ചുറേഷൻ."
 
 #: src/effects/wave/info.js:79
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "ഇഫക്റ്റിന്റെ തെളിച്ചം."
 
 #: src/effects/wave/info.js:88
 msgid "Zoom"
-msgstr ""
+msgstr "സൂം"
 
 #: src/effects/wave/info.js:89
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "പ്രതലത്തിന്റെ മധ്യഭാഗത്തേക്ക് പശ്ചാത്തലം വലുതാക്കുന്നു."
 
 #: src/effects/wave/info.js:98
 msgid "Dispersion"
-msgstr ""
+msgstr "ഡിസ്പേർഷൻ"
 
 #: src/effects/wave/info.js:99
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "ഒരു ഗ്ലിച്ച് അനുഭൂതിക്കായി ക്രോമാറ്റിക് ആബറേഷൻ ശക്തി."
 
 #: src/effects/wave/info.js:108
 msgid "Enable flow animation"
-msgstr ""
+msgstr "ഫ്ലോ ആനിമേഷൻ പ്രവർത്തനക്ഷമമാക്കുക"
 
 #: src/effects/wave/info.js:109
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "തരംഗ ശബ്ദം കാലക്രമേണ തുടർച്ചയായി ഒഴുകുന്നുണ്ടോ എന്നത്."
 
 #: src/effects/wave/info.js:113
 msgid "Flow animation speed"
-msgstr ""
+msgstr "ഫ്ലോ ആനിമേഷൻ വേഗത"
 
 #: src/effects/wave/info.js:114
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "തരംഗ മാതൃക ഒഴുകുന്ന അടിസ്ഥാന വേഗത."
 
 #: src/effects/wave/info.js:123
 msgid "Resize ease duration"
-msgstr ""
+msgstr "വലിപ്പം മാറ്റുന്നതിനുള്ള സമയദൈർഘ്യം"
 
 #: src/effects/wave/info.js:124
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"ഒരു ജാലകത്തിന്റെ വലിപ്പം മാറുമ്പോൾ ഇഫക്റ്റ് ക്രമീകരിക്കാൻ എടുക്കുന്ന സമയം (മില്ലിസെക്കൻഡിൽ)."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
-msgstr ""
+msgstr "ജാലകത്തിന്റെ പേര്"
 
 #: resources/ui/application-row.ui:8
 msgid "Select window"
-msgstr ""
+msgstr "ജാലകം തിരഞ്ഞെടുക്കുക"
 
 #: resources/ui/application-row.ui:9
 msgid "Pick a window or select it by its classname."
 msgstr ""
+"ഒരു ജാലകം തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ അതിന്റെ ക്ലാസ് നെയിം വഴി തിരഞ്ഞെടുക്കുക."
 
 #: resources/ui/application-row.ui:41
 msgid "Window selection failed. Make sure the extension is enabled."
 msgstr ""
+"ജാലകം തിരഞ്ഞെടുക്കൽ പരാജയപ്പെട്ടു. എക്സ്റ്റൻഷൻ പ്രവർത്തനക്ഷമമാണെന്ന് ഉറപ്പാക്കുക."
 
 #: resources/ui/application-row.ui:45
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "തിരഞ്ഞെടുത്ത ഘടകം ഒരു ജാലകമല്ല."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "ആപ്ലിക്കേഷനുകൾ"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
-msgstr ""
+msgstr "ആപ്ലിക്കേഷനുകൾ ബ്ലർ ചെയ്യുക"
 
 #: resources/ui/applications.ui:11
 msgid "Adds blur to applications."
-msgstr ""
+msgstr "ആപ്ലിക്കേഷനുകളിലേക്ക് ബ്ലർ ചേർക്കുന്നു."
 
 #: resources/ui/applications.ui:20 resources/ui/dash.ui:20
 #: resources/ui/panel.ui:20 resources/ui/popup.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "ബ്ലർ തരം"
 
 #: resources/ui/applications.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
 msgstr ""
+"സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ ജാലകങ്ങൾക്ക് പിന്നിലെ തത്സമയ ഉള്ളടക്കം "
+"സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
 #: resources/ui/applications.ui:41 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41 resources/ui/popup.ui:41
 msgid "Static"
-msgstr ""
+msgstr "സ്റ്റാറ്റിക്"
 
 #: resources/ui/applications.ui:53 resources/ui/dash.ui:53
 #: resources/ui/panel.ui:53 resources/ui/popup.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "ഡൈനാമിക്"
 
 #: resources/ui/applications.ui:71 resources/ui/panel.ui:71
 #: resources/ui/popup.ui:71
 msgid "Corner radius"
-msgstr ""
+msgstr "കോർണർ ആരം"
 
 #: resources/ui/applications.ui:72 resources/ui/panel.ui:72
 msgid "Radius for the corner rounding effect."
-msgstr ""
+msgstr "കോർണർ വട്ടത്തിലാക്കുന്ന ഇഫക്റ്റിനുള്ള ആരം."
 
 #: resources/ui/applications.ui:80 resources/ui/panel.ui:80
 #: resources/ui/popup.ui:161
 msgid "Rounded corners"
-msgstr ""
+msgstr "വട്ടത്തിലുള്ള കോർണറുകൾ"
 
 #: resources/ui/applications.ui:85 resources/ui/panel.ui:85
 #: resources/ui/popup.ui:166
 msgid "All"
-msgstr ""
+msgstr "എല്ലാം"
 
 #: resources/ui/applications.ui:86 resources/ui/panel.ui:86
 #: resources/ui/popup.ui:167
 msgid "Top only"
-msgstr ""
+msgstr "മുകളിൽ മാത്രം"
 
 #: resources/ui/applications.ui:87 resources/ui/panel.ui:87
 #: resources/ui/popup.ui:168
 msgid "Bottom only"
-msgstr ""
+msgstr "താഴെ മാത്രം"
 
 #: resources/ui/applications.ui:88 resources/ui/panel.ui:88
 #: resources/ui/popup.ui:169
 msgid "None"
-msgstr ""
+msgstr "ഒന്നുമില്ല"
 
 #: resources/ui/applications.ui:97
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "വലുതാക്കിയതും ഫുൾസ്ക്രീൻ ആയതുമായ ജാലകങ്ങൾ വട്ടത്തിലാക്കുക"
 
 #: resources/ui/applications.ui:98
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
 msgstr ""
+"വലുതാക്കിയതും ഫുൾസ്ക്രീൻ ആയതുമായ ജാലകങ്ങളിലും കോർണർ വട്ടത്തിലാക്കുന്ന ഇഫക്റ്റ് തുടർച്ചയായി "
+"പ്രയോഗിക്കപ്പെടും."
 
 #: resources/ui/applications.ui:112
 msgid "Opacity"
-msgstr ""
+msgstr "അടരുകൾ/ഒപ്പാസിറ്റി"
 
 #: resources/ui/applications.ui:113
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
+"ബ്ലർ ഇഫക്റ്റിന് മുകളിലുള്ള ജാലകത്തിന്റെ ഒപ്പാസിറ്റി, ഉയർന്ന മൂല്യം കൂടുതൽ വ്യക്തത നൽകും."
 
 #: resources/ui/applications.ui:134
 msgid "Opaque focused window"
-msgstr ""
+msgstr "ഫോക്കസ് ചെയ്ത ജാലകം അതാര്യമാക്കുക (Opaque)"
 
 #: resources/ui/applications.ui:135
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
+"ഫോക്കസ് ചെയ്ത ജാലകം അതാര്യവും മറ്റുള്ളവ ബ്ലർ ചെയ്തതുമാക്കി മാറ്റുന്നു, ഇത് വായിക്കാൻ എളുപ്പമാക്കുന്നു."
 
 #: resources/ui/applications.ui:149
 msgid "Blur on overview"
-msgstr ""
+msgstr "ഓവർവ്യൂവിൽ ബ്ലർ ചെയ്യുക"
 
 #: resources/ui/applications.ui:150
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
+"ഓവർവ്യൂവിലെ എല്ലാ വർക്ക്‌സ്‌പെയ്‌സുകളിലും ബ്ലർ ശരിയായി കാണിക്കാൻ ഇത് നിർബന്ധമാക്കുന്നു.\n"
+"ഇത് ചെറിയ ലേറ്റൻസിയോ പെർഫോമൻസ് പ്രശ്നങ്ങളോ ഉണ്ടാക്കിയേക്കാം."
 
 #: resources/ui/applications.ui:165
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "ഫുൾസ്ക്രീൻ ചെയ്യുമ്പോൾ ബ്ലർ ഒഴിവാക്കുക"
 
 #: resources/ui/applications.ui:166
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr ""
+"ഒരു ജാലകം ഫുൾസ്ക്രീൻ മോഡിലായിരിക്കുമ്പോൾ ബ്ലർ നീക്കം ചെയ്യാൻ നിർബന്ധമാക്കുന്നു."
 
 #: resources/ui/applications.ui:180
 msgid "Enable all by default"
-msgstr ""
+msgstr "സ്ഥിരസ്ഥിതിയായി എല്ലാം പ്രവർത്തനക്ഷമമാക്കുക"
 
 #: resources/ui/applications.ui:181
 msgid "Adds blur behind all windows by default."
-msgstr ""
+msgstr "സ്ഥിരസ്ഥിതിയായി എല്ലാ ജാലകങ്ങൾക്ക് പിന്നിലും ബ്ലർ ചേർക്കുന്നു."
 
 #: resources/ui/applications.ui:197
 msgid "Whitelist"
-msgstr ""
+msgstr "വൈറ്റ്‌ലിസ്റ്റ്"
 
 #: resources/ui/applications.ui:198
 msgid ""
@@ -727,14 +764,17 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"ബ്ലർ ചെയ്യേണ്ട ജാലകങ്ങളുടെ പട്ടിക.\n"
+"ഏതെങ്കിലും അക്ഷരങ്ങളെ പൊരുത്തപ്പെടുത്താൻ * ഉം (ഉദാഹരണത്തിന്, Firefox* അല്ലെങ്കിൽ *Code*), "
+"ഒരെണ്ണത്തിന് ? ഉം ഉപയോഗിക്കുക."
 
 #: resources/ui/applications.ui:217 resources/ui/applications.ui:255
 msgid "Add Window"
-msgstr ""
+msgstr "ജാലകം ചേർക്കുക"
 
 #: resources/ui/applications.ui:235
 msgid "Blacklist"
-msgstr ""
+msgstr "ബ്ലാക്ക്‌ലിസ്റ്റ്"
 
 #: resources/ui/applications.ui:236
 msgid ""
@@ -742,240 +782,259 @@ msgid ""
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
+"ബ്ലർ ചെയ്യാത്ത ജാലകങ്ങളുടെ പട്ടിക.\n"
+"ഏതെങ്കിലും അക്ഷരങ്ങളെ പൊരുത്തപ്പെടുത്താൻ * ഉം (ഉദാഹരണത്തിന്, Firefox* അല്ലെങ്കിൽ *Code*), "
+"ഒരെണ്ണത്തിന് ? ഉം ഉപയോഗിക്കുക."
 
 #: resources/ui/dash.ui:5
 msgid "Dash"
-msgstr ""
+msgstr "ഡാഷ്"
 
 #: resources/ui/dash.ui:10
 msgid "Dock blur"
-msgstr ""
+msgstr "ഡോക്ക് ബ്ലർ"
 
 #: resources/ui/dash.ui:11
 msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
+"Dash to Dock, Dhruva, Simple Taskbar എന്നിവയുൾപ്പെടെയുള്ള പിന്തുണയ്ക്കുന്ന ഡോക്കുകളുടെ "
+"പശ്ചാത്തലം ബ്ലർ ചെയ്യുക."
 
 #: resources/ui/dash.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
 msgstr ""
+"സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ ഡാഷിന് പിന്നിലെ തത്സമയ ഉള്ളടക്കം സാമ്പിൾ "
+"ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
 #: resources/ui/dash.ui:71 resources/ui/panel.ui:112 resources/ui/popup.ui:180
 msgid "Override background"
-msgstr ""
+msgstr "പശ്ചാത്തലം മാറ്റിയെഴുതുക (Override background)"
 
 #: resources/ui/dash.ui:72
 msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
+"ഡോക്ക് പശ്ചാത്തലം സുതാര്യമായോ അർദ്ധസുതാര്യമായോ മാറ്റുന്നു. ഡോക്ക് എക്സ്റ്റൻഷന്റെ സ്വന്തം രൂപം ഉപയോഗിക്കാൻ "
+"ഇത് പ്രവർത്തനരഹിതമാക്കുക."
 
 #: resources/ui/dash.ui:78 resources/ui/panel.ui:120 resources/ui/popup.ui:201
 msgid "Background style"
-msgstr ""
+msgstr "പശ്ചാത്തല ശൈലി"
 
 #: resources/ui/dash.ui:79
 msgid "The transparent/semi-transparent style for the dock background."
-msgstr ""
+msgstr "ഡോക്ക് പശ്ചാത്തലത്തിനായുള്ള സുതാര്യ/അർദ്ധസുതാര്യ ശൈലി."
 
 #: resources/ui/dash.ui:95 resources/ui/panel.ui:197
 msgid "Disable in overview"
-msgstr ""
+msgstr "ഓവർവ്യൂവിൽ പ്രവർത്തനരഹിതമാക്കുക"
 
 #: resources/ui/dash.ui:96
 msgid "Disables dock blur when entering the overview."
-msgstr ""
+msgstr "ഓവർവ്യൂവിലേക്ക് പ്രവേശിക്കുമ്പോൾ ഡോക്ക് ബ്ലർ പ്രവർത്തനരഹിതമാക്കുന്നു."
 
 #: resources/ui/dash.ui:113 resources/ui/overview.ui:82
 #: resources/ui/overview.ui:90 resources/ui/panel.ui:252
 #: resources/ui/popup.ui:293
 msgid "Transparent"
-msgstr ""
+msgstr "സുതാര്യം (Transparent)"
 
 #: resources/ui/dash.ui:114 resources/ui/overview.ui:80
 #: resources/ui/overview.ui:91 resources/ui/panel.ui:253
 #: resources/ui/popup.ui:294
 msgid "Light"
-msgstr ""
+msgstr "വെളിച്ചമുള്ളത് (Light)"
 
 #: resources/ui/dash.ui:115 resources/ui/overview.ui:81
 #: resources/ui/overview.ui:92 resources/ui/panel.ui:254
 #: resources/ui/popup.ui:295
 msgid "Dark"
-msgstr ""
+msgstr "ഇരുണ്ടത് (Dark)"
 
 #: resources/ui/dash.ui:116 resources/ui/overview.ui:83
 #: resources/ui/overview.ui:93 resources/ui/panel.ui:256
 #: resources/ui/popup.ui:296
 msgid "Automatic"
-msgstr ""
+msgstr "ഓട്ടോമാറ്റിക്"
 
 #: resources/ui/effects-dialog.ui:4
 #: src/preferences/widgets/effects_dialog.js:46
 msgid "Effects"
-msgstr ""
+msgstr "ഇഫക്റ്റുകൾ"
 
 #: resources/ui/effects-dialog.ui:13
 msgid "Effects list"
-msgstr ""
+msgstr "ഇഫക്റ്റുകളുടെ പട്ടിക"
 
 #: resources/ui/effects-dialog.ui:14
 msgid "The top effect is applied first."
-msgstr ""
+msgstr "ഏറ്റവും മുകളിലുള്ള ഇഫക്റ്റ് ആദ്യം പ്രയോഗിക്കപ്പെടുന്നു."
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr ""
+msgstr "ഇഫക്റ്റ് ചേർക്കുക"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
-msgstr ""
+msgstr "വിപുലമായ ഇഫക്റ്റുകൾ ഉൾപ്പെടുത്തുക"
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "പ്രോജക്റ്റ് പേജ്"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "ഒരു ബഗ് റിപ്പോർട്ട് ചെയ്യുക"
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "ലൈസൻസ്"
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
-msgstr ""
+msgstr "സംഭാവന ചെയ്യുക"
 
 #: resources/ui/other.ui:5
 msgid "Other"
-msgstr ""
+msgstr "മറ്റുളളവ"
 
 #: resources/ui/other.ui:10
 msgid "Lockscreen blur"
-msgstr ""
+msgstr "ലോക്ക്സ്ക്രീൻ ബ്ലർ"
 
 #: resources/ui/other.ui:11
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
+"ഈ എക്സ്റ്റൻഷന്റെ മുൻഗണനകൾ ഉപയോഗിക്കുന്നതിനായി ലോക്ക്സ്ക്രീനിന്റെ ബ്ലർ മാറ്റുക."
 
 #: resources/ui/other.ui:28
 msgid "Screenshot blur"
-msgstr ""
+msgstr "സ്ക്രീൻഷോട്ട് ബ്ലർ"
 
 #: resources/ui/other.ui:29
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr ""
+msgstr "സ്ക്രീൻഷോട്ട് യുഐയിലെ ജാലക സെലക്ടറിന്റെ പശ്ചാത്തലത്തിൽ ബ്ലർ ചേർക്കുക."
 
 #: resources/ui/other.ui:46
 msgid "Window list extension blur"
-msgstr ""
+msgstr "വിൻഡോ ലിസ്റ്റ് എക്സ്റ്റൻഷൻ ബ്ലർ"
 
 #: resources/ui/other.ui:47
 msgid "Make the window-list extension blurred, if it is used."
-msgstr ""
+msgstr "വിൻഡോ-ലിസ്റ്റ് എക്സ്റ്റൻഷൻ ഉപയോഗിക്കുന്നുണ്ടെങ്കിൽ അത് ബ്ലർ ചെയ്യുക."
 
 #: resources/ui/other.ui:64
 msgid "Coverflow Alt-Tab extension blur"
-msgstr ""
+msgstr "Coverflow Alt-Tab എക്സ്റ്റൻഷൻ ബ്ലർ"
 
 #: resources/ui/other.ui:65
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
 msgstr ""
+"കവർഫ്ലോ ആൾട്ട്-ടാബ് എക്സ്റ്റൻഷൻ ഉപയോഗിക്കുന്നുണ്ടെങ്കിൽ അത് ബ്ലർ ചെയ്യുക."
 
 #: resources/ui/other.ui:82
 msgid "Debug"
-msgstr ""
+msgstr "ഡീബഗ്"
 
 #: resources/ui/other.ui:83
 msgid ""
 "Makes the extension verbose in logs, activate when you need to report an "
 "issue."
 msgstr ""
+"ലോഗുകളിൽ കൂടുതൽ വിവരങ്ങൾ നൽകാൻ എക്സ്റ്റൻഷനെ പ്രാപ്തമാക്കുന്നു, ഒരു പ്രശ്നം റിപ്പോർട്ട് "
+"ചെയ്യേണ്ടിവരുമ്പോൾ ഇത് സജീവമാക്കുക."
 
 #: resources/ui/other.ui:95
 msgid "Reset preferences"
-msgstr ""
+msgstr "മുൻഗണനകൾ റീസെറ്റ് ചെയ്യുക"
 
 #: resources/ui/other.ui:96
 msgid "Restore all Blur my Shell preferences to their defaults."
 msgstr ""
+"Blur my Shell-ന്റെ എല്ലാ മുൻഗണനകളും അവയുടെ സ്ഥിരസ്ഥിതികളിലേക്ക് പുനഃസ്ഥാപിക്കുക."
 
 #: resources/ui/other.ui:115 src/preferences/pages/other.js:83
 msgid "Reset"
-msgstr ""
+msgstr "റീസെറ്റ്"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "ഓവർവ്യൂ"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
-msgstr ""
+msgstr "പശ്ചാത്തല ബ്ലർ"
 
 #: resources/ui/overview.ui:11
 msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr ""
+msgstr "വാൾപേപ്പർ ചിത്രം ഉപയോഗിച്ച് ഓവർവ്യൂ പശ്ചാത്തലത്തിൽ ബ്ലർ ചേർക്കുക."
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "ഓവർവ്യൂ ഘടകങ്ങളുടെ ശൈലി"
 
 #: resources/ui/overview.ui:27
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr ""
+"ഡാഷ്, സെർച്ച് എൻട്രി/ഫലങ്ങൾ, ആപ്ലിക്കേഷൻ ഫോൾഡറുകൾ എന്നിവയ്ക്കുള്ള അർദ്ധസുതാര്യ ശൈലി."
 
 #: resources/ui/overview.ui:44
 msgid "Application folder blur"
-msgstr ""
+msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ബ്ലർ"
 
 #: resources/ui/overview.ui:45
 msgid "Makes the background of application folder dialogs blurred."
-msgstr ""
+msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ഡയലോഗുകളുടെ പശ്ചാത്തലം ബ്ലർ ചെയ്തതാക്കുന്നു."
 
 #: resources/ui/overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ഡയലോഗുകളുടെ ശൈലി"
 
 #: resources/ui/overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
-msgstr ""
+msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ഡയലോഗുകൾക്കായുള്ള അർദ്ധസുതാര്യ ശൈലി."
 
 #: resources/ui/overview.ui:79 resources/ui/overview.ui:89
 msgid "Do not style"
-msgstr ""
+msgstr "ശൈലി മാറ്റരുത്"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "പാാനൽ"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
-msgstr ""
+msgstr "പാനൽ ബ്ലർ"
 
 #: resources/ui/panel.ui:11
 msgid "Add blur to the top panel."
-msgstr ""
+msgstr "മുകളിലെ പാനലിലേക്ക് ബ്ലർ ചേർക്കുക."
 
 #: resources/ui/panel.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
 msgstr ""
+"സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ പാനലിന് പിന്നിലെ തത്സമയ ഉള്ളടക്കം "
+"സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
 #: resources/ui/panel.ui:97
 msgid "Force light text"
-msgstr ""
+msgstr "വെളിച്ചമുള്ള വാചകം നിർബന്ധമാക്കുക (Light text)"
 
 #: resources/ui/panel.ui:98
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
+"ഗ്നോം-ഷെല്ലിന്റെ ലൈറ്റ് തീം ഉപയോഗിക്കുമ്പോൾ സഹായകരമായ രീതിയിൽ പാനലിനായി ലൈറ്റ് വാചകം "
+"ഉപയോഗിക്കുക."
 
 #: resources/ui/panel.ui:113
 msgid ""
@@ -983,22 +1042,24 @@ msgid ""
 "transparent one.\n"
 "Recommended unless you want to customize your GNOME theme."
 msgstr ""
+"സുതാര്യമായതോ അർദ്ധസുതാര്യമായതോ ആയ പശ്ചാത്തലം ഉപയോഗിക്കുന്നതിനായി പാനലിന്റെ പശ്ചാത്തലം മാറ്റിയെഴുതുക.\n"
+"നിങ്ങളുടെ ഗ്നോം തീം ഇഷ്ടാനുസൃതമാക്കാൻ ആഗ്രഹിക്കുന്നില്ലെങ്കിൽ ഇത് ശുപാർശ ചെയ്യുന്നു."
 
 #: resources/ui/panel.ui:121
 msgid "The transparent/semi-transparent style for the panel background."
-msgstr ""
+msgstr "പാനൽ പശ്ചാത്തലത്തിനായുള്ള സുതാര്യ/അർദ്ധസുതാര്യ ശൈലി."
 
 #: resources/ui/panel.ui:135
 msgid "Override background dynamically"
-msgstr ""
+msgstr "പശ്ചാത്തലം ഡൈനാമിക് ആയി മാറ്റിയെഴുതുക"
 
 #: resources/ui/panel.ui:136
 msgid "Change the panel background when a window is near it."
-msgstr ""
+msgstr "ഒരു ജാലകം സമീപത്തുള്ളപ്പോൾ പാനൽ പശ്ചാത്തലം മാറ്റുക."
 
 #: resources/ui/panel.ui:149
 msgid "When a window is near"
-msgstr ""
+msgstr "ഒരു ജാലകം സമീപത്തായിരിക്കുമ്പോൾ"
 
 #: resources/ui/panel.ui:150
 msgid ""
@@ -1007,236 +1068,260 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"വിൻഡോ സാമീപ്യത്തിൽ ബ്ലർ: ജാലകം പാനലിനടുത്തുള്ളപ്പോൾ മാത്രം ബ്ലർ ചെയ്യുക, അല്ലാത്തപ്പോൾ "
+"സുതാര്യമായിരിക്കും.\n"
+"വിൻഡോ സാമീപ്യത്തിൽ പശ്ചാത്തലം: ജാലകം പാനലിനടുത്തുള്ളപ്പോൾ സോളിഡ് കളർ പശ്ചാത്തലവും അല്ലാത്തപ്പോൾ "
+"ബ്ലറും ആയിരിക്കും."
 
 #: resources/ui/panel.ui:165
 msgid "Gradient background"
-msgstr ""
+msgstr "ഗ്രേഡിയന്റ് പശ്ചാത്തലം"
 
 #: resources/ui/panel.ui:166
 msgid "Apply a gradient effect to the panel background."
-msgstr ""
+msgstr "പാനൽ പശ്ചാത്തലത്തിൽ ഒരു ഗ്രേഡിയന്റ് ഇഫക്റ്റ് പ്രയോഗിക്കുക."
 
 #: resources/ui/panel.ui:179
 msgid "Gradient direction"
-msgstr ""
+msgstr "ഗ്രേഡിയന്റ് ദിശ"
 
 #: resources/ui/panel.ui:180
 msgid "Change the direction of the gradient background."
-msgstr ""
+msgstr "ഗ്രേഡിയന്റ് പശ്ചാത്തലത്തിന്റെ ദിശ മാറ്റുക."
 
 #: resources/ui/panel.ui:198
 msgid "Disables the blur from the panel when entering the overview."
 msgstr ""
+"ഓവർവ്യൂവിലേക്ക് പ്രവേശിക്കുമ്പോൾ പാനലിൽ നിന്നുള്ള ബ്ലർ പ്രവർത്തനരഹിതമാക്കുന്നു."
 
 #: resources/ui/panel.ui:214
 msgid "Compatibility"
-msgstr ""
+msgstr "അനുയോജ്യത (Compatibility)"
 
 #: resources/ui/panel.ui:215
 msgid "Various options to provide compatibility with other extensions."
-msgstr ""
+msgstr "മറ്റ് എക്സ്റ്റൻഷനുകളുമായി അനുയോജ്യത ഉറപ്പാക്കാനുള്ള വിവിധ ഓപ്ഷനുകൾ."
 
 #: resources/ui/panel.ui:220
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Hidetopbar എക്സ്റ്റൻഷൻ"
 
 #: resources/ui/panel.ui:221
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
+"ഓവർവ്യൂവിൽ ബ്ലർ ദൃശ്യമായി നിലനിർത്തുന്നു; സ്റ്റാറ്റിക് ബ്ലറിനൊപ്പം ഉപയോഗിക്കുന്നതാണ് ഏറ്റവും നല്ലത്."
 
 #: resources/ui/panel.ui:235
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Dash to Panel ഉപയോഗിച്ച് യഥാർത്ഥ പാനൽ ബ്ലർ ചെയ്യുക"
 
 #: resources/ui/panel.ui:236
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
+"എക്സ്റ്റൻഷൻ ഓപ്ഷനുകളിൽ തിരഞ്ഞെടുത്തിട്ടുണ്ടെങ്കിൽ, Dash to Panel ഉപയോഗിച്ച് ഒറിജിനൽ പാനൽ "
+"ബ്ലർ ചെയ്യുന്നത് പ്രവർത്തനക്ഷമമാക്കുന്നു."
 
 #: resources/ui/panel.ui:255
 msgid "Contrasted"
-msgstr ""
+msgstr "കോൺട്രാസ്റ്റ് ചെയ്തത്"
 
 #: resources/ui/panel.ui:262
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "വിൻഡോ സാമീപ്യത്തിൽ ബ്ലർ"
 
 #: resources/ui/panel.ui:263
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "വിൻഡോ സാമീപ്യത്തിൽ പശ്ചാത്തലം"
 
 #: resources/ui/panel.ui:269
 msgid "Top"
-msgstr ""
+msgstr "മുകളിൽ"
 
 #: resources/ui/panel.ui:270
 msgid "Bottom"
-msgstr ""
+msgstr "താഴെ"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈൻ"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
-msgstr ""
+msgstr "ഈ ഘടകത്തിനൊപ്പം ഉപയോഗിക്കേണ്ട പൈപ്പ്‌ലൈൻ."
 
 #: resources/ui/pipeline-group.ui:6
 msgid "Pipeline name"
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈൻ പേര്"
 
 #: resources/ui/pipeline-group.ui:20
 msgid "Manage effects"
-msgstr ""
+msgstr "ഇഫക്റ്റുകൾ കൈകാര്യം ചെയ്യുക"
 
 #: resources/ui/pipeline-undo-toast.ui:28
 msgid "Undo"
-msgstr ""
+msgstr "തിരസ്കരിക്കുക (Undo)"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈനുകൾ"
 
 #: resources/ui/pipelines.ui:16
 msgid ""
 "Each component uses a pipeline, which can be chosen in the corresponding "
 "tab. Here you can create, modify and delete the pipelines and their effects."
 msgstr ""
+"ഓരോ ഘടകവും ഒരു പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു, അത് അനുയോജ്യമായ ടാബിൽ നിന്ന് തിരഞ്ഞെടുക്കാം. ഇവിടെ "
+"നിങ്ങൾക്ക് പൈപ്പ്‌ലൈനുകളും അവയുടെ ഇഫക്റ്റുകളും നിർമ്മിക്കാനും പരിഷ്‌ക്കരിക്കാനും ഇല്ലാതാക്കാനും കഴിയും."
 
 #: resources/ui/pipelines.ui:35
 msgid "Add Pipeline"
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈൻ ചേർക്കുക"
 
 #: resources/ui/popup.ui:5
 msgid "Popups"
-msgstr ""
+msgstr "പോപ്പ്അപ്പുകൾ"
 
 #: resources/ui/popup.ui:10
 msgid "Popup blur"
-msgstr ""
+msgstr "പോപ്പ്അപ്പ് ബ്ലർ"
 
 #: resources/ui/popup.ui:11
 msgid ""
 "Add blur to GNOME Shell menus, the calendar and notifications popup, "
 "notification banners, OSD popups, and dialogs."
 msgstr ""
+"ഗ്നോം ഷെൽ മെനുകൾ, കലണ്ടർ, അറിയിപ്പുകളുടെ പോപ്പ്അപ്പ്, അറിയിപ്പ് ബാനറുകൾ, ഒഎസ്‌ഡി പോപ്പ്അപ്പുകൾ, "
+"ഡയലോഗുകൾ എന്നിവയിലേക്ക് ബ്ലർ ചേർക്കുക."
 
 #: resources/ui/popup.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
 msgstr ""
+"സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ പോപ്പ്അപ്പുകൾക്ക് പിന്നിലെ തത്സമയ "
+"ഉള്ളടക്കം സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
 #: resources/ui/popup.ui:72
 msgid "Adjust the rounded corners for each popup surface."
-msgstr ""
+msgstr "ഓരോ പോപ്പ്അപ്പ് പ്രതലത്തിനും വട്ടത്തിലുള്ള കോർണറുകൾ ക്രമീകരിക്കുക."
 
 #: resources/ui/popup.ui:77
 msgid "Menus"
-msgstr ""
+msgstr "മെനുകൾ"
 
 #: resources/ui/popup.ui:84
 msgid "Input method candidates"
-msgstr ""
+msgstr "ഇൻപുട്ട് രീതി നിർദ്ദേശങ്ങൾ"
 
 #: resources/ui/popup.ui:91
 msgid "Quick settings"
-msgstr ""
+msgstr "പെട്ടെന്നുള്ള ക്രമീകരണങ്ങൾ (Quick settings)"
 
 #: resources/ui/popup.ui:98
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "ക്വിക്ക് സെറ്റിംഗ്സ് സബ്‌മെനുകൾ"
 
 #: resources/ui/popup.ui:105
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "കലണ്ടറും അറിയിപ്പ് കേന്ദ്രവും"
 
 #: resources/ui/popup.ui:112
 msgid "Notifications"
-msgstr ""
+msgstr "അറിയിപ്പുകൾ"
 
 #: resources/ui/popup.ui:119
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "ജാലകവും വർക്ക്‌സ്‌പെയ്‌സും മാറ്റുന്നവ"
 
 #: resources/ui/popup.ui:126
 msgid "Volume and brightness"
-msgstr ""
+msgstr "ശബ്ദവും തെളിച്ചവും"
 
 #: resources/ui/popup.ui:133
 msgid "Window resize hints"
-msgstr ""
+msgstr "വിൻഡോ വലിപ്പം മാറ്റുന്നതിനുള്ള സൂചനകൾ"
 
 #: resources/ui/popup.ui:140
 msgid "Dialogs"
-msgstr ""
+msgstr "ഡയലോഗുകൾ"
 
 #: resources/ui/popup.ui:147
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "ഓൺ-സ്ക്രീൻ കീബോർഡ്"
 
 #: resources/ui/popup.ui:154
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "മറ്റ് പോപ്പ്അപ്പ് പ്രതലങ്ങൾ"
 
 #: resources/ui/popup.ui:181
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
 msgstr ""
+"സുതാര്യമായതോ അർദ്ധസുതാര്യമായതോ ആയ പശ്ചാത്തലം ഉപയോഗിക്കുന്നതിനായി പോപ്പ്അപ്പുകളുടെ പശ്ചാത്തലം "
+"മാറ്റിയെഴുതുക."
 
 #: resources/ui/popup.ui:187
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "ഷെൽ തീം നിലനിർത്തുക"
 
 #: resources/ui/popup.ui:188
 msgid "Keep your shell theme's colors for popup controls."
 msgstr ""
+"പോപ്പ്അപ്പ് നിയന്ത്രണങ്ങൾക്കായി നിങ്ങളുടെ ഷെൽ തീമിന്റെ നിറങ്ങൾ നിലനിർത്തുക."
 
 #: resources/ui/popup.ui:202
 msgid "The transparent/semi-transparent style for popups."
-msgstr ""
+msgstr "പോപ്പ്അപ്പുകൾക്കായുള്ള സുതാര്യ/അർദ്ധസുതാര്യ ശൈലി."
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "റൗണ്ടഡ്-ബ്ലർ ഇനി ആവശ്യമില്ല"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell കോർണർ വട്ടത്തിലാക്കുന്നത് നേരിട്ട് കൈകാര്യം ചെയ്യുന്നു. മറ്റ് എങ്കിലും ഇത് "
+"ഉപയോഗിക്കുന്നില്ലെങ്കിൽ പഴയ ലൈബ്രറി നീക്കം ചെയ്യാം."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "നീക്കം ചെയ്യാനുള്ള നിർദ്ദേശങ്ങൾ"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "ഒഴിവാക്കുക"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "പഴയ ബ്ലർ ലൈബ്രറി നീക്കം ചെയ്യുന്നു"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"നീക്കം ചെയ്യൽ നിർബന്ധമല്ല. മറ്റൊരു എക്സ്റ്റൻഷന് ഇത് ഇനിയും ആവശ്യമുണ്ടെങ്കിൽ ലൈബ്രറി സൂക്ഷിക്കുക."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"പാക്കേജ് മാനേജർ വഴിയാണോ ഇൻസ്റ്റാൾ ചെയ്തത്? അതേ പാക്കേജ് മാനേജർ ഉപയോഗിച്ച് gnome-rounded-blur "
+"പാക്കേജ് നീക്കം ചെയ്യുക. സ്ഥിരീകരിക്കുന്നതിന് മുമ്പ് അതിന്റെ മാറ്റങ്ങൾ പരിശോധിക്കുക."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"പഴയ Blur my Shell ഹെൽപ്പർ വഴിയാണോ ഇൻസ്റ്റാൾ ചെയ്തത്? അതിന്റെ അൺഇൻസ്റ്റാളർ എങ്ങനെ "
+"പ്രവർത്തിപ്പിക്കണമെന്ന് നിർദ്ദേശങ്ങളിൽ വിശദീകരിച്ചിട്ടുണ്ട്."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1244,72 +1329,76 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"സോഴ്സിൽ നിന്നാണോ നിർമ്മിച്ചത്? ഒറിജിനൽ ബിൽഡ് ഡയറക്ടറിയിൽ നിന്ന് “sudo ninja -C build "
+"uninstall” ഉപയോഗിക്കുക, അല്ലെങ്കിൽ ഇൻസ്റ്റാൾ ലോഗ് പിന്തുടരുക."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"നീക്കം ചെയ്തതിനുശേഷം ലോഗ് ഔട്ട് ചെയ്ത് വീണ്ടും ലോഗിൻ ചെയ്യുക. Blur my Shell നിങ്ങൾക്കായി "
+"ഒന്നും അൺഇൻസ്റ്റാൾ ചെയ്യില്ല."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "അടയ്ക്കുക"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "നിർദ്ദേശങ്ങൾ തുറക്കുക"
 
 #: src/preferences/pages/other.js:79
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "എല്ലാ മുൻഗണനകളും റീസെറ്റ് ചെയ്യണോ?"
 
 #: src/preferences/pages/other.js:80
 msgid "Pipelines and component settings will return to their defaults."
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈനുകളും ഘടക ക്രമീകരണങ്ങളും അവയുടെ സ്ഥിരസ്ഥിതികളിലേക്ക് മടങ്ങും."
 
 #: src/preferences/pages/other.js:82
 msgid "Cancel"
-msgstr ""
+msgstr "റദ്ദാക്കുക"
 
 #: src/preferences/pages/pipelines.js:46
 #: src/preferences/widgets/pipeline_choose_row.js:64
 msgid "New pipeline"
-msgstr ""
+msgstr "പുതിയ പൈപ്പ്‌ലൈൻ"
 
 #: src/preferences/widgets/effects_dialog.js:45
 #, javascript-format
 msgid "Effects for “%s”"
-msgstr ""
+msgstr "“%s”-നുള്ള ഇഫക്റ്റുകൾ"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "പുതിയ പൈപ്പ്‌ലൈൻ നിർമ്മിക്കുക"
 
 #: src/preferences/widgets/pipeline_group.js:30
 #, javascript-format
 msgid "Pipeline id: “%s”"
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈൻ ഐഡി: “%s”"
 
 #: src/preferences/widgets/pipeline_group.js:81
 msgid "No effect"
-msgstr ""
+msgstr "ഇഫക്റ്റുകൾ ഒന്നുമില്ല"
 
 #: src/preferences/widgets/pipeline_group.js:84
 #, javascript-format
 msgid "%d effect"
 msgid_plural "%d effects"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ഇഫക്റ്റ്"
+msgstr[1] "%d ഇഫക്റ്റുകൾ"
 
 #: src/preferences/widgets/pipeline_group.js:91
 msgid "Unknown effect"
-msgstr ""
+msgstr "അറിയപ്പെടാത്ത ഇഫക്റ്റ്"
 
 #: src/preferences/widgets/pipeline_undo_toast.js:16
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" ഇല്ലാതാക്കി"
 
 #: src/preferences/widgets/pipeline_undo_toast.js:17
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "പൈപ്പ്‌ലൈൻ ഇല്ലാതാക്കി"
