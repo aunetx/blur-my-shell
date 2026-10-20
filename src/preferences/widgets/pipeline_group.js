@@ -12,7 +12,7 @@ import { get_supported_effects } from '../../effects/effects.js';
 
 export const PipelineGroup = GObject.registerClass({
     GTypeName: 'PipelineGroup',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipeline-group.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/pipeline-group.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         "title",
         "effects_description_row",

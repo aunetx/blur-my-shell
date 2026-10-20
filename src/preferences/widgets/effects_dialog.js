@@ -22,7 +22,7 @@ function clone_effects(effects) {
 
 export const EffectsDialog = GObject.registerClass({
     GTypeName: 'EffectsDialog',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/effects-dialog.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/effects-dialog.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         "add_effect",
         "add_effect_alt_menu",

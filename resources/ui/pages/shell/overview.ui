@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="Overview" parent="AdwPreferencesPage">
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="blur">
+            <property name="title" translatable="yes">Blur</property>
+            <property name="subtitle" translatable="yes">Add blur to the overview background, using the wallpaper picture.</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Appearance</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwComboRow" id="style_components">
+            <property name="title" translatable="yes">Overview components style</property>
+            <property name="subtitle" translatable="yes">The semi-transparent style for the dash, search entry/results, and application folders.</property>
+            <property name="model">style_components_model</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSpinRow">
+            <property name="title" translatable="yes">Workspace corner radius</property>
+            <property name="subtitle" translatable="yes">Radius for the corner rounding of the workspaces in the overview.</property>
+            <property name="adjustment">workspace_corner_radius</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkAdjustment" id="workspace_corner_radius">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+
+  <object class="GtkStringList" id="style_components_model">
+    <items>
+      <item translatable="yes">Do not style</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Automatic</item>
+    </items>
+  </object>
+</interface>

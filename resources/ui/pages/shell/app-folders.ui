@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="AppFolders" parent="AdwPreferencesPage">
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="blur">
+            <property name="title" translatable="yes">Blur</property>
+            <property name="subtitle" translatable="yes">Makes the background of application folder dialogs blurred.</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="style_dialogs">
+            <property name="title" translatable="yes">Application folder dialogs style</property>
+            <property name="subtitle" translatable="yes">The semi-transparent style for the application folder dialogs.</property>
+            <property name="model">style_dialogs_model</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkStringList" id="style_dialogs_model">
+    <items>
+      <item translatable="yes">Do not style</item>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+      <item translatable="yes">Automatic</item>
+    </items>
+  </object>
+</interface>

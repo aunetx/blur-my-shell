@@ -6,7 +6,7 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 export function create_pipeline_undo_toast(pipeline_name, on_undo, on_dismissed) {
     const builder = new Gtk.Builder();
     builder.add_from_file(GLib.filename_from_uri(GLib.uri_resolve_relative(
-        import.meta.url, '../../ui/pipeline-undo-toast.ui', GLib.UriFlags.NONE
+        import.meta.url, '../../ui/widgets/pipeline-undo-toast.ui', GLib.UriFlags.NONE
     ))[0]);
 
     const toast = builder.get_object('undo_toast');

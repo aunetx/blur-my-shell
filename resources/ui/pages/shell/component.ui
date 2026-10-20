@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="ComponentPage" parent="AdwPreferencesPage">
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="blur">
+            <property name="title" translatable="yes">Blur</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -74,7 +74,7 @@ see the [removal instructions](docs/rounded-blur-removal.md).
 For the difference between static blur and dynamic blur:
 
 - static blur uses a static image of the wallpaper, and applies the effects that are part of a pipeline on it
-  - you can create, duplicate, rename, delete the pipelines in the first tab
+  - you can create, duplicate, rename, delete the pipelines in the Pipelines tab
   - for each pipeline, you can add effects including Dual Kawase blur, Liquid Glass, Vapor Wave, pixelization, color and noise; then configure, reorder or delete them
   - the effects order is important: the first effect in the list is applied first
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
@@ -88,15 +88,15 @@ For the difference between static blur and dynamic blur:
 
 Blur my Shell is designed to be compatible with the following extensions:
 
-- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from the Dash page)
-- [Dhruva](https://extensions.gnome.org/extension/9495/dhruva/) (configurable from the Dash page)
-- Simple Taskbar's dock (configurable from the Dash page)
-- [Dock!ng](https://extensions.gnome.org/extension/8682/dockng/) and other extensions that reuse the native dash (configurable from the Dash page)
-- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from “Panel” page)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from the Dock settings)
+- [Dhruva](https://extensions.gnome.org/extension/9495/dhruva/) (configurable from the Dock settings)
+- Simple Taskbar's dock (configurable from the Dock settings)
+- [Dock!ng](https://extensions.gnome.org/extension/8682/dockng/) and other extensions that reuse the native dash (configurable from the Dock settings)
+- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from the Top bar settings)
 - [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
-- [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from “Other” page)
-- [Coverflow Alt-Tab](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) (configurable from “Other” page)
-- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from dedicated switch in “Panel” page)
+- [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from the Shell tab)
+- [Coverflow Alt-Tab](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) (configurable from the Shell tab)
+- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from a dedicated switch in the Top bar settings)
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
 - [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), although corners can't be blurred
 - [Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/), although nothing is blurred either
@@ -151,7 +151,7 @@ To debug the extension, you can use Looking Glass (`alt+f2`, type `lg`); I store
 To see the extension logs, you can use:
 
 ```sh
-# for debug logs (when Debug is activated in preferences)
+# for debug logs (when Debug Logging is enabled in the preferences menu)
 journalctl -b /usr/bin/gnome-shell | grep "Blur my Shell"
 
 # for crash logs in GNOME shell

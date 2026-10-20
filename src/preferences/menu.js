@@ -1,9 +1,35 @@
+import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
+import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 
-export function addMenu(window) {
+const LINKS = [
+    {
+        name: 'open-bug-report',
+        link: 'https://github.com/aunetx/blur-my-shell/issues'
+    },
+    {
+        name: 'open-readme',
+        link: 'https://github.com/aunetx/blur-my-shell'
+    },
+    {
+        name: 'open-license',
+        link: 'https://github.com/aunetx/blur-my-shell/blob/master/LICENSE'
+    },
+    {
+        name: 'donate-github',
+        link: 'https://github.com/sponsors/aunetx'
+    },
+    {
+        name: 'donate-kofi',
+        link: 'https://ko-fi.com/aunetx'
+    },
+];
+
+
+export function addMenu(window, preferences) {
     const builder = new Gtk.Builder();
 
     // add a dummy page and remove it immediately, to access headerbar
@@ -17,6 +43,8 @@ export function addMenu(window) {
         console.warn(`[Blur my Shell > menu]         could not add the menu: ${error}`);
     }
     window.remove(menu_util);
+
+    window.insert_action_group('prefs', createActions(window, preferences));
 }
 
 function addMenuToHeader(window, builder) {
@@ -26,40 +54,40 @@ function addMenuToHeader(window, builder) {
     const preferences = content_stack.get_parent(); // GtkBox
     const headerbar = preferences.get_first_child().get_next_sibling()
         .get_first_child().get_first_child().get_first_child(); // AdwHeaderBar
-    headerbar.pack_start(builder.get_object('info_menu'));
+    headerbar.pack_end(builder.get_object('main_menu'));
+}
 
-    const actionGroup = new Gio.SimpleActionGroup();
-    window.insert_action_group('prefs', actionGroup);
+function createActions(window, preferences) {
+    const action_group = new Gio.SimpleActionGroup();
 
-    const actions = [
-        {
-            name: 'open-bug-report',
-            link: 'https://github.com/aunetx/blur-my-shell/issues'
-        },
-        {
-            name: 'open-readme',
-            link: 'https://github.com/aunetx/blur-my-shell'
-        },
-        {
-            name: 'open-license',
-            link: 'https://github.com/aunetx/blur-my-shell/blob/master/LICENSE'
-        },
-        {
-            name: 'donate-github',
-            link: 'https://github.com/sponsors/aunetx'
-        },
-        {
-            name: 'donate-kofi',
-            link: 'https://ko-fi.com/aunetx'
-        },
-    ];
+    action_group.add_action(preferences.settings.create_action('debug'));
 
-    actions.forEach(action => {
-        let act = new Gio.SimpleAction({ name: action.name });
-        act.connect(
+    const reset = new Gio.SimpleAction({ name: 'reset' });
+    reset.connect('activate', () => confirmReset(window, preferences));
+    action_group.add_action(reset);
+
+    LINKS.forEach(({ name, link }) => {
+        const action = new Gio.SimpleAction({ name });
+        action.connect(
             'activate',
-            () => new Gtk.UriLauncher({ uri: action.link }).launch(window, null, null)
+            () => new Gtk.UriLauncher({ uri: link }).launch(window, null, null)
         );
-        actionGroup.add_action(act);
+        action_group.add_action(action);
     });
+
+    return action_group;
+}
+
+function confirmReset(window, preferences) {
+    const dialog = new Adw.AlertDialog({
+        heading: _('Reset all preferences?'),
+        body: _('Pipelines and component settings will return to their defaults.'),
+    });
+    dialog.add_response('cancel', _('Cancel'));
+    dialog.add_response('reset', _('Reset'));
+    dialog.set_response_appearance('reset', Adw.ResponseAppearance.DESTRUCTIVE);
+    dialog.set_default_response('cancel');
+    dialog.set_close_response('cancel');
+    dialog.connect('response::reset', () => preferences.reset());
+    dialog.present(window);
 }

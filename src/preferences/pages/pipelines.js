@@ -5,16 +5,14 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 import { PipelineGroup } from '../widgets/pipeline_group.js';
 import { EffectsDialog } from '../widgets/effects_dialog.js';
-import { initialize_legacy_blur_notice } from '../legacy_blur_notice.js';
 import { create_pipeline_undo_toast } from '../widgets/pipeline_undo_toast.js';
 
 
 export const Pipelines = GObject.registerClass({
     GTypeName: 'Pipelines',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipelines.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/pipelines.ui', GLib.UriFlags.NONE),
     InternalChildren: [
-        'add_pipeline',
-        'legacy_blur_notice'
+        'add_pipeline'
     ],
 }, class Pipelines extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, window) {
@@ -23,8 +21,6 @@ export const Pipelines = GObject.registerClass({
         this.preferences = preferences;
         this.pipelines_manager = pipelines_manager;
         this.window = window;
-
-        initialize_legacy_blur_notice(this._legacy_blur_notice, preferences.settings);
 
         this.pipelines_map = new Map;
         this._scroll_timeout_ids = new Set;
@@ -75,6 +71,7 @@ export const Pipelines = GObject.registerClass({
         this.add(pipeline_group);
 
         if (scroll_to_bottom) {
+            this.window.pop_subpage();
             this.window.set_visible_page(this);
             const timeout_id = setTimeout(() => {
                 this._scroll_timeout_ids.delete(timeout_id);

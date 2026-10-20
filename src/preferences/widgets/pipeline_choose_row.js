@@ -7,7 +7,7 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 export const PipelineChooseRow = GObject.registerClass({
     GTypeName: 'PipelineChooseRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pipeline-choose-row.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/pipeline-choose-row.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'pipeline_choose',
         'pipeline_model',
