@@ -66,8 +66,8 @@ see the [removal instructions](docs/rounded-blur-removal.md).
     - but you can choose to make the focused window totally opaque so that you can enjoy your blur while always having a legible window you work on!
     - you can activate an option to better blur the windows while in overview, although it won't make the blur perfect
     - and there are two modes for blurring applications:
-      - whitelisting (by default), where only windows that are selected are blurred
-      - blacklisting, where every window is blurred, except for the selected ones
+      - by default, only the windows listed under "Blurred windows" are blurred
+      - with "Blur all windows" on, every window is blurred except the ones listed under "Excluded windows"
 
 ## Static and dynamic blur
 
