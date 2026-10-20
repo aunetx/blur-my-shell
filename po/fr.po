@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-18 09:34+0200\n"
-"PO-Revision-Date: 2026-05-22 14:11+0000\n"
-"Last-Translator: Aurélien Hamy <aunetx@yandex.com>\n"
+"PO-Revision-Date: 2026-10-20 16:23+0000\n"
+"Last-Translator: Aurélien Hamy <aunetx@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
 "Language: fr\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Flou Kawase double"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Un flou rapide et de haute qualité."
 
 #: src/effects/blur/info.js:12
 msgid "Radius"
@@ -63,6 +63,8 @@ msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"La couleur à mixer. La valeur de mixage est contrôlée par l'opacité de la "
+"couleur."
 
 #: src/effects/color/info.js:22
 msgid "Blend mode"
@@ -151,16 +153,18 @@ msgstr "Décaler la luminosité"
 
 #: src/effects/color/info.js:56
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "La luminosité à ajouter ou enlever à l'image."
 
 #: src/effects/color/info.js:65
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Multiplicateur de luminosité"
 
 #: src/effects/color/info.js:66
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Multiplie la luminosité de l'image ; 0 est noir et 1 laisse la luminosité "
+"inchangée."
 
 #: src/effects/color/info.js:75
 msgid "Contrast"
@@ -168,7 +172,7 @@ msgstr "Contraste"
 
 #: src/effects/color/info.js:76
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "Ajuste le contraste autour du point de référence sélectionné."
 
 #: src/effects/color/info.js:85
 msgid "Contrast center"
@@ -183,6 +187,8 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Multiplie la saturation ; 0 supprime toute couleur et 1 laisse la saturation "
+"inchangée."
 
 #: src/effects/color/info.js:108
 msgid "RGB to HSL (advanced effect)"
@@ -190,7 +196,7 @@ msgstr "RGB vers HSL (effet avancé)"
 
 #: src/effects/color/info.js:109
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Convertit l’image de l’espace de couleur RGBA vers HSLA."
 
 #: src/effects/color/info.js:115
 msgid "HSL to RGB (advanced effect)"
@@ -198,7 +204,7 @@ msgstr "HSL vers RGB (effet avancé)"
 
 #: src/effects/color/info.js:116
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Convertit l’image de l’espace de couleur HSLA vers RGBA."
 
 #: src/effects/effect_groups.js:4
 msgid "Blur effects"
@@ -210,57 +216,59 @@ msgstr "Effets de texture"
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Verre liquide"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"Un matériau translucide brillant avec réfraction et éclairage sur les "
+"rebords, teinte et ombre intérieure."
 
 #: src/effects/refraction/info.js:12
 msgid "Refraction scale"
-msgstr ""
+msgstr "Échelle de réfraction"
 
 #: src/effects/refraction/info.js:13
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "À quel point le verre réfracte la texture floutée."
 
 #: src/effects/refraction/info.js:22
 msgid "Blur radius"
-msgstr ""
+msgstr "Rayon du flou"
 
 #: src/effects/refraction/info.js:23
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
-msgstr ""
+msgstr "Floute le fond avant l'application de l'effet de verre liquide."
 
 #: src/effects/refraction/info.js:32
 msgid "Bezel width"
-msgstr ""
+msgstr "Largeur de biseau"
 
 #: src/effects/refraction/info.js:33
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "Jusqu'où la lentille de verre liquide atteint l'intérieur du bord."
 
 #: src/effects/refraction/info.js:42
 msgid "Rim spread"
-msgstr ""
+msgstr "Étalement des bordures"
 
 #: src/effects/refraction/info.js:43
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "Jusqu'où la réfraction s'étend à l'intérieur du rebord."
 
 #: src/effects/refraction/info.js:52
 msgid "Glass thickness"
-msgstr ""
+msgstr "Épaisseur de verre"
 
 #: src/effects/refraction/info.js:53
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "Profondeur utilisée par le bord de réfraction."
 
 #: src/effects/refraction/info.js:62
 msgid "Refraction style"
-msgstr ""
+msgstr "Style de réfraction"
 
 #: src/effects/refraction/info.js:63
 msgid ""
