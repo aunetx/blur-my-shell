@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 09:34+0200\n"
+"POT-Creation-Date: 2026-10-20 15:00+0200\n"
 "PO-Revision-Date: 2026-10-18 21:40+0330\n"
 "Last-Translator: Pooya Behravesh <pooyabehravesh@gmail.com>\n"
 "Language-Team: Persian <>\n"
@@ -41,9 +41,7 @@ msgstr "روشنایی"
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr ""
-"روشنایی جلوهٔ تاری؛ مقادیر زیاد ممکن است خواندن متن را دشوارتر "
-"کند."
+msgstr "روشنایی جلوهٔ تاری؛ مقادیر زیاد ممکن است خواندن متن را دشوارتر کند."
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:16
 #: src/effects/color/info.js:42
@@ -59,8 +57,7 @@ msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
-"رنگی که باید ترکیب شود. میزان ترکیب با درجهٔ کدری (Opacity) رنگ "
-"کنترل می‌شود."
+"رنگی که باید ترکیب شود. میزان ترکیب با درجهٔ کدری (Opacity) رنگ کنترل می‌شود."
 
 #: src/effects/color/info.js:22
 msgid "Blend mode"
@@ -159,7 +156,8 @@ msgstr "ضریب روشنایی"
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
-"روشنایی تصویر را ضرب می‌کند؛ ۰ کاملاً سیاه است و ۱ روشنایی را بدون تغییر نگه می‌دارد."
+"روشنایی تصویر را ضرب می‌کند؛ ۰ کاملاً سیاه است و ۱ روشنایی را بدون تغییر نگه "
+"می‌دارد."
 
 #: src/effects/color/info.js:75
 msgid "Contrast"
@@ -182,8 +180,8 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
-"غلظت رنگ تصویر را ضرب می‌کند؛ ۰ تمام رنگ‌ها را حذف کرده و ۱ غلظت را "
-"بدون تغییر نگه می‌دارد."
+"غلظت رنگ تصویر را ضرب می‌کند؛ ۰ تمام رنگ‌ها را حذف کرده و ۱ غلظت را بدون تغییر "
+"نگه می‌دارد."
 
 #: src/effects/color/info.js:108
 msgid "RGB to HSL (advanced effect)"
@@ -218,8 +216,8 @@ msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
-"بافتی نیمه‌شفاف و براق با شکست نور در لبه‌ها، نورپردازی حاشیه، ته‌رنگ و "
-"سایهٔ داخلی."
+"بافتی نیمه‌شفاف و براق با شکست نور در لبه‌ها، نورپردازی حاشیه، ته‌رنگ و سایهٔ "
+"داخلی."
 
 #: src/effects/refraction/info.js:12
 msgid "Refraction scale"
@@ -235,7 +233,8 @@ msgstr "شعاع تاری"
 
 #: src/effects/refraction/info.js:23
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
-msgstr "پس‌زمینهٔ نمونه‌برداری‌شده را پیش از اعمال سایه‌زن (Shader) شیشهٔ مایع، تار می‌کند."
+msgstr ""
+"پس‌زمینهٔ نمونه‌برداری‌شده را پیش از اعمال سایه‌زن (Shader) شیشهٔ مایع، تار می‌کند."
 
 #: src/effects/refraction/info.js:32
 msgid "Bezel width"
@@ -270,8 +269,8 @@ msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
-"شکل خمیدگی نزدیک لبه. مقادیر کم، خمیدگی نرمی ایجاد می‌کنند و مقادیر بیشتر، دقیقاً در لبه با "
-"تیزی بیشتری می‌شکنند."
+"شکل خمیدگی نزدیک لبه. مقادیر کم، خمیدگی نرمی ایجاد می‌کنند و مقادیر بیشتر، "
+"دقیقاً در لبه با تیزی بیشتری می‌شکنند."
 
 #: src/effects/refraction/info.js:72
 msgid "Fresnel glare"
@@ -290,8 +289,8 @@ msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
-"جهت نور درخشش فرنل بر حسب درجه (۰ از بالا است و مقادیر مثبت در "
-"جهت عقربه‌های ساعت می‌چرخند)."
+"جهت نور درخشش فرنل بر حسب درجه (۰ از بالا است و مقادیر مثبت در جهت عقربه‌های "
+"ساعت می‌چرخند)."
 
 #: src/effects/refraction/info.js:92
 msgid "Fresnel glare width"
@@ -471,9 +470,7 @@ msgstr "روشنی"
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
-"درخشندگی نویز. تنظیم روی مقدار «۱٫۰» این جلوه را کاملاً شفاف "
-"می‌کند."
+msgstr "درخشندگی نویز. تنظیم روی مقدار «۱٫۰» این جلوه را کاملاً شفاف می‌کند."
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
@@ -510,8 +507,8 @@ msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
-"سطح جزئیات شکل موج. مقادیر بالاتر جزئیات بیشتری را به قیمت کاهش "
-"کارایی سیستم اضافه می‌کنند."
+"سطح جزئیات شکل موج. مقادیر بالاتر جزئیات بیشتری را به قیمت کاهش کارایی سیستم "
+"اضافه می‌کنند."
 
 #: src/effects/wave/info.js:40
 msgid "Vapor octaves"
@@ -522,8 +519,8 @@ msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
-"سطح جزئیات بافت مه‌آلود. مقادیر بالاتر جزئیات بیشتری را به قیمت کاهش "
-"کارایی سیستم اضافه می‌کنند."
+"سطح جزئیات بافت مه‌آلود. مقادیر بالاتر جزئیات بیشتری را به قیمت کاهش کارایی "
+"سیستم اضافه می‌کنند."
 
 #: src/effects/wave/info.js:48
 msgid "Vapor speed"
@@ -590,127 +587,83 @@ msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
-"مدت‌زمانی که طول می‌کشد تا جلوه هنگام تغییر اندازهٔ پنجره خود را تطبیق "
-"دهد (بر حسب میلی‌ثانیه)."
+"مدت‌زمانی که طول می‌کشد تا جلوه هنگام تغییر اندازهٔ پنجره خود را تطبیق دهد (بر "
+"حسب میلی‌ثانیه)."
 
-#: resources/ui/application-row.ui:4
-msgid "Window Name"
-msgstr "نام پنجره"
+#: resources/ui/menu.ui:6
+msgid "Debug Logging"
+msgstr ""
 
-#: resources/ui/application-row.ui:8
-msgid "Select window"
-msgstr "انتخاب پنجره"
+#: resources/ui/menu.ui:10
+msgid "Reset Preferences…"
+msgstr ""
 
-#: resources/ui/application-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "پنجره‌ای را با نشانگر انتخاب کنید یا نام کلاس (classname) آن را وارد نمایید."
+#: resources/ui/menu.ui:16
+msgid "Project page"
+msgstr "صفحهٔ پروژه"
 
-#: resources/ui/application-row.ui:41
-msgid "Window selection failed. Make sure the extension is enabled."
-msgstr "انتخاب پنجره ناموفق بود. مطمئن شوید که افزونه فعال است."
+#: resources/ui/menu.ui:20
+msgid "Report a Bug"
+msgstr "گزارش خطا"
 
-#: resources/ui/application-row.ui:45
-msgid "The selected actor is not a window."
-msgstr "عنصر انتخاب‌شده یک پنجره نیست."
+#: resources/ui/menu.ui:24
+msgid "License"
+msgstr "پروانه (مجوز)"
 
-#: resources/ui/applications.ui:5
+#: resources/ui/menu.ui:28
+msgid "Donate"
+msgstr "حمایت مالی"
+
+#: resources/ui/menu.ui:45
+msgid "Main Menu"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:5
 msgid "Applications"
 msgstr "برنامه‌ها"
 
-#: resources/ui/applications.ui:10
-msgid "Applications blur"
-msgstr "تاری برنامه‌ها"
+#: resources/ui/pages/applications.ui:12
+#: resources/ui/pages/shell/app-folders.ui:8
+#: resources/ui/pages/shell/component.ui:8 resources/ui/pages/shell/dash.ui:8
+#: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
+#: resources/ui/pages/shell/popup.ui:8
+msgid "Blur"
+msgstr ""
 
-#: resources/ui/applications.ui:11
+#: resources/ui/pages/applications.ui:13
 msgid "Adds blur to applications."
 msgstr "افزودن جلوهٔ تاری به پنجرهٔ برنامه‌ها."
 
-#: resources/ui/applications.ui:20 resources/ui/dash.ui:20
-#: resources/ui/panel.ui:20 resources/ui/popup.ui:20
-msgid "Blur type"
-msgstr "نوع تاری"
-
-#: resources/ui/applications.ui:21
+#: resources/ui/pages/applications.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
 msgstr ""
-"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت "
-"پنجره‌ها را نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
+"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت پنجره‌ها "
+"را نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
 
-#: resources/ui/applications.ui:41 resources/ui/dash.ui:41
-#: resources/ui/panel.ui:41 resources/ui/popup.ui:41
-msgid "Static"
-msgstr "ایستا"
-
-#: resources/ui/applications.ui:53 resources/ui/dash.ui:53
-#: resources/ui/panel.ui:53 resources/ui/popup.ui:53
-msgid "Dynamic"
-msgstr "پویا"
-
-#: resources/ui/applications.ui:71 resources/ui/panel.ui:71
-#: resources/ui/popup.ui:71
-msgid "Corner radius"
-msgstr "شعاع گوشه‌ها"
-
-#: resources/ui/applications.ui:72 resources/ui/panel.ui:72
-msgid "Radius for the corner rounding effect."
-msgstr "شعاع جلوهٔ گرد کردن گوشه‌ها."
-
-#: resources/ui/applications.ui:80 resources/ui/panel.ui:80
-#: resources/ui/popup.ui:161
-msgid "Rounded corners"
-msgstr "گوشه‌های گرد"
-
-#: resources/ui/applications.ui:85 resources/ui/panel.ui:85
-#: resources/ui/popup.ui:166
-msgid "All"
-msgstr "همه"
-
-#: resources/ui/applications.ui:86 resources/ui/panel.ui:86
-#: resources/ui/popup.ui:167
-msgid "Top only"
-msgstr "فقط بالا"
-
-#: resources/ui/applications.ui:87 resources/ui/panel.ui:87
-#: resources/ui/popup.ui:168
-msgid "Bottom only"
-msgstr "فقط پایین"
-
-#: resources/ui/applications.ui:88 resources/ui/panel.ui:88
-#: resources/ui/popup.ui:169
-msgid "None"
-msgstr "هیچ‌کدام"
-
-#: resources/ui/applications.ui:97
-msgid "Round maximized and fullscreen windows"
-msgstr "گرد کردن گوشهٔ پنجره‌های بیشینه و تمام‌صفحه"
-
-#: resources/ui/applications.ui:98
-msgid ""
-"Corner rounding effect will keep being applied to maximized and fullscreen "
-"windows."
+#: resources/ui/pages/applications.ui:34
+#: resources/ui/pages/shell/overview.ui:23 resources/ui/pages/shell/panel.ui:38
+msgid "Appearance"
 msgstr ""
-"جلوهٔ گرد کردن گوشه‌ها روی پنجره‌های بیشینه‌شده (Maximized) و تمام‌صفحه نیز "
-"اعمال خواهد شد."
 
-#: resources/ui/applications.ui:112
+#: resources/ui/pages/applications.ui:39
 msgid "Opacity"
 msgstr "کدری (Opacity)"
 
-#: resources/ui/applications.ui:113
+#: resources/ui/pages/applications.ui:40
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr ""
-"میزان کدری پنجره در بالای جلوهٔ تاری؛ مقادیر بالاتر خوانایی بیشتری "
-"ایجاد می‌کنند."
+"میزان کدری پنجره در بالای جلوهٔ تاری؛ مقادیر بالاتر خوانایی بیشتری ایجاد "
+"می‌کنند."
 
-#: resources/ui/applications.ui:134
+#: resources/ui/pages/applications.ui:60
 msgid "Opaque focused window"
 msgstr "کدر کردن پنجرهٔ فعال"
 
-#: resources/ui/applications.ui:135
+#: resources/ui/pages/applications.ui:61
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -718,11 +671,41 @@ msgstr ""
 "پنجرهٔ در حال کار (دارای فوکوس) را کدر کرده و سایر پنجره‌ها را تار نگه می‌دارد "
 "تا خوانایی بهتر شود."
 
-#: resources/ui/applications.ui:149
+#: resources/ui/pages/applications.ui:67 resources/ui/pages/shell/panel.ui:43
+#: resources/ui/pages/shell/popup.ui:61
+msgid "Corner radius"
+msgstr "شعاع گوشه‌ها"
+
+#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
+msgid "Radius for the corner rounding effect."
+msgstr "شعاع جلوهٔ گرد کردن گوشه‌ها."
+
+#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
+#: resources/ui/pages/shell/popup.ui:67
+msgid "Rounded corners"
+msgstr "گوشه‌های گرد"
+
+#: resources/ui/pages/applications.ui:82
+msgid "Round maximized and fullscreen windows"
+msgstr "گرد کردن گوشهٔ پنجره‌های بیشینه و تمام‌صفحه"
+
+#: resources/ui/pages/applications.ui:83
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+"جلوهٔ گرد کردن گوشه‌ها روی پنجره‌های بیشینه‌شده (Maximized) و تمام‌صفحه نیز اعمال "
+"خواهد شد."
+
+#: resources/ui/pages/applications.ui:91
+msgid "Behavior"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:96
 msgid "Blur on overview"
 msgstr "تاری در نمای کلی"
 
-#: resources/ui/applications.ui:150
+#: resources/ui/pages/applications.ui:97
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -730,27 +713,27 @@ msgstr ""
 "اعمال اجباری تاری روی تمام فضاهای کاری در نمای کلی (Overview).\n"
 "این کار ممکن است باعث کمی تأخیر یا افت کارایی شود."
 
-#: resources/ui/applications.ui:165
+#: resources/ui/pages/applications.ui:104
 msgid "Unblur when Fullscreen"
 msgstr "حذف تاری در حالت تمام‌صفحه"
 
-#: resources/ui/applications.ui:166
+#: resources/ui/pages/applications.ui:105
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr "هنگامی که پنجره‌ای در حالت تمام‌صفحه قرار می‌گیرد، تاری آن را حذف می‌کند."
 
-#: resources/ui/applications.ui:180
+#: resources/ui/pages/applications.ui:111
 msgid "Enable all by default"
 msgstr "فعال‌سازی پیش‌فرض برای همه"
 
-#: resources/ui/applications.ui:181
+#: resources/ui/pages/applications.ui:112
 msgid "Adds blur behind all windows by default."
 msgstr "به‌طور پیش‌فرض پشت تمام پنجره‌ها جلوهٔ تاری اضافه می‌کند."
 
-#: resources/ui/applications.ui:197
+#: resources/ui/pages/applications.ui:120
 msgid "Whitelist"
 msgstr "فهرست سفید"
 
-#: resources/ui/applications.ui:198
+#: resources/ui/pages/applications.ui:121
 msgid ""
 "A list of windows to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -760,15 +743,16 @@ msgstr ""
 "از * برای تطبیق با هر دنباله‌ای از نویسه‌ها (مثلاً Firefox* یا *Code*) و از ? "
 "برای یک نویسهٔ تکی استفاده کنید."
 
-#: resources/ui/applications.ui:217 resources/ui/applications.ui:255
+#: resources/ui/pages/applications.ui:140
+#: resources/ui/pages/applications.ui:178
 msgid "Add Window"
 msgstr "افزودن پنجره"
 
-#: resources/ui/applications.ui:235
+#: resources/ui/pages/applications.ui:158
 msgid "Blacklist"
 msgstr "فهرست سیاه"
 
-#: resources/ui/applications.ui:236
+#: resources/ui/pages/applications.ui:159
 msgid ""
 "A list of windows not to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
@@ -778,254 +762,189 @@ msgstr ""
 "از * برای تطبیق با هر دنباله‌ای از نویسه‌ها (مثلاً Firefox* یا *Code*) و از ? "
 "برای یک نویسهٔ تکی استفاده کنید."
 
-#: resources/ui/dash.ui:5
-msgid "Dash"
-msgstr "دش (Dash)"
+#: resources/ui/pages/applications.ui:197 resources/ui/pages/shell/panel.ui:157
+#: resources/ui/pages/shell/popup.ui:161
+msgid "All"
+msgstr "همه"
 
-#: resources/ui/dash.ui:10
-msgid "Dock blur"
-msgstr "تاری داک"
+#: resources/ui/pages/applications.ui:198 resources/ui/pages/shell/panel.ui:158
+#: resources/ui/pages/shell/popup.ui:162
+msgid "Top only"
+msgstr "فقط بالا"
 
-#: resources/ui/dash.ui:11
+#: resources/ui/pages/applications.ui:199 resources/ui/pages/shell/panel.ui:159
+#: resources/ui/pages/shell/popup.ui:163
+msgid "Bottom only"
+msgstr "فقط پایین"
+
+#: resources/ui/pages/applications.ui:200 resources/ui/pages/shell/panel.ui:160
+#: resources/ui/pages/shell/popup.ui:164
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: resources/ui/pages/pipelines.ui:5
+msgid "Pipelines"
+msgstr "خطوط پردازش"
+
+#: resources/ui/pages/pipelines.ui:10
+msgid ""
+"Pipelines are sets of effects that components share. Each component picks "
+"the pipeline it uses in its own settings."
+msgstr ""
+
+#: resources/ui/pages/pipelines.ui:29
+msgid "Add Pipeline"
+msgstr "افزودن خط پردازش"
+
+#: resources/ui/pages/shell/app-folders.ui:9
+msgid "Makes the background of application folder dialogs blurred."
+msgstr "پس‌زمینهٔ پنجره‌های بازشدهٔ پوشهٔ برنامه‌ها را تار می‌کند."
+
+#: resources/ui/pages/shell/app-folders.ui:21
+msgid "Application folder dialogs style"
+msgstr "سبک پنجرهٔ پوشهٔ برنامه‌ها"
+
+#: resources/ui/pages/shell/app-folders.ui:22
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr "سبک نیمه‌شفاف برای پنجره‌های بازشدهٔ پوشهٔ برنامه‌ها."
+
+#: resources/ui/pages/shell/app-folders.ui:33
+#: resources/ui/pages/shell/overview.ui:53
+msgid "Do not style"
+msgstr "بدون تغییر سبک"
+
+#: resources/ui/pages/shell/app-folders.ui:34
+#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
+#: resources/ui/pages/shell/panel.ui:166 resources/ui/pages/shell/popup.ui:170
+msgid "Transparent"
+msgstr "شفاف"
+
+#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:54
+#: resources/ui/pages/shell/panel.ui:167 resources/ui/pages/shell/popup.ui:171
+msgid "Light"
+msgstr "روشن"
+
+#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:55
+#: resources/ui/pages/shell/panel.ui:168 resources/ui/pages/shell/popup.ui:172
+msgid "Dark"
+msgstr "تیره"
+
+#: resources/ui/pages/shell/app-folders.ui:37
+#: resources/ui/pages/shell/dash.ui:65 resources/ui/pages/shell/overview.ui:57
+#: resources/ui/pages/shell/panel.ui:170 resources/ui/pages/shell/popup.ui:173
+msgid "Automatic"
+msgstr "خودکار"
+
+#: resources/ui/pages/shell/dash.ui:9
 msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
-"تار کردن پس‌زمینهٔ داک‌های پشتیبانی‌شده، از جمله Dash to Dock، Dhruva و "
-"داک Simple Taskbar."
+"تار کردن پس‌زمینهٔ داک‌های پشتیبانی‌شده، از جمله Dash to Dock، Dhruva و داک "
+"Simple Taskbar."
 
-#: resources/ui/dash.ui:21
+#: resources/ui/pages/shell/dash.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
 msgstr ""
-"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت "
-"دش را نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
+"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت دش را "
+"نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
 
-#: resources/ui/dash.ui:71 resources/ui/panel.ui:112 resources/ui/popup.ui:180
+#: resources/ui/pages/shell/dash.ui:28 resources/ui/pages/shell/panel.ui:28
+msgid "Disable in overview"
+msgstr "غیرفعال‌سازی در نمای کلی"
+
+#: resources/ui/pages/shell/dash.ui:29
+msgid "Disables dock blur when entering the overview."
+msgstr "هنگام ورود به نمای کلی (Overview)، تاری داک را غیرفعال می‌کند."
+
+#: resources/ui/pages/shell/dash.ui:38 resources/ui/pages/shell/panel.ui:74
+#: resources/ui/pages/shell/popup.ui:30 resources/ui/pages/shell/shell.ui:51
+msgid "Background"
+msgstr ""
+
+#: resources/ui/pages/shell/dash.ui:43 resources/ui/pages/shell/panel.ui:79
+#: resources/ui/pages/shell/popup.ui:35
 msgid "Override background"
 msgstr "جایگزینی پس‌زمینه"
 
-#: resources/ui/dash.ui:72
+#: resources/ui/pages/shell/dash.ui:44
 msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
-"پس‌زمینهٔ داک را شفاف یا نیمه‌شفاف می‌کند. برای استفاده از ظاهرِ خودِ "
-"افزونهٔ داک، این گزینه را غیرفعال کنید."
+"پس‌زمینهٔ داک را شفاف یا نیمه‌شفاف می‌کند. برای استفاده از ظاهرِ خودِ افزونهٔ داک، "
+"این گزینه را غیرفعال کنید."
 
-#: resources/ui/dash.ui:78 resources/ui/panel.ui:120 resources/ui/popup.ui:201
+#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:87
+#: resources/ui/pages/shell/popup.ui:42
 msgid "Background style"
 msgstr "سبک پس‌زمینه"
 
-#: resources/ui/dash.ui:79
+#: resources/ui/pages/shell/dash.ui:51
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "سبک شفاف یا نیمه‌شفاف برای پس‌زمینهٔ داک."
 
-#: resources/ui/dash.ui:95 resources/ui/panel.ui:197
-msgid "Disable in overview"
-msgstr "غیرفعال‌سازی در نمای کلی"
-
-#: resources/ui/dash.ui:96
-msgid "Disables dock blur when entering the overview."
-msgstr "هنگام ورود به نمای کلی (Overview)، تاری داک را غیرفعال می‌کند."
-
-#: resources/ui/dash.ui:113 resources/ui/overview.ui:82
-#: resources/ui/overview.ui:90 resources/ui/panel.ui:252
-#: resources/ui/popup.ui:293
-msgid "Transparent"
-msgstr "شفاف"
-
-#: resources/ui/dash.ui:114 resources/ui/overview.ui:80
-#: resources/ui/overview.ui:91 resources/ui/panel.ui:253
-#: resources/ui/popup.ui:294
-msgid "Light"
-msgstr "روشن"
-
-#: resources/ui/dash.ui:115 resources/ui/overview.ui:81
-#: resources/ui/overview.ui:92 resources/ui/panel.ui:254
-#: resources/ui/popup.ui:295
-msgid "Dark"
-msgstr "تیره"
-
-#: resources/ui/dash.ui:116 resources/ui/overview.ui:83
-#: resources/ui/overview.ui:93 resources/ui/panel.ui:256
-#: resources/ui/popup.ui:296
-msgid "Automatic"
-msgstr "خودکار"
-
-#: resources/ui/effects-dialog.ui:4
-#: src/preferences/widgets/effects_dialog.js:46
-msgid "Effects"
-msgstr "جلوه‌ها"
-
-#: resources/ui/effects-dialog.ui:13
-msgid "Effects list"
-msgstr "فهرست جلوه‌ها"
-
-#: resources/ui/effects-dialog.ui:14
-msgid "The top effect is applied first."
-msgstr "جلوهٔ بالایی اول از همه اعمال می‌شود."
-
-#: resources/ui/effects-dialog.ui:39
-msgid "Add Effect"
-msgstr "افزودن جلوه"
-
-#: resources/ui/effects-dialog.ui:72
-msgid "Include advanced effects"
-msgstr "شامل جلوه‌های پیشرفته"
-
-#: resources/ui/menu.ui:6
-msgid "Project page"
-msgstr "صفحهٔ پروژه"
-
-#: resources/ui/menu.ui:10
-msgid "Report a Bug"
-msgstr "گزارش خطا"
-
-#: resources/ui/menu.ui:14
-msgid "License"
-msgstr "پروانه (مجوز)"
-
-#: resources/ui/menu.ui:18
-msgid "Donate"
-msgstr "حمایت مالی"
-
-#: resources/ui/other.ui:5
-msgid "Other"
-msgstr "سایر"
-
-#: resources/ui/other.ui:10
-msgid "Lockscreen blur"
-msgstr "تاری صفحهٔ قفل"
-
-#: resources/ui/other.ui:11
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "تغییر تاری صفحهٔ قفل برای استفاده از تنظیمات این افزونه."
-
-#: resources/ui/other.ui:28
-msgid "Screenshot blur"
-msgstr "تاری نماگرفت"
-
-#: resources/ui/other.ui:29
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "افزودن تاری به پس‌زمینهٔ بخش انتخاب پنجره در رابط کاربری نماگرفت."
-
-#: resources/ui/other.ui:46
-msgid "Window list extension blur"
-msgstr "تاری افزونهٔ فهرست پنجره‌ها"
-
-#: resources/ui/other.ui:47
-msgid "Make the window-list extension blurred, if it is used."
-msgstr "تار کردن افزونهٔ window-list، در صورتی که در حال استفاده باشد."
-
-#: resources/ui/other.ui:64
-msgid "Coverflow Alt-Tab extension blur"
-msgstr "تاری افزونهٔ Coverflow Alt-Tab"
-
-#: resources/ui/other.ui:65
-msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr "تار کردن افزونهٔ Coverflow Alt-Tab، در صورتی که در حال استفاده باشد."
-
-#: resources/ui/other.ui:82
-msgid "Debug"
-msgstr "اشکال‌زدایی"
-
-#: resources/ui/other.ui:83
-msgid ""
-"Makes the extension verbose in logs, activate when you need to report an "
-"issue."
-msgstr ""
-"گزارش‌های (لاگ‌های) افزونه را پرجزئیات می‌کند؛ تنها زمانی که می‌خواهید مشکلی را "
-"گزارش کنید فعالش کنید."
-
-#: resources/ui/other.ui:95
-msgid "Reset preferences"
-msgstr "بازنشانی تنظیمات"
-
-#: resources/ui/other.ui:96
-msgid "Restore all Blur my Shell preferences to their defaults."
-msgstr "بازگرداندن تمام تنظیمات Blur my Shell به مقادیر پیش‌فرض."
-
-#: resources/ui/other.ui:115 src/preferences/pages/other.js:83
-msgid "Reset"
-msgstr "بازنشانی"
-
-#: resources/ui/overview.ui:5
-msgid "Overview"
-msgstr "نمای کلی"
-
-#: resources/ui/overview.ui:10
-msgid "Background blur"
-msgstr "تاری پس‌زمینه"
-
-#: resources/ui/overview.ui:11
+#: resources/ui/pages/shell/overview.ui:9
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "افزودن تاری به پس‌زمینهٔ نمای کلی، با استفاده از تصویر زمینهٔ دسکتاپ."
 
-#: resources/ui/overview.ui:26
+#: resources/ui/pages/shell/overview.ui:28
 msgid "Overview components style"
 msgstr "سبک اجزای نمای کلی"
 
-#: resources/ui/overview.ui:27
+#: resources/ui/pages/shell/overview.ui:29
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
+msgstr "سبک نیمه‌شفاف برای دش، کادر و نتایج جستجو، و پوشه‌های برنامه‌ها."
+
+#: resources/ui/pages/shell/overview.ui:36
+msgid "Workspace corner radius"
 msgstr ""
-"سبک نیمه‌شفاف برای دش، کادر و نتایج جستجو، و پوشه‌های "
-"برنامه‌ها."
 
-#: resources/ui/overview.ui:44
-msgid "Application folder blur"
-msgstr "تاری پوشهٔ برنامه‌ها"
+#: resources/ui/pages/shell/overview.ui:37
+msgid "Radius for the corner rounding of the workspaces in the overview."
+msgstr ""
 
-#: resources/ui/overview.ui:45
-msgid "Makes the background of application folder dialogs blurred."
-msgstr "پس‌زمینهٔ پنجره‌های بازشدهٔ پوشهٔ برنامه‌ها را تار می‌کند."
-
-#: resources/ui/overview.ui:60
-msgid "Application folder dialogs style"
-msgstr "سبک پنجرهٔ پوشهٔ برنامه‌ها"
-
-#: resources/ui/overview.ui:61
-msgid "The semi-transparent style for the application folder dialogs."
-msgstr "سبک نیمه‌شفاف برای پنجره‌های بازشدهٔ پوشهٔ برنامه‌ها."
-
-#: resources/ui/overview.ui:79 resources/ui/overview.ui:89
-msgid "Do not style"
-msgstr "بدون تغییر سبک"
-
-#: resources/ui/panel.ui:5
-msgid "Panel"
-msgstr "پنل"
-
-#: resources/ui/panel.ui:10
-msgid "Panel blur"
-msgstr "تاری پنل"
-
-#: resources/ui/panel.ui:11
+#: resources/ui/pages/shell/panel.ui:9
 msgid "Add blur to the top panel."
 msgstr "افزودن تاری به پنل بالایی."
 
-#: resources/ui/panel.ui:21
+#: resources/ui/pages/shell/panel.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
 msgstr ""
-"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت "
-"پنل را نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
+"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت پنل را "
+"نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
 
-#: resources/ui/panel.ui:97
+#: resources/ui/pages/shell/panel.ui:29
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "هنگام ورود به نمای کلی، تاری پنل را غیرفعال می‌کند."
+
+#: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
 msgstr "اجبار به متن روشن"
 
-#: resources/ui/panel.ui:98
+#: resources/ui/pages/shell/panel.ui:59
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "استفاده از متن روشن برای پنل؛ کاربردی هنگام استفاده از پوستهٔ روشن گنوم شل."
 
-#: resources/ui/panel.ui:113
+#: resources/ui/pages/shell/panel.ui:65
+msgid "Match theme in overview"
+msgstr ""
+
+#: resources/ui/pages/shell/panel.ui:66
+msgid "Keep panel text and icons matched to the system theme in the overview."
+msgstr ""
+
+#: resources/ui/pages/shell/panel.ui:80
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -1034,232 +953,346 @@ msgstr ""
 "جایگزینی پس‌زمینهٔ پنل با یک حالت شفاف یا نیمه‌شفاف.\n"
 "پیشنهاد می‌شود، مگر اینکه بخواهید پوستهٔ گنوم خود را سفارشی‌سازی کنید."
 
-#: resources/ui/panel.ui:121
+#: resources/ui/pages/shell/panel.ui:88
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "سبک شفاف یا نیمه‌شفاف برای پس‌زمینهٔ پنل."
 
-#: resources/ui/panel.ui:135
+#: resources/ui/pages/shell/panel.ui:96
 msgid "Override background dynamically"
 msgstr "جایگزینی پویای پس‌زمینه"
 
-#: resources/ui/panel.ui:136
+#: resources/ui/pages/shell/panel.ui:97
 msgid "Change the panel background when a window is near it."
 msgstr "تغییر پس‌زمینهٔ پنل هنگامی که پنجره‌ای به آن نزدیک می‌شود."
 
-#: resources/ui/panel.ui:149
+#: resources/ui/pages/shell/panel.ui:104
 msgid "When a window is near"
 msgstr "هنگام نزدیک بودن پنجره"
 
-#: resources/ui/panel.ui:150
+#: resources/ui/pages/shell/panel.ui:105
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
-"تاری هنگام نزدیکی پنجره: فقط وقتی پنجره‌ای نزدیک پنل است تار می‌شود و در غیر این صورت "
-"شفاف می‌ماند.\n"
-"پس‌زمینه هنگام نزدیکی پنجره: وقتی پنجره‌ای نزدیک پنل است پس‌زمینه رنگ یکدست می‌گیرد "
-"و در غیر این صورت تار می‌شود."
+"تاری هنگام نزدیکی پنجره: فقط وقتی پنجره‌ای نزدیک پنل است تار می‌شود و در غیر "
+"این صورت شفاف می‌ماند.\n"
+"پس‌زمینه هنگام نزدیکی پنجره: وقتی پنجره‌ای نزدیک پنل است پس‌زمینه رنگ یکدست "
+"می‌گیرد و در غیر این صورت تار می‌شود."
 
-#: resources/ui/panel.ui:165
+#: resources/ui/pages/shell/panel.ui:114
 msgid "Gradient background"
 msgstr "پس‌زمینهٔ طیفی (Gradient)"
 
-#: resources/ui/panel.ui:166
+#: resources/ui/pages/shell/panel.ui:115
 msgid "Apply a gradient effect to the panel background."
 msgstr "اعمال جلوهٔ طیف رنگی به پس‌زمینهٔ پنل."
 
-#: resources/ui/panel.ui:179
+#: resources/ui/pages/shell/panel.ui:122
 msgid "Gradient direction"
 msgstr "جهت طیف"
 
-#: resources/ui/panel.ui:180
+#: resources/ui/pages/shell/panel.ui:123
 msgid "Change the direction of the gradient background."
 msgstr "تغییر جهت طیف پس‌زمینه."
 
-#: resources/ui/panel.ui:198
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "هنگام ورود به نمای کلی، تاری پنل را غیرفعال می‌کند."
-
-#: resources/ui/panel.ui:214
+#: resources/ui/pages/shell/panel.ui:133
 msgid "Compatibility"
 msgstr "سازگاری"
 
-#: resources/ui/panel.ui:215
+#: resources/ui/pages/shell/panel.ui:134
 msgid "Various options to provide compatibility with other extensions."
 msgstr "گزینه‌های گوناگون برای ایجاد سازگاری با سایر افزونه‌ها."
 
-#: resources/ui/panel.ui:220
+#: resources/ui/pages/shell/panel.ui:139
 msgid "Hidetopbar extension"
 msgstr "افزونهٔ Hidetopbar"
 
-#: resources/ui/panel.ui:221
+#: resources/ui/pages/shell/panel.ui:140
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
 "تاری را در نمای کلی حفظ می‌کند؛ بهترین عملکرد را همراه با تاری ایستا دارد."
 
-#: resources/ui/panel.ui:235
+#: resources/ui/pages/shell/panel.ui:147
 msgid "Blur original panel with Dash to Panel"
 msgstr "تار کردن پنل اصلی با Dash to Panel"
 
-#: resources/ui/panel.ui:236
+#: resources/ui/pages/shell/panel.ui:148
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
 msgstr ""
-"تار کردن پنل اصلی را به کمک افزونهٔ Dash to Panel (در صورت انتخاب در تنظیمات آن "
-"افزونه) فعال می‌کند."
+"تار کردن پنل اصلی را به کمک افزونهٔ Dash to Panel (در صورت انتخاب در تنظیمات "
+"آن افزونه) فعال می‌کند."
 
-#: resources/ui/panel.ui:255
+#: resources/ui/pages/shell/panel.ui:169
 msgid "Contrasted"
 msgstr "پرکنتراست"
 
-#: resources/ui/panel.ui:262
+#: resources/ui/pages/shell/panel.ui:176
 msgid "Blur on Window Proximity"
 msgstr "تاری هنگام نزدیکی پنجره"
 
-#: resources/ui/panel.ui:263
+#: resources/ui/pages/shell/panel.ui:177
 msgid "Background on Window Proximity"
 msgstr "پس‌زمینه هنگام نزدیکی پنجره"
 
-#: resources/ui/panel.ui:269
+#: resources/ui/pages/shell/panel.ui:183
 msgid "Top"
 msgstr "بالا"
 
-#: resources/ui/panel.ui:270
+#: resources/ui/pages/shell/panel.ui:184
 msgid "Bottom"
 msgstr "پایین"
 
-#: resources/ui/pipeline-choose-row.ui:4
-msgid "Pipeline"
-msgstr "خط پردازش"
-
-#: resources/ui/pipeline-choose-row.ui:5
-msgid "The pipeline to be used with this component."
-msgstr "خط پردازشی که برای این بخش استفاده می‌شود."
-
-#: resources/ui/pipeline-group.ui:6
-msgid "Pipeline name"
-msgstr "نام خط پردازش"
-
-#: resources/ui/pipeline-group.ui:20
-msgid "Manage effects"
-msgstr "مدیریت جلوه‌ها"
-
-#: resources/ui/pipeline-undo-toast.ui:28
-msgid "Undo"
-msgstr "واگرد"
-
-#: resources/ui/pipelines.ui:5
-msgid "Pipelines"
-msgstr "خطوط پردازش"
-
-#: resources/ui/pipelines.ui:16
-msgid ""
-"Each component uses a pipeline, which can be chosen in the corresponding "
-"tab. Here you can create, modify and delete the pipelines and their effects."
-msgstr ""
-"هر بخش از یک خط پردازش استفاده می‌کند که می‌توان آن را در زبانهٔ مربوطه انتخاب "
-"کرد. در اینجا می‌توانید خطوط پردازش و جلوه‌های آن‌ها را بسازید، ویرایش یا حذف کنید."
-
-#: resources/ui/pipelines.ui:35
-msgid "Add Pipeline"
-msgstr "افزودن خط پردازش"
-
-#: resources/ui/popup.ui:5
-msgid "Popups"
-msgstr "پاپ‌آپ‌ها"
-
-#: resources/ui/popup.ui:10
-msgid "Popup blur"
-msgstr "تاری پاپ‌آپ‌ها"
-
-#: resources/ui/popup.ui:11
+#: resources/ui/pages/shell/popup.ui:9
 msgid ""
 "Add blur to GNOME Shell menus, the calendar and notifications popup, "
 "notification banners, OSD popups, and dialogs."
 msgstr ""
-"افزودن تاری به منوهای گنوم شل، پاپ‌آپ تقویم و اعلان‌ها، بنرهای "
-"اعلان، پاپ‌آپ‌های روی صفحه (OSD) و کادرهای محاوره‌ای."
+"افزودن تاری به منوهای گنوم شل، پاپ‌آپ تقویم و اعلان‌ها، بنرهای اعلان، پاپ‌آپ‌های "
+"روی صفحه (OSD) و کادرهای محاوره‌ای."
 
-#: resources/ui/popup.ui:21
+#: resources/ui/pages/shell/popup.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
 msgstr ""
-"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت "
-"پاپ‌آپ‌ها را نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
+"تاری ایستا از تصویر پس‌زمینه استفاده می‌کند؛ تاری پویا محتوای زندهٔ پشت پاپ‌آپ‌ها "
+"را نمونه‌برداری می‌کند. هر دو از خط پردازش انتخاب‌شده استفاده می‌کنند."
 
-#: resources/ui/popup.ui:72
-msgid "Adjust the rounded corners for each popup surface."
-msgstr "تنظیم گوشه‌های گرد برای هر سطح پاپ‌آپ."
-
-#: resources/ui/popup.ui:77
-msgid "Menus"
-msgstr "منوها"
-
-#: resources/ui/popup.ui:84
-msgid "Input method candidates"
-msgstr "پیشنهادهای روش ورودی"
-
-#: resources/ui/popup.ui:91
-msgid "Quick settings"
-msgstr "تنظیمات سریع"
-
-#: resources/ui/popup.ui:98
-msgid "Quick settings submenus"
-msgstr "زیرمنوهای تنظیمات سریع"
-
-#: resources/ui/popup.ui:105
-msgid "Calendar and notification center"
-msgstr "تقویم و مرکز اعلان‌ها"
-
-#: resources/ui/popup.ui:112
-msgid "Notifications"
-msgstr "اعلان‌ها"
-
-#: resources/ui/popup.ui:119
-msgid "Window and workspace switchers"
-msgstr "تعویض‌گرهای پنجره و فضای کاری"
-
-#: resources/ui/popup.ui:126
-msgid "Volume and brightness"
-msgstr "صدا و روشنایی"
-
-#: resources/ui/popup.ui:133
-msgid "Window resize hints"
-msgstr "راهنماهای تغییر اندازهٔ پنجره"
-
-#: resources/ui/popup.ui:140
-msgid "Dialogs"
-msgstr "کادرهای محاوره‌ای"
-
-#: resources/ui/popup.ui:147
-msgid "On-screen keyboard"
-msgstr "صفحه‌کلید روی صفحه"
-
-#: resources/ui/popup.ui:154
-msgid "Other popup surfaces"
-msgstr "سایر سطوح پاپ‌آپ"
-
-#: resources/ui/popup.ui:181
+#: resources/ui/pages/shell/popup.ui:36
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
 msgstr "جایگزینی پس‌زمینهٔ پاپ‌آپ‌ها با حالت شفاف یا نیمه‌شفاف."
 
-#: resources/ui/popup.ui:187
+#: resources/ui/pages/shell/popup.ui:43
+msgid "The transparent/semi-transparent style for popups."
+msgstr "سبک شفاف یا نیمه‌شفاف برای پاپ‌آپ‌ها."
+
+#: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
 msgstr "حفظ پوستهٔ شل"
 
-#: resources/ui/popup.ui:188
+#: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
 msgstr "حفظ رنگ‌های پوستهٔ شل برای دکمه‌ها و کنترل‌های پاپ‌آپ."
 
-#: resources/ui/popup.ui:202
-msgid "The transparent/semi-transparent style for popups."
-msgstr "سبک شفاف یا نیمه‌شفاف برای پاپ‌آپ‌ها."
+#: resources/ui/pages/shell/popup.ui:62
+msgid "Adjust the rounded corners for each popup surface."
+msgstr "تنظیم گوشه‌های گرد برای هر سطح پاپ‌آپ."
+
+#: resources/ui/pages/shell/popup.ui:74
+msgid "Menus"
+msgstr "منوها"
+
+#: resources/ui/pages/shell/popup.ui:81
+msgid "Input method candidates"
+msgstr "پیشنهادهای روش ورودی"
+
+#: resources/ui/pages/shell/popup.ui:88
+msgid "Quick settings"
+msgstr "تنظیمات سریع"
+
+#: resources/ui/pages/shell/popup.ui:95
+msgid "Quick settings submenus"
+msgstr "زیرمنوهای تنظیمات سریع"
+
+#: resources/ui/pages/shell/popup.ui:102
+msgid "Calendar and notification center"
+msgstr "تقویم و مرکز اعلان‌ها"
+
+#: resources/ui/pages/shell/popup.ui:109
+msgid "Notifications"
+msgstr "اعلان‌ها"
+
+#: resources/ui/pages/shell/popup.ui:116
+msgid "Window and workspace switchers"
+msgstr "تعویض‌گرهای پنجره و فضای کاری"
+
+#: resources/ui/pages/shell/popup.ui:123
+msgid "Volume and brightness"
+msgstr "صدا و روشنایی"
+
+#: resources/ui/pages/shell/popup.ui:130
+msgid "Window resize hints"
+msgstr "راهنماهای تغییر اندازهٔ پنجره"
+
+#: resources/ui/pages/shell/popup.ui:137
+msgid "Dialogs"
+msgstr "کادرهای محاوره‌ای"
+
+#: resources/ui/pages/shell/popup.ui:144
+msgid "On-screen keyboard"
+msgstr "صفحه‌کلید روی صفحه"
+
+#: resources/ui/pages/shell/popup.ui:151
+msgid "Other popup surfaces"
+msgstr "سایر سطوح پاپ‌آپ"
+
+#: resources/ui/pages/shell/shell.ui:5
+msgid "Shell"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:16
+msgid "Desktop"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:21
+msgid "Top bar"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:22
+msgid "The panel at the top of the screen"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:29
+msgid "Dock"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:30
+msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:37
+msgid "Popups"
+msgstr "پاپ‌آپ‌ها"
+
+#: resources/ui/pages/shell/shell.ui:38
+msgid "Menus, quick settings, notifications and dialogs"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:46
+msgid "Overview"
+msgstr "نمای کلی"
+
+#: resources/ui/pages/shell/shell.ui:52
+msgid "The wallpaper behind the workspaces"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:59
+msgid "App folders"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:60
+msgid "Folders opened from the app grid"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:68
+msgid "System"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:73
+msgid "Lock screen"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:74
+msgid "Behind the password prompt"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:81
+msgid "Screenshot"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:82
+msgid "Behind the window selector"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:90
+msgid "Extensions"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:95
+msgid "Window List"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:96
+msgid "The taskbar from the Window List extension"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:103
+msgid "Coverflow Alt-Tab"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:104
+msgid "Behind the window switcher"
+msgstr ""
+
+#: resources/ui/widgets/application-row.ui:4
+msgid "Window Name"
+msgstr "نام پنجره"
+
+#: resources/ui/widgets/application-row.ui:8
+msgid "Select window"
+msgstr "انتخاب پنجره"
+
+#: resources/ui/widgets/application-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr ""
+"پنجره‌ای را با نشانگر انتخاب کنید یا نام کلاس (classname) آن را وارد نمایید."
+
+#: resources/ui/widgets/application-row.ui:41
+msgid "Window selection failed. Make sure the extension is enabled."
+msgstr "انتخاب پنجره ناموفق بود. مطمئن شوید که افزونه فعال است."
+
+#: resources/ui/widgets/application-row.ui:45
+msgid "The selected actor is not a window."
+msgstr "عنصر انتخاب‌شده یک پنجره نیست."
+
+#: resources/ui/widgets/blur-mode-row.ui:4
+msgid "Blur type"
+msgstr "نوع تاری"
+
+#: resources/ui/widgets/blur-mode-row.ui:22
+msgid "Static"
+msgstr "ایستا"
+
+#: resources/ui/widgets/blur-mode-row.ui:34
+msgid "Dynamic"
+msgstr "پویا"
+
+#: resources/ui/widgets/effects-dialog.ui:4
+#: src/preferences/widgets/effects_dialog.js:46
+msgid "Effects"
+msgstr "جلوه‌ها"
+
+#: resources/ui/widgets/effects-dialog.ui:13
+msgid "Effects list"
+msgstr "فهرست جلوه‌ها"
+
+#: resources/ui/widgets/effects-dialog.ui:14
+msgid "The top effect is applied first."
+msgstr "جلوهٔ بالایی اول از همه اعمال می‌شود."
+
+#: resources/ui/widgets/effects-dialog.ui:39
+msgid "Add Effect"
+msgstr "افزودن جلوه"
+
+#: resources/ui/widgets/effects-dialog.ui:72
+msgid "Include advanced effects"
+msgstr "شامل جلوه‌های پیشرفته"
+
+#: resources/ui/widgets/pipeline-choose-row.ui:4
+msgid "Pipeline"
+msgstr "خط پردازش"
+
+#: resources/ui/widgets/pipeline-choose-row.ui:5
+msgid "The pipeline to be used with this component."
+msgstr "خط پردازشی که برای این بخش استفاده می‌شود."
+
+#: resources/ui/widgets/pipeline-group.ui:6
+msgid "Pipeline name"
+msgstr "نام خط پردازش"
+
+#: resources/ui/widgets/pipeline-group.ui:20
+msgid "Manage effects"
+msgstr "مدیریت جلوه‌ها"
+
+#: resources/ui/widgets/pipeline-undo-toast.ui:28
+msgid "Undo"
+msgstr "واگرد"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
@@ -1270,8 +1303,8 @@ msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
-"افزونهٔ Blur my Shell اکنون گوشه‌های گرد را مستقیماً مدیریت می‌کند. اگر "
-"افزونهٔ دیگری از کتابخانهٔ قدیمی استفاده نمی‌کند، می‌توانید آن را حذف کنید."
+"افزونهٔ Blur my Shell اکنون گوشه‌های گرد را مستقیماً مدیریت می‌کند. اگر افزونهٔ "
+"دیگری از کتابخانهٔ قدیمی استفاده نمی‌کند، می‌توانید آن را حذف کنید."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
@@ -1298,16 +1331,16 @@ msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
-"از طریق مدیر بسته نصب کرده‌اید؟ بستهٔ gnome-rounded-blur را با همان مدیر "
-"بسته حذف کنید. پیش از تأیید، تغییرات پیشنهادی آن را بررسی کنید."
+"از طریق مدیر بسته نصب کرده‌اید؟ بستهٔ gnome-rounded-blur را با همان مدیر بسته "
+"حذف کنید. پیش از تأیید، تغییرات پیشنهادی آن را بررسی کنید."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
-"با ابزار کمکی قدیمی Blur my Shell نصب کرده‌اید؟ این راهنما نحوهٔ اجرای "
-"برنامهٔ حذف آن را توضیح می‌دهد."
+"با ابزار کمکی قدیمی Blur my Shell نصب کرده‌اید؟ این راهنما نحوهٔ اجرای برنامهٔ "
+"حذف آن را توضیح می‌دهد."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1316,16 +1349,16 @@ msgid ""
 "a package-managed installation."
 msgstr ""
 "از کد منبع (Source) ساخته‌اید؟ دستور «sudo ninja -C build uninstall» را در "
-"پوشهٔ ساخت اصلی اجرا کنید، یا گزارش نصب آن را دنبال کنید. برای حذف بسته‌ای "
-"که با مدیر بسته نصب شده است، از ابزار کمکی استفاده نکنید."
+"پوشهٔ ساخت اصلی اجرا کنید، یا گزارش نصب آن را دنبال کنید. برای حذف بسته‌ای که "
+"با مدیر بسته نصب شده است، از ابزار کمکی استفاده نکنید."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
-"پس از حذف، از نشست کاربری خارج شده و دوباره وارد شوید. Blur my Shell هیچ چیزی "
-"را به‌طور خودکار برای شما حذف نمی‌کند."
+"پس از حذف، از نشست کاربری خارج شده و دوباره وارد شوید. Blur my Shell هیچ "
+"چیزی را به‌طور خودکار برای شما حذف نمی‌کند."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
@@ -1335,22 +1368,42 @@ msgstr "بستن"
 msgid "Open instructions"
 msgstr "باز کردن راهنما"
 
-#: src/preferences/pages/other.js:79
+#: src/preferences/menu.js:83
 msgid "Reset all preferences?"
 msgstr "بازنشانی تمام تنظیمات؟"
 
-#: src/preferences/pages/other.js:80
+#: src/preferences/menu.js:84
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "خطوط پردازش و تنظیمات بخش‌ها به مقادیر پیش‌فرض خود باز خواهند گشت."
 
-#: src/preferences/pages/other.js:82
+#: src/preferences/menu.js:86
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/preferences/pages/pipelines.js:46
+#: src/preferences/menu.js:87
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: src/preferences/pages/pipelines.js:42
 #: src/preferences/widgets/pipeline_choose_row.js:64
 msgid "New pipeline"
 msgstr "خط پردازش جدید"
+
+#: src/preferences/pages/shell/index.js:62
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr "تغییر تاری صفحهٔ قفل برای استفاده از تنظیمات این افزونه."
+
+#: src/preferences/pages/shell/index.js:66
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr "افزودن تاری به پس‌زمینهٔ بخش انتخاب پنجره در رابط کاربری نماگرفت."
+
+#: src/preferences/pages/shell/index.js:70
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "تار کردن افزونهٔ window-list، در صورتی که در حال استفاده باشد."
+
+#: src/preferences/pages/shell/index.js:74
+msgid "Make the coverflow alt-tab extension blurred, if it is used."
+msgstr "تار کردن افزونهٔ Coverflow Alt-Tab، در صورتی که در حال استفاده باشد."
 
 #: src/preferences/widgets/effects_dialog.js:45
 #, javascript-format
@@ -1389,3 +1442,67 @@ msgstr "«%s» حذف شد"
 #: src/preferences/widgets/pipeline_undo_toast.js:17
 msgid "Pipeline deleted"
 msgstr "خط پردازش حذف شد"
+
+#~ msgid "Applications blur"
+#~ msgstr "تاری برنامه‌ها"
+
+#~ msgid "Dash"
+#~ msgstr "دش (Dash)"
+
+#~ msgid "Dock blur"
+#~ msgstr "تاری داک"
+
+#~ msgid "Other"
+#~ msgstr "سایر"
+
+#~ msgid "Lockscreen blur"
+#~ msgstr "تاری صفحهٔ قفل"
+
+#~ msgid "Screenshot blur"
+#~ msgstr "تاری نماگرفت"
+
+#~ msgid "Window list extension blur"
+#~ msgstr "تاری افزونهٔ فهرست پنجره‌ها"
+
+#~ msgid "Coverflow Alt-Tab extension blur"
+#~ msgstr "تاری افزونهٔ Coverflow Alt-Tab"
+
+#~ msgid "Debug"
+#~ msgstr "اشکال‌زدایی"
+
+#~ msgid ""
+#~ "Makes the extension verbose in logs, activate when you need to report an "
+#~ "issue."
+#~ msgstr ""
+#~ "گزارش‌های (لاگ‌های) افزونه را پرجزئیات می‌کند؛ تنها زمانی که می‌خواهید مشکلی "
+#~ "را گزارش کنید فعالش کنید."
+
+#~ msgid "Reset preferences"
+#~ msgstr "بازنشانی تنظیمات"
+
+#~ msgid "Restore all Blur my Shell preferences to their defaults."
+#~ msgstr "بازگرداندن تمام تنظیمات Blur my Shell به مقادیر پیش‌فرض."
+
+#~ msgid "Background blur"
+#~ msgstr "تاری پس‌زمینه"
+
+#~ msgid "Application folder blur"
+#~ msgstr "تاری پوشهٔ برنامه‌ها"
+
+#~ msgid "Panel"
+#~ msgstr "پنل"
+
+#~ msgid "Panel blur"
+#~ msgstr "تاری پنل"
+
+#~ msgid ""
+#~ "Each component uses a pipeline, which can be chosen in the corresponding "
+#~ "tab. Here you can create, modify and delete the pipelines and their "
+#~ "effects."
+#~ msgstr ""
+#~ "هر بخش از یک خط پردازش استفاده می‌کند که می‌توان آن را در زبانهٔ مربوطه "
+#~ "انتخاب کرد. در اینجا می‌توانید خطوط پردازش و جلوه‌های آن‌ها را بسازید، "
+#~ "ویرایش یا حذف کنید."
+
+#~ msgid "Popup blur"
+#~ msgstr "تاری پاپ‌آپ‌ها"

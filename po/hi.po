@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 09:34+0200\n"
+"POT-Creation-Date: 2026-10-20 15:00+0200\n"
 "PO-Revision-Date: 2025-04-06 17:37+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/blur-my-shell/blur-"
@@ -574,129 +574,115 @@ msgid ""
 "(milliseconds)."
 msgstr ""
 
-#: resources/ui/application-row.ui:4
-msgid "Window Name"
-msgstr "विंडो का नाम"
-
-#: resources/ui/application-row.ui:8
-msgid "Select window"
-msgstr "विंडो चुनें"
-
-#: resources/ui/application-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "एक विंडो चुनें या उसके classname से उसका चयन करें।"
-
-#: resources/ui/application-row.ui:41
-msgid "Window selection failed. Make sure the extension is enabled."
+#: resources/ui/menu.ui:6
+msgid "Debug Logging"
 msgstr ""
 
-#: resources/ui/application-row.ui:45
-msgid "The selected actor is not a window."
+#: resources/ui/menu.ui:10
+msgid "Reset Preferences…"
 msgstr ""
 
-#: resources/ui/applications.ui:5
+#: resources/ui/menu.ui:16
+msgid "Project page"
+msgstr "परियोजना पृष्ठ"
+
+#: resources/ui/menu.ui:20
+msgid "Report a Bug"
+msgstr "बग रिपोर्ट करें"
+
+#: resources/ui/menu.ui:24
+msgid "License"
+msgstr "लाइसेंस"
+
+#: resources/ui/menu.ui:28
+msgid "Donate"
+msgstr "दान करें"
+
+#: resources/ui/menu.ui:45
+msgid "Main Menu"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:5
 msgid "Applications"
 msgstr "एप्लीकेशन"
 
-#: resources/ui/applications.ui:10
-msgid "Applications blur"
-msgstr "एप्लिकेशन का धुंधलापन"
+#: resources/ui/pages/applications.ui:12
+#: resources/ui/pages/shell/app-folders.ui:8
+#: resources/ui/pages/shell/component.ui:8 resources/ui/pages/shell/dash.ui:8
+#: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
+#: resources/ui/pages/shell/popup.ui:8
+msgid "Blur"
+msgstr ""
 
-#: resources/ui/applications.ui:11
+#: resources/ui/pages/applications.ui:13
 msgid "Adds blur to applications."
 msgstr ""
 
-#: resources/ui/applications.ui:20 resources/ui/dash.ui:20
-#: resources/ui/panel.ui:20 resources/ui/popup.ui:20
-msgid "Blur type"
-msgstr "धुंधला प्रकार"
-
-#: resources/ui/applications.ui:21
+#: resources/ui/pages/applications.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
 msgstr ""
 
-#: resources/ui/applications.ui:41 resources/ui/dash.ui:41
-#: resources/ui/panel.ui:41 resources/ui/popup.ui:41
-msgid "Static"
-msgstr "स्थिर"
-
-#: resources/ui/applications.ui:53 resources/ui/dash.ui:53
-#: resources/ui/panel.ui:53 resources/ui/popup.ui:53
-msgid "Dynamic"
-msgstr "गतिशील"
-
-#: resources/ui/applications.ui:71 resources/ui/panel.ui:71
-#: resources/ui/popup.ui:71
-msgid "Corner radius"
+#: resources/ui/pages/applications.ui:34
+#: resources/ui/pages/shell/overview.ui:23 resources/ui/pages/shell/panel.ui:38
+msgid "Appearance"
 msgstr ""
 
-#: resources/ui/applications.ui:72 resources/ui/panel.ui:72
-msgid "Radius for the corner rounding effect."
-msgstr ""
-
-#: resources/ui/applications.ui:80 resources/ui/panel.ui:80
-#: resources/ui/popup.ui:161
-msgid "Rounded corners"
-msgstr ""
-
-#: resources/ui/applications.ui:85 resources/ui/panel.ui:85
-#: resources/ui/popup.ui:166
-msgid "All"
-msgstr ""
-
-#: resources/ui/applications.ui:86 resources/ui/panel.ui:86
-#: resources/ui/popup.ui:167
-msgid "Top only"
-msgstr ""
-
-#: resources/ui/applications.ui:87 resources/ui/panel.ui:87
-#: resources/ui/popup.ui:168
-msgid "Bottom only"
-msgstr ""
-
-#: resources/ui/applications.ui:88 resources/ui/panel.ui:88
-#: resources/ui/popup.ui:169
-msgid "None"
-msgstr ""
-
-#: resources/ui/applications.ui:97
-msgid "Round maximized and fullscreen windows"
-msgstr ""
-
-#: resources/ui/applications.ui:98
-msgid ""
-"Corner rounding effect will keep being applied to maximized and fullscreen "
-"windows."
-msgstr ""
-
-#: resources/ui/applications.ui:112
+#: resources/ui/pages/applications.ui:39
 msgid "Opacity"
 msgstr "अपारदर्शिता"
 
-#: resources/ui/applications.ui:113
+#: resources/ui/pages/applications.ui:40
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr "धुंधले प्रभाव के शीर्ष पर विंडो की अपारदर्शिता, उच्चतर मान अधिक सुपाठ्य होगा।"
 
-#: resources/ui/applications.ui:134
+#: resources/ui/pages/applications.ui:60
 msgid "Opaque focused window"
 msgstr "अपारदर्शी केंद्रित विंडो"
 
-#: resources/ui/applications.ui:135
+#: resources/ui/pages/applications.ui:61
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
 msgstr ""
 "केंद्रित विंडो को अपारदर्शी और अन्य को धुंधला बनाता है, जिससे सुपाठ्यता में मदद मिलती है।"
 
-#: resources/ui/applications.ui:149
+#: resources/ui/pages/applications.ui:67 resources/ui/pages/shell/panel.ui:43
+#: resources/ui/pages/shell/popup.ui:61
+msgid "Corner radius"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
+msgid "Radius for the corner rounding effect."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
+#: resources/ui/pages/shell/popup.ui:67
+msgid "Rounded corners"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:82
+msgid "Round maximized and fullscreen windows"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:83
+msgid ""
+"Corner rounding effect will keep being applied to maximized and fullscreen "
+"windows."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:91
+msgid "Behavior"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:96
 msgid "Blur on overview"
 msgstr "अवलोकन पर धुंधलापन"
 
-#: resources/ui/applications.ui:150
+#: resources/ui/pages/applications.ui:97
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -704,287 +690,225 @@ msgstr ""
 "अवलोकन में सभी कार्यस्थानों पर धुंधलापन ठीक से दिखाने के लिए बाध्य करता है।\n"
 "इससे कुछ विलंबता या प्रदर्शन संबंधी समस्याएं हो सकती हैं।"
 
-#: resources/ui/applications.ui:165
+#: resources/ui/pages/applications.ui:104
 msgid "Unblur when Fullscreen"
 msgstr ""
 
-#: resources/ui/applications.ui:166
+#: resources/ui/pages/applications.ui:105
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr ""
 
-#: resources/ui/applications.ui:180
+#: resources/ui/pages/applications.ui:111
 msgid "Enable all by default"
 msgstr "सभी को तयशुदा रूप से सक्षम करें"
 
-#: resources/ui/applications.ui:181
+#: resources/ui/pages/applications.ui:112
 msgid "Adds blur behind all windows by default."
 msgstr "तयशुदा रूप से सभी विंडो के पीछे धुंधलापन जोड़ता है।"
 
-#: resources/ui/applications.ui:197
+#: resources/ui/pages/applications.ui:120
 msgid "Whitelist"
 msgstr "श्वेतसूची"
 
-#: resources/ui/applications.ui:198
+#: resources/ui/pages/applications.ui:121
 msgid ""
 "A list of windows to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
 
-#: resources/ui/applications.ui:217 resources/ui/applications.ui:255
+#: resources/ui/pages/applications.ui:140
+#: resources/ui/pages/applications.ui:178
 msgid "Add Window"
 msgstr "विंडो जोड़ें"
 
-#: resources/ui/applications.ui:235
+#: resources/ui/pages/applications.ui:158
 msgid "Blacklist"
 msgstr "काली सूची"
 
-#: resources/ui/applications.ui:236
+#: resources/ui/pages/applications.ui:159
 msgid ""
 "A list of windows not to blur.\n"
 "Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
 "for a single one."
 msgstr ""
 
-#: resources/ui/dash.ui:5
-msgid "Dash"
-msgstr "Dash"
-
-#: resources/ui/dash.ui:10
-msgid "Dock blur"
+#: resources/ui/pages/applications.ui:197 resources/ui/pages/shell/panel.ui:157
+#: resources/ui/pages/shell/popup.ui:161
+msgid "All"
 msgstr ""
 
-#: resources/ui/dash.ui:11
+#: resources/ui/pages/applications.ui:198 resources/ui/pages/shell/panel.ui:158
+#: resources/ui/pages/shell/popup.ui:162
+msgid "Top only"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:199 resources/ui/pages/shell/panel.ui:159
+#: resources/ui/pages/shell/popup.ui:163
+msgid "Bottom only"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:200 resources/ui/pages/shell/panel.ui:160
+#: resources/ui/pages/shell/popup.ui:164
+msgid "None"
+msgstr ""
+
+#: resources/ui/pages/pipelines.ui:5
+msgid "Pipelines"
+msgstr "पाइपलाइनें"
+
+#: resources/ui/pages/pipelines.ui:10
+msgid ""
+"Pipelines are sets of effects that components share. Each component picks "
+"the pipeline it uses in its own settings."
+msgstr ""
+
+#: resources/ui/pages/pipelines.ui:29
+msgid "Add Pipeline"
+msgstr "पाइपलाइन जोड़ें"
+
+#: resources/ui/pages/shell/app-folders.ui:9
+msgid "Makes the background of application folder dialogs blurred."
+msgstr "एप्लिकेशन फोल्डर संवाद की पृष्ठभूमि को धुंधला करें।"
+
+#: resources/ui/pages/shell/app-folders.ui:21
+msgid "Application folder dialogs style"
+msgstr "एप्लिकेशन फोल्डर संवाद शैली"
+
+#: resources/ui/pages/shell/app-folders.ui:22
+msgid "The semi-transparent style for the application folder dialogs."
+msgstr "एप्लिकेशन फोल्डर संवादों के लिए अर्ध-पारदर्शी शैली।"
+
+#: resources/ui/pages/shell/app-folders.ui:33
+#: resources/ui/pages/shell/overview.ui:53
+msgid "Do not style"
+msgstr "स्टाइल मत करें"
+
+#: resources/ui/pages/shell/app-folders.ui:34
+#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
+#: resources/ui/pages/shell/panel.ui:166 resources/ui/pages/shell/popup.ui:170
+msgid "Transparent"
+msgstr "पारदर्शी"
+
+#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:54
+#: resources/ui/pages/shell/panel.ui:167 resources/ui/pages/shell/popup.ui:171
+msgid "Light"
+msgstr "हल्का"
+
+#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:55
+#: resources/ui/pages/shell/panel.ui:168 resources/ui/pages/shell/popup.ui:172
+msgid "Dark"
+msgstr "गहरा"
+
+#: resources/ui/pages/shell/app-folders.ui:37
+#: resources/ui/pages/shell/dash.ui:65 resources/ui/pages/shell/overview.ui:57
+#: resources/ui/pages/shell/panel.ui:170 resources/ui/pages/shell/popup.ui:173
+msgid "Automatic"
+msgstr ""
+
+#: resources/ui/pages/shell/dash.ui:9
 msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
 
-#: resources/ui/dash.ui:21
+#: resources/ui/pages/shell/dash.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
 msgstr ""
 
-#: resources/ui/dash.ui:71 resources/ui/panel.ui:112 resources/ui/popup.ui:180
+#: resources/ui/pages/shell/dash.ui:28 resources/ui/pages/shell/panel.ui:28
+msgid "Disable in overview"
+msgstr "अवलोकन में अक्षम करें"
+
+#: resources/ui/pages/shell/dash.ui:29
+msgid "Disables dock blur when entering the overview."
+msgstr ""
+
+#: resources/ui/pages/shell/dash.ui:38 resources/ui/pages/shell/panel.ui:74
+#: resources/ui/pages/shell/popup.ui:30 resources/ui/pages/shell/shell.ui:51
+msgid "Background"
+msgstr ""
+
+#: resources/ui/pages/shell/dash.ui:43 resources/ui/pages/shell/panel.ui:79
+#: resources/ui/pages/shell/popup.ui:35
 msgid "Override background"
 msgstr "पृष्ठभूमि को ओवरराइड करें"
 
-#: resources/ui/dash.ui:72
+#: resources/ui/pages/shell/dash.ui:44
 msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
 
-#: resources/ui/dash.ui:78 resources/ui/panel.ui:120 resources/ui/popup.ui:201
+#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:87
+#: resources/ui/pages/shell/popup.ui:42
 msgid "Background style"
 msgstr "पृष्ठभूमि शैली"
 
-#: resources/ui/dash.ui:79
+#: resources/ui/pages/shell/dash.ui:51
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "डॉक पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
-#: resources/ui/dash.ui:95 resources/ui/panel.ui:197
-msgid "Disable in overview"
-msgstr "अवलोकन में अक्षम करें"
-
-#: resources/ui/dash.ui:96
-msgid "Disables dock blur when entering the overview."
-msgstr ""
-
-#: resources/ui/dash.ui:113 resources/ui/overview.ui:82
-#: resources/ui/overview.ui:90 resources/ui/panel.ui:252
-#: resources/ui/popup.ui:293
-msgid "Transparent"
-msgstr "पारदर्शी"
-
-#: resources/ui/dash.ui:114 resources/ui/overview.ui:80
-#: resources/ui/overview.ui:91 resources/ui/panel.ui:253
-#: resources/ui/popup.ui:294
-msgid "Light"
-msgstr "हल्का"
-
-#: resources/ui/dash.ui:115 resources/ui/overview.ui:81
-#: resources/ui/overview.ui:92 resources/ui/panel.ui:254
-#: resources/ui/popup.ui:295
-msgid "Dark"
-msgstr "गहरा"
-
-#: resources/ui/dash.ui:116 resources/ui/overview.ui:83
-#: resources/ui/overview.ui:93 resources/ui/panel.ui:256
-#: resources/ui/popup.ui:296
-msgid "Automatic"
-msgstr ""
-
-#: resources/ui/effects-dialog.ui:4
-#: src/preferences/widgets/effects_dialog.js:46
-msgid "Effects"
-msgstr "प्रभाव"
-
-#: resources/ui/effects-dialog.ui:13
-msgid "Effects list"
-msgstr ""
-
-#: resources/ui/effects-dialog.ui:14
-msgid "The top effect is applied first."
-msgstr ""
-
-#: resources/ui/effects-dialog.ui:39
-msgid "Add Effect"
-msgstr "प्रभाव जोड़ें"
-
-#: resources/ui/effects-dialog.ui:72
-msgid "Include advanced effects"
-msgstr "उन्नत प्रभाव शामिल करें"
-
-#: resources/ui/menu.ui:6
-msgid "Project page"
-msgstr "परियोजना पृष्ठ"
-
-#: resources/ui/menu.ui:10
-msgid "Report a Bug"
-msgstr "बग रिपोर्ट करें"
-
-#: resources/ui/menu.ui:14
-msgid "License"
-msgstr "लाइसेंस"
-
-#: resources/ui/menu.ui:18
-msgid "Donate"
-msgstr "दान करें"
-
-#: resources/ui/other.ui:5
-msgid "Other"
-msgstr "अन्य"
-
-#: resources/ui/other.ui:10
-msgid "Lockscreen blur"
-msgstr "लॉक स्क्रीन का धुंधलापन"
-
-#: resources/ui/other.ui:11
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "इस एक्सटेंशन प्राथमिकताओं का उपयोग करने के लिए लॉक स्क्रीन का धुंधलापन बदलें।"
-
-#: resources/ui/other.ui:28
-msgid "Screenshot blur"
-msgstr "स्क्रीनशॉट का धुंधलापन"
-
-#: resources/ui/other.ui:29
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "स्क्रीनशॉट UI में विंडो चयनकर्ता की पृष्ठभूमि में धुंधलापन जोड़ें।"
-
-#: resources/ui/other.ui:46
-msgid "Window list extension blur"
-msgstr "विंडो सूची एक्सटेंशन का धुंधलापन"
-
-#: resources/ui/other.ui:47
-msgid "Make the window-list extension blurred, if it is used."
-msgstr "यदि विंडो-सूची एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
-
-#: resources/ui/other.ui:64
-msgid "Coverflow Alt-Tab extension blur"
-msgstr "कवरफ्लो Alt-Tab एक्सटेंशन ब्लर"
-
-#: resources/ui/other.ui:65
-msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr "यदि कवरफ्लो ऑल्ट-टैब एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
-
-#: resources/ui/other.ui:82
-msgid "Debug"
-msgstr "डिबग"
-
-#: resources/ui/other.ui:83
-msgid ""
-"Makes the extension verbose in logs, activate when you need to report an "
-"issue."
-msgstr ""
-"लॉग में एक्सटेंशन को वाचाल बनाता है, जब आपको किसी समस्या की रिपोर्ट करने की आवश्यकता "
-"होती है तो सक्रिय करें।"
-
-#: resources/ui/other.ui:95
-msgid "Reset preferences"
-msgstr "प्राथमिकताएं रीसेट करें"
-
-#: resources/ui/other.ui:96
-msgid "Restore all Blur my Shell preferences to their defaults."
-msgstr ""
-
-#: resources/ui/other.ui:115 src/preferences/pages/other.js:83
-msgid "Reset"
-msgstr "रीसेट"
-
-#: resources/ui/overview.ui:5
-msgid "Overview"
-msgstr "अवलोकन"
-
-#: resources/ui/overview.ui:10
-msgid "Background blur"
-msgstr "पृष्ठभूमि का धुंधलापन"
-
-#: resources/ui/overview.ui:11
+#: resources/ui/pages/shell/overview.ui:9
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "वॉलपेपर चित्र का उपयोग करके, अवलोकन पृष्ठभूमि में धुंधलापन जोड़ें।"
 
-#: resources/ui/overview.ui:26
+#: resources/ui/pages/shell/overview.ui:28
 msgid "Overview components style"
 msgstr "अवलोकन घटक शैली"
 
-#: resources/ui/overview.ui:27
+#: resources/ui/pages/shell/overview.ui:29
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr "डैश, खोज प्रविष्टि/परिणाम और एप्लिकेशन फोल्डर के लिए अर्ध-पारदर्शी शैली।"
 
-#: resources/ui/overview.ui:44
-msgid "Application folder blur"
-msgstr "एप्लिकेशन फोल्डर का धुंधलापन"
+#: resources/ui/pages/shell/overview.ui:36
+msgid "Workspace corner radius"
+msgstr ""
 
-#: resources/ui/overview.ui:45
-msgid "Makes the background of application folder dialogs blurred."
-msgstr "एप्लिकेशन फोल्डर संवाद की पृष्ठभूमि को धुंधला करें।"
+#: resources/ui/pages/shell/overview.ui:37
+msgid "Radius for the corner rounding of the workspaces in the overview."
+msgstr ""
 
-#: resources/ui/overview.ui:60
-msgid "Application folder dialogs style"
-msgstr "एप्लिकेशन फोल्डर संवाद शैली"
-
-#: resources/ui/overview.ui:61
-msgid "The semi-transparent style for the application folder dialogs."
-msgstr "एप्लिकेशन फोल्डर संवादों के लिए अर्ध-पारदर्शी शैली।"
-
-#: resources/ui/overview.ui:79 resources/ui/overview.ui:89
-msgid "Do not style"
-msgstr "स्टाइल मत करें"
-
-#: resources/ui/panel.ui:5
-msgid "Panel"
-msgstr "फलक"
-
-#: resources/ui/panel.ui:10
-msgid "Panel blur"
-msgstr "फलक का धुंधलापन"
-
-#: resources/ui/panel.ui:11
+#: resources/ui/pages/shell/panel.ui:9
 msgid "Add blur to the top panel."
 msgstr ""
 
-#: resources/ui/panel.ui:21
+#: resources/ui/pages/shell/panel.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
 msgstr ""
 
-#: resources/ui/panel.ui:97
+#: resources/ui/pages/shell/panel.ui:29
+msgid "Disables the blur from the panel when entering the overview."
+msgstr "अवलोकन दर्ज करते समय फलक से धुंधलापन अक्षम कर देता है।"
+
+#: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
 msgstr "बलपूर्वक हल्के पाठ लागू करें"
 
-#: resources/ui/panel.ui:98
+#: resources/ui/pages/shell/panel.ui:59
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "फलक के लिए हल्के पाठ का उपयोग करें, जो gnome-shell की हल्की थीम का उपयोग करते समय "
 "उपयोगी होता है।"
 
-#: resources/ui/panel.ui:113
+#: resources/ui/pages/shell/panel.ui:65
+msgid "Match theme in overview"
+msgstr ""
+
+#: resources/ui/pages/shell/panel.ui:66
+msgid "Keep panel text and icons matched to the system theme in the overview."
+msgstr ""
+
+#: resources/ui/pages/shell/panel.ui:80
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -993,23 +917,23 @@ msgstr ""
 "पारदर्शी या अर्ध-पारदर्शी का उपयोग करने के लिए फलक की पृष्ठभूमि को ओवरराइड करें।\n"
 "अनुशंसित जब तक आप अपनी GNOME थीम को अनुकूलित नहीं करना चाहते।"
 
-#: resources/ui/panel.ui:121
+#: resources/ui/pages/shell/panel.ui:88
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "फलक पृष्ठभूमि के लिए पारदर्शी/अर्ध-पारदर्शी शैली।"
 
-#: resources/ui/panel.ui:135
+#: resources/ui/pages/shell/panel.ui:96
 msgid "Override background dynamically"
 msgstr ""
 
-#: resources/ui/panel.ui:136
+#: resources/ui/pages/shell/panel.ui:97
 msgid "Change the panel background when a window is near it."
 msgstr ""
 
-#: resources/ui/panel.ui:149
+#: resources/ui/pages/shell/panel.ui:104
 msgid "When a window is near"
 msgstr ""
 
-#: resources/ui/panel.ui:150
+#: resources/ui/pages/shell/panel.ui:105
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
@@ -1017,47 +941,43 @@ msgid ""
 "the panel and blur when it is not."
 msgstr ""
 
-#: resources/ui/panel.ui:165
+#: resources/ui/pages/shell/panel.ui:114
 msgid "Gradient background"
 msgstr ""
 
-#: resources/ui/panel.ui:166
+#: resources/ui/pages/shell/panel.ui:115
 msgid "Apply a gradient effect to the panel background."
 msgstr ""
 
-#: resources/ui/panel.ui:179
+#: resources/ui/pages/shell/panel.ui:122
 msgid "Gradient direction"
 msgstr ""
 
-#: resources/ui/panel.ui:180
+#: resources/ui/pages/shell/panel.ui:123
 msgid "Change the direction of the gradient background."
 msgstr ""
 
-#: resources/ui/panel.ui:198
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "अवलोकन दर्ज करते समय फलक से धुंधलापन अक्षम कर देता है।"
-
-#: resources/ui/panel.ui:214
+#: resources/ui/pages/shell/panel.ui:133
 msgid "Compatibility"
 msgstr "अनुकूलता"
 
-#: resources/ui/panel.ui:215
+#: resources/ui/pages/shell/panel.ui:134
 msgid "Various options to provide compatibility with other extensions."
 msgstr "अन्य एक्सटेंशन के साथ अनुकूलता प्रदान करने के लिए विभिन्न विकल्प।"
 
-#: resources/ui/panel.ui:220
+#: resources/ui/pages/shell/panel.ui:139
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar एक्सटेंशन"
 
-#: resources/ui/panel.ui:221
+#: resources/ui/pages/shell/panel.ui:140
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
 
-#: resources/ui/panel.ui:235
+#: resources/ui/pages/shell/panel.ui:147
 msgid "Blur original panel with Dash to Panel"
 msgstr "Dash to Panel के साथ मूल फलक को धुंधला करें"
 
-#: resources/ui/panel.ui:236
+#: resources/ui/pages/shell/panel.ui:148
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -1065,150 +985,267 @@ msgstr ""
 "यदि एक्सटेंशन के विकल्पों में चयन किया गया है, तो Dash to Panel के साथ मूल फलक को धुंधला "
 "करने में सक्षम बनाता है।"
 
-#: resources/ui/panel.ui:255
+#: resources/ui/pages/shell/panel.ui:169
 msgid "Contrasted"
 msgstr "विषम"
 
-#: resources/ui/panel.ui:262
+#: resources/ui/pages/shell/panel.ui:176
 msgid "Blur on Window Proximity"
 msgstr ""
 
-#: resources/ui/panel.ui:263
+#: resources/ui/pages/shell/panel.ui:177
 msgid "Background on Window Proximity"
 msgstr ""
 
-#: resources/ui/panel.ui:269
+#: resources/ui/pages/shell/panel.ui:183
 msgid "Top"
 msgstr ""
 
-#: resources/ui/panel.ui:270
+#: resources/ui/pages/shell/panel.ui:184
 msgid "Bottom"
 msgstr ""
 
-#: resources/ui/pipeline-choose-row.ui:4
-msgid "Pipeline"
-msgstr "पाइपलाइन"
-
-#: resources/ui/pipeline-choose-row.ui:5
-msgid "The pipeline to be used with this component."
-msgstr "इस घटक के साथ उपयोग की जाने वाली पाइपलाइन।"
-
-#: resources/ui/pipeline-group.ui:6
-msgid "Pipeline name"
-msgstr "पाइपलाइन का नाम"
-
-#: resources/ui/pipeline-group.ui:20
-msgid "Manage effects"
-msgstr "प्रभाव प्रबंधित करें"
-
-#: resources/ui/pipeline-undo-toast.ui:28
-msgid "Undo"
-msgstr ""
-
-#: resources/ui/pipelines.ui:5
-msgid "Pipelines"
-msgstr "पाइपलाइनें"
-
-#: resources/ui/pipelines.ui:16
-msgid ""
-"Each component uses a pipeline, which can be chosen in the corresponding "
-"tab. Here you can create, modify and delete the pipelines and their effects."
-msgstr ""
-"प्रत्येक घटक एक पाइपलाइन का उपयोग करता है, जिसे संबंधित टैब में चुना जा सकता है। यहां आप "
-"पाइपलाइन और उनके प्रभावों को बना, संशोधित और हटा सकते हैं।"
-
-#: resources/ui/pipelines.ui:35
-msgid "Add Pipeline"
-msgstr "पाइपलाइन जोड़ें"
-
-#: resources/ui/popup.ui:5
-msgid "Popups"
-msgstr ""
-
-#: resources/ui/popup.ui:10
-msgid "Popup blur"
-msgstr ""
-
-#: resources/ui/popup.ui:11
+#: resources/ui/pages/shell/popup.ui:9
 msgid ""
 "Add blur to GNOME Shell menus, the calendar and notifications popup, "
 "notification banners, OSD popups, and dialogs."
 msgstr ""
 
-#: resources/ui/popup.ui:21
+#: resources/ui/pages/shell/popup.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
 msgstr ""
 
-#: resources/ui/popup.ui:72
-msgid "Adjust the rounded corners for each popup surface."
-msgstr ""
-
-#: resources/ui/popup.ui:77
-msgid "Menus"
-msgstr ""
-
-#: resources/ui/popup.ui:84
-msgid "Input method candidates"
-msgstr ""
-
-#: resources/ui/popup.ui:91
-msgid "Quick settings"
-msgstr ""
-
-#: resources/ui/popup.ui:98
-msgid "Quick settings submenus"
-msgstr ""
-
-#: resources/ui/popup.ui:105
-msgid "Calendar and notification center"
-msgstr ""
-
-#: resources/ui/popup.ui:112
-msgid "Notifications"
-msgstr ""
-
-#: resources/ui/popup.ui:119
-msgid "Window and workspace switchers"
-msgstr ""
-
-#: resources/ui/popup.ui:126
-msgid "Volume and brightness"
-msgstr ""
-
-#: resources/ui/popup.ui:133
-msgid "Window resize hints"
-msgstr ""
-
-#: resources/ui/popup.ui:140
-msgid "Dialogs"
-msgstr ""
-
-#: resources/ui/popup.ui:147
-msgid "On-screen keyboard"
-msgstr ""
-
-#: resources/ui/popup.ui:154
-msgid "Other popup surfaces"
-msgstr ""
-
-#: resources/ui/popup.ui:181
+#: resources/ui/pages/shell/popup.ui:36
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
 msgstr ""
 
-#: resources/ui/popup.ui:187
+#: resources/ui/pages/shell/popup.ui:43
+msgid "The transparent/semi-transparent style for popups."
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
 msgstr ""
 
-#: resources/ui/popup.ui:188
+#: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
 msgstr ""
 
-#: resources/ui/popup.ui:202
-msgid "The transparent/semi-transparent style for popups."
+#: resources/ui/pages/shell/popup.ui:62
+msgid "Adjust the rounded corners for each popup surface."
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:74
+msgid "Menus"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:81
+msgid "Input method candidates"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:88
+msgid "Quick settings"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:95
+msgid "Quick settings submenus"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:102
+msgid "Calendar and notification center"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:109
+msgid "Notifications"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:116
+msgid "Window and workspace switchers"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:123
+msgid "Volume and brightness"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:130
+msgid "Window resize hints"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:137
+msgid "Dialogs"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:144
+msgid "On-screen keyboard"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:151
+msgid "Other popup surfaces"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:5
+msgid "Shell"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:16
+msgid "Desktop"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:21
+msgid "Top bar"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:22
+msgid "The panel at the top of the screen"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:29
+msgid "Dock"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:30
+msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:37
+msgid "Popups"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:38
+msgid "Menus, quick settings, notifications and dialogs"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:46
+msgid "Overview"
+msgstr "अवलोकन"
+
+#: resources/ui/pages/shell/shell.ui:52
+msgid "The wallpaper behind the workspaces"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:59
+msgid "App folders"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:60
+msgid "Folders opened from the app grid"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:68
+msgid "System"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:73
+msgid "Lock screen"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:74
+msgid "Behind the password prompt"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:81
+msgid "Screenshot"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:82
+msgid "Behind the window selector"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:90
+msgid "Extensions"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:95
+msgid "Window List"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:96
+msgid "The taskbar from the Window List extension"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:103
+msgid "Coverflow Alt-Tab"
+msgstr ""
+
+#: resources/ui/pages/shell/shell.ui:104
+msgid "Behind the window switcher"
+msgstr ""
+
+#: resources/ui/widgets/application-row.ui:4
+msgid "Window Name"
+msgstr "विंडो का नाम"
+
+#: resources/ui/widgets/application-row.ui:8
+msgid "Select window"
+msgstr "विंडो चुनें"
+
+#: resources/ui/widgets/application-row.ui:9
+msgid "Pick a window or select it by its classname."
+msgstr "एक विंडो चुनें या उसके classname से उसका चयन करें।"
+
+#: resources/ui/widgets/application-row.ui:41
+msgid "Window selection failed. Make sure the extension is enabled."
+msgstr ""
+
+#: resources/ui/widgets/application-row.ui:45
+msgid "The selected actor is not a window."
+msgstr ""
+
+#: resources/ui/widgets/blur-mode-row.ui:4
+msgid "Blur type"
+msgstr "धुंधला प्रकार"
+
+#: resources/ui/widgets/blur-mode-row.ui:22
+msgid "Static"
+msgstr "स्थिर"
+
+#: resources/ui/widgets/blur-mode-row.ui:34
+msgid "Dynamic"
+msgstr "गतिशील"
+
+#: resources/ui/widgets/effects-dialog.ui:4
+#: src/preferences/widgets/effects_dialog.js:46
+msgid "Effects"
+msgstr "प्रभाव"
+
+#: resources/ui/widgets/effects-dialog.ui:13
+msgid "Effects list"
+msgstr ""
+
+#: resources/ui/widgets/effects-dialog.ui:14
+msgid "The top effect is applied first."
+msgstr ""
+
+#: resources/ui/widgets/effects-dialog.ui:39
+msgid "Add Effect"
+msgstr "प्रभाव जोड़ें"
+
+#: resources/ui/widgets/effects-dialog.ui:72
+msgid "Include advanced effects"
+msgstr "उन्नत प्रभाव शामिल करें"
+
+#: resources/ui/widgets/pipeline-choose-row.ui:4
+msgid "Pipeline"
+msgstr "पाइपलाइन"
+
+#: resources/ui/widgets/pipeline-choose-row.ui:5
+msgid "The pipeline to be used with this component."
+msgstr "इस घटक के साथ उपयोग की जाने वाली पाइपलाइन।"
+
+#: resources/ui/widgets/pipeline-group.ui:6
+msgid "Pipeline name"
+msgstr "पाइपलाइन का नाम"
+
+#: resources/ui/widgets/pipeline-group.ui:20
+msgid "Manage effects"
+msgstr "प्रभाव प्रबंधित करें"
+
+#: resources/ui/widgets/pipeline-undo-toast.ui:28
+msgid "Undo"
 msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:26
@@ -1272,22 +1309,42 @@ msgstr ""
 msgid "Open instructions"
 msgstr ""
 
-#: src/preferences/pages/other.js:79
+#: src/preferences/menu.js:83
 msgid "Reset all preferences?"
 msgstr ""
 
-#: src/preferences/pages/other.js:80
+#: src/preferences/menu.js:84
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
 
-#: src/preferences/pages/other.js:82
+#: src/preferences/menu.js:86
 msgid "Cancel"
 msgstr ""
 
-#: src/preferences/pages/pipelines.js:46
+#: src/preferences/menu.js:87
+msgid "Reset"
+msgstr "रीसेट"
+
+#: src/preferences/pages/pipelines.js:42
 #: src/preferences/widgets/pipeline_choose_row.js:64
 msgid "New pipeline"
 msgstr ""
+
+#: src/preferences/pages/shell/index.js:62
+msgid "Change the blur of the lockscreen to use this extension's preferences."
+msgstr "इस एक्सटेंशन प्राथमिकताओं का उपयोग करने के लिए लॉक स्क्रीन का धुंधलापन बदलें।"
+
+#: src/preferences/pages/shell/index.js:66
+msgid "Add blur to the background of the window selector in the screenshot UI."
+msgstr "स्क्रीनशॉट UI में विंडो चयनकर्ता की पृष्ठभूमि में धुंधलापन जोड़ें।"
+
+#: src/preferences/pages/shell/index.js:70
+msgid "Make the window-list extension blurred, if it is used."
+msgstr "यदि विंडो-सूची एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
+
+#: src/preferences/pages/shell/index.js:74
+msgid "Make the coverflow alt-tab extension blurred, if it is used."
+msgstr "यदि कवरफ्लो ऑल्ट-टैब एक्सटेंशन का उपयोग किया जाता है, तो उसे धुंधला कर दें।"
 
 #: src/preferences/widgets/effects_dialog.js:45
 #, javascript-format
@@ -1326,6 +1383,60 @@ msgstr ""
 #: src/preferences/widgets/pipeline_undo_toast.js:17
 msgid "Pipeline deleted"
 msgstr ""
+
+#~ msgid "Applications blur"
+#~ msgstr "एप्लिकेशन का धुंधलापन"
+
+#~ msgid "Dash"
+#~ msgstr "Dash"
+
+#~ msgid "Other"
+#~ msgstr "अन्य"
+
+#~ msgid "Lockscreen blur"
+#~ msgstr "लॉक स्क्रीन का धुंधलापन"
+
+#~ msgid "Screenshot blur"
+#~ msgstr "स्क्रीनशॉट का धुंधलापन"
+
+#~ msgid "Window list extension blur"
+#~ msgstr "विंडो सूची एक्सटेंशन का धुंधलापन"
+
+#~ msgid "Coverflow Alt-Tab extension blur"
+#~ msgstr "कवरफ्लो Alt-Tab एक्सटेंशन ब्लर"
+
+#~ msgid "Debug"
+#~ msgstr "डिबग"
+
+#~ msgid ""
+#~ "Makes the extension verbose in logs, activate when you need to report an "
+#~ "issue."
+#~ msgstr ""
+#~ "लॉग में एक्सटेंशन को वाचाल बनाता है, जब आपको किसी समस्या की रिपोर्ट करने की "
+#~ "आवश्यकता होती है तो सक्रिय करें।"
+
+#~ msgid "Reset preferences"
+#~ msgstr "प्राथमिकताएं रीसेट करें"
+
+#~ msgid "Background blur"
+#~ msgstr "पृष्ठभूमि का धुंधलापन"
+
+#~ msgid "Application folder blur"
+#~ msgstr "एप्लिकेशन फोल्डर का धुंधलापन"
+
+#~ msgid "Panel"
+#~ msgstr "फलक"
+
+#~ msgid "Panel blur"
+#~ msgstr "फलक का धुंधलापन"
+
+#~ msgid ""
+#~ "Each component uses a pipeline, which can be chosen in the corresponding "
+#~ "tab. Here you can create, modify and delete the pipelines and their "
+#~ "effects."
+#~ msgstr ""
+#~ "प्रत्येक घटक एक पाइपलाइन का उपयोग करता है, जिसे संबंधित टैब में चुना जा सकता है। यहां "
+#~ "आप पाइपलाइन और उनके प्रभावों को बना, संशोधित और हटा सकते हैं।"
 
 #~ msgid "Performance"
 #~ msgstr "प्रदर्शन"
