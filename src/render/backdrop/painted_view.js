@@ -1,12 +1,21 @@
 let painted_view = null;
+let view_paints = 0;
 
 export function track_painted_views(connections) {
-    connections.connect(global.stage, 'before-paint', (_, view) => painted_view = view);
+    connections.connect(global.stage, 'before-paint', (_, view) => {
+        painted_view = view;
+        view_paints++;
+    });
     connections.connect(global.stage, 'after-paint', () => painted_view = null);
 }
 
 export function get_painted_view() {
     return painted_view;
+}
+
+/// Changes every time a stage view starts being painted.
+export function get_view_paint() {
+    return view_paints;
 }
 
 /// The framebuffer being painted, but only while a stage view is painted. Screencasts using shared

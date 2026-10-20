@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 15:37+0200\n"
-"PO-Revision-Date: 2026-05-22 14:11+0000\n"
-"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
+"PO-Revision-Date: 2026-10-20 16:24+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/id/>\n"
 "Language: id\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Blur Dual Kawase"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Efek blur yang cepat dan berkualitas tinggi."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -60,6 +60,8 @@ msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"Warna yang akan dicampurkan. Tingkat pencampuran ditentukan oleh opasitas "
+"warna."
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
@@ -148,16 +150,18 @@ msgstr "Geser kecerahan"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Kecerahan yang akan ditambahkan atau dikurangi dari gambar."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Pengali kecerahan"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Mengalikan kecerahan gambar; 0 menghasilkan warna hitam dan 1 mempertahankan "
+"kecerahan."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
@@ -166,6 +170,7 @@ msgstr "Kontras"
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
+"Menyesuaikan kontras gambar berdasarkan titik tengah kontras yang dipilih."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
@@ -180,6 +185,8 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Mengalikan saturasi gambar; 0 menghilangkan semua warna dan 1 mempertahankan "
+"saturasi."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
@@ -187,7 +194,7 @@ msgstr "RGB ke HSL (efek lanjutan)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Mengonversi gambar dari ruang warna RGBA ke HSLA."
 
 #: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
@@ -195,7 +202,7 @@ msgstr "HSL ke RGB (efek lanjutan)"
 
 #: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Mengonversi gambar dari ruang warna HSLA ke RGBA."
 
 #: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
 #: resources/ui/pages/shell/app-folders.ui:8
@@ -219,154 +226,168 @@ msgstr ""
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Kaca Cair"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"Material mengilap dan tembus cahaya dengan refraksi tepi, pencahayaan tepi, "
+"rona warna, dan bayangan dalam."
 
 #: src/effects/refraction/info.js:11
 msgid "Refraction scale"
-msgstr ""
+msgstr "Skala refraksi"
 
 #: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "Seberapa kuat kaca membelokkan tekstur blur yang disampel."
 
 #: src/effects/refraction/info.js:21
 msgid "Blur radius"
-msgstr ""
+msgstr "Radius blur"
 
 #: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr ""
+"Memburamkan latar belakang yang disampel sebelum shader kaca cair diterapkan."
 
 #: src/effects/refraction/info.js:31
 msgid "Bezel width"
-msgstr ""
+msgstr "Lebar bezel"
 
 #: src/effects/refraction/info.js:32
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "Seberapa jauh lensa kaca cair menjangkau ke dalam dari tepi."
 
 #: src/effects/refraction/info.js:41
 msgid "Rim spread"
-msgstr ""
+msgstr "Sebaran tepi"
 
 #: src/effects/refraction/info.js:42
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "Seberapa jauh refraksi berangsur melemah ke dalam dari tepi kaca."
 
 #: src/effects/refraction/info.js:51
 msgid "Glass thickness"
-msgstr ""
+msgstr "Ketebalan kaca"
 
 #: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "Kedalaman yang digunakan oleh profil refraksi tepi."
 
 #: src/effects/refraction/info.js:61
 msgid "Refraction style"
-msgstr ""
+msgstr "Gaya refraksi"
 
 #: src/effects/refraction/info.js:62
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"Bentuk pembelokan di dekat tepi. Nilai rendah menghasilkan pembelokan yang "
+"lembut, sedangkan nilai lebih tinggi menghasilkan pembelokan yang lebih "
+"tajam tepat di tepi."
 
 #: src/effects/refraction/info.js:71
 msgid "Fresnel glare"
-msgstr ""
+msgstr "Kilau Fresnel"
 
 #: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "Intensitas kilau Fresnel berarah dari tepi kaca."
 
 #: src/effects/refraction/info.js:81
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "Sudut kilau Fresnel"
 
 #: src/effects/refraction/info.js:82
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"Arah cahaya kilau Fresnel, dalam derajat (0 berarti dari atas, nilai positif "
+"memutar searah jarum jam)."
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "Lebar kilau Fresnel"
 
 #: src/effects/refraction/info.js:92
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
-msgstr ""
+msgstr "Pengali ketebalan cincin kilau Fresnel di sepanjang tepi kaca."
 
 #: src/effects/refraction/info.js:101
 msgid "Specular glare strength"
-msgstr ""
+msgstr "Intensitas kilau spekular"
 
 #: src/effects/refraction/info.js:102
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr ""
+"Intensitas kilau spekular yang menunjukkan arah cahaya (0 menonaktifkannya)."
 
 #: src/effects/refraction/info.js:111
 msgid "Tint strength"
-msgstr ""
+msgstr "Intensitas rona warna"
 
 #: src/effects/refraction/info.js:112
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr ""
+"Tingkat rona kaca putih susu yang lembut di atas tekstur yang diburamkan."
 
 #: src/effects/refraction/info.js:121
 msgid "Tint color"
-msgstr ""
+msgstr "Warna rona"
 
 #: src/effects/refraction/info.js:122
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
+"Warna yang dicampurkan di atas tekstur yang diburamkan, dengan bobot sesuai "
+"intensitas rona warna."
 
 #: src/effects/refraction/info.js:127
 msgid "Backdrop zoom"
-msgstr ""
+msgstr "Zoom latar belakang"
 
 #: src/effects/refraction/info.js:128
 msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
+msgstr "Tingkat zoom latar belakang yang terlihat melalui kaca."
 
 #: src/effects/refraction/info.js:137
 msgid "Inner shadow"
-msgstr ""
+msgstr "Bayangan dalam"
 
 #: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
+"Menggelapkan tepi bawah dan bagian dalam agar permukaan kaca tampak lebih "
+"dalam."
 
 #: src/effects/refraction/info.js:147
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "Dispersi kromatik"
 
 #: src/effects/refraction/info.js:148
 msgid "Physical per-channel refraction dispersion at the glass edge."
-msgstr ""
+msgstr "Dispersi refraksi fisik per kanal warna di tepi kaca."
 
 #: src/effects/refraction/info.js:157
 msgid "Edge behavior"
-msgstr ""
+msgstr "Perilaku tepi"
 
 #: src/effects/refraction/info.js:158
 msgid "How texture coordinates outside the actor are sampled."
-msgstr ""
+msgstr "Cara pengambilan sampel koordinat tekstur di luar aktor."
 
 #: src/effects/refraction/info.js:161
 msgid "Clamp"
-msgstr ""
+msgstr "Jepit"
 
 #: src/effects/refraction/info.js:162
 msgid "Mirror"
-msgstr ""
+msgstr "Cerminkan"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
@@ -411,7 +432,7 @@ msgstr "Downscale (efek lanjutan)"
 
 #: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "Efek yang memperkecil gambar dan menempatkannya di sudut kiri atas."
 
 #: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
@@ -459,7 +480,7 @@ msgstr "Noise"
 
 #: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "Efek yang menambahkan butiran acak pada gambar."
 
 #: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
@@ -479,115 +500,123 @@ msgstr ""
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "Gelombang Uap"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
 msgstr ""
+"Pergeseran bergelombang yang mengalir untuk menghadirkan kesan hidup dan "
+"dinamis dengan gerakan alami."
 
 #: src/effects/wave/info.js:11
 msgid "Wave frequency"
-msgstr ""
+msgstr "Frekuensi gelombang"
 
 #: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "Seberapa rapat riak gelombang tersusun."
 
 #: src/effects/wave/info.js:21
 msgid "Wave amplitude"
-msgstr ""
+msgstr "Amplitudo gelombang"
 
 #: src/effects/wave/info.js:22
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "Seberapa kuat gelombang menggeser gambar."
 
 #: src/effects/wave/info.js:31
 msgid "Wave octaves"
-msgstr ""
+msgstr "Oktaf gelombang"
 
 #: src/effects/wave/info.js:32
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Tingkat detail bentuk gelombang. Nilai yang lebih tinggi menambah detail, "
+"tetapi mengurangi kinerja."
 
 #: src/effects/wave/info.js:39
 msgid "Vapor octaves"
-msgstr ""
+msgstr "Oktaf uap"
 
 #: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Tingkat detail tekstur kabut. Nilai yang lebih tinggi menambah detail, "
+"tetapi mengurangi kinerja."
 
 #: src/effects/wave/info.js:47
 msgid "Vapor speed"
-msgstr ""
+msgstr "Kecepatan uap"
 
 #: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "Seberapa cepat tekstur uap berkabut bergerak seiring waktu."
 
 #: src/effects/wave/info.js:57
 msgid "Texture grain"
-msgstr ""
+msgstr "Butiran tekstur"
 
 #: src/effects/wave/info.js:58
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "Menambahkan tekstur halus seperti hasil sandblasting pada gambar."
 
 #: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "Saturasi efek."
 
 #: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "Kecerahan efek."
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "Memperbesar latar belakang ke arah pusat permukaan."
 
 #: src/effects/wave/info.js:97
 msgid "Dispersion"
-msgstr ""
+msgstr "Dispersi"
 
 #: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "Intensitas aberasi kromatik untuk menghasilkan kesan glitch."
 
 #: src/effects/wave/info.js:107
 msgid "Enable flow animation"
-msgstr ""
+msgstr "Aktifkan animasi aliran"
 
 #: src/effects/wave/info.js:108
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "Menentukan apakah noise gelombang terus mengalir seiring waktu."
 
 #: src/effects/wave/info.js:112
 msgid "Flow animation speed"
-msgstr ""
+msgstr "Kecepatan animasi aliran"
 
 #: src/effects/wave/info.js:113
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "Kecepatan dasar aliran pola gelombang."
 
 #: src/effects/wave/info.js:122
 msgid "Resize ease duration"
-msgstr ""
+msgstr "Durasi transisi perubahan ukuran"
 
 #: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"Waktu yang diperlukan efek untuk menyesuaikan diri saat ukuran jendela "
+"berubah (milidetik)."
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
@@ -624,13 +653,15 @@ msgstr "Aplikasi"
 
 #: resources/ui/pages/applications.ui:13
 msgid "Adds blur to applications."
-msgstr ""
+msgstr "Menambahkan efek blur pada aplikasi."
 
 #: resources/ui/pages/applications.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
 msgstr ""
+"Blur statis mengikuti wallpaper; blur dinamis mengambil sampel konten "
+"langsung di belakang jendela. Keduanya menggunakan pipeline yang dipilih."
 
 #: resources/ui/pages/applications.ui:34
 #: resources/ui/pages/shell/overview.ui:23 resources/ui/pages/shell/panel.ui:38
@@ -673,11 +704,11 @@ msgstr "Jari-jari untuk efek pembulatan sudut."
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
 #: resources/ui/pages/shell/popup.ui:67
 msgid "Rounded corners"
-msgstr ""
+msgstr "Sudut membulat"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "Bulatkan sudut jendela yang dimaksimalkan dan dalam mode layar penuh"
 
 #: resources/ui/pages/applications.ui:83
 msgid ""
@@ -706,11 +737,12 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:104
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "Nonaktifkan blur saat layar penuh"
 
 #: resources/ui/pages/applications.ui:105
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr ""
+"Memaksa penghapusan efek blur saat jendela berada dalam mode layar penuh."
 
 #: resources/ui/pages/applications.ui:111
 msgid "Blur all windows"
@@ -748,22 +780,22 @@ msgstr ""
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:157
 #: resources/ui/pages/shell/popup.ui:161
 msgid "All"
-msgstr ""
+msgstr "Semua"
 
 #: resources/ui/pages/applications.ui:166 resources/ui/pages/shell/panel.ui:158
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Top only"
-msgstr ""
+msgstr "Hanya bagian atas"
 
 #: resources/ui/pages/applications.ui:167 resources/ui/pages/shell/panel.ui:159
 #: resources/ui/pages/shell/popup.ui:163
 msgid "Bottom only"
-msgstr ""
+msgstr "Hanya bagian bawah"
 
 #: resources/ui/pages/applications.ui:168 resources/ui/pages/shell/panel.ui:160
 #: resources/ui/pages/shell/popup.ui:164
 msgid "None"
-msgstr ""
+msgstr "Tidak ada"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 msgid "Pipeline Menu"
@@ -852,19 +884,23 @@ msgstr "Gelap"
 #: resources/ui/pages/shell/dash.ui:65 resources/ui/pages/shell/overview.ui:57
 #: resources/ui/pages/shell/panel.ui:170 resources/ui/pages/shell/popup.ui:173
 msgid "Automatic"
-msgstr ""
+msgstr "Otomatis"
 
 #: resources/ui/pages/shell/dash.ui:9
 msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
+"Memburamkan latar belakang dock yang didukung, termasuk Dash to Dock, "
+"Dhruva, dan dock Simple Taskbar."
 
 #: resources/ui/pages/shell/dash.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
 msgstr ""
+"Blur statis mengikuti wallpaper; blur dinamis mengambil sampel konten "
+"langsung di belakang dash. Keduanya menggunakan pipeline yang dipilih."
 
 #: resources/ui/pages/shell/dash.ui:28 resources/ui/pages/shell/panel.ui:28
 msgid "Disable in overview"
@@ -872,7 +908,7 @@ msgstr "Matikan di ruang kerja"
 
 #: resources/ui/pages/shell/dash.ui:29
 msgid "Disables dock blur when entering the overview."
-msgstr ""
+msgstr "Menonaktifkan blur dock saat memasuki tampilan ringkasan."
 
 #: resources/ui/pages/shell/dash.ui:38 resources/ui/pages/shell/panel.ui:74
 #: resources/ui/pages/shell/popup.ui:30 resources/ui/pages/shell/shell.ui:51
@@ -889,6 +925,8 @@ msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
+"Membuat latar belakang dock transparan atau semitransparan. Nonaktifkan opsi "
+"ini untuk menggunakan tampilan bawaan ekstensi dock."
 
 #: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:87
 #: resources/ui/pages/shell/popup.ui:42
@@ -926,13 +964,15 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:9
 msgid "Add blur to the top panel."
-msgstr ""
+msgstr "Tambahkan efek blur pada panel atas."
 
 #: resources/ui/pages/shell/panel.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
 msgstr ""
+"Blur statis mengikuti wallpaper; blur dinamis mengambil sampel konten "
+"langsung di belakang panel. Keduanya menggunakan pipeline yang dipilih."
 
 #: resources/ui/pages/shell/panel.ui:29
 msgid "Disables the blur from the panel when entering the overview."
@@ -973,15 +1013,15 @@ msgstr "Gaya transparensi/semi-transparensi untuk background panelnya."
 
 #: resources/ui/pages/shell/panel.ui:96
 msgid "Override background dynamically"
-msgstr ""
+msgstr "Ganti latar belakang secara dinamis"
 
 #: resources/ui/pages/shell/panel.ui:97
 msgid "Change the panel background when a window is near it."
-msgstr ""
+msgstr "Ubah latar belakang panel saat ada jendela di dekatnya."
 
 #: resources/ui/pages/shell/panel.ui:104
 msgid "When a window is near"
-msgstr ""
+msgstr "Saat ada jendela di dekat panel"
 
 #: resources/ui/pages/shell/panel.ui:105
 msgid ""
@@ -990,22 +1030,26 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"Blur saat Jendela Mendekat: Terapkan blur hanya saat ada jendela di dekat "
+"panel dan jadikan transparan saat tidak ada.\n"
+"Latar Belakang saat Jendela Mendekat: Gunakan latar belakang berwarna solid "
+"saat ada jendela di dekat panel dan terapkan blur saat tidak ada."
 
 #: resources/ui/pages/shell/panel.ui:114
 msgid "Gradient background"
-msgstr ""
+msgstr "Latar belakang gradasi"
 
 #: resources/ui/pages/shell/panel.ui:115
 msgid "Apply a gradient effect to the panel background."
-msgstr ""
+msgstr "Terapkan efek gradasi pada latar belakang panel."
 
 #: resources/ui/pages/shell/panel.ui:122
 msgid "Gradient direction"
-msgstr ""
+msgstr "Arah gradasi"
 
 #: resources/ui/pages/shell/panel.ui:123
 msgid "Change the direction of the gradient background."
-msgstr ""
+msgstr "Ubah arah gradasi latar belakang."
 
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Compatibility"
@@ -1022,6 +1066,8 @@ msgstr "Ekstensi Hidetopbar"
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
+"Mempertahankan efek blur agar tetap terlihat dalam tampilan ringkasan; "
+"paling sesuai digunakan dengan blur statis."
 
 #: resources/ui/pages/shell/panel.ui:147
 msgid "Blur original panel with Dash to Panel"
@@ -1041,101 +1087,107 @@ msgstr "Kontras"
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "Blur saat Jendela Mendekat"
 
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "Latar Belakang saat Jendela Mendekat"
 
 #: resources/ui/pages/shell/panel.ui:183
 msgid "Top"
-msgstr ""
+msgstr "Atas"
 
 #: resources/ui/pages/shell/panel.ui:184
 msgid "Bottom"
-msgstr ""
+msgstr "Bawah"
 
 #: resources/ui/pages/shell/popup.ui:9
 msgid ""
 "Add blur to GNOME Shell menus, the calendar and notifications popup, "
 "notification banners, OSD popups, and dialogs."
 msgstr ""
+"Tambahkan efek blur pada menu GNOME Shell, popup kalender dan notifikasi, "
+"banner notifikasi, popup OSD, serta dialog."
 
 #: resources/ui/pages/shell/popup.ui:15
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
 msgstr ""
+"Blur statis mengikuti wallpaper; blur dinamis mengambil sampel konten "
+"langsung di belakang popup. Keduanya menggunakan pipeline yang dipilih."
 
 #: resources/ui/pages/shell/popup.ui:36
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
 msgstr ""
+"Ganti latar belakang popup dengan latar belakang transparan atau "
+"semitransparan."
 
 #: resources/ui/pages/shell/popup.ui:43
 msgid "The transparent/semi-transparent style for popups."
-msgstr ""
+msgstr "Gaya transparan/semitransparan untuk popup."
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "Pertahankan tema shell"
 
 #: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
-msgstr ""
+msgstr "Pertahankan warna tema shell untuk kontrol popup."
 
 #: resources/ui/pages/shell/popup.ui:62
 msgid "Adjust the rounded corners for each popup surface."
-msgstr ""
+msgstr "Sesuaikan sudut membulat untuk setiap permukaan popup."
 
 #: resources/ui/pages/shell/popup.ui:74
 msgid "Menus"
-msgstr ""
+msgstr "Menu"
 
 #: resources/ui/pages/shell/popup.ui:81
 msgid "Input method candidates"
-msgstr ""
+msgstr "Kandidat metode masukan"
 
 #: resources/ui/pages/shell/popup.ui:88
 msgid "Quick settings"
-msgstr ""
+msgstr "Pengaturan cepat"
 
 #: resources/ui/pages/shell/popup.ui:95
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "Submenu pengaturan cepat"
 
 #: resources/ui/pages/shell/popup.ui:102
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Kalender dan pusat notifikasi"
 
 #: resources/ui/pages/shell/popup.ui:109
 msgid "Notifications"
-msgstr ""
+msgstr "Notifikasi"
 
 #: resources/ui/pages/shell/popup.ui:116
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "Pengalih jendela dan ruang kerja"
 
 #: resources/ui/pages/shell/popup.ui:123
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Volume dan kecerahan"
 
 #: resources/ui/pages/shell/popup.ui:130
 msgid "Window resize hints"
-msgstr ""
+msgstr "Indikator perubahan ukuran jendela"
 
 #: resources/ui/pages/shell/popup.ui:137
 msgid "Dialogs"
-msgstr ""
+msgstr "Dialog"
 
 #: resources/ui/pages/shell/popup.ui:144
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "Papan ketik di layar"
 
 #: resources/ui/pages/shell/popup.ui:151
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "Permukaan popup lainnya"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
@@ -1166,7 +1218,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/pipeline_page.js:27
 msgid "Popups"
-msgstr ""
+msgstr "Popup"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
@@ -1249,11 +1301,11 @@ msgstr ""
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "Pemilihan jendela gagal. Pastikan ekstensi diaktifkan."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "Aktor yang dipilih bukan jendela."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
@@ -1279,43 +1331,52 @@ msgstr "Pipeline yang akan digunakan dengan komponen ini."
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur tidak lagi diperlukan"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell menangani sudut membulat secara langsung. Anda dapat menghapus "
+"pustaka lama jika tidak digunakan oleh komponen lain."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Petunjuk penghapusan"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Abaikan"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Menghapus pustaka blur lama"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"Penghapusan bersifat opsional. Pertahankan pustaka jika ekstensi lain masih "
+"memerlukannya."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"Dipasang melalui pengelola paket? Hapus paket gnome-rounded-blur menggunakan "
+"pengelola paket yang sama. Tinjau perubahan yang diusulkan sebelum "
+"mengonfirmasi."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"Dipasang menggunakan alat bantu Blur my Shell yang lama? Petunjuk ini "
+"menjelaskan cara menjalankan alat penghapus instalasinya."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1323,32 +1384,38 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"Dibangun dari kode sumber? Jalankan “sudo ninja -C build uninstall” dari "
+"direktori build asli, atau ikuti log instalasinya. Jangan gunakan alat bantu "
+"untuk menghapus instalasi yang dikelola oleh pengelola paket."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"Keluar dari sesi lalu masuk kembali setelah penghapusan. Blur my Shell tidak "
+"akan menghapus instalasi apa pun untuk Anda."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Tutup"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Buka petunjuk"
 
 #: src/preferences/menu.js:83
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Atur ulang semua preferensi?"
 
 #: src/preferences/menu.js:84
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
+"Pipeline dan pengaturan komponen akan dikembalikan ke pengaturan bawaan."
 
 #: src/preferences/menu.js:86
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #: src/preferences/menu.js:87
 msgid "Reset"
@@ -1356,20 +1423,20 @@ msgstr "Mengatur ulang"
 
 #: src/preferences/pages/pipelines/index.js:77
 msgid "New pipeline"
-msgstr ""
+msgstr "Pipeline baru"
 
 #: src/preferences/pages/pipelines/index.js:124
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" dihapus"
 
 #: src/preferences/pages/pipelines/index.js:125
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Pipeline dihapus"
 
 #: src/preferences/pages/pipelines/index.js:128
 msgid "Undo"
-msgstr ""
+msgstr "Urungkan"
 
 #: src/preferences/pages/pipelines/pipeline_page.js:109
 msgid "Used by every component"
@@ -1386,7 +1453,7 @@ msgstr ""
 
 #: src/preferences/pages/pipelines/pipeline_row.js:44
 msgid "Unknown effect"
-msgstr ""
+msgstr "Efek tidak dikenal"
 
 #: src/preferences/pages/shell/index.js:63
 msgid "Change the blur of the lockscreen to use this extension's preferences."
@@ -1418,13 +1485,25 @@ msgstr ""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Buat pipeline baru"
 
 #~ msgid "Blur effects"
 #~ msgstr "Efek buram"
 
 #~ msgid "Texture effects"
 #~ msgstr "Efek tekstur"
+
+#~ msgid "Window Name"
+#~ msgstr "Nama jendela"
+
+#~ msgid "Select window"
+#~ msgstr "Pilih jendela"
+
+#~ msgid "Pick a window or select it by its classname."
+#~ msgstr "Pilih jendela atau pilih berdasarkan nama kelasnya."
+
+#~ msgid "Applications blur"
+#~ msgstr "Blur aplikasi"
 
 #~ msgid "Enable all by default"
 #~ msgstr "Aktifkan semua secara bawaan"
@@ -1456,32 +1535,20 @@ msgstr ""
 #~ "Gunakan * untuk mencocokkan urutan karakter apa pun (mis., Firefox* atau "
 #~ "*Code*), dan ? untuk satu karakter."
 
-#~ msgid "Add Pipeline"
-#~ msgstr "Tambahkan Pipeline"
+#~ msgid "Dash"
+#~ msgstr "Dash"
 
-#~ msgid "Window Name"
-#~ msgstr "Nama jendela"
+#~ msgid "Dock blur"
+#~ msgstr "Blur dock"
 
-#~ msgid "Select window"
-#~ msgstr "Pilih jendela"
+#~ msgid "Effects list"
+#~ msgstr "Daftar efek"
 
-#~ msgid "Pick a window or select it by its classname."
-#~ msgstr "Pilih jendela atau pilih berdasarkan nama kelasnya."
+#~ msgid "The top effect is applied first."
+#~ msgstr "Efek paling atas diterapkan terlebih dahulu."
 
 #~ msgid "Include advanced effects"
 #~ msgstr "Sertakan efek lanjutan"
-
-#~ msgid "Pipeline name"
-#~ msgstr "Nama pipeline"
-
-#~ msgid "Manage effects"
-#~ msgstr "Kelola efek"
-
-#~ msgid "Applications blur"
-#~ msgstr "Blur aplikasi"
-
-#~ msgid "Dash"
-#~ msgstr "Dash"
 
 #~ msgid "Other"
 #~ msgstr "Lainnya"
@@ -1511,6 +1578,9 @@ msgstr ""
 #~ msgid "Reset preferences"
 #~ msgstr "Mengatur ulang preferensi"
 
+#~ msgid "Restore all Blur my Shell preferences to their defaults."
+#~ msgstr "Kembalikan semua preferensi Blur my Shell ke pengaturan bawaan."
+
 #~ msgid "Background blur"
 #~ msgstr "Blur latar belakang"
 
@@ -1520,6 +1590,12 @@ msgstr ""
 #~ msgid "Panel blur"
 #~ msgstr "Blur panel"
 
+#~ msgid "Pipeline name"
+#~ msgstr "Nama pipeline"
+
+#~ msgid "Manage effects"
+#~ msgstr "Kelola efek"
+
 #~ msgid ""
 #~ "Each component uses a pipeline, which can be chosen in the corresponding "
 #~ "tab. Here you can create, modify and delete the pipelines and their "
@@ -1528,6 +1604,28 @@ msgstr ""
 #~ "Setiap komponen menggunakan pipeline yang dapat dipilih di tab yang "
 #~ "sesuai. Di sini Anda dapat membuat, memodifikasi, dan menghapus pipeline "
 #~ "beserta efeknya."
+
+#~ msgid "Add Pipeline"
+#~ msgstr "Tambahkan Pipeline"
+
+#~ msgid "Popup blur"
+#~ msgstr "Blur popup"
+
+#, javascript-format
+#~ msgid "Effects for “%s”"
+#~ msgstr "Efek untuk “%s”"
+
+#, javascript-format
+#~ msgid "Pipeline id: “%s”"
+#~ msgstr "ID pipeline: “%s”"
+
+#~ msgid "No effect"
+#~ msgstr "Tanpa efek"
+
+#, javascript-format
+#~ msgid "%d effect"
+#~ msgid_plural "%d effects"
+#~ msgstr[0] "%d efek"
 
 #~ msgid "Enable corner rounding on maximized and fullscreen"
 #~ msgstr ""

@@ -7,7 +7,7 @@ import Mtk from 'gi://Mtk';
 import St from 'gi://St';
 import { BackdropOutputEffect } from './output.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './damage.js';
-import { get_painted_view, get_view_framebuffer } from './painted_view.js';
+import { get_painted_view, get_view_framebuffer, get_view_paint } from './painted_view.js';
 import { get_snippet } from '../shader/snippet_cache.js';
 import {
     getTextureCapacity,
@@ -19,7 +19,7 @@ import {
 } from '../shader/texture_region.js';
 
 const PIXEL_EPSILON = 1 / 1024;
-// clones of animated actors change size every frame, and only the last few sizes get painted again
+// a clone that stopped being painted, like a workspace thumbnail once the overview closes
 const CLONE_TARGET_LIFETIME_US = 1000000;
 const CAPTURE_TEXTURE_REGION = 'bms_capture_region';
 
@@ -145,6 +145,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
         this.target = null;
         this.targets = new Map();
         this.cloneTargets = new Map();
+        this.cloneViewPaint = -1;
+        this.clonesPainted = 0;
         this.viewDestroyIds = new Map();
         this.actorGeometry = null;
         this.output = new St.Widget();
@@ -162,7 +164,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         const cached = targets.get(key) ?? null;
         const reusable = cached !== null && cached.context === context
             && (!view || cached.sourceFramebuffer === sourceFramebuffer);
-        if (reusable && textureFits(width, cached.width) && textureFits(height, cached.height)) {
+        if (reusable && textureFits(cached, width, height, cached.width, cached.height)) {
             if (cached.usedWidth !== width || cached.usedHeight !== height) {
                 cached.usedWidth = width;
                 cached.usedHeight = height;
@@ -215,6 +217,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
 
     /// Clones are painted at their own size and place, like window previews in the overview and
     /// their workspace thumbnails, so each keeps its own capture instead of overwriting another's.
+    /// They are painted in the same order every time, which keeps a clone on the same capture while
+    /// it animates.
     cloneTargetsFor(view) {
         let targets = this.cloneTargets.get(view);
         if (!targets) {
@@ -257,7 +261,11 @@ export const BackdropCaptureEffect = GObject.registerClass({
         const view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
         if (inClone) {
-            this.ensureFramebuffer(this.cloneTargetsFor(view), `${geometry.width}x${geometry.height}`,
+            if (this.cloneViewPaint !== get_view_paint()) {
+                this.cloneViewPaint = get_view_paint();
+                this.clonesPainted = 0;
+            }
+            this.ensureFramebuffer(this.cloneTargetsFor(view), this.clonesPainted++,
                 geometry.width, geometry.height, sourceFramebuffer, view);
         } else {
             const actorGeometry = actor.get_abs_allocation_vertices()
