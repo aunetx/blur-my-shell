@@ -11,7 +11,7 @@ import { cancel_pick } from './dbus/client.js';
 import { addMenu } from './preferences/menu.js';
 import { ShellPage } from './preferences/pages/shell/index.js';
 import { Applications } from './preferences/pages/applications.js';
-import { Pipelines } from './preferences/pages/pipelines.js';
+import { Pipelines } from './preferences/pages/pipelines/index.js';
 
 import './preferences/widgets/pipeline_choose_row.js';
 
@@ -44,26 +44,12 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
         window.add(pipelines_page);
         window.set_default_size(640, 840);
 
-        const undo_css = new Gtk.CssProvider();
-        undo_css.load_from_string(`
-            /* -12px would be no gap */
-            .bms-pipeline-undo-content:dir(ltr) {
-                margin-right: -10px;
-            }
-            .bms-pipeline-undo-content:dir(rtl) {
-                margin-left: -10px;
-            }
-        `);
-        const display = window.get_display();
-        Gtk.StyleContext.add_provider_for_display(display, undo_css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
         window.connect('close-request', () => {
             cancel_pick();
             applications_page.cleanup();
             pipelines_page.cleanup();
             pipelines_manager.destroy();
             preferences.disconnect_all_settings();
-            Gtk.StyleContext.remove_provider_for_display(display, undo_css);
             return false;
         });
 

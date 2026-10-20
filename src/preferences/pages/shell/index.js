@@ -4,6 +4,7 @@ import GObject from 'gi://GObject';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { initialize_legacy_blur_notice } from '../../legacy_blur_notice.js';
+import { create_subpage } from '../../subpage.js';
 import { Panel } from './panel.js';
 import { Dash } from './dash.js';
 import { PopupBlur } from './popup.js';
@@ -82,9 +83,7 @@ export const ShellPage = GObject.registerClass({
     open_subpage(row, create_page) {
         let subpage = this._subpages.get(row);
         if (!subpage) {
-            const toolbar = new Adw.ToolbarView({ content: create_page() });
-            toolbar.add_top_bar(new Adw.HeaderBar());
-            subpage = new Adw.NavigationPage({ title: row.title, child: toolbar });
+            subpage = create_subpage(row.title, create_page());
             this._subpages.set(row, subpage);
         }
         this._window.push_subpage(subpage);

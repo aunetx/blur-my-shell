@@ -10,7 +10,6 @@ export function get_texture_effects(_) {
             class: PixelizeEffect,
             name: _("Pixelize"),
             description: _("An effect that pixelizes the image."),
-            is_advanced: false,
             editable_params: {
                 factor: {
                     name: _("Factor"),
@@ -36,7 +35,6 @@ export function get_texture_effects(_) {
             class: DownscaleEffect,
             name: _("Downscale (advanced effect)"),
             description: _("An effect that downscales the image and puts it in the top-left corner."),
-            is_advanced: true,
             editable_params: {
                 divider: {
                     name: _("Factor"),
@@ -62,7 +60,6 @@ export function get_texture_effects(_) {
             class: UpscaleEffect,
             name: _("Upscale (advanced effect)"),
             description: _("An effect that upscales the image from the top-left corner."),
-            is_advanced: true,
             editable_params: {
                 factor: {
                     name: _("Factor"),
@@ -78,7 +75,6 @@ export function get_texture_effects(_) {
             class: DerivativeEffect,
             name: _("Derivative"),
             description: _("Apply a spatial derivative, or a laplacian."),
-            is_advanced: false,
             editable_params: {
                 operation: {
                     name: _("Operation"),
@@ -96,7 +92,6 @@ export function get_texture_effects(_) {
             class: NoiseEffect,
             name: _("Noise"),
             description: _("An effect that adds random grain to the image."),
-            is_advanced: false,
             editable_params: {
                 noise: {
                     name: _("Noise"),

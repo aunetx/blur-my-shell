@@ -3,15 +3,15 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
-import { PipelineGroup } from '../widgets/pipeline_group.js';
-import { EffectsDialog } from '../widgets/effects_dialog.js';
-import { create_pipeline_undo_toast } from '../widgets/pipeline_undo_toast.js';
+import { PipelineRow } from './pipeline_row.js';
+import { PipelinePage } from './pipeline_page.js';
 
 
 export const Pipelines = GObject.registerClass({
     GTypeName: 'Pipelines',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/pipelines.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/pipelines/pipelines.ui', GLib.UriFlags.NONE),
     InternalChildren: [
+        'pipelines_group',
         'add_pipeline'
     ],
 }, class Pipelines extends Adw.PreferencesPage {
@@ -22,78 +22,82 @@ export const Pipelines = GObject.registerClass({
         this.pipelines_manager = pipelines_manager;
         this.window = window;
 
-        this.pipelines_map = new Map;
-        this._scroll_timeout_ids = new Set;
+        this._rows = new Map;
+        this._pages = new Map;
         this._deleted_pipelines = [];
         this._undo_toast = null;
 
-        for (let pipeline_id in this.pipelines_manager.pipelines)
-            this.add_pipeline(pipeline_id, false);
+        this.add_all_pipelines();
 
-        this.preferences.connect('reset', _ => {
-            this.pipelines_map.forEach((_infos, pid) => this.remove_pipeline(pid));
-            for (let pipeline_id in this.pipelines_manager.pipelines)
-                this.add_pipeline(pipeline_id, false);
+        this.preferences.connect('reset', () => {
+            [...this._rows.keys()].forEach(id => this.remove_pipeline(id));
+            this.add_all_pipelines();
             this.clear_pipeline_undo();
         });
 
-        this._add_pipeline.connect(
-            "clicked",
-            () => this.pipelines_manager.create_pipeline(_("New pipeline"))
-        );
+        this._add_pipeline.connect('clicked', () => this.create_pipeline());
 
         this.pipelines_manager.connect(
-            "pipeline-created",
-            (_obj, id, _pipeline) => this.add_pipeline(id, true)
+            'pipeline-created',
+            (_obj, id, _pipeline) => this.add_pipeline(id)
         );
     }
 
-    add_pipeline(pipeline_id, scroll_to_bottom) {
-        let pipeline = this.pipelines_manager.pipelines[pipeline_id];
-        let pipeline_group = new PipelineGroup(
-            this.pipelines_manager, pipeline_id, pipeline, this
-        );
+    add_all_pipelines() {
+        for (const pipeline_id in this.pipelines_manager.pipelines)
+            this.add_pipeline(pipeline_id);
+    }
 
-        let pipeline_destroyed_id = this.pipelines_manager.connect(
-            pipeline_id + "::pipeline-destroyed",
+    add_pipeline(pipeline_id) {
+        const row = new PipelineRow(this.pipelines_manager, pipeline_id);
+        row.connect('activated', () => this.open_pipeline(pipeline_id));
+        row.destroyed_id = this.pipelines_manager.connect(
+            `${pipeline_id}::pipeline-destroyed`,
             () => this.remove_pipeline(pipeline_id)
         );
-
-        let pipeline_renamed_id = this.pipelines_manager.connect(
-            pipeline_id + "::pipeline-renamed",
-            (_obj, name) => this.rename_pipeline(pipeline_id, name)
-        );
-
-        this.pipelines_map.set(pipeline_id, {
-            pipeline_group, pipeline_destroyed_id, pipeline_renamed_id
-        });
-
-        this.add(pipeline_group);
-
-        if (scroll_to_bottom) {
-            this.window.pop_subpage();
-            this.window.set_visible_page(this);
-            const timeout_id = setTimeout(() => {
-                this._scroll_timeout_ids.delete(timeout_id);
-                if (!pipeline_group.get_root())
-                    return;
-                const scroll_adjustment = this.get_first_child().get_vadjustment();
-                scroll_adjustment.value = scroll_adjustment.get_upper();
-            }, 10);
-            this._scroll_timeout_ids.add(timeout_id);
-            pipeline_group._title.grab_focus();
-        }
+        this._rows.set(pipeline_id, row);
+        this._pipelines_group.add(row);
     }
 
     remove_pipeline(pipeline_id) {
-        let pipeline_infos = this.pipelines_map.get(pipeline_id);
-        if (pipeline_infos) {
-            this.pipelines_manager.disconnect(pipeline_infos.pipeline_destroyed_id);
-            this.pipelines_manager.disconnect(pipeline_infos.pipeline_renamed_id);
-            pipeline_infos.pipeline_group.cleanup();
-            this.remove(pipeline_infos.pipeline_group);
-            this.pipelines_map.delete(pipeline_id);
+        const row = this._rows.get(pipeline_id);
+        if (!row)
+            return;
+
+        this.pipelines_manager.disconnect(row.destroyed_id);
+        row.cleanup();
+        this._pipelines_group.remove(row);
+        this._rows.delete(pipeline_id);
+
+        this._pages.get(pipeline_id)?.cleanup();
+        this._pages.delete(pipeline_id);
+    }
+
+    create_pipeline() {
+        const pipeline_id = this.pipelines_manager.create_pipeline(_('New pipeline'));
+        if (pipeline_id)
+            this.open_pipeline(pipeline_id, true);
+        return pipeline_id;
+    }
+
+    open_pipeline(pipeline_id, focus_name = false) {
+        let page = this._pages.get(pipeline_id);
+        if (!page) {
+            page = new PipelinePage(this, this.pipelines_manager, this.preferences, pipeline_id);
+            this._pages.set(pipeline_id, page);
         }
+        if (focus_name)
+            page.focus_name_on_show();
+        this.window.push_subpage(page);
+    }
+
+    duplicate_pipeline(pipeline_id) {
+        const copy_id = this.pipelines_manager.duplicate_pipeline(pipeline_id);
+        if (!copy_id)
+            return;
+
+        this.window.pop_subpage();
+        this.open_pipeline(copy_id, true);
     }
 
     delete_pipeline(pipeline_id) {
@@ -103,6 +107,7 @@ export const Pipelines = GObject.registerClass({
             .map(bundle => this.preferences[bundle.component.replaceAll('-', '_')])
             .filter(component => component.PIPELINE === pipeline_id);
 
+        this.window.pop_subpage();
         if (!this.pipelines_manager.delete_pipeline(pipeline_id))
             return;
 
@@ -112,20 +117,29 @@ export const Pipelines = GObject.registerClass({
 
     show_pipeline_undo() {
         const deleted = this._deleted_pipelines.at(-1);
-        const prev_toast = this._undo_toast;
-        this._undo_toast = create_pipeline_undo_toast(
-            deleted.pipeline.name,
-            () => this.undo_pipeline_deletion(),
-            toast => {
-                // do not clear on dismiss when toast is being replaced
-                if (this._undo_toast === toast) {
-                    this._undo_toast = null;
-                    this._deleted_pipelines = [];
-                }
+        const previous_toast = this._undo_toast;
+        const toast = new Adw.Toast({
+            title: GLib.markup_escape_text(
+                deleted.pipeline.name.length > 0
+                    ? _('"%s" deleted').replace('%s', () => deleted.pipeline.name)
+                    : _('Pipeline deleted'),
+                -1
+            ),
+            button_label: _('Undo'),
+            priority: Adw.ToastPriority.HIGH,
+            timeout: 5,
+        });
+        toast.connect('button-clicked', () => this.undo_pipeline_deletion());
+        toast.connect('dismissed', () => {
+            // a replaced toast is dismissed too, which must not clear the deletion history
+            if (this._undo_toast === toast) {
+                this._undo_toast = null;
+                this._deleted_pipelines = [];
             }
-        );
-        prev_toast?.dismiss();
-        this.window.add_toast(this._undo_toast);
+        });
+        this._undo_toast = toast;
+        previous_toast?.dismiss();
+        this.window.add_toast(toast);
     }
 
     undo_pipeline_deletion() {
@@ -139,8 +153,6 @@ export const Pipelines = GObject.registerClass({
 
         if (this._deleted_pipelines.length > 0)
             this.show_pipeline_undo();
-        else
-            this._undo_toast.dismiss();
     }
 
     clear_pipeline_undo() {
@@ -148,20 +160,8 @@ export const Pipelines = GObject.registerClass({
         this._undo_toast?.dismiss();
     }
 
-    rename_pipeline(pipeline_id, name) {
-        let pipeline_infos = this.pipelines_map.get(pipeline_id);
-        if (pipeline_infos)
-            pipeline_infos.pipeline_group.set_title(GLib.markup_escape_text(name.length > 0 ? name : " ", -1));
-    }
-
-    open_effects_dialog(pipeline_id) {
-        let dialog = new EffectsDialog(this.pipelines_manager, pipeline_id);
-        dialog.present(this.window);
-    }
-
     cleanup() {
-        this._scroll_timeout_ids.forEach(timeout_id => clearTimeout(timeout_id));
-        this._scroll_timeout_ids.clear();
         this.clear_pipeline_undo();
+        this._pages.forEach(page => page.cleanup());
     }
 });

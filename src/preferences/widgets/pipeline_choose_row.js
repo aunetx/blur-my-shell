@@ -51,7 +51,7 @@ export const PipelineChooseRow = GObject.registerClass({
 
         this._pipeline_edit.connect(
             'clicked',
-            () => this.pipelines_page.open_effects_dialog(this.preferences.PIPELINE)
+            () => this.pipelines_page.open_pipeline(this.preferences.PIPELINE)
         );
     }
 
@@ -61,7 +61,7 @@ export const PipelineChooseRow = GObject.registerClass({
 
         const pipeline_id = this._pipeline_choose.selected_item.get_string();
         if (pipeline_id == 'create_new') {
-            const id = this.pipelines_manager.create_pipeline(_("New pipeline"));
+            const id = this.pipelines_page.create_pipeline();
             if (id)
                 this.preferences.PIPELINE = id;
         }

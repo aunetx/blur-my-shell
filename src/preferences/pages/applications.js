@@ -8,25 +8,6 @@ import { ApplicationRow } from '../widgets/application_row.js';
 import '../widgets/blur_mode_row.js';
 
 
-const make_array = prefs_group => {
-    let list_box = prefs_group
-        .get_first_child()
-        .get_last_child()
-        .get_first_child();
-
-    let elements = [];
-    let i = 0;
-    let element = list_box.get_row_at_index(i);
-    while (element) {
-        elements.push(element);
-        i++;
-        element = list_box.get_row_at_index(i);
-    }
-
-    return elements;
-};
-
-
 export const Applications = GObject.registerClass({
     GTypeName: 'Applications',
     Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/applications.ui', GLib.UriFlags.NONE),
@@ -43,9 +24,9 @@ export const Applications = GObject.registerClass({
         'unblur_when_fullscreen',
         'enable_all',
         'whitelist',
-        'add_window_whitelist',
+        'add_whitelist',
         'blacklist',
-        'add_window_blacklist'
+        'add_blacklist'
     ],
 }, class Applications extends Adw.PreferencesPage {
     constructor(preferences, preferences_window, pipelines_manager, pipelines_page) {
@@ -82,100 +63,62 @@ export const Applications = GObject.registerClass({
             GObject.BindingFlags.SYNC_CREATE
         );
 
-        this._add_window_whitelist.connect('clicked',
-            () => this.add_to_whitelist()
-        );
-        this._add_window_blacklist.connect('clicked',
-            () => this.add_to_blacklist()
-        );
+        this._lists = {
+            whitelist: { group: this._whitelist, key: 'WHITELIST', rows: [] },
+            blacklist: { group: this._blacklist, key: 'BLACKLIST', rows: [] },
+        };
+        this._add_whitelist.connect('clicked', () => this.add_window(this._lists.whitelist));
+        this._add_blacklist.connect('clicked', () => this.add_window(this._lists.blacklist));
 
-        this.add_widgets_from_lists();
+        this.add_windows_from_settings();
 
         this.preferences.connect('reset', () => {
-            this.remove_all_widgets();
-            this.add_widgets_from_lists();
+            this.remove_all_windows();
+            this.add_windows_from_settings();
         });
     }
 
-    get _whitelist_elements() {
-        return make_array(this._whitelist);
+    add_windows_from_settings() {
+        for (const list of Object.values(this._lists)) {
+            this.preferences.applications[list.key].forEach(
+                app_name => this.add_window(list, app_name)
+            );
+        }
     }
 
-    get _blacklist_elements() {
-        return make_array(this._blacklist);
-    }
-
-    add_widgets_from_lists() {
-        this.preferences.applications.WHITELIST.forEach(
-            app_name => this.add_to_whitelist(app_name)
-        );
-
-        this.preferences.applications.BLACKLIST.forEach(
-            app_name => this.add_to_blacklist(app_name)
-        );
-
-    }
-
-    close_all_expanded_rows() {
-        this._whitelist_elements.forEach(
-            element => element.set_expanded(false)
-        );
-        this._blacklist_elements.forEach(
-            element => element.set_expanded(false)
-        );
-    }
-
-    remove_all_widgets() {
-        this._whitelist_elements.forEach(element => {
-            element.cleanup();
-            this._whitelist.remove(element);
+    add_window(list, app_name = null) {
+        const row = new ApplicationRow(this._preferences_window, app_name, {
+            on_changed: () => this.save_list(list),
+            on_removed: removed => this.remove_window(list, removed),
         });
-        this._blacklist_elements.forEach(element => {
-            element.cleanup();
-            this._blacklist.remove(element);
-        });
+        list.rows.push(row);
+        list.group.add(row);
     }
 
-    add_to_whitelist(app_name = null) {
-        let window_row = new ApplicationRow('whitelist', this, app_name);
-        this._whitelist.add(window_row);
+    remove_window(list, row) {
+        row.cleanup();
+        list.group.remove(row);
+        list.rows.splice(list.rows.indexOf(row), 1);
+        this.save_list(list);
     }
 
-    add_to_blacklist(app_name = null) {
-        let window_row = new ApplicationRow('blacklist', this, app_name);
-        this._blacklist.add(window_row);
+    remove_all_windows() {
+        for (const list of Object.values(this._lists)) {
+            list.rows.forEach(row => {
+                row.cleanup();
+                list.group.remove(row);
+            });
+            list.rows = [];
+        }
     }
 
-    update_whitelist_titles() {
-        let titles = this._whitelist_elements
-            .map(element => element._window_class.buffer.text)
-            .filter(title => title != "");
-
-        this.preferences.applications.WHITELIST = titles;
-    }
-
-    update_blacklist_titles() {
-        let titles = this._blacklist_elements
-            .map(element => element._window_class.buffer.text)
-            .filter(title => title != "");
-
-        this.preferences.applications.BLACKLIST = titles;
-    }
-
-    remove_from_whitelist(widget) {
-        widget.cleanup();
-        this._whitelist.remove(widget);
-        this.update_whitelist_titles();
-    }
-
-    remove_from_blacklist(widget) {
-        widget.cleanup();
-        this._blacklist.remove(widget);
-        this.update_blacklist_titles();
+    save_list(list) {
+        this.preferences.applications[list.key] = list.rows
+            .map(row => row.text)
+            .filter(app_name => app_name !== '');
     }
 
     cleanup() {
-        [...this._whitelist_elements, ...this._blacklist_elements]
-            .forEach(element => element.cleanup());
+        Object.values(this._lists).forEach(list => list.rows.forEach(row => row.cleanup()));
     }
 });
