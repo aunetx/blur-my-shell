@@ -41,6 +41,10 @@ export function connect_component_settings(extension) {
         overview,
         () => overview.update_components_classname()
     ));
+    connect(settings.overview, 'WORKSPACE_CORNER_RADIUS', when_enabled(
+        overview,
+        () => overview.update_workspace_backgrounds()
+    ));
 
     connect_toggle(extension, settings.appfolder, appfolder);
     connect(settings.appfolder, 'PIPELINE', when_enabled(

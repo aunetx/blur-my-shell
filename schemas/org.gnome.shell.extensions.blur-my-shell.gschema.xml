@@ -81,6 +81,11 @@
             <default>4</default>
             <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent, 4 automatic)</summary>
         </key>
+        <!-- WORKSPACE CORNER RADIUS -->
+        <key type="i" name="workspace-corner-radius">
+            <default>30</default>
+            <summary>Radius for the corner rounding of the workspaces in the overview</summary>
+        </key>
     </schema>
 
     <!-- APPFOLDER -->

@@ -13,6 +13,7 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "style-components" },
+            { type: Type.I, name: "workspace-corner-radius" },
         ]
     },
     {
