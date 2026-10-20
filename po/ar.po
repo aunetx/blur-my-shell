@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-18 09:34+0200\n"
-"PO-Revision-Date: 2026-09-02 12:51+0000\n"
-"Last-Translator: HamzaSyrage <hamzasyrage@gmail.com>\n"
+"PO-Revision-Date: 2026-10-20 16:24+0000\n"
+"Last-Translator: Yassin Omer <yassinomer@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "تمويه كاواسي المزدوج"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "تمويه سريع وعالي الجودة."
 
 #: src/effects/blur/info.js:12
 msgid "Radius"
@@ -61,7 +61,7 @@ msgstr "تأثير يمزج لونًا معينًا بمسار معالجة ال
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
-msgstr ""
+msgstr "اللون المراد مزجه. يُضبَط مقدار المزج عبر عتامة اللون."
 
 #: src/effects/color/info.js:22
 msgid "Blend mode"
@@ -150,16 +150,16 @@ msgstr "تعديل السطوع"
 
 #: src/effects/color/info.js:56
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "السطوع المراد إضافته إلى الصورة أو إزالته منها."
 
 #: src/effects/color/info.js:65
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "مُضاعِف السطوع"
 
 #: src/effects/color/info.js:66
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
-msgstr ""
+msgstr "يُضاعف سطوع الصورة؛ القيمة 0 تعني الأسود، و1 تُبقي السطوع دون تغيير."
 
 #: src/effects/color/info.js:75
 msgid "Contrast"
@@ -167,7 +167,7 @@ msgstr "التباين"
 
 #: src/effects/color/info.js:76
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "يضبط تباين الصورة حول مركز التباين المحدد."
 
 #: src/effects/color/info.js:85
 msgid "Contrast center"
@@ -182,6 +182,7 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"يُضاعف تشبّع الصورة؛ القيمة 0 تُزيل كل الألوان، و1 تُبقي التشبّع دون تغيير."
 
 #: src/effects/color/info.js:108
 msgid "RGB to HSL (advanced effect)"
@@ -189,7 +190,7 @@ msgstr "RGB إلى HSL (تأثير متقدم)"
 
 #: src/effects/color/info.js:109
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "يُحوّل الصورة من فضاء الألوان RGBA إلى HSLA."
 
 #: src/effects/color/info.js:115
 msgid "HSL to RGB (advanced effect)"
@@ -197,7 +198,7 @@ msgstr "HSL إلى RGB (تأثير متقدم)"
 
 #: src/effects/color/info.js:116
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "يُحوّل الصورة من فضاء الألوان HSLA إلى RGBA."
 
 #: src/effects/effect_groups.js:4
 msgid "Blur effects"
@@ -209,162 +210,167 @@ msgstr "تأثيرات الملمس"
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "الزجاج السائل"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"مادة شبه شفافة ولامعة مع انكسار عند الحواف، وإضاءة محيطية، وتلوين، وظل داخلي."
 
 #: src/effects/refraction/info.js:12
 msgid "Refraction scale"
-msgstr ""
+msgstr "مقياس الانكسار"
 
 #: src/effects/refraction/info.js:13
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "مدى شدة حني الزجاج لخامة التمويه المأخوذة."
 
 #: src/effects/refraction/info.js:22
 msgid "Blur radius"
-msgstr ""
+msgstr "نصف قطر التمويه"
 
 #: src/effects/refraction/info.js:23
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
-msgstr ""
+msgstr "يُموّه الخلفية المأخوذة قبل تطبيق مُظلّل الزجاج السائل."
 
 #: src/effects/refraction/info.js:32
 msgid "Bezel width"
-msgstr ""
+msgstr "عرض الإطار"
 
 #: src/effects/refraction/info.js:33
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "مدى امتداد عدسة الزجاج السائل إلى الداخل انطلاقاً من الحافة."
 
 #: src/effects/refraction/info.js:42
 msgid "Rim spread"
-msgstr ""
+msgstr "انتشار الحافة"
 
 #: src/effects/refraction/info.js:43
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "مدى تدرج الانكسار إلى الداخل انطلاقاً من حافة الزجاج."
 
 #: src/effects/refraction/info.js:52
 msgid "Glass thickness"
-msgstr ""
+msgstr "سماكة الزجاج"
 
 #: src/effects/refraction/info.js:53
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "العمق المستخدم لتوصيف حافة الانكسار."
 
 #: src/effects/refraction/info.js:62
 msgid "Refraction style"
-msgstr ""
+msgstr "نمط الانكسار"
 
 #: src/effects/refraction/info.js:63
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"شكل الانحناء بالقرب من الحافة؛ القيم المنخفضة تحنيه بنعومة، بينما القيم الأعلى "
+"تحنيه بحدة أكبر عند الحافة مباشرة."
 
 #: src/effects/refraction/info.js:72
 msgid "Fresnel glare"
-msgstr ""
+msgstr "وهج فرينل"
 
 #: src/effects/refraction/info.js:73
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "شدة وهج فرينل الموجَّه المنبعث من حافة الزجاج."
 
 #: src/effects/refraction/info.js:82
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "زاوية وهج فرينل"
 
 #: src/effects/refraction/info.js:83
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"اتجاه ضوء وهج فرينل، بالدرجات (0 تعني من الأعلى، والقيم الموجبة تدور في اتجاه "
+"عقارب الساعة)."
 
 #: src/effects/refraction/info.js:92
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "عرض وهج فرينل"
 
 #: src/effects/refraction/info.js:93
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
-msgstr ""
+msgstr "مُضاعِف سَماكة حلقة وهج فرينل على طول حافة الزجاج."
 
 #: src/effects/refraction/info.js:102
 msgid "Specular glare strength"
-msgstr ""
+msgstr "شدة الوهج المرآوي"
 
 #: src/effects/refraction/info.js:103
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
-msgstr ""
+msgstr "شدة الوهج المرآوي الذي يُظهر اتجاه الضوء (القيمة 0 تُعطّله)."
 
 #: src/effects/refraction/info.js:112
 msgid "Tint strength"
-msgstr ""
+msgstr "شدة التلوين"
 
 #: src/effects/refraction/info.js:113
 msgid "Amount of subtle milky glass tint over the blurred texture."
-msgstr ""
+msgstr "مقدار تلوين الزجاج الحليبي الخفيف فوق خامة التمويه."
 
 #: src/effects/refraction/info.js:122
 msgid "Tint color"
-msgstr ""
+msgstr "لون التلوين"
 
 #: src/effects/refraction/info.js:123
 msgid "Color blended over the blurred texture, weighted by the tint strength."
-msgstr ""
+msgstr "اللون الممزوج فوق خامة التمويه، موزوناً بشدة التلوين."
 
 #: src/effects/refraction/info.js:128
 msgid "Backdrop zoom"
-msgstr ""
+msgstr "تقريب الخلفية"
 
 #: src/effects/refraction/info.js:129
 msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
+msgstr "مستوى تقريب الخلفية الظاهرة عبر الزجاج."
 
 #: src/effects/refraction/info.js:138
 msgid "Inner shadow"
-msgstr ""
+msgstr "ظل داخلي"
 
 #: src/effects/refraction/info.js:139
 msgid "Darkens the lower and inner edge for a deeper glass surface."
-msgstr ""
+msgstr "يُعتّم الحافة السفلية والداخلية لمنح سطح الزجاج عمقاً أكبر."
 
 #: src/effects/refraction/info.js:148
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "التشتت اللوني"
 
 #: src/effects/refraction/info.js:149
 msgid "Physical per-channel refraction dispersion at the glass edge."
-msgstr ""
+msgstr "تشتت انكساري فيزيائي لكل قناة لونية عند حافة الزجاج."
 
 #: src/effects/refraction/info.js:158
 msgid "Edge behavior"
-msgstr ""
+msgstr "سلوك الحافة"
 
 #: src/effects/refraction/info.js:159
 msgid "How texture coordinates outside the actor are sampled."
-msgstr ""
+msgstr "طريقة أخذ عينات إحداثيات الخامة خارج العنصر."
 
 #: src/effects/refraction/info.js:162
 msgid "Clamp"
-msgstr ""
+msgstr "تقييد"
 
 #: src/effects/refraction/info.js:163
 msgid "Mirror"
-msgstr ""
+msgstr "مرآة"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
-msgstr "تحويل الى بكسلات"
+msgstr "بكسلة"
 
 #: src/effects/texture/info.js:12
 msgid "An effect that pixelizes the image."
-msgstr "تأثير يُحول الصورة لبكسلات."
+msgstr "تأثير يُبكسل الصورة."
 
 #: src/effects/texture/info.js:16 src/effects/texture/info.js:42
 #: src/effects/texture/info.js:68
@@ -401,19 +407,19 @@ msgstr "تصغير الحجم (تأثير متقدم)"
 
 #: src/effects/texture/info.js:38
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "تأثير يُقلّص حجم الصورة ويضعها في الزاوية العلوية اليسرى."
 
 #: src/effects/texture/info.js:63
 msgid "Upscale (advanced effect)"
-msgstr "تضخيم الحجم (تأثير متقدم)"
+msgstr "تكبير (تأثير متقدم)"
 
 #: src/effects/texture/info.js:64
 msgid "An effect that upscales the image from the top-left corner."
-msgstr "تأثير يقوم بتضخيم الصورة من الزاوية العلوية اليسرى."
+msgstr "تأثير يُكبّر الصورة انطلاقاً من الزاوية العلوية اليسرى."
 
 #: src/effects/texture/info.js:69
 msgid "How much to scale up the image."
-msgstr "مقدار تضخيم الصورة."
+msgstr "مقدار تكبير الصورة."
 
 #: src/effects/texture/info.js:79
 msgid "Derivative"
@@ -449,7 +455,7 @@ msgstr "ضوضاء"
 
 #: src/effects/texture/info.js:98
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "تأثير يُضيف حبيبات عشوائية إلى الصورة."
 
 #: src/effects/texture/info.js:103
 msgid "The amount of noise to add."
@@ -467,115 +473,117 @@ msgstr "سطوع الضوضاء. ضبط القيمة على \"1.0\" سيجعل �
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "موجة بخارية"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
-msgstr ""
+msgstr "إزاحة موجية متدفقة تمنح طابعاً حيوياً وديناميكياً بحركة طبيعية."
 
 #: src/effects/wave/info.js:12
 msgid "Wave frequency"
-msgstr ""
+msgstr "تردد الموجة"
 
 #: src/effects/wave/info.js:13
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "مدى تقارب التموجات."
 
 #: src/effects/wave/info.js:22
 msgid "Wave amplitude"
-msgstr ""
+msgstr "سَعة الموجة"
 
 #: src/effects/wave/info.js:23
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "مدى شدة إزاحة الصورة بفعل الأمواج."
 
 #: src/effects/wave/info.js:32
 msgid "Wave octaves"
-msgstr ""
+msgstr "أوكتافات الموجة"
 
 #: src/effects/wave/info.js:33
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
-msgstr ""
+msgstr "مستوى تفاصيل شكل الموجة؛ القيم الأعلى تزيد التفاصيل على حساب الأداء."
 
 #: src/effects/wave/info.js:40
 msgid "Vapor octaves"
-msgstr ""
+msgstr "أوكتافات البخار"
 
 #: src/effects/wave/info.js:41
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"مستوى تفاصيل الخامة الضبابية؛ القيم الأعلى تزيد التفاصيل على حساب الأداء."
 
 #: src/effects/wave/info.js:48
 msgid "Vapor speed"
-msgstr ""
+msgstr "سرعة البخار"
 
 #: src/effects/wave/info.js:49
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "مدى سرعة انجراف خامة البخار الضبابي بمرور الوقت."
 
 #: src/effects/wave/info.js:58
 msgid "Texture grain"
-msgstr ""
+msgstr "حبيبات الخامة"
 
 #: src/effects/wave/info.js:59
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "يُضيف خامة مُرمَّلة دقيقة إلى الصورة."
 
 #: src/effects/wave/info.js:69
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "إشباع التأثير."
 
 #: src/effects/wave/info.js:79
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "سطوع التأثير."
 
 #: src/effects/wave/info.js:88
 msgid "Zoom"
-msgstr ""
+msgstr "التقريب"
 
 #: src/effects/wave/info.js:89
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "يُكبّر الخلفية باتجاه مركز السطح."
 
 #: src/effects/wave/info.js:98
 msgid "Dispersion"
-msgstr ""
+msgstr "التشتت"
 
 #: src/effects/wave/info.js:99
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "شدة الزيغ اللوني لإضفاء طابع خلل بصري."
 
 #: src/effects/wave/info.js:108
 msgid "Enable flow animation"
-msgstr ""
+msgstr "تفعيل حركة التدفق"
 
 #: src/effects/wave/info.js:109
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "ما إذا كان ضجيج الموجة يتدفق باستمرار بمرور الوقت."
 
 #: src/effects/wave/info.js:113
 msgid "Flow animation speed"
-msgstr ""
+msgstr "سرعة حركة التدفق"
 
 #: src/effects/wave/info.js:114
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "السرعة الأساسية لتدفق نمط الموجة."
 
 #: src/effects/wave/info.js:123
 msgid "Resize ease duration"
-msgstr ""
+msgstr "مدة سلاسة تغيير الحجم"
 
 #: src/effects/wave/info.js:124
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"المدة التي يستغرقها التأثير للتكيّف عند تغيير حجم النافذة (بالمللي ثانية)."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
