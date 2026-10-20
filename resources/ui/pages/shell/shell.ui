@@ -18,8 +18,8 @@
         <child>
           <object class="ComponentRow" id="panel_row">
             <property name="icon">bottom-panel-symbolic</property>
-            <property name="title" translatable="yes">Top bar</property>
-            <property name="subtitle" translatable="yes">The panel at the top of the screen</property>
+            <property name="title" translatable="yes">Panel</property>
+            <property name="subtitle" translatable="yes">The top bar, or the panels from Dash to Panel</property>
           </object>
         </child>
 

@@ -92,11 +92,11 @@ Blur my Shell is designed to be compatible with the following extensions:
 - [Dhruva](https://extensions.gnome.org/extension/9495/dhruva/) (configurable from the Dock settings)
 - Simple Taskbar's dock (configurable from the Dock settings)
 - [Dock!ng](https://extensions.gnome.org/extension/8682/dockng/) and other extensions that reuse the native dash (configurable from the Dock settings)
-- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from the Top bar settings)
+- [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from the Panel settings)
 - [Multi Monitor Bar](https://extensions.gnome.org/extension/8773/multi-monitor-bar/) (the panel on each monitor is automatically blurred)
 - [Window List](https://extensions.gnome.org/extension/602/window-list/) (configurable from the Shell tab)
 - [Coverflow Alt-Tab](https://extensions.gnome.org/extension/97/coverflow-alt-tab/) (configurable from the Shell tab)
-- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from a dedicated switch in the Top bar settings)
+- [Hide Top Bar](https://extensions.gnome.org/extension/545/hide-top-bar/) (configurable from a dedicated switch in the Panel settings)
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
 - [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), although corners can't be blurred
 - [Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/), although nothing is blurred either
