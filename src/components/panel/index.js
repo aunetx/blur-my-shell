@@ -41,6 +41,7 @@ export const PanelBlur = class PanelBlur {
 
         this._log("blurring top panel");
         this.enabled = true;
+        this._dirty = false;
         this.watched_panels = new WeakSet();
         this._in_overview = Main.overview.visible;
         this.discovery.enable();
@@ -50,12 +51,15 @@ export const PanelBlur = class PanelBlur {
 
         this.connect_to_windows_and_overview();
 
-        // the panels only have their new geometry once the work areas are updated
-        this._dirty = false;
-        this.connections.connect(Main.layoutManager, 'monitors-changed',
-            _ => this._dirty = true
-        );
+        this.connections.connect(Main.layoutManager, 'monitors-changed', () => {
+            this._dirty = true;
+            // static backgrounds must not query a monitor that has just disappeared
+            [...this.actors_list]
+                .filter(actors => actors.static_blur)
+                .forEach(actors => this.destroy_blur(actors));
+        });
 
+        // the panels only have their new geometry once the work areas are updated
         this.connections.connect(global.display, 'workareas-changed', _ => {
             if (this._dirty) {
                 this.reset();
@@ -84,6 +88,9 @@ export const PanelBlur = class PanelBlur {
 
     /// Blur a panel only if it is not already blurred (contained in the list)
     maybe_blur_panel(panel) {
+        if (this._dirty)
+            return;
+
         if (!this.watched_panels.has(panel)) {
             this.watched_panels.add(panel);
             this.connections.connect(panel, 'parent-set', () => {
