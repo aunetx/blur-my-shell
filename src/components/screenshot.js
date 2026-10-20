@@ -75,9 +75,6 @@ export const ScreenshotBlur = class ScreenshotBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log("removing blur from screenshot's window selector");
         this.enabled = false;
 

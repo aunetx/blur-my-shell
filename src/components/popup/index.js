@@ -352,11 +352,6 @@ export const PopupBlur = class PopupBlur {
 
         this.cancel_queued_blurs();
 
-        if (!this.enabled) {
-            this._log("blur already removed");
-            return;
-        }
-
         this._log("removing blur from popup surfaces");
         this.enabled = false;
         this.connections.disconnect_all();

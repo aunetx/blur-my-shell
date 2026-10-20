@@ -81,9 +81,6 @@ export const LockscreenBlur = class LockscreenBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log("removing blur from lockscreen");
         this.enabled = false;
 
@@ -95,7 +92,7 @@ export const LockscreenBlur = class LockscreenBlur {
             UnlockDialog.prototype._updateBackgrounds = original_updateBackgrounds;
 
         const dialog = this.get_active_dialog();
-        if (dialog) {
+        if (dialog?._bgManagers.some(manager => manager._bms_pipeline)) {
             dialog._bgManagers.forEach(manager => manager._bms_pipeline?.destroy());
             dialog._updateBackgrounds();
         }

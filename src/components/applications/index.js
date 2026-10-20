@@ -487,9 +487,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log("removing blur from applications...");
         this.enabled = false;
 

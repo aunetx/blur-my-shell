@@ -96,9 +96,6 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log('removing blur from coverflow alt-tab');
         this.enabled = false;
 

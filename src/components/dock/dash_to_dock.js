@@ -336,9 +336,6 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log("removing blur from dashes");
 
         if (this.discovery_id)

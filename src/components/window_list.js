@@ -131,9 +131,6 @@ export const WindowListBlur = class WindowListBlur {
     }
 
     disable() {
-        if (!this.enabled)
-            return;
-
         this._log('removing blur from window list');
         this.enabled = false;
 
