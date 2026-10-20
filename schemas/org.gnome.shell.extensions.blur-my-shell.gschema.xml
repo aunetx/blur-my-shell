@@ -43,10 +43,7 @@
                                 'type': <'refraction'>,
                                 'id': <'effect_liquid_glass_refraction'>,
                                 'params': <{
-                                    'blur_radius': <10>,
-                                    'tint_color': <(0.21176470816135406, 0.21176470816135406, 0.22745098173618317, 1.0)>,
-                                    'tint': <0>,
-                                    'specular_strength': <0>
+                                    'tint': <0>
                                 }>
                             }>,
                             <{
@@ -63,25 +60,25 @@
                         'effects': <[
                             <{
                                 'type': <'luminosity'>,
-                                'id': <'effect_liquid_vapor_luminosity'>,
+                                'id': <'effect_vapor_glass_luminosity'>,
                                 'params': <{
                                     'saturation_multiplicator': <1.1>
                                 }>
                             }>,
                             <{
                                 'type': <'wave'>,
-                                'id': <'effect_liquid_vapor_wave'>
+                                'id': <'effect_vapor_glass_wave'>
                             }>,
                             <{
                                 'type': <'refraction'>,
-                                'id': <'effect_liquid_vapor_refraction'>,
+                                'id': <'effect_vapor_glass_refraction'>,
                                 'params': <{
                                     'tint': <0>
                                 }>
                             }>,
                             <{
                                 'type': <'noise'>,
-                                'id': <'effect_liquid_vapor_noise'>,
+                                'id': <'effect_vapor_glass_noise'>,
                                 'params': <{
                                     'noise': <0.1>
                                 }>
