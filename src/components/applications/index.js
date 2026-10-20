@@ -48,6 +48,16 @@ export const ApplicationsBlur = class ApplicationsBlur {
             }
         );
 
+        // a window changes monitor after its position does
+        this.connections.connect(
+            global.display,
+            'window-entered-monitor',
+            (_display, _monitor, meta_window) => {
+                if (meta_window.blur_actor && this.settings.applications.STATIC_BLUR)
+                    this.update_size(meta_window);
+            }
+        );
+
         this.focused_window = null;
         this.init_dynamic_opacity();
         this.connections.connect(
@@ -257,20 +267,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
         const blur_actor = meta_window.blur_actor;
 
         if (this.settings.applications.STATIC_BLUR) {
-            const bg_manager = meta_window.bg_manager;
-            const bg_actor_monitor_index = bg_manager.backgroundActor.monitor;
             const window_monitor_index = meta_window.get_monitor();
             const monitor = Main.layoutManager.monitors[window_monitor_index];
             if (!monitor)
                 return;
 
-            if (bg_actor_monitor_index !== window_monitor_index) {
+            // the static blur is made from the background of one monitor
+            if (meta_window.bg_manager.backgroundActor.monitor !== window_monitor_index) {
                 this._log(`application switching to monitor: ${window_monitor_index}`);
-
-                bg_manager._monitorIndex = window_monitor_index;
-                bg_manager._updateBackgroundActor();
-                blur_actor.width = monitor.width;
-                blur_actor.height = monitor.height;
+                this.remove_blur(meta_window);
+                this.create_blur_effect(meta_window);
+                return;
             }
 
             place_static_blur(
