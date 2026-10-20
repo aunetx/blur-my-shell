@@ -1,4 +1,4 @@
-import { get_component_style } from '../../conveniences/style.js';
+import { get_component_style, is_light_style } from '../../conveniences/style.js';
 import { getRoundedCorners } from '../../render/corner_policy.js';
 
 const PANEL_STYLES = [
@@ -84,12 +84,19 @@ export function update_panel_border_radius(actors, target_class, settings) {
     panel.set_style(target_style);
 }
 
-export function update_light_text(actors_list, enabled) {
+export function update_light_text(actors_list, enabled, match_theme_in_overview, in_overview) {
+    const show_overview_class = match_theme_in_overview && in_overview && is_light_style();
+
     actors_list.forEach(actors => {
         const panel_box = actors.widgets.panel_box;
         if (enabled)
             panel_box.add_style_class_name("panel-light-text");
         else
             panel_box.remove_style_class_name("panel-light-text");
+
+        if (show_overview_class)
+            panel_box.add_style_class_name("bms-panel-overview-light-theme");
+        else
+            panel_box.remove_style_class_name("bms-panel-overview-light-theme");
     });
 }

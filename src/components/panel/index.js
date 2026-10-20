@@ -220,8 +220,19 @@ export const PanelBlur = class PanelBlur {
     /// Hides the blur while in the overview, if the preferences say so.
     connect_to_overview() {
         this._in_overview = Main.overview.visible;
-        if (!this.settings.panel.UNBLUR_IN_OVERVIEW)
+        if (!this.settings.panel.UNBLUR_IN_OVERVIEW) {
+            if (this.settings.panel.MATCH_THEME_IN_OVERVIEW) {
+                this.window_connections.connect(Main.overview, ['showing', 'shown'], () => {
+                    this._in_overview = true;
+                    this.update_light_text();
+                });
+                this.window_connections.connect(Main.overview, 'hidden', () => {
+                    this._in_overview = false;
+                    this.update_light_text();
+                });
+            }
             return;
+        }
 
         const entered = () => {
             this._in_overview = true;
@@ -477,7 +488,12 @@ export const PanelBlur = class PanelBlur {
     }
 
     update_light_text() {
-        update_light_text(this.actors_list, this.settings.panel.FORCE_LIGHT_TEXT);
+        update_light_text(
+            this.actors_list,
+            this.settings.panel.FORCE_LIGHT_TEXT,
+            this.settings.panel.MATCH_THEME_IN_OVERVIEW,
+            this.in_overview()
+        );
     }
 
     panel_hide_blur_startup() {
@@ -534,6 +550,7 @@ export const PanelBlur = class PanelBlur {
         actors.signal_records = [];
 
         actors.widgets.panel_box.remove_style_class_name("panel-light-text");
+        actors.widgets.panel_box.remove_style_class_name("bms-panel-overview-light-theme");
         set_panel_style_class(actors, null, this.settings);
 
         actors.rounded_pipeline?.destroy();

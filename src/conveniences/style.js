@@ -29,6 +29,10 @@ function get_background_style() {
     return interface_settings.get_string('color-scheme') === 'prefer-dark' ? 2 : 1;
 }
 
+export function is_light_style() {
+    return get_background_style() !== 2;
+}
+
 export function get_component_style(style, avail_styles = 3) {
     const style_num = Array.isArray(avail_styles) ? avail_styles.length : avail_styles;
 

@@ -88,3 +88,47 @@
 .panel-light-text #panel .panel-button.screen-sharing-indicator:checked:hover {
     box-shadow: inset 0 0 0 100px #ff9638;
 }
+
+/*
+* `.bms-panel-overview-light-theme`, keeps panel text and icons dark in overview when using light theme
+*/
+
+.bms-panel-overview-light-theme #panel:overview .panel-button,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display,
+.bms-panel-overview-light-theme #panel:overview .panel-button .clock,
+.bms-panel-overview-light-theme #panel:overview .panel-button .system-status-icon {
+    color: rgba(0, 0, 0, 0.8) !important;
+    text-shadow: none !important;
+    icon-shadow: none !important;
+}
+
+.bms-panel-overview-light-theme #panel:overview .panel-button.screen-recording-indicator,
+.bms-panel-overview-light-theme #panel:overview .panel-button.screen-sharing-indicator {
+    color: #f6f5f4 !important;
+}
+
+.bms-panel-overview-light-theme #panel:overview .panel-button#panelActivities .workspace-dot {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.bms-panel-overview-light-theme #panel:overview .panel-button:hover,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:hover .clock {
+    box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.10) !important;
+}
+
+.bms-panel-overview-light-theme #panel:overview .panel-button:active,
+.bms-panel-overview-light-theme #panel:overview .panel-button:focus,
+.bms-panel-overview-light-theme #panel:overview .panel-button:checked,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:active .clock,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:focus .clock,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:checked .clock {
+    box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.15) !important;
+}
+
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:hover,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:active,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:focus,
+.bms-panel-overview-light-theme #panel:overview .panel-button.clock-display:checked {
+    box-shadow: none !important;
+}
