@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 15:00+0200\n"
+"POT-Creation-Date: 2026-10-20 15:37+0200\n"
 "PO-Revision-Date: 2026-10-13 10:51+0000\n"
 "Last-Translator: Ulfius <ulfius@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -27,19 +27,19 @@ msgstr ""
 msgid "A fast, high-quality blur."
 msgstr ""
 
-#: src/effects/blur/info.js:12
+#: src/effects/blur/info.js:11
 msgid "Radius"
 msgstr "Radius"
 
-#: src/effects/blur/info.js:13
+#: src/effects/blur/info.js:12
 msgid "The intensity of the blur effect."
 msgstr "Die Intensität des Weichzeichnereffekts."
 
-#: src/effects/blur/info.js:22 src/effects/wave/info.js:78
+#: src/effects/blur/info.js:21 src/effects/wave/info.js:77
 msgid "Brightness"
 msgstr "Helligkeit"
 
-#: src/effects/blur/info.js:23
+#: src/effects/blur/info.js:22
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
@@ -47,8 +47,8 @@ msgstr ""
 "Die Helligkeit des Unschärfe-Effekts. Ein hoher Wert sorgt möglicherweise "
 "dafür, dass Text schwer zu lesen ist."
 
-#: src/effects/color/info.js:10 src/effects/color/info.js:16
-#: src/effects/color/info.js:42
+#: src/effects/color/info.js:10 src/effects/color/info.js:15
+#: src/effects/color/info.js:41 src/effects/effect_groups.js:11
 msgid "Color"
 msgstr "Farbe"
 
@@ -56,155 +56,167 @@ msgstr "Farbe"
 msgid "An effect that blends a color into the pipeline."
 msgstr "Ein Effekt, der eine Farbe in die Pipeline einblendet."
 
-#: src/effects/color/info.js:17
+#: src/effects/color/info.js:16
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
 
-#: src/effects/color/info.js:22
+#: src/effects/color/info.js:21
 msgid "Blend mode"
 msgstr "Mischmodus"
 
-#: src/effects/color/info.js:23
+#: src/effects/color/info.js:22
 msgid "How the color is blended in."
 msgstr "Wie die Farbe sich mischt."
 
-#: src/effects/color/info.js:26
+#: src/effects/color/info.js:25
 msgid "Normal"
 msgstr "Normal"
 
-#: src/effects/color/info.js:27
+#: src/effects/color/info.js:26
 msgid "Multiply"
 msgstr "Multiplizieren"
 
-#: src/effects/color/info.js:28
+#: src/effects/color/info.js:27
 msgid "Screen"
 msgstr "Bildschirm"
 
-#: src/effects/color/info.js:29
+#: src/effects/color/info.js:28
 msgid "Overlay"
 msgstr ""
 
-#: src/effects/color/info.js:30
+#: src/effects/color/info.js:29
 msgid "Darken"
 msgstr "Abdunkeln"
 
-#: src/effects/color/info.js:31
+#: src/effects/color/info.js:30
 msgid "Lighten"
 msgstr "Aufhellen"
 
-#: src/effects/color/info.js:32
+#: src/effects/color/info.js:31
 msgid "Plus darker"
 msgstr "Plus dunkler"
 
-#: src/effects/color/info.js:33
+#: src/effects/color/info.js:32
 msgid "Plus lighter"
 msgstr "Plus heller"
 
-#: src/effects/color/info.js:34
+#: src/effects/color/info.js:33
 msgid "Color dodge"
 msgstr "Farbig abwedeln"
 
-#: src/effects/color/info.js:35
+#: src/effects/color/info.js:34
 msgid "Color burn"
 msgstr ""
 
-#: src/effects/color/info.js:36
+#: src/effects/color/info.js:35
 msgid "Hard light"
 msgstr "Hartes Licht"
 
-#: src/effects/color/info.js:37
+#: src/effects/color/info.js:36
 msgid "Soft light"
 msgstr ""
 
-#: src/effects/color/info.js:38
+#: src/effects/color/info.js:37
 msgid "Difference"
 msgstr "Unterschied"
 
-#: src/effects/color/info.js:39
+#: src/effects/color/info.js:38
 msgid "Exclusion"
 msgstr "Ausschluss"
 
-#: src/effects/color/info.js:40
+#: src/effects/color/info.js:39
 msgid "Hue"
 msgstr "Farbton"
 
-#: src/effects/color/info.js:41 src/effects/color/info.js:95
-#: src/effects/wave/info.js:68
+#: src/effects/color/info.js:40 src/effects/color/info.js:93
+#: src/effects/wave/info.js:67
 msgid "Saturation"
 msgstr "Sättigung"
 
-#: src/effects/color/info.js:43 src/effects/color/info.js:50
+#: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
 msgstr "Leuchtkraft"
 
-#: src/effects/color/info.js:51
+#: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
 msgstr "Ein Effekt der die Leuchtkraft des Bildes beeinflusst."
 
-#: src/effects/color/info.js:55
+#: src/effects/color/info.js:53
 msgid "Shift brightness"
 msgstr ""
 
-#: src/effects/color/info.js:56
+#: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
 msgstr ""
 
-#: src/effects/color/info.js:65
+#: src/effects/color/info.js:63
 msgid "Brightness multiplier"
 msgstr ""
 
-#: src/effects/color/info.js:66
+#: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
 
-#: src/effects/color/info.js:75
+#: src/effects/color/info.js:73
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: src/effects/color/info.js:76
+#: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
 
-#: src/effects/color/info.js:85
+#: src/effects/color/info.js:83
 msgid "Contrast center"
 msgstr ""
 
-#: src/effects/color/info.js:86
+#: src/effects/color/info.js:84
 msgid "The center of the contrast to use."
 msgstr ""
 
-#: src/effects/color/info.js:96
+#: src/effects/color/info.js:94
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
 
-#: src/effects/color/info.js:108
+#: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB zu HSL (fortgeschrittener Effekt)"
 
-#: src/effects/color/info.js:109
+#: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
 msgstr ""
 
-#: src/effects/color/info.js:115
+#: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL zu RGB (fortgeschrittener Effekt)"
 
-#: src/effects/color/info.js:116
+#: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
 msgstr ""
 
-#: src/effects/effect_groups.js:4
-msgid "Blur effects"
-msgstr "Weichzeichner-Effekte"
+#: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
+#: resources/ui/pages/shell/app-folders.ui:8
+#: resources/ui/pages/shell/component.ui:8 resources/ui/pages/shell/dash.ui:8
+#: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
+#: resources/ui/pages/shell/popup.ui:8
+msgid "Blur"
+msgstr ""
 
-#: src/effects/effect_groups.js:10
-msgid "Texture effects"
-msgstr "Textureffekte"
+#: src/effects/effect_groups.js:18
+msgid "Texture"
+msgstr ""
+
+#: src/effects/effect_groups.js:27
+msgid "Advanced"
+msgstr ""
+
+#: src/effects/effect_groups.js:28
+msgid "Building blocks that are mostly useful combined with other effects."
+msgstr ""
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -216,144 +228,144 @@ msgid ""
 "inner shadow."
 msgstr ""
 
-#: src/effects/refraction/info.js:12
+#: src/effects/refraction/info.js:11
 msgid "Refraction scale"
 msgstr ""
 
-#: src/effects/refraction/info.js:13
+#: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
 msgstr ""
 
-#: src/effects/refraction/info.js:22
+#: src/effects/refraction/info.js:21
 msgid "Blur radius"
 msgstr ""
 
-#: src/effects/refraction/info.js:23
+#: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr ""
 
-#: src/effects/refraction/info.js:32
+#: src/effects/refraction/info.js:31
 msgid "Bezel width"
 msgstr ""
 
-#: src/effects/refraction/info.js:33
+#: src/effects/refraction/info.js:32
 msgid "How far the liquid-glass lens reaches inward from the edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:42
+#: src/effects/refraction/info.js:41
 msgid "Rim spread"
 msgstr ""
 
-#: src/effects/refraction/info.js:43
+#: src/effects/refraction/info.js:42
 msgid "How far the refraction eases inward from the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:52
+#: src/effects/refraction/info.js:51
 msgid "Glass thickness"
 msgstr ""
 
-#: src/effects/refraction/info.js:53
+#: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
 msgstr ""
 
-#: src/effects/refraction/info.js:62
+#: src/effects/refraction/info.js:61
 msgid "Refraction style"
 msgstr ""
 
-#: src/effects/refraction/info.js:63
+#: src/effects/refraction/info.js:62
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:72
+#: src/effects/refraction/info.js:71
 msgid "Fresnel glare"
 msgstr ""
 
-#: src/effects/refraction/info.js:73
+#: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:82
+#: src/effects/refraction/info.js:81
 msgid "Fresnel glare angle"
 msgstr ""
 
-#: src/effects/refraction/info.js:83
+#: src/effects/refraction/info.js:82
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
 
-#: src/effects/refraction/info.js:92
+#: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
 msgstr ""
 
-#: src/effects/refraction/info.js:93
+#: src/effects/refraction/info.js:92
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:102
+#: src/effects/refraction/info.js:101
 msgid "Specular glare strength"
 msgstr ""
 
-#: src/effects/refraction/info.js:103
+#: src/effects/refraction/info.js:102
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr ""
 
-#: src/effects/refraction/info.js:112
+#: src/effects/refraction/info.js:111
 msgid "Tint strength"
 msgstr ""
 
-#: src/effects/refraction/info.js:113
+#: src/effects/refraction/info.js:112
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr ""
 
-#: src/effects/refraction/info.js:122
+#: src/effects/refraction/info.js:121
 msgid "Tint color"
 msgstr ""
 
-#: src/effects/refraction/info.js:123
+#: src/effects/refraction/info.js:122
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
 
-#: src/effects/refraction/info.js:128
+#: src/effects/refraction/info.js:127
 msgid "Backdrop zoom"
 msgstr ""
 
-#: src/effects/refraction/info.js:129
+#: src/effects/refraction/info.js:128
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr ""
 
-#: src/effects/refraction/info.js:138
+#: src/effects/refraction/info.js:137
 msgid "Inner shadow"
 msgstr ""
 
-#: src/effects/refraction/info.js:139
+#: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
 
-#: src/effects/refraction/info.js:148
+#: src/effects/refraction/info.js:147
 msgid "Chromatic dispersion"
 msgstr ""
 
-#: src/effects/refraction/info.js:149
+#: src/effects/refraction/info.js:148
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:157
 msgid "Edge behavior"
 msgstr ""
 
-#: src/effects/refraction/info.js:159
+#: src/effects/refraction/info.js:158
 msgid "How texture coordinates outside the actor are sampled."
 msgstr ""
 
-#: src/effects/refraction/info.js:162
+#: src/effects/refraction/info.js:161
 msgid "Clamp"
 msgstr ""
 
-#: src/effects/refraction/info.js:163
+#: src/effects/refraction/info.js:162
 msgid "Mirror"
 msgstr ""
 
@@ -365,100 +377,100 @@ msgstr "Verpixeln"
 msgid "An effect that pixelizes the image."
 msgstr "Ein Effekt, der das Bild verpixelt."
 
-#: src/effects/texture/info.js:16 src/effects/texture/info.js:42
-#: src/effects/texture/info.js:68
+#: src/effects/texture/info.js:15 src/effects/texture/info.js:40
+#: src/effects/texture/info.js:65
 msgid "Factor"
 msgstr "Faktor"
 
-#: src/effects/texture/info.js:17 src/effects/texture/info.js:43
+#: src/effects/texture/info.js:16 src/effects/texture/info.js:41
 msgid "How much to scale down the image."
 msgstr "Wie stark das Bild verkleinert werden soll."
 
-#: src/effects/texture/info.js:24 src/effects/texture/info.js:50
+#: src/effects/texture/info.js:23 src/effects/texture/info.js:48
 msgid "Downsampling mode"
 msgstr "Downsampling-Modus"
 
-#: src/effects/texture/info.js:25 src/effects/texture/info.js:51
+#: src/effects/texture/info.js:24 src/effects/texture/info.js:49
 msgid "The downsampling method that is used."
 msgstr "Die verwendete Downsampling-Methode."
 
-#: src/effects/texture/info.js:28 src/effects/texture/info.js:54
+#: src/effects/texture/info.js:27 src/effects/texture/info.js:52
 msgid "Boxcar"
 msgstr "Boxcar"
 
-#: src/effects/texture/info.js:29 src/effects/texture/info.js:55
+#: src/effects/texture/info.js:28 src/effects/texture/info.js:53
 msgid "Triangular"
 msgstr "Triangular"
 
-#: src/effects/texture/info.js:30 src/effects/texture/info.js:56
+#: src/effects/texture/info.js:29 src/effects/texture/info.js:54
 msgid "Dirac"
 msgstr "Dirac"
 
-#: src/effects/texture/info.js:37
+#: src/effects/texture/info.js:36
 msgid "Downscale (advanced effect)"
 msgstr "Herunterskalieren (erweiterter Effekt)"
 
-#: src/effects/texture/info.js:38
+#: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
 msgstr ""
 
-#: src/effects/texture/info.js:63
+#: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
 msgstr "Hochskalieren (erweiterter Effekt)"
 
-#: src/effects/texture/info.js:64
+#: src/effects/texture/info.js:62
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "Ein Effekt, der das Bild von der linken oberen Ecke aus hochskaliert."
 
-#: src/effects/texture/info.js:69
+#: src/effects/texture/info.js:66
 msgid "How much to scale up the image."
 msgstr "Wie stark das Bild hochskaliert werden soll."
 
-#: src/effects/texture/info.js:79
+#: src/effects/texture/info.js:76
 msgid "Derivative"
 msgstr "Ableitung"
 
-#: src/effects/texture/info.js:80
+#: src/effects/texture/info.js:77
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "Wende eine räumliche Ableitung oder einen Laplace-Operator an."
 
-#: src/effects/texture/info.js:84
+#: src/effects/texture/info.js:80
 msgid "Operation"
 msgstr "Operation"
 
-#: src/effects/texture/info.js:85
+#: src/effects/texture/info.js:81
 msgid "The mathematical operation to apply."
 msgstr "Die mathematische Operation, welche angewendet werden soll."
 
-#: src/effects/texture/info.js:88
+#: src/effects/texture/info.js:84
 msgid "1-step derivative"
 msgstr "Erste Ableitung"
 
-#: src/effects/texture/info.js:89
+#: src/effects/texture/info.js:85
 msgid "2-step derivative"
 msgstr "Zweite Ableitung"
 
-#: src/effects/texture/info.js:90
+#: src/effects/texture/info.js:86
 msgid "Laplacian"
 msgstr "Laplace-Operator"
 
-#: src/effects/texture/info.js:97 src/effects/texture/info.js:102
+#: src/effects/texture/info.js:93 src/effects/texture/info.js:97
 msgid "Noise"
 msgstr "Rauschen"
 
-#: src/effects/texture/info.js:98
+#: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
 msgstr ""
 
-#: src/effects/texture/info.js:103
+#: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
 msgstr "Die Menge des hinzuzufügenden Rauschens."
 
-#: src/effects/texture/info.js:112
+#: src/effects/texture/info.js:107
 msgid "Lightness"
 msgstr "Helligkeitsstufe"
 
-#: src/effects/texture/info.js:113
+#: src/effects/texture/info.js:108
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -476,103 +488,103 @@ msgid ""
 "movement."
 msgstr ""
 
-#: src/effects/wave/info.js:12
+#: src/effects/wave/info.js:11
 msgid "Wave frequency"
 msgstr ""
 
-#: src/effects/wave/info.js:13
+#: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
 msgstr ""
 
-#: src/effects/wave/info.js:22
+#: src/effects/wave/info.js:21
 msgid "Wave amplitude"
 msgstr ""
 
-#: src/effects/wave/info.js:23
+#: src/effects/wave/info.js:22
 msgid "How strongly the image gets displaced by the waves."
 msgstr ""
 
-#: src/effects/wave/info.js:32
+#: src/effects/wave/info.js:31
 msgid "Wave octaves"
 msgstr ""
 
-#: src/effects/wave/info.js:33
+#: src/effects/wave/info.js:32
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
 
-#: src/effects/wave/info.js:40
+#: src/effects/wave/info.js:39
 msgid "Vapor octaves"
 msgstr ""
 
-#: src/effects/wave/info.js:41
+#: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
 
-#: src/effects/wave/info.js:48
+#: src/effects/wave/info.js:47
 msgid "Vapor speed"
 msgstr ""
 
-#: src/effects/wave/info.js:49
+#: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
 msgstr ""
 
-#: src/effects/wave/info.js:58
+#: src/effects/wave/info.js:57
 msgid "Texture grain"
 msgstr ""
 
-#: src/effects/wave/info.js:59
+#: src/effects/wave/info.js:58
 msgid "Adds a fine sandblasted texture to the image."
 msgstr ""
 
-#: src/effects/wave/info.js:69
+#: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
 msgstr ""
 
-#: src/effects/wave/info.js:79
+#: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
 msgstr ""
 
-#: src/effects/wave/info.js:88
+#: src/effects/wave/info.js:87
 msgid "Zoom"
 msgstr ""
 
-#: src/effects/wave/info.js:89
+#: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
 msgstr ""
 
-#: src/effects/wave/info.js:98
+#: src/effects/wave/info.js:97
 msgid "Dispersion"
 msgstr ""
 
-#: src/effects/wave/info.js:99
+#: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
 msgstr ""
 
-#: src/effects/wave/info.js:108
+#: src/effects/wave/info.js:107
 msgid "Enable flow animation"
 msgstr ""
 
-#: src/effects/wave/info.js:109
+#: src/effects/wave/info.js:108
 msgid "Whether the wave noise continuously flows over time."
 msgstr ""
 
-#: src/effects/wave/info.js:113
+#: src/effects/wave/info.js:112
 msgid "Flow animation speed"
 msgstr ""
 
-#: src/effects/wave/info.js:114
+#: src/effects/wave/info.js:113
 msgid "The base speed at which the wave pattern flows."
 msgstr ""
 
-#: src/effects/wave/info.js:123
+#: src/effects/wave/info.js:122
 msgid "Resize ease duration"
 msgstr ""
 
-#: src/effects/wave/info.js:124
+#: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
@@ -607,16 +619,9 @@ msgid "Main Menu"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:5
+#: src/preferences/pages/pipelines/pipeline_page.js:34
 msgid "Applications"
 msgstr "Anwendungen"
-
-#: resources/ui/pages/applications.ui:12
-#: resources/ui/pages/shell/app-folders.ui:8
-#: resources/ui/pages/shell/component.ui:8 resources/ui/pages/shell/dash.ui:8
-#: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
-#: resources/ui/pages/shell/popup.ui:8
-msgid "Blur"
-msgstr ""
 
 #: resources/ui/pages/applications.ui:13
 msgid "Adds blur to applications."
@@ -707,73 +712,105 @@ msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr ""
 
 #: resources/ui/pages/applications.ui:111
-msgid "Enable all by default"
-msgstr "Standardmäßig alle aktivieren"
+msgid "Blur all windows"
+msgstr ""
 
 #: resources/ui/pages/applications.ui:112
-msgid "Adds blur behind all windows by default."
-msgstr "Fügt standardmäßig Unschärfe hinter allen Fenstern hinzu."
+msgid "When off, only the windows listed below are blurred."
+msgstr ""
 
 #: resources/ui/pages/applications.ui:120
-msgid "Whitelist"
-msgstr "Whitelist"
+msgid "Blurred windows"
+msgstr ""
 
 #: resources/ui/pages/applications.ui:121
 msgid ""
-"A list of windows to blur.\n"
-"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
-"for a single one."
+"Only these windows are blurred. Use * to match any sequence of characters "
+"(e.g., Firefox* or *Code*), and ? for a single one."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:140
-#: resources/ui/pages/applications.ui:178
+#: resources/ui/pages/applications.ui:129
+#: resources/ui/pages/applications.ui:151
 msgid "Add Window"
 msgstr "Fenster hinzufügen"
 
-#: resources/ui/pages/applications.ui:158
-msgid "Blacklist"
-msgstr "Blacklist"
-
-#: resources/ui/pages/applications.ui:159
-msgid ""
-"A list of windows not to blur.\n"
-"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
-"for a single one."
+#: resources/ui/pages/applications.ui:142
+msgid "Excluded windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:197 resources/ui/pages/shell/panel.ui:157
+#: resources/ui/pages/applications.ui:143
+msgid ""
+"These windows are never blurred. Use * to match any sequence of characters "
+"(e.g., Firefox* or *Code*), and ? for a single one."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:157
 #: resources/ui/pages/shell/popup.ui:161
 msgid "All"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:198 resources/ui/pages/shell/panel.ui:158
+#: resources/ui/pages/applications.ui:166 resources/ui/pages/shell/panel.ui:158
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Top only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:199 resources/ui/pages/shell/panel.ui:159
+#: resources/ui/pages/applications.ui:167 resources/ui/pages/shell/panel.ui:159
 #: resources/ui/pages/shell/popup.ui:163
 msgid "Bottom only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:200 resources/ui/pages/shell/panel.ui:160
+#: resources/ui/pages/applications.ui:168 resources/ui/pages/shell/panel.ui:160
 #: resources/ui/pages/shell/popup.ui:164
 msgid "None"
 msgstr ""
 
-#: resources/ui/pages/pipelines.ui:5
+#: resources/ui/pages/pipelines/pipeline-page.ui:11
+msgid "Pipeline Menu"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:24
+msgid "Name"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:32
+msgid "Effects"
+msgstr "Effekte"
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:33
+msgid "Applied from top to bottom. Drag them to change the order."
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:40
+#: src/preferences/pages/pipelines/effect_chooser.js:13
+msgid "Add Effect"
+msgstr "Effekt hinzufügen"
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:57
+#: src/preferences/pages/pipelines/pipeline_row.js:45
+msgid "No effects yet"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:78
+msgid "Duplicate"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:82
+msgid "Delete"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
 msgstr "Pipelines"
 
-#: resources/ui/pages/pipelines.ui:10
+#: resources/ui/pages/pipelines/pipelines.ui:10
 msgid ""
 "Pipelines are sets of effects that components share. Each component picks "
 "the pipeline it uses in its own settings."
 msgstr ""
 
-#: resources/ui/pages/pipelines.ui:29
-msgid "Add Pipeline"
-msgstr "Pipeline hinzufügen"
+#: resources/ui/pages/pipelines/pipelines.ui:17
+msgid "New Pipeline"
+msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:9
 msgid "Makes the background of application folder dialogs blurred."
@@ -1109,14 +1146,16 @@ msgid "Desktop"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:21
-msgid "Top bar"
-msgstr ""
+#: src/preferences/pages/pipelines/pipeline_page.js:25
+msgid "Panel"
+msgstr "Panel"
 
 #: resources/ui/pages/shell/shell.ui:22
-msgid "The panel at the top of the screen"
+msgid "The top bar, or the panels from Dash to Panel"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:29
+#: src/preferences/pages/pipelines/pipeline_page.js:26
 msgid "Dock"
 msgstr ""
 
@@ -1125,6 +1164,7 @@ msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:37
+#: src/preferences/pages/pipelines/pipeline_page.js:27
 msgid "Popups"
 msgstr ""
 
@@ -1133,6 +1173,7 @@ msgid "Menus, quick settings, notifications and dialogs"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:46
+#: src/preferences/pages/pipelines/pipeline_page.js:28
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -1141,6 +1182,7 @@ msgid "The wallpaper behind the workspaces"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:59
+#: src/preferences/pages/pipelines/pipeline_page.js:29
 msgid "App folders"
 msgstr ""
 
@@ -1153,6 +1195,7 @@ msgid "System"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:73
+#: src/preferences/pages/pipelines/pipeline_page.js:30
 msgid "Lock screen"
 msgstr ""
 
@@ -1161,6 +1204,7 @@ msgid "Behind the password prompt"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:81
+#: src/preferences/pages/pipelines/pipeline_page.js:31
 msgid "Screenshot"
 msgstr ""
 
@@ -1173,6 +1217,7 @@ msgid "Extensions"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:95
+#: src/preferences/pages/pipelines/pipeline_page.js:32
 msgid "Window List"
 msgstr ""
 
@@ -1181,6 +1226,7 @@ msgid "The taskbar from the Window List extension"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:103
+#: src/preferences/pages/pipelines/pipeline_page.js:33
 msgid "Coverflow Alt-Tab"
 msgstr ""
 
@@ -1189,22 +1235,23 @@ msgid "Behind the window switcher"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window Name"
-msgstr "Fenstername"
+msgid "Window class"
+msgstr ""
 
-#: resources/ui/widgets/application-row.ui:8
-msgid "Select window"
-msgstr "Fenster auswählen"
+#: resources/ui/widgets/application-row.ui:10
+msgid "Pick a Window"
+msgstr ""
 
-#: resources/ui/widgets/application-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "Wähle ein Fenster aus oder wähle es über seinen Klassennamen."
+#: resources/ui/widgets/application-row.ui:21
+#: src/preferences/widgets/effect_row.js:17
+msgid "Remove"
+msgstr ""
 
-#: resources/ui/widgets/application-row.ui:41
+#: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
 msgstr ""
 
-#: resources/ui/widgets/application-row.ui:45
+#: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
 msgstr ""
 
@@ -1220,46 +1267,15 @@ msgstr "Statisch"
 msgid "Dynamic"
 msgstr "Dynamisch"
 
-#: resources/ui/widgets/effects-dialog.ui:4
-#: src/preferences/widgets/effects_dialog.js:46
-msgid "Effects"
-msgstr "Effekte"
-
-#: resources/ui/widgets/effects-dialog.ui:13
-msgid "Effects list"
-msgstr ""
-
-#: resources/ui/widgets/effects-dialog.ui:14
-msgid "The top effect is applied first."
-msgstr ""
-
-#: resources/ui/widgets/effects-dialog.ui:39
-msgid "Add Effect"
-msgstr "Effekt hinzufügen"
-
-#: resources/ui/widgets/effects-dialog.ui:72
-msgid "Include advanced effects"
-msgstr "Beinhalte erweiterte Effekte"
-
 #: resources/ui/widgets/pipeline-choose-row.ui:4
+#: src/preferences/pages/pipelines/pipeline_page.js:100
+#: src/preferences/pages/pipelines/pipeline_row.js:39
 msgid "Pipeline"
 msgstr "Pipeline"
 
 #: resources/ui/widgets/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
 msgstr "Die Pipeline, die mit dieser Komponente verwendet werden soll."
-
-#: resources/ui/widgets/pipeline-group.ui:6
-msgid "Pipeline name"
-msgstr "Name der Pipeline"
-
-#: resources/ui/widgets/pipeline-group.ui:20
-msgid "Manage effects"
-msgstr "Effekte verwalten"
-
-#: resources/ui/widgets/pipeline-undo-toast.ui:28
-msgid "Undo"
-msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
@@ -1338,72 +1354,118 @@ msgstr ""
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: src/preferences/pages/pipelines.js:42
-#: src/preferences/widgets/pipeline_choose_row.js:64
+#: src/preferences/pages/pipelines/index.js:77
 msgid "New pipeline"
 msgstr ""
 
-#: src/preferences/pages/shell/index.js:62
+#: src/preferences/pages/pipelines/index.js:124
+#, javascript-format
+msgid "\"%s\" deleted"
+msgstr ""
+
+#: src/preferences/pages/pipelines/index.js:125
+msgid "Pipeline deleted"
+msgstr ""
+
+#: src/preferences/pages/pipelines/index.js:128
+msgid "Undo"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_page.js:109
+msgid "Used by every component"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_page.js:111
+#, javascript-format
+msgid "Used by %s"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_page.js:113
+msgid "Not used by any component yet"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_row.js:44
+msgid "Unknown effect"
+msgstr ""
+
+#: src/preferences/pages/shell/index.js:63
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr ""
 "Die Einstellungen dieser Extension für die Unschärfe des Sperrbildschirms "
 "verwenden."
 
-#: src/preferences/pages/shell/index.js:66
+#: src/preferences/pages/shell/index.js:67
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr ""
 "Fügen Sie dem Hintergrund der Fensterauswahl in der Screenshot-"
 "Benutzeroberfläche einen Unschärfeeffekt hinzu."
 
-#: src/preferences/pages/shell/index.js:70
+#: src/preferences/pages/shell/index.js:71
 msgid "Make the window-list extension blurred, if it is used."
 msgstr ""
 "Unschärfeeffekt auf die Window-List Erweiterungen anwenden wenn diese "
 "verwendent wird."
 
-#: src/preferences/pages/shell/index.js:74
+#: src/preferences/pages/shell/index.js:75
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
 msgstr ""
 "Unschärfeeffekt auf die Coverflow Alt-Tab Erweiterungen anwenden wenn diese "
 "verwendet wird."
 
-#: src/preferences/widgets/effects_dialog.js:45
-#, javascript-format
-msgid "Effects for “%s”"
+#: src/preferences/widgets/effect_row.js:14
+msgid "Move Up"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:15
+msgid "Move Down"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:47
+msgid "Effect Menu"
 msgstr ""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
 msgstr ""
 
-#: src/preferences/widgets/pipeline_group.js:30
-#, javascript-format
-msgid "Pipeline id: “%s”"
-msgstr ""
+#~ msgid "Blur effects"
+#~ msgstr "Weichzeichner-Effekte"
 
-#: src/preferences/widgets/pipeline_group.js:81
-msgid "No effect"
-msgstr ""
+#~ msgid "Texture effects"
+#~ msgstr "Textureffekte"
 
-#: src/preferences/widgets/pipeline_group.js:84
-#, javascript-format
-msgid "%d effect"
-msgid_plural "%d effects"
-msgstr[0] ""
-msgstr[1] ""
+#~ msgid "Enable all by default"
+#~ msgstr "Standardmäßig alle aktivieren"
 
-#: src/preferences/widgets/pipeline_group.js:91
-msgid "Unknown effect"
-msgstr ""
+#~ msgid "Adds blur behind all windows by default."
+#~ msgstr "Fügt standardmäßig Unschärfe hinter allen Fenstern hinzu."
 
-#: src/preferences/widgets/pipeline_undo_toast.js:16
-#, javascript-format
-msgid "\"%s\" deleted"
-msgstr ""
+#~ msgid "Whitelist"
+#~ msgstr "Whitelist"
 
-#: src/preferences/widgets/pipeline_undo_toast.js:17
-msgid "Pipeline deleted"
-msgstr ""
+#~ msgid "Blacklist"
+#~ msgstr "Blacklist"
+
+#~ msgid "Add Pipeline"
+#~ msgstr "Pipeline hinzufügen"
+
+#~ msgid "Window Name"
+#~ msgstr "Fenstername"
+
+#~ msgid "Select window"
+#~ msgstr "Fenster auswählen"
+
+#~ msgid "Pick a window or select it by its classname."
+#~ msgstr "Wähle ein Fenster aus oder wähle es über seinen Klassennamen."
+
+#~ msgid "Include advanced effects"
+#~ msgstr "Beinhalte erweiterte Effekte"
+
+#~ msgid "Pipeline name"
+#~ msgstr "Name der Pipeline"
+
+#~ msgid "Manage effects"
+#~ msgstr "Effekte verwalten"
 
 #~ msgid "Applications blur"
 #~ msgstr "Anwendungen weichzeichnen"
@@ -1444,9 +1506,6 @@ msgstr ""
 
 #~ msgid "Application folder blur"
 #~ msgstr "Unschärfe des Anwendungsordners"
-
-#~ msgid "Panel"
-#~ msgstr "Panel"
 
 #~ msgid "Panel blur"
 #~ msgstr "Panel Unschärfe"

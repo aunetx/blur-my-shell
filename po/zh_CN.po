@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 15:00+0200\n"
+"POT-Creation-Date: 2026-10-20 15:37+0200\n"
 "PO-Revision-Date: 2026-10-13 10:51+0000\n"
 "Last-Translator: Cold-Mint <cold_mint@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -27,26 +27,26 @@ msgstr "双重 Kawase 模糊"
 msgid "A fast, high-quality blur."
 msgstr "一种快速、高质量的模糊效果。"
 
-#: src/effects/blur/info.js:12
+#: src/effects/blur/info.js:11
 msgid "Radius"
 msgstr "半径"
 
-#: src/effects/blur/info.js:13
+#: src/effects/blur/info.js:12
 msgid "The intensity of the blur effect."
 msgstr "模糊效果的强度。"
 
-#: src/effects/blur/info.js:22 src/effects/wave/info.js:78
+#: src/effects/blur/info.js:21 src/effects/wave/info.js:77
 msgid "Brightness"
 msgstr "亮度"
 
-#: src/effects/blur/info.js:23
+#: src/effects/blur/info.js:22
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
 
-#: src/effects/color/info.js:10 src/effects/color/info.js:16
-#: src/effects/color/info.js:42
+#: src/effects/color/info.js:10 src/effects/color/info.js:15
+#: src/effects/color/info.js:41 src/effects/effect_groups.js:11
 msgid "Color"
 msgstr "颜色"
 
@@ -54,155 +54,167 @@ msgstr "颜色"
 msgid "An effect that blends a color into the pipeline."
 msgstr "将颜色融入管线的效果。"
 
-#: src/effects/color/info.js:17
+#: src/effects/color/info.js:16
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr "要融入的颜色。混合量由颜色的不透明度控制。"
 
-#: src/effects/color/info.js:22
+#: src/effects/color/info.js:21
 msgid "Blend mode"
 msgstr "混合模式"
 
-#: src/effects/color/info.js:23
+#: src/effects/color/info.js:22
 msgid "How the color is blended in."
 msgstr "颜色的混合方式。"
 
-#: src/effects/color/info.js:26
+#: src/effects/color/info.js:25
 msgid "Normal"
 msgstr "正常"
 
-#: src/effects/color/info.js:27
+#: src/effects/color/info.js:26
 msgid "Multiply"
 msgstr "正片叠底"
 
-#: src/effects/color/info.js:28
+#: src/effects/color/info.js:27
 msgid "Screen"
 msgstr "滤色"
 
-#: src/effects/color/info.js:29
+#: src/effects/color/info.js:28
 msgid "Overlay"
 msgstr "叠加"
 
-#: src/effects/color/info.js:30
+#: src/effects/color/info.js:29
 msgid "Darken"
 msgstr "变暗"
 
-#: src/effects/color/info.js:31
+#: src/effects/color/info.js:30
 msgid "Lighten"
 msgstr "变亮"
 
-#: src/effects/color/info.js:32
+#: src/effects/color/info.js:31
 msgid "Plus darker"
 msgstr "相加变暗"
 
-#: src/effects/color/info.js:33
+#: src/effects/color/info.js:32
 msgid "Plus lighter"
 msgstr "相加变亮"
 
-#: src/effects/color/info.js:34
+#: src/effects/color/info.js:33
 msgid "Color dodge"
 msgstr "颜色减淡"
 
-#: src/effects/color/info.js:35
+#: src/effects/color/info.js:34
 msgid "Color burn"
 msgstr "颜色加深"
 
-#: src/effects/color/info.js:36
+#: src/effects/color/info.js:35
 msgid "Hard light"
 msgstr "强光"
 
-#: src/effects/color/info.js:37
+#: src/effects/color/info.js:36
 msgid "Soft light"
 msgstr "柔光"
 
-#: src/effects/color/info.js:38
+#: src/effects/color/info.js:37
 msgid "Difference"
 msgstr "差值"
 
-#: src/effects/color/info.js:39
+#: src/effects/color/info.js:38
 msgid "Exclusion"
 msgstr "排除"
 
-#: src/effects/color/info.js:40
+#: src/effects/color/info.js:39
 msgid "Hue"
 msgstr "色相"
 
-#: src/effects/color/info.js:41 src/effects/color/info.js:95
-#: src/effects/wave/info.js:68
+#: src/effects/color/info.js:40 src/effects/color/info.js:93
+#: src/effects/wave/info.js:67
 msgid "Saturation"
 msgstr "饱和度"
 
-#: src/effects/color/info.js:43 src/effects/color/info.js:50
+#: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
 msgstr "亮度"
 
-#: src/effects/color/info.js:51
+#: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
 msgstr "影响图像亮度的效果。"
 
-#: src/effects/color/info.js:55
+#: src/effects/color/info.js:53
 msgid "Shift brightness"
 msgstr "偏移亮度"
 
-#: src/effects/color/info.js:56
+#: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
 msgstr "要为图像增加或减少的亮度值。"
 
-#: src/effects/color/info.js:65
+#: src/effects/color/info.js:63
 msgid "Brightness multiplier"
 msgstr "亮度乘数"
 
-#: src/effects/color/info.js:66
+#: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr "与图像亮度相乘；0 为纯黑，1 保持亮度不变。"
 
-#: src/effects/color/info.js:75
+#: src/effects/color/info.js:73
 msgid "Contrast"
 msgstr "对比度"
 
-#: src/effects/color/info.js:76
+#: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr "围绕所选对比度中心调整图像对比度。"
 
-#: src/effects/color/info.js:85
+#: src/effects/color/info.js:83
 msgid "Contrast center"
 msgstr "对比度中心"
 
-#: src/effects/color/info.js:86
+#: src/effects/color/info.js:84
 msgid "The center of the contrast to use."
 msgstr "要使用的对比度中心。"
 
-#: src/effects/color/info.js:96
+#: src/effects/color/info.js:94
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr "与图像饱和度相乘；0 去除所有颜色，1 保持饱和度不变。"
 
-#: src/effects/color/info.js:108
+#: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
 msgstr "RGB 转 HSL（进阶效果）"
 
-#: src/effects/color/info.js:109
+#: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
 msgstr "将图像从 RGBA 色彩空间转换为 HSLA。"
 
-#: src/effects/color/info.js:115
+#: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
 msgstr "HSL 转 RGB（进阶效果）"
 
-#: src/effects/color/info.js:116
+#: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
 msgstr "将图像从 HSLA 色彩空间转换为 RGBA。"
 
-#: src/effects/effect_groups.js:4
-msgid "Blur effects"
-msgstr "模糊效果"
+#: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
+#: resources/ui/pages/shell/app-folders.ui:8
+#: resources/ui/pages/shell/component.ui:8 resources/ui/pages/shell/dash.ui:8
+#: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
+#: resources/ui/pages/shell/popup.ui:8
+msgid "Blur"
+msgstr ""
 
-#: src/effects/effect_groups.js:10
-msgid "Texture effects"
-msgstr "纹理效果"
+#: src/effects/effect_groups.js:18
+msgid "Texture"
+msgstr ""
+
+#: src/effects/effect_groups.js:27
+msgid "Advanced"
+msgstr ""
+
+#: src/effects/effect_groups.js:28
+msgid "Building blocks that are mostly useful combined with other effects."
+msgstr ""
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -214,145 +226,145 @@ msgid ""
 "inner shadow."
 msgstr "具有边缘折射、边缘高光、色调与内阴影的光泽半透明材质。"
 
-#: src/effects/refraction/info.js:12
+#: src/effects/refraction/info.js:11
 msgid "Refraction scale"
 msgstr "折射强度"
 
-#: src/effects/refraction/info.js:13
+#: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
 msgstr "玻璃弯曲所采样模糊纹理的强度。"
 
-#: src/effects/refraction/info.js:22
+#: src/effects/refraction/info.js:21
 msgid "Blur radius"
 msgstr "模糊半径"
 
-#: src/effects/refraction/info.js:23
+#: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr "在应用液态玻璃着色器之前，先对采样的背景进行模糊。"
 
-#: src/effects/refraction/info.js:32
+#: src/effects/refraction/info.js:31
 msgid "Bezel width"
 msgstr "边框宽度"
 
-#: src/effects/refraction/info.js:33
+#: src/effects/refraction/info.js:32
 msgid "How far the liquid-glass lens reaches inward from the edge."
 msgstr "液态玻璃透镜从边缘向内延伸的距离。"
 
-#: src/effects/refraction/info.js:42
+#: src/effects/refraction/info.js:41
 msgid "Rim spread"
 msgstr "边缘扩散"
 
-#: src/effects/refraction/info.js:43
+#: src/effects/refraction/info.js:42
 msgid "How far the refraction eases inward from the glass edge."
 msgstr "折射从玻璃边缘向内平滑过渡的范围。"
 
-#: src/effects/refraction/info.js:52
+#: src/effects/refraction/info.js:51
 msgid "Glass thickness"
 msgstr "玻璃厚度"
 
-#: src/effects/refraction/info.js:53
+#: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
 msgstr "折射边缘轮廓所使用的深度。"
 
-#: src/effects/refraction/info.js:62
+#: src/effects/refraction/info.js:61
 msgid "Refraction style"
 msgstr "折射样式"
 
-#: src/effects/refraction/info.js:63
+#: src/effects/refraction/info.js:62
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr "边缘附近弯曲的形状。数值较低时弯曲平缓，数值较高时在边缘处弯曲更陡峭。"
 
-#: src/effects/refraction/info.js:72
+#: src/effects/refraction/info.js:71
 msgid "Fresnel glare"
 msgstr "菲涅尔眩光"
 
-#: src/effects/refraction/info.js:73
+#: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
 msgstr "来自玻璃边缘的方向性菲涅尔眩光强度。"
 
-#: src/effects/refraction/info.js:82
+#: src/effects/refraction/info.js:81
 msgid "Fresnel glare angle"
 msgstr "菲涅尔眩光角度"
 
-#: src/effects/refraction/info.js:83
+#: src/effects/refraction/info.js:82
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
 "菲涅尔眩光的光照方向，以角度表示（0 表示来自上方，正值表示顺时针旋转）。"
 
-#: src/effects/refraction/info.js:92
+#: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
 msgstr "菲涅尔眩光宽度"
 
-#: src/effects/refraction/info.js:93
+#: src/effects/refraction/info.js:92
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr "沿玻璃边缘的菲涅尔眩光环厚度乘数。"
 
-#: src/effects/refraction/info.js:102
+#: src/effects/refraction/info.js:101
 msgid "Specular glare strength"
 msgstr "镜面眩光强度"
 
-#: src/effects/refraction/info.js:103
+#: src/effects/refraction/info.js:102
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr "用于指示光照方向的镜面眩光强度（0 表示禁用）。"
 
-#: src/effects/refraction/info.js:112
+#: src/effects/refraction/info.js:111
 msgid "Tint strength"
 msgstr "色调强度"
 
-#: src/effects/refraction/info.js:113
+#: src/effects/refraction/info.js:112
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr "覆盖在模糊纹理上的轻微乳白玻璃色调的强度。"
 
-#: src/effects/refraction/info.js:122
+#: src/effects/refraction/info.js:121
 msgid "Tint color"
 msgstr "色调颜色"
 
-#: src/effects/refraction/info.js:123
+#: src/effects/refraction/info.js:122
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr "混合在模糊纹理之上的颜色，混合程度由色调强度决定。"
 
-#: src/effects/refraction/info.js:128
+#: src/effects/refraction/info.js:127
 msgid "Backdrop zoom"
 msgstr "背景缩放"
 
-#: src/effects/refraction/info.js:129
+#: src/effects/refraction/info.js:128
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr "透过玻璃可见背景的缩放级别。"
 
-#: src/effects/refraction/info.js:138
+#: src/effects/refraction/info.js:137
 msgid "Inner shadow"
 msgstr "内阴影"
 
-#: src/effects/refraction/info.js:139
+#: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr "加深下侧和内侧边缘，呈现更有层次的玻璃表面。"
 
-#: src/effects/refraction/info.js:148
+#: src/effects/refraction/info.js:147
 msgid "Chromatic dispersion"
 msgstr "色散"
 
-#: src/effects/refraction/info.js:149
+#: src/effects/refraction/info.js:148
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr "玻璃边缘处按颜色通道进行的物理折射色散。"
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:157
 msgid "Edge behavior"
 msgstr "边缘处理方式"
 
-#: src/effects/refraction/info.js:159
+#: src/effects/refraction/info.js:158
 msgid "How texture coordinates outside the actor are sampled."
 msgstr "超出对象范围的纹理坐标的采样方式。"
 
-#: src/effects/refraction/info.js:162
+#: src/effects/refraction/info.js:161
 msgid "Clamp"
 msgstr "钳制"
 
-#: src/effects/refraction/info.js:163
+#: src/effects/refraction/info.js:162
 msgid "Mirror"
 msgstr "镜像"
 
@@ -364,100 +376,100 @@ msgstr "像素化"
 msgid "An effect that pixelizes the image."
 msgstr "将图片像素化的效果。"
 
-#: src/effects/texture/info.js:16 src/effects/texture/info.js:42
-#: src/effects/texture/info.js:68
+#: src/effects/texture/info.js:15 src/effects/texture/info.js:40
+#: src/effects/texture/info.js:65
 msgid "Factor"
 msgstr "因素"
 
-#: src/effects/texture/info.js:17 src/effects/texture/info.js:43
+#: src/effects/texture/info.js:16 src/effects/texture/info.js:41
 msgid "How much to scale down the image."
 msgstr "缩小图像的程度。"
 
-#: src/effects/texture/info.js:24 src/effects/texture/info.js:50
+#: src/effects/texture/info.js:23 src/effects/texture/info.js:48
 msgid "Downsampling mode"
 msgstr "降采样模式"
 
-#: src/effects/texture/info.js:25 src/effects/texture/info.js:51
+#: src/effects/texture/info.js:24 src/effects/texture/info.js:49
 msgid "The downsampling method that is used."
 msgstr "使用的降采样方法。"
 
-#: src/effects/texture/info.js:28 src/effects/texture/info.js:54
+#: src/effects/texture/info.js:27 src/effects/texture/info.js:52
 msgid "Boxcar"
 msgstr "棚车"
 
-#: src/effects/texture/info.js:29 src/effects/texture/info.js:55
+#: src/effects/texture/info.js:28 src/effects/texture/info.js:53
 msgid "Triangular"
 msgstr "三角形"
 
-#: src/effects/texture/info.js:30 src/effects/texture/info.js:56
+#: src/effects/texture/info.js:29 src/effects/texture/info.js:54
 msgid "Dirac"
 msgstr "狄拉克函数"
 
-#: src/effects/texture/info.js:37
+#: src/effects/texture/info.js:36
 msgid "Downscale (advanced effect)"
 msgstr "缩小（进阶效果）"
 
-#: src/effects/texture/info.js:38
+#: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
 msgstr "缩小图像并将其放在左上角的效果。"
 
-#: src/effects/texture/info.js:63
+#: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
 msgstr "放大（进阶效果）"
 
-#: src/effects/texture/info.js:64
+#: src/effects/texture/info.js:62
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "放大图像并且将其靠左上角放置的效果。"
 
-#: src/effects/texture/info.js:69
+#: src/effects/texture/info.js:66
 msgid "How much to scale up the image."
 msgstr "将图像放大多少。"
 
-#: src/effects/texture/info.js:79
+#: src/effects/texture/info.js:76
 msgid "Derivative"
 msgstr "狄拉克函数"
 
-#: src/effects/texture/info.js:80
+#: src/effects/texture/info.js:77
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "应用空间导数或拉普拉斯算子。"
 
-#: src/effects/texture/info.js:84
+#: src/effects/texture/info.js:80
 msgid "Operation"
 msgstr "运算"
 
-#: src/effects/texture/info.js:85
+#: src/effects/texture/info.js:81
 msgid "The mathematical operation to apply."
 msgstr "要应用的数学运算。"
 
-#: src/effects/texture/info.js:88
+#: src/effects/texture/info.js:84
 msgid "1-step derivative"
 msgstr "一阶导数"
 
-#: src/effects/texture/info.js:89
+#: src/effects/texture/info.js:85
 msgid "2-step derivative"
 msgstr "二阶导数"
 
-#: src/effects/texture/info.js:90
+#: src/effects/texture/info.js:86
 msgid "Laplacian"
 msgstr "拉普拉斯算子"
 
-#: src/effects/texture/info.js:97 src/effects/texture/info.js:102
+#: src/effects/texture/info.js:93 src/effects/texture/info.js:97
 msgid "Noise"
 msgstr "噪点"
 
-#: src/effects/texture/info.js:98
+#: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
 msgstr "为图像添加随机颗粒的效果。"
 
-#: src/effects/texture/info.js:103
+#: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
 msgstr "添加的噪点量。"
 
-#: src/effects/texture/info.js:112
+#: src/effects/texture/info.js:107
 msgid "Lightness"
 msgstr "明亮度"
 
-#: src/effects/texture/info.js:113
+#: src/effects/texture/info.js:108
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -473,103 +485,103 @@ msgid ""
 "movement."
 msgstr "流动的波浪位移效果，带来自然生动、富有动感的视觉体验。"
 
-#: src/effects/wave/info.js:12
+#: src/effects/wave/info.js:11
 msgid "Wave frequency"
 msgstr "波浪频率"
 
-#: src/effects/wave/info.js:13
+#: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
 msgstr "波纹的密集程度。"
 
-#: src/effects/wave/info.js:22
+#: src/effects/wave/info.js:21
 msgid "Wave amplitude"
 msgstr "波浪振幅"
 
-#: src/effects/wave/info.js:23
+#: src/effects/wave/info.js:22
 msgid "How strongly the image gets displaced by the waves."
 msgstr "图像受波浪位移影响的强度。"
 
-#: src/effects/wave/info.js:32
+#: src/effects/wave/info.js:31
 msgid "Wave octaves"
 msgstr "波浪倍频"
 
-#: src/effects/wave/info.js:33
+#: src/effects/wave/info.js:32
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr "波浪形状的细节层次。数值越高细节越丰富，但会降低性能。"
 
-#: src/effects/wave/info.js:40
+#: src/effects/wave/info.js:39
 msgid "Vapor octaves"
 msgstr "蒸汽倍频"
 
-#: src/effects/wave/info.js:41
+#: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr "雾状纹理的细节层次。数值越高细节越丰富，但会降低性能。"
 
-#: src/effects/wave/info.js:48
+#: src/effects/wave/info.js:47
 msgid "Vapor speed"
 msgstr "蒸汽速度"
 
-#: src/effects/wave/info.js:49
+#: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
 msgstr "雾状蒸汽纹理随时间漂移的速度。"
 
-#: src/effects/wave/info.js:58
+#: src/effects/wave/info.js:57
 msgid "Texture grain"
 msgstr "纹理颗粒"
 
-#: src/effects/wave/info.js:59
+#: src/effects/wave/info.js:58
 msgid "Adds a fine sandblasted texture to the image."
 msgstr "为图像添加细腻的喷砂质感。"
 
-#: src/effects/wave/info.js:69
+#: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
 msgstr "效果的饱和度。"
 
-#: src/effects/wave/info.js:79
+#: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
 msgstr "效果的亮度。"
 
-#: src/effects/wave/info.js:88
+#: src/effects/wave/info.js:87
 msgid "Zoom"
 msgstr "缩放"
 
-#: src/effects/wave/info.js:89
+#: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
 msgstr "以表面中心为基准放大背景。"
 
-#: src/effects/wave/info.js:98
+#: src/effects/wave/info.js:97
 msgid "Dispersion"
 msgstr "色散"
 
-#: src/effects/wave/info.js:99
+#: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
 msgstr "营造故障艺术感的色差强度。"
 
-#: src/effects/wave/info.js:108
+#: src/effects/wave/info.js:107
 msgid "Enable flow animation"
 msgstr "启用流动动画"
 
-#: src/effects/wave/info.js:109
+#: src/effects/wave/info.js:108
 msgid "Whether the wave noise continuously flows over time."
 msgstr "波浪噪点是否随时间持续流动。"
 
-#: src/effects/wave/info.js:113
+#: src/effects/wave/info.js:112
 msgid "Flow animation speed"
 msgstr "流动动画速度"
 
-#: src/effects/wave/info.js:114
+#: src/effects/wave/info.js:113
 msgid "The base speed at which the wave pattern flows."
 msgstr "波浪图案流动的基础速度。"
 
-#: src/effects/wave/info.js:123
+#: src/effects/wave/info.js:122
 msgid "Resize ease duration"
 msgstr "尺寸变化过渡时长"
 
-#: src/effects/wave/info.js:124
+#: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
@@ -604,16 +616,9 @@ msgid "Main Menu"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:5
+#: src/preferences/pages/pipelines/pipeline_page.js:34
 msgid "Applications"
 msgstr "应用程序"
-
-#: resources/ui/pages/applications.ui:12
-#: resources/ui/pages/shell/app-folders.ui:8
-#: resources/ui/pages/shell/component.ui:8 resources/ui/pages/shell/dash.ui:8
-#: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
-#: resources/ui/pages/shell/popup.ui:8
-msgid "Blur"
-msgstr ""
 
 #: resources/ui/pages/applications.ui:13
 msgid "Adds blur to applications."
@@ -699,77 +704,105 @@ msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr "当窗口处于全屏模式时强制移除模糊。"
 
 #: resources/ui/pages/applications.ui:111
-msgid "Enable all by default"
-msgstr "默认全部启用"
+msgid "Blur all windows"
+msgstr ""
 
 #: resources/ui/pages/applications.ui:112
-msgid "Adds blur behind all windows by default."
-msgstr "默认在所有窗口后添加模糊。"
+msgid "When off, only the windows listed below are blurred."
+msgstr ""
 
 #: resources/ui/pages/applications.ui:120
-msgid "Whitelist"
-msgstr "白名单"
+msgid "Blurred windows"
+msgstr ""
 
 #: resources/ui/pages/applications.ui:121
 msgid ""
-"A list of windows to blur.\n"
-"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
-"for a single one."
+"Only these windows are blurred. Use * to match any sequence of characters "
+"(e.g., Firefox* or *Code*), and ? for a single one."
 msgstr ""
-"需要模糊的窗口列表。\n"
-"使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
 
-#: resources/ui/pages/applications.ui:140
-#: resources/ui/pages/applications.ui:178
+#: resources/ui/pages/applications.ui:129
+#: resources/ui/pages/applications.ui:151
 msgid "Add Window"
 msgstr "添加窗口"
 
-#: resources/ui/pages/applications.ui:158
-msgid "Blacklist"
-msgstr "黑名单"
-
-#: resources/ui/pages/applications.ui:159
-msgid ""
-"A list of windows not to blur.\n"
-"Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? "
-"for a single one."
+#: resources/ui/pages/applications.ui:142
+msgid "Excluded windows"
 msgstr ""
-"不进行模糊处理的窗口列表。\n"
-"使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
 
-#: resources/ui/pages/applications.ui:197 resources/ui/pages/shell/panel.ui:157
+#: resources/ui/pages/applications.ui:143
+msgid ""
+"These windows are never blurred. Use * to match any sequence of characters "
+"(e.g., Firefox* or *Code*), and ? for a single one."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:157
 #: resources/ui/pages/shell/popup.ui:161
 msgid "All"
 msgstr "全部"
 
-#: resources/ui/pages/applications.ui:198 resources/ui/pages/shell/panel.ui:158
+#: resources/ui/pages/applications.ui:166 resources/ui/pages/shell/panel.ui:158
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Top only"
 msgstr "仅顶部"
 
-#: resources/ui/pages/applications.ui:199 resources/ui/pages/shell/panel.ui:159
+#: resources/ui/pages/applications.ui:167 resources/ui/pages/shell/panel.ui:159
 #: resources/ui/pages/shell/popup.ui:163
 msgid "Bottom only"
 msgstr "仅底部"
 
-#: resources/ui/pages/applications.ui:200 resources/ui/pages/shell/panel.ui:160
+#: resources/ui/pages/applications.ui:168 resources/ui/pages/shell/panel.ui:160
 #: resources/ui/pages/shell/popup.ui:164
 msgid "None"
 msgstr "无"
 
-#: resources/ui/pages/pipelines.ui:5
+#: resources/ui/pages/pipelines/pipeline-page.ui:11
+msgid "Pipeline Menu"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:24
+msgid "Name"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:32
+msgid "Effects"
+msgstr "效果"
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:33
+msgid "Applied from top to bottom. Drag them to change the order."
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:40
+#: src/preferences/pages/pipelines/effect_chooser.js:13
+msgid "Add Effect"
+msgstr "添加效果"
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:57
+#: src/preferences/pages/pipelines/pipeline_row.js:45
+msgid "No effects yet"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:78
+msgid "Duplicate"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:82
+msgid "Delete"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
 msgstr "管线"
 
-#: resources/ui/pages/pipelines.ui:10
+#: resources/ui/pages/pipelines/pipelines.ui:10
 msgid ""
 "Pipelines are sets of effects that components share. Each component picks "
 "the pipeline it uses in its own settings."
 msgstr ""
 
-#: resources/ui/pages/pipelines.ui:29
-msgid "Add Pipeline"
-msgstr "添加管线"
+#: resources/ui/pages/pipelines/pipelines.ui:17
+msgid "New Pipeline"
+msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:9
 msgid "Makes the background of application folder dialogs blurred."
@@ -1105,14 +1138,16 @@ msgid "Desktop"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:21
-msgid "Top bar"
-msgstr ""
+#: src/preferences/pages/pipelines/pipeline_page.js:25
+msgid "Panel"
+msgstr "面板"
 
 #: resources/ui/pages/shell/shell.ui:22
-msgid "The panel at the top of the screen"
+msgid "The top bar, or the panels from Dash to Panel"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:29
+#: src/preferences/pages/pipelines/pipeline_page.js:26
 msgid "Dock"
 msgstr ""
 
@@ -1121,6 +1156,7 @@ msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:37
+#: src/preferences/pages/pipelines/pipeline_page.js:27
 msgid "Popups"
 msgstr "弹出窗口"
 
@@ -1129,6 +1165,7 @@ msgid "Menus, quick settings, notifications and dialogs"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:46
+#: src/preferences/pages/pipelines/pipeline_page.js:28
 msgid "Overview"
 msgstr "概览"
 
@@ -1137,6 +1174,7 @@ msgid "The wallpaper behind the workspaces"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:59
+#: src/preferences/pages/pipelines/pipeline_page.js:29
 msgid "App folders"
 msgstr ""
 
@@ -1149,6 +1187,7 @@ msgid "System"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:73
+#: src/preferences/pages/pipelines/pipeline_page.js:30
 msgid "Lock screen"
 msgstr ""
 
@@ -1157,6 +1196,7 @@ msgid "Behind the password prompt"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:81
+#: src/preferences/pages/pipelines/pipeline_page.js:31
 msgid "Screenshot"
 msgstr ""
 
@@ -1169,6 +1209,7 @@ msgid "Extensions"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:95
+#: src/preferences/pages/pipelines/pipeline_page.js:32
 msgid "Window List"
 msgstr ""
 
@@ -1177,6 +1218,7 @@ msgid "The taskbar from the Window List extension"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:103
+#: src/preferences/pages/pipelines/pipeline_page.js:33
 msgid "Coverflow Alt-Tab"
 msgstr ""
 
@@ -1185,22 +1227,23 @@ msgid "Behind the window switcher"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window Name"
-msgstr "窗口名称"
+msgid "Window class"
+msgstr ""
 
-#: resources/ui/widgets/application-row.ui:8
-msgid "Select window"
-msgstr "选择窗口"
+#: resources/ui/widgets/application-row.ui:10
+msgid "Pick a Window"
+msgstr ""
 
-#: resources/ui/widgets/application-row.ui:9
-msgid "Pick a window or select it by its classname."
-msgstr "挑选一个窗口或通过其类别名称选择它。"
+#: resources/ui/widgets/application-row.ui:21
+#: src/preferences/widgets/effect_row.js:17
+msgid "Remove"
+msgstr ""
 
-#: resources/ui/widgets/application-row.ui:41
+#: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
 msgstr "窗口选择失败。请确保已启用该扩展。"
 
-#: resources/ui/widgets/application-row.ui:45
+#: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
 msgstr "所选对象不是窗口。"
 
@@ -1216,46 +1259,15 @@ msgstr "静态"
 msgid "Dynamic"
 msgstr "动态"
 
-#: resources/ui/widgets/effects-dialog.ui:4
-#: src/preferences/widgets/effects_dialog.js:46
-msgid "Effects"
-msgstr "效果"
-
-#: resources/ui/widgets/effects-dialog.ui:13
-msgid "Effects list"
-msgstr "效果列表"
-
-#: resources/ui/widgets/effects-dialog.ui:14
-msgid "The top effect is applied first."
-msgstr "位于顶部的效果会最先应用。"
-
-#: resources/ui/widgets/effects-dialog.ui:39
-msgid "Add Effect"
-msgstr "添加效果"
-
-#: resources/ui/widgets/effects-dialog.ui:72
-msgid "Include advanced effects"
-msgstr "包括进阶效果"
-
 #: resources/ui/widgets/pipeline-choose-row.ui:4
+#: src/preferences/pages/pipelines/pipeline_page.js:100
+#: src/preferences/pages/pipelines/pipeline_row.js:39
 msgid "Pipeline"
 msgstr "管线"
 
 #: resources/ui/widgets/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
 msgstr "此组件使用的管线。"
-
-#: resources/ui/widgets/pipeline-group.ui:6
-msgid "Pipeline name"
-msgstr "管线名称"
-
-#: resources/ui/widgets/pipeline-group.ui:20
-msgid "Manage effects"
-msgstr "管理效果"
-
-#: resources/ui/widgets/pipeline-undo-toast.ui:28
-msgid "Undo"
-msgstr "撤销"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
@@ -1339,63 +1351,148 @@ msgstr "取消"
 msgid "Reset"
 msgstr "重置"
 
-#: src/preferences/pages/pipelines.js:42
-#: src/preferences/widgets/pipeline_choose_row.js:64
+#: src/preferences/pages/pipelines/index.js:77
 msgid "New pipeline"
 msgstr "新建管线"
 
-#: src/preferences/pages/shell/index.js:62
+#: src/preferences/pages/pipelines/index.js:124
+#, javascript-format
+msgid "\"%s\" deleted"
+msgstr "“%s”已删除"
+
+#: src/preferences/pages/pipelines/index.js:125
+msgid "Pipeline deleted"
+msgstr "管线已删除"
+
+#: src/preferences/pages/pipelines/index.js:128
+msgid "Undo"
+msgstr "撤销"
+
+#: src/preferences/pages/pipelines/pipeline_page.js:109
+msgid "Used by every component"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_page.js:111
+#, javascript-format
+msgid "Used by %s"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_page.js:113
+msgid "Not used by any component yet"
+msgstr ""
+
+#: src/preferences/pages/pipelines/pipeline_row.js:44
+msgid "Unknown effect"
+msgstr "未知效果"
+
+#: src/preferences/pages/shell/index.js:63
 msgid "Change the blur of the lockscreen to use this extension's preferences."
 msgstr "更改锁屏的模糊效果以使用此扩展的首选项。"
 
-#: src/preferences/pages/shell/index.js:66
+#: src/preferences/pages/shell/index.js:67
 msgid "Add blur to the background of the window selector in the screenshot UI."
 msgstr "为截图的窗口选择界面的背景添加模糊。"
 
-#: src/preferences/pages/shell/index.js:70
+#: src/preferences/pages/shell/index.js:71
 msgid "Make the window-list extension blurred, if it is used."
 msgstr "模糊 window-list 扩展（如果启用）。"
 
-#: src/preferences/pages/shell/index.js:74
+#: src/preferences/pages/shell/index.js:75
 msgid "Make the coverflow alt-tab extension blurred, if it is used."
 msgstr "如果使用了Coverflow Alt-Tab扩展，将其设置为模糊效果。"
 
-#: src/preferences/widgets/effects_dialog.js:45
-#, javascript-format
-msgid "Effects for “%s”"
-msgstr "“%s”的效果"
+#: src/preferences/widgets/effect_row.js:14
+msgid "Move Up"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:15
+msgid "Move Down"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:47
+msgid "Effect Menu"
+msgstr ""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
 msgstr "创建新管线"
 
-#: src/preferences/widgets/pipeline_group.js:30
+#~ msgid "Blur effects"
+#~ msgstr "模糊效果"
+
+#~ msgid "Texture effects"
+#~ msgstr "纹理效果"
+
+#~ msgid "Enable all by default"
+#~ msgstr "默认全部启用"
+
+#~ msgid "Adds blur behind all windows by default."
+#~ msgstr "默认在所有窗口后添加模糊。"
+
+#~ msgid "Whitelist"
+#~ msgstr "白名单"
+
+#~ msgid ""
+#~ "A list of windows to blur.\n"
+#~ "Use * to match any sequence of characters (e.g., Firefox* or *Code*), "
+#~ "and ? for a single one."
+#~ msgstr ""
+#~ "需要模糊的窗口列表。\n"
+#~ "使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
+
+#~ msgid "Blacklist"
+#~ msgstr "黑名单"
+
+#~ msgid ""
+#~ "A list of windows not to blur.\n"
+#~ "Use * to match any sequence of characters (e.g., Firefox* or *Code*), "
+#~ "and ? for a single one."
+#~ msgstr ""
+#~ "不进行模糊处理的窗口列表。\n"
+#~ "使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
+
+#~ msgid "Add Pipeline"
+#~ msgstr "添加管线"
+
+#~ msgid "Window Name"
+#~ msgstr "窗口名称"
+
+#~ msgid "Select window"
+#~ msgstr "选择窗口"
+
+#~ msgid "Pick a window or select it by its classname."
+#~ msgstr "挑选一个窗口或通过其类别名称选择它。"
+
+#~ msgid "Effects list"
+#~ msgstr "效果列表"
+
+#~ msgid "The top effect is applied first."
+#~ msgstr "位于顶部的效果会最先应用。"
+
+#~ msgid "Include advanced effects"
+#~ msgstr "包括进阶效果"
+
+#~ msgid "Pipeline name"
+#~ msgstr "管线名称"
+
+#~ msgid "Manage effects"
+#~ msgstr "管理效果"
+
 #, javascript-format
-msgid "Pipeline id: “%s”"
-msgstr "管线 ID：“%s”"
+#~ msgid "Effects for “%s”"
+#~ msgstr "“%s”的效果"
 
-#: src/preferences/widgets/pipeline_group.js:81
-msgid "No effect"
-msgstr "无效果"
-
-#: src/preferences/widgets/pipeline_group.js:84
 #, javascript-format
-msgid "%d effect"
-msgid_plural "%d effects"
-msgstr[0] "%d 个效果"
+#~ msgid "Pipeline id: “%s”"
+#~ msgstr "管线 ID：“%s”"
 
-#: src/preferences/widgets/pipeline_group.js:91
-msgid "Unknown effect"
-msgstr "未知效果"
+#~ msgid "No effect"
+#~ msgstr "无效果"
 
-#: src/preferences/widgets/pipeline_undo_toast.js:16
 #, javascript-format
-msgid "\"%s\" deleted"
-msgstr "“%s”已删除"
-
-#: src/preferences/widgets/pipeline_undo_toast.js:17
-msgid "Pipeline deleted"
-msgstr "管线已删除"
+#~ msgid "%d effect"
+#~ msgid_plural "%d effects"
+#~ msgstr[0] "%d 个效果"
 
 #~ msgid "Applications blur"
 #~ msgstr "应用程序模糊"
@@ -1440,9 +1537,6 @@ msgstr "管线已删除"
 
 #~ msgid "Application folder blur"
 #~ msgstr "应用程序文件夹模糊"
-
-#~ msgid "Panel"
-#~ msgstr "面板"
 
 #~ msgid "Panel blur"
 #~ msgstr "面板模糊"
