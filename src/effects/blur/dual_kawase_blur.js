@@ -1,3 +1,4 @@
+import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
 import * as utils from '../../conveniences/utils.js';
@@ -33,6 +34,8 @@ import {
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
 const St = await utils.import_in_shell_only('gi://St');
+
+const HIDDEN_RELEASE_DELAY_S = 5;
 
 const DEFAULT_PARAMS = {
     unscaled_radius: 30,
@@ -105,10 +108,12 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.y = 0;
         this.capacityWidth = 0;
         this.capacityHeight = 0;
+        this.shrinkableSince = 0;
         this.context = null;
         this.appliedSampling = null;
         this.blurValid = false;
         this.appliedCornerMask = null;
+        this.releaseId = 0;
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
@@ -134,8 +139,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (this._unscaled_radius === radius)
             return;
         this._unscaled_radius = radius;
-        if (radius === 0)
-            this.releaseTargets();
+        this.updateRelease();
         this.queue_repaint();
         this.notify('unscaled-radius');
         this.notify('radius');
@@ -173,8 +177,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (this._opacity_factor === opacityFactor)
             return;
         this._opacity_factor = opacityFactor;
-        if (opacityFactor === 0)
-            this.releaseTargets();
+        this.updateRelease();
         if (this.outputPipeline)
             setFloat(this.outputPipeline, 'opacity_factor', opacityFactor);
         this.queue_repaint();
@@ -271,7 +274,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             this.capacityWidth = width;
             this.capacityHeight = height;
             this.context = context;
-        } else if (!textureFits(width, this.capacityWidth) || !textureFits(height, this.capacityHeight)) {
+        } else if (!textureFits(this, width, height, this.capacityWidth, this.capacityHeight)) {
             const limit = largestViewSize();
             const capacityWidth = getTextureCapacity(width, this.capacityWidth, limit.width);
             const capacityHeight = getTextureCapacity(height, this.capacityHeight, limit.height);
@@ -510,15 +513,44 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.logicalHeight = 0;
         this.capacityWidth = 0;
         this.capacityHeight = 0;
+        this.shrinkableSince = 0;
         this.context = null;
         this.appliedSampling = null;
         this.appliedCornerMask = null;
         this.blurValid = false;
     }
 
-    vfunc_set_actor(actor) {
-        if (!actor)
+    /// An invisible blur doesn't need its textures, but keeps them a little while in case it shows up
+    /// again, like a menu opened right after being closed.
+    updateRelease() {
+        if (this._unscaled_radius === 0 || this._opacity_factor === 0)
+            this.queueRelease();
+        else
+            this.cancelRelease();
+    }
+
+    queueRelease() {
+        if (this.releaseId)
+            return;
+        this.releaseId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, HIDDEN_RELEASE_DELAY_S, () => {
+            this.releaseId = 0;
             this.releaseTargets();
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    cancelRelease() {
+        if (!this.releaseId)
+            return;
+        GLib.source_remove(this.releaseId);
+        this.releaseId = 0;
+    }
+
+    vfunc_set_actor(actor) {
+        if (!actor) {
+            this.cancelRelease();
+            this.releaseTargets();
+        }
         super.vfunc_set_actor(actor);
     }
 });

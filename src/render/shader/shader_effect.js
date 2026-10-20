@@ -28,7 +28,7 @@ export const SurfaceShaderEffect = GObject.registerClass({
         const current = this.target !== null && this.target.context === context ? this.target : null;
         if (current === null) {
             this.createTarget(context, usedWidth, usedHeight);
-        } else if (!textureFits(usedWidth, current.width) || !textureFits(usedHeight, current.height)) {
+        } else if (!textureFits(current, usedWidth, usedHeight, current.width, current.height)) {
             const limit = largestViewSize();
             this.createTarget(context,
                 getTextureCapacity(usedWidth, current.width, limit.width),
