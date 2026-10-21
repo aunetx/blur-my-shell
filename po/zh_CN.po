@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 15:37+0200\n"
-"PO-Revision-Date: 2026-10-13 10:51+0000\n"
-"Last-Translator: Cold-Mint <cold_mint@qq.com>\n"
+"PO-Revision-Date: 2026-10-21 17:51+0000\n"
+"Last-Translator: Clover Yan <i@cloveryan.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -395,11 +395,11 @@ msgstr "使用的降采样方法。"
 
 #: src/effects/texture/info.js:27 src/effects/texture/info.js:52
 msgid "Boxcar"
-msgstr "棚车"
+msgstr "矩形窗"
 
 #: src/effects/texture/info.js:28 src/effects/texture/info.js:53
 msgid "Triangular"
-msgstr "三角形"
+msgstr "三角窗"
 
 #: src/effects/texture/info.js:29 src/effects/texture/info.js:54
 msgid "Dirac"
@@ -427,7 +427,7 @@ msgstr "将图像放大多少。"
 
 #: src/effects/texture/info.js:76
 msgid "Derivative"
-msgstr "狄拉克函数"
+msgstr "导数"
 
 #: src/effects/texture/info.js:77
 msgid "Apply a spatial derivative, or a laplacian."
@@ -647,13 +647,13 @@ msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
 
 #: resources/ui/pages/applications.ui:60
 msgid "Opaque focused window"
-msgstr "使聚焦窗口不透明"
+msgstr "使焦点窗口不透明"
 
 #: resources/ui/pages/applications.ui:61
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
-msgstr "使聚焦窗口不透明并模糊其他窗口，以提高清晰度。"
+msgstr "使焦点窗口不透明而模糊其他窗口，以提高易读性。"
 
 #: resources/ui/pages/applications.ui:67 resources/ui/pages/shell/panel.ui:43
 #: resources/ui/pages/shell/popup.ui:61
@@ -685,15 +685,15 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:96
 msgid "Blur on overview"
-msgstr "概述上的模糊"
+msgstr "在概览中模糊"
 
 #: resources/ui/pages/applications.ui:97
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
 msgstr ""
-"强制模糊在概览的所有工作区上正确显示。\n"
-"这可能会导致一些延迟或性能问题。"
+"强制模糊在概览中正确显示在所有工作区上。\n"
+"这可能会导致延迟或性能问题。"
 
 #: resources/ui/pages/applications.ui:104
 msgid "Unblur when Fullscreen"
@@ -850,7 +850,8 @@ msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
-"模糊受支持 Dock 的背景，包括 Dash to Dock、Dhruva 和 Simple Taskbar 的 Dock。"
+"模糊受支持的任务栏的背景，包括 Dash to Dock、Dhruva 和 Simple Taskbar 的 "
+"Dock。"
 
 #: resources/ui/pages/shell/dash.ui:15
 msgid ""
@@ -861,7 +862,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:28 resources/ui/pages/shell/panel.ui:28
 msgid "Disable in overview"
-msgstr "在总览中禁用"
+msgstr "在概览中禁用"
 
 #: resources/ui/pages/shell/dash.ui:29
 msgid "Disables dock blur when entering the overview."
@@ -904,7 +905,7 @@ msgstr "概览界面组件风格"
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
-msgstr "破折号、搜索条目/结果和应用程序文件夹的半透明样式。"
+msgstr "Dash、搜索条目/结果和应用程序文件夹的半透明样式。"
 
 #: resources/ui/pages/shell/overview.ui:36
 msgid "Workspace corner radius"
@@ -1014,15 +1015,13 @@ msgstr "在概览中保持模糊可见；最好与静态模糊配合使用。"
 
 #: resources/ui/pages/shell/panel.ui:147
 msgid "Blur original panel with Dash to Panel"
-msgstr "使用 Dash to Panel 模糊原始面板"
+msgstr "在使用 Dash to Panel 时模糊原始面板"
 
 #: resources/ui/pages/shell/panel.ui:148
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
-msgstr ""
-"如果在扩展程序的选项中选择了“Dash to Panel”，则可以使用“Dash to Panel”对原始"
-"面板进行模糊处理。"
+msgstr "如果在“Dash to Panel”的选项中启用了原始面板，则对它进行模糊处理。"
 
 #: resources/ui/pages/shell/panel.ui:169
 msgid "Contrasted"
@@ -1303,14 +1302,16 @@ msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
-"通过软件包管理器安装的？请使用同一个软件包管理器移除 gnome-rounded-blur 软件"
-"包，确认前请先查看其将要进行的更改。"
+"如果模糊库是通过软件包管理器安装的，请使用同一个软件包管理器移除 gnome-"
+"rounded-blur 软件包。请在确认前先审查其将要进行的更改。"
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
-msgstr "使用旧版 Blur my Shell 助手安装的？说明中介绍了如何运行其卸载程序。"
+msgstr ""
+"如果模糊库是使用旧版 Blur my Shell 助手安装的，它的说明中介绍了如何运行卸载程"
+"序。"
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1318,8 +1319,8 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
-"从源码构建的？请在原始构建目录中运行“sudo ninja -C build uninstall”，或按照其"
-"安装日志操作。请勿使用助手移除由软件包管理器管理的安装。"
+"如果模糊库是从源码构建的，请在原始构建目录中运行“sudo ninja -C build "
+"uninstall”，或按照其安装日志操作。请勿使用助手移除由软件包管理器管理的安装。"
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
@@ -1387,11 +1388,11 @@ msgstr "未知效果"
 
 #: src/preferences/pages/shell/index.js:63
 msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "更改锁屏的模糊效果以使用此扩展的首选项。"
+msgstr "使用此扩展的首选项更改锁屏的模糊效果。"
 
 #: src/preferences/pages/shell/index.js:67
 msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "为截图的窗口选择界面的背景添加模糊。"
+msgstr "为截图工具的窗口选择界面的背景添加模糊。"
 
 #: src/preferences/pages/shell/index.js:71
 msgid "Make the window-list extension blurred, if it is used."
@@ -1423,6 +1424,18 @@ msgstr "创建新管线"
 #~ msgid "Texture effects"
 #~ msgstr "纹理效果"
 
+#~ msgid "Window Name"
+#~ msgstr "窗口名称"
+
+#~ msgid "Select window"
+#~ msgstr "选择窗口"
+
+#~ msgid "Pick a window or select it by its classname."
+#~ msgstr "挑选一个窗口或通过其类别名称选择它。"
+
+#~ msgid "Applications blur"
+#~ msgstr "应用程序模糊"
+
 #~ msgid "Enable all by default"
 #~ msgstr "默认全部启用"
 
@@ -1437,8 +1450,9 @@ msgstr "创建新管线"
 #~ "Use * to match any sequence of characters (e.g., Firefox* or *Code*), "
 #~ "and ? for a single one."
 #~ msgstr ""
-#~ "需要模糊的窗口列表。\n"
-#~ "使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
+#~ "需要使用模糊效果的窗口列表。\n"
+#~ "使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），使用 ? 匹配单个任意字"
+#~ "符。"
 
 #~ msgid "Blacklist"
 #~ msgstr "黑名单"
@@ -1448,20 +1462,15 @@ msgstr "创建新管线"
 #~ "Use * to match any sequence of characters (e.g., Firefox* or *Code*), "
 #~ "and ? for a single one."
 #~ msgstr ""
-#~ "不进行模糊处理的窗口列表。\n"
-#~ "使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），? 匹配单个字符。"
+#~ "不使用模糊效果的窗口列表。\n"
+#~ "使用 * 匹配任意字符序列（例如 Firefox* 或 *Code*），使用 ? 匹配单个任意字"
+#~ "符。"
 
-#~ msgid "Add Pipeline"
-#~ msgstr "添加管线"
+#~ msgid "Dash"
+#~ msgstr "任务栏"
 
-#~ msgid "Window Name"
-#~ msgstr "窗口名称"
-
-#~ msgid "Select window"
-#~ msgstr "选择窗口"
-
-#~ msgid "Pick a window or select it by its classname."
-#~ msgstr "挑选一个窗口或通过其类别名称选择它。"
+#~ msgid "Dock blur"
+#~ msgstr "Dock 模糊"
 
 #~ msgid "Effects list"
 #~ msgstr "效果列表"
@@ -1470,38 +1479,7 @@ msgstr "创建新管线"
 #~ msgstr "位于顶部的效果会最先应用。"
 
 #~ msgid "Include advanced effects"
-#~ msgstr "包括进阶效果"
-
-#~ msgid "Pipeline name"
-#~ msgstr "管线名称"
-
-#~ msgid "Manage effects"
-#~ msgstr "管理效果"
-
-#, javascript-format
-#~ msgid "Effects for “%s”"
-#~ msgstr "“%s”的效果"
-
-#, javascript-format
-#~ msgid "Pipeline id: “%s”"
-#~ msgstr "管线 ID：“%s”"
-
-#~ msgid "No effect"
-#~ msgstr "无效果"
-
-#, javascript-format
-#~ msgid "%d effect"
-#~ msgid_plural "%d effects"
-#~ msgstr[0] "%d 个效果"
-
-#~ msgid "Applications blur"
-#~ msgstr "应用程序模糊"
-
-#~ msgid "Dash"
-#~ msgstr "任务栏"
-
-#~ msgid "Dock blur"
-#~ msgstr "Dock 模糊"
+#~ msgstr "显示高级效果"
 
 #~ msgid "Other"
 #~ msgstr "其它"
@@ -1524,7 +1502,7 @@ msgstr "创建新管线"
 #~ msgid ""
 #~ "Makes the extension verbose in logs, activate when you need to report an "
 #~ "issue."
-#~ msgstr "让扩展输出详细日志，在提交缺陷时启用此选项。"
+#~ msgstr "让扩展输出详细日志。在报告缺陷时启用此选项。"
 
 #~ msgid "Reset preferences"
 #~ msgstr "重置首选项"
@@ -1541,6 +1519,12 @@ msgstr "创建新管线"
 #~ msgid "Panel blur"
 #~ msgstr "面板模糊"
 
+#~ msgid "Pipeline name"
+#~ msgstr "管线名称"
+
+#~ msgid "Manage effects"
+#~ msgstr "管理效果"
+
 #~ msgid ""
 #~ "Each component uses a pipeline, which can be chosen in the corresponding "
 #~ "tab. Here you can create, modify and delete the pipelines and their "
@@ -1549,8 +1533,27 @@ msgstr "创建新管线"
 #~ "每个组件使用一个管线，可在对应的标签页选择。你在这里可以创建、更改并删除管"
 #~ "线，以及更改其效果。"
 
+#~ msgid "Add Pipeline"
+#~ msgstr "添加管线"
+
 #~ msgid "Popup blur"
 #~ msgstr "弹出窗口模糊"
+
+#, javascript-format
+#~ msgid "Effects for “%s”"
+#~ msgstr "“%s”的效果"
+
+#, javascript-format
+#~ msgid "Pipeline id: “%s”"
+#~ msgstr "管线 ID：“%s”"
+
+#~ msgid "No effect"
+#~ msgstr "无效果"
+
+#, javascript-format
+#~ msgid "%d effect"
+#~ msgid_plural "%d effects"
+#~ msgstr[0] "%d 个效果"
 
 #~ msgid "The brightness to add of remove to the image."
 #~ msgstr "要为图像增加或减少的亮度值。"

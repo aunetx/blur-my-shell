@@ -1,7 +1,8 @@
 import { Settings } from './settings.js';
 import { KEYS, DEPRECATED_KEYS } from './keys.js';
+import { unpack_pipelines } from './pipeline_settings.js';
 
-const CURRENT_SETTINGS_VERSION = 7;
+const CURRENT_SETTINGS_VERSION = 8;
 
 const LEGACY_DYNAMIC_COMPONENTS = [
     { name: 'appfolder', supports_static: false },
@@ -291,13 +292,37 @@ export function update_from_old_settings(gsettings) {
     if (old_version < 7)
         queue_missing_pipeline_references(preferences, pipeline_assignments, pipelines);
 
+    if (old_version < 8) {
+        const stock_pipelines = unpack_pipelines(
+            gsettings.get_default_value('pipelines')
+        );
+
+        for (const pipeline_id of [
+            'pipeline_liquid_glass',
+            'pipeline_vapor_glass',
+            'pipeline_classic_light_background',
+            'pipeline_classic_dark_background',
+        ]) {
+            if (Object.hasOwn(pipelines, pipeline_id))
+                continue;
+
+            pipelines[pipeline_id] = stock_pipelines[pipeline_id];
+            pipelines_changed = true;
+        }
+    }
+
     pipeline_assignments.forEach((pipeline_id, component) => {
         if (component.PIPELINE !== pipeline_id)
             component.PIPELINE = pipeline_id;
     });
 
-    if (pipelines_changed)
-        preferences.set_pipelines(pipelines);
+    if (pipelines_changed && !preferences.set_pipelines(pipelines)) {
+        console.warn(
+            '[Blur my Shell > settings]     pipelines could not be saved; '
+            + 'settings migration will retry'
+        );
+        return;
+    }
 
     preferences.settings.set_int('settings-version', CURRENT_SETTINGS_VERSION);
     deprecated_preferences?.reset();

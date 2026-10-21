@@ -101,6 +101,9 @@ Blur my Shell is designed to be compatible with the following extensions:
 - [Panel Corners](https://extensions.gnome.org/extension/4805/panel-corners/), although corners can't be blurred
 - [Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/), although nothing is blurred either
 
+For extension developers:
+If your extension uses a popover and relies on frequent updates to the dimensions, consider adding `bms-redraw-blur-instant` style class to your extension's popover-content element.
+
 ## Screenshots
 
 ![overview](https://github.com/aunetx/blur-my-shell/assets/31563930/c3c78ade-a898-4881-8d3a-efa3c55f11f8)

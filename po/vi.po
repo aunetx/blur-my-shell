@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-20 15:37+0200\n"
-"PO-Revision-Date: 2025-08-07 03:01+0000\n"
-"Last-Translator: AlaxLima <thanhkhoidangngoc@gmail.com>\n"
+"PO-Revision-Date: 2026-10-21 17:51+0000\n"
+"Last-Translator: Megurowo <megumario@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/vi/>\n"
 "Language: vi\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Làm mờ kép Kawase"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Hiệu ứng làm mờ nhanh và chất lượng cao."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -58,127 +58,133 @@ msgstr "Hiệu ứng hòa trộn màu vào trong pipeline."
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
-msgstr ""
+msgstr "Màu để pha. Mức độ pha dược điều khiển bởi độ trong suốt của màu."
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
-msgstr ""
+msgstr "Chế độ pha màu"
 
 #: src/effects/color/info.js:22
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Cách màu được pha."
 
 #: src/effects/color/info.js:25
 msgid "Normal"
-msgstr ""
+msgstr "Bình thường"
 
 #: src/effects/color/info.js:26
 msgid "Multiply"
-msgstr ""
+msgstr "Nhân lên"
 
 #: src/effects/color/info.js:27
 msgid "Screen"
-msgstr ""
+msgstr "Màn hình"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr ""
+msgstr "Phủ màu"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
-msgstr ""
+msgstr "Làm tối"
 
 #: src/effects/color/info.js:30
 msgid "Lighten"
-msgstr ""
+msgstr "Làm sáng"
 
 #: src/effects/color/info.js:31
 msgid "Plus darker"
-msgstr ""
+msgstr "Làm tối cộng"
 
 #: src/effects/color/info.js:32
 msgid "Plus lighter"
-msgstr ""
+msgstr "Làm sáng cộng"
 
 #: src/effects/color/info.js:33
 msgid "Color dodge"
-msgstr ""
+msgstr "Giảm phơi sáng"
 
 #: src/effects/color/info.js:34
 msgid "Color burn"
-msgstr ""
+msgstr "Tăng phơi sáng"
 
 #: src/effects/color/info.js:35
 msgid "Hard light"
-msgstr ""
+msgstr "Ánh sáng mạnh"
 
 #: src/effects/color/info.js:36
 msgid "Soft light"
-msgstr ""
+msgstr "Ánh sáng nhẹ"
 
 #: src/effects/color/info.js:37
 msgid "Difference"
-msgstr ""
+msgstr "Khác biệt"
 
 #: src/effects/color/info.js:38
 msgid "Exclusion"
-msgstr ""
+msgstr "Loại trừ"
 
 #: src/effects/color/info.js:39
 msgid "Hue"
-msgstr ""
+msgstr "Sắc độ"
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
 #: src/effects/wave/info.js:67
 msgid "Saturation"
-msgstr ""
+msgstr "Bão hoà"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
-msgstr ""
+msgstr "Tính sáng"
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "Hiệu ứng ảnh hưởng đến tính sáng của hình ảnh."
 
 #: src/effects/color/info.js:53
 msgid "Shift brightness"
-msgstr ""
+msgstr "Chuyển dịch độ sáng"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Thêm hoặc bớt độ sáng của hình ảnh."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Nhân cấp độ sáng"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Nhân cấp độ sáng của hình ảnh; 0 là đen hoàn toàn và 1 không để lại thay đổi "
+"gì."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
-msgstr ""
+msgstr "Độ tương phản"
 
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
+"Hiệu chỉnh độ tương phản của hình ảnh qua giá trị điểm giữa tương phản được "
+"chọn."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
-msgstr ""
+msgstr "Điểm giữa tương phản"
 
 #: src/effects/color/info.js:84
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Điểm giữa tương phản để sử dụng."
 
 #: src/effects/color/info.js:94
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Nhân độ bão hòa màu của hình ảnh; 0 bỏ toàn bộ màu và 1 không để lại thay "
+"đổi nào."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
@@ -186,7 +192,7 @@ msgstr "Chuyển đổi RGB sang HSL (hiệu ứng nâng cao)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Chuyển đổi hình ảnh từ không gian màu RGBA sang HSLA."
 
 #: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
@@ -194,7 +200,7 @@ msgstr "Chuyển đổi HSL sang RGB (hiệu ứng nâng cao)"
 
 #: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Chuyển đổi hình ảnh từ không gian màu HSLA sang RGBA."
 
 #: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
 #: resources/ui/pages/shell/app-folders.ui:8
@@ -218,37 +224,39 @@ msgstr ""
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Liquid Glass (Kinh lỏng)"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"Một vật liệu trong suốt và bóng loáng với khúc xạ góc, làm sáng mép, phủ màu "
+"và đổ bóng bên trong vật liệu."
 
 #: src/effects/refraction/info.js:11
 msgid "Refraction scale"
-msgstr ""
+msgstr "Tỉ lệ khúc xạ"
 
 #: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "Mức độ bẻ cong bề mặt làm mờ của kính."
 
 #: src/effects/refraction/info.js:21
 msgid "Blur radius"
-msgstr ""
+msgstr "Bán kính làm mờ"
 
 #: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
-msgstr ""
+msgstr "Làm mờ nền trước khi shader liquid glass được áp dụng."
 
 #: src/effects/refraction/info.js:31
 msgid "Bezel width"
-msgstr ""
+msgstr "Độ dày viền"
 
 #: src/effects/refraction/info.js:32
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "Mức độ cong vào của thấu kính Liquid Glass từ viền."
 
 #: src/effects/refraction/info.js:41
 msgid "Rim spread"
@@ -1420,6 +1428,18 @@ msgstr ""
 #~ msgid "Texture effects"
 #~ msgstr "Hiệu ứng kết cấu"
 
+#~ msgid "Window Name"
+#~ msgstr "Tên cửa sổ"
+
+#~ msgid "Select window"
+#~ msgstr "Chọn cửa sổ"
+
+#~ msgid "Pick a window or select it by its classname."
+#~ msgstr "Chọn một cửa sổ qua nháy chuột hoặc bằng tên class của nó."
+
+#~ msgid "Applications blur"
+#~ msgstr "Làm mờ cho các ứng dụng"
+
 #~ msgid "Enable all by default"
 #~ msgstr "Bật tất cả theo mặc định"
 
@@ -1432,32 +1452,11 @@ msgstr ""
 #~ msgid "Blacklist"
 #~ msgstr "Danh sách đen"
 
-#~ msgid "Add Pipeline"
-#~ msgstr "Thêm chuỗi pipeline"
-
-#~ msgid "Window Name"
-#~ msgstr "Tên cửa sổ"
-
-#~ msgid "Select window"
-#~ msgstr "Chọn cửa sổ"
-
-#~ msgid "Pick a window or select it by its classname."
-#~ msgstr "Chọn một cửa sổ qua nháy chuột hoặc bằng tên class của nó."
+#~ msgid "Dash"
+#~ msgstr "Bảng dash"
 
 #~ msgid "Include advanced effects"
 #~ msgstr "Bao gồm các hiệu ứng nâng cao"
-
-#~ msgid "Pipeline name"
-#~ msgstr "Tên pipeline"
-
-#~ msgid "Manage effects"
-#~ msgstr "Quản lý hiệu ứng"
-
-#~ msgid "Applications blur"
-#~ msgstr "Làm mờ cho các ứng dụng"
-
-#~ msgid "Dash"
-#~ msgstr "Bảng dash"
 
 #~ msgid "Other"
 #~ msgstr "Khác"
@@ -1496,6 +1495,12 @@ msgstr ""
 #~ msgid "Panel blur"
 #~ msgstr "Làm mờ thanh panel"
 
+#~ msgid "Pipeline name"
+#~ msgstr "Tên pipeline"
+
+#~ msgid "Manage effects"
+#~ msgstr "Quản lý hiệu ứng"
+
 #~ msgid ""
 #~ "Each component uses a pipeline, which can be chosen in the corresponding "
 #~ "tab. Here you can create, modify and delete the pipelines and their "
@@ -1504,6 +1509,9 @@ msgstr ""
 #~ "Mỗi thành phần sử dụng một chuỗi pipeline được chọn theo tab tương ứng. "
 #~ "Tại đây bạn có thể tạo, chỉnh sửa và xóa các chuỗi pipeline và hiệu ứng "
 #~ "của chúng."
+
+#~ msgid "Add Pipeline"
+#~ msgstr "Thêm chuỗi pipeline"
 
 #~ msgid "Performance"
 #~ msgstr "Hiệu năng"
