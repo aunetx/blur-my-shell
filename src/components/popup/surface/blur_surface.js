@@ -23,7 +23,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
 const HEAVY_SURFACE_STYLE_CLASSES = [
     'datemenu-popover', 'quick-settings', 'modal-dialog',
     'candidate-popup-content', 'candidate-popup-boxpointer',
-    'redraw-blur-instant'
+    'redraw-blur-instant',
 ];
 const QUICK_SETTINGS_STYLE_CLASSES = [
     'quick-toggle-menu', 'quick-settings', 'datemenu-popover',
