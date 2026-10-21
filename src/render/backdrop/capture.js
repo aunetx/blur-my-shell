@@ -103,16 +103,23 @@ function captureRectangles(paintContext, view, geometry) {
 
     const layout = view.layout;
     const scale = view.get_scale();
+    // Mutter only repaints its framebuffer clip, and hands us that clip grown out to logical pixels.
+    // At fractional scales its edges can cover pixels left over from an older frame, so an edge
+    // inside the capture steps in by a logical pixel.
+    const inset = Number.isInteger(scale) ? 0 : 1;
+    const start = (logical, limit) => Math.floor(logical * scale) <= limit
+        ? limit : Math.ceil((logical + inset) * scale);
+    const end = (logical, limit) => Math.ceil(logical * scale) >= limit
+        ? limit : Math.floor((logical - inset) * scale);
+
     const rectangles = [];
     const iterator = new Mtk.RegionIterator();
     for (iterator.init(damage); !iterator.at_end(); iterator.next()) {
         const rect = iterator.rectangle;
-        const x = Math.max(sourceX, Math.floor((rect.x - layout.x) * scale));
-        const y = Math.max(sourceY, Math.floor((rect.y - layout.y) * scale));
-        const right = Math.min(sourceX + copyWidth,
-            Math.ceil((rect.x + rect.width - layout.x) * scale));
-        const bottom = Math.min(sourceY + copyHeight,
-            Math.ceil((rect.y + rect.height - layout.y) * scale));
+        const x = start(rect.x - layout.x, sourceX);
+        const y = start(rect.y - layout.y, sourceY);
+        const right = end(rect.x + rect.width - layout.x, sourceX + copyWidth);
+        const bottom = end(rect.y + rect.height - layout.y, sourceY + copyHeight);
         if (right > x && bottom > y)
             rectangles.push({ x, y, width: right - x, height: bottom - y });
     }

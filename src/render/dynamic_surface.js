@@ -172,6 +172,12 @@ export class DynamicPipeline {
         this.pipelineChangedIds = [];
     }
 
+    /// With every effect easing towards the untouched backdrop as the factor drops, the surface frosts
+    /// over while it fades in instead of showing a sharp copy of what's behind it.
+    get fades_with_opacity_factor() {
+        return this.effects.every(effect => 'opacity_factor' in effect);
+    }
+
     set_opacity_factor(opacityFactor, force = false) {
         const factor = Math.max(0, Math.min(1, opacityFactor));
         if (!force && this.opacityFactor === factor)
