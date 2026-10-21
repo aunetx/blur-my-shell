@@ -103,7 +103,7 @@ Blur my Shell is designed to be compatible with the following extensions:
 
 If you are an extension developer:
 
-- The popup blur update to new surface area is delayed when your extension's popup resizes: Fix by adding the `redraw-blur-instant` class to the .popup-content in your extension.
+- The popup blur update to new surface area is delayed when your extension's popup resizes: Fix by adding the `bms-redraw-blur-instant` class to the .popup-content in your extension.
 
 ## Screenshots
 
