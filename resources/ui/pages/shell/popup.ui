@@ -9,7 +9,11 @@
             <property name="subtitle" translatable="yes">Add blur to GNOME Shell menus, the calendar and notifications popup, notification banners, OSD popups, and dialogs.</property>
           </object>
         </child>
+      </object>
+    </child>
 
+    <child>
+      <object class="AdwPreferencesGroup">
         <child>
           <object class="BlurModeRow" id="blur_mode_row">
             <property name="subtitle" translatable="yes">Static blur follows the wallpaper; dynamic blur samples live content behind popups. Both use the selected pipeline.</property>

@@ -49,7 +49,7 @@ export const Pipelines = GObject.registerClass({
     }
 
     add_pipeline(pipeline_id) {
-        const row = new PipelineRow(this.pipelines_manager, pipeline_id);
+        const row = new PipelineRow(this, this.pipelines_manager, pipeline_id);
         row.connect('activated', () => this.open_pipeline(pipeline_id));
         row.destroyed_id = this.pipelines_manager.connect(
             `${pipeline_id}::pipeline-destroyed`,
@@ -91,9 +91,9 @@ export const Pipelines = GObject.registerClass({
         this.window.push_subpage(page);
     }
 
-    duplicate_pipeline(pipeline_id) {
+    duplicate_pipeline(pipeline_id, open_copy) {
         const copy_id = this.pipelines_manager.duplicate_pipeline(pipeline_id);
-        if (!copy_id)
+        if (!copy_id || !open_copy)
             return;
 
         this.window.pop_subpage();

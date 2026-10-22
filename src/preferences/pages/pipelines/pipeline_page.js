@@ -85,7 +85,7 @@ export const PipelinePage = GObject.registerClass({
 
         const actions = new Gio.SimpleActionGroup();
         const duplicate = new Gio.SimpleAction({ name: 'duplicate' });
-        duplicate.connect('activate', () => pipelines_page.duplicate_pipeline(pipeline_id));
+        duplicate.connect('activate', () => pipelines_page.duplicate_pipeline(pipeline_id, true));
         actions.add_action(duplicate);
         const remove = new Gio.SimpleAction({
             name: 'delete',

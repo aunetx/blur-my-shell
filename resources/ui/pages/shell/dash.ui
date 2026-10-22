@@ -9,7 +9,11 @@
             <property name="subtitle" translatable="yes">Blur the background of supported docks, including Dash to Dock, Dhruva and Simple Taskbar&apos;s dock.</property>
           </object>
         </child>
+      </object>
+    </child>
 
+    <child>
+      <object class="AdwPreferencesGroup">
         <child>
           <object class="BlurModeRow" id="blur_mode_row">
             <property name="subtitle" translatable="yes">Static blur follows the wallpaper; dynamic blur samples live content behind the dash. Both use the selected pipeline.</property>

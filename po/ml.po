@@ -642,7 +642,7 @@ msgstr "ആപ്ലിക്കേഷനുകൾ"
 msgid "Adds blur to applications."
 msgstr "ആപ്ലിക്കേഷനുകളിലേക്ക് ബ്ലർ ചേർക്കുന്നു."
 
-#: resources/ui/pages/applications.ui:19
+#: resources/ui/pages/applications.ui:23
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
@@ -650,26 +650,26 @@ msgstr ""
 "സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ ജാലകങ്ങൾക്ക് പിന്നിലെ തത്സമയ "
 "ഉള്ളടക്കം സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
-#: resources/ui/pages/applications.ui:34
-#: resources/ui/pages/shell/overview.ui:23 resources/ui/pages/shell/panel.ui:38
+#: resources/ui/pages/applications.ui:38
+#: resources/ui/pages/shell/overview.ui:27 resources/ui/pages/shell/panel.ui:42
 msgid "Appearance"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:39
+#: resources/ui/pages/applications.ui:43
 msgid "Opacity"
 msgstr "അടരുകൾ/ഒപ്പാസിറ്റി"
 
-#: resources/ui/pages/applications.ui:40
+#: resources/ui/pages/applications.ui:44
 msgid ""
 "The opacity of the window on top of the blur effect, a higher value will be "
 "more legible."
 msgstr "ബ്ലർ ഇഫക്റ്റിന് മുകളിലുള്ള ജാലകത്തിന്റെ ഒപ്പാസിറ്റി, ഉയർന്ന മൂല്യം കൂടുതൽ വ്യക്തത നൽകും."
 
-#: resources/ui/pages/applications.ui:60
+#: resources/ui/pages/applications.ui:64
 msgid "Opaque focused window"
 msgstr "ഫോക്കസ് ചെയ്ത ജാലകം അതാര്യമാക്കുക (Opaque)"
 
-#: resources/ui/pages/applications.ui:61
+#: resources/ui/pages/applications.ui:65
 msgid ""
 "Makes the focused window opaque and the other ones blurred, helping with "
 "legibility."
@@ -677,25 +677,25 @@ msgstr ""
 "ഫോക്കസ് ചെയ്ത ജാലകം അതാര്യവും മറ്റുള്ളവ ബ്ലർ ചെയ്തതുമാക്കി മാറ്റുന്നു, ഇത് വായിക്കാൻ "
 "എളുപ്പമാക്കുന്നു."
 
-#: resources/ui/pages/applications.ui:67 resources/ui/pages/shell/panel.ui:43
-#: resources/ui/pages/shell/popup.ui:61
+#: resources/ui/pages/applications.ui:71 resources/ui/pages/shell/panel.ui:47
+#: resources/ui/pages/shell/popup.ui:65
 msgid "Corner radius"
 msgstr "കോർണർ ആരം"
 
-#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
+#: resources/ui/pages/applications.ui:72 resources/ui/pages/shell/panel.ui:48
 msgid "Radius for the corner rounding effect."
 msgstr "കോർണർ വട്ടത്തിലാക്കുന്ന ഇഫക്റ്റിനുള്ള ആരം."
 
-#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
-#: resources/ui/pages/shell/popup.ui:67
+#: resources/ui/pages/applications.ui:79 resources/ui/pages/shell/panel.ui:55
+#: resources/ui/pages/shell/popup.ui:71
 msgid "Rounded corners"
 msgstr "വട്ടത്തിലുള്ള കോർണറുകൾ"
 
-#: resources/ui/pages/applications.ui:82
+#: resources/ui/pages/applications.ui:86
 msgid "Round maximized and fullscreen windows"
 msgstr "വലുതാക്കിയതും ഫുൾസ്ക്രീൻ ആയതുമായ ജാലകങ്ങൾ വട്ടത്തിലാക്കുക"
 
-#: resources/ui/pages/applications.ui:83
+#: resources/ui/pages/applications.ui:87
 msgid ""
 "Corner rounding effect will keep being applied to maximized and fullscreen "
 "windows."
@@ -703,15 +703,15 @@ msgstr ""
 "വലുതാക്കിയതും ഫുൾസ്ക്രീൻ ആയതുമായ ജാലകങ്ങളിലും കോർണർ വട്ടത്തിലാക്കുന്ന ഇഫക്റ്റ് തുടർച്ചയായി "
 "പ്രയോഗിക്കപ്പെടും."
 
-#: resources/ui/pages/applications.ui:91
+#: resources/ui/pages/applications.ui:95
 msgid "Behavior"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:96
+#: resources/ui/pages/applications.ui:100
 msgid "Blur on overview"
 msgstr "ഓവർവ്യൂവിൽ ബ്ലർ ചെയ്യുക"
 
-#: resources/ui/pages/applications.ui:97
+#: resources/ui/pages/applications.ui:101
 msgid ""
 "Forces the blur to be properly shown on all workspaces on overview.\n"
 "This may cause some latency or performance issues."
@@ -719,68 +719,69 @@ msgstr ""
 "ഓവർവ്യൂവിലെ എല്ലാ വർക്ക്‌സ്‌പെയ്‌സുകളിലും ബ്ലർ ശരിയായി കാണിക്കാൻ ഇത് നിർബന്ധമാക്കുന്നു.\n"
 "ഇത് ചെറിയ ലേറ്റൻസിയോ പെർഫോമൻസ് പ്രശ്നങ്ങളോ ഉണ്ടാക്കിയേക്കാം."
 
-#: resources/ui/pages/applications.ui:104
+#: resources/ui/pages/applications.ui:108
 msgid "Unblur when Fullscreen"
 msgstr "ഫുൾസ്ക്രീൻ ചെയ്യുമ്പോൾ ബ്ലർ ഒഴിവാക്കുക"
 
-#: resources/ui/pages/applications.ui:105
+#: resources/ui/pages/applications.ui:109
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
 msgstr "ഒരു ജാലകം ഫുൾസ്ക്രീൻ മോഡിലായിരിക്കുമ്പോൾ ബ്ലർ നീക്കം ചെയ്യാൻ നിർബന്ധമാക്കുന്നു."
 
-#: resources/ui/pages/applications.ui:111
+#: resources/ui/pages/applications.ui:115
 msgid "Blur all windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:112
+#: resources/ui/pages/applications.ui:116
 msgid "When off, only the windows listed below are blurred."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:120
+#: resources/ui/pages/applications.ui:124
 msgid "Blurred windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:121
+#: resources/ui/pages/applications.ui:125
 msgid ""
 "Only these windows are blurred. Use * to match any sequence of characters "
 "(e.g., Firefox* or *Code*), and ? for a single one."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:129
-#: resources/ui/pages/applications.ui:151
+#: resources/ui/pages/applications.ui:133
+#: resources/ui/pages/applications.ui:155
 msgid "Add Window"
 msgstr "ജാലകം ചേർക്കുക"
 
-#: resources/ui/pages/applications.ui:142
+#: resources/ui/pages/applications.ui:146
 msgid "Excluded windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:143
+#: resources/ui/pages/applications.ui:147
 msgid ""
 "These windows are never blurred. Use * to match any sequence of characters "
 "(e.g., Firefox* or *Code*), and ? for a single one."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:157
-#: resources/ui/pages/shell/popup.ui:161
+#: resources/ui/pages/applications.ui:169 resources/ui/pages/shell/panel.ui:161
+#: resources/ui/pages/shell/popup.ui:165
 msgid "All"
 msgstr "എല്ലാം"
 
-#: resources/ui/pages/applications.ui:166 resources/ui/pages/shell/panel.ui:158
-#: resources/ui/pages/shell/popup.ui:162
+#: resources/ui/pages/applications.ui:170 resources/ui/pages/shell/panel.ui:162
+#: resources/ui/pages/shell/popup.ui:166
 msgid "Top only"
 msgstr "മുകളിൽ മാത്രം"
 
-#: resources/ui/pages/applications.ui:167 resources/ui/pages/shell/panel.ui:159
-#: resources/ui/pages/shell/popup.ui:163
+#: resources/ui/pages/applications.ui:171 resources/ui/pages/shell/panel.ui:163
+#: resources/ui/pages/shell/popup.ui:167
 msgid "Bottom only"
 msgstr "താഴെ മാത്രം"
 
-#: resources/ui/pages/applications.ui:168 resources/ui/pages/shell/panel.ui:160
-#: resources/ui/pages/shell/popup.ui:164
+#: resources/ui/pages/applications.ui:172 resources/ui/pages/shell/panel.ui:164
+#: resources/ui/pages/shell/popup.ui:168
 msgid "None"
 msgstr "ഒന്നുമില്ല"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
+#: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
 msgstr ""
 
@@ -802,15 +803,17 @@ msgid "Add Effect"
 msgstr "ഇഫക്റ്റ് ചേർക്കുക"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:57
-#: src/preferences/pages/pipelines/pipeline_row.js:45
+#: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
 msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:78
+#: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
 msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:82
+#: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
 msgstr ""
 
@@ -832,40 +835,40 @@ msgstr ""
 msgid "Makes the background of application folder dialogs blurred."
 msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ഡയലോഗുകളുടെ പശ്ചാത്തലം ബ്ലർ ചെയ്തതാക്കുന്നു."
 
-#: resources/ui/pages/shell/app-folders.ui:21
+#: resources/ui/pages/shell/app-folders.ui:25
 msgid "Application folder dialogs style"
 msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ഡയലോഗുകളുടെ ശൈലി"
 
-#: resources/ui/pages/shell/app-folders.ui:22
+#: resources/ui/pages/shell/app-folders.ui:26
 msgid "The semi-transparent style for the application folder dialogs."
 msgstr "ആപ്ലിക്കേഷൻ ഫോൾഡർ ഡയലോഗുകൾക്കായുള്ള അർദ്ധസുതാര്യ ശൈലി."
 
-#: resources/ui/pages/shell/app-folders.ui:33
-#: resources/ui/pages/shell/overview.ui:53
+#: resources/ui/pages/shell/app-folders.ui:37
+#: resources/ui/pages/shell/overview.ui:57
 msgid "Do not style"
 msgstr "ശൈലി മാറ്റരുത്"
 
-#: resources/ui/pages/shell/app-folders.ui:34
-#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
-#: resources/ui/pages/shell/panel.ui:166 resources/ui/pages/shell/popup.ui:170
+#: resources/ui/pages/shell/app-folders.ui:38
+#: resources/ui/pages/shell/dash.ui:66 resources/ui/pages/shell/overview.ui:60
+#: resources/ui/pages/shell/panel.ui:170 resources/ui/pages/shell/popup.ui:174
 msgid "Transparent"
 msgstr "സുതാര്യം (Transparent)"
 
-#: resources/ui/pages/shell/app-folders.ui:35
-#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:54
-#: resources/ui/pages/shell/panel.ui:167 resources/ui/pages/shell/popup.ui:171
+#: resources/ui/pages/shell/app-folders.ui:39
+#: resources/ui/pages/shell/dash.ui:67 resources/ui/pages/shell/overview.ui:58
+#: resources/ui/pages/shell/panel.ui:171 resources/ui/pages/shell/popup.ui:175
 msgid "Light"
 msgstr "വെളിച്ചമുള്ളത് (Light)"
 
-#: resources/ui/pages/shell/app-folders.ui:36
-#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:55
-#: resources/ui/pages/shell/panel.ui:168 resources/ui/pages/shell/popup.ui:172
+#: resources/ui/pages/shell/app-folders.ui:40
+#: resources/ui/pages/shell/dash.ui:68 resources/ui/pages/shell/overview.ui:59
+#: resources/ui/pages/shell/panel.ui:172 resources/ui/pages/shell/popup.ui:176
 msgid "Dark"
 msgstr "ഇരുണ്ടത് (Dark)"
 
-#: resources/ui/pages/shell/app-folders.ui:37
-#: resources/ui/pages/shell/dash.ui:65 resources/ui/pages/shell/overview.ui:57
-#: resources/ui/pages/shell/panel.ui:170 resources/ui/pages/shell/popup.ui:173
+#: resources/ui/pages/shell/app-folders.ui:41
+#: resources/ui/pages/shell/dash.ui:69 resources/ui/pages/shell/overview.ui:61
+#: resources/ui/pages/shell/panel.ui:174 resources/ui/pages/shell/popup.ui:177
 msgid "Automatic"
 msgstr "ഓട്ടോമാറ്റിക്"
 
@@ -877,7 +880,7 @@ msgstr ""
 "Dash to Dock, Dhruva, Simple Taskbar എന്നിവയുൾപ്പെടെയുള്ള പിന്തുണയ്ക്കുന്ന ഡോക്കുകളുടെ "
 "പശ്ചാത്തലം ബ്ലർ ചെയ്യുക."
 
-#: resources/ui/pages/shell/dash.ui:15
+#: resources/ui/pages/shell/dash.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
@@ -885,25 +888,25 @@ msgstr ""
 "സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ ഡാഷിന് പിന്നിലെ തത്സമയ ഉള്ളടക്കം "
 "സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
-#: resources/ui/pages/shell/dash.ui:28 resources/ui/pages/shell/panel.ui:28
+#: resources/ui/pages/shell/dash.ui:32 resources/ui/pages/shell/panel.ui:32
 msgid "Disable in overview"
 msgstr "ഓവർവ്യൂവിൽ പ്രവർത്തനരഹിതമാക്കുക"
 
-#: resources/ui/pages/shell/dash.ui:29
+#: resources/ui/pages/shell/dash.ui:33
 msgid "Disables dock blur when entering the overview."
 msgstr "ഓവർവ്യൂവിലേക്ക് പ്രവേശിക്കുമ്പോൾ ഡോക്ക് ബ്ലർ പ്രവർത്തനരഹിതമാക്കുന്നു."
 
-#: resources/ui/pages/shell/dash.ui:38 resources/ui/pages/shell/panel.ui:74
-#: resources/ui/pages/shell/popup.ui:30 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/dash.ui:42 resources/ui/pages/shell/panel.ui:78
+#: resources/ui/pages/shell/popup.ui:34 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
 msgstr ""
 
-#: resources/ui/pages/shell/dash.ui:43 resources/ui/pages/shell/panel.ui:79
-#: resources/ui/pages/shell/popup.ui:35
+#: resources/ui/pages/shell/dash.ui:47 resources/ui/pages/shell/panel.ui:83
+#: resources/ui/pages/shell/popup.ui:39
 msgid "Override background"
 msgstr "പശ്ചാത്തലം മാറ്റിയെഴുതുക (Override background)"
 
-#: resources/ui/pages/shell/dash.ui:44
+#: resources/ui/pages/shell/dash.ui:48
 msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
@@ -911,12 +914,12 @@ msgstr ""
 "ഡോക്ക് പശ്ചാത്തലം സുതാര്യമായോ അർദ്ധസുതാര്യമായോ മാറ്റുന്നു. ഡോക്ക് എക്സ്റ്റൻഷന്റെ സ്വന്തം രൂപം "
 "ഉപയോഗിക്കാൻ ഇത് പ്രവർത്തനരഹിതമാക്കുക."
 
-#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:87
-#: resources/ui/pages/shell/popup.ui:42
+#: resources/ui/pages/shell/dash.ui:54 resources/ui/pages/shell/panel.ui:91
+#: resources/ui/pages/shell/popup.ui:46
 msgid "Background style"
 msgstr "പശ്ചാത്തല ശൈലി"
 
-#: resources/ui/pages/shell/dash.ui:51
+#: resources/ui/pages/shell/dash.ui:55
 msgid "The transparent/semi-transparent style for the dock background."
 msgstr "ഡോക്ക് പശ്ചാത്തലത്തിനായുള്ള സുതാര്യ/അർദ്ധസുതാര്യ ശൈലി."
 
@@ -924,21 +927,21 @@ msgstr "ഡോക്ക് പശ്ചാത്തലത്തിനായു�
 msgid "Add blur to the overview background, using the wallpaper picture."
 msgstr "വാൾപേപ്പർ ചിത്രം ഉപയോഗിച്ച് ഓവർവ്യൂ പശ്ചാത്തലത്തിൽ ബ്ലർ ചേർക്കുക."
 
-#: resources/ui/pages/shell/overview.ui:28
+#: resources/ui/pages/shell/overview.ui:32
 msgid "Overview components style"
 msgstr "ഓവർവ്യൂ ഘടകങ്ങളുടെ ശൈലി"
 
-#: resources/ui/pages/shell/overview.ui:29
+#: resources/ui/pages/shell/overview.ui:33
 msgid ""
 "The semi-transparent style for the dash, search entry/results, and "
 "application folders."
 msgstr "ഡാഷ്, സെർച്ച് എൻട്രി/ഫലങ്ങൾ, ആപ്ലിക്കേഷൻ ഫോൾഡറുകൾ എന്നിവയ്ക്കുള്ള അർദ്ധസുതാര്യ ശൈലി."
 
-#: resources/ui/pages/shell/overview.ui:36
+#: resources/ui/pages/shell/overview.ui:40
 msgid "Workspace corner radius"
 msgstr ""
 
-#: resources/ui/pages/shell/overview.ui:37
+#: resources/ui/pages/shell/overview.ui:41
 msgid "Radius for the corner rounding of the workspaces in the overview."
 msgstr ""
 
@@ -946,7 +949,7 @@ msgstr ""
 msgid "Add blur to the top panel."
 msgstr "മുകളിലെ പാനലിലേക്ക് ബ്ലർ ചേർക്കുക."
 
-#: resources/ui/pages/shell/panel.ui:15
+#: resources/ui/pages/shell/panel.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
@@ -954,30 +957,30 @@ msgstr ""
 "സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ പാനലിന് പിന്നിലെ തത്സമയ ഉള്ളടക്കം "
 "സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
-#: resources/ui/pages/shell/panel.ui:29
+#: resources/ui/pages/shell/panel.ui:33
 msgid "Disables the blur from the panel when entering the overview."
 msgstr "ഓവർവ്യൂവിലേക്ക് പ്രവേശിക്കുമ്പോൾ പാനലിൽ നിന്നുള്ള ബ്ലർ പ്രവർത്തനരഹിതമാക്കുന്നു."
 
-#: resources/ui/pages/shell/panel.ui:58
+#: resources/ui/pages/shell/panel.ui:62
 msgid "Force light text"
 msgstr "വെളിച്ചമുള്ള വാചകം നിർബന്ധമാക്കുക (Light text)"
 
-#: resources/ui/pages/shell/panel.ui:59
+#: resources/ui/pages/shell/panel.ui:63
 msgid ""
 "Use a light text for the panel, useful when using gnome-shell's light theme."
 msgstr ""
 "ഗ്നോം-ഷെല്ലിന്റെ ലൈറ്റ് തീം ഉപയോഗിക്കുമ്പോൾ സഹായകരമായ രീതിയിൽ പാനലിനായി ലൈറ്റ് വാചകം "
 "ഉപയോഗിക്കുക."
 
-#: resources/ui/pages/shell/panel.ui:65
+#: resources/ui/pages/shell/panel.ui:69
 msgid "Match theme in overview"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:66
+#: resources/ui/pages/shell/panel.ui:70
 msgid "Keep panel text and icons matched to the system theme in the overview."
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:80
+#: resources/ui/pages/shell/panel.ui:84
 msgid ""
 "Override the background of the panel to use a transparent or semi-"
 "transparent one.\n"
@@ -987,23 +990,23 @@ msgstr ""
 "മാറ്റിയെഴുതുക.\n"
 "നിങ്ങളുടെ ഗ്നോം തീം ഇഷ്ടാനുസൃതമാക്കാൻ ആഗ്രഹിക്കുന്നില്ലെങ്കിൽ ഇത് ശുപാർശ ചെയ്യുന്നു."
 
-#: resources/ui/pages/shell/panel.ui:88
+#: resources/ui/pages/shell/panel.ui:92
 msgid "The transparent/semi-transparent style for the panel background."
 msgstr "പാനൽ പശ്ചാത്തലത്തിനായുള്ള സുതാര്യ/അർദ്ധസുതാര്യ ശൈലി."
 
-#: resources/ui/pages/shell/panel.ui:96
+#: resources/ui/pages/shell/panel.ui:100
 msgid "Override background dynamically"
 msgstr "പശ്ചാത്തലം ഡൈനാമിക് ആയി മാറ്റിയെഴുതുക"
 
-#: resources/ui/pages/shell/panel.ui:97
+#: resources/ui/pages/shell/panel.ui:101
 msgid "Change the panel background when a window is near it."
 msgstr "ഒരു ജാലകം സമീപത്തുള്ളപ്പോൾ പാനൽ പശ്ചാത്തലം മാറ്റുക."
 
-#: resources/ui/pages/shell/panel.ui:104
+#: resources/ui/pages/shell/panel.ui:108
 msgid "When a window is near"
 msgstr "ഒരു ജാലകം സമീപത്തായിരിക്കുമ്പോൾ"
 
-#: resources/ui/pages/shell/panel.ui:105
+#: resources/ui/pages/shell/panel.ui:109
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
@@ -1015,44 +1018,44 @@ msgstr ""
 "വിൻഡോ സാമീപ്യത്തിൽ പശ്ചാത്തലം: ജാലകം പാനലിനടുത്തുള്ളപ്പോൾ സോളിഡ് കളർ പശ്ചാത്തലവും "
 "അല്ലാത്തപ്പോൾ ബ്ലറും ആയിരിക്കും."
 
-#: resources/ui/pages/shell/panel.ui:114
+#: resources/ui/pages/shell/panel.ui:118
 msgid "Gradient background"
 msgstr "ഗ്രേഡിയന്റ് പശ്ചാത്തലം"
 
-#: resources/ui/pages/shell/panel.ui:115
+#: resources/ui/pages/shell/panel.ui:119
 msgid "Apply a gradient effect to the panel background."
 msgstr "പാനൽ പശ്ചാത്തലത്തിൽ ഒരു ഗ്രേഡിയന്റ് ഇഫക്റ്റ് പ്രയോഗിക്കുക."
 
-#: resources/ui/pages/shell/panel.ui:122
+#: resources/ui/pages/shell/panel.ui:126
 msgid "Gradient direction"
 msgstr "ഗ്രേഡിയന്റ് ദിശ"
 
-#: resources/ui/pages/shell/panel.ui:123
+#: resources/ui/pages/shell/panel.ui:127
 msgid "Change the direction of the gradient background."
 msgstr "ഗ്രേഡിയന്റ് പശ്ചാത്തലത്തിന്റെ ദിശ മാറ്റുക."
 
-#: resources/ui/pages/shell/panel.ui:133
+#: resources/ui/pages/shell/panel.ui:137
 msgid "Compatibility"
 msgstr "അനുയോജ്യത (Compatibility)"
 
-#: resources/ui/pages/shell/panel.ui:134
+#: resources/ui/pages/shell/panel.ui:138
 msgid "Various options to provide compatibility with other extensions."
 msgstr "മറ്റ് എക്സ്റ്റൻഷനുകളുമായി അനുയോജ്യത ഉറപ്പാക്കാനുള്ള വിവിധ ഓപ്ഷനുകൾ."
 
-#: resources/ui/pages/shell/panel.ui:139
+#: resources/ui/pages/shell/panel.ui:143
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar എക്സ്റ്റൻഷൻ"
 
-#: resources/ui/pages/shell/panel.ui:140
+#: resources/ui/pages/shell/panel.ui:144
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
 "ഓവർവ്യൂവിൽ ബ്ലർ ദൃശ്യമായി നിലനിർത്തുന്നു; സ്റ്റാറ്റിക് ബ്ലറിനൊപ്പം ഉപയോഗിക്കുന്നതാണ് ഏറ്റവും നല്ലത്."
 
-#: resources/ui/pages/shell/panel.ui:147
+#: resources/ui/pages/shell/panel.ui:151
 msgid "Blur original panel with Dash to Panel"
 msgstr "Dash to Panel ഉപയോഗിച്ച് യഥാർത്ഥ പാനൽ ബ്ലർ ചെയ്യുക"
 
-#: resources/ui/pages/shell/panel.ui:148
+#: resources/ui/pages/shell/panel.ui:152
 msgid ""
 "Enables the blurring of the original panel with Dash to Panel, if selected "
 "in the extension's options."
@@ -1060,23 +1063,23 @@ msgstr ""
 "എക്സ്റ്റൻഷൻ ഓപ്ഷനുകളിൽ തിരഞ്ഞെടുത്തിട്ടുണ്ടെങ്കിൽ, Dash to Panel ഉപയോഗിച്ച് ഒറിജിനൽ പാനൽ "
 "ബ്ലർ ചെയ്യുന്നത് പ്രവർത്തനക്ഷമമാക്കുന്നു."
 
-#: resources/ui/pages/shell/panel.ui:169
+#: resources/ui/pages/shell/panel.ui:173
 msgid "Contrasted"
 msgstr "കോൺട്രാസ്റ്റ് ചെയ്തത്"
 
-#: resources/ui/pages/shell/panel.ui:176
+#: resources/ui/pages/shell/panel.ui:180
 msgid "Blur on Window Proximity"
 msgstr "വിൻഡോ സാമീപ്യത്തിൽ ബ്ലർ"
 
-#: resources/ui/pages/shell/panel.ui:177
+#: resources/ui/pages/shell/panel.ui:181
 msgid "Background on Window Proximity"
 msgstr "വിൻഡോ സാമീപ്യത്തിൽ പശ്ചാത്തലം"
 
-#: resources/ui/pages/shell/panel.ui:183
+#: resources/ui/pages/shell/panel.ui:187
 msgid "Top"
 msgstr "മുകളിൽ"
 
-#: resources/ui/pages/shell/panel.ui:184
+#: resources/ui/pages/shell/panel.ui:188
 msgid "Bottom"
 msgstr "താഴെ"
 
@@ -1088,7 +1091,7 @@ msgstr ""
 "ഗ്നോം ഷെൽ മെനുകൾ, കലണ്ടർ, അറിയിപ്പുകളുടെ പോപ്പ്അപ്പ്, അറിയിപ്പ് ബാനറുകൾ, ഒഎസ്‌ഡി പോപ്പ്അപ്പുകൾ, "
 "ഡയലോഗുകൾ എന്നിവയിലേക്ക് ബ്ലർ ചേർക്കുക."
 
-#: resources/ui/pages/shell/popup.ui:15
+#: resources/ui/pages/shell/popup.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
@@ -1096,7 +1099,7 @@ msgstr ""
 "സ്റ്റാറ്റിക് ബ്ലർ വാൾപേപ്പറിനെ പിന്തുടരുന്നു; ഡൈനാമിക് ബ്ലർ പോപ്പ്അപ്പുകൾക്ക് പിന്നിലെ തത്സമയ "
 "ഉള്ളടക്കം സാമ്പിൾ ചെയ്യുന്നു. രണ്ടും തിരഞ്ഞെടുത്ത പൈപ്പ്‌ലൈൻ ഉപയോഗിക്കുന്നു."
 
-#: resources/ui/pages/shell/popup.ui:36
+#: resources/ui/pages/shell/popup.ui:40
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
@@ -1104,67 +1107,67 @@ msgstr ""
 "സുതാര്യമായതോ അർദ്ധസുതാര്യമായതോ ആയ പശ്ചാത്തലം ഉപയോഗിക്കുന്നതിനായി പോപ്പ്അപ്പുകളുടെ പശ്ചാത്തലം "
 "മാറ്റിയെഴുതുക."
 
-#: resources/ui/pages/shell/popup.ui:43
+#: resources/ui/pages/shell/popup.ui:47
 msgid "The transparent/semi-transparent style for popups."
 msgstr "പോപ്പ്അപ്പുകൾക്കായുള്ള സുതാര്യ/അർദ്ധസുതാര്യ ശൈലി."
 
-#: resources/ui/pages/shell/popup.ui:51
+#: resources/ui/pages/shell/popup.ui:55
 msgid "Preserve shell theme"
 msgstr "ഷെൽ തീം നിലനിർത്തുക"
 
-#: resources/ui/pages/shell/popup.ui:52
+#: resources/ui/pages/shell/popup.ui:56
 msgid "Keep your shell theme's colors for popup controls."
 msgstr "പോപ്പ്അപ്പ് നിയന്ത്രണങ്ങൾക്കായി നിങ്ങളുടെ ഷെൽ തീമിന്റെ നിറങ്ങൾ നിലനിർത്തുക."
 
-#: resources/ui/pages/shell/popup.ui:62
+#: resources/ui/pages/shell/popup.ui:66
 msgid "Adjust the rounded corners for each popup surface."
 msgstr "ഓരോ പോപ്പ്അപ്പ് പ്രതലത്തിനും വട്ടത്തിലുള്ള കോർണറുകൾ ക്രമീകരിക്കുക."
 
-#: resources/ui/pages/shell/popup.ui:74
+#: resources/ui/pages/shell/popup.ui:78
 msgid "Menus"
 msgstr "മെനുകൾ"
 
-#: resources/ui/pages/shell/popup.ui:81
+#: resources/ui/pages/shell/popup.ui:85
 msgid "Input method candidates"
 msgstr "ഇൻപുട്ട് രീതി നിർദ്ദേശങ്ങൾ"
 
-#: resources/ui/pages/shell/popup.ui:88
+#: resources/ui/pages/shell/popup.ui:92
 msgid "Quick settings"
 msgstr "പെട്ടെന്നുള്ള ക്രമീകരണങ്ങൾ (Quick settings)"
 
-#: resources/ui/pages/shell/popup.ui:95
+#: resources/ui/pages/shell/popup.ui:99
 msgid "Quick settings submenus"
 msgstr "ക്വിക്ക് സെറ്റിംഗ്സ് സബ്‌മെനുകൾ"
 
-#: resources/ui/pages/shell/popup.ui:102
+#: resources/ui/pages/shell/popup.ui:106
 msgid "Calendar and notification center"
 msgstr "കലണ്ടറും അറിയിപ്പ് കേന്ദ്രവും"
 
-#: resources/ui/pages/shell/popup.ui:109
+#: resources/ui/pages/shell/popup.ui:113
 msgid "Notifications"
 msgstr "അറിയിപ്പുകൾ"
 
-#: resources/ui/pages/shell/popup.ui:116
+#: resources/ui/pages/shell/popup.ui:120
 msgid "Window and workspace switchers"
 msgstr "ജാലകവും വർക്ക്‌സ്‌പെയ്‌സും മാറ്റുന്നവ"
 
-#: resources/ui/pages/shell/popup.ui:123
+#: resources/ui/pages/shell/popup.ui:127
 msgid "Volume and brightness"
 msgstr "ശബ്ദവും തെളിച്ചവും"
 
-#: resources/ui/pages/shell/popup.ui:130
+#: resources/ui/pages/shell/popup.ui:134
 msgid "Window resize hints"
 msgstr "വിൻഡോ വലിപ്പം മാറ്റുന്നതിനുള്ള സൂചനകൾ"
 
-#: resources/ui/pages/shell/popup.ui:137
+#: resources/ui/pages/shell/popup.ui:141
 msgid "Dialogs"
 msgstr "ഡയലോഗുകൾ"
 
-#: resources/ui/pages/shell/popup.ui:144
+#: resources/ui/pages/shell/popup.ui:148
 msgid "On-screen keyboard"
 msgstr "ഓൺ-സ്ക്രീൻ കീബോർഡ്"
 
-#: resources/ui/pages/shell/popup.ui:151
+#: resources/ui/pages/shell/popup.ui:155
 msgid "Other popup surfaces"
 msgstr "മറ്റ് പോപ്പ്അപ്പ് പ്രതലങ്ങൾ"
 
@@ -1300,7 +1303,7 @@ msgstr "ഡൈനാമിക്"
 
 #: resources/ui/widgets/pipeline-choose-row.ui:4
 #: src/preferences/pages/pipelines/pipeline_page.js:100
-#: src/preferences/pages/pipelines/pipeline_row.js:39
+#: src/preferences/pages/pipelines/pipeline_row.js:69
 msgid "Pipeline"
 msgstr "പൈപ്പ്‌ലൈൻ"
 
@@ -1427,7 +1430,7 @@ msgstr ""
 msgid "Not used by any component yet"
 msgstr ""
 
-#: src/preferences/pages/pipelines/pipeline_row.js:44
+#: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
 msgstr "അറിയപ്പെടാത്ത ഇഫക്റ്റ്"
 
