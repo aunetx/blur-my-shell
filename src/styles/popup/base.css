@@ -290,8 +290,12 @@
 
 .bms-popup-background-light .switcher-list .item-box:focus,
 .bms-popup-background-light .switcher-list .item-box:selected,
+.bms-popup-background-light .switcher-list .item-box:highlighted,
+.bms-popup-background-light .switcher-list .item-box:checked,
 .bms-popup-surface-light .switcher-list .item-box:focus,
-.bms-popup-surface-light .switcher-list .item-box:selected {
+.bms-popup-surface-light .switcher-list .item-box:selected,
+.bms-popup-surface-light .switcher-list .item-box:highlighted,
+.bms-popup-surface-light .switcher-list .item-box:checked {
   background-color: rgba(0, 0, 0, 0.12) !important;
 }
 

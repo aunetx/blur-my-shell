@@ -417,3 +417,40 @@
 .bms-popup-background-light StEntry StLabel.hint-text {
     color: rgba(0, 0, 0, 0.4) !important;
 }
+
+.bms-popup-background-light .switcher-list .item-box,
+.bms-popup-background-light .switcher-list .item-box:hover,
+.bms-popup-background-light .switcher-list .item-box:focus,
+.bms-popup-background-light .switcher-list .item-box:active,
+.bms-popup-background-light .switcher-list .item-box:selected,
+.bms-popup-background-light .switcher-list .item-box:highlighted,
+.bms-popup-background-light .switcher-list .item-box:checked {
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.bms-popup-background-light .switcher-list .item-box:insensitive {
+    color: rgba(0, 0, 0, 0.4) !important;
+    background-color: transparent !important;
+}
+
+.bms-popup-background-light .switcher-list .separator {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.bms-popup-background-light .switcher-arrow {
+    border-color: rgba(0, 0, 0, 0.62);
+    color: rgba(0, 0, 0, 0.62);
+}
+
+.bms-popup-background-light .switcher-arrow:highlighted {
+    border-color: rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.bms-popup-background-light .ws-switcher-indicator {
+    background-color: rgba(0, 0, 0, 0.38);
+}
+
+.bms-popup-background-light .ws-switcher-indicator:active {
+    background-color: rgba(0, 0, 0, 0.85);
+}
