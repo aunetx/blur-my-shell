@@ -576,7 +576,7 @@
         </key>
         <!-- QUICK SETTINGS SUBMENU CORNER RADIUS -->
         <key type="i" name="submenu-corner-radius">
-            <default>36</default>
+            <default>24</default>
             <summary>Radius for quick settings submenu corner rounding</summary>
         </key>
         <!-- CALENDAR CORNER RADIUS -->
