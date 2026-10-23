@@ -6,7 +6,6 @@ export function get_blur_effects(_) {
             class: DualKawaseBlurEffect,
             name: _("Dual Kawase blur"),
             description: _("A fast, high-quality blur."),
-            is_advanced: false,
             editable_params: {
                 unscaled_radius: {
                     name: _("Radius"),

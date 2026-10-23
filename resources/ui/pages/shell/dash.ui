@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="Dash" parent="AdwPreferencesPage">
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="blur">
+            <property name="title" translatable="yes">Blur</property>
+            <property name="subtitle" translatable="yes">Blur the background of supported docks, including Dash to Dock, Dhruva and Simple Taskbar&apos;s dock.</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="BlurModeRow" id="blur_mode_row">
+            <property name="subtitle" translatable="yes">Static blur follows the wallpaper; dynamic blur samples live content behind the dash. Both use the selected pipeline.</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="unblur_in_overview">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="subtitle" translatable="yes">Disables dock blur when entering the overview.</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Background</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="override_background">
+            <property name="title" translatable="yes">Override background</property>
+            <property name="subtitle" translatable="yes">Makes the dock background transparent or semi-transparent. Disable this to use the dock extension's own appearance.</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="style_dash_to_dock">
+            <property name="title" translatable="yes">Background style</property>
+            <property name="subtitle" translatable="yes">The transparent/semi-transparent style for the dock background.</property>
+            <property name="model">style_dash_to_dock_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkStringList" id="style_dash_to_dock_model">
+    <items>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+      <item translatable="yes">Automatic</item>
+    </items>
+  </object>
+</interface>

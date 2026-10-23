@@ -6,7 +6,6 @@ export function get_refraction_effects(_) {
             class: RefractionEffect,
             name: _("Liquid Glass"),
             description: _("A glossy translucent material with edge refraction, rim lighting, tint, and inner shadow."),
-            is_advanced: false,
             editable_params: {
                 strength: {
                     name: _("Refraction scale"),

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="ShellPage" parent="AdwPreferencesPage">
+    <property name="name">shell</property>
+    <property name="title" translatable="yes">Shell</property>
+    <property name="icon-name">overview-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup" id="legacy_blur_notice">
+        <property name="visible">false</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Desktop</property>
+
+        <child>
+          <object class="ComponentRow" id="panel_row">
+            <property name="icon">bottom-panel-symbolic</property>
+            <property name="title" translatable="yes">Panel</property>
+            <property name="subtitle" translatable="yes">The top bar, or the panels from Dash to Panel</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="ComponentRow" id="dash_row">
+            <property name="icon">dash-symbolic</property>
+            <property name="title" translatable="yes">Dock</property>
+            <property name="subtitle" translatable="yes">Dash to Dock, Ubuntu Dock, Dhruva and similar docks</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="ComponentRow" id="popup_row">
+            <property name="icon">popup-symbolic</property>
+            <property name="title" translatable="yes">Popups</property>
+            <property name="subtitle" translatable="yes">Menus, quick settings, notifications and dialogs</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Overview</property>
+
+        <child>
+          <object class="ComponentRow" id="overview_row">
+            <property name="icon">overview-symbolic</property>
+            <property name="title" translatable="yes">Background</property>
+            <property name="subtitle" translatable="yes">The wallpaper behind the workspaces</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="ComponentRow" id="appfolder_row">
+            <property name="icon">folder-symbolic</property>
+            <property name="title" translatable="yes">App folders</property>
+            <property name="subtitle" translatable="yes">Folders opened from the app grid</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">System</property>
+
+        <child>
+          <object class="ComponentRow" id="lockscreen_row">
+            <property name="icon">lockscreen-symbolic</property>
+            <property name="title" translatable="yes">Lock screen</property>
+            <property name="subtitle" translatable="yes">Behind the password prompt</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="ComponentRow" id="screenshot_row">
+            <property name="icon">screenshot-ui-symbolic</property>
+            <property name="title" translatable="yes">Screenshot</property>
+            <property name="subtitle" translatable="yes">Behind the window selector</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Extensions</property>
+
+        <child>
+          <object class="ComponentRow" id="window_list_row">
+            <property name="icon">window-list-symbolic</property>
+            <property name="title" translatable="yes">Window List</property>
+            <property name="subtitle" translatable="yes">The taskbar from the Window List extension</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="ComponentRow" id="coverflow_alt_tab_row">
+            <property name="icon">coverflow-symbolic</property>
+            <property name="title" translatable="yes">Coverflow Alt-Tab</property>
+            <property name="subtitle" translatable="yes">Behind the window switcher</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="Pipelines" parent="AdwPreferencesPage">
+    <property name="name">pipelines</property>
+    <property name="title" translatable="yes">Pipelines</property>
+    <property name="icon-name">pipelines-symbolic</property>
+
+    <child>
+      <object class="AdwPreferencesGroup" id="pipelines_group">
+        <property name="description" translatable="yes">Pipelines are sets of effects that components share. Each component picks the pipeline it uses in its own settings.</property>
+        <property name="header-suffix">
+          <object class="GtkButton" id="add_pipeline">
+            <property name="valign">center</property>
+            <property name="child">
+              <object class="AdwButtonContent">
+                <property name="icon-name">list-add-symbolic</property>
+                <property name="label" translatable="yes">New Pipeline</property>
+              </object>
+            </property>
+            <style>
+              <class name="flat" />
+            </style>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>

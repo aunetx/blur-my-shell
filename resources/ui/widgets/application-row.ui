@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="ApplicationRow" parent="AdwEntryRow">
+    <property name="title" translatable="yes">Window class</property>
+
+    <child>
+      <object class="GtkButton" id="window_picker">
+        <property name="valign">center</property>
+        <property name="icon-name">select-window-symbolic</property>
+        <property name="tooltip-text" translatable="yes">Pick a Window</property>
+        <style>
+          <class name="flat" />
+        </style>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkButton" id="remove">
+        <property name="valign">center</property>
+        <property name="icon-name">user-trash-symbolic</property>
+        <property name="tooltip-text" translatable="yes">Remove</property>
+        <style>
+          <class name="flat" />
+        </style>
+      </object>
+    </child>
+  </template>
+
+  <object class="AdwToast" id="picking_failure_toast">
+    <property name="title" translatable="yes">Window selection failed. Make sure the extension is enabled.</property>
+  </object>
+
+  <object class="AdwToast" id="window_not_found_toast">
+    <property name="title" translatable="yes">The selected actor is not a window.</property>
+  </object>
+</interface>
