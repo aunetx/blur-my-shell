@@ -397,22 +397,46 @@
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%);
 }
 
-.bms-popup-background-light StEntry {
+.bms-popup-background-light .popup-menu-content StEntry,
+.bms-popup-background-light .quick-settings StEntry,
+.bms-popup-background-light .quick-toggle-menu StEntry,
+.bms-popup-background-light .message StEntry,
+.bms-popup-background-light .modal-dialog StEntry,
+.bms-popup-background-light .run-dialog StEntry,
+.bms-popup-background-light .clipboard-dialog StEntry {
     color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-.bms-popup-background-light StEntry:focus {
+.bms-popup-background-light .popup-menu-content StEntry:focus,
+.bms-popup-background-light .quick-settings StEntry:focus,
+.bms-popup-background-light .quick-toggle-menu StEntry:focus,
+.bms-popup-background-light .message StEntry:focus,
+.bms-popup-background-light .modal-dialog StEntry:focus,
+.bms-popup-background-light .run-dialog StEntry:focus,
+.bms-popup-background-light .clipboard-dialog StEntry:focus {
     color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-.bms-popup-background-light StEntry:insensitive {
+.bms-popup-background-light .popup-menu-content StEntry:insensitive,
+.bms-popup-background-light .quick-settings StEntry:insensitive,
+.bms-popup-background-light .quick-toggle-menu StEntry:insensitive,
+.bms-popup-background-light .message StEntry:insensitive,
+.bms-popup-background-light .modal-dialog StEntry:insensitive,
+.bms-popup-background-light .run-dialog StEntry:insensitive,
+.bms-popup-background-light .clipboard-dialog StEntry:insensitive {
     color: rgba(0, 0, 0, 0.4) !important;
     background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-.bms-popup-background-light StEntry StLabel.hint-text {
+.bms-popup-background-light .popup-menu-content StEntry StLabel.hint-text,
+.bms-popup-background-light .quick-settings StEntry StLabel.hint-text,
+.bms-popup-background-light .quick-toggle-menu StEntry StLabel.hint-text,
+.bms-popup-background-light .message StEntry StLabel.hint-text,
+.bms-popup-background-light .modal-dialog StEntry StLabel.hint-text,
+.bms-popup-background-light .run-dialog StEntry StLabel.hint-text,
+.bms-popup-background-light .clipboard-dialog StEntry StLabel.hint-text {
     color: rgba(0, 0, 0, 0.4) !important;
 }
 
