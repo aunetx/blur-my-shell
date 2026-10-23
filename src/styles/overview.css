@@ -21,13 +21,11 @@
     color: white !important;
     background-color: rgba(0, 0, 0, 0) !important;
     border-color: transparent;
-    box-shadow: none;
+    box-shadow: none !important;
 }
 
 .overview-components-transparent #overviewGroup .search-entry:focus {
     background-color: rgba(230, 230, 230, 0.08) !important;
-    box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
-    box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, #ffffff, 60%), 0.2) !important;
 }
 
 .overview-components-transparent #overviewGroup .search-entry .search-entry-icon,
@@ -166,15 +164,12 @@
 .overview-components-light #overviewGroup .search-entry:focus {
     color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(255, 255, 255, 0.58) !important;
-    box-shadow: none;
 }
 
 .search-entry.overview-components-light:focus,
 .overview-components-light #overviewGroup .search-entry:focus {
     border-color: transparent;
     background-color: rgba(255, 255, 255, 0.78) !important;
-    box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
-    box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
 }
 
 .search-entry.overview-components-light .search-entry-icon,
@@ -411,15 +406,12 @@
 .overview-components-dark #overviewGroup .search-entry:focus {
     color: white !important;
     background-color: rgba(255, 255, 255, 0.07) !important;
-    box-shadow: none;
 }
 
 .search-entry.overview-components-dark:focus,
 .overview-components-dark #overviewGroup .search-entry:focus {
     border-color: transparent;
     background-color: rgba(255, 255, 255, 0.12) !important;
-    box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.8) !important;
-    box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, #ffffff, 60%), 0.2) !important;
 }
 
 .search-entry.overview-components-dark .search-entry-icon,
