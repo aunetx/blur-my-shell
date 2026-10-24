@@ -91,6 +91,23 @@
         </child>
 
         <child>
+          <object class="AdwActionRow" id="opacity_warning">
+            <property name="visible">false</property>
+            <property name="title" translatable="yes">Dash to Dock controls background opacity</property>
+            <property name="subtitle" translatable="yes">To use Blur my Shell's background styles, set "Customize opacity" to "Default" in Dash to Dock → Appearance.</property>
+
+            <child type="prefix">
+              <object class="GtkImage">
+                <property name="icon-name">dialog-warning-symbolic</property>
+                <style>
+                  <class name="warning" />
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Disable in overview</property>
             <property name="subtitle" translatable="yes">Disables dock blur when entering the overview.</property>
