@@ -30,6 +30,11 @@ const VISIBILITY_SIGNALS = new Set([
     'notify::visible',
     'notify::mapped',
 ]);
+const GEOMETRY_SIGNALS = new Set([
+    'notify::allocation',
+    'notify::height',
+    'notify::width',
+]);
 const ANIMATION_SIGNALS = new Set([
     'notify::opacity',
     'notify::translation-x',
@@ -79,6 +84,12 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         if (is_visibility_change && (!actor.visible || !actor.mapped)) {
             this.remove_idle_update();
             this.surface.hide_surface();
+            return;
+        }
+        
+        if (GEOMETRY_SIGNALS.has(signal)) {
+            this.remove_idle_update();
+            this.surface.update();
             return;
         }
 
