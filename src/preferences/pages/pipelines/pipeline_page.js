@@ -6,6 +6,7 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 import { EffectRow } from '../../widgets/effect_row.js';
 import { present_effect_chooser } from './effect_chooser.js';
+import { get_pipeline_components } from './components.js';
 
 
 function clone_effects(effects) {
@@ -20,21 +21,6 @@ function clone_effects(effects) {
     }));
 }
 
-function get_component_names() {
-    return {
-        panel: _('Panel'),
-        dash_to_dock: _('Dock'),
-        popup: _('Popups'),
-        overview: _('Overview'),
-        appfolder: _('App folders'),
-        lockscreen: _('Lock screen'),
-        screenshot: _('Screenshot'),
-        window_list: _('Window List'),
-        coverflow_alt_tab: _('Coverflow Alt-Tab'),
-        applications: _('Applications'),
-    };
-}
-
 
 export const PipelinePage = GObject.registerClass({
     GTypeName: 'PipelinePage',
@@ -42,6 +28,8 @@ export const PipelinePage = GObject.registerClass({
     InternalChildren: [
         'name_group',
         'name',
+        'id_row',
+        'copy_id',
         'add_effect',
         'effects_list'
     ],
@@ -59,13 +47,16 @@ export const PipelinePage = GObject.registerClass({
             'changed',
             () => pipelines_manager.rename_pipeline(pipeline_id, this._name.text)
         );
+        this._id_row.subtitle = pipeline_id;
+        preferences.settings.bind('debug', this._id_row, 'visible', Gio.SettingsBindFlags.GET);
+        this._copy_id.connect('clicked', () => this.get_clipboard().set(pipeline_id));
+
         this._renamed_id = pipelines_manager.connect(
             `${pipeline_id}::pipeline-renamed`,
             (_obj, name) => this.update_title(name)
         );
 
-        this._components = Object.entries(get_component_names())
-            .map(([key, name]) => ({ component: preferences[key], name }));
+        this._components = get_pipeline_components(preferences);
         this._component_handlers = this._components.map(({ component }) => [
             component.settings,
             component.settings.connect('changed::pipeline', () => this.update_used_by()),

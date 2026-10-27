@@ -5,6 +5,7 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 import { PipelineRow } from './pipeline_row.js';
 import { PipelinePage } from './pipeline_page.js';
+import { get_pipeline_users } from './components.js';
 
 
 export const Pipelines = GObject.registerClass({
@@ -100,17 +101,39 @@ export const Pipelines = GObject.registerClass({
         this.open_pipeline(copy_id, true);
     }
 
+    /// Deleting a pipeline that components use switches them to the default one, so it is confirmed
+    /// first.
     delete_pipeline(pipeline_id) {
-        const pipeline = this.pipelines_manager.pipelines[pipeline_id];
-        const components = this.preferences.keys
-            .filter(bundle => bundle.schemas.some(key => key.name === 'pipeline'))
-            .map(bundle => this.preferences[bundle.component.replaceAll('-', '_')])
-            .filter(component => component.PIPELINE === pipeline_id);
+        const users = get_pipeline_users(this.preferences, pipeline_id);
+        if (users.length === 0) {
+            this.remove_pipeline_with_undo(pipeline_id, users);
+            return;
+        }
 
+        const name = this.pipelines_manager.pipelines[pipeline_id].name;
+        const dialog = new Adw.AlertDialog({
+            heading: name.length > 0
+                ? _('Delete “%s”?').replace('%s', () => name)
+                : _('Delete this pipeline?'),
+            body: _('It is used by %s, which will switch to the default pipeline.')
+                .replace('%s', () => users.map(({ name }) => name).join(', ')),
+        });
+        dialog.add_response('cancel', _('Cancel'));
+        dialog.add_response('delete', _('Delete'));
+        dialog.set_response_appearance('delete', Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_default_response('cancel');
+        dialog.set_close_response('cancel');
+        dialog.connect('response::delete', () => this.remove_pipeline_with_undo(pipeline_id, users));
+        dialog.present(this.window);
+    }
+
+    remove_pipeline_with_undo(pipeline_id, users) {
+        const pipeline = this.pipelines_manager.pipelines[pipeline_id];
         this.window.pop_subpage();
         if (!this.pipelines_manager.delete_pipeline(pipeline_id))
             return;
 
+        const components = users.map(({ component }) => component);
         this._deleted_pipelines.push({ pipeline_id, pipeline, components });
         this.show_pipeline_undo();
     }

@@ -24,6 +24,23 @@
                     <property name="title" translatable="yes">Name</property>
                   </object>
                 </child>
+
+                <child>
+                  <object class="AdwActionRow" id="id_row">
+                    <property name="title" translatable="yes">Pipeline id</property>
+                    <property name="subtitle-selectable">true</property>
+                    <child>
+                      <object class="GtkButton" id="copy_id">
+                        <property name="valign">center</property>
+                        <property name="icon-name">edit-copy-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">Copy</property>
+                        <style>
+                          <class name="flat" />
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
 
