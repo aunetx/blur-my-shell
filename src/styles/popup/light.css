@@ -397,23 +397,82 @@
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 20%);
 }
 
-.bms-popup-background-light StEntry {
+.bms-popup-background-light .popup-menu-content StEntry,
+.bms-popup-background-light .quick-settings StEntry,
+.bms-popup-background-light .quick-toggle-menu StEntry,
+.bms-popup-background-light .message StEntry,
+.bms-popup-background-light .modal-dialog StEntry,
+.bms-popup-background-light .run-dialog StEntry,
+.bms-popup-background-light .clipboard-dialog StEntry {
     color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-.bms-popup-background-light StEntry:focus {
+.bms-popup-background-light .popup-menu-content StEntry:focus,
+.bms-popup-background-light .quick-settings StEntry:focus,
+.bms-popup-background-light .quick-toggle-menu StEntry:focus,
+.bms-popup-background-light .message StEntry:focus,
+.bms-popup-background-light .modal-dialog StEntry:focus,
+.bms-popup-background-light .run-dialog StEntry:focus,
+.bms-popup-background-light .clipboard-dialog StEntry:focus {
     color: rgba(0, 0, 0, 0.85) !important;
     background-color: rgba(0, 0, 0, 0.1) !important;
-    box-shadow: inset 0 0 0 2px rgba(28, 113, 216, 0.5) !important;
-    box-shadow: inset 0 0 0 2px st-transparentize(-st-accent-color, 0.2) !important;
 }
 
-.bms-popup-background-light StEntry:insensitive {
+.bms-popup-background-light .popup-menu-content StEntry:insensitive,
+.bms-popup-background-light .quick-settings StEntry:insensitive,
+.bms-popup-background-light .quick-toggle-menu StEntry:insensitive,
+.bms-popup-background-light .message StEntry:insensitive,
+.bms-popup-background-light .modal-dialog StEntry:insensitive,
+.bms-popup-background-light .run-dialog StEntry:insensitive,
+.bms-popup-background-light .clipboard-dialog StEntry:insensitive {
     color: rgba(0, 0, 0, 0.4) !important;
     background-color: rgba(0, 0, 0, 0.05) !important;
 }
 
-.bms-popup-background-light StEntry StLabel.hint-text {
+.bms-popup-background-light .popup-menu-content StEntry StLabel.hint-text,
+.bms-popup-background-light .quick-settings StEntry StLabel.hint-text,
+.bms-popup-background-light .quick-toggle-menu StEntry StLabel.hint-text,
+.bms-popup-background-light .message StEntry StLabel.hint-text,
+.bms-popup-background-light .modal-dialog StEntry StLabel.hint-text,
+.bms-popup-background-light .run-dialog StEntry StLabel.hint-text,
+.bms-popup-background-light .clipboard-dialog StEntry StLabel.hint-text {
     color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.bms-popup-background-light .switcher-list .item-box,
+.bms-popup-background-light .switcher-list .item-box:hover,
+.bms-popup-background-light .switcher-list .item-box:focus,
+.bms-popup-background-light .switcher-list .item-box:active,
+.bms-popup-background-light .switcher-list .item-box:selected,
+.bms-popup-background-light .switcher-list .item-box:highlighted,
+.bms-popup-background-light .switcher-list .item-box:checked {
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.bms-popup-background-light .switcher-list .item-box:insensitive {
+    color: rgba(0, 0, 0, 0.4) !important;
+    background-color: transparent !important;
+}
+
+.bms-popup-background-light .switcher-list .separator {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.bms-popup-background-light .switcher-arrow {
+    border-color: rgba(0, 0, 0, 0.62);
+    color: rgba(0, 0, 0, 0.62);
+}
+
+.bms-popup-background-light .switcher-arrow:highlighted {
+    border-color: rgba(0, 0, 0, 0.85);
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.bms-popup-background-light .ws-switcher-indicator {
+    background-color: rgba(0, 0, 0, 0.38);
+}
+
+.bms-popup-background-light .ws-switcher-indicator:active {
+    background-color: rgba(0, 0, 0, 0.85);
 }

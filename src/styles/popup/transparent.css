@@ -394,23 +394,46 @@
     background-color: st-mix(-st-accent-fg-color, -st-accent-color, 30%);
 }
 
-.bms-popup-background-transparent StEntry {
+.bms-popup-background-transparent .popup-menu-content StEntry,
+.bms-popup-background-transparent .quick-settings StEntry,
+.bms-popup-background-transparent .quick-toggle-menu StEntry,
+.bms-popup-background-transparent .message StEntry,
+.bms-popup-background-transparent .modal-dialog StEntry,
+.bms-popup-background-transparent .run-dialog StEntry,
+.bms-popup-background-transparent .clipboard-dialog StEntry {
     background-color: rgba(255, 255, 255, 0.08) !important;
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.bms-popup-background-transparent StEntry:focus {
+.bms-popup-background-transparent .popup-menu-content StEntry:focus,
+.bms-popup-background-transparent .quick-settings StEntry:focus,
+.bms-popup-background-transparent .quick-toggle-menu StEntry:focus,
+.bms-popup-background-transparent .message StEntry:focus,
+.bms-popup-background-transparent .modal-dialog StEntry:focus,
+.bms-popup-background-transparent .run-dialog StEntry:focus,
+.bms-popup-background-transparent .clipboard-dialog StEntry:focus {
     color: rgba(255, 255, 255, 0.9) !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
-    box-shadow: inset 0 0 0 2px rgba(53, 132, 228, 0.5) !important;
-    box-shadow: inset 0 0 0 2px st-transparentize(st-mix(-st-accent-color, rgba(255, 255, 255, 0.9), 60%), 0.2) !important;
+    box-shadow: none !important;
 }
 
-.bms-popup-background-transparent StEntry:insensitive {
+.bms-popup-background-transparent .popup-menu-content StEntry:insensitive,
+.bms-popup-background-transparent .quick-settings StEntry:insensitive,
+.bms-popup-background-transparent .quick-toggle-menu StEntry:insensitive,
+.bms-popup-background-transparent .message StEntry:insensitive,
+.bms-popup-background-transparent .modal-dialog StEntry:insensitive,
+.bms-popup-background-transparent .run-dialog StEntry:insensitive,
+.bms-popup-background-transparent .clipboard-dialog StEntry:insensitive {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.bms-popup-background-transparent StEntry StLabel.hint-text {
+.bms-popup-background-transparent .popup-menu-content StEntry StLabel.hint-text,
+.bms-popup-background-transparent .quick-settings StEntry StLabel.hint-text,
+.bms-popup-background-transparent .quick-toggle-menu StEntry StLabel.hint-text,
+.bms-popup-background-transparent .message StEntry StLabel.hint-text,
+.bms-popup-background-transparent .modal-dialog StEntry StLabel.hint-text,
+.bms-popup-background-transparent .run-dialog StEntry StLabel.hint-text,
+.bms-popup-background-transparent .clipboard-dialog StEntry StLabel.hint-text {
     color: rgba(255, 255, 255, 0.5) !important;
 }
