@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 15:37+0200\n"
+"POT-Creation-Date: 2026-10-27 06:07+0100\n"
 "PO-Revision-Date: 2026-10-20 16:24+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -647,7 +647,7 @@ msgid "Main Menu"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:5
-#: src/preferences/pages/pipelines/pipeline_page.js:34
+#: src/preferences/pages/pipelines/components.js:16
 msgid "Applications"
 msgstr "Aplikasi"
 
@@ -806,30 +806,39 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:32
+#: resources/ui/pages/pipelines/pipeline-page.ui:30
+msgid "Pipeline id"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:36
+msgid "Copy"
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
 msgstr "Efek"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:33
+#: resources/ui/pages/pipelines/pipeline-page.ui:50
 msgid "Applied from top to bottom. Drag them to change the order."
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:40
+#: resources/ui/pages/pipelines/pipeline-page.ui:57
 #: src/preferences/pages/pipelines/effect_chooser.js:13
 msgid "Add Effect"
 msgstr "Tambahkan Efek"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:57
+#: resources/ui/pages/pipelines/pipeline-page.ui:74
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:78
+#: resources/ui/pages/pipelines/pipeline-page.ui:95
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:82
+#: resources/ui/pages/pipelines/pipeline-page.ui:99
+#: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
 msgstr ""
@@ -1201,7 +1210,7 @@ msgid "Desktop"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:21
-#: src/preferences/pages/pipelines/pipeline_page.js:25
+#: src/preferences/pages/pipelines/components.js:7
 msgid "Panel"
 msgstr "Panel"
 
@@ -1210,7 +1219,7 @@ msgid "The top bar, or the panels from Dash to Panel"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:29
-#: src/preferences/pages/pipelines/pipeline_page.js:26
+#: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
 msgstr ""
 
@@ -1219,7 +1228,7 @@ msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:37
-#: src/preferences/pages/pipelines/pipeline_page.js:27
+#: src/preferences/pages/pipelines/components.js:9
 msgid "Popups"
 msgstr "Popup"
 
@@ -1228,7 +1237,7 @@ msgid "Menus, quick settings, notifications and dialogs"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:46
-#: src/preferences/pages/pipelines/pipeline_page.js:28
+#: src/preferences/pages/pipelines/components.js:10
 msgid "Overview"
 msgstr "Ruang kerja"
 
@@ -1237,7 +1246,7 @@ msgid "The wallpaper behind the workspaces"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:59
-#: src/preferences/pages/pipelines/pipeline_page.js:29
+#: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
 msgstr ""
 
@@ -1250,7 +1259,7 @@ msgid "System"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:73
-#: src/preferences/pages/pipelines/pipeline_page.js:30
+#: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
 msgstr ""
 
@@ -1259,7 +1268,7 @@ msgid "Behind the password prompt"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:81
-#: src/preferences/pages/pipelines/pipeline_page.js:31
+#: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
 msgstr ""
 
@@ -1272,7 +1281,7 @@ msgid "Extensions"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:95
-#: src/preferences/pages/pipelines/pipeline_page.js:32
+#: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
 msgstr ""
 
@@ -1281,7 +1290,7 @@ msgid "The taskbar from the Window List extension"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:103
-#: src/preferences/pages/pipelines/pipeline_page.js:33
+#: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
 msgstr ""
 
@@ -1323,7 +1332,7 @@ msgid "Dynamic"
 msgstr "Dinamis"
 
 #: resources/ui/widgets/pipeline-choose-row.ui:4
-#: src/preferences/pages/pipelines/pipeline_page.js:100
+#: src/preferences/pages/pipelines/pipeline_page.js:91
 #: src/preferences/pages/pipelines/pipeline_row.js:69
 msgid "Pipeline"
 msgstr "Pipeline"
@@ -1416,7 +1425,7 @@ msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
 "Pipeline dan pengaturan komponen akan dikembalikan ke pengaturan bawaan."
 
-#: src/preferences/menu.js:86
+#: src/preferences/menu.js:86 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "Batal"
 
@@ -1424,33 +1433,47 @@ msgstr "Batal"
 msgid "Reset"
 msgstr "Mengatur ulang"
 
-#: src/preferences/pages/pipelines/index.js:77
+#: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
 msgstr "Pipeline baru"
 
-#: src/preferences/pages/pipelines/index.js:124
+#: src/preferences/pages/pipelines/index.js:116
+#, javascript-format
+msgid "Delete “%s”?"
+msgstr ""
+
+#: src/preferences/pages/pipelines/index.js:117
+msgid "Delete this pipeline?"
+msgstr ""
+
+#: src/preferences/pages/pipelines/index.js:118
+#, javascript-format
+msgid "It is used by %s, which will switch to the default pipeline."
+msgstr ""
+
+#: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
 msgstr "\"%s\" dihapus"
 
-#: src/preferences/pages/pipelines/index.js:125
+#: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
 msgstr "Pipeline dihapus"
 
-#: src/preferences/pages/pipelines/index.js:128
+#: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
 msgstr "Urungkan"
 
-#: src/preferences/pages/pipelines/pipeline_page.js:109
+#: src/preferences/pages/pipelines/pipeline_page.js:100
 msgid "Used by every component"
 msgstr ""
 
-#: src/preferences/pages/pipelines/pipeline_page.js:111
+#: src/preferences/pages/pipelines/pipeline_page.js:102
 #, javascript-format
 msgid "Used by %s"
 msgstr ""
 
-#: src/preferences/pages/pipelines/pipeline_page.js:113
+#: src/preferences/pages/pipelines/pipeline_page.js:104
 msgid "Not used by any component yet"
 msgstr ""
 
