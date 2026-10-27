@@ -23,8 +23,10 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
 const HEAVY_SURFACE_STYLE_CLASSES = [
     'datemenu-popover', 'quick-settings', 'modal-dialog',
     'candidate-popup-content', 'candidate-popup-boxpointer',
-    'bms-redraw-blur-instant',
 ];
+// Opt-in class for surfaces that resize as they are typed into, and so need their
+// geometry applied on the allocation instead of on the next frame.
+const INSTANT_REDRAW_STYLE_CLASSES = ['bms-redraw-blur-instant'];
 const QUICK_SETTINGS_STYLE_CLASSES = [
     'quick-toggle-menu', 'quick-settings', 'datemenu-popover',
 ];
@@ -163,7 +165,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     is_heavy_surface() {
-        return this.matches_any_style_class(HEAVY_SURFACE_STYLE_CLASSES);
+        return this.matches_any_style_class(HEAVY_SURFACE_STYLE_CLASSES)
+            || this.is_instant_redraw_surface();
+    }
+
+    is_instant_redraw_surface() {
+        return this.matches_any_style_class(INSTANT_REDRAW_STYLE_CLASSES);
     }
 
     is_notification_surface() {

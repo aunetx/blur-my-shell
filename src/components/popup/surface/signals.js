@@ -62,11 +62,12 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
         this.connected_actors.add(actor);
 
         const is_heavy_surface = this.surface.is_heavy_surface();
+        const is_instant_surface = this.surface.is_instant_redraw_surface();
         const signals = actor instanceof St.Widget ? WIDGET_SIGNALS : ACTOR_SIGNALS;
         signals.forEach(signal => this.connections.connect(
             actor,
             signal,
-            () => this.on_actor_changed(actor, signal, is_heavy_surface)
+            () => this.on_actor_changed(actor, signal, is_heavy_surface, is_instant_surface)
         ));
     }
 
@@ -79,15 +80,19 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
             this.connect_actor(ancestor);
     }
 
-    on_actor_changed(actor, signal, is_heavy_surface) {
+    on_actor_changed(actor, signal, is_heavy_surface, is_instant_surface) {
         const is_visibility_change = VISIBILITY_SIGNALS.has(signal);
         if (is_visibility_change && (!actor.visible || !actor.mapped)) {
             this.remove_idle_update();
             this.surface.hide_surface();
             return;
         }
-        
-        if (GEOMETRY_SIGNALS.has(signal)) {
+
+        // A surface that opted into `bms-redraw-blur-instant` resizes while it is being
+        // laid out, so its new geometry has to be applied before the frame is painted;
+        // deferring it leaves the area that just appeared unblurred for a frame. Every
+        // other popup keeps the deferred update, which is what makes them smooth.
+        if (is_instant_surface && GEOMETRY_SIGNALS.has(signal)) {
             this.remove_idle_update();
             this.surface.update();
             return;
