@@ -19,8 +19,8 @@ delete package-owned files manually for these installations.
 ## Installations made with the old helper
 
 Download and review the [previous helper script](https://github.com/aunetx/blur-my-shell/blob/f69c69e8693bfe1220bf315774fa3b9d30bed940/scripts/rounded_blur_build.sh).
-The notice's “Copy command” button copies the following command. It downloads
-the pinned helper and only runs it if the download succeeds:
+The following command downloads the pinned helper and only runs it if the
+download succeeds:
 
 ```sh
 curl -fLO https://raw.githubusercontent.com/aunetx/blur-my-shell/f69c69e8693bfe1220bf315774fa3b9d30bed940/scripts/rounded_blur_build.sh &&
