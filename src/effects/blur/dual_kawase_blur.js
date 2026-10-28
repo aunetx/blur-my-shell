@@ -4,6 +4,7 @@ import GObject from 'gi://GObject';
 import * as utils from '../../conveniences/utils.js';
 import { getEffectBounds } from '../../render/effect_bounds.js';
 import { get_view_framebuffer } from '../../render/backdrop/painted_view.js';
+import { addRectangle, setPaintOpacity } from '../../render/paint_nodes.js';
 import { getKawaseConfiguration, getKawaseInputBounds } from './kawase_sampling.js';
 import {
     DOWNSAMPLE_CODE,
@@ -455,18 +456,10 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         }
 
         this.updateOutputUniforms(actor, inputBounds, framebuffer);
-        const opacity = actor.get_paint_opacity() / 255;
-        const outputColor = new Cogl.Color();
-        outputColor.init_from_4f(opacity, opacity, opacity, opacity);
-        this.outputPipeline.set_color(outputColor);
+        setPaintOpacity(this.outputPipeline, actor.get_paint_opacity() / 255);
         const outputNode = new Clutter.PipelineNode(this.outputPipeline);
         outputNode.set_name('BmsDualKawase output');
-        outputNode.add_rectangle(new Clutter.ActorBox({
-            x1: inputBounds.x,
-            y1: inputBounds.y,
-            x2: inputBounds.x + inputBounds.width,
-            y2: inputBounds.y + inputBounds.height,
-        }));
+        addRectangle(outputNode, inputBounds.x, inputBounds.y, inputBounds.width, inputBounds.height);
         node.add_child(outputNode);
     }
 

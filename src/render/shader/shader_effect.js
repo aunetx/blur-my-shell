@@ -4,6 +4,7 @@ import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 import { getEffectBounds } from '../effect_bounds.js';
 import { get_view_framebuffer } from '../backdrop/painted_view.js';
+import { addRectangle, setPaintOpacity } from '../paint_nodes.js';
 import {
     getTextureCapacity,
     largestViewSize,
@@ -163,18 +164,11 @@ export const SurfaceShaderEffect = GObject.registerClass({
             this.target.originX = this.target.x;
             this.target.originY = this.target.y;
         }
-        const actor = this.get_actor();
-        const opacity = actor.get_paint_opacity() / 255;
-        const color = new Cogl.Color();
-        color.init_from_4f(opacity, opacity, opacity, opacity);
-        this.target.pipeline.set_color(color);
+        setPaintOpacity(this.target.pipeline, this.get_actor().get_paint_opacity() / 255);
         const output = new Clutter.PipelineNode(this.target.pipeline);
         output.set_name('BmsShader output');
-        output.add_rectangle(new Clutter.ActorBox({
-            x1: this.target.x, y1: this.target.y,
-            x2: this.target.x + this.target.logicalWidth,
-            y2: this.target.y + this.target.logicalHeight,
-        }));
+        addRectangle(output, this.target.x, this.target.y,
+            this.target.logicalWidth, this.target.logicalHeight);
         node.add_child(output);
     }
 
