@@ -2,7 +2,6 @@
 <interface domain="blur-my-shell@aunetx">
   <template class="PipelineChooseRow" parent="AdwActionRow">
     <property name="title" translatable="yes">Pipeline</property>
-    <property name="subtitle" translatable="yes">The pipeline to be used with this component.</property>
     <property name="activatable-widget">pipeline_choose</property>
 
     <child>

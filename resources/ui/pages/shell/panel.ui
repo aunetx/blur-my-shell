@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="Panel" parent="AdwPreferencesPage">
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="AdwSwitchRow" id="blur">
+            <property name="title" translatable="yes">Blur</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <child>
+          <object class="BlurModeRow" id="blur_mode_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="unblur_in_overview">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Appearance</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSpinRow">
+            <property name="title" translatable="yes">Corner radius</property>
+            <property name="adjustment">corner_radius</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="rounded_corners">
+            <property name="title" translatable="yes">Rounded corners</property>
+            <property name="model">rounded_corners_model</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="force_light_text">
+            <property name="title" translatable="yes">Force light text</property>
+            <property name="subtitle" translatable="yes">Useful with a light shell theme</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="match_theme_in_overview">
+            <property name="title" translatable="yes">Match theme in overview</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Background</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="override_background">
+            <property name="title" translatable="yes">Override background</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="style_panel">
+            <property name="title" translatable="yes">Background style</property>
+            <property name="model">style_panel_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="override_background_dynamically">
+            <property name="title" translatable="yes">Override background dynamically</property>
+            <property name="subtitle" translatable="yes">Changes the background when a window is near the panel</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="override_background_dynamically_mode">
+            <property name="title" translatable="yes">When a window is near</property>
+            <property name="subtitle" translatable="yes">Blur on Window Proximity: Blur only when a window is near the panel and transparent when it is not.
+Background on Window Proximity: Solid color background when a window is near the panel and blur when it is not.</property>
+            <property name="model">override_background_dynamically_mode_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="gradient_panel">
+            <property name="title" translatable="yes">Gradient background</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwComboRow" id="gradient_panel_mode">
+            <property name="title" translatable="yes">Gradient direction</property>
+            <property name="model">gradient_panel_mode_model</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Compatibility</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="hidetopbar_compatibility">
+            <property name="title" translatable="yes">Hidetopbar extension</property>
+            <property name="subtitle" translatable="yes">Keeps the blur visible in the overview, best with static blur</property>
+            <property name="sensitive" bind-source="unblur_in_overview" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="dtp_blur_original_panel">
+            <property name="title" translatable="yes">Blur original panel with Dash to Panel</property>
+            <property name="subtitle" translatable="yes">When Dash to Panel keeps the original panel</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+  <object class="GtkStringList" id="rounded_corners_model">
+    <items>
+      <item translatable="yes">All</item>
+      <item translatable="yes">Top only</item>
+      <item translatable="yes">Bottom only</item>
+      <item translatable="yes">None</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="style_panel_model">
+    <items>
+      <item translatable="yes">Transparent</item>
+      <item translatable="yes">Light</item>
+      <item translatable="yes">Dark</item>
+      <item translatable="yes">Contrasted</item>
+      <item translatable="yes">Automatic</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="override_background_dynamically_mode_model">
+    <items>
+      <item translatable="yes">Blur on Window Proximity</item>
+      <item translatable="yes">Background on Window Proximity</item>
+    </items>
+  </object>
+
+  <object class="GtkStringList" id="gradient_panel_mode_model">
+    <items>
+      <item translatable="yes">Top</item>
+      <item translatable="yes">Bottom</item>
+    </items>
+  </object>
+
+  <object class="GtkAdjustment" id="corner_radius">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
+</interface>

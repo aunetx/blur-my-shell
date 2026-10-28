@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="blur-my-shell@aunetx">
-  <menu id="info_menu_model">
+  <menu id="main_menu_model">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Debug Logging</attribute>
+        <attribute name="action">prefs.debug</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Reset Preferences…</attribute>
+        <attribute name="action">prefs.reset</attribute>
+      </item>
+    </section>
     <section>
       <item>
         <attribute name="label" translatable="yes">Project page</attribute>
@@ -14,23 +24,14 @@
         <attribute name="label" translatable="yes">License</attribute>
         <attribute name="action">prefs.open-license</attribute>
       </item>
-      <submenu>
-        <attribute name="label" translatable="yes">Donate</attribute>
-        <item>
-          <attribute name="label">GitHub</attribute>
-          <attribute name="action">prefs.donate-github</attribute>
-        </item>
-        <item>
-          <attribute name="label">Ko-fi</attribute>
-          <attribute name="action">prefs.donate-kofi</attribute>
-        </item>
-      </submenu>
     </section>
   </menu>
 
-  <object class="GtkMenuButton" id="info_menu">
-    <property name="menu-model">info_menu_model</property>
-    <property name="icon-name">heart-symbolic</property>
+  <object class="GtkMenuButton" id="main_menu">
+    <property name="menu-model">main_menu_model</property>
+    <property name="icon-name">open-menu-symbolic</property>
+    <property name="primary">true</property>
+    <property name="tooltip-text" translatable="yes">Main Menu</property>
   </object>
 
   <object class="AdwPreferencesPage" id="menu_util"></object>

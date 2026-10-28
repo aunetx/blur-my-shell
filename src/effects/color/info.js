@@ -9,7 +9,6 @@ export function get_color_effects(_) {
             class: ColorEffect,
             name: _("Color"),
             description: _("An effect that blends a color into the pipeline."),
-            is_advanced: false,
             // TODO make this RGB + blend
             editable_params: {
                 color: {
@@ -49,7 +48,6 @@ export function get_color_effects(_) {
             class: LuminosityEffect,
             name: _("Luminosity"),
             description: _("An effect that affects the luminosity of the image."),
-            is_advanced: false,
             editable_params: {
                 brightness_shift: {
                     name: _("Shift brightness"),
@@ -107,14 +105,12 @@ export function get_color_effects(_) {
             class: RgbToHslEffect,
             name: _("RGB to HSL (advanced effect)"),
             description: _("Converts the image from RGBA color space to HSLA."),
-            is_advanced: true,
             editable_params: {}
         },
         hsl_to_rgb: {
             class: HslToRgbEffect,
             name: _("HSL to RGB (advanced effect)"),
             description: _("Converts the image from HSLA color space to RGBA."),
-            is_advanced: true,
             editable_params: {}
         },
     };

@@ -1,38 +1,20 @@
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
-import Gio from 'gi://Gio';
 
+import { bind_settings } from '../bind_settings.js';
 import { ApplicationRow } from '../widgets/application_row.js';
 
-
-const make_array = prefs_group => {
-    let list_box = prefs_group
-        .get_first_child()
-        .get_last_child()
-        .get_first_child();
-
-    let elements = [];
-    let i = 0;
-    let element = list_box.get_row_at_index(i);
-    while (element) {
-        elements.push(element);
-        i++;
-        element = list_box.get_row_at_index(i);
-    }
-
-    return elements;
-};
+import '../widgets/blur_mode_row.js';
 
 
 export const Applications = GObject.registerClass({
     GTypeName: 'Applications',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/applications.ui', GLib.UriFlags.NONE),
+    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/applications.ui', GLib.UriFlags.NONE),
     InternalChildren: [
         'blur',
+        'blur_mode_row',
         'pipeline_choose_row',
-        'mode_static',
-        'mode_dynamic',
         'corner_radius',
         'rounded_corners',
         'corner_when_maximized',
@@ -42,9 +24,9 @@ export const Applications = GObject.registerClass({
         'unblur_when_fullscreen',
         'enable_all',
         'whitelist',
-        'add_window_whitelist',
+        'add_whitelist',
         'blacklist',
-        'add_window_blacklist'
+        'add_blacklist'
     ],
 }, class Applications extends Adw.PreferencesPage {
     constructor(preferences, preferences_window, pipelines_manager, pipelines_page) {
@@ -55,171 +37,88 @@ export const Applications = GObject.registerClass({
         this.pipelines_manager = pipelines_manager;
         this.pipelines_page = pipelines_page;
 
-        this.preferences.applications.settings.bind(
-            'blur', this._blur, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-
+        this._blur_mode_row.initialize(this.preferences.applications);
         this._pipeline_choose_row.initialize(
             this.preferences.applications, this.pipelines_manager, this.pipelines_page
         );
 
-        this.change_blur_mode(this.preferences.applications.STATIC_BLUR, true);
-
-        this._mode_static.connect('toggled',
-            () => this.preferences.applications.STATIC_BLUR = this._mode_static.active
-        );
-        this.preferences.applications.STATIC_BLUR_changed(
-            () => this.change_blur_mode(this.preferences.applications.STATIC_BLUR, false)
-        );
-
-        this.preferences.applications.settings.bind(
-            'opacity', this._opacity, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'dynamic-opacity', this._dynamic_opacity, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'blur-on-overview', this._blur_on_overview, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'unblur-when-fullscreen', this._unblur_when_fullscreen, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'enable-all', this._enable_all, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'corner-radius', this._corner_radius, 'value',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'rounded-corners', this._rounded_corners, 'selected',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        this.preferences.applications.settings.bind(
-            'corner-when-maximized', this._corner_when_maximized, 'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
+        bind_settings(this.preferences.applications, [
+            ['blur', this._blur, 'active'],
+            ['opacity', this._opacity, 'value'],
+            ['dynamic-opacity', this._dynamic_opacity, 'active'],
+            ['corner-radius', this._corner_radius, 'value'],
+            ['rounded-corners', this._rounded_corners, 'selected'],
+            ['corner-when-maximized', this._corner_when_maximized, 'active'],
+            ['blur-on-overview', this._blur_on_overview, 'active'],
+            ['unblur-when-fullscreen', this._unblur_when_fullscreen, 'active'],
+            ['enable-all', this._enable_all, 'active'],
+        ]);
 
         this._enable_all.bind_property(
             'active', this._whitelist, 'visible',
-            GObject.BindingFlags.INVERT_BOOLEAN
+            GObject.BindingFlags.SYNC_CREATE | GObject.BindingFlags.INVERT_BOOLEAN
         );
         this._enable_all.bind_property(
             'active', this._blacklist, 'visible',
-            GObject.BindingFlags.DEFAULT
+            GObject.BindingFlags.SYNC_CREATE
         );
 
-        if (this._enable_all.active)
-            this._whitelist.visible = false;
-        this._blacklist.visible = !this._whitelist.visible;
+        this._lists = {
+            whitelist: { group: this._whitelist, key: 'WHITELIST', rows: [] },
+            blacklist: { group: this._blacklist, key: 'BLACKLIST', rows: [] },
+        };
+        this._add_whitelist.connect('clicked', () => this.add_window(this._lists.whitelist));
+        this._add_blacklist.connect('clicked', () => this.add_window(this._lists.blacklist));
 
-        this._add_window_whitelist.connect('clicked',
-            () => this.add_to_whitelist()
-        );
-        this._add_window_blacklist.connect('clicked',
-            () => this.add_to_blacklist()
-        );
-
-        this.add_widgets_from_lists();
+        this.add_windows_from_settings();
 
         this.preferences.connect('reset', () => {
-            this.remove_all_widgets();
-            this.add_widgets_from_lists();
+            this.remove_all_windows();
+            this.add_windows_from_settings();
         });
     }
 
-    get _whitelist_elements() {
-        return make_array(this._whitelist);
+    add_windows_from_settings() {
+        for (const list of Object.values(this._lists)) {
+            this.preferences.applications[list.key].forEach(
+                app_name => this.add_window(list, app_name)
+            );
+        }
     }
 
-    get _blacklist_elements() {
-        return make_array(this._blacklist);
-    }
-
-    add_widgets_from_lists() {
-        this.preferences.applications.WHITELIST.forEach(
-            app_name => this.add_to_whitelist(app_name)
-        );
-
-        this.preferences.applications.BLACKLIST.forEach(
-            app_name => this.add_to_blacklist(app_name)
-        );
-
-    }
-
-    close_all_expanded_rows() {
-        this._whitelist_elements.forEach(
-            element => element.set_expanded(false)
-        );
-        this._blacklist_elements.forEach(
-            element => element.set_expanded(false)
-        );
-    }
-
-    remove_all_widgets() {
-        this._whitelist_elements.forEach(element => {
-            element.cleanup();
-            this._whitelist.remove(element);
+    add_window(list, app_name = null) {
+        const row = new ApplicationRow(this._preferences_window, app_name, {
+            on_changed: () => this.save_list(list),
+            on_removed: removed => this.remove_window(list, removed),
         });
-        this._blacklist_elements.forEach(element => {
-            element.cleanup();
-            this._blacklist.remove(element);
-        });
+        list.rows.push(row);
+        list.group.add(row);
     }
 
-    add_to_whitelist(app_name = null) {
-        let window_row = new ApplicationRow('whitelist', this, app_name);
-        this._whitelist.add(window_row);
+    remove_window(list, row) {
+        row.cleanup();
+        list.group.remove(row);
+        list.rows.splice(list.rows.indexOf(row), 1);
+        this.save_list(list);
     }
 
-    add_to_blacklist(app_name = null) {
-        let window_row = new ApplicationRow('blacklist', this, app_name);
-        this._blacklist.add(window_row);
+    remove_all_windows() {
+        for (const list of Object.values(this._lists)) {
+            list.rows.forEach(row => {
+                row.cleanup();
+                list.group.remove(row);
+            });
+            list.rows = [];
+        }
     }
 
-    update_whitelist_titles() {
-        let titles = this._whitelist_elements
-            .map(element => element._window_class.buffer.text)
-            .filter(title => title != "");
-
-        this.preferences.applications.WHITELIST = titles;
-    }
-
-    update_blacklist_titles() {
-        let titles = this._blacklist_elements
-            .map(element => element._window_class.buffer.text)
-            .filter(title => title != "");
-
-        this.preferences.applications.BLACKLIST = titles;
-    }
-
-    remove_from_whitelist(widget) {
-        widget.cleanup();
-        this._whitelist.remove(widget);
-        this.update_whitelist_titles();
-    }
-
-    remove_from_blacklist(widget) {
-        widget.cleanup();
-        this._blacklist.remove(widget);
-        this.update_blacklist_titles();
-    }
-
-    change_blur_mode(is_static_blur, first_run) {
-        this._mode_static.set_active(is_static_blur);
-        if (first_run)
-            this._mode_dynamic.set_active(!is_static_blur);
-
+    save_list(list) {
+        this.preferences.applications[list.key] = list.rows
+            .map(row => row.text)
+            .filter(app_name => app_name !== '');
     }
 
     cleanup() {
-        [...this._whitelist_elements, ...this._blacklist_elements]
-            .forEach(element => element.cleanup());
+        Object.values(this._lists).forEach(list => list.rows.forEach(row => row.cleanup()));
     }
 });
