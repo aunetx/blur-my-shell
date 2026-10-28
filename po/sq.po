@@ -8,191 +8,201 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-18 09:34+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-10-29 17:51+0000\n"
+"Last-Translator: Kristof Imeri <kristof@lanth.me>\n"
+"Language-Team: Albanian <https://hosted.weblate.org/projects/blur-my-shell/"
+"blur-my-shell/sq/>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Mjegullim Dual Kawase"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Një mjegullim i shpejtë dhe me cilësi të lartë."
 
 #: src/effects/blur/info.js:12
 msgid "Radius"
-msgstr ""
+msgstr "Rrezja"
 
 #: src/effects/blur/info.js:13
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Intensiteti i efektit të mjegullimit."
 
 #: src/effects/blur/info.js:22 src/effects/wave/info.js:78
 msgid "Brightness"
-msgstr ""
+msgstr "Ndriçimi"
 
 #: src/effects/blur/info.js:23
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
+"Ndriçimi i efektit të mjegullimit; një vlerë e lartë mund ta bëjë tekstin më "
+"të vështirë për t'u lexuar."
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:16
 #: src/effects/color/info.js:42
 msgid "Color"
-msgstr ""
+msgstr "Ngjyra"
 
 #: src/effects/color/info.js:11
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "Një efekt që përzien një ngjyrë në zinxhir."
 
 #: src/effects/color/info.js:17
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"Ngjyra që përzihet. Sasia e përzierjes kontrollohet nga patejdukshmëria e "
+"ngjyrës."
 
 #: src/effects/color/info.js:22
 msgid "Blend mode"
-msgstr ""
+msgstr "Mënyra e përzierjes"
 
 #: src/effects/color/info.js:23
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Si përzihet ngjyra."
 
 #: src/effects/color/info.js:26
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #: src/effects/color/info.js:27
 msgid "Multiply"
-msgstr ""
+msgstr "Shumëzim"
 
 #: src/effects/color/info.js:28
 msgid "Screen"
-msgstr ""
+msgstr "Ekran"
 
 #: src/effects/color/info.js:29
 msgid "Overlay"
-msgstr ""
+msgstr "Mbivendosje"
 
 #: src/effects/color/info.js:30
 msgid "Darken"
-msgstr ""
+msgstr "Errësim"
 
 #: src/effects/color/info.js:31
 msgid "Lighten"
-msgstr ""
+msgstr "Ndriçim"
 
 #: src/effects/color/info.js:32
 msgid "Plus darker"
-msgstr ""
+msgstr "Më e errët"
 
 #: src/effects/color/info.js:33
 msgid "Plus lighter"
-msgstr ""
+msgstr "Më e çelët"
 
 #: src/effects/color/info.js:34
 msgid "Color dodge"
-msgstr ""
+msgstr "Shmangie ngjyre"
 
 #: src/effects/color/info.js:35
 msgid "Color burn"
-msgstr ""
+msgstr "Djegie ngjyre"
 
 #: src/effects/color/info.js:36
 msgid "Hard light"
-msgstr ""
+msgstr "Dritë e fortë"
 
 #: src/effects/color/info.js:37
 msgid "Soft light"
-msgstr ""
+msgstr "Dritë e butë"
 
 #: src/effects/color/info.js:38
 msgid "Difference"
-msgstr ""
+msgstr "Diferencë"
 
 #: src/effects/color/info.js:39
 msgid "Exclusion"
-msgstr ""
+msgstr "Përjashtim"
 
 #: src/effects/color/info.js:40
 msgid "Hue"
-msgstr ""
+msgstr "Nuancë"
 
 #: src/effects/color/info.js:41 src/effects/color/info.js:95
 #: src/effects/wave/info.js:68
 msgid "Saturation"
-msgstr ""
+msgstr "Ngopje"
 
 #: src/effects/color/info.js:43 src/effects/color/info.js:50
 msgid "Luminosity"
-msgstr ""
+msgstr "Shkëlqim"
 
 #: src/effects/color/info.js:51
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "Një efekt që ndikon në shkëlqimin e figurës."
 
 #: src/effects/color/info.js:55
 msgid "Shift brightness"
-msgstr ""
+msgstr "Zhvendos ndriçimin"
 
 #: src/effects/color/info.js:56
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Ndriçimi që i shtohet ose i hiqet figurës."
 
 #: src/effects/color/info.js:65
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Shumëzuesi i ndriçimit"
 
 #: src/effects/color/info.js:66
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Shumëzon ndriçimin e figurës; 0 është e zezë dhe 1 e lë ndriçimin të "
+"pandryshuar."
 
 #: src/effects/color/info.js:75
 msgid "Contrast"
-msgstr ""
+msgstr "Kontrasti"
 
 #: src/effects/color/info.js:76
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "Rregullon kontrastin e figurës rreth qendrës së zgjedhur të kontrastit."
 
 #: src/effects/color/info.js:85
 msgid "Contrast center"
-msgstr ""
+msgstr "Qendra e kontrastit"
 
 #: src/effects/color/info.js:86
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Qendra e kontrastit që përdoret."
 
 #: src/effects/color/info.js:96
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Shumëzon ngopjen e figurës; 0 heq të gjitha ngjyrat dhe 1 e lë ngopjen të "
+"pandryshuar."
 
 #: src/effects/color/info.js:108
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB në HSL (efekt i avancuar)"
 
 #: src/effects/color/info.js:109
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "E kthen figurën nga hapësira e ngjyrave RGBA në HSLA."
 
 #: src/effects/color/info.js:115
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL në RGB (efekt i avancuar)"
 
 #: src/effects/color/info.js:116
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "E kthen figurën nga hapësira e ngjyrave HSLA në RGBA."
 
 #: src/effects/effect_groups.js:4
 msgid "Blur effects"
@@ -204,373 +214,395 @@ msgstr ""
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Xham i lëngshëm"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"Një material i shndritshëm e i tejdukshëm, me thyerje drite në skaje, "
+"ndriçim të buzës, ngjyrim dhe hije të brendshme."
 
 #: src/effects/refraction/info.js:12
 msgid "Refraction scale"
-msgstr ""
+msgstr "Shkalla e thyerjes"
 
 #: src/effects/refraction/info.js:13
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "Sa fort e përkul xhami teksturën e mjegulluar."
 
 #: src/effects/refraction/info.js:22
 msgid "Blur radius"
-msgstr ""
+msgstr "Rrezja e mjegullimit"
 
 #: src/effects/refraction/info.js:23
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
-msgstr ""
+msgstr "Mjegullon sfondin para se të zbatohet efekti i xhamit të lëngshëm."
 
 #: src/effects/refraction/info.js:32
 msgid "Bezel width"
-msgstr ""
+msgstr "Gjerësia e kornizës"
 
 #: src/effects/refraction/info.js:33
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "Sa larg brenda nga skaji shtrihet thjerrëza e xhamit të lëngshëm."
 
 #: src/effects/refraction/info.js:42
 msgid "Rim spread"
-msgstr ""
+msgstr "Shtrirja e buzës"
 
 #: src/effects/refraction/info.js:43
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "Sa larg brenda nga skaji i xhamit zbutet thyerja e dritës."
 
 #: src/effects/refraction/info.js:52
 msgid "Glass thickness"
-msgstr ""
+msgstr "Trashësia e xhamit"
 
 #: src/effects/refraction/info.js:53
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "Thellësia që përdor profili i thyerjes në skaj."
 
 #: src/effects/refraction/info.js:62
 msgid "Refraction style"
-msgstr ""
+msgstr "Stili i thyerjes"
 
 #: src/effects/refraction/info.js:63
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"Forma e përkuljes pranë skajit. Vlerat e ulëta përkulin butë, vlerat më të "
+"larta përkulin më fort pikërisht në skaj."
 
 #: src/effects/refraction/info.js:72
 msgid "Fresnel glare"
-msgstr ""
+msgstr "Shkëlqimi Fresnel"
 
 #: src/effects/refraction/info.js:73
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "Fuqia e shkëlqimit të drejtuar Fresnel nga skaji i xhamit."
 
 #: src/effects/refraction/info.js:82
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "Këndi i shkëlqimit Fresnel"
 
 #: src/effects/refraction/info.js:83
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"Drejtimi i dritës së shkëlqimit Fresnel, në gradë (0 është nga lart, vlerat "
+"pozitive rrotullojnë sipas akrepave të orës)."
 
 #: src/effects/refraction/info.js:92
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "Gjerësia e shkëlqimit Fresnel"
 
 #: src/effects/refraction/info.js:93
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr ""
+"Shumëzuesi i trashësisë së unazës së shkëlqimit Fresnel përgjatë skajit të "
+"xhamit."
 
 #: src/effects/refraction/info.js:102
 msgid "Specular glare strength"
-msgstr ""
+msgstr "Fuqia e shkëlqimit pasqyrues"
 
 #: src/effects/refraction/info.js:103
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr ""
+"Fuqia e shkëlqimit pasqyrues që tregon drejtimin e dritës (0 e çaktivizon)."
 
 #: src/effects/refraction/info.js:112
 msgid "Tint strength"
-msgstr ""
+msgstr "Fuqia e ngjyrimit"
 
 #: src/effects/refraction/info.js:113
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr ""
+"Sasia e një ngjyrimi të lehtë qumështor xhami mbi teksturën e mjegulluar."
 
 #: src/effects/refraction/info.js:122
 msgid "Tint color"
-msgstr ""
+msgstr "Ngjyra e ngjyrimit"
 
 #: src/effects/refraction/info.js:123
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
+"Ngjyra që përzihet mbi teksturën e mjegulluar, sipas fuqisë së ngjyrimit."
 
 #: src/effects/refraction/info.js:128
 msgid "Backdrop zoom"
-msgstr ""
+msgstr "Zmadhimi i sfondit"
 
 #: src/effects/refraction/info.js:129
 msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
+msgstr "Niveli i zmadhimit të sfondit që duket përmes xhamit."
 
 #: src/effects/refraction/info.js:138
 msgid "Inner shadow"
-msgstr ""
+msgstr "Hija e brendshme"
 
 #: src/effects/refraction/info.js:139
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
+"Errëson skajin e poshtëm dhe të brendshëm për një sipërfaqe xhami më të "
+"thellë."
 
 #: src/effects/refraction/info.js:148
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "Shpërndarja kromatike"
 
 #: src/effects/refraction/info.js:149
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr ""
+"Shpërndarje fizike e thyerjes së dritës për çdo kanal në skajin e xhamit."
 
 #: src/effects/refraction/info.js:158
 msgid "Edge behavior"
-msgstr ""
+msgstr "Sjellja në skaje"
 
 #: src/effects/refraction/info.js:159
 msgid "How texture coordinates outside the actor are sampled."
-msgstr ""
+msgstr "Si merren mostrat për koordinatat e teksturës jashtë aktorit."
 
 #: src/effects/refraction/info.js:162
 msgid "Clamp"
-msgstr ""
+msgstr "Kufizo"
 
 #: src/effects/refraction/info.js:163
 msgid "Mirror"
-msgstr ""
+msgstr "Pasqyro"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
-msgstr ""
+msgstr "Pikselizim"
 
 #: src/effects/texture/info.js:12
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "Një efekt që e pikselizon figurën."
 
 #: src/effects/texture/info.js:16 src/effects/texture/info.js:42
 #: src/effects/texture/info.js:68
 msgid "Factor"
-msgstr ""
+msgstr "Faktori"
 
 #: src/effects/texture/info.js:17 src/effects/texture/info.js:43
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Sa të zvogëlohet figura."
 
 #: src/effects/texture/info.js:24 src/effects/texture/info.js:50
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Mënyra e zvogëlimit"
 
 #: src/effects/texture/info.js:25 src/effects/texture/info.js:51
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Metoda e zvogëlimit që përdoret."
 
 #: src/effects/texture/info.js:28 src/effects/texture/info.js:54
 msgid "Boxcar"
-msgstr ""
+msgstr "Kuti"
 
 #: src/effects/texture/info.js:29 src/effects/texture/info.js:55
 msgid "Triangular"
-msgstr ""
+msgstr "Trekëndësh"
 
 #: src/effects/texture/info.js:30 src/effects/texture/info.js:56
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/texture/info.js:37
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Zvogëlim (efekt i avancuar)"
 
 #: src/effects/texture/info.js:38
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "Një efekt që e zvogëlon figurën dhe e vendos në këndin lart majtas."
 
 #: src/effects/texture/info.js:63
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Zmadhim (efekt i avancuar)"
 
 #: src/effects/texture/info.js:64
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "Një efekt që e zmadhon figurën nga këndi lart majtas."
 
 #: src/effects/texture/info.js:69
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Sa të zmadhohet figura."
 
 #: src/effects/texture/info.js:79
 msgid "Derivative"
-msgstr ""
+msgstr "Derivati"
 
 #: src/effects/texture/info.js:80
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Zbaton një derivat hapësinor ose një laplacian."
 
 #: src/effects/texture/info.js:84
 msgid "Operation"
-msgstr ""
+msgstr "Veprimi"
 
 #: src/effects/texture/info.js:85
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Veprimi matematik që zbatohet."
 
 #: src/effects/texture/info.js:88
 msgid "1-step derivative"
-msgstr ""
+msgstr "Derivat me 1 hap"
 
 #: src/effects/texture/info.js:89
 msgid "2-step derivative"
-msgstr ""
+msgstr "Derivat me 2 hapa"
 
 #: src/effects/texture/info.js:90
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplacian"
 
 #: src/effects/texture/info.js:97 src/effects/texture/info.js:102
 msgid "Noise"
-msgstr ""
+msgstr "Zhurma"
 
 #: src/effects/texture/info.js:98
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "Një efekt që i shton figurës kokrriza të rastësishme."
 
 #: src/effects/texture/info.js:103
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Sasia e zhurmës që shtohet."
 
 #: src/effects/texture/info.js:112
 msgid "Lightness"
-msgstr ""
+msgstr "Çelësia"
 
 #: src/effects/texture/info.js:113
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
-msgstr ""
+msgstr "Shkëlqimi i zhurmës. Vlera '1.0' e bën efektin të tejdukshëm."
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "Valë avulli"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
 msgstr ""
+"Një zhvendosje me valë që rrjedhin, për një ndjesi të gjallë dhe dinamike me "
+"lëvizje natyrale."
 
 #: src/effects/wave/info.js:12
 msgid "Wave frequency"
-msgstr ""
+msgstr "Frekuenca e valëve"
 
 #: src/effects/wave/info.js:13
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "Sa të dendura janë valëzimet."
 
 #: src/effects/wave/info.js:22
 msgid "Wave amplitude"
-msgstr ""
+msgstr "Amplituda e valëve"
 
 #: src/effects/wave/info.js:23
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "Sa fort e zhvendosin valët figurën."
 
 #: src/effects/wave/info.js:32
 msgid "Wave octaves"
-msgstr ""
+msgstr "Oktavat e valëve"
 
 #: src/effects/wave/info.js:33
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Niveli i detajeve të formës së valës. Vlerat më të larta shtojnë detaje në "
+"kurriz të shpejtësisë."
 
 #: src/effects/wave/info.js:40
 msgid "Vapor octaves"
-msgstr ""
+msgstr "Oktavat e avullit"
 
 #: src/effects/wave/info.js:41
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Niveli i detajeve të teksturës së mjegullt. Vlerat më të larta shtojnë "
+"detaje në kurriz të shpejtësisë."
 
 #: src/effects/wave/info.js:48
 msgid "Vapor speed"
-msgstr ""
+msgstr "Shpejtësia e avullit"
 
 #: src/effects/wave/info.js:49
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "Sa shpejt lëviz me kohën tekstura e mjegullt e avullit."
 
 #: src/effects/wave/info.js:58
 msgid "Texture grain"
-msgstr ""
+msgstr "Kokrrizat e teksturës"
 
 #: src/effects/wave/info.js:59
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "I shton figurës një teksturë të imët si e rërëzuar."
 
 #: src/effects/wave/info.js:69
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "Ngopja e efektit."
 
 #: src/effects/wave/info.js:79
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "Ndriçimi i efektit."
 
 #: src/effects/wave/info.js:88
 msgid "Zoom"
-msgstr ""
+msgstr "Zmadhimi"
 
 #: src/effects/wave/info.js:89
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "E zmadhon sfondin drejt qendrës së sipërfaqes."
 
 #: src/effects/wave/info.js:98
 msgid "Dispersion"
-msgstr ""
+msgstr "Shpërndarja"
 
 #: src/effects/wave/info.js:99
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "Fuqia e aberacionit kromatik për një ndjesi defekti."
 
 #: src/effects/wave/info.js:108
 msgid "Enable flow animation"
-msgstr ""
+msgstr "Aktivizo animacionin e rrjedhjes"
 
 #: src/effects/wave/info.js:109
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "Nëse zhurma e valëve rrjedh vazhdimisht me kohën."
 
 #: src/effects/wave/info.js:113
 msgid "Flow animation speed"
-msgstr ""
+msgstr "Shpejtësia e animacionit të rrjedhjes"
 
 #: src/effects/wave/info.js:114
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "Shpejtësia bazë me të cilën rrjedh modeli i valëve."
 
 #: src/effects/wave/info.js:123
 msgid "Resize ease duration"
-msgstr ""
+msgstr "Kohëzgjatja e përshtatjes së madhësisë"
 
 #: src/effects/wave/info.js:124
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"Sa kohë i duhet efektit të përshtatet kur një dritare ndryshon madhësi "
+"(milisekonda)."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -586,15 +618,15 @@ msgstr ""
 
 #: resources/ui/application-row.ui:41
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "Zgjedhja e dritares dështoi. Sigurohu që zgjerimi është i aktivizuar."
 
 #: resources/ui/application-row.ui:45
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "Aktori i zgjedhur nuk është dritare."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
-msgstr ""
+msgstr "Aplikacionet"
 
 #: resources/ui/applications.ui:10
 msgid "Applications blur"
@@ -607,7 +639,7 @@ msgstr ""
 #: resources/ui/applications.ui:20 resources/ui/dash.ui:20
 #: resources/ui/panel.ui:20 resources/ui/popup.ui:20
 msgid "Blur type"
-msgstr ""
+msgstr "Lloji i mjegullimit"
 
 #: resources/ui/applications.ui:21
 msgid ""
@@ -618,17 +650,17 @@ msgstr ""
 #: resources/ui/applications.ui:41 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41 resources/ui/popup.ui:41
 msgid "Static"
-msgstr ""
+msgstr "Statik"
 
 #: resources/ui/applications.ui:53 resources/ui/dash.ui:53
 #: resources/ui/panel.ui:53 resources/ui/popup.ui:53
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamik"
 
 #: resources/ui/applications.ui:71 resources/ui/panel.ui:71
 #: resources/ui/popup.ui:71
 msgid "Corner radius"
-msgstr ""
+msgstr "Rrezja e qosheve"
 
 #: resources/ui/applications.ui:72 resources/ui/panel.ui:72
 msgid "Radius for the corner rounding effect."
@@ -637,31 +669,31 @@ msgstr ""
 #: resources/ui/applications.ui:80 resources/ui/panel.ui:80
 #: resources/ui/popup.ui:161
 msgid "Rounded corners"
-msgstr ""
+msgstr "Qoshet e rrumbullakuara"
 
 #: resources/ui/applications.ui:85 resources/ui/panel.ui:85
 #: resources/ui/popup.ui:166
 msgid "All"
-msgstr ""
+msgstr "Të gjitha"
 
 #: resources/ui/applications.ui:86 resources/ui/panel.ui:86
 #: resources/ui/popup.ui:167
 msgid "Top only"
-msgstr ""
+msgstr "Vetëm lart"
 
 #: resources/ui/applications.ui:87 resources/ui/panel.ui:87
 #: resources/ui/popup.ui:168
 msgid "Bottom only"
-msgstr ""
+msgstr "Vetëm poshtë"
 
 #: resources/ui/applications.ui:88 resources/ui/panel.ui:88
 #: resources/ui/popup.ui:169
 msgid "None"
-msgstr ""
+msgstr "Asnjë"
 
 #: resources/ui/applications.ui:97
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "Rrumbullako dritaret e maksimizuara dhe në ekran të plotë"
 
 #: resources/ui/applications.ui:98
 msgid ""
@@ -671,7 +703,7 @@ msgstr ""
 
 #: resources/ui/applications.ui:112
 msgid "Opacity"
-msgstr ""
+msgstr "Patejdukshmëria"
 
 #: resources/ui/applications.ui:113
 msgid ""
@@ -681,7 +713,7 @@ msgstr ""
 
 #: resources/ui/applications.ui:134
 msgid "Opaque focused window"
-msgstr ""
+msgstr "Dritarja aktive e patejdukshme"
 
 #: resources/ui/applications.ui:135
 msgid ""
@@ -691,7 +723,7 @@ msgstr ""
 
 #: resources/ui/applications.ui:149
 msgid "Blur on overview"
-msgstr ""
+msgstr "Mjegullim në përmbledhje"
 
 #: resources/ui/applications.ui:150
 msgid ""
@@ -701,7 +733,7 @@ msgstr ""
 
 #: resources/ui/applications.ui:165
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "Hiq mjegullimin në ekran të plotë"
 
 #: resources/ui/applications.ui:166
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
@@ -728,7 +760,7 @@ msgstr ""
 
 #: resources/ui/applications.ui:217 resources/ui/applications.ui:255
 msgid "Add Window"
-msgstr ""
+msgstr "Shto dritare"
 
 #: resources/ui/applications.ui:235
 msgid "Blacklist"
@@ -763,7 +795,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:71 resources/ui/panel.ui:112 resources/ui/popup.ui:180
 msgid "Override background"
-msgstr ""
+msgstr "Zëvendëso sfondin"
 
 #: resources/ui/dash.ui:72
 msgid ""
@@ -773,7 +805,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:78 resources/ui/panel.ui:120 resources/ui/popup.ui:201
 msgid "Background style"
-msgstr ""
+msgstr "Stili i sfondit"
 
 #: resources/ui/dash.ui:79
 msgid "The transparent/semi-transparent style for the dock background."
@@ -781,7 +813,7 @@ msgstr ""
 
 #: resources/ui/dash.ui:95 resources/ui/panel.ui:197
 msgid "Disable in overview"
-msgstr ""
+msgstr "Çaktivizo në përmbledhje"
 
 #: resources/ui/dash.ui:96
 msgid "Disables dock blur when entering the overview."
@@ -791,30 +823,30 @@ msgstr ""
 #: resources/ui/overview.ui:90 resources/ui/panel.ui:252
 #: resources/ui/popup.ui:293
 msgid "Transparent"
-msgstr ""
+msgstr "E tejdukshme"
 
 #: resources/ui/dash.ui:114 resources/ui/overview.ui:80
 #: resources/ui/overview.ui:91 resources/ui/panel.ui:253
 #: resources/ui/popup.ui:294
 msgid "Light"
-msgstr ""
+msgstr "E çelët"
 
 #: resources/ui/dash.ui:115 resources/ui/overview.ui:81
 #: resources/ui/overview.ui:92 resources/ui/panel.ui:254
 #: resources/ui/popup.ui:295
 msgid "Dark"
-msgstr ""
+msgstr "E errët"
 
 #: resources/ui/dash.ui:116 resources/ui/overview.ui:83
 #: resources/ui/overview.ui:93 resources/ui/panel.ui:256
 #: resources/ui/popup.ui:296
 msgid "Automatic"
-msgstr ""
+msgstr "Automatik"
 
 #: resources/ui/effects-dialog.ui:4
 #: src/preferences/widgets/effects_dialog.js:46
 msgid "Effects"
-msgstr ""
+msgstr "Efektet"
 
 #: resources/ui/effects-dialog.ui:13
 msgid "Effects list"
@@ -826,7 +858,7 @@ msgstr ""
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
-msgstr ""
+msgstr "Shto efekt"
 
 #: resources/ui/effects-dialog.ui:72
 msgid "Include advanced effects"
@@ -834,15 +866,15 @@ msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Project page"
-msgstr ""
+msgstr "Faqja e projektit"
 
 #: resources/ui/menu.ui:10
 msgid "Report a Bug"
-msgstr ""
+msgstr "Raporto një gabim"
 
 #: resources/ui/menu.ui:14
 msgid "License"
-msgstr ""
+msgstr "Licenca"
 
 #: resources/ui/menu.ui:18
 msgid "Donate"
@@ -904,11 +936,11 @@ msgstr ""
 
 #: resources/ui/other.ui:115 src/preferences/pages/other.js:83
 msgid "Reset"
-msgstr ""
+msgstr "Rikthe"
 
 #: resources/ui/overview.ui:5
 msgid "Overview"
-msgstr ""
+msgstr "Përmbledhja"
 
 #: resources/ui/overview.ui:10
 msgid "Background blur"
@@ -920,7 +952,7 @@ msgstr ""
 
 #: resources/ui/overview.ui:26
 msgid "Overview components style"
-msgstr ""
+msgstr "Stili i përbërësve të përmbledhjes"
 
 #: resources/ui/overview.ui:27
 msgid ""
@@ -938,7 +970,7 @@ msgstr ""
 
 #: resources/ui/overview.ui:60
 msgid "Application folder dialogs style"
-msgstr ""
+msgstr "Stili i dialogëve të dosjeve të aplikacioneve"
 
 #: resources/ui/overview.ui:61
 msgid "The semi-transparent style for the application folder dialogs."
@@ -946,11 +978,11 @@ msgstr ""
 
 #: resources/ui/overview.ui:79 resources/ui/overview.ui:89
 msgid "Do not style"
-msgstr ""
+msgstr "Pa stil"
 
 #: resources/ui/panel.ui:5
 msgid "Panel"
-msgstr ""
+msgstr "Paneli"
 
 #: resources/ui/panel.ui:10
 msgid "Panel blur"
@@ -968,7 +1000,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:97
 msgid "Force light text"
-msgstr ""
+msgstr "Detyro tekst të çelët"
 
 #: resources/ui/panel.ui:98
 msgid ""
@@ -988,7 +1020,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:135
 msgid "Override background dynamically"
-msgstr ""
+msgstr "Zëvendëso sfondin në mënyrë dinamike"
 
 #: resources/ui/panel.ui:136
 msgid "Change the panel background when a window is near it."
@@ -996,7 +1028,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:149
 msgid "When a window is near"
-msgstr ""
+msgstr "Kur një dritare është pranë"
 
 #: resources/ui/panel.ui:150
 msgid ""
@@ -1005,10 +1037,14 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"Mjegullim kur afrohet një dritare: mjegullo vetëm kur një dritare është "
+"pranë panelit dhe e tejdukshme kur nuk është.\n"
+"Sfond kur afrohet një dritare: sfond me ngjyrë të plotë kur një dritare "
+"është pranë panelit dhe mjegullim kur nuk është."
 
 #: resources/ui/panel.ui:165
 msgid "Gradient background"
-msgstr ""
+msgstr "Sfond me gradient"
 
 #: resources/ui/panel.ui:166
 msgid "Apply a gradient effect to the panel background."
@@ -1016,7 +1052,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:179
 msgid "Gradient direction"
-msgstr ""
+msgstr "Drejtimi i gradientit"
 
 #: resources/ui/panel.ui:180
 msgid "Change the direction of the gradient background."
@@ -1028,7 +1064,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:214
 msgid "Compatibility"
-msgstr ""
+msgstr "Përputhshmëria"
 
 #: resources/ui/panel.ui:215
 msgid "Various options to provide compatibility with other extensions."
@@ -1036,7 +1072,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:220
 msgid "Hidetopbar extension"
-msgstr ""
+msgstr "Zgjerimi Hidetopbar"
 
 #: resources/ui/panel.ui:221
 msgid "Keeps the blur visible in the overview; best used with static blur."
@@ -1044,7 +1080,7 @@ msgstr ""
 
 #: resources/ui/panel.ui:235
 msgid "Blur original panel with Dash to Panel"
-msgstr ""
+msgstr "Mjegullo panelin origjinal me Dash to Panel"
 
 #: resources/ui/panel.ui:236
 msgid ""
@@ -1054,27 +1090,27 @@ msgstr ""
 
 #: resources/ui/panel.ui:255
 msgid "Contrasted"
-msgstr ""
+msgstr "Me kontrast"
 
 #: resources/ui/panel.ui:262
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "Mjegullim kur afrohet një dritare"
 
 #: resources/ui/panel.ui:263
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "Sfond kur afrohet një dritare"
 
 #: resources/ui/panel.ui:269
 msgid "Top"
-msgstr ""
+msgstr "Lart"
 
 #: resources/ui/panel.ui:270
 msgid "Bottom"
-msgstr ""
+msgstr "Poshtë"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
-msgstr ""
+msgstr "Zinxhiri"
 
 #: resources/ui/pipeline-choose-row.ui:5
 msgid "The pipeline to be used with this component."
@@ -1090,11 +1126,11 @@ msgstr ""
 
 #: resources/ui/pipeline-undo-toast.ui:28
 msgid "Undo"
-msgstr ""
+msgstr "Zhbëj"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Zinxhirët"
 
 #: resources/ui/pipelines.ui:16
 msgid ""
@@ -1108,7 +1144,7 @@ msgstr ""
 
 #: resources/ui/popup.ui:5
 msgid "Popups"
-msgstr ""
+msgstr "Dritaret kërcyese"
 
 #: resources/ui/popup.ui:10
 msgid "Popup blur"
@@ -1132,51 +1168,51 @@ msgstr ""
 
 #: resources/ui/popup.ui:77
 msgid "Menus"
-msgstr ""
+msgstr "Menutë"
 
 #: resources/ui/popup.ui:84
 msgid "Input method candidates"
-msgstr ""
+msgstr "Kandidatët e metodës së hyrjes"
 
 #: resources/ui/popup.ui:91
 msgid "Quick settings"
-msgstr ""
+msgstr "Rregullimet e shpejta"
 
 #: resources/ui/popup.ui:98
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "Nënmenutë e rregullimeve të shpejta"
 
 #: resources/ui/popup.ui:105
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Kalendari dhe qendra e njoftimeve"
 
 #: resources/ui/popup.ui:112
 msgid "Notifications"
-msgstr ""
+msgstr "Njoftimet"
 
 #: resources/ui/popup.ui:119
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "Ndërruesit e dritareve dhe hapësirave të punës"
 
 #: resources/ui/popup.ui:126
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Volumi dhe ndriçimi"
 
 #: resources/ui/popup.ui:133
 msgid "Window resize hints"
-msgstr ""
+msgstr "Udhëzimet për ndryshimin e madhësisë së dritareve"
 
 #: resources/ui/popup.ui:140
 msgid "Dialogs"
-msgstr ""
+msgstr "Dialogët"
 
 #: resources/ui/popup.ui:147
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "Tastiera në ekran"
 
 #: resources/ui/popup.ui:154
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "Dritare të tjera kërcyese"
 
 #: resources/ui/popup.ui:181
 msgid ""
@@ -1186,11 +1222,11 @@ msgstr ""
 
 #: resources/ui/popup.ui:187
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "Ruaj temën e shell-it"
 
 #: resources/ui/popup.ui:188
 msgid "Keep your shell theme's colors for popup controls."
-msgstr ""
+msgstr "Ruaj ngjyrat e temës së shell-it për kontrollet e dritareve kërcyese."
 
 #: resources/ui/popup.ui:202
 msgid "The transparent/semi-transparent style for popups."
@@ -1198,43 +1234,52 @@ msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur nuk nevojitet më"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell i trajton vetë qoshet e rrumbullakuara. Mund ta heqësh "
+"bibliotekën e vjetër nëse nuk e përdor asgjë tjetër."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Udhëzimet për heqjen"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Mbyll njoftimin"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Heqja e bibliotekës së vjetër të mjegullimit"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"Heqja nuk është e detyrueshme. Mbaje bibliotekën nëse ndonjë zgjerim tjetër "
+"ka ende nevojë për të."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"E instalove me një menaxhues paketash? Hiq paketën gnome-rounded-blur me të "
+"njëjtin menaxhues paketash. Shqyrto ndryshimet që propozon para se të "
+"konfirmosh."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"E instalove me ndihmësin e vjetër të Blur my Shell? Udhëzimet shpjegojnë si "
+"të nisësh çinstaluesin e tij."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1242,37 +1287,42 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"E ndërtove nga kodi burimor? Përdor “sudo ninja -C build uninstall” nga "
+"dosja origjinale e ndërtimit, ose ndiq regjistrin e instalimit. Mos e përdor "
+"ndihmësin për të hequr një instalim të menaxhuar nga paketat."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"Dil dhe hyr sërish pas heqjes. Blur my Shell nuk çinstalon asgjë për ty."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Mbyll"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Hap udhëzimet"
 
 #: src/preferences/pages/other.js:79
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Të rikthehen të gjitha parapëlqimet?"
 
 #: src/preferences/pages/other.js:80
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
+"Zinxhirët dhe rregullimet e përbërësve do të kthehen në parazgjedhjet e tyre."
 
 #: src/preferences/pages/other.js:82
 msgid "Cancel"
-msgstr ""
+msgstr "Anulo"
 
 #: src/preferences/pages/pipelines.js:46
 #: src/preferences/widgets/pipeline_choose_row.js:64
 msgid "New pipeline"
-msgstr ""
+msgstr "Zinxhir i ri"
 
 #: src/preferences/widgets/effects_dialog.js:45
 #, javascript-format
@@ -1281,7 +1331,7 @@ msgstr ""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Krijo një zinxhir të ri"
 
 #: src/preferences/widgets/pipeline_group.js:30
 #, javascript-format
@@ -1301,13 +1351,13 @@ msgstr[1] ""
 
 #: src/preferences/widgets/pipeline_group.js:91
 msgid "Unknown effect"
-msgstr ""
+msgstr "Efekt i panjohur"
 
 #: src/preferences/widgets/pipeline_undo_toast.js:16
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" u fshi"
 
 #: src/preferences/widgets/pipeline_undo_toast.js:17
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Zinxhiri u fshi"
