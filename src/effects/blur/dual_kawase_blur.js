@@ -1,8 +1,10 @@
+import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
 import * as utils from '../../conveniences/utils.js';
 import { getEffectBounds } from '../../render/effect_bounds.js';
 import { get_view_framebuffer } from '../../render/backdrop/painted_view.js';
+import { addRectangle, setPaintOpacity } from '../../render/paint_nodes.js';
 import { getKawaseConfiguration, getKawaseInputBounds } from './kawase_sampling.js';
 import {
     DOWNSAMPLE_CODE,
@@ -33,6 +35,8 @@ import {
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
 const St = await utils.import_in_shell_only('gi://St');
+
+const HIDDEN_RELEASE_DELAY_S = 5;
 
 const DEFAULT_PARAMS = {
     unscaled_radius: 30,
@@ -105,10 +109,12 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.y = 0;
         this.capacityWidth = 0;
         this.capacityHeight = 0;
+        this.shrinkableSince = 0;
         this.context = null;
         this.appliedSampling = null;
         this.blurValid = false;
-        this.appliedCornerMask = null;
+        this.appliedOutputUniforms = null;
+        this.releaseId = 0;
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
@@ -134,8 +140,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (this._unscaled_radius === radius)
             return;
         this._unscaled_radius = radius;
-        if (radius === 0)
-            this.releaseTargets();
+        this.updateRelease();
         this.queue_repaint();
         this.notify('unscaled-radius');
         this.notify('radius');
@@ -173,8 +178,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (this._opacity_factor === opacityFactor)
             return;
         this._opacity_factor = opacityFactor;
-        if (opacityFactor === 0)
-            this.releaseTargets();
+        this.updateRelease();
         if (this.outputPipeline)
             setFloat(this.outputPipeline, 'opacity_factor', opacityFactor);
         this.queue_repaint();
@@ -226,21 +230,22 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             && (this.corners_top || this.corners_bottom);
     }
 
-    /// The corners are cut out in the output pass, against the surface bounds rather than the
-    /// padded area that is blurred.
-    updateCornerMask(actor, outputBounds, framebuffer) {
+    /// The output pass cuts out the corners against the surface bounds rather than the padded area
+    /// that is blurred, and dithers in the actor's own pixels.
+    updateOutputUniforms(actor, outputBounds, framebuffer) {
         const surface = getEffectBounds(actor);
+        const resourceScale = actor.get_resource_scale();
         const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
         const radius = this.roundsCorners()
             ? Math.min(this.corner_radius * themeScale, surface.width / 2, surface.height / 2)
             : 0;
-        const mask = [
+        const uniforms = [
             radius, this.corners_top, this.corners_bottom,
             outputBounds.width, outputBounds.height, outputBounds.x, outputBounds.y,
             surface.x - outputBounds.x, surface.y - outputBounds.y, surface.width, surface.height,
-            framebuffer?.get_viewport_width(), framebuffer?.get_viewport_height(),
+            framebuffer?.get_viewport_width(), framebuffer?.get_viewport_height(), resourceScale,
         ];
-        if (this.appliedCornerMask?.every((value, index) => value === mask[index]))
+        if (this.appliedOutputUniforms?.every((value, index) => value === uniforms[index]))
             return;
 
         const pipeline = this.outputPipeline;
@@ -255,11 +260,12 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         setFloat(pipeline, 'mask_height', surface.height);
         setFloat(pipeline, 'bms_origin_x', outputBounds.x);
         setFloat(pipeline, 'bms_origin_y', outputBounds.y);
+        setFloat(pipeline, 'bms_resource_scale', resourceScale);
         if (framebuffer) {
             setFloat(pipeline, 'bms_viewport_width', framebuffer.get_viewport_width());
             setFloat(pipeline, 'bms_viewport_height', framebuffer.get_viewport_height());
         }
-        this.appliedCornerMask = mask;
+        this.appliedOutputUniforms = uniforms;
     }
 
     ensureTargets(context, bounds, scale, passes) {
@@ -271,7 +277,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             this.capacityWidth = width;
             this.capacityHeight = height;
             this.context = context;
-        } else if (!textureFits(width, this.capacityWidth) || !textureFits(height, this.capacityHeight)) {
+        } else if (!textureFits(this, width, height, this.capacityWidth, this.capacityHeight)) {
             const limit = largestViewSize();
             const capacityWidth = getTextureCapacity(width, this.capacityWidth, limit.width);
             const capacityHeight = getTextureCapacity(height, this.capacityHeight, limit.height);
@@ -449,19 +455,11 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             this.blurValid = true;
         }
 
-        this.updateCornerMask(actor, inputBounds, framebuffer);
-        const opacity = actor.get_paint_opacity() / 255;
-        const outputColor = new Cogl.Color();
-        outputColor.init_from_4f(opacity, opacity, opacity, opacity);
-        this.outputPipeline.set_color(outputColor);
+        this.updateOutputUniforms(actor, inputBounds, framebuffer);
+        setPaintOpacity(this.outputPipeline, actor.get_paint_opacity() / 255);
         const outputNode = new Clutter.PipelineNode(this.outputPipeline);
         outputNode.set_name('BmsDualKawase output');
-        outputNode.add_rectangle(new Clutter.ActorBox({
-            x1: inputBounds.x,
-            y1: inputBounds.y,
-            x2: inputBounds.x + inputBounds.width,
-            y2: inputBounds.y + inputBounds.height,
-        }));
+        addRectangle(outputNode, inputBounds.x, inputBounds.y, inputBounds.width, inputBounds.height);
         node.add_child(outputNode);
     }
 
@@ -510,15 +508,44 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.logicalHeight = 0;
         this.capacityWidth = 0;
         this.capacityHeight = 0;
+        this.shrinkableSince = 0;
         this.context = null;
         this.appliedSampling = null;
-        this.appliedCornerMask = null;
+        this.appliedOutputUniforms = null;
         this.blurValid = false;
     }
 
-    vfunc_set_actor(actor) {
-        if (!actor)
+    /// An invisible blur doesn't need its textures, but keeps them a little while in case it shows up
+    /// again, like a menu opened right after being closed.
+    updateRelease() {
+        if (this._unscaled_radius === 0 || this._opacity_factor === 0)
+            this.queueRelease();
+        else
+            this.cancelRelease();
+    }
+
+    queueRelease() {
+        if (this.releaseId)
+            return;
+        this.releaseId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, HIDDEN_RELEASE_DELAY_S, () => {
+            this.releaseId = 0;
             this.releaseTargets();
+            return GLib.SOURCE_REMOVE;
+        });
+    }
+
+    cancelRelease() {
+        if (!this.releaseId)
+            return;
+        GLib.source_remove(this.releaseId);
+        this.releaseId = 0;
+    }
+
+    vfunc_set_actor(actor) {
+        if (!actor) {
+            this.cancelRelease();
+            this.releaseTargets();
+        }
         super.vfunc_set_actor(actor);
     }
 });

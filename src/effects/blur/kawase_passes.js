@@ -1,5 +1,6 @@
 import * as utils from '../../conveniences/utils.js';
 import { get_snippet } from '../../render/shader/snippet_cache.js';
+import { addRectangle } from '../../render/paint_nodes.js';
 import { ANTIALIASING_SOURCE } from '../../render/shader/antialiasing.js';
 import { TEXTURE_REGION_SOURCE, textureRegionDeclarations } from '../../render/shader/texture_region.js';
 
@@ -75,7 +76,10 @@ uniform float mask_width;
 uniform float mask_height;
 ${ANTIALIASING_SOURCE}
 
-// interleaved gradient noise, breaking up the 8-bit steps a smooth gradient gets once it is darkened
+uniform float bms_resource_scale;
+
+// interleaved gradient noise, breaking up the 8-bit steps a smooth gradient gets once it is darkened.
+// It follows the blur rather than the framebuffer, which can start elsewhere for partial redraws.
 float dither(vec2 position) {
     return fract(52.9829189 * fract(dot(position, vec2(0.06711056, 0.00583715)))) - 0.5;
 }
@@ -106,9 +110,10 @@ if (level_blend > 0.0) {
 }
 filteredColor.rgb *= brightness;
 cogl_color_out = mix(sourceColor, filteredColor, opacity_factor) * cogl_color_in.a;
-cogl_color_out.rgb += dither(gl_FragCoord.xy) * 2.0 / 255.0 * cogl_color_out.a;
+vec2 position = cogl_tex_coord_in[0].xy * vec2(output_width, output_height);
+cogl_color_out.rgb += dither(position * bms_resource_scale) * 2.0 / 255.0 * cogl_color_out.a;
 if (corner_radius > 0.0)
-    cogl_color_out *= corner_coverage(cogl_tex_coord_in[0].xy * vec2(output_width, output_height));
+    cogl_color_out *= corner_coverage(position);
 `;
 
 function createSnippet(declarations, code) {
@@ -182,11 +187,6 @@ export function addPassNode(parent, target, pipeline, bounds, name) {
 
     const pipelineNode = new Clutter.PipelineNode(pipeline);
     pipelineNode.set_name(`${name} sample`);
-    pipelineNode.add_rectangle(new Clutter.ActorBox({
-        x1: bounds.x,
-        y1: bounds.y,
-        x2: bounds.x + bounds.width,
-        y2: bounds.y + bounds.height,
-    }));
+    addRectangle(pipelineNode, bounds.x, bounds.y, bounds.width, bounds.height);
     layerNode.add_child(pipelineNode);
 }

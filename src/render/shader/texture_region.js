@@ -1,4 +1,7 @@
+import GLib from 'gi://GLib';
+
 const TEXTURE_HEADROOM = 1.25;
+const SHRINK_DELAY_US = 2000000;
 const REGION_COMPONENTS = ['scale_x', 'scale_y', 'max_x', 'max_y'];
 
 export const TEXTURE_REGION_SOURCE = `
@@ -17,8 +20,21 @@ export function textureRegionDeclarations(name) {
     return `${uniforms}\n#define ${name} vec4(${components})\n`;
 }
 
-export function textureFits(size, capacity) {
-    return size <= capacity && size * 2 > capacity;
+/// Whether a texture can keep holding content of this size. It has to grow as soon as the content
+/// doesn't fit, but only shrinks once the content has stayed under half its size for a while, so
+/// that animations, which go through every size, don't reallocate it on every frame.
+export function textureFits(owner, width, height, capacityWidth, capacityHeight) {
+    if (width > capacityWidth || height > capacityHeight)
+        return false;
+
+    if (width * 2 > capacityWidth && height * 2 > capacityHeight) {
+        owner.shrinkableSince = 0;
+        return true;
+    }
+
+    const now = GLib.get_monotonic_time();
+    owner.shrinkableSince ||= now;
+    return now - owner.shrinkableSince < SHRINK_DELAY_US;
 }
 
 export function largestViewSize() {
@@ -32,9 +48,13 @@ export function largestViewSize() {
     return { width, height };
 }
 
+/// The headroom stops at the size of the largest view, unless the content is already bigger, like
+/// the padded blur of a window taller than the screen.
 export function getTextureCapacity(size, capacity, limit) {
-    if (size > capacity)
-        return Math.max(size, Math.min(Math.ceil(size * TEXTURE_HEADROOM), limit));
+    if (size > capacity) {
+        const grown = Math.ceil(size * TEXTURE_HEADROOM);
+        return size <= limit ? Math.min(grown, limit) : grown;
+    }
     if (size * 2 <= capacity)
         return size;
     return capacity;

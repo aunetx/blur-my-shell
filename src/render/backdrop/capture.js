@@ -2,12 +2,11 @@ import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
-import Graphene from 'gi://Graphene';
 import Mtk from 'gi://Mtk';
 import St from 'gi://St';
 import { BackdropOutputEffect } from './output.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './damage.js';
-import { get_painted_view, get_view_framebuffer } from './painted_view.js';
+import { get_painted_view, get_view_framebuffer, get_view_paint } from './painted_view.js';
 import { get_snippet } from '../shader/snippet_cache.js';
 import {
     getTextureCapacity,
@@ -19,7 +18,7 @@ import {
 } from '../shader/texture_region.js';
 
 const PIXEL_EPSILON = 1 / 1024;
-// clones of animated actors change size every frame, and only the last few sizes get painted again
+// a clone that stopped being painted, like a workspace thumbnail once the overview closes
 const CLONE_TARGET_LIFETIME_US = 1000000;
 const CAPTURE_TEXTURE_REGION = 'bms_capture_region';
 
@@ -43,20 +42,20 @@ const blitFramebuffer = Cogl.Framebuffer.prototype.blit
     : Cogl.blit_framebuffer;
 
 function captureGeometry(actor, framebuffer) {
-    const modelview = framebuffer.get_modelview_matrix();
-    const projection = framebuffer.get_projection_matrix();
+    // rows of the modelview-projection matrix, which transforms row vectors
+    const m = framebuffer.get_modelview_matrix()
+        .multiply(framebuffer.get_projection_matrix())
+        .to_float();
     const viewportX = framebuffer.get_viewport_x();
     const viewportY = framebuffer.get_viewport_y();
     const viewportWidth = framebuffer.get_viewport_width();
     const viewportHeight = framebuffer.get_viewport_height();
     const corners = [[0, 0], [actor.width, 0], [0, actor.height], [actor.width, actor.height]]
         .map(([x, y]) => {
-            const local = new Graphene.Vec4().init(x, y, 0, 1);
-            const projected = projection.transform_vec4(modelview.transform_vec4(local));
-            const w = projected.get_w();
+            const w = x * m[3] + y * m[7] + m[15];
             return [
-                viewportX + (projected.get_x() / w + 1) * viewportWidth / 2,
-                viewportY + (1 - projected.get_y() / w) * viewportHeight / 2,
+                viewportX + ((x * m[0] + y * m[4] + m[12]) / w + 1) * viewportWidth / 2,
+                viewportY + (1 - (x * m[1] + y * m[5] + m[13]) / w) * viewportHeight / 2,
             ];
         });
     if (!corners.flat().every(Number.isFinite))
@@ -103,16 +102,23 @@ function captureRectangles(paintContext, view, geometry) {
 
     const layout = view.layout;
     const scale = view.get_scale();
+    // Mutter only repaints its framebuffer clip, and hands us that clip grown out to logical pixels.
+    // At fractional scales its edges can cover pixels left over from an older frame, so an edge
+    // inside the capture steps in by a logical pixel.
+    const inset = Number.isInteger(scale) ? 0 : 1;
+    const start = (logical, limit) => Math.floor(logical * scale) <= limit
+        ? limit : Math.ceil((logical + inset) * scale);
+    const end = (logical, limit) => Math.ceil(logical * scale) >= limit
+        ? limit : Math.floor((logical - inset) * scale);
+
     const rectangles = [];
     const iterator = new Mtk.RegionIterator();
     for (iterator.init(damage); !iterator.at_end(); iterator.next()) {
         const rect = iterator.rectangle;
-        const x = Math.max(sourceX, Math.floor((rect.x - layout.x) * scale));
-        const y = Math.max(sourceY, Math.floor((rect.y - layout.y) * scale));
-        const right = Math.min(sourceX + copyWidth,
-            Math.ceil((rect.x + rect.width - layout.x) * scale));
-        const bottom = Math.min(sourceY + copyHeight,
-            Math.ceil((rect.y + rect.height - layout.y) * scale));
+        const x = start(rect.x - layout.x, sourceX);
+        const y = start(rect.y - layout.y, sourceY);
+        const right = end(rect.x + rect.width - layout.x, sourceX + copyWidth);
+        const bottom = end(rect.y + rect.height - layout.y, sourceY + copyHeight);
         if (right > x && bottom > y)
             rectangles.push({ x, y, width: right - x, height: bottom - y });
     }
@@ -145,6 +151,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
         this.target = null;
         this.targets = new Map();
         this.cloneTargets = new Map();
+        this.cloneViewPaint = -1;
+        this.clonesPainted = 0;
         this.viewDestroyIds = new Map();
         this.actorGeometry = null;
         this.output = new St.Widget();
@@ -162,7 +170,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         const cached = targets.get(key) ?? null;
         const reusable = cached !== null && cached.context === context
             && (!view || cached.sourceFramebuffer === sourceFramebuffer);
-        if (reusable && textureFits(width, cached.width) && textureFits(height, cached.height)) {
+        if (reusable && textureFits(cached, width, height, cached.width, cached.height)) {
             if (cached.usedWidth !== width || cached.usedHeight !== height) {
                 cached.usedWidth = width;
                 cached.usedHeight = height;
@@ -215,6 +223,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
 
     /// Clones are painted at their own size and place, like window previews in the overview and
     /// their workspace thumbnails, so each keeps its own capture instead of overwriting another's.
+    /// They are painted in the same order every time, which keeps a clone on the same capture while
+    /// it animates.
     cloneTargetsFor(view) {
         let targets = this.cloneTargets.get(view);
         if (!targets) {
@@ -257,7 +267,11 @@ export const BackdropCaptureEffect = GObject.registerClass({
         const view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
         if (inClone) {
-            this.ensureFramebuffer(this.cloneTargetsFor(view), `${geometry.width}x${geometry.height}`,
+            if (this.cloneViewPaint !== get_view_paint()) {
+                this.cloneViewPaint = get_view_paint();
+                this.clonesPainted = 0;
+            }
+            this.ensureFramebuffer(this.cloneTargetsFor(view), this.clonesPainted++,
                 geometry.width, geometry.height, sourceFramebuffer, view);
         } else {
             const actorGeometry = actor.get_abs_allocation_vertices()

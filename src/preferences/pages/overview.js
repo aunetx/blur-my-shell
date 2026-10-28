@@ -11,6 +11,7 @@ export const Overview = GObject.registerClass({
         'overview_blur',
         'pipeline_choose_row',
         'overview_style_components',
+        'workspace_corner_radius',
 
         'appfolder_blur',
         'appfolder_pipeline_choose_row',
@@ -35,6 +36,11 @@ export const Overview = GObject.registerClass({
 
         this.preferences.overview.settings.bind(
             'style-components', this._overview_style_components, 'selected',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
+        this.preferences.overview.settings.bind(
+            'workspace-corner-radius', this._workspace_corner_radius, 'value',
             Gio.SettingsBindFlags.DEFAULT
         );
 

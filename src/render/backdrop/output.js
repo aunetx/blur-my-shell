@@ -1,6 +1,6 @@
 import Clutter from 'gi://Clutter';
-import Cogl from 'gi://Cogl';
 import GObject from 'gi://GObject';
+import { addTextureRectangle, setPaintOpacity } from '../paint_nodes.js';
 
 /// Draws the captured backdrop in place of its actor. This is an effect rather than a content or an
 /// actor painting itself: those are handed a root node holding the framebuffer being painted, which
@@ -17,8 +17,6 @@ export const BackdropOutputEffect = GObject.registerClass({
     vfunc_paint_node(node, _paintContext, _flags) {
         const actor = this.get_actor();
         const opacity = actor.get_paint_opacity() / 255;
-        const color = new Cogl.Color();
-        color.init_from_4f(opacity, opacity, opacity, opacity);
         const current = this.capture.target;
         if (!current)
             return;
@@ -37,15 +35,15 @@ export const BackdropOutputEffect = GObject.registerClass({
                 continue;
 
             const { destinationX: x, destinationY: y, copyWidth: width, copyHeight: height } = geometry;
-            target.pipeline.set_color(color);
+            setPaintOpacity(target.pipeline, opacity);
             const textureNode = new Clutter.PipelineNode(target.pipeline);
-            textureNode.add_texture_rectangle(new Clutter.ActorBox({
-                x1: actor.width * x / target.usedWidth,
-                y1: actor.height * y / target.usedHeight,
-                x2: actor.width * (x + width) / target.usedWidth,
-                y2: actor.height * (y + height) / target.usedHeight,
-            }), x / target.width, y / target.height,
-            (x + width) / target.width, (y + height) / target.height);
+            addTextureRectangle(textureNode,
+                actor.width * x / target.usedWidth,
+                actor.height * y / target.usedHeight,
+                actor.width * (x + width) / target.usedWidth,
+                actor.height * (y + height) / target.usedHeight,
+                x / target.width, y / target.height,
+                (x + width) / target.width, (y + height) / target.height);
             node.add_child(textureNode);
         }
     }

@@ -16,6 +16,7 @@ import {
 import { connect_system_style_changes } from '../../conveniences/style.js';
 
 import { DockSurface } from './dock_surface.js';
+import { queue_after_laters } from './stage_update.js';
 
 const WATCHED_TARGET_SIGNALS = {
     content_parent: ['notify::allocation', 'child-added', 'child-removed'],
@@ -162,10 +163,9 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
     queue_discovery() {
         if (this.discovery_id)
             return;
-        this.discovery_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
+        this.discovery_id = queue_after_laters(() => {
             this.discovery_id = 0;
             this.blur_existing_dashes();
-            return GLib.SOURCE_REMOVE;
         });
     }
 
@@ -339,7 +339,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         this._log("removing blur from dashes");
 
         if (this.discovery_id)
-            global.compositor.get_laters().remove(this.discovery_id);
+            global.stage.disconnect(this.discovery_id);
         this.discovery_id = 0;
 
         this.native_dash_connections.disconnect_all();

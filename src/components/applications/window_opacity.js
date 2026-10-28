@@ -7,7 +7,12 @@ export class WindowOpacity {
         this.originals = new WeakMap();
     }
 
+    /// A window has no actor before it is mapped and after it is unmanaged, and then nothing is shown
+    /// to change.
     set(window_actor, opacity, blur_actor) {
+        if (!window_actor)
+            return;
+
         let originals = this.originals.get(window_actor);
         if (!originals) {
             originals = new Map();

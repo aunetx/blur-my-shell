@@ -1,11 +1,11 @@
 import St from 'gi://St';
-import Meta from 'gi://Meta';
 import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Connections } from '../../conveniences/connections.js';
 import { get_dock_corners, has_valid_allocation, resolve_dock_target } from './dock_targets.js';
 import { get_component_style } from '../../conveniences/style.js';
+import { queue_after_laters } from './stage_update.js';
 
 const DASH_STYLES = [
     "transparent-dash",
@@ -61,10 +61,9 @@ export class DockSurface {
             'notify::scale-factor', schedule_update);
         if (this.theme_manager)
             this.connections.connect(this.theme_manager, 'updated', schedule_update);
-        const slider = dash_container._slider;
-        if (slider)
+        if (target.slider)
             this.connections.connect(
-                slider,
+                target.slider,
                 ['notify::slide-x', 'notify::allocation'],
                 schedule_update
             );
@@ -108,16 +107,15 @@ export class DockSurface {
         // keep the pending update, it will read the latest geometry and style
         if (this.update_id)
             return;
-        this.update_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
+        this.update_id = queue_after_laters(() => {
             this.update_id = 0;
             this.update_size();
-            return false;
         });
     }
 
     clear_pending_update() {
         if (this.update_id) {
-            global.compositor.get_laters().remove(this.update_id);
+            global.stage.disconnect(this.update_id);
             this.update_id = 0;
         }
     }

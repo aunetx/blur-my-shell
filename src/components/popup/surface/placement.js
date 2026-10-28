@@ -255,7 +255,10 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
             this.allocation_constraint.set_geometry(0, 0, local.width, local.height);
         }
 
+        // the transform places the blur, and a position left unset lets layouts like the
+        // screenshot UI's BinLayout center it; set_position() doesn't set it when already at 0, 0
         blur_actor.set_position(0, 0);
+        blur_actor.fixed_position_set = true;
         blur_actor.set_size(local.width, local.height);
         blur_actor.set_pivot_point(0, 0);
         blur_actor.set_transform(this.get_target_transform(local));

@@ -28,6 +28,104 @@
                                 }>
                             }>
                         ]>
+                    },
+                    'pipeline_liquid_glass': {
+                        'name': <'Liquid Glass'>,
+                        'effects': <[
+                            <{
+                                'type': <'luminosity'>,
+                                'id': <'effect_liquid_glass_luminosity'>,
+                                'params': <{
+                                    'saturation_multiplicator': <1.1>
+                                }>
+                            }>,
+                            <{
+                                'type': <'refraction'>,
+                                'id': <'effect_liquid_glass_refraction'>,
+                                'params': <{
+                                    'tint': <0>
+                                }>
+                            }>,
+                            <{
+                                'type': <'noise'>,
+                                'id': <'effect_liquid_glass_noise'>,
+                                'params': <{
+                                    'noise': <0.1>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_vapor_glass': {
+                        'name': <'Vapor Glass'>,
+                        'effects': <[
+                            <{
+                                'type': <'luminosity'>,
+                                'id': <'effect_vapor_glass_luminosity'>,
+                                'params': <{
+                                    'saturation_multiplicator': <1.1>
+                                }>
+                            }>,
+                            <{
+                                'type': <'wave'>,
+                                'id': <'effect_vapor_glass_wave'>
+                            }>,
+                            <{
+                                'type': <'refraction'>,
+                                'id': <'effect_vapor_glass_refraction'>,
+                                'params': <{
+                                    'tint': <0>
+                                }>
+                            }>,
+                            <{
+                                'type': <'noise'>,
+                                'id': <'effect_vapor_glass_noise'>,
+                                'params': <{
+                                    'noise': <0.1>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_classic_light_background': {
+                        'name': <'Classic Light Background'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_classic_light_blur'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>,
+                            <{
+                                'type': <'color'>,
+                                'id': <'effect_classic_light_color'>,
+                                'params': <{
+                                    'color': <(1.0, 1.0, 1.0, 0.25)>,
+                                    'blend_mode': <17>
+                                }>
+                            }>
+                        ]>
+                    },
+                    'pipeline_classic_dark_background': {
+                        'name': <'Classic Dark Background'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_classic_dark_blur'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <0.6>
+                                }>
+                            }>,
+                            <{
+                                'type': <'color'>,
+                                'id': <'effect_classic_dark_color'>,
+                                'params': <{
+                                    'color': <(0.4, 0.4, 0.4, 0.35)>,
+                                    'blend_mode': <17>
+                                }>
+                            }>
+                        ]>
                     }
                 }
             ]]></default>
@@ -80,6 +178,11 @@
         <key type="i" name="style-components">
             <default>4</default>
             <summary>Enum to select the style of the components in overview (0 not styled, 1 light, 2 dark, 3 transparent, 4 automatic)</summary>
+        </key>
+        <!-- WORKSPACE CORNER RADIUS -->
+        <key type="i" name="workspace-corner-radius">
+            <default>30</default>
+            <summary>Radius for the corner rounding of the workspaces in the overview</summary>
         </key>
     </schema>
 
@@ -170,6 +273,11 @@
         <key type="b" name="force-light-text">
             <default>false</default>
             <summary>Boolean, whether or not to force the panel to have light text, useful when using light theme</summary>
+        </key>
+        <!-- MATCH THEME IN OVERVIEW -->
+        <key type="b" name="match-theme-in-overview">
+            <default>false</default>
+            <summary>Boolean, whether to keep panel text and icons matched to the system theme in overview</summary>
         </key>
         <!-- OVERRIDE BACKGROUND -->
         <key type="b" name="override-background">
@@ -468,7 +576,7 @@
         </key>
         <!-- QUICK SETTINGS SUBMENU CORNER RADIUS -->
         <key type="i" name="submenu-corner-radius">
-            <default>36</default>
+            <default>24</default>
             <summary>Radius for quick settings submenu corner rounding</summary>
         </key>
         <!-- CALENDAR CORNER RADIUS -->

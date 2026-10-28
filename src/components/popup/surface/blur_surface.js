@@ -23,6 +23,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
 const HEAVY_SURFACE_STYLE_CLASSES = [
     'datemenu-popover', 'quick-settings', 'modal-dialog',
     'candidate-popup-content', 'candidate-popup-boxpointer',
+    'bms-redraw-blur-instant',
 ];
 const QUICK_SETTINGS_STYLE_CLASSES = [
     'quick-toggle-menu', 'quick-settings', 'datemenu-popover',
@@ -266,7 +267,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     has_surface_opacity(opacity) {
         if (this.static_blur)
             return this.static_actor.has_opacity(opacity);
-        return this.actor.opacity === opacity
+        return this.actor.opacity === this.get_actor_opacity(opacity)
             && this.pipeline.opacityFactor === this.get_pipeline_opacity(opacity) / 255;
     }
 
@@ -275,8 +276,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.static_actor.set_opacity(opacity);
             return;
         }
-        this.actor.opacity = opacity;
+        this.actor.opacity = this.get_actor_opacity(opacity);
         this.pipeline.set_opacity_factor(this.get_pipeline_opacity(opacity) / 255);
+    }
+
+    get_actor_opacity(opacity) {
+        return opacity > 0 && this.pipeline.fades_with_opacity_factor ? 255 : opacity;
     }
 
     get_pipeline_opacity(opacity) {

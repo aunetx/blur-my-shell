@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-18 09:34+0200\n"
-"PO-Revision-Date: 2026-09-02 12:51+0000\n"
-"Last-Translator: HamzaSyrage <hamzasyrage@gmail.com>\n"
+"PO-Revision-Date: 2026-10-26 04:51+0000\n"
+"Last-Translator: Yassin Omer <yassinomer.work@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "تمويه كاواسي المزدوج"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "تمويه سريع وعالي الجودة."
 
 #: src/effects/blur/info.js:12
 msgid "Radius"
@@ -61,7 +61,7 @@ msgstr "تأثير يمزج لونًا معينًا بمسار معالجة ال
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
-msgstr ""
+msgstr "اللون المراد مزجه. يُضبَط مقدار المزج عبر عتامة اللون."
 
 #: src/effects/color/info.js:22
 msgid "Blend mode"
@@ -150,16 +150,16 @@ msgstr "تعديل السطوع"
 
 #: src/effects/color/info.js:56
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "السطوع المراد إضافته إلى الصورة أو إزالته منها."
 
 #: src/effects/color/info.js:65
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "مُضاعِف السطوع"
 
 #: src/effects/color/info.js:66
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
-msgstr ""
+msgstr "يُضاعف سطوع الصورة؛ القيمة 0 تعني الأسود، و1 تُبقي السطوع دون تغيير."
 
 #: src/effects/color/info.js:75
 msgid "Contrast"
@@ -167,7 +167,7 @@ msgstr "التباين"
 
 #: src/effects/color/info.js:76
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "يضبط تباين الصورة حول مركز التباين المحدد."
 
 #: src/effects/color/info.js:85
 msgid "Contrast center"
@@ -182,6 +182,7 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"يُضاعف تشبّع الصورة؛ القيمة 0 تُزيل كل الألوان، و1 تُبقي التشبّع دون تغيير."
 
 #: src/effects/color/info.js:108
 msgid "RGB to HSL (advanced effect)"
@@ -189,7 +190,7 @@ msgstr "RGB إلى HSL (تأثير متقدم)"
 
 #: src/effects/color/info.js:109
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "يُحوّل الصورة من فضاء الألوان RGBA إلى HSLA."
 
 #: src/effects/color/info.js:115
 msgid "HSL to RGB (advanced effect)"
@@ -197,7 +198,7 @@ msgstr "HSL إلى RGB (تأثير متقدم)"
 
 #: src/effects/color/info.js:116
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "يُحوّل الصورة من فضاء الألوان HSLA إلى RGBA."
 
 #: src/effects/effect_groups.js:4
 msgid "Blur effects"
@@ -209,162 +210,167 @@ msgstr "تأثيرات الملمس"
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "الزجاج السائل"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"مادة شبه شفافة ولامعة مع انكسار عند الحواف، وإضاءة محيطية، وتلوين، وظل داخلي."
 
 #: src/effects/refraction/info.js:12
 msgid "Refraction scale"
-msgstr ""
+msgstr "مقياس الانكسار"
 
 #: src/effects/refraction/info.js:13
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "مدى شدة حني الزجاج لخامة التمويه المأخوذة."
 
 #: src/effects/refraction/info.js:22
 msgid "Blur radius"
-msgstr ""
+msgstr "نصف قطر التمويه"
 
 #: src/effects/refraction/info.js:23
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
-msgstr ""
+msgstr "يُموّه الخلفية المأخوذة قبل تطبيق مُظلّل الزجاج السائل."
 
 #: src/effects/refraction/info.js:32
 msgid "Bezel width"
-msgstr ""
+msgstr "عرض الإطار"
 
 #: src/effects/refraction/info.js:33
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "مدى امتداد عدسة الزجاج السائل إلى الداخل انطلاقاً من الحافة."
 
 #: src/effects/refraction/info.js:42
 msgid "Rim spread"
-msgstr ""
+msgstr "انتشار الحافة"
 
 #: src/effects/refraction/info.js:43
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "مدى تدرج الانكسار إلى الداخل انطلاقاً من حافة الزجاج."
 
 #: src/effects/refraction/info.js:52
 msgid "Glass thickness"
-msgstr ""
+msgstr "سماكة الزجاج"
 
 #: src/effects/refraction/info.js:53
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "العمق المستخدم لتوصيف حافة الانكسار."
 
 #: src/effects/refraction/info.js:62
 msgid "Refraction style"
-msgstr ""
+msgstr "نمط الانكسار"
 
 #: src/effects/refraction/info.js:63
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"شكل الانحناء بالقرب من الحافة؛ القيم المنخفضة تحنيه بنعومة، بينما القيم الأعلى "
+"تحنيه بحدة أكبر عند الحافة مباشرة."
 
 #: src/effects/refraction/info.js:72
 msgid "Fresnel glare"
-msgstr ""
+msgstr "وهج فرينل"
 
 #: src/effects/refraction/info.js:73
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "شدة وهج فرينل الموجَّه المنبعث من حافة الزجاج."
 
 #: src/effects/refraction/info.js:82
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "زاوية وهج فرينل"
 
 #: src/effects/refraction/info.js:83
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"اتجاه ضوء وهج فرينل، بالدرجات (0 تعني من الأعلى، والقيم الموجبة تدور في اتجاه "
+"عقارب الساعة)."
 
 #: src/effects/refraction/info.js:92
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "عرض وهج فرينل"
 
 #: src/effects/refraction/info.js:93
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
-msgstr ""
+msgstr "مُضاعِف سَماكة حلقة وهج فرينل على طول حافة الزجاج."
 
 #: src/effects/refraction/info.js:102
 msgid "Specular glare strength"
-msgstr ""
+msgstr "شدة الوهج المرآوي"
 
 #: src/effects/refraction/info.js:103
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
-msgstr ""
+msgstr "شدة الوهج المرآوي الذي يُظهر اتجاه الضوء (القيمة 0 تُعطّله)."
 
 #: src/effects/refraction/info.js:112
 msgid "Tint strength"
-msgstr ""
+msgstr "شدة التلوين"
 
 #: src/effects/refraction/info.js:113
 msgid "Amount of subtle milky glass tint over the blurred texture."
-msgstr ""
+msgstr "مقدار تلوين الزجاج الحليبي الخفيف فوق خامة التمويه."
 
 #: src/effects/refraction/info.js:122
 msgid "Tint color"
-msgstr ""
+msgstr "لون التلوين"
 
 #: src/effects/refraction/info.js:123
 msgid "Color blended over the blurred texture, weighted by the tint strength."
-msgstr ""
+msgstr "اللون الممزوج فوق خامة التمويه، موزوناً بشدة التلوين."
 
 #: src/effects/refraction/info.js:128
 msgid "Backdrop zoom"
-msgstr ""
+msgstr "تقريب الخلفية"
 
 #: src/effects/refraction/info.js:129
 msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
+msgstr "مستوى تقريب الخلفية الظاهرة عبر الزجاج."
 
 #: src/effects/refraction/info.js:138
 msgid "Inner shadow"
-msgstr ""
+msgstr "ظل داخلي"
 
 #: src/effects/refraction/info.js:139
 msgid "Darkens the lower and inner edge for a deeper glass surface."
-msgstr ""
+msgstr "يُعتّم الحافة السفلية والداخلية لمنح سطح الزجاج عمقاً أكبر."
 
 #: src/effects/refraction/info.js:148
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "التشتت اللوني"
 
 #: src/effects/refraction/info.js:149
 msgid "Physical per-channel refraction dispersion at the glass edge."
-msgstr ""
+msgstr "تشتت انكساري فيزيائي لكل قناة لونية عند حافة الزجاج."
 
 #: src/effects/refraction/info.js:158
 msgid "Edge behavior"
-msgstr ""
+msgstr "سلوك الحافة"
 
 #: src/effects/refraction/info.js:159
 msgid "How texture coordinates outside the actor are sampled."
-msgstr ""
+msgstr "طريقة أخذ عينات إحداثيات الخامة خارج العنصر."
 
 #: src/effects/refraction/info.js:162
 msgid "Clamp"
-msgstr ""
+msgstr "تقييد"
 
 #: src/effects/refraction/info.js:163
 msgid "Mirror"
-msgstr ""
+msgstr "مرآة"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
-msgstr "تحويل الى بكسلات"
+msgstr "بكسلة"
 
 #: src/effects/texture/info.js:12
 msgid "An effect that pixelizes the image."
-msgstr "تأثير يُحول الصورة لبكسلات."
+msgstr "تأثير يُبكسل الصورة."
 
 #: src/effects/texture/info.js:16 src/effects/texture/info.js:42
 #: src/effects/texture/info.js:68
@@ -401,19 +407,19 @@ msgstr "تصغير الحجم (تأثير متقدم)"
 
 #: src/effects/texture/info.js:38
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "تأثير يُقلّص حجم الصورة ويضعها في الزاوية العلوية اليسرى."
 
 #: src/effects/texture/info.js:63
 msgid "Upscale (advanced effect)"
-msgstr "تضخيم الحجم (تأثير متقدم)"
+msgstr "تكبير (تأثير متقدم)"
 
 #: src/effects/texture/info.js:64
 msgid "An effect that upscales the image from the top-left corner."
-msgstr "تأثير يقوم بتضخيم الصورة من الزاوية العلوية اليسرى."
+msgstr "تأثير يُكبّر الصورة انطلاقاً من الزاوية العلوية اليسرى."
 
 #: src/effects/texture/info.js:69
 msgid "How much to scale up the image."
-msgstr "مقدار تضخيم الصورة."
+msgstr "مقدار تكبير الصورة."
 
 #: src/effects/texture/info.js:79
 msgid "Derivative"
@@ -449,7 +455,7 @@ msgstr "ضوضاء"
 
 #: src/effects/texture/info.js:98
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "تأثير يُضيف حبيبات عشوائية إلى الصورة."
 
 #: src/effects/texture/info.js:103
 msgid "The amount of noise to add."
@@ -467,115 +473,117 @@ msgstr "سطوع الضوضاء. ضبط القيمة على \"1.0\" سيجعل �
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "موجة بخارية"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
-msgstr ""
+msgstr "إزاحة موجية متدفقة تمنح طابعاً حيوياً وديناميكياً بحركة طبيعية."
 
 #: src/effects/wave/info.js:12
 msgid "Wave frequency"
-msgstr ""
+msgstr "تردد الموجة"
 
 #: src/effects/wave/info.js:13
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "مدى تقارب التموجات."
 
 #: src/effects/wave/info.js:22
 msgid "Wave amplitude"
-msgstr ""
+msgstr "سَعة الموجة"
 
 #: src/effects/wave/info.js:23
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "مدى شدة إزاحة الصورة بفعل الأمواج."
 
 #: src/effects/wave/info.js:32
 msgid "Wave octaves"
-msgstr ""
+msgstr "أوكتافات الموجة"
 
 #: src/effects/wave/info.js:33
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
-msgstr ""
+msgstr "مستوى تفاصيل شكل الموجة؛ القيم الأعلى تزيد التفاصيل على حساب الأداء."
 
 #: src/effects/wave/info.js:40
 msgid "Vapor octaves"
-msgstr ""
+msgstr "أوكتافات البخار"
 
 #: src/effects/wave/info.js:41
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"مستوى تفاصيل الخامة الضبابية؛ القيم الأعلى تزيد التفاصيل على حساب الأداء."
 
 #: src/effects/wave/info.js:48
 msgid "Vapor speed"
-msgstr ""
+msgstr "سرعة البخار"
 
 #: src/effects/wave/info.js:49
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "مدى سرعة انجراف خامة البخار الضبابي بمرور الوقت."
 
 #: src/effects/wave/info.js:58
 msgid "Texture grain"
-msgstr ""
+msgstr "حبيبات الخامة"
 
 #: src/effects/wave/info.js:59
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "يُضيف خامة مُرمَّلة دقيقة إلى الصورة."
 
 #: src/effects/wave/info.js:69
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "إشباع التأثير."
 
 #: src/effects/wave/info.js:79
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "سطوع التأثير."
 
 #: src/effects/wave/info.js:88
 msgid "Zoom"
-msgstr ""
+msgstr "التقريب"
 
 #: src/effects/wave/info.js:89
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "يُكبّر الخلفية باتجاه مركز السطح."
 
 #: src/effects/wave/info.js:98
 msgid "Dispersion"
-msgstr ""
+msgstr "التشتت"
 
 #: src/effects/wave/info.js:99
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "شدة الزيغ اللوني لإضفاء طابع خلل بصري."
 
 #: src/effects/wave/info.js:108
 msgid "Enable flow animation"
-msgstr ""
+msgstr "تفعيل حركة التدفق"
 
 #: src/effects/wave/info.js:109
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "ما إذا كان ضجيج الموجة يتدفق باستمرار بمرور الوقت."
 
 #: src/effects/wave/info.js:113
 msgid "Flow animation speed"
-msgstr ""
+msgstr "سرعة حركة التدفق"
 
 #: src/effects/wave/info.js:114
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "السرعة الأساسية لتدفق نمط الموجة."
 
 #: src/effects/wave/info.js:123
 msgid "Resize ease duration"
-msgstr ""
+msgstr "مدة سلاسة تغيير الحجم"
 
 #: src/effects/wave/info.js:124
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"المدة التي يستغرقها التأثير للتكيّف عند تغيير حجم النافذة (بالمللي ثانية)."
 
 #: resources/ui/application-row.ui:4
 msgid "Window Name"
@@ -591,11 +599,11 @@ msgstr "اختر نافذة أو حدِّدها باستخدام اسم صنفه
 
 #: resources/ui/application-row.ui:41
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "فشل تحديد النافذة. تأكد من تفعيل الامتداد."
 
 #: resources/ui/application-row.ui:45
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "العنصر المحدد ليس نافذة."
 
 #: resources/ui/applications.ui:5
 msgid "Applications"
@@ -607,7 +615,7 @@ msgstr "تضبيب التطبيقات"
 
 #: resources/ui/applications.ui:11
 msgid "Adds blur to applications."
-msgstr ""
+msgstr "يُضيف التمويه إلى التطبيقات."
 
 #: resources/ui/applications.ui:20 resources/ui/dash.ui:20
 #: resources/ui/panel.ui:20 resources/ui/popup.ui:20
@@ -619,6 +627,8 @@ msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف النوافذ. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/applications.ui:41 resources/ui/dash.ui:41
 #: resources/ui/panel.ui:41 resources/ui/popup.ui:41
@@ -642,31 +652,31 @@ msgstr "نصف القطر لتأثير استدارة الزوايا."
 #: resources/ui/applications.ui:80 resources/ui/panel.ui:80
 #: resources/ui/popup.ui:161
 msgid "Rounded corners"
-msgstr ""
+msgstr "زوايا مستديرة"
 
 #: resources/ui/applications.ui:85 resources/ui/panel.ui:85
 #: resources/ui/popup.ui:166
 msgid "All"
-msgstr ""
+msgstr "الكل"
 
 #: resources/ui/applications.ui:86 resources/ui/panel.ui:86
 #: resources/ui/popup.ui:167
 msgid "Top only"
-msgstr ""
+msgstr "العلوية فقط"
 
 #: resources/ui/applications.ui:87 resources/ui/panel.ui:87
 #: resources/ui/popup.ui:168
 msgid "Bottom only"
-msgstr ""
+msgstr "السفلية فقط"
 
 #: resources/ui/applications.ui:88 resources/ui/panel.ui:88
 #: resources/ui/popup.ui:169
 msgid "None"
-msgstr ""
+msgstr "لا شيء"
 
 #: resources/ui/applications.ui:97
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "تدوير زوايا النوافذ المكبرة وملء الشاشة"
 
 #: resources/ui/applications.ui:98
 msgid ""
@@ -712,11 +722,11 @@ msgstr ""
 
 #: resources/ui/applications.ui:165
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "إزالة التمويه عند وضع ملء الشاشة"
 
 #: resources/ui/applications.ui:166
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
-msgstr ""
+msgstr "يفرض إزالة التمويه عندما تكون النافذة في وضع ملء الشاشة."
 
 #: resources/ui/applications.ui:180
 msgid "Enable all by default"
@@ -764,19 +774,23 @@ msgstr "شَرطة"
 
 #: resources/ui/dash.ui:10
 msgid "Dock blur"
-msgstr ""
+msgstr "تمويه الرصيف"
 
 #: resources/ui/dash.ui:11
 msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
+"تمويه خلفية الأرصفة المدعومة، بما في ذلك Dash to Dock وDhruva ورصيف Simple "
+"Taskbar."
 
 #: resources/ui/dash.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف شريط التطبيقات. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/dash.ui:71 resources/ui/panel.ui:112 resources/ui/popup.ui:180
 msgid "Override background"
@@ -787,6 +801,8 @@ msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
+"يجعل خلفية الرصيف شفافة أو شبه شفافة. عطل هذا الخيار لاستخدام المظهر الخاص "
+"بامتداد الرصيف."
 
 #: resources/ui/dash.ui:78 resources/ui/panel.ui:120 resources/ui/popup.ui:201
 msgid "Background style"
@@ -802,7 +818,7 @@ msgstr "عطِّل في النظرة العامَّة"
 
 #: resources/ui/dash.ui:96
 msgid "Disables dock blur when entering the overview."
-msgstr ""
+msgstr "يُعطّل تمويه الرصيف عند الدخول إلى النظرة العامة."
 
 #: resources/ui/dash.ui:113 resources/ui/overview.ui:82
 #: resources/ui/overview.ui:90 resources/ui/panel.ui:252
@@ -826,7 +842,7 @@ msgstr "داكن"
 #: resources/ui/overview.ui:93 resources/ui/panel.ui:256
 #: resources/ui/popup.ui:296
 msgid "Automatic"
-msgstr ""
+msgstr "تلقائي"
 
 #: resources/ui/effects-dialog.ui:4
 #: src/preferences/widgets/effects_dialog.js:46
@@ -835,11 +851,11 @@ msgstr "التأثيرات"
 
 #: resources/ui/effects-dialog.ui:13
 msgid "Effects list"
-msgstr ""
+msgstr "قائمة التأثيرات"
 
 #: resources/ui/effects-dialog.ui:14
 msgid "The top effect is applied first."
-msgstr ""
+msgstr "يُطبَّق التأثير العلوي أولاً."
 
 #: resources/ui/effects-dialog.ui:39
 msgid "Add Effect"
@@ -917,7 +933,7 @@ msgstr "صفِّر التفضيلات"
 
 #: resources/ui/other.ui:96
 msgid "Restore all Blur my Shell preferences to their defaults."
-msgstr ""
+msgstr "استعادة جميع تفضيلات Blur my Shell إلى قيمها الافتراضية."
 
 #: resources/ui/other.ui:115 src/preferences/pages/other.js:83
 msgid "Reset"
@@ -975,13 +991,15 @@ msgstr "تضبيب اللوحة"
 
 #: resources/ui/panel.ui:11
 msgid "Add blur to the top panel."
-msgstr ""
+msgstr "إضافة التمويه إلى الشريط العلوي."
 
 #: resources/ui/panel.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف الشريط العلوي. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/panel.ui:97
 msgid "Force light text"
@@ -1007,15 +1025,15 @@ msgstr "أسلوب خلفيَّة اللوحة الشفَّاف\\شبه الشف
 
 #: resources/ui/panel.ui:135
 msgid "Override background dynamically"
-msgstr ""
+msgstr "استبدال الخلفية ديناميكياً"
 
 #: resources/ui/panel.ui:136
 msgid "Change the panel background when a window is near it."
-msgstr ""
+msgstr "تغيير خلفية الشريط العلوي عند اقتراب نافذة منه."
 
 #: resources/ui/panel.ui:149
 msgid "When a window is near"
-msgstr ""
+msgstr "عند اقتراب نافذة"
 
 #: resources/ui/panel.ui:150
 msgid ""
@@ -1024,22 +1042,26 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"التمويه عند اقتراب نافذة: التمويه فقط عند اقتراب نافذة من الشريط والشفافية "
+"عند عدم وجودها.\n"
+"الخلفية عند اقتراب نافذة: خلفية بلون مصمت عند اقتراب نافذة من الشريط "
+"والتمويه عند عدم وجودها."
 
 #: resources/ui/panel.ui:165
 msgid "Gradient background"
-msgstr ""
+msgstr "خلفية متدرجة"
 
 #: resources/ui/panel.ui:166
 msgid "Apply a gradient effect to the panel background."
-msgstr ""
+msgstr "تطبيق تأثير تدرج لوني على خلفية الشريط العلوي."
 
 #: resources/ui/panel.ui:179
 msgid "Gradient direction"
-msgstr ""
+msgstr "اتجاه التدرج"
 
 #: resources/ui/panel.ui:180
 msgid "Change the direction of the gradient background."
-msgstr ""
+msgstr "تغيير اتجاه تدرج الخلفية."
 
 #: resources/ui/panel.ui:198
 msgid "Disables the blur from the panel when entering the overview."
@@ -1060,6 +1082,7 @@ msgstr "امتداد Hidetopbar"
 #: resources/ui/panel.ui:221
 msgid "Keeps the blur visible in the overview; best used with static blur."
 msgstr ""
+"يُبقي التمويه ظاهراً في النظرة العامة؛ يُفضّل استخدامه مع التمويه الثابت."
 
 #: resources/ui/panel.ui:235
 msgid "Blur original panel with Dash to Panel"
@@ -1079,19 +1102,19 @@ msgstr "متباين"
 
 #: resources/ui/panel.ui:262
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "التمويه عند اقتراب نافذة"
 
 #: resources/ui/panel.ui:263
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "الخلفية عند اقتراب نافذة"
 
 #: resources/ui/panel.ui:269
 msgid "Top"
-msgstr ""
+msgstr "أعلى"
 
 #: resources/ui/panel.ui:270
 msgid "Bottom"
-msgstr ""
+msgstr "أسفل"
 
 #: resources/ui/pipeline-choose-row.ui:4
 msgid "Pipeline"
@@ -1111,7 +1134,7 @@ msgstr "إدارة التأثيرات"
 
 #: resources/ui/pipeline-undo-toast.ui:28
 msgid "Undo"
-msgstr ""
+msgstr "تراجع"
 
 #: resources/ui/pipelines.ui:5
 msgid "Pipelines"
@@ -1132,133 +1155,144 @@ msgstr "اضف مسار معالجة الرسوميات"
 
 #: resources/ui/popup.ui:5
 msgid "Popups"
-msgstr ""
+msgstr "القوائم المنبثقة"
 
 #: resources/ui/popup.ui:10
 msgid "Popup blur"
-msgstr ""
+msgstr "تمويه القوائم المنبثقة"
 
 #: resources/ui/popup.ui:11
 msgid ""
 "Add blur to GNOME Shell menus, the calendar and notifications popup, "
 "notification banners, OSD popups, and dialogs."
 msgstr ""
+"إضافة التمويه إلى قوائم صدفة جنوم، والتقويم والإشعارات المنبثقة، ورايات "
+"الإشعارات، ونوافذ العرض على الشاشة (OSD)، ومربعات الحوار."
 
 #: resources/ui/popup.ui:21
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف القوائم المنبثقة. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/popup.ui:72
 msgid "Adjust the rounded corners for each popup surface."
-msgstr ""
+msgstr "ضبط الزوايا المستديرة لكل سطح منبثق."
 
 #: resources/ui/popup.ui:77
 msgid "Menus"
-msgstr ""
+msgstr "القوائم"
 
 #: resources/ui/popup.ui:84
 msgid "Input method candidates"
-msgstr ""
+msgstr "مرشحات أسلوب الإدخال"
 
 #: resources/ui/popup.ui:91
 msgid "Quick settings"
-msgstr ""
+msgstr "الإعدادات السريعة"
 
 #: resources/ui/popup.ui:98
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "القوائم الفرعية للإعدادات السريعة"
 
 #: resources/ui/popup.ui:105
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "التقويم ومركز الإشعارات"
 
 #: resources/ui/popup.ui:112
 msgid "Notifications"
-msgstr ""
+msgstr "الإشعارات"
 
 #: resources/ui/popup.ui:119
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "مبدلات النوافذ ومساحات العمل"
 
 #: resources/ui/popup.ui:126
 msgid "Volume and brightness"
-msgstr ""
+msgstr "مستوى الصوت والسطوع"
 
 #: resources/ui/popup.ui:133
 msgid "Window resize hints"
-msgstr ""
+msgstr "تلميحات تغيير حجم النوافذ"
 
 #: resources/ui/popup.ui:140
 msgid "Dialogs"
-msgstr ""
+msgstr "مربعات الحوار"
 
 #: resources/ui/popup.ui:147
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "لوحة المفاتيح على الشاشة"
 
 #: resources/ui/popup.ui:154
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "أسطح منبثقة أخرى"
 
 #: resources/ui/popup.ui:181
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
-msgstr ""
+msgstr "استبدال خلفية القوائم المنبثقة لتصبح شفافة أو شبه شفافة."
 
 #: resources/ui/popup.ui:187
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "الإبقاء على سمة الصدفة"
 
 #: resources/ui/popup.ui:188
 msgid "Keep your shell theme's colors for popup controls."
-msgstr ""
+msgstr "الحفاظ على ألوان سمة الصدفة لعناصر تحكم القوائم المنبثقة."
 
 #: resources/ui/popup.ui:202
 msgid "The transparent/semi-transparent style for popups."
-msgstr ""
+msgstr "النمط الشفاف/شبه الشفاف للقوائم المنبثقة."
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "لم تعد هناك حاجة لحزمة Rounded-blur"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"يتعامل Blur my Shell مع الزوايا المستديرة مباشرة. يمكنك إزالة المكتبة "
+"القديمة إن لم يكن هناك ما يستخدمها."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "تعليمات الإزالة"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "تجاهل"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "إزالة مكتبة التمويه القديمة"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"الإزالة اختيارية. احتفظ بالمكتبة إذا كان هناك امتداد آخر لا يزال يحتاجها."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"هل ثُبِّتت عبر مدير الحزم؟ أزل حزمة gnome-rounded-blur باستخدام مدير الحزم "
+"نفسه. راجع التغييرات المقترحة قبل التأكيد."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"هل ثُبِّتت عبر مساعد Blur my Shell القديم؟ توضح التعليمات كيفية تشغيل برنامج "
+"إلغاء التثبيت الخاص به."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1266,79 +1300,84 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"هل بُنيت من المصدر؟ استخدم الأمر \"sudo ninja -C build uninstall\" من دليل "
+"البناء الأصلي، أو اتبع سجل التثبيت. لا تستخدم المساعد لإزالة حزمة مُدارة بواسطة "
+"مدير الحزم."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"سجّل الخروج ثم أعد الدخول بعد الإزالة. لن يقوم Blur my Shell بإلغاء تثبيت أي "
+"شيء نيابة عنك."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "إغلاق"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "فتح التعليمات"
 
 #: src/preferences/pages/other.js:79
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "إعادة ضبط جميع التفضيلات؟"
 
 #: src/preferences/pages/other.js:80
 msgid "Pipelines and component settings will return to their defaults."
-msgstr ""
+msgstr "ستعود خطوط المعالجة وإعدادات المكونات إلى قيمها الافتراضية."
 
 #: src/preferences/pages/other.js:82
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #: src/preferences/pages/pipelines.js:46
 #: src/preferences/widgets/pipeline_choose_row.js:64
 msgid "New pipeline"
-msgstr ""
+msgstr "خط معالجة جديد"
 
 #: src/preferences/widgets/effects_dialog.js:45
 #, javascript-format
 msgid "Effects for “%s”"
-msgstr ""
+msgstr "تأثيرات \"%s\""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "إنشاء خط معالجة جديد"
 
 #: src/preferences/widgets/pipeline_group.js:30
 #, javascript-format
 msgid "Pipeline id: “%s”"
-msgstr ""
+msgstr "معرّف خط المعالجة: \"%s\""
 
 #: src/preferences/widgets/pipeline_group.js:81
 msgid "No effect"
-msgstr ""
+msgstr "لا يوجد تأثير"
 
 #: src/preferences/widgets/pipeline_group.js:84
 #, javascript-format
 msgid "%d effect"
 msgid_plural "%d effects"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لا تأثيرات"
+msgstr[1] "تأثير واحد"
+msgstr[2] "تأثيران"
+msgstr[3] "%d تأثيرات"
+msgstr[4] "%d تأثيراً"
+msgstr[5] "%d تأثير"
 
 #: src/preferences/widgets/pipeline_group.js:91
 msgid "Unknown effect"
-msgstr ""
+msgstr "تأثير غير معروف"
 
 #: src/preferences/widgets/pipeline_undo_toast.js:16
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "حُذِف \"%s\""
 
 #: src/preferences/widgets/pipeline_undo_toast.js:17
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "حُذِف خط المعالجة"
 
 #~ msgid "Enable corner rounding on maximized and fullscreen"
 #~ msgstr "تفعيل استدارة الزوايا للنوافذ المكبرة وملء الشاشة"

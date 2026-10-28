@@ -4,6 +4,7 @@ const BLURRED_FRAME_TYPES = [
     Meta.FrameType.NORMAL,
     Meta.FrameType.DIALOG,
     Meta.FrameType.MODAL_DIALOG,
+    Meta.FrameType.ATTACHED,
 ];
 
 /// Converts a case-insensitive wildcard pattern, where `*` matches any sequence and `?` any single

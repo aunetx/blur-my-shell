@@ -36,6 +36,15 @@
             </child>
           </object>
         </child>
+
+        <child>
+          <object class="AdwSpinRow">
+            <property name="title" translatable="yes">Workspace corner radius</property>
+            <property name="subtitle" translatable="yes">Radius for the corner rounding of the workspaces in the overview.</property>
+            <property name="sensitive" bind-source="overview_blur" bind-property="state" bind-flags="sync-create" />
+            <property name="adjustment">workspace_corner_radius</property>
+          </object>
+        </child>
       </object>
     </child>
 
@@ -73,6 +82,12 @@
       </object>
     </child>
   </template>
+
+  <object class="GtkAdjustment" id="workspace_corner_radius">
+    <property name="lower">0</property>
+    <property name="upper">150</property>
+    <property name="step-increment">1</property>
+  </object>
 
   <object class="GtkStringList" id="overview_style_components_model">
     <items>
