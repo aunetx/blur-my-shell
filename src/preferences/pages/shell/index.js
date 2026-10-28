@@ -1,7 +1,6 @@
 import Adw from 'gi://Adw';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
-import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 import { initialize_legacy_blur_notice } from '../../legacy_blur_notice.js';
 import { create_subpage } from '../../subpage.js';
@@ -40,8 +39,8 @@ export const ShellPage = GObject.registerClass({
         initialize_legacy_blur_notice(this._legacy_blur_notice, preferences.settings);
 
         const pipelines = [pipelines_manager, pipelines_page];
-        const component = (component_preferences, description) =>
-            () => new ComponentPage(component_preferences, description, ...pipelines);
+        const component = component_preferences =>
+            () => new ComponentPage(component_preferences, ...pipelines);
 
         this.add_component(this._panel_row, preferences.panel,
             () => new Panel(preferences, ...pipelines)
@@ -58,22 +57,18 @@ export const ShellPage = GObject.registerClass({
         this.add_component(this._appfolder_row, preferences.appfolder,
             () => new AppFolders(preferences, ...pipelines)
         );
-        this.add_component(this._lockscreen_row, preferences.lockscreen, component(
-            preferences.lockscreen,
-            _("Change the blur of the lockscreen to use this extension's preferences.")
-        ));
-        this.add_component(this._screenshot_row, preferences.screenshot, component(
-            preferences.screenshot,
-            _("Add blur to the background of the window selector in the screenshot UI.")
-        ));
-        this.add_component(this._window_list_row, preferences.window_list, component(
-            preferences.window_list,
-            _("Make the window-list extension blurred, if it is used.")
-        ));
-        this.add_component(this._coverflow_alt_tab_row, preferences.coverflow_alt_tab, component(
-            preferences.coverflow_alt_tab,
-            _("Make the coverflow alt-tab extension blurred, if it is used.")
-        ));
+        this.add_component(this._lockscreen_row, preferences.lockscreen,
+            component(preferences.lockscreen)
+        );
+        this.add_component(this._screenshot_row, preferences.screenshot,
+            component(preferences.screenshot)
+        );
+        this.add_component(this._window_list_row, preferences.window_list,
+            component(preferences.window_list)
+        );
+        this.add_component(this._coverflow_alt_tab_row, preferences.coverflow_alt_tab,
+            component(preferences.coverflow_alt_tab)
+        );
     }
 
     add_component(row, component_preferences, create_page) {

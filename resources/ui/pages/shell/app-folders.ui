@@ -6,7 +6,6 @@
         <child>
           <object class="AdwSwitchRow" id="blur">
             <property name="title" translatable="yes">Blur</property>
-            <property name="subtitle" translatable="yes">Makes the background of application folder dialogs blurred.</property>
           </object>
         </child>
       </object>
@@ -23,7 +22,6 @@
         <child>
           <object class="AdwComboRow" id="style_dialogs">
             <property name="title" translatable="yes">Application folder dialogs style</property>
-            <property name="subtitle" translatable="yes">The semi-transparent style for the application folder dialogs.</property>
             <property name="model">style_dialogs_model</property>
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>

@@ -18,14 +18,6 @@ const LINKS = [
         name: 'open-license',
         link: 'https://github.com/aunetx/blur-my-shell/blob/master/LICENSE'
     },
-    {
-        name: 'donate-github',
-        link: 'https://github.com/sponsors/aunetx'
-    },
-    {
-        name: 'donate-kofi',
-        link: 'https://ko-fi.com/aunetx'
-    },
 ];
 
 

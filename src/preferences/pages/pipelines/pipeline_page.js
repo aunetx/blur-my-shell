@@ -6,7 +6,6 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 import { EffectRow } from '../../widgets/effect_row.js';
 import { present_effect_chooser } from './effect_chooser.js';
-import { get_pipeline_components } from './components.js';
 
 
 function clone_effects(effects) {
@@ -26,7 +25,6 @@ export const PipelinePage = GObject.registerClass({
     GTypeName: 'PipelinePage',
     Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/pipelines/pipeline-page.ui', GLib.UriFlags.NONE),
     InternalChildren: [
-        'name_group',
         'name',
         'id_row',
         'copy_id',
@@ -56,13 +54,6 @@ export const PipelinePage = GObject.registerClass({
             (_obj, name) => this.update_title(name)
         );
 
-        this._components = get_pipeline_components(preferences);
-        this._component_handlers = this._components.map(({ component }) => [
-            component.settings,
-            component.settings.connect('changed::pipeline', () => this.update_used_by()),
-        ]);
-        this.update_used_by();
-
         pipeline.effects.forEach(effect => this._effects_list.append(new EffectRow(effect, this)));
         this.update_move_actions();
 
@@ -89,19 +80,6 @@ export const PipelinePage = GObject.registerClass({
 
     update_title(name) {
         this.title = name.length > 0 ? name : _('Pipeline');
-    }
-
-    update_used_by() {
-        const names = this._components
-            .filter(({ component }) => component.PIPELINE === this.pipeline_id)
-            .map(({ name }) => name);
-
-        if (names.length === this._components.length)
-            this._name_group.description = _('Used by every component');
-        else if (names.length > 0)
-            this._name_group.description = _('Used by %s').replace('%s', () => names.join(', '));
-        else
-            this._name_group.description = _('Not used by any component yet');
     }
 
     focus_name_on_show() {
@@ -182,6 +160,5 @@ export const PipelinePage = GObject.registerClass({
 
     cleanup() {
         this.pipelines_manager.disconnect(this._renamed_id);
-        this._component_handlers.forEach(([settings, id]) => settings.disconnect(id));
     }
 });

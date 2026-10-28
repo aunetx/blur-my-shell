@@ -10,7 +10,6 @@
         <child>
           <object class="AdwSwitchRow" id="blur">
             <property name="title" translatable="yes">Blur</property>
-            <property name="subtitle" translatable="yes">Adds blur to applications.</property>
           </object>
         </child>
       </object>
@@ -20,7 +19,6 @@
       <object class="AdwPreferencesGroup">
         <child>
           <object class="BlurModeRow" id="blur_mode_row">
-            <property name="subtitle" translatable="yes">Static blur follows the wallpaper; dynamic blur samples live content behind windows. Both use the selected pipeline.</property>
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
@@ -41,7 +39,7 @@
         <child>
           <object class="AdwActionRow">
             <property name="title" translatable="yes">Opacity</property>
-            <property name="subtitle" translatable="yes">The opacity of the window on top of the blur effect, a higher value will be more legible.</property>
+            <property name="subtitle" translatable="yes">Higher values are easier to read</property>
             <property name="activatable-widget">opacity_scale</property>
 
             <child>
@@ -62,14 +60,12 @@
         <child>
           <object class="AdwSwitchRow" id="dynamic_opacity">
             <property name="title" translatable="yes">Opaque focused window</property>
-            <property name="subtitle" translatable="yes">Makes the focused window opaque and the other ones blurred, helping with legibility.</property>
           </object>
         </child>
 
         <child>
           <object class="AdwSpinRow">
             <property name="title" translatable="yes">Corner radius</property>
-            <property name="subtitle" translatable="yes">Radius for the corner rounding effect.</property>
             <property name="adjustment">corner_radius</property>
           </object>
         </child>
@@ -84,7 +80,6 @@
         <child>
           <object class="AdwSwitchRow" id="corner_when_maximized">
             <property name="title" translatable="yes">Round maximized and fullscreen windows</property>
-            <property name="subtitle" translatable="yes">Corner rounding effect will keep being applied to maximized and fullscreen windows.</property>
           </object>
         </child>
       </object>
@@ -98,15 +93,13 @@
         <child>
           <object class="AdwSwitchRow" id="blur_on_overview">
             <property name="title" translatable="yes">Blur on overview</property>
-            <property name="subtitle" translatable="yes">Forces the blur to be properly shown on all workspaces on overview.
-This may cause some latency or performance issues.</property>
+            <property name="subtitle" translatable="yes">Shows the blur on every workspace, at some performance cost</property>
           </object>
         </child>
 
         <child>
           <object class="AdwSwitchRow" id="unblur_when_fullscreen">
             <property name="title" translatable="yes">Unblur when Fullscreen</property>
-            <property name="subtitle" translatable="yes">Forces the blur to be removed when a window is in fullscreen mode.</property>
           </object>
         </child>
 
@@ -122,7 +115,7 @@ This may cause some latency or performance issues.</property>
     <child>
       <object class="AdwPreferencesGroup" id="whitelist">
         <property name="title" translatable="yes">Blurred windows</property>
-        <property name="description" translatable="yes">Only these windows are blurred. Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? for a single one.</property>
+        <property name="description" translatable="yes">Use * to match any characters, like Firefox* or *Code*, and ? to match a single one.</property>
         <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
         <property name="header-suffix">
           <object class="GtkButton" id="add_whitelist">
@@ -144,7 +137,7 @@ This may cause some latency or performance issues.</property>
     <child>
       <object class="AdwPreferencesGroup" id="blacklist">
         <property name="title" translatable="yes">Excluded windows</property>
-        <property name="description" translatable="yes">These windows are never blurred. Use * to match any sequence of characters (e.g., Firefox* or *Code*), and ? for a single one.</property>
+        <property name="description" translatable="yes">Use * to match any characters, like Firefox* or *Code*, and ? to match a single one.</property>
         <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
         <property name="header-suffix">
           <object class="GtkButton" id="add_blacklist">

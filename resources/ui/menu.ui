@@ -24,17 +24,6 @@
         <attribute name="label" translatable="yes">License</attribute>
         <attribute name="action">prefs.open-license</attribute>
       </item>
-      <submenu>
-        <attribute name="label" translatable="yes">Donate</attribute>
-        <item>
-          <attribute name="label">GitHub</attribute>
-          <attribute name="action">prefs.donate-github</attribute>
-        </item>
-        <item>
-          <attribute name="label">Ko-fi</attribute>
-          <attribute name="action">prefs.donate-kofi</attribute>
-        </item>
-      </submenu>
     </section>
   </menu>
 

@@ -6,7 +6,6 @@
         <child>
           <object class="AdwSwitchRow" id="blur">
             <property name="title" translatable="yes">Blur</property>
-            <property name="subtitle" translatable="yes">Add blur to GNOME Shell menus, the calendar and notifications popup, notification banners, OSD popups, and dialogs.</property>
           </object>
         </child>
       </object>
@@ -16,7 +15,6 @@
       <object class="AdwPreferencesGroup">
         <child>
           <object class="BlurModeRow" id="blur_mode_row">
-            <property name="subtitle" translatable="yes">Static blur follows the wallpaper; dynamic blur samples live content behind popups. Both use the selected pipeline.</property>
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
@@ -37,14 +35,12 @@
         <child>
           <object class="AdwSwitchRow" id="override_background">
             <property name="title" translatable="yes">Override background</property>
-            <property name="subtitle" translatable="yes">Override the background of popups to use a transparent or semi-transparent one.</property>
           </object>
         </child>
 
         <child>
           <object class="AdwComboRow" id="style_popup">
             <property name="title" translatable="yes">Background style</property>
-            <property name="subtitle" translatable="yes">The transparent/semi-transparent style for popups.</property>
             <property name="model">style_popup_model</property>
             <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
           </object>
@@ -63,7 +59,6 @@
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Corner radius</property>
-        <property name="description" translatable="yes">Adjust the rounded corners for each popup surface.</property>
         <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
 
         <child>

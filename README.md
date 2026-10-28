@@ -6,7 +6,6 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/aunetx/blur-my-shell)](https://github.com/aunetx/blur-my-shell/releases/latest)
 [![Weblate project translation progress](https://hosted.weblate.org/widgets/blur-my-shell/-/blur-my-shell/svg-badge.svg)](https://hosted.weblate.org/engage/blur-my-shell/)
 [![Weblate project number of languages](https://hosted.weblate.org/widget/blur-my-shell/language-badge.svg)](https://hosted.weblate.org/engage/blur-my-shell/)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/aunetx)](https://github.com/sponsors/aunetx)
 
 A GNOME Shell extension that adds a blur look to different parts of the GNOME Shell, including the top panel, dash and overview.
 
@@ -168,12 +167,6 @@ journalctl -b /usr/bin/gjs | grep blur-my-shell
 
 Just don't hesitate to open issues and pull requests, and sorry if I take some time to answer!
 
-### Donations
-
-If you want to sponsor me, first of all thank you very much! That really is not a required part of being a user, and other developers (for quite a lot of projects, them being extensions or GNOME itself) surely merit it more than me!
-
-You can use either [GitHub Sponsors](https://github.com/sponsors/aunetx) or [Ko-fi](https://ko-fi.com/aunetx); and don't hesitate to ask for more specialized support if you need to!
-
 ## Versions support
 
 The current extension supports these GNOME Shell versions:
@@ -214,8 +207,6 @@ Much much love to (I hope I did not forget anyone...):
 - @swyknox for the awesome icon!
 - the translators, which I can't name here because there are quite a lot actually!
 - every contributor, and even those who open these ugly issues!!! Because that's maybe the most important of it all :)
-
-Of course, I am really grateful to the people sponsoring my work, it is really cool to be supported like this!
 
 And lastly, thank you, kind visitor — this is a fun project to manage :)
 

@@ -2,6 +2,7 @@
 <interface domain="blur-my-shell@aunetx">
   <template class="BlurModeRow" parent="AdwActionRow">
     <property name="title" translatable="yes">Blur type</property>
+    <property name="subtitle" translatable="yes">Static blurs only the wallpaper</property>
     <property name="activatable-widget">mode_static</property>
 
     <child>

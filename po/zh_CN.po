@@ -607,11 +607,7 @@ msgstr "报告问题"
 msgid "License"
 msgstr "许可证"
 
-#: resources/ui/menu.ui:28
-msgid "Donate"
-msgstr "捐助"
-
-#: resources/ui/menu.ui:45
+#: resources/ui/menu.ui:34
 msgid "Main Menu"
 msgstr ""
 
@@ -620,139 +616,98 @@ msgstr ""
 msgid "Applications"
 msgstr "应用程序"
 
-#: resources/ui/pages/applications.ui:13
-msgid "Adds blur to applications."
-msgstr "为应用程序添加模糊。"
-
-#: resources/ui/pages/applications.ui:23
-msgid ""
-"Static blur follows the wallpaper; dynamic blur samples live content behind "
-"windows. Both use the selected pipeline."
-msgstr "静态模糊跟随壁纸；动态模糊采样窗口后面的实时内容。两者均使用所选管线。"
-
-#: resources/ui/pages/applications.ui:38
-#: resources/ui/pages/shell/overview.ui:27 resources/ui/pages/shell/panel.ui:42
+#: resources/ui/pages/applications.ui:36
+#: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:43
+#: resources/ui/pages/applications.ui:41
 msgid "Opacity"
 msgstr "不透明度"
 
-#: resources/ui/pages/applications.ui:44
-msgid ""
-"The opacity of the window on top of the blur effect, a higher value will be "
-"more legible."
-msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
+#: resources/ui/pages/applications.ui:42
+msgid "Higher values are easier to read"
+msgstr ""
 
-#: resources/ui/pages/applications.ui:64
+#: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
 msgstr "使焦点窗口不透明"
 
-#: resources/ui/pages/applications.ui:65
-msgid ""
-"Makes the focused window opaque and the other ones blurred, helping with "
-"legibility."
-msgstr "使焦点窗口不透明而模糊其他窗口，以提高易读性。"
-
-#: resources/ui/pages/applications.ui:71 resources/ui/pages/shell/panel.ui:47
-#: resources/ui/pages/shell/popup.ui:65
+#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
+#: resources/ui/pages/shell/popup.ui:61
 msgid "Corner radius"
 msgstr "圆角半径"
 
-#: resources/ui/pages/applications.ui:72 resources/ui/pages/shell/panel.ui:48
-msgid "Radius for the corner rounding effect."
-msgstr "圆角效果的半径。"
-
-#: resources/ui/pages/applications.ui:79 resources/ui/pages/shell/panel.ui:55
-#: resources/ui/pages/shell/popup.ui:71
+#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
+#: resources/ui/pages/shell/popup.ui:66
 msgid "Rounded corners"
 msgstr "圆角"
 
-#: resources/ui/pages/applications.ui:86
+#: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
 msgstr "圆角化最大化和全屏窗口"
 
-#: resources/ui/pages/applications.ui:87
-msgid ""
-"Corner rounding effect will keep being applied to maximized and fullscreen "
-"windows."
-msgstr "圆角效果将持续作用于最大化和全屏窗口。"
-
-#: resources/ui/pages/applications.ui:95
+#: resources/ui/pages/applications.ui:90
 msgid "Behavior"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:100
+#: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
 msgstr "在概览中模糊"
 
-#: resources/ui/pages/applications.ui:101
-msgid ""
-"Forces the blur to be properly shown on all workspaces on overview.\n"
-"This may cause some latency or performance issues."
+#: resources/ui/pages/applications.ui:96
+msgid "Shows the blur on every workspace, at some performance cost"
 msgstr ""
-"强制模糊在概览中正确显示在所有工作区上。\n"
-"这可能会导致延迟或性能问题。"
 
-#: resources/ui/pages/applications.ui:108
+#: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
 msgstr "全屏时取消模糊"
 
-#: resources/ui/pages/applications.ui:109
-msgid "Forces the blur to be removed when a window is in fullscreen mode."
-msgstr "当窗口处于全屏模式时强制移除模糊。"
-
-#: resources/ui/pages/applications.ui:115
+#: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:116
+#: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:124
+#: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:125
+#: resources/ui/pages/applications.ui:118
+#: resources/ui/pages/applications.ui:140
 msgid ""
-"Only these windows are blurred. Use * to match any sequence of characters "
-"(e.g., Firefox* or *Code*), and ? for a single one."
+"Use * to match any characters, like Firefox* or *Code*, and ? to match a "
+"single one."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:133
-#: resources/ui/pages/applications.ui:155
+#: resources/ui/pages/applications.ui:126
+#: resources/ui/pages/applications.ui:148
 msgid "Add Window"
 msgstr "添加窗口"
 
-#: resources/ui/pages/applications.ui:146
+#: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:147
-msgid ""
-"These windows are never blurred. Use * to match any sequence of characters "
-"(e.g., Firefox* or *Code*), and ? for a single one."
-msgstr ""
-
-#: resources/ui/pages/applications.ui:169 resources/ui/pages/shell/panel.ui:161
-#: resources/ui/pages/shell/popup.ui:165
+#: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
+#: resources/ui/pages/shell/popup.ui:160
 msgid "All"
 msgstr "全部"
 
-#: resources/ui/pages/applications.ui:170 resources/ui/pages/shell/panel.ui:162
-#: resources/ui/pages/shell/popup.ui:166
+#: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
+#: resources/ui/pages/shell/popup.ui:161
 msgid "Top only"
 msgstr "仅顶部"
 
-#: resources/ui/pages/applications.ui:171 resources/ui/pages/shell/panel.ui:163
-#: resources/ui/pages/shell/popup.ui:167
+#: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
+#: resources/ui/pages/shell/popup.ui:162
 msgid "Bottom only"
 msgstr "仅底部"
 
-#: resources/ui/pages/applications.ui:172 resources/ui/pages/shell/panel.ui:164
-#: resources/ui/pages/shell/popup.ui:168
+#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
+#: resources/ui/pages/shell/popup.ui:163
 msgid "None"
 msgstr "无"
 
@@ -766,7 +721,7 @@ msgid "Name"
 msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
-msgid "Pipeline id"
+msgid "Pipeline ID"
 msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
@@ -777,26 +732,22 @@ msgstr ""
 msgid "Effects"
 msgstr "效果"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:50
-msgid "Applied from top to bottom. Drag them to change the order."
-msgstr ""
-
-#: resources/ui/pages/pipelines/pipeline-page.ui:57
+#: resources/ui/pages/pipelines/pipeline-page.ui:56
 #: src/preferences/pages/pipelines/effect_chooser.js:13
 msgid "Add Effect"
 msgstr "添加效果"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:74
+#: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:95
+#: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:99
+#: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
@@ -807,183 +758,102 @@ msgid "Pipelines"
 msgstr "管线"
 
 #: resources/ui/pages/pipelines/pipelines.ui:10
-msgid ""
-"Pipelines are sets of effects that components share. Each component picks "
-"the pipeline it uses in its own settings."
+msgid "Pipelines are sets of effects that components share."
 msgstr ""
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:9
-msgid "Makes the background of application folder dialogs blurred."
-msgstr "使应用程序文件夹对话框的背景模糊。"
-
-#: resources/ui/pages/shell/app-folders.ui:25
+#: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
 msgstr "应用程序文件夹对话框样式"
 
-#: resources/ui/pages/shell/app-folders.ui:26
-msgid "The semi-transparent style for the application folder dialogs."
-msgstr "应用程序文件夹对话框的半透明样式。"
-
-#: resources/ui/pages/shell/app-folders.ui:37
-#: resources/ui/pages/shell/overview.ui:57
+#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/overview.ui:55
 msgid "Do not style"
 msgstr "原始风格"
 
-#: resources/ui/pages/shell/app-folders.ui:38
-#: resources/ui/pages/shell/dash.ui:66 resources/ui/pages/shell/overview.ui:60
-#: resources/ui/pages/shell/panel.ui:170 resources/ui/pages/shell/popup.ui:174
+#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/dash.ui:61 resources/ui/pages/shell/overview.ui:58
+#: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:169
 msgid "Transparent"
 msgstr "透明"
 
-#: resources/ui/pages/shell/app-folders.ui:39
-#: resources/ui/pages/shell/dash.ui:67 resources/ui/pages/shell/overview.ui:58
-#: resources/ui/pages/shell/panel.ui:171 resources/ui/pages/shell/popup.ui:175
+#: resources/ui/pages/shell/app-folders.ui:37
+#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
+#: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:170
 msgid "Light"
 msgstr "亮色"
 
-#: resources/ui/pages/shell/app-folders.ui:40
-#: resources/ui/pages/shell/dash.ui:68 resources/ui/pages/shell/overview.ui:59
-#: resources/ui/pages/shell/panel.ui:172 resources/ui/pages/shell/popup.ui:176
+#: resources/ui/pages/shell/app-folders.ui:38
+#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
+#: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:171
 msgid "Dark"
 msgstr "暗色"
 
-#: resources/ui/pages/shell/app-folders.ui:41
-#: resources/ui/pages/shell/dash.ui:69 resources/ui/pages/shell/overview.ui:61
-#: resources/ui/pages/shell/panel.ui:174 resources/ui/pages/shell/popup.ui:177
+#: resources/ui/pages/shell/app-folders.ui:39
+#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
+#: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
 msgid "Automatic"
 msgstr "自动"
 
-#: resources/ui/pages/shell/dash.ui:9
-msgid ""
-"Blur the background of supported docks, including Dash to Dock, Dhruva and "
-"Simple Taskbar's dock."
-msgstr ""
-"模糊受支持的任务栏的背景，包括 Dash to Dock、Dhruva 和 Simple Taskbar 的 "
-"Dock。"
-
-#: resources/ui/pages/shell/dash.ui:19
-msgid ""
-"Static blur follows the wallpaper; dynamic blur samples live content behind "
-"the dash. Both use the selected pipeline."
-msgstr ""
-"静态模糊跟随壁纸；动态模糊采样任务栏后面的实时内容。两者均使用所选管线。"
-
-#: resources/ui/pages/shell/dash.ui:32 resources/ui/pages/shell/panel.ui:32
+#: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
 msgid "Disable in overview"
 msgstr "在概览中禁用"
 
-#: resources/ui/pages/shell/dash.ui:33
-msgid "Disables dock blur when entering the overview."
-msgstr "进入概览时禁用 Dock 模糊。"
-
-#: resources/ui/pages/shell/dash.ui:42 resources/ui/pages/shell/panel.ui:78
-#: resources/ui/pages/shell/popup.ui:34 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
+#: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
 msgstr ""
 
-#: resources/ui/pages/shell/dash.ui:47 resources/ui/pages/shell/panel.ui:83
-#: resources/ui/pages/shell/popup.ui:39
+#: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
+#: resources/ui/pages/shell/popup.ui:37
 msgid "Override background"
 msgstr "覆盖背景"
 
-#: resources/ui/pages/shell/dash.ui:48
-msgid ""
-"Makes the dock background transparent or semi-transparent. Disable this to "
-"use the dock extension's own appearance."
-msgstr "使 Dock 背景透明或半透明。禁用此选项以使用 Dock 扩展自身的外观。"
-
-#: resources/ui/pages/shell/dash.ui:54 resources/ui/pages/shell/panel.ui:91
-#: resources/ui/pages/shell/popup.ui:46
+#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:84
+#: resources/ui/pages/shell/popup.ui:43
 msgid "Background style"
 msgstr "背景样式"
 
-#: resources/ui/pages/shell/dash.ui:55
-msgid "The transparent/semi-transparent style for the dock background."
-msgstr "Dock 背景的透明/半透明样式。"
-
-#: resources/ui/pages/shell/overview.ui:9
-msgid "Add blur to the overview background, using the wallpaper picture."
-msgstr "模糊概览界面的背景，使用壁纸图片。"
-
-#: resources/ui/pages/shell/overview.ui:32
+#: resources/ui/pages/shell/overview.ui:31
 msgid "Overview components style"
 msgstr "概览界面组件风格"
 
-#: resources/ui/pages/shell/overview.ui:33
-msgid ""
-"The semi-transparent style for the dash, search entry/results, and "
-"application folders."
-msgstr "Dash、搜索条目/结果和应用程序文件夹的半透明样式。"
+#: resources/ui/pages/shell/overview.ui:32
+msgid "For the dash, search and app folders"
+msgstr ""
 
-#: resources/ui/pages/shell/overview.ui:40
+#: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
 msgstr ""
 
-#: resources/ui/pages/shell/overview.ui:41
-msgid "Radius for the corner rounding of the workspaces in the overview."
-msgstr ""
-
-#: resources/ui/pages/shell/panel.ui:9
-msgid "Add blur to the top panel."
-msgstr "为顶部面板添加模糊。"
-
-#: resources/ui/pages/shell/panel.ui:19
-msgid ""
-"Static blur follows the wallpaper; dynamic blur samples live content behind "
-"the panel. Both use the selected pipeline."
-msgstr "静态模糊跟随壁纸；动态模糊采样面板后面的实时内容。两者均使用所选管线。"
-
-#: resources/ui/pages/shell/panel.ui:33
-msgid "Disables the blur from the panel when entering the overview."
-msgstr "进入概览界面时禁用面板模糊。"
-
-#: resources/ui/pages/shell/panel.ui:62
+#: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
 msgstr "强制浅色文本"
 
-#: resources/ui/pages/shell/panel.ui:63
-msgid ""
-"Use a light text for the panel, useful when using gnome-shell's light theme."
-msgstr "为面板使用浅色文本，在使用 gnome-shell 的浅色主题时非常有用。"
+#: resources/ui/pages/shell/panel.ui:59
+msgid "Useful with a light shell theme"
+msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:69
+#: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:70
-msgid "Keep panel text and icons matched to the system theme in the overview."
-msgstr ""
-
-#: resources/ui/pages/shell/panel.ui:84
-msgid ""
-"Override the background of the panel to use a transparent or semi-"
-"transparent one.\n"
-"Recommended unless you want to customize your GNOME theme."
-msgstr ""
-"覆盖面板的背景以使用透明或半透明背景。\n"
-"除非您想自定义 GNOME 主题，否则推荐使用。"
-
 #: resources/ui/pages/shell/panel.ui:92
-msgid "The transparent/semi-transparent style for the panel background."
-msgstr "面板背景的透明/半透明样式。"
-
-#: resources/ui/pages/shell/panel.ui:100
 msgid "Override background dynamically"
 msgstr "动态覆盖背景"
 
-#: resources/ui/pages/shell/panel.ui:101
-msgid "Change the panel background when a window is near it."
-msgstr "当窗口靠近面板时更改面板背景。"
+#: resources/ui/pages/shell/panel.ui:93
+msgid "Changes the background when a window is near the panel"
+msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:108
+#: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
 msgstr "当窗口靠近时"
 
-#: resources/ui/pages/shell/panel.ui:109
+#: resources/ui/pages/shell/panel.ui:101
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
@@ -993,150 +863,107 @@ msgstr ""
 "窗口靠近时模糊：仅当窗口靠近面板时模糊，否则保持透明。\n"
 "窗口靠近时使用背景：窗口靠近面板时使用纯色背景，否则使用模糊。"
 
-#: resources/ui/pages/shell/panel.ui:118
+#: resources/ui/pages/shell/panel.ui:110
 msgid "Gradient background"
 msgstr "渐变背景"
 
-#: resources/ui/pages/shell/panel.ui:119
-msgid "Apply a gradient effect to the panel background."
-msgstr "为面板背景应用渐变效果。"
-
-#: resources/ui/pages/shell/panel.ui:126
+#: resources/ui/pages/shell/panel.ui:117
 msgid "Gradient direction"
 msgstr "渐变方向"
 
 #: resources/ui/pages/shell/panel.ui:127
-msgid "Change the direction of the gradient background."
-msgstr "更改渐变背景的方向。"
-
-#: resources/ui/pages/shell/panel.ui:137
 msgid "Compatibility"
 msgstr "兼容性"
 
-#: resources/ui/pages/shell/panel.ui:138
-msgid "Various options to provide compatibility with other extensions."
-msgstr "提供与其它扩展兼容性的一些选项。"
-
-#: resources/ui/pages/shell/panel.ui:143
+#: resources/ui/pages/shell/panel.ui:132
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar 扩展"
 
-#: resources/ui/pages/shell/panel.ui:144
-msgid "Keeps the blur visible in the overview; best used with static blur."
-msgstr "在概览中保持模糊可见；最好与静态模糊配合使用。"
+#: resources/ui/pages/shell/panel.ui:133
+msgid "Keeps the blur visible in the overview, best with static blur"
+msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:151
+#: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
 msgstr "在使用 Dash to Panel 时模糊原始面板"
 
-#: resources/ui/pages/shell/panel.ui:152
-msgid ""
-"Enables the blurring of the original panel with Dash to Panel, if selected "
-"in the extension's options."
-msgstr "如果在“Dash to Panel”的选项中启用了原始面板，则对它进行模糊处理。"
+#: resources/ui/pages/shell/panel.ui:141
+msgid "When Dash to Panel keeps the original panel"
+msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:173
+#: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
 msgstr "对比"
 
-#: resources/ui/pages/shell/panel.ui:180
+#: resources/ui/pages/shell/panel.ui:169
 msgid "Blur on Window Proximity"
 msgstr "窗口靠近时模糊"
 
-#: resources/ui/pages/shell/panel.ui:181
+#: resources/ui/pages/shell/panel.ui:170
 msgid "Background on Window Proximity"
 msgstr "窗口靠近时使用背景"
 
-#: resources/ui/pages/shell/panel.ui:187
+#: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
 msgstr "顶部"
 
-#: resources/ui/pages/shell/panel.ui:188
+#: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
 msgstr "底部"
 
-#: resources/ui/pages/shell/popup.ui:9
-msgid ""
-"Add blur to GNOME Shell menus, the calendar and notifications popup, "
-"notification banners, OSD popups, and dialogs."
-msgstr ""
-"为 GNOME Shell 菜单、日历和通知弹出窗口、通知横幅、OSD 弹出提示和对话框添加模"
-"糊。"
-
-#: resources/ui/pages/shell/popup.ui:19
-msgid ""
-"Static blur follows the wallpaper; dynamic blur samples live content behind "
-"popups. Both use the selected pipeline."
-msgstr ""
-"静态模糊跟随壁纸；动态模糊采样弹出窗口后面的实时内容。两者均使用所选管线。"
-
-#: resources/ui/pages/shell/popup.ui:40
-msgid ""
-"Override the background of popups to use a transparent or semi-transparent "
-"one."
-msgstr "覆盖弹出窗口的背景以使用透明或半透明背景。"
-
-#: resources/ui/pages/shell/popup.ui:47
-msgid "The transparent/semi-transparent style for popups."
-msgstr "弹出窗口的透明/半透明样式。"
-
-#: resources/ui/pages/shell/popup.ui:55
+#: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
 msgstr "保留 Shell 主题"
 
-#: resources/ui/pages/shell/popup.ui:56
+#: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
 msgstr "为弹出窗口控件保留 Shell 主题的颜色。"
 
-#: resources/ui/pages/shell/popup.ui:66
-msgid "Adjust the rounded corners for each popup surface."
-msgstr "调整每个弹出表面的圆角。"
-
-#: resources/ui/pages/shell/popup.ui:78
+#: resources/ui/pages/shell/popup.ui:73
 msgid "Menus"
 msgstr "菜单"
 
-#: resources/ui/pages/shell/popup.ui:85
+#: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
 msgstr "输入法候选词"
 
-#: resources/ui/pages/shell/popup.ui:92
+#: resources/ui/pages/shell/popup.ui:87
 msgid "Quick settings"
 msgstr "快速设置"
 
-#: resources/ui/pages/shell/popup.ui:99
+#: resources/ui/pages/shell/popup.ui:94
 msgid "Quick settings submenus"
 msgstr "快速设置子菜单"
 
-#: resources/ui/pages/shell/popup.ui:106
+#: resources/ui/pages/shell/popup.ui:101
 msgid "Calendar and notification center"
 msgstr "日历和通知中心"
 
-#: resources/ui/pages/shell/popup.ui:113
+#: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
 msgstr "通知"
 
-#: resources/ui/pages/shell/popup.ui:120
+#: resources/ui/pages/shell/popup.ui:115
 msgid "Window and workspace switchers"
 msgstr "窗口和工作区切换器"
 
-#: resources/ui/pages/shell/popup.ui:127
+#: resources/ui/pages/shell/popup.ui:122
 msgid "Volume and brightness"
 msgstr "音量和亮度"
 
-#: resources/ui/pages/shell/popup.ui:134
+#: resources/ui/pages/shell/popup.ui:129
 msgid "Window resize hints"
 msgstr "窗口大小调整提示"
 
-#: resources/ui/pages/shell/popup.ui:141
+#: resources/ui/pages/shell/popup.ui:136
 msgid "Dialogs"
 msgstr "对话框"
 
-#: resources/ui/pages/shell/popup.ui:148
+#: resources/ui/pages/shell/popup.ui:143
 msgid "On-screen keyboard"
 msgstr "屏幕键盘"
 
-#: resources/ui/pages/shell/popup.ui:155
+#: resources/ui/pages/shell/popup.ui:150
 msgid "Other popup surfaces"
 msgstr "其他弹出表面"
 
@@ -1262,23 +1089,23 @@ msgstr "所选对象不是窗口。"
 msgid "Blur type"
 msgstr "模糊类型"
 
-#: resources/ui/widgets/blur-mode-row.ui:22
+#: resources/ui/widgets/blur-mode-row.ui:5
+msgid "Static blurs only the wallpaper"
+msgstr ""
+
+#: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
 msgstr "静态"
 
-#: resources/ui/widgets/blur-mode-row.ui:34
+#: resources/ui/widgets/blur-mode-row.ui:35
 msgid "Dynamic"
 msgstr "动态"
 
 #: resources/ui/widgets/pipeline-choose-row.ui:4
-#: src/preferences/pages/pipelines/pipeline_page.js:91
+#: src/preferences/pages/pipelines/pipeline_page.js:82
 #: src/preferences/pages/pipelines/pipeline_row.js:69
 msgid "Pipeline"
 msgstr "管线"
-
-#: resources/ui/widgets/pipeline-choose-row.ui:5
-msgid "The pipeline to be used with this component."
-msgstr "此组件使用的管线。"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
@@ -1348,19 +1175,19 @@ msgstr "关闭"
 msgid "Open instructions"
 msgstr "打开说明"
 
-#: src/preferences/menu.js:83
+#: src/preferences/menu.js:75
 msgid "Reset all preferences?"
 msgstr "重置所有首选项？"
 
-#: src/preferences/menu.js:84
+#: src/preferences/menu.js:76
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "管线和组件设置将恢复为默认值。"
 
-#: src/preferences/menu.js:86 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:78 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "取消"
 
-#: src/preferences/menu.js:87
+#: src/preferences/menu.js:79
 msgid "Reset"
 msgstr "重置"
 
@@ -1395,38 +1222,9 @@ msgstr "管线已删除"
 msgid "Undo"
 msgstr "撤销"
 
-#: src/preferences/pages/pipelines/pipeline_page.js:100
-msgid "Used by every component"
-msgstr ""
-
-#: src/preferences/pages/pipelines/pipeline_page.js:102
-#, javascript-format
-msgid "Used by %s"
-msgstr ""
-
-#: src/preferences/pages/pipelines/pipeline_page.js:104
-msgid "Not used by any component yet"
-msgstr ""
-
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
 msgstr "未知效果"
-
-#: src/preferences/pages/shell/index.js:63
-msgid "Change the blur of the lockscreen to use this extension's preferences."
-msgstr "使用此扩展的首选项更改锁屏的模糊效果。"
-
-#: src/preferences/pages/shell/index.js:67
-msgid "Add blur to the background of the window selector in the screenshot UI."
-msgstr "为截图工具的窗口选择界面的背景添加模糊。"
-
-#: src/preferences/pages/shell/index.js:71
-msgid "Make the window-list extension blurred, if it is used."
-msgstr "模糊 window-list 扩展（如果启用）。"
-
-#: src/preferences/pages/shell/index.js:75
-msgid "Make the coverflow alt-tab extension blurred, if it is used."
-msgstr "如果使用了Coverflow Alt-Tab扩展，将其设置为模糊效果。"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
@@ -1443,6 +1241,173 @@ msgstr ""
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
 msgstr "创建新管线"
+
+#~ msgid ""
+#~ "Makes the focused window opaque and the other ones blurred, helping with "
+#~ "legibility."
+#~ msgstr "使焦点窗口不透明而模糊其他窗口，以提高易读性。"
+
+#~ msgid ""
+#~ "Forces the blur to be properly shown on all workspaces on overview.\n"
+#~ "This may cause some latency or performance issues."
+#~ msgstr ""
+#~ "强制模糊在概览中正确显示在所有工作区上。\n"
+#~ "这可能会导致延迟或性能问题。"
+
+#~ msgid "Change the panel background when a window is near it."
+#~ msgstr "当窗口靠近面板时更改面板背景。"
+
+#~ msgid "Keeps the blur visible in the overview; best used with static blur."
+#~ msgstr "在概览中保持模糊可见；最好与静态模糊配合使用。"
+
+#~ msgid ""
+#~ "Enables the blurring of the original panel with Dash to Panel, if "
+#~ "selected in the extension's options."
+#~ msgstr "如果在“Dash to Panel”的选项中启用了原始面板，则对它进行模糊处理。"
+
+#~ msgid "Adds blur to applications."
+#~ msgstr "为应用程序添加模糊。"
+
+#~ msgid ""
+#~ "Static blur follows the wallpaper; dynamic blur samples live content "
+#~ "behind windows. Both use the selected pipeline."
+#~ msgstr ""
+#~ "静态模糊跟随壁纸；动态模糊采样窗口后面的实时内容。两者均使用所选管线。"
+
+#~ msgid ""
+#~ "The opacity of the window on top of the blur effect, a higher value will "
+#~ "be more legible."
+#~ msgstr "窗口的不透明度放在模糊效果之上，值越高越清晰。"
+
+#~ msgid "Radius for the corner rounding effect."
+#~ msgstr "圆角效果的半径。"
+
+#~ msgid ""
+#~ "Corner rounding effect will keep being applied to maximized and "
+#~ "fullscreen windows."
+#~ msgstr "圆角效果将持续作用于最大化和全屏窗口。"
+
+#~ msgid "Forces the blur to be removed when a window is in fullscreen mode."
+#~ msgstr "当窗口处于全屏模式时强制移除模糊。"
+
+#~ msgid "Makes the background of application folder dialogs blurred."
+#~ msgstr "使应用程序文件夹对话框的背景模糊。"
+
+#~ msgid "The semi-transparent style for the application folder dialogs."
+#~ msgstr "应用程序文件夹对话框的半透明样式。"
+
+#~ msgid ""
+#~ "Blur the background of supported docks, including Dash to Dock, Dhruva "
+#~ "and Simple Taskbar's dock."
+#~ msgstr ""
+#~ "模糊受支持的任务栏的背景，包括 Dash to Dock、Dhruva 和 Simple Taskbar 的 "
+#~ "Dock。"
+
+#~ msgid ""
+#~ "Static blur follows the wallpaper; dynamic blur samples live content "
+#~ "behind the dash. Both use the selected pipeline."
+#~ msgstr ""
+#~ "静态模糊跟随壁纸；动态模糊采样任务栏后面的实时内容。两者均使用所选管线。"
+
+#~ msgid "Disables dock blur when entering the overview."
+#~ msgstr "进入概览时禁用 Dock 模糊。"
+
+#~ msgid ""
+#~ "Makes the dock background transparent or semi-transparent. Disable this "
+#~ "to use the dock extension's own appearance."
+#~ msgstr "使 Dock 背景透明或半透明。禁用此选项以使用 Dock 扩展自身的外观。"
+
+#~ msgid "The transparent/semi-transparent style for the dock background."
+#~ msgstr "Dock 背景的透明/半透明样式。"
+
+#~ msgid "Add blur to the overview background, using the wallpaper picture."
+#~ msgstr "模糊概览界面的背景，使用壁纸图片。"
+
+#~ msgid ""
+#~ "The semi-transparent style for the dash, search entry/results, and "
+#~ "application folders."
+#~ msgstr "Dash、搜索条目/结果和应用程序文件夹的半透明样式。"
+
+#~ msgid "Add blur to the top panel."
+#~ msgstr "为顶部面板添加模糊。"
+
+#~ msgid ""
+#~ "Static blur follows the wallpaper; dynamic blur samples live content "
+#~ "behind the panel. Both use the selected pipeline."
+#~ msgstr ""
+#~ "静态模糊跟随壁纸；动态模糊采样面板后面的实时内容。两者均使用所选管线。"
+
+#~ msgid "Disables the blur from the panel when entering the overview."
+#~ msgstr "进入概览界面时禁用面板模糊。"
+
+#~ msgid ""
+#~ "Use a light text for the panel, useful when using gnome-shell's light "
+#~ "theme."
+#~ msgstr "为面板使用浅色文本，在使用 gnome-shell 的浅色主题时非常有用。"
+
+#~ msgid ""
+#~ "Override the background of the panel to use a transparent or semi-"
+#~ "transparent one.\n"
+#~ "Recommended unless you want to customize your GNOME theme."
+#~ msgstr ""
+#~ "覆盖面板的背景以使用透明或半透明背景。\n"
+#~ "除非您想自定义 GNOME 主题，否则推荐使用。"
+
+#~ msgid "The transparent/semi-transparent style for the panel background."
+#~ msgstr "面板背景的透明/半透明样式。"
+
+#~ msgid "Apply a gradient effect to the panel background."
+#~ msgstr "为面板背景应用渐变效果。"
+
+#~ msgid "Change the direction of the gradient background."
+#~ msgstr "更改渐变背景的方向。"
+
+#~ msgid "Various options to provide compatibility with other extensions."
+#~ msgstr "提供与其它扩展兼容性的一些选项。"
+
+#~ msgid ""
+#~ "Add blur to GNOME Shell menus, the calendar and notifications popup, "
+#~ "notification banners, OSD popups, and dialogs."
+#~ msgstr ""
+#~ "为 GNOME Shell 菜单、日历和通知弹出窗口、通知横幅、OSD 弹出提示和对话框添"
+#~ "加模糊。"
+
+#~ msgid ""
+#~ "Static blur follows the wallpaper; dynamic blur samples live content "
+#~ "behind popups. Both use the selected pipeline."
+#~ msgstr ""
+#~ "静态模糊跟随壁纸；动态模糊采样弹出窗口后面的实时内容。两者均使用所选管线。"
+
+#~ msgid ""
+#~ "Override the background of popups to use a transparent or semi-"
+#~ "transparent one."
+#~ msgstr "覆盖弹出窗口的背景以使用透明或半透明背景。"
+
+#~ msgid "The transparent/semi-transparent style for popups."
+#~ msgstr "弹出窗口的透明/半透明样式。"
+
+#~ msgid "Adjust the rounded corners for each popup surface."
+#~ msgstr "调整每个弹出表面的圆角。"
+
+#~ msgid "The pipeline to be used with this component."
+#~ msgstr "此组件使用的管线。"
+
+#~ msgid ""
+#~ "Change the blur of the lockscreen to use this extension's preferences."
+#~ msgstr "使用此扩展的首选项更改锁屏的模糊效果。"
+
+#~ msgid ""
+#~ "Add blur to the background of the window selector in the screenshot UI."
+#~ msgstr "为截图工具的窗口选择界面的背景添加模糊。"
+
+#~ msgid "Make the window-list extension blurred, if it is used."
+#~ msgstr "模糊 window-list 扩展（如果启用）。"
+
+#~ msgid "Make the coverflow alt-tab extension blurred, if it is used."
+#~ msgstr "如果使用了Coverflow Alt-Tab扩展，将其设置为模糊效果。"
+
+#~ msgid "Donate"
+#~ msgstr "捐助"
 
 #~ msgid "Blur effects"
 #~ msgstr "模糊效果"

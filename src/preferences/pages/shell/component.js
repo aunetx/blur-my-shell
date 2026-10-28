@@ -13,10 +13,9 @@ export const ComponentPage = GObject.registerClass({
         'pipeline_choose_row'
     ],
 }, class ComponentPage extends Adw.PreferencesPage {
-    constructor(component_preferences, description, pipelines_manager, pipelines_page) {
+    constructor(component_preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this._blur.subtitle = description;
         bind_settings(component_preferences, [['blur', this._blur, 'active']]);
         this._pipeline_choose_row.initialize(
             component_preferences, pipelines_manager, pipelines_page

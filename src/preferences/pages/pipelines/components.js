@@ -2,7 +2,7 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 
 /// The components that pick a pipeline, with the names the preferences show for them.
-export function get_pipeline_components(preferences) {
+function get_pipeline_components(preferences) {
     return [
         ['panel', _('Panel')],
         ['dash_to_dock', _('Dock')],

@@ -7,7 +7,7 @@
 
     <child>
       <object class="AdwPreferencesGroup" id="pipelines_group">
-        <property name="description" translatable="yes">Pipelines are sets of effects that components share. Each component picks the pipeline it uses in its own settings.</property>
+        <property name="description" translatable="yes">Pipelines are sets of effects that components share.</property>
         <property name="header-suffix">
           <object class="GtkButton" id="add_pipeline">
             <property name="valign">center</property>

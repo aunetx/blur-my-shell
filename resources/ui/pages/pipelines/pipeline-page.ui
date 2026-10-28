@@ -18,7 +18,7 @@
         <property name="content">
           <object class="AdwPreferencesPage">
             <child>
-              <object class="AdwPreferencesGroup" id="name_group">
+              <object class="AdwPreferencesGroup">
                 <child>
                   <object class="AdwEntryRow" id="name">
                     <property name="title" translatable="yes">Name</property>
@@ -27,7 +27,7 @@
 
                 <child>
                   <object class="AdwActionRow" id="id_row">
-                    <property name="title" translatable="yes">Pipeline id</property>
+                    <property name="title" translatable="yes">Pipeline ID</property>
                     <property name="subtitle-selectable">true</property>
                     <child>
                       <object class="GtkButton" id="copy_id">
@@ -47,7 +47,6 @@
             <child>
               <object class="AdwPreferencesGroup">
                 <property name="title" translatable="yes">Effects</property>
-                <property name="description" translatable="yes">Applied from top to bottom. Drag them to change the order.</property>
                 <property name="header-suffix">
                   <object class="GtkButton" id="add_effect">
                     <property name="valign">center</property>
