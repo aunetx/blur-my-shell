@@ -61,10 +61,9 @@ export class DockSurface {
             'notify::scale-factor', schedule_update);
         if (this.theme_manager)
             this.connections.connect(this.theme_manager, 'updated', schedule_update);
-        const slider = dash_container._slider;
-        if (slider)
+        if (target.slider)
             this.connections.connect(
-                slider,
+                target.slider,
                 ['notify::slide-x', 'notify::allocation'],
                 schedule_update
             );
