@@ -1,5 +1,6 @@
 import * as utils from '../../conveniences/utils.js';
 import { get_snippet } from '../../render/shader/snippet_cache.js';
+import { addRectangle } from '../../render/paint_nodes.js';
 import { ANTIALIASING_SOURCE } from '../../render/shader/antialiasing.js';
 import { TEXTURE_REGION_SOURCE, textureRegionDeclarations } from '../../render/shader/texture_region.js';
 
@@ -186,11 +187,6 @@ export function addPassNode(parent, target, pipeline, bounds, name) {
 
     const pipelineNode = new Clutter.PipelineNode(pipeline);
     pipelineNode.set_name(`${name} sample`);
-    pipelineNode.add_rectangle(new Clutter.ActorBox({
-        x1: bounds.x,
-        y1: bounds.y,
-        x2: bounds.x + bounds.width,
-        y2: bounds.y + bounds.height,
-    }));
+    addRectangle(pipelineNode, bounds.x, bounds.y, bounds.width, bounds.height);
     layerNode.add_child(pipelineNode);
 }

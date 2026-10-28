@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 06:07+0100\n"
-"PO-Revision-Date: 2026-10-20 16:24+0000\n"
-"Last-Translator: Yassin Omer <yassinomer@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-10-26 04:51+0000\n"
+"Last-Translator: Yassin Omer <yassinomer.work@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -631,13 +631,15 @@ msgstr "التطبيقات"
 
 #: resources/ui/pages/applications.ui:13
 msgid "Adds blur to applications."
-msgstr ""
+msgstr "يُضيف التمويه إلى التطبيقات."
 
 #: resources/ui/pages/applications.ui:23
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "windows. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف النوافذ. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/pages/applications.ui:38
 #: resources/ui/pages/shell/overview.ui:27 resources/ui/pages/shell/panel.ui:42
@@ -679,11 +681,11 @@ msgstr "نصف القطر لتأثير استدارة الزوايا."
 #: resources/ui/pages/applications.ui:79 resources/ui/pages/shell/panel.ui:55
 #: resources/ui/pages/shell/popup.ui:71
 msgid "Rounded corners"
-msgstr ""
+msgstr "زوايا مستديرة"
 
 #: resources/ui/pages/applications.ui:86
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "تدوير زوايا النوافذ المكبرة وملء الشاشة"
 
 #: resources/ui/pages/applications.ui:87
 msgid ""
@@ -710,11 +712,11 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:108
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "إزالة التمويه عند وضع ملء الشاشة"
 
 #: resources/ui/pages/applications.ui:109
 msgid "Forces the blur to be removed when a window is in fullscreen mode."
-msgstr ""
+msgstr "يفرض إزالة التمويه عندما تكون النافذة في وضع ملء الشاشة."
 
 #: resources/ui/pages/applications.ui:115
 msgid "Blur all windows"
@@ -752,22 +754,22 @@ msgstr ""
 #: resources/ui/pages/applications.ui:169 resources/ui/pages/shell/panel.ui:161
 #: resources/ui/pages/shell/popup.ui:165
 msgid "All"
-msgstr ""
+msgstr "الكل"
 
 #: resources/ui/pages/applications.ui:170 resources/ui/pages/shell/panel.ui:162
 #: resources/ui/pages/shell/popup.ui:166
 msgid "Top only"
-msgstr ""
+msgstr "العلوية فقط"
 
 #: resources/ui/pages/applications.ui:171 resources/ui/pages/shell/panel.ui:163
 #: resources/ui/pages/shell/popup.ui:167
 msgid "Bottom only"
-msgstr ""
+msgstr "السفلية فقط"
 
 #: resources/ui/pages/applications.ui:172 resources/ui/pages/shell/panel.ui:164
 #: resources/ui/pages/shell/popup.ui:168
 msgid "None"
-msgstr ""
+msgstr "لا شيء"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
@@ -868,19 +870,23 @@ msgstr "داكن"
 #: resources/ui/pages/shell/dash.ui:69 resources/ui/pages/shell/overview.ui:61
 #: resources/ui/pages/shell/panel.ui:174 resources/ui/pages/shell/popup.ui:177
 msgid "Automatic"
-msgstr ""
+msgstr "تلقائي"
 
 #: resources/ui/pages/shell/dash.ui:9
 msgid ""
 "Blur the background of supported docks, including Dash to Dock, Dhruva and "
 "Simple Taskbar's dock."
 msgstr ""
+"تمويه خلفية الأرصفة المدعومة، بما في ذلك Dash to Dock وDhruva ورصيف Simple "
+"Taskbar."
 
 #: resources/ui/pages/shell/dash.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the dash. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف شريط التطبيقات. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/pages/shell/dash.ui:32 resources/ui/pages/shell/panel.ui:32
 msgid "Disable in overview"
@@ -888,7 +894,7 @@ msgstr "عطِّل في النظرة العامَّة"
 
 #: resources/ui/pages/shell/dash.ui:33
 msgid "Disables dock blur when entering the overview."
-msgstr ""
+msgstr "يُعطّل تمويه الرصيف عند الدخول إلى النظرة العامة."
 
 #: resources/ui/pages/shell/dash.ui:42 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:34 resources/ui/pages/shell/shell.ui:51
@@ -905,6 +911,8 @@ msgid ""
 "Makes the dock background transparent or semi-transparent. Disable this to "
 "use the dock extension's own appearance."
 msgstr ""
+"يجعل خلفية الرصيف شفافة أو شبه شفافة. عطل هذا الخيار لاستخدام المظهر الخاص "
+"بامتداد الرصيف."
 
 #: resources/ui/pages/shell/dash.ui:54 resources/ui/pages/shell/panel.ui:91
 #: resources/ui/pages/shell/popup.ui:46
@@ -939,13 +947,15 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:9
 msgid "Add blur to the top panel."
-msgstr ""
+msgstr "إضافة التمويه إلى الشريط العلوي."
 
 #: resources/ui/pages/shell/panel.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "the panel. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف الشريط العلوي. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/pages/shell/panel.ui:33
 msgid "Disables the blur from the panel when entering the overview."
@@ -983,15 +993,15 @@ msgstr "أسلوب خلفيَّة اللوحة الشفَّاف\\شبه الشف
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "Override background dynamically"
-msgstr ""
+msgstr "استبدال الخلفية ديناميكياً"
 
 #: resources/ui/pages/shell/panel.ui:101
 msgid "Change the panel background when a window is near it."
-msgstr ""
+msgstr "تغيير خلفية الشريط العلوي عند اقتراب نافذة منه."
 
 #: resources/ui/pages/shell/panel.ui:108
 msgid "When a window is near"
-msgstr ""
+msgstr "عند اقتراب نافذة"
 
 #: resources/ui/pages/shell/panel.ui:109
 msgid ""
@@ -1000,22 +1010,26 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"التمويه عند اقتراب نافذة: التمويه فقط عند اقتراب نافذة من الشريط والشفافية "
+"عند عدم وجودها.\n"
+"الخلفية عند اقتراب نافذة: خلفية بلون مصمت عند اقتراب نافذة من الشريط "
+"والتمويه عند عدم وجودها."
 
 #: resources/ui/pages/shell/panel.ui:118
 msgid "Gradient background"
-msgstr ""
+msgstr "خلفية متدرجة"
 
 #: resources/ui/pages/shell/panel.ui:119
 msgid "Apply a gradient effect to the panel background."
-msgstr ""
+msgstr "تطبيق تأثير تدرج لوني على خلفية الشريط العلوي."
 
 #: resources/ui/pages/shell/panel.ui:126
 msgid "Gradient direction"
-msgstr ""
+msgstr "اتجاه التدرج"
 
 #: resources/ui/pages/shell/panel.ui:127
 msgid "Change the direction of the gradient background."
-msgstr ""
+msgstr "تغيير اتجاه تدرج الخلفية."
 
 #: resources/ui/pages/shell/panel.ui:137
 msgid "Compatibility"
@@ -1031,7 +1045,7 @@ msgstr "امتداد Hidetopbar"
 
 #: resources/ui/pages/shell/panel.ui:144
 msgid "Keeps the blur visible in the overview; best used with static blur."
-msgstr ""
+msgstr "يُبقي التمويه ظاهراً في النظرة العامة؛ يُفضّل استخدامه مع التمويه الثابت."
 
 #: resources/ui/pages/shell/panel.ui:151
 msgid "Blur original panel with Dash to Panel"
@@ -1051,101 +1065,105 @@ msgstr "متباين"
 
 #: resources/ui/pages/shell/panel.ui:180
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "التمويه عند اقتراب نافذة"
 
 #: resources/ui/pages/shell/panel.ui:181
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "الخلفية عند اقتراب نافذة"
 
 #: resources/ui/pages/shell/panel.ui:187
 msgid "Top"
-msgstr ""
+msgstr "أعلى"
 
 #: resources/ui/pages/shell/panel.ui:188
 msgid "Bottom"
-msgstr ""
+msgstr "أسفل"
 
 #: resources/ui/pages/shell/popup.ui:9
 msgid ""
 "Add blur to GNOME Shell menus, the calendar and notifications popup, "
 "notification banners, OSD popups, and dialogs."
 msgstr ""
+"إضافة التمويه إلى قوائم صدفة جنوم، والتقويم والإشعارات المنبثقة، ورايات "
+"الإشعارات، ونوافذ العرض على الشاشة (OSD)، ومربعات الحوار."
 
 #: resources/ui/pages/shell/popup.ui:19
 msgid ""
 "Static blur follows the wallpaper; dynamic blur samples live content behind "
 "popups. Both use the selected pipeline."
 msgstr ""
+"يتبع التمويه الثابت خلفية الشاشة؛ بينما يأخذ التمويه الديناميكي عينات من "
+"المحتوى المباشر خلف القوائم المنبثقة. كلاهما يستخدم خط المعالجة المحدد."
 
 #: resources/ui/pages/shell/popup.ui:40
 msgid ""
 "Override the background of popups to use a transparent or semi-transparent "
 "one."
-msgstr ""
+msgstr "استبدال خلفية القوائم المنبثقة لتصبح شفافة أو شبه شفافة."
 
 #: resources/ui/pages/shell/popup.ui:47
 msgid "The transparent/semi-transparent style for popups."
-msgstr ""
+msgstr "النمط الشفاف/شبه الشفاف للقوائم المنبثقة."
 
 #: resources/ui/pages/shell/popup.ui:55
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "الإبقاء على سمة الصدفة"
 
 #: resources/ui/pages/shell/popup.ui:56
 msgid "Keep your shell theme's colors for popup controls."
-msgstr ""
+msgstr "الحفاظ على ألوان سمة الصدفة لعناصر تحكم القوائم المنبثقة."
 
 #: resources/ui/pages/shell/popup.ui:66
 msgid "Adjust the rounded corners for each popup surface."
-msgstr ""
+msgstr "ضبط الزوايا المستديرة لكل سطح منبثق."
 
 #: resources/ui/pages/shell/popup.ui:78
 msgid "Menus"
-msgstr ""
+msgstr "القوائم"
 
 #: resources/ui/pages/shell/popup.ui:85
 msgid "Input method candidates"
-msgstr ""
+msgstr "مرشحات أسلوب الإدخال"
 
 #: resources/ui/pages/shell/popup.ui:92
 msgid "Quick settings"
-msgstr ""
+msgstr "الإعدادات السريعة"
 
 #: resources/ui/pages/shell/popup.ui:99
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "القوائم الفرعية للإعدادات السريعة"
 
 #: resources/ui/pages/shell/popup.ui:106
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "التقويم ومركز الإشعارات"
 
 #: resources/ui/pages/shell/popup.ui:113
 msgid "Notifications"
-msgstr ""
+msgstr "الإشعارات"
 
 #: resources/ui/pages/shell/popup.ui:120
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "مبدلات النوافذ ومساحات العمل"
 
 #: resources/ui/pages/shell/popup.ui:127
 msgid "Volume and brightness"
-msgstr ""
+msgstr "مستوى الصوت والسطوع"
 
 #: resources/ui/pages/shell/popup.ui:134
 msgid "Window resize hints"
-msgstr ""
+msgstr "تلميحات تغيير حجم النوافذ"
 
 #: resources/ui/pages/shell/popup.ui:141
 msgid "Dialogs"
-msgstr ""
+msgstr "مربعات الحوار"
 
 #: resources/ui/pages/shell/popup.ui:148
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "لوحة المفاتيح على الشاشة"
 
 #: resources/ui/pages/shell/popup.ui:155
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "أسطح منبثقة أخرى"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
@@ -1176,7 +1194,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
 msgid "Popups"
-msgstr ""
+msgstr "القوائم المنبثقة"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
@@ -1259,11 +1277,11 @@ msgstr ""
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "فشل تحديد النافذة. تأكد من تفعيل الامتداد."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "العنصر المحدد ليس نافذة."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
@@ -1289,43 +1307,50 @@ msgstr "مسار معالجة الرسوميات الذي سيُستخدم مع 
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "لم تعد هناك حاجة لحزمة Rounded-blur"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"يتعامل Blur my Shell مع الزوايا المستديرة مباشرة. يمكنك إزالة المكتبة "
+"القديمة إن لم يكن هناك ما يستخدمها."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "تعليمات الإزالة"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "تجاهل"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "إزالة مكتبة التمويه القديمة"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"الإزالة اختيارية. احتفظ بالمكتبة إذا كان هناك امتداد آخر لا يزال يحتاجها."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"هل ثُبِّتت عبر مدير الحزم؟ أزل حزمة gnome-rounded-blur باستخدام مدير الحزم "
+"نفسه. راجع التغييرات المقترحة قبل التأكيد."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"هل ثُبِّتت عبر مساعد Blur my Shell القديم؟ توضح التعليمات كيفية تشغيل برنامج "
+"إلغاء التثبيت الخاص به."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1333,32 +1358,37 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"هل بُنيت من المصدر؟ استخدم الأمر \"sudo ninja -C build uninstall\" من دليل "
+"البناء الأصلي، أو اتبع سجل التثبيت. لا تستخدم المساعد لإزالة حزمة مُدارة "
+"بواسطة مدير الحزم."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"سجّل الخروج ثم أعد الدخول بعد الإزالة. لن يقوم Blur my Shell بإلغاء تثبيت أي "
+"شيء نيابة عنك."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "إغلاق"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "فتح التعليمات"
 
 #: src/preferences/menu.js:83
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "إعادة ضبط جميع التفضيلات؟"
 
 #: src/preferences/menu.js:84
 msgid "Pipelines and component settings will return to their defaults."
-msgstr ""
+msgstr "ستعود خطوط المعالجة وإعدادات المكونات إلى قيمها الافتراضية."
 
 #: src/preferences/menu.js:86 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
-msgstr ""
+msgstr "إلغاء"
 
 #: src/preferences/menu.js:87
 msgid "Reset"
@@ -1366,7 +1396,7 @@ msgstr "صفِّر"
 
 #: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
-msgstr ""
+msgstr "خط معالجة جديد"
 
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
@@ -1385,15 +1415,15 @@ msgstr ""
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "حُذِف \"%s\""
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "حُذِف خط المعالجة"
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "تراجع"
 
 #: src/preferences/pages/pipelines/pipeline_page.js:100
 msgid "Used by every component"
@@ -1410,7 +1440,7 @@ msgstr ""
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "تأثير غير معروف"
 
 #: src/preferences/pages/shell/index.js:63
 msgid "Change the blur of the lockscreen to use this extension's preferences."
@@ -1442,7 +1472,7 @@ msgstr ""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "إنشاء خط معالجة جديد"
 
 #~ msgid "Blur effects"
 #~ msgstr "تأثيرات التضبيب"
@@ -1495,6 +1525,15 @@ msgstr ""
 #~ msgid "Dash"
 #~ msgstr "شَرطة"
 
+#~ msgid "Dock blur"
+#~ msgstr "تمويه الرصيف"
+
+#~ msgid "Effects list"
+#~ msgstr "قائمة التأثيرات"
+
+#~ msgid "The top effect is applied first."
+#~ msgstr "يُطبَّق التأثير العلوي أولاً."
+
 #~ msgid "Include advanced effects"
 #~ msgstr "ضمّن التأثيرات المُتقدِّمة"
 
@@ -1524,6 +1563,9 @@ msgstr ""
 #~ msgid "Reset preferences"
 #~ msgstr "صفِّر التفضيلات"
 
+#~ msgid "Restore all Blur my Shell preferences to their defaults."
+#~ msgstr "استعادة جميع تفضيلات Blur my Shell إلى قيمها الافتراضية."
+
 #~ msgid "Background blur"
 #~ msgstr "تضبيب الخلفية"
 
@@ -1550,6 +1592,30 @@ msgstr ""
 
 #~ msgid "Add Pipeline"
 #~ msgstr "اضف مسار معالجة الرسوميات"
+
+#~ msgid "Popup blur"
+#~ msgstr "تمويه القوائم المنبثقة"
+
+#, javascript-format
+#~ msgid "Effects for “%s”"
+#~ msgstr "تأثيرات \"%s\""
+
+#, javascript-format
+#~ msgid "Pipeline id: “%s”"
+#~ msgstr "معرّف خط المعالجة: \"%s\""
+
+#~ msgid "No effect"
+#~ msgstr "لا يوجد تأثير"
+
+#, javascript-format
+#~ msgid "%d effect"
+#~ msgid_plural "%d effects"
+#~ msgstr[0] "لا تأثيرات"
+#~ msgstr[1] "تأثير واحد"
+#~ msgstr[2] "تأثيران"
+#~ msgstr[3] "%d تأثيرات"
+#~ msgstr[4] "%d تأثيراً"
+#~ msgstr[5] "%d تأثير"
 
 #~ msgid "Enable corner rounding on maximized and fullscreen"
 #~ msgstr "تفعيل استدارة الزوايا للنوافذ المكبرة وملء الشاشة"

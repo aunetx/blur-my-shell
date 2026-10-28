@@ -102,7 +102,9 @@ Blur my Shell is designed to be compatible with the following extensions:
 - [Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/), although nothing is blurred either
 
 For extension developers:
-If your extension uses a popover and relies on frequent updates to the dimensions, consider adding `bms-redraw-blur-instant` style class to your extension's popover-content element.
+
+- if your extension has a popover whose size changes often, add the `bms-redraw-blur-instant` style class to its content element so the blur follows it right away
+- to match Blur my Shell's look, your extension can read its pipelines, which are described in [the pipeline format](docs/pipelines.md)
 
 ## Screenshots
 
