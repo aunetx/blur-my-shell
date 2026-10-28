@@ -2,7 +2,6 @@ import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
-import Graphene from 'gi://Graphene';
 import Mtk from 'gi://Mtk';
 import St from 'gi://St';
 import { BackdropOutputEffect } from './output.js';
@@ -43,20 +42,20 @@ const blitFramebuffer = Cogl.Framebuffer.prototype.blit
     : Cogl.blit_framebuffer;
 
 function captureGeometry(actor, framebuffer) {
-    const modelview = framebuffer.get_modelview_matrix();
-    const projection = framebuffer.get_projection_matrix();
+    // rows of the modelview-projection matrix, which transforms row vectors
+    const m = framebuffer.get_modelview_matrix()
+        .multiply(framebuffer.get_projection_matrix())
+        .to_float();
     const viewportX = framebuffer.get_viewport_x();
     const viewportY = framebuffer.get_viewport_y();
     const viewportWidth = framebuffer.get_viewport_width();
     const viewportHeight = framebuffer.get_viewport_height();
     const corners = [[0, 0], [actor.width, 0], [0, actor.height], [actor.width, actor.height]]
         .map(([x, y]) => {
-            const local = new Graphene.Vec4().init(x, y, 0, 1);
-            const projected = projection.transform_vec4(modelview.transform_vec4(local));
-            const w = projected.get_w();
+            const w = x * m[3] + y * m[7] + m[15];
             return [
-                viewportX + (projected.get_x() / w + 1) * viewportWidth / 2,
-                viewportY + (1 - projected.get_y() / w) * viewportHeight / 2,
+                viewportX + ((x * m[0] + y * m[4] + m[12]) / w + 1) * viewportWidth / 2,
+                viewportY + (1 - (x * m[1] + y * m[5] + m[13]) / w) * viewportHeight / 2,
             ];
         });
     if (!corners.flat().every(Number.isFinite))
