@@ -9,10 +9,13 @@ function when_enabled(component, callback) {
     };
 }
 
-function connect_toggle(extension, settings, component, user_session = true) {
+function connect_toggle(
+    extension, settings, component, user_session = true, allow_unlock_dialog = true
+) {
     connect(settings, 'BLUR', () => {
         const allowed = !extension._paused
-            && (!user_session || extension._user_session_mode_enabled);
+            && (!user_session || extension._user_session_mode_enabled)
+            && (allow_unlock_dialog || !extension._unlock_dialog_active);
         if (settings.BLUR && allowed)
             component.enable();
         else
@@ -57,7 +60,7 @@ export function connect_component_settings(extension) {
         () => appfolder.blur_appfolders()
     ));
 
-    connect_toggle(extension, settings.panel, panel);
+    connect_toggle(extension, settings.panel, panel, true, false);
     ['STATIC_BLUR', 'OVERRIDE_BACKGROUND',
         'OVERRIDE_BACKGROUND_DYNAMICALLY',
         'OVERRIDE_BACKGROUND_DYNAMICALLY_MODE'].forEach(property =>

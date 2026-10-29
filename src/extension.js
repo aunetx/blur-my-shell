@@ -45,6 +45,7 @@ export default class BlurMyShell extends Extension {
         this._connections = [this._connection];
         this._startup_complete_id = 0;
         this._user_session_mode_enabled = false;
+        this._unlock_dialog_active = false;
         this._paused = false;
 
         // the shell destroys its UI on shutdown without disabling extensions, and runs the idle
@@ -206,9 +207,12 @@ export default class BlurMyShell extends Extension {
     }
 
     /// Keep user-session components alive across lock/unlock curtain animations to avoid tearing
-    /// them down and rebuilding them during the animation. The applications picker remains
-    /// unavailable while the lock screen is active.
+    /// them down and rebuilding them during the animation. The panel blur and applications picker
+    /// remain unavailable while the lock screen is active.
     _on_session_mode_changed(session) {
+        const was_unlock_dialog = this._unlock_dialog_active;
+        this._unlock_dialog_active = session.currentMode === 'unlock-dialog';
+
         if (this._paused)
             return;
 
@@ -216,11 +220,18 @@ export default class BlurMyShell extends Extension {
             if (!this._user_session_mode_enabled)
                 this._enable_user_session();
 
-            if (session.currentMode === 'unlock-dialog')
+            if (this._unlock_dialog_active) {
+                if (this._panel_blur.enabled)
+                    this._panel_blur.disable();
                 this._applications_blur.disable_service();
-            else
+            } else {
+                if (was_unlock_dialog)
+                    this._enable_component(this._panel_blur, this._settings.panel.BLUR);
                 this._applications_blur.enable_service();
-        } else if (session.currentMode === 'unlock-dialog' && this._user_session_mode_enabled) {
+            }
+        } else if (this._unlock_dialog_active && this._user_session_mode_enabled) {
+            if (this._panel_blur.enabled)
+                this._panel_blur.disable();
             this._applications_blur.disable_service();
         }
     }
@@ -228,7 +239,12 @@ export default class BlurMyShell extends Extension {
     /// Enables every component from the user session needed, should be called when the shell is
     /// entirely loaded as the `enable` methods interact with it.
     _enable_components() {
-        this._enable_component(this._panel_blur, this._settings.panel.BLUR);
+        if (this._unlock_dialog_active) {
+            if (this._panel_blur.enabled)
+                this._panel_blur.disable();
+        } else {
+            this._enable_component(this._panel_blur, this._settings.panel.BLUR);
+        }
         this._enable_component(this._dash_to_dock_blur, this._settings.dash_to_dock.BLUR);
         this._enable_component(this._overview_blur, this._settings.overview.BLUR);
         this._enable_component(this._appfolder_blur, this._settings.appfolder.BLUR);
