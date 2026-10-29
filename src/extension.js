@@ -1,3 +1,4 @@
+import Gio from 'gi://Gio';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
@@ -44,6 +45,7 @@ export default class BlurMyShell extends Extension {
         this._connections = [this._connection];
         this._startup_complete_id = 0;
         this._user_session_mode_enabled = false;
+        this._paused = false;
 
         // the shell destroys its UI on shutdown without disabling extensions, and runs the idle
         // callbacks queued during that teardown afterwards, when every actor is already disposed
@@ -71,11 +73,18 @@ export default class BlurMyShell extends Extension {
         this._applications_blur = new ApplicationsBlur(...init());
         this._screenshot_blur = new ScreenshotBlur(...init());
         this._popup = new PopupBlur(...init());
+        this._power_profile_monitor = Gio.PowerProfileMonitor.dup_default();
+        this._connection.connect(
+            this._power_profile_monitor,
+            'notify::power-saver-enabled',
+            () => this._update_power_saver()
+        );
 
         connect_component_settings(this);
 
         // the lockscreen blur is the only one needed in both `user` and `unlock-dialog` modes
         this._enable_component(this._lockscreen_blur, this._settings.lockscreen.BLUR);
+        this._update_power_saver();
 
         this._on_session_mode_changed(Main.sessionMode);
         this._connection.connect(Main.sessionMode, 'updated',
@@ -117,6 +126,7 @@ export default class BlurMyShell extends Extension {
         this._applications_blur = null;
         this._screenshot_blur = null;
         this._popup = null;
+        this._power_profile_monitor = null;
 
         this._effects_manager.destroy_all();
         this._effects_manager = null;
@@ -141,8 +151,8 @@ export default class BlurMyShell extends Extension {
     }
 
     /// Enables the components related to the user session (everything except lockscreen blur).
-    _enable_user_session() {
-        this._log("changing mode to user session...");
+    _enable_user_session() { 
+        this._log("changing mode to user session or exiting power saver mode...");
         this._user_session_mode_enabled = true;
         this._applications_blur.enable_service();
 
@@ -169,13 +179,17 @@ export default class BlurMyShell extends Extension {
     /// Disables the components related to the user session (everything except lockscreen blur and
     /// popup blur).
     _disable_user_session() {
-        this._log("disabling user session mode...");
+        if (this._settings.POWER_SAVER && this._paused) {
+            this._log("entering power saver mode...");
+        }
+        else {
+            this._log("disabling user session mode...");
+        }
 
         if (this._startup_complete_id) {
             this._connection.disconnect(Main.layoutManager, this._startup_complete_id);
             this._startup_complete_id = 0;
         }
-
         this._applications_blur.disable_service();
 
         this._panel_blur.disable();
@@ -193,6 +207,9 @@ export default class BlurMyShell extends Extension {
     /// Changes the extension to operate either on 'user' mode or 'unlock-dialog' mode, switching
     /// from one to the other means enabling/disabling every component except lockscreen blur.
     _on_session_mode_changed(session) {
+        if (this._paused)
+            return;
+
         if (session.currentMode === 'user' || session.parentMode === 'user') {
             if (!this._user_session_mode_enabled)
                 this._enable_user_session();
@@ -221,6 +238,25 @@ export default class BlurMyShell extends Extension {
     _enable_component(component, should_enable) {
         if (should_enable && !component.enabled)
             component.enable();
+    }
+
+    _update_power_saver() {
+        const paused = this._settings.POWER_SAVER
+            && this._power_profile_monitor.power_saver_enabled;
+        if (this._paused === paused)
+            return;
+
+        this._paused = paused;
+        if (paused) {
+            this._disable_user_session();
+            this._popup.disable();
+            this._lockscreen_blur.disable();
+            return;
+        }
+
+        this._enable_component(this._popup, this._settings.popup.BLUR);
+        this._enable_component(this._lockscreen_blur, this._settings.lockscreen.BLUR);
+        this._on_session_mode_changed(Main.sessionMode);
     }
 
     _log(str) {
