@@ -70,6 +70,16 @@ function viewCaptureGeometry(actor, view) {
     return geometryFromCorners(corners, view.get_framebuffer());
 }
 
+/// Like a window dimmed by GNOME Shell while it has an attached modal dialog.
+function hasOffscreenAncestor(actor) {
+    for (let ancestor = actor.get_parent(); ancestor; ancestor = ancestor.get_parent()) {
+        if (ancestor.get_effects()
+            .some(effect => effect instanceof Clutter.OffscreenEffect && effect.enabled))
+            return true;
+    }
+    return false;
+}
+
 function geometryFromCorners(corners, framebuffer) {
     if (!corners.flat().every(Number.isFinite))
         return null;
@@ -277,7 +287,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         let view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
         let geometry;
-        if (!view && !inClone && paintContext.get_stage_view() === painted_view) {
+        if (!view && !inClone && hasOffscreenAncestor(actor)) {
             // an ancestor is painted offscreen, so capture what is behind it from the stage view
             view = painted_view;
             sourceFramebuffer = view.get_framebuffer();
