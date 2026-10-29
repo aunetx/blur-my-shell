@@ -23,6 +23,7 @@ import { connect_component_settings } from './components/settings_connections.js
 import { enable_system_style, disable_system_style } from './conveniences/style.js';
 import { track_painted_views } from './render/backdrop/painted_view.js';
 import { clear_snippets } from './render/shader/snippet_cache.js';
+import { is_power_saver } from './conveniences/power_saver.js';
 
 
 /// The main extension class, created when the GNOME Shell is loaded.
@@ -81,6 +82,9 @@ export default class BlurMyShell extends Extension {
         this._connection.connect(Main.sessionMode, 'updated',
             () => this._on_session_mode_changed(Main.sessionMode)
         );
+
+        this._is_in_power_saver = false;
+        this._watch_power_saver();
     }
 
     /// Disables the extension.
@@ -126,6 +130,9 @@ export default class BlurMyShell extends Extension {
 
         // make sure no settings change can re-enable a component
         this._settings.disconnect_all_settings();
+        this._stopWatchingPowerSaver();
+        this._is_in_power_saver = null;
+        this._stopWatchingPowerSaver = null;
 
         // disconnect every signal, even those a crashed component could not clean
         this._connections.forEach(connections => connections.disconnect_all());
@@ -140,9 +147,30 @@ export default class BlurMyShell extends Extension {
         this._settings = null;
     }
 
+    _watch_power_saver() {
+        this._stopWatchingPowerSaver = is_power_saver((isPowerSaver) => {
+            if (this._is_in_power_saver === isPowerSaver)
+                return;
+
+            this._is_in_power_saver = isPowerSaver;
+
+            if (isPowerSaver) {
+                this._disable_user_session();
+                this._popup.disable();
+                this._lockscreen_blur.disable();
+            }
+            else {
+                this._enable_component(this._popup, this._settings.popup.BLUR);
+                this._enable_component(this._lockscreen_blur, this._settings.lockscreen.BLUR);
+            }
+
+            this._on_session_mode_changed(Main.sessionMode);
+        });
+    }
+
     /// Enables the components related to the user session (everything except lockscreen blur).
-    _enable_user_session() {
-        this._log("changing mode to user session...");
+    _enable_user_session() { 
+        this._log("changing mode to user session or exiting power saver mode...");
         this._user_session_mode_enabled = true;
         this._applications_blur.enable_service();
 
@@ -169,13 +197,17 @@ export default class BlurMyShell extends Extension {
     /// Disables the components related to the user session (everything except lockscreen blur and
     /// popup blur).
     _disable_user_session() {
-        this._log("disabling user session mode...");
+        if (this._is_in_power_saver) {
+            this._log("entering power saver mode...");
+        }
+        else {
+            this._log("disabling user session mode...");
+        }
 
         if (this._startup_complete_id) {
             this._connection.disconnect(Main.layoutManager, this._startup_complete_id);
             this._startup_complete_id = 0;
         }
-
         this._applications_blur.disable_service();
 
         this._panel_blur.disable();
@@ -193,6 +225,9 @@ export default class BlurMyShell extends Extension {
     /// Changes the extension to operate either on 'user' mode or 'unlock-dialog' mode, switching
     /// from one to the other means enabling/disabling every component except lockscreen blur.
     _on_session_mode_changed(session) {
+        if (this._is_in_power_saver)
+            return;
+
         if (session.currentMode === 'user' || session.parentMode === 'user') {
             if (!this._user_session_mode_enabled)
                 this._enable_user_session();
