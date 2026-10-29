@@ -86,9 +86,10 @@ export const PanelBlur = class PanelBlur {
         this.enable();
     }
 
-    /// Blur a panel only if it is not already blurred (contained in the list)
+    /// Blur a panel only if it is not already blurred (contained in the list). Other extensions call
+    /// this too, like Multi Monitor Bar, even while panel blur is off.
     maybe_blur_panel(panel) {
-        if (this._dirty)
+        if (!this.enabled || this._dirty)
             return;
 
         if (!this.watched_panels.has(panel)) {
