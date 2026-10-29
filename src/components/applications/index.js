@@ -1,4 +1,5 @@
 import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
@@ -11,6 +12,8 @@ import { WindowRules } from './window_rules.js';
 import { BLUR_ACTOR_NAME, WindowOpacity } from './window_opacity.js';
 import { compute_scale, place_dynamic_blur, place_static_blur } from './window_geometry.js';
 import { finish_preview_fade } from './overview_drag.js';
+
+const MINIMIZE_BLUR_FALLBACK_MS = 600;
 
 export const ApplicationsBlur = class ApplicationsBlur {
     constructor(connections, settings, effects_manager) {
@@ -34,6 +37,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         this._log("blurring applications...");
         this.enabled = true;
+
+        this.connections.connect(
+            global.window_manager,
+            ['minimize', 'unminimize'],
+            (_shellwm, window_actor) => this.suspend_blur_during_animation(window_actor)
+        );
 
         this.mutter_gsettings = new Gio.Settings({ schema: 'org.gnome.mutter' });
 
@@ -387,6 +396,53 @@ export const ApplicationsBlur = class ApplicationsBlur {
         }
     }
 
+    /// Hide the blur while GNOME Shell animates a window (un)minimizing. Static blur actors are
+    /// children of the window actor, so they otherwise scale with the window and show a shrinking
+    /// copy of the wallpaper during the animation.
+    suspend_blur_during_animation(window_actor) {
+        const meta_window = window_actor?.meta_window;
+        if (!meta_window?.blur_actor)
+            return;
+
+        this.end_blur_suspension(meta_window);
+        meta_window.bms_animating = true;
+        this.reconcile_window_visibility(meta_window);
+
+        const finish = () => this.end_blur_suspension(meta_window);
+        meta_window.bms_animation_actor = window_actor;
+        meta_window.bms_animation_signal = this.connections.connect(
+            window_actor, 'transitions-completed', finish
+        );
+        meta_window.bms_animation_timeout = GLib.timeout_add(
+            GLib.PRIORITY_DEFAULT, MINIMIZE_BLUR_FALLBACK_MS, () => {
+                meta_window.bms_animation_timeout = 0;
+                finish();
+                return GLib.SOURCE_REMOVE;
+            }
+        );
+    }
+
+    /// Restore the blur hidden by `suspend_blur_during_animation`.
+    end_blur_suspension(meta_window, reconcile = true) {
+        if (meta_window.bms_animation_signal) {
+            this.connections.disconnect(
+                meta_window.bms_animation_actor, meta_window.bms_animation_signal
+            );
+            meta_window.bms_animation_signal = 0;
+        }
+        meta_window.bms_animation_actor = null;
+        if (meta_window.bms_animation_timeout) {
+            GLib.source_remove(meta_window.bms_animation_timeout);
+            meta_window.bms_animation_timeout = 0;
+        }
+        if (!meta_window.bms_animating)
+            return;
+
+        meta_window.bms_animating = false;
+        if (reconcile && meta_window.get_compositor_private())
+            this.reconcile_window_visibility(meta_window);
+    }
+
     reconcile_window_visibility(meta_window) {
         const blur_actor = meta_window.blur_actor;
         if (!blur_actor)
@@ -401,6 +457,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         const visible_for_blur = meta_window.showing_on_its_workspace()
             || (this.settings.applications.BLUR_ON_OVERVIEW && this.overview_visible);
         const show_blur = visible_for_blur
+            && !meta_window.bms_animating
             && !is_focused
             && !is_fullscreen
             && (this.settings.applications.BLUR_ON_OVERVIEW || !this.overview_visible);
@@ -456,6 +513,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// Removes the blur actor to make a blurred window become normal again.
     /// It however does not untrack the meta window itself.
     remove_blur(meta_window) {
+        this.end_blur_suspension(meta_window, false);
         const blur_actor = meta_window.blur_actor;
         if (!blur_actor)
             return;

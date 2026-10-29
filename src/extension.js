@@ -82,7 +82,8 @@ export default class BlurMyShell extends Extension {
 
         connect_component_settings(this);
 
-        // the lockscreen blur is the only one needed in both `user` and `unlock-dialog` modes
+        // the lockscreen blur is needed in both modes; user-session components stay alive across
+        // lock/unlock curtain animations, but the applications picker stays unavailable while locked.
         this._enable_component(this._lockscreen_blur, this._settings.lockscreen.BLUR);
         this._update_power_saver();
 
@@ -204,8 +205,9 @@ export default class BlurMyShell extends Extension {
         this._user_session_mode_enabled = false;
     }
 
-    /// Changes the extension to operate either on 'user' mode or 'unlock-dialog' mode, switching
-    /// from one to the other means enabling/disabling every component except lockscreen blur.
+    /// Keep user-session components alive across lock/unlock curtain animations to avoid tearing
+    /// them down and rebuilding them during the animation. The applications picker remains
+    /// unavailable while the lock screen is active.
     _on_session_mode_changed(session) {
         if (this._paused)
             return;
@@ -213,9 +215,13 @@ export default class BlurMyShell extends Extension {
         if (session.currentMode === 'user' || session.parentMode === 'user') {
             if (!this._user_session_mode_enabled)
                 this._enable_user_session();
-        } else if (session.currentMode === 'unlock-dialog') {
-            if (this._user_session_mode_enabled)
-                this._disable_user_session();
+
+            if (session.currentMode === 'unlock-dialog')
+                this._applications_blur.disable_service();
+            else
+                this._applications_blur.enable_service();
+        } else if (session.currentMode === 'unlock-dialog' && this._user_session_mode_enabled) {
+            this._applications_blur.disable_service();
         }
     }
 
