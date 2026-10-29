@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 06:07+0100\n"
+"POT-Creation-Date: 2026-10-29 16:39+0100\n"
 "PO-Revision-Date: 2026-10-18 21:40+0330\n"
 "Last-Translator: Pooya Behravesh <pooyabehravesh@gmail.com>\n"
 "Language-Team: Persian <>\n"
@@ -607,22 +607,26 @@ msgid "Debug Logging"
 msgstr ""
 
 #: resources/ui/menu.ui:10
+msgid "Disable on Power Saver"
+msgstr ""
+
+#: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
 msgstr ""
 
-#: resources/ui/menu.ui:16
+#: resources/ui/menu.ui:20
 msgid "Project page"
 msgstr "صفحهٔ پروژه"
 
-#: resources/ui/menu.ui:20
+#: resources/ui/menu.ui:24
 msgid "Report a Bug"
 msgstr "گزارش خطا"
 
-#: resources/ui/menu.ui:24
+#: resources/ui/menu.ui:28
 msgid "License"
 msgstr "پروانه (مجوز)"
 
-#: resources/ui/menu.ui:34
+#: resources/ui/menu.ui:38
 msgid "Main Menu"
 msgstr ""
 
@@ -1198,19 +1202,19 @@ msgstr "بستن"
 msgid "Open instructions"
 msgstr "باز کردن راهنما"
 
-#: src/preferences/menu.js:75
+#: src/preferences/menu.js:76
 msgid "Reset all preferences?"
 msgstr "بازنشانی تمام تنظیمات؟"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "خطوط پردازش و تنظیمات بخش‌ها به مقادیر پیش‌فرض خود باز خواهند گشت."
 
-#: src/preferences/menu.js:78 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/preferences/menu.js:79
+#: src/preferences/menu.js:80
 msgid "Reset"
 msgstr "بازنشانی"
 
