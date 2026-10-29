@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 06:07+0100\n"
-"PO-Revision-Date: 2026-10-26 04:51+0000\n"
+"PO-Revision-Date: 2026-10-29 17:51+0000\n"
 "Last-Translator: Yassin Omer <yassinomer.work@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
@@ -205,19 +205,19 @@ msgstr "يُحوّل الصورة من فضاء الألوان HSLA إلى RGBA.
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "تمويه"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "خامة"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "متقدم"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
-msgstr ""
+msgstr "وحدات بناء تكون مفيدة غالباً عند دمجها مع تأثيرات أخرى."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -598,11 +598,11 @@ msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "سجل التنقيح"
 
 #: resources/ui/menu.ui:10
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "إعادة ضبط التفضيلات…"
 
 #: resources/ui/menu.ui:16
 msgid "Project page"
@@ -618,7 +618,7 @@ msgstr "الترخيص"
 
 #: resources/ui/menu.ui:34
 msgid "Main Menu"
-msgstr ""
+msgstr "القائمة الرئيسية"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -628,7 +628,7 @@ msgstr "التطبيقات"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "المظهر"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -636,7 +636,7 @@ msgstr "الشفافية"
 
 #: resources/ui/pages/applications.ui:42
 msgid "Higher values are easier to read"
-msgstr ""
+msgstr "القيم الأعلى أسهل في القراءة"
 
 #: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
@@ -658,7 +658,7 @@ msgstr "تدوير زوايا النوافذ المكبرة وملء الشاش�
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "السلوك"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -666,7 +666,7 @@ msgstr "ضبِّب النظرة العامَّة"
 
 #: resources/ui/pages/applications.ui:96
 msgid "Shows the blur on every workspace, at some performance cost"
-msgstr ""
+msgstr "يُظهر التمويه في كل مساحة عمل، مع بعض التأثير على الأداء"
 
 #: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
@@ -674,15 +674,15 @@ msgstr "إزالة التمويه عند وضع ملء الشاشة"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "تمويه كل النوافذ"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "عند الإيقاف، تُموّه النوافذ المُدرجة أدناه فقط."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "النوافذ المموهة"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
@@ -690,6 +690,8 @@ msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
 "single one."
 msgstr ""
+"استخدم * لمطابقة أي حروف، مثل *Firefox أو *Code*، وعلامة الاستفهام ؟ لمطابقة "
+"حرف واحد."
 
 #: resources/ui/pages/applications.ui:126
 #: resources/ui/pages/applications.ui:148
@@ -698,7 +700,7 @@ msgstr "أضِف نافذةً"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "النوافذ المُستثناة"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
@@ -723,19 +725,19 @@ msgstr "لا شيء"
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "قائمة خط المعالجة"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "معرّف خط المعالجة"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "نسخ"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -749,18 +751,18 @@ msgstr "أضِف تأثيرًا"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "لا تأثيرات حتى الآن"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "تكرار"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -768,11 +770,11 @@ msgstr "مسارات معالجة الرسوميات"
 
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
-msgstr ""
+msgstr "خطوط المعالجة هي مجموعات من التأثيرات التي تتشاركها المكونات."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "خط معالجة جديد"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
@@ -814,7 +816,7 @@ msgstr "عطِّل في النظرة العامَّة"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "الخلفية"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -832,11 +834,11 @@ msgstr "أسلوب مكوِّنات النظرة العامَّة"
 
 #: resources/ui/pages/shell/overview.ui:32
 msgid "For the dash, search and app folders"
-msgstr ""
+msgstr "لشريط التطبيقات والبحث ومجلدات التطبيقات"
 
 #: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "نصف قطر زاوية مساحة العمل"
 
 #: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
@@ -844,11 +846,11 @@ msgstr "اجعل النصوص فاتحةً"
 
 #: resources/ui/pages/shell/panel.ui:59
 msgid "Useful with a light shell theme"
-msgstr ""
+msgstr "مفيد مع سمة صدفة فاتحة"
 
 #: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
-msgstr ""
+msgstr "مطابقة السمة في النظرة العامة"
 
 #: resources/ui/pages/shell/panel.ui:92
 msgid "Override background dynamically"
@@ -856,7 +858,7 @@ msgstr "استبدال الخلفية ديناميكياً"
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "يُغيّر الخلفية عند اقتراب نافذة من الشريط العلوي"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
@@ -893,6 +895,7 @@ msgstr "امتداد Hidetopbar"
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr ""
+"يُبقي التمويه ظاهراً في النظرة العامة، الأفضل استخدامه مع التمويه الثابت"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -900,7 +903,7 @@ msgstr "ضبِّب اللوح الأصل باستخدام Dash to Panel"
 
 #: resources/ui/pages/shell/panel.ui:141
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "عندما يحتفظ Dash to Panel بالشريط الأصلي"
 
 #: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
@@ -980,11 +983,11 @@ msgstr "أسطح منبثقة أخرى"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "الواجهة"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "سطح المكتب"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -993,16 +996,16 @@ msgstr "لوحة"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "الشريط العلوي، أو الأشرطة من Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "شريط التطبيقات"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock، وشريط تطبيقات Ubuntu، و Dhruva، وأشرطة التطبيقات المشابهة"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
@@ -1011,7 +1014,7 @@ msgstr "القوائم المنبثقة"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "القوائم، والإعدادات السريعة، والإشعارات، ومربعات الحوار"
 
 #: resources/ui/pages/shell/shell.ui:46
 #: src/preferences/pages/pipelines/components.js:10
@@ -1020,73 +1023,73 @@ msgstr "النظرة العامَّة"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "خلفية الشاشة خلف مساحات العمل"
 
 #: resources/ui/pages/shell/shell.ui:59
 #: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
-msgstr ""
+msgstr "مجلدات التطبيقات"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "المجلدات المفتوحة من شبكة التطبيقات"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "النظام"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "شاشة القفل"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "خلف شاشة المطالبة بكلمة المرور"
 
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "لقطة الشاشة"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "خلف مُحدِّد النوافذ"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "الامتدادات"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "قائمة النوافذ"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "شريط المهام من امتداد قائمة النوافذ"
 
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Coverflow Alt-Tab"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "خلف مُبدّل النوافذ"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
-msgstr ""
+msgstr "فئة النافذة"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "اختر نافذة"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "إزالة"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
@@ -1102,7 +1105,7 @@ msgstr "نوع التضبيب"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "يقتصر التمويه الثابت على خلفية الشاشة"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1214,16 +1217,16 @@ msgstr "خط معالجة جديد"
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "حذف \"%s\"؟"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "هل تريد حذف خط المعالجة هذا؟"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "مُستخدَم بواسطة %s، والذي سيتحول إلى خط المعالجة الافتراضي."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
@@ -1244,15 +1247,15 @@ msgstr "تأثير غير معروف"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "نقل للأعلى"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "نقل للأسفل"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "قائمة التأثيرات"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
