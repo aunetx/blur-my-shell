@@ -7,7 +7,6 @@ import { ApplicationRow } from '../widgets/application_row.js';
 
 import '../widgets/blur_mode_row.js';
 
-
 export const Applications = GObject.registerClass({
     GTypeName: 'Applications',
     Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/applications.ui', GLib.UriFlags.NONE),

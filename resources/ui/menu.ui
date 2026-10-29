@@ -7,6 +7,10 @@
         <attribute name="action">prefs.debug</attribute>
       </item>
       <item>
+        <attribute name="label" translatable="yes">Disable on Power Saver</attribute>
+        <attribute name="action">prefs.power-saver</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">Reset Preferences…</attribute>
         <attribute name="action">prefs.reset</attribute>
       </item>

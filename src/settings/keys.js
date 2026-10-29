@@ -6,6 +6,7 @@ export const KEYS = [
         component: "general", schemas: [
             { type: Type.PIPELINES, name: "pipelines" },
             { type: Type.B, name: "debug" },
+            { type: Type.B, name: "power-saver" },
         ]
     },
     {

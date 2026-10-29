@@ -53,6 +53,7 @@ function createActions(window, preferences) {
     const action_group = new Gio.SimpleActionGroup();
 
     action_group.add_action(preferences.settings.create_action('debug'));
+    action_group.add_action(preferences.settings.create_action('power-saver'));
 
     const reset = new Gio.SimpleAction({ name: 'reset' });
     reset.connect('activate', () => confirmReset(window, preferences));
