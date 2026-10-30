@@ -1,3 +1,4 @@
+import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 import Graphene from 'gi://Graphene';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -41,6 +42,7 @@ export class DockSurface {
         this.settings = dash_blur.settings;
         this.connections = new Connections();
         this.update_id = 0;
+        this.cached_parent = null;
 
         const schedule_update = () => this.schedule_update();
         this.connections.connect(this.dash, GEOMETRY_SIGNALS, schedule_update);
@@ -97,10 +99,28 @@ export class DockSurface {
         this.pipeline = pipeline;
         this.rounded_pipeline = rounded_pipeline;
         this.corner_settings = corner_settings;
+        this.stop_parent_caching();
 
         this.connections.connect(background_group, 'notify::allocation', () => this.schedule_update());
         // destroyed with its parent, possibly before the dash itself
         this.connections.connect(background_group, 'destroy', () => this.remove_dash_blur());
+    }
+
+    /// The native dash always caches its painting offscreen, and would keep showing an old backdrop
+    /// through a dynamic blur inside it.
+    stop_parent_caching() {
+        const parent = this.background_group.get_parent();
+        if (this.dash_blur.is_static || parent.offscreen_redirect !== Clutter.OffscreenRedirect.ALWAYS)
+            return;
+
+        this.cached_parent = parent;
+        parent.offscreen_redirect = Clutter.OffscreenRedirect.AUTOMATIC_FOR_OPACITY;
+    }
+
+    restore_parent_caching() {
+        if (this.cached_parent)
+            this.cached_parent.offscreen_redirect = Clutter.OffscreenRedirect.ALWAYS;
+        this.cached_parent = null;
     }
 
     schedule_update() {
@@ -175,6 +195,7 @@ export class DockSurface {
             return;
 
         this.connections.disconnect_all_for(this.background_group);
+        this.restore_parent_caching();
         this.rounded_pipeline?.destroy();
         this.pipeline.destroy();
         this.bg_manager.destroy();
@@ -299,7 +320,7 @@ export class DockSurface {
     get_dash_position(monitor) {
         let parent = this.background_group.get_parent();
 
-        let [parent_stage_x, parent_stage_y] = parent.get_transformed_position();
+        let [group_stage_x, group_stage_y] = this.background_group.get_transformed_position();
         let [parent_stage_width, parent_stage_height] = parent.get_transformed_size();
         let [bg_stage_x, bg_stage_y] = this.dash_background.get_transformed_position();
         let [bg_stage_width, bg_stage_height] = this.dash_background.get_transformed_size();
@@ -313,8 +334,8 @@ export class DockSurface {
         if (parent_scale_x <= 0 || parent_scale_y <= 0)
             return null;
 
-        let background_x = (monitor.x - parent_stage_x) / parent_scale_x;
-        let background_y = (monitor.y - parent_stage_y) / parent_scale_y;
+        let background_x = (monitor.x - group_stage_x) / parent_scale_x;
+        let background_y = (monitor.y - group_stage_y) / parent_scale_y;
 
         let clip_x = bg_stage_x - monitor.x;
         let clip_y = bg_stage_y - monitor.y;
