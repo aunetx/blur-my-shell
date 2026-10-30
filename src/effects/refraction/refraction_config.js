@@ -4,21 +4,23 @@ export const MAX_BLUR_RADIUS = 48;
 
 export const DEFAULT_PARAMS = {
     strength: 1,
-    blur_radius: 10,
-    edge_size: 22,
-    falloff: 2.4,
+    blur_radius: 3,
+    edge_size: 32,
+    falloff: 1.25,
     refraction_style: 0,
     corner_radius: 0,
     corners_top: true,
     corners_bottom: true,
     rim_width: 4.8,
-    rgb_fringing: 0.1,
+    rgb_fringing: 0.13,
     gloss: 1,
-    fresnel_angle: 45,
-    fresnel_width: 1,
-    specular_strength: 0,
-    tint: 0.2,
-    tint_color: [1, 1, 1, 1],
+    fresnel_angle: 0,
+    fresnel_width: 1.50,
+    specular_strength: 0.10,
+    edge_shadow: 0.7,
+    edge_glow: 0.5,
+    tint: 0.1,
+    tint_color: [0.71373, 0.71373, 0.71373, 1],
     backdrop_zoom: 1,
     shadow: 0.3,
     opacity_factor: 1,
@@ -88,7 +90,7 @@ export const REFRACTION_EFFECT_META = {
             0, 1, DEFAULT_PARAMS.gloss
         ),
         fresnel_angle: doubleProperty(
-            'fresnel_angle', 'Fresnel Angle', 'Light direction of the fresnel glare, in degrees',
+            'fresnel_angle', 'Fresnel Angle', 'Axis of the fresnel glare edge pair, in degrees',
             -180, 180, DEFAULT_PARAMS.fresnel_angle
         ),
         fresnel_width: doubleProperty(
@@ -98,6 +100,14 @@ export const REFRACTION_EFFECT_META = {
         specular_strength: doubleProperty(
             'specular_strength', 'Specular Glare Strength', 'Strength of the specular glare',
             0, 1, DEFAULT_PARAMS.specular_strength
+        ),
+        edge_shadow: doubleProperty(
+            'edge_shadow', 'Edge Border', 'Strength of the thin dark line along the glass edge',
+            0, 1, DEFAULT_PARAMS.edge_shadow
+        ),
+        edge_glow: doubleProperty(
+            'edge_glow', 'Edge Glow', 'Strength of the colored light picked up by the glass edge',
+            0, 1, DEFAULT_PARAMS.edge_glow
         ),
         tint: doubleProperty(
             'tint', 'Tint', 'Glass tint strength', 0, 1, DEFAULT_PARAMS.tint

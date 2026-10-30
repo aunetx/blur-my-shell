@@ -9,8 +9,8 @@
 // upstream project remains licensed under CC BY-NC 4.0
 // (https://creativecommons.org/licenses/by-nc/4.0/).
 //
-// Optional specular glare (off by default) is an addition beyond the 0.1.1b
-// port and is not part of the original shader.
+// specular glare, fresnel glare with symmetric tapering edge pair, dark edge border
+// and the colored edge glow are not part of the original shader.
 uniform sampler2D tex;
 uniform float width;
 uniform float height;
@@ -27,6 +27,8 @@ uniform float gloss;
 uniform float fresnel_angle;
 uniform float fresnel_width;
 uniform float specular_strength;
+uniform float edge_shadow;
+uniform float edge_glow;
 uniform float tint;
 uniform float tint_r;
 uniform float tint_g;
@@ -40,8 +42,25 @@ uniform float clip_x0;
 uniform float clip_y0;
 uniform float clip_width;
 uniform float clip_height;
+uniform float scale_factor;
 
-const float DISPERSION_SCALE = 10.0;
+// Overall bend multiplier and edge-profile curve (< 1 reaches further inward).
+const float BEND_SCALE = 1.4;
+const float BEND_CURVE = 0.7;
+// Max share of the bend used to split red and blue apart at the glass edge.
+const float DISPERSION_RATIO = 0.9;
+// Glare taper along the rim, in multiples of the corner radius: how early it
+// starts thinning before the corner curve and how far its thin tail reaches
+// down the side edge past the curve.
+const float GLARE_TAPER_LEAD = 0.6;
+const float GLARE_TAPER_TAIL = 1.0;
+// Strength of the specular glare on the edge away from the light.
+const float SPECULAR_FAR_SIDE = 0.6;
+// Edge border fade-in around the end of the glare tail, in logical pixels
+// (multiplied by the monitor scale): how far before the tail end it starts
+// and how far past it it reaches full strength.
+const float BORDER_FADE_LEAD = 45.0;
+const float BORDER_FADE_TAIL = 8.0;
 
 float quartzGlassEdgeProfile(float distanceFromEdge,
                              float refractionHeight) {
@@ -82,40 +101,31 @@ float snellDisplacementAtRatio(float br, float gt, float bw, float eta) {
     return (raw / peak) * (1.0 - smoothstep(0.0, 1.0, br));
 }
 
+// Anti-aliased line hugging the glass edge; widthScale thins it (0 hides it).
 float quartzGlassRing(float distanceFromEdge,
-                      float bezelWidth) {
+                      float bezelWidth,
+                      float widthScale) {
     float ringWidth = clamp(bezelWidth * 0.24 * fresnel_width, 1.0,
-                            2.5 * fresnel_width);
+                            2.5 * fresnel_width) * widthScale;
+    if (ringWidth <= 0.001) return 0.0;
     float aa = 1.0;
 
     float outerCoverage = clamp(distanceFromEdge / aa + 0.5, 0.0, 1.0);
+    float innerCoverage = clamp((ringWidth - distanceFromEdge) / aa + 0.5, 0.0, 1.0);
     float radial = clamp(distanceFromEdge / ringWidth, 0.0, 1.0);
-    float ring;
-    if (ringWidth < 3.0) {
-        float innerCoverage = clamp((ringWidth - distanceFromEdge) / aa + 0.5, 0.0, 1.0);
-        ring = outerCoverage * innerCoverage;
-        ring *= 1.0 - radial;
-    } else {
-        float decayRate = 3.0;
-        ring = outerCoverage * exp(-decayRate * radial);
-    }
-    return ring;
+    return outerCoverage * innerCoverage * (1.0 - radial);
 }
 
+// Fresnel glare lit as a fixed 180 degree apart pair of edges along the light
+// axis. taper (1 on the glare edges, 0 at the end of the tail) thins and
+// fades the line through the corner curves and a little down the sides.
+// This 180 degree glare pair angle is separate from existing fresnel angle setting, that part controls light angle as before
 float quartzGlassHighlight(float distanceFromEdge,
                            float bezelWidth,
-                           vec2 surfaceNormal,
-                           float strength,
-                           float angle) {
-    float normalLength = max(length(surfaceNormal), 0.001);
-    vec2 normal = surfaceNormal / normalLength;
-    float ring = quartzGlassRing(distanceFromEdge, bezelWidth);
-
-    vec2 lightDirection = vec2(cos(angle), sin(angle));
-    float threshold = 0.15;
-    float directional = clamp((dot(lightDirection, normal) - threshold) /
-                              max(1.0 - threshold, 0.0001), 0.0, 1.0);
-    float highlight = ring * directional;
+                           float taper,
+                           float strength) {
+    float highlight = quartzGlassRing(distanceFromEdge, bezelWidth, taper) *
+                      sqrt(taper);
 
     float oppositeAttenuation = 1.35;
     highlight /= max(1.0 + (1.0 - highlight) * oppositeAttenuation,
@@ -260,6 +270,26 @@ vec4 sampleDispersed(vec2 sampleUV, vec2 dispPx, vec2 aberrationPx,
     return bg;
 }
 
+// Light from colorful content under the glass, gathered a few steps inward
+// from the edge. Returns a saturated color and, in alpha, how colorful it is,
+// so neutral (white/gray/black) content does not light the rim.
+vec4 edgeGlowColor(vec2 sampleUV, vec2 dir, float band) {
+    vec3 gathered = vec3(0.0);
+    for (int i = 1; i <= 3; i++) {
+        vec2 inwardPx = -dir * band * float(i) * 0.6;
+        gathered += sampleGlassBackdrop(backdropSampleUV(sampleUV, inwardPx)).rgb;
+    }
+    gathered /= 3.0;
+
+    float maxC = max(gathered.r, max(gathered.g, gathered.b));
+    float minC = min(gathered.r, min(gathered.g, gathered.b));
+    float chroma = maxC - minC;
+    vec3 vivid = chroma > 0.001
+        ? (gathered - vec3(minC)) / chroma * maxC
+        : gathered;
+    return vec4(vivid, smoothstep(0.06, 0.4, chroma));
+}
+
 vec3 applyTintAndShadow(vec3 sample, vec2 localUV) {
     vec3 tintColor = vec3(tint_r, tint_g, tint_b);
     vec3 outRGB = mix(sample, tintColor, tint * tint_a);
@@ -358,7 +388,9 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     }
 
     float normDisp = distFromSide < refractionBand
-        ? quartzGlassEdgeProfile(distFromSide, max(glassThickness, 1.0))
+        ? pow(max(quartzGlassEdgeProfile(distFromSide,
+                                         max(glassThickness, 1.0)), 0.0),
+              BEND_CURVE)
         : 0.0;
     if (refraction_style > 0.001) {
         float bezelRatio = clamp(distFromSide / max(refractionBand, 0.001), 0.0, 1.0);
@@ -370,37 +402,107 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         normDisp = mix(normDisp, snellDisp, clamp(refraction_style, 0.0, 1.0));
     }
     float dispStrength = edgeBand;
-    vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength;
+    vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength *
+                  BEND_SCALE;
 
-    float dispersion = clamp(rgb_fringing * DISPERSION_SCALE, 0.0, 20.0);
+    // Dispersion follows the bend and is weighted toward the rim, so colors
+    // spread out along the glass edge while the center stays clean.
+    float dispersion = clamp(rgb_fringing, 0.0, 1.0) * DISPERSION_RATIO;
     vec4 sourceColor = sampleGlassBackdrop(actorUV);
-    vec2 aberrationPx = -dir * normDisp * dispersion * 0.35 * dispStrength;
+    vec2 aberrationPx = dispPx * clamp(normDisp, 0.0, 1.0) * dispersion;
     vec4 bgColor = sampleDispersed(actorUV, dispPx, aberrationPx, dispersion);
 
     vec3 outRGB = mix(bgColor.rgb, vec3(tint_r, tint_g, tint_b),
                       tint * tint_a);
-    float highlight = quartzGlassHighlight(distFromSide, refractionBand, dir,
-                                           gloss, fresnel_angle) *
+
+    // Facing of the edge relative to the fresnel glare axis: 1 on the lit
+    // edge pair, 0 on the perpendicular (side) edges.
+    vec2 glareAxis = vec2(cos(fresnel_angle), sin(fresnel_angle));
+    float glareAxisDot = dot(glareAxis, dir);
+    float glareFacing = abs(glareAxisDot);
+
+    // Rim position measured from where the corner curve starts on the glare
+    // edge (axis snapped to vertical/horizontal): < 0 on the straight glare
+    // edge, 0..R*PI/2 along the curve, beyond that down the side edge.
+    bool glareVertical = abs(glareAxis.y) >= abs(glareAxis.x);
+    vec2 rimP = abs(glassPx - halfSize);
+    vec2 straightHalf = max(halfSize - vec2(roundingRadius), vec2(0.0));
+    vec2 litP = glareVertical ? rimP : rimP.yx;
+    vec2 litStraight = glareVertical ? straightHalf : straightHalf.yx;
+    vec2 litDir = glareVertical ? abs(dir) : abs(dir).yx;
+    float rimPos = roundingRadius * atan(litDir.x, max(litDir.y, 0.0001)) +
+                   min(litP.x - litStraight.x, 0.0) +
+                   max(litStraight.y - litP.y, 0.0);
+
+    float taperR = max(roundingRadius, 4.0);
+    float glareLead = min(GLARE_TAPER_LEAD * taperR, litStraight.x);
+    float glareTail = min(GLARE_TAPER_TAIL * taperR, litStraight.y);
+    float glareTaper = 1.0 - smoothstep(-glareLead,
+                                        roundingRadius * 1.5707963 + glareTail +
+                                        0.001,
+                                        rimPos);
+    // Diagonal glare angles fall back to the plain facing taper.
+    float offAxis = clamp((1.0 - max(abs(glareAxis.x), abs(glareAxis.y))) /
+                          0.2928932, 0.0, 1.0);
+    glareTaper = mix(glareTaper, glareFacing, offAxis);
+
+    // Thin dark border on the straight side edges (the pair perpendicular to
+    // the glare axis). It starts after the glare tail ends and thins in
+    // gradually, so the glare keeps its tapering through the corners.
+    if (edge_shadow > 0.001) {
+        float scale = max(scale_factor, 1.0);
+        float borderTaper = step(0.5, litDir.x) *
+                            smoothstep(glareTail - BORDER_FADE_LEAD * scale,
+                                       glareTail + BORDER_FADE_TAIL * scale,
+                                       litStraight.y - litP.y);
+        float lineWidth = clamp(refractionBand * 0.02, 0.5 * scale,
+                                1.0 * scale) * borderTaper;
+        float line = 1.0 - smoothstep(lineWidth - 0.5, lineWidth + 0.5,
+                                      distFromSide);
+
+        float darken = edge_shadow * line * borderTaper *
+                       mix(0.5, 1.0, luminance(outRGB));
+        outRGB *= 1.0 - darken;
+    }
+
+    // Colorful content under the glass lights up the rim. Pixels past the
+    // glow width get no glow, so they skip the extra backdrop samples.
+    float glowWidth = max(1.5, refractionBand * 0.6);
+    if (edge_glow > 0.001 && distFromSide < glowWidth) {
+        float glowBand = 1.0 - smoothstep(0.0, glowWidth, distFromSide);
+        vec4 glow = edgeGlowColor(actorUV, dir, refractionBand);
+        float glowAmount = glowBand * glowBand * glow.a * edge_glow * 0.85;
+        outRGB = mix(outRGB, clamp(glow.rgb * 1.15, 0.0, 1.0), glowAmount);
+    }
+
+    float highlight = quartzGlassHighlight(distFromSide, refractionBand,
+                                           glareTaper, gloss) *
                       edgeOpacity;
     float bgLuminance = luminance(outRGB);
     highlight *= mix(0.32, 1.0, bgLuminance);
-    highlight = min(highlight, 0.22);
+    highlight = min(highlight, 0.35);
     outRGB = 1.0 - (1.0 - outRGB) * (1.0 - highlight);
 
-    if (specular_strength > 0.001) {
-        float specAngle = atan(dir.y, dir.x);
-        float sourceAngle = fresnel_angle + 3.14159265;
-        float dA = abs(mod(specAngle - sourceAngle + 3.14159265,
-                           6.2831853) - 3.14159265);
-        float lobe = exp(-dA * dA * 12.0);
-        float specular = quartzGlassRing(distFromSide, refractionBand) *
-                         lobe * edgeOpacity;
-        specular *= mix(0.32, 1.0, bgLuminance);
-        specular = min(specular * specular_strength, 0.4);
-        outRGB = 1.0 - (1.0 - outRGB) * (1.0 - specular);
-    }
-
     outRGB *= 1.0 - smoothstep(0.25, 1.0, localUV.y) * shadow * 0.20;
+
+    // Specular glare: reflection of the light source on the same edge pair as
+    // the fresnel glare. The edge facing the light is full strength, the far
+    // edge (internal reflection) is dimmer. It shares the fresnel taper; the
+    // soft bloom fades sooner so the tail is a crisp thin line. Reflected
+    // light is white and does not depend on the backdrop brightness, so it is
+    // added after the inner shadow.
+    if (specular_strength > 0.001) {
+        float side = glareAxisDot < 0.0 ? 1.0 : SPECULAR_FAR_SIDE;
+        float core = quartzGlassRing(distFromSide, refractionBand, glareTaper) *
+                     sqrt(glareTaper);
+        float bloomWidth = max(1.5, refractionBand * 0.25);
+        float bloom = exp(-distFromSide / bloomWidth) * 0.35 *
+                      glareTaper * glareTaper;
+        float specular = (core + bloom) * side * edgeOpacity *
+                         specular_strength;
+        specular = clamp(specular, 0.0, 0.85);
+        outRGB = 1.0 - (1.0 - clamp(outRGB, 0.0, 1.0)) * (1.0 - specular);
+    }
     outRGB = mix(sourceColor.rgb, outRGB, opacity_factor);
 
     float finalOpacity = edgeOpacity * mix(sourceColor.a, bgColor.a,
