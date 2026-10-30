@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 06:07+0100\n"
+"POT-Creation-Date: 2026-10-29 16:39+0100\n"
 "PO-Revision-Date: 2026-10-29 17:51+0000\n"
 "Last-Translator: Cold-Mint <cold_mint@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -592,22 +592,26 @@ msgid "Debug Logging"
 msgstr "调试日志"
 
 #: resources/ui/menu.ui:10
+msgid "Disable on Power Saver"
+msgstr ""
+
+#: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
 msgstr "重置首选项…"
 
-#: resources/ui/menu.ui:16
+#: resources/ui/menu.ui:20
 msgid "Project page"
 msgstr "项目页面"
 
-#: resources/ui/menu.ui:20
+#: resources/ui/menu.ui:24
 msgid "Report a Bug"
 msgstr "报告问题"
 
-#: resources/ui/menu.ui:24
+#: resources/ui/menu.ui:28
 msgid "License"
 msgstr "许可证"
 
-#: resources/ui/menu.ui:34
+#: resources/ui/menu.ui:38
 msgid "Main Menu"
 msgstr "主菜单"
 
@@ -1175,19 +1179,19 @@ msgstr "关闭"
 msgid "Open instructions"
 msgstr "打开说明"
 
-#: src/preferences/menu.js:75
+#: src/preferences/menu.js:76
 msgid "Reset all preferences?"
 msgstr "重置所有首选项？"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "管线和组件设置将恢复为默认值。"
 
-#: src/preferences/menu.js:78 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "取消"
 
-#: src/preferences/menu.js:79
+#: src/preferences/menu.js:80
 msgid "Reset"
 msgstr "重置"
 

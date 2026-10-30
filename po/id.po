@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 06:07+0100\n"
+"POT-Creation-Date: 2026-10-29 16:39+0100\n"
 "PO-Revision-Date: 2026-10-20 16:24+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -623,22 +623,26 @@ msgid "Debug Logging"
 msgstr ""
 
 #: resources/ui/menu.ui:10
+msgid "Disable on Power Saver"
+msgstr ""
+
+#: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
 msgstr ""
 
-#: resources/ui/menu.ui:16
+#: resources/ui/menu.ui:20
 msgid "Project page"
 msgstr "Halaman proyek"
 
-#: resources/ui/menu.ui:20
+#: resources/ui/menu.ui:24
 msgid "Report a Bug"
 msgstr "Laporkan Bug"
 
-#: resources/ui/menu.ui:24
+#: resources/ui/menu.ui:28
 msgid "License"
 msgstr "Lisensi"
 
-#: resources/ui/menu.ui:34
+#: resources/ui/menu.ui:38
 msgid "Main Menu"
 msgstr ""
 
@@ -1215,20 +1219,20 @@ msgstr "Tutup"
 msgid "Open instructions"
 msgstr "Buka petunjuk"
 
-#: src/preferences/menu.js:75
+#: src/preferences/menu.js:76
 msgid "Reset all preferences?"
 msgstr "Atur ulang semua preferensi?"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
 "Pipeline dan pengaturan komponen akan dikembalikan ke pengaturan bawaan."
 
-#: src/preferences/menu.js:78 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "Batal"
 
-#: src/preferences/menu.js:79
+#: src/preferences/menu.js:80
 msgid "Reset"
 msgstr "Mengatur ulang"
 
