@@ -70,10 +70,22 @@ function viewCaptureGeometry(actor, view) {
     return geometryFromCorners(corners, view.get_framebuffer());
 }
 
+/// Mirrors when Clutter paints an actor offscreen for its offscreen redirect. Its paint opacity is
+/// overridden to opaque while that happens, so the opacity is computed from its parent instead.
+function isRedirectedOffscreen(actor) {
+    const redirect = actor.offscreen_redirect;
+    if (redirect & (Clutter.OffscreenRedirect.ALWAYS | Clutter.OffscreenRedirect.ON_IDLE))
+        return true;
+    if (!(redirect & Clutter.OffscreenRedirect.AUTOMATIC_FOR_OPACITY))
+        return false;
+    const parentOpacity = actor.get_parent().get_paint_opacity();
+    return actor.opacity * parentOpacity < 255 * 255 && actor.has_overlaps();
+}
+
 /// Like a window dimmed by GNOME Shell while it has an attached modal dialog.
 function hasOffscreenAncestor(actor) {
     for (let ancestor = actor.get_parent(); ancestor; ancestor = ancestor.get_parent()) {
-        if (ancestor.get_effects()
+        if (isRedirectedOffscreen(ancestor) || ancestor.get_effects()
             .some(effect => effect instanceof Clutter.OffscreenEffect && effect.enabled))
             return true;
     }
