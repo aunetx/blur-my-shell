@@ -79,7 +79,7 @@ export function get_refraction_effects(_) {
                 },
                 fresnel_angle: {
                     name: _("Fresnel glare angle"),
-                    description: _("Light direction of the fresnel glare, in degrees (0 is from above, positive rotates clockwise)."),
+                    description: _("Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights the top and bottom, positive rotates clockwise)."),
                     type: "float",
                     min: -180.,
                     max: 180.,
@@ -99,7 +99,27 @@ export function get_refraction_effects(_) {
                 },
                 specular_strength: {
                     name: _("Specular glare strength"),
-                    description: _("Strength of the specular glare showing the light direction (0 disables it)."),
+                    description: _("Strength of the white specular glare on the same edge pair as the fresnel glare, brighter on the light side (0 disables it)."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                edge_shadow: {
+                    name: _("Edge border"),
+                    description: _("Thin dark line along the straight side edges, away from the fresnel glare, outlining the glass on light backgrounds."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                edge_glow: {
+                    name: _("Edge glow"),
+                    description: _("Colorful content under the glass lights up its edge."),
                     type: "float",
                     min: 0.,
                     max: 1.,
