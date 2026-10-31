@@ -119,7 +119,6 @@ float quartzGlassRing(float distanceFromEdge,
 // Fresnel glare lit as a fixed 180 degree apart pair of edges along the light
 // axis. taper (1 on the glare edges, 0 at the end of the tail) thins and
 // fades the line through the corner curves and a little down the sides.
-// This 180 degree glare pair angle is separate from existing fresnel angle setting, that part controls light angle as before
 float quartzGlassHighlight(float distanceFromEdge,
                            float bezelWidth,
                            float taper,
