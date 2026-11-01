@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 16:39+0100\n"
+"POT-Creation-Date: 2026-11-01 11:30+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,8 +288,8 @@ msgstr ""
 
 #: src/effects/refraction/info.js:82
 msgid ""
-"Light direction of the fresnel glare, in degrees (0 is from above, positive "
-"rotates clockwise)."
+"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
+"the top and bottom, positive rotates clockwise)."
 msgstr ""
 
 #: src/effects/refraction/info.js:91
@@ -306,62 +306,81 @@ msgstr ""
 
 #: src/effects/refraction/info.js:102
 msgid ""
-"Strength of the specular glare showing the light direction (0 disables it)."
+"Strength of the white specular glare on the same edge pair as the fresnel "
+"glare, brighter on the light side (0 disables it)."
 msgstr ""
 
 #: src/effects/refraction/info.js:111
-msgid "Tint strength"
+msgid "Edge border"
 msgstr ""
 
 #: src/effects/refraction/info.js:112
-msgid "Amount of subtle milky glass tint over the blurred texture."
+msgid ""
+"Thin dark line along the straight side edges, away from the fresnel glare, "
+"outlining the glass on light backgrounds."
 msgstr ""
 
 #: src/effects/refraction/info.js:121
-msgid "Tint color"
+msgid "Edge glow"
 msgstr ""
 
 #: src/effects/refraction/info.js:122
+msgid "Colorful content under the glass lights up its edge."
+msgstr ""
+
+#: src/effects/refraction/info.js:131
+msgid "Tint strength"
+msgstr ""
+
+#: src/effects/refraction/info.js:132
+msgid "Amount of subtle milky glass tint over the blurred texture."
+msgstr ""
+
+#: src/effects/refraction/info.js:141
+msgid "Tint color"
+msgstr ""
+
+#: src/effects/refraction/info.js:142
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
 
-#: src/effects/refraction/info.js:127
+#: src/effects/refraction/info.js:147
 msgid "Backdrop zoom"
 msgstr ""
 
-#: src/effects/refraction/info.js:128
+#: src/effects/refraction/info.js:148
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr ""
 
-#: src/effects/refraction/info.js:137
+#: src/effects/refraction/info.js:157
 msgid "Inner shadow"
 msgstr ""
 
-#: src/effects/refraction/info.js:138
+#: src/effects/refraction/info.js:158
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
 
-#: src/effects/refraction/info.js:147
+#: src/effects/refraction/info.js:167
 msgid "Chromatic dispersion"
 msgstr ""
 
-#: src/effects/refraction/info.js:148
+#: src/effects/refraction/info.js:168
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:157
+#: src/effects/refraction/info.js:177
 msgid "Edge behavior"
 msgstr ""
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:178
 msgid "How texture coordinates outside the actor are sampled."
 msgstr ""
 
-#: src/effects/refraction/info.js:161
+#: src/effects/refraction/info.js:181
 msgid "Clamp"
 msgstr ""
 
-#: src/effects/refraction/info.js:162
+#: src/effects/refraction/info.js:182
 msgid "Mirror"
 msgstr ""
 
