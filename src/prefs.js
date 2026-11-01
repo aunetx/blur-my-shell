@@ -9,13 +9,9 @@ import { KEYS } from './settings/keys.js';
 import { cancel_pick } from './dbus/client.js';
 
 import { addMenu } from './preferences/menu.js';
-import { Pipelines } from './preferences/pages/pipelines.js';
-import { Panel } from './preferences/pages/panel.js';
-import { Overview } from './preferences/pages/overview.js';
-import { Dash } from './preferences/pages/dash.js';
+import { ShellPage } from './preferences/pages/shell/index.js';
 import { Applications } from './preferences/pages/applications.js';
-import { PopupBlur } from './preferences/pages/popup.js';
-import { Other } from './preferences/pages/other.js';
+import { Pipelines } from './preferences/pages/pipelines/index.js';
 
 import './preferences/widgets/pipeline_choose_row.js';
 
@@ -30,44 +26,23 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     }
 
     fillPreferencesWindow(window) {
-        addMenu(window);
-
         const gsettings = this.getSettings();
         update_from_old_settings(gsettings);
 
         const preferences = new Settings(KEYS, gsettings);
         const pipelines_manager = new PipelinesManager(preferences);
 
-        const pipelines_page = new Pipelines(preferences, pipelines_manager, window);
+        addMenu(window, preferences);
 
-        window.add(pipelines_page);
-        window.add(new Panel(preferences, pipelines_manager, pipelines_page));
-        window.add(new Overview(preferences, pipelines_manager, pipelines_page));
-        window.add(new Dash(preferences, pipelines_manager, pipelines_page));
+        const pipelines_page = new Pipelines(preferences, pipelines_manager, window);
         const applications_page = new Applications(
             preferences, window, pipelines_manager, pipelines_page
         );
-        window.add(applications_page);
-        window.add(new PopupBlur(preferences, pipelines_manager, pipelines_page));
-        window.add(new Other(preferences, pipelines_manager, pipelines_page));
 
-        window.add_css_class('bms-preferences');
-        const undo_css = new Gtk.CssProvider();
-        undo_css.load_from_string(`
-            /* 46px (tab bar height) + 8px = 54px */
-            .bms-preferences toast {
-                margin-bottom: 54px;
-            }
-            /* -12px would be no gap */
-            .bms-pipeline-undo-content:dir(ltr) {
-                margin-right: -10px;
-            }
-            .bms-pipeline-undo-content:dir(rtl) {
-                margin-left: -10px;
-            }
-        `);
-        const display = window.get_display();
-        Gtk.StyleContext.add_provider_for_display(display, undo_css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        window.add(new ShellPage(preferences, pipelines_manager, pipelines_page, window));
+        window.add(applications_page);
+        window.add(pipelines_page);
+        window.set_default_size(640, 840);
 
         window.connect('close-request', () => {
             cancel_pick();
@@ -75,8 +50,6 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
             pipelines_page.cleanup();
             pipelines_manager.destroy();
             preferences.disconnect_all_settings();
-            Gtk.StyleContext.remove_provider_for_display(display, undo_css);
-            window.remove_css_class('bms-preferences');
             return false;
         });
 

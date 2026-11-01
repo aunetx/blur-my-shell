@@ -58,6 +58,41 @@ function captureGeometry(actor, framebuffer) {
                 viewportY + (1 - (x * m[1] + y * m[5] + m[13]) / w) * viewportHeight / 2,
             ];
         });
+    return geometryFromCorners(corners, framebuffer);
+}
+
+/// The geometry of the actor in a stage view's framebuffer, from its position on the stage.
+function viewCaptureGeometry(actor, view) {
+    const layout = view.layout;
+    const scale = view.get_scale();
+    const corners = actor.get_abs_allocation_vertices()
+        .map(vertex => [(vertex.x - layout.x) * scale, (vertex.y - layout.y) * scale]);
+    return geometryFromCorners(corners, view.get_framebuffer());
+}
+
+/// Mirrors when Clutter paints an actor offscreen for its offscreen redirect. Its paint opacity is
+/// overridden to opaque while that happens, so the opacity is computed from its parent instead.
+function isRedirectedOffscreen(actor) {
+    const redirect = actor.offscreen_redirect;
+    if (redirect & (Clutter.OffscreenRedirect.ALWAYS | Clutter.OffscreenRedirect.ON_IDLE))
+        return true;
+    if (!(redirect & Clutter.OffscreenRedirect.AUTOMATIC_FOR_OPACITY))
+        return false;
+    const parentOpacity = actor.get_parent().get_paint_opacity();
+    return actor.opacity * parentOpacity < 255 * 255 && actor.has_overlaps();
+}
+
+/// Like a window dimmed by GNOME Shell while it has an attached modal dialog.
+function hasOffscreenAncestor(actor) {
+    for (let ancestor = actor.get_parent(); ancestor; ancestor = ancestor.get_parent()) {
+        if (isRedirectedOffscreen(ancestor) || ancestor.get_effects()
+            .some(effect => effect instanceof Clutter.OffscreenEffect && effect.enabled))
+            return true;
+    }
+    return false;
+}
+
+function geometryFromCorners(corners, framebuffer) {
     if (!corners.flat().every(Number.isFinite))
         return null;
 
@@ -254,18 +289,26 @@ export const BackdropCaptureEffect = GObject.registerClass({
 
     vfunc_paint_node(node, paintContext) {
         const actor = this.get_actor();
-        const sourceFramebuffer = get_view_framebuffer(paintContext);
+        let sourceFramebuffer = get_view_framebuffer(paintContext);
         if (!sourceFramebuffer) {
             node.add_child(new Clutter.ActorNode(actor, -1));
             return;
         }
-        const geometry = captureGeometry(actor, sourceFramebuffer);
-        if (!geometry)
-            return;
 
         const painted_view = get_painted_view();
-        const view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
+        let view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
+        let geometry;
+        if (!view && !inClone && hasOffscreenAncestor(actor)) {
+            // an ancestor is painted offscreen, so capture what is behind it from the stage view
+            view = painted_view;
+            sourceFramebuffer = view.get_framebuffer();
+            geometry = viewCaptureGeometry(actor, view);
+        } else {
+            geometry = captureGeometry(actor, sourceFramebuffer);
+        }
+        if (!geometry)
+            return;
         if (inClone) {
             if (this.cloneViewPaint !== get_view_paint()) {
                 this.cloneViewPaint = get_view_paint();

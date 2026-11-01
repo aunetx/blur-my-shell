@@ -146,6 +146,10 @@
             <default>false</default>
             <summary>Boolean, set to true to activate debug mode (more verbose journalctl logs)</summary>
         </key>
+        <key type="b" name="power-saver">
+            <default>true</default>
+            <summary>Whether to disable blur effects in Power Saver mode</summary>
+        </key>
 
         <child name='overview' schema='org.gnome.shell.extensions.blur-my-shell.overview'></child>
         <child name='appfolder' schema='org.gnome.shell.extensions.blur-my-shell.appfolder'></child>

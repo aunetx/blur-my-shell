@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path d="M1 4a2 2 0 0 1 2-2h2v1H3a1 1 0 0 0-1 1v2H1Zm10-2h2a2 2 0 0 1 2 2v2h-1V4a1 1 0 0 0-1-1h-2ZM1 10h1v2a1 1 0 0 0 1 1h2v1H3a2 2 0 0 1-2-2Zm13 0h1v2a2 2 0 0 1-2 2h-2v-1h2a1 1 0 0 0 1-1ZM8 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z" fill="currentColor" fill-rule="evenodd"/>
+</svg>

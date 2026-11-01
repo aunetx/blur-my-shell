@@ -44,20 +44,22 @@ Colors are lists of red, green, blue and alpha between 0 and 1. Choices are stor
 | Parameter | Type | Range | Default |
 |---|---|---|---|
 | `strength` | number | 0 to 1 | 1 |
-| `blur_radius` | number | 0 to 48 | 10 |
-| `edge_size` | number | 1 to 500 | 22 |
+| `blur_radius` | number | 0 to 48 | 3 |
+| `edge_size` | number | 1 to 500 | 32 |
 | `rim_width` | number | 1 to 6.5 | 4.8 |
-| `falloff` | number | 0.25 to 20 | 2.4 |
+| `falloff` | number | 0.25 to 20 | 1.25 |
 | `refraction_style` | number | 0 to 1 | 0 |
 | `gloss` | number | 0 to 1 | 1 |
-| `fresnel_angle` | number | -180 to 180 | 45 |
-| `fresnel_width` | number | 0.5 to 6 | 1 |
-| `specular_strength` | number | 0 to 1 | 0 |
-| `tint` | number | 0 to 1 | 0.2 |
-| `tint_color` | color | | `[1, 1, 1, 1]` |
+| `fresnel_angle` | number | -180 to 180 | 0 |
+| `fresnel_width` | number | 0.5 to 6 | 1.5 |
+| `specular_strength` | number | 0 to 1 | 0.1 |
+| `edge_shadow` | number | 0 to 1 | 0.7 |
+| `edge_glow` | number | 0 to 1 | 0.5 |
+| `tint` | number | 0 to 1 | 0.1 |
+| `tint_color` | color | | `[0.71373, 0.71373, 0.71373, 1]` |
 | `backdrop_zoom` | number | 0.1 to 4 | 1 |
 | `shadow` | number | 0 to 1 | 0.3 |
-| `rgb_fringing` | number | 0 to 1 | 0.1 |
+| `rgb_fringing` | number | 0 to 1 | 0.13 |
 | `texture_repeat` | choice | 0 clamp, 1 mirror | 0 |
 
 ### `color`: Color

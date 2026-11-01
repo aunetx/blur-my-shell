@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="blur-my-shell@aunetx">
+  <template class="BlurModeRow" parent="AdwActionRow">
+    <property name="title" translatable="yes">Blur type</property>
+    <property name="subtitle" translatable="yes">Static blurs only the wallpaper</property>
+    <property name="activatable-widget">mode_static</property>
+
+    <child>
+      <object class="GtkBox">
+        <property name="valign">center</property>
+        <style>
+          <class name="linked" />
+        </style>
+
+        <child>
+          <object class="GtkToggleButton" id="mode_static">
+            <property name="valign">center</property>
+            <property name="hexpand">true</property>
+            <property name="group">mode_dynamic</property>
+            <property name="child">
+              <object class="AdwButtonContent">
+                <property name="icon-name">static-mode-symbolic</property>
+                <property name="label" translatable="yes">Static</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="mode_dynamic">
+            <property name="valign">center</property>
+            <property name="hexpand">true</property>
+            <property name="child">
+              <object class="AdwButtonContent">
+                <property name="icon-name">dynamic-mode-symbolic</property>
+                <property name="label" translatable="yes">Dynamic</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

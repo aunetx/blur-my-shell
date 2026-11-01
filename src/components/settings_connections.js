@@ -11,7 +11,8 @@ function when_enabled(component, callback) {
 
 function connect_toggle(extension, settings, component, user_session = true) {
     connect(settings, 'BLUR', () => {
-        const allowed = !user_session || extension._user_session_mode_enabled;
+        const allowed = !extension._paused
+            && (!user_session || extension._user_session_mode_enabled);
         if (settings.BLUR && allowed)
             component.enable();
         else
@@ -158,6 +159,8 @@ export function connect_component_settings(extension) {
                 applications.update_all_windows();
         }
     ));
+
+    connect(settings, 'POWER_SAVER', () => extension._update_power_saver());
 
     connect_toggle(extension, settings.lockscreen, lockscreen, false);
     connect(settings.lockscreen, 'PIPELINE', when_enabled(

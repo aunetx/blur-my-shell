@@ -6,7 +6,6 @@ export function get_wave_effects(_) {
             class: WaveEffect,
             name: _("Vapor Wave"),
             description: _("A flowing wave displacement for a lively and dynamic feel with natural movement."),
-            is_advanced: false,
             editable_params: {
                 frequency: {
                     name: _("Wave frequency"),

@@ -1,4 +1,6 @@
 import Adw from 'gi://Adw';
+import Gdk from 'gi://Gdk';
+import Gio from 'gi://Gio';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
@@ -6,18 +8,28 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 import { get_supported_effects } from '../../effects/effects.js';
 
 
+function create_effect_menu() {
+    const menu = new Gio.Menu();
+    const move = new Gio.Menu();
+    move.append(_('Move Up'), 'effect.move-up');
+    move.append(_('Move Down'), 'effect.move-down');
+    menu.append_section(null, move);
+    menu.append(_('Remove'), 'effect.remove');
+    return menu;
+}
+
+
 export const EffectRow = GObject.registerClass({
     GTypeName: 'EffectRow',
-    InternalChildren: [],
 }, class EffectRow extends Adw.ExpanderRow {
-    constructor(effect, effects_dialog) {
+    constructor(effect, pipeline_page) {
         super({});
 
         this.SUPPORTED_EFFECTS = get_supported_effects(_);
 
         this.effect = effect;
-        this.pipeline_id = effects_dialog.pipeline_id;
-        this.pipelines_manager = effects_dialog.pipelines_manager;
+        this.pipeline_id = pipeline_page.pipeline_id;
+        this.pipelines_manager = pipeline_page.pipelines_manager;
 
         if (effect.type in this.SUPPORTED_EFFECTS) {
             this.set_title(this.SUPPORTED_EFFECTS[effect.type].name);
@@ -29,51 +41,55 @@ export const EffectRow = GObject.registerClass({
             this.set_title(effect.type);
         }
 
-        let prefix_bin = new Gtk.Box({
-            spacing: 6
-        });
-        this.add_prefix(prefix_bin);
+        this.add_prefix(this.create_drag_handle());
+        this.add_suffix(new Gtk.MenuButton({
+            icon_name: 'view-more-symbolic',
+            tooltip_text: _('Effect Menu'),
+            menu_model: create_effect_menu(),
+            valign: Gtk.Align.CENTER,
+            css_classes: ['flat'],
+        }));
 
-        let move_bin = new Gtk.Box({
-            orientation: Gtk.Orientation.VERTICAL,
-            'width-request': 38,
-            'height-request': 38,
-            'margin-top': 6,
-            'margin-bottom': 6
-        });
-        prefix_bin.append(move_bin);
-        move_bin.add_css_class('linked');
+        this.actions = new Gio.SimpleActionGroup();
+        const add_action = (name, callback) => {
+            const action = new Gio.SimpleAction({ name });
+            action.connect('activate', callback);
+            this.actions.add_action(action);
+        };
+        add_action('move-up', () => pipeline_page.move_effect(this, this.get_index() - 1));
+        add_action('move-down', () => pipeline_page.move_effect(this, this.get_index() + 1));
+        add_action('remove', () => pipeline_page.remove_effect(this));
+        this.insert_action_group('effect', this.actions);
 
-        this._move_up_button = new Gtk.Button({
-            'icon-name': 'go-up-symbolic',
-            'width-request': 38,
-            'height-request': 19
+        const drop_target = Gtk.DropTarget.new(EffectRow.$gtype, Gdk.DragAction.MOVE);
+        drop_target.connect('drop', (_target, row) => {
+            if (row === this)
+                return false;
+            pipeline_page.move_effect(row, this.get_index());
+            return true;
         });
-        this._move_down_button = new Gtk.Button({
-            'icon-name': 'go-down-symbolic',
-            'width-request': 38,
-            'height-request': 19
+        this.add_controller(drop_target);
+    }
+
+    create_drag_handle() {
+        const handle = new Gtk.Image({
+            icon_name: 'list-drag-handle-symbolic',
+            css_classes: ['dim-label'],
         });
-        this._move_up_button.add_css_class('flat');
-        this._move_down_button.add_css_class('flat');
-        move_bin.append(this._move_up_button);
-        move_bin.append(this._move_down_button);
-
-        this._move_up_button.connect('clicked', () => effects_dialog.move_row_by(this, -1));
-        this._move_down_button.connect('clicked', () => effects_dialog.move_row_by(this, +1));
-
-        let remove_button = new Gtk.Button({
-            'icon-name': 'remove-row-symbolic',
-            'width-request': 38,
-            'height-request': 38,
-            'margin-top': 6,
-            'margin-bottom': 6,
-            'valign': Gtk.Align.CENTER
+        const drag_source = new Gtk.DragSource({ actions: Gdk.DragAction.MOVE });
+        drag_source.connect('prepare', (source, x, y) => {
+            const [, row_x, row_y] = handle.translate_coordinates(this, x, y);
+            source.set_icon(new Gtk.WidgetPaintable({ widget: this }), row_x, row_y);
+            return Gdk.ContentProvider.new_for_value(this);
         });
-        prefix_bin.append(remove_button);
-        remove_button.add_css_class('destructive-action');
+        handle.add_controller(drag_source);
+        handle.set_cursor_from_name('grab');
+        return handle;
+    }
 
-        remove_button.connect('clicked', () => effects_dialog.remove_row(this));
+    update_move_actions(index, count) {
+        this.actions.lookup_action('move-up').enabled = index > 0;
+        this.actions.lookup_action('move-down').enabled = index < count - 1;
     }
 
     populate_options() {
@@ -155,12 +171,9 @@ export const EffectRow = GObject.registerClass({
 
                 case "rgba":
                     row = new Adw.ActionRow;
-                    let color_button = new Gtk.ColorButton({
+                    let color_button = new Gtk.ColorDialogButton({
                         valign: Gtk.Align.CENTER,
-                        width_request: 75,
-                        height_request: 45,
-                        show_editor: true,
-                        use_alpha: param.use_alpha
+                        dialog: new Gtk.ColorDialog({ with_alpha: param.use_alpha }),
                     });
                     row.add_suffix(color_button);
                     let c = color_button.get_rgba().copy();
@@ -170,7 +183,7 @@ export const EffectRow = GObject.registerClass({
                         [c.red, c.green, c.blue] = this.get_effect_param(param_key);
                     color_button.set_rgba(c);
                     color_button.connect(
-                        'color-set', () => {
+                        'notify::rgba', () => {
                             let c = color_button.get_rgba();
                             if (param.use_alpha)
                                 this.set_effect_param(param_key, [c.red, c.green, c.blue, c.alpha]);

@@ -21,7 +21,7 @@ export const BackdropOutputEffect = GObject.registerClass({
         if (!current)
             return;
 
-        // clones and offscreen paints only show their own capture
+        // clones and paints outside a stage view, like screencasts, only show their own capture
         const targets = current.inClone || current === this.capture.targets.get(null)
             ? [current]
             : [...this.capture.targets.entries()].filter(([view]) => view).map(([, target]) => target);
