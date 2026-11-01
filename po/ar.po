@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-10-29 17:51+0000\n"
+"PO-Revision-Date: 2026-11-02 15:14+0000\n"
 "Last-Translator: Yassin Omer <yassinomer.work@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
@@ -602,7 +602,7 @@ msgstr "سجل التنقيح"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "تعطيل في وضع توفير الطاقة"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
