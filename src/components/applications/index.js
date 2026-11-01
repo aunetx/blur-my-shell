@@ -190,6 +190,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 'position-changed',
                 () => this.update_size(meta_window)
             );
+            this.connect_blur_signal(
+                meta_window,
+                window_actor,
+                [
+                    'notify::translation-x',
+                    'notify::translation-y',
+                    'notify::scale-x',
+                    'notify::scale-y',
+                ],
+                () => this.update_size(meta_window)
+            );
         } else {
             const repaint = () => {
                 if (meta_window.blur_actor.mapped)
