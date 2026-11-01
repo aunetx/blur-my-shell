@@ -3,6 +3,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { ModalDialog } from 'resource:///org/gnome/shell/ui/modalDialog.js';
 
 import { Connections } from '../../conveniences/connections.js';
+import { get_pipeline_id } from '../../conveniences/style.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
 
 const BACKDROP_NAME = 'bms-dialog-backdrop';
@@ -42,7 +43,7 @@ export class DialogBackdrops {
         const pipeline = new DynamicPipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.popup.PIPELINE
+            get_pipeline_id(this.settings.popup)
         );
         const actor = pipeline.create_actor(BACKDROP_NAME);
         actor.add_constraint(new Clutter.BindConstraint({
@@ -56,7 +57,7 @@ export class DialogBackdrops {
 
     update_pipeline() {
         this.backdrops.forEach(({ pipeline }) =>
-            pipeline.change_pipeline_to(this.settings.popup.PIPELINE));
+            pipeline.change_pipeline_to(get_pipeline_id(this.settings.popup)));
     }
 
     disable() {

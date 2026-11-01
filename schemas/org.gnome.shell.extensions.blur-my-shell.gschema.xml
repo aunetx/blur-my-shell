@@ -29,6 +29,27 @@
                             }>
                         ]>
                     },
+                    'pipeline_default_light': {
+                        'name': <'Default (Light mode)'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_default_light_blur'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <1>
+                                }>
+                            }>,
+                            <{
+                                'type': <'color'>,
+                                'id': <'effect_default_light_color'>,
+                                'params': <{
+                                    'color': <(1.0, 1.0, 1.0, 0.5)>,
+                                    'blend_mode': <3>
+                                }>
+                            }>
+                        ]>
+                    },
                     'pipeline_liquid_glass': {
                         'name': <'Liquid Glass'>,
                         'effects': <[
@@ -178,6 +199,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>true</default>
+            <summary>Whether to select the Overview pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>4</default>
@@ -202,6 +238,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the appfolder pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -242,6 +293,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the panel pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -333,6 +399,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the dash pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -382,6 +463,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>true</default>
+            <summary>Whether to select the applications pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -468,6 +564,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>true</default>
+            <summary>Whether to select the screenshot pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
     </schema>
 
     <!-- LOCKSCREEN -->
@@ -483,6 +594,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>true</default>
+            <summary>Whether to select the lockscreen pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
     </schema>
 
     <!-- WINDOW LIST -->
@@ -497,6 +623,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>true</default>
+            <summary>Whether to select the window list pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -528,6 +669,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>true</default>
+            <summary>Whether to select the Coverflow Alt-Tab pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
     </schema>
 
     <!-- POPUP -->
@@ -547,6 +703,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the popup pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">

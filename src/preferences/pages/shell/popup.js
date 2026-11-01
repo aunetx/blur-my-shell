@@ -31,7 +31,10 @@ export const PopupBlur = GObject.registerClass({
     InternalChildren: [
         'blur',
         'blur_mode_row',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'blur_behind_dialogs',
         'override_background',
         'style_popup',
@@ -43,11 +46,19 @@ export const PopupBlur = GObject.registerClass({
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
+        this.preferences = preferences;
         this._blur_mode_row.initialize(preferences.popup);
         this._pipeline_choose_row.initialize(preferences.popup, pipelines_manager, pipelines_page);
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.popup, pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.popup, pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.popup, [
             ['blur', this._blur, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['blur-behind-dialogs', this._blur_behind_dialogs, 'active'],
             ['override-background', this._override_background, 'active'],
             ['style-popup', this._style_popup, 'selected'],
@@ -55,5 +66,15 @@ export const PopupBlur = GObject.registerClass({
             ['rounded-corners', this._rounded_corners, 'selected'],
             ...CORNER_RADIUS_KEYS.map(key => [key, this[`_${to_child_id(key)}`], 'value']),
         ]);
+
+        preferences.popup.PIPELINE_AUTO_MODE_changed(() => this.update_pipeline_rows());
+        this.update_pipeline_rows();
+    }
+
+    update_pipeline_rows() {
+        const auto_mode = this.preferences.popup.PIPELINE_AUTO_MODE;
+        this._pipeline_choose_row.visible = !auto_mode;
+        this._pipeline_choose_auto_light_row.visible = auto_mode;
+        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });

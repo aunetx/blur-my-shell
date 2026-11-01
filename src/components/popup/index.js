@@ -2,7 +2,10 @@ import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { get_component_style, connect_system_style_changes } from '../../conveniences/style.js';
+import {
+    get_component_style,
+    connect_system_style_changes,
+} from '../../conveniences/style.js';
 import { has_style_class, is_internal_actor } from './actors.js';
 import {
     DEFAULT_CORNER_RADIUS,
@@ -48,7 +51,11 @@ export const PopupBlur = class PopupBlur {
         this.enabled = true;
 
         this.update_background();
-        connect_system_style_changes(this.connections, () => this.update_background());
+        connect_system_style_changes(this.connections, () => {
+            this.update_background();
+            if (this.settings.popup.PIPELINE_AUTO_MODE)
+                this.update_pipeline();
+        });
         this.connections.connect(
             Main.layoutManager,
             'monitors-changed',

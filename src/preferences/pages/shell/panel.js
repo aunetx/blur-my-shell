@@ -13,7 +13,10 @@ export const Panel = GObject.registerClass({
     InternalChildren: [
         'blur',
         'blur_mode_row',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'unblur_in_overview',
         'corner_radius',
         'rounded_corners',
@@ -36,10 +39,13 @@ export const Panel = GObject.registerClass({
 
         this._blur_mode_row.initialize(preferences.panel);
         this._pipeline_choose_row.initialize(preferences.panel, pipelines_manager, pipelines_page);
+        this._pipeline_choose_auto_light_row.initialize(preferences.panel, pipelines_manager, pipelines_page);
+        this._pipeline_choose_auto_dark_row.initialize(preferences.panel, pipelines_manager, pipelines_page);
 
         bind_settings(preferences.panel, [
             ['blur', this._blur, 'active'],
             ['unblur-in-overview', this._unblur_in_overview, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['corner-radius', this._corner_radius, 'value'],
             ['rounded-corners', this._rounded_corners, 'selected'],
             ['force-light-text', this._force_light_text, 'active'],
@@ -62,6 +68,9 @@ export const Panel = GObject.registerClass({
         preferences.panel.OVERRIDE_BACKGROUND_DYNAMICALLY_MODE_changed(() => this.update_proximity_rows());
         preferences.panel.GRADIENT_PANEL_changed(() => this.update_proximity_rows());
         this.update_proximity_rows();
+
+        preferences.panel.PIPELINE_AUTO_MODE_changed(() => this.update_rows());
+        this.update_rows();
     }
 
     update_proximity_rows() {
@@ -71,5 +80,13 @@ export const Panel = GObject.registerClass({
         this._override_background_dynamically_mode.visible = dynamic;
         this._gradient_panel.visible = blur_on_proximity;
         this._gradient_panel_mode.visible = blur_on_proximity && panel.GRADIENT_PANEL;
+    }
+
+    update_rows() {
+        const panel = this.preferences.panel;
+        const auto_mode = panel.PIPELINE_AUTO_MODE;
+        this._pipeline_choose_row.visible = !auto_mode;
+        this._pipeline_choose_auto_light_row.visible = auto_mode;
+        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });

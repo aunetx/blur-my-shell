@@ -4,6 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { Pipeline } from '../../pipelines/pipeline.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { get_pipeline_id } from '../../conveniences/style.js';
 
 /// Creates the blur behind a panel, inserted at the bottom of its panel box.
 export function create_panel_background(panel_box, monitor, settings, effects_manager) {
@@ -20,7 +21,7 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
         pipeline = new Pipeline(
             effects_manager,
             global.blur_my_shell._pipelines_manager,
-            settings.panel.PIPELINE
+            get_pipeline_id(settings.panel),
         );
         background = pipeline.create_background_with_effects(
             monitor.index, bg_manager_list,
@@ -37,7 +38,7 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
         pipeline = new DynamicPipeline(
             effects_manager,
             global.blur_my_shell._pipelines_manager,
-            settings.panel.PIPELINE,
+            get_pipeline_id(settings.panel),
             {
                 corner_radius: settings.panel.CORNER_RADIUS,
                 get_corners: () => settings.panel.ROUNDED_CORNERS,

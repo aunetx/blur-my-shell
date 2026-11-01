@@ -13,7 +13,10 @@ export const Applications = GObject.registerClass({
     InternalChildren: [
         'blur',
         'blur_mode_row',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'corner_radius',
         'rounded_corners',
         'corner_when_maximized',
@@ -40,9 +43,16 @@ export const Applications = GObject.registerClass({
         this._pipeline_choose_row.initialize(
             this.preferences.applications, this.pipelines_manager, this.pipelines_page
         );
+        this._pipeline_choose_auto_light_row.initialize(
+            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+        );
 
         bind_settings(this.preferences.applications, [
             ['blur', this._blur, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['opacity', this._opacity, 'value'],
             ['dynamic-opacity', this._dynamic_opacity, 'active'],
             ['corner-radius', this._corner_radius, 'value'],
@@ -52,6 +62,9 @@ export const Applications = GObject.registerClass({
             ['unblur-when-fullscreen', this._unblur_when_fullscreen, 'active'],
             ['enable-all', this._enable_all, 'active'],
         ]);
+
+        this.preferences.applications.PIPELINE_AUTO_MODE_changed(() => this.update_pipeline_rows());
+        this.update_pipeline_rows();
 
         this._enable_all.bind_property(
             'active', this._whitelist, 'visible',
@@ -83,6 +96,13 @@ export const Applications = GObject.registerClass({
                 app_name => this.add_window(list, app_name)
             );
         }
+    }
+
+    update_pipeline_rows() {
+        const auto_mode = this.preferences.applications.PIPELINE_AUTO_MODE;
+        this._pipeline_choose_row.visible = !auto_mode;
+        this._pipeline_choose_auto_light_row.visible = auto_mode;
+        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 
     add_window(list, app_name = null) {

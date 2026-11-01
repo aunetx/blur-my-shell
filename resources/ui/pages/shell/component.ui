@@ -14,7 +14,27 @@
     <child>
       <object class="AdwPreferencesGroup">
         <child>
+          <object class="AdwSwitchRow" id="pipeline_auto_mode_switch">
+            <property name="title" translatable="yes">Follow system theme</property>
+            <property name="subtitle" translatable="yes">Automatically switch the pipeline based on the system theme.</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
           <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseAutoLightRow" id="pipeline_choose_auto_light_row">
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseAutoDarkRow" id="pipeline_choose_auto_dark_row">
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>

@@ -13,17 +13,41 @@
 
     <child>
       <object class="AdwPreferencesGroup">
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
         <child>
-          <object class="PipelineChooseRow" id="pipeline_choose_row">
-            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          <object class="AdwSwitchRow" id="pipeline_auto_mode_switch">
+            <property name="title" translatable="yes">Follow system theme</property>
+            <property name="subtitle" translatable="yes">Automatically switch the pipeline based on the system theme.</property>
           </object>
         </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_row">
+          </object>
+        </child>
+        
+        <child>
+          <object class="PipelineChooseAutoLightRow" id="pipeline_choose_auto_light_row">
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseAutoDarkRow" id="pipeline_choose_auto_dark_row">
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Appearance</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
 
         <child>
           <object class="AdwComboRow" id="style_dialogs">
             <property name="title" translatable="yes">Application folder dialogs style</property>
             <property name="model">style_dialogs_model</property>
-            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
 
@@ -31,7 +55,6 @@
           <object class="AdwSwitchRow" id="blur_behind_folders">
             <property name="title" translatable="yes">Blur behind folders</property>
             <property name="subtitle" translatable="yes">Blur the app grid behind an open folder.</property>
-            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
       </object>
