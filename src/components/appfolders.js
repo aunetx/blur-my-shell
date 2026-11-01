@@ -2,6 +2,7 @@ import Clutter from 'gi://Clutter';
 import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import St from 'gi://St';
+import * as Layout from 'resource:///org/gnome/shell/ui/layout.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DynamicPipeline } from '../render/dynamic_surface.js';
@@ -122,7 +123,8 @@ function create_surface(dialog) {
 }
 
 /// The grid behind an open folder is blurred by a sibling placed under the dialog, which zooms its
-/// child while opening.
+/// child while opening. It covers the primary monitor like the dialog does, rather than following
+/// the dialog, which can be laid out after it.
 function add_backdrop(dialog, effects_manager, pipeline_id) {
     const pipeline = new DynamicPipeline(
         effects_manager,
@@ -131,10 +133,7 @@ function add_backdrop(dialog, effects_manager, pipeline_id) {
     );
     const actor = pipeline.create_actor('bms-appfolder-backdrop');
     pipeline.ownsActor = true;
-    actor.add_constraint(new Clutter.BindConstraint({
-        source: dialog,
-        coordinate: Clutter.BindCoordinate.ALL,
-    }));
+    actor.add_constraint(new Layout.MonitorConstraint({ primary: true }));
     dialog.bind_property('visible', actor, 'visible', GObject.BindingFlags.SYNC_CREATE);
     dialog.get_parent().insert_child_below(actor, dialog);
     pipeline.attach_pipeline();
