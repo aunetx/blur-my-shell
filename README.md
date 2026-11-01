@@ -40,6 +40,7 @@ see the [removal instructions](docs/rounded-blur-removal.md).
   - popup blur
     - you can choose between static blur and dynamic blur
     - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, and dialogs
+    - can also blur the dimmed screen behind system dialogs, like the power off dialog, with the selected pipeline
     - static and dynamic blur use the selected pipeline
     - you can choose a transparent, light, dark, or automatic background above the blur
     - popup blur has separate corner-radius settings for the different popup surface types

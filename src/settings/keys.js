@@ -114,6 +114,7 @@ export const KEYS = [
             { type: Type.B, name: "override-background" },
             { type: Type.B, name: "preserve-shell-theme" },
             { type: Type.I, name: "style-popup" },
+            { type: Type.B, name: "blur-behind-dialogs" },
         ]
     },
     {

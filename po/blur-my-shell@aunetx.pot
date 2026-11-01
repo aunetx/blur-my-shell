@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 07:11+0000\n"
+"POT-Creation-Date: 2026-11-01 10:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -654,12 +654,12 @@ msgid "Opaque focused window"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
-#: resources/ui/pages/shell/popup.ui:61
+#: resources/ui/pages/shell/popup.ui:69
 msgid "Corner radius"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
-#: resources/ui/pages/shell/popup.ui:66
+#: resources/ui/pages/shell/popup.ui:74
 msgid "Rounded corners"
 msgstr ""
 
@@ -713,22 +713,22 @@ msgid "Excluded windows"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
-#: resources/ui/pages/shell/popup.ui:160
+#: resources/ui/pages/shell/popup.ui:168
 msgid "All"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
-#: resources/ui/pages/shell/popup.ui:161
+#: resources/ui/pages/shell/popup.ui:169
 msgid "Top only"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
-#: resources/ui/pages/shell/popup.ui:162
+#: resources/ui/pages/shell/popup.ui:170
 msgid "Bottom only"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
-#: resources/ui/pages/shell/popup.ui:163
+#: resources/ui/pages/shell/popup.ui:171
 msgid "None"
 msgstr ""
 
@@ -769,7 +769,7 @@ msgid "Duplicate"
 msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
-#: src/preferences/pages/pipelines/index.js:122
+#: src/preferences/pages/pipelines/index.js:123
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
 msgstr ""
@@ -797,25 +797,25 @@ msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:36
 #: resources/ui/pages/shell/dash.ui:61 resources/ui/pages/shell/overview.ui:58
-#: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:169
+#: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:177
 msgid "Transparent"
 msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:37
 #: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
-#: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:170
+#: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:178
 msgid "Light"
 msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:38
 #: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
-#: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:171
+#: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:179
 msgid "Dark"
 msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:39
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
-#: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
+#: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:180
 msgid "Automatic"
 msgstr ""
 
@@ -824,17 +824,17 @@ msgid "Disable in overview"
 msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
-#: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/popup.ui:40 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
 msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
-#: resources/ui/pages/shell/popup.ui:37
+#: resources/ui/pages/shell/popup.ui:45
 msgid "Override background"
 msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:84
-#: resources/ui/pages/shell/popup.ui:43
+#: resources/ui/pages/shell/popup.ui:51
 msgid "Background style"
 msgstr ""
 
@@ -930,59 +930,68 @@ msgstr ""
 msgid "Bottom"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:51
+#: resources/ui/pages/shell/popup.ui:30
+msgid "Blur behind dialogs"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:31
+msgid ""
+"Blur the dimmed screen behind system dialogs, like the power off dialog."
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:59
 msgid "Preserve shell theme"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:52
+#: resources/ui/pages/shell/popup.ui:60
 msgid "Keep your shell theme's colors for popup controls."
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:73
+#: resources/ui/pages/shell/popup.ui:81
 msgid "Menus"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:80
+#: resources/ui/pages/shell/popup.ui:88
 msgid "Input method candidates"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:87
+#: resources/ui/pages/shell/popup.ui:95
 msgid "Quick settings"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:94
+#: resources/ui/pages/shell/popup.ui:102
 msgid "Quick settings submenus"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:101
+#: resources/ui/pages/shell/popup.ui:109
 msgid "Calendar and notification center"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:108
+#: resources/ui/pages/shell/popup.ui:116
 msgid "Notifications"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:115
+#: resources/ui/pages/shell/popup.ui:123
 msgid "Window and workspace switchers"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:122
+#: resources/ui/pages/shell/popup.ui:130
 msgid "Volume and brightness"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:129
+#: resources/ui/pages/shell/popup.ui:137
 msgid "Window resize hints"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:136
+#: resources/ui/pages/shell/popup.ui:144
 msgid "Dialogs"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:143
+#: resources/ui/pages/shell/popup.ui:151
 msgid "On-screen keyboard"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:150
+#: resources/ui/pages/shell/popup.ui:158
 msgid "Other popup surfaces"
 msgstr ""
 
@@ -1121,7 +1130,7 @@ msgid "Dynamic"
 msgstr ""
 
 #: resources/ui/widgets/pipeline-choose-row.ui:4
-#: src/preferences/pages/pipelines/pipeline_page.js:82
+#: src/preferences/pages/pipelines/pipeline_page.js:83
 #: src/preferences/pages/pipelines/pipeline_row.js:69
 msgid "Pipeline"
 msgstr ""
@@ -1187,50 +1196,50 @@ msgstr ""
 msgid "Open instructions"
 msgstr ""
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:77
 msgid "Reset all preferences?"
 msgstr ""
 
-#: src/preferences/menu.js:77
+#: src/preferences/menu.js:78
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
 
-#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:80 src/preferences/pages/pipelines/index.js:122
 msgid "Cancel"
 msgstr ""
 
-#: src/preferences/menu.js:80
+#: src/preferences/menu.js:81
 msgid "Reset"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:78
+#: src/preferences/pages/pipelines/index.js:79
 msgid "New pipeline"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:116
+#: src/preferences/pages/pipelines/index.js:117
 #, javascript-format
 msgid "Delete “%s”?"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:117
+#: src/preferences/pages/pipelines/index.js:118
 msgid "Delete this pipeline?"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:118
+#: src/preferences/pages/pipelines/index.js:119
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:147
+#: src/preferences/pages/pipelines/index.js:148
 #, javascript-format
 msgid "\"%s\" deleted"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:148
+#: src/preferences/pages/pipelines/index.js:149
 msgid "Pipeline deleted"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:151
+#: src/preferences/pages/pipelines/index.js:152
 msgid "Undo"
 msgstr ""
 
@@ -1250,6 +1259,6 @@ msgstr ""
 msgid "Effect Menu"
 msgstr ""
 
-#: src/preferences/widgets/pipeline_choose_row.js:28
+#: src/preferences/widgets/pipeline_choose_row.js:29
 msgid "Create new pipeline"
 msgstr ""

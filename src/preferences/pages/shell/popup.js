@@ -32,6 +32,7 @@ export const PopupBlur = GObject.registerClass({
         'blur',
         'blur_mode_row',
         'pipeline_choose_row',
+        'blur_behind_dialogs',
         'override_background',
         'style_popup',
         'preserve_shell_theme',
@@ -47,6 +48,7 @@ export const PopupBlur = GObject.registerClass({
 
         bind_settings(preferences.popup, [
             ['blur', this._blur, 'active'],
+            ['blur-behind-dialogs', this._blur_behind_dialogs, 'active'],
             ['override-background', this._override_background, 'active'],
             ['style-popup', this._style_popup, 'selected'],
             ['preserve-shell-theme', this._preserve_shell_theme, 'active'],

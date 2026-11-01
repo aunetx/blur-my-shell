@@ -24,6 +24,14 @@
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_behind_dialogs">
+            <property name="title" translatable="yes">Blur behind dialogs</property>
+            <property name="subtitle" translatable="yes">Blur the dimmed screen behind system dialogs, like the power off dialog.</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
       </object>
     </child>
 

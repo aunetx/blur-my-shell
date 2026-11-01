@@ -633,6 +633,11 @@
             <default>3</default>
             <summary>Enum to select the style of popup surfaces (0 transparent, 1 light, 2 dark, 3 automatic)</summary>
         </key>
+        <!-- BLUR BEHIND DIALOGS -->
+        <key type="b" name="blur-behind-dialogs">
+            <default>true</default>
+            <summary>Boolean, whether to blur the dimmed screen behind modal dialogs</summary>
+        </key>
     </schema>
 
     <!-- HIDETOPBAR -->

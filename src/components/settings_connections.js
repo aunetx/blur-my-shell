@@ -204,6 +204,10 @@ export function connect_component_settings(extension) {
         popup,
         () => popup.update_pipeline()
     ));
+    connect(settings.popup, 'BLUR_BEHIND_DIALOGS', when_enabled(
+        popup,
+        () => popup.update_dialog_backdrops()
+    ));
     ['OVERRIDE_BACKGROUND', 'PRESERVE_SHELL_THEME', 'STYLE_POPUP'].forEach(property =>
         connect(settings.popup, property, when_enabled(
             popup,
