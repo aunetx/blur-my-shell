@@ -93,21 +93,14 @@ function resolve_native_dash(container) {
             return null;
         ancestor = ancestor.get_parent();
     }
-    let sibling = container;
-    let parent = sibling.get_parent();
-    while (parent && !['uiGroup', 'overviewGroup'].includes(parent.get_name())) {
-        sibling = parent;
-        parent = parent.get_parent();
-    }
-    if (!parent)
-        return null;
+    // inside the dash, so the blur shows what the overview paints below it, like the app grid
     return {
         content: container,
-        content_parent: parent,
+        content_parent: container,
         background: container._background,
         slider: null,
         theme_manager: null,
-        sibling,
+        sibling: container._background,
     };
 }
 

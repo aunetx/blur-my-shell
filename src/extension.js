@@ -99,8 +99,9 @@ export default class BlurMyShell extends Extension {
     /// - the 'enabled' state, which means that we have created the necessary components (which only
     ///   are js objects) and enabled the lockscreen blur (which means swapping two functions from
     ///   the `UnlockDialog` constructor with our ones;
-    /// - the 'user session enabled` mode, which means that we are in the 'enabled' mode AND we are
-    ///   in the user mode, and so we enable all the other components that we created before.
+    /// - the 'user session enabled` mode, which means that we are in the 'enabled' mode AND the user
+    ///   session has started, and so we enable all the other components that we created before.
+    ///   They stay enabled on the lock screen, except for the panel blur and the window picker.
     /// We switch from one state to the other thanks to `this._on_session_mode_changed`, and we
     /// track wether or not we are in the user mode with `this._user_session_mode_enabled` (because
     /// `this._on_session_mode_changed` might be called multiple times while in the user session
@@ -204,18 +205,23 @@ export default class BlurMyShell extends Extension {
         this._user_session_mode_enabled = false;
     }
 
-    /// Changes the extension to operate either on 'user' mode or 'unlock-dialog' mode, switching
-    /// from one to the other means enabling/disabling every component except lockscreen blur.
+    /// The user session components stay enabled on the lock screen, as tearing them down and
+    /// rebuilding them would happen right during the lock and unlock animations. Only the panel,
+    /// which is shown on the lock screen, and the window picker are turned off there.
     _on_session_mode_changed(session) {
         if (this._paused)
             return;
 
         if (session.currentMode === 'user' || session.parentMode === 'user') {
-            if (!this._user_session_mode_enabled)
+            if (!this._user_session_mode_enabled) {
                 this._enable_user_session();
+                return;
+            }
+            this._applications_blur.enable_service();
+            this._enable_component(this._panel_blur, this._settings.panel.BLUR);
         } else if (session.currentMode === 'unlock-dialog') {
-            if (this._user_session_mode_enabled)
-                this._disable_user_session();
+            this._applications_blur.disable_service();
+            this._panel_blur.disable();
         }
     }
 

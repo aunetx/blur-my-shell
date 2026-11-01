@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 06:07+0100\n"
+"POT-Creation-Date: 2026-10-29 16:39+0100\n"
 "PO-Revision-Date: 2026-10-29 17:51+0000\n"
 "Last-Translator: Yassin Omer <yassinomer.work@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -601,22 +601,26 @@ msgid "Debug Logging"
 msgstr "سجل التنقيح"
 
 #: resources/ui/menu.ui:10
+msgid "Disable on Power Saver"
+msgstr ""
+
+#: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
 msgstr "إعادة ضبط التفضيلات…"
 
-#: resources/ui/menu.ui:16
+#: resources/ui/menu.ui:20
 msgid "Project page"
 msgstr "صفحة المشروع"
 
-#: resources/ui/menu.ui:20
+#: resources/ui/menu.ui:24
 msgid "Report a Bug"
 msgstr "بلِّغ عن علَّة"
 
-#: resources/ui/menu.ui:24
+#: resources/ui/menu.ui:28
 msgid "License"
 msgstr "الترخيص"
 
-#: resources/ui/menu.ui:34
+#: resources/ui/menu.ui:38
 msgid "Main Menu"
 msgstr "القائمة الرئيسية"
 
@@ -894,8 +898,7 @@ msgstr "امتداد Hidetopbar"
 
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
-msgstr ""
-"يُبقي التمويه ظاهراً في النظرة العامة، الأفضل استخدامه مع التمويه الثابت"
+msgstr "يُبقي التمويه ظاهراً في النظرة العامة، الأفضل استخدامه مع التمويه الثابت"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -1005,7 +1008,8 @@ msgstr "شريط التطبيقات"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr "Dash to Dock، وشريط تطبيقات Ubuntu، و Dhruva، وأشرطة التطبيقات المشابهة"
+msgstr ""
+"Dash to Dock، وشريط تطبيقات Ubuntu، و Dhruva، وأشرطة التطبيقات المشابهة"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
@@ -1194,19 +1198,19 @@ msgstr "إغلاق"
 msgid "Open instructions"
 msgstr "فتح التعليمات"
 
-#: src/preferences/menu.js:75
+#: src/preferences/menu.js:76
 msgid "Reset all preferences?"
 msgstr "إعادة ضبط جميع التفضيلات؟"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "ستعود خطوط المعالجة وإعدادات المكونات إلى قيمها الافتراضية."
 
-#: src/preferences/menu.js:78 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: src/preferences/menu.js:79
+#: src/preferences/menu.js:80
 msgid "Reset"
 msgstr "صفِّر"
 

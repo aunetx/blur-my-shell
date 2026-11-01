@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 06:07+0100\n"
+"POT-Creation-Date: 2026-10-29 16:39+0100\n"
 "PO-Revision-Date: 2026-10-20 16:24+0000\n"
 "Last-Translator: Shadil Rayyan "
 "<shadilrayyan1@users.noreply.hosted.weblate.org>\n"
@@ -610,22 +610,26 @@ msgid "Debug Logging"
 msgstr ""
 
 #: resources/ui/menu.ui:10
+msgid "Disable on Power Saver"
+msgstr ""
+
+#: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
 msgstr ""
 
-#: resources/ui/menu.ui:16
+#: resources/ui/menu.ui:20
 msgid "Project page"
 msgstr "പ്രോജക്റ്റ് പേജ്"
 
-#: resources/ui/menu.ui:20
+#: resources/ui/menu.ui:24
 msgid "Report a Bug"
 msgstr "ഒരു ബഗ് റിപ്പോർട്ട് ചെയ്യുക"
 
-#: resources/ui/menu.ui:24
+#: resources/ui/menu.ui:28
 msgid "License"
 msgstr "ലൈസൻസ്"
 
-#: resources/ui/menu.ui:34
+#: resources/ui/menu.ui:38
 msgid "Main Menu"
 msgstr ""
 
@@ -1200,19 +1204,19 @@ msgstr "അടയ്ക്കുക"
 msgid "Open instructions"
 msgstr "നിർദ്ദേശങ്ങൾ തുറക്കുക"
 
-#: src/preferences/menu.js:75
+#: src/preferences/menu.js:76
 msgid "Reset all preferences?"
 msgstr "എല്ലാ മുൻഗണനകളും റീസെറ്റ് ചെയ്യണോ?"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "പൈപ്പ്‌ലൈനുകളും ഘടക ക്രമീകരണങ്ങളും അവയുടെ സ്ഥിരസ്ഥിതികളിലേക്ക് മടങ്ങും."
 
-#: src/preferences/menu.js:78 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
 msgstr "റദ്ദാക്കുക"
 
-#: src/preferences/menu.js:79
+#: src/preferences/menu.js:80
 msgid "Reset"
 msgstr "റീസെറ്റ്"
 
