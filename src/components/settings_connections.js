@@ -56,6 +56,10 @@ export function connect_component_settings(extension) {
         appfolder,
         () => appfolder.blur_appfolders()
     ));
+    connect(settings.appfolder, 'BLUR_BEHIND_FOLDERS', when_enabled(
+        appfolder,
+        () => appfolder.blur_appfolders()
+    ));
 
     connect_toggle(extension, settings.panel, panel);
     ['STATIC_BLUR', 'OVERRIDE_BACKGROUND',
@@ -203,6 +207,10 @@ export function connect_component_settings(extension) {
     connect(settings.popup, 'PIPELINE', when_enabled(
         popup,
         () => popup.update_pipeline()
+    ));
+    connect(settings.popup, 'BLUR_BEHIND_DIALOGS', when_enabled(
+        popup,
+        () => popup.update_dialog_backdrops()
     ));
     ['OVERRIDE_BACKGROUND', 'PRESERVE_SHELL_THEME', 'STYLE_POPUP'].forEach(property =>
         connect(settings.popup, property, when_enabled(

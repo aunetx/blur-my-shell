@@ -35,11 +35,13 @@ see the [removal instructions](docs/rounded-blur-removal.md).
     - uses its own selected pipeline, with effects fading as the folder opens and closes
     - follows the folder theme's corner radius and border
     - you can select the styling of the background of the folder when it is opened
+    - you can also blur the app grid behind an open folder
   - window selector when taking a screenshot
     - uses static blur only
   - popup blur
     - you can choose between static blur and dynamic blur
     - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, and dialogs
+    - can also blur the dimmed screen behind system dialogs, like the power off dialog, with the selected pipeline
     - static and dynamic blur use the selected pipeline
     - you can choose a transparent, light, dark, or automatic background above the blur
     - popup blur has separate corner-radius settings for the different popup surface types

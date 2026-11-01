@@ -13,6 +13,7 @@ import {
 } from './targets.js';
 import { PopupBlurSurface } from './surface/blur_surface.js';
 import { PopupBlurMessageStacks } from './message_stacks.js';
+import { DialogBackdrops } from './dialog_backdrops.js';
 
 const KEYBOARD_STYLE_CLASS = 'bms-keyboard-surface';
 const BACKGROUND_STYLE_CLASSES = [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES];
@@ -30,6 +31,7 @@ export const PopupBlur = class PopupBlur {
         this.watched_actors = new WeakSet();
         this.message_stacks = new PopupBlurMessageStacks(connections);
         this.targets = new PopupBlurTargets();
+        this.dialog_backdrops = new DialogBackdrops(settings, effects_manager);
         this.queue_id = 0;
         this.follow_up_queue_id = 0;
         this.reset_id = 0;
@@ -71,6 +73,9 @@ export const PopupBlur = class PopupBlur {
         this.track_container(Main.panel.statusArea.quickSettings.menu._overlay);
         this.track_container(global.window_group);
         this.track_keyboard();
+
+        if (this.settings.popup.BLUR_BEHIND_DIALOGS)
+            this.dialog_backdrops.enable();
     }
 
     track_container(container) {
@@ -306,6 +311,13 @@ export const PopupBlur = class PopupBlur {
 
     update_pipeline() {
         this.surfaces.forEach(surface => surface.update_pipeline());
+        this.dialog_backdrops.update_pipeline();
+    }
+
+    update_dialog_backdrops() {
+        this.dialog_backdrops.disable();
+        if (this.settings.popup.BLUR_BEHIND_DIALOGS)
+            this.dialog_backdrops.enable();
     }
 
     update_background() {
@@ -355,6 +367,7 @@ export const PopupBlur = class PopupBlur {
         this._log("removing blur from popup surfaces");
         this.enabled = false;
         this.connections.disconnect_all();
+        this.dialog_backdrops.disable();
 
         this.keyboard_actors.forEach(actor => this.clear_keyboard_style(actor));
         this.keyboard_actors.clear();

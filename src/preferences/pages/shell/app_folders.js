@@ -11,7 +11,8 @@ export const AppFolders = GObject.registerClass({
     InternalChildren: [
         'blur',
         'pipeline_choose_row',
-        'style_dialogs'
+        'style_dialogs',
+        'blur_behind_folders',
     ],
 }, class AppFolders extends Adw.PreferencesPage {
     constructor(preferences, pipelines_manager, pipelines_page) {
@@ -22,6 +23,7 @@ export const AppFolders = GObject.registerClass({
         bind_settings(preferences.appfolder, [
             ['blur', this._blur, 'active'],
             ['style-dialogs', this._style_dialogs, 'selected'],
+            ['blur-behind-folders', this._blur_behind_folders, 'active'],
         ]);
     }
 });

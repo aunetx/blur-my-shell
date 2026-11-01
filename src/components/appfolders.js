@@ -26,6 +26,15 @@ const AppFolderSurface = GObject.registerClass({
     }
 });
 
+function blur_pipelines(dialog) {
+    return [dialog._bms_appfolder_pipeline, dialog._bms_appfolder_backdrop_pipeline]
+        .filter(Boolean);
+}
+
+function set_blur_opacity(dialog, factor) {
+    blur_pipelines(dialog).forEach(pipeline => pipeline.set_opacity_factor(factor));
+}
+
 function stop_blur_animation(dialog) {
     dialog._bms_appfolder_blur_timeline?.stop();
     dialog._bms_appfolder_blur_timeline = null;
@@ -40,7 +49,7 @@ function animate_blur(dialog, target, mode) {
         ? FOLDER_DIALOG_ANIMATION_TIME * settings.slow_down_factor
         : 0;
     if (duration === 0 || start === target) {
-        pipeline.set_opacity_factor(target);
+        set_blur_opacity(dialog, target);
         return;
     }
     const timeline = new Clutter.Timeline({
@@ -50,10 +59,10 @@ function animate_blur(dialog, target, mode) {
     timeline.set_progress_mode(mode);
     timeline.connect('new-frame', () => {
         const progress = timeline.get_progress();
-        pipeline.set_opacity_factor(start + (target - start) * progress);
+        set_blur_opacity(dialog, start + (target - start) * progress);
     });
     timeline.connect('completed', () => {
-        pipeline.set_opacity_factor(target);
+        set_blur_opacity(dialog, target);
         dialog._bms_appfolder_blur_timeline = null;
     });
     dialog._bms_appfolder_blur_timeline = timeline;
@@ -112,6 +121,32 @@ function create_surface(dialog) {
     return surface;
 }
 
+/// The grid behind an open folder is blurred by a sibling placed under the dialog, which zooms its
+/// child while opening.
+function add_backdrop(dialog, effects_manager, pipeline_id) {
+    const pipeline = new DynamicPipeline(
+        effects_manager,
+        global.blur_my_shell._pipelines_manager,
+        pipeline_id
+    );
+    const actor = pipeline.create_actor('bms-appfolder-backdrop');
+    pipeline.ownsActor = true;
+    actor.add_constraint(new Clutter.BindConstraint({
+        source: dialog,
+        coordinate: Clutter.BindCoordinate.ALL,
+    }));
+    dialog.bind_property('visible', actor, 'visible', GObject.BindingFlags.SYNC_CREATE);
+    dialog.get_parent().insert_child_below(actor, dialog);
+    pipeline.attach_pipeline();
+    pipeline.set_opacity_factor(dialog._bms_appfolder_pipeline.opacityFactor);
+    dialog._bms_appfolder_backdrop_pipeline = pipeline;
+}
+
+function remove_backdrop(dialog) {
+    dialog._bms_appfolder_backdrop_pipeline?.destroy();
+    dialog._bms_appfolder_backdrop_pipeline = null;
+}
+
 function destroy_surface(dialog) {
     const surface = dialog._bms_appfolder_surface;
     if (!surface)
@@ -129,10 +164,9 @@ function destroy_surface(dialog) {
 }
 
 const zoomAndFadeIn = function (...params) {
-    const pipeline = this._bms_appfolder_pipeline;
-    pipeline.attach_pipeline();
+    blur_pipelines(this).forEach(pipeline => pipeline.attach_pipeline());
     if (!this._bms_appfolder_blur_timeline)
-        pipeline.set_opacity_factor(0);
+        set_blur_opacity(this, 0);
     animate_blur(this, 1, Clutter.AnimationMode.EASE_OUT_QUAD);
 
     const result = this._bms_original_zoomAndFadeIn.apply(this, params);
@@ -215,6 +249,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 this.connections.connect(dialog, 'destroy', () => {
                     stop_blur_animation(dialog);
                     dialog._bms_appfolder_pipeline?.destroy();
+                    remove_backdrop(dialog);
                     dialog._bms_appfolder_original_container?.destroy();
                     this.dialogs.delete(dialog);
                 });
@@ -223,7 +258,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 this.connections.connect(dialog, 'notify::mapped', () => {
                     if (!dialog.mapped) {
                         stop_blur_animation(dialog);
-                        dialog._bms_appfolder_pipeline?.set_opacity_factor(0);
+                        set_blur_opacity(dialog, 0);
                     }
                 });
             }
@@ -247,6 +282,11 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 dialog._bms_appfolder_pipeline = pipeline;
                 update_corner_radius(dialog);
             }
+
+            if (!this.settings.appfolder.BLUR_BEHIND_FOLDERS)
+                remove_backdrop(dialog);
+            else if (!dialog._bms_appfolder_backdrop_pipeline)
+                add_backdrop(dialog, this.effects_manager, this.settings.appfolder.PIPELINE);
 
             DIALOGS_STYLES.forEach(
                 style => dialog._viewBox.remove_style_class_name(style)
@@ -279,9 +319,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
 
     update_pipeline() {
         this.dialogs.forEach(dialog => {
-            dialog._bms_appfolder_pipeline?.change_pipeline_to(
-                this.settings.appfolder.PIPELINE
-            );
+            blur_pipelines(dialog).forEach(pipeline =>
+                pipeline.change_pipeline_to(this.settings.appfolder.PIPELINE));
         });
     }
 
@@ -314,6 +353,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
             }
             dialog._bms_appfolder_pipeline?.destroy();
             dialog._bms_appfolder_pipeline = null;
+            remove_backdrop(dialog);
             destroy_surface(dialog);
             DIALOGS_STYLES.forEach(
                 style => dialog._viewBox.remove_style_class_name(style)
