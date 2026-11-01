@@ -1,7 +1,7 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../../resources.js';
 import { initialize_legacy_blur_notice } from '../../legacy_blur_notice.js';
 import { create_subpage } from '../../subpage.js';
 import { Panel } from './panel.js';
@@ -16,7 +16,7 @@ import '../../widgets/component_row.js';
 
 export const ShellPage = GObject.registerClass({
     GTypeName: 'ShellPage',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/shell/shell.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/shell/shell.ui'),
     InternalChildren: [
         'legacy_blur_notice',
         'panel_row',

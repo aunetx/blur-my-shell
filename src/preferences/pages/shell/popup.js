@@ -1,7 +1,7 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../../resources.js';
 import { bind_settings } from '../../bind_settings.js';
 
 import '../../widgets/blur_mode_row.js';
@@ -27,7 +27,7 @@ const to_child_id = key => key.replaceAll('-', '_');
 
 export const PopupBlur = GObject.registerClass({
     GTypeName: 'PopupBlur',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/shell/popup.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/shell/popup.ui'),
     InternalChildren: [
         'blur',
         'blur_mode_row',

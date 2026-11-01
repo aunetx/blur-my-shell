@@ -1,13 +1,13 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../../resources.js';
 import { bind_settings } from '../../bind_settings.js';
 
 
 export const AppFolders = GObject.registerClass({
     GTypeName: 'AppFolders',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/shell/app-folders.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/shell/app-folders.ui'),
     InternalChildren: [
         'blur',
         'pipeline_choose_row',

@@ -123,7 +123,7 @@ You can help to translate the extension into your language, either by directly o
 
 ### Testing the latest version
 
-The version on extensions.gnome.org is often a few fixes behind GitHub. To try the latest one, you need `git`, `make` and `gettext`:
+The version on extensions.gnome.org is often a few fixes behind GitHub. To try the latest one, you need `git`, `make`, `gettext` and `glib-compile-resources` (in `glib2-devel` on Fedora and `libglib2.0-dev-bin` on Debian and Ubuntu):
 
 ```sh
 git clone https://github.com/aunetx/blur-my-shell

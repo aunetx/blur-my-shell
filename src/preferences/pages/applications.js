@@ -1,7 +1,7 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../resources.js';
 import { bind_settings } from '../bind_settings.js';
 import { ApplicationRow } from '../widgets/application_row.js';
 
@@ -9,7 +9,7 @@ import '../widgets/blur_mode_row.js';
 
 export const Applications = GObject.registerClass({
     GTypeName: 'Applications',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/applications.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/applications.ui'),
     InternalChildren: [
         'blur',
         'blur_mode_row',
