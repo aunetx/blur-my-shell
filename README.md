@@ -35,6 +35,7 @@ see the [removal instructions](docs/rounded-blur-removal.md).
     - uses its own selected pipeline, with effects fading as the folder opens and closes
     - follows the folder theme's corner radius and border
     - you can select the styling of the background of the folder when it is opened
+    - you can also blur the app grid behind an open folder
   - window selector when taking a screenshot
     - uses static blur only
   - popup blur

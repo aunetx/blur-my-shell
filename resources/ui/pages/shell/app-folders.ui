@@ -26,6 +26,14 @@
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_behind_folders">
+            <property name="title" translatable="yes">Blur behind folders</property>
+            <property name="subtitle" translatable="yes">Blur the app grid behind an open folder.</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
       </object>
     </child>
   </template>

@@ -22,6 +22,7 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
             { type: Type.I, name: "style-dialogs" },
+            { type: Type.B, name: "blur-behind-folders" },
         ]
     },
     {

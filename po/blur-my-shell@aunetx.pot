@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 10:59+0000\n"
+"POT-Creation-Date: 2026-11-01 11:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -790,30 +790,38 @@ msgstr ""
 msgid "Application folder dialogs style"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/app-folders.ui:32
+msgid "Blur behind folders"
+msgstr ""
+
+#: resources/ui/pages/shell/app-folders.ui:33
+msgid "Blur the app grid behind an open folder."
+msgstr ""
+
+#: resources/ui/pages/shell/app-folders.ui:43
 #: resources/ui/pages/shell/overview.ui:55
 msgid "Do not style"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/app-folders.ui:44
 #: resources/ui/pages/shell/dash.ui:61 resources/ui/pages/shell/overview.ui:58
 #: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:177
 msgid "Transparent"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:37
+#: resources/ui/pages/shell/app-folders.ui:45
 #: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
 #: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:178
 msgid "Light"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:38
+#: resources/ui/pages/shell/app-folders.ui:46
 #: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
 #: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:179
 msgid "Dark"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:39
+#: resources/ui/pages/shell/app-folders.ui:47
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
 #: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:180
 msgid "Automatic"

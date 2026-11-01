@@ -56,6 +56,10 @@ export function connect_component_settings(extension) {
         appfolder,
         () => appfolder.blur_appfolders()
     ));
+    connect(settings.appfolder, 'BLUR_BEHIND_FOLDERS', when_enabled(
+        appfolder,
+        () => appfolder.blur_appfolders()
+    ));
 
     connect_toggle(extension, settings.panel, panel);
     ['STATIC_BLUR', 'OVERRIDE_BACKGROUND',
