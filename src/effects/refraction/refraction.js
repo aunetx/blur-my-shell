@@ -157,6 +157,19 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             }
         }
 
+        get reach() {
+            return this._reach;
+        }
+
+        set reach(value) {
+            const reach = utils.clamp(value, 0, 500, DEFAULT_PARAMS.reach);
+            if (this._reach !== reach) {
+                this._reach = reach;
+
+                this.update_scaled_uniforms();
+            }
+        }
+
         get rgb_fringing() {
             return this._rgb_fringing;
         }
@@ -469,8 +482,10 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
             const max_edge = Math.max(1, Math.min(rect_width, rect_height) / 2);
             const edge_size = Math.min(this.edge_size * scale_factor, max_edge);
             const corner_radius = Math.min(this.corner_radius * scale_factor, max_edge);
+            const reach = Math.min(this.reach * scale_factor, max_edge);
 
             uniforms.set_uniform(this, 'edge_size', parseFloat(edge_size - 1e-6));
+            uniforms.set_uniform(this, 'reach', parseFloat(reach));
             uniforms.set_uniform(this, 'corner_radius', parseFloat(corner_radius - 1e-6));
             uniforms.set_uniform(this, 'scale_factor', parseFloat(scale_factor));
         }

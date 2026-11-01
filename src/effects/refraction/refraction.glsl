@@ -22,6 +22,7 @@ uniform float corner_radius;
 uniform int corners_top;
 uniform int corners_bottom;
 uniform float rim_width;
+uniform float reach;
 uniform float rgb_fringing;
 uniform float gloss;
 uniform float fresnel_angle;
@@ -213,6 +214,42 @@ EdgeInfo estimateAnalyticEdge(vec2 px, vec2 halfSize, float radius, vec2 actorPo
     return info;
 }
 
+// Outward direction near sharp corners, blended between the two closest sides
+// over band so it turns smoothly where they meet.
+vec2 sharpCornerDir(vec2 glassPx, vec2 glassSize, float band) {
+    vec2 sideDistances = min(glassPx, glassSize - glassPx);
+    vec2 sideWeights = vec2(1.0) - smoothstep(vec2(0.0), vec2(band), sideDistances);
+    vec2 sideNormal = sign(glassPx - glassSize * 0.5) * sideWeights;
+    return sideNormal / max(length(sideNormal), 0.0001);
+}
+
+// Inward distance (x) and outward direction (yz) of a band reaching past the
+// corner radius. Both follow rays from the corners of the box shrunk by band
+// out to its rounded edge, so they turn smoothly around the corners where the
+// plain edge distance creases along the diagonals. Deep inside the shrunk box
+// they fall back to the plain edge distance and direction.
+vec3 bandEdge(vec2 glassPx, vec2 halfSize, float radius, float band,
+              float fallbackDistance, vec2 fallbackDir) {
+    vec2 p = glassPx - halfSize;
+    vec2 core = max(halfSize - vec2(band), vec2(0.0));
+    vec2 delta = max(abs(p) - core, vec2(0.0));
+    float r = length(delta);
+    if (r < 0.001)
+        return vec3(fallbackDistance, fallbackDir);
+
+    vec2 ray = delta / r;
+    vec2 sideHits = (halfSize - core) / max(ray, vec2(0.0001));
+    float edgeHit = min(sideHits.x, sideHits.y);
+    vec2 arcCenter = halfSize - vec2(radius);
+    vec2 hit = core + ray * edgeHit;
+    if (hit.x > arcCenter.x && hit.y > arcCenter.y) {
+        vec2 fromArc = core - arcCenter;
+        float b = dot(fromArc, ray);
+        edgeHit = -b + sqrt(max(b * b - dot(fromArc, fromArc) + radius * radius, 0.0));
+    }
+    return vec3(max(edgeHit - r, 0.0), sign(p) * ray);
+}
+
 vec2 backdropSampleUV(vec2 sampleUV, vec2 displacementPx) {
     vec2 displaced = sampleUV + displacementPx / vec2(width, height);
     float zoom = max(backdrop_zoom, 0.01);
@@ -335,7 +372,6 @@ void main() {
 
     float distFromSide = edge.distance;
     float edgeOpacity = edge.alpha;
-    float edgeBand = 1.0;
     float refractionBand = bezel;
     vec2 dir = edge.dir;
 
@@ -356,24 +392,38 @@ void main() {
 
         float rimRadius = max(1.0, bezel * 0.35);
         refractionBand = rimRadius;
-        edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
     } else {
         float rimRadius = max(1.0, bezel * 0.35 * max(1.0, rim_width));
 rimRadius = min(rimRadius, shortestSide * 0.5);
         if (R > 0.0 && (corners_top != 0 || corners_bottom != 0))
             rimRadius = min(rimRadius, max(1.0, R));
         refractionBand = rimRadius;
-        edgeBand = clamp(1.0 - (distFromSide / rimRadius), 0.0, 1.0);
-        if (roundingRadius == 0.0 && distFromSide < refractionBand) {
-            vec2 sideDistances = min(glassPx, glassSize - glassPx);
-            vec2 sideWeights = vec2(1.0) - smoothstep(vec2(0.0), vec2(refractionBand), sideDistances);
-            vec2 sideNormal = sign(glassPx - halfSize) * sideWeights;
-            dir = sideNormal / max(length(sideNormal), 0.0001);
-        }
+        if (roundingRadius == 0.0 && distFromSide < refractionBand)
+            dir = sharpCornerDir(glassPx, glassSize, refractionBand);
     }
 
+    // The reach widens the bend past the rim band, which the corner radius
+    // caps on rounded glass. The bend keeps its shape and deepens with its
+    // width, like a wider bezel, while the rim lighting stays on the rim band.
+    float lensBand = max(refractionBand, min(reach, shortestSide * 0.5));
+    float lensThickness = glassThickness * lensBand / refractionBand;
+    float lensDist = distFromSide;
+    vec2 lensDir = dir;
+    if (!useCircularSurface && lensBand > refractionBand && distFromSide < lensBand) {
+        if (roundingRadius == 0.0) {
+            lensDir = sharpCornerDir(glassPx, glassSize, lensBand);
+        } else {
+            vec3 lensEdge = bandEdge(glassPx, halfSize, roundingRadius,
+                                     max(roundingRadius, lensBand),
+                                     distFromSide, dir);
+            lensDist = lensEdge.x;
+            lensDir = lensEdge.yz;
+        }
+    }
+    float edgeBand = clamp(1.0 - (lensDist / lensBand), 0.0, 1.0);
+
 if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
-        && distFromSide >= refractionBand) {
+        && distFromSide >= lensBand) {
         vec4 sourceSample = sampleGlassBackdrop(actorUV);
         vec2 flatUV = backdropSampleUV(actorUV, vec2(0.0));
         vec4 flatSample = sampleGlassBackdrop(flatUV);
@@ -386,22 +436,22 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
         return;
     }
 
-    float normDisp = distFromSide < refractionBand
-        ? pow(max(quartzGlassEdgeProfile(distFromSide,
-                                         max(glassThickness, 1.0)), 0.0),
+    float normDisp = lensDist < lensBand
+        ? pow(max(quartzGlassEdgeProfile(lensDist,
+                                         max(lensThickness, 1.0)), 0.0),
               BEND_CURVE)
         : 0.0;
     if (refraction_style > 0.001) {
-        float bezelRatio = clamp(distFromSide / max(refractionBand, 0.001), 0.0, 1.0);
+        float bezelRatio = clamp(lensDist / max(lensBand, 0.001), 0.0, 1.0);
         float eta = 1.0 / 1.5;
-        float snellDisp = (distFromSide < refractionBand)
-            ? snellDisplacementAtRatio(bezelRatio, max(1.0, glassThickness),
-                                       max(1.0, refractionBand), eta)
+        float snellDisp = (lensDist < lensBand)
+            ? snellDisplacementAtRatio(bezelRatio, max(1.0, lensThickness),
+                                       max(1.0, lensBand), eta)
             : 0.0;
         normDisp = mix(normDisp, snellDisp, clamp(refraction_style, 0.0, 1.0));
     }
     float dispStrength = edgeBand;
-    vec2 dispPx = -dir * normDisp * refractionBand * strength * dispStrength *
+    vec2 dispPx = -lensDir * normDisp * lensBand * strength * dispStrength *
                   BEND_SCALE;
 
     // Dispersion follows the bend and is weighted toward the rim, so colors

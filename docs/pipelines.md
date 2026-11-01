@@ -47,6 +47,7 @@ Colors are lists of red, green, blue and alpha between 0 and 1. Choices are stor
 | `blur_radius` | number | 0 to 48 | 3 |
 | `edge_size` | number | 1 to 500 | 32 |
 | `rim_width` | number | 1 to 6.5 | 4.8 |
+| `reach` | number | 0 to 500 | 0 |
 | `falloff` | number | 0.25 to 20 | 1.25 |
 | `refraction_style` | number | 0 to 1 | 0 |
 | `gloss` | number | 0 to 1 | 1 |

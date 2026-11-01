@@ -47,6 +47,16 @@ export function get_refraction_effects(_) {
                     big_increment: 0.5,
                     digits: 2
                 },
+                reach: {
+                    name: _("Refraction reach"),
+                    description: _("How far the bend reaches inward from the edge, past the corner radius. A wider bend is also deeper, like a wider bezel (0 keeps it at the rim)."),
+                    type: "float",
+                    min: 0.,
+                    max: 500.,
+                    increment: 1.,
+                    big_increment: 10.,
+                    digits: 0
+                },
                 falloff: {
                     name: _("Glass thickness"),
                     description: _("Depth used by the refraction edge profile."),

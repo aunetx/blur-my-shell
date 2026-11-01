@@ -12,6 +12,7 @@ export const DEFAULT_PARAMS = {
     corners_top: true,
     corners_bottom: true,
     rim_width: 4.8,
+    reach: 0,
     rgb_fringing: 0.13,
     gloss: 1,
     fresnel_angle: 0,
@@ -80,6 +81,10 @@ export const REFRACTION_EFFECT_META = {
         rim_width: doubleProperty(
             'rim_width', 'Rim Width', 'Refraction rim width',
             1, 6.5, DEFAULT_PARAMS.rim_width
+        ),
+        reach: doubleProperty(
+            'reach', 'Reach', 'How far the refraction reaches inward past the corner radius',
+            0, 500, DEFAULT_PARAMS.reach
         ),
         rgb_fringing: doubleProperty(
             'rgb_fringing', 'RGB Fringing', 'Chromatic offset strength',
