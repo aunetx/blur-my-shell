@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 11:30+0800\n"
+"POT-Creation-Date: 2026-11-01 07:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -699,7 +699,8 @@ msgstr ""
 #: resources/ui/pages/applications.ui:140
 msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
-"single one."
+"single one. Start with title: to match the window title instead, like "
+"title:Picture-in-Picture."
 msgstr ""
 
 #: resources/ui/pages/applications.ui:126
@@ -1083,7 +1084,7 @@ msgid "Behind the window switcher"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window class"
+msgid "Window class or title"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:10

@@ -148,7 +148,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.meta_windows.add(meta_window);
 
         this.connections.connect(
-            meta_window, 'notify::wm-class',
+            meta_window, ['notify::wm-class', 'notify::title'],
             _ => this.check_blur(meta_window)
         );
         this.connections.connect(

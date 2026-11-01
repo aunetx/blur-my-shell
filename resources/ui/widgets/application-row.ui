@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="blur-my-shell@aunetx">
   <template class="ApplicationRow" parent="AdwEntryRow">
-    <property name="title" translatable="yes">Window class</property>
+    <property name="title" translatable="yes">Window class or title</property>
 
     <child>
       <object class="GtkButton" id="window_picker">
