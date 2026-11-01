@@ -1,8 +1,9 @@
 import Adw from 'gi://Adw';
 import Gtk from 'gi://Gtk';
 import Gio from 'gi://Gio';
-import GLib from 'gi://GLib';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+
+import { ui_resource } from './resources.js';
 
 
 const LINKS = [
@@ -25,7 +26,7 @@ export function addMenu(window, preferences) {
     const builder = new Gtk.Builder();
 
     // add a dummy page and remove it immediately, to access headerbar
-    builder.add_from_file(GLib.filename_from_uri(GLib.uri_resolve_relative(import.meta.url, '../ui/menu.ui', GLib.UriFlags.NONE))[0]);
+    builder.add_from_resource(ui_resource('menu.ui'));
     let menu_util = builder.get_object('menu_util');
     window.add(menu_util);
     // the header bar is found by walking libadwaita's internal widget tree, which may change

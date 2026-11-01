@@ -3,6 +3,7 @@ UUID = $(NAME)@aunetx
 VM_PATH = ~/Projects/shared/extensions
 POT = po/$(UUID).pot
 UI_SOURCES = $(shell find resources/ui -type f -name '*.ui' | sort)
+GRESOURCE = resources/$(NAME).gresource.xml
 EFFECT_I18N_SOURCES = $(shell find src/effects -type f -name '*.js' | sort)
 PREFERENCES_I18N_SOURCES = $(shell find src/preferences -type f -name '*.js' | sort) src/prefs.js
 SOURCE_DIRS = $(filter-out styles,$(patsubst src/%/,%,$(wildcard src/*/)))
@@ -26,12 +27,12 @@ build: clean
 # St does not give CSS @imports the priority of the extension stylesheet.
 	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
 	sed -E -z '$(METADATA_FILTER)' metadata.json > build/metadata.json
+	glib-compile-resources --sourcedir=resources --target=build/resources.gresource $(GRESOURCE)
 	cd src && gnome-extensions pack -f \
 			--extra-source=../build/stylesheet.css \
 			--extra-source=../build/metadata.json \
 			--extra-source=../LICENSE \
-			--extra-source=../resources/icons \
-			--extra-source=../resources/ui \
+			--extra-source=../build/resources.gresource \
 			$(foreach dir,$(SOURCE_DIRS),--extra-source=./$(dir)) \
 			--podir=../po \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \

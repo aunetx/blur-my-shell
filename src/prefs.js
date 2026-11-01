@@ -8,6 +8,7 @@ import { Settings } from './settings/settings.js';
 import { KEYS } from './settings/keys.js';
 import { cancel_pick } from './dbus/client.js';
 
+import { ICONS_RESOURCE_PATH } from './preferences/resources.js';
 import { addMenu } from './preferences/menu.js';
 import { ShellPage } from './preferences/pages/shell/index.js';
 import { Applications } from './preferences/pages/applications.js';
@@ -20,9 +21,8 @@ export default class BlurMyShellPreferences extends ExtensionPreferences {
     constructor(metadata) {
         super(metadata);
 
-        let iconPath = this.dir.get_child("icons").get_path();
-        let iconTheme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default());
-        iconTheme.add_search_path(iconPath);
+        Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
+            .add_resource_path(ICONS_RESOURCE_PATH);
     }
 
     fillPreferencesWindow(window) {

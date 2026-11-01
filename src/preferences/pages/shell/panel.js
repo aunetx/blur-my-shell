@@ -1,7 +1,7 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../../resources.js';
 import { bind_settings } from '../../bind_settings.js';
 
 import '../../widgets/blur_mode_row.js';
@@ -9,7 +9,7 @@ import '../../widgets/blur_mode_row.js';
 
 export const Panel = GObject.registerClass({
     GTypeName: 'Panel',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/shell/panel.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/shell/panel.ui'),
     InternalChildren: [
         'blur',
         'blur_mode_row',

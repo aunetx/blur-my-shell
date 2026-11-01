@@ -1,13 +1,13 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../../resources.js';
 import { bind_settings } from '../../bind_settings.js';
 
 
 export const Overview = GObject.registerClass({
     GTypeName: 'Overview',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/shell/overview.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/shell/overview.ui'),
     InternalChildren: [
         'blur',
         'pipeline_choose_row',

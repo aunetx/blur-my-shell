@@ -1,13 +1,13 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../resources.js';
 import { pick } from '../../dbus/client.js';
 
 
 export const ApplicationRow = GObject.registerClass({
     GTypeName: 'ApplicationRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/application-row.ui', GLib.UriFlags.NONE),
+    Template: ui_template('widgets/application-row.ui'),
     InternalChildren: [
         'window_picker',
         'remove',

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/shell/extensions/blur-my-shell">
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/add-row-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/applications-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/bottom-panel-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/coverflow-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/dash-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/down-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/duplicate-row-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/dynamic-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/edit-row-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/lockscreen-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/overview-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/pipelines-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/popup-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/remove-row-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/screenshot-ui-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/select-row-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/select-window-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/static-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/hicolor/scalable/actions/window-list-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">ui/menu.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/applications.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/pipelines/pipeline-page.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/pipelines/pipelines.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/app-folders.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/component.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/dash.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/overview.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/panel.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/popup.ui</file>
+    <file preprocess="xml-stripblanks">ui/pages/shell/shell.ui</file>
+    <file preprocess="xml-stripblanks">ui/widgets/application-row.ui</file>
+    <file preprocess="xml-stripblanks">ui/widgets/blur-mode-row.ui</file>
+    <file preprocess="xml-stripblanks">ui/widgets/component-row.ui</file>
+    <file preprocess="xml-stripblanks">ui/widgets/pipeline-choose-row.ui</file>
+  </gresource>
+</gresources>

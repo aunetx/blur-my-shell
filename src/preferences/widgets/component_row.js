@@ -1,12 +1,13 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
+
+import { ui_template } from '../resources.js';
 
 
 export const ComponentRow = GObject.registerClass({
     GTypeName: 'ComponentRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/component-row.ui', GLib.UriFlags.NONE),
+    Template: ui_template('widgets/component-row.ui'),
     InternalChildren: [
         'icon',
         'blur'

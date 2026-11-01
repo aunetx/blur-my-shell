@@ -1,13 +1,14 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { ui_template } from '../resources.js';
+
 
 export const PipelineChooseRow = GObject.registerClass({
     GTypeName: 'PipelineChooseRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/pipeline-choose-row.ui', GLib.UriFlags.NONE),
+    Template: ui_template('widgets/pipeline-choose-row.ui'),
     InternalChildren: [
         'pipeline_choose',
         'pipeline_model',
