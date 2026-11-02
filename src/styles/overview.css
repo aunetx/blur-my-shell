@@ -121,7 +121,7 @@
 .overview-components-transparent #appDisplay .app-folder,
 .overview-components-transparent #overviewGroup .overview-tile.app-folder,
 .overview-components-transparent #overviewGroup .app-folder {
-    background-color: rgba(0, 0, 0, 0) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
     border: none !important;
     border-color: transparent !important;
 }
@@ -203,9 +203,13 @@
 }
 
 .overview-components-light #overviewGroup .search-statusbox,
+.overview-components-light #overviewGroup .search-statusbox StIcon,
 .overview-components-light #overviewGroup .search-statustext {
-    /* The spinner and status text sit over the wallpaper, outside result cards. */
-    color: rgba(250, 250, 251, 0.8);
+    color: rgba(0, 0, 0, 0.65) !important;
+}
+
+.overview-components-light #overviewGroup .search-section .app-grid-running-dot {
+    background-color: rgba(0, 0, 0, 0.65) !important;
 }
 
 /* Text styling inside search section content */
@@ -223,6 +227,19 @@
 
 .overview-components-light #overviewGroup .list-search-result .list-search-result-description {
     color: rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Keep labels on app and system-action search tiles readable in light mode. */
+.overview-components-light #overviewGroup .search-section .overview-tile,
+.overview-components-light #overviewGroup .search-section .overview-tile StLabel,
+.overview-components-light #overviewGroup .search-section .grid-search-result,
+.overview-components-light #overviewGroup .search-section .grid-search-result StLabel {
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* The Overview app grid is inside apps-scroll-view; search tiles are not. */
+.overview-components-light #overviewGroup .apps-scroll-view .overview-tile StLabel {
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 /* Hover and active states */
@@ -309,6 +326,30 @@
     background-color: rgba(255, 255, 255, 0.25) !important;
 }
 
+/* Match the app-folder feedback levels for search-result interactions. */
+.overview-components-light #overviewGroup .search-section .overview-tile:hover,
+.overview-components-light #overviewGroup .search-section .overview-tile:focus,
+.overview-components-light #overviewGroup .search-section .overview-tile:selected,
+.overview-components-light #overviewGroup .search-section .overview-tile:highlighted,
+.overview-components-light #overviewGroup .search-section .grid-search-result:hover,
+.overview-components-light #overviewGroup .search-section .grid-search-result:focus,
+.overview-components-light #overviewGroup .search-section .grid-search-result:selected,
+.overview-components-light #overviewGroup .search-section .grid-search-result:highlighted {
+    background-color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.overview-components-light #overviewGroup .search-section .overview-tile:active,
+.overview-components-light #overviewGroup .search-section .overview-tile:drop,
+.overview-components-light #overviewGroup .search-section .overview-tile:focus:hover,
+.overview-components-light #overviewGroup .search-section .overview-tile:selected:hover,
+.overview-components-light #overviewGroup .search-section .overview-tile:highlighted:hover,
+.overview-components-light #overviewGroup .search-section .grid-search-result:active,
+.overview-components-light #overviewGroup .search-section .grid-search-result:focus:hover,
+.overview-components-light #overviewGroup .search-section .grid-search-result:selected:hover,
+.overview-components-light #overviewGroup .search-section .grid-search-result:highlighted:hover {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
 .overview-components-light #overviewGroup .page-navigation-arrow:active,
 .overview-components-light #overviewGroup .page-navigation-arrow:focus:hover {
     background-color: rgba(255, 255, 255, 0.9) !important;
@@ -334,7 +375,7 @@
 .overview-components-light #appDisplay .app-folder,
 .overview-components-light #overviewGroup .overview-tile.app-folder,
 .overview-components-light #overviewGroup .app-folder {
-    background-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.58) !important;
     border: none !important;
     border-color: transparent !important;
 }
@@ -347,7 +388,7 @@
 .overview-components-light #overviewGroup .overview-tile.app-folder StLabel,
 .overview-components-light #overviewGroup .app-folder,
 .overview-components-light #overviewGroup .app-folder StLabel {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile.app-folder:hover,
@@ -358,14 +399,23 @@
 .overview-components-light #overviewGroup .overview-tile.app-folder:focus,
 .overview-components-light #overviewGroup .app-folder:hover,
 .overview-components-light #overviewGroup .app-folder:focus {
-    background-color: rgba(255, 255, 255, 0.13) !important;
+    background-color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.overview-components-light #appDisplay .overview-tile.app-folder:selected,
+.overview-components-light #appDisplay .overview-tile.app-folder:highlighted,
+.overview-components-light #overviewGroup .overview-tile.app-folder:selected,
+.overview-components-light #overviewGroup .overview-tile.app-folder:highlighted {
+    background-color: rgba(255, 255, 255, 0.78) !important;
 }
 
 .overview-components-light #appDisplay .overview-tile.app-folder:active,
 .overview-components-light #appDisplay .app-folder:active,
 .overview-components-light #overviewGroup .overview-tile.app-folder:active,
-.overview-components-light #overviewGroup .app-folder:active {
-    background-color: rgba(255, 255, 255, 0.19) !important;
+.overview-components-light #overviewGroup .app-folder:active,
+.overview-components-light #appDisplay .overview-tile.app-folder:drop,
+.overview-components-light #overviewGroup .overview-tile.app-folder:drop {
+    background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
 /* remove the rectangular background from the dash */
@@ -528,7 +578,7 @@
 .overview-components-dark #appDisplay .app-folder,
 .overview-components-dark #overviewGroup .overview-tile.app-folder,
 .overview-components-dark #overviewGroup .app-folder {
-    background-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
     border: none !important;
     border-color: transparent !important;
 }
@@ -576,4 +626,23 @@
 .overview-components-dark .multimonitor-dock .overview-tile:focus,
 .overview-components-dark .multimonitor-dock .overview-tile:active {
     background-color: transparent !important;
+}
+
+/* Folder drag previews are temporarily added directly to Main.uiGroup. */
+.overview-components-transparent > .overview-tile.app-folder {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: none !important;
+}
+
+.overview-components-light > .overview-tile.app-folder {
+    color: rgba(0, 0, 0, 0.85) !important;
+    background-color: rgba(255, 255, 255, 0.58) !important;
+    border: none !important;
+}
+
+.overview-components-dark > .overview-tile.app-folder {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
 }
