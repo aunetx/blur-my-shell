@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-10-21 17:51+0000\n"
-"Last-Translator: Megurowo <megumario@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-02 15:14+0000\n"
+"Last-Translator: Huynh Tuan Dung "
+"<itslouisanderson@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/vi/>\n"
 "Language: vi\n"
@@ -208,15 +209,15 @@ msgstr "Chuyển đổi hình ảnh từ không gian màu HSLA sang RGBA."
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Làm mờ"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Hiệu ứng bề mặt"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Nâng cao"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
@@ -268,7 +269,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:51
 msgid "Glass thickness"
-msgstr ""
+msgstr "Độ dày lớp kính"
 
 #: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
@@ -276,17 +277,19 @@ msgstr ""
 
 #: src/effects/refraction/info.js:61
 msgid "Refraction style"
-msgstr ""
+msgstr "Kiểu khúc xạ"
 
 #: src/effects/refraction/info.js:62
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"Mức độ bẻ cong ánh sáng gần cạnh. Giá trị càng cao thì ánh sáng gần cạnh bị "
+"bẻ cong càng nặng hơn và ngược lại."
 
 #: src/effects/refraction/info.js:71
 msgid "Fresnel glare"
-msgstr ""
+msgstr "Hiệu ứng lóa Fresnel"
 
 #: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
@@ -671,22 +674,23 @@ msgstr "Làm mờ màn hình Overview"
 #: resources/ui/pages/applications.ui:96
 msgid "Shows the blur on every workspace, at some performance cost"
 msgstr ""
+"Hiện hiệu ứng mờ trên mọi không gian làm việc, có thể ảnh hưởng đến hiệu năng"
 
 #: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "Bỏ hiệu ứng mờ khi ở chế độ Toàn màn hình"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "Làm mờ tất cả cửa sổ"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "Khi tắt, chỉ có các cửa sổ liệt kê dưới đây mới được làm mờ."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "Cửa sổ được làm mờ"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
@@ -702,44 +706,44 @@ msgstr "Thêm cửa sổ"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "Cửa sổ không áp dụng"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
 msgid "All"
-msgstr ""
+msgstr "Tất cả"
 
 #: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
 #: resources/ui/pages/shell/popup.ui:161
 msgid "Top only"
-msgstr ""
+msgstr "Chỉ thanh trên"
 
 #: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Bottom only"
-msgstr ""
+msgstr "Chỉ thanh dưới"
 
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
 #: resources/ui/pages/shell/popup.ui:163
 msgid "None"
-msgstr ""
+msgstr "Không"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "Menu pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "Tên"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "ID pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "Sao chép"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -753,18 +757,18 @@ msgstr "Thêm hiệu ứng"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "Chưa có hiệu ứng nào"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "Nhân bản"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "Xóa"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -773,10 +777,11 @@ msgstr "Chuỗi pipeline"
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
 msgstr ""
+"Pipeline là một tập hợp các hiệu ứng mà các thành phần có thể sử dụng chung."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "Pipeline mới"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
@@ -809,7 +814,7 @@ msgstr "Tối"
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
 #: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
 msgid "Automatic"
-msgstr ""
+msgstr "Tự động"
 
 #: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
 msgid "Disable in overview"
@@ -818,7 +823,7 @@ msgstr "Tắt ở Overview"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "Nền"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -836,11 +841,11 @@ msgstr "Tổng quan kiểu của các thành phần"
 
 #: resources/ui/pages/shell/overview.ui:32
 msgid "For the dash, search and app folders"
-msgstr ""
+msgstr "Áp dụng cho màn hình dash, tìm kiếm và các thư mục ứng dụng"
 
 #: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "Bán kính góc không gian làm việc"
 
 #: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
@@ -848,23 +853,23 @@ msgstr "Bắt buộc chữ màu sáng"
 
 #: resources/ui/pages/shell/panel.ui:59
 msgid "Useful with a light shell theme"
-msgstr ""
+msgstr "Hữu dụng khi dùng chủ đề sáng"
 
 #: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
-msgstr ""
+msgstr "Khớp chủ đề với màn Tổng quan"
 
 #: resources/ui/pages/shell/panel.ui:92
 msgid "Override background dynamically"
-msgstr ""
+msgstr "Ghi đè động nền"
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "Thay đổi nền khi có cửa sổ ở gần thanh panel"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
-msgstr ""
+msgstr "Khi có cửa sổ ở gần"
 
 #: resources/ui/pages/shell/panel.ui:101
 msgid ""
@@ -873,14 +878,18 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"Làm mờ khi cửa sổ ở gần: Chỉ làm mở khi có cửa số gần thanh panel, không có "
+"thì để nền trong suốt.\n"
+"Đổi màu nền khi cửa sổ ở gần: Đổi thành màu nền đơn khi có cửa sổ gần thanh "
+"panel, không có thì làm mờ."
 
 #: resources/ui/pages/shell/panel.ui:110
 msgid "Gradient background"
-msgstr ""
+msgstr "Nền gradient"
 
 #: resources/ui/pages/shell/panel.ui:117
 msgid "Gradient direction"
-msgstr ""
+msgstr "Chiều của gradient"
 
 #: resources/ui/pages/shell/panel.ui:127
 msgid "Compatibility"
@@ -893,6 +902,8 @@ msgstr "Extension Hidetopbar"
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr ""
+"Giữ hiệu ứng mờ trong màn Tổng quan, tốt nhất khi dùng cùng hiệu ứng làm mờ "
+"tĩnh"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -900,7 +911,7 @@ msgstr "Làm mờ thanh panel gốc với Dash to Panel"
 
 #: resources/ui/pages/shell/panel.ui:141
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "Khi Dash to Panel giữ lại thanh panel gốc"
 
 #: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
