@@ -13,6 +13,7 @@
 
     <child>
       <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Pipeline</property>
         <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
 
         <child>
@@ -24,6 +25,7 @@
 
         <child>
           <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="title" translatable="yes">Normal</property>
           </object>
         </child>
         

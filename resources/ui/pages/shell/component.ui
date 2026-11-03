@@ -13,6 +13,8 @@
 
     <child>
       <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Pipeline</property>
+
         <child>
           <object class="AdwSwitchRow" id="pipeline_auto_mode_switch">
             <property name="title" translatable="yes">Follow system theme</property>
@@ -23,6 +25,7 @@
 
         <child>
           <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="title" translatable="yes">Normal</property>
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
