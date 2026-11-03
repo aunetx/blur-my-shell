@@ -11,7 +11,6 @@ import {
     connect_system_style_changes,
 } from '../conveniences/style.js';
 
-
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const FOLDER_DIALOG_SHADE_FACTOR = 0.25;
 

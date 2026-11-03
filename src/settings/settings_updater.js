@@ -323,7 +323,6 @@ export function update_from_old_settings(gsettings) {
             'pipeline_default_light',
         ]) || pipelines_changed;
     }
-    
 
     pipeline_assignments.forEach((pipeline_id, component) => {
         if (component.PIPELINE !== pipeline_id)

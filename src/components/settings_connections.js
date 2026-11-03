@@ -109,7 +109,7 @@ export function connect_component_settings(extension) {
         connect(settings.dash_to_dock, property, when_enabled(
             dash,
             () => dash.update_pipeline()
-        ))  
+        ))
     );
     ['OVERRIDE_BACKGROUND', 'STYLE_DASH_TO_DOCK'].forEach(property =>
         connect(settings.dash_to_dock, property, when_enabled(
