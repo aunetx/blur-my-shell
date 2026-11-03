@@ -6,7 +6,11 @@ import * as Layout from 'resource:///org/gnome/shell/ui/layout.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DynamicPipeline } from '../render/dynamic_surface.js';
-import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
+import {
+    get_component_style,
+    get_pipeline_id,
+    connect_system_style_changes,
+} from '../conveniences/style.js';
 
 const FOLDER_DIALOG_ANIMATION_TIME = 200;
 const FOLDER_DIALOG_SHADE_FACTOR = 0.25;
@@ -213,6 +217,8 @@ export const AppFoldersBlur = class AppFoldersBlur {
         );
 
         connect_system_style_changes(this.connections, () => {
+            if (this.settings.appfolder.PIPELINE_AUTO_MODE)
+                this.update_pipeline();
             this.blur_appfolders();
         });
     }
@@ -270,7 +276,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
                 const pipeline = new DynamicPipeline(
                     this.effects_manager,
                     global.blur_my_shell._pipelines_manager,
-                    this.settings.appfolder.PIPELINE,
+                    get_pipeline_id(this.settings.appfolder),
                     { corner_radius: 0 }
                 );
                 const actor = pipeline.create_actor('bms-appfolder-blurred-widget');
@@ -285,7 +291,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
             if (!this.settings.appfolder.BLUR_BEHIND_FOLDERS)
                 remove_backdrop(dialog);
             else if (!dialog._bms_appfolder_backdrop_pipeline)
-                add_backdrop(dialog, this.effects_manager, this.settings.appfolder.PIPELINE);
+                add_backdrop(dialog, this.effects_manager, get_pipeline_id(this.settings.appfolder));
 
             DIALOGS_STYLES.forEach(
                 style => dialog._viewBox.remove_style_class_name(style)
@@ -319,7 +325,7 @@ export const AppFoldersBlur = class AppFoldersBlur {
     update_pipeline() {
         this.dialogs.forEach(dialog => {
             blur_pipelines(dialog).forEach(pipeline =>
-                pipeline.change_pipeline_to(this.settings.appfolder.PIPELINE));
+                pipeline.change_pipeline_to(get_pipeline_id(this.settings.appfolder)));
         });
     }
 

@@ -10,7 +10,10 @@ export const AppFolders = GObject.registerClass({
     Template: ui_template('pages/shell/app-folders.ui'),
     InternalChildren: [
         'blur',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'style_dialogs',
         'blur_behind_folders',
     ],
@@ -18,10 +21,19 @@ export const AppFolders = GObject.registerClass({
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this._pipeline_choose_row.initialize(preferences.appfolder, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.appfolder, 'PIPELINE', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.appfolder, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.appfolder, 'PIPELINE_DARK', pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.appfolder, [
             ['blur', this._blur, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['style-dialogs', this._style_dialogs, 'selected'],
             ['blur-behind-folders', this._blur_behind_folders, 'active'],
         ]);

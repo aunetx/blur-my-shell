@@ -1,6 +1,7 @@
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import { get_pipeline_id } from '../../conveniences/style.js';
 import { Pipeline } from '../../pipelines/pipeline.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
 import { has_style_class } from './actors.js';
@@ -57,7 +58,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.pipeline = new Pipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.popup.PIPELINE,
+            get_pipeline_id(this.settings.popup),
             null
         );
         this.blur_actor = this.pipeline.create_background_with_effects(
@@ -142,7 +143,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     update_pipeline() {
-        this.pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
+        this.pipeline.change_pipeline_to(get_pipeline_id(this.settings.popup));
         this.rounded_pipeline.update();
     }
 

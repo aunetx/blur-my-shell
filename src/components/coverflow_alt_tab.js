@@ -1,6 +1,7 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Pipeline } from '../pipelines/pipeline.js';
+import { get_pipeline_id, connect_system_style_changes } from '../conveniences/style.js';
 
 export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
     constructor(connections, settings, effects_manager) {
@@ -31,6 +32,10 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
             'monitors-changed',
             () => this.update_backgrounds()
         );
+        connect_system_style_changes(this.connections, () => {
+            if (this.settings.coverflow_alt_tab.PIPELINE_AUTO_MODE)
+                this.update_pipeline();
+        });
     }
 
     update_backgrounds() {
@@ -60,7 +65,7 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                this.settings.coverflow_alt_tab.PIPELINE
+                get_pipeline_id(this.settings.coverflow_alt_tab)
             );
             entry.pipelines.push(pipeline);
             entry.actors.push(pipeline.create_background_with_effects(
@@ -77,7 +82,7 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
 
     update_pipeline() {
         this.entries.forEach(({ pipelines }) => pipelines.forEach(pipeline =>
-            pipeline.change_pipeline_to(this.settings.coverflow_alt_tab.PIPELINE)
+            pipeline.change_pipeline_to(get_pipeline_id(this.settings.coverflow_alt_tab))
         ));
     }
 

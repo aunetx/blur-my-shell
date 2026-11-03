@@ -13,7 +13,10 @@ export const Applications = GObject.registerClass({
     InternalChildren: [
         'blur',
         'blur_mode_row',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'corner_radius',
         'rounded_corners',
         'corner_when_maximized',
@@ -38,11 +41,21 @@ export const Applications = GObject.registerClass({
 
         this._blur_mode_row.initialize(this.preferences.applications);
         this._pipeline_choose_row.initialize(
-            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+            this.preferences.applications, 'PIPELINE',
+            this.pipelines_manager, this.pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            this.preferences.applications, 'PIPELINE_LIGHT',
+            this.pipelines_manager, this.pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            this.preferences.applications, 'PIPELINE_DARK',
+            this.pipelines_manager, this.pipelines_page
         );
 
         bind_settings(this.preferences.applications, [
             ['blur', this._blur, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['opacity', this._opacity, 'value'],
             ['dynamic-opacity', this._dynamic_opacity, 'active'],
             ['corner-radius', this._corner_radius, 'value'],

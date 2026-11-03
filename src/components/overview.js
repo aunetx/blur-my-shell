@@ -10,7 +10,11 @@ import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/wor
 const wac_proto = WorkspaceAnimationController.prototype;
 
 import { Pipeline } from '../pipelines/pipeline.js';
-import { get_component_style, connect_system_style_changes } from '../conveniences/style.js';
+import {
+    get_component_style,
+    get_pipeline_id,
+    connect_system_style_changes,
+} from '../conveniences/style.js';
 
 const OVERVIEW_COMPONENTS_STYLE = [
     "overview-components-light",
@@ -60,6 +64,8 @@ export const OverviewBlur = class OverviewBlur {
 
         connect_system_style_changes(this.connections, () => {
             this.update_components_classname();
+            if (this.settings.overview.PIPELINE_AUTO_MODE)
+                this.update_backgrounds();
         });
 
         this.patch_workspace_switch();
@@ -198,7 +204,7 @@ export const OverviewBlur = class OverviewBlur {
         const pipeline = new Pipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.overview.PIPELINE
+            get_pipeline_id(this.settings.overview)
         );
         pipeline.create_background_with_effects(
             monitor_index,

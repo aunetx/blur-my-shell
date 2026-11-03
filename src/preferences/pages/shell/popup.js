@@ -31,7 +31,10 @@ export const PopupBlur = GObject.registerClass({
     InternalChildren: [
         'blur',
         'blur_mode_row',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'blur_behind_dialogs',
         'override_background',
         'style_popup',
@@ -44,10 +47,19 @@ export const PopupBlur = GObject.registerClass({
         super({});
 
         this._blur_mode_row.initialize(preferences.popup);
-        this._pipeline_choose_row.initialize(preferences.popup, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.popup, 'PIPELINE', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.popup, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.popup, 'PIPELINE_DARK', pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.popup, [
             ['blur', this._blur, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['blur-behind-dialogs', this._blur_behind_dialogs, 'active'],
             ['override-background', this._override_background, 'active'],
             ['style-popup', this._style_popup, 'selected'],
@@ -55,5 +67,6 @@ export const PopupBlur = GObject.registerClass({
             ['rounded-corners', this._rounded_corners, 'selected'],
             ...CORNER_RADIUS_KEYS.map(key => [key, this[`_${to_child_id(key)}`], 'value']),
         ]);
+
     }
 });

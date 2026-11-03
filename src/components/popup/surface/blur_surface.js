@@ -1,6 +1,7 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 
+import { get_pipeline_id } from '../../../conveniences/style.js';
 import { DynamicPipeline } from '../../../render/dynamic_surface.js';
 import { has_any_style_class, has_style_class } from '../actors.js';
 import { PopupBlurSurfaceFade } from './fade.js';
@@ -103,7 +104,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.pipeline = new DynamicPipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.popup.PIPELINE,
+            get_pipeline_id(this.settings.popup),
             {
                 corner_radius: this.get_corner_radius(),
                 get_corners: () => this.settings.popup.ROUNDED_CORNERS,
@@ -358,7 +359,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.static_blur)
             this.static_actor.update_pipeline();
         else
-            this.pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
+            this.pipeline.change_pipeline_to(get_pipeline_id(this.settings.popup));
         this.style.update_target_style();
     }
 

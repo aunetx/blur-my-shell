@@ -134,8 +134,7 @@ export const Pipelines = GObject.registerClass({
         if (!this.pipelines_manager.delete_pipeline(pipeline_id))
             return;
 
-        const components = users.map(({ component }) => component);
-        this._deleted_pipelines.push({ pipeline_id, pipeline, components });
+        this._deleted_pipelines.push({ pipeline_id, pipeline, users });
         this.show_pipeline_undo();
     }
 
@@ -172,8 +171,8 @@ export const Pipelines = GObject.registerClass({
             return;
 
         this._deleted_pipelines.pop();
-        for (const component of deleted.components)
-            component.PIPELINE = deleted.pipeline_id;
+        for (const { component, property } of deleted.users)
+            component[property] = deleted.pipeline_id;
 
         if (this._deleted_pipelines.length > 0)
             this.show_pipeline_undo();

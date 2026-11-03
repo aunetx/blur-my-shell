@@ -3,9 +3,15 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Connections } from '../../conveniences/connections.js';
-import { connect_system_style_changes } from '../../conveniences/style.js';
+import {
+    connect_system_style_changes,
+    get_pipeline_id,
+} from '../../conveniences/style.js';
 import { PanelDiscovery } from './panel_discovery.js';
-import { create_panel_background, place_panel_background } from './panel_background.js';
+import {
+    create_panel_background,
+    place_panel_background,
+} from './panel_background.js';
 import { get_proximity_windows, has_window_near_panel } from './window_proximity.js';
 import {
     TRANSPARENT_PANEL_STYLE,
@@ -70,6 +76,8 @@ export const PanelBlur = class PanelBlur {
         });
 
         connect_system_style_changes(this.connections, () => {
+            if (this.settings.panel.PIPELINE_AUTO_MODE)
+                this.update_pipeline();
             this.update_visibility();
         });
     }
@@ -504,7 +512,7 @@ export const PanelBlur = class PanelBlur {
 
     update_pipeline() {
         this.actors_list.forEach(actors => {
-            actors.pipeline.change_pipeline_to(this.settings.panel.PIPELINE);
+            actors.pipeline.change_pipeline_to(get_pipeline_id(this.settings.panel));
             actors.rounded_pipeline?.update();
         });
     }

@@ -1,6 +1,7 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { DynamicPipeline } from '../render/dynamic_surface.js';
+import { get_pipeline_id, connect_system_style_changes } from '../conveniences/style.js';
 
 const WINDOW_LIST_STYLE = 'background:transparent;';
 const WINDOW_BUTTON_STYLE =
@@ -34,6 +35,10 @@ export const WindowListBlur = class WindowListBlur {
 
         this.connections.connect(Main.overview, 'showing', () => this.hide());
         this.connections.connect(Main.overview, 'hidden', () => this.show());
+        connect_system_style_changes(this.connections, () => {
+            if (this.settings.window_list.PIPELINE_AUTO_MODE)
+                this.update_pipeline();
+        });
         if (Main.overview.visible)
             this.hide();
     }
@@ -47,7 +52,7 @@ export const WindowListBlur = class WindowListBlur {
         const pipeline = new DynamicPipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.window_list.PIPELINE
+            get_pipeline_id(this.settings.window_list)
         );
         pipeline.attach_to_container(actor, 'bms-window-list-blurred-widget');
 
@@ -126,7 +131,7 @@ export const WindowListBlur = class WindowListBlur {
 
     update_pipeline() {
         this.entries.forEach(({ pipeline }) =>
-            pipeline.change_pipeline_to(this.settings.window_list.PIPELINE)
+            pipeline.change_pipeline_to(get_pipeline_id(this.settings.window_list))
         );
     }
 

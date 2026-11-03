@@ -20,15 +20,48 @@
         </child>
 
         <child>
+          <object class="AdwSwitchRow" id="unblur_in_overview">
+            <property name="title" translatable="yes">Disable in overview</property>
+            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Pipeline</property>
+
+        <child>
+          <object class="AdwSwitchRow" id="pipeline_auto_mode_switch">
+            <property name="title" translatable="yes">Follow system theme</property>
+            <property name="subtitle" translatable="yes">Automatically switch the pipeline based on the system theme.</property>
+          </object>
+        </child>
+
+        <child>
           <object class="PipelineChooseRow" id="pipeline_choose_row">
+            <property name="title" translatable="yes">Normal</property>
+            <property name="visible" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create|invert-boolean" />
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
 
         <child>
-          <object class="AdwSwitchRow" id="unblur_in_overview">
-            <property name="title" translatable="yes">Disable in overview</property>
-            <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+          <object class="PipelineChooseRow" id="pipeline_choose_auto_light_row">
+            <property name="title" translatable="yes">Light</property>
+            <property name="subtitle" translatable="yes">The pipeline used for light mode</property>
+            <property name="visible" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
+          <object class="PipelineChooseRow" id="pipeline_choose_auto_dark_row">
+            <property name="title" translatable="yes">Dark</property>
+            <property name="subtitle" translatable="yes">The pipeline used for dark mode</property>
+            <property name="visible" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create" />
+            <property name="sensitive" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
       </object>

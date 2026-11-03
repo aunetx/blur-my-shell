@@ -4,6 +4,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { ApplicationsService } from '../../dbus/services.js';
 import { Pipeline } from '../../pipelines/pipeline.js';
+import { connect_system_style_changes, get_pipeline_id } from '../../conveniences/style.js';
 import { is_desktop_window } from '../../conveniences/window.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
@@ -36,6 +37,10 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.enabled = true;
 
         this.mutter_gsettings = new Gio.Settings({ schema: 'org.gnome.mutter' });
+        connect_system_style_changes(this.connections, () => {
+            if (this.settings.applications.PIPELINE_AUTO_MODE)
+                this.change_pipeline();
+        });
 
         this.update_all_windows();
 
@@ -325,7 +330,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                this.settings.applications.PIPELINE
+                get_pipeline_id(this.settings.applications)
             );
             const bg_managers = [];
             blur_actor = pipeline.create_background_with_effects(
@@ -343,7 +348,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             const pipeline = new DynamicPipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                this.settings.applications.PIPELINE,
+                get_pipeline_id(this.settings.applications),
                 {
                     corner_radius: this.settings.applications.CORNER_RADIUS,
                     get_corners: () => this.settings.applications.ROUNDED_CORNERS,
@@ -458,7 +463,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
     change_pipeline() {
         this.meta_windows.forEach(meta_window => {
             meta_window.bg_manager?._bms_pipeline.change_pipeline_to(
-                this.settings.applications.PIPELINE
+                get_pipeline_id(this.settings.applications)
             );
             this.update_corner_radius(meta_window);
         });

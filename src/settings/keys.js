@@ -13,6 +13,9 @@ export const KEYS = [
         component: "overview", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "style-components" },
             { type: Type.I, name: "workspace-corner-radius" },
         ]
@@ -21,6 +24,9 @@ export const KEYS = [
         component: "appfolder", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "style-dialogs" },
             { type: Type.B, name: "blur-behind-folders" },
         ]
@@ -30,6 +36,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "rounded-corners" },
             { type: Type.B, name: "unblur-in-overview" },
@@ -48,6 +57,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-dash-to-dock" },
@@ -58,6 +70,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "rounded-corners" },
             { type: Type.B, name: "corner-when-maximized" },
@@ -74,24 +89,36 @@ export const KEYS = [
         component: "lockscreen", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
         component: "window-list", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
         component: "coverflow-alt-tab", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
         component: "screenshot", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
@@ -99,6 +126,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "rounded-corners" },
             { type: Type.I, name: "menu-corner-radius" },

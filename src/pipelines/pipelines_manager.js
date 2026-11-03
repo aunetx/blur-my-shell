@@ -83,9 +83,16 @@ export class PipelinesManager {
     delete_pipeline(id) {
         this.settings.keys
             .filter(bundle => bundle.schemas.some(key => key.name === 'pipeline'))
-            .map(bundle => this.settings[bundle.component.replaceAll('-', '_')])
-            .filter(component => component.PIPELINE === id)
-            .forEach(component => component.PIPELINE = 'pipeline_default');
+            .forEach(bundle => {
+                const component = this.settings[bundle.component.replaceAll('-', '_')];
+                bundle.schemas
+                    .filter(key => key.type === 'String' && key.name.startsWith('pipeline'))
+                    .forEach(key => {
+                        const property = this.settings.get_property_name(key.name);
+                        if (component[property] === id)
+                            component[property] = 'pipeline_default';
+                    });
+            });
 
         const pipelines = { ...this.pipelines };
         delete pipelines[id];
