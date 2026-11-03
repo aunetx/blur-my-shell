@@ -38,9 +38,15 @@ export const Panel = GObject.registerClass({
         this.preferences = preferences;
 
         this._blur_mode_row.initialize(preferences.panel);
-        this._pipeline_choose_row.initialize(preferences.panel, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_light_row.initialize(preferences.panel, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_dark_row.initialize(preferences.panel, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.panel, 'PIPELINE', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.panel, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.panel, 'PIPELINE_DARK', pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.panel, [
             ['blur', this._blur, 'active'],

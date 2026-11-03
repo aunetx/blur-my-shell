@@ -22,9 +22,15 @@ export const Overview = GObject.registerClass({
         super({});
 
         this.preferences = preferences;
-        this._pipeline_choose_row.initialize(preferences.overview, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_light_row.initialize(preferences.overview, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_dark_row.initialize(preferences.overview, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.overview, 'PIPELINE', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.overview, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.overview, 'PIPELINE_DARK', pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.overview, [
             ['blur', this._blur, 'active'],

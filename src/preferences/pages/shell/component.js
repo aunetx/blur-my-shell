@@ -21,13 +21,13 @@ export const ComponentPage = GObject.registerClass({
 
         this.preferences = component_preferences;
         this._pipeline_choose_row.initialize(
-            component_preferences, pipelines_manager, pipelines_page
+            component_preferences, 'PIPELINE', pipelines_manager, pipelines_page
         );
         this._pipeline_choose_auto_light_row.initialize(
-            component_preferences, pipelines_manager, pipelines_page
+            component_preferences, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
         );
         this._pipeline_choose_auto_dark_row.initialize(
-            component_preferences, pipelines_manager, pipelines_page
+            component_preferences, 'PIPELINE_DARK', pipelines_manager, pipelines_page
         );
 
         bind_settings(component_preferences, [['blur', this._blur, 'active']]);

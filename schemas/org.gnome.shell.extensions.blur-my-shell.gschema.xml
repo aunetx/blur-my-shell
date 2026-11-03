@@ -201,7 +201,7 @@
         </key>
         <!-- PIPELINE AUTO MODE -->
         <key type="b" name="pipeline-auto-mode">
-            <default>true</default>
+            <default>false</default>
             <summary>Whether to select the Overview pipeline based on the system color scheme</summary>
         </key>
         <!-- PIPELINE (LIGHT MODE) -->
@@ -466,7 +466,7 @@
         </key>
         <!-- PIPELINE AUTO MODE -->
         <key type="b" name="pipeline-auto-mode">
-            <default>true</default>
+            <default>false</default>
             <summary>Whether to select the applications pipeline based on the system color scheme</summary>
         </key>
         <!-- PIPELINE (LIGHT MODE) -->
@@ -566,7 +566,7 @@
         </key>
         <!-- PIPELINE AUTO MODE -->
         <key type="b" name="pipeline-auto-mode">
-            <default>true</default>
+            <default>false</default>
             <summary>Whether to select the screenshot pipeline based on the system color scheme</summary>
         </key>
         <!-- PIPELINE (LIGHT MODE) -->
@@ -596,7 +596,7 @@
         </key>
         <!-- PIPELINE AUTO MODE -->
         <key type="b" name="pipeline-auto-mode">
-            <default>true</default>
+            <default>false</default>
             <summary>Whether to select the lockscreen pipeline based on the system color scheme</summary>
         </key>
         <!-- PIPELINE (LIGHT MODE) -->
@@ -626,7 +626,7 @@
         </key>
         <!-- PIPELINE AUTO MODE -->
         <key type="b" name="pipeline-auto-mode">
-            <default>true</default>
+            <default>false</default>
             <summary>Whether to select the window list pipeline based on the system color scheme</summary>
         </key>
         <!-- PIPELINE (LIGHT MODE) -->
@@ -671,7 +671,7 @@
         </key>
         <!-- PIPELINE AUTO MODE -->
         <key type="b" name="pipeline-auto-mode">
-            <default>true</default>
+            <default>false</default>
             <summary>Whether to select the Coverflow Alt-Tab pipeline based on the system color scheme</summary>
         </key>
         <!-- PIPELINE (LIGHT MODE) -->

@@ -1,3 +1,5 @@
+const PIPELINE_SETTINGS = ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'];
+
 function connect(settings, property, callback) {
     settings[`${property}_changed`](callback);
 }
@@ -34,7 +36,7 @@ export function connect_component_settings(extension) {
     const popup = extension._popup;
 
     connect_toggle(extension, settings.overview, overview);
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.overview, property, when_enabled(
             overview,
             () => overview.update_backgrounds()
@@ -50,7 +52,7 @@ export function connect_component_settings(extension) {
     ));
 
     connect_toggle(extension, settings.appfolder, appfolder);
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.appfolder, property, when_enabled(
             appfolder,
             () => appfolder.update_pipeline()
@@ -71,7 +73,7 @@ export function connect_component_settings(extension) {
         'OVERRIDE_BACKGROUND_DYNAMICALLY_MODE'].forEach(property =>
         connect(settings.panel, property, when_enabled(panel, () => panel.reset()))
     );
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.panel, property, when_enabled(
             panel,
             () => panel.update_pipeline()
@@ -105,7 +107,7 @@ export function connect_component_settings(extension) {
         dash,
         () => dash.change_blur_type()
     ));
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.dash_to_dock, property, when_enabled(
             dash,
             () => dash.update_pipeline()
@@ -127,7 +129,7 @@ export function connect_component_settings(extension) {
         applications,
         () => applications.change_blur_type()
     ));
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.applications, property, when_enabled(
             applications,
             () => applications.change_pipeline()
@@ -177,7 +179,7 @@ export function connect_component_settings(extension) {
     connect(settings, 'POWER_SAVER', () => extension._update_power_saver());
 
     connect_toggle(extension, settings.lockscreen, lockscreen, false);
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.lockscreen, property, when_enabled(
             lockscreen,
             () => lockscreen.update_lockscreen()
@@ -185,7 +187,7 @@ export function connect_component_settings(extension) {
     );
 
     connect_toggle(extension, settings.window_list, window_list);
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.window_list, property, when_enabled(
             window_list,
             () => window_list.update_pipeline()
@@ -193,7 +195,7 @@ export function connect_component_settings(extension) {
     );
 
     connect_toggle(extension, settings.coverflow_alt_tab, coverflow);
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.coverflow_alt_tab, property, when_enabled(
             coverflow,
             () => coverflow.update_pipeline()
@@ -210,7 +212,7 @@ export function connect_component_settings(extension) {
     ));
 
     connect_toggle(extension, settings.screenshot, screenshot);
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.screenshot, property, when_enabled(
             screenshot,
             () => screenshot.update_pipeline()
@@ -222,7 +224,7 @@ export function connect_component_settings(extension) {
         popup,
         () => popup.reset()
     ));
-    ['PIPELINE', 'PIPELINE_AUTO_MODE', 'PIPELINE_LIGHT', 'PIPELINE_DARK'].forEach(property =>
+    PIPELINE_SETTINGS.forEach(property =>
         connect(settings.popup, property, when_enabled(
             popup,
             () => popup.update_pipeline()

@@ -41,13 +41,16 @@ export const Applications = GObject.registerClass({
 
         this._blur_mode_row.initialize(this.preferences.applications);
         this._pipeline_choose_row.initialize(
-            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+            this.preferences.applications, 'PIPELINE',
+            this.pipelines_manager, this.pipelines_page
         );
         this._pipeline_choose_auto_light_row.initialize(
-            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+            this.preferences.applications, 'PIPELINE_LIGHT',
+            this.pipelines_manager, this.pipelines_page
         );
         this._pipeline_choose_auto_dark_row.initialize(
-            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+            this.preferences.applications, 'PIPELINE_DARK',
+            this.pipelines_manager, this.pipelines_page
         );
 
         bind_settings(this.preferences.applications, [

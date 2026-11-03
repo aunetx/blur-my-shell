@@ -114,60 +114,14 @@ export const PipelineChooseRow = GObject.registerClass({
         'pipeline_edit'
     ],
 }, class PipelineChooseRow extends Adw.ActionRow {
-    initialize(preferences, pipelines_manager, pipelines_page) {
+    initialize(preferences, property, pipelines_manager, pipelines_page) {
         initialize_pipeline_selector(
             this,
             this._pipeline_choose,
             this._pipeline_model,
             this._pipeline_edit,
             preferences,
-            'PIPELINE',
-            pipelines_manager,
-            pipelines_page
-        );
-    }
-});
-
-export const PipelineChooseAutoLightRow = GObject.registerClass({
-    GTypeName: 'PipelineChooseAutoLightRow',
-    Template: ui_template('widgets/pipeline-choose-auto-light-row.ui'),
-    InternalChildren: [
-        'pipeline_choose',
-        'pipeline_model',
-        'pipeline_edit'
-    ],
-}, class PipelineChooseAutoLightRow extends Adw.ActionRow {
-    initialize(preferences, pipelines_manager, pipelines_page) {
-        initialize_pipeline_selector(
-            this,
-            this._pipeline_choose,
-            this._pipeline_model,
-            this._pipeline_edit,
-            preferences,
-            'PIPELINE_LIGHT',
-            pipelines_manager,
-            pipelines_page
-        );
-    }
-});
-
-export const PipelineChooseAutoDarkRow = GObject.registerClass({
-    GTypeName: 'PipelineChooseAutoDarkRow',
-    Template: ui_template('widgets/pipeline-choose-auto-dark-row.ui'),
-    InternalChildren: [
-        'pipeline_choose',
-        'pipeline_model',
-        'pipeline_edit'
-    ],
-}, class PipelineChooseAutoDarkRow extends Adw.ActionRow {
-    initialize(preferences, pipelines_manager, pipelines_page) {
-        initialize_pipeline_selector(
-            this,
-            this._pipeline_choose,
-            this._pipeline_model,
-            this._pipeline_edit,
-            preferences,
-            'PIPELINE_DARK',
+            property,
             pipelines_manager,
             pipelines_page
         );

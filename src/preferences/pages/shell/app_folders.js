@@ -22,9 +22,15 @@ export const AppFolders = GObject.registerClass({
         super({});
 
         this.preferences = preferences;
-        this._pipeline_choose_row.initialize(preferences.appfolder, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_light_row.initialize(preferences.appfolder, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_dark_row.initialize(preferences.appfolder, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.appfolder, 'PIPELINE', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.appfolder, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.appfolder, 'PIPELINE_DARK', pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.appfolder, [
             ['blur', this._blur, 'active'],

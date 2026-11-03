@@ -48,12 +48,14 @@ export const PopupBlur = GObject.registerClass({
 
         this.preferences = preferences;
         this._blur_mode_row.initialize(preferences.popup);
-        this._pipeline_choose_row.initialize(preferences.popup, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.popup, 'PIPELINE', pipelines_manager, pipelines_page
+        );
         this._pipeline_choose_auto_light_row.initialize(
-            preferences.popup, pipelines_manager, pipelines_page
+            preferences.popup, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
         );
         this._pipeline_choose_auto_dark_row.initialize(
-            preferences.popup, pipelines_manager, pipelines_page
+            preferences.popup, 'PIPELINE_DARK', pipelines_manager, pipelines_page
         );
 
         bind_settings(preferences.popup, [

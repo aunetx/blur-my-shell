@@ -27,9 +27,15 @@ export const Dash = GObject.registerClass({
 
         this.preferences = preferences;
         this._blur_mode_row.initialize(preferences.dash_to_dock);
-        this._pipeline_choose_row.initialize(preferences.dash_to_dock, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_light_row.initialize(preferences.dash_to_dock, pipelines_manager, pipelines_page);
-        this._pipeline_choose_auto_dark_row.initialize(preferences.dash_to_dock, pipelines_manager, pipelines_page);
+        this._pipeline_choose_row.initialize(
+            preferences.dash_to_dock, 'PIPELINE', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            preferences.dash_to_dock, 'PIPELINE_LIGHT', pipelines_manager, pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            preferences.dash_to_dock, 'PIPELINE_DARK', pipelines_manager, pipelines_page
+        );
 
         bind_settings(preferences.dash_to_dock, [
             ['blur', this._blur, 'active'],

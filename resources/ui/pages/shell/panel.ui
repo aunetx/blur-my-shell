@@ -48,13 +48,17 @@
         </child>
 
         <child>
-          <object class="PipelineChooseAutoLightRow" id="pipeline_choose_auto_light_row">
+          <object class="PipelineChooseRow" id="pipeline_choose_auto_light_row">
+            <property name="title" translatable="yes">Light</property>
+            <property name="subtitle" translatable="yes">The pipeline used for light mode</property>
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
 
         <child>
-          <object class="PipelineChooseAutoDarkRow" id="pipeline_choose_auto_dark_row">
+          <object class="PipelineChooseRow" id="pipeline_choose_auto_dark_row">
+            <property name="title" translatable="yes">Dark</property>
+            <property name="subtitle" translatable="yes">The pipeline used for dark mode</property>
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>

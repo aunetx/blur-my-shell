@@ -35,7 +35,5 @@
     <file preprocess="xml-stripblanks">ui/widgets/blur-mode-row.ui</file>
     <file preprocess="xml-stripblanks">ui/widgets/component-row.ui</file>
     <file preprocess="xml-stripblanks">ui/widgets/pipeline-choose-row.ui</file>
-    <file preprocess="xml-stripblanks">ui/widgets/pipeline-choose-auto-light-row.ui</file>
-    <file preprocess="xml-stripblanks">ui/widgets/pipeline-choose-auto-dark-row.ui</file>
   </gresource>
 </gresources>
