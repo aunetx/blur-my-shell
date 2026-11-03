@@ -43,12 +43,11 @@ export const PipelineChooseRow = GObject.registerClass({
             )
         );
 
-        const change_callback_name = `${this.property}_changed`;
-        this.preferences[change_callback_name](() => this.on_settings_pipeline_changed());
+        this.preferences[`${this.property}_changed`](() => this.on_settings_pipeline_changed());
 
         this.pipelines_manager.connect('pipeline-list-changed', () => this.create_pipelines_list());
 
-        this._selected_pipeline_changed_id = this._pipeline_choose.connect(
+        this._pipeline_choose.connect(
             'notify::selected',
             () => this.on_selected_pipeline_changed()
         );
@@ -62,6 +61,9 @@ export const PipelineChooseRow = GObject.registerClass({
     }
 
     on_selected_pipeline_changed() {
+        if (this._is_creating_pipelines_list)
+            return;
+
         if (!this._pipeline_choose.selected_item)
             return;
 
