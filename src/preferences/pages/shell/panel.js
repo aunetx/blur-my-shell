@@ -75,8 +75,6 @@ export const Panel = GObject.registerClass({
         preferences.panel.GRADIENT_PANEL_changed(() => this.update_proximity_rows());
         this.update_proximity_rows();
 
-        preferences.panel.PIPELINE_AUTO_MODE_changed(() => this.update_rows());
-        this.update_rows();
     }
 
     update_proximity_rows() {
@@ -88,11 +86,4 @@ export const Panel = GObject.registerClass({
         this._gradient_panel_mode.visible = blur_on_proximity && panel.GRADIENT_PANEL;
     }
 
-    update_rows() {
-        const panel = this.preferences.panel;
-        const auto_mode = panel.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode;
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
-    }
 });

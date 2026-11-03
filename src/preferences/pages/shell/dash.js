@@ -25,7 +25,6 @@ export const Dash = GObject.registerClass({
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this.preferences = preferences;
         this._blur_mode_row.initialize(preferences.dash_to_dock);
         this._pipeline_choose_row.initialize(
             preferences.dash_to_dock, 'PIPELINE', pipelines_manager, pipelines_page
@@ -44,16 +43,5 @@ export const Dash = GObject.registerClass({
             ['override-background', this._override_background, 'active'],
             ['style-dash-to-dock', this._style_dash_to_dock, 'selected'],
         ]);
-
-        preferences.dash_to_dock.PIPELINE_AUTO_MODE_changed(() => this.update_rows());
-        this.update_rows();
-    }
-
-    update_rows() {
-        const dash_to_dock = this.preferences.dash_to_dock;
-        const auto_mode = dash_to_dock.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode; 
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });

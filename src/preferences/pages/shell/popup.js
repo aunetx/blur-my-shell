@@ -46,7 +46,6 @@ export const PopupBlur = GObject.registerClass({
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this.preferences = preferences;
         this._blur_mode_row.initialize(preferences.popup);
         this._pipeline_choose_row.initialize(
             preferences.popup, 'PIPELINE', pipelines_manager, pipelines_page
@@ -69,14 +68,5 @@ export const PopupBlur = GObject.registerClass({
             ...CORNER_RADIUS_KEYS.map(key => [key, this[`_${to_child_id(key)}`], 'value']),
         ]);
 
-        preferences.popup.PIPELINE_AUTO_MODE_changed(() => this.update_pipeline_rows());
-        this.update_pipeline_rows();
-    }
-
-    update_pipeline_rows() {
-        const auto_mode = this.preferences.popup.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode;
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });

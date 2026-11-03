@@ -21,7 +21,6 @@ export const AppFolders = GObject.registerClass({
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this.preferences = preferences;
         this._pipeline_choose_row.initialize(
             preferences.appfolder, 'PIPELINE', pipelines_manager, pipelines_page
         );
@@ -38,16 +37,5 @@ export const AppFolders = GObject.registerClass({
             ['style-dialogs', this._style_dialogs, 'selected'],
             ['blur-behind-folders', this._blur_behind_folders, 'active'],
         ]);
-
-        preferences.appfolder.PIPELINE_AUTO_MODE_changed(() => this.update_rows());
-        this.update_rows();
-    }
-
-    update_rows() {
-        const appfolder = this.preferences.appfolder;
-        const auto_mode = appfolder.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode; 
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });

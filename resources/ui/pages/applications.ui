@@ -40,6 +40,7 @@
         <child>
           <object class="PipelineChooseRow" id="pipeline_choose_row">
             <property name="title" translatable="yes">Normal</property>
+            <property name="visible" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create|invert-boolean" />
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
@@ -48,6 +49,7 @@
           <object class="PipelineChooseRow" id="pipeline_choose_auto_light_row">
             <property name="title" translatable="yes">Light</property>
             <property name="subtitle" translatable="yes">The pipeline used for light mode</property>
+            <property name="visible" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create" />
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>
@@ -56,6 +58,7 @@
           <object class="PipelineChooseRow" id="pipeline_choose_auto_dark_row">
             <property name="title" translatable="yes">Dark</property>
             <property name="subtitle" translatable="yes">The pipeline used for dark mode</property>
+            <property name="visible" bind-source="pipeline_auto_mode_switch" bind-property="active" bind-flags="sync-create" />
             <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
           </object>
         </child>

@@ -19,7 +19,6 @@ export const ComponentPage = GObject.registerClass({
     constructor(component_preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this.preferences = component_preferences;
         this._pipeline_choose_row.initialize(
             component_preferences, 'PIPELINE', pipelines_manager, pipelines_page
         );
@@ -30,19 +29,9 @@ export const ComponentPage = GObject.registerClass({
             component_preferences, 'PIPELINE_DARK', pipelines_manager, pipelines_page
         );
 
-        bind_settings(component_preferences, [['blur', this._blur, 'active']]);
         bind_settings(component_preferences, [
+            ['blur', this._blur, 'active'],
             ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
         ]);
-
-        component_preferences.PIPELINE_AUTO_MODE_changed(() => this.update_rows());
-        this.update_rows();
-    }
-
-    update_rows() {
-        const auto_mode = this.preferences.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode;
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });

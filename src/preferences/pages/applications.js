@@ -66,9 +66,6 @@ export const Applications = GObject.registerClass({
             ['enable-all', this._enable_all, 'active'],
         ]);
 
-        this.preferences.applications.PIPELINE_AUTO_MODE_changed(() => this.update_pipeline_rows());
-        this.update_pipeline_rows();
-
         this._enable_all.bind_property(
             'active', this._whitelist, 'visible',
             GObject.BindingFlags.SYNC_CREATE | GObject.BindingFlags.INVERT_BOOLEAN
@@ -99,13 +96,6 @@ export const Applications = GObject.registerClass({
                 app_name => this.add_window(list, app_name)
             );
         }
-    }
-
-    update_pipeline_rows() {
-        const auto_mode = this.preferences.applications.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode;
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 
     add_window(list, app_name = null) {

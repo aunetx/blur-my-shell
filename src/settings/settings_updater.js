@@ -227,13 +227,13 @@ function consolidate_blur_effects(pipelines) {
     return changed;
 }
 
-function pipeline_preset_add(pipelines, gsettings, PRESET_NAME) {
+function pipeline_preset_add(pipelines, gsettings, pipeline_ids) {
     const stock_pipelines = unpack_pipelines(
         gsettings.get_default_value('pipelines')
     );
     let changed = false;
 
-    for (const pipeline_id of PRESET_NAME) {
+    for (const pipeline_id of pipeline_ids) {
         if (Object.hasOwn(pipelines, pipeline_id))
             continue;
 

@@ -21,7 +21,6 @@ export const Overview = GObject.registerClass({
     constructor(preferences, pipelines_manager, pipelines_page) {
         super({});
 
-        this.preferences = preferences;
         this._pipeline_choose_row.initialize(
             preferences.overview, 'PIPELINE', pipelines_manager, pipelines_page
         );
@@ -39,15 +38,5 @@ export const Overview = GObject.registerClass({
             ['workspace-corner-radius', this._workspace_corner_radius, 'value'],
         ]);
 
-        preferences.overview.PIPELINE_AUTO_MODE_changed(() => this.update_rows());
-        this.update_rows();
-    }
-
-    update_rows() {
-        const overview = this.preferences.overview;
-        const auto_mode = overview.PIPELINE_AUTO_MODE;
-        this._pipeline_choose_row.visible = !auto_mode;
-        this._pipeline_choose_auto_light_row.visible = auto_mode;
-        this._pipeline_choose_auto_dark_row.visible = auto_mode;
     }
 });
