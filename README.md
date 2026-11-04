@@ -79,6 +79,7 @@ For the difference between static blur and dynamic blur:
   - for each pipeline, you can add effects including Dual Kawase blur, Liquid Glass, Vapor Wave, pixelization, color and noise; then configure, reorder or delete them
   - the effects order is important: the first effect in the list is applied first
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
+  - you can export your pipelines and component settings to a file from the preferences menu, to back them up, share them or import them on another computer
 - dynamic blur makes the component translucent and blurs what is directly behind it
   - it uses the same pipelines and effects as static blur, applied to what is behind the component instead of the wallpaper
   - blur strength follows display scaling, so it looks the same on every monitor
