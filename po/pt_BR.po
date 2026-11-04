@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-06-01 16:01+0000\n"
-"Last-Translator: Cristian Pavan <cristianpavan@gmail.com>\n"
+"PO-Revision-Date: 2026-11-05 09:51+0000\n"
+"Last-Translator: Arabella-dev1 <arabella-"
+"dev1@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/blur-"
 "my-shell/blur-my-shell/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -149,16 +150,16 @@ msgstr "Deslocar brilho"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Brilho para adicionar ou remover da imagem."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Multiplicador de brilho"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
-msgstr ""
+msgstr "Multiplica o brilho da imagem; 0 é preto e 1 deixa o brilho inalterado."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
@@ -167,6 +168,7 @@ msgstr "Contraste"
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
+"Ajusta o contraste da imagem ao redor do centro de contraste selecionado."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
@@ -181,6 +183,8 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Multiplica a saturação da imagem; 0 remove todas as cores e 1 deixa a "
+"saturação inalterada."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
@@ -188,7 +192,7 @@ msgstr "RGB para HSL (efeito avançado)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Converte uma imagem do espaço de cor RGBA para HSLA."
 
 #: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
@@ -196,7 +200,7 @@ msgstr "HSL para RGB (efeito avançado)"
 
 #: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Converte uma imagem do espaço de cor HSLA para RGBA."
 
 #: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
 #: resources/ui/pages/shell/app-folders.ui:8
@@ -208,11 +212,11 @@ msgstr ""
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Textura"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Avançado"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
@@ -230,7 +234,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:11
 msgid "Refraction scale"
-msgstr ""
+msgstr "Escala de refração"
 
 #: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
@@ -262,7 +266,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:51
 msgid "Glass thickness"
-msgstr ""
+msgstr "Espessura do vidro"
 
 #: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
@@ -270,7 +274,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:61
 msgid "Refraction style"
-msgstr ""
+msgstr "Estilo de refração"
 
 #: src/effects/refraction/info.js:62
 msgid ""
@@ -339,7 +343,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:137
 msgid "Inner shadow"
-msgstr ""
+msgstr "Sombra interior"
 
 #: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
@@ -347,7 +351,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:147
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "Dispersão cromática"
 
 #: src/effects/refraction/info.js:148
 msgid "Physical per-channel refraction dispersion at the glass edge."
@@ -355,7 +359,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:157
 msgid "Edge behavior"
-msgstr ""
+msgstr "Comportamento das bordas"
 
 #: src/effects/refraction/info.js:158
 msgid "How texture coordinates outside the actor are sampled."
@@ -367,7 +371,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:162
 msgid "Mirror"
-msgstr ""
+msgstr "Espelhar"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
@@ -490,7 +494,7 @@ msgstr ""
 
 #: src/effects/wave/info.js:11
 msgid "Wave frequency"
-msgstr ""
+msgstr "Frequência da onda"
 
 #: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
@@ -498,7 +502,7 @@ msgstr ""
 
 #: src/effects/wave/info.js:21
 msgid "Wave amplitude"
-msgstr ""
+msgstr "Amplitude da onda"
 
 #: src/effects/wave/info.js:22
 msgid "How strongly the image gets displaced by the waves."
@@ -526,7 +530,7 @@ msgstr ""
 
 #: src/effects/wave/info.js:47
 msgid "Vapor speed"
-msgstr ""
+msgstr "Velocidade do vapor"
 
 #: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
@@ -542,15 +546,15 @@ msgstr ""
 
 #: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "A saturação do efeito."
 
 #: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "O brilho do efeito."
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
@@ -558,7 +562,7 @@ msgstr ""
 
 #: src/effects/wave/info.js:97
 msgid "Dispersion"
-msgstr ""
+msgstr "Dispersão"
 
 #: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
@@ -596,11 +600,11 @@ msgstr ""
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "Desativar na economia de energia"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "Redefinir Preferências…"
 
 #: resources/ui/menu.ui:20
 msgid "Project page"
@@ -616,7 +620,7 @@ msgstr "Licença"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu Principal"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -626,7 +630,7 @@ msgstr "Aplicativos"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "Aparência"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -648,7 +652,7 @@ msgstr "Raio dos cantos"
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
 #: resources/ui/pages/shell/popup.ui:66
 msgid "Rounded corners"
-msgstr ""
+msgstr "Cantos arredondados"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
@@ -656,7 +660,7 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamento"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -716,7 +720,7 @@ msgstr ""
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
 #: resources/ui/pages/shell/popup.ui:163
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
@@ -725,7 +729,7 @@ msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
@@ -733,7 +737,7 @@ msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -747,18 +751,18 @@ msgstr "Adicionar Efeito"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "Ainda sem efeitos"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicar"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "Excluir"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -803,7 +807,7 @@ msgstr "Escuro"
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
 #: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 #: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
 msgid "Disable in overview"
@@ -858,7 +862,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
-msgstr ""
+msgstr "Quando uma janela estiver próxima"
 
 #: resources/ui/pages/shell/panel.ui:101
 msgid ""
@@ -926,7 +930,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:73
 msgid "Menus"
-msgstr ""
+msgstr "Menus"
 
 #: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
@@ -934,7 +938,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:87
 msgid "Quick settings"
-msgstr ""
+msgstr "Configurações rápidas"
 
 #: resources/ui/pages/shell/popup.ui:94
 msgid "Quick settings submenus"
@@ -946,7 +950,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
-msgstr ""
+msgstr "Notificações"
 
 #: resources/ui/pages/shell/popup.ui:115
 msgid "Window and workspace switchers"
@@ -1027,7 +1031,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
@@ -1041,7 +1045,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "Captura de Tela"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
@@ -1049,7 +1053,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "Extensões"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
@@ -1080,7 +1084,7 @@ msgstr ""
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
@@ -1124,7 +1128,7 @@ msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Instruções de remoção"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
@@ -1139,6 +1143,8 @@ msgstr ""
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"Remoção é opcional. Continue com a biblioteca se alguma outra extensão ainda "
+"precise dela."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
@@ -1167,15 +1173,15 @@ msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Abrir Instruções"
 
 #: src/preferences/menu.js:76
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Redefinir todas as preferências?"
 
 #: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
@@ -1183,7 +1189,7 @@ msgstr ""
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/preferences/menu.js:80
 msgid "Reset"
@@ -1196,7 +1202,7 @@ msgstr ""
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "Excluir “%s”?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
@@ -1210,7 +1216,7 @@ msgstr ""
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" excluído"
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
@@ -1218,7 +1224,7 @@ msgstr ""
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
@@ -1226,11 +1232,11 @@ msgstr ""
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "Mover para cima"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "Mover para baixo"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
