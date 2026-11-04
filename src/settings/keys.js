@@ -46,6 +46,7 @@ export const KEYS = [
             { type: Type.B, name: "match-theme-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-panel" },
+            { type: Type.B, name: "square-buttons" },
             { type: Type.B, name: "override-background-dynamically" },
             { type: Type.I, name: "override-background-dynamically-mode" },
             { type: Type.B, name: "gradient-panel" },

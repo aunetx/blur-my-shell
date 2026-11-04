@@ -104,3 +104,11 @@
 .contrasted-panel .clock {
     margin: 0 !important;
 }
+
+.contrasted-panel.bms-square-panel-buttons .panel-button,
+.contrasted-panel.bms-square-panel-buttons .clock,
+.contrasted-panel.bms-square-panel-buttons .clock-display StIcon {
+    border-radius: 0;
+    border-width: 0;
+    box-shadow: none;
+}

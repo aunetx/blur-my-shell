@@ -15,6 +15,8 @@ const GRADIENT_PANEL_STYLES = [
 
 export const TRANSPARENT_PANEL_STYLE = PANEL_STYLES[0];
 
+const SQUARE_BUTTONS_CLASS = "bms-square-panel-buttons";
+
 export function panel_style(settings) {
     return PANEL_STYLES[get_component_style(settings.panel.STYLE_PANEL, PANEL_STYLES)];
 }
@@ -49,6 +51,11 @@ export function set_panel_style_class(actors, target_class, settings) {
 
     if (target_class && !panel.has_style_class_name(target_class))
         panel.add_style_class_name(target_class);
+
+    if (target_class && settings.panel.SQUARE_BUTTONS)
+        panel.add_style_class_name(SQUARE_BUTTONS_CLASS);
+    else
+        panel.remove_style_class_name(SQUARE_BUTTONS_CLASS);
 
     actors.last_target_class = target_class;
     update_panel_border_radius(actors, target_class, settings);

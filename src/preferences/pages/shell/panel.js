@@ -24,6 +24,7 @@ export const Panel = GObject.registerClass({
         'match_theme_in_overview',
         'override_background',
         'style_panel',
+        'square_buttons',
         'override_background_dynamically',
         'override_background_dynamically_mode',
         'gradient_panel',
@@ -58,6 +59,7 @@ export const Panel = GObject.registerClass({
             ['match-theme-in-overview', this._match_theme_in_overview, 'active'],
             ['override-background', this._override_background, 'active'],
             ['style-panel', this._style_panel, 'selected'],
+            ['square-buttons', this._square_buttons, 'active'],
             ['override-background-dynamically', this._override_background_dynamically, 'active'],
             ['override-background-dynamically-mode', this._override_background_dynamically_mode, 'selected'],
             ['gradient-panel', this._gradient_panel, 'active'],
@@ -75,6 +77,8 @@ export const Panel = GObject.registerClass({
         preferences.panel.GRADIENT_PANEL_changed(() => this.update_proximity_rows());
         this.update_proximity_rows();
 
+        preferences.panel.STYLE_PANEL_changed(() => this.update_square_buttons_row());
+        this.update_square_buttons_row();
     }
 
     update_proximity_rows() {
@@ -84,6 +88,11 @@ export const Panel = GObject.registerClass({
         this._override_background_dynamically_mode.visible = dynamic;
         this._gradient_panel.visible = blur_on_proximity;
         this._gradient_panel_mode.visible = blur_on_proximity && panel.GRADIENT_PANEL;
+    }
+
+    update_square_buttons_row() {
+        // only the contrasted style draws button backgrounds
+        this._square_buttons.visible = this.preferences.panel.STYLE_PANEL === 3;
     }
 
 });

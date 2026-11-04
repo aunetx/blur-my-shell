@@ -122,6 +122,14 @@
         </child>
 
         <child>
+          <object class="AdwSwitchRow" id="square_buttons">
+            <property name="title" translatable="yes">Square buttons</property>
+            <property name="subtitle" translatable="yes">Draws the contrasted buttons as one bar with square corners</property>
+            <property name="sensitive" bind-source="override_background" bind-property="active" bind-flags="sync-create" />
+          </object>
+        </child>
+
+        <child>
           <object class="AdwSwitchRow" id="override_background_dynamically">
             <property name="title" translatable="yes">Override background dynamically</property>
             <property name="subtitle" translatable="yes">Changes the background when a window is near the panel</property>

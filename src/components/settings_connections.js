@@ -85,7 +85,7 @@ export function connect_component_settings(extension) {
             () => panel.update_corner_radius()
         ))
     );
-    ['UNBLUR_IN_OVERVIEW', 'MATCH_THEME_IN_OVERVIEW', 'STYLE_PANEL'].forEach(property =>
+    ['UNBLUR_IN_OVERVIEW', 'MATCH_THEME_IN_OVERVIEW', 'STYLE_PANEL', 'SQUARE_BUTTONS'].forEach(property =>
         connect(settings.panel, property, when_enabled(
             panel,
             () => panel.connect_to_windows_and_overview()
