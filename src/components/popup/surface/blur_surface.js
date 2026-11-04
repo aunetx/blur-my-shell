@@ -1,9 +1,11 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 
 import { get_pipeline_id } from '../../../conveniences/style.js';
 import { DynamicPipeline } from '../../../render/dynamic_surface.js';
 import { has_any_style_class, has_style_class } from '../actors.js';
+import { THEMED_RADIUS_STYLE_CLASSES } from '../targets.js';
 import { PopupBlurSurfaceFade } from './fade.js';
 import { PopupBlurSurfacePlacement } from './placement.js';
 import { PopupBlurSurfaceSignals } from './signals.js';
@@ -19,7 +21,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
     'modal-dialog', 'run-dialog', 'clipboard-dialog',
-    'bms-keyboard-surface',
+    'bms-keyboard-surface', ...THEMED_RADIUS_STYLE_CLASSES,
 ];
 const HEAVY_SURFACE_STYLE_CLASSES = [
     'datemenu-popover', 'quick-settings', 'modal-dialog',
@@ -49,6 +51,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.update_id = 0;
         this.transition_update_id = 0;
         this.opacity = null;
+        this.themed_radius = null;
         this.static_blur = settings.popup.STATIC_BLUR;
         this.static_actor = null;
         this.pipeline = null;
@@ -175,6 +178,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
         return this.matches_any_style_class(['bms-keyboard-surface']);
     }
 
+    uses_themed_radius() {
+        return has_any_style_class(this.target, THEMED_RADIUS_STYLE_CLASSES);
+    }
+
     uses_full_actor_geometry() {
         return this.matches_any_style_class(FULL_GEOMETRY_STYLE_CLASSES);
     }
@@ -217,6 +224,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         if (!this.placement.prepare_visible_geometry())
             return;
+        this.update_themed_radius();
         this.update_actors_visibility();
         this.queue_repaint(!visible);
         this.queue_transition_update(transition_state);
@@ -338,7 +346,27 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     get_corner_radius() {
+        if (this.uses_themed_radius())
+            return this.get_themed_radius();
         return this.settings.popup[this.corner_radius.property];
+    }
+
+    get_themed_radius() {
+        const node = this.target.peek_theme_node();
+        if (!node)
+            return 0;
+        const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        return node.get_border_radius(St.Corner.TOPLEFT) / scale;
+    }
+
+    update_themed_radius() {
+        if (!this.uses_themed_radius())
+            return;
+        const radius = this.get_themed_radius();
+        if (this.themed_radius === radius)
+            return;
+        this.themed_radius = radius;
+        this.update_settings();
     }
 
     is_visible() {

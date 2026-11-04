@@ -2,10 +2,13 @@ import St from 'gi://St';
 
 import { has_any_style_class, is_internal_actor } from './actors.js';
 
+// Dhruva's start menu restyles itself on every open, so its blur follows the theme's radius.
+export const THEMED_RADIUS_STYLE_CLASSES = ['dhruva-start-menu-box'];
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = [
     'popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner',
     'candidate-popup-content', 'screenshot-ui-panel', 'bms-keyboard-surface',
+    ...THEMED_RADIUS_STYLE_CLASSES,
 ];
 const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog', 'clipboard-dialog'];
 const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];

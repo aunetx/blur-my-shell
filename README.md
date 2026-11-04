@@ -40,7 +40,7 @@ see the [removal instructions](docs/rounded-blur-removal.md).
     - uses static blur only
   - popup blur
     - you can choose between static blur and dynamic blur
-    - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, and dialogs
+    - covers panel menus, the calendar and notifications popup, notification banners, OSD popups, switchers, dialogs, and the [Dhruva](https://github.com/NarkAgni/dhruva) start menu, which keeps its own corner radius
     - can also blur the dimmed screen behind system dialogs, like the power off dialog, with the selected pipeline
     - static and dynamic blur use the selected pipeline
     - you can choose a transparent, light, dark, or automatic background above the blur
@@ -90,7 +90,7 @@ For the difference between static blur and dynamic blur:
 Blur my Shell is designed to be compatible with the following extensions:
 
 - [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/) (configurable from the Dock settings)
-- [Dhruva](https://extensions.gnome.org/extension/9495/dhruva/) (configurable from the Dock settings)
+- [Dhruva](https://extensions.gnome.org/extension/9495/dhruva/) (dock configurable from the Dock settings, start menu from the Popups settings)
 - Simple Taskbar's dock (configurable from the Dock settings)
 - [Dock!ng](https://extensions.gnome.org/extension/8682/dockng/) and other extensions that reuse the native dash (configurable from the Dock settings)
 - [Dash to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) (configurable from the Panel settings)
