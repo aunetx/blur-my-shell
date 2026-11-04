@@ -2,6 +2,9 @@ import St from 'gi://St';
 
 import { has_any_style_class, is_internal_actor } from './actors.js';
 
+// Other extensions opt their surfaces in with this class (see the README). Such a surface is
+// blurred in place of the popup surface it sits in, which then has no background of its own.
+export const OPT_IN_STYLE_CLASS = 'bms-popup-blur-target';
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = [
     'popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner',
@@ -97,9 +100,36 @@ export const PopupBlurTargets = class PopupBlurTargets {
 
     find(actor) {
         this.style_cache = new WeakMap();
-        const targets = this.find_actor(actor);
+        const opt_in_targets = this.find_opt_in_targets(actor);
+        const targets = [...this.find_actor(actor)].filter(target =>
+            !opt_in_targets.some(opt_in => opt_in !== target && target.contains(opt_in))
+        );
         this.style_cache = null;
-        return [...targets];
+        return [...new Set([...targets, ...opt_in_targets])];
+    }
+
+    find_opt_in_targets(actor) {
+        const targets = [];
+        const stack = [actor];
+
+        while (stack.length > 0) {
+            const child = stack.pop();
+            if (is_internal_actor(child))
+                continue;
+
+            if (this.is_opt_in(child)) {
+                targets.push(child);
+                continue;
+            }
+
+            stack.push(...child.get_children().reverse());
+        }
+
+        return targets;
+    }
+
+    is_opt_in(actor) {
+        return this.has_any_style_class(actor, [OPT_IN_STYLE_CLASS]);
     }
 
     find_actor(actor) {
@@ -179,7 +209,8 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     is_blur_target_actor(actor) {
-        return this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
+        return this.is_opt_in(actor)
+            || this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
             || this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES);
     }
 

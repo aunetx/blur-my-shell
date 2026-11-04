@@ -9,14 +9,13 @@ import { transform_to_actor_space } from './surface/geometry.js';
 import { PopupBlurAllocation } from './surface/allocation.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
-    constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius) {
+    constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius, get_corners) {
         this.settings = settings;
         this.effects_manager = effects_manager;
         this.target = target;
         this.root_actor = root_actor;
         this.parent = parent;
-        this.rounded_pipeline = new RoundedPipeline(effects_manager, get_corner_radius,
-            () => this.settings.popup.ROUNDED_CORNERS);
+        this.rounded_pipeline = new RoundedPipeline(effects_manager, get_corner_radius, get_corners);
         this.background_group = null;
         this.allocation_constraint = null;
         this.blur_actor = null;

@@ -20,6 +20,7 @@ import { PopupUnblurredSurfaces } from './unblurred_surfaces.js';
 import { DialogBackdrops } from './dialog_backdrops.js';
 
 const KEYBOARD_STYLE_CLASS = 'bms-keyboard-surface';
+const BLUR_PARENT_STYLE_CLASS = 'bms-popup-blur-parent';
 const BACKGROUND_STYLE_CLASSES = [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES];
 
 export const PopupBlur = class PopupBlur {
@@ -34,6 +35,9 @@ export const PopupBlur = class PopupBlur {
         this.keyboard_actors = new Set();
         this.unblurred_surfaces = new PopupUnblurredSurfaces(settings);
         this.watched_actors = new WeakSet();
+        this.rescanned_actors = new WeakSet();
+        this.resized_actors = new WeakSet();
+        this.blur_parents = new Set();
         this.message_stacks = new PopupBlurMessageStacks(connections);
         this.targets = new PopupBlurTargets();
         this.dialog_backdrops = new DialogBackdrops(settings, effects_manager);
@@ -149,7 +153,31 @@ export const PopupBlur = class PopupBlur {
         )
             this.track_container(actor);
 
+        if (targets.length > 0)
+            this.rescan_when_shown(actor, targets.some(target => this.targets.is_opt_in(target)));
+
         targets.forEach(target => this.blur_actor(target, actor));
+    }
+
+    /// Other extensions may add or replace the surfaces they opt in while their popup lives, so
+    /// a popup is searched again when it is shown, and when its size changes if it has them.
+    rescan_when_shown(actor, has_opt_in_targets) {
+        if (!this.rescanned_actors.has(actor)) {
+            this.rescanned_actors.add(actor);
+            this.connect_rescan(actor, 'notify::mapped');
+        }
+
+        if (has_opt_in_targets && !this.resized_actors.has(actor)) {
+            this.resized_actors.add(actor);
+            this.connect_rescan(actor, 'notify::allocation');
+        }
+    }
+
+    connect_rescan(actor, signal) {
+        this.connections.connect(actor, signal, () => {
+            if (actor.mapped)
+                this.queue_try_blur(actor);
+        });
     }
 
     queue_try_blur(actor) {
@@ -234,10 +262,23 @@ export const PopupBlur = class PopupBlur {
     }
 
     destroy_blurred_ancestors(target) {
+        const is_opt_in = this.targets.is_opt_in(target);
         for (let actor = target.get_parent(); actor; actor = actor.get_parent()) {
-            if (this.surfaces.has(actor) && this.targets.prefers_descendant_targets(actor))
+            if (this.surfaces.has(actor) && (is_opt_in || this.targets.prefers_descendant_targets(actor)))
                 this.destroy_blur(actor);
+            if (is_opt_in && this.targets.is_blur_target_actor(actor))
+                this.mark_blur_parent(actor);
         }
+    }
+
+    /// A popup surface whose opted in descendants are blurred instead has no background.
+    mark_blur_parent(actor) {
+        if (this.blur_parents.has(actor))
+            return;
+
+        this.blur_parents.add(actor);
+        actor.add_style_class_name(BLUR_PARENT_STYLE_CLASS);
+        this.connections.connect(actor, 'destroy', () => this.blur_parents.delete(actor));
     }
 
     get_overlay_parent(target) {
@@ -310,6 +351,8 @@ export const PopupBlur = class PopupBlur {
         this.message_stacks.untrack_actor(actor);
         this.connections.disconnect_all_for(actor);
         this.watched_actors.delete(actor);
+        this.rescanned_actors.delete(actor);
+        this.resized_actors.delete(actor);
     }
 
     reset() {
@@ -397,6 +440,10 @@ export const PopupBlur = class PopupBlur {
         this.surfaces.clear();
         this.containers.clear();
         this.watched_actors = new WeakSet();
+        this.rescanned_actors = new WeakSet();
+        this.resized_actors = new WeakSet();
+        this.blur_parents.forEach(actor => actor.remove_style_class_name(BLUR_PARENT_STYLE_CLASS));
+        this.blur_parents.clear();
         this.message_stacks.disable();
     }
 
