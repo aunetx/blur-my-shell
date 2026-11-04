@@ -112,3 +112,13 @@
     border-width: 0;
     box-shadow: none;
 }
+
+/* keep the shell's colored screen recording and sharing indicators,
+   the button rules above replace the box-shadow that paints them */
+.contrasted-panel .panel-button.screen-recording-indicator {
+    box-shadow: inset 0 0 0 100px #c01c28;
+}
+
+.contrasted-panel .panel-button.screen-sharing-indicator {
+    box-shadow: inset 0 0 0 100px #ff7800;
+}
