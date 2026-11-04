@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-10-18 21:40+0330\n"
+"POT-Creation-Date: 2026-11-01 13:11+0100\n"
+"PO-Revision-Date: 2026-11-04 21:20+0330\n"
 "Last-Translator: Pooya Behravesh <pooyabehravesh@gmail.com>\n"
 "Language-Team: Persian <>\n"
 "Language: fa\n"
@@ -205,19 +205,19 @@ msgstr "تصویر را از فضای رنگی HSLA به RGBA تبدیل می‌
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "تاری"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "بافت"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "پیشرفته"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
-msgstr ""
+msgstr "اجزای سازنده‌ای که بیشتر در ترکیب با جلوه‌های دیگر به کار می‌آیند."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -265,6 +265,18 @@ msgid "How far the refraction eases inward from the glass edge."
 msgstr "میزان نرم شدن شکست نور از لبهٔ شیشه به سمت داخل."
 
 #: src/effects/refraction/info.js:51
+msgid "Refraction reach"
+msgstr "گسترهٔ شکست نور"
+
+#: src/effects/refraction/info.js:52
+msgid ""
+"How far the bend reaches inward from the edge, past the corner radius. A "
+"wider bend is also deeper, like a wider bezel (0 keeps it at the rim)."
+msgstr ""
+"میزان پیشروی خمیدگی از لبه به سمت داخل، فراتر از شعاع گوشه. خمیدگی گسترده‌تر "
+"عمیق‌تر هم هست، مانند لبهٔ پهن‌تر (۰ آن را روی حاشیه نگه می‌دارد)."
+
+#: src/effects/refraction/info.js:51
 msgid "Glass thickness"
 msgstr "ضخامت شیشه"
 
@@ -296,13 +308,14 @@ msgstr "شدت درخشش جهت‌دار فرنل از لبهٔ شیشه."
 msgid "Fresnel glare angle"
 msgstr "زاویهٔ درخشش فرنل"
 
-#: src/effects/refraction/info.js:82
+#: src/effects/refraction/info.js:92
 msgid ""
-"Light direction of the fresnel glare, in degrees (0 is from above, positive "
-"rotates clockwise)."
+"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
+"the top and bottom, positive rotates clockwise)."
 msgstr ""
-"جهت نور درخشش فرنل بر حسب درجه (۰ از بالا است و مقادیر مثبت در جهت عقربه‌های "
-"ساعت می‌چرخند)."
+"محور درخشش فرنل که دو لبهٔ روبه‌روی هم را روشن می‌کند، بر حسب درجه (۰ "
+"لبه‌های بالا و پایین را روشن می‌کند و مقادیر مثبت در جهت عقربه‌های ساعت "
+"می‌چرخند)."
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
@@ -316,10 +329,33 @@ msgstr "ضریب ضخامت حلقهٔ درخشش فرنل در امتداد ل�
 msgid "Specular glare strength"
 msgstr "شدت بازتاب آینه‌ای"
 
-#: src/effects/refraction/info.js:102
+#: src/effects/refraction/info.js:112
 msgid ""
-"Strength of the specular glare showing the light direction (0 disables it)."
-msgstr "شدت بازتاب آینه‌ای که جهت نور را نشان می‌دهد (۰ آن را غیرفعال می‌کند)."
+"Strength of the white specular glare on the same edge pair as the fresnel "
+"glare, brighter on the light side (0 disables it)."
+msgstr ""
+"شدت بازتاب آینه‌ای سفید روی همان جفت لبهٔ درخشش فرنل، که در سمت روشن "
+"پررنگ‌تر است (۰ آن را غیرفعال می‌کند)."
+
+#: src/effects/refraction/info.js:121
+msgid "Edge border"
+msgstr "خط لبه"
+
+#: src/effects/refraction/info.js:122
+msgid ""
+"Thin dark line along the straight side edges, away from the fresnel glare, "
+"outlining the glass on light backgrounds."
+msgstr ""
+"خط تیرهٔ نازک در امتداد لبه‌های مستقیم کناری، دور از درخشش فرنل، که شیشه را "
+"روی پس‌زمینه‌های روشن مشخص می‌کند."
+
+#: src/effects/refraction/info.js:131
+msgid "Edge glow"
+msgstr "درخشش لبه"
+
+#: src/effects/refraction/info.js:132
+msgid "Colorful content under the glass lights up its edge."
+msgstr "محتوای رنگی زیر شیشه، لبهٔ آن را روشن می‌کند."
 
 #: src/effects/refraction/info.js:111
 msgid "Tint strength"
@@ -604,15 +640,15 @@ msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "ثبت گزارش اشکال‌زدایی"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "غیرفعال‌سازی در حالت صرفه‌جویی انرژی"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "بازنشانی تنظیمات…"
 
 #: resources/ui/menu.ui:20
 msgid "Project page"
@@ -628,7 +664,7 @@ msgstr "پروانه (مجوز)"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "منوی اصلی"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -638,7 +674,7 @@ msgstr "برنامه‌ها"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "ظاهر"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -646,7 +682,7 @@ msgstr "کدری (Opacity)"
 
 #: resources/ui/pages/applications.ui:42
 msgid "Higher values are easier to read"
-msgstr ""
+msgstr "مقادیر بالاتر خواناترند"
 
 #: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
@@ -668,7 +704,7 @@ msgstr "گرد کردن گوشهٔ پنجره‌های بیشینه و تمام�
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "رفتار"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -676,7 +712,7 @@ msgstr "تاری در نمای کلی"
 
 #: resources/ui/pages/applications.ui:96
 msgid "Shows the blur on every workspace, at some performance cost"
-msgstr ""
+msgstr "تاری را در تمام فضاهای کاری نشان می‌دهد، با کمی افت کارایی"
 
 #: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
@@ -684,22 +720,26 @@ msgstr "حذف تاری در حالت تمام‌صفحه"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "تار کردن همهٔ پنجره‌ها"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "وقتی خاموش باشد، فقط پنجره‌های فهرست‌شده در پایین تار می‌شوند."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "پنجره‌های تار"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
 msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
-"single one."
+"single one. Start with title: to match the window title instead, like "
+"title:Picture-in-Picture."
 msgstr ""
+"از * برای تطبیق با هر دنباله‌ای از نویسه‌ها (مانند Firefox* یا *Code*) و از "
+"? برای یک نویسهٔ تکی استفاده کنید. برای تطبیق با عنوان پنجره به‌جای آن، با "
+"title: شروع کنید، مانند title:Picture-in-Picture."
 
 #: resources/ui/pages/applications.ui:126
 #: resources/ui/pages/applications.ui:148
@@ -708,7 +748,7 @@ msgstr "افزودن پنجره"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "پنجره‌های مستثنا"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
@@ -733,19 +773,19 @@ msgstr "هیچ‌کدام"
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "منوی خط پردازش"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "نام"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "شناسهٔ خط پردازش"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "کپی"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -759,18 +799,18 @@ msgstr "افزودن جلوه"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "هنوز جلوه‌ای اضافه نشده"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "تکثیر"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -779,14 +819,24 @@ msgstr "خطوط پردازش"
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
 msgstr ""
+"خطوط پردازش مجموعه‌هایی از جلوه‌ها هستند که بخش‌های مختلف از آن‌ها استفاده "
+"می‌کنند."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "خط پردازش جدید"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
 msgstr "سبک پنجرهٔ پوشهٔ برنامه‌ها"
+
+#: resources/ui/pages/shell/app-folders.ui:32
+msgid "Blur behind folders"
+msgstr "تاری پشت پوشه‌ها"
+
+#: resources/ui/pages/shell/app-folders.ui:33
+msgid "Blur the app grid behind an open folder."
+msgstr "شبکهٔ برنامه‌ها را پشت پوشهٔ بازشده تار می‌کند."
 
 #: resources/ui/pages/shell/app-folders.ui:35
 #: resources/ui/pages/shell/overview.ui:55
@@ -824,7 +874,7 @@ msgstr "غیرفعال‌سازی در نمای کلی"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "پس‌زمینه"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -842,11 +892,11 @@ msgstr "سبک اجزای نمای کلی"
 
 #: resources/ui/pages/shell/overview.ui:32
 msgid "For the dash, search and app folders"
-msgstr ""
+msgstr "برای دش، جستجو و پوشه‌های برنامه‌ها"
 
 #: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "شعاع گوشهٔ فضای کاری"
 
 #: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
@@ -854,11 +904,11 @@ msgstr "اجبار به متن روشن"
 
 #: resources/ui/pages/shell/panel.ui:59
 msgid "Useful with a light shell theme"
-msgstr ""
+msgstr "کاربردی با پوستهٔ روشن شل"
 
 #: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
-msgstr ""
+msgstr "هم‌رنگی با پوسته در نمای کلی"
 
 #: resources/ui/pages/shell/panel.ui:92
 msgid "Override background dynamically"
@@ -866,7 +916,7 @@ msgstr "جایگزینی پویای پس‌زمینه"
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "هنگام نزدیک شدن پنجره به پنل، پس‌زمینه را تغییر می‌دهد"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
@@ -903,6 +953,8 @@ msgstr "افزونهٔ Hidetopbar"
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr ""
+"تاری را در نمای کلی نمایان نگه می‌دارد؛ بهترین نتیجه را همراه با تاری ایستا "
+"می‌دهد"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -910,7 +962,7 @@ msgstr "تار کردن پنل اصلی با Dash to Panel"
 
 #: resources/ui/pages/shell/panel.ui:141
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "زمانی که Dash to Panel پنل اصلی را حفظ می‌کند"
 
 #: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
@@ -931,6 +983,16 @@ msgstr "بالا"
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
 msgstr "پایین"
+
+#: resources/ui/pages/shell/popup.ui:30
+msgid "Blur behind dialogs"
+msgstr "تاری پشت کادرهای محاوره‌ای"
+
+#: resources/ui/pages/shell/popup.ui:31
+msgid ""
+"Blur the dimmed screen behind system dialogs, like the power off dialog."
+msgstr ""
+"صفحهٔ تاریک‌شده پشت کادرهای سیستم را تار می‌کند، مانند کادر خاموش کردن سیستم."
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
@@ -990,11 +1052,11 @@ msgstr "سایر سطوح پاپ‌آپ"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "پوسته"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "دسکتاپ"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -1003,16 +1065,16 @@ msgstr "پنل"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "نوار بالا، یا پنل‌های Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "داک"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock، داک اوبونتو، Dhruva و داک‌های مشابه"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
@@ -1021,7 +1083,7 @@ msgstr "پاپ‌آپ‌ها"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "منوها، تنظیمات سریع، اعلان‌ها و کادرهای محاوره‌ای"
 
 #: resources/ui/pages/shell/shell.ui:46
 #: src/preferences/pages/pipelines/components.js:10
@@ -1030,73 +1092,73 @@ msgstr "نمای کلی"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "تصویر پس‌زمینهٔ پشت فضاهای کاری"
 
 #: resources/ui/pages/shell/shell.ui:59
 #: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
-msgstr ""
+msgstr "پوشه‌های برنامه‌ها"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "پوشه‌هایی که از شبکهٔ برنامه‌ها باز می‌شوند"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "سیستم"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "صفحهٔ قفل"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "پشت کادر ورود رمز عبور"
 
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "نماگرفت"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "پشت انتخاب‌گر پنجره"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "افزونه‌ها"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "فهرست پنجره‌ها"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "نوار وظیفه از افزونهٔ فهرست پنجره‌ها"
 
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Coverflow Alt-Tab"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "پشت تعویض‌گر پنجره"
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window class"
-msgstr ""
+msgid "Window class or title"
+msgstr "کلاس یا عنوان پنجره"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "انتخاب یک پنجره"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "حذف"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
@@ -1112,7 +1174,7 @@ msgstr "نوع تاری"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "تاری ایستا فقط تصویر پس‌زمینه را تار می‌کند"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1225,16 +1287,18 @@ msgstr "خط پردازش جدید"
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "«%s» حذف شود؟"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "این خط پردازش حذف شود؟"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
 msgstr ""
+"این خط پردازش توسط %s استفاده می‌شود و آن به خط پردازش پیش‌فرض تغییر خواهد "
+"کرد."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
@@ -1255,15 +1319,15 @@ msgstr "جلوهٔ ناشناخته"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "جابه‌جایی به بالا"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "جابه‌جایی به پایین"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "منوی جلوه"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
