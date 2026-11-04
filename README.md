@@ -66,6 +66,7 @@ see the [removal instructions](docs/rounded-blur-removal.md).
     - you can select the opacity of the window that is above the blur: a lower opacity means it will be less legible; and a totally opaque setting can be used in pair with a transparent GTK theme to make the background of the windows blurred without touching at its content
     - but you can choose to make the focused window totally opaque so that you can enjoy your blur while always having a legible window you work on!
     - you can activate an option to better blur the windows while in overview, although it won't make the blur perfect
+    - you can also blur the menus of Wayland applications, like GTK popovers; the blur follows the shape of the menu, which has to be translucent, with your theme or with `gtk.css`
     - and there are two modes for blurring applications:
       - by default, only the windows listed under "Blurred windows" are blurred
       - with "Blur all windows" on, every window is blurred except the ones listed under "Excluded windows"

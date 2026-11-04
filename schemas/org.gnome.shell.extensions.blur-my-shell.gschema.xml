@@ -534,6 +534,11 @@
             <default>false</default>
             <summary>Whether or not to unblur applications when they are fullscreen</summary>
         </key>
+        <!-- BLUR MENUS -->
+        <key type="b" name="blur-menus">
+            <default>false</default>
+            <summary>Whether or not to blur the menus of applications, like GTK popovers</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>

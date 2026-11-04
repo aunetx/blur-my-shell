@@ -138,6 +138,13 @@
         </child>
 
         <child>
+          <object class="AdwSwitchRow" id="blur_menus">
+            <property name="title" translatable="yes">Blur menus</property>
+            <property name="subtitle" translatable="yes">Blur the menus of Wayland applications, which must be translucent for it to show.</property>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwSwitchRow" id="enable_all">
             <property name="title" translatable="yes">Blur all windows</property>
             <property name="subtitle" translatable="yes">When off, only the windows listed below are blurred.</property>

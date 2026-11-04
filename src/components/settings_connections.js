@@ -157,6 +157,10 @@ export function connect_component_settings(extension) {
         applications,
         () => applications.update_fullscreen_status()
     ));
+    connect(settings.applications, 'BLUR_MENUS', when_enabled(
+        applications,
+        () => applications.update_menus()
+    ));
     connect(settings.applications, 'ENABLE_ALL', when_enabled(
         applications,
         () => applications.update_all_windows()
