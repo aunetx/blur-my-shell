@@ -146,6 +146,17 @@ export const KEYS = [
             { type: Type.B, name: "preserve-shell-theme" },
             { type: Type.I, name: "style-popup" },
             { type: Type.B, name: "blur-behind-dialogs" },
+            { type: Type.B, name: "blur-menus" },
+            { type: Type.B, name: "blur-candidates" },
+            { type: Type.B, name: "blur-quick-settings" },
+            { type: Type.B, name: "blur-submenus" },
+            { type: Type.B, name: "blur-calendar" },
+            { type: Type.B, name: "blur-notifications" },
+            { type: Type.B, name: "blur-switchers" },
+            { type: Type.B, name: "blur-osds" },
+            { type: Type.B, name: "blur-resize-popups" },
+            { type: Type.B, name: "blur-dialogs" },
+            { type: Type.B, name: "blur-keyboard" },
         ]
     },
     {

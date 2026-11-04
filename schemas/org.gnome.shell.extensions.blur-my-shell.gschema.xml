@@ -814,6 +814,61 @@
             <default>true</default>
             <summary>Boolean, whether to blur the dimmed screen behind modal dialogs</summary>
         </key>
+        <!-- BLUR MENUS -->
+        <key type="b" name="blur-menus">
+            <default>true</default>
+            <summary>Boolean, whether to blur menus</summary>
+        </key>
+        <!-- BLUR CANDIDATES -->
+        <key type="b" name="blur-candidates">
+            <default>true</default>
+            <summary>Boolean, whether to blur input method candidates</summary>
+        </key>
+        <!-- BLUR QUICK SETTINGS -->
+        <key type="b" name="blur-quick-settings">
+            <default>true</default>
+            <summary>Boolean, whether to blur quick settings</summary>
+        </key>
+        <!-- BLUR SUBMENUS -->
+        <key type="b" name="blur-submenus">
+            <default>true</default>
+            <summary>Boolean, whether to blur quick settings submenus</summary>
+        </key>
+        <!-- BLUR CALENDAR -->
+        <key type="b" name="blur-calendar">
+            <default>true</default>
+            <summary>Boolean, whether to blur calendar and notification center</summary>
+        </key>
+        <!-- BLUR NOTIFICATIONS -->
+        <key type="b" name="blur-notifications">
+            <default>true</default>
+            <summary>Boolean, whether to blur notifications</summary>
+        </key>
+        <!-- BLUR SWITCHERS -->
+        <key type="b" name="blur-switchers">
+            <default>true</default>
+            <summary>Boolean, whether to blur window and workspace switchers</summary>
+        </key>
+        <!-- BLUR OSDS -->
+        <key type="b" name="blur-osds">
+            <default>true</default>
+            <summary>Boolean, whether to blur volume and brightness</summary>
+        </key>
+        <!-- BLUR RESIZE POPUPS -->
+        <key type="b" name="blur-resize-popups">
+            <default>true</default>
+            <summary>Boolean, whether to blur window resize hints</summary>
+        </key>
+        <!-- BLUR DIALOGS -->
+        <key type="b" name="blur-dialogs">
+            <default>true</default>
+            <summary>Boolean, whether to blur dialogs</summary>
+        </key>
+        <!-- BLUR KEYBOARD -->
+        <key type="b" name="blur-keyboard">
+            <default>true</default>
+            <summary>Boolean, whether to blur the on-screen keyboard</summary>
+        </key>
     </schema>
 
     <!-- HIDETOPBAR -->

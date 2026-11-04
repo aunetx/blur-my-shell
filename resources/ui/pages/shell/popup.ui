@@ -71,6 +71,79 @@
 
     <child>
       <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Blurred popups</property>
+        <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_menus">
+            <property name="title" translatable="yes">Menus</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_candidates">
+            <property name="title" translatable="yes">Input method candidates</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_quick_settings">
+            <property name="title" translatable="yes">Quick settings</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_submenus">
+            <property name="title" translatable="yes">Quick settings submenus</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_calendar">
+            <property name="title" translatable="yes">Calendar and notification center</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_notifications">
+            <property name="title" translatable="yes">Notifications</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_switchers">
+            <property name="title" translatable="yes">Window and workspace switchers</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_osds">
+            <property name="title" translatable="yes">Volume and brightness</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_resize_popups">
+            <property name="title" translatable="yes">Window resize hints</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_dialogs">
+            <property name="title" translatable="yes">Dialogs</property>
+          </object>
+        </child>
+
+        <child>
+          <object class="AdwSwitchRow" id="blur_keyboard">
+            <property name="title" translatable="yes">On-screen keyboard</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Background</property>
         <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
 
