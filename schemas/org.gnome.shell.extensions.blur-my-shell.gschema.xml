@@ -534,6 +534,16 @@
             <default>false</default>
             <summary>Whether or not to unblur applications when they are fullscreen</summary>
         </key>
+        <!-- BLUR MENUS -->
+        <key type="b" name="blur-menus">
+            <default>false</default>
+            <summary>Whether or not to blur the menus of applications, like GTK popovers</summary>
+        </key>
+        <!-- MENU CORNER RADIUS -->
+        <key type="i" name="menu-corner-radius">
+            <default>15</default>
+            <summary>Corner radius of the blur of application menus, for edge effects like refraction</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>

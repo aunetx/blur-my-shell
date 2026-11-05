@@ -24,6 +24,8 @@ export const Applications = GObject.registerClass({
         'dynamic_opacity',
         'blur_on_overview',
         'unblur_when_fullscreen',
+        'blur_menus',
+        'menu_corner_radius',
         'enable_all',
         'whitelist',
         'add_whitelist',
@@ -63,6 +65,8 @@ export const Applications = GObject.registerClass({
             ['corner-when-maximized', this._corner_when_maximized, 'active'],
             ['blur-on-overview', this._blur_on_overview, 'active'],
             ['unblur-when-fullscreen', this._unblur_when_fullscreen, 'active'],
+            ['blur-menus', this._blur_menus, 'active'],
+            ['menu-corner-radius', this._menu_corner_radius, 'value'],
             ['enable-all', this._enable_all, 'active'],
         ]);
 

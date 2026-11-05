@@ -8,6 +8,7 @@ import { connect_system_style_changes, get_pipeline_id } from '../../convenience
 import { is_desktop_window } from '../../conveniences/window.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { ApplicationMenus } from './menus.js';
 import { WindowRules } from './window_rules.js';
 import { BLUR_ACTOR_NAME, WindowOpacity } from './window_opacity.js';
 import { compute_scale, place_dynamic_blur, place_static_blur } from './window_geometry.js';
@@ -23,6 +24,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.blur_signal_ids = new Map();
 
         this.rules = new WindowRules(settings);
+        this.menus = new ApplicationMenus(settings, effects_manager, this.rules);
         this.window_opacity = new WindowOpacity();
         this.enabled = false;
 
@@ -138,6 +140,14 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
             windows.forEach(meta_window => this.track_new(meta_window));
         }
+
+        this.update_menus();
+    }
+
+    update_menus() {
+        this.menus.disable();
+        if (this.settings.applications.BLUR_MENUS)
+            this.menus.enable();
     }
 
     /// Adds the needed signals to every new tracked window, and adds blur if
@@ -467,6 +477,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             );
             this.update_corner_radius(meta_window);
         });
+        this.menus.update_pipeline();
     }
 
     /// Removes the blur actor to make a blurred window become normal again.
@@ -519,6 +530,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             this.untrack_meta_window(meta_window)
         );
 
+        this.menus.disable();
         this.connections.disconnect_all();
         this.window_opacity.clear();
     }
