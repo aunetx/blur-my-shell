@@ -359,8 +359,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     get_corner_radius() {
-        if (this.uses_themed_radius())
-            return this.get_themed_radius();
+        if (this.uses_themed_radius()) {
+            this.themed_radius = this.get_themed_radius() ?? this.themed_radius;
+            return this.themed_radius ?? 0;
+        }
         return this.settings.popup[this.corner_radius.property];
     }
 
@@ -369,12 +371,14 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     /// Surfaces of other extensions keep the corners their theme gives them; capsules ask for
-    /// more than they can have, so the radius stops at half the shorter side.
+    /// more than they can have, so the radius stops at half the shorter side. It is unknown, and
+    /// the last one is kept, while the surface has no size or no theme, like right after the theme
+    /// changed, until it is shown again.
     get_themed_radius() {
         const node = this.target.peek_theme_node();
-        if (!node)
-            return 0;
         const [width, height] = this.target.get_size();
+        if (!node || width <= 0 || height <= 0)
+            return null;
         const radius = Math.min(node.get_border_radius(St.Corner.TOPLEFT), Math.min(width, height) / 2);
         const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
         return radius / scale;
@@ -384,9 +388,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (!this.uses_themed_radius())
             return;
         const radius = this.get_themed_radius();
-        if (this.themed_radius === radius)
+        if (radius === null || radius === this.themed_radius)
             return;
-        this.themed_radius = radius;
         this.update_settings();
     }
 
