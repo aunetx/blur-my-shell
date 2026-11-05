@@ -20,7 +20,7 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
             return;
         }
 
-        if (has_style_class(target, 'bms-keyboard-surface'))
+        if (has_style_class(target, 'bms-keyboard-surface') || this.surface.uses_themed_radius())
             return;
 
         const current_style = target.get_style();

@@ -70,8 +70,21 @@ export const PopupBlurSurfaceSignals = class PopupBlurSurfaceSignals {
             let ancestor = actor.get_parent();
             ancestor && ancestor !== this.surface.parent;
             ancestor = ancestor.get_parent()
-        )
+        ) {
             this.connect_actor(ancestor);
+            if (ancestor instanceof St.ScrollView)
+                this.connect_scrolling(ancestor);
+        }
+    }
+
+    /// Scrolling moves the content of a scroll view without changing any of its actors.
+    connect_scrolling(scroll_view) {
+        [scroll_view.hadjustment, scroll_view.vadjustment].forEach(adjustment => {
+            if (adjustment && !this.connected_actors.has(adjustment)) {
+                this.connected_actors.add(adjustment);
+                this.connections.connect(adjustment, 'notify::value', () => this.surface.queue_update());
+            }
+        });
     }
 
     on_actor_changed(actor, signal, is_heavy_surface) {

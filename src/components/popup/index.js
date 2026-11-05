@@ -20,6 +20,7 @@ import { PopupUnblurredSurfaces } from './unblurred_surfaces.js';
 import { DialogBackdrops } from './dialog_backdrops.js';
 
 const KEYBOARD_STYLE_CLASS = 'bms-keyboard-surface';
+const BLUR_PARENT_STYLE_CLASS = 'bms-popup-blur-parent';
 const BACKGROUND_STYLE_CLASSES = [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES];
 
 export const PopupBlur = class PopupBlur {
@@ -34,6 +35,9 @@ export const PopupBlur = class PopupBlur {
         this.keyboard_actors = new Set();
         this.unblurred_surfaces = new PopupUnblurredSurfaces(settings);
         this.watched_actors = new WeakSet();
+        this.queued_rescans = new Set();
+        this.rescans = new Map();
+        this.blur_parents = new Map();
         this.message_stacks = new PopupBlurMessageStacks(connections);
         this.targets = new PopupBlurTargets();
         this.dialog_backdrops = new DialogBackdrops(settings, effects_manager);
@@ -149,14 +153,62 @@ export const PopupBlur = class PopupBlur {
         )
             this.track_container(actor);
 
+        if (targets.length > 0)
+            this.update_rescans(actor, targets.some(target => this.targets.is_opt_in(target)));
+
         targets.forEach(target => this.blur_actor(target, actor));
     }
 
-    queue_try_blur(actor) {
+    /// Extensions may fill a popup with opted in surfaces when it is first shown, so every popup
+    /// is searched again then, once. One that has such surfaces may add or replace them while it
+    /// lives, so it is searched again whenever it is shown or its size changes.
+    update_rescans(actor, has_opt_in_targets) {
+        const rescan = this.rescans.get(actor);
+        if (rescan && rescan.opt_in === has_opt_in_targets)
+            return;
+
+        this.watch_actor(actor);
+        if (rescan)
+            rescan.ids.forEach(id => this.connections.disconnect(actor, id));
+
+        if (has_opt_in_targets) {
+            const ids = this.connections.connect(
+                actor,
+                ['notify::mapped', 'notify::allocation'],
+                () => this.queue_rescan(actor)
+            );
+            this.rescans.set(actor, { opt_in: true, ids });
+        } else if (!rescan) {
+            const id = this.connections.connect(actor, 'notify::mapped', () => {
+                if (!actor.mapped)
+                    return;
+                this.connections.disconnect(actor, id);
+                this.rescans.set(actor, { opt_in: false, ids: [] });
+                this.queue_rescan(actor);
+            });
+            this.rescans.set(actor, { opt_in: false, ids: [id] });
+        } else {
+            // its opted in surfaces are gone, so it is a plain popup again
+            this.rescans.set(actor, { opt_in: false, ids: [] });
+        }
+    }
+
+    /// A rescan only looks for surfaces that are already there, so it needs no follow-up.
+    queue_rescan(actor) {
+        if (!actor.mapped)
+            return;
+        if (!this.queued_actors.has(actor))
+            this.queued_rescans.add(actor);
+        this.queue_try_blur(actor, false);
+    }
+
+    queue_try_blur(actor, follow_up = true) {
         if (is_internal_actor(actor))
             return;
 
         this.watch_actor(actor);
+        if (follow_up)
+            this.queued_rescans.delete(actor);
         this.queued_actors.add(actor);
         if (this.queue_id)
             return;
@@ -164,10 +216,12 @@ export const PopupBlur = class PopupBlur {
         this.queue_id = global.compositor.get_laters().add(Meta.LaterType.BEFORE_REDRAW, () => {
             this.queue_id = 0;
             const actors = [...this.queued_actors];
+            const rescans = new Set(this.queued_rescans);
             this.queued_actors.clear();
+            this.queued_rescans.clear();
 
             actors.forEach(queued_actor => this.try_blur(queued_actor));
-            this.queue_follow_up_blurs(actors);
+            this.queue_follow_up_blurs(actors.filter(queued_actor => !rescans.has(queued_actor)));
 
             return GLib.SOURCE_REMOVE;
         });
@@ -201,6 +255,7 @@ export const PopupBlur = class PopupBlur {
             this.follow_up_queue_id = 0;
         }
         this.queued_actors.clear();
+        this.queued_rescans.clear();
         this.follow_up_actors.clear();
     }
 
@@ -208,14 +263,17 @@ export const PopupBlur = class PopupBlur {
         if (this.surfaces.has(target))
             return;
 
-        const surface_type = this.targets.get_surface_type(target, root_actor);
+        // an opted in surface is of the kind of the popup it sits in, which isn't blurred either
+        // when its kind is switched off
+        const popup = this.targets.is_opt_in(target) ? this.get_popup(target, root_actor) : null;
+        const surface_type = this.targets.get_surface_type(popup ?? target, root_actor);
         if (surface_type.blur_property && !this.settings.popup[surface_type.blur_property]) {
-            this.watch_actor(target);
-            this.unblurred_surfaces.add(target);
+            this.watch_actor(popup ?? target);
+            this.unblurred_surfaces.add(popup ?? target);
             return;
         }
 
-        this.destroy_blurred_ancestors(target);
+        this.destroy_blurred_ancestors(target, root_actor);
 
         const { parent, sibling } = this.get_overlay_parent(target);
         const surface = new PopupBlurSurface(
@@ -233,11 +291,53 @@ export const PopupBlur = class PopupBlur {
             this.surfaces.set(target, surface);
     }
 
-    destroy_blurred_ancestors(target) {
+    destroy_blurred_ancestors(target, root_actor) {
+        const is_opt_in = this.targets.is_opt_in(target);
         for (let actor = target.get_parent(); actor; actor = actor.get_parent()) {
-            if (this.surfaces.has(actor) && this.targets.prefers_descendant_targets(actor))
+            if (this.surfaces.has(actor) && (is_opt_in || this.targets.prefers_descendant_targets(actor)))
                 this.destroy_blur(actor);
+            if (is_opt_in && this.targets.is_blur_target_actor(actor))
+                this.mark_blur_parent(actor, root_actor);
         }
+    }
+
+    /// A popup surface whose opted in descendants are blurred instead has no background.
+    mark_blur_parent(actor, root_actor) {
+        if (this.blur_parents.has(actor))
+            return;
+
+        this.blur_parents.set(actor, root_actor);
+        actor.add_style_class_name(BLUR_PARENT_STYLE_CLASS);
+        this.connections.connect(actor, 'destroy', () => this.blur_parents.delete(actor));
+    }
+
+    get_popup(target, root_actor) {
+        for (let actor = target.get_parent(); actor; actor = actor.get_parent()) {
+            if (this.targets.is_blur_target_actor(actor))
+                return actor;
+            if (actor === root_actor)
+                break;
+        }
+        return null;
+    }
+
+    /// Once none of its opted in descendants is blurred anymore, for example because their
+    /// extension was disabled, a popup surface is blurred and has its background again.
+    restore_blur_parents() {
+        const opt_in_targets = [...this.surfaces.values()]
+            .filter(surface => surface.opted_in)
+            .map(surface => surface.target);
+
+        this.blur_parents.forEach((root_actor, actor) => {
+            if (opt_in_targets.some(target => actor.contains(target)))
+                return;
+
+            this.blur_parents.delete(actor);
+            actor.remove_style_class_name(BLUR_PARENT_STYLE_CLASS);
+            // a destroyed popup is forgotten, and takes its surfaces with it
+            if (this.watched_actors.has(root_actor))
+                this.queue_try_blur(root_actor);
+        });
     }
 
     get_overlay_parent(target) {
@@ -284,6 +384,8 @@ export const PopupBlur = class PopupBlur {
             this.follow_up_actors.delete(actor);
             this.keyboard_actors.delete(actor);
             this.unblurred_surfaces.forget(actor);
+            this.rescans.delete(actor);
+            this.queued_rescans.delete(actor);
             this.watched_actors.delete(actor);
         });
     }
@@ -295,6 +397,8 @@ export const PopupBlur = class PopupBlur {
 
         this.surfaces.delete(target);
         surface.destroy();
+        if (surface.opted_in)
+            this.restore_blur_parents();
     }
 
     forget_detached_actor(actor) {
@@ -310,6 +414,8 @@ export const PopupBlur = class PopupBlur {
         this.message_stacks.untrack_actor(actor);
         this.connections.disconnect_all_for(actor);
         this.watched_actors.delete(actor);
+        this.rescans.delete(actor);
+        this.queued_rescans.delete(actor);
     }
 
     reset() {
@@ -397,6 +503,9 @@ export const PopupBlur = class PopupBlur {
         this.surfaces.clear();
         this.containers.clear();
         this.watched_actors = new WeakSet();
+        this.rescans.clear();
+        this.blur_parents.forEach((_, actor) => actor.remove_style_class_name(BLUR_PARENT_STYLE_CLASS));
+        this.blur_parents.clear();
         this.message_stacks.disable();
     }
 
