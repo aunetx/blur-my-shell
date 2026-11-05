@@ -56,9 +56,10 @@ export const Pipeline = class Pipeline {
 
         // render a wallpaper copy to prevent partial painting of the blur input
         // normally only the damaged area is painted
+        // an unmapped source would drop the redraws of live wallpapers
         const source = new St.Widget({
             name: `${widget_name}-source`,
-            visible: false,
+            opacity: 0,
         });
         const actor = new St.Widget({
             name: widget_name,
