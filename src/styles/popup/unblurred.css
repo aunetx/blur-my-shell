@@ -1,0 +1,13 @@
+/* The styled backgrounds are made to be seen over a blur, this is for popups without one. */
+
+.bms-popup-background-transparent .bms-popup-unblurred,
+.bms-popup-surface-transparent .bms-popup-unblurred,
+.bms-popup-background-dark .bms-popup-unblurred,
+.bms-popup-surface-dark .bms-popup-unblurred {
+    background: #1e1e21 !important;
+}
+
+.bms-popup-background-light .bms-popup-unblurred,
+.bms-popup-surface-light .bms-popup-unblurred {
+    background: #fafafb !important;
+}

@@ -15,6 +15,7 @@ STYLESHEETS = src/styles/panel.css \
 	src/styles/popup/light.css \
 	src/styles/popup/dark.css \
 	src/styles/popup/menu-items.css \
+	src/styles/popup/unblurred.css \
 	src/styles/overview.css \
 	src/styles/appfolders.css \
 	src/styles/panel-light-text.css

@@ -11,6 +11,7 @@ const CORNER_RADIUS_KEYS = [
     'menu-corner-radius',
     'candidate-corner-radius',
     'quick-settings-corner-radius',
+    'screenshot-corner-radius',
     'submenu-corner-radius',
     'calendar-corner-radius',
     'notification-corner-radius',
@@ -20,6 +21,21 @@ const CORNER_RADIUS_KEYS = [
     'dialog-corner-radius',
     'osk-corner-radius',
     'corner-radius'
+];
+
+const BLUR_KEYS = [
+    'blur-menus',
+    'blur-candidates',
+    'blur-quick-settings',
+    'blur-submenus',
+    'blur-screenshot',
+    'blur-calendar',
+    'blur-notifications',
+    'blur-switchers',
+    'blur-osds',
+    'blur-resize-popups',
+    'blur-dialogs',
+    'blur-keyboard'
 ];
 
 const to_child_id = key => key.replaceAll('-', '_');
@@ -40,6 +56,7 @@ export const PopupBlur = GObject.registerClass({
         'style_popup',
         'preserve_shell_theme',
         'rounded_corners',
+        ...BLUR_KEYS.map(to_child_id),
         ...CORNER_RADIUS_KEYS.map(to_child_id)
     ],
 }, class PopupBlur extends Adw.PreferencesPage {
@@ -61,6 +78,7 @@ export const PopupBlur = GObject.registerClass({
             ['blur', this._blur, 'active'],
             ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['blur-behind-dialogs', this._blur_behind_dialogs, 'active'],
+            ...BLUR_KEYS.map(key => [key, this[`_${to_child_id(key)}`], 'active']),
             ['override-background', this._override_background, 'active'],
             ['style-popup', this._style_popup, 'selected'],
             ['preserve-shell-theme', this._preserve_shell_theme, 'active'],
