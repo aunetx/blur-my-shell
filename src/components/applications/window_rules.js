@@ -67,8 +67,8 @@ export class WindowRules {
             && BLURRED_FRAME_TYPES.includes(meta_window.get_frame_type());
     }
 
-    /// A popup follows the rules of the window it belongs to.
+    /// A popup follows the rules of the window it belongs to, through any popups it opened from.
     matches_popup(meta_window) {
-        return this.listed(meta_window.get_transient_for() ?? meta_window);
+        return this.listed(meta_window.find_root_ancestor());
     }
 }

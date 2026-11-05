@@ -59,7 +59,8 @@ export class ApplicationMenus {
         const pipeline = new DynamicPipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            get_pipeline_id(this.settings.applications)
+            get_pipeline_id(this.settings.applications),
+            { corner_radius: this.settings.applications.MENU_CORNER_RADIUS }
         );
         const [blur_actor, bg_manager] = pipeline.create_background_with_effect(
             window_actor, BLUR_ACTOR_NAME
@@ -96,6 +97,12 @@ export class ApplicationMenus {
     update_pipeline() {
         this.windows.forEach(menu => menu?.pipeline.change_pipeline_to(
             get_pipeline_id(this.settings.applications)
+        ));
+    }
+
+    update_corner_radius() {
+        this.windows.forEach(menu => menu?.pipeline.set_corner_radius(
+            this.settings.applications.MENU_CORNER_RADIUS
         ));
     }
 
