@@ -263,10 +263,13 @@ export const PopupBlur = class PopupBlur {
         if (this.surfaces.has(target))
             return;
 
-        const surface_type = this.targets.get_surface_type(target, root_actor);
+        // an opted in surface is of the kind of the popup it sits in, which isn't blurred either
+        // when its kind is switched off
+        const popup = this.targets.is_opt_in(target) ? this.get_popup(target, root_actor) : null;
+        const surface_type = this.targets.get_surface_type(popup ?? target, root_actor);
         if (surface_type.blur_property && !this.settings.popup[surface_type.blur_property]) {
-            this.watch_actor(target);
-            this.unblurred_surfaces.add(target);
+            this.watch_actor(popup ?? target);
+            this.unblurred_surfaces.add(popup ?? target);
             return;
         }
 
@@ -310,6 +313,16 @@ export const PopupBlur = class PopupBlur {
 
     /// Once none of its opted in descendants is blurred anymore, for example because their
     /// extension was disabled, a popup surface is blurred and has its background again.
+    get_popup(target, root_actor) {
+        for (let actor = target.get_parent(); actor; actor = actor.get_parent()) {
+            if (this.targets.is_blur_target_actor(actor))
+                return actor;
+            if (actor === root_actor)
+                break;
+        }
+        return null;
+    }
+
     restore_blur_parents() {
         const opt_in_targets = [...this.surfaces.values()]
             .filter(surface => surface.opted_in)
@@ -321,7 +334,9 @@ export const PopupBlur = class PopupBlur {
 
             this.blur_parents.delete(actor);
             actor.remove_style_class_name(BLUR_PARENT_STYLE_CLASS);
-            this.queue_try_blur(root_actor);
+            // a destroyed popup is forgotten, and takes its surfaces with it
+            if (this.watched_actors.has(root_actor))
+                this.queue_try_blur(root_actor);
         });
     }
 
