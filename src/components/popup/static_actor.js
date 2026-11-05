@@ -78,7 +78,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             || has_style_class(this.root_actor, 'screenshot-ui-panel');
     }
 
-    update_geometry(target_rect, monitor_index) {
+    update_geometry(target_rect, visible_rect, monitor_index) {
         const monitor = Main.layoutManager.monitors[monitor_index];
         if (!monitor)
             return null;
@@ -123,8 +123,20 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             this.clip = clip;
         }
 
+        this.update_visible_clip(visible_rect);
         this.blur_actor.show();
         return clip;
+    }
+
+    /// The clip of the blur actor gives its effects their shape, so the group cuts what is hidden.
+    update_visible_clip(visible_rect) {
+        if (!visible_rect) {
+            this.background_group.remove_clip();
+            return;
+        }
+
+        const { x, y, width, height } = transform_to_actor_space(this.parent, visible_rect);
+        this.background_group.set_clip(x, y, width, height);
     }
 
     has_opacity(opacity) {
