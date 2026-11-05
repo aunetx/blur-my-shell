@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-04 21:18+0000\n"
+"POT-Creation-Date: 2026-11-05 11:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -625,31 +625,31 @@ msgstr ""
 msgid "Disable on Power Saver"
 msgstr ""
 
-#: resources/ui/menu.ui:14
+#: resources/ui/menu.ui:16
 msgid "Reset Preferences…"
 msgstr ""
 
-#: resources/ui/menu.ui:18
+#: resources/ui/menu.ui:20
 msgid "Export Preferences…"
 msgstr ""
 
-#: resources/ui/menu.ui:22
+#: resources/ui/menu.ui:24
 msgid "Import Preferences…"
 msgstr ""
 
-#: resources/ui/menu.ui:28
+#: resources/ui/menu.ui:30
 msgid "Project page"
 msgstr ""
 
-#: resources/ui/menu.ui:32
+#: resources/ui/menu.ui:34
 msgid "Report a Bug"
 msgstr ""
 
-#: resources/ui/menu.ui:36
+#: resources/ui/menu.ui:38
 msgid "License"
 msgstr ""
 
-#: resources/ui/menu.ui:46
+#: resources/ui/menu.ui:48
 msgid "Main Menu"
 msgstr ""
 
@@ -692,7 +692,7 @@ msgstr ""
 #: resources/ui/pages/shell/dash.ui:95 resources/ui/pages/shell/overview.ui:35
 #: resources/ui/pages/shell/overview.ui:83 resources/ui/pages/shell/panel.ui:53
 #: resources/ui/pages/shell/panel.ui:194 resources/ui/pages/shell/popup.ui:54
-#: resources/ui/pages/shell/popup.ui:212
+#: resources/ui/pages/shell/popup.ui:298
 msgid "Light"
 msgstr ""
 
@@ -711,7 +711,7 @@ msgstr ""
 #: resources/ui/pages/shell/dash.ui:96 resources/ui/pages/shell/overview.ui:43
 #: resources/ui/pages/shell/overview.ui:84 resources/ui/pages/shell/panel.ui:62
 #: resources/ui/pages/shell/panel.ui:195 resources/ui/pages/shell/popup.ui:63
-#: resources/ui/pages/shell/popup.ui:213
+#: resources/ui/pages/shell/popup.ui:299
 msgid "Dark"
 msgstr ""
 
@@ -742,12 +742,12 @@ msgid "Opaque focused window"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:102 resources/ui/pages/shell/panel.ui:78
-#: resources/ui/pages/shell/popup.ui:103
+#: resources/ui/pages/shell/popup.ui:182
 msgid "Corner radius"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:109 resources/ui/pages/shell/panel.ui:85
-#: resources/ui/pages/shell/popup.ui:108
+#: resources/ui/pages/shell/popup.ui:187
 msgid "Rounded corners"
 msgstr ""
 
@@ -772,51 +772,69 @@ msgid "Unblur when Fullscreen"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:142
-msgid "Blur all windows"
+msgid "Blur menus"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:143
+msgid ""
+"Blur the menus of Wayland applications, which must be translucent for it to "
+"show."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:149
+msgid "Menu corner radius"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:150
+msgid "Shapes edge effects like refraction, the blur always follows the menu."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:158
+msgid "Blur all windows"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:159
 msgid "When off, only the windows listed below are blurred."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:151
+#: resources/ui/pages/applications.ui:167
 msgid "Blurred windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:152
-#: resources/ui/pages/applications.ui:174
+#: resources/ui/pages/applications.ui:168
+#: resources/ui/pages/applications.ui:190
 msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
 "single one. Start with title: to match the window title instead, like "
 "title:Picture-in-Picture."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:160
-#: resources/ui/pages/applications.ui:182
+#: resources/ui/pages/applications.ui:176
+#: resources/ui/pages/applications.ui:198
 msgid "Add Window"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:173
+#: resources/ui/pages/applications.ui:189
 msgid "Excluded windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:196 resources/ui/pages/shell/panel.ui:184
-#: resources/ui/pages/shell/popup.ui:202
+#: resources/ui/pages/applications.ui:212 resources/ui/pages/shell/panel.ui:184
+#: resources/ui/pages/shell/popup.ui:288
 msgid "All"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:197 resources/ui/pages/shell/panel.ui:185
-#: resources/ui/pages/shell/popup.ui:203
+#: resources/ui/pages/applications.ui:213 resources/ui/pages/shell/panel.ui:185
+#: resources/ui/pages/shell/popup.ui:289
 msgid "Top only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:198 resources/ui/pages/shell/panel.ui:186
-#: resources/ui/pages/shell/popup.ui:204
+#: resources/ui/pages/applications.ui:214 resources/ui/pages/shell/panel.ui:186
+#: resources/ui/pages/shell/popup.ui:290
 msgid "Bottom only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:199 resources/ui/pages/shell/panel.ui:187
-#: resources/ui/pages/shell/popup.ui:205
+#: resources/ui/pages/applications.ui:215 resources/ui/pages/shell/panel.ui:187
+#: resources/ui/pages/shell/popup.ui:291
 msgid "None"
 msgstr ""
 
@@ -897,13 +915,13 @@ msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:76
 #: resources/ui/pages/shell/dash.ui:94 resources/ui/pages/shell/overview.ui:85
-#: resources/ui/pages/shell/panel.ui:193 resources/ui/pages/shell/popup.ui:211
+#: resources/ui/pages/shell/panel.ui:193 resources/ui/pages/shell/popup.ui:297
 msgid "Transparent"
 msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:79
 #: resources/ui/pages/shell/dash.ui:97 resources/ui/pages/shell/overview.ui:86
-#: resources/ui/pages/shell/panel.ui:197 resources/ui/pages/shell/popup.ui:214
+#: resources/ui/pages/shell/panel.ui:197 resources/ui/pages/shell/popup.ui:300
 msgid "Automatic"
 msgstr ""
 
@@ -912,17 +930,17 @@ msgid "Disable in overview"
 msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:72 resources/ui/pages/shell/panel.ui:107
-#: resources/ui/pages/shell/popup.ui:74 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/popup.ui:153 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
 msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:77 resources/ui/pages/shell/panel.ui:112
-#: resources/ui/pages/shell/popup.ui:79
+#: resources/ui/pages/shell/popup.ui:158
 msgid "Override background"
 msgstr ""
 
 #: resources/ui/pages/shell/dash.ui:83 resources/ui/pages/shell/panel.ui:118
-#: resources/ui/pages/shell/popup.ui:85
+#: resources/ui/pages/shell/popup.ui:164
 msgid "Background style"
 msgstr ""
 
@@ -1027,59 +1045,67 @@ msgid ""
 "Blur the dimmed screen behind system dialogs, like the power off dialog."
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:93
-msgid "Preserve shell theme"
+#: resources/ui/pages/shell/popup.ui:74
+msgid "Blurred popups"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:94
-msgid "Keep your shell theme's colors for popup controls."
-msgstr ""
-
-#: resources/ui/pages/shell/popup.ui:115
+#: resources/ui/pages/shell/popup.ui:79 resources/ui/pages/shell/popup.ui:194
 msgid "Menus"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:122
+#: resources/ui/pages/shell/popup.ui:85 resources/ui/pages/shell/popup.ui:201
 msgid "Input method candidates"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:129
+#: resources/ui/pages/shell/popup.ui:91 resources/ui/pages/shell/popup.ui:208
 msgid "Quick settings"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:136
+#: resources/ui/pages/shell/popup.ui:97 resources/ui/pages/shell/popup.ui:215
 msgid "Quick settings submenus"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:143
+#: resources/ui/pages/shell/popup.ui:103 resources/ui/pages/shell/popup.ui:222
+msgid "Screenshot panel"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:109 resources/ui/pages/shell/popup.ui:229
 msgid "Calendar and notification center"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:150
+#: resources/ui/pages/shell/popup.ui:115 resources/ui/pages/shell/popup.ui:236
 msgid "Notifications"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:157
+#: resources/ui/pages/shell/popup.ui:121 resources/ui/pages/shell/popup.ui:243
 msgid "Window and workspace switchers"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:164
+#: resources/ui/pages/shell/popup.ui:127 resources/ui/pages/shell/popup.ui:250
 msgid "Volume and brightness"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:171
+#: resources/ui/pages/shell/popup.ui:133 resources/ui/pages/shell/popup.ui:257
 msgid "Window resize hints"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:178
+#: resources/ui/pages/shell/popup.ui:139 resources/ui/pages/shell/popup.ui:264
 msgid "Dialogs"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:185
+#: resources/ui/pages/shell/popup.ui:145 resources/ui/pages/shell/popup.ui:271
 msgid "On-screen keyboard"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:192
+#: resources/ui/pages/shell/popup.ui:172
+msgid "Preserve shell theme"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:173
+msgid "Keep your shell theme's colors for popup controls."
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:278
 msgid "Other popup surfaces"
 msgstr ""
 
