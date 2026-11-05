@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-02 15:14+0000\n"
+"PO-Revision-Date: 2026-11-05 09:51+0000\n"
 "Last-Translator: Huynh Tuan Dung "
 "<itslouisanderson@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -421,7 +421,7 @@ msgstr "Giảm tỉ lệ (hiệu ứng nâng cao)"
 
 #: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "Hiệu ứng giảm tỷ lệ của ảnh và đặt lên góc trên bên trái."
 
 #: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
@@ -469,7 +469,7 @@ msgstr "Nhiễu"
 
 #: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "Hiệu ứng thêm các hạt nhiễu ngẫu nhiên lên ảnh."
 
 #: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
@@ -601,15 +601,15 @@ msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "Nhật ký gỡ lỗi"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "Tắt khi bật chế độ Tiết kiệm năng lượng"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "Đặt lại về cài đặt gốc…"
 
 #: resources/ui/menu.ui:20
 msgid "Project page"
@@ -625,7 +625,7 @@ msgstr "Giấy phép"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu chính"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -635,7 +635,7 @@ msgstr "Các ứng dụng"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "Giao diện"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -643,7 +643,7 @@ msgstr "Độ mờ"
 
 #: resources/ui/pages/applications.ui:42
 msgid "Higher values are easier to read"
-msgstr ""
+msgstr "Đặt giá trị càng cao thì càng dễ đọc"
 
 #: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
@@ -652,20 +652,20 @@ msgstr "Cửa sổ đục mờ đang tập trung"
 #: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
 #: resources/ui/pages/shell/popup.ui:61
 msgid "Corner radius"
-msgstr ""
+msgstr "Bán kính góc"
 
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
 #: resources/ui/pages/shell/popup.ui:66
 msgid "Rounded corners"
-msgstr ""
+msgstr "Bo tròn góc"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "Bo tròn các cửa sổ đã phóng to hoặc ở chế độ toàn màn hình"
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "Hành vi"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
