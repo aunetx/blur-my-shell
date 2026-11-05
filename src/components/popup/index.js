@@ -311,8 +311,6 @@ export const PopupBlur = class PopupBlur {
         this.connections.connect(actor, 'destroy', () => this.blur_parents.delete(actor));
     }
 
-    /// Once none of its opted in descendants is blurred anymore, for example because their
-    /// extension was disabled, a popup surface is blurred and has its background again.
     get_popup(target, root_actor) {
         for (let actor = target.get_parent(); actor; actor = actor.get_parent()) {
             if (this.targets.is_blur_target_actor(actor))
@@ -323,6 +321,8 @@ export const PopupBlur = class PopupBlur {
         return null;
     }
 
+    /// Once none of its opted in descendants is blurred anymore, for example because their
+    /// extension was disabled, a popup surface is blurred and has its background again.
     restore_blur_parents() {
         const opt_in_targets = [...this.surfaces.values()]
             .filter(surface => surface.opted_in)
