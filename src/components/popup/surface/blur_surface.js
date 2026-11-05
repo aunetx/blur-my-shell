@@ -56,6 +56,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.transition_update_id = 0;
         this.opacity = null;
         this.themed_radius = null;
+        this.opted_in = has_style_class(target, OPT_IN_STYLE_CLASS);
         this.static_blur = settings.popup.STATIC_BLUR;
         this.static_actor = null;
         this.pipeline = null;
@@ -185,7 +186,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     uses_themed_radius() {
-        return has_style_class(this.target, OPT_IN_STYLE_CLASS);
+        return this.opted_in;
     }
 
     uses_full_actor_geometry() {
@@ -193,6 +194,12 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     update() {
+        // its extension took the class back, for example when it was disabled
+        if (this.opted_in && !has_style_class(this.target, OPT_IN_STYLE_CLASS)) {
+            this.request_destroy();
+            return;
+        }
+
         if (this.is_notification_surface()) {
             this.update_live_surface();
             return;
