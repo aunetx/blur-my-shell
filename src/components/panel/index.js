@@ -276,8 +276,24 @@ export const PanelBlur = class PanelBlur {
                     fade_panel_background(actors, 255);
                 });
             });
-            this.window_connections.connect(Main.overview, 'hidden', left);
+            this.window_connections.connect(Main.overview, 'hidden', () => {
+                left();
+                this.actors_list
+                    .filter(actors => !actors.widgets.background.visible)
+                    .forEach(actors => this.fade_out_overview_blur(actors));
+            });
         }
+    }
+
+    /// A panel without blur shows the sharp wallpaper once the overview is gone, so its blur takes
+    /// over from the one of the overview and fades out instead of leaving a sudden change.
+    fade_out_overview_blur(actors) {
+        reset_panel_background_fade(actors);
+        actors.widgets.background.show();
+        fade_panel_background(actors, 0, () => {
+            reset_panel_background_fade(actors);
+            this.update_visibility();
+        });
     }
 
     /// Hide Top Bar shows the panel above the overview, so only the app grid unblurs it
