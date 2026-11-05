@@ -1,5 +1,7 @@
+import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { ANIMATION_TIME } from 'resource:///org/gnome/shell/ui/overview.js';
 
 import { Pipeline } from '../../pipelines/pipeline.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
@@ -106,4 +108,20 @@ export function place_panel_background(actors) {
     }
 
     return true;
+}
+
+/// Fades the blur in step with the overview, which fades the panel's own background.
+export function fade_panel_background(actors, opacity, onComplete) {
+    actors.widgets.background_group.ease({
+        opacity,
+        duration: ANIMATION_TIME,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+        onComplete,
+    });
+}
+
+export function reset_panel_background_fade(actors) {
+    const { background_group } = actors.widgets;
+    background_group.remove_all_transitions();
+    background_group.opacity = 255;
 }
