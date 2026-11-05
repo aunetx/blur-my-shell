@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-05 09:51+0000\n"
+"PO-Revision-Date: 2026-11-06 15:51+0000\n"
 "Last-Translator: Arabella-dev1 <arabella-"
 "dev1@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/blur-"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Um desfoque rápido e de alta qualidade."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -208,7 +208,7 @@ msgstr "Converte uma imagem do espaço de cor HSLA para RGBA."
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Desfoque"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
@@ -242,7 +242,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:21
 msgid "Blur radius"
-msgstr ""
+msgstr "Raio do desfoque"
 
 #: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
@@ -270,7 +270,7 @@ msgstr "Espessura do vidro"
 
 #: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "Profundidade usada pelo perfil de refração das bordas."
 
 #: src/effects/refraction/info.js:61
 msgid "Refraction style"
@@ -416,7 +416,7 @@ msgstr "Redução de escala (efeito avançado)"
 
 #: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "Um efeito que diminui a imagem e a coloca no canto superior esquerdo."
 
 #: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
@@ -656,7 +656,7 @@ msgstr "Cantos arredondados"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "Arredondar janelas maximizadas e em tela cheia"
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
@@ -705,17 +705,17 @@ msgstr ""
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
 msgid "All"
-msgstr ""
+msgstr "Tudo"
 
 #: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
 #: resources/ui/pages/shell/popup.ui:161
 msgid "Top only"
-msgstr ""
+msgstr "Somente a parte superior"
 
 #: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Bottom only"
-msgstr ""
+msgstr "Somente fundo"
 
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
 #: resources/ui/pages/shell/popup.ui:163
@@ -816,7 +816,7 @@ msgstr "Desativar na visão geral"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "Plano de fundo"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -858,7 +858,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "Muda o plano de fundo quando uma janela está perto do painel"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
@@ -914,11 +914,11 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
-msgstr ""
+msgstr "Parte superior"
 
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
-msgstr ""
+msgstr "Parte Inferior"
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
@@ -991,7 +991,7 @@ msgstr "Painel"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "A barra superior, ou os paineis do Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
@@ -1036,7 +1036,7 @@ msgstr "Sistema"
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "Tela de bloqueio"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
@@ -1088,11 +1088,11 @@ msgstr "Remover"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "Seleção de janela falhou. Certifique-se que a extensão está ativada."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "O ator selecionado não é uma janela."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
@@ -1100,7 +1100,7 @@ msgstr "Tipo de desfoque"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "Desfoque estático apenas no papel de parede"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1118,13 +1118,15 @@ msgstr "Pipeline"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur não é mais necessário"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell cuida de cantos arredondados diretamente. Você pode remover a "
+"antiga biblioteca se nada mais utiliza ela."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
@@ -1133,11 +1135,11 @@ msgstr "Instruções de remoção"
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Dispensar"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Removendo a antiga biblioteca de desfoque"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
@@ -1151,6 +1153,9 @@ msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"Instalou através de um gerenciador de pacotes? Remova o pacote gnome-rounded-"
+"blur com o mesmo gerenciador de pacotes. Revise as mudanças propostas antes "
+"de confirmar."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
@@ -1197,7 +1202,7 @@ msgstr "Redefinir"
 
 #: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
-msgstr ""
+msgstr "Nova pipeline"
 
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
@@ -1206,7 +1211,7 @@ msgstr "Excluir “%s”?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "Excluir essa pipeline?"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
@@ -1220,7 +1225,7 @@ msgstr "\"%s\" excluído"
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Pipeline excluída"
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
@@ -1228,7 +1233,7 @@ msgstr "Desfazer"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "Efeito desconhecido"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
@@ -1240,11 +1245,11 @@ msgstr "Mover para baixo"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "Menu de Efeitos"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Criar nova pipeline"
 
 #~ msgid ""
 #~ "Makes the focused window opaque and the other ones blurred, helping with "
