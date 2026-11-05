@@ -2,7 +2,7 @@ import { Settings } from './settings.js';
 import { KEYS, DEPRECATED_KEYS } from './keys.js';
 import { unpack_pipelines } from './pipeline_settings.js';
 
-const CURRENT_SETTINGS_VERSION = 10;
+export const CURRENT_SETTINGS_VERSION = 10;
 
 const LEGACY_DYNAMIC_COMPONENTS = [
     { name: 'appfolder', supports_static: false },
