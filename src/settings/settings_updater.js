@@ -2,7 +2,7 @@ import { Settings } from './settings.js';
 import { KEYS, DEPRECATED_KEYS } from './keys.js';
 import { unpack_pipelines } from './pipeline_settings.js';
 
-const CURRENT_SETTINGS_VERSION = 9;
+const CURRENT_SETTINGS_VERSION = 10;
 
 const LEGACY_DYNAMIC_COMPONENTS = [
     { name: 'appfolder', supports_static: false },
@@ -323,6 +323,10 @@ export function update_from_old_settings(gsettings) {
             'pipeline_default_light',
         ]) || pipelines_changed;
     }
+
+    // the screenshot panel used to share the corner radius of quick settings
+    if (old_version < 10)
+        preferences.popup.SCREENSHOT_CORNER_RADIUS = preferences.popup.QUICK_SETTINGS_CORNER_RADIUS;
 
     pipeline_assignments.forEach((pipeline_id, component) => {
         if (component.PIPELINE !== pipeline_id)

@@ -16,10 +16,10 @@ import {
 } from './targets.js';
 import { PopupBlurSurface } from './surface/blur_surface.js';
 import { PopupBlurMessageStacks } from './message_stacks.js';
+import { PopupUnblurredSurfaces } from './unblurred_surfaces.js';
 import { DialogBackdrops } from './dialog_backdrops.js';
 
 const KEYBOARD_STYLE_CLASS = 'bms-keyboard-surface';
-const UNBLURRED_STYLE_CLASS = 'bms-popup-unblurred';
 const BACKGROUND_STYLE_CLASSES = [...POPUP_BACKGROUND_STYLES, ...POPUP_SURFACE_STYLES];
 
 export const PopupBlur = class PopupBlur {
@@ -32,7 +32,7 @@ export const PopupBlur = class PopupBlur {
         this.queued_actors = new Set();
         this.follow_up_actors = new Set();
         this.keyboard_actors = new Set();
-        this.unblurred_actors = new Set();
+        this.unblurred_surfaces = new PopupUnblurredSurfaces(settings);
         this.watched_actors = new WeakSet();
         this.message_stacks = new PopupBlurMessageStacks(connections);
         this.targets = new PopupBlurTargets();
@@ -210,7 +210,8 @@ export const PopupBlur = class PopupBlur {
 
         const surface_type = this.targets.get_surface_type(target, root_actor);
         if (surface_type.blur_property && !this.settings.popup[surface_type.blur_property]) {
-            this.mark_unblurred(target);
+            this.watch_actor(target);
+            this.unblurred_surfaces.add(target);
             return;
         }
 
@@ -230,13 +231,6 @@ export const PopupBlur = class PopupBlur {
 
         if (surface.enable())
             this.surfaces.set(target, surface);
-    }
-
-    /// Styled backgrounds are made to be seen over a blur, so this one gets a solid one instead.
-    mark_unblurred(target) {
-        this.watch_actor(target);
-        this.unblurred_actors.add(target);
-        target.add_style_class_name(UNBLURRED_STYLE_CLASS);
     }
 
     destroy_blurred_ancestors(target) {
@@ -289,7 +283,7 @@ export const PopupBlur = class PopupBlur {
             this.queued_actors.delete(actor);
             this.follow_up_actors.delete(actor);
             this.keyboard_actors.delete(actor);
-            this.unblurred_actors.delete(actor);
+            this.unblurred_surfaces.forget(actor);
             this.watched_actors.delete(actor);
         });
     }
@@ -312,8 +306,7 @@ export const PopupBlur = class PopupBlur {
         this.follow_up_actors.delete(actor);
         if (this.keyboard_actors.delete(actor))
             this.clear_keyboard_style(actor);
-        if (this.unblurred_actors.delete(actor))
-            actor.remove_style_class_name(UNBLURRED_STYLE_CLASS);
+        this.unblurred_surfaces.remove(actor);
         this.message_stacks.untrack_actor(actor);
         this.connections.disconnect_all_for(actor);
         this.watched_actors.delete(actor);
@@ -355,6 +348,7 @@ export const PopupBlur = class PopupBlur {
         Main.layoutManager.keyboardBox.get_children()
             .forEach(actor => this.update_keyboard_style(actor, background_style));
         this.surfaces.forEach(surface => surface.update_settings());
+        this.unblurred_surfaces.update();
     }
 
     get_background_style_class() {
@@ -396,8 +390,7 @@ export const PopupBlur = class PopupBlur {
 
         this.keyboard_actors.forEach(actor => this.clear_keyboard_style(actor));
         this.keyboard_actors.clear();
-        this.unblurred_actors.forEach(actor => actor.remove_style_class_name(UNBLURRED_STYLE_CLASS));
-        this.unblurred_actors.clear();
+        this.unblurred_surfaces.clear();
         BACKGROUND_STYLE_CLASSES.forEach(style => Main.uiGroup.remove_style_class_name(style));
 
         this.surfaces.forEach(surface => surface.destroy());

@@ -20,7 +20,13 @@ export const POPUP_SURFACE_TYPES = [
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
         blur_property: 'BLUR_QUICK_SETTINGS',
-        style_classes: ['quick-settings', 'screenshot-ui-panel'],
+        style_classes: ['quick-settings'],
+    },
+    {
+        key: 'screenshot-corner-radius',
+        property: 'SCREENSHOT_CORNER_RADIUS',
+        blur_property: 'BLUR_SCREENSHOT',
+        style_classes: ['screenshot-ui-panel'],
     },
     {
         key: 'submenu-corner-radius',

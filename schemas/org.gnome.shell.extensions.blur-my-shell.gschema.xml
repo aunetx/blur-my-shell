@@ -754,6 +754,11 @@
             <default>36</default>
             <summary>Radius for quick settings corner rounding</summary>
         </key>
+        <!-- SCREENSHOT CORNER RADIUS -->
+        <key type="i" name="screenshot-corner-radius">
+            <default>36</default>
+            <summary>Radius for the screenshot panel corner rounding</summary>
+        </key>
         <!-- QUICK SETTINGS SUBMENU CORNER RADIUS -->
         <key type="i" name="submenu-corner-radius">
             <default>24</default>
@@ -833,6 +838,11 @@
         <key type="b" name="blur-submenus">
             <default>true</default>
             <summary>Boolean, whether to blur quick settings submenus</summary>
+        </key>
+        <!-- BLUR SCREENSHOT -->
+        <key type="b" name="blur-screenshot">
+            <default>true</default>
+            <summary>Boolean, whether to blur the screenshot panel</summary>
         </key>
         <!-- BLUR CALENDAR -->
         <key type="b" name="blur-calendar">
