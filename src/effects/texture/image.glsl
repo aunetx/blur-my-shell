@@ -132,7 +132,10 @@ void main() {
             (screen_position.y - (monitor_origin_y + (monitor_height - fitted_height) / 2.0))
                 / fitted_height
         );
-        image_position.y = clamp(image_position.y, 0.0, 1.0);
+        if (image_position.y < 0.0 || image_position.y > 1.0) {
+            cogl_color_out = c;
+            return;
+        }
     }
 
     vec4 image = texture2D(cogl_sampler1, image_position);

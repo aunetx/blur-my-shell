@@ -12,7 +12,6 @@ const Main = utils.IS_IN_PREFERENCES
     ? null
     : await import('resource:///org/gnome/shell/ui/main.js');
 const MAX_IMAGE_TEXTURE_SIZE = 512;
-const IMAGE_UPLOAD_ROWS = 32;
 
 if (!utils.IS_IN_PREFERENCES) {
     Gio._promisify(Gio.File.prototype, 'read_async', 'read_finish');
@@ -111,7 +110,6 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
         this._pixbuf = null;
         this._image_texture = null;
         this._image_texture_context = null;
-        this._image_upload_id = 0;
         this._blend = null;
         this._blend_mode = null;
         this._image_mode = null;
@@ -139,7 +137,6 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
 
         this._image_path = path;
         const loadGeneration = ++this._image_load_generation;
-        this.cancel_image_upload();
         this._pixbuf = null;
         this._image_texture = null;
         this._image_texture_context = null;
@@ -202,11 +199,6 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
             return;
         }
 
-        if (this._image_upload_id && this._image_upload_context === context)
-            return;
-
-        this.cancel_image_upload();
-
         const pixbuf = this._pixbuf;
         const texture = Cogl.Texture2D.new_with_size(
             context, pixbuf.get_width(), pixbuf.get_height()
@@ -221,39 +213,21 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
             : Cogl.PixelFormat.RGB_888;
         const pixels = pixbuf.get_pixels();
         const rowstride = pixbuf.get_rowstride();
+        const width = pixbuf.get_width();
         const height = pixbuf.get_height();
-        let y = 0;
 
-        this._image_upload_context = context;
-        this._image_upload_id = GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
-            const rows = Math.min(IMAGE_UPLOAD_ROWS, height - y);
-            texture.set_region(
-                0, y, 0, y,
-                pixbuf.get_width(), rows,
-                pixbuf.get_width(), rows,
-                format, rowstride, pixels
-            );
-            y += rows;
+        texture.set_region(
+            0, 0, 0, 0,
+            width, height,
+            width, height,
+            format, rowstride, pixels
+        );
 
-            if (y < height)
-                return GLib.SOURCE_CONTINUE;
-
-            this._image_upload_id = 0;
-            this._image_upload_context = null;
-            this._image_texture = texture;
-            this._image_texture_context = context;
-            this.attach_image_texture(context);
-            this.update_enabled();
-            this.queue_repaint();
-            return GLib.SOURCE_REMOVE;
-        });
-    }
-
-    cancel_image_upload() {
-        if (this._image_upload_id)
-            GLib.source_remove(this._image_upload_id);
-        this._image_upload_id = 0;
-        this._image_upload_context = null;
+        this._image_texture = texture;
+        this._image_texture_context = context;
+        this.attach_image_texture(context);
+        this.update_enabled();
+        this.queue_repaint();
     }
 
     attach_image_texture(context) {
@@ -342,8 +316,10 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
 
     vfunc_paint_target(paint_node, paint_context) {
         const actor = this.get_actor();
-        const [originX, originY] = actor.get_transformed_position();
-        const [width, height] = actor.get_transformed_size();
+        const { x, y, logicalWidth: width, logicalHeight: height } = this.target;
+        const [actorX, actorY] = actor.get_transformed_position();
+        const originX = actorX + x;
+        const originY = actorY + y;
         const monitor = Main.layoutManager.findMonitorForActor(actor);
         uniforms.set_uniform(this, 'actor_origin_x', originX);
         uniforms.set_uniform(this, 'actor_origin_y', originY);
@@ -355,6 +331,14 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
         uniforms.set_uniform(this, 'monitor_height', monitor?.height ?? height);
         uniforms.upload_uniforms(this);
         super.vfunc_paint_target(paint_node, paint_context);
+    }
+
+    vfunc_set_actor(actor) {
+        if (!actor) {
+            this._image_texture = null;
+            this._image_texture_context = null;
+        }
+        super.vfunc_set_actor(actor);
     }
 };
 
