@@ -136,9 +136,10 @@ void main() {
     }
 
     vec4 image = texture2D(cogl_sampler1, image_position);
+    vec3 image_color = image.a > 0.0 ? image.rgb / image.a : vec3(0.0);
 
     vec3 pix_color = c.rgb / c.a;
-    vec3 result = get_blend(pix_color, image.rgb);
+    vec3 result = get_blend(pix_color, image_color);
     float amount = blend * opacity_factor * image.a;
 
     cogl_color_out = vec4(mix(pix_color, result, amount) * c.a, c.a);

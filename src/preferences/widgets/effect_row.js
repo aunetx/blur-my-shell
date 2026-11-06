@@ -190,17 +190,20 @@ export const EffectRow = GObject.registerClass({
                         filter.add_pixbuf_formats();
                         dialog.set_default_filter(filter);
 
-                        dialog.open(this.get_root(), null, (_dialog, result) => {
-                            const file = dialog.open_finish(result);
-                            const path = file.get_path();
-                            if (!path) {
-                                logError(new Error(_('Selected image is not a local file')));
-                                return;
-                            }
-
-                            this.set_effect_param(param_key, path);
-                            row.set_subtitle(path);
-                        });
+                        dialog.open(this.get_root(), null)
+                            .then(file => {
+                                const path = file.get_path();
+                                if (!path) {
+                                    logError(new Error(_('Selected image is not a local file')));
+                                    return;
+                                }
+                                this.set_effect_param(param_key, path);
+                                row.set_subtitle(path);
+                            })
+                            .catch(e => {
+                                if (!e.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED))
+                                    logError(e);
+                            });
                     });
                     row.add_suffix(choose_button);
                     break;
@@ -234,7 +237,8 @@ export const EffectRow = GObject.registerClass({
                     break;
             }
             row.set_title(param.name);
-            row.set_subtitle(param.description);
+            if (param.type !== "file")
+                row.set_subtitle(param.description);
             this.add_row(row);
         }
     }

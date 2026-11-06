@@ -172,6 +172,23 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
     createTarget(context, textureWidth, textureHeight) {
         super.createTarget(context, textureWidth, textureHeight);
 
+        const placeholder = Cogl.Texture2D.new_with_size(context, 1, 1);
+        placeholder.set_components(Cogl.TextureComponents.RGBA);
+        placeholder.allocate();
+        placeholder.set_region(
+            0, 0, 0, 0, 1, 1, 1, 1,
+            Cogl.PixelFormat.RGBA_8888, 4,
+            new Uint8Array(4) // transparent black (0,0,0,0)
+        );
+        const pipeline = this.get_pipeline();
+        pipeline.set_layer_texture(1, placeholder);
+        pipeline.set_layer_filters(
+            1,
+            Cogl.PipelineFilter.NEAREST,
+            Cogl.PipelineFilter.NEAREST
+        );
+        pipeline.set_layer_wrap_mode(1, Cogl.PipelineWrapMode.REPEAT);
+
         if (this._pixbuf)
             this.bind_image_texture(context);
     }
