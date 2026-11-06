@@ -3,9 +3,77 @@ import { DownscaleEffect } from './downscale.js';
 import { UpscaleEffect } from './upscale.js';
 import { DerivativeEffect } from './derivative.js';
 import { NoiseEffect } from './noise.js';
+import { ImageEffect } from './image.js';
 
 export function get_texture_effects(_) {
     return {
+        image: {
+            class: ImageEffect,
+            name: _("Image"),
+            description: _("Blends an image into the pipeline."),
+            editable_params: {
+                image_path: {
+                    name: _("Image path"),
+                    description: _("Absolute path to the image file."),
+                    type: "file"
+                },
+                blend: {
+                    name: _("Blend"),
+                    description: _("How strongly the image is blended in."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                },
+                blend_mode: {
+                    name: _("Blend mode"),
+                    description: _("How the image is blended in."),
+                    type: "dropdown",
+                    options: [
+                        _("Normal"),
+                        _("Multiply"),
+                        _("Screen"),
+                        _("Overlay"),
+                        _("Darken"),
+                        _("Lighten"),
+                        _("Plus darker"),
+                        _("Plus lighter"),
+                        _("Color dodge"),
+                        _("Color burn"),
+                        _("Hard light"),
+                        _("Soft light"),
+                        _("Difference"),
+                        _("Exclusion"),
+                        _("Hue"),
+                        _("Saturation"),
+                        _("Color"),
+                        _("Luminosity")
+                    ]
+                },
+                image_mode: {
+                    name: _("Image mode"),
+                    description: _("Tile the image, stretch it, or fit its width to the monitor."),
+                    type: "dropdown",
+                    options: [
+                        _("Tile"),
+                        _("Stretch"),
+                        _("Fit width")
+                    ]
+                },
+                opacity_factor: {
+                    name: _("Opacity"),
+                    description: _("Opacity of the image blend."),
+                    type: "float",
+                    min: 0.,
+                    max: 1.,
+                    increment: 0.01,
+                    big_increment: 0.1,
+                    digits: 2
+                }
+            }
+        },
         pixelize: {
             class: PixelizeEffect,
             name: _("Pixelize"),
