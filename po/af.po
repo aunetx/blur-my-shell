@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 16:39+0100\n"
+"POT-Creation-Date: 2026-11-05 11:33+0000\n"
 "PO-Revision-Date: 2025-04-06 17:36+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -19,21 +19,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.11-dev\n"
 
+# Dual Kawase is the algorithm name, kept in English.
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Dual Kawase-vervaging"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "'n Vinnige vervaging van hoë gehalte."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
-msgstr ""
+msgstr "Radius"
 
 #: src/effects/blur/info.js:12
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "Die sterkte van die vervaageffek."
 
 #: src/effects/blur/info.js:21 src/effects/wave/info.js:77
 msgid "Brightness"
@@ -44,7 +45,7 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"Die helderheid van die vervaag effek. 'n Hoë waarde kan die teks moeiliker "
+"Die helderheid van die vervaageffek. 'n Hoë waarde kan die teks moeiliker "
 "maak om te lees."
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:15
@@ -54,78 +55,100 @@ msgstr "Kleur"
 
 #: src/effects/color/info.js:11
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "'n Effek wat 'n kleur in die effekreeks inmeng."
 
 #: src/effects/color/info.js:16
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"Die kleur om in te meng. Die ondeursigtigheid van die kleur bepaal hoeveel "
+"daarvan ingemeng word."
 
+# The blend mode names are left in English. Image editors have no established Afrikaans terms for them.
 #: src/effects/color/info.js:21
 msgid "Blend mode"
-msgstr ""
+msgstr "Mengmodus"
 
 #: src/effects/color/info.js:22
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Hoe die kleur ingemeng word."
 
-#: src/effects/color/info.js:25
+# Also the title of the pipeline row when the system theme is not followed, so translated unlike the other blend mode names.
+#: src/effects/color/info.js:25 resources/ui/pages/applications.ui:42
+#: resources/ui/pages/shell/app-folders.ui:28
+#: resources/ui/pages/shell/component.ui:28 resources/ui/pages/shell/dash.ui:44
+#: resources/ui/pages/shell/overview.ui:28 resources/ui/pages/shell/panel.ui:45
+#: resources/ui/pages/shell/popup.ui:46
 msgid "Normal"
-msgstr ""
+msgstr "Normaal"
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:26
 msgid "Multiply"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:27
 msgid "Screen"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:28
 msgid "Overlay"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:29
 msgid "Darken"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:30
 msgid "Lighten"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:31
 msgid "Plus darker"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:32
 msgid "Plus lighter"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:33
 msgid "Color dodge"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:34
 msgid "Color burn"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:35
 msgid "Hard light"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:36
 msgid "Soft light"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:37
 msgid "Difference"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:38
 msgid "Exclusion"
 msgstr ""
 
+# Blend mode name, left in English. See "Blend mode".
 #: src/effects/color/info.js:39
 msgid "Hue"
 msgstr ""
@@ -133,70 +156,74 @@ msgstr ""
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
 #: src/effects/wave/info.js:67
 msgid "Saturation"
-msgstr ""
+msgstr "Versadiging"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
-msgstr ""
+msgstr "Ligsterkte"
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "'n Effek wat die ligsterkte van die beeld verander."
 
 #: src/effects/color/info.js:53
 msgid "Shift brightness"
-msgstr ""
+msgstr "Verskuif helderheid"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Die helderheid om by die beeld te voeg of daarvan af te trek."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Helderheidsvermenigvuldiger"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Vermenigvuldig die beeld se helderheid. 0 is swart en 1 laat die helderheid "
+"onveranderd."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
-msgstr ""
+msgstr "Kontras"
 
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "Verstel die beeld se kontras rondom die gekose kontrasmiddelpunt."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
-msgstr ""
+msgstr "Kontrasmiddelpunt"
 
 #: src/effects/color/info.js:84
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Die middelpunt van die kontras om te gebruik."
 
 #: src/effects/color/info.js:94
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Vermenigvuldig die beeld se versadiging. 0 verwyder alle kleur en 1 laat die "
+"versadiging onveranderd."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB na HSL (gevorderde effek)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Skakel die beeld om van die RGBA-kleurruimte na HSLA."
 
 #: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
-msgstr ""
+msgstr "HSL na RGB (gevorderde effek)"
 
 #: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Skakel die beeld om van die HSLA-kleurruimte na RGBA."
 
 #: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
 #: resources/ui/pages/shell/app-folders.ui:8
@@ -204,779 +231,961 @@ msgstr ""
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Vervaging"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Tekstuur"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Gevorderd"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
-msgstr ""
+msgstr "Boustene wat meestal saam met ander effekte nuttig is."
 
+# Effect name, kept in English.
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Liquid Glass"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"'n Glansende, deurskynende materiaal met ligbreking by die rand, "
+"randbeligting, 'n kleurtint en 'n binneskaduwee."
 
 #: src/effects/refraction/info.js:11
 msgid "Refraction scale"
-msgstr ""
+msgstr "Brekingskaal"
 
 #: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "Hoe sterk die glas die gemonsterde vervaagtekstuur buig."
 
 #: src/effects/refraction/info.js:21
 msgid "Blur radius"
-msgstr ""
+msgstr "Vervaagradius"
 
 #: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr ""
+"Vervaag die gemonsterde agtergrond voordat die Liquid Glass-effek toegepas "
+"word."
 
 #: src/effects/refraction/info.js:31
 msgid "Bezel width"
-msgstr ""
+msgstr "Raambreedte"
 
 #: src/effects/refraction/info.js:32
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "Hoe ver die Liquid Glass-lens van die rand af na binne strek."
 
 #: src/effects/refraction/info.js:41
 msgid "Rim spread"
-msgstr ""
+msgstr "Randverspreiding"
 
 #: src/effects/refraction/info.js:42
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "Hoe ver die ligbreking geleidelik van die glasrand af na binne strek."
 
 #: src/effects/refraction/info.js:51
-msgid "Glass thickness"
-msgstr ""
+msgid "Refraction reach"
+msgstr "Brekingsreikwydte"
 
 #: src/effects/refraction/info.js:52
-msgid "Depth used by the refraction edge profile."
+msgid ""
+"How far the bend reaches inward from the edge, past the corner radius. A "
+"wider bend is also deeper, like a wider bezel (0 keeps it at the rim)."
 msgstr ""
+"Hoe ver die buiging van die rand af na binne strek, verby die hoekradius. 'n "
+"Wyer buiging is ook dieper, soos 'n wyer raam (0 hou dit by die rand)."
 
 #: src/effects/refraction/info.js:61
-msgid "Refraction style"
-msgstr ""
+msgid "Glass thickness"
+msgstr "Glasdikte"
 
 #: src/effects/refraction/info.js:62
+msgid "Depth used by the refraction edge profile."
+msgstr "Diepte wat die brekingsprofiel van die rand gebruik."
+
+#: src/effects/refraction/info.js:71
+msgid "Refraction style"
+msgstr "Brekingstyl"
+
+#: src/effects/refraction/info.js:72
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
-
-#: src/effects/refraction/info.js:71
-msgid "Fresnel glare"
-msgstr ""
-
-#: src/effects/refraction/info.js:72
-msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+"Vorm van die buiging naby die rand. Lae waardes buig sag, hoër waardes buig "
+"skerper reg by die rand."
 
 #: src/effects/refraction/info.js:81
-msgid "Fresnel glare angle"
-msgstr ""
+msgid "Fresnel glare"
+msgstr "Fresnel-glans"
 
 #: src/effects/refraction/info.js:82
-msgid ""
-"Light direction of the fresnel glare, in degrees (0 is from above, positive "
-"rotates clockwise)."
-msgstr ""
+msgid "Strength of the directional fresnel glare from the glass edge."
+msgstr "Sterkte van die gerigte Fresnel-glans van die glasrand af."
 
 #: src/effects/refraction/info.js:91
-msgid "Fresnel glare width"
-msgstr ""
+msgid "Fresnel glare angle"
+msgstr "Fresnel-glanshoek"
 
 #: src/effects/refraction/info.js:92
-msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
+msgid ""
+"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
+"the top and bottom, positive rotates clockwise)."
 msgstr ""
+"Die as van die Fresnel-glans, wat twee teenoorgestelde rande belig, in grade "
+"(0 belig die boonste en onderste rand, positief draai kloksgewys)."
 
 #: src/effects/refraction/info.js:101
-msgid "Specular glare strength"
-msgstr ""
+msgid "Fresnel glare width"
+msgstr "Fresnel-glansbreedte"
 
 #: src/effects/refraction/info.js:102
-msgid ""
-"Strength of the specular glare showing the light direction (0 disables it)."
-msgstr ""
+msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
+msgstr "Diktevermenigvuldiger van die Fresnel-glansring langs die glasrand."
 
 #: src/effects/refraction/info.js:111
-msgid "Tint strength"
-msgstr ""
+msgid "Specular glare strength"
+msgstr "Sterkte van spieëlglans"
 
 #: src/effects/refraction/info.js:112
-msgid "Amount of subtle milky glass tint over the blurred texture."
+msgid ""
+"Strength of the white specular glare on the same edge pair as the fresnel "
+"glare, brighter on the light side (0 disables it)."
 msgstr ""
+"Sterkte van die wit spieëlglans op dieselfde randpaar as die Fresnel-glans, "
+"helderder aan die kant van die lig (0 skakel dit af)."
 
 #: src/effects/refraction/info.js:121
-msgid "Tint color"
-msgstr ""
+msgid "Edge border"
+msgstr "Randlyn"
 
 #: src/effects/refraction/info.js:122
+msgid ""
+"Thin dark line along the straight side edges, away from the fresnel glare, "
+"outlining the glass on light backgrounds."
+msgstr ""
+"Dun, donker lyn langs die reguit syrande, weg van die Fresnel-glans, wat die "
+"glas op ligte agtergronde omlyn."
+
+#: src/effects/refraction/info.js:131
+msgid "Edge glow"
+msgstr "Randgloed"
+
+#: src/effects/refraction/info.js:132
+msgid "Colorful content under the glass lights up its edge."
+msgstr "Kleurryke inhoud onder die glas laat die rand daarvan gloei."
+
+#: src/effects/refraction/info.js:141
+msgid "Tint strength"
+msgstr "Tintsterkte"
+
+#: src/effects/refraction/info.js:142
+msgid "Amount of subtle milky glass tint over the blurred texture."
+msgstr "Hoeveelheid subtiele melkglastint oor die vervaagde tekstuur."
+
+#: src/effects/refraction/info.js:151
+msgid "Tint color"
+msgstr "Tintkleur"
+
+#: src/effects/refraction/info.js:152
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
-
-#: src/effects/refraction/info.js:127
-msgid "Backdrop zoom"
-msgstr ""
-
-#: src/effects/refraction/info.js:128
-msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
-
-#: src/effects/refraction/info.js:137
-msgid "Inner shadow"
-msgstr ""
-
-#: src/effects/refraction/info.js:138
-msgid "Darkens the lower and inner edge for a deeper glass surface."
-msgstr ""
-
-#: src/effects/refraction/info.js:147
-msgid "Chromatic dispersion"
-msgstr ""
-
-#: src/effects/refraction/info.js:148
-msgid "Physical per-channel refraction dispersion at the glass edge."
-msgstr ""
+"Kleur wat oor die vervaagde tekstuur ingemeng word, volgens die tintsterkte."
 
 #: src/effects/refraction/info.js:157
-msgid "Edge behavior"
-msgstr ""
+msgid "Backdrop zoom"
+msgstr "Agtergrondzoem"
 
 #: src/effects/refraction/info.js:158
+msgid "Zoom level of the backdrop visible through the glass."
+msgstr "Zoemvlak van die agtergrond wat deur die glas sigbaar is."
+
+#: src/effects/refraction/info.js:167
+msgid "Inner shadow"
+msgstr "Binneskaduwee"
+
+#: src/effects/refraction/info.js:168
+msgid "Darkens the lower and inner edge for a deeper glass surface."
+msgstr "Verdonker die onderste en binneste rand vir 'n dieper glasoppervlak."
+
+#: src/effects/refraction/info.js:177
+msgid "Chromatic dispersion"
+msgstr "Chromatiese dispersie"
+
+#: src/effects/refraction/info.js:178
+msgid "Physical per-channel refraction dispersion at the glass edge."
+msgstr "Fisiese brekingsdispersie per kleurkanaal by die glasrand."
+
+#: src/effects/refraction/info.js:187
+msgid "Edge behavior"
+msgstr "Randgedrag"
+
+#: src/effects/refraction/info.js:188
 msgid "How texture coordinates outside the actor are sampled."
-msgstr ""
+msgstr "Hoe tekstuurkoördinate buite die element gemonster word."
 
-#: src/effects/refraction/info.js:161
+#: src/effects/refraction/info.js:191
 msgid "Clamp"
-msgstr ""
+msgstr "Vasklem"
 
-#: src/effects/refraction/info.js:162
+#: src/effects/refraction/info.js:192
 msgid "Mirror"
-msgstr ""
+msgstr "Spieël"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
-msgstr ""
+msgstr "Pikseleer"
 
 #: src/effects/texture/info.js:12
 msgid "An effect that pixelizes the image."
-msgstr ""
+msgstr "'n Effek wat die beeld pikseleer."
 
 #: src/effects/texture/info.js:15 src/effects/texture/info.js:40
 #: src/effects/texture/info.js:65
 msgid "Factor"
-msgstr ""
+msgstr "Faktor"
 
 #: src/effects/texture/info.js:16 src/effects/texture/info.js:41
 msgid "How much to scale down the image."
-msgstr ""
+msgstr "Hoeveel om die beeld te verklein."
 
 #: src/effects/texture/info.js:23 src/effects/texture/info.js:48
 msgid "Downsampling mode"
-msgstr ""
+msgstr "Afmonsteringsmodus"
 
 #: src/effects/texture/info.js:24 src/effects/texture/info.js:49
 msgid "The downsampling method that is used."
-msgstr ""
+msgstr "Die afmonsteringsmetode wat gebruik word."
 
 #: src/effects/texture/info.js:27 src/effects/texture/info.js:52
 msgid "Boxcar"
-msgstr ""
+msgstr "Boks"
 
 #: src/effects/texture/info.js:28 src/effects/texture/info.js:53
 msgid "Triangular"
-msgstr ""
+msgstr "Driehoekig"
 
 #: src/effects/texture/info.js:29 src/effects/texture/info.js:54
 msgid "Dirac"
-msgstr ""
+msgstr "Dirac"
 
 #: src/effects/texture/info.js:36
 msgid "Downscale (advanced effect)"
-msgstr ""
+msgstr "Verklein (gevorderde effek)"
 
 #: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "'n Effek wat die beeld verklein en dit in die linkerbohoek plaas."
 
 #: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
-msgstr ""
+msgstr "Vergroot (gevorderde effek)"
 
 #: src/effects/texture/info.js:62
 msgid "An effect that upscales the image from the top-left corner."
-msgstr ""
+msgstr "'n Effek wat die beeld vanaf die linkerbohoek vergroot."
 
 #: src/effects/texture/info.js:66
 msgid "How much to scale up the image."
-msgstr ""
+msgstr "Hoeveel om die beeld te vergroot."
 
 #: src/effects/texture/info.js:76
 msgid "Derivative"
-msgstr ""
+msgstr "Afgeleide"
 
 #: src/effects/texture/info.js:77
 msgid "Apply a spatial derivative, or a laplacian."
-msgstr ""
+msgstr "Pas 'n ruimtelike afgeleide of 'n Laplace-operator toe."
 
 #: src/effects/texture/info.js:80
 msgid "Operation"
-msgstr ""
+msgstr "Bewerking"
 
 #: src/effects/texture/info.js:81
 msgid "The mathematical operation to apply."
-msgstr ""
+msgstr "Die wiskundige bewerking om toe te pas."
 
 #: src/effects/texture/info.js:84
 msgid "1-step derivative"
-msgstr ""
+msgstr "1-stap-afgeleide"
 
 #: src/effects/texture/info.js:85
 msgid "2-step derivative"
-msgstr ""
+msgstr "2-stap-afgeleide"
 
 #: src/effects/texture/info.js:86
 msgid "Laplacian"
-msgstr ""
+msgstr "Laplace-operator"
 
 #: src/effects/texture/info.js:93 src/effects/texture/info.js:97
 msgid "Noise"
-msgstr ""
+msgstr "Ruis"
 
 #: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "'n Effek wat lukrake korrels by die beeld voeg."
 
 #: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
-msgstr ""
+msgstr "Die hoeveelheid ruis om by te voeg."
 
 #: src/effects/texture/info.js:107
 msgid "Lightness"
-msgstr ""
+msgstr "Ligtheid"
 
 #: src/effects/texture/info.js:108
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
 msgstr ""
+"Die ligsterkte van die ruis. 'n Waarde van '1.0' maak die effek deursigtig."
 
+# Effect name, kept in English.
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "Vapor Wave"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
 msgstr ""
+"'n Vloeiende golfverplasing vir 'n lewendige, dinamiese gevoel met "
+"natuurlike beweging."
 
 #: src/effects/wave/info.js:11
 msgid "Wave frequency"
-msgstr ""
+msgstr "Golffrekwensie"
 
 #: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "Hoe dig die rimpels op mekaar gepak is."
 
 #: src/effects/wave/info.js:21
 msgid "Wave amplitude"
-msgstr ""
+msgstr "Golfamplitude"
 
 #: src/effects/wave/info.js:22
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "Hoe sterk die golwe die beeld verskuif."
 
 #: src/effects/wave/info.js:31
 msgid "Wave octaves"
-msgstr ""
+msgstr "Golfoktawe"
 
 #: src/effects/wave/info.js:32
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Detailvlak van die golfvorm. Hoër voeg meer detail by, ten koste van "
+"werkverrigting."
 
 #: src/effects/wave/info.js:39
 msgid "Vapor octaves"
-msgstr ""
+msgstr "Dampoktawe"
 
 #: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Detailvlak van die mistige tekstuur. Hoër voeg meer detail by, ten koste van "
+"werkverrigting."
 
 #: src/effects/wave/info.js:47
 msgid "Vapor speed"
-msgstr ""
+msgstr "Dampspoed"
 
 #: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "Hoe vinnig die mistige damptekstuur met verloop van tyd dryf."
 
 #: src/effects/wave/info.js:57
 msgid "Texture grain"
-msgstr ""
+msgstr "Tekstuurkorrel"
 
 #: src/effects/wave/info.js:58
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "Voeg 'n fyn, sandgestraalde tekstuur by die beeld."
 
 #: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "Die versadiging van die effek."
 
 #: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "Die helderheid van die effek."
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
-msgstr ""
+msgstr "Zoem"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "Vergroot die agtergrond na die middel van die oppervlak toe."
 
 #: src/effects/wave/info.js:97
 msgid "Dispersion"
-msgstr ""
+msgstr "Dispersie"
 
 #: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "Sterkte van kleuraberrasie vir 'n haperende gevoel."
 
 #: src/effects/wave/info.js:107
 msgid "Enable flow animation"
-msgstr ""
+msgstr "Aktiveer vloei-animasie"
 
 #: src/effects/wave/info.js:108
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "Of die golfruis voortdurend met verloop van tyd vloei."
 
 #: src/effects/wave/info.js:112
 msgid "Flow animation speed"
-msgstr ""
+msgstr "Spoed van vloei-animasie"
 
 #: src/effects/wave/info.js:113
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "Die basisspoed waarteen die golfpatroon vloei."
 
 #: src/effects/wave/info.js:122
 msgid "Resize ease duration"
-msgstr ""
+msgstr "Oorgangsduur by grootteverandering"
 
 #: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"Hoe lank die effek neem om aan te pas wanneer 'n venster van grootte "
+"verander (millisekondes)."
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "Ontfoutingslogboek"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "Deaktiveer in kragbespaarmodus"
 
-#: resources/ui/menu.ui:14
+#: resources/ui/menu.ui:16
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "Herstel voorkeure…"
 
 #: resources/ui/menu.ui:20
-msgid "Project page"
-msgstr "Projek blad"
+msgid "Export Preferences…"
+msgstr "Voer voorkeure uit…"
 
 #: resources/ui/menu.ui:24
+msgid "Import Preferences…"
+msgstr "Voer voorkeure in…"
+
+#: resources/ui/menu.ui:30
+msgid "Project page"
+msgstr "Projekblad"
+
+#: resources/ui/menu.ui:34
 msgid "Report a Bug"
 msgstr "Meld 'n fout aan"
 
-#: resources/ui/menu.ui:28
+#: resources/ui/menu.ui:38
 msgid "License"
 msgstr "Lisensie"
 
-#: resources/ui/menu.ui:38
+#: resources/ui/menu.ui:48
 msgid "Main Menu"
-msgstr ""
+msgstr "Hoofkieslys"
 
 #: resources/ui/pages/applications.ui:5
-#: src/preferences/pages/pipelines/components.js:16
+#: src/preferences/pages/pipelines/components.js:43
 msgid "Applications"
-msgstr "Apps"
+msgstr "Toepassings"
 
-#: resources/ui/pages/applications.ui:36
-#: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
+#: resources/ui/pages/applications.ui:30
+#: resources/ui/pages/shell/app-folders.ui:16
+#: resources/ui/pages/shell/component.ui:16 resources/ui/pages/shell/dash.ui:33
+#: resources/ui/pages/shell/overview.ui:16 resources/ui/pages/shell/panel.ui:33
+#: resources/ui/pages/shell/popup.ui:34
+#: resources/ui/widgets/pipeline-choose-row.ui:4
+#: src/preferences/pages/pipelines/pipeline_page.js:83
+#: src/preferences/pages/pipelines/pipeline_row.js:69
+msgid "Pipeline"
+msgstr "Effekreeks"
+
+#: resources/ui/pages/applications.ui:34
+#: resources/ui/pages/shell/app-folders.ui:21
+#: resources/ui/pages/shell/component.ui:20 resources/ui/pages/shell/dash.ui:37
+#: resources/ui/pages/shell/overview.ui:21 resources/ui/pages/shell/panel.ui:37
+#: resources/ui/pages/shell/popup.ui:38
+msgid "Follow system theme"
+msgstr "Volg stelseltema"
+
+#: resources/ui/pages/applications.ui:35
+#: resources/ui/pages/shell/app-folders.ui:22
+#: resources/ui/pages/shell/component.ui:21 resources/ui/pages/shell/dash.ui:38
+#: resources/ui/pages/shell/overview.ui:22 resources/ui/pages/shell/panel.ui:38
+#: resources/ui/pages/shell/popup.ui:39
+msgid "Automatically switch the pipeline based on the system theme."
+msgstr "Wissel die effekreeks outomaties volgens die stelseltema."
+
+#: resources/ui/pages/applications.ui:50
+#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/app-folders.ui:77
+#: resources/ui/pages/shell/component.ui:36 resources/ui/pages/shell/dash.ui:52
+#: resources/ui/pages/shell/dash.ui:95 resources/ui/pages/shell/overview.ui:35
+#: resources/ui/pages/shell/overview.ui:83 resources/ui/pages/shell/panel.ui:53
+#: resources/ui/pages/shell/panel.ui:194 resources/ui/pages/shell/popup.ui:54
+#: resources/ui/pages/shell/popup.ui:298
+msgid "Light"
+msgstr "Lig"
+
+#: resources/ui/pages/applications.ui:51
+#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/component.ui:37 resources/ui/pages/shell/dash.ui:53
+#: resources/ui/pages/shell/overview.ui:36 resources/ui/pages/shell/panel.ui:54
+#: resources/ui/pages/shell/popup.ui:55
+msgid "The pipeline used for light mode"
+msgstr "Die effekreeks wat vir ligte modus gebruik word"
+
+#: resources/ui/pages/applications.ui:59
+#: resources/ui/pages/shell/app-folders.ui:43
+#: resources/ui/pages/shell/app-folders.ui:78
+#: resources/ui/pages/shell/component.ui:45 resources/ui/pages/shell/dash.ui:61
+#: resources/ui/pages/shell/dash.ui:96 resources/ui/pages/shell/overview.ui:43
+#: resources/ui/pages/shell/overview.ui:84 resources/ui/pages/shell/panel.ui:62
+#: resources/ui/pages/shell/panel.ui:195 resources/ui/pages/shell/popup.ui:63
+#: resources/ui/pages/shell/popup.ui:299
+msgid "Dark"
+msgstr "Donker"
+
+#: resources/ui/pages/applications.ui:60
+#: resources/ui/pages/shell/app-folders.ui:44
+#: resources/ui/pages/shell/component.ui:46 resources/ui/pages/shell/dash.ui:62
+#: resources/ui/pages/shell/overview.ui:44 resources/ui/pages/shell/panel.ui:63
+#: resources/ui/pages/shell/popup.ui:64
+msgid "The pipeline used for dark mode"
+msgstr "Die effekreeks wat vir donker modus gebruik word"
+
+#: resources/ui/pages/applications.ui:70
+#: resources/ui/pages/shell/app-folders.ui:53
+#: resources/ui/pages/shell/overview.ui:53 resources/ui/pages/shell/panel.ui:73
 msgid "Appearance"
-msgstr ""
+msgstr "Voorkoms"
 
-#: resources/ui/pages/applications.ui:41
+#: resources/ui/pages/applications.ui:75
 msgid "Opacity"
 msgstr "Ondeursigtigheid"
 
-#: resources/ui/pages/applications.ui:42
+#: resources/ui/pages/applications.ui:76
 msgid "Higher values are easier to read"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:62
-msgid "Opaque focused window"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
-#: resources/ui/pages/shell/popup.ui:61
-msgid "Corner radius"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
-#: resources/ui/pages/shell/popup.ui:66
-msgid "Rounded corners"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:82
-msgid "Round maximized and fullscreen windows"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:90
-msgid "Behavior"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:95
-msgid "Blur on overview"
-msgstr "Vervaag op oorsig"
+msgstr "Hoër waardes is makliker om te lees"
 
 #: resources/ui/pages/applications.ui:96
+msgid "Opaque focused window"
+msgstr "Ondeursigtige venster in fokus"
+
+#: resources/ui/pages/applications.ui:102 resources/ui/pages/shell/panel.ui:78
+#: resources/ui/pages/shell/popup.ui:182
+msgid "Corner radius"
+msgstr "Hoekradius"
+
+#: resources/ui/pages/applications.ui:109 resources/ui/pages/shell/panel.ui:85
+#: resources/ui/pages/shell/popup.ui:187
+msgid "Rounded corners"
+msgstr "Geronde hoeke"
+
+#: resources/ui/pages/applications.ui:116
+msgid "Round maximized and fullscreen windows"
+msgstr "Rond gemaksimeerde en volskermvensters af"
+
+#: resources/ui/pages/applications.ui:124
+msgid "Behavior"
+msgstr "Gedrag"
+
+#: resources/ui/pages/applications.ui:129
+msgid "Blur on overview"
+msgstr "Vervaag in oorsig"
+
+#: resources/ui/pages/applications.ui:130
 msgid "Shows the blur on every workspace, at some performance cost"
 msgstr ""
+"Wys die vervaging op elke werkspasie, ten koste van 'n bietjie werkverrigting"
 
-#: resources/ui/pages/applications.ui:102
+#: resources/ui/pages/applications.ui:136
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "Verwyder vervaging in volskerm"
 
-#: resources/ui/pages/applications.ui:108
+#: resources/ui/pages/applications.ui:142
+msgid "Blur menus"
+msgstr "Vervaag kieslyste"
+
+#: resources/ui/pages/applications.ui:143
+msgid ""
+"Blur the menus of Wayland applications, which must be translucent for it to "
+"show."
+msgstr ""
+"Vervaag die kieslyste van Wayland-toepassings. Die kieslyste moet "
+"deurskynend wees sodat die vervaging sigbaar is."
+
+#: resources/ui/pages/applications.ui:149
+msgid "Menu corner radius"
+msgstr "Hoekradius van kieslyste"
+
+#: resources/ui/pages/applications.ui:150
+msgid "Shapes edge effects like refraction, the blur always follows the menu."
+msgstr ""
+"Bepaal die vorm van randeffekte soos ligbreking. Die vervaging volg altyd "
+"die kieslys."
+
+#: resources/ui/pages/applications.ui:158
 msgid "Blur all windows"
-msgstr ""
+msgstr "Vervaag alle vensters"
 
-#: resources/ui/pages/applications.ui:109
+#: resources/ui/pages/applications.ui:159
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "Wanneer dit af is, word slegs die vensters hieronder vervaag."
 
-#: resources/ui/pages/applications.ui:117
+#: resources/ui/pages/applications.ui:167
 msgid "Blurred windows"
-msgstr ""
+msgstr "Vervaagde vensters"
 
-#: resources/ui/pages/applications.ui:118
-#: resources/ui/pages/applications.ui:140
+#: resources/ui/pages/applications.ui:168
+#: resources/ui/pages/applications.ui:190
 msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
-"single one."
+"single one. Start with title: to match the window title instead, like "
+"title:Picture-in-Picture."
 msgstr ""
+"Gebruik * om enige karakters te pas, soos Firefox* of *Code*, en ? om een "
+"enkele karakter te pas. Begin met title: om eerder die venstertitel te pas, "
+"soos title:Picture-in-Picture."
 
-#: resources/ui/pages/applications.ui:126
-#: resources/ui/pages/applications.ui:148
+#: resources/ui/pages/applications.ui:176
+#: resources/ui/pages/applications.ui:198
 msgid "Add Window"
-msgstr "Voeg venster"
+msgstr "Voeg venster by"
 
-#: resources/ui/pages/applications.ui:139
+#: resources/ui/pages/applications.ui:189
 msgid "Excluded windows"
-msgstr ""
+msgstr "Uitgeslote vensters"
 
-#: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
-#: resources/ui/pages/shell/popup.ui:160
+#: resources/ui/pages/applications.ui:212 resources/ui/pages/shell/panel.ui:184
+#: resources/ui/pages/shell/popup.ui:288
 msgid "All"
-msgstr ""
+msgstr "Almal"
 
-#: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
-#: resources/ui/pages/shell/popup.ui:161
+#: resources/ui/pages/applications.ui:213 resources/ui/pages/shell/panel.ui:185
+#: resources/ui/pages/shell/popup.ui:289
 msgid "Top only"
-msgstr ""
+msgstr "Slegs bo"
 
-#: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
-#: resources/ui/pages/shell/popup.ui:162
+#: resources/ui/pages/applications.ui:214 resources/ui/pages/shell/panel.ui:186
+#: resources/ui/pages/shell/popup.ui:290
 msgid "Bottom only"
-msgstr ""
+msgstr "Slegs onder"
 
-#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
-#: resources/ui/pages/shell/popup.ui:163
+#: resources/ui/pages/applications.ui:215 resources/ui/pages/shell/panel.ui:187
+#: resources/ui/pages/shell/popup.ui:291
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "Kieslys vir effekreeks"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "Effekreeks-ID"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "Kopieer"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
-msgstr ""
+msgstr "Effekte"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:56
+#: resources/ui/pages/pipelines/pipeline-page.ui:50
+msgid "The top effect is applied first."
+msgstr "Die boonste effek word eerste toegepas."
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:57
 #: src/preferences/pages/pipelines/effect_chooser.js:13
 msgid "Add Effect"
-msgstr ""
+msgstr "Voeg effek by"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:73
+#: resources/ui/pages/pipelines/pipeline-page.ui:74
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "Nog geen effekte nie"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:94
+#: resources/ui/pages/pipelines/pipeline-page.ui:95
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliseer"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:98
-#: src/preferences/pages/pipelines/index.js:122
+#: resources/ui/pages/pipelines/pipeline-page.ui:99
+#: src/preferences/pages/pipelines/index.js:123
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "Skrap"
 
+# Pipeline is translated as "effekreeks" throughout. "Pyplyn" is the direct translation, but "effekreeks" is easier to understand.
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "Effekreekse"
 
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
-msgstr ""
+msgstr "Effekreekse is stelle effekte wat komponente deel."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "Nuwe effekreeks"
 
-#: resources/ui/pages/shell/app-folders.ui:24
+#: resources/ui/pages/shell/app-folders.ui:58
 msgid "Application folder dialogs style"
-msgstr "Dialoogstyl van app-vouers"
+msgstr "Dialoogstyl van toepassingsgidse"
 
-#: resources/ui/pages/shell/app-folders.ui:35
-#: resources/ui/pages/shell/overview.ui:55
+#: resources/ui/pages/shell/app-folders.ui:65
+msgid "Blur behind folders"
+msgstr "Vervaag agter gidse"
+
+#: resources/ui/pages/shell/app-folders.ui:66
+msgid "Blur the app grid behind an open folder."
+msgstr "Vervaag die toepassingsrooster agter 'n oop gids."
+
+#: resources/ui/pages/shell/app-folders.ui:75
+#: resources/ui/pages/shell/overview.ui:82
 msgid "Do not style"
-msgstr "Moet nie stileer nie"
+msgstr "Moenie stileer nie"
 
-#: resources/ui/pages/shell/app-folders.ui:36
-#: resources/ui/pages/shell/dash.ui:61 resources/ui/pages/shell/overview.ui:58
-#: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:169
+#: resources/ui/pages/shell/app-folders.ui:76
+#: resources/ui/pages/shell/dash.ui:94 resources/ui/pages/shell/overview.ui:85
+#: resources/ui/pages/shell/panel.ui:193 resources/ui/pages/shell/popup.ui:297
 msgid "Transparent"
 msgstr "Deursigtig"
 
-#: resources/ui/pages/shell/app-folders.ui:37
-#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
-#: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:170
-msgid "Light"
-msgstr "Lig"
-
-#: resources/ui/pages/shell/app-folders.ui:38
-#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
-#: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:171
-msgid "Dark"
-msgstr "Donker"
-
-#: resources/ui/pages/shell/app-folders.ui:39
-#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
-#: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
+#: resources/ui/pages/shell/app-folders.ui:79
+#: resources/ui/pages/shell/dash.ui:97 resources/ui/pages/shell/overview.ui:86
+#: resources/ui/pages/shell/panel.ui:197 resources/ui/pages/shell/popup.ui:300
 msgid "Automatic"
-msgstr ""
+msgstr "Outomaties"
 
-#: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
+#: resources/ui/pages/shell/dash.ui:24 resources/ui/pages/shell/panel.ui:24
 msgid "Disable in overview"
 msgstr "Deaktiveer in oorsig"
 
-#: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
-#: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/dash.ui:72 resources/ui/pages/shell/panel.ui:107
+#: resources/ui/pages/shell/popup.ui:153 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "Agtergrond"
 
-#: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
-#: resources/ui/pages/shell/popup.ui:37
+#: resources/ui/pages/shell/dash.ui:77 resources/ui/pages/shell/panel.ui:112
+#: resources/ui/pages/shell/popup.ui:158
 msgid "Override background"
 msgstr "Oorskryf agtergrond"
 
-#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:84
-#: resources/ui/pages/shell/popup.ui:43
+#: resources/ui/pages/shell/dash.ui:83 resources/ui/pages/shell/panel.ui:118
+#: resources/ui/pages/shell/popup.ui:164
 msgid "Background style"
-msgstr "Agtergrond styl"
+msgstr "Agtergrondstyl"
 
-#: resources/ui/pages/shell/overview.ui:31
+#: resources/ui/pages/shell/overview.ui:58
 msgid "Overview components style"
 msgstr "Styl van oorsigkomponente"
 
-#: resources/ui/pages/shell/overview.ui:32
+#: resources/ui/pages/shell/overview.ui:59
 msgid "For the dash, search and app folders"
-msgstr ""
+msgstr "Vir die toeps, die soekbalk en toepassingsgidse"
 
-#: resources/ui/pages/shell/overview.ui:39
+#: resources/ui/pages/shell/overview.ui:66
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "Hoekradius van werkspasies"
 
-#: resources/ui/pages/shell/panel.ui:58
+#: resources/ui/pages/shell/panel.ui:92
 msgid "Force light text"
 msgstr "Forseer ligte teks"
 
-#: resources/ui/pages/shell/panel.ui:59
-msgid "Useful with a light shell theme"
-msgstr ""
-
-#: resources/ui/pages/shell/panel.ui:65
-msgid "Match theme in overview"
-msgstr ""
-
-#: resources/ui/pages/shell/panel.ui:92
-msgid "Override background dynamically"
-msgstr ""
-
 #: resources/ui/pages/shell/panel.ui:93
+msgid "Useful with a light shell theme"
+msgstr "Nuttig met 'n ligte Shell-tema"
+
+#: resources/ui/pages/shell/panel.ui:99
+msgid "Match theme in overview"
+msgstr "Volg tema in oorsig"
+
+#: resources/ui/pages/shell/panel.ui:126
+msgid "Override background dynamically"
+msgstr "Oorskryf agtergrond dinamies"
+
+#: resources/ui/pages/shell/panel.ui:127
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "Verander die agtergrond wanneer 'n venster naby die paneel is"
 
-#: resources/ui/pages/shell/panel.ui:100
+#: resources/ui/pages/shell/panel.ui:134
 msgid "When a window is near"
-msgstr ""
+msgstr "Wanneer 'n venster naby is"
 
-#: resources/ui/pages/shell/panel.ui:101
+#: resources/ui/pages/shell/panel.ui:135
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"Vervaag as venster naby is: Vervaag slegs as 'n venster naby die paneel is, "
+"andersins deursigtig.\n"
+"Agtergrond as venster naby is: 'n Soliede kleur as agtergrond as 'n venster "
+"naby die paneel is, andersins vervaag."
 
-#: resources/ui/pages/shell/panel.ui:110
+#: resources/ui/pages/shell/panel.ui:144
 msgid "Gradient background"
-msgstr ""
+msgstr "Gradiëntagtergrond"
 
-#: resources/ui/pages/shell/panel.ui:117
+#: resources/ui/pages/shell/panel.ui:151
 msgid "Gradient direction"
-msgstr ""
+msgstr "Gradiëntrigting"
 
-#: resources/ui/pages/shell/panel.ui:127
+#: resources/ui/pages/shell/panel.ui:161
 msgid "Compatibility"
-msgstr "Verenigbaarheid"
+msgstr "Versoenbaarheid"
 
-#: resources/ui/pages/shell/panel.ui:132
+#: resources/ui/pages/shell/panel.ui:166
 msgid "Hidetopbar extension"
 msgstr "Hidetopbar-uitbreiding"
 
-#: resources/ui/pages/shell/panel.ui:133
+#: resources/ui/pages/shell/panel.ui:167
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr ""
+"Hou die vervaging sigbaar in die oorsig, werk die beste met statiese "
+"vervaging"
 
-#: resources/ui/pages/shell/panel.ui:140
+#: resources/ui/pages/shell/panel.ui:174
 msgid "Blur original panel with Dash to Panel"
 msgstr "Vervaag oorspronklike paneel met Dash to Panel"
 
-#: resources/ui/pages/shell/panel.ui:141
+#: resources/ui/pages/shell/panel.ui:175
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "Wanneer Dash to Panel die oorspronklike paneel behou"
 
-#: resources/ui/pages/shell/panel.ui:162
+#: resources/ui/pages/shell/panel.ui:196
 msgid "Contrasted"
 msgstr "Gekontrasteer"
 
-#: resources/ui/pages/shell/panel.ui:169
+#: resources/ui/pages/shell/panel.ui:203
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "Vervaag as venster naby is"
 
-#: resources/ui/pages/shell/panel.ui:170
+#: resources/ui/pages/shell/panel.ui:204
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "Agtergrond as venster naby is"
 
-#: resources/ui/pages/shell/panel.ui:176
+#: resources/ui/pages/shell/panel.ui:210
 msgid "Top"
-msgstr ""
+msgstr "Bo"
 
-#: resources/ui/pages/shell/panel.ui:177
+#: resources/ui/pages/shell/panel.ui:211
 msgid "Bottom"
-msgstr ""
+msgstr "Onder"
 
-#: resources/ui/pages/shell/popup.ui:51
-msgid "Preserve shell theme"
-msgstr ""
+#: resources/ui/pages/shell/popup.ui:24
+msgid "Blur behind dialogs"
+msgstr "Vervaag agter dialoogvensters"
 
-#: resources/ui/pages/shell/popup.ui:52
-msgid "Keep your shell theme's colors for popup controls."
+#: resources/ui/pages/shell/popup.ui:25
+msgid ""
+"Blur the dimmed screen behind system dialogs, like the power off dialog."
 msgstr ""
+"Vervaag die verdofte skerm agter stelseldialoogvensters, soos die "
+"dialoogvenster om af te skakel."
 
-#: resources/ui/pages/shell/popup.ui:73
+#: resources/ui/pages/shell/popup.ui:74
+msgid "Blurred popups"
+msgstr "Vervaagde opspringers"
+
+#: resources/ui/pages/shell/popup.ui:79 resources/ui/pages/shell/popup.ui:194
 msgid "Menus"
-msgstr ""
+msgstr "Kieslyste"
 
-#: resources/ui/pages/shell/popup.ui:80
+#: resources/ui/pages/shell/popup.ui:85 resources/ui/pages/shell/popup.ui:201
 msgid "Input method candidates"
-msgstr ""
+msgstr "Kandidate vir invoermetode"
 
-#: resources/ui/pages/shell/popup.ui:87
+#: resources/ui/pages/shell/popup.ui:91 resources/ui/pages/shell/popup.ui:208
 msgid "Quick settings"
-msgstr ""
+msgstr "Vinnige instellings"
 
-#: resources/ui/pages/shell/popup.ui:94
+#: resources/ui/pages/shell/popup.ui:97 resources/ui/pages/shell/popup.ui:215
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "Subkieslyste van vinnige instellings"
 
-#: resources/ui/pages/shell/popup.ui:101
+#: resources/ui/pages/shell/popup.ui:103 resources/ui/pages/shell/popup.ui:222
+msgid "Screenshot panel"
+msgstr "Skermskootpaneel"
+
+#: resources/ui/pages/shell/popup.ui:109 resources/ui/pages/shell/popup.ui:229
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Kalender en kennisgewingsentrum"
 
-#: resources/ui/pages/shell/popup.ui:108
+#: resources/ui/pages/shell/popup.ui:115 resources/ui/pages/shell/popup.ui:236
 msgid "Notifications"
-msgstr ""
+msgstr "Kennisgewings"
 
-#: resources/ui/pages/shell/popup.ui:115
+#: resources/ui/pages/shell/popup.ui:121 resources/ui/pages/shell/popup.ui:243
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "Venster- en werkspasiewisselaars"
 
-#: resources/ui/pages/shell/popup.ui:122
+#: resources/ui/pages/shell/popup.ui:127 resources/ui/pages/shell/popup.ui:250
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Volume en helderheid"
 
-#: resources/ui/pages/shell/popup.ui:129
+#: resources/ui/pages/shell/popup.ui:133 resources/ui/pages/shell/popup.ui:257
 msgid "Window resize hints"
-msgstr ""
+msgstr "Aanwysers by grootteverandering van vensters"
 
-#: resources/ui/pages/shell/popup.ui:136
+#: resources/ui/pages/shell/popup.ui:139 resources/ui/pages/shell/popup.ui:264
 msgid "Dialogs"
-msgstr ""
+msgstr "Dialoogvensters"
 
-#: resources/ui/pages/shell/popup.ui:143
+#: resources/ui/pages/shell/popup.ui:145 resources/ui/pages/shell/popup.ui:271
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "Skermsleutelbord"
 
-#: resources/ui/pages/shell/popup.ui:150
+#: resources/ui/pages/shell/popup.ui:172
+msgid "Preserve shell theme"
+msgstr "Behou Shell-tema"
+
+#: resources/ui/pages/shell/popup.ui:173
+msgid "Keep your shell theme's colors for popup controls."
+msgstr "Behou jou Shell-tema se kleure vir kontroles in opspringers."
+
+#: resources/ui/pages/shell/popup.ui:278
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "Ander opspringers"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "Werkskerm"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -985,170 +1194,174 @@ msgstr "Paneel"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "Die boonste balk, of die panele van Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
-#: src/preferences/pages/pipelines/components.js:8
+#: src/preferences/pages/pipelines/components.js:11
 msgid "Dock"
-msgstr ""
+msgstr "Dok"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock, Ubuntu Dock, Dhruva en soortgelyke dokke"
 
+# Popup is translated as "opspringer" throughout, which also covers menus. "Opspringvenster" is more formal and implies a window.
 #: resources/ui/pages/shell/shell.ui:37
-#: src/preferences/pages/pipelines/components.js:9
+#: src/preferences/pages/pipelines/components.js:15
 msgid "Popups"
-msgstr ""
+msgstr "Opspringers"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "Kieslyste, vinnige instellings, kennisgewings en dialoogvensters"
 
 #: resources/ui/pages/shell/shell.ui:46
-#: src/preferences/pages/pipelines/components.js:10
+#: src/preferences/pages/pipelines/components.js:19
 msgid "Overview"
 msgstr "Oorsig"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "Die muurpapier agter die werkspasies"
 
 #: resources/ui/pages/shell/shell.ui:59
-#: src/preferences/pages/pipelines/components.js:11
+#: src/preferences/pages/pipelines/components.js:23
 msgid "App folders"
-msgstr ""
+msgstr "Toepassingsgidse"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "Gidse wat vanuit die toepassingsrooster oopgemaak word"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "Stelsel"
 
 #: resources/ui/pages/shell/shell.ui:73
-#: src/preferences/pages/pipelines/components.js:12
+#: src/preferences/pages/pipelines/components.js:27
 msgid "Lock screen"
-msgstr ""
+msgstr "Sluitskerm"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "Agter die wagwoordvraag"
 
 #: resources/ui/pages/shell/shell.ui:81
-#: src/preferences/pages/pipelines/components.js:13
+#: src/preferences/pages/pipelines/components.js:31
 msgid "Screenshot"
-msgstr ""
+msgstr "Skermskoot"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "Agter die vensterkieser"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "Uitbreidings"
 
 #: resources/ui/pages/shell/shell.ui:95
-#: src/preferences/pages/pipelines/components.js:14
+#: src/preferences/pages/pipelines/components.js:35
 msgid "Window List"
-msgstr ""
+msgstr "Vensterlys"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "Die taakbalk van die Vensterlys-uitbreiding"
 
 #: resources/ui/pages/shell/shell.ui:103
-#: src/preferences/pages/pipelines/components.js:15
+#: src/preferences/pages/pipelines/components.js:39
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Coverflow Alt-Tab"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "Agter die vensterwisselaar"
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window class"
-msgstr ""
+msgid "Window class or title"
+msgstr "Vensterklas of -titel"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "Kies 'n venster"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "Verwyder"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "Kon nie 'n venster kies nie. Maak seker die uitbreiding is geaktiveer."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "Die gekose element is nie 'n venster nie."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
-msgstr ""
+msgstr "Soort vervaging"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "Staties vervaag slegs die muurpapier"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
-msgstr ""
+msgstr "Staties"
 
 #: resources/ui/widgets/blur-mode-row.ui:35
 msgid "Dynamic"
-msgstr ""
-
-#: resources/ui/widgets/pipeline-choose-row.ui:4
-#: src/preferences/pages/pipelines/pipeline_page.js:82
-#: src/preferences/pages/pipelines/pipeline_row.js:69
-msgid "Pipeline"
-msgstr ""
+msgstr "Dinamies"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur is nie meer nodig nie"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell hanteer geronde hoeke self. Jy kan die ou biblioteek verwyder "
+"as niks anders dit gebruik nie."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Verwyderingsinstruksies"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Ignoreer"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Verwydering van die ou vervaagbiblioteek"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"Verwydering is opsioneel. Hou die biblioteek as 'n ander uitbreiding dit nog "
+"nodig het."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"Met 'n pakketbestuurder geïnstalleer? Verwyder die gnome-rounded-blur-pakket "
+"met dieselfde pakketbestuurder. Gaan die voorgestelde veranderinge na "
+"voordat jy bevestig."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"Met die ou Blur my Shell-hulpprogram geïnstalleer? Die instruksies "
+"verduidelik hoe om sy deïnstalleerder te laat loop."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1156,87 +1369,207 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"Uit bronkode gebou? Gebruik “sudo ninja -C build uninstall” in die "
+"oorspronklike bougids, of volg sy installasielog. Moenie die hulpprogram "
+"gebruik om 'n installasie van 'n pakketbestuurder te verwyder nie."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"Meld af en weer aan ná verwydering. Blur my Shell sal niks vir jou "
+"deïnstalleer nie."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Sluit"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Open instruksies"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:94
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Herstel alle voorkeure?"
 
-#: src/preferences/menu.js:77
+#: src/preferences/menu.js:95
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
+"Effekreekse en komponentinstellings sal na hul verstekwaardes teruggestel "
+"word."
 
-#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:97 src/preferences/menu.js:146
+#: src/preferences/pages/pipelines/index.js:122
 msgid "Cancel"
-msgstr ""
+msgstr "Kanselleer"
 
-#: src/preferences/menu.js:80
+#: src/preferences/menu.js:98
 msgid "Reset"
 msgstr "Herstel"
 
-#: src/preferences/pages/pipelines/index.js:78
-msgid "New pipeline"
-msgstr ""
+#: src/preferences/menu.js:125
+msgid "Preferences exported"
+msgstr "Voorkeure uitgevoer"
 
-#: src/preferences/pages/pipelines/index.js:116
-#, javascript-format
-msgid "Delete “%s”?"
+#: src/preferences/menu.js:127
+msgid "Could not export the preferences"
+msgstr "Kon nie die voorkeure uitvoer nie"
+
+#: src/preferences/menu.js:137
+msgid "Could not import this file"
+msgstr "Kon nie hierdie lêer invoer nie"
+
+#: src/preferences/menu.js:143
+msgid "Import preferences?"
+msgstr "Voer voorkeure in?"
+
+#: src/preferences/menu.js:144
+msgid ""
+"Your pipelines and component settings will be replaced by the ones in this "
+"file."
 msgstr ""
+"Jou effekreekse en komponentinstellings sal vervang word met dié in hierdie "
+"lêer."
+
+#: src/preferences/menu.js:147
+msgid "Import"
+msgstr "Voer in"
+
+#: src/preferences/menu.js:153
+msgid "Preferences imported"
+msgstr "Voorkeure ingevoer"
+
+#: src/preferences/pages/pipelines/components.js:8
+msgid "Panel (Light mode)"
+msgstr "Paneel (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:9
+msgid "Panel (Dark mode)"
+msgstr "Paneel (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:12
+msgid "Dock (Light mode)"
+msgstr "Dok (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:13
+msgid "Dock (Dark mode)"
+msgstr "Dok (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:16
+msgid "Popups (Light mode)"
+msgstr "Opspringers (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:17
+msgid "Popups (Dark mode)"
+msgstr "Opspringers (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:20
+msgid "Overview (Light mode)"
+msgstr "Oorsig (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:21
+msgid "Overview (Dark mode)"
+msgstr "Oorsig (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:24
+msgid "App folders (Light mode)"
+msgstr "Toepassingsgidse (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:25
+msgid "App folders (Dark mode)"
+msgstr "Toepassingsgidse (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:28
+msgid "Lock screen (Light mode)"
+msgstr "Sluitskerm (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:29
+msgid "Lock screen (Dark mode)"
+msgstr "Sluitskerm (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:32
+msgid "Screenshot (Light mode)"
+msgstr "Skermskoot (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:33
+msgid "Screenshot (Dark mode)"
+msgstr "Skermskoot (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:36
+msgid "Window List (Light mode)"
+msgstr "Vensterlys (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:37
+msgid "Window List (Dark mode)"
+msgstr "Vensterlys (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:40
+msgid "Coverflow Alt-Tab (Light mode)"
+msgstr "Coverflow Alt-Tab (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:41
+msgid "Coverflow Alt-Tab (Dark mode)"
+msgstr "Coverflow Alt-Tab (donker modus)"
+
+#: src/preferences/pages/pipelines/components.js:44
+msgid "Applications (Light mode)"
+msgstr "Toepassings (ligte modus)"
+
+#: src/preferences/pages/pipelines/components.js:45
+msgid "Applications (Dark mode)"
+msgstr "Toepassings (donker modus)"
+
+#: src/preferences/pages/pipelines/index.js:79
+msgid "New pipeline"
+msgstr "Nuwe effekreeks"
 
 #: src/preferences/pages/pipelines/index.js:117
-msgid "Delete this pipeline?"
-msgstr ""
+#, javascript-format
+msgid "Delete “%s”?"
+msgstr "Skrap “%s”?"
 
 #: src/preferences/pages/pipelines/index.js:118
+msgid "Delete this pipeline?"
+msgstr "Skrap hierdie effekreeks?"
+
+#: src/preferences/pages/pipelines/index.js:119
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "Dit word deur %s gebruik, wat na die verstek-effekreeks sal oorskakel."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" geskrap"
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Effekreeks geskrap"
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "Ontdoen"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "Onbekende effek"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "Skuif op"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "Skuif af"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "Effekkieslys"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Skep nuwe effekreeks"
 
 #~ msgid ""
 #~ "Forces the blur to be properly shown on all workspaces on overview.\n"
