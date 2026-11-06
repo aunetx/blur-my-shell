@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-10-20 16:23+0000\n"
-"Last-Translator: Aurélien Hamy <aunetx@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-07 17:51+0000\n"
+"Last-Translator: SUNPHASΣ <lleolau@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -212,19 +212,21 @@ msgstr "Convertit l’image de l’espace de couleur HSLA vers RGBA."
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Floue"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Texture"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Avancée"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
 msgstr ""
+"Construis des blocs qui sont essentiellement utiles lorsqu'ils sont combinés "
+"avec d'autres effets."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -325,7 +327,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:111
 msgid "Tint strength"
-msgstr ""
+msgstr "Force de la teinte"
 
 #: src/effects/refraction/info.js:112
 msgid "Amount of subtle milky glass tint over the blurred texture."
@@ -333,7 +335,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:121
 msgid "Tint color"
-msgstr ""
+msgstr "Teinte de la couleur"
 
 #: src/effects/refraction/info.js:122
 msgid "Color blended over the blurred texture, weighted by the tint strength."
@@ -349,7 +351,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:137
 msgid "Inner shadow"
-msgstr ""
+msgstr "Ombre intérieure"
 
 #: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
@@ -365,7 +367,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:157
 msgid "Edge behavior"
-msgstr ""
+msgstr "Comportement de la bordure"
 
 #: src/effects/refraction/info.js:158
 msgid "How texture coordinates outside the actor are sampled."
@@ -377,7 +379,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:162
 msgid "Mirror"
-msgstr ""
+msgstr "Miroir"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
