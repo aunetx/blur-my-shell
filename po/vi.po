@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-05 09:51+0000\n"
+"PO-Revision-Date: 2026-11-06 15:51+0000\n"
 "Last-Translator: Huynh Tuan Dung "
 "<itslouisanderson@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -293,11 +293,11 @@ msgstr "Hiệu ứng lóa Fresnel"
 
 #: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "Cường độ hiệu ứng ánh lóa Fresnel chiếu từ cạnh kính."
 
 #: src/effects/refraction/info.js:81
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "Góc ánh lóa Fresnel"
 
 #: src/effects/refraction/info.js:82
 msgid ""
@@ -307,11 +307,11 @@ msgstr ""
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "Chiều rộng ánh lóa Fresnel"
 
 #: src/effects/refraction/info.js:92
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
-msgstr ""
+msgstr "Hệ số độ dày của vòng ánh sáng lóa Fresnel dọc cạnh kính."
 
 #: src/effects/refraction/info.js:101
 msgid "Specular glare strength"
@@ -348,7 +348,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:137
 msgid "Inner shadow"
-msgstr ""
+msgstr "Đổ bóng trong"
 
 #: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
