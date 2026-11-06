@@ -4,10 +4,10 @@ uniform float opacity_factor;
 uniform int mode;
 uniform float image_width;
 uniform float image_height;
-uniform float actor_origin_x;
-uniform float actor_origin_y;
-uniform float actor_width;
-uniform float actor_height;
+uniform float target_origin_x;
+uniform float target_origin_y;
+uniform float target_width;
+uniform float target_height;
 uniform int image_mode;
 uniform float monitor_origin_x;
 uniform float monitor_origin_y;
@@ -117,8 +117,8 @@ void main() {
         cogl_color_out = c;
         return;
     }
-    vec2 screen_position = vec2(actor_origin_x, actor_origin_y)
-        + cogl_tex_coord_in[0].st * vec2(actor_width, actor_height);
+    vec2 screen_position = vec2(target_origin_x, target_origin_y)
+        + cogl_tex_coord_in[0].st * vec2(target_width, target_height);
     vec2 image_position;
     if (image_mode == 0) {
         image_position = screen_position / vec2(image_width, image_height);

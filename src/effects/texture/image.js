@@ -169,23 +169,6 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
     createTarget(context, textureWidth, textureHeight) {
         super.createTarget(context, textureWidth, textureHeight);
 
-        const placeholder = Cogl.Texture2D.new_with_size(context, 1, 1);
-        placeholder.set_components(Cogl.TextureComponents.RGBA);
-        placeholder.allocate();
-        placeholder.set_region(
-            0, 0, 0, 0, 1, 1, 1, 1,
-            Cogl.PixelFormat.RGBA_8888, 4,
-            new Uint8Array(4) // transparent black (0,0,0,0)
-        );
-        const pipeline = this.get_pipeline();
-        pipeline.set_layer_texture(1, placeholder);
-        pipeline.set_layer_filters(
-            1,
-            Cogl.PipelineFilter.NEAREST,
-            Cogl.PipelineFilter.NEAREST
-        );
-        pipeline.set_layer_wrap_mode(1, Cogl.PipelineWrapMode.REPEAT);
-
         if (this._pixbuf)
             this.bind_image_texture(context);
     }
@@ -321,10 +304,10 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
         const originX = actorX + x;
         const originY = actorY + y;
         const monitor = Main.layoutManager.findMonitorForActor(actor);
-        uniforms.set_uniform(this, 'actor_origin_x', originX);
-        uniforms.set_uniform(this, 'actor_origin_y', originY);
-        uniforms.set_uniform(this, 'actor_width', width);
-        uniforms.set_uniform(this, 'actor_height', height);
+        uniforms.set_uniform(this, 'target_origin_x', originX);
+        uniforms.set_uniform(this, 'target_origin_y', originY);
+        uniforms.set_uniform(this, 'target_width', width);
+        uniforms.set_uniform(this, 'target_height', height);
         uniforms.set_uniform(this, 'monitor_origin_x', monitor?.x ?? originX);
         uniforms.set_uniform(this, 'monitor_origin_y', monitor?.y ?? originY);
         uniforms.set_uniform(this, 'monitor_width', monitor?.width ?? width);
