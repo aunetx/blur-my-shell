@@ -4,6 +4,7 @@ const INTEGRAL_UNIFORMS = new Set([
     'divider',
     'downsampling_mode',
     'factor',
+    'image_mode',
     'mode',
     'operation',
     'straight_corners',

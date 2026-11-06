@@ -17,6 +17,7 @@ export function get_effects_groups(_) {
         texture: {
             name: _('Texture'),
             contains: [
+                'image',
                 'noise',
                 'pixelize',
                 'wave',

@@ -78,7 +78,7 @@ For the difference between static blur and dynamic blur:
 
 - static blur uses a static image of the wallpaper, and applies the effects that are part of a pipeline on it
   - you can create, duplicate, rename, delete the pipelines in the Pipelines tab
-  - for each pipeline, you can add effects including Dual Kawase blur, Liquid Glass, Vapor Wave, pixelization, color and noise; then configure, reorder or delete them
+  - for each pipeline, you can add effects including Dual Kawase blur, Liquid Glass, Vapor Wave, pixelization, image texture, color and noise; then configure, reorder or delete them
   - the effects order is important: the first effect in the list is applied first
   - the first pipeline (with id “pipeline_default”) is not deletable, but still configurable — if you delete a pipeline that is being used, this is the pipeline that will be switched to
   - you can export your pipelines and component settings to a file from the preferences menu, to back them up, share them or import them on another computer

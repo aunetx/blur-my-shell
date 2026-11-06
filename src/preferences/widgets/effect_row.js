@@ -7,6 +7,8 @@ import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensio
 
 import { get_supported_effects } from '../../effects/effects.js';
 
+Gio._promisify(Gtk.FileDialog.prototype, 'open', 'open_finish');
+
 
 function create_effect_menu() {
     const menu = new Gio.Menu();
@@ -169,6 +171,43 @@ export const EffectRow = GObject.registerClass({
                     );
                     break;
 
+                case "file":
+                    row = new Adw.ActionRow({
+                        subtitle: this.get_effect_param(param_key) || param.description,
+                    });
+                    const choose_button = new Gtk.Button({
+                        label: _('Choose…'),
+                        valign: Gtk.Align.CENTER,
+                    });
+                    choose_button.connect('clicked', () => {
+                        const dialog = new Gtk.FileDialog({
+                            title: param.name,
+                            accept_label: _('Select'),
+                            modal: true,
+                        });
+                        const filter = new Gtk.FileFilter();
+                        filter.set_name(_('Images'));
+                        filter.add_pixbuf_formats();
+                        dialog.set_default_filter(filter);
+
+                        dialog.open(this.get_root(), null)
+                            .then(file => {
+                                const path = file.get_path();
+                                if (!path) {
+                                    logError(new Error(_('Selected image is not a local file')));
+                                    return;
+                                }
+                                this.set_effect_param(param_key, path);
+                                row.set_subtitle(path);
+                            })
+                            .catch(e => {
+                                if (!e.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED))
+                                    logError(e);
+                            });
+                    });
+                    row.add_suffix(choose_button);
+                    break;
+
                 case "rgba":
                     row = new Adw.ActionRow;
                     let color_button = new Gtk.ColorDialogButton({
@@ -198,7 +237,8 @@ export const EffectRow = GObject.registerClass({
                     break;
             }
             row.set_title(param.name);
-            row.set_subtitle(param.description);
+            if (param.type !== "file")
+                row.set_subtitle(param.description);
             this.add_row(row);
         }
     }
