@@ -53,6 +53,7 @@ Colors are lists of red, green, blue and alpha between 0 and 1. Choices are stor
 | `gloss` | number | 0 to 1 | 1 |
 | `fresnel_angle` | number | -180 to 180 | 0 |
 | `fresnel_width` | number | 0.5 to 6 | 1.5 |
+| `fresnel_two_sided` | boolean | | `true` |
 | `specular_strength` | number | 0 to 1 | 0.1 |
 | `edge_shadow` | number | 0 to 1 | 0.7 |
 | `edge_glow` | number | 0 to 1 | 0.5 |

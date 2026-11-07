@@ -27,6 +27,7 @@ uniform float rgb_fringing;
 uniform float gloss;
 uniform float fresnel_angle;
 uniform float fresnel_width;
+uniform int fresnel_two_sided;
 uniform float specular_strength;
 uniform float edge_shadow;
 uniform float edge_glow;
@@ -494,6 +495,11 @@ if (!useCircularSurface && (roundingRadius == 0.0 || R < shortestSide * 0.45)
     float offAxis = clamp((1.0 - max(abs(glareAxis.x), abs(glareAxis.y))) /
                           0.2928932, 0.0, 1.0);
     glareTaper = mix(glareTaper, glareFacing, offAxis);
+
+    if (fresnel_two_sided == 0) {
+        float oneSidedMask = 1.0 - smoothstep(-0.2, 0.1, glareAxisDot);
+        glareTaper *= oneSidedMask;
+    }
 
     // Thin dark border on the straight side edges (the pair perpendicular to
     // the glare axis). It starts after the glare tail ends and thins in

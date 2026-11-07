@@ -89,7 +89,7 @@ export function get_refraction_effects(_) {
                 },
                 fresnel_angle: {
                     name: _("Fresnel glare angle"),
-                    description: _("Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights the top and bottom, positive rotates clockwise)."),
+                    description: _("Direction or axis of the fresnel glare, in degrees (positive rotates clockwise). In two-sided mode, 0 lights the top and bottom edges; in one-sided mode, only the edge facing the light angle is lit (0 for top, 180 for bottom)."),
                     type: "float",
                     min: -180.,
                     max: 180.,
@@ -106,6 +106,11 @@ export function get_refraction_effects(_) {
                     increment: 0.1,
                     big_increment: 0.5,
                     digits: 2
+                },
+                fresnel_two_sided: {
+                    name: _("Two-sided fresnel glare"),
+                    description: _("Light opposite edge pairs symmetrically. When disabled, only the edge facing the fresnel angle is lit (e.g. 180 lights the bottom edge, removing the glare from the top)."),
+                    type: "boolean"
                 },
                 specular_strength: {
                     name: _("Specular glare strength"),
