@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
 "PO-Revision-Date: 2026-11-07 17:51+0000\n"
-"Last-Translator: georgi <zebr3@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Ulfius <ulfius@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
 "Language: de\n"
@@ -86,7 +86,7 @@ msgstr "Bildschirm"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr ""
+msgstr "Überlagern"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
@@ -110,7 +110,7 @@ msgstr "Farbig abwedeln"
 
 #: src/effects/color/info.js:34
 msgid "Color burn"
-msgstr ""
+msgstr "Farbig nachbelichten"
 
 #: src/effects/color/info.js:35
 msgid "Hard light"
@@ -118,7 +118,7 @@ msgstr "Hartes Licht"
 
 #: src/effects/color/info.js:36
 msgid "Soft light"
-msgstr ""
+msgstr "Weiches Licht"
 
 #: src/effects/color/info.js:37
 msgid "Difference"
