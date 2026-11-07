@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-06 15:51+0000\n"
+"PO-Revision-Date: 2026-11-07 17:51+0000\n"
 "Last-Translator: Arabella-dev1 <arabella-"
 "dev1@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/blur-"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Desfoque Kawase duplo"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
@@ -464,7 +464,7 @@ msgstr "Ruído"
 
 #: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "Um efeito que adiciona uma granulação aleatória para a imagem."
 
 #: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
@@ -676,15 +676,15 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "Desfocar todas as janelas"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "Quando desligado, apenas as janelas listadas abaixo são desfocadas."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "Janelas desfocadas"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
@@ -700,7 +700,7 @@ msgstr "Adicionar Janela"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "Janelas excluídas"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
@@ -725,7 +725,7 @@ msgstr "Nenhum"
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "Menu de Pipelines"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
@@ -733,7 +733,7 @@ msgstr "Nome"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "ID da Pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
@@ -770,11 +770,11 @@ msgstr "Pipelines"
 
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
-msgstr ""
+msgstr "Pipelines são conjuntos de efeitos que componentes compartilham."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "Nova Pipeline"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
@@ -946,7 +946,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:101
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Calendário e centro de notificações"
 
 #: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
@@ -958,7 +958,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:122
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Volume e brilho"
 
 #: resources/ui/pages/shell/popup.ui:129
 msgid "Window resize hints"
@@ -1049,7 +1049,7 @@ msgstr "Captura de Tela"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "Atrás do seletor de janelas"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
@@ -1079,7 +1079,7 @@ msgstr ""
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "Escolha uma Janela"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
@@ -1191,6 +1191,7 @@ msgstr "Redefinir todas as preferências?"
 #: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
+"Configurações de Pipelines e componentes retornarão aos seus valores padrão."
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
@@ -1216,7 +1217,7 @@ msgstr "Excluir essa pipeline?"
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "É usado por %s, mudará para a pipeline padrão."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-10-20 16:24+0000\n"
+"PO-Revision-Date: 2026-11-07 17:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -210,19 +210,19 @@ msgstr "Mengonversi gambar dari ruang warna HSLA ke RGBA."
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Buram"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Tekstur"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Lanjutan"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
-msgstr ""
+msgstr "Elemen dasar yang paling berguna jika dipadukan dengan efek lain."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -620,15 +620,15 @@ msgstr ""
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "Pencatatan Debug"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "Nonaktifkan dalam Mode Hemat Daya"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "Atur Ulang Preferensi…"
 
 #: resources/ui/menu.ui:20
 msgid "Project page"
@@ -644,7 +644,7 @@ msgstr "Lisensi"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu Utama"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -654,7 +654,7 @@ msgstr "Aplikasi"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "Tampilan"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -662,7 +662,7 @@ msgstr "Kegelapan"
 
 #: resources/ui/pages/applications.ui:42
 msgid "Higher values are easier to read"
-msgstr ""
+msgstr "Nilai yang lebih tinggi memudahkan pembacaan"
 
 #: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
@@ -684,7 +684,7 @@ msgstr "Bulatkan sudut jendela yang dimaksimalkan dan dalam mode layar penuh"
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "Perilaku"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -693,6 +693,8 @@ msgstr "Blur pada ruang kerja"
 #: resources/ui/pages/applications.ui:96
 msgid "Shows the blur on every workspace, at some performance cost"
 msgstr ""
+"Menampilkan efek buram di setiap ruang kerja, dengan sedikit penurunan "
+"kinerja"
 
 #: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
@@ -700,15 +702,17 @@ msgstr "Nonaktifkan blur saat layar penuh"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "Buramkan semua jendela"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
 msgstr ""
+"Jika dinonaktifkan, hanya jendela yang tercantum di bawah ini yang "
+"diburamkan."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "Jendela yang diburamkan"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
@@ -724,7 +728,7 @@ msgstr "Tambah jendela"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "Jendela yang dikecualikan"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
@@ -749,19 +753,19 @@ msgstr "Tidak ada"
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "Menu Pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "ID Pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "Salin"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -775,18 +779,18 @@ msgstr "Tambahkan Efek"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "Belum ada efek"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "Gandakan"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -795,10 +799,11 @@ msgstr "Pipeline"
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
 msgstr ""
+"Pipeline adalah kumpulan efek yang digunakan bersama oleh berbagai komponen."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "Pipeline Baru"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
@@ -840,7 +845,7 @@ msgstr "Matikan di ruang kerja"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "Latar Belakang"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -858,11 +863,11 @@ msgstr "Gaya komponen ruang kerja"
 
 #: resources/ui/pages/shell/overview.ui:32
 msgid "For the dash, search and app folders"
-msgstr ""
+msgstr "Untuk dash, pencarian, dan folder aplikasi"
 
 #: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "Radius sudut ruang kerja"
 
 #: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
@@ -870,11 +875,11 @@ msgstr "Paksa teks terang"
 
 #: resources/ui/pages/shell/panel.ui:59
 msgid "Useful with a light shell theme"
-msgstr ""
+msgstr "Berguna saat menggunakan tema shell terang"
 
 #: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
-msgstr ""
+msgstr "Sesuaikan dengan tema dalam ringkasan aktivitas"
 
 #: resources/ui/pages/shell/panel.ui:92
 msgid "Override background dynamically"
@@ -882,7 +887,7 @@ msgstr "Ganti latar belakang secara dinamis"
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "Mengubah latar belakang saat jendela berada di dekat panel"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
@@ -919,6 +924,8 @@ msgstr "Ekstensi Hidetopbar"
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr ""
+"Mempertahankan efek buram dalam ringkasan aktivitas, paling sesuai dengan "
+"efek buram statis"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -926,7 +933,7 @@ msgstr "Blur panel original dengan Dash to Panel"
 
 #: resources/ui/pages/shell/panel.ui:141
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "Saat Dash to Panel mempertahankan panel asli"
 
 #: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
@@ -1006,11 +1013,11 @@ msgstr "Permukaan popup lainnya"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "Desktop"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -1019,16 +1026,16 @@ msgstr "Panel"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "Bilah atas atau panel dari Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "Dock"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock, Ubuntu Dock, Dhruva, dan dock sejenis"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
@@ -1037,7 +1044,7 @@ msgstr "Popup"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "Menu, pengaturan cepat, notifikasi, dan dialog"
 
 #: resources/ui/pages/shell/shell.ui:46
 #: src/preferences/pages/pipelines/components.js:10
@@ -1046,60 +1053,60 @@ msgstr "Ruang kerja"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "Wallpaper di belakang ruang kerja"
 
 #: resources/ui/pages/shell/shell.ui:59
 #: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
-msgstr ""
+msgstr "Folder aplikasi"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "Folder yang dibuka dari kisi aplikasi"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "Layar kunci"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "Di belakang permintaan kata sandi"
 
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "Tangkapan layar"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "Di belakang pemilih jendela"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "Ekstensi"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "Window List"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "Bilah tugas dari ekstensi Window List"
 
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Coverflow Alt-Tab"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "Di belakang pengalih jendela"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
@@ -1107,12 +1114,12 @@ msgstr ""
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "Pilih Jendela"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "Hapus"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
@@ -1128,7 +1135,7 @@ msgstr "Jenis blur"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "Efek buram statis hanya memburamkan wallpaper"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1243,16 +1250,16 @@ msgstr "Pipeline baru"
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "Hapus “%s”?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "Hapus pipeline ini?"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "Pipeline ini digunakan oleh %s, yang akan beralih ke pipeline bawaan."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
@@ -1273,15 +1280,15 @@ msgstr "Efek tidak dikenal"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "Pindahkan ke Atas"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "Pindahkan ke Bawah"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "Menu Efek"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
