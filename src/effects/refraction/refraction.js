@@ -231,7 +231,21 @@ const RefractionEffectClass = utils.IS_IN_PREFERENCES ? null : class RefractionE
                 uniforms.set_uniform(this, 'fresnel_width', parseFloat(this._fresnel_width - 1e-6));
             }
         }
-            get specular_strength() {
+
+        get fresnel_two_sided() {
+            return this._fresnel_two_sided;
+        }
+
+        set fresnel_two_sided(value) {
+            const fresnelTwoSided = Boolean(value);
+            if (this._fresnel_two_sided !== fresnelTwoSided) {
+                this._fresnel_two_sided = fresnelTwoSided;
+
+                uniforms.set_uniform(this, 'fresnel_two_sided', this._fresnel_two_sided ? 1 : 0);
+            }
+        }
+
+        get specular_strength() {
             return this._specular_strength;
         }
 

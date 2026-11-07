@@ -17,6 +17,7 @@ export const DEFAULT_PARAMS = {
     gloss: 1,
     fresnel_angle: 0,
     fresnel_width: 1.50,
+    fresnel_two_sided: true,
     specular_strength: 0.10,
     edge_shadow: 0.7,
     edge_glow: 0.5,
@@ -95,12 +96,16 @@ export const REFRACTION_EFFECT_META = {
             0, 1, DEFAULT_PARAMS.gloss
         ),
         fresnel_angle: doubleProperty(
-            'fresnel_angle', 'Fresnel Angle', 'Axis of the fresnel glare edge pair, in degrees',
+            'fresnel_angle', 'Fresnel Angle', 'Direction or axis of the fresnel glare, in degrees (0 lights top edge or top/bottom pair, 180 lights bottom)',
             -180, 180, DEFAULT_PARAMS.fresnel_angle
         ),
         fresnel_width: doubleProperty(
             'fresnel_width', 'Fresnel Width', 'Thickness multiplier of the fresnel glare ring',
             0.5, 6, DEFAULT_PARAMS.fresnel_width
+        ),
+        fresnel_two_sided: GObject.ParamSpec.boolean(
+            'fresnel_two_sided', 'Two-sided Fresnel Glare', 'Light opposite edge pairs symmetrically instead of only the edge facing the fresnel angle',
+            GObject.ParamFlags.READWRITE, DEFAULT_PARAMS.fresnel_two_sided
         ),
         specular_strength: doubleProperty(
             'specular_strength', 'Specular Glare Strength', 'Strength of the specular glare',
