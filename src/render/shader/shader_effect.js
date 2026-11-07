@@ -45,7 +45,8 @@ export const SurfaceShaderEffect = GObject.registerClass({
         if (resized) {
             target.usedWidth = usedWidth;
             target.usedHeight = usedHeight;
-            target.framebuffer.set_viewport(0, 0, usedWidth, usedHeight);
+            if (usedWidth > 0 && usedHeight > 0)
+                target.framebuffer.set_viewport(0, 0, usedWidth, usedHeight);
             target.region.update(target);
         }
         target.framebuffer.orthographic(x, y, x + width, y + height, -1, 1);

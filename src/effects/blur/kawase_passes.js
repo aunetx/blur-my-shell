@@ -131,7 +131,8 @@ export function levelSize(size, level) {
 export function resizeRenderTarget(target, level, width, height) {
     target.usedWidth = levelSize(width, level);
     target.usedHeight = levelSize(height, level);
-    target.framebuffer.set_viewport(0, 0, target.usedWidth, target.usedHeight);
+    if (target.usedWidth > 0 && target.usedHeight > 0)
+        target.framebuffer.set_viewport(0, 0, target.usedWidth, target.usedHeight);
 }
 
 export function projectRenderTarget(target, bounds) {
