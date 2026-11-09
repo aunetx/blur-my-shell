@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-06 15:51+0000\n"
+"PO-Revision-Date: 2026-11-10 01:51+0000\n"
 "Last-Translator: Huynh Tuan Dung "
 "<itslouisanderson@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -221,7 +221,7 @@ msgstr "Nâng cao"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
-msgstr ""
+msgstr "Các thành phần cơ bản thường được dùng kết hợp với các hiệu ứng khác."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
@@ -551,15 +551,15 @@ msgstr ""
 
 #: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "Độ tương phản của hiệu ứng."
 
 #: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "Độ sáng của hiệu ứng."
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
-msgstr ""
+msgstr "Phóng to"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
@@ -919,83 +919,84 @@ msgstr "Tương phản"
 
 #: resources/ui/pages/shell/panel.ui:169
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "Làm mờ khi cửa sổ ở gần"
 
 #: resources/ui/pages/shell/panel.ui:170
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "Đổi màu nền khi cửa sổ ở gần"
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
-msgstr ""
+msgstr "Trên"
 
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
-msgstr ""
+msgstr "Dưới"
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "Giữ chủ đề shell"
 
 #: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
 msgstr ""
+"Giữ nguyên màu nền gốc theo chủ đề shell cho các nút điều khiển trong popup."
 
 #: resources/ui/pages/shell/popup.ui:73
 msgid "Menus"
-msgstr ""
+msgstr "Menu"
 
 #: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
-msgstr ""
+msgstr "Menu chọn bộ gõ"
 
 #: resources/ui/pages/shell/popup.ui:87
 msgid "Quick settings"
-msgstr ""
+msgstr "Cài đặt nhanh"
 
 #: resources/ui/pages/shell/popup.ui:94
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "Menu con trong Cài đặt nhanh"
 
 #: resources/ui/pages/shell/popup.ui:101
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Lịch và trung tâm thông báo"
 
 #: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
-msgstr ""
+msgstr "Thông báo"
 
 #: resources/ui/pages/shell/popup.ui:115
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "Trình chuyển cửa sổ và không gian làm việc"
 
 #: resources/ui/pages/shell/popup.ui:122
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Âm lượng và độ sáng màn hình"
 
 #: resources/ui/pages/shell/popup.ui:129
 msgid "Window resize hints"
-msgstr ""
+msgstr "Gợi ý thay đổi kích thước cửa sổ"
 
 #: resources/ui/pages/shell/popup.ui:136
 msgid "Dialogs"
-msgstr ""
+msgstr "Hộp thoại"
 
 #: resources/ui/pages/shell/popup.ui:143
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "Bàn phím trên màn hình"
 
 #: resources/ui/pages/shell/popup.ui:150
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "Các ô popup khác"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "Bàn làm việc"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -1004,25 +1005,25 @@ msgstr "Thanh panel"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "Thanh trên, hoặc các thanh panel từ Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "Thanh dock"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock, Ubuntu Dock, Dhruva và các thanh dock tương tự"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
 msgid "Popups"
-msgstr ""
+msgstr "Popup"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "Menu, cài đặt nhanh, thông báo và hộp thoại"
 
 #: resources/ui/pages/shell/shell.ui:46
 #: src/preferences/pages/pipelines/components.js:10
@@ -1031,60 +1032,60 @@ msgstr "Tổng quan"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "Hình nền phía sau các không gian làm việc"
 
 #: resources/ui/pages/shell/shell.ui:59
 #: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
-msgstr ""
+msgstr "Thư mục ứng dụng"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "Các thư mục mở từ màn hình Ứng dụng"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "Hệ thống"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "Màn hình khóa"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "Áp dụng cho nền phía sau ô nhập mật khẩu"
 
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "Chụp màn hình"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "Áp dụng cho nền phía sau trình chọn cửa sổ"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "Phần mở rộng"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "Window List"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "Thanh tác vụ từ phần mở rộng Window List"
 
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Coverflow Alt-Tab"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "Áp dụng cho nền phía sau trình chọn cửa sổ"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
@@ -1092,20 +1093,20 @@ msgstr ""
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "Chọn một cửa sổ"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "Xóa"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "Không thể chọn cửa sổ. Hãy đảm bảo đã bật phần mở rộng."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "Tác nhân đã chọn không phải là cửa sổ."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
@@ -1113,7 +1114,7 @@ msgstr "Loại hiệu ứng mờ"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "Loại Tĩnh chỉ làm mờ hình nền"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1131,43 +1132,52 @@ msgstr "Chuỗi pipeline"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur không còn bắt buộc"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell nay có thể xử lý trực tiếp các góc bo tròn. Bạn có thể xóa bỏ "
+"thư viện cũ nếu không còn cần dùng tới."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Hướng dẫn xóa"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Bỏ qua"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Xóa thư viện làm mờ cũ"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"Việc xóa bỏ là không bắt buộc. Hãy giữ lại thư viện nếu có một phần mở rộng "
+"khác đang cần sử dụng nó."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"Bạn đã cài đặt thư viện thông qua một trình quản lý gói? Hãy gỡ bỏ gói gnome-"
+"rounded-blur bằng trình quản lý gói đó. Xem lại các thay đổi được đề xuất "
+"trước khi xác nhận."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"Bạn đã cài đặt thư viện bằng công cụ hỗ trợ cũ của Blur my Shell? Hãy mở bản "
+"hướng dẫn để biết cách chạy công cụ gỡ bỏ."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1175,32 +1185,37 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"Bạn đã cài đặt bằng cách biên dịch từ mã nguồn? Hãy chạy lệnh “sudo ninja -C "
+"build uninstall” từ thư mục biên dịch gốc, hoặc lần theo nhật ký cài đặt. "
+"Đừng dùng công cụ này để gỡ bỏ bản cài đặt qua một trình quản lý gói."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"Sau khi gỡ bỏ, hãy đăng xuất và đăng nhập lại. Blur my Shell sẽ không gỡ bỏ "
+"bất cứ thứ gì cho bạn."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Đóng"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Mở hướng dẫn"
 
 #: src/preferences/menu.js:76
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Đặt lại tất cả cài đặt?"
 
 #: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
-msgstr ""
+msgstr "Các pipeline và cài đặt thành phần sẽ trở về giá trị mặc định."
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
-msgstr ""
+msgstr "Hủy"
 
 #: src/preferences/menu.js:80
 msgid "Reset"
@@ -1208,16 +1223,16 @@ msgstr "Cài đặt lại"
 
 #: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
-msgstr ""
+msgstr "Pipeline mới"
 
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "Xóa “%s”?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "Xóa pipeline này?"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
@@ -1227,35 +1242,35 @@ msgstr ""
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "Đã xóa \"%s\""
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Đã xóa pipeline"
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "Hoàn tác"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "Hiệu ứng không xác định"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "Di chuyển lên"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "Di chuyển xuống"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "Menu hiệu ứng"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Tạo pipeline mới"
 
 #~ msgid ""
 #~ "Makes the focused window opaque and the other ones blurred, helping with "
