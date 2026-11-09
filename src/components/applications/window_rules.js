@@ -5,6 +5,7 @@ const BLURRED_FRAME_TYPES = [
     Meta.FrameType.DIALOG,
     Meta.FrameType.MODAL_DIALOG,
     Meta.FrameType.ATTACHED,
+    Meta.FrameType.UTILITY,
 ];
 
 // GTK popovers and the menus of other Wayland clients
