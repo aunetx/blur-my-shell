@@ -1,5 +1,5 @@
 {
-    "description": "Adds a blur look to different parts of GNOME Shell, including the top panel, dash and overview.\n\nNote: if the extension shows an error after updating, restart your session to see whether it persists. This is due to a GNOME Shell bug that the extension cannot work around.\n\nPlease report bugs on GitHub instead of in the reviews, they aren't checked for bug reports.",
+    "description": "Adds blur to GNOME Shell: the top panel, the dash and overview, menus and notifications, the lock screen, and the windows of your applications. Every blur is made of effects you can tune, from a simple blur to Liquid Glass.\n\nPlease report bugs on GitHub instead of in the reviews, as reviews aren't checked for bug reports.",
     "name": "Blur my Shell",
     "shell-version": [
         "46",
