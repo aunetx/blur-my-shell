@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-01-11 20:01+0000\n"
-"Last-Translator: Daniel Wiik <d.wiik@outlook.com>\n"
+"PO-Revision-Date: 2026-11-10 01:51+0000\n"
+"Last-Translator: Daniel Nylander "
+"<yeagersthlm2@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sv/>\n"
 "Language: sv\n"
@@ -17,15 +18,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Dubbel Kawase-oskärpa"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "En snabb oskärpa av hög kvalitet."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -60,127 +61,131 @@ msgstr "En effekt som blandar en färg i pipelinen."
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
-msgstr ""
+msgstr "Färgen som ska blandas in. Mängden styrs av färgens opacitet."
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
-msgstr ""
+msgstr "Blandningsläge"
 
 #: src/effects/color/info.js:22
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Hur färgen blandas in."
 
 #: src/effects/color/info.js:25
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: src/effects/color/info.js:26
 msgid "Multiply"
-msgstr ""
+msgstr "Multiplicera"
 
 #: src/effects/color/info.js:27
 msgid "Screen"
-msgstr ""
+msgstr "Skärm"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr ""
+msgstr "Överlägg"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
-msgstr ""
+msgstr "Gör mörkare"
 
 #: src/effects/color/info.js:30
 msgid "Lighten"
-msgstr ""
+msgstr "Gör ljusare"
 
 #: src/effects/color/info.js:31
 msgid "Plus darker"
-msgstr ""
+msgstr "Plus mörkare"
 
 #: src/effects/color/info.js:32
 msgid "Plus lighter"
-msgstr ""
+msgstr "Plus ljusare"
 
 #: src/effects/color/info.js:33
 msgid "Color dodge"
-msgstr ""
+msgstr "Färgblekning"
 
 #: src/effects/color/info.js:34
 msgid "Color burn"
-msgstr ""
+msgstr "Färgbränning"
 
 #: src/effects/color/info.js:35
 msgid "Hard light"
-msgstr ""
+msgstr "Hårt ljus"
 
 #: src/effects/color/info.js:36
 msgid "Soft light"
-msgstr ""
+msgstr "Mjukt ljus"
 
 #: src/effects/color/info.js:37
 msgid "Difference"
-msgstr ""
+msgstr "Differens"
 
 #: src/effects/color/info.js:38
 msgid "Exclusion"
-msgstr ""
+msgstr "Uteslutning"
 
 #: src/effects/color/info.js:39
 msgid "Hue"
-msgstr ""
+msgstr "Nyans"
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
 #: src/effects/wave/info.js:67
 msgid "Saturation"
-msgstr ""
+msgstr "Mättnad"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
-msgstr ""
+msgstr "Luminans"
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "En effekt som påverkar bildens luminans."
 
 #: src/effects/color/info.js:53
 msgid "Shift brightness"
-msgstr ""
+msgstr "Förskjut ljusstyrka"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Ljusstyrkan som ska läggas till eller tas bort från bilden."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Multiplikator för ljusstyrka"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Multiplicerar bildens ljusstyrka; 0 är svart och 1 lämnar ljusstyrkan "
+"oförändrad."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
-msgstr ""
+msgstr "Kontrast"
 
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "Justerar bildkontrasten kring valt kontrastcentrum."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
-msgstr ""
+msgstr "Kontrastcentrum"
 
 #: src/effects/color/info.js:84
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Kontrastens centrum som ska användas."
 
 #: src/effects/color/info.js:94
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Multiplicerar bildens mättnad; 0 tar bort all färg och 1 lämnar mättnaden "
+"oförändrad."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
@@ -188,7 +193,7 @@ msgstr "RGB till HSL (avancerad effekt)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Konverterar bilden från RGBA-färgrymden till HSLA."
 
 #: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
@@ -196,7 +201,7 @@ msgstr "HSL till RGB (avancerad effekt)"
 
 #: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Konverterar bilden från HSLA-färgrymden till RGBA."
 
 #: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
 #: resources/ui/pages/shell/app-folders.ui:8
@@ -204,91 +209,97 @@ msgstr ""
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Oskärpa"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Textur"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Avancerat"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
-msgstr ""
+msgstr "Byggblock som främst är användbara i kombination med andra effekter."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Flytande glas"
 
 #: src/effects/refraction/info.js:8
 msgid ""
 "A glossy translucent material with edge refraction, rim lighting, tint, and "
 "inner shadow."
 msgstr ""
+"Ett glansigt, genomskinligt material med brytning längs kanterna, "
+"kantbelysning, färgton och inre skugga."
 
 #: src/effects/refraction/info.js:11
 msgid "Refraction scale"
-msgstr ""
+msgstr "Skala för ljusbrytning"
 
 #: src/effects/refraction/info.js:12
 msgid "How strongly the glass bends the sampled blur texture."
-msgstr ""
+msgstr "Hur kraftigt glaset bryter den inlästa oskärpetexturen."
 
 #: src/effects/refraction/info.js:21
 msgid "Blur radius"
-msgstr ""
+msgstr "Oskärperadie"
 
 #: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
 msgstr ""
+"Ger den samplade bakgrunden oskärpa innan shadermaterialet Flytande glas "
+"tillämpas."
 
 #: src/effects/refraction/info.js:31
 msgid "Bezel width"
-msgstr ""
+msgstr "Kantbredd"
 
 #: src/effects/refraction/info.js:32
 msgid "How far the liquid-glass lens reaches inward from the edge."
-msgstr ""
+msgstr "Hur långt in från kanten linsen med flytande glas når."
 
 #: src/effects/refraction/info.js:41
 msgid "Rim spread"
-msgstr ""
+msgstr "Kantspridning"
 
 #: src/effects/refraction/info.js:42
 msgid "How far the refraction eases inward from the glass edge."
-msgstr ""
+msgstr "Hur långt in från glaskanten som ljusbrytningen tonas ut."
 
 #: src/effects/refraction/info.js:51
 msgid "Glass thickness"
-msgstr ""
+msgstr "Glasets tjocklek"
 
 #: src/effects/refraction/info.js:52
 msgid "Depth used by the refraction edge profile."
-msgstr ""
+msgstr "Djup som används av kantprofilen för ljusbrytning."
 
 #: src/effects/refraction/info.js:61
 msgid "Refraction style"
-msgstr ""
+msgstr "Ljusbrytningsstil"
 
 #: src/effects/refraction/info.js:62
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"Böjningens form nära kanten. Låga värden ger en mjuk böjning, höga värden "
+"ger en skarpare böjning precis vid kanten."
 
 #: src/effects/refraction/info.js:71
 msgid "Fresnel glare"
-msgstr ""
+msgstr "Fresnelblänk"
 
 #: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "Styrkan på det riktade Fresnelblänket från glaskanten."
 
 #: src/effects/refraction/info.js:81
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "Vinkel för Fresnelblänk"
 
 #: src/effects/refraction/info.js:82
 msgid ""
@@ -298,15 +309,16 @@ msgstr ""
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "Bredd för Fresnelblänk"
 
 #: src/effects/refraction/info.js:92
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr ""
+"Multiplikator för tjockleken hos ringen med Fresnelblänk längs glaskanten."
 
 #: src/effects/refraction/info.js:101
 msgid "Specular glare strength"
-msgstr ""
+msgstr "Styrka för spegelblänk"
 
 #: src/effects/refraction/info.js:102
 msgid ""
@@ -315,59 +327,61 @@ msgstr ""
 
 #: src/effects/refraction/info.js:111
 msgid "Tint strength"
-msgstr ""
+msgstr "Styrka på färgton"
 
 #: src/effects/refraction/info.js:112
 msgid "Amount of subtle milky glass tint over the blurred texture."
-msgstr ""
+msgstr "Mängden av en diskret mjölkig glaston över den oskärpta texturen."
 
 #: src/effects/refraction/info.js:121
 msgid "Tint color"
-msgstr ""
+msgstr "Färgton"
 
 #: src/effects/refraction/info.js:122
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
+"Färgen som blandas över den oskärpta texturen, viktad efter färgtonens "
+"styrka."
 
 #: src/effects/refraction/info.js:127
 msgid "Backdrop zoom"
-msgstr ""
+msgstr "Bakgrundens zoomning"
 
 #: src/effects/refraction/info.js:128
 msgid "Zoom level of the backdrop visible through the glass."
-msgstr ""
+msgstr "Zoomnivå för bakgrunden som syns genom glaset."
 
 #: src/effects/refraction/info.js:137
 msgid "Inner shadow"
-msgstr ""
+msgstr "Inre skugga"
 
 #: src/effects/refraction/info.js:138
 msgid "Darkens the lower and inner edge for a deeper glass surface."
-msgstr ""
+msgstr "Mörkar den nedre och inre kanten för en djupare glasyta."
 
 #: src/effects/refraction/info.js:147
 msgid "Chromatic dispersion"
-msgstr ""
+msgstr "Kromatisk spridning"
 
 #: src/effects/refraction/info.js:148
 msgid "Physical per-channel refraction dispersion at the glass edge."
-msgstr ""
+msgstr "Fysisk brytningsspridning per kanal vid glaskanten."
 
 #: src/effects/refraction/info.js:157
 msgid "Edge behavior"
-msgstr ""
+msgstr "Kantbeteende"
 
 #: src/effects/refraction/info.js:158
 msgid "How texture coordinates outside the actor are sampled."
-msgstr ""
+msgstr "Hur texturkoordinater utanför aktören samplas."
 
 #: src/effects/refraction/info.js:161
 msgid "Clamp"
-msgstr ""
+msgstr "Begränsa"
 
 #: src/effects/refraction/info.js:162
 msgid "Mirror"
-msgstr ""
+msgstr "Spegla"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
@@ -412,7 +426,7 @@ msgstr "Nedskala (avancerad effekt)"
 
 #: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
-msgstr ""
+msgstr "En effekt som skalar ned bilden och placerar den i övre vänstra hörnet."
 
 #: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
@@ -460,7 +474,7 @@ msgstr "Brus"
 
 #: src/effects/texture/info.js:94
 msgid "An effect that adds random grain to the image."
-msgstr ""
+msgstr "En effekt som lägger till slumpmässigt korn i bilden."
 
 #: src/effects/texture/info.js:98
 msgid "The amount of noise to add."
@@ -480,127 +494,135 @@ msgstr ""
 
 #: src/effects/wave/info.js:7
 msgid "Vapor Wave"
-msgstr ""
+msgstr "Vapor Wave"
 
 #: src/effects/wave/info.js:8
 msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
 msgstr ""
+"En flödande vågförskjutning som ger en livfull och dynamisk känsla med "
+"naturlig rörelse."
 
 #: src/effects/wave/info.js:11
 msgid "Wave frequency"
-msgstr ""
+msgstr "Vågfrekvens"
 
 #: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "Hur tätt krusningarna ligger."
 
 #: src/effects/wave/info.js:21
 msgid "Wave amplitude"
-msgstr ""
+msgstr "Vågamplitud"
 
 #: src/effects/wave/info.js:22
 msgid "How strongly the image gets displaced by the waves."
-msgstr ""
+msgstr "Hur mycket bilden förskjuts av vågorna."
 
 #: src/effects/wave/info.js:31
 msgid "Wave octaves"
-msgstr ""
+msgstr "Vågoktaver"
 
 #: src/effects/wave/info.js:32
 msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Detaljnivå för vågformen. Högre värden ger mer detaljrikedom men sämre "
+"prestanda."
 
 #: src/effects/wave/info.js:39
 msgid "Vapor octaves"
-msgstr ""
+msgstr "Vapor-oktaver"
 
 #: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Detaljnivå för den disiga texturen. Högre värden ger mer detaljrikedom men "
+"sämre prestanda."
 
 #: src/effects/wave/info.js:47
 msgid "Vapor speed"
-msgstr ""
+msgstr "Vapor-hastighet"
 
 #: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
-msgstr ""
+msgstr "Hur snabbt den disiga vapor-texturen driver över tid."
 
 #: src/effects/wave/info.js:57
 msgid "Texture grain"
-msgstr ""
+msgstr "Texturkorn"
 
 #: src/effects/wave/info.js:58
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "Lägger till en fin sandblästrad textur i bilden."
 
 #: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
-msgstr ""
+msgstr "Effektens mättnad."
 
 #: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "Effektens ljusstyrka."
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "Förstorar bakgrunden mot ytans mitt."
 
 #: src/effects/wave/info.js:97
 msgid "Dispersion"
-msgstr ""
+msgstr "Spridning"
 
 #: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "Styrka för kromatisk aberration som ger en glitcheffekt."
 
 #: src/effects/wave/info.js:107
 msgid "Enable flow animation"
-msgstr ""
+msgstr "Aktivera flödesanimering"
 
 #: src/effects/wave/info.js:108
 msgid "Whether the wave noise continuously flows over time."
-msgstr ""
+msgstr "Om vågbruset flödar kontinuerligt över tid."
 
 #: src/effects/wave/info.js:112
 msgid "Flow animation speed"
-msgstr ""
+msgstr "Flödesanimeringens hastighet"
 
 #: src/effects/wave/info.js:113
 msgid "The base speed at which the wave pattern flows."
-msgstr ""
+msgstr "Grundhastigheten för vågmönstrets flöde."
 
 #: src/effects/wave/info.js:122
 msgid "Resize ease duration"
-msgstr ""
+msgstr "Varaktighet för storleksändringens mjukning"
 
 #: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"Hur lång tid effekten tar att anpassa sig när ett fönster ändrar storlek "
+"(millisekunder)."
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "Felsökningsloggning"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "Inaktivera vid energisparläge"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
-msgstr ""
+msgstr "Återställ inställningar…"
 
 #: resources/ui/menu.ui:20
 msgid "Project page"
@@ -616,7 +638,7 @@ msgstr "Licens"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "Huvudmeny"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -626,7 +648,7 @@ msgstr "Applikationer"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "Utseende"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -634,7 +656,7 @@ msgstr "Opacitet"
 
 #: resources/ui/pages/applications.ui:42
 msgid "Higher values are easier to read"
-msgstr ""
+msgstr "Högre värden är lättare att läsa"
 
 #: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
@@ -643,20 +665,20 @@ msgstr "Ogenomskinligt fokuserat fönster"
 #: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
 #: resources/ui/pages/shell/popup.ui:61
 msgid "Corner radius"
-msgstr ""
+msgstr "Hörnradie"
 
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
 #: resources/ui/pages/shell/popup.ui:66
 msgid "Rounded corners"
-msgstr ""
+msgstr "Avrundade hörn"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "Avrunda maximerade fönster och fönster i helskärmsläge"
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "Beteende"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -664,23 +686,23 @@ msgstr "Oskärpa på översiktsläget"
 
 #: resources/ui/pages/applications.ui:96
 msgid "Shows the blur on every workspace, at some performance cost"
-msgstr ""
+msgstr "Visar oskärpan på varje arbetsyta, med viss prestandakostnad"
 
 #: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "Ta bort oskärpa i helskärmsläge"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "Ge alla fönster oskärpa"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "Om avstängt får bara fönstren nedan oskärpa."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "Fönster med oskärpa"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
@@ -696,44 +718,44 @@ msgstr "Lägg till fönster"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "Undantagna fönster"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
 msgid "All"
-msgstr ""
+msgstr "Alla"
 
 #: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
 #: resources/ui/pages/shell/popup.ui:161
 msgid "Top only"
-msgstr ""
+msgstr "Endast överst"
 
 #: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Bottom only"
-msgstr ""
+msgstr "Endast nederst"
 
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
 #: resources/ui/pages/shell/popup.ui:163
 msgid "None"
-msgstr ""
+msgstr "Inga"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "Bearbetningskedjemeny"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "Bearbetningskedje-ID"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "Kopiera"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -747,18 +769,18 @@ msgstr "Lägg till effekter"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "Inga effekter ännu"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicera"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -767,10 +789,11 @@ msgstr "Pipelines"
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
 msgstr ""
+"Bearbetningskedjor är uppsättningar av effekter som delas av komponenter."
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "Ny bearbetningskedja"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
@@ -803,7 +826,7 @@ msgstr "Mörkt"
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
 #: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
 msgid "Automatic"
-msgstr ""
+msgstr "Automatiskt"
 
 #: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
 msgid "Disable in overview"
@@ -812,7 +835,7 @@ msgstr "Inaktivera i översiktsläget"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "Bakgrund"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -830,11 +853,11 @@ msgstr "Stil på översiktlägets komponent"
 
 #: resources/ui/pages/shell/overview.ui:32
 msgid "For the dash, search and app folders"
-msgstr ""
+msgstr "För dashen, sökningen och appmapparna"
 
 #: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "Arbetsytans hörnradie"
 
 #: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
@@ -842,23 +865,23 @@ msgstr "Tvinga ljus text"
 
 #: resources/ui/pages/shell/panel.ui:59
 msgid "Useful with a light shell theme"
-msgstr ""
+msgstr "Användbart med ett ljust skaltema"
 
 #: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
-msgstr ""
+msgstr "Matcha temat i översikten"
 
 #: resources/ui/pages/shell/panel.ui:92
 msgid "Override background dynamically"
-msgstr ""
+msgstr "Åsidosätt bakgrunden dynamiskt"
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "Ändrar bakgrunden när ett fönster är nära panelen"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
-msgstr ""
+msgstr "När ett fönster är nära"
 
 #: resources/ui/pages/shell/panel.ui:101
 msgid ""
@@ -867,14 +890,18 @@ msgid ""
 "Background on Window Proximity: Solid color background when a window is near "
 "the panel and blur when it is not."
 msgstr ""
+"Oskärpa vid fönsternärhet: Oskärpa endast när ett fönster är nära panelen "
+"och genomskinlighet annars.\n"
+"Bakgrund vid fönsternärhet: Enfärgad bakgrund när ett fönster är nära "
+"panelen och oskärpa annars."
 
 #: resources/ui/pages/shell/panel.ui:110
 msgid "Gradient background"
-msgstr ""
+msgstr "Övertoningsbakgrund"
 
 #: resources/ui/pages/shell/panel.ui:117
 msgid "Gradient direction"
-msgstr ""
+msgstr "Övertoningsriktning"
 
 #: resources/ui/pages/shell/panel.ui:127
 msgid "Compatibility"
@@ -886,7 +913,7 @@ msgstr "Hidetopbar-tillägg"
 
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
-msgstr ""
+msgstr "Håller oskärpan synlig i översikten, fungerar bäst med statisk oskärpa"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -894,7 +921,7 @@ msgstr "Blurra originalpanelen med Dash to Panel"
 
 #: resources/ui/pages/shell/panel.ui:141
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "När Dash to Panel behåller originalpanelen"
 
 #: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
@@ -902,83 +929,83 @@ msgstr "Kontrasterad"
 
 #: resources/ui/pages/shell/panel.ui:169
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "Oskärpa vid fönsternärhet"
 
 #: resources/ui/pages/shell/panel.ui:170
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "Bakgrund vid fönsternärhet"
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
-msgstr ""
+msgstr "Överst"
 
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
-msgstr ""
+msgstr "Nederst"
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "Bevara skaltemat"
 
 #: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
-msgstr ""
+msgstr "Behåll färgerna i skaltemat för popupreglage."
 
 #: resources/ui/pages/shell/popup.ui:73
 msgid "Menus"
-msgstr ""
+msgstr "Menyer"
 
 #: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
-msgstr ""
+msgstr "Kandidater för inmatningsmetod"
 
 #: resources/ui/pages/shell/popup.ui:87
 msgid "Quick settings"
-msgstr ""
+msgstr "Snabbinställningar"
 
 #: resources/ui/pages/shell/popup.ui:94
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "Undermenyer för snabbinställningar"
 
 #: resources/ui/pages/shell/popup.ui:101
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Kalender och aviseringscenter"
 
 #: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
-msgstr ""
+msgstr "Aviseringar"
 
 #: resources/ui/pages/shell/popup.ui:115
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "Fönster- och arbetsyteväxlare"
 
 #: resources/ui/pages/shell/popup.ui:122
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Volym och ljusstyrka"
 
 #: resources/ui/pages/shell/popup.ui:129
 msgid "Window resize hints"
-msgstr ""
+msgstr "Tips vid storleksändring av fönster"
 
 #: resources/ui/pages/shell/popup.ui:136
 msgid "Dialogs"
-msgstr ""
+msgstr "Dialogrutor"
 
 #: resources/ui/pages/shell/popup.ui:143
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "Skärmtangentbord"
 
 #: resources/ui/pages/shell/popup.ui:150
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "Andra popupytor"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "Skal"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "Skrivbord"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -987,25 +1014,25 @@ msgstr "Panel"
 
 #: resources/ui/pages/shell/shell.ui:22
 msgid "The top bar, or the panels from Dash to Panel"
-msgstr ""
+msgstr "Toppraden eller panelerna från Dash to Panel"
 
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "Docka"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock, Ubuntu Dock, Dhruva och liknande dockor"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
 msgid "Popups"
-msgstr ""
+msgstr "Popupfönster"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "Menyer, snabbinställningar, aviseringar och dialogrutor"
 
 #: resources/ui/pages/shell/shell.ui:46
 #: src/preferences/pages/pipelines/components.js:10
@@ -1014,60 +1041,60 @@ msgstr "Översiktsläge"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "Bakgrundsbilden bakom arbetsytorna"
 
 #: resources/ui/pages/shell/shell.ui:59
 #: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
-msgstr ""
+msgstr "Appmappar"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "Mappar som öppnas från appnätet"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "Låsskärm"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "Bakom lösenordsprompten"
 
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "Skärmbild"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "Bakom fönsterväljaren"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "Tillägg"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "Fönsterlista"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "Aktivitetsfältet från tillägget Fönsterlista"
 
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Coverflow Alt-Tab"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "Bakom fönsterväxlaren"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
@@ -1075,20 +1102,21 @@ msgstr ""
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "Välj ett fönster"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
 msgstr ""
+"Det gick inte att välja fönster. Kontrollera att tillägget är aktiverat."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "Den valda aktören är inte ett fönster."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
@@ -1096,7 +1124,7 @@ msgstr "Oskärpe typ"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "Statisk oskärpa gäller endast bakgrundsbilden"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1114,43 +1142,51 @@ msgstr "Pipeline"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur behövs inte längre"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell hanterar avrundade hörn direkt. Du kan ta bort det gamla "
+"biblioteket om inget annat använder det."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Instruktioner för borttagning"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Avfärda"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Tar bort det gamla oskärpebiblioteket"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"Det är valfritt att ta bort det. Behåll biblioteket om något annat tillägg "
+"fortfarande behöver det."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
 "Installed through a package manager? Remove the gnome-rounded-blur package "
 "with the same package manager. Review its proposed changes before confirming."
 msgstr ""
+"Installerat via en pakethanterare? Ta bort paketet gnome-rounded-blur med "
+"samma pakethanterare. Granska dess föreslagna ändringar innan du bekräftar."
 
 #: src/preferences/legacy_blur_notice.js:62
 msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"Installerat med den gamla hjälpen för Blur my Shell? Instruktionerna "
+"förklarar hur du kör dess avinstallerare."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1158,32 +1194,38 @@ msgid ""
 "build directory, or follow its install log. Do not use the helper to remove "
 "a package-managed installation."
 msgstr ""
+"Byggt från källkod? Använd “sudo ninja -C build uninstall” från den "
+"ursprungliga byggkatalogen, eller följ installationsloggen. Använd inte "
+"hjälpen för att ta bort en installation som hanteras av pakethanteraren."
 
 #: src/preferences/legacy_blur_notice.js:64
 msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"Logga ut och in igen efter borttagningen. Blur my Shell avinstallerar inget "
+"åt dig."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Stäng"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Öppna instruktioner"
 
 #: src/preferences/menu.js:76
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Återställ alla inställningar?"
 
 #: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
+"Bearbetningskedjor och komponentinställningar återgår till standardvärdena."
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/preferences/menu.js:80
 msgid "Reset"
@@ -1191,54 +1233,54 @@ msgstr "Återställa"
 
 #: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
-msgstr ""
+msgstr "Ny bearbetningskedja"
 
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "Ta bort “%s”?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "Ta bort den här bearbetningskedjan?"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "Den används av %s, som byter till standardbearbetningskedjan."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" togs bort"
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Bearbetningskedjan har tagits bort"
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "Ångra"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "Okänd effekt"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "Flytta upp"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "Flytta ned"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "Effektmeny"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Skapa ny bearbetningskedja"
 
 #~ msgid ""
 #~ "Makes the focused window opaque and the other ones blurred, helping with "
