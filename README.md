@@ -8,7 +8,7 @@
 
 Blur my Shell adds blur to GNOME Shell: the top panel, the dash and overview, menus and notifications, the lock screen, and the windows of your applications. Every blur is made of effects you can tune, from a simple blur to Liquid Glass.
 
-![The desktop with a blurred panel, quick settings and application windows](docs/screenshots/desktop.webp)
+![The desktop in light and dark mode, with the panel, calendar, dock and a window blurred](docs/screenshots/light-dark.webp)
 
 ## What it blurs
 
@@ -19,7 +19,7 @@ Blur my Shell adds blur to GNOME Shell: the top panel, the dash and overview, me
 - **Applications**, behind their windows and their menus. Blur every window except the ones you exclude, or only the ones you list.
 - **Lock screen** and the **screenshot** window picker.
 
-![The overview with its blurred background and dash](docs/screenshots/overview.webp)
+![The overview with its blurred background and dock](docs/screenshots/overview.webp)
 
 ## Static and dynamic blur
 
@@ -35,7 +35,7 @@ Each part of the shell uses a pipeline: a list of effects applied one after the 
 
 A component can use a different pipeline in light and dark mode. Pipelines and settings can be exported to a file from the preferences, to back them up or share them.
 
-![Quick settings with the Liquid Glass pipeline](docs/screenshots/liquid-glass.webp)
+![The panel and dock with the Liquid Glass pipeline](docs/screenshots/liquid-glass.webp)
 
 ## Works with
 
