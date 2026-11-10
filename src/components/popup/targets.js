@@ -2,8 +2,9 @@ import St from 'gi://St';
 
 import { has_any_style_class, is_internal_actor } from './actors.js';
 
-// Other extensions opt their surfaces in with this class (see the README). Such a surface is
-// blurred in place of the popup surface it sits in, which then has no background of its own.
+// Other extensions opt their surfaces in with this class (see docs/extension-integration.md).
+// Such a surface is blurred in place of the popup surface it sits in, which then has no
+// background of its own.
 export const OPT_IN_STYLE_CLASS = 'bms-popup-blur-target';
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = [
