@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2025-04-06 17:37+0000\n"
-"Last-Translator: Syuugo <pub@s1204.me>\n"
+"PO-Revision-Date: 2026-11-11 16:51+0000\n"
+"Last-Translator: zhjpwlj <zhjpwlj@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -60,11 +60,11 @@ msgstr "パイプラインに色を混ぜる効果。"
 msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
-msgstr ""
+msgstr "混ぜ合わせる色。混ぜる量は色の透明さで決められます。"
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
-msgstr ""
+msgstr "混合モード"
 
 #: src/effects/color/info.js:22
 msgid "How the color is blended in."
@@ -72,7 +72,7 @@ msgstr ""
 
 #: src/effects/color/info.js:25
 msgid "Normal"
-msgstr ""
+msgstr "普通"
 
 #: src/effects/color/info.js:26
 msgid "Multiply"
@@ -80,27 +80,27 @@ msgstr ""
 
 #: src/effects/color/info.js:27
 msgid "Screen"
-msgstr ""
+msgstr "スクリーン"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr ""
+msgstr "オーバーレイ"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
-msgstr ""
+msgstr "暗くする"
 
 #: src/effects/color/info.js:30
 msgid "Lighten"
-msgstr ""
+msgstr "明るくする"
 
 #: src/effects/color/info.js:31
 msgid "Plus darker"
-msgstr ""
+msgstr "もっと暗く"
 
 #: src/effects/color/info.js:32
 msgid "Plus lighter"
-msgstr ""
+msgstr "もっと明るく"
 
 #: src/effects/color/info.js:33
 msgid "Color dodge"
@@ -120,7 +120,7 @@ msgstr ""
 
 #: src/effects/color/info.js:37
 msgid "Difference"
-msgstr ""
+msgstr "違い"
 
 #: src/effects/color/info.js:38
 msgid "Exclusion"
@@ -141,7 +141,7 @@ msgstr ""
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "画像の明るさを影響する効果。"
 
 #: src/effects/color/info.js:53
 msgid "Shift brightness"
