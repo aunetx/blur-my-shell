@@ -4,9 +4,8 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as Signals from 'resource:///org/gnome/shell/misc/signals.js';
 
 import { Connections } from '../../conveniences/connections.js';
-import { Pipeline } from '../../pipelines/pipeline.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
-import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { StaticBlur } from '../../render/static_blur/static_blur.js';
 import {
     get_dock_corners,
     is_dock_ready,
@@ -234,29 +233,20 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         });
 
         if (this.settings.dash_to_dock.STATIC_BLUR) {
-            const bg_managers = [];
-            const pipeline = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                get_pipeline_id(this.settings.dash_to_dock)
-            );
-            const background = pipeline.create_background_with_effects(
-                monitor.index, bg_managers,
-                background_group, 'bms-dash-blurred-widget'
-            );
-            const rounded_pipeline = new RoundedPipeline(
-                this.effects_manager,
-                get_radius,
-                get_corners
-            );
-            rounded_pipeline.bind(pipeline, background);
+            const background = new StaticBlur({
+                name: 'bms-dash-blurred-widget',
+                monitorIndex: monitor.index,
+                pipelineId: get_pipeline_id(this.settings.dash_to_dock),
+                getRadius: get_radius,
+                getCorners: get_corners,
+            });
+            background_group.add_child(background);
 
             return {
                 background,
                 background_group,
-                bg_manager: bg_managers[0],
-                pipeline,
-                rounded_pipeline,
+                bg_manager: null,
+                pipeline: null,
                 corner_settings,
             };
         }
@@ -279,7 +269,6 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             background_group,
             bg_manager,
             pipeline,
-            rounded_pipeline: null,
             corner_settings,
         };
     }

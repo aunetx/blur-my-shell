@@ -9,7 +9,7 @@ const wb_proto = WorkspaceBackground.prototype;
 import { WorkspaceAnimationController } from 'resource:///org/gnome/shell/ui/workspaceAnimation.js';
 const wac_proto = WorkspaceAnimationController.prototype;
 
-import { Pipeline } from '../pipelines/pipeline.js';
+import { StaticBlur } from '../render/static_blur/static_blur.js';
 import {
     get_component_style,
     get_pipeline_id,
@@ -24,13 +24,10 @@ const OVERVIEW_COMPONENTS_STYLE = [
 
 
 export const OverviewBlur = class OverviewBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings) {
         this.connections = connections;
         this.settings = settings;
-        this.effects_manager = effects_manager;
-        this.overview_background_managers = [];
         this.overview_background_group = null;
-        this.animation_background_managers = [];
         this.animation_background_group = null;
         this.enabled = false;
         this.proto_patched = false;
@@ -65,7 +62,7 @@ export const OverviewBlur = class OverviewBlur {
         connect_system_style_changes(this.connections, () => {
             this.update_components_classname();
             if (this.settings.overview.PIPELINE_AUTO_MODE)
-                this.update_backgrounds();
+                this.update_pipeline();
         });
 
         this.patch_workspace_switch();
@@ -166,10 +163,10 @@ export const OverviewBlur = class OverviewBlur {
         );
 
         const primary_index = Main.layoutManager.primaryMonitor?.index;
-        this.animation_background_managers.forEach(bg_manager => {
-            bg_manager._bms_pipeline.actor.visible = !Meta.prefs_get_workspaces_only_on_primary()
+        this.animation_background_group.get_children().forEach(background => {
+            background.visible = !Meta.prefs_get_workspaces_only_on_primary()
                 || primary_index === undefined
-                || bg_manager._monitorIndex === primary_index;
+                || background.monitorIndex === primary_index;
         });
     }
 
@@ -181,16 +178,8 @@ export const OverviewBlur = class OverviewBlur {
     update_backgrounds() {
         this.remove_background_actors();
         for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
-            this.overview_background_managers.push(this.create_background(
-                i,
-                this.overview_background_group,
-                'bms-overview-blurred-widget'
-            ));
-            this.animation_background_managers.push(this.create_background(
-                i,
-                this.animation_background_group,
-                'bms-animation-blurred-widget'
-            ));
+            this.create_background(i, this.overview_background_group, 'bms-overview-blurred-widget');
+            this.create_background(i, this.animation_background_group, 'bms-animation-blurred-widget');
         }
         Main.layoutManager.overviewGroup.insert_child_at_index(this.overview_background_group, 0);
         this.connections.connect(Main.layoutManager.overviewGroup, "child-added", (_, child) => {
@@ -199,20 +188,23 @@ export const OverviewBlur = class OverviewBlur {
         });
     }
 
+    update_pipeline() {
+        const pipeline_id = get_pipeline_id(this.settings.overview);
+        [this.overview_background_group, this.animation_background_group].forEach(group =>
+            group.get_children().forEach(background => background.setPipeline(pipeline_id))
+        );
+    }
+
     create_background(monitor_index, background_group, widget_name) {
-        const background_managers = [];
-        const pipeline = new Pipeline(
-            this.effects_manager,
-            global.blur_my_shell._pipelines_manager,
-            get_pipeline_id(this.settings.overview)
-        );
-        pipeline.create_background_with_effects(
-            monitor_index,
-            background_managers,
-            background_group,
-            widget_name
-        );
-        return background_managers[0];
+        const monitor = Main.layoutManager.monitors[monitor_index];
+        const background = new StaticBlur({
+            name: widget_name,
+            monitorIndex: monitor_index,
+            pipelineId: get_pipeline_id(this.settings.overview),
+            wholeMonitor: true,
+        });
+        background.set_position(monitor.x, monitor.y);
+        background_group.add_child(background);
     }
 
     get_overview_style() {
@@ -242,22 +234,8 @@ export const OverviewBlur = class OverviewBlur {
         if (this.overview_background_group?.get_parent())
             Main.layoutManager.overviewGroup.remove_child(this.overview_background_group);
 
-        this.overview_background_managers.forEach(background_manager =>
-            this.destroy_background(background_manager)
-        );
-        this.animation_background_managers.forEach(background_manager =>
-            this.destroy_background(background_manager)
-        );
-        this.overview_background_managers = [];
-        this.animation_background_managers = [];
-    }
-
-    destroy_background(background_manager) {
-        const pipeline = background_manager._bms_pipeline;
-        const actor = pipeline.actor;
-        pipeline.destroy();
-        background_manager.destroy();
-        actor.destroy();
+        this.overview_background_group?.destroy_all_children();
+        this.animation_background_group?.destroy_all_children();
     }
 
     disable() {

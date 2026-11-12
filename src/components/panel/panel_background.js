@@ -3,9 +3,8 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { ANIMATION_TIME } from 'resource:///org/gnome/shell/ui/overview.js';
 
-import { Pipeline } from '../../pipelines/pipeline.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
-import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { StaticBlur } from '../../render/static_blur/static_blur.js';
 import { get_pipeline_id } from '../../conveniences/style.js';
 
 /// Creates the blur behind a panel, inserted at the bottom of its panel box.
@@ -14,28 +13,20 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
         { name: 'bms-panel-backgroundgroup', width: 0, height: 0 }
     );
 
-    let background, bg_manager, pipeline;
-    let rounded_pipeline = null;
+    let background;
+    let bg_manager = null;
+    let pipeline = null;
     const static_blur = settings.panel.STATIC_BLUR;
 
     if (static_blur) {
-        const bg_manager_list = [];
-        pipeline = new Pipeline(
-            effects_manager,
-            global.blur_my_shell._pipelines_manager,
-            get_pipeline_id(settings.panel),
-        );
-        background = pipeline.create_background_with_effects(
-            monitor.index, bg_manager_list,
-            background_group, 'bms-panel-blurred-widget'
-        );
-        bg_manager = bg_manager_list[0];
-        rounded_pipeline = new RoundedPipeline(
-            effects_manager,
-            () => settings.panel.CORNER_RADIUS,
-            () => settings.panel.ROUNDED_CORNERS
-        );
-        rounded_pipeline.bind(pipeline, background);
+        background = new StaticBlur({
+            name: 'bms-panel-blurred-widget',
+            monitorIndex: monitor.index,
+            pipelineId: get_pipeline_id(settings.panel),
+            getRadius: () => settings.panel.CORNER_RADIUS,
+            getCorners: () => settings.panel.ROUNDED_CORNERS,
+        });
+        background_group.add_child(background);
     } else {
         pipeline = new DynamicPipeline(
             effects_manager,
@@ -52,7 +43,7 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
     }
 
     panel_box.insert_child_at_index(background_group, 0);
-    return { background, background_group, bg_manager, pipeline, rounded_pipeline, static_blur };
+    return { background, background_group, bg_manager, pipeline, static_blur };
 }
 
 /// Moves the blur under the panel, returning false if the panel isn't allocated yet.

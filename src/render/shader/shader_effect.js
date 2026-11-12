@@ -172,9 +172,13 @@ export const SurfaceShaderEffect = GObject.registerClass({
         node.add_child(output);
     }
 
-    vfunc_set_actor(actor) {
+    releaseTargets() {
         this.target = null;
         this.sourceValid = false;
+    }
+
+    vfunc_set_actor(actor) {
+        this.releaseTargets();
         super.vfunc_set_actor(actor);
     }
 });

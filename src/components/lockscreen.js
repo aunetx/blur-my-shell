@@ -1,7 +1,7 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
-import { Pipeline } from '../pipelines/pipeline.js';
+import { StaticBlur } from '../render/static_blur/static_blur.js';
 import { get_pipeline_id, connect_system_style_changes } from '../conveniences/style.js';
 
 const original_createBackground =
@@ -13,10 +13,9 @@ const original_updateBackgrounds =
 
 
 export const LockscreenBlur = class LockscreenBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings) {
         this.connections = connections;
         this.settings = settings;
-        this.effects_manager = effects_manager;
         this.enabled = false;
     }
 
@@ -51,17 +50,15 @@ export const LockscreenBlur = class LockscreenBlur {
         if (!extension?._lockscreen_blur.enabled)
             return original_createBackground.call(this, monitor_index);
 
-        let pipeline = new Pipeline(
-            extension._effects_manager, extension._pipelines_manager,
-            get_pipeline_id(extension._settings.lockscreen)
-        );
-
-        pipeline.create_background_with_effects(
-            monitor_index,
-            this._bgManagers,
-            this._backgroundGroup,
-            "screen-shield-background"
-        );
+        const monitor = Main.layoutManager.monitors[monitor_index];
+        const background = new StaticBlur({
+            name: 'screen-shield-background',
+            monitorIndex: monitor_index,
+            pipelineId: get_pipeline_id(extension._settings.lockscreen),
+            wholeMonitor: true,
+        });
+        background.set_position(monitor.x, monitor.y);
+        this._backgroundGroup.add_child(background);
     }
 
     _updateBackgroundEffects() {
@@ -70,10 +67,7 @@ export const LockscreenBlur = class LockscreenBlur {
 
     _updateBackgrounds() {
         // the dialog can hold the shell's own backgrounds if it was created before enabling
-        this._bgManagers.forEach(manager => {
-            manager._bms_pipeline?.destroy();
-            manager.destroy();
-        });
+        this._bgManagers.forEach(manager => manager.destroy());
         this._bgManagers = [];
         this._backgroundGroup.destroy_all_children();
 
@@ -98,10 +92,8 @@ export const LockscreenBlur = class LockscreenBlur {
             UnlockDialog.prototype._updateBackgrounds = original_updateBackgrounds;
 
         const dialog = this.get_active_dialog();
-        if (dialog?._bgManagers.some(manager => manager._bms_pipeline)) {
-            dialog._bgManagers.forEach(manager => manager._bms_pipeline?.destroy());
+        if (dialog?._backgroundGroup.get_children().some(child => child instanceof StaticBlur))
             dialog._updateBackgrounds();
-        }
 
         this.connections.disconnect_all();
     }

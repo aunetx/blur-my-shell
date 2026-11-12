@@ -2,26 +2,22 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { get_pipeline_id } from '../../conveniences/style.js';
-import { Pipeline } from '../../pipelines/pipeline.js';
-import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { StaticBlur } from '../../render/static_blur/static_blur.js';
 import { has_style_class } from './actors.js';
 import { transform_to_actor_space } from './surface/geometry.js';
 import { PopupBlurAllocation } from './surface/allocation.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
-    constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius, get_corners) {
+    constructor(settings, target, root_actor, parent, get_corner_radius, get_corners) {
         this.settings = settings;
-        this.effects_manager = effects_manager;
         this.target = target;
         this.root_actor = root_actor;
         this.parent = parent;
-        this.rounded_pipeline = new RoundedPipeline(effects_manager, get_corner_radius, get_corners);
+        this.get_corner_radius = get_corner_radius;
+        this.get_corners = get_corners;
         this.background_group = null;
         this.allocation_constraint = null;
         this.blur_actor = null;
-        this.bg_manager = null;
-        this.pipeline = null;
-        this.monitor_index = null;
         this.background_opacity = null;
         this.clip = null;
     }
@@ -53,23 +49,15 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     create_background(monitor) {
-        const bg_managers = [];
-        this.pipeline = new Pipeline(
-            this.effects_manager,
-            global.blur_my_shell._pipelines_manager,
-            get_pipeline_id(this.settings.popup),
-            null
-        );
-        this.blur_actor = this.pipeline.create_background_with_effects(
-            monitor.index,
-            bg_managers,
-            this.background_group,
-            'bms-popup-blurred-widget'
-        );
+        this.blur_actor = new StaticBlur({
+            name: 'bms-popup-blurred-widget',
+            monitorIndex: monitor.index,
+            pipelineId: get_pipeline_id(this.settings.popup),
+            getRadius: this.get_corner_radius,
+            getCorners: this.get_corners,
+        });
         this.blur_actor.hide();
-        this.bg_manager = bg_managers[0];
-        this.monitor_index = monitor.index;
-        this.rounded_pipeline.bind(this.pipeline, this.blur_actor);
+        this.background_group.insert_child_at_index(this.blur_actor, 0);
     }
 
     is_screenshot_ui() {
@@ -82,7 +70,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         if (!monitor)
             return null;
 
-        if (monitor.index !== this.monitor_index) {
+        if (monitor.index !== this.blur_actor.monitorIndex) {
             this.destroy_background();
             this.create_background(monitor);
         }
@@ -150,12 +138,11 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     update_settings() {
-        this.rounded_pipeline.update();
+        this.blur_actor.updateCorners();
     }
 
     update_pipeline() {
-        this.pipeline.change_pipeline_to(get_pipeline_id(this.settings.popup));
-        this.rounded_pipeline.update();
+        this.blur_actor.setPipeline(get_pipeline_id(this.settings.popup));
     }
 
     destroy() {
@@ -165,14 +152,8 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     destroy_background() {
-        this.rounded_pipeline.destroy();
-        this.pipeline.destroy();
-        this.bg_manager.destroy();
         this.blur_actor.destroy();
-        this.pipeline = null;
-        this.bg_manager = null;
         this.blur_actor = null;
-        this.monitor_index = null;
         this.background_opacity = null;
         this.clip = null;
     }

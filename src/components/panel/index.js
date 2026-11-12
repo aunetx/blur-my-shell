@@ -132,7 +132,7 @@ export const PanelBlur = class PanelBlur {
         if (!monitor)
             return;
 
-        const { background, background_group, bg_manager, pipeline, rounded_pipeline, static_blur } =
+        const { background, background_group, bg_manager, pipeline, static_blur } =
             create_panel_background(panel_box, monitor, this.settings, this.effects_manager);
 
         const actors = {
@@ -149,7 +149,6 @@ export const PanelBlur = class PanelBlur {
             monitor,
             bg_manager,
             pipeline,
-            rounded_pipeline,
             signal_records: [],
             is_dtp_panel,
             should_override: true,
@@ -542,16 +541,19 @@ export const PanelBlur = class PanelBlur {
     }
 
     update_pipeline() {
+        const pipeline_id = get_pipeline_id(this.settings.panel);
         this.actors_list.forEach(actors => {
-            actors.pipeline.change_pipeline_to(get_pipeline_id(this.settings.panel));
-            actors.rounded_pipeline?.update();
+            if (actors.static_blur)
+                actors.widgets.background.setPipeline(pipeline_id);
+            else
+                actors.pipeline.change_pipeline_to(pipeline_id);
         });
     }
 
     update_corner_radius() {
         this.actors_list.forEach(actors => {
-            if (actors.rounded_pipeline)
-                actors.rounded_pipeline.update();
+            if (actors.static_blur)
+                actors.widgets.background.updateCorners();
             else
                 actors.pipeline.set_corner_radius(this.settings.panel.CORNER_RADIUS);
             this.set_should_override_panel(actors, actors.should_override);
@@ -597,9 +599,10 @@ export const PanelBlur = class PanelBlur {
         actors.widgets.panel_box.remove_style_class_name("bms-panel-overview-light-theme");
         set_panel_style_class(actors, null, this.settings);
 
-        actors.rounded_pipeline?.destroy();
-        actors.pipeline.destroy();
-        actors.bg_manager.destroy();
+        if (!actors.static_blur) {
+            actors.pipeline.destroy();
+            actors.bg_manager.destroy();
+        }
         actors.widgets.background_group.destroy();
 
         this.actors_list.splice(this.actors_list.indexOf(actors), 1);

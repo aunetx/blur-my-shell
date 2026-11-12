@@ -92,12 +92,11 @@ export class DockSurface {
         this.update_visibility();
     }
 
-    set_blur({ background, background_group, bg_manager, pipeline, rounded_pipeline, corner_settings }) {
+    set_blur({ background, background_group, bg_manager, pipeline, corner_settings }) {
         this.background = background;
         this.background_group = background_group;
         this.bg_manager = bg_manager;
         this.pipeline = pipeline;
-        this.rounded_pipeline = rounded_pipeline;
         this.corner_settings = corner_settings;
         this.stop_parent_caching();
 
@@ -196,16 +195,16 @@ export class DockSurface {
 
         this.connections.disconnect_all_for(this.background_group);
         this.restore_parent_caching();
-        this.rounded_pipeline?.destroy();
-        this.pipeline.destroy();
-        this.bg_manager.destroy();
+        if (this.pipeline) {
+            this.pipeline.destroy();
+            this.bg_manager.destroy();
+        }
         this.background_group.destroy();
 
         this.background = null;
         this.background_group = null;
         this.bg_manager = null;
         this.pipeline = null;
-        this.rounded_pipeline = null;
         this.corner_settings = null;
     }
 
@@ -230,8 +229,14 @@ export class DockSurface {
     }
 
     update_pipeline() {
-        this.pipeline?.change_pipeline_to(get_pipeline_id(this.settings.dash_to_dock));
-        this.rounded_pipeline?.update();
+        if (!this.background)
+            return;
+
+        const pipeline_id = get_pipeline_id(this.settings.dash_to_dock);
+        if (this.pipeline)
+            this.pipeline.change_pipeline_to(pipeline_id);
+        else
+            this.background.setPipeline(pipeline_id);
     }
 
     update_corner_radius() {
@@ -240,10 +245,10 @@ export class DockSurface {
             return;
 
         Object.assign(this.corner_settings, { radius, corners });
-        if (this.rounded_pipeline)
-            this.rounded_pipeline.update();
+        if (this.pipeline)
+            this.pipeline.set_corner_radius(radius);
         else
-            this.pipeline?.set_corner_radius(radius);
+            this.background?.updateCorners();
     }
 
     update_visibility() {
