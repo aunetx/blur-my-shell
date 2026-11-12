@@ -81,7 +81,7 @@ export const SurfaceShaderEffect = GObject.registerClass({
     }
 
     get_pipeline() {
-        return this.target?.pipeline ?? null;
+        return this.target.pipeline;
     }
 
     set_surface_uniform(name, value, integral) {

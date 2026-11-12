@@ -118,13 +118,13 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
-        this.unscaled_radius = params.unscaled_radius ?? DEFAULT_PARAMS.unscaled_radius;
-        this.brightness = params.brightness ?? DEFAULT_PARAMS.brightness;
-        this.opacity_factor = params.opacity_factor ?? DEFAULT_PARAMS.opacity_factor;
-        this.corner_radius = params.corner_radius ?? DEFAULT_PARAMS.corner_radius;
-        this.corners_top = params.corners_top ?? DEFAULT_PARAMS.corners_top;
-        this.corners_bottom = params.corners_bottom ?? DEFAULT_PARAMS.corners_bottom;
-        this.straight_corners = params.straight_corners ?? DEFAULT_PARAMS.straight_corners;
+        this.unscaled_radius = params.unscaled_radius;
+        this.brightness = params.brightness;
+        this.opacity_factor = params.opacity_factor;
+        this.corner_radius = params.corner_radius;
+        this.corners_top = params.corners_top;
+        this.corners_bottom = params.corners_bottom;
+        this.straight_corners = params.straight_corners;
     }
 
     static get default_params() {

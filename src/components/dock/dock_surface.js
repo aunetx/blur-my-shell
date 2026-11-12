@@ -248,7 +248,7 @@ export class DockSurface {
         if (this.pipeline)
             this.pipeline.set_corner_radius(radius);
         else
-            this.background?.updateCorners();
+            this.background.updateCorners();
     }
 
     update_visibility() {

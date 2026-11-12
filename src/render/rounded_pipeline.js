@@ -24,7 +24,7 @@ export class RoundedPipeline {
             this.disconnectPipelineSignals();
             this.actorDestroyId = 0;
             this.effect = null;
-            this.pipeline?.destroy();
+            this.pipeline.destroy();
             this.pipeline = null;
             this.actor = null;
         });
@@ -32,7 +32,7 @@ export class RoundedPipeline {
     }
 
     update() {
-        if (!this.pipeline || !this.actor)
+        if (!this.pipeline)
             return;
 
         this.syncPipelineSignals();
@@ -72,7 +72,7 @@ export class RoundedPipeline {
     }
 
     attachEffectAsOutermost(outermostEffect) {
-        const existingEffects = this.pipeline?.effects ?? [];
+        const existingEffects = this.pipeline.effects;
         if (existingEffects[0] === outermostEffect)
             return;
 
@@ -106,9 +106,9 @@ export class RoundedPipeline {
         });
     }
 
-    syncPipelineSignals(force = false) {
-        const pipelineId = this.pipeline?.pipeline_id ?? null;
-        if (!force && this.observedPipelineId === pipelineId)
+    syncPipelineSignals() {
+        const pipelineId = this.pipeline.pipeline_id;
+        if (this.observedPipelineId === pipelineId)
             return;
 
         this.disconnectPipelineSignals();
@@ -127,9 +127,6 @@ export class RoundedPipeline {
 
         this.getRefractionEffects().forEach(effect => {
             const effectId = effect._bms_effect_id;
-            if (!effectId)
-                return;
-
             ['removed', 'updated', 'added'].forEach(change => {
                 this.pipelineSignalIds.push(manager.connect(
                     `${pipelineId}::effect-${effectId}-key-${change}`,
@@ -146,10 +143,7 @@ export class RoundedPipeline {
     disconnectPipelineSignals() {
         const manager = this.pipeline?.pipelines_manager;
         if (manager) {
-            this.pipelineSignalIds.forEach(id => {
-                if (id)
-                    manager.disconnect(id);
-            });
+            this.pipelineSignalIds.forEach(id => manager.disconnect(id));
         }
         this.pipelineSignalIds = [];
         this.observedPipelineId = null;

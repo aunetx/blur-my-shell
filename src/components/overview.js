@@ -162,11 +162,10 @@ export const OverviewBlur = class OverviewBlur {
             global.window_group
         );
 
-        const primary_index = Main.layoutManager.primaryMonitor?.index;
+        const only_on_primary = Meta.prefs_get_workspaces_only_on_primary();
         this.animation_background_group.get_children().forEach(background => {
-            background.visible = !Meta.prefs_get_workspaces_only_on_primary()
-                || primary_index === undefined
-                || background.monitorIndex === primary_index;
+            background.visible = !only_on_primary
+                || background.monitorIndex === Main.layoutManager.primaryIndex;
         });
     }
 
