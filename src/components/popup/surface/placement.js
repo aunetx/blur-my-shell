@@ -26,7 +26,21 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         if (!this.has_valid_geometry(clipped_geometry))
             return null;
 
-        return this.get_monitor_surface_geometry(clipped_geometry);
+        const monitor_geometry = this.get_monitor_surface_geometry(clipped_geometry);
+        if (!monitor_geometry)
+            return null;
+
+        // The blur keeps the target's whole shape, so that its corners match the target's.
+        return {
+            ...geometry,
+            monitor_index: monitor_geometry.monitor_index,
+            visible: this.is_clipped(geometry, clipped_geometry) ? clipped_geometry : null,
+        };
+    }
+
+    is_clipped(geometry, clipped_geometry) {
+        return clipped_geometry.target_width !== geometry.target_width
+            || clipped_geometry.target_height !== geometry.target_height;
     }
 
     get_unclipped_monitor_surface_geometry() {
@@ -262,11 +276,28 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
         blur_actor.set_size(local.width, local.height);
         blur_actor.set_pivot_point(0, 0);
         blur_actor.set_transform(this.get_target_transform(local));
+        this.update_dynamic_clip(geometry, local);
         this.x = geometry.x;
         this.y = geometry.y;
         this.width = local.width;
         this.height = local.height;
         return true;
+    }
+
+    /// The effects are on a child of the blur actor, which keeps them at the target's whole size.
+    update_dynamic_clip(geometry, local) {
+        if (!geometry.visible) {
+            this.surface.blur_actor.remove_clip();
+            return;
+        }
+
+        const visible = this.get_target_local_geometry(geometry.visible);
+        this.surface.blur_actor.set_clip(
+            visible.x - local.x,
+            visible.y - local.y,
+            visible.width,
+            visible.height
+        );
     }
 
     get_target_local_geometry(geometry) {
@@ -321,6 +352,7 @@ export const PopupBlurSurfacePlacement = class PopupBlurSurfacePlacement {
     update_static_geometry(geometry) {
         const clip = this.surface.static_actor.update_geometry(
             this.get_target_rect(geometry),
+            geometry.visible && this.get_target_rect(geometry.visible),
             this.monitor_index
         );
         this.surface.sync_static_actor();

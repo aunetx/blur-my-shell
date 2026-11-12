@@ -13,6 +13,9 @@ export const KEYS = [
         component: "overview", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "style-components" },
             { type: Type.I, name: "workspace-corner-radius" },
         ]
@@ -21,7 +24,11 @@ export const KEYS = [
         component: "appfolder", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "style-dialogs" },
+            { type: Type.B, name: "blur-behind-folders" },
         ]
     },
     {
@@ -29,6 +36,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "rounded-corners" },
             { type: Type.B, name: "unblur-in-overview" },
@@ -47,6 +57,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.B, name: "unblur-in-overview" },
             { type: Type.B, name: "override-background" },
             { type: Type.I, name: "style-dash-to-dock" },
@@ -57,6 +70,9 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "rounded-corners" },
             { type: Type.B, name: "corner-when-maximized" },
@@ -64,6 +80,8 @@ export const KEYS = [
             { type: Type.B, name: "dynamic-opacity" },
             { type: Type.B, name: "blur-on-overview" },
             { type: Type.B, name: "unblur-when-fullscreen" },
+            { type: Type.B, name: "blur-menus" },
+            { type: Type.I, name: "menu-corner-radius" },
             { type: Type.B, name: "enable-all" },
             { type: Type.AS, name: "whitelist" },
             { type: Type.AS, name: "blacklist" },
@@ -73,24 +91,36 @@ export const KEYS = [
         component: "lockscreen", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
         component: "window-list", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
         component: "coverflow-alt-tab", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
         component: "screenshot", schemas: [
             { type: Type.B, name: "blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
         ]
     },
     {
@@ -98,11 +128,15 @@ export const KEYS = [
             { type: Type.B, name: "blur" },
             { type: Type.B, name: "static-blur" },
             { type: Type.S, name: "pipeline" },
+            { type: Type.B, name: "pipeline-auto-mode" },
+            { type: Type.S, name: "pipeline-light" },
+            { type: Type.S, name: "pipeline-dark" },
             { type: Type.I, name: "corner-radius" },
             { type: Type.I, name: "rounded-corners" },
             { type: Type.I, name: "menu-corner-radius" },
             { type: Type.I, name: "candidate-corner-radius" },
             { type: Type.I, name: "quick-settings-corner-radius" },
+            { type: Type.I, name: "screenshot-corner-radius" },
             { type: Type.I, name: "submenu-corner-radius" },
             { type: Type.I, name: "calendar-corner-radius" },
             { type: Type.I, name: "notification-corner-radius" },
@@ -114,6 +148,19 @@ export const KEYS = [
             { type: Type.B, name: "override-background" },
             { type: Type.B, name: "preserve-shell-theme" },
             { type: Type.I, name: "style-popup" },
+            { type: Type.B, name: "blur-behind-dialogs" },
+            { type: Type.B, name: "blur-menus" },
+            { type: Type.B, name: "blur-candidates" },
+            { type: Type.B, name: "blur-quick-settings" },
+            { type: Type.B, name: "blur-submenus" },
+            { type: Type.B, name: "blur-screenshot" },
+            { type: Type.B, name: "blur-calendar" },
+            { type: Type.B, name: "blur-notifications" },
+            { type: Type.B, name: "blur-switchers" },
+            { type: Type.B, name: "blur-osds" },
+            { type: Type.B, name: "blur-resize-popups" },
+            { type: Type.B, name: "blur-dialogs" },
+            { type: Type.B, name: "blur-keyboard" },
         ]
     },
     {

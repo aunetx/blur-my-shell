@@ -16,41 +16,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "ದ್ವಿಗುಣ ಕವಸೆ ಮಸುಕು"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "ವೇಗದ, ಉತ್ತಮ ಗುಣಮಟ್ಟದ ಮಸುಕು"
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
-msgstr ""
+msgstr "ತ್ರಿಜ್ಯ"
 
 #: src/effects/blur/info.js:12
 msgid "The intensity of the blur effect."
-msgstr ""
+msgstr "ಮಸುಕಿನ ತೀವ್ರತೆ"
 
 #: src/effects/blur/info.js:21 src/effects/wave/info.js:77
 msgid "Brightness"
-msgstr ""
+msgstr "ಉಜ್ವಲತೆ"
 
 #: src/effects/blur/info.js:22
 msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
-msgstr ""
+msgstr "ಮಸುಕಿನ ಉಜ್ವಲತೆ , ಅತಿಯಾದರೆ ಅಕ್ಷರ ಓದಲು ಕಷ್ಟವಾಗಬಹುದು"
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:15
 #: src/effects/color/info.js:41 src/effects/effect_groups.js:11
 msgid "Color"
-msgstr ""
+msgstr "ಬಣ್ಣ"
 
 #: src/effects/color/info.js:11
 msgid "An effect that blends a color into the pipeline."
-msgstr ""
+msgstr "ಇದರ ಪರಿಣಾಮ , ಬಣ್ಣವನ್ನು ಪೈಪ್ಲೈನ್ಗೆ ಸೇರಿಸುವುದು"
 
 #: src/effects/color/info.js:16
 msgid ""
@@ -116,28 +117,28 @@ msgstr ""
 
 #: src/effects/color/info.js:37
 msgid "Difference"
-msgstr ""
+msgstr "ವ್ಯತ್ಯಾಸ"
 
 #: src/effects/color/info.js:38
 msgid "Exclusion"
-msgstr ""
+msgstr "ಹೊರಹಾಕುವುದು"
 
 #: src/effects/color/info.js:39
 msgid "Hue"
-msgstr ""
+msgstr "ಬಣ್ಣದ ಅಂಶ"
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
 #: src/effects/wave/info.js:67
 msgid "Saturation"
-msgstr ""
+msgstr "ಬಣ್ಣದ ತೀವ್ರತೆ"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
-msgstr ""
+msgstr "ಉಜ್ವಲತೆ"
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "ಇದು ಚಿತ್ರದ ಉಜ್ವಲತೆಯ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ"
 
 #: src/effects/color/info.js:53
 msgid "Shift brightness"

@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Διπλή θόλωση Kawase"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Ένα γρήγορο θόλωμα υψηλής ποιότητας."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -61,130 +61,137 @@ msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"Το χρώμα που πρόκειται να ενσωματωθεί. Ο βαθμός ενσωμάτωσης ελέγχεται από "
+"την αδιαφάνεια του χρώματος."
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
-msgstr ""
+msgstr "Λειτουργία ανάμειξης"
 
 #: src/effects/color/info.js:22
 msgid "How the color is blended in."
-msgstr ""
+msgstr "Πώς ενσωματώνεται το χρώμα."
 
 #: src/effects/color/info.js:25
 msgid "Normal"
-msgstr ""
+msgstr "Κανονικό"
 
 #: src/effects/color/info.js:26
 msgid "Multiply"
-msgstr ""
+msgstr "Αυξανόμενο"
 
 #: src/effects/color/info.js:27
 msgid "Screen"
-msgstr ""
+msgstr "Οθόνη"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr ""
+msgstr "Επικάλυψη"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
-msgstr ""
+msgstr "Σκοτεινότερο"
 
 #: src/effects/color/info.js:30
 msgid "Lighten"
-msgstr ""
+msgstr "Φωτεινότερο"
 
 #: src/effects/color/info.js:31
 msgid "Plus darker"
-msgstr ""
+msgstr "Πιο σκοτεινό"
 
 #: src/effects/color/info.js:32
 msgid "Plus lighter"
-msgstr ""
+msgstr "Πιο φωτεινό"
 
 #: src/effects/color/info.js:33
 msgid "Color dodge"
-msgstr ""
+msgstr "Χρωματική υπερέκθεση"
 
 #: src/effects/color/info.js:34
 msgid "Color burn"
-msgstr ""
+msgstr "Έντονη επικάλυψη χρώματος"
 
 #: src/effects/color/info.js:35
 msgid "Hard light"
-msgstr ""
+msgstr "Έντονο φως"
 
 #: src/effects/color/info.js:36
 msgid "Soft light"
-msgstr ""
+msgstr "Απαλό Φώς"
 
 #: src/effects/color/info.js:37
 msgid "Difference"
-msgstr ""
+msgstr "Διαφορά"
 
 #: src/effects/color/info.js:38
 msgid "Exclusion"
-msgstr ""
+msgstr "Αποκλεισμός"
 
 #: src/effects/color/info.js:39
 msgid "Hue"
-msgstr ""
+msgstr "Απόχρωση"
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
 #: src/effects/wave/info.js:67
 msgid "Saturation"
-msgstr ""
+msgstr "Κορεσμός"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
-msgstr ""
+msgstr "Λαμπρότητα"
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
-msgstr ""
+msgstr "Ένα εφέ που επηρεάζει τη φωτεινότητα της εικόνας."
 
 #: src/effects/color/info.js:53
 msgid "Shift brightness"
-msgstr ""
+msgstr "Αλλαγή φωτεινότητας"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Η φωτεινότητα που πρέπει να προστεθεί ή να αφαιρεθεί από την εικόνα."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Πολλαπλασιαστής φωτεινότητας"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
 msgstr ""
+"Πολλαπλασιάζει τη φωτεινότητα της εικόνας : Το 0 αντιστοιχεί στο μαύρο, ενώ "
+"το 1 διατηρεί τη φωτεινότητα αμετάβλητη."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
-msgstr ""
+msgstr "Αντίθεση"
 
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
 msgstr ""
+"Ρυθμίζει την αντίθεση της εικόνας γύρω από το επιλεγμένο κέντρο αντίθεσης."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
-msgstr ""
+msgstr "Κέντρο αντίθεσης"
 
 #: src/effects/color/info.js:84
 msgid "The center of the contrast to use."
-msgstr ""
+msgstr "Το κέντρο της αντίθεσης που θα χρησιμοποιηθεί."
 
 #: src/effects/color/info.js:94
 msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Πολλαπλασιάζει τον κορεσμό της εικόνας : Το 0 αφαιρεί όλο το χρώμα, ενώ το 1 "
+"αφήνει τον κορεσμό αμετάβλητο."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
-msgstr ""
+msgstr "RGB σε HSL (προηγμένο εφέ)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."

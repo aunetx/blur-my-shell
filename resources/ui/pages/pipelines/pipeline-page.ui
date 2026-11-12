@@ -47,6 +47,7 @@
             <child>
               <object class="AdwPreferencesGroup">
                 <property name="title" translatable="yes">Effects</property>
+                <property name="description" translatable="yes">The top effect is applied first.</property>
                 <property name="header-suffix">
                   <object class="GtkButton" id="add_effect">
                     <property name="valign">center</property>

@@ -3,9 +3,17 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Connections } from '../../conveniences/connections.js';
-import { connect_system_style_changes } from '../../conveniences/style.js';
+import {
+    connect_system_style_changes,
+    get_pipeline_id,
+} from '../../conveniences/style.js';
 import { PanelDiscovery } from './panel_discovery.js';
-import { create_panel_background, place_panel_background } from './panel_background.js';
+import {
+    create_panel_background,
+    fade_panel_background,
+    place_panel_background,
+    reset_panel_background_fade,
+} from './panel_background.js';
 import { get_proximity_windows, has_window_near_panel } from './window_proximity.js';
 import {
     TRANSPARENT_PANEL_STYLE,
@@ -70,6 +78,8 @@ export const PanelBlur = class PanelBlur {
         });
 
         connect_system_style_changes(this.connections, () => {
+            if (this.settings.panel.PIPELINE_AUTO_MODE)
+                this.update_pipeline();
             this.update_visibility();
         });
     }
@@ -221,6 +231,7 @@ export const PanelBlur = class PanelBlur {
     /// Hides the blur while in the overview, if the preferences say so.
     connect_to_overview() {
         this._in_overview = Main.overview.visible;
+        this.actors_list.forEach(reset_panel_background_fade);
         if (!this.settings.panel.UNBLUR_IN_OVERVIEW) {
             if (this.settings.panel.MATCH_THEME_IN_OVERVIEW) {
                 this.window_connections.connect(Main.overview, ['showing', 'shown'], () => {
@@ -253,9 +264,36 @@ export const PanelBlur = class PanelBlur {
             this.window_connections.connect(app_display, 'hide', left);
             this.window_connections.connect(Main.overview, 'hidden', left);
         } else {
-            this.window_connections.connect(Main.overview, ['showing', 'shown'], entered);
-            this.window_connections.connect(Main.overview, 'hidden', left);
+            this.window_connections.connect(Main.overview, 'showing', () => {
+                this._in_overview = true;
+                this.hide(true);
+            });
+            this.window_connections.connect(Main.overview, 'shown', entered);
+            this.window_connections.connect(Main.overview, 'hiding', () => {
+                this.actors_list.filter(actors => actors.static_blur).forEach(actors => {
+                    if (!this.settings.panel.OVERRIDE_BACKGROUND_DYNAMICALLY)
+                        actors.widgets.background.show();
+                    fade_panel_background(actors, 255);
+                });
+            });
+            this.window_connections.connect(Main.overview, 'hidden', () => {
+                left();
+                this.actors_list
+                    .filter(actors => !actors.widgets.background.visible)
+                    .forEach(actors => this.fade_out_overview_blur(actors));
+            });
         }
+    }
+
+    /// A panel without blur shows the sharp wallpaper once the overview is gone, so its blur takes
+    /// over from the one of the overview and fades out instead of leaving a sudden change.
+    fade_out_overview_blur(actors) {
+        reset_panel_background_fade(actors);
+        actors.widgets.background.show();
+        fade_panel_background(actors, 0, () => {
+            reset_panel_background_fade(actors);
+            this.update_visibility();
+        });
     }
 
     /// Hide Top Bar shows the panel above the overview, so only the app grid unblurs it
@@ -404,7 +442,8 @@ export const PanelBlur = class PanelBlur {
     update_visibility() {
         if (this.is_unblurred_by_overview()) {
             this.actors_list.forEach(actors => {
-                actors.widgets.background.hide();
+                if (!actors.widgets.background_group.get_transition('opacity'))
+                    actors.widgets.background.hide();
                 this.set_should_override_panel(actors, true);
             });
             return;
@@ -504,7 +543,7 @@ export const PanelBlur = class PanelBlur {
 
     update_pipeline() {
         this.actors_list.forEach(actors => {
-            actors.pipeline.change_pipeline_to(this.settings.panel.PIPELINE);
+            actors.pipeline.change_pipeline_to(get_pipeline_id(this.settings.panel));
             actors.rounded_pipeline?.update();
         });
     }
@@ -526,9 +565,13 @@ export const PanelBlur = class PanelBlur {
         });
     }
 
-    hide() {
+    /// Only a static blur fades, as a dynamic one would darken the overview it blurs a second time.
+    hide(fade = false) {
         this.actors_list.forEach(actors => {
-            actors.widgets.background.hide();
+            if (fade && actors.static_blur)
+                fade_panel_background(actors, 0, () => actors.widgets.background.hide());
+            else
+                actors.widgets.background.hide();
             if (this.settings.panel.OVERRIDE_BACKGROUND) {
                 const target_style = overview_aware_style(this.settings, this.in_overview());
                 set_panel_style_class(actors, target_style, this.settings);

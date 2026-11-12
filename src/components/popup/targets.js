@@ -2,6 +2,10 @@ import St from 'gi://St';
 
 import { has_any_style_class, is_internal_actor } from './actors.js';
 
+// Other extensions opt their surfaces in with this class (see docs/extension-integration.md).
+// Such a surface is blurred in place of the popup surface it sits in, which then has no
+// background of its own.
+export const OPT_IN_STYLE_CLASS = 'bms-popup-blur-target';
 const POPUP_STYLE_CLASSES = ['popup-menu', 'quick-toggle-menu-container', 'candidate-popup-boxpointer'];
 const POPUP_TARGET_STYLE_CLASSES = [
     'popup-menu-content', 'quick-settings', 'quick-toggle-menu', 'notification-banner',
@@ -15,60 +19,77 @@ export const POPUP_SURFACE_STYLES = POPUP_BACKGROUND_STYLES.map(
     style => style.replace('bms-popup-background-', 'bms-popup-surface-')
 );
 export const DEFAULT_CORNER_RADIUS = { key: 'corner-radius', property: 'CORNER_RADIUS' };
-export const POPUP_CORNER_RADII = [
+export const POPUP_SURFACE_TYPES = [
     {
         key: 'quick-settings-corner-radius',
         property: 'QUICK_SETTINGS_CORNER_RADIUS',
-        style_classes: ['quick-settings', 'screenshot-ui-panel'],
+        blur_property: 'BLUR_QUICK_SETTINGS',
+        style_classes: ['quick-settings'],
+    },
+    {
+        key: 'screenshot-corner-radius',
+        property: 'SCREENSHOT_CORNER_RADIUS',
+        blur_property: 'BLUR_SCREENSHOT',
+        style_classes: ['screenshot-ui-panel'],
     },
     {
         key: 'submenu-corner-radius',
         property: 'SUBMENU_CORNER_RADIUS',
+        blur_property: 'BLUR_SUBMENUS',
         style_classes: ['quick-toggle-menu'],
     },
     {
         key: 'calendar-corner-radius',
         property: 'CALENDAR_CORNER_RADIUS',
+        blur_property: 'BLUR_CALENDAR',
         style_classes: ['datemenu-popover'],
     },
     {
         key: 'notification-corner-radius',
         property: 'NOTIFICATION_CORNER_RADIUS',
+        blur_property: 'BLUR_NOTIFICATIONS',
         style_classes: ['notification-banner', 'message', 'message-view', 'message-list'],
     },
     {
         key: 'candidate-corner-radius',
         property: 'CANDIDATE_CORNER_RADIUS',
+        blur_property: 'BLUR_CANDIDATES',
         style_classes: ['candidate-popup-content', 'candidate-popup-boxpointer'],
     },
     {
         key: 'menu-corner-radius',
         property: 'MENU_CORNER_RADIUS',
+        blur_property: 'BLUR_MENUS',
         style_classes: ['popup-menu-content', 'popup-menu'],
     },
     {
         key: 'osd-corner-radius',
         property: 'OSD_CORNER_RADIUS',
+        blur_property: 'BLUR_SWITCHERS',
         style_classes: ['switcher-list', 'workspace-switcher'],
     },
     {
         key: 'osd-window-corner-radius',
         property: 'OSD_WINDOW_CORNER_RADIUS',
+        blur_property: 'BLUR_OSDS',
         style_classes: ['osd-window'],
     },
     {
         key: 'resize-popup-corner-radius',
         property: 'RESIZE_POPUP_CORNER_RADIUS',
+        blur_property: 'BLUR_RESIZE_POPUPS',
         style_classes: ['resize-popup'],
     },
     {
         key: 'dialog-corner-radius',
         property: 'DIALOG_CORNER_RADIUS',
+        blur_property: 'BLUR_DIALOGS',
         style_classes: ['modal-dialog', 'run-dialog', 'clipboard-dialog'],
     },
     {
         key: 'osk-corner-radius',
         property: 'OSK_CORNER_RADIUS',
+        blur_property: 'BLUR_KEYBOARD',
         style_classes: ['bms-keyboard-surface'],
     },
 ];
@@ -80,9 +101,36 @@ export const PopupBlurTargets = class PopupBlurTargets {
 
     find(actor) {
         this.style_cache = new WeakMap();
-        const targets = this.find_actor(actor);
+        const opt_in_targets = this.find_opt_in_targets(actor);
+        const targets = [...this.find_actor(actor)].filter(target =>
+            !opt_in_targets.some(opt_in => opt_in !== target && target.contains(opt_in))
+        );
         this.style_cache = null;
-        return [...targets];
+        return [...new Set([...targets, ...opt_in_targets])];
+    }
+
+    find_opt_in_targets(actor) {
+        const targets = [];
+        const stack = [actor];
+
+        while (stack.length > 0) {
+            const child = stack.pop();
+            if (is_internal_actor(child))
+                continue;
+
+            if (this.is_opt_in(child)) {
+                targets.push(child);
+                continue;
+            }
+
+            stack.push(...child.get_children().reverse());
+        }
+
+        return targets;
+    }
+
+    is_opt_in(actor) {
+        return this.has_any_style_class(actor, [OPT_IN_STYLE_CLASS]);
     }
 
     find_actor(actor) {
@@ -162,14 +210,15 @@ export const PopupBlurTargets = class PopupBlurTargets {
     }
 
     is_blur_target_actor(actor) {
-        return this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
+        return this.is_opt_in(actor)
+            || this.has_any_style_class(actor, POPUP_TARGET_STYLE_CLASSES)
             || this.has_any_style_class(actor, POPUP_CHILD_STYLE_CLASSES);
     }
 
-    get_corner_radius(target, root_actor) {
-        return POPUP_CORNER_RADII.find(radius =>
-            has_any_style_class(target, radius.style_classes)
-            || has_any_style_class(root_actor, radius.style_classes)
+    get_surface_type(target, root_actor) {
+        return POPUP_SURFACE_TYPES.find(type =>
+            has_any_style_class(target, type.style_classes)
+            || has_any_style_class(root_actor, type.style_classes)
         ) ?? DEFAULT_CORNER_RADIUS;
     }
 

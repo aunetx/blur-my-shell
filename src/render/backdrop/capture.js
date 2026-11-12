@@ -82,14 +82,21 @@ function isRedirectedOffscreen(actor) {
     return actor.opacity * parentOpacity < 255 * 255 && actor.has_overlaps();
 }
 
-/// Like a window dimmed by GNOME Shell while it has an attached modal dialog.
-function hasOffscreenAncestor(actor) {
+function isPaintedOffscreen(actor) {
+    return isRedirectedOffscreen(actor) || actor.get_effects()
+        .some(effect => effect instanceof Clutter.OffscreenEffect && effect.enabled);
+}
+
+/// Like a window dimmed by GNOME Shell while it has an attached modal dialog, whose offscreen holds
+/// none of what is behind it. An offscreen around the windows too, like the grayscale of screen time
+/// limits, already holds what is behind, while the stage view only has the last frame.
+function isBackdropOutsideOffscreen(actor) {
+    let outermost = null;
     for (let ancestor = actor.get_parent(); ancestor; ancestor = ancestor.get_parent()) {
-        if (isRedirectedOffscreen(ancestor) || ancestor.get_effects()
-            .some(effect => effect instanceof Clutter.OffscreenEffect && effect.enabled))
-            return true;
+        if (isPaintedOffscreen(ancestor))
+            outermost = ancestor;
     }
-    return false;
+    return outermost !== null && !outermost.contains(global.window_group);
 }
 
 function geometryFromCorners(corners, framebuffer) {
@@ -299,7 +306,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         let view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
         let geometry;
-        if (!view && !inClone && hasOffscreenAncestor(actor)) {
+        if (!view && !inClone && isBackdropOutsideOffscreen(actor)) {
             // an ancestor is painted offscreen, so capture what is behind it from the stage view
             view = painted_view;
             sourceFramebuffer = view.get_framebuffer();

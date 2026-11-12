@@ -5,7 +5,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { Connections } from '../../conveniences/connections.js';
 import { get_dock_corners, has_valid_allocation, resolve_dock_target } from './dock_targets.js';
-import { get_component_style } from '../../conveniences/style.js';
+import { get_component_style, get_pipeline_id } from '../../conveniences/style.js';
 import { queue_after_laters } from './stage_update.js';
 
 const DASH_STYLES = [
@@ -230,7 +230,7 @@ export class DockSurface {
     }
 
     update_pipeline() {
-        this.pipeline?.change_pipeline_to(this.settings.dash_to_dock.PIPELINE);
+        this.pipeline?.change_pipeline_to(get_pipeline_id(this.settings.dash_to_dock));
         this.rounded_pipeline?.update();
     }
 

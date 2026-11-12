@@ -4,6 +4,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { ui_template } from '../../resources.js';
 import { EffectRow } from '../../widgets/effect_row.js';
 import { present_effect_chooser } from './effect_chooser.js';
 
@@ -23,7 +24,7 @@ function clone_effects(effects) {
 
 export const PipelinePage = GObject.registerClass({
     GTypeName: 'PipelinePage',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/pipelines/pipeline-page.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/pipelines/pipeline-page.ui'),
     InternalChildren: [
         'name',
         'id_row',

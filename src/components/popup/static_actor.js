@@ -1,6 +1,7 @@
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import { get_pipeline_id } from '../../conveniences/style.js';
 import { Pipeline } from '../../pipelines/pipeline.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
 import { has_style_class } from './actors.js';
@@ -8,14 +9,13 @@ import { transform_to_actor_space } from './surface/geometry.js';
 import { PopupBlurAllocation } from './surface/allocation.js';
 
 export const PopupBlurStaticActor = class PopupBlurStaticActor {
-    constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius) {
+    constructor(settings, effects_manager, target, root_actor, parent, get_corner_radius, get_corners) {
         this.settings = settings;
         this.effects_manager = effects_manager;
         this.target = target;
         this.root_actor = root_actor;
         this.parent = parent;
-        this.rounded_pipeline = new RoundedPipeline(effects_manager, get_corner_radius,
-            () => this.settings.popup.ROUNDED_CORNERS);
+        this.rounded_pipeline = new RoundedPipeline(effects_manager, get_corner_radius, get_corners);
         this.background_group = null;
         this.allocation_constraint = null;
         this.blur_actor = null;
@@ -57,7 +57,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         this.pipeline = new Pipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.popup.PIPELINE,
+            get_pipeline_id(this.settings.popup),
             null
         );
         this.blur_actor = this.pipeline.create_background_with_effects(
@@ -77,7 +77,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             || has_style_class(this.root_actor, 'screenshot-ui-panel');
     }
 
-    update_geometry(target_rect, monitor_index) {
+    update_geometry(target_rect, visible_rect, monitor_index) {
         const monitor = Main.layoutManager.monitors[monitor_index];
         if (!monitor)
             return null;
@@ -122,8 +122,20 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
             this.clip = clip;
         }
 
+        this.update_visible_clip(visible_rect);
         this.blur_actor.show();
         return clip;
+    }
+
+    /// The clip of the blur actor gives its effects their shape, so the group cuts what is hidden.
+    update_visible_clip(visible_rect) {
+        if (!visible_rect) {
+            this.background_group.remove_clip();
+            return;
+        }
+
+        const { x, y, width, height } = transform_to_actor_space(this.parent, visible_rect);
+        this.background_group.set_clip(x, y, width, height);
     }
 
     has_opacity(opacity) {
@@ -142,7 +154,7 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
     }
 
     update_pipeline() {
-        this.pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
+        this.pipeline.change_pipeline_to(get_pipeline_id(this.settings.popup));
         this.rounded_pipeline.update();
     }
 

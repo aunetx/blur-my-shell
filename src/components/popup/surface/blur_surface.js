@@ -1,8 +1,11 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 
+import { get_pipeline_id } from '../../../conveniences/style.js';
 import { DynamicPipeline } from '../../../render/dynamic_surface.js';
 import { has_any_style_class, has_style_class } from '../actors.js';
+import { OPT_IN_STYLE_CLASS } from '../targets.js';
 import { PopupBlurSurfaceFade } from './fade.js';
 import { PopupBlurSurfacePlacement } from './placement.js';
 import { PopupBlurSurfaceSignals } from './signals.js';
@@ -18,7 +21,7 @@ const FULL_GEOMETRY_STYLE_CLASSES = [
     'notification-banner', 'snap-assistant',
     'osd-window', 'resize-popup', 'workspace-switcher',
     'modal-dialog', 'run-dialog', 'clipboard-dialog',
-    'bms-keyboard-surface',
+    'bms-keyboard-surface', OPT_IN_STYLE_CLASS,
 ];
 const HEAVY_SURFACE_STYLE_CLASSES = [
     'datemenu-popover', 'quick-settings', 'modal-dialog',
@@ -28,6 +31,10 @@ const HEAVY_SURFACE_STYLE_CLASSES = [
 const QUICK_SETTINGS_STYLE_CLASSES = [
     'quick-toggle-menu', 'quick-settings', 'datemenu-popover',
 ];
+// Tells extensions that draw their own glass that this actor already has blur behind it.
+const BLURRED_STYLE_CLASS = 'bms-popup-blurred';
+// rounded-corners: 0 rounds all of them
+const ALL_CORNERS = 0;
 
 export const PopupBlurSurface = class PopupBlurSurface {
     constructor(settings, effects_manager, target, root_actor, parent, sibling, corner_radius, request_destroy) {
@@ -48,6 +55,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.update_id = 0;
         this.transition_update_id = 0;
         this.opacity = null;
+        this.themed_radius = null;
+        this.opted_in = has_style_class(target, OPT_IN_STYLE_CLASS);
         this.static_blur = settings.popup.STATIC_BLUR;
         this.static_actor = null;
         this.pipeline = null;
@@ -60,6 +69,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return false;
 
         this.actor.hide();
+        this.target.add_style_class_name(BLURRED_STYLE_CLASS);
         registerSurface(this);
         this.parent.add_child(this.actor);
         if (!this.static_blur)
@@ -103,10 +113,10 @@ export const PopupBlurSurface = class PopupBlurSurface {
         this.pipeline = new DynamicPipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.popup.PIPELINE,
+            get_pipeline_id(this.settings.popup),
             {
                 corner_radius: this.get_corner_radius(),
-                get_corners: () => this.settings.popup.ROUNDED_CORNERS,
+                get_corners: () => this.get_rounded_corners(),
             }
         );
         this.blur_actor = this.pipeline.create_actor('bms-popup-blurred-widget');
@@ -122,7 +132,8 @@ export const PopupBlurSurface = class PopupBlurSurface {
             this.target,
             this.root_actor,
             this.parent,
-            () => this.get_corner_radius()
+            () => this.get_corner_radius(),
+            () => this.get_rounded_corners()
         );
         if (!static_actor.create())
             return false;
@@ -174,11 +185,21 @@ export const PopupBlurSurface = class PopupBlurSurface {
         return this.matches_any_style_class(['bms-keyboard-surface']);
     }
 
+    uses_themed_radius() {
+        return this.opted_in;
+    }
+
     uses_full_actor_geometry() {
         return this.matches_any_style_class(FULL_GEOMETRY_STYLE_CLASSES);
     }
 
     update() {
+        // its extension took the class back, for example when it was disabled
+        if (this.opted_in && !has_style_class(this.target, OPT_IN_STYLE_CLASS)) {
+            this.request_destroy();
+            return;
+        }
+
         if (this.is_notification_surface()) {
             this.update_live_surface();
             return;
@@ -216,6 +237,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
             return;
         if (!this.placement.prepare_visible_geometry())
             return;
+        this.update_themed_radius();
         this.update_actors_visibility();
         this.queue_repaint(!visible);
         this.queue_transition_update(transition_state);
@@ -337,7 +359,38 @@ export const PopupBlurSurface = class PopupBlurSurface {
     }
 
     get_corner_radius() {
+        if (this.uses_themed_radius()) {
+            this.themed_radius = this.get_themed_radius() ?? this.themed_radius;
+            return this.themed_radius ?? 0;
+        }
         return this.settings.popup[this.corner_radius.property];
+    }
+
+    get_rounded_corners() {
+        return this.uses_themed_radius() ? ALL_CORNERS : this.settings.popup.ROUNDED_CORNERS;
+    }
+
+    /// Surfaces of other extensions keep the corners their theme gives them; capsules ask for
+    /// more than they can have, so the radius stops at half the shorter side. It is unknown, and
+    /// the last one is kept, while the surface has no size or no theme, like right after the theme
+    /// changed, until it is shown again.
+    get_themed_radius() {
+        const node = this.target.peek_theme_node();
+        const [width, height] = this.target.get_size();
+        if (!node || width <= 0 || height <= 0)
+            return null;
+        const radius = Math.min(node.get_border_radius(St.Corner.TOPLEFT), Math.min(width, height) / 2);
+        const scale = St.ThemeContext.get_for_stage(global.stage).scale_factor;
+        return radius / scale;
+    }
+
+    update_themed_radius() {
+        if (!this.uses_themed_radius())
+            return;
+        const radius = this.get_themed_radius();
+        if (radius === null || radius === this.themed_radius)
+            return;
+        this.update_settings();
     }
 
     is_visible() {
@@ -358,7 +411,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
         if (this.static_blur)
             this.static_actor.update_pipeline();
         else
-            this.pipeline.change_pipeline_to(this.settings.popup.PIPELINE);
+            this.pipeline.change_pipeline_to(get_pipeline_id(this.settings.popup));
         this.style.update_target_style();
     }
 
@@ -376,6 +429,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
 
         this.signals.destroy();
         this.style.restore_target_style();
+        this.target.remove_style_class_name(BLURRED_STYLE_CLASS);
         unregisterSurface(this);
 
         if (this.static_blur) {

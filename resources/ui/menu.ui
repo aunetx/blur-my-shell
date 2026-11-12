@@ -10,9 +10,19 @@
         <attribute name="label" translatable="yes">Disable on Power Saver</attribute>
         <attribute name="action">prefs.power-saver</attribute>
       </item>
+    </section>
+    <section>
       <item>
         <attribute name="label" translatable="yes">Reset Preferences…</attribute>
         <attribute name="action">prefs.reset</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Export Preferences…</attribute>
+        <attribute name="action">prefs.export</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Import Preferences…</attribute>
+        <attribute name="action">prefs.import</attribute>
       </item>
     </section>
     <section>

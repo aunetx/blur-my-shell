@@ -29,6 +29,27 @@
                             }>
                         ]>
                     },
+                    'pipeline_default_light': {
+                        'name': <'Default (Light mode)'>,
+                        'effects': <[
+                            <{
+                                'type': <'dual_kawase_blur'>,
+                                'id': <'effect_default_light_blur'>,
+                                'params': <{
+                                    'unscaled_radius': <30>,
+                                    'brightness': <1>
+                                }>
+                            }>,
+                            <{
+                                'type': <'color'>,
+                                'id': <'effect_default_light_color'>,
+                                'params': <{
+                                    'color': <(1.0, 1.0, 1.0, 0.5)>,
+                                    'blend_mode': <3>
+                                }>
+                            }>
+                        ]>
+                    },
                     'pipeline_liquid_glass': {
                         'name': <'Liquid Glass'>,
                         'effects': <[
@@ -178,6 +199,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the Overview pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
         <!-- STYLE COMPONENTS -->
         <key type="i" name="style-components">
             <default>4</default>
@@ -203,6 +239,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the appfolder pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -223,6 +274,11 @@
             <default>4</default>
             <summary>Enum to select the style of the appfolder dialogs (0 not styled, 1 transparent, 2 light, 3 dark, 4 automatic)</summary>
         </key>
+        <!-- BLUR BEHIND FOLDERS -->
+        <key type="b" name="blur-behind-folders">
+            <default>false</default>
+            <summary>Boolean, whether to blur the app grid behind an open folder</summary>
+        </key>
     </schema>
 
     <!-- PANEL -->
@@ -237,6 +293,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the panel pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -328,6 +399,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the dash pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
             <default>false</default>
@@ -377,6 +463,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the applications pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
@@ -433,6 +534,16 @@
             <default>false</default>
             <summary>Whether or not to unblur applications when they are fullscreen</summary>
         </key>
+        <!-- BLUR MENUS -->
+        <key type="b" name="blur-menus">
+            <default>false</default>
+            <summary>Whether or not to blur the menus of applications, like GTK popovers</summary>
+        </key>
+        <!-- MENU CORNER RADIUS -->
+        <key type="i" name="menu-corner-radius">
+            <default>15</default>
+            <summary>Corner radius of the blur of application menus, for edge effects like refraction</summary>
+        </key>
         <!-- ENABLE ALL -->
         <key type="b" name="enable-all">
             <default>false</default>
@@ -463,6 +574,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the screenshot pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
     </schema>
 
     <!-- LOCKSCREEN -->
@@ -478,6 +604,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the lockscreen pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
     </schema>
 
     <!-- WINDOW LIST -->
@@ -492,6 +633,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the window list pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- CUSTOMIZE -->
         <key type="b" name="customize">
@@ -523,6 +679,21 @@
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
         </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the Coverflow Alt-Tab pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
+        </key>
     </schema>
 
     <!-- POPUP -->
@@ -542,6 +713,21 @@
         <key type="s" name="pipeline">
             <default>"pipeline_default"</default>
             <summary>String, the name of the pipeline to use. It must exist, else "pipeline_default" will be used</summary>
+        </key>
+        <!-- PIPELINE AUTO MODE -->
+        <key type="b" name="pipeline-auto-mode">
+            <default>false</default>
+            <summary>Whether to select the popup pipeline based on the system color scheme</summary>
+        </key>
+        <!-- PIPELINE (LIGHT MODE) -->
+        <key type="s" name="pipeline-light">
+            <default>"pipeline_default_light"</default>
+            <summary>Pipeline to use for the light system color scheme</summary>
+        </key>
+        <!-- PIPELINE (DARK MODE) -->
+        <key type="s" name="pipeline-dark">
+            <default>"pipeline_default"</default>
+            <summary>Pipeline to use for the dark system color scheme</summary>
         </key>
         <!-- SIGMA -->
         <key type="i" name="sigma">
@@ -577,6 +763,11 @@
         <key type="i" name="quick-settings-corner-radius">
             <default>36</default>
             <summary>Radius for quick settings corner rounding</summary>
+        </key>
+        <!-- SCREENSHOT CORNER RADIUS -->
+        <key type="i" name="screenshot-corner-radius">
+            <default>36</default>
+            <summary>Radius for the screenshot panel corner rounding</summary>
         </key>
         <!-- QUICK SETTINGS SUBMENU CORNER RADIUS -->
         <key type="i" name="submenu-corner-radius">
@@ -632,6 +823,71 @@
         <key type="i" name="style-popup">
             <default>3</default>
             <summary>Enum to select the style of popup surfaces (0 transparent, 1 light, 2 dark, 3 automatic)</summary>
+        </key>
+        <!-- BLUR BEHIND DIALOGS -->
+        <key type="b" name="blur-behind-dialogs">
+            <default>true</default>
+            <summary>Boolean, whether to blur the dimmed screen behind modal dialogs</summary>
+        </key>
+        <!-- BLUR MENUS -->
+        <key type="b" name="blur-menus">
+            <default>true</default>
+            <summary>Boolean, whether to blur menus</summary>
+        </key>
+        <!-- BLUR CANDIDATES -->
+        <key type="b" name="blur-candidates">
+            <default>true</default>
+            <summary>Boolean, whether to blur input method candidates</summary>
+        </key>
+        <!-- BLUR QUICK SETTINGS -->
+        <key type="b" name="blur-quick-settings">
+            <default>true</default>
+            <summary>Boolean, whether to blur quick settings</summary>
+        </key>
+        <!-- BLUR SUBMENUS -->
+        <key type="b" name="blur-submenus">
+            <default>true</default>
+            <summary>Boolean, whether to blur quick settings submenus</summary>
+        </key>
+        <!-- BLUR SCREENSHOT -->
+        <key type="b" name="blur-screenshot">
+            <default>true</default>
+            <summary>Boolean, whether to blur the screenshot panel</summary>
+        </key>
+        <!-- BLUR CALENDAR -->
+        <key type="b" name="blur-calendar">
+            <default>true</default>
+            <summary>Boolean, whether to blur calendar and notification center</summary>
+        </key>
+        <!-- BLUR NOTIFICATIONS -->
+        <key type="b" name="blur-notifications">
+            <default>true</default>
+            <summary>Boolean, whether to blur notifications</summary>
+        </key>
+        <!-- BLUR SWITCHERS -->
+        <key type="b" name="blur-switchers">
+            <default>true</default>
+            <summary>Boolean, whether to blur window and workspace switchers</summary>
+        </key>
+        <!-- BLUR OSDS -->
+        <key type="b" name="blur-osds">
+            <default>true</default>
+            <summary>Boolean, whether to blur volume and brightness</summary>
+        </key>
+        <!-- BLUR RESIZE POPUPS -->
+        <key type="b" name="blur-resize-popups">
+            <default>true</default>
+            <summary>Boolean, whether to blur window resize hints</summary>
+        </key>
+        <!-- BLUR DIALOGS -->
+        <key type="b" name="blur-dialogs">
+            <default>true</default>
+            <summary>Boolean, whether to blur dialogs</summary>
+        </key>
+        <!-- BLUR KEYBOARD -->
+        <key type="b" name="blur-keyboard">
+            <default>true</default>
+            <summary>Boolean, whether to blur the on-screen keyboard</summary>
         </key>
     </schema>
 

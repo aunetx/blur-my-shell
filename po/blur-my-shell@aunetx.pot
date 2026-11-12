@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 16:39+0100\n"
+"POT-Creation-Date: 2026-11-05 11:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,11 @@ msgstr ""
 msgid "How the color is blended in."
 msgstr ""
 
-#: src/effects/color/info.js:25
+#: src/effects/color/info.js:25 resources/ui/pages/applications.ui:42
+#: resources/ui/pages/shell/app-folders.ui:28
+#: resources/ui/pages/shell/component.ui:28 resources/ui/pages/shell/dash.ui:44
+#: resources/ui/pages/shell/overview.ui:28 resources/ui/pages/shell/panel.ui:45
+#: resources/ui/pages/shell/popup.ui:46
 msgid "Normal"
 msgstr ""
 
@@ -257,111 +261,140 @@ msgid "How far the refraction eases inward from the glass edge."
 msgstr ""
 
 #: src/effects/refraction/info.js:51
-msgid "Glass thickness"
+msgid "Refraction reach"
 msgstr ""
 
 #: src/effects/refraction/info.js:52
-msgid "Depth used by the refraction edge profile."
+msgid ""
+"How far the bend reaches inward from the edge, past the corner radius. A "
+"wider bend is also deeper, like a wider bezel (0 keeps it at the rim)."
 msgstr ""
 
 #: src/effects/refraction/info.js:61
-msgid "Refraction style"
+msgid "Glass thickness"
 msgstr ""
 
 #: src/effects/refraction/info.js:62
+msgid "Depth used by the refraction edge profile."
+msgstr ""
+
+#: src/effects/refraction/info.js:71
+msgid "Refraction style"
+msgstr ""
+
+#: src/effects/refraction/info.js:72
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:71
+#: src/effects/refraction/info.js:81
 msgid "Fresnel glare"
 msgstr ""
 
-#: src/effects/refraction/info.js:72
+#: src/effects/refraction/info.js:82
 msgid "Strength of the directional fresnel glare from the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:81
+#: src/effects/refraction/info.js:91
 msgid "Fresnel glare angle"
 msgstr ""
 
-#: src/effects/refraction/info.js:82
-msgid ""
-"Light direction of the fresnel glare, in degrees (0 is from above, positive "
-"rotates clockwise)."
-msgstr ""
-
-#: src/effects/refraction/info.js:91
-msgid "Fresnel glare width"
-msgstr ""
-
 #: src/effects/refraction/info.js:92
-msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
+msgid ""
+"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
+"the top and bottom, positive rotates clockwise)."
 msgstr ""
 
 #: src/effects/refraction/info.js:101
-msgid "Specular glare strength"
+msgid "Fresnel glare width"
 msgstr ""
 
 #: src/effects/refraction/info.js:102
-msgid ""
-"Strength of the specular glare showing the light direction (0 disables it)."
+msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr ""
 
 #: src/effects/refraction/info.js:111
-msgid "Tint strength"
+msgid "Specular glare strength"
 msgstr ""
 
 #: src/effects/refraction/info.js:112
-msgid "Amount of subtle milky glass tint over the blurred texture."
+msgid ""
+"Strength of the white specular glare on the same edge pair as the fresnel "
+"glare, brighter on the light side (0 disables it)."
 msgstr ""
 
 #: src/effects/refraction/info.js:121
-msgid "Tint color"
+msgid "Edge border"
 msgstr ""
 
 #: src/effects/refraction/info.js:122
+msgid ""
+"Thin dark line along the straight side edges, away from the fresnel glare, "
+"outlining the glass on light backgrounds."
+msgstr ""
+
+#: src/effects/refraction/info.js:131
+msgid "Edge glow"
+msgstr ""
+
+#: src/effects/refraction/info.js:132
+msgid "Colorful content under the glass lights up its edge."
+msgstr ""
+
+#: src/effects/refraction/info.js:141
+msgid "Tint strength"
+msgstr ""
+
+#: src/effects/refraction/info.js:142
+msgid "Amount of subtle milky glass tint over the blurred texture."
+msgstr ""
+
+#: src/effects/refraction/info.js:151
+msgid "Tint color"
+msgstr ""
+
+#: src/effects/refraction/info.js:152
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
 
-#: src/effects/refraction/info.js:127
+#: src/effects/refraction/info.js:157
 msgid "Backdrop zoom"
 msgstr ""
 
-#: src/effects/refraction/info.js:128
+#: src/effects/refraction/info.js:158
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr ""
 
-#: src/effects/refraction/info.js:137
+#: src/effects/refraction/info.js:167
 msgid "Inner shadow"
 msgstr ""
 
-#: src/effects/refraction/info.js:138
+#: src/effects/refraction/info.js:168
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
 
-#: src/effects/refraction/info.js:147
+#: src/effects/refraction/info.js:177
 msgid "Chromatic dispersion"
 msgstr ""
 
-#: src/effects/refraction/info.js:148
+#: src/effects/refraction/info.js:178
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:157
+#: src/effects/refraction/info.js:187
 msgid "Edge behavior"
 msgstr ""
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:188
 msgid "How texture coordinates outside the actor are sampled."
 msgstr ""
 
-#: src/effects/refraction/info.js:161
+#: src/effects/refraction/info.js:191
 msgid "Clamp"
 msgstr ""
 
-#: src/effects/refraction/info.js:162
+#: src/effects/refraction/info.js:192
 msgid "Mirror"
 msgstr ""
 
@@ -592,123 +625,216 @@ msgstr ""
 msgid "Disable on Power Saver"
 msgstr ""
 
-#: resources/ui/menu.ui:14
+#: resources/ui/menu.ui:16
 msgid "Reset Preferences…"
 msgstr ""
 
 #: resources/ui/menu.ui:20
-msgid "Project page"
+msgid "Export Preferences…"
 msgstr ""
 
 #: resources/ui/menu.ui:24
+msgid "Import Preferences…"
+msgstr ""
+
+#: resources/ui/menu.ui:30
+msgid "Project page"
+msgstr ""
+
+#: resources/ui/menu.ui:34
 msgid "Report a Bug"
 msgstr ""
 
-#: resources/ui/menu.ui:28
+#: resources/ui/menu.ui:38
 msgid "License"
 msgstr ""
 
-#: resources/ui/menu.ui:38
+#: resources/ui/menu.ui:48
 msgid "Main Menu"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:5
-#: src/preferences/pages/pipelines/components.js:16
+#: src/preferences/pages/pipelines/components.js:43
 msgid "Applications"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:36
-#: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
+#: resources/ui/pages/applications.ui:30
+#: resources/ui/pages/shell/app-folders.ui:16
+#: resources/ui/pages/shell/component.ui:16 resources/ui/pages/shell/dash.ui:33
+#: resources/ui/pages/shell/overview.ui:16 resources/ui/pages/shell/panel.ui:33
+#: resources/ui/pages/shell/popup.ui:34
+#: resources/ui/widgets/pipeline-choose-row.ui:4
+#: src/preferences/pages/pipelines/pipeline_page.js:83
+#: src/preferences/pages/pipelines/pipeline_row.js:69
+msgid "Pipeline"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:34
+#: resources/ui/pages/shell/app-folders.ui:21
+#: resources/ui/pages/shell/component.ui:20 resources/ui/pages/shell/dash.ui:37
+#: resources/ui/pages/shell/overview.ui:21 resources/ui/pages/shell/panel.ui:37
+#: resources/ui/pages/shell/popup.ui:38
+msgid "Follow system theme"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:35
+#: resources/ui/pages/shell/app-folders.ui:22
+#: resources/ui/pages/shell/component.ui:21 resources/ui/pages/shell/dash.ui:38
+#: resources/ui/pages/shell/overview.ui:22 resources/ui/pages/shell/panel.ui:38
+#: resources/ui/pages/shell/popup.ui:39
+msgid "Automatically switch the pipeline based on the system theme."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:50
+#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/app-folders.ui:77
+#: resources/ui/pages/shell/component.ui:36 resources/ui/pages/shell/dash.ui:52
+#: resources/ui/pages/shell/dash.ui:95 resources/ui/pages/shell/overview.ui:35
+#: resources/ui/pages/shell/overview.ui:83 resources/ui/pages/shell/panel.ui:53
+#: resources/ui/pages/shell/panel.ui:194 resources/ui/pages/shell/popup.ui:54
+#: resources/ui/pages/shell/popup.ui:298
+msgid "Light"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:51
+#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/component.ui:37 resources/ui/pages/shell/dash.ui:53
+#: resources/ui/pages/shell/overview.ui:36 resources/ui/pages/shell/panel.ui:54
+#: resources/ui/pages/shell/popup.ui:55
+msgid "The pipeline used for light mode"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:59
+#: resources/ui/pages/shell/app-folders.ui:43
+#: resources/ui/pages/shell/app-folders.ui:78
+#: resources/ui/pages/shell/component.ui:45 resources/ui/pages/shell/dash.ui:61
+#: resources/ui/pages/shell/dash.ui:96 resources/ui/pages/shell/overview.ui:43
+#: resources/ui/pages/shell/overview.ui:84 resources/ui/pages/shell/panel.ui:62
+#: resources/ui/pages/shell/panel.ui:195 resources/ui/pages/shell/popup.ui:63
+#: resources/ui/pages/shell/popup.ui:299
+msgid "Dark"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:60
+#: resources/ui/pages/shell/app-folders.ui:44
+#: resources/ui/pages/shell/component.ui:46 resources/ui/pages/shell/dash.ui:62
+#: resources/ui/pages/shell/overview.ui:44 resources/ui/pages/shell/panel.ui:63
+#: resources/ui/pages/shell/popup.ui:64
+msgid "The pipeline used for dark mode"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:70
+#: resources/ui/pages/shell/app-folders.ui:53
+#: resources/ui/pages/shell/overview.ui:53 resources/ui/pages/shell/panel.ui:73
 msgid "Appearance"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:41
+#: resources/ui/pages/applications.ui:75
 msgid "Opacity"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:42
+#: resources/ui/pages/applications.ui:76
 msgid "Higher values are easier to read"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:62
+#: resources/ui/pages/applications.ui:96
 msgid "Opaque focused window"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
-#: resources/ui/pages/shell/popup.ui:61
+#: resources/ui/pages/applications.ui:102 resources/ui/pages/shell/panel.ui:78
+#: resources/ui/pages/shell/popup.ui:182
 msgid "Corner radius"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
-#: resources/ui/pages/shell/popup.ui:66
+#: resources/ui/pages/applications.ui:109 resources/ui/pages/shell/panel.ui:85
+#: resources/ui/pages/shell/popup.ui:187
 msgid "Rounded corners"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:82
+#: resources/ui/pages/applications.ui:116
 msgid "Round maximized and fullscreen windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:90
+#: resources/ui/pages/applications.ui:124
 msgid "Behavior"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:95
+#: resources/ui/pages/applications.ui:129
 msgid "Blur on overview"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:96
+#: resources/ui/pages/applications.ui:130
 msgid "Shows the blur on every workspace, at some performance cost"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:102
+#: resources/ui/pages/applications.ui:136
 msgid "Unblur when Fullscreen"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:108
+#: resources/ui/pages/applications.ui:142
+msgid "Blur menus"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:143
+msgid ""
+"Blur the menus of Wayland applications, which must be translucent for it to "
+"show."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:149
+msgid "Menu corner radius"
+msgstr ""
+
+#: resources/ui/pages/applications.ui:150
+msgid "Shapes edge effects like refraction, the blur always follows the menu."
+msgstr ""
+
+#: resources/ui/pages/applications.ui:158
 msgid "Blur all windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:109
+#: resources/ui/pages/applications.ui:159
 msgid "When off, only the windows listed below are blurred."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:117
+#: resources/ui/pages/applications.ui:167
 msgid "Blurred windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:118
-#: resources/ui/pages/applications.ui:140
+#: resources/ui/pages/applications.ui:168
+#: resources/ui/pages/applications.ui:190
 msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
-"single one."
+"single one. Start with title: to match the window title instead, like "
+"title:Picture-in-Picture."
 msgstr ""
 
-#: resources/ui/pages/applications.ui:126
-#: resources/ui/pages/applications.ui:148
+#: resources/ui/pages/applications.ui:176
+#: resources/ui/pages/applications.ui:198
 msgid "Add Window"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:139
+#: resources/ui/pages/applications.ui:189
 msgid "Excluded windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
-#: resources/ui/pages/shell/popup.ui:160
+#: resources/ui/pages/applications.ui:212 resources/ui/pages/shell/panel.ui:184
+#: resources/ui/pages/shell/popup.ui:288
 msgid "All"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
-#: resources/ui/pages/shell/popup.ui:161
+#: resources/ui/pages/applications.ui:213 resources/ui/pages/shell/panel.ui:185
+#: resources/ui/pages/shell/popup.ui:289
 msgid "Top only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
-#: resources/ui/pages/shell/popup.ui:162
+#: resources/ui/pages/applications.ui:214 resources/ui/pages/shell/panel.ui:186
+#: resources/ui/pages/shell/popup.ui:290
 msgid "Bottom only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
-#: resources/ui/pages/shell/popup.ui:163
+#: resources/ui/pages/applications.ui:215 resources/ui/pages/shell/panel.ui:187
+#: resources/ui/pages/shell/popup.ui:291
 msgid "None"
 msgstr ""
 
@@ -733,23 +859,27 @@ msgstr ""
 msgid "Effects"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:56
+#: resources/ui/pages/pipelines/pipeline-page.ui:50
+msgid "The top effect is applied first."
+msgstr ""
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:57
 #: src/preferences/pages/pipelines/effect_chooser.js:13
 msgid "Add Effect"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:73
+#: resources/ui/pages/pipelines/pipeline-page.ui:74
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:94
+#: resources/ui/pages/pipelines/pipeline-page.ui:95
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
 msgstr ""
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:98
-#: src/preferences/pages/pipelines/index.js:122
+#: resources/ui/pages/pipelines/pipeline-page.ui:99
+#: src/preferences/pages/pipelines/index.js:123
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
 msgstr ""
@@ -766,95 +896,91 @@ msgstr ""
 msgid "New Pipeline"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:24
+#: resources/ui/pages/shell/app-folders.ui:58
 msgid "Application folder dialogs style"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:35
-#: resources/ui/pages/shell/overview.ui:55
+#: resources/ui/pages/shell/app-folders.ui:65
+msgid "Blur behind folders"
+msgstr ""
+
+#: resources/ui/pages/shell/app-folders.ui:66
+msgid "Blur the app grid behind an open folder."
+msgstr ""
+
+#: resources/ui/pages/shell/app-folders.ui:75
+#: resources/ui/pages/shell/overview.ui:82
 msgid "Do not style"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:36
-#: resources/ui/pages/shell/dash.ui:61 resources/ui/pages/shell/overview.ui:58
-#: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:169
+#: resources/ui/pages/shell/app-folders.ui:76
+#: resources/ui/pages/shell/dash.ui:94 resources/ui/pages/shell/overview.ui:85
+#: resources/ui/pages/shell/panel.ui:193 resources/ui/pages/shell/popup.ui:297
 msgid "Transparent"
 msgstr ""
 
-#: resources/ui/pages/shell/app-folders.ui:37
-#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
-#: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:170
-msgid "Light"
-msgstr ""
-
-#: resources/ui/pages/shell/app-folders.ui:38
-#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
-#: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:171
-msgid "Dark"
-msgstr ""
-
-#: resources/ui/pages/shell/app-folders.ui:39
-#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
-#: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
+#: resources/ui/pages/shell/app-folders.ui:79
+#: resources/ui/pages/shell/dash.ui:97 resources/ui/pages/shell/overview.ui:86
+#: resources/ui/pages/shell/panel.ui:197 resources/ui/pages/shell/popup.ui:300
 msgid "Automatic"
 msgstr ""
 
-#: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
+#: resources/ui/pages/shell/dash.ui:24 resources/ui/pages/shell/panel.ui:24
 msgid "Disable in overview"
 msgstr ""
 
-#: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
-#: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/dash.ui:72 resources/ui/pages/shell/panel.ui:107
+#: resources/ui/pages/shell/popup.ui:153 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
 msgstr ""
 
-#: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
-#: resources/ui/pages/shell/popup.ui:37
+#: resources/ui/pages/shell/dash.ui:77 resources/ui/pages/shell/panel.ui:112
+#: resources/ui/pages/shell/popup.ui:158
 msgid "Override background"
 msgstr ""
 
-#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:84
-#: resources/ui/pages/shell/popup.ui:43
+#: resources/ui/pages/shell/dash.ui:83 resources/ui/pages/shell/panel.ui:118
+#: resources/ui/pages/shell/popup.ui:164
 msgid "Background style"
 msgstr ""
 
-#: resources/ui/pages/shell/overview.ui:31
+#: resources/ui/pages/shell/overview.ui:58
 msgid "Overview components style"
 msgstr ""
 
-#: resources/ui/pages/shell/overview.ui:32
+#: resources/ui/pages/shell/overview.ui:59
 msgid "For the dash, search and app folders"
 msgstr ""
 
-#: resources/ui/pages/shell/overview.ui:39
+#: resources/ui/pages/shell/overview.ui:66
 msgid "Workspace corner radius"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:58
+#: resources/ui/pages/shell/panel.ui:92
 msgid "Force light text"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:59
+#: resources/ui/pages/shell/panel.ui:93
 msgid "Useful with a light shell theme"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:65
+#: resources/ui/pages/shell/panel.ui:99
 msgid "Match theme in overview"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:92
+#: resources/ui/pages/shell/panel.ui:126
 msgid "Override background dynamically"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:93
+#: resources/ui/pages/shell/panel.ui:127
 msgid "Changes the background when a window is near the panel"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:100
+#: resources/ui/pages/shell/panel.ui:134
 msgid "When a window is near"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:101
+#: resources/ui/pages/shell/panel.ui:135
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
@@ -862,107 +988,124 @@ msgid ""
 "the panel and blur when it is not."
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:110
+#: resources/ui/pages/shell/panel.ui:144
 msgid "Gradient background"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:117
+#: resources/ui/pages/shell/panel.ui:151
 msgid "Gradient direction"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:127
+#: resources/ui/pages/shell/panel.ui:161
 msgid "Compatibility"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:132
+#: resources/ui/pages/shell/panel.ui:166
 msgid "Hidetopbar extension"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:133
+#: resources/ui/pages/shell/panel.ui:167
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:140
+#: resources/ui/pages/shell/panel.ui:174
 msgid "Blur original panel with Dash to Panel"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:141
+#: resources/ui/pages/shell/panel.ui:175
 msgid "When Dash to Panel keeps the original panel"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:162
+#: resources/ui/pages/shell/panel.ui:196
 msgid "Contrasted"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:169
+#: resources/ui/pages/shell/panel.ui:203
 msgid "Blur on Window Proximity"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:170
+#: resources/ui/pages/shell/panel.ui:204
 msgid "Background on Window Proximity"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:176
+#: resources/ui/pages/shell/panel.ui:210
 msgid "Top"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:177
+#: resources/ui/pages/shell/panel.ui:211
 msgid "Bottom"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:51
-msgid "Preserve shell theme"
+#: resources/ui/pages/shell/popup.ui:24
+msgid "Blur behind dialogs"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:52
-msgid "Keep your shell theme's colors for popup controls."
+#: resources/ui/pages/shell/popup.ui:25
+msgid ""
+"Blur the dimmed screen behind system dialogs, like the power off dialog."
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:73
+#: resources/ui/pages/shell/popup.ui:74
+msgid "Blurred popups"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:79 resources/ui/pages/shell/popup.ui:194
 msgid "Menus"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:80
+#: resources/ui/pages/shell/popup.ui:85 resources/ui/pages/shell/popup.ui:201
 msgid "Input method candidates"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:87
+#: resources/ui/pages/shell/popup.ui:91 resources/ui/pages/shell/popup.ui:208
 msgid "Quick settings"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:94
+#: resources/ui/pages/shell/popup.ui:97 resources/ui/pages/shell/popup.ui:215
 msgid "Quick settings submenus"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:101
+#: resources/ui/pages/shell/popup.ui:103 resources/ui/pages/shell/popup.ui:222
+msgid "Screenshot panel"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:109 resources/ui/pages/shell/popup.ui:229
 msgid "Calendar and notification center"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:108
+#: resources/ui/pages/shell/popup.ui:115 resources/ui/pages/shell/popup.ui:236
 msgid "Notifications"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:115
+#: resources/ui/pages/shell/popup.ui:121 resources/ui/pages/shell/popup.ui:243
 msgid "Window and workspace switchers"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:122
+#: resources/ui/pages/shell/popup.ui:127 resources/ui/pages/shell/popup.ui:250
 msgid "Volume and brightness"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:129
+#: resources/ui/pages/shell/popup.ui:133 resources/ui/pages/shell/popup.ui:257
 msgid "Window resize hints"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:136
+#: resources/ui/pages/shell/popup.ui:139 resources/ui/pages/shell/popup.ui:264
 msgid "Dialogs"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:143
+#: resources/ui/pages/shell/popup.ui:145 resources/ui/pages/shell/popup.ui:271
 msgid "On-screen keyboard"
 msgstr ""
 
-#: resources/ui/pages/shell/popup.ui:150
+#: resources/ui/pages/shell/popup.ui:172
+msgid "Preserve shell theme"
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:173
+msgid "Keep your shell theme's colors for popup controls."
+msgstr ""
+
+#: resources/ui/pages/shell/popup.ui:278
 msgid "Other popup surfaces"
 msgstr ""
 
@@ -984,7 +1127,7 @@ msgid "The top bar, or the panels from Dash to Panel"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:29
-#: src/preferences/pages/pipelines/components.js:8
+#: src/preferences/pages/pipelines/components.js:11
 msgid "Dock"
 msgstr ""
 
@@ -993,7 +1136,7 @@ msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:37
-#: src/preferences/pages/pipelines/components.js:9
+#: src/preferences/pages/pipelines/components.js:15
 msgid "Popups"
 msgstr ""
 
@@ -1002,7 +1145,7 @@ msgid "Menus, quick settings, notifications and dialogs"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:46
-#: src/preferences/pages/pipelines/components.js:10
+#: src/preferences/pages/pipelines/components.js:19
 msgid "Overview"
 msgstr ""
 
@@ -1011,7 +1154,7 @@ msgid "The wallpaper behind the workspaces"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:59
-#: src/preferences/pages/pipelines/components.js:11
+#: src/preferences/pages/pipelines/components.js:23
 msgid "App folders"
 msgstr ""
 
@@ -1024,7 +1167,7 @@ msgid "System"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:73
-#: src/preferences/pages/pipelines/components.js:12
+#: src/preferences/pages/pipelines/components.js:27
 msgid "Lock screen"
 msgstr ""
 
@@ -1033,7 +1176,7 @@ msgid "Behind the password prompt"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:81
-#: src/preferences/pages/pipelines/components.js:13
+#: src/preferences/pages/pipelines/components.js:31
 msgid "Screenshot"
 msgstr ""
 
@@ -1046,7 +1189,7 @@ msgid "Extensions"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:95
-#: src/preferences/pages/pipelines/components.js:14
+#: src/preferences/pages/pipelines/components.js:35
 msgid "Window List"
 msgstr ""
 
@@ -1055,7 +1198,7 @@ msgid "The taskbar from the Window List extension"
 msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:103
-#: src/preferences/pages/pipelines/components.js:15
+#: src/preferences/pages/pipelines/components.js:39
 msgid "Coverflow Alt-Tab"
 msgstr ""
 
@@ -1064,7 +1207,7 @@ msgid "Behind the window switcher"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window class"
+msgid "Window class or title"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:10
@@ -1098,12 +1241,6 @@ msgstr ""
 
 #: resources/ui/widgets/blur-mode-row.ui:35
 msgid "Dynamic"
-msgstr ""
-
-#: resources/ui/widgets/pipeline-choose-row.ui:4
-#: src/preferences/pages/pipelines/pipeline_page.js:82
-#: src/preferences/pages/pipelines/pipeline_row.js:69
-msgid "Pipeline"
 msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:26
@@ -1167,36 +1304,147 @@ msgstr ""
 msgid "Open instructions"
 msgstr ""
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:94
 msgid "Reset all preferences?"
 msgstr ""
 
-#: src/preferences/menu.js:77
+#: src/preferences/menu.js:95
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
 
-#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:97 src/preferences/menu.js:146
+#: src/preferences/pages/pipelines/index.js:122
 msgid "Cancel"
 msgstr ""
 
-#: src/preferences/menu.js:80
+#: src/preferences/menu.js:98
 msgid "Reset"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:78
+#: src/preferences/menu.js:125
+msgid "Preferences exported"
+msgstr ""
+
+#: src/preferences/menu.js:127
+msgid "Could not export the preferences"
+msgstr ""
+
+#: src/preferences/menu.js:137
+msgid "Could not import this file"
+msgstr ""
+
+#: src/preferences/menu.js:143
+msgid "Import preferences?"
+msgstr ""
+
+#: src/preferences/menu.js:144
+msgid ""
+"Your pipelines and component settings will be replaced by the ones in this "
+"file."
+msgstr ""
+
+#: src/preferences/menu.js:147
+msgid "Import"
+msgstr ""
+
+#: src/preferences/menu.js:153
+msgid "Preferences imported"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:8
+msgid "Panel (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:9
+msgid "Panel (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:12
+msgid "Dock (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:13
+msgid "Dock (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:16
+msgid "Popups (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:17
+msgid "Popups (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:20
+msgid "Overview (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:21
+msgid "Overview (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:24
+msgid "App folders (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:25
+msgid "App folders (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:28
+msgid "Lock screen (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:29
+msgid "Lock screen (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:32
+msgid "Screenshot (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:33
+msgid "Screenshot (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:36
+msgid "Window List (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:37
+msgid "Window List (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:40
+msgid "Coverflow Alt-Tab (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:41
+msgid "Coverflow Alt-Tab (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:44
+msgid "Applications (Light mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/components.js:45
+msgid "Applications (Dark mode)"
+msgstr ""
+
+#: src/preferences/pages/pipelines/index.js:79
 msgid "New pipeline"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:116
+#: src/preferences/pages/pipelines/index.js:117
 #, javascript-format
 msgid "Delete “%s”?"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:117
+#: src/preferences/pages/pipelines/index.js:118
 msgid "Delete this pipeline?"
 msgstr ""
 
-#: src/preferences/pages/pipelines/index.js:118
+#: src/preferences/pages/pipelines/index.js:119
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
 msgstr ""

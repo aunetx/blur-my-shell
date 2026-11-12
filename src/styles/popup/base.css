@@ -34,7 +34,9 @@
 .bms-popup-surface-transparent .modal-dialog,
 .bms-popup-surface-transparent .run-dialog,
 .bms-popup-surface-transparent .clipboard-dialog,
-.bms-popup-surface-transparent .screenshot-ui-panel {
+.bms-popup-surface-transparent .screenshot-ui-panel,
+.bms-popup-background-transparent .bms-popup-blur-target,
+.bms-popup-surface-transparent .bms-popup-blur-target {
     background: transparent !important;
     border-color: transparent;
 }
@@ -83,7 +85,9 @@
 .bms-popup-surface-light .modal-dialog,
 .bms-popup-surface-light .run-dialog,
 .bms-popup-surface-light .clipboard-dialog,
-.bms-popup-surface-light .screenshot-ui-panel {
+.bms-popup-surface-light .screenshot-ui-panel,
+.bms-popup-background-light .bms-popup-blur-target,
+.bms-popup-surface-light .bms-popup-blur-target {
     background: rgba(255, 255, 255, 0.65) !important;
     border-color: rgba(0, 0, 0, 0.1);
 }
@@ -156,7 +160,9 @@
 .bms-popup-surface-dark .message,
 .bms-popup-surface-dark .modal-dialog,
 .bms-popup-surface-dark .run-dialog,
-.bms-popup-surface-dark .clipboard-dialog {
+.bms-popup-surface-dark .clipboard-dialog,
+.bms-popup-background-dark .bms-popup-blur-target,
+.bms-popup-surface-dark .bms-popup-blur-target {
     background: rgba(30, 30, 33, 0.5) !important;
     border-color: rgba(255, 255, 255, 0.06);
 }
@@ -787,4 +793,16 @@
 
 .bms-popup-background-light .keyboard-key.shift-key-uppercase:hover {
   background-color: rgba(0, 0, 0, 0.28);
+}
+
+/* A surface whose descendants are blurred one by one has no background of its own. */
+
+.popup-menu-content.bms-popup-blur-parent,
+.popup-sub-menu.bms-popup-blur-parent,
+.candidate-popup-content.bms-popup-blur-parent,
+.quick-settings.bms-popup-blur-parent,
+.quick-toggle-menu.bms-popup-blur-parent {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
 }

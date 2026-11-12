@@ -3,6 +3,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { ui_template } from '../../resources.js';
 import { PipelineRow } from './pipeline_row.js';
 import { PipelinePage } from './pipeline_page.js';
 import { get_pipeline_users } from './components.js';
@@ -10,7 +11,7 @@ import { get_pipeline_users } from './components.js';
 
 export const Pipelines = GObject.registerClass({
     GTypeName: 'Pipelines',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../../ui/pages/pipelines/pipelines.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/pipelines/pipelines.ui'),
     InternalChildren: [
         'pipelines_group',
         'add_pipeline'
@@ -133,8 +134,7 @@ export const Pipelines = GObject.registerClass({
         if (!this.pipelines_manager.delete_pipeline(pipeline_id))
             return;
 
-        const components = users.map(({ component }) => component);
-        this._deleted_pipelines.push({ pipeline_id, pipeline, components });
+        this._deleted_pipelines.push({ pipeline_id, pipeline, users });
         this.show_pipeline_undo();
     }
 
@@ -171,8 +171,8 @@ export const Pipelines = GObject.registerClass({
             return;
 
         this._deleted_pipelines.pop();
-        for (const component of deleted.components)
-            component.PIPELINE = deleted.pipeline_id;
+        for (const { component, property } of deleted.users)
+            component[property] = deleted.pipeline_id;
 
         if (this._deleted_pipelines.length > 0)
             this.show_pipeline_undo();

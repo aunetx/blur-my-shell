@@ -1,25 +1,25 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Gtk from 'gi://Gtk';
 import { gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+import { ui_template } from '../resources.js';
+
 
 export const PipelineChooseRow = GObject.registerClass({
     GTypeName: 'PipelineChooseRow',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/widgets/pipeline-choose-row.ui', GLib.UriFlags.NONE),
+    Template: ui_template('widgets/pipeline-choose-row.ui'),
     InternalChildren: [
         'pipeline_choose',
         'pipeline_model',
         'pipeline_edit'
     ],
 }, class PipelineChooseRow extends Adw.ActionRow {
-    initialize(preferences, pipelines_manager, pipelines_page) {
+    initialize(preferences, property, pipelines_manager, pipelines_page) {
         this.preferences = preferences;
+        this.property = property;
         this.pipelines_manager = pipelines_manager;
         this.pipelines_page = pipelines_page;
-
-        this.create_pipelines_list();
 
         // display the correct pipeline name in the drop-down instead of their ids
         const closure_func = string_object => {
@@ -43,30 +43,38 @@ export const PipelineChooseRow = GObject.registerClass({
             )
         );
 
-        this.preferences.PIPELINE_changed(() => this.on_settings_pipeline_changed());
+        this.preferences[`${this.property}_changed`](() => this.on_settings_pipeline_changed());
 
         this.pipelines_manager.connect('pipeline-list-changed', () => this.create_pipelines_list());
 
-        this._pipeline_choose.connect('notify::selected', () => this.on_selected_pipeline_changed());
+        this._pipeline_choose.connect(
+            'notify::selected',
+            () => this.on_selected_pipeline_changed()
+        );
+
+        this.create_pipelines_list();
 
         this._pipeline_edit.connect(
             'clicked',
-            () => this.pipelines_page.open_pipeline(this.preferences.PIPELINE)
+            () => this.pipelines_page.open_pipeline(this.preferences[this.property])
         );
     }
 
     on_selected_pipeline_changed() {
-        if (!this._pipeline_choose.selected_item || this._is_creating_pipelines_list)
+        if (this._is_creating_pipelines_list)
+            return;
+
+        if (!this._pipeline_choose.selected_item)
             return;
 
         const pipeline_id = this._pipeline_choose.selected_item.get_string();
         if (pipeline_id == 'create_new') {
             const id = this.pipelines_page.create_pipeline();
             if (id)
-                this.preferences.PIPELINE = id;
+                this.preferences[this.property] = id;
         }
         else
-            this.preferences.PIPELINE = pipeline_id;
+            this.preferences[this.property] = pipeline_id;
     }
 
     on_settings_pipeline_changed() {
@@ -81,7 +89,7 @@ export const PipelineChooseRow = GObject.registerClass({
                 this.create_pipelines_list();
                 return;
             }
-            if (pipeline_id == this.preferences.PIPELINE)
+            if (pipeline_id == this.preferences[this.property])
                 this._pipeline_choose.set_selected(i);
         }
     }
@@ -95,7 +103,7 @@ export const PipelineChooseRow = GObject.registerClass({
         let i = 0;
         for (let pipeline_id in this.pipelines_manager.pipelines) {
             this._pipeline_model.append(pipeline_id);
-            if (pipeline_id == this.preferences.PIPELINE)
+            if (pipeline_id == this.preferences[this.property])
                 this._pipeline_choose.set_selected(i);
             i++;
         }

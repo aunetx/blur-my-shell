@@ -1,9 +1,12 @@
+import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { ANIMATION_TIME } from 'resource:///org/gnome/shell/ui/overview.js';
 
 import { Pipeline } from '../../pipelines/pipeline.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
 import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { get_pipeline_id } from '../../conveniences/style.js';
 
 /// Creates the blur behind a panel, inserted at the bottom of its panel box.
 export function create_panel_background(panel_box, monitor, settings, effects_manager) {
@@ -20,7 +23,7 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
         pipeline = new Pipeline(
             effects_manager,
             global.blur_my_shell._pipelines_manager,
-            settings.panel.PIPELINE
+            get_pipeline_id(settings.panel),
         );
         background = pipeline.create_background_with_effects(
             monitor.index, bg_manager_list,
@@ -37,7 +40,7 @@ export function create_panel_background(panel_box, monitor, settings, effects_ma
         pipeline = new DynamicPipeline(
             effects_manager,
             global.blur_my_shell._pipelines_manager,
-            settings.panel.PIPELINE,
+            get_pipeline_id(settings.panel),
             {
                 corner_radius: settings.panel.CORNER_RADIUS,
                 get_corners: () => settings.panel.ROUNDED_CORNERS,
@@ -105,4 +108,20 @@ export function place_panel_background(actors) {
     }
 
     return true;
+}
+
+/// Fades the blur in step with the overview, which fades the panel's own background.
+export function fade_panel_background(actors, opacity, onComplete) {
+    actors.widgets.background_group.ease({
+        opacity,
+        duration: ANIMATION_TIME,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+        onComplete,
+    });
+}
+
+export function reset_panel_background_fade(actors) {
+    const { background_group } = actors.widgets;
+    background_group.remove_all_transitions();
+    background_group.opacity = 255;
 }

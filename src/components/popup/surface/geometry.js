@@ -43,6 +43,10 @@ export const PopupBlurSurfaceGeometry = class PopupBlurSurfaceGeometry {
     }
 
     get_transformed_clip(actor) {
+        // a scroll view shows its content only within its bounds, without a clip of its own
+        if (actor instanceof St.ScrollView)
+            return this.get_transformed_actor(actor);
+
         if (!actor.has_clip)
             return null;
 

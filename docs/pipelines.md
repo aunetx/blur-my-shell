@@ -47,11 +47,13 @@ Colors are lists of red, green, blue and alpha between 0 and 1. Choices are stor
 | `blur_radius` | number | 0 to 48 | 3 |
 | `edge_size` | number | 1 to 500 | 32 |
 | `rim_width` | number | 1 to 6.5 | 4.8 |
+| `reach` | number | 0 to 500 | 0 |
 | `falloff` | number | 0.25 to 20 | 1.25 |
 | `refraction_style` | number | 0 to 1 | 0 |
 | `gloss` | number | 0 to 1 | 1 |
 | `fresnel_angle` | number | -180 to 180 | 0 |
 | `fresnel_width` | number | 0.5 to 6 | 1.5 |
+| `fresnel_two_sided` | boolean | | `true` |
 | `specular_strength` | number | 0 to 1 | 0.1 |
 | `edge_shadow` | number | 0 to 1 | 0.7 |
 | `edge_glow` | number | 0 to 1 | 0.5 |
@@ -78,6 +80,16 @@ Colors are lists of red, green, blue and alpha between 0 and 1. Choices are stor
 | `contrast` | number | 0 to 2 | 1 |
 | `contrast_center` | number | 0 to 1 | 0.5 |
 | `saturation_multiplicator` | number | 0 to 2 | 1 |
+
+### `image`: Image
+
+| Parameter | Type | Range | Default |
+|---|---|---|---|
+| `image_path` | string | | `''` |
+| `blend` | number | 0 to 1 | 1 |
+| `blend_mode` | choice | 0 normal, 1 multiply, 2 screen, 3 overlay, 4 darken, 5 lighten, 6 plus darker, 7 plus lighter, 8 color dodge, 9 color burn, 10 hard light, 11 soft light, 12 difference, 13 exclusion, 14 hue, 15 saturation, 16 color, 17 luminosity | 0 |
+| `image_mode` | choice | 0 tile, 1 stretch, 2 fit width | 0 |
+| `opacity_factor` | number | 0 to 1 | 1 |
 
 ### `noise`: Noise
 

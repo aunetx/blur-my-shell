@@ -2,7 +2,7 @@ import { Settings } from './settings.js';
 import { KEYS, DEPRECATED_KEYS } from './keys.js';
 import { unpack_pipelines } from './pipeline_settings.js';
 
-const CURRENT_SETTINGS_VERSION = 8;
+export const CURRENT_SETTINGS_VERSION = 10;
 
 const LEGACY_DYNAMIC_COMPONENTS = [
     { name: 'appfolder', supports_static: false },
@@ -227,6 +227,23 @@ function consolidate_blur_effects(pipelines) {
     return changed;
 }
 
+function pipeline_preset_add(pipelines, gsettings, pipeline_ids) {
+    const stock_pipelines = unpack_pipelines(
+        gsettings.get_default_value('pipelines')
+    );
+    let changed = false;
+
+    for (const pipeline_id of pipeline_ids) {
+        if (Object.hasOwn(pipelines, pipeline_id))
+            continue;
+
+        pipelines[pipeline_id] = stock_pipelines[pipeline_id];
+        changed = true;
+    }
+
+    return changed;
+}
+
 export function update_from_old_settings(gsettings) {
     const preferences = new Settings(KEYS, gsettings);
     const old_version = preferences.settings.get_int('settings-version');
@@ -293,23 +310,23 @@ export function update_from_old_settings(gsettings) {
         queue_missing_pipeline_references(preferences, pipeline_assignments, pipelines);
 
     if (old_version < 8) {
-        const stock_pipelines = unpack_pipelines(
-            gsettings.get_default_value('pipelines')
-        );
-
-        for (const pipeline_id of [
+        pipelines_changed = pipeline_preset_add(pipelines, gsettings, [
             'pipeline_liquid_glass',
             'pipeline_vapor_glass',
             'pipeline_classic_light_background',
             'pipeline_classic_dark_background',
-        ]) {
-            if (Object.hasOwn(pipelines, pipeline_id))
-                continue;
-
-            pipelines[pipeline_id] = stock_pipelines[pipeline_id];
-            pipelines_changed = true;
-        }
+        ]) || pipelines_changed;
     }
+
+    if (old_version < 9) {
+        pipelines_changed = pipeline_preset_add(pipelines, gsettings, [
+            'pipeline_default_light',
+        ]) || pipelines_changed;
+    }
+
+    // the screenshot panel used to share the corner radius of quick settings
+    if (old_version < 10)
+        preferences.popup.SCREENSHOT_CORNER_RADIUS = preferences.popup.QUICK_SETTINGS_CORNER_RADIUS;
 
     pipeline_assignments.forEach((pipeline_id, component) => {
         if (component.PIPELINE !== pipeline_id)

@@ -13,7 +13,10 @@ import {
     is_supported_dock_container,
     resolve_dock_target,
 } from './dock_targets.js';
-import { connect_system_style_changes } from '../../conveniences/style.js';
+import {
+    connect_system_style_changes,
+    get_pipeline_id,
+} from '../../conveniences/style.js';
 
 import { DockSurface } from './dock_surface.js';
 import { queue_after_laters } from './stage_update.js';
@@ -235,7 +238,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
             const pipeline = new Pipeline(
                 this.effects_manager,
                 global.blur_my_shell._pipelines_manager,
-                this.settings.dash_to_dock.PIPELINE
+                get_pipeline_id(this.settings.dash_to_dock)
             );
             const background = pipeline.create_background_with_effects(
                 monitor.index, bg_managers,
@@ -261,7 +264,7 @@ export const DashBlur = class DashBlur extends Signals.EventEmitter {
         const pipeline = new DynamicPipeline(
             this.effects_manager,
             global.blur_my_shell._pipelines_manager,
-            this.settings.dash_to_dock.PIPELINE,
+            get_pipeline_id(this.settings.dash_to_dock),
             {
                 corner_radius: get_radius(),
                 get_corners,

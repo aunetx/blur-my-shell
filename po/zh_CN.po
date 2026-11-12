@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 16:39+0100\n"
+"POT-Creation-Date: 2026-11-01 11:16+0800\n"
 "PO-Revision-Date: 2026-10-29 17:51+0000\n"
 "Last-Translator: Cold-Mint <cold_mint@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -290,10 +290,11 @@ msgstr "菲涅尔眩光角度"
 
 #: src/effects/refraction/info.js:82
 msgid ""
-"Light direction of the fresnel glare, in degrees (0 is from above, positive "
-"rotates clockwise)."
+"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
+"the top and bottom, positive rotates clockwise)."
 msgstr ""
-"菲涅尔眩光的光照方向，以角度表示（0 表示来自上方，正值表示顺时针旋转）。"
+"菲涅尔眩光的轴向，用于照亮两条相对的边缘，单位为度（0 照亮上下边缘，正值"
+"表示顺时针旋转）。"
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
@@ -309,62 +310,84 @@ msgstr "镜面眩光强度"
 
 #: src/effects/refraction/info.js:102
 msgid ""
-"Strength of the specular glare showing the light direction (0 disables it)."
-msgstr "用于指示光照方向的镜面眩光强度（0 表示禁用）。"
+"Strength of the white specular glare on the same edge pair as the fresnel "
+"glare, brighter on the light side (0 disables it)."
+msgstr ""
+"与菲涅尔眩光同一组边缘上的白色镜面眩光强度，向光一侧更亮（0 表示禁用）。"
 
 #: src/effects/refraction/info.js:111
+msgid "Edge border"
+msgstr "边缘描线"
+
+#: src/effects/refraction/info.js:112
+msgid ""
+"Thin dark line along the straight side edges, away from the fresnel glare, "
+"outlining the glass on light backgrounds."
+msgstr ""
+"沿笔直侧边缘分布的深色细线，不与菲涅尔眩光重叠，在浅色背景上勾勒出玻璃的"
+"轮廓。"
+
+#: src/effects/refraction/info.js:121
+msgid "Edge glow"
+msgstr "边缘辉光"
+
+#: src/effects/refraction/info.js:122
+msgid "Colorful content under the glass lights up its edge."
+msgstr "玻璃下的彩色内容会点亮其边缘。"
+
+#: src/effects/refraction/info.js:131
 msgid "Tint strength"
 msgstr "色调强度"
 
-#: src/effects/refraction/info.js:112
+#: src/effects/refraction/info.js:132
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr "覆盖在模糊纹理上的轻微乳白玻璃色调的强度。"
 
-#: src/effects/refraction/info.js:121
+#: src/effects/refraction/info.js:141
 msgid "Tint color"
 msgstr "色调颜色"
 
-#: src/effects/refraction/info.js:122
+#: src/effects/refraction/info.js:142
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr "混合在模糊纹理之上的颜色，混合程度由色调强度决定。"
 
-#: src/effects/refraction/info.js:127
+#: src/effects/refraction/info.js:147
 msgid "Backdrop zoom"
 msgstr "背景缩放"
 
-#: src/effects/refraction/info.js:128
+#: src/effects/refraction/info.js:148
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr "透过玻璃可见背景的缩放级别。"
 
-#: src/effects/refraction/info.js:137
+#: src/effects/refraction/info.js:157
 msgid "Inner shadow"
 msgstr "内阴影"
 
-#: src/effects/refraction/info.js:138
+#: src/effects/refraction/info.js:158
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr "加深下侧和内侧边缘，呈现更有层次的玻璃表面。"
 
-#: src/effects/refraction/info.js:147
+#: src/effects/refraction/info.js:167
 msgid "Chromatic dispersion"
 msgstr "色散"
 
-#: src/effects/refraction/info.js:148
+#: src/effects/refraction/info.js:168
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr "玻璃边缘处按颜色通道进行的物理折射色散。"
 
-#: src/effects/refraction/info.js:157
+#: src/effects/refraction/info.js:177
 msgid "Edge behavior"
 msgstr "边缘处理方式"
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:178
 msgid "How texture coordinates outside the actor are sampled."
 msgstr "超出对象范围的纹理坐标的采样方式。"
 
-#: src/effects/refraction/info.js:161
+#: src/effects/refraction/info.js:181
 msgid "Clamp"
 msgstr "钳制"
 
-#: src/effects/refraction/info.js:162
+#: src/effects/refraction/info.js:182
 msgid "Mirror"
 msgstr "镜像"
 
@@ -593,7 +616,7 @@ msgstr "调试日志"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "省电模式下禁用"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
@@ -973,7 +996,7 @@ msgstr "其他弹出表面"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
@@ -1062,7 +1085,7 @@ msgstr "Window List 扩展提供的任务栏"
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
 msgid "Coverflow Alt-Tab"
-msgstr ""
+msgstr "Alt-Tab 封面浏览"
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
@@ -1202,16 +1225,16 @@ msgstr "新建管线"
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "删除“%s”？"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "删除此管线？"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "它正被 %s 使用，将切换到默认管线。"
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
@@ -1232,19 +1255,30 @@ msgstr "未知效果"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "上移"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "下移"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "效果菜单"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
 msgstr "创建新管线"
+
+#~ msgid ""
+#~ "Light direction of the fresnel glare, in degrees (0 is from above, "
+#~ "positive rotates clockwise)."
+#~ msgstr ""
+#~ "菲涅尔眩光的光照方向，以角度表示（0 表示来自上方，正值表示顺时针旋转）。"
+
+#~ msgid ""
+#~ "Strength of the specular glare showing the light direction (0 disables "
+#~ "it)."
+#~ msgstr "用于指示光照方向的镜面眩光强度（0 表示禁用）。"
 
 #~ msgid ""
 #~ "Makes the focused window opaque and the other ones blurred, helping with "

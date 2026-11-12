@@ -1,7 +1,7 @@
 import Adw from 'gi://Adw';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
+import { ui_template } from '../resources.js';
 import { bind_settings } from '../bind_settings.js';
 import { ApplicationRow } from '../widgets/application_row.js';
 
@@ -9,11 +9,14 @@ import '../widgets/blur_mode_row.js';
 
 export const Applications = GObject.registerClass({
     GTypeName: 'Applications',
-    Template: GLib.uri_resolve_relative(import.meta.url, '../../ui/pages/applications.ui', GLib.UriFlags.NONE),
+    Template: ui_template('pages/applications.ui'),
     InternalChildren: [
         'blur',
         'blur_mode_row',
+        'pipeline_auto_mode_switch',
         'pipeline_choose_row',
+        'pipeline_choose_auto_light_row',
+        'pipeline_choose_auto_dark_row',
         'corner_radius',
         'rounded_corners',
         'corner_when_maximized',
@@ -21,6 +24,8 @@ export const Applications = GObject.registerClass({
         'dynamic_opacity',
         'blur_on_overview',
         'unblur_when_fullscreen',
+        'blur_menus',
+        'menu_corner_radius',
         'enable_all',
         'whitelist',
         'add_whitelist',
@@ -38,11 +43,21 @@ export const Applications = GObject.registerClass({
 
         this._blur_mode_row.initialize(this.preferences.applications);
         this._pipeline_choose_row.initialize(
-            this.preferences.applications, this.pipelines_manager, this.pipelines_page
+            this.preferences.applications, 'PIPELINE',
+            this.pipelines_manager, this.pipelines_page
+        );
+        this._pipeline_choose_auto_light_row.initialize(
+            this.preferences.applications, 'PIPELINE_LIGHT',
+            this.pipelines_manager, this.pipelines_page
+        );
+        this._pipeline_choose_auto_dark_row.initialize(
+            this.preferences.applications, 'PIPELINE_DARK',
+            this.pipelines_manager, this.pipelines_page
         );
 
         bind_settings(this.preferences.applications, [
             ['blur', this._blur, 'active'],
+            ['pipeline-auto-mode', this._pipeline_auto_mode_switch, 'active'],
             ['opacity', this._opacity, 'value'],
             ['dynamic-opacity', this._dynamic_opacity, 'active'],
             ['corner-radius', this._corner_radius, 'value'],
@@ -50,6 +65,8 @@ export const Applications = GObject.registerClass({
             ['corner-when-maximized', this._corner_when_maximized, 'active'],
             ['blur-on-overview', this._blur_on_overview, 'active'],
             ['unblur-when-fullscreen', this._unblur_when_fullscreen, 'active'],
+            ['blur-menus', this._blur_menus, 'active'],
+            ['menu-corner-radius', this._menu_corner_radius, 'value'],
             ['enable-all', this._enable_all, 'active'],
         ]);
 

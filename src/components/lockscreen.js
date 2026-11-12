@@ -2,6 +2,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { UnlockDialog } from 'resource:///org/gnome/shell/ui/unlockDialog.js';
 
 import { Pipeline } from '../pipelines/pipeline.js';
+import { get_pipeline_id, connect_system_style_changes } from '../conveniences/style.js';
 
 const original_createBackground =
     UnlockDialog.prototype._createBackground;
@@ -32,6 +33,11 @@ export const LockscreenBlur = class LockscreenBlur {
         UnlockDialog.prototype._updateBackgrounds =
             this._updateBackgrounds;
 
+        connect_system_style_changes(this.connections, () => {
+            if (this.settings.lockscreen.PIPELINE_AUTO_MODE)
+                this.update_lockscreen();
+        });
+
         this.update_lockscreen();
     }
 
@@ -47,7 +53,7 @@ export const LockscreenBlur = class LockscreenBlur {
 
         let pipeline = new Pipeline(
             extension._effects_manager, extension._pipelines_manager,
-            extension._settings.lockscreen.PIPELINE
+            get_pipeline_id(extension._settings.lockscreen)
         );
 
         pipeline.create_background_with_effects(
