@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 11:16+0800\n"
+"POT-Creation-Date: 2026-11-12 12:56+0800\n"
 "PO-Revision-Date: 2026-10-29 17:51+0000\n"
-"Last-Translator: Cold-Mint <cold_mint@qq.com>\n"
+"Last-Translator: oi-io <boss@oi-io.cc>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/blur-my-shell/blur-my-shell/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -47,6 +47,7 @@ msgstr "模糊效果的亮度，数值越高文字越难以阅读。"
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:15
 #: src/effects/color/info.js:41 src/effects/effect_groups.js:11
+#: src/effects/texture/info.js:51
 msgid "Color"
 msgstr "颜色"
 
@@ -60,7 +61,7 @@ msgid ""
 "the color."
 msgstr "要融入的颜色。混合量由颜色的不透明度控制。"
 
-#: src/effects/color/info.js:21
+#: src/effects/color/info.js:21 src/effects/texture/info.js:31
 msgid "Blend mode"
 msgstr "混合模式"
 
@@ -68,72 +69,78 @@ msgstr "混合模式"
 msgid "How the color is blended in."
 msgstr "颜色的混合方式。"
 
-#: src/effects/color/info.js:25
+#: src/effects/color/info.js:25 src/effects/texture/info.js:35
+#: resources/ui/pages/applications.ui:42
+#: resources/ui/pages/shell/app-folders.ui:28
+#: resources/ui/pages/shell/component.ui:28 resources/ui/pages/shell/dash.ui:44
+#: resources/ui/pages/shell/overview.ui:28 resources/ui/pages/shell/panel.ui:45
+#: resources/ui/pages/shell/popup.ui:46
 msgid "Normal"
-msgstr "正常"
+msgstr "默认"
 
-#: src/effects/color/info.js:26
+#: src/effects/color/info.js:26 src/effects/texture/info.js:36
 msgid "Multiply"
 msgstr "正片叠底"
 
-#: src/effects/color/info.js:27
+#: src/effects/color/info.js:27 src/effects/texture/info.js:37
 msgid "Screen"
 msgstr "滤色"
 
-#: src/effects/color/info.js:28
+#: src/effects/color/info.js:28 src/effects/texture/info.js:38
 msgid "Overlay"
 msgstr "叠加"
 
-#: src/effects/color/info.js:29
+#: src/effects/color/info.js:29 src/effects/texture/info.js:39
 msgid "Darken"
 msgstr "变暗"
 
-#: src/effects/color/info.js:30
+#: src/effects/color/info.js:30 src/effects/texture/info.js:40
 msgid "Lighten"
 msgstr "变亮"
 
-#: src/effects/color/info.js:31
+#: src/effects/color/info.js:31 src/effects/texture/info.js:41
 msgid "Plus darker"
 msgstr "相加变暗"
 
-#: src/effects/color/info.js:32
+#: src/effects/color/info.js:32 src/effects/texture/info.js:42
 msgid "Plus lighter"
 msgstr "相加变亮"
 
-#: src/effects/color/info.js:33
+#: src/effects/color/info.js:33 src/effects/texture/info.js:43
 msgid "Color dodge"
 msgstr "颜色减淡"
 
-#: src/effects/color/info.js:34
+#: src/effects/color/info.js:34 src/effects/texture/info.js:44
 msgid "Color burn"
 msgstr "颜色加深"
 
-#: src/effects/color/info.js:35
+#: src/effects/color/info.js:35 src/effects/texture/info.js:45
 msgid "Hard light"
 msgstr "强光"
 
-#: src/effects/color/info.js:36
+#: src/effects/color/info.js:36 src/effects/texture/info.js:46
 msgid "Soft light"
 msgstr "柔光"
 
-#: src/effects/color/info.js:37
+#: src/effects/color/info.js:37 src/effects/texture/info.js:47
 msgid "Difference"
 msgstr "差值"
 
-#: src/effects/color/info.js:38
+#: src/effects/color/info.js:38 src/effects/texture/info.js:48
 msgid "Exclusion"
 msgstr "排除"
 
-#: src/effects/color/info.js:39
+#: src/effects/color/info.js:39 src/effects/texture/info.js:49
 msgid "Hue"
 msgstr "色相"
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
-#: src/effects/wave/info.js:67
+#: src/effects/texture/info.js:50 src/effects/wave/info.js:67
 msgid "Saturation"
 msgstr "饱和度"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
+#: src/effects/texture/info.js:52
 msgid "Luminosity"
 msgstr "亮度"
 
@@ -208,11 +215,11 @@ msgstr "模糊"
 msgid "Texture"
 msgstr "纹理"
 
-#: src/effects/effect_groups.js:27
+#: src/effects/effect_groups.js:28
 msgid "Advanced"
 msgstr "高级"
 
-#: src/effects/effect_groups.js:28
+#: src/effects/effect_groups.js:29
 msgid "Building blocks that are mostly useful combined with other effects."
 msgstr "基础组件多用于与其他特效搭配组合。"
 
@@ -259,240 +266,319 @@ msgid "How far the refraction eases inward from the glass edge."
 msgstr "折射从玻璃边缘向内平滑过渡的范围。"
 
 #: src/effects/refraction/info.js:51
+msgid "Refraction reach"
+msgstr "折射范围"
+
+#: src/effects/refraction/info.js:52
+msgid ""
+"How far the bend reaches inward from the edge, past the corner radius. A "
+"wider bend is also deeper, like a wider bezel (0 keeps it at the rim)."
+msgstr "弯曲从边缘向内延伸、越过圆角半径的距离。弯曲范围越宽，深度也越大，类似更宽的边框（0 表示保持在边缘）。"
+
+#: src/effects/refraction/info.js:61
 msgid "Glass thickness"
 msgstr "玻璃厚度"
 
-#: src/effects/refraction/info.js:52
+#: src/effects/refraction/info.js:62
 msgid "Depth used by the refraction edge profile."
 msgstr "折射边缘轮廓所使用的深度。"
 
-#: src/effects/refraction/info.js:61
+#: src/effects/refraction/info.js:71
 msgid "Refraction style"
 msgstr "折射样式"
 
-#: src/effects/refraction/info.js:62
+#: src/effects/refraction/info.js:72
 msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr "边缘附近弯曲的形状。数值较低时弯曲平缓，数值较高时在边缘处弯曲更陡峭。"
 
-#: src/effects/refraction/info.js:71
+#: src/effects/refraction/info.js:81
 msgid "Fresnel glare"
 msgstr "菲涅尔眩光"
 
-#: src/effects/refraction/info.js:72
+#: src/effects/refraction/info.js:82
 msgid "Strength of the directional fresnel glare from the glass edge."
 msgstr "来自玻璃边缘的方向性菲涅尔眩光强度。"
 
-#: src/effects/refraction/info.js:81
+#: src/effects/refraction/info.js:91
 msgid "Fresnel glare angle"
 msgstr "菲涅尔眩光角度"
 
-#: src/effects/refraction/info.js:82
+#: src/effects/refraction/info.js:92
 msgid ""
-"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
-"the top and bottom, positive rotates clockwise)."
+"Direction or axis of the fresnel glare, in degrees (positive rotates "
+"clockwise). In two-sided mode, 0 lights the top and bottom edges; in one-"
+"sided mode, only the edge facing the light angle is lit (0 for top, 180 for "
+"bottom)."
 msgstr ""
-"菲涅尔眩光的轴向，用于照亮两条相对的边缘，单位为度（0 照亮上下边缘，正值"
-"表示顺时针旋转）。"
+"菲涅尔眩光的方向或轴向，单位为度（正值顺时针旋转）。在双侧模式下，0 照亮上下边缘；在单侧模式下，只照亮面向光线角度的边缘（0 "
+"为上侧，180 为下侧）。"
 
-#: src/effects/refraction/info.js:91
+#: src/effects/refraction/info.js:101
 msgid "Fresnel glare width"
 msgstr "菲涅尔眩光宽度"
 
-#: src/effects/refraction/info.js:92
+#: src/effects/refraction/info.js:102
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr "沿玻璃边缘的菲涅尔眩光环厚度乘数。"
 
-#: src/effects/refraction/info.js:101
+#: src/effects/refraction/info.js:111
+msgid "Two-sided fresnel glare"
+msgstr "双侧菲涅尔眩光"
+
+#: src/effects/refraction/info.js:112
+msgid ""
+"Light opposite edge pairs symmetrically. When disabled, only the edge facing "
+"the fresnel angle is lit (e.g. 180 lights the bottom edge, removing the "
+"glare from the top)."
+msgstr "对称地照亮相对的两组边缘。禁用时，只照亮面向菲涅尔角度的边缘（例如 180 照亮下边缘，同时移除上边缘的眩光）。"
+
+#: src/effects/refraction/info.js:116
 msgid "Specular glare strength"
 msgstr "镜面眩光强度"
 
-#: src/effects/refraction/info.js:102
+#: src/effects/refraction/info.js:117
 msgid ""
 "Strength of the white specular glare on the same edge pair as the fresnel "
 "glare, brighter on the light side (0 disables it)."
 msgstr ""
 "与菲涅尔眩光同一组边缘上的白色镜面眩光强度，向光一侧更亮（0 表示禁用）。"
 
-#: src/effects/refraction/info.js:111
+#: src/effects/refraction/info.js:126
 msgid "Edge border"
 msgstr "边缘描线"
 
-#: src/effects/refraction/info.js:112
+#: src/effects/refraction/info.js:127
 msgid ""
 "Thin dark line along the straight side edges, away from the fresnel glare, "
 "outlining the glass on light backgrounds."
 msgstr ""
-"沿笔直侧边缘分布的深色细线，不与菲涅尔眩光重叠，在浅色背景上勾勒出玻璃的"
-"轮廓。"
+"沿笔直侧边缘分布的深色细线，不与菲涅尔眩光重叠，在浅色背景上勾勒出玻璃的轮"
+"廓。"
 
-#: src/effects/refraction/info.js:121
+#: src/effects/refraction/info.js:136
 msgid "Edge glow"
 msgstr "边缘辉光"
 
-#: src/effects/refraction/info.js:122
+#: src/effects/refraction/info.js:137
 msgid "Colorful content under the glass lights up its edge."
 msgstr "玻璃下的彩色内容会点亮其边缘。"
 
-#: src/effects/refraction/info.js:131
+#: src/effects/refraction/info.js:146
 msgid "Tint strength"
 msgstr "色调强度"
 
-#: src/effects/refraction/info.js:132
+#: src/effects/refraction/info.js:147
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr "覆盖在模糊纹理上的轻微乳白玻璃色调的强度。"
 
-#: src/effects/refraction/info.js:141
+#: src/effects/refraction/info.js:156
 msgid "Tint color"
 msgstr "色调颜色"
 
-#: src/effects/refraction/info.js:142
+#: src/effects/refraction/info.js:157
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr "混合在模糊纹理之上的颜色，混合程度由色调强度决定。"
 
-#: src/effects/refraction/info.js:147
+#: src/effects/refraction/info.js:162
 msgid "Backdrop zoom"
 msgstr "背景缩放"
 
-#: src/effects/refraction/info.js:148
+#: src/effects/refraction/info.js:163
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr "透过玻璃可见背景的缩放级别。"
 
-#: src/effects/refraction/info.js:157
+#: src/effects/refraction/info.js:172
 msgid "Inner shadow"
 msgstr "内阴影"
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:173
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr "加深下侧和内侧边缘，呈现更有层次的玻璃表面。"
 
-#: src/effects/refraction/info.js:167
+#: src/effects/refraction/info.js:182
 msgid "Chromatic dispersion"
 msgstr "色散"
 
-#: src/effects/refraction/info.js:168
+#: src/effects/refraction/info.js:183
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr "玻璃边缘处按颜色通道进行的物理折射色散。"
 
-#: src/effects/refraction/info.js:177
+#: src/effects/refraction/info.js:192
 msgid "Edge behavior"
 msgstr "边缘处理方式"
 
-#: src/effects/refraction/info.js:178
+#: src/effects/refraction/info.js:193
 msgid "How texture coordinates outside the actor are sampled."
 msgstr "超出对象范围的纹理坐标的采样方式。"
 
-#: src/effects/refraction/info.js:181
+#: src/effects/refraction/info.js:196
 msgid "Clamp"
 msgstr "钳制"
 
-#: src/effects/refraction/info.js:182
+#: src/effects/refraction/info.js:197
 msgid "Mirror"
 msgstr "镜像"
 
-#: src/effects/texture/info.js:11
+#: src/effects/texture/info.js:12
+msgid "Image"
+msgstr "图像"
+
+#: src/effects/texture/info.js:13
+msgid "Blends an image into the pipeline."
+msgstr "将图像融入管线。"
+
+#: src/effects/texture/info.js:16
+msgid "Image path"
+msgstr "图像路径"
+
+#: src/effects/texture/info.js:17
+msgid "Absolute path to the image file."
+msgstr "图像文件的绝对路径。"
+
+#: src/effects/texture/info.js:21
+msgid "Blend"
+msgstr "混合"
+
+#: src/effects/texture/info.js:22
+msgid "How strongly the image is blended in."
+msgstr "图像融入的强度。"
+
+#: src/effects/texture/info.js:32
+msgid "How the image is blended in."
+msgstr "图像的混合方式。"
+
+#: src/effects/texture/info.js:56
+msgid "Image mode"
+msgstr "图像模式"
+
+#: src/effects/texture/info.js:57
+msgid "Tile the image, stretch it, or fit its width to the monitor."
+msgstr "平铺图像、拉伸图像，或将其宽度适配到显示器。"
+
+#: src/effects/texture/info.js:60
+msgid "Tile"
+msgstr "平铺"
+
+#: src/effects/texture/info.js:61
+msgid "Stretch"
+msgstr "拉伸"
+
+#: src/effects/texture/info.js:62
+msgid "Fit width"
+msgstr "适应宽度"
+
+#: src/effects/texture/info.js:66 resources/ui/pages/applications.ui:75
+msgid "Opacity"
+msgstr "不透明度"
+
+#: src/effects/texture/info.js:67
+msgid "Opacity of the image blend."
+msgstr "图像混合的不透明度。"
+
+#: src/effects/texture/info.js:79
 msgid "Pixelize"
 msgstr "像素化"
 
-#: src/effects/texture/info.js:12
+#: src/effects/texture/info.js:80
 msgid "An effect that pixelizes the image."
 msgstr "将图片像素化的效果。"
 
-#: src/effects/texture/info.js:15 src/effects/texture/info.js:40
-#: src/effects/texture/info.js:65
+#: src/effects/texture/info.js:83 src/effects/texture/info.js:108
+#: src/effects/texture/info.js:133
 msgid "Factor"
 msgstr "因素"
 
-#: src/effects/texture/info.js:16 src/effects/texture/info.js:41
+#: src/effects/texture/info.js:84 src/effects/texture/info.js:109
 msgid "How much to scale down the image."
 msgstr "缩小图像的程度。"
 
-#: src/effects/texture/info.js:23 src/effects/texture/info.js:48
+#: src/effects/texture/info.js:91 src/effects/texture/info.js:116
 msgid "Downsampling mode"
 msgstr "降采样模式"
 
-#: src/effects/texture/info.js:24 src/effects/texture/info.js:49
+#: src/effects/texture/info.js:92 src/effects/texture/info.js:117
 msgid "The downsampling method that is used."
 msgstr "使用的降采样方法。"
 
-#: src/effects/texture/info.js:27 src/effects/texture/info.js:52
+#: src/effects/texture/info.js:95 src/effects/texture/info.js:120
 msgid "Boxcar"
 msgstr "矩形窗"
 
-#: src/effects/texture/info.js:28 src/effects/texture/info.js:53
+#: src/effects/texture/info.js:96 src/effects/texture/info.js:121
 msgid "Triangular"
 msgstr "三角窗"
 
-#: src/effects/texture/info.js:29 src/effects/texture/info.js:54
+#: src/effects/texture/info.js:97 src/effects/texture/info.js:122
 msgid "Dirac"
 msgstr "狄拉克函数"
 
-#: src/effects/texture/info.js:36
+#: src/effects/texture/info.js:104
 msgid "Downscale (advanced effect)"
 msgstr "缩小（进阶效果）"
 
-#: src/effects/texture/info.js:37
+#: src/effects/texture/info.js:105
 msgid "An effect that downscales the image and puts it in the top-left corner."
 msgstr "缩小图像并将其放在左上角的效果。"
 
-#: src/effects/texture/info.js:61
+#: src/effects/texture/info.js:129
 msgid "Upscale (advanced effect)"
 msgstr "放大（进阶效果）"
 
-#: src/effects/texture/info.js:62
+#: src/effects/texture/info.js:130
 msgid "An effect that upscales the image from the top-left corner."
 msgstr "放大图像并且将其靠左上角放置的效果。"
 
-#: src/effects/texture/info.js:66
+#: src/effects/texture/info.js:134
 msgid "How much to scale up the image."
 msgstr "将图像放大多少。"
 
-#: src/effects/texture/info.js:76
+#: src/effects/texture/info.js:144
 msgid "Derivative"
 msgstr "导数"
 
-#: src/effects/texture/info.js:77
+#: src/effects/texture/info.js:145
 msgid "Apply a spatial derivative, or a laplacian."
 msgstr "应用空间导数或拉普拉斯算子。"
 
-#: src/effects/texture/info.js:80
+#: src/effects/texture/info.js:148
 msgid "Operation"
 msgstr "运算"
 
-#: src/effects/texture/info.js:81
+#: src/effects/texture/info.js:149
 msgid "The mathematical operation to apply."
 msgstr "要应用的数学运算。"
 
-#: src/effects/texture/info.js:84
+#: src/effects/texture/info.js:152
 msgid "1-step derivative"
 msgstr "一阶导数"
 
-#: src/effects/texture/info.js:85
+#: src/effects/texture/info.js:153
 msgid "2-step derivative"
 msgstr "二阶导数"
 
-#: src/effects/texture/info.js:86
+#: src/effects/texture/info.js:154
 msgid "Laplacian"
 msgstr "拉普拉斯算子"
 
-#: src/effects/texture/info.js:93 src/effects/texture/info.js:97
+#: src/effects/texture/info.js:161 src/effects/texture/info.js:165
 msgid "Noise"
 msgstr "噪点"
 
-#: src/effects/texture/info.js:94
+#: src/effects/texture/info.js:162
 msgid "An effect that adds random grain to the image."
 msgstr "为图像添加随机颗粒的效果。"
 
-#: src/effects/texture/info.js:98
+#: src/effects/texture/info.js:166
 msgid "The amount of noise to add."
 msgstr "添加的噪点量。"
 
-#: src/effects/texture/info.js:107
+#: src/effects/texture/info.js:175
 msgid "Lightness"
 msgstr "明亮度"
 
-#: src/effects/texture/info.js:108
+#: src/effects/texture/info.js:176
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -618,123 +704,214 @@ msgstr "调试日志"
 msgid "Disable on Power Saver"
 msgstr "省电模式下禁用"
 
-#: resources/ui/menu.ui:14
+#: resources/ui/menu.ui:16
 msgid "Reset Preferences…"
 msgstr "重置首选项…"
 
 #: resources/ui/menu.ui:20
+msgid "Export Preferences…"
+msgstr "导出首选项…"
+
+#: resources/ui/menu.ui:24
+msgid "Import Preferences…"
+msgstr "导入首选项…"
+
+#: resources/ui/menu.ui:30
 msgid "Project page"
 msgstr "项目页面"
 
-#: resources/ui/menu.ui:24
+#: resources/ui/menu.ui:34
 msgid "Report a Bug"
 msgstr "报告问题"
 
-#: resources/ui/menu.ui:28
+#: resources/ui/menu.ui:38
 msgid "License"
 msgstr "许可证"
 
-#: resources/ui/menu.ui:38
+#: resources/ui/menu.ui:48
 msgid "Main Menu"
 msgstr "主菜单"
 
 #: resources/ui/pages/applications.ui:5
-#: src/preferences/pages/pipelines/components.js:16
+#: src/preferences/pages/pipelines/components.js:43
 msgid "Applications"
 msgstr "应用程序"
 
-#: resources/ui/pages/applications.ui:36
-#: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
+#: resources/ui/pages/applications.ui:30
+#: resources/ui/pages/shell/app-folders.ui:16
+#: resources/ui/pages/shell/component.ui:16 resources/ui/pages/shell/dash.ui:33
+#: resources/ui/pages/shell/overview.ui:16 resources/ui/pages/shell/panel.ui:33
+#: resources/ui/pages/shell/popup.ui:34
+#: resources/ui/widgets/pipeline-choose-row.ui:4
+#: src/preferences/pages/pipelines/pipeline_page.js:83
+#: src/preferences/pages/pipelines/pipeline_row.js:69
+msgid "Pipeline"
+msgstr "管线"
+
+#: resources/ui/pages/applications.ui:34
+#: resources/ui/pages/shell/app-folders.ui:21
+#: resources/ui/pages/shell/component.ui:20 resources/ui/pages/shell/dash.ui:37
+#: resources/ui/pages/shell/overview.ui:21 resources/ui/pages/shell/panel.ui:37
+#: resources/ui/pages/shell/popup.ui:38
+msgid "Follow system theme"
+msgstr "跟随系统主题"
+
+#: resources/ui/pages/applications.ui:35
+#: resources/ui/pages/shell/app-folders.ui:22
+#: resources/ui/pages/shell/component.ui:21 resources/ui/pages/shell/dash.ui:38
+#: resources/ui/pages/shell/overview.ui:22 resources/ui/pages/shell/panel.ui:38
+#: resources/ui/pages/shell/popup.ui:39
+msgid "Automatically switch the pipeline based on the system theme."
+msgstr "根据系统主题自动切换管线。"
+
+#: resources/ui/pages/applications.ui:50
+#: resources/ui/pages/shell/app-folders.ui:35
+#: resources/ui/pages/shell/app-folders.ui:77
+#: resources/ui/pages/shell/component.ui:36 resources/ui/pages/shell/dash.ui:52
+#: resources/ui/pages/shell/dash.ui:95 resources/ui/pages/shell/overview.ui:35
+#: resources/ui/pages/shell/overview.ui:83 resources/ui/pages/shell/panel.ui:53
+#: resources/ui/pages/shell/panel.ui:194 resources/ui/pages/shell/popup.ui:54
+#: resources/ui/pages/shell/popup.ui:298
+msgid "Light"
+msgstr "亮色"
+
+#: resources/ui/pages/applications.ui:51
+#: resources/ui/pages/shell/app-folders.ui:36
+#: resources/ui/pages/shell/component.ui:37 resources/ui/pages/shell/dash.ui:53
+#: resources/ui/pages/shell/overview.ui:36 resources/ui/pages/shell/panel.ui:54
+#: resources/ui/pages/shell/popup.ui:55
+msgid "The pipeline used for light mode"
+msgstr "浅色模式使用的管线"
+
+#: resources/ui/pages/applications.ui:59
+#: resources/ui/pages/shell/app-folders.ui:43
+#: resources/ui/pages/shell/app-folders.ui:78
+#: resources/ui/pages/shell/component.ui:45 resources/ui/pages/shell/dash.ui:61
+#: resources/ui/pages/shell/dash.ui:96 resources/ui/pages/shell/overview.ui:43
+#: resources/ui/pages/shell/overview.ui:84 resources/ui/pages/shell/panel.ui:62
+#: resources/ui/pages/shell/panel.ui:195 resources/ui/pages/shell/popup.ui:63
+#: resources/ui/pages/shell/popup.ui:299
+msgid "Dark"
+msgstr "暗色"
+
+#: resources/ui/pages/applications.ui:60
+#: resources/ui/pages/shell/app-folders.ui:44
+#: resources/ui/pages/shell/component.ui:46 resources/ui/pages/shell/dash.ui:62
+#: resources/ui/pages/shell/overview.ui:44 resources/ui/pages/shell/panel.ui:63
+#: resources/ui/pages/shell/popup.ui:64
+msgid "The pipeline used for dark mode"
+msgstr "深色模式使用的管线"
+
+#: resources/ui/pages/applications.ui:70
+#: resources/ui/pages/shell/app-folders.ui:53
+#: resources/ui/pages/shell/overview.ui:53 resources/ui/pages/shell/panel.ui:73
 msgid "Appearance"
 msgstr "外观"
 
-#: resources/ui/pages/applications.ui:41
-msgid "Opacity"
-msgstr "不透明度"
-
-#: resources/ui/pages/applications.ui:42
+#: resources/ui/pages/applications.ui:76
 msgid "Higher values are easier to read"
 msgstr "数值越高，越便于阅读"
 
-#: resources/ui/pages/applications.ui:62
+#: resources/ui/pages/applications.ui:96
 msgid "Opaque focused window"
 msgstr "使焦点窗口不透明"
 
-#: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
-#: resources/ui/pages/shell/popup.ui:61
+#: resources/ui/pages/applications.ui:102 resources/ui/pages/shell/panel.ui:78
+#: resources/ui/pages/shell/popup.ui:182
 msgid "Corner radius"
 msgstr "圆角半径"
 
-#: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
-#: resources/ui/pages/shell/popup.ui:66
+#: resources/ui/pages/applications.ui:109 resources/ui/pages/shell/panel.ui:85
+#: resources/ui/pages/shell/popup.ui:187
 msgid "Rounded corners"
 msgstr "圆角"
 
-#: resources/ui/pages/applications.ui:82
+#: resources/ui/pages/applications.ui:116
 msgid "Round maximized and fullscreen windows"
 msgstr "圆角化最大化和全屏窗口"
 
-#: resources/ui/pages/applications.ui:90
+#: resources/ui/pages/applications.ui:124
 msgid "Behavior"
 msgstr "行为"
 
-#: resources/ui/pages/applications.ui:95
+#: resources/ui/pages/applications.ui:129
 msgid "Blur on overview"
 msgstr "在概览中模糊"
 
-#: resources/ui/pages/applications.ui:96
+#: resources/ui/pages/applications.ui:130
 msgid "Shows the blur on every workspace, at some performance cost"
 msgstr "在所有工作区上显示模糊效果，会带来一定性能开销"
 
-#: resources/ui/pages/applications.ui:102
+#: resources/ui/pages/applications.ui:136
 msgid "Unblur when Fullscreen"
 msgstr "全屏时取消模糊"
 
-#: resources/ui/pages/applications.ui:108
+#: resources/ui/pages/applications.ui:142
+msgid "Blur menus"
+msgstr "模糊菜单"
+
+#: resources/ui/pages/applications.ui:143
+msgid ""
+"Blur the menus of Wayland applications, which must be translucent for it to "
+"show."
+msgstr "模糊 Wayland 应用程序的菜单，菜单必须为半透明才能显示效果。"
+
+#: resources/ui/pages/applications.ui:149
+msgid "Menu corner radius"
+msgstr "菜单圆角半径"
+
+#: resources/ui/pages/applications.ui:150
+msgid "Shapes edge effects like refraction, the blur always follows the menu."
+msgstr "决定折射等边缘效果的范围，模糊始终跟随菜单形状。"
+
+#: resources/ui/pages/applications.ui:158
 msgid "Blur all windows"
 msgstr "模糊所有窗口"
 
-#: resources/ui/pages/applications.ui:109
+#: resources/ui/pages/applications.ui:159
 msgid "When off, only the windows listed below are blurred."
 msgstr "关闭时，仅下方列出的窗口会被模糊。"
 
-#: resources/ui/pages/applications.ui:117
+#: resources/ui/pages/applications.ui:167
 msgid "Blurred windows"
 msgstr "已模糊窗口"
 
-#: resources/ui/pages/applications.ui:118
-#: resources/ui/pages/applications.ui:140
+#: resources/ui/pages/applications.ui:168
+#: resources/ui/pages/applications.ui:190
 msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
-"single one."
-msgstr "使用*匹配任意字符，例如Firefox* 或*Code，? 匹配单个字符。"
+"single one. Start with title: to match the window title instead, like "
+"title:Picture-in-Picture."
+msgstr ""
+"使用 * 匹配任意字符，例如 Firefox* 或 *Code*，使用 ? 匹配单个字符。以 title: "
+"开头可改为匹配窗口标题，例如 title:Picture-in-Picture。"
 
-#: resources/ui/pages/applications.ui:126
-#: resources/ui/pages/applications.ui:148
+#: resources/ui/pages/applications.ui:176
+#: resources/ui/pages/applications.ui:198
 msgid "Add Window"
 msgstr "添加窗口"
 
-#: resources/ui/pages/applications.ui:139
+#: resources/ui/pages/applications.ui:189
 msgid "Excluded windows"
 msgstr "排除窗口"
 
-#: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
-#: resources/ui/pages/shell/popup.ui:160
+#: resources/ui/pages/applications.ui:212 resources/ui/pages/shell/panel.ui:184
+#: resources/ui/pages/shell/popup.ui:288
 msgid "All"
 msgstr "全部"
 
-#: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
-#: resources/ui/pages/shell/popup.ui:161
+#: resources/ui/pages/applications.ui:213 resources/ui/pages/shell/panel.ui:185
+#: resources/ui/pages/shell/popup.ui:289
 msgid "Top only"
 msgstr "仅顶部"
 
-#: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
-#: resources/ui/pages/shell/popup.ui:162
+#: resources/ui/pages/applications.ui:214 resources/ui/pages/shell/panel.ui:186
+#: resources/ui/pages/shell/popup.ui:290
 msgid "Bottom only"
 msgstr "仅底部"
 
-#: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
-#: resources/ui/pages/shell/popup.ui:163
+#: resources/ui/pages/applications.ui:215 resources/ui/pages/shell/panel.ui:187
+#: resources/ui/pages/shell/popup.ui:291
 msgid "None"
 msgstr "无"
 
@@ -759,23 +936,27 @@ msgstr "复制"
 msgid "Effects"
 msgstr "效果"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:56
+#: resources/ui/pages/pipelines/pipeline-page.ui:50
+msgid "The top effect is applied first."
+msgstr "位于顶部的效果会最先应用。"
+
+#: resources/ui/pages/pipelines/pipeline-page.ui:57
 #: src/preferences/pages/pipelines/effect_chooser.js:13
 msgid "Add Effect"
 msgstr "添加效果"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:73
+#: resources/ui/pages/pipelines/pipeline-page.ui:74
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
 msgstr "暂无特效"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:94
+#: resources/ui/pages/pipelines/pipeline-page.ui:95
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
 msgstr "克隆"
 
-#: resources/ui/pages/pipelines/pipeline-page.ui:98
-#: src/preferences/pages/pipelines/index.js:122
+#: resources/ui/pages/pipelines/pipeline-page.ui:99
+#: src/preferences/pages/pipelines/index.js:123
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
 msgstr "删除"
@@ -792,95 +973,91 @@ msgstr "管线是可供各个组件共用的特效组合。"
 msgid "New Pipeline"
 msgstr "新建管线"
 
-#: resources/ui/pages/shell/app-folders.ui:24
+#: resources/ui/pages/shell/app-folders.ui:58
 msgid "Application folder dialogs style"
 msgstr "应用程序文件夹对话框样式"
 
-#: resources/ui/pages/shell/app-folders.ui:35
-#: resources/ui/pages/shell/overview.ui:55
+#: resources/ui/pages/shell/app-folders.ui:65
+msgid "Blur behind folders"
+msgstr "模糊文件夹后方"
+
+#: resources/ui/pages/shell/app-folders.ui:66
+msgid "Blur the app grid behind an open folder."
+msgstr "模糊打开的文件夹后方应用程序网格。"
+
+#: resources/ui/pages/shell/app-folders.ui:75
+#: resources/ui/pages/shell/overview.ui:82
 msgid "Do not style"
 msgstr "原始风格"
 
-#: resources/ui/pages/shell/app-folders.ui:36
-#: resources/ui/pages/shell/dash.ui:61 resources/ui/pages/shell/overview.ui:58
-#: resources/ui/pages/shell/panel.ui:159 resources/ui/pages/shell/popup.ui:169
+#: resources/ui/pages/shell/app-folders.ui:76
+#: resources/ui/pages/shell/dash.ui:94 resources/ui/pages/shell/overview.ui:85
+#: resources/ui/pages/shell/panel.ui:193 resources/ui/pages/shell/popup.ui:297
 msgid "Transparent"
 msgstr "透明"
 
-#: resources/ui/pages/shell/app-folders.ui:37
-#: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
-#: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:170
-msgid "Light"
-msgstr "亮色"
-
-#: resources/ui/pages/shell/app-folders.ui:38
-#: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
-#: resources/ui/pages/shell/panel.ui:161 resources/ui/pages/shell/popup.ui:171
-msgid "Dark"
-msgstr "暗色"
-
-#: resources/ui/pages/shell/app-folders.ui:39
-#: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
-#: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
+#: resources/ui/pages/shell/app-folders.ui:79
+#: resources/ui/pages/shell/dash.ui:97 resources/ui/pages/shell/overview.ui:86
+#: resources/ui/pages/shell/panel.ui:197 resources/ui/pages/shell/popup.ui:300
 msgid "Automatic"
 msgstr "自动"
 
-#: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
+#: resources/ui/pages/shell/dash.ui:24 resources/ui/pages/shell/panel.ui:24
 msgid "Disable in overview"
 msgstr "在概览中禁用"
 
-#: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
-#: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
+#: resources/ui/pages/shell/dash.ui:72 resources/ui/pages/shell/panel.ui:107
+#: resources/ui/pages/shell/popup.ui:153 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
 msgstr "背景"
 
-#: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
-#: resources/ui/pages/shell/popup.ui:37
+#: resources/ui/pages/shell/dash.ui:77 resources/ui/pages/shell/panel.ui:112
+#: resources/ui/pages/shell/popup.ui:158
 msgid "Override background"
 msgstr "覆盖背景"
 
-#: resources/ui/pages/shell/dash.ui:50 resources/ui/pages/shell/panel.ui:84
-#: resources/ui/pages/shell/popup.ui:43
+#: resources/ui/pages/shell/dash.ui:83 resources/ui/pages/shell/panel.ui:118
+#: resources/ui/pages/shell/popup.ui:164
 msgid "Background style"
 msgstr "背景样式"
 
-#: resources/ui/pages/shell/overview.ui:31
+#: resources/ui/pages/shell/overview.ui:58
 msgid "Overview components style"
 msgstr "概览界面组件风格"
 
-#: resources/ui/pages/shell/overview.ui:32
+#: resources/ui/pages/shell/overview.ui:59
 msgid "For the dash, search and app folders"
 msgstr "用于启动器、搜索栏与应用文件夹"
 
-#: resources/ui/pages/shell/overview.ui:39
+#: resources/ui/pages/shell/overview.ui:66
 msgid "Workspace corner radius"
 msgstr "工作区圆角半径"
 
-#: resources/ui/pages/shell/panel.ui:58
+#: resources/ui/pages/shell/panel.ui:92
 msgid "Force light text"
 msgstr "强制浅色文本"
 
-#: resources/ui/pages/shell/panel.ui:59
+#: resources/ui/pages/shell/panel.ui:93
 msgid "Useful with a light shell theme"
 msgstr "搭配浅色桌面主题效果更佳"
 
-#: resources/ui/pages/shell/panel.ui:65
+#: resources/ui/pages/shell/panel.ui:99
 msgid "Match theme in overview"
 msgstr "概览界面跟随主题"
 
-#: resources/ui/pages/shell/panel.ui:92
+#: resources/ui/pages/shell/panel.ui:126
 msgid "Override background dynamically"
 msgstr "动态覆盖背景"
 
-#: resources/ui/pages/shell/panel.ui:93
+#: resources/ui/pages/shell/panel.ui:127
 msgid "Changes the background when a window is near the panel"
 msgstr "窗口靠近面板时切换背景"
 
-#: resources/ui/pages/shell/panel.ui:100
+#: resources/ui/pages/shell/panel.ui:134
 msgid "When a window is near"
 msgstr "当窗口靠近时"
 
-#: resources/ui/pages/shell/panel.ui:101
+#: resources/ui/pages/shell/panel.ui:135
 msgid ""
 "Blur on Window Proximity: Blur only when a window is near the panel and "
 "transparent when it is not.\n"
@@ -890,107 +1067,124 @@ msgstr ""
 "窗口靠近时模糊：仅当窗口靠近面板时模糊，否则保持透明。\n"
 "窗口靠近时使用背景：窗口靠近面板时使用纯色背景，否则使用模糊。"
 
-#: resources/ui/pages/shell/panel.ui:110
+#: resources/ui/pages/shell/panel.ui:144
 msgid "Gradient background"
 msgstr "渐变背景"
 
-#: resources/ui/pages/shell/panel.ui:117
+#: resources/ui/pages/shell/panel.ui:151
 msgid "Gradient direction"
 msgstr "渐变方向"
 
-#: resources/ui/pages/shell/panel.ui:127
+#: resources/ui/pages/shell/panel.ui:161
 msgid "Compatibility"
 msgstr "兼容性"
 
-#: resources/ui/pages/shell/panel.ui:132
+#: resources/ui/pages/shell/panel.ui:166
 msgid "Hidetopbar extension"
 msgstr "Hide Top Bar 扩展"
 
-#: resources/ui/pages/shell/panel.ui:133
+#: resources/ui/pages/shell/panel.ui:167
 msgid "Keeps the blur visible in the overview, best with static blur"
 msgstr "概览界面保持模糊效果可见，搭配静态模糊效果最佳"
 
-#: resources/ui/pages/shell/panel.ui:140
+#: resources/ui/pages/shell/panel.ui:174
 msgid "Blur original panel with Dash to Panel"
 msgstr "在使用 Dash to Panel 时模糊原始面板"
 
-#: resources/ui/pages/shell/panel.ui:141
+#: resources/ui/pages/shell/panel.ui:175
 msgid "When Dash to Panel keeps the original panel"
 msgstr "适用于 Dash to Panel 保留原生面板的场景"
 
-#: resources/ui/pages/shell/panel.ui:162
+#: resources/ui/pages/shell/panel.ui:196
 msgid "Contrasted"
 msgstr "对比"
 
-#: resources/ui/pages/shell/panel.ui:169
+#: resources/ui/pages/shell/panel.ui:203
 msgid "Blur on Window Proximity"
 msgstr "窗口靠近时模糊"
 
-#: resources/ui/pages/shell/panel.ui:170
+#: resources/ui/pages/shell/panel.ui:204
 msgid "Background on Window Proximity"
 msgstr "窗口靠近时使用背景"
 
-#: resources/ui/pages/shell/panel.ui:176
+#: resources/ui/pages/shell/panel.ui:210
 msgid "Top"
 msgstr "顶部"
 
-#: resources/ui/pages/shell/panel.ui:177
+#: resources/ui/pages/shell/panel.ui:211
 msgid "Bottom"
 msgstr "底部"
 
-#: resources/ui/pages/shell/popup.ui:51
-msgid "Preserve shell theme"
-msgstr "保留 Shell 主题"
+#: resources/ui/pages/shell/popup.ui:24
+msgid "Blur behind dialogs"
+msgstr "模糊对话框后方"
 
-#: resources/ui/pages/shell/popup.ui:52
-msgid "Keep your shell theme's colors for popup controls."
-msgstr "为弹出窗口控件保留 Shell 主题的颜色。"
+#: resources/ui/pages/shell/popup.ui:25
+msgid ""
+"Blur the dimmed screen behind system dialogs, like the power off dialog."
+msgstr "模糊系统对话框（例如关机对话框）后方的变暗屏幕。"
 
-#: resources/ui/pages/shell/popup.ui:73
+#: resources/ui/pages/shell/popup.ui:74
+msgid "Blurred popups"
+msgstr "模糊的弹出窗口"
+
+#: resources/ui/pages/shell/popup.ui:79 resources/ui/pages/shell/popup.ui:194
 msgid "Menus"
 msgstr "菜单"
 
-#: resources/ui/pages/shell/popup.ui:80
+#: resources/ui/pages/shell/popup.ui:85 resources/ui/pages/shell/popup.ui:201
 msgid "Input method candidates"
 msgstr "输入法候选词"
 
-#: resources/ui/pages/shell/popup.ui:87
+#: resources/ui/pages/shell/popup.ui:91 resources/ui/pages/shell/popup.ui:208
 msgid "Quick settings"
 msgstr "快速设置"
 
-#: resources/ui/pages/shell/popup.ui:94
+#: resources/ui/pages/shell/popup.ui:97 resources/ui/pages/shell/popup.ui:215
 msgid "Quick settings submenus"
 msgstr "快速设置子菜单"
 
-#: resources/ui/pages/shell/popup.ui:101
+#: resources/ui/pages/shell/popup.ui:103 resources/ui/pages/shell/popup.ui:222
+msgid "Screenshot panel"
+msgstr "截图面板"
+
+#: resources/ui/pages/shell/popup.ui:109 resources/ui/pages/shell/popup.ui:229
 msgid "Calendar and notification center"
 msgstr "日历和通知中心"
 
-#: resources/ui/pages/shell/popup.ui:108
+#: resources/ui/pages/shell/popup.ui:115 resources/ui/pages/shell/popup.ui:236
 msgid "Notifications"
 msgstr "通知"
 
-#: resources/ui/pages/shell/popup.ui:115
+#: resources/ui/pages/shell/popup.ui:121 resources/ui/pages/shell/popup.ui:243
 msgid "Window and workspace switchers"
 msgstr "窗口和工作区切换器"
 
-#: resources/ui/pages/shell/popup.ui:122
+#: resources/ui/pages/shell/popup.ui:127 resources/ui/pages/shell/popup.ui:250
 msgid "Volume and brightness"
 msgstr "音量和亮度"
 
-#: resources/ui/pages/shell/popup.ui:129
+#: resources/ui/pages/shell/popup.ui:133 resources/ui/pages/shell/popup.ui:257
 msgid "Window resize hints"
 msgstr "窗口大小调整提示"
 
-#: resources/ui/pages/shell/popup.ui:136
+#: resources/ui/pages/shell/popup.ui:139 resources/ui/pages/shell/popup.ui:264
 msgid "Dialogs"
 msgstr "对话框"
 
-#: resources/ui/pages/shell/popup.ui:143
+#: resources/ui/pages/shell/popup.ui:145 resources/ui/pages/shell/popup.ui:271
 msgid "On-screen keyboard"
 msgstr "屏幕键盘"
 
-#: resources/ui/pages/shell/popup.ui:150
+#: resources/ui/pages/shell/popup.ui:172
+msgid "Preserve shell theme"
+msgstr "保留 Shell 主题"
+
+#: resources/ui/pages/shell/popup.ui:173
+msgid "Keep your shell theme's colors for popup controls."
+msgstr "为弹出窗口控件保留 Shell 主题的颜色。"
+
+#: resources/ui/pages/shell/popup.ui:278
 msgid "Other popup surfaces"
 msgstr "其他弹出表面"
 
@@ -1012,7 +1206,7 @@ msgid "The top bar, or the panels from Dash to Panel"
 msgstr "顶部栏，或是 Dash to Panel 提供的面板"
 
 #: resources/ui/pages/shell/shell.ui:29
-#: src/preferences/pages/pipelines/components.js:8
+#: src/preferences/pages/pipelines/components.js:11
 msgid "Dock"
 msgstr "任务栏"
 
@@ -1021,7 +1215,7 @@ msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
 msgstr "Dash to Dock、Ubuntu Dock、Dhruva 以及同类任务栏"
 
 #: resources/ui/pages/shell/shell.ui:37
-#: src/preferences/pages/pipelines/components.js:9
+#: src/preferences/pages/pipelines/components.js:15
 msgid "Popups"
 msgstr "弹出窗口"
 
@@ -1030,7 +1224,7 @@ msgid "Menus, quick settings, notifications and dialogs"
 msgstr "菜单、快速设置、通知与对话框"
 
 #: resources/ui/pages/shell/shell.ui:46
-#: src/preferences/pages/pipelines/components.js:10
+#: src/preferences/pages/pipelines/components.js:19
 msgid "Overview"
 msgstr "概览"
 
@@ -1039,7 +1233,7 @@ msgid "The wallpaper behind the workspaces"
 msgstr "工作区后方的壁纸"
 
 #: resources/ui/pages/shell/shell.ui:59
-#: src/preferences/pages/pipelines/components.js:11
+#: src/preferences/pages/pipelines/components.js:23
 msgid "App folders"
 msgstr "应用文件夹"
 
@@ -1052,7 +1246,7 @@ msgid "System"
 msgstr "系统"
 
 #: resources/ui/pages/shell/shell.ui:73
-#: src/preferences/pages/pipelines/components.js:12
+#: src/preferences/pages/pipelines/components.js:27
 msgid "Lock screen"
 msgstr "锁屏界面"
 
@@ -1061,7 +1255,7 @@ msgid "Behind the password prompt"
 msgstr "密码输入框后方"
 
 #: resources/ui/pages/shell/shell.ui:81
-#: src/preferences/pages/pipelines/components.js:13
+#: src/preferences/pages/pipelines/components.js:31
 msgid "Screenshot"
 msgstr "截图"
 
@@ -1074,7 +1268,7 @@ msgid "Extensions"
 msgstr "扩展"
 
 #: resources/ui/pages/shell/shell.ui:95
-#: src/preferences/pages/pipelines/components.js:14
+#: src/preferences/pages/pipelines/components.js:35
 msgid "Window List"
 msgstr "窗口列表"
 
@@ -1083,7 +1277,7 @@ msgid "The taskbar from the Window List extension"
 msgstr "Window List 扩展提供的任务栏"
 
 #: resources/ui/pages/shell/shell.ui:103
-#: src/preferences/pages/pipelines/components.js:15
+#: src/preferences/pages/pipelines/components.js:39
 msgid "Coverflow Alt-Tab"
 msgstr "Alt-Tab 封面浏览"
 
@@ -1092,15 +1286,15 @@ msgid "Behind the window switcher"
 msgstr "窗口切换器后方"
 
 #: resources/ui/widgets/application-row.ui:4
-msgid "Window class"
-msgstr "窗口类"
+msgid "Window class or title"
+msgstr "窗口类名或标题"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
 msgstr "拾取窗口"
 
 #: resources/ui/widgets/application-row.ui:21
-#: src/preferences/widgets/effect_row.js:17
+#: src/preferences/widgets/effect_row.js:19
 msgid "Remove"
 msgstr "移除"
 
@@ -1127,12 +1321,6 @@ msgstr "静态"
 #: resources/ui/widgets/blur-mode-row.ui:35
 msgid "Dynamic"
 msgstr "动态"
-
-#: resources/ui/widgets/pipeline-choose-row.ui:4
-#: src/preferences/pages/pipelines/pipeline_page.js:82
-#: src/preferences/pages/pipelines/pipeline_row.js:69
-msgid "Pipeline"
-msgstr "管线"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
@@ -1202,36 +1390,147 @@ msgstr "关闭"
 msgid "Open instructions"
 msgstr "打开说明"
 
-#: src/preferences/menu.js:76
+#: src/preferences/menu.js:94
 msgid "Reset all preferences?"
 msgstr "重置所有首选项？"
 
-#: src/preferences/menu.js:77
+#: src/preferences/menu.js:95
 msgid "Pipelines and component settings will return to their defaults."
 msgstr "管线和组件设置将恢复为默认值。"
 
-#: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
+#: src/preferences/menu.js:97 src/preferences/menu.js:146
+#: src/preferences/pages/pipelines/index.js:122
 msgid "Cancel"
 msgstr "取消"
 
-#: src/preferences/menu.js:80
+#: src/preferences/menu.js:98
 msgid "Reset"
 msgstr "重置"
 
-#: src/preferences/pages/pipelines/index.js:78
+#: src/preferences/menu.js:125
+msgid "Preferences exported"
+msgstr "首选项已导出"
+
+#: src/preferences/menu.js:127
+msgid "Could not export the preferences"
+msgstr "无法导出首选项"
+
+#: src/preferences/menu.js:137
+msgid "Could not import this file"
+msgstr "无法导入此文件"
+
+#: src/preferences/menu.js:143
+msgid "Import preferences?"
+msgstr "导入首选项？"
+
+#: src/preferences/menu.js:144
+msgid ""
+"Your pipelines and component settings will be replaced by the ones in this "
+"file."
+msgstr "您的管线和组件设置将被此文件中的设置替换。"
+
+#: src/preferences/menu.js:147
+msgid "Import"
+msgstr "导入"
+
+#: src/preferences/menu.js:153
+msgid "Preferences imported"
+msgstr "首选项已导入"
+
+#: src/preferences/pages/pipelines/components.js:8
+msgid "Panel (Light mode)"
+msgstr "面板（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:9
+msgid "Panel (Dark mode)"
+msgstr "面板（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:12
+msgid "Dock (Light mode)"
+msgstr "任务栏（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:13
+msgid "Dock (Dark mode)"
+msgstr "任务栏（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:16
+msgid "Popups (Light mode)"
+msgstr "弹出窗口（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:17
+msgid "Popups (Dark mode)"
+msgstr "弹出窗口（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:20
+msgid "Overview (Light mode)"
+msgstr "概览（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:21
+msgid "Overview (Dark mode)"
+msgstr "概览（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:24
+msgid "App folders (Light mode)"
+msgstr "应用文件夹（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:25
+msgid "App folders (Dark mode)"
+msgstr "应用文件夹（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:28
+msgid "Lock screen (Light mode)"
+msgstr "锁屏界面（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:29
+msgid "Lock screen (Dark mode)"
+msgstr "锁屏界面（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:32
+msgid "Screenshot (Light mode)"
+msgstr "截图（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:33
+msgid "Screenshot (Dark mode)"
+msgstr "截图（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:36
+msgid "Window List (Light mode)"
+msgstr "窗口列表（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:37
+msgid "Window List (Dark mode)"
+msgstr "窗口列表（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:40
+msgid "Coverflow Alt-Tab (Light mode)"
+msgstr "Alt-Tab 封面浏览（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:41
+msgid "Coverflow Alt-Tab (Dark mode)"
+msgstr "Alt-Tab 封面浏览（深色模式）"
+
+#: src/preferences/pages/pipelines/components.js:44
+msgid "Applications (Light mode)"
+msgstr "应用程序（浅色模式）"
+
+#: src/preferences/pages/pipelines/components.js:45
+msgid "Applications (Dark mode)"
+msgstr "应用程序（深色模式）"
+
+#: src/preferences/pages/pipelines/index.js:79
 msgid "New pipeline"
 msgstr "新建管线"
 
-#: src/preferences/pages/pipelines/index.js:116
+#: src/preferences/pages/pipelines/index.js:117
 #, javascript-format
 msgid "Delete “%s”?"
 msgstr "删除“%s”？"
 
-#: src/preferences/pages/pipelines/index.js:117
+#: src/preferences/pages/pipelines/index.js:118
 msgid "Delete this pipeline?"
 msgstr "删除此管线？"
 
-#: src/preferences/pages/pipelines/index.js:118
+#: src/preferences/pages/pipelines/index.js:119
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
 msgstr "它正被 %s 使用，将切换到默认管线。"
@@ -1253,21 +1552,52 @@ msgstr "撤销"
 msgid "Unknown effect"
 msgstr "未知效果"
 
-#: src/preferences/widgets/effect_row.js:14
+#: src/preferences/widgets/effect_row.js:16
 msgid "Move Up"
 msgstr "上移"
 
-#: src/preferences/widgets/effect_row.js:15
+#: src/preferences/widgets/effect_row.js:17
 msgid "Move Down"
 msgstr "下移"
 
-#: src/preferences/widgets/effect_row.js:47
+#: src/preferences/widgets/effect_row.js:49
 msgid "Effect Menu"
 msgstr "效果菜单"
+
+#: src/preferences/widgets/effect_row.js:179
+msgid "Choose…"
+msgstr "选择…"
+
+#: src/preferences/widgets/effect_row.js:185
+msgid "Select"
+msgstr "选择"
+
+#: src/preferences/widgets/effect_row.js:189
+msgid "Images"
+msgstr "图像"
+
+#: src/preferences/widgets/effect_row.js:197
+msgid "Selected image is not a local file"
+msgstr "所选图像不是本地文件"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
 msgstr "创建新管线"
+
+#~ msgid ""
+#~ "Axis of the fresnel glare, lighting two opposite edges, in degrees (0 "
+#~ "lights the top and bottom, positive rotates clockwise)."
+#~ msgstr ""
+#~ "菲涅尔眩光的轴向，用于照亮两条相对的边缘，单位为度（0 照亮上下边缘，正值表"
+#~ "示顺时针旋转）。"
+
+#~ msgid ""
+#~ "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
+#~ "single one."
+#~ msgstr "使用*匹配任意字符，例如Firefox* 或*Code，? 匹配单个字符。"
+
+#~ msgid "Window class"
+#~ msgstr "窗口类"
 
 #~ msgid ""
 #~ "Light direction of the fresnel glare, in degrees (0 is from above, "
@@ -1503,9 +1833,6 @@ msgstr "创建新管线"
 
 #~ msgid "Effects list"
 #~ msgstr "效果列表"
-
-#~ msgid "The top effect is applied first."
-#~ msgstr "位于顶部的效果会最先应用。"
 
 #~ msgid "Include advanced effects"
 #~ msgstr "显示高级效果"

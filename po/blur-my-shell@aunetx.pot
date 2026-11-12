@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-05 11:33+0000\n"
+"POT-Creation-Date: 2026-11-12 12:56+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,7 @@ msgstr ""
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:15
 #: src/effects/color/info.js:41 src/effects/effect_groups.js:11
+#: src/effects/texture/info.js:51
 msgid "Color"
 msgstr ""
 
@@ -58,7 +59,7 @@ msgid ""
 "the color."
 msgstr ""
 
-#: src/effects/color/info.js:21
+#: src/effects/color/info.js:21 src/effects/texture/info.js:31
 msgid "Blend mode"
 msgstr ""
 
@@ -66,7 +67,8 @@ msgstr ""
 msgid "How the color is blended in."
 msgstr ""
 
-#: src/effects/color/info.js:25 resources/ui/pages/applications.ui:42
+#: src/effects/color/info.js:25 src/effects/texture/info.js:35
+#: resources/ui/pages/applications.ui:42
 #: resources/ui/pages/shell/app-folders.ui:28
 #: resources/ui/pages/shell/component.ui:28 resources/ui/pages/shell/dash.ui:44
 #: resources/ui/pages/shell/overview.ui:28 resources/ui/pages/shell/panel.ui:45
@@ -74,68 +76,69 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: src/effects/color/info.js:26
+#: src/effects/color/info.js:26 src/effects/texture/info.js:36
 msgid "Multiply"
 msgstr ""
 
-#: src/effects/color/info.js:27
+#: src/effects/color/info.js:27 src/effects/texture/info.js:37
 msgid "Screen"
 msgstr ""
 
-#: src/effects/color/info.js:28
+#: src/effects/color/info.js:28 src/effects/texture/info.js:38
 msgid "Overlay"
 msgstr ""
 
-#: src/effects/color/info.js:29
+#: src/effects/color/info.js:29 src/effects/texture/info.js:39
 msgid "Darken"
 msgstr ""
 
-#: src/effects/color/info.js:30
+#: src/effects/color/info.js:30 src/effects/texture/info.js:40
 msgid "Lighten"
 msgstr ""
 
-#: src/effects/color/info.js:31
+#: src/effects/color/info.js:31 src/effects/texture/info.js:41
 msgid "Plus darker"
 msgstr ""
 
-#: src/effects/color/info.js:32
+#: src/effects/color/info.js:32 src/effects/texture/info.js:42
 msgid "Plus lighter"
 msgstr ""
 
-#: src/effects/color/info.js:33
+#: src/effects/color/info.js:33 src/effects/texture/info.js:43
 msgid "Color dodge"
 msgstr ""
 
-#: src/effects/color/info.js:34
+#: src/effects/color/info.js:34 src/effects/texture/info.js:44
 msgid "Color burn"
 msgstr ""
 
-#: src/effects/color/info.js:35
+#: src/effects/color/info.js:35 src/effects/texture/info.js:45
 msgid "Hard light"
 msgstr ""
 
-#: src/effects/color/info.js:36
+#: src/effects/color/info.js:36 src/effects/texture/info.js:46
 msgid "Soft light"
 msgstr ""
 
-#: src/effects/color/info.js:37
+#: src/effects/color/info.js:37 src/effects/texture/info.js:47
 msgid "Difference"
 msgstr ""
 
-#: src/effects/color/info.js:38
+#: src/effects/color/info.js:38 src/effects/texture/info.js:48
 msgid "Exclusion"
 msgstr ""
 
-#: src/effects/color/info.js:39
+#: src/effects/color/info.js:39 src/effects/texture/info.js:49
 msgid "Hue"
 msgstr ""
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
-#: src/effects/wave/info.js:67
+#: src/effects/texture/info.js:50 src/effects/wave/info.js:67
 msgid "Saturation"
 msgstr ""
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
+#: src/effects/texture/info.js:52
 msgid "Luminosity"
 msgstr ""
 
@@ -210,11 +213,11 @@ msgstr ""
 msgid "Texture"
 msgstr ""
 
-#: src/effects/effect_groups.js:27
+#: src/effects/effect_groups.js:28
 msgid "Advanced"
 msgstr ""
 
-#: src/effects/effect_groups.js:28
+#: src/effects/effect_groups.js:29
 msgid "Building blocks that are mostly useful combined with other effects."
 msgstr ""
 
@@ -302,8 +305,10 @@ msgstr ""
 
 #: src/effects/refraction/info.js:92
 msgid ""
-"Axis of the fresnel glare, lighting two opposite edges, in degrees (0 lights "
-"the top and bottom, positive rotates clockwise)."
+"Direction or axis of the fresnel glare, in degrees (positive rotates "
+"clockwise). In two-sided mode, 0 lights the top and bottom edges; in one-"
+"sided mode, only the edge facing the light angle is lit (0 for top, 180 for "
+"bottom)."
 msgstr ""
 
 #: src/effects/refraction/info.js:101
@@ -315,191 +320,258 @@ msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr ""
 
 #: src/effects/refraction/info.js:111
-msgid "Specular glare strength"
+msgid "Two-sided fresnel glare"
 msgstr ""
 
 #: src/effects/refraction/info.js:112
+msgid ""
+"Light opposite edge pairs symmetrically. When disabled, only the edge facing "
+"the fresnel angle is lit (e.g. 180 lights the bottom edge, removing the "
+"glare from the top)."
+msgstr ""
+
+#: src/effects/refraction/info.js:116
+msgid "Specular glare strength"
+msgstr ""
+
+#: src/effects/refraction/info.js:117
 msgid ""
 "Strength of the white specular glare on the same edge pair as the fresnel "
 "glare, brighter on the light side (0 disables it)."
 msgstr ""
 
-#: src/effects/refraction/info.js:121
+#: src/effects/refraction/info.js:126
 msgid "Edge border"
 msgstr ""
 
-#: src/effects/refraction/info.js:122
+#: src/effects/refraction/info.js:127
 msgid ""
 "Thin dark line along the straight side edges, away from the fresnel glare, "
 "outlining the glass on light backgrounds."
 msgstr ""
 
-#: src/effects/refraction/info.js:131
+#: src/effects/refraction/info.js:136
 msgid "Edge glow"
 msgstr ""
 
-#: src/effects/refraction/info.js:132
+#: src/effects/refraction/info.js:137
 msgid "Colorful content under the glass lights up its edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:141
+#: src/effects/refraction/info.js:146
 msgid "Tint strength"
 msgstr ""
 
-#: src/effects/refraction/info.js:142
+#: src/effects/refraction/info.js:147
 msgid "Amount of subtle milky glass tint over the blurred texture."
 msgstr ""
 
-#: src/effects/refraction/info.js:151
+#: src/effects/refraction/info.js:156
 msgid "Tint color"
 msgstr ""
 
-#: src/effects/refraction/info.js:152
+#: src/effects/refraction/info.js:157
 msgid "Color blended over the blurred texture, weighted by the tint strength."
 msgstr ""
 
-#: src/effects/refraction/info.js:157
+#: src/effects/refraction/info.js:162
 msgid "Backdrop zoom"
 msgstr ""
 
-#: src/effects/refraction/info.js:158
+#: src/effects/refraction/info.js:163
 msgid "Zoom level of the backdrop visible through the glass."
 msgstr ""
 
-#: src/effects/refraction/info.js:167
+#: src/effects/refraction/info.js:172
 msgid "Inner shadow"
 msgstr ""
 
-#: src/effects/refraction/info.js:168
+#: src/effects/refraction/info.js:173
 msgid "Darkens the lower and inner edge for a deeper glass surface."
 msgstr ""
 
-#: src/effects/refraction/info.js:177
+#: src/effects/refraction/info.js:182
 msgid "Chromatic dispersion"
 msgstr ""
 
-#: src/effects/refraction/info.js:178
+#: src/effects/refraction/info.js:183
 msgid "Physical per-channel refraction dispersion at the glass edge."
 msgstr ""
 
-#: src/effects/refraction/info.js:187
+#: src/effects/refraction/info.js:192
 msgid "Edge behavior"
 msgstr ""
 
-#: src/effects/refraction/info.js:188
+#: src/effects/refraction/info.js:193
 msgid "How texture coordinates outside the actor are sampled."
 msgstr ""
 
-#: src/effects/refraction/info.js:191
+#: src/effects/refraction/info.js:196
 msgid "Clamp"
 msgstr ""
 
-#: src/effects/refraction/info.js:192
+#: src/effects/refraction/info.js:197
 msgid "Mirror"
 msgstr ""
 
-#: src/effects/texture/info.js:11
-msgid "Pixelize"
-msgstr ""
-
 #: src/effects/texture/info.js:12
-msgid "An effect that pixelizes the image."
+msgid "Image"
 msgstr ""
 
-#: src/effects/texture/info.js:15 src/effects/texture/info.js:40
-#: src/effects/texture/info.js:65
-msgid "Factor"
+#: src/effects/texture/info.js:13
+msgid "Blends an image into the pipeline."
 msgstr ""
 
-#: src/effects/texture/info.js:16 src/effects/texture/info.js:41
-msgid "How much to scale down the image."
+#: src/effects/texture/info.js:16
+msgid "Image path"
 msgstr ""
 
-#: src/effects/texture/info.js:23 src/effects/texture/info.js:48
-msgid "Downsampling mode"
+#: src/effects/texture/info.js:17
+msgid "Absolute path to the image file."
 msgstr ""
 
-#: src/effects/texture/info.js:24 src/effects/texture/info.js:49
-msgid "The downsampling method that is used."
+#: src/effects/texture/info.js:21
+msgid "Blend"
 msgstr ""
 
-#: src/effects/texture/info.js:27 src/effects/texture/info.js:52
-msgid "Boxcar"
+#: src/effects/texture/info.js:22
+msgid "How strongly the image is blended in."
 msgstr ""
 
-#: src/effects/texture/info.js:28 src/effects/texture/info.js:53
-msgid "Triangular"
+#: src/effects/texture/info.js:32
+msgid "How the image is blended in."
 msgstr ""
 
-#: src/effects/texture/info.js:29 src/effects/texture/info.js:54
-msgid "Dirac"
+#: src/effects/texture/info.js:56
+msgid "Image mode"
 msgstr ""
 
-#: src/effects/texture/info.js:36
-msgid "Downscale (advanced effect)"
+#: src/effects/texture/info.js:57
+msgid "Tile the image, stretch it, or fit its width to the monitor."
 msgstr ""
 
-#: src/effects/texture/info.js:37
-msgid "An effect that downscales the image and puts it in the top-left corner."
+#: src/effects/texture/info.js:60
+msgid "Tile"
 msgstr ""
 
 #: src/effects/texture/info.js:61
-msgid "Upscale (advanced effect)"
+msgid "Stretch"
 msgstr ""
 
 #: src/effects/texture/info.js:62
-msgid "An effect that upscales the image from the top-left corner."
+msgid "Fit width"
 msgstr ""
 
-#: src/effects/texture/info.js:66
-msgid "How much to scale up the image."
+#: src/effects/texture/info.js:66 resources/ui/pages/applications.ui:75
+msgid "Opacity"
 msgstr ""
 
-#: src/effects/texture/info.js:76
-msgid "Derivative"
+#: src/effects/texture/info.js:67
+msgid "Opacity of the image blend."
 msgstr ""
 
-#: src/effects/texture/info.js:77
-msgid "Apply a spatial derivative, or a laplacian."
+#: src/effects/texture/info.js:79
+msgid "Pixelize"
 msgstr ""
 
 #: src/effects/texture/info.js:80
+msgid "An effect that pixelizes the image."
+msgstr ""
+
+#: src/effects/texture/info.js:83 src/effects/texture/info.js:108
+#: src/effects/texture/info.js:133
+msgid "Factor"
+msgstr ""
+
+#: src/effects/texture/info.js:84 src/effects/texture/info.js:109
+msgid "How much to scale down the image."
+msgstr ""
+
+#: src/effects/texture/info.js:91 src/effects/texture/info.js:116
+msgid "Downsampling mode"
+msgstr ""
+
+#: src/effects/texture/info.js:92 src/effects/texture/info.js:117
+msgid "The downsampling method that is used."
+msgstr ""
+
+#: src/effects/texture/info.js:95 src/effects/texture/info.js:120
+msgid "Boxcar"
+msgstr ""
+
+#: src/effects/texture/info.js:96 src/effects/texture/info.js:121
+msgid "Triangular"
+msgstr ""
+
+#: src/effects/texture/info.js:97 src/effects/texture/info.js:122
+msgid "Dirac"
+msgstr ""
+
+#: src/effects/texture/info.js:104
+msgid "Downscale (advanced effect)"
+msgstr ""
+
+#: src/effects/texture/info.js:105
+msgid "An effect that downscales the image and puts it in the top-left corner."
+msgstr ""
+
+#: src/effects/texture/info.js:129
+msgid "Upscale (advanced effect)"
+msgstr ""
+
+#: src/effects/texture/info.js:130
+msgid "An effect that upscales the image from the top-left corner."
+msgstr ""
+
+#: src/effects/texture/info.js:134
+msgid "How much to scale up the image."
+msgstr ""
+
+#: src/effects/texture/info.js:144
+msgid "Derivative"
+msgstr ""
+
+#: src/effects/texture/info.js:145
+msgid "Apply a spatial derivative, or a laplacian."
+msgstr ""
+
+#: src/effects/texture/info.js:148
 msgid "Operation"
 msgstr ""
 
-#: src/effects/texture/info.js:81
+#: src/effects/texture/info.js:149
 msgid "The mathematical operation to apply."
 msgstr ""
 
-#: src/effects/texture/info.js:84
+#: src/effects/texture/info.js:152
 msgid "1-step derivative"
 msgstr ""
 
-#: src/effects/texture/info.js:85
+#: src/effects/texture/info.js:153
 msgid "2-step derivative"
 msgstr ""
 
-#: src/effects/texture/info.js:86
+#: src/effects/texture/info.js:154
 msgid "Laplacian"
 msgstr ""
 
-#: src/effects/texture/info.js:93 src/effects/texture/info.js:97
+#: src/effects/texture/info.js:161 src/effects/texture/info.js:165
 msgid "Noise"
 msgstr ""
 
-#: src/effects/texture/info.js:94
+#: src/effects/texture/info.js:162
 msgid "An effect that adds random grain to the image."
 msgstr ""
 
-#: src/effects/texture/info.js:98
+#: src/effects/texture/info.js:166
 msgid "The amount of noise to add."
 msgstr ""
 
-#: src/effects/texture/info.js:107
+#: src/effects/texture/info.js:175
 msgid "Lightness"
 msgstr ""
 
-#: src/effects/texture/info.js:108
+#: src/effects/texture/info.js:176
 msgid ""
 "The luminosity of the noise. A setting of '1.0' will make the effect "
 "transparent."
@@ -727,10 +799,6 @@ msgstr ""
 #: resources/ui/pages/shell/app-folders.ui:53
 #: resources/ui/pages/shell/overview.ui:53 resources/ui/pages/shell/panel.ui:73
 msgid "Appearance"
-msgstr ""
-
-#: resources/ui/pages/applications.ui:75
-msgid "Opacity"
 msgstr ""
 
 #: resources/ui/pages/applications.ui:76
@@ -1215,7 +1283,7 @@ msgid "Pick a Window"
 msgstr ""
 
 #: resources/ui/widgets/application-row.ui:21
-#: src/preferences/widgets/effect_row.js:17
+#: src/preferences/widgets/effect_row.js:19
 msgid "Remove"
 msgstr ""
 
@@ -1466,16 +1534,32 @@ msgstr ""
 msgid "Unknown effect"
 msgstr ""
 
-#: src/preferences/widgets/effect_row.js:14
+#: src/preferences/widgets/effect_row.js:16
 msgid "Move Up"
 msgstr ""
 
-#: src/preferences/widgets/effect_row.js:15
+#: src/preferences/widgets/effect_row.js:17
 msgid "Move Down"
 msgstr ""
 
-#: src/preferences/widgets/effect_row.js:47
+#: src/preferences/widgets/effect_row.js:49
 msgid "Effect Menu"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:179
+msgid "Choose…"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:185
+msgid "Select"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:189
+msgid "Images"
+msgstr ""
+
+#: src/preferences/widgets/effect_row.js:197
+msgid "Selected image is not a local file"
 msgstr ""
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
