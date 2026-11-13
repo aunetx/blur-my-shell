@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-11 16:51+0000\n"
+"PO-Revision-Date: 2026-11-13 13:56+0000\n"
 "Last-Translator: zhjpwlj <zhjpwlj@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -204,7 +204,7 @@ msgstr ""
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "ぼかし"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
@@ -212,7 +212,7 @@ msgstr ""
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "詳細"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
@@ -220,7 +220,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Liquid Glass"
 
 #: src/effects/refraction/info.js:8
 msgid ""
