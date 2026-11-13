@@ -173,6 +173,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
             meta_window, 'notify::gtk-application-id',
             _ => this.check_blur(meta_window)
         );
+        // Wayland windows have no actor when created; retry once they are shown.
+        this.connections.connect(
+            meta_window, 'shown',
+            _ => this.check_blur(meta_window)
+        );
 
         this.connections.connect(
             meta_window, 'unmanaging',
