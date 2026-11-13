@@ -209,8 +209,8 @@ export const BackdropCaptureEffect = GObject.registerClass({
 
     ensureFramebuffer(targets, key, width, height, sourceFramebuffer, view) {
         const context = sourceFramebuffer.get_context();
-        const cached = targets.get(key) ?? null;
-        const reusable = cached !== null && cached.context === context
+        const cached = targets.get(key);
+        const reusable = cached?.context === context
             && (!view || cached.sourceFramebuffer === sourceFramebuffer);
         if (reusable && textureFits(cached, width, height, cached.width, cached.height)) {
             if (cached.usedWidth !== width || cached.usedHeight !== height) {
@@ -288,9 +288,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
             this.target = null;
         this.targets.delete(view);
         this.cloneTargets.delete(view);
-        const destroyId = this.viewDestroyIds.get(view);
-        if (destroyId)
-            view.disconnect(destroyId);
+        view.disconnect(this.viewDestroyIds.get(view));
         this.viewDestroyIds.delete(view);
     }
 

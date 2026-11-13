@@ -1,14 +1,13 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { Pipeline } from '../pipelines/pipeline.js';
+import { StaticBlur } from '../render/static_blur/static_blur.js';
 import { get_pipeline_id, connect_system_style_changes } from '../conveniences/style.js';
 
 export const ScreenshotBlur = class ScreenshotBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings) {
         this.connections = connections;
         this.settings = settings;
         this.backgrounds = new Map();
-        this.effects_manager = effects_manager;
         this.enabled = false;
     }
 
@@ -33,21 +32,14 @@ export const ScreenshotBlur = class ScreenshotBlur {
     update_backgrounds() {
         this.remove_background_actors();
         for (const window_selector of Main.screenshotUI._windowSelectors) {
-            const pipeline = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                get_pipeline_id(this.settings.screenshot)
-            );
-            const background_managers = [];
-            const blur_widget = pipeline.create_background_with_effects(
-                window_selector._monitorIndex, background_managers,
-                window_selector, 'bms-screenshot-blurred-widget', false
-            );
-            this.backgrounds.set(window_selector, {
-                pipeline,
-                background_manager: background_managers[0],
-                blur_widget,
+            const background = new StaticBlur({
+                name: 'bms-screenshot-blurred-widget',
+                monitorIndex: window_selector._monitorIndex,
+                pipelineId: get_pipeline_id(this.settings.screenshot),
+                wholeMonitor: true,
             });
+            window_selector.insert_child_at_index(background, 0);
+            this.backgrounds.set(window_selector, background);
             // the selectors are rebuilt by the shell when monitors change
             this.connections.connect(
                 window_selector,
@@ -58,19 +50,16 @@ export const ScreenshotBlur = class ScreenshotBlur {
     }
 
     update_pipeline() {
-        this.backgrounds.forEach(({ pipeline }) =>
-            pipeline.change_pipeline_to(get_pipeline_id(this.settings.screenshot))
+        this.backgrounds.forEach(background =>
+            background.setPipeline(get_pipeline_id(this.settings.screenshot))
         );
     }
 
     remove_background(window_selector) {
-        const { pipeline, background_manager, blur_widget } = this.backgrounds.get(window_selector);
+        const background = this.backgrounds.get(window_selector);
         this.backgrounds.delete(window_selector);
         this.connections.disconnect_all_for(window_selector);
-
-        pipeline.destroy();
-        background_manager.destroy();
-        blur_widget.destroy();
+        background.destroy();
     }
 
     remove_background_actors() {

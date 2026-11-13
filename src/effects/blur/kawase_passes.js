@@ -1,7 +1,7 @@
 import * as utils from '../../conveniences/utils.js';
 import { get_snippet } from '../../render/shader/snippet_cache.js';
 import { addRectangle } from '../../render/paint_nodes.js';
-import { ANTIALIASING_SOURCE } from '../../render/shader/antialiasing.js';
+import { ROUNDED_MASK_SOURCE } from '../../render/shader/rounded_mask.js';
 import { TEXTURE_REGION_SOURCE, textureRegionDeclarations } from '../../render/shader/texture_region.js';
 
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
@@ -65,16 +65,9 @@ cogl_color_out = color;
 export const UPSAMPLE_OUTPUT_DECLARATIONS = `${UPSAMPLE_DECLARATIONS}
 uniform float opacity_factor;
 uniform float brightness;
-uniform float corner_radius;
-uniform int corners_top;
-uniform int corners_bottom;
 uniform float output_width;
 uniform float output_height;
-uniform float mask_x;
-uniform float mask_y;
-uniform float mask_width;
-uniform float mask_height;
-${ANTIALIASING_SOURCE}
+${ROUNDED_MASK_SOURCE}
 
 uniform float bms_resource_scale;
 
@@ -82,22 +75,6 @@ uniform float bms_resource_scale;
 // It follows the blur rather than the framebuffer, which can start elsewhere for partial redraws.
 float dither(vec2 position) {
     return fract(52.9829189 * fract(dot(position, vec2(0.06711056, 0.00583715)))) - 0.5;
-}
-
-// the coverage of the rounded surface, so that its corners don't need a pass of their own
-float corner_coverage(vec2 position) {
-    vec2 size = max(vec2(mask_width, mask_height), vec2(1.0));
-    vec2 point = position - vec2(mask_x, mask_y) - size * 0.5;
-    bool top = point.y < 0.0;
-    float radius = (top ? corners_top : corners_bottom) != 0 ? corner_radius : 0.0;
-    vec2 q = abs(point) - size * 0.5 + vec2(radius);
-    float distance = length(max(q, vec2(0.0))) + min(max(q.x, q.y), 0.0) - radius;
-    vec2 outside = max(q, vec2(0.0));
-    float outside_length = length(outside);
-    vec2 normal = outside_length > 0.0001 ? outside / outside_length
-        : (q.x > q.y ? vec2(1.0, 0.0) : vec2(0.0, 1.0));
-    float antialias_width = bms_antialias_width(distance, position, normal * sign(point));
-    return 1.0 - smoothstep(-antialias_width * 0.5, antialias_width * 0.5, distance);
 }
 `;
 

@@ -64,10 +64,10 @@ export class DynamicPipeline {
     attach_pipeline() {
         if (this.pipeline || !this.contentActor)
             return;
-        if (!this.actor?.get_stage()) {
+        if (!this.actor.get_stage()) {
             if (!this.mapId)
                 this.mapId = this.actor.connect('notify::mapped', () => {
-                    if (!this.actor?.mapped)
+                    if (!this.actor.mapped)
                         return;
                     this.actor.disconnect(this.mapId);
                     this.mapId = 0;
@@ -156,7 +156,7 @@ export class DynamicPipeline {
             this.pipelinesManager.connect(
                 `${pipelineId}::pipeline-destroyed`,
                 () => {
-                    this.pipelineId = this.pipeline?.pipeline_id ?? 'pipeline_default';
+                    this.pipelineId = this.pipeline.pipeline_id;
                     this.connectPipelineChanged();
                     this.set_opacity_factor(this.opacityFactor, true);
                 }
@@ -165,10 +165,7 @@ export class DynamicPipeline {
     }
 
     disconnectPipelineChanged() {
-        this.pipelineChangedIds.forEach(id => {
-            if (id)
-                this.pipelinesManager.disconnect(id);
-        });
+        this.pipelineChangedIds.forEach(id => this.pipelinesManager.disconnect(id));
         this.pipelineChangedIds = [];
     }
 
@@ -185,19 +182,19 @@ export class DynamicPipeline {
         this.opacityFactor = factor;
 
         this.effects.forEach(effect => {
-            const params = effect._bms_effect_params ?? {};
+            const params = effect._bms_effect_params;
             if ('opacity_factor' in effect)
                 effect.opacity_factor = (params.opacity_factor ?? 1) * factor;
             if (effect._bms_pixelize_role === 'refraction-blur') {
                 effect.unscaled_radius = this.pipeline.get_refraction_blur_radius(
                     params.blur_radius
                 ) * factor;
-                effect.opacity_factor = params.opacity_factor ?? 1;
+                effect.opacity_factor = params.opacity_factor;
             }
             if (effect._bms_effect_type === 'dual_kawase_blur') {
-                effect.unscaled_radius = (params.unscaled_radius ?? 30) * factor;
-                effect.brightness = 1 + ((params.brightness ?? 0.6) - 1) * factor;
-                effect.opacity_factor = params.opacity_factor ?? 1;
+                effect.unscaled_radius = params.unscaled_radius * factor;
+                effect.brightness = 1 + (params.brightness - 1) * factor;
+                effect.opacity_factor = params.opacity_factor;
             }
         });
     }

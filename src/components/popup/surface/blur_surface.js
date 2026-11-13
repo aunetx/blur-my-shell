@@ -128,7 +128,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
     create_static_actor() {
         const static_actor = new PopupBlurStaticActor(
             this.settings,
-            this.effects_manager,
             this.target,
             this.root_actor,
             this.parent,

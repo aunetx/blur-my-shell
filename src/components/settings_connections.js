@@ -53,7 +53,7 @@ export function connect_component_settings(extension) {
     PIPELINE_SETTINGS.forEach(property =>
         connect(settings.overview, property, when_enabled(
             overview,
-            () => overview.update_backgrounds()
+            () => overview.update_pipeline()
         ))
     );
     connect(settings.overview, 'STYLE_COMPONENTS', when_enabled(

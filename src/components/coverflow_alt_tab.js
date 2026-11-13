@@ -1,13 +1,12 @@
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import { Pipeline } from '../pipelines/pipeline.js';
+import { StaticBlur } from '../render/static_blur/static_blur.js';
 import { get_pipeline_id, connect_system_style_changes } from '../conveniences/style.js';
 
 export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
-    constructor(connections, settings, effects_manager) {
+    constructor(connections, settings) {
         this.connections = connections;
         this.settings = settings;
-        this.effects_manager = effects_manager;
         this.entries = new Map();
         this.enabled = false;
     }
@@ -56,44 +55,33 @@ export const CoverflowAltTabBlur = class CoverflowAltTabBlur {
 
         this._log('found coverflow alt-tab to blur');
 
-        const entry = {
-            actors: [],
-            managers: [],
-            pipelines: [],
-        };
-        for (let i = 0; i < Main.layoutManager.monitors.length; i++) {
-            const pipeline = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                get_pipeline_id(this.settings.coverflow_alt_tab)
-            );
-            entry.pipelines.push(pipeline);
-            entry.actors.push(pipeline.create_background_with_effects(
-                i,
-                entry.managers,
-                actor,
-                'bms-coverflow-alt-tab-blurred-widget'
-            ));
-        }
-        this.entries.set(actor, entry);
+        const backgrounds = Main.layoutManager.monitors.map(monitor => {
+            const background = new StaticBlur({
+                name: 'bms-coverflow-alt-tab-blurred-widget',
+                monitorIndex: monitor.index,
+                pipelineId: get_pipeline_id(this.settings.coverflow_alt_tab),
+                wholeMonitor: true,
+            });
+            background.set_position(monitor.x, monitor.y);
+            actor.insert_child_at_index(background, 0);
+            return background;
+        });
+        this.entries.set(actor, backgrounds);
 
         this.connections.connect(actor, 'destroy', () => this.remove_entry(actor));
     }
 
     update_pipeline() {
-        this.entries.forEach(({ pipelines }) => pipelines.forEach(pipeline =>
-            pipeline.change_pipeline_to(get_pipeline_id(this.settings.coverflow_alt_tab))
+        this.entries.forEach(backgrounds => backgrounds.forEach(background =>
+            background.setPipeline(get_pipeline_id(this.settings.coverflow_alt_tab))
         ));
     }
 
     remove_entry(container) {
-        const entry = this.entries.get(container);
+        const backgrounds = this.entries.get(container);
         this.entries.delete(container);
         this.connections.disconnect_all_for(container);
-
-        entry.pipelines.forEach(pipeline => pipeline.destroy());
-        entry.managers.forEach(manager => manager.destroy());
-        entry.actors.forEach(actor => actor.destroy());
+        backgrounds.forEach(background => background.destroy());
     }
 
     remove_background_actors() {

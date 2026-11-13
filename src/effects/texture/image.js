@@ -115,11 +115,11 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
         this._image_mode = null;
         this._opacity_factor = null;
 
-        this.image_path = params.image_path ?? DEFAULT_PARAMS.image_path;
-        this.blend = params.blend ?? DEFAULT_PARAMS.blend;
-        this.blend_mode = params.blend_mode ?? DEFAULT_PARAMS.blend_mode;
-        this.image_mode = params.image_mode ?? DEFAULT_PARAMS.image_mode;
-        this.opacity_factor = params.opacity_factor ?? DEFAULT_PARAMS.opacity_factor;
+        this.image_path = params.image_path;
+        this.blend = params.blend;
+        this.blend_mode = params.blend_mode;
+        this.image_mode = params.image_mode;
+        this.opacity_factor = params.opacity_factor;
     }
 
     static get default_params() {
@@ -131,7 +131,6 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
     }
 
     set image_path(path) {
-        path ??= '';
         if (path === this._image_path)
             return;
 
@@ -178,7 +177,7 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
             return;
 
         if (this._image_texture && this._image_texture_context === context) {
-            this.attach_image_texture(context);
+            this.attach_image_texture();
             return;
         }
 
@@ -208,15 +207,12 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
 
         this._image_texture = texture;
         this._image_texture_context = context;
-        this.attach_image_texture(context);
+        this.attach_image_texture();
         this.update_enabled();
         this.queue_repaint();
     }
 
-    attach_image_texture(context) {
-        if (this.target?.context !== context)
-            return;
-
+    attach_image_texture() {
         const pipeline = this.get_pipeline();
         pipeline.set_layer_texture(1, this._image_texture);
         pipeline.set_layer_filters(
@@ -286,15 +282,6 @@ const ImageEffectClass = utils.IS_IN_PREFERENCES ? null : class ImageEffect exte
         this._opacity_factor = opacityFactor;
         uniforms.set_uniform(this, 'opacity_factor', this._opacity_factor);
         this.update_enabled();
-    }
-
-    set(params) {
-        params ??= {};
-        this.image_path = params.image_path ?? DEFAULT_PARAMS.image_path;
-        this.blend = params.blend ?? DEFAULT_PARAMS.blend;
-        this.blend_mode = params.blend_mode ?? DEFAULT_PARAMS.blend_mode;
-        this.image_mode = params.image_mode ?? DEFAULT_PARAMS.image_mode;
-        this.opacity_factor = params.opacity_factor ?? DEFAULT_PARAMS.opacity_factor;
     }
 
     vfunc_paint_target(paint_node, paint_context) {

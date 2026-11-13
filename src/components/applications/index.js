@@ -3,11 +3,10 @@ import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { ApplicationsService } from '../../dbus/services.js';
-import { Pipeline } from '../../pipelines/pipeline.js';
 import { connect_system_style_changes, get_pipeline_id } from '../../conveniences/style.js';
 import { is_desktop_window } from '../../conveniences/window.js';
 import { DynamicPipeline } from '../../render/dynamic_surface.js';
-import { RoundedPipeline } from '../../render/rounded_pipeline.js';
+import { StaticBlur } from '../../render/static_blur/static_blur.js';
 import { ApplicationMenus } from './menus.js';
 import { WindowRules } from './window_rules.js';
 import { BLUR_ACTOR_NAME, WindowOpacity } from './window_opacity.js';
@@ -299,7 +298,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 return;
 
             // the static blur is made from the background of one monitor
-            if (meta_window.bg_manager.backgroundActor.monitor !== window_monitor_index) {
+            if (blur_actor.monitorIndex !== window_monitor_index) {
                 this._log(`application switching to monitor: ${window_monitor_index}`);
                 this.remove_blur(meta_window);
                 this.create_blur_effect(meta_window);
@@ -333,27 +332,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
         if (!window_actor)
             return;
 
-        let blur_actor, bg_manager;
-        let rounded_pipeline = null;
+        let blur_actor;
 
         if (this.settings.applications.STATIC_BLUR) {
-            const pipeline = new Pipeline(
-                this.effects_manager,
-                global.blur_my_shell._pipelines_manager,
-                get_pipeline_id(this.settings.applications)
-            );
-            const bg_managers = [];
-            blur_actor = pipeline.create_background_with_effects(
-                meta_window.get_monitor(), bg_managers, window_actor,
-                BLUR_ACTOR_NAME
-            );
-            bg_manager = bg_managers[0];
-            rounded_pipeline = new RoundedPipeline(
-                this.effects_manager,
-                () => this.settings.applications.CORNER_RADIUS,
-                () => this.settings.applications.ROUNDED_CORNERS
-            );
-            rounded_pipeline.bind(pipeline, blur_actor);
+            blur_actor = new StaticBlur({
+                name: BLUR_ACTOR_NAME,
+                monitorIndex: meta_window.get_monitor(),
+                pipelineId: get_pipeline_id(this.settings.applications),
+                getRadius: () => this.settings.applications.CORNER_RADIUS,
+                getCorners: () => this.settings.applications.ROUNDED_CORNERS,
+            });
+            window_actor.insert_child_at_index(blur_actor, 0);
         } else {
             const pipeline = new DynamicPipeline(
                 this.effects_manager,
@@ -364,14 +353,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
                     get_corners: () => this.settings.applications.ROUNDED_CORNERS,
                 }
             );
-            [blur_actor, bg_manager] = pipeline.create_background_with_effect(
+            [blur_actor, meta_window.bg_manager] = pipeline.create_background_with_effect(
                 window_actor, BLUR_ACTOR_NAME
             );
         }
 
         meta_window.blur_actor = blur_actor;
-        meta_window.bg_manager = bg_manager;
-        meta_window.bms_rounded_pipeline = rounded_pipeline;
         this.connect_blur_signals(meta_window, window_actor);
 
         if (!this.settings.applications.BLUR_ON_OVERVIEW && Main.overview.visible)
@@ -404,8 +391,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
         let use_0_radius = !this.settings.applications.CORNER_WHEN_MAXIMIZED && (is_maximized || is_fullscreen);
 
         if (this.settings.applications.STATIC_BLUR) {
-            meta_window.bms_rounded_pipeline.update();
-            meta_window.bms_rounded_pipeline.setStraightCorners(use_0_radius);
+            meta_window.blur_actor.updateCorners();
+            meta_window.blur_actor.setStraightCorners(use_0_radius);
         } else {
             const pipeline = meta_window.bg_manager._bms_pipeline;
             pipeline.set_corner_radius(this.settings.applications.CORNER_RADIUS);
@@ -471,10 +458,15 @@ export const ApplicationsBlur = class ApplicationsBlur {
     }
 
     change_pipeline() {
+        const pipeline_id = get_pipeline_id(this.settings.applications);
         this.meta_windows.forEach(meta_window => {
-            meta_window.bg_manager?._bms_pipeline.change_pipeline_to(
-                get_pipeline_id(this.settings.applications)
-            );
+            if (!meta_window.blur_actor)
+                return;
+
+            if (this.settings.applications.STATIC_BLUR)
+                meta_window.blur_actor.setPipeline(pipeline_id);
+            else
+                meta_window.bg_manager._bms_pipeline.change_pipeline_to(pipeline_id);
             this.update_corner_radius(meta_window);
         });
         this.menus.update_pipeline();
@@ -496,16 +488,15 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         this.window_opacity.set(meta_window.get_compositor_private(), 255, blur_actor);
 
-        const bg_manager = meta_window.bg_manager;
-        meta_window.bms_rounded_pipeline?.destroy();
-        bg_manager._bms_pipeline.destroy();
-        bg_manager.destroy();
+        if (meta_window.bg_manager) {
+            meta_window.bg_manager._bms_pipeline.destroy();
+            meta_window.bg_manager.destroy();
+        }
         blur_actor.destroy();
 
         // the blur actor presence is how we know whether the window is blurred or not
         delete meta_window.blur_actor;
         delete meta_window.bg_manager;
-        delete meta_window.bms_rounded_pipeline;
     }
 
     /// Kinda the same as `remove_blur`, but better: it also untracks the window.

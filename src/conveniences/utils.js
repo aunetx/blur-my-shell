@@ -35,16 +35,12 @@ export const ShaderEffect = IS_IN_PREFERENCES ? null
 
 // In use for the effects, to prevent boilerplate code
 export function setup_params(outer_this, params) {
-    params ??= {};
     const parameterNames = Object.keys(outer_this.constructor.default_params);
     for (const params_name of parameterNames)
         outer_this["_" + params_name] = null;
 
-    for (const params_name of parameterNames) {
-        outer_this[params_name] = Object.hasOwn(params, params_name) ?
-            params[params_name] :
-            outer_this.constructor.default_params[params_name];
-    }
+    for (const params_name of parameterNames)
+        outer_this[params_name] = params[params_name];
 };
 
 export const get_shader_source = (Shell, shader_filename, self_uri) => {

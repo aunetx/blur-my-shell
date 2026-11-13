@@ -23,6 +23,7 @@ import { PopupBlur } from './components/popup/index.js';
 import { connect_component_settings } from './components/settings_connections.js';
 import { enable_system_style, disable_system_style } from './conveniences/style.js';
 import { track_painted_views } from './render/backdrop/painted_view.js';
+import { SharedBackgrounds } from './render/static_blur/shared_backgrounds.js';
 import { clear_snippets } from './render/shader/snippet_cache.js';
 
 
@@ -56,6 +57,9 @@ export default class BlurMyShell extends Extension {
         // shared by every component so that effects are pooled instead of re-created
         this._effects_manager = new EffectsManager(this._connection);
         this._pipelines_manager = new PipelinesManager(this._settings);
+        this._shared_backgrounds = new SharedBackgrounds(
+            this._connection, this._effects_manager, this._pipelines_manager
+        );
 
         const init = () => {
             const connection = new Connections;
@@ -129,6 +133,8 @@ export default class BlurMyShell extends Extension {
         this._popup = null;
         this._power_profile_monitor = null;
 
+        this._shared_backgrounds.destroy();
+        this._shared_backgrounds = null;
         this._effects_manager.destroy_all();
         this._effects_manager = null;
         this._pipelines_manager.destroy();

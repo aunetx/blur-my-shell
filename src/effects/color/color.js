@@ -75,7 +75,6 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
 
             utils.initialize_shader_effect(this, SHADER_SOURCE);
 
-
             this._red = null;
             this._green = null;
             this._blue = null;
@@ -83,10 +82,9 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
             this._blend_mode = null;
             this._opacity_factor = null;
 
-            // set params; utils.setup_params doesn't work here with color
-            this.color = 'color' in params ? params.color : this.constructor.default_params.color;
-            this.blend_mode = 'blend_mode' in params ?  params.blend_mode : this.constructor.default_params.blend_mode;
-            this.opacity_factor = 'opacity_factor' in params ? params.opacity_factor : this.constructor.default_params.opacity_factor;
+            this.color = params.color;
+            this.blend_mode = params.blend_mode;
+            this.opacity_factor = params.opacity_factor;
         }
 
         static get default_params() {
@@ -182,14 +180,6 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
 
         get color() {
             return [this.red, this.green, this.blue, this.blend];
-        }
-
-        /// False set function, only cares about the color. Too hard to change.
-        set(params) {
-            this.color = params.color;
-            this.blend_mode = params.blend_mode;
-            if ('opacity_factor' in params)
-                this.opacity_factor = params.opacity_factor;
         }
 
         vfunc_paint_target(paint_node, paint_context) {
