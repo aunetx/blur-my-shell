@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-10-14 23:51+0000\n"
-"Last-Translator: wojtipek <wojtipek@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-15 19:51+0000\n"
+"Last-Translator: Marcel Mrówka <micro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/pl/>\n"
 "Language: pl\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
-msgstr ""
+msgstr "Rozmycie Dual Kawase"
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "Szybkie, wysokiej jakości rozmycie."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -61,6 +61,8 @@ msgid ""
 "The color to blend in. The blending amount is controlled by the opacity of "
 "the color."
 msgstr ""
+"Kolor do wmieszania. Ilość mieszania jest kontrolowana przez "
+"nieprzezroczystość koloru."
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
@@ -149,16 +151,16 @@ msgstr "Zmiana jasności"
 
 #: src/effects/color/info.js:54
 msgid "The brightness to add or remove from the image."
-msgstr ""
+msgstr "Jasność do dodania lub usunięcia z obrazu."
 
 #: src/effects/color/info.js:63
 msgid "Brightness multiplier"
-msgstr ""
+msgstr "Mnożnik jasności"
 
 #: src/effects/color/info.js:64
 msgid ""
 "Multiplies image brightness; 0 is black and 1 leaves brightness unchanged."
-msgstr ""
+msgstr "Mnoży jasność obrazu; 0 to czerń a 1 nie zmienia jasności."
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
@@ -166,7 +168,7 @@ msgstr "Kontrast"
 
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
-msgstr ""
+msgstr "Dostosowuje kontrast obrazu wokół wybranego środka kontrastu."
 
 #: src/effects/color/info.js:83
 msgid "Contrast center"
@@ -181,6 +183,7 @@ msgid ""
 "Multiplies image saturation; 0 removes all color and 1 leaves saturation "
 "unchanged."
 msgstr ""
+"Mnoży saturację obrazu; 0 usuwa kolory całkowicie a 1 nie zmienia saturacji."
 
 #: src/effects/color/info.js:106
 msgid "RGB to HSL (advanced effect)"
@@ -188,7 +191,7 @@ msgstr "RGB na HSL (efekt zaawansowany)"
 
 #: src/effects/color/info.js:107
 msgid "Converts the image from RGBA color space to HSLA."
-msgstr ""
+msgstr "Konwertuje obraz z przestrzeni barw RGBA na HSLA."
 
 #: src/effects/color/info.js:112
 msgid "HSL to RGB (advanced effect)"
@@ -196,7 +199,7 @@ msgstr "HSL na RGB (efekt zaawansowany)"
 
 #: src/effects/color/info.js:113
 msgid "Converts the image from HSLA color space to RGBA."
-msgstr ""
+msgstr "Konwertuje obraz z przestrzeni barw HSLA na RGBA."
 
 #: src/effects/effect_groups.js:4 resources/ui/pages/applications.ui:12
 #: resources/ui/pages/shell/app-folders.ui:8
@@ -204,23 +207,25 @@ msgstr ""
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "Rozmycie"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "Tekstura"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "Zaawansowane"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
 msgstr ""
+"Elementy składniowe, które są przeważnie użyteczne w połączeniu z innymi "
+"efektami."
 
 #: src/effects/refraction/info.js:7
 msgid "Liquid Glass"
-msgstr ""
+msgstr "Liquid Glass"
 
 #: src/effects/refraction/info.js:8
 msgid ""
@@ -790,7 +795,7 @@ msgstr "Przezroczysty"
 #: resources/ui/pages/shell/dash.ui:62 resources/ui/pages/shell/overview.ui:56
 #: resources/ui/pages/shell/panel.ui:160 resources/ui/pages/shell/popup.ui:170
 msgid "Light"
-msgstr "Lekki"
+msgstr "Jasny"
 
 #: resources/ui/pages/shell/app-folders.ui:38
 #: resources/ui/pages/shell/dash.ui:63 resources/ui/pages/shell/overview.ui:57
