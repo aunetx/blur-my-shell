@@ -162,14 +162,6 @@ Background on Window Proximity: Solid color background when a window is near the
         <property name="sensitive" bind-source="blur" bind-property="active" bind-flags="sync-create" />
 
         <child>
-          <object class="AdwSwitchRow" id="hidetopbar_compatibility">
-            <property name="title" translatable="yes">Hidetopbar extension</property>
-            <property name="subtitle" translatable="yes">Keeps the blur visible in the overview, best with static blur</property>
-            <property name="sensitive" bind-source="unblur_in_overview" bind-property="active" bind-flags="sync-create" />
-          </object>
-        </child>
-
-        <child>
           <object class="AdwSwitchRow" id="dtp_blur_original_panel">
             <property name="title" translatable="yes">Blur original panel with Dash to Panel</property>
             <property name="subtitle" translatable="yes">When Dash to Panel keeps the original panel</property>

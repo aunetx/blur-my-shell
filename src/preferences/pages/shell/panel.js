@@ -28,7 +28,6 @@ export const Panel = GObject.registerClass({
         'override_background_dynamically_mode',
         'gradient_panel',
         'gradient_panel_mode',
-        'hidetopbar_compatibility',
         'dtp_blur_original_panel'
     ],
 }, class Panel extends Adw.PreferencesPage {
@@ -62,9 +61,6 @@ export const Panel = GObject.registerClass({
             ['override-background-dynamically-mode', this._override_background_dynamically_mode, 'selected'],
             ['gradient-panel', this._gradient_panel, 'active'],
             ['gradient-panel-mode', this._gradient_panel_mode, 'selected'],
-        ]);
-        bind_settings(preferences.hidetopbar, [
-            ['compatibility', this._hidetopbar_compatibility, 'active'],
         ]);
         bind_settings(preferences.dash_to_panel, [
             ['blur-original-panel', this._dtp_blur_original_panel, 'active'],

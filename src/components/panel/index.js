@@ -1,8 +1,10 @@
 import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import { ControlsState } from 'resource:///org/gnome/shell/ui/overviewControls.js';
 
 import { Connections } from '../../conveniences/connections.js';
+import { is_extension_active } from '../../conveniences/extensions.js';
 import {
     connect_system_style_changes,
     get_pipeline_id,
@@ -25,6 +27,8 @@ import {
     update_panel_border_radius,
 } from './panel_style.js';
 
+const HIDETOPBAR_UUID = 'hidetopbar@mathieu.bidon.ca';
+
 export const PanelBlur = class PanelBlur {
     constructor(connections, settings, effects_manager) {
         this.connections = connections;
@@ -39,6 +43,7 @@ export const PanelBlur = class PanelBlur {
         this.panel_radius_update_id = 0;
         this.enabled = false;
         this._in_overview = false;
+        this.hidetopbar_active = false;
     }
 
     enable() {
@@ -52,6 +57,15 @@ export const PanelBlur = class PanelBlur {
         this._dirty = false;
         this.watched_panels = new WeakSet();
         this._in_overview = Main.overview.visible;
+        this.hidetopbar_active = is_extension_active(HIDETOPBAR_UUID);
+        this.connections.connect(Main.extensionManager, 'extension-state-changed', (_, extension) => {
+            if (extension.uuid !== HIDETOPBAR_UUID
+                || is_extension_active(HIDETOPBAR_UUID) === this.hidetopbar_active)
+                return;
+
+            this.hidetopbar_active = !this.hidetopbar_active;
+            this.connect_to_windows_and_overview();
+        });
         this.discovery.enable();
 
         // Hide the panel blur first to avoid the panel background from display on login
@@ -256,12 +270,20 @@ export const PanelBlur = class PanelBlur {
             this.queue_panel_border_radius_update();
         };
 
-        if (this.settings.hidetopbar.COMPATIBILITY) {
-            const app_display = Main.overview._overview.controls._appDisplay;
-            this._in_overview = app_display.visible;
-            this.window_connections.connect(app_display, 'show', entered);
-            this.window_connections.connect(app_display, 'hide', left);
-            this.window_connections.connect(Main.overview, 'hidden', left);
+        if (this.hidetopbar_active) {
+            const controls = Main.overview._overview.controls;
+            this._in_overview = this.in_app_grid();
+            const update = () => {
+                if (this.in_app_grid() === this._in_overview)
+                    return;
+                if (this._in_overview)
+                    left();
+                else
+                    entered();
+            };
+            this.window_connections.connect(controls._stateAdjustment, 'notify::value', update);
+            this.window_connections.connect(controls._appDisplay, ['show', 'hide'], update);
+            this.window_connections.connect(Main.overview, 'hidden', update);
         } else {
             this.window_connections.connect(Main.overview, 'showing', () => {
                 this._in_overview = true;
@@ -299,10 +321,16 @@ export const PanelBlur = class PanelBlur {
     is_unblurred_by_overview() {
         if (!this.settings.panel.UNBLUR_IN_OVERVIEW)
             return false;
-        if (this.settings.hidetopbar.COMPATIBILITY)
-            return this._in_overview;
-        return this._in_overview || Main.overview.visible
-            || this.discovery.main_panel?.has_style_pseudo_class('overview');
+        return this.in_overview()
+            || (!this.hidetopbar_active && this.discovery.main_panel?.has_style_pseudo_class('overview'));
+    }
+
+    /// The app grid can stay visible off screen once the overview is back to the windows.
+    in_app_grid() {
+        const controls = Main.overview._overview.controls;
+        return Main.overview.visible
+            && controls._stateAdjustment.value > ControlsState.WINDOW_PICKER
+            && controls._appDisplay.visible;
     }
 
     /// Connect to windows disable transparency when a window is too close
@@ -523,6 +551,8 @@ export const PanelBlur = class PanelBlur {
     }
 
     in_overview() {
+        if (this.hidetopbar_active && this.settings.panel.UNBLUR_IN_OVERVIEW)
+            return this._in_overview;
         return this._in_overview || Main.overview.visible;
     }
 

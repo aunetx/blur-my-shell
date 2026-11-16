@@ -182,7 +182,6 @@
         <child name='window-list' schema='org.gnome.shell.extensions.blur-my-shell.window-list'></child>
         <child name='coverflow-alt-tab' schema='org.gnome.shell.extensions.blur-my-shell.coverflow-alt-tab'></child>
         <child name='popup' schema='org.gnome.shell.extensions.blur-my-shell.popup'></child>
-        <child name='hidetopbar' schema='org.gnome.shell.extensions.blur-my-shell.hidetopbar'></child>
         <child name='dash-to-panel' schema='org.gnome.shell.extensions.blur-my-shell.dash-to-panel'></child>
     </schema>
 
@@ -888,16 +887,6 @@
         <key type="b" name="blur-keyboard">
             <default>true</default>
             <summary>Boolean, whether to blur the on-screen keyboard</summary>
-        </key>
-    </schema>
-
-    <!-- HIDETOPBAR -->
-    <schema id="org.gnome.shell.extensions.blur-my-shell.hidetopbar"
-        path="/org/gnome/shell/extensions/blur-my-shell/hidetopbar/">
-        <!-- COMPATIBILITY -->
-        <key type="b" name="compatibility">
-            <default>false</default>
-            <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
         </key>
     </schema>
 
