@@ -1,5 +1,8 @@
 NAME = blur-my-shell
 UUID = $(NAME)@aunetx
+PREFIX ?= /usr/local
+DESTDIR ?=
+EXTENSION_DIR = $(PREFIX)/share/gnome-shell/extensions/$(UUID)
 VM_PATH = ~/Projects/shared/extensions
 POT = po/$(UUID).pot
 UI_SOURCES = $(shell find resources/ui -type f -name '*.ui' | sort)
@@ -7,6 +10,7 @@ GRESOURCE = resources/$(NAME).gresource.xml
 EFFECT_I18N_SOURCES = $(shell find src/effects -type f -name '*.js' | sort)
 PREFERENCES_I18N_SOURCES = $(shell find src/preferences -type f -name '*.js' | sort) src/prefs.js
 SOURCE_DIRS = $(filter-out styles,$(patsubst src/%/,%,$(wildcard src/*/)))
+SOURCE_FILES = $(shell find $(addprefix src/,$(SOURCE_DIRS)) -type f | sort)
 # Preserve cascade order when bundling the component stylesheets.
 STYLESHEETS = src/styles/panel.css \
 	src/styles/dash.css \
@@ -20,24 +24,32 @@ STYLESHEETS = src/styles/panel.css \
 	src/styles/appfolders.css \
 	src/styles/panel-light-text.css
 
-.PHONY: build install pot test-shell test-prefs test-vm remove clean
+.PHONY: build build-files install install-system pot test-shell test-prefs test-vm remove clean
 
 
-build: clean
-	mkdir -p build/
-# St does not give CSS @imports the priority of the extension stylesheet.
-	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
-	sed -E -z '$(METADATA_FILTER)' metadata.json > build/metadata.json
-	glib-compile-resources --sourcedir=resources --target=build/resources.gresource $(GRESOURCE)
+build: build-files
 	cd src && gnome-extensions pack -f \
 			--extra-source=../build/stylesheet.css \
 			--extra-source=../build/metadata.json \
 			--extra-source=../LICENSE \
 			--extra-source=../build/resources.gresource \
 			$(foreach dir,$(SOURCE_DIRS),--extra-source=./$(dir)) \
-			--podir=../po \
+			--extra-source=../build/locale \
 			--schema=../schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
 			-o ../build
+
+
+build-files: clean
+	mkdir -p build/
+# St does not give CSS @imports the priority of the extension stylesheet.
+	awk '{ print }' $(STYLESHEETS) > build/stylesheet.css
+	sed -E -z '$(METADATA_FILTER)' metadata.json > build/metadata.json
+	glib-compile-resources --sourcedir=resources --target=build/resources.gresource $(GRESOURCE)
+	for catalog in po/*.po; do \
+		language=$$(basename "$$catalog" .po); \
+		mkdir -p "build/locale/$$language/LC_MESSAGES" || exit; \
+		msgfmt "$$catalog" -o "build/locale/$$language/LC_MESSAGES/$(UUID).mo" || exit; \
+	done
 
 
 # GNOME replaces an installed version that extensions.gnome.org doesn't know with the released one,
@@ -46,6 +58,21 @@ install: METADATA_FILTER = s/,[[:space:]]*"version":[[:space:]]*[0-9]+//
 install: build
 	rm -rf "$${XDG_DATA_HOME:-$$HOME/.local/share}/gnome-shell/extension-updates/$(UUID)"
 	gnome-extensions install -f build/$(UUID).shell-extension.zip
+
+
+install-system: build-files
+	install -d -m 0755 "$(DESTDIR)$(EXTENSION_DIR)"
+	install -m 0644 build/metadata.json build/stylesheet.css build/resources.gresource LICENSE \
+		"$(DESTDIR)$(EXTENSION_DIR)/"
+	for source in src/extension.js src/prefs.js $(SOURCE_FILES); do \
+		install -D -m 0644 "$$source" "$(DESTDIR)$(EXTENSION_DIR)/$${source#src/}" || exit; \
+	done
+	install -D -m 0644 schemas/org.gnome.shell.extensions.$(NAME).gschema.xml \
+		"$(DESTDIR)$(PREFIX)/share/glib-2.0/schemas/org.gnome.shell.extensions.$(NAME).gschema.xml"
+	for locale in build/locale/*; do \
+		install -D -m 0644 "$$locale/LC_MESSAGES/$(UUID).mo" \
+			"$(DESTDIR)$(PREFIX)/share/locale/$${locale##*/}/LC_MESSAGES/$(UUID).mo" || exit; \
+	done
 
 
 pot:
