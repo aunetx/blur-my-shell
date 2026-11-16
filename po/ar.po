@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-02 15:14+0000\n"
-"Last-Translator: Yassin Omer <yassinomer.work@gmail.com>\n"
+"PO-Revision-Date: 2026-11-17 13:20+0000\n"
+"Last-Translator: Proman4713 <proman4713@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ar/>\n"
 "Language: ar\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -1230,7 +1230,7 @@ msgstr "هل تريد حذف خط المعالجة هذا؟"
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr "مُستخدَم بواسطة %s، والذي سيتحول إلى خط المعالجة الافتراضي."
+msgstr "مُستخدَم بواسطة %s، والذي سيحول إلى خط المعالجة الافتراضي."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
