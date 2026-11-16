@@ -2,6 +2,8 @@ import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
+import { is_extension_active } from '../../conveniences/extensions.js';
+
 const DASH_TO_PANEL_UUID = 'dash-to-panel@jderose9.github.com';
 
 /// Finds the panels to blur: the stock panel, the panels of Dash to Panel, and the panels added to
@@ -30,7 +32,7 @@ export class PanelDiscovery {
                 if (extension.uuid !== DASH_TO_PANEL_UUID)
                     return;
 
-                if (extension.state === 1) {
+                if (is_extension_active(DASH_TO_PANEL_UUID)) {
                     this.connect_to_dash_to_panel();
                     this.blur_existing_panels();
                 } else if (this.dash_to_panel) {

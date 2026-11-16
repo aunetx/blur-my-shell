@@ -164,11 +164,6 @@ export const KEYS = [
         ]
     },
     {
-        component: "hidetopbar", schemas: [
-            { type: Type.B, name: "compatibility" },
-        ]
-    },
-    {
         component: "dash-to-panel", schemas: [
             { type: Type.B, name: "blur-original-panel" },
         ]
