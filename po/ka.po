@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2025-05-25 15:01+0000\n"
-"Last-Translator: ResurrectionEye <gabriozet@gmail.com>\n"
+"PO-Revision-Date: 2026-11-17 13:20+0000\n"
+"Last-Translator: Temuri Doghonadze "
+"<norwayfun@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ka/>\n"
 "Language: ka\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -33,7 +34,7 @@ msgstr "რადიუსი"
 
 #: src/effects/blur/info.js:12
 msgid "The intensity of the blur effect."
-msgstr "ბლურის ეფექტის ინტენსივობა."
+msgstr "დაბინდვის ეფექტის ინტენსივობა."
 
 #: src/effects/blur/info.js:21 src/effects/wave/info.js:77
 msgid "Brightness"
@@ -44,8 +45,8 @@ msgid ""
 "The brightness of the blur effect, a high value might make the text harder "
 "to read."
 msgstr ""
-"ბლურის ეფექტის სიკაშკაშე, მაღალმა მნიშვნელობამ შესაძლოა ტექსტის წაკითხვა "
-"გაართულოს."
+"დაბინდვის ეფექტის სიკაშკაშე, მაღალმა მნიშვნელობამ, შესაძლოა, ტექსტის "
+"წაკითხვა გაართულოს."
 
 #: src/effects/color/info.js:10 src/effects/color/info.js:15
 #: src/effects/color/info.js:41 src/effects/effect_groups.js:11
@@ -375,16 +376,16 @@ msgstr "პიქსელიზაცია"
 
 #: src/effects/texture/info.js:12
 msgid "An effect that pixelizes the image."
-msgstr "ეფექტი, რომელიც პიქსელიზებს სურათს."
+msgstr "ეფექტი, რომელიც გამოსახულების პიქსელიზაციას ახდენს."
 
 #: src/effects/texture/info.js:15 src/effects/texture/info.js:40
 #: src/effects/texture/info.js:65
 msgid "Factor"
-msgstr "ფაქტორი"
+msgstr "კოეფიციენტი"
 
 #: src/effects/texture/info.js:16 src/effects/texture/info.js:41
 msgid "How much to scale down the image."
-msgstr "რამდენად შემცირდება სურათი."
+msgstr "რამდენად შემცირდება გამოსახულება."
 
 #: src/effects/texture/info.js:23 src/effects/texture/info.js:48
 msgid "Downsampling mode"
@@ -452,7 +453,7 @@ msgstr ""
 
 #: src/effects/texture/info.js:86
 msgid "Laplacian"
-msgstr "ლაპლასიური"
+msgstr "ლაპლასის"
 
 #: src/effects/texture/info.js:93 src/effects/texture/info.js:97
 msgid "Noise"
@@ -1090,7 +1091,7 @@ msgstr ""
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
-msgstr "ბლურის ტიპი"
+msgstr "დაბინდვის ტიპი"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
@@ -1102,7 +1103,7 @@ msgstr "სტატიკური"
 
 #: resources/ui/widgets/blur-mode-row.ui:35
 msgid "Dynamic"
-msgstr "დინამიური"
+msgstr "დინამიკური"
 
 #: resources/ui/widgets/pipeline-choose-row.ui:4
 #: src/preferences/pages/pipelines/pipeline_page.js:82
@@ -1185,7 +1186,7 @@ msgstr ""
 
 #: src/preferences/menu.js:80
 msgid "Reset"
-msgstr "თავიდან"
+msgstr "ჩამოყრა"
 
 #: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
