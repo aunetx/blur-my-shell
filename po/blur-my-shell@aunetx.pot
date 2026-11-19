@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 12:56+0800\n"
+"POT-Creation-Date: 2026-11-19 02:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -761,9 +761,9 @@ msgstr ""
 #: resources/ui/pages/shell/app-folders.ui:35
 #: resources/ui/pages/shell/app-folders.ui:77
 #: resources/ui/pages/shell/component.ui:36 resources/ui/pages/shell/dash.ui:52
-#: resources/ui/pages/shell/dash.ui:95 resources/ui/pages/shell/overview.ui:35
+#: resources/ui/pages/shell/dash.ui:111 resources/ui/pages/shell/overview.ui:35
 #: resources/ui/pages/shell/overview.ui:83 resources/ui/pages/shell/panel.ui:53
-#: resources/ui/pages/shell/panel.ui:194 resources/ui/pages/shell/popup.ui:54
+#: resources/ui/pages/shell/panel.ui:186 resources/ui/pages/shell/popup.ui:54
 #: resources/ui/pages/shell/popup.ui:298
 msgid "Light"
 msgstr ""
@@ -780,9 +780,9 @@ msgstr ""
 #: resources/ui/pages/shell/app-folders.ui:43
 #: resources/ui/pages/shell/app-folders.ui:78
 #: resources/ui/pages/shell/component.ui:45 resources/ui/pages/shell/dash.ui:61
-#: resources/ui/pages/shell/dash.ui:96 resources/ui/pages/shell/overview.ui:43
+#: resources/ui/pages/shell/dash.ui:112 resources/ui/pages/shell/overview.ui:43
 #: resources/ui/pages/shell/overview.ui:84 resources/ui/pages/shell/panel.ui:62
-#: resources/ui/pages/shell/panel.ui:195 resources/ui/pages/shell/popup.ui:63
+#: resources/ui/pages/shell/panel.ui:187 resources/ui/pages/shell/popup.ui:63
 #: resources/ui/pages/shell/popup.ui:299
 msgid "Dark"
 msgstr ""
@@ -886,22 +886,22 @@ msgstr ""
 msgid "Excluded windows"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:212 resources/ui/pages/shell/panel.ui:184
+#: resources/ui/pages/applications.ui:212 resources/ui/pages/shell/panel.ui:176
 #: resources/ui/pages/shell/popup.ui:288
 msgid "All"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:213 resources/ui/pages/shell/panel.ui:185
+#: resources/ui/pages/applications.ui:213 resources/ui/pages/shell/panel.ui:177
 #: resources/ui/pages/shell/popup.ui:289
 msgid "Top only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:214 resources/ui/pages/shell/panel.ui:186
+#: resources/ui/pages/applications.ui:214 resources/ui/pages/shell/panel.ui:178
 #: resources/ui/pages/shell/popup.ui:290
 msgid "Bottom only"
 msgstr ""
 
-#: resources/ui/pages/applications.ui:215 resources/ui/pages/shell/panel.ui:187
+#: resources/ui/pages/applications.ui:215 resources/ui/pages/shell/panel.ui:179
 #: resources/ui/pages/shell/popup.ui:291
 msgid "None"
 msgstr ""
@@ -982,14 +982,14 @@ msgid "Do not style"
 msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:76
-#: resources/ui/pages/shell/dash.ui:94 resources/ui/pages/shell/overview.ui:85
-#: resources/ui/pages/shell/panel.ui:193 resources/ui/pages/shell/popup.ui:297
+#: resources/ui/pages/shell/dash.ui:110 resources/ui/pages/shell/overview.ui:85
+#: resources/ui/pages/shell/panel.ui:185 resources/ui/pages/shell/popup.ui:297
 msgid "Transparent"
 msgstr ""
 
 #: resources/ui/pages/shell/app-folders.ui:79
-#: resources/ui/pages/shell/dash.ui:97 resources/ui/pages/shell/overview.ui:86
-#: resources/ui/pages/shell/panel.ui:197 resources/ui/pages/shell/popup.ui:300
+#: resources/ui/pages/shell/dash.ui:113 resources/ui/pages/shell/overview.ui:86
+#: resources/ui/pages/shell/panel.ui:189 resources/ui/pages/shell/popup.ui:300
 msgid "Automatic"
 msgstr ""
 
@@ -1010,6 +1010,16 @@ msgstr ""
 #: resources/ui/pages/shell/dash.ui:83 resources/ui/pages/shell/panel.ui:118
 #: resources/ui/pages/shell/popup.ui:164
 msgid "Background style"
+msgstr ""
+
+#: resources/ui/pages/shell/dash.ui:92
+msgid "The dock sets its own background"
+msgstr ""
+
+#: resources/ui/pages/shell/dash.ui:93
+msgid ""
+"Set Customize opacity to Default and turn off Customize the dash color in "
+"Dash to Dock's appearance settings"
 msgstr ""
 
 #: resources/ui/pages/shell/overview.ui:58
@@ -1069,38 +1079,30 @@ msgid "Compatibility"
 msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:166
-msgid "Hidetopbar extension"
-msgstr ""
-
-#: resources/ui/pages/shell/panel.ui:167
-msgid "Keeps the blur visible in the overview, best with static blur"
-msgstr ""
-
-#: resources/ui/pages/shell/panel.ui:174
 msgid "Blur original panel with Dash to Panel"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:175
+#: resources/ui/pages/shell/panel.ui:167
 msgid "When Dash to Panel keeps the original panel"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:196
+#: resources/ui/pages/shell/panel.ui:188
 msgid "Contrasted"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:203
+#: resources/ui/pages/shell/panel.ui:195
 msgid "Blur on Window Proximity"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:204
+#: resources/ui/pages/shell/panel.ui:196
 msgid "Background on Window Proximity"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:210
+#: resources/ui/pages/shell/panel.ui:202
 msgid "Top"
 msgstr ""
 
-#: resources/ui/pages/shell/panel.ui:211
+#: resources/ui/pages/shell/panel.ui:203
 msgid "Bottom"
 msgstr ""
 
