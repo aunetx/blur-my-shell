@@ -48,10 +48,6 @@ export const PopupBlurStaticActor = class PopupBlurStaticActor {
         return this.background_group;
     }
 
-    get pipeline() {
-        return this.blur_actor.own?.pipeline ?? null;
-    }
-
     create_background(monitor) {
         this.blur_actor = new StaticBlur({
             name: 'bms-popup-blurred-widget',

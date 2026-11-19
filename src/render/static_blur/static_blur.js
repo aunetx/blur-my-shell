@@ -120,13 +120,11 @@ export const StaticBlur = GObject.registerClass({
         this.updateBackground(true);
     }
 
-    /// A pipeline that has been removed is replaced by the default one, like `Pipeline` does.
     sharesBackground() {
         if (this.wholeMonitor)
             return true;
 
-        const pipelines = this.pipelinesManager.pipelines;
-        const pipeline = pipelines[this.pipelineId] ?? pipelines.pipeline_default;
+        const pipeline = this.pipelinesManager.get_pipeline(this.pipelineId);
         return !pipeline.effects.some(effect => SURFACE_EFFECTS.includes(effect.type));
     }
 
