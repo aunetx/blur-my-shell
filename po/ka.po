@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-17 13:20+0000\n"
+"PO-Revision-Date: 2026-11-18 13:51+0000\n"
 "Last-Translator: Temuri Doghonadze "
 "<norwayfun@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/blur-my-shell/"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: src/effects/color/info.js:21
 msgid "Blend mode"
-msgstr ""
+msgstr "შერევის რეჟიმი"
 
 #: src/effects/color/info.js:22
 msgid "How the color is blended in."
@@ -73,27 +73,27 @@ msgstr ""
 
 #: src/effects/color/info.js:25
 msgid "Normal"
-msgstr ""
+msgstr "ნორმალური"
 
 #: src/effects/color/info.js:26
 msgid "Multiply"
-msgstr ""
+msgstr "გამრავლება"
 
 #: src/effects/color/info.js:27
 msgid "Screen"
-msgstr ""
+msgstr "ეკრანი"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr ""
+msgstr "დაფარვა"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
-msgstr ""
+msgstr "გამუქება"
 
 #: src/effects/color/info.js:30
 msgid "Lighten"
-msgstr ""
+msgstr "გაღიავება"
 
 #: src/effects/color/info.js:31
 msgid "Plus darker"
@@ -113,32 +113,32 @@ msgstr ""
 
 #: src/effects/color/info.js:35
 msgid "Hard light"
-msgstr ""
+msgstr "მაგარი სინათლე"
 
 #: src/effects/color/info.js:36
 msgid "Soft light"
-msgstr ""
+msgstr "რბილი სინათლე"
 
 #: src/effects/color/info.js:37
 msgid "Difference"
-msgstr ""
+msgstr "სხვაობა"
 
 #: src/effects/color/info.js:38
 msgid "Exclusion"
-msgstr ""
+msgstr "გამორიცხვა"
 
 #: src/effects/color/info.js:39
 msgid "Hue"
-msgstr ""
+msgstr "ტონი"
 
 #: src/effects/color/info.js:40 src/effects/color/info.js:93
 #: src/effects/wave/info.js:67
 msgid "Saturation"
-msgstr ""
+msgstr "გაჯერებულობა"
 
 #: src/effects/color/info.js:42 src/effects/color/info.js:49
 msgid "Luminosity"
-msgstr ""
+msgstr "სიკაშკაშე"
 
 #: src/effects/color/info.js:50
 msgid "An effect that affects the luminosity of the image."
@@ -163,7 +163,7 @@ msgstr ""
 
 #: src/effects/color/info.js:73
 msgid "Contrast"
-msgstr ""
+msgstr "კონტრასტი"
 
 #: src/effects/color/info.js:74
 msgid "Adjusts image contrast around the selected contrast center."
@@ -205,15 +205,15 @@ msgstr ""
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr ""
+msgstr "ბუნდოვნება"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
-msgstr ""
+msgstr "ტექსტურა"
 
 #: src/effects/effect_groups.js:27
 msgid "Advanced"
-msgstr ""
+msgstr "დამატებით"
 
 #: src/effects/effect_groups.js:28
 msgid "Building blocks that are mostly useful combined with other effects."
@@ -239,7 +239,7 @@ msgstr ""
 
 #: src/effects/refraction/info.js:21
 msgid "Blur radius"
-msgstr ""
+msgstr "ბუნდოვნების რადიუსი"
 
 #: src/effects/refraction/info.js:22
 msgid "Blurs the sampled backdrop before the liquid-glass shader is applied."
@@ -364,11 +364,11 @@ msgstr ""
 
 #: src/effects/refraction/info.js:161
 msgid "Clamp"
-msgstr ""
+msgstr "ჭახრაკი"
 
 #: src/effects/refraction/info.js:162
 msgid "Mirror"
-msgstr ""
+msgstr "სარკე"
 
 #: src/effects/texture/info.js:11
 msgid "Pixelize"
@@ -429,7 +429,7 @@ msgstr ""
 
 #: src/effects/texture/info.js:76
 msgid "Derivative"
-msgstr ""
+msgstr "წარმოებული"
 
 #: src/effects/texture/info.js:77
 msgid "Apply a spatial derivative, or a laplacian."
@@ -549,7 +549,7 @@ msgstr ""
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
-msgstr ""
+msgstr "მასშტაბი"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
@@ -557,7 +557,7 @@ msgstr ""
 
 #: src/effects/wave/info.js:97
 msgid "Dispersion"
-msgstr ""
+msgstr "დისპერსია"
 
 #: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
@@ -615,7 +615,7 @@ msgstr "ლიცენზია"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "მთავარი მენიუ"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -625,7 +625,7 @@ msgstr "აპლიკაციები"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "გარეგნობა"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -642,12 +642,12 @@ msgstr ""
 #: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
 #: resources/ui/pages/shell/popup.ui:61
 msgid "Corner radius"
-msgstr ""
+msgstr "კუთხის რადიუსი"
 
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
 #: resources/ui/pages/shell/popup.ui:66
 msgid "Rounded corners"
-msgstr ""
+msgstr "მომრგვალებული კუთხეები"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
@@ -655,7 +655,7 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "ქცევა"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -700,7 +700,7 @@ msgstr ""
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
 msgid "All"
-msgstr ""
+msgstr "ყველა"
 
 #: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
 #: resources/ui/pages/shell/popup.ui:161
@@ -715,7 +715,7 @@ msgstr ""
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
 #: resources/ui/pages/shell/popup.ui:163
 msgid "None"
-msgstr ""
+msgstr "არცერთი"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
@@ -724,15 +724,15 @@ msgstr ""
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "სახელი"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "ფაიფლაინის ID"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "კოპირება"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -751,17 +751,17 @@ msgstr ""
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "დუბლირება"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "წაშლა"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
-msgstr ""
+msgstr "ფაიფლაინები"
 
 #: resources/ui/pages/pipelines/pipelines.ui:10
 msgid "Pipelines are sets of effects that components share."
@@ -802,7 +802,7 @@ msgstr "ბნელი"
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
 #: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
 msgid "Automatic"
-msgstr ""
+msgstr "ავტომატური"
 
 #: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
 msgid "Disable in overview"
@@ -811,7 +811,7 @@ msgstr "გათიშვა მიმოხილვაში"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "ფონი"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -869,7 +869,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:110
 msgid "Gradient background"
-msgstr ""
+msgstr "გრადიენტის ფონი"
 
 #: resources/ui/pages/shell/panel.ui:117
 msgid "Gradient direction"
@@ -909,11 +909,11 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
-msgstr ""
+msgstr "ზედა"
 
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
-msgstr ""
+msgstr "ქვემო"
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
@@ -925,7 +925,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:73
 msgid "Menus"
-msgstr ""
+msgstr "მენიუები"
 
 #: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
@@ -933,7 +933,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:87
 msgid "Quick settings"
-msgstr ""
+msgstr "სწრაფი მორგება"
 
 #: resources/ui/pages/shell/popup.ui:94
 msgid "Quick settings submenus"
@@ -945,7 +945,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
-msgstr ""
+msgstr "გაფრთხილებები"
 
 #: resources/ui/pages/shell/popup.ui:115
 msgid "Window and workspace switchers"
@@ -961,11 +961,11 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:136
 msgid "Dialogs"
-msgstr ""
+msgstr "დიალოგები"
 
 #: resources/ui/pages/shell/popup.ui:143
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "ეკრანის კლავიატურა"
 
 #: resources/ui/pages/shell/popup.ui:150
 msgid "Other popup surfaces"
@@ -973,11 +973,11 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "გარსი"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "სამაგიდო კომპიუტერი"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -991,7 +991,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "მიმაგრება"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
@@ -1000,7 +1000,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
 msgid "Popups"
-msgstr ""
+msgstr "მხტუნარები"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
@@ -1026,12 +1026,12 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "სისტემა"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "ეკრანის დაბლოკვა"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
@@ -1040,7 +1040,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "ეკრანის ანაბეჭდი"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
@@ -1048,12 +1048,12 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "გაფართოებები"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "ფანჯრების სია"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
@@ -1079,7 +1079,7 @@ msgstr ""
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "წაშლა"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
@@ -1109,7 +1109,7 @@ msgstr "დინამიკური"
 #: src/preferences/pages/pipelines/pipeline_page.js:82
 #: src/preferences/pages/pipelines/pipeline_row.js:69
 msgid "Pipeline"
-msgstr ""
+msgstr "ფაიფლაინი"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
@@ -1128,7 +1128,7 @@ msgstr ""
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "მოცილება"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
@@ -1166,7 +1166,7 @@ msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "დახურვა"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
@@ -1182,7 +1182,7 @@ msgstr ""
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
-msgstr ""
+msgstr "გაუქმება"
 
 #: src/preferences/menu.js:80
 msgid "Reset"
@@ -1195,7 +1195,7 @@ msgstr ""
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "წავშალო \"%s\"?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
@@ -1209,7 +1209,7 @@ msgstr ""
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" წაიშალა"
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
@@ -1217,19 +1217,19 @@ msgstr ""
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "ბრძანების გაუქმება"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "უცნობი ეფექტი"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "აწევა"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "ჩამოწევა"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
