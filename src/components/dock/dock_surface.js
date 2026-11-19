@@ -294,8 +294,10 @@ export class DockSurface {
                 // no return here, so we can position and clip the replacement before the next paint
             }
 
+            // same as the dynamic blur: a hidden group has no allocation, so its position isn't a
+            // number yet, and Clutter would never allocate a blur moved to a NaN position
             let dash_box = this.get_dash_position(monitor);
-            if (!dash_box)
+            if (!dash_box || !Object.values(dash_box).every(Number.isFinite))
                 return;
 
             const clip_x = Math.floor(dash_box.clip_x);
