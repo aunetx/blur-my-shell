@@ -49,13 +49,25 @@ export function get_component_style(style, avail_styles = 3) {
     return get_background_style();
 }
 
+/// Calls back when the style turns light or dark. These signals also come when nothing changes,
+/// like on every lock and unlock, and restyling the components then takes up the whole transition.
 export function connect_system_style_changes(connections, callback) {
+    let style = get_background_style();
+    const on_change = () => {
+        const new_style = get_background_style();
+        if (new_style === style)
+            return;
+
+        style = new_style;
+        callback();
+    };
+
     connections.connect(
         interface_settings,
         ['changed::color-scheme', 'changed::gtk-theme'],
-        callback
+        on_change
     );
-    connections.connect(St.Settings.get(), 'notify::color-scheme', callback);
-    connections.connect(St.ThemeContext.get_for_stage(global.stage), 'changed', callback);
-    connections.connect(Main.sessionMode, 'updated', callback);
+    connections.connect(St.Settings.get(), 'notify::color-scheme', on_change);
+    connections.connect(St.ThemeContext.get_for_stage(global.stage), 'changed', on_change);
+    connections.connect(Main.sessionMode, 'updated', on_change);
 }
