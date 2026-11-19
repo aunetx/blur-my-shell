@@ -99,6 +99,11 @@ export class PipelinesManager {
         return this.settings.set_pipelines(pipelines);
     }
 
+    /// A pipeline that has been removed is replaced by the default one, like `Pipeline` does.
+    get_pipeline(id) {
+        return this.pipelines[id] ?? this.pipelines.pipeline_default;
+    }
+
     restore_pipeline(id, pipeline) {
         if (Object.hasOwn(this.pipelines, id))
             return false;

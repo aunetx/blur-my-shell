@@ -145,7 +145,6 @@ export const PopupBlurSurface = class PopupBlurSurface {
     sync_static_actor() {
         this.actor = this.static_actor.actor;
         this.blur_actor = this.static_actor.blur_actor;
-        this.pipeline = this.static_actor.pipeline;
     }
 
     set_actor_position() {

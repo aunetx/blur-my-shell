@@ -1,3 +1,4 @@
+import { get_pipeline_id } from '../../../conveniences/style.js';
 import { getRoundedCorners } from '../../../render/corner_policy.js';
 import { has_style_class } from '../actors.js';
 
@@ -62,12 +63,13 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     }
 
     update_liquid_glass_style() {
+        const { settings } = this.surface;
+        const pipeline = global.blur_my_shell._pipelines_manager.get_pipeline(
+            get_pipeline_id(settings.popup)
+        );
         this.set_liquid_glass(
-            this.surface.settings.popup.OVERRIDE_BACKGROUND
-            && this.surface.pipeline.effects.some(effect =>
-                effect._bms_effect_type === 'refraction'
-                && effect._bms_pixelize_role !== 'refraction-blur'
-            )
+            settings.popup.OVERRIDE_BACKGROUND
+            && pipeline.effects.some(effect => effect.type === 'refraction')
         );
     }
 
