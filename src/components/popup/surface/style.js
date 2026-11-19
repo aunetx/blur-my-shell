@@ -64,7 +64,7 @@ export const PopupBlurSurfaceStyle = class PopupBlurSurfaceStyle {
     update_liquid_glass_style() {
         this.set_liquid_glass(
             this.surface.settings.popup.OVERRIDE_BACKGROUND
-            && this.surface.pipeline.effects.some(effect =>
+            && (this.surface.pipeline?.effects ?? []).some(effect =>
                 effect._bms_effect_type === 'refraction'
                 && effect._bms_pixelize_role !== 'refraction-blur'
             )
