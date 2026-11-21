@@ -1,7 +1,7 @@
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 
 import * as utils from '../../conveniences/utils.js';
+import { DelayedRelease } from '../../render/delayed_release.js';
 import { getEffectBounds } from '../../render/effect_bounds.js';
 import { get_view_framebuffer } from '../../render/backdrop/painted_view.js';
 import { addRectangle, setPaintOpacity } from '../../render/paint_nodes.js';
@@ -35,8 +35,6 @@ import {
 const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
 const St = await utils.import_in_shell_only('gi://St');
-
-const HIDDEN_RELEASE_DELAY_S = 5;
 
 const DEFAULT_PARAMS = {
     unscaled_radius: 30,
@@ -114,7 +112,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.appliedSampling = null;
         this.blurValid = false;
         this.appliedOutputUniforms = null;
-        this.releaseId = 0;
+        this.hiddenRelease = new DelayedRelease(() => this.releaseTargets());
         this._unscaled_radius = null;
         this._brightness = null;
         this._opacity_factor = null;
@@ -515,35 +513,16 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.blurValid = false;
     }
 
-    /// An invisible blur doesn't need its textures, but keeps them a little while in case it shows up
-    /// again, like a menu opened right after being closed.
     updateRelease() {
         if (this._unscaled_radius === 0 || this._opacity_factor === 0)
-            this.queueRelease();
+            this.hiddenRelease.queue();
         else
-            this.cancelRelease();
-    }
-
-    queueRelease() {
-        if (this.releaseId)
-            return;
-        this.releaseId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, HIDDEN_RELEASE_DELAY_S, () => {
-            this.releaseId = 0;
-            this.releaseTargets();
-            return GLib.SOURCE_REMOVE;
-        });
-    }
-
-    cancelRelease() {
-        if (!this.releaseId)
-            return;
-        GLib.source_remove(this.releaseId);
-        this.releaseId = 0;
+            this.hiddenRelease.cancel();
     }
 
     vfunc_set_actor(actor) {
         if (!actor) {
-            this.cancelRelease();
+            this.hiddenRelease.cancel();
             this.releaseTargets();
         }
         super.vfunc_set_actor(actor);

@@ -188,8 +188,9 @@ function coversCapture(rectangles, geometry) {
 export const BackdropCaptureEffect = GObject.registerClass({
     GTypeName: 'BmsBackdropCaptureEffect',
 }, class BackdropCaptureEffect extends Clutter.Effect {
-    _init(contentActor) {
+    _init(contentActor, hiddenRelease) {
         super._init();
+        this.hiddenRelease = hiddenRelease;
         this.target = null;
         this.targets = new Map();
         this.cloneTargets = new Map();
@@ -303,6 +304,9 @@ export const BackdropCaptureEffect = GObject.registerClass({
         const painted_view = get_painted_view();
         let view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
+        // a clone still shows a hidden surface, like a window of another workspace in the overview
+        if (!actor.mapped)
+            this.hiddenRelease.queue();
         let geometry;
         if (!view && !inClone && isBackdropOutsideOffscreen(actor)) {
             // an ancestor is painted offscreen, so capture what is behind it from the stage view
@@ -365,15 +369,19 @@ export const BackdropCaptureEffect = GObject.registerClass({
             registerBackdrop(this);
     }
 
-    release() {
-        unregisterBackdrop(this);
-        if (this.output)
-            this.output.destroy();
+    releaseTargets() {
         for (const view of [...this.viewDestroyIds.keys()])
             this.releaseView(view);
         this.targets.clear();
         this.cloneTargets.clear();
         this.target = null;
         this.actorGeometry = null;
+    }
+
+    release() {
+        unregisterBackdrop(this);
+        if (this.output)
+            this.output.destroy();
+        this.releaseTargets();
     }
 });
