@@ -61,10 +61,12 @@ The version on extensions.gnome.org is often a few fixes behind GitHub. To try t
 ```sh
 git clone https://github.com/aunetx/blur-my-shell
 cd blur-my-shell
-make install
+make user-install
 ```
 
-Then log out and back in. To update it later, run `git pull && make install` in the same folder. A version installed this way isn't updated by extensions.gnome.org; to go back to the released one, install it from there again.
+Then log out and back in. To update it later, run `git pull && make user-install` in the same folder. A version installed this way isn't updated by extensions.gnome.org; to go back to the released one, install it from there again.
+
+To install it for every user instead, run `make && sudo make install`. It goes to `/usr/local` by default, which `PREFIX` changes, and packages can stage it in another root with `DESTDIR`.
 
 If you installed the rounded-blur library for an older version, it isn't needed anymore: see [how to remove it](docs/rounded-blur-removal.md).
 
