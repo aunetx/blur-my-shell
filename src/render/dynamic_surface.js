@@ -3,6 +3,7 @@ import St from 'gi://St';
 
 import { Pipeline } from '../pipelines/pipeline.js';
 import { BackdropCaptureEffect } from './backdrop/capture.js';
+import { DelayedRelease } from './delayed_release.js';
 import { RoundedPipeline } from './rounded_pipeline.js';
 
 export class DynamicPipeline {
@@ -21,6 +22,8 @@ export class DynamicPipeline {
         this.pipelineChangedIds = [];
         this.destroyId = 0;
         this.mapId = 0;
+        this.hiddenId = 0;
+        this.hiddenRelease = new DelayedRelease(() => this.releaseTextures());
         this.allocationId = 0;
         this.container = null;
         this.ownsActor = false;
@@ -42,7 +45,14 @@ export class DynamicPipeline {
         });
         this.contentActor._bms_live_input = true;
         this.actor.add_child(this.contentActor);
+        this.hiddenId = this.actor.connect('notify::mapped', () => {
+            if (this.actor.mapped)
+                this.hiddenRelease.cancel();
+            else
+                this.hiddenRelease.queue();
+        });
         this.destroyId = this.actor.connect('destroy', () => {
+            this.hiddenRelease.cancel();
             this.disconnectContainer();
             this.disconnectPipelineChanged();
             this.roundedPipeline?.destroy();
@@ -54,9 +64,10 @@ export class DynamicPipeline {
             this.captureEffect = null;
             this.destroyId = 0;
             this.mapId = 0;
+            this.hiddenId = 0;
         });
 
-        this.captureEffect = new BackdropCaptureEffect(this.contentActor);
+        this.captureEffect = new BackdropCaptureEffect(this.contentActor, this.hiddenRelease);
         this.actor.add_effect(this.captureEffect);
         return this.actor;
     }
@@ -80,7 +91,10 @@ export class DynamicPipeline {
             this.pipelinesManager,
             this.pipelineId,
             this.contentActor,
-            { on_effect_updated: () => this.set_opacity_factor(this.opacityFactor, true) }
+            {
+                on_effect_updated: () => this.set_opacity_factor(this.opacityFactor, true),
+                blur_input: this.captureEffect,
+            }
         );
         this.pipelineId = this.pipeline.pipeline_id;
         if (this.cornerRadius !== null) {
@@ -210,6 +224,12 @@ export class DynamicPipeline {
         this.roundedPipeline?.update();
     }
 
+    /// A hidden surface, like the blur of a window on another workspace, doesn't need its textures.
+    releaseTextures() {
+        this.captureEffect.releaseTargets();
+        this.contentActor.get_effects().forEach(effect => effect.releaseTargets());
+    }
+
     repaint_effect() {
         this.captureEffect?.queue_repaint();
         this.effects.forEach(effect => effect.queue_repaint());
@@ -217,10 +237,14 @@ export class DynamicPipeline {
     }
 
     destroy() {
+        this.hiddenRelease.cancel();
         this.disconnectContainer();
         if (this.mapId)
             this.actor.disconnect(this.mapId);
         this.mapId = 0;
+        if (this.hiddenId)
+            this.actor.disconnect(this.hiddenId);
+        this.hiddenId = 0;
         if (this.destroyId)
             this.actor.disconnect(this.destroyId);
         this.destroyId = 0;

@@ -86,6 +86,11 @@ function create_fragment_shader_snippet(source) {
     return snippet;
 }
 
+/// The functions of a fragment shader, for another shader to call with uniforms of its own.
+export function get_shader_functions(source) {
+    return split_fragment_shader(source).declarations.replace(/^uniform\s.*;$/gm, '').trim();
+}
+
 export function initialize_shader_effect(effect, source) {
     if (!source)
         return;

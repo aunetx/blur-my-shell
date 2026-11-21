@@ -20,6 +20,13 @@ export const SurfaceShaderEffect = GObject.registerClass({
         super._init();
         this.target = null;
         this.sourceValid = false;
+        this.fusedInto = null;
+    }
+
+    /// A blur drawn right before this effect can draw it in its own last pass instead.
+    setFusedInto(blur) {
+        this.fusedInto = blur;
+        this.releaseTargets();
     }
 
     ensureTarget(context, bounds, scale) {
@@ -84,15 +91,6 @@ export const SurfaceShaderEffect = GObject.registerClass({
         return this.target.pipeline;
     }
 
-    set_surface_uniform(name, value, integral) {
-        const pipeline = this.get_pipeline();
-        const location = pipeline.get_uniform_location(name);
-        if (integral)
-            pipeline.set_uniform_1i(location, Math.trunc(value));
-        else
-            pipeline.set_uniform_1f(location, value);
-    }
-
     syncGeometry(actor) {
         const bounds = getEffectBounds(actor, this);
         const {width, height} = bounds;
@@ -116,6 +114,10 @@ export const SurfaceShaderEffect = GObject.registerClass({
 
     vfunc_paint(node, paintContext, flags) {
         const actor = this.get_actor();
+        if (this.fusedInto) {
+            node.add_child(new Clutter.ActorNode(actor, -1));
+            return;
+        }
         if (flags & Clutter.EffectPaintFlags.BYPASS_EFFECT || actor.width <= 0 || actor.height <= 0) {
             node.add_child(new Clutter.ActorNode(actor, -1));
             this.sourceValid = false;

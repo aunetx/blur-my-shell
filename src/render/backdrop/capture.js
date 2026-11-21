@@ -4,6 +4,7 @@ import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Mtk from 'gi://Mtk';
 import St from 'gi://St';
+import { DelayedRelease } from '../delayed_release.js';
 import { BackdropOutputEffect } from './output.js';
 import { registerBackdrop, unregisterBackdrop, queueBackdropRedraw } from './damage.js';
 import { get_painted_view, get_view_framebuffer, get_view_paint } from './painted_view.js';
@@ -188,8 +189,10 @@ function coversCapture(rectangles, geometry) {
 export const BackdropCaptureEffect = GObject.registerClass({
     GTypeName: 'BmsBackdropCaptureEffect',
 }, class BackdropCaptureEffect extends Clutter.Effect {
-    _init(contentActor) {
+    _init(contentActor, hiddenRelease) {
         super._init();
+        this.hiddenRelease = hiddenRelease;
+        this.cloneRelease = new DelayedRelease(() => this.releaseClones());
         this.target = null;
         this.targets = new Map();
         this.cloneTargets = new Map();
@@ -303,6 +306,9 @@ export const BackdropCaptureEffect = GObject.registerClass({
         const painted_view = get_painted_view();
         let view = painted_view.get_framebuffer() === sourceFramebuffer ? painted_view : null;
         const inClone = actor.is_in_clone_paint();
+        // a clone still shows a hidden surface, like a window of another workspace in the overview
+        if (!actor.mapped)
+            this.hiddenRelease.queue();
         let geometry;
         if (!view && !inClone && isBackdropOutsideOffscreen(actor)) {
             // an ancestor is painted offscreen, so capture what is behind it from the stage view
@@ -315,6 +321,7 @@ export const BackdropCaptureEffect = GObject.registerClass({
         if (!geometry)
             return;
         if (inClone) {
+            this.cloneRelease.queue();
             if (this.cloneViewPaint !== get_view_paint()) {
                 this.cloneViewPaint = get_view_paint();
                 this.clonesPainted = 0;
@@ -365,15 +372,53 @@ export const BackdropCaptureEffect = GObject.registerClass({
             registerBackdrop(this);
     }
 
-    release() {
-        unregisterBackdrop(this);
-        if (this.output)
-            this.output.destroy();
+    /// The captures the surface is drawn from: clones and paints outside a stage view, like
+    /// screencasts, only show their own, while each view only captures its part of the surface.
+    outputTargets() {
+        const current = this.target;
+        if (!current)
+            return [];
+        if (current.inClone || current === this.targets.get(null))
+            return [current];
+        return [...this.targets.entries()]
+            .filter(([view, target]) => view && target.geometry)
+            .map(([, target]) => target);
+    }
+
+    /// The capture, when it alone holds the whole surface and can stand for its drawing.
+    wholeTarget() {
+        const targets = this.outputTargets();
+        if (targets.length !== 1)
+            return null;
+
+        const [target] = targets;
+        const geometry = target.geometry;
+        const whole = geometry?.destinationX === 0 && geometry.destinationY === 0
+            && geometry.copyWidth === geometry.width && geometry.copyHeight === geometry.height;
+        return whole ? target : null;
+    }
+
+    /// The clones that showed the surface are gone, like the window previews of a closed overview.
+    releaseClones() {
+        if (this.target?.inClone)
+            this.target = null;
+        this.cloneTargets.clear();
+    }
+
+    releaseTargets() {
+        this.cloneRelease.cancel();
         for (const view of [...this.viewDestroyIds.keys()])
             this.releaseView(view);
         this.targets.clear();
         this.cloneTargets.clear();
         this.target = null;
         this.actorGeometry = null;
+    }
+
+    release() {
+        unregisterBackdrop(this);
+        if (this.output)
+            this.output.destroy();
+        this.releaseTargets();
     }
 });

@@ -17,21 +17,14 @@ export const BackdropOutputEffect = GObject.registerClass({
     vfunc_paint_node(node, _paintContext, _flags) {
         const actor = this.get_actor();
         const opacity = actor.get_paint_opacity() / 255;
-        const current = this.capture.target;
-        if (!current)
-            return;
-
-        // clones and paints outside a stage view, like screencasts, only show their own capture
-        const targets = current.inClone || current === this.capture.targets.get(null)
-            ? [current]
-            : [...this.capture.targets.entries()].filter(([view]) => view).map(([, target]) => target);
+        const targets = this.capture.outputTargets();
 
         // Each view only captures its intersection with the actor. Compose those intersections
         // before filtering, so offscreen paints can reuse a complete backdrop without wrapping
         // the temporary screenshot or screencast framebuffer in JS.
         for (const target of targets) {
             const geometry = target.geometry;
-            if (!geometry || geometry.copyWidth <= 0 || geometry.copyHeight <= 0)
+            if (geometry.copyWidth <= 0 || geometry.copyHeight <= 0)
                 continue;
 
             const { destinationX: x, destinationY: y, copyWidth: width, copyHeight: height } = geometry;

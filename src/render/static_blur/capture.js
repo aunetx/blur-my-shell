@@ -1,12 +1,10 @@
 import Clutter from 'gi://Clutter';
 import Cogl from 'gi://Cogl';
-import GLib from 'gi://GLib';
 import GObject from 'gi://GObject';
 import Graphene from 'gi://Graphene';
 
 import { get_painted_view, get_view_framebuffer } from '../backdrop/painted_view.js';
-
-const IDLE_RELEASE_DELAY_MS = 5000;
+import { DelayedRelease } from '../delayed_release.js';
 
 /// Keeps what its actor draws in a texture for other actors to show, without drawing anything
 /// itself. The actor is only drawn again once it or one of its effects has changed, and the textures
@@ -16,11 +14,9 @@ export const CaptureEffect = GObject.registerClass({
 }, class CaptureEffect extends Clutter.Effect {
     _init(releaseEffects) {
         super._init();
-        this.releaseEffects = releaseEffects;
+        this.idleRelease = new DelayedRelease(releaseEffects);
         this.target = null;
         this.valid = false;
-        this.releaseId = 0;
-        this.lastCapture = 0;
     }
 
     vfunc_paint_node(node, paintContext, flags) {
@@ -49,7 +45,7 @@ export const CaptureEffect = GObject.registerClass({
         layer.add_child(new Clutter.ActorNode(actor, 255));
         node.add_child(layer);
         this.valid = true;
-        this.queueRelease();
+        this.idleRelease.queue();
     }
 
     createTarget(context, width, height) {
@@ -66,37 +62,8 @@ export const CaptureEffect = GObject.registerClass({
         this.valid = false;
     }
 
-    /// Captures can follow each other on every frame, like for an animated effect, so the timeout
-    /// isn't replaced for each of them but waits for the delay since the last one.
-    queueRelease() {
-        this.lastCapture = GLib.get_monotonic_time();
-        if (this.releaseId)
-            return;
-        this.scheduleRelease(IDLE_RELEASE_DELAY_MS);
-    }
-
-    scheduleRelease(delay) {
-        this.releaseId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, delay, () => {
-            const idle = (GLib.get_monotonic_time() - this.lastCapture) / 1000;
-            if (idle < IDLE_RELEASE_DELAY_MS) {
-                this.scheduleRelease(Math.ceil(IDLE_RELEASE_DELAY_MS - idle));
-            } else {
-                this.releaseId = 0;
-                this.releaseEffects();
-            }
-            return GLib.SOURCE_REMOVE;
-        });
-    }
-
-    cancelRelease() {
-        if (!this.releaseId)
-            return;
-        GLib.source_remove(this.releaseId);
-        this.releaseId = 0;
-    }
-
     vfunc_set_actor(actor) {
-        this.cancelRelease();
+        this.idleRelease.cancel();
         this.target = null;
         this.valid = false;
         super.vfunc_set_actor(actor);

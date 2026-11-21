@@ -52,7 +52,7 @@ float soft_light_channel(float base, float _blend) {
     }
 }
 
-vec3 get_blend(vec3 base, vec3 _blend) {
+vec3 get_blend(vec3 base, vec3 _blend, int mode) {
     if (mode == MULTIPLY) return base * _blend;
     if (mode == SCREEN) return 1.0 - (1.0 - base) * (1.0 - _blend);
     if (mode == OVERLAY) {
@@ -103,16 +103,15 @@ vec3 get_blend(vec3 base, vec3 _blend) {
     return _blend; // For NORMAL
 }
 
-void main() {
-    vec4 c = bms_texture2D(tex, cogl_tex_coord_in[0].st);
-    if (c.a <= 0.0) {
-        cogl_color_out = c;
-        return;
-    }
+vec4 bms_color(vec4 c, vec3 color, float amount, int mode) {
+    if (c.a <= 0.0)
+        return c;
 
     vec3 pix_color = c.rgb / c.a;
-    vec3 color = get_blend(pix_color, vec3(red, green, blue));
-    float amount = blend * opacity_factor;
+    return vec4(mix(pix_color, get_blend(pix_color, color, mode), amount) * c.a, c.a);
+}
 
-    cogl_color_out = vec4(mix(pix_color, color, amount) * c.a, c.a);
+void main() {
+    cogl_color_out = bms_color(bms_texture2D(tex, cogl_tex_coord_in[0].st),
+        vec3(red, green, blue), blend * opacity_factor, mode);
 }
