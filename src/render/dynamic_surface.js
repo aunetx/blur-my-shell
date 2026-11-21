@@ -91,7 +91,10 @@ export class DynamicPipeline {
             this.pipelinesManager,
             this.pipelineId,
             this.contentActor,
-            { on_effect_updated: () => this.set_opacity_factor(this.opacityFactor, true) }
+            {
+                on_effect_updated: () => this.set_opacity_factor(this.opacityFactor, true),
+                blur_input: this.captureEffect,
+            }
         );
         this.pipelineId = this.pipeline.pipeline_id;
         if (this.cornerRadius !== null) {

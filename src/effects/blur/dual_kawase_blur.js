@@ -5,6 +5,8 @@ import { DelayedRelease } from '../../render/delayed_release.js';
 import { getEffectBounds } from '../../render/effect_bounds.js';
 import { get_view_framebuffer } from '../../render/backdrop/painted_view.js';
 import { addRectangle, setPaintOpacity } from '../../render/paint_nodes.js';
+import { DEFAULT_PARAMS, PROPERTIES } from './dual_kawase_params.js';
+import { FusedEffects } from './fused_effects.js';
 import { getKawaseConfiguration, getKawaseInputBounds } from './kawase_sampling.js';
 import {
     DOWNSAMPLE_CODE,
@@ -13,8 +15,8 @@ import {
     SOURCE_REGION,
     UPSAMPLE_CODE,
     UPSAMPLE_DECLARATIONS,
-    UPSAMPLE_OUTPUT_CODE,
     UPSAMPLE_OUTPUT_DECLARATIONS,
+    upsampleOutputCode,
     addPassNode,
     createPassPipeline,
     createRenderTarget,
@@ -36,60 +38,9 @@ const Clutter = await utils.import_in_shell_only('gi://Clutter');
 const Cogl = await utils.import_in_shell_only('gi://Cogl');
 const St = await utils.import_in_shell_only('gi://St');
 
-const DEFAULT_PARAMS = {
-    unscaled_radius: 30,
-    brightness: 0.6,
-    opacity_factor: 1,
-    corner_radius: 0,
-    corners_top: true,
-    corners_bottom: true,
-    straight_corners: false,
-};
-
 const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.registerClass({
     GTypeName: 'BmsDualKawaseBlurEffect',
-    Properties: {
-        'unscaled-radius': GObject.ParamSpec.double(
-            'unscaled-radius', null, null,
-            GObject.ParamFlags.READWRITE,
-            0, 200, DEFAULT_PARAMS.unscaled_radius
-        ),
-        'radius': GObject.ParamSpec.double(
-            'radius', null, null,
-            GObject.ParamFlags.READWRITE,
-            0, 200, DEFAULT_PARAMS.unscaled_radius
-        ),
-        'brightness': GObject.ParamSpec.double(
-            'brightness', null, null,
-            GObject.ParamFlags.READWRITE,
-            0, 1, DEFAULT_PARAMS.brightness
-        ),
-        'opacity-factor': GObject.ParamSpec.double(
-            'opacity-factor', null, null,
-            GObject.ParamFlags.READWRITE,
-            0, 1, DEFAULT_PARAMS.opacity_factor
-        ),
-        'corner-radius': GObject.ParamSpec.double(
-            'corner-radius', null, null,
-            GObject.ParamFlags.READWRITE,
-            0, Number.MAX_SAFE_INTEGER, DEFAULT_PARAMS.corner_radius
-        ),
-        'corners-top': GObject.ParamSpec.boolean(
-            'corners-top', null, null,
-            GObject.ParamFlags.READWRITE,
-            DEFAULT_PARAMS.corners_top
-        ),
-        'corners-bottom': GObject.ParamSpec.boolean(
-            'corners-bottom', null, null,
-            GObject.ParamFlags.READWRITE,
-            DEFAULT_PARAMS.corners_bottom
-        ),
-        'straight-corners': GObject.ParamSpec.boolean(
-            'straight-corners', null, null,
-            GObject.ParamFlags.READWRITE,
-            DEFAULT_PARAMS.straight_corners
-        ),
-    },
+    Properties: PROPERTIES,
 }, class DualKawaseBlurEffect extends Clutter.Effect {
     _init(params = {}) {
         super._init();
@@ -98,6 +49,9 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.downPipelines = [];
         this.upPipelines = [];
         this.outputPipeline = null;
+        this.inputTarget = null;
+        this.backdrop = null;
+        this.fused = new FusedEffects();
         this.regions = new Map();
         this.width = 0;
         this.height = 0;
@@ -228,6 +182,18 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             && (this.corners_top || this.corners_bottom);
     }
 
+    setFusedEffects(effects) {
+        this.fused = new FusedEffects(effects);
+        this.releaseTargets();
+        this.queue_repaint();
+    }
+
+    /// The capture of a dynamic surface can stand for its drawing when the blur is drawn first, which
+    /// spares drawing it into a texture of its own.
+    getDirectInput(actor) {
+        return this.backdrop && !actor.has_clip ? this.backdrop.wholeTarget() : null;
+    }
+
     /// The output pass cuts out the corners against the surface bounds rather than the padded area
     /// that is blurred, and dithers in the actor's own pixels.
     updateOutputUniforms(actor, outputBounds, framebuffer) {
@@ -266,10 +232,10 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.appliedOutputUniforms = uniforms;
     }
 
-    ensureTargets(context, bounds, scale, passes) {
+    ensureTargets(context, bounds, scale, passes, input) {
         const {x, y, width: logicalWidth, height: logicalHeight} = bounds;
-        const width = Math.max(1, Math.ceil(logicalWidth * scale));
-        const height = Math.max(1, Math.ceil(logicalHeight * scale));
+        const width = input ? input.usedWidth : Math.max(1, Math.ceil(logicalWidth * scale));
+        const height = input ? input.usedHeight : Math.max(1, Math.ceil(logicalHeight * scale));
         if (this.context !== context) {
             this.releaseTargets();
             this.capacityWidth = width;
@@ -286,6 +252,11 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         }
 
         const targetCount = this.downTargets.length;
+        if (input)
+            this.downTargets[0] = null;
+        else
+            this.downTargets[0] ??= createRenderTarget(context, this.capacityWidth, this.capacityHeight);
+        const inputChanged = this.bindInput(input ?? this.downTargets[0]);
         for (let level = this.downTargets.length; level <= passes; level++) {
             this.downTargets.push(createRenderTarget(
                 context,
@@ -296,7 +267,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
 
         for (let level = Math.max(1, this.downPipelines.length); level <= passes; level++) {
             this.downPipelines[level] = this.createPass(
-                this.downTargets[level - 1],
+                level === 1 ? this.inputTarget : this.downTargets[level - 1],
                 context,
                 DOWNSAMPLE_DECLARATIONS,
                 DOWNSAMPLE_CODE
@@ -320,12 +291,13 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         if (!this.outputPipeline) {
             this.outputPipeline = this.createPass(
                 this.downTargets[1], context,
-                UPSAMPLE_OUTPUT_DECLARATIONS, UPSAMPLE_OUTPUT_CODE,
-                this.downTargets[0], true
+                `${UPSAMPLE_OUTPUT_DECLARATIONS}\n${this.fused.declarations}`,
+                upsampleOutputCode(this.fused.code),
+                this.inputTarget, true
             );
         }
 
-        const resized = targetCount !== this.downTargets.length
+        const resized = inputChanged || targetCount !== this.downTargets.length
             || this.width !== width || this.height !== height;
         if (!resized && this.logicalWidth === logicalWidth && this.logicalHeight === logicalHeight
             && this.x === x && this.y === y)
@@ -333,15 +305,15 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
 
         this.blurValid = false;
 
+        const ownTargets = [...this.downTargets, ...this.upTargets].filter(Boolean);
         if (resized) {
             this.downTargets.forEach((target, level) =>
-                resizeRenderTarget(target, level, width, height));
+                target && resizeRenderTarget(target, level, width, height));
             this.upTargets.forEach((target, level) =>
                 resizeRenderTarget(target, level, width, height));
             this.updateRegions();
         }
-        this.downTargets.forEach(target => projectRenderTarget(target, bounds));
-        this.upTargets.forEach(target => projectRenderTarget(target, bounds));
+        ownTargets.forEach(target => projectRenderTarget(target, bounds));
         this.width = width;
         this.height = height;
         this.logicalWidth = logicalWidth;
@@ -350,9 +322,26 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.y = y;
     }
 
+    /// The first level is the capture given as input, or the actor drawn into a texture otherwise.
+    bindInput(target) {
+        if (this.inputTarget === target)
+            return false;
+
+        this.inputTarget = target;
+        const downsample = this.downPipelines[1];
+        if (downsample) {
+            downsample.set_layer_texture(0, target.texture);
+            setVector2(downsample, 'halfpixel', 0.5 / target.width, 0.5 / target.height);
+        }
+        this.outputPipeline?.set_layer_texture(1, target.texture);
+        this.blurValid = false;
+        return true;
+    }
+
     updateRegions() {
         this.downPipelines.forEach((pipeline, level) =>
-            this.regions.get(pipeline).source.update(this.downTargets[level - 1]));
+            this.regions.get(pipeline).source.update(
+                level === 1 ? this.inputTarget : this.downTargets[level - 1]));
         this.upPipelines.forEach((pipeline, level) => {
             const regions = this.regions.get(pipeline);
             regions.source.update(this.downTargets[level + 1]);
@@ -360,7 +349,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         });
         const outputRegions = this.regions.get(this.outputPipeline);
         outputRegions.source.update(this.downTargets[1]);
-        outputRegions.original.update(this.downTargets[0]);
+        outputRegions.original.update(this.inputTarget);
     }
 
     createPass(source, context, declarations, code, original = null, outputPass = false) {
@@ -424,7 +413,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             return;
         const unchanged = this.opacity_factor === 0
             || (this.unscaled_radius === 0 && this.brightness === 1);
-        if (unchanged && !this.roundsCorners()) {
+        if (unchanged && !this.roundsCorners() && this.fused.effects.length === 0) {
             node.add_child(new Clutter.ActorNode(actor, -1));
             this.blurValid = false;
             return;
@@ -436,24 +425,26 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
             node.add_child(new Clutter.ActorNode(actor, -1));
             return;
         }
-        const scale = actor.get_resource_scale();
+        const input = this.getDirectInput(actor);
+        const scale = input ? input.usedWidth / actor.width : actor.get_resource_scale();
         const themeScale = St.ThemeContext.get_for_stage(actor.get_stage()).scale_factor;
         const { passes, blend } = getKawaseConfiguration(this.unscaled_radius * themeScale * scale);
         const inputBounds = this.get_input_bounds(bounds);
         if (inputBounds.width <= 0 || inputBounds.height <= 0)
             return;
-        this.ensureTargets(context, inputBounds, scale, passes);
+        this.ensureTargets(context, inputBounds, scale, passes, input);
         this.updateSampling(passes, blend);
 
         // outside of a stage view, like in a screencast, the blur from the last view paint is reused
         const refreshes_input = framebuffer !== null
             && (actor._bms_live_input || flags & Clutter.EffectPaintFlags.ACTOR_DIRTY);
         if (!this.blurValid || refreshes_input) {
-            this.addBlurPasses(node, actor, inputBounds, passes, blend);
+            this.addBlurPasses(node, actor, inputBounds, passes, blend, input);
             this.blurValid = true;
         }
 
         this.updateOutputUniforms(actor, inputBounds, framebuffer);
+        this.fused.upload(this.outputPipeline);
         setPaintOpacity(this.outputPipeline, actor.get_paint_opacity() / 255);
         const outputNode = new Clutter.PipelineNode(this.outputPipeline);
         outputNode.set_name('BmsDualKawase output');
@@ -461,14 +452,16 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         node.add_child(outputNode);
     }
 
-    addBlurPasses(node, actor, bounds, passes, blend) {
-        const actorLayer = Clutter.LayerNode.new_to_framebuffer(
-            this.downTargets[0].framebuffer,
-            this.downTargets[0].layerPipeline
-        );
-        actorLayer.set_name('BmsDualKawase source');
-        actorLayer.add_child(new Clutter.ActorNode(actor, 255));
-        node.add_child(actorLayer);
+    addBlurPasses(node, actor, bounds, passes, blend, input) {
+        if (!input) {
+            const actorLayer = Clutter.LayerNode.new_to_framebuffer(
+                this.downTargets[0].framebuffer,
+                this.downTargets[0].layerPipeline
+            );
+            actorLayer.set_name('BmsDualKawase source');
+            actorLayer.add_child(new Clutter.ActorNode(actor, 255));
+            node.add_child(actorLayer);
+        }
 
         for (let level = 1; level <= passes; level++) {
             if (passes === 1 && blend === 0)
@@ -499,6 +492,7 @@ const DualKawaseBlurEffectClass = utils.IS_IN_PREFERENCES ? null : GObject.regis
         this.downPipelines = [];
         this.upPipelines = [];
         this.outputPipeline = null;
+        this.inputTarget = null;
         this.regions.clear();
         this.width = 0;
         this.height = 0;

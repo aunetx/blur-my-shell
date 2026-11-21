@@ -78,20 +78,27 @@ float dither(vec2 position) {
 }
 `;
 
-export const UPSAMPLE_OUTPUT_CODE = `
+/// The last pass, with the effects drawn right after the blur, which are given the color so far and
+/// the position in physical pixels as `color` and `pixel`.
+export function upsampleOutputCode(fusedEffects) {
+    return `
 vec4 sourceColor = original_sample();
 vec4 filteredColor = sourceColor;
 if (level_blend > 0.0) {
-    vec4 color = source_sample(cogl_tex_coord_in[0].xy * ${SOURCE_REGION}.xy);
-    filteredColor = mix(sourceColor, color, level_blend);
+    vec4 blurred = source_sample(cogl_tex_coord_in[0].xy * ${SOURCE_REGION}.xy);
+    filteredColor = mix(sourceColor, blurred, level_blend);
 }
 filteredColor.rgb *= brightness;
-cogl_color_out = mix(sourceColor, filteredColor, opacity_factor) * cogl_color_in.a;
+vec4 color = mix(sourceColor, filteredColor, opacity_factor) * cogl_color_in.a;
 vec2 position = cogl_tex_coord_in[0].xy * vec2(output_width, output_height);
-cogl_color_out.rgb += dither(position * bms_resource_scale) * 2.0 / 255.0 * cogl_color_out.a;
+vec2 pixel = position * bms_resource_scale;
+${fusedEffects}
+color.rgb += dither(pixel) * 2.0 / 255.0 * color.a;
 if (corner_radius > 0.0)
-    cogl_color_out *= corner_coverage(position);
+    color *= corner_coverage(position);
+cogl_color_out = color;
 `;
+}
 
 function createSnippet(declarations, code) {
     return get_snippet(`${declarations}\n${code}`, () => {

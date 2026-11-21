@@ -27,6 +27,7 @@ export const Pipeline = class Pipeline {
         this.pipelines_manager = pipelines_manager;
         this.effects = [];
         this.on_effect_updated = options.on_effect_updated ?? (() => {});
+        this.blur_input = options.blur_input ?? null;
         this.actor = null;
         this.actor_destroy_id = null;
         this.child_added_id = null;
@@ -205,6 +206,38 @@ export const Pipeline = class Pipeline {
             this.actor.add_effect(effect);
             uniforms.mark_dirty(effect);
         });
+        this.link_blur();
+    }
+
+    /// The blur reads the backdrop given as input directly when it is drawn first, and draws the
+    /// per-pixel effects that follow it in its own last pass.
+    link_blur() {
+        const blur = this.blur_effect;
+        if (!blur)
+            return;
+
+        const index = this.effects.indexOf(blur);
+        if (index === this.effects.length - 1)
+            blur.backdrop = this.blur_input;
+
+        const fused = [];
+        for (const effect of this.effects.slice(0, index).reverse()) {
+            if (!effect.constructor.fused_pass)
+                break;
+            fused.push(effect);
+        }
+        fused.forEach(effect => effect.setFusedInto(blur));
+        blur.setFusedEffects(fused);
+    }
+
+    get blur_effect() {
+        return this.effects.find(effect => effect._bms_effect_type === 'dual_kawase_blur');
+    }
+
+    /// The blur drawing every effect after it, which can then cut out the corners as well.
+    get final_pass_effect() {
+        const blur = this.blur_effect;
+        return blur && this.effects.indexOf(blur) === blur.fused.effects.length ? blur : null;
     }
 
     build_pixelize_effect(effect_infos) {
@@ -358,6 +391,12 @@ export const Pipeline = class Pipeline {
     }
 
     release_effect(effect) {
+        if (effect._bms_effect_type === 'dual_kawase_blur') {
+            effect.backdrop = null;
+            effect.setFusedEffects([]);
+        } else if (effect.fusedInto) {
+            effect.setFusedInto(null);
+        }
         this.effects_manager.remove(effect);
         [
             effect._effect_key_removed_id,

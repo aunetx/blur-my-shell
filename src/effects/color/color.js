@@ -12,6 +12,12 @@ const DEFAULT_PARAMS = {
     blend_mode: 0,
     opacity_factor: 1
 };
+const FUSED_PASS = utils.IS_IN_PREFERENCES ? null : {
+    functions: utils.get_shader_functions(SHADER_SOURCE),
+    uniforms: ['red', 'green', 'blue', 'blend', 'mode', 'opacity_factor'],
+    call: prefix => `bms_color(color, vec3(${prefix}red, ${prefix}green, ${prefix}blue), `
+        + `${prefix}blend * ${prefix}opacity_factor, ${prefix}mode)`,
+};
 
 
 const COLOR_EFFECT_META = {
@@ -89,6 +95,10 @@ const ColorEffectClass = utils.IS_IN_PREFERENCES ? null : class ColorEffect exte
 
         static get default_params() {
             return DEFAULT_PARAMS;
+        }
+
+        static get fused_pass() {
+            return FUSED_PASS;
         }
 
         get red() {

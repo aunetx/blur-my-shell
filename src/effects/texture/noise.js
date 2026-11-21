@@ -9,6 +9,11 @@ const SHADER_SOURCE = utils.get_shader_source(Shell, SHADER_FILENAME, import.met
 const DEFAULT_PARAMS = {
     noise: 0.4, lightness: 0.4, opacity_factor: 1
 };
+const FUSED_PASS = utils.IS_IN_PREFERENCES ? null : {
+    functions: utils.get_shader_functions(SHADER_SOURCE),
+    uniforms: ['noise', 'lightness', 'opacity_factor'],
+    call: prefix => `bms_noise(color, pixel, ${prefix}noise * ${prefix}opacity_factor, ${prefix}lightness)`,
+};
 
 
 const NOISE_EFFECT_META = {
@@ -54,6 +59,10 @@ const NoiseEffectClass = utils.IS_IN_PREFERENCES ? null : class NoiseEffect exte
 
         static get default_params() {
             return DEFAULT_PARAMS;
+        }
+
+        static get fused_pass() {
+            return FUSED_PASS;
         }
 
         get noise() {
