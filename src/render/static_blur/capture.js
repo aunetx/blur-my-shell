@@ -6,15 +6,6 @@ import Graphene from 'gi://Graphene';
 import { get_painted_view, get_view_framebuffer } from '../backdrop/painted_view.js';
 import { DelayedRelease } from '../delayed_release.js';
 
-function showsActor(view, actor) {
-    const layout = view.layout;
-    const extents = actor.get_transformed_extents();
-    return extents.get_x() < layout.x + layout.width
-        && extents.get_x() + extents.get_width() > layout.x
-        && extents.get_y() < layout.y + layout.height
-        && extents.get_y() + extents.get_height() > layout.y;
-}
-
 /// Keeps what its actor draws in a texture for other actors to show, without drawing anything
 /// itself. The actor is only drawn again once it or one of its effects has changed, and the textures
 /// its effects need to draw are released once it hasn't changed for a while.
@@ -38,7 +29,7 @@ export const CaptureEffect = GObject.registerClass({
         // view with another scale would make a new capture every frame, each kept until collected
         const actor = this.get_actor();
         const view = get_painted_view();
-        if (!showsActor(view, actor)) {
+        if (!actor.peek_stage_views().includes(view)) {
             // the change is only marked on the first view painted, and must reach the view showing it
             if (flags & Clutter.EffectPaintFlags.ACTOR_DIRTY)
                 this.valid = false;
