@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-11 16:51+0000\n"
+"PO-Revision-Date: 2026-11-22 21:00+0000\n"
 "Last-Translator: Arabella-dev1 <arabella-"
 "dev1@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/blur-"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -87,7 +87,7 @@ msgstr "Tela"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
-msgstr "Overlay"
+msgstr "Sobreposição"
 
 #: src/effects/color/info.js:29
 msgid "Darken"
@@ -525,16 +525,20 @@ msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Nível de detalhe da forma da onda. Valores mais altos adicionam mais "
+"detalhes com um custo maior de performace."
 
 #: src/effects/wave/info.js:39
 msgid "Vapor octaves"
-msgstr ""
+msgstr "Oitavas do vapor"
 
 #: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Nível de detalhe da textura de neblina. Valores mais altos adicionam mais "
+"detalhes com um custo maior de performace."
 
 #: src/effects/wave/info.js:47
 msgid "Vapor speed"
@@ -594,17 +598,19 @@ msgstr ""
 
 #: src/effects/wave/info.js:122
 msgid "Resize ease duration"
-msgstr ""
+msgstr "Duração da suavização do redimensionamento"
 
 #: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"Quanto tempo o efeito leva para se ajustar quando a janela muda de tamanho "
+"(milissegundos)."
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "Registro de Depuração"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
