@@ -132,6 +132,13 @@
         </child>
 
         <child>
+          <object class="AdwSwitchRow" id="solid_on_workspace_switch">
+            <property name="title" translatable="yes">Keep windows opaque during transitions</property>
+            <property name="subtitle" translatable="yes">Keep windows solid during workspace switches and overview animations to prevent transparency artifacts.</property>
+          </object>
+        </child>
+
+        <child>
           <object class="AdwSwitchRow" id="unblur_when_fullscreen">
             <property name="title" translatable="yes">Unblur when Fullscreen</property>
           </object>

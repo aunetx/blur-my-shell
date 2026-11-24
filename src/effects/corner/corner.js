@@ -196,6 +196,12 @@ const CornerEffectClass = utils.IS_IN_PREFERENCES ? null : class CornerEffect ex
                 Number.MAX_SAFE_INTEGER,
                 DEFAULT_PARAMS.clip[index]
             ));
+            if (this._clip_x0 === clip[0] &&
+                this._clip_y0 === clip[1] &&
+                this._clip_width === clip[2] &&
+                this._clip_height === clip[3]) {
+                return;
+            }
             [this._clip_x0, this._clip_y0, this._clip_width, this._clip_height] = clip;
             uniforms.set_uniform(this, 'clip_x0', parseFloat(this._clip_x0 - 1e-6));
             uniforms.set_uniform(this, 'clip_y0', parseFloat(this._clip_y0 - 1e-6));

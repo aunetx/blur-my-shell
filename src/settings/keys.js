@@ -79,6 +79,7 @@ export const KEYS = [
             { type: Type.I, name: "opacity" },
             { type: Type.B, name: "dynamic-opacity" },
             { type: Type.B, name: "blur-on-overview" },
+            { type: Type.B, name: "solid-on-workspace-switch" },
             { type: Type.B, name: "unblur-when-fullscreen" },
             { type: Type.B, name: "blur-menus" },
             { type: Type.I, name: "menu-corner-radius" },

@@ -1,5 +1,6 @@
 import Gio from 'gi://Gio';
 import Meta from 'gi://Meta';
+import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { ApplicationsService } from '../../dbus/services.js';
@@ -76,6 +77,31 @@ export const ApplicationsBlur = class ApplicationsBlur {
         );
 
         this.connect_to_overview();
+
+        this.connections.connect(
+            Main.layoutManager,
+            'monitors-changed',
+            () => this.update_all_windows()
+        );
+
+        this.connections.connect(
+            global.workspace_manager,
+            'workspace-switched',
+            () => this.reconcile_all_windows()
+        );
+
+        if (Main.wm?._workspaceAnimation?._swipeTracker) {
+            this.connections.connect(
+                Main.wm._workspaceAnimation._swipeTracker,
+                'begin',
+                () => this.reconcile_all_windows()
+            );
+            this.connections.connect(
+                Main.wm._workspaceAnimation._swipeTracker,
+                'end',
+                () => this.reconcile_all_windows()
+            );
+        }
     }
 
     enable_service() {
@@ -120,6 +146,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 finish_preview_fade(meta_window);
         });
 
+        this.meta_windows.forEach(meta_window =>
+            this.reconcile_window_visibility(meta_window)
+        );
+    }
+
+    reconcile_all_windows() {
         this.meta_windows.forEach(meta_window =>
             this.reconcile_window_visibility(meta_window)
         );
@@ -172,6 +204,21 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(
             meta_window, 'notify::gtk-application-id',
             _ => this.check_blur(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::sandboxed-app-id',
+            _ => this.check_blur(meta_window)
+        );
+        this.connections.connect(
+            meta_window, 'notify::mapped',
+            _ => {
+                if (meta_window.mapped)
+                    this.check_blur(meta_window);
+            }
+        );
+        this.connections.connect(
+            meta_window, 'workspace-changed',
+            _ => this.reconcile_window_visibility(meta_window)
         );
 
         this.connections.connect(
@@ -313,6 +360,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
                 blur_actor, meta_window, compute_scale(meta_window, this.mutter_gsettings)
             );
         }
+        this.update_solid_overlay(meta_window);
     }
 
     /// Adds or removes the blur of a tracked window, following the window rules.
@@ -358,6 +406,17 @@ export const ApplicationsBlur = class ApplicationsBlur {
             );
         }
 
+        if (!meta_window.solid_overlay && window_actor) {
+            const solid_overlay = new St.Widget({
+                name: 'bms-solid-overview-overlay',
+                style: 'background-color: #242424; border-radius: 14px;',
+                reactive: false,
+                visible: false,
+            });
+            window_actor.insert_child_at_index(solid_overlay, 0);
+            meta_window.solid_overlay = solid_overlay;
+        }
+
         meta_window.blur_actor = blur_actor;
         this.connect_blur_signals(meta_window, window_actor);
 
@@ -365,8 +424,29 @@ export const ApplicationsBlur = class ApplicationsBlur {
             blur_actor.hide();
 
         this.update_size(meta_window);
+        this.update_solid_overlay(meta_window);
         this.update_corner_radius(meta_window);
         this.reconcile_window_visibility(meta_window);
+    }
+
+    update_solid_overlay(meta_window) {
+        if (!meta_window?.solid_overlay)
+            return;
+        const frame = meta_window.get_frame_rect();
+        const buffer = meta_window.get_buffer_rect();
+        const scale = compute_scale(meta_window, this.mutter_gsettings);
+        const so = meta_window.solid_overlay;
+        so.x = (frame.x - buffer.x) / scale;
+        so.y = (frame.y - buffer.y) / scale;
+        so.width = frame.width / scale;
+        so.height = frame.height / scale;
+
+        const is_max = meta_window.maximized_horizontally || meta_window.maximized_vertically;
+        const is_full = meta_window.fullscreen;
+        const r = (!this.settings.applications.CORNER_WHEN_MAXIMIZED && (is_max || is_full))
+            ? 0
+            : (this.settings.applications.CORNER_RADIUS || 14);
+        so.style = `background-color: #242424; border-radius: ${r}px;`;
     }
 
     /// Tells us we are focused on said window (which can be null if we are not focused anymore).
@@ -398,6 +478,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
             pipeline.set_corner_radius(this.settings.applications.CORNER_RADIUS);
             pipeline.set_straight_corners(use_0_radius);
         }
+        this.update_solid_overlay(meta_window);
     }
 
     reconcile_window_visibility(meta_window) {
@@ -406,14 +487,39 @@ export const ApplicationsBlur = class ApplicationsBlur {
             return;
 
         const window_actor = meta_window.get_compositor_private();
+        if (!window_actor)
+            return;
 
         const is_focused = this.settings.applications.DYNAMIC_OPACITY
             && meta_window === this.focused_window;
         const is_fullscreen = this.settings.applications.UNBLUR_WHEN_FULLSCREEN
             && meta_window.fullscreen;
+        const is_minimized = meta_window.minimized || (meta_window.is_hidden && meta_window.is_hidden());
+
+        const active_workspace = global.workspace_manager.get_active_workspace();
+        const is_on_active_workspace = meta_window.is_on_all_workspaces?.()
+            || meta_window.get_workspace?.() === active_workspace
+            || meta_window.located_on_workspace?.(active_workspace);
+
+        const solid_transition = this.settings.applications.SOLID_ON_WORKSPACE_SWITCH
+            && (this.overview_visible || !is_on_active_workspace);
+
+        if (solid_transition && !is_minimized) {
+            blur_actor.hide();
+            this.update_solid_overlay(meta_window);
+            if (meta_window.solid_overlay)
+                meta_window.solid_overlay.show();
+            this.window_opacity.set(window_actor, 255, blur_actor);
+            return;
+        }
+
+        if (meta_window.solid_overlay)
+            meta_window.solid_overlay.hide();
+
         const visible_for_blur = meta_window.showing_on_its_workspace()
             || (this.settings.applications.BLUR_ON_OVERVIEW && this.overview_visible);
         const show_blur = visible_for_blur
+            && !is_minimized
             && !is_focused
             && !is_fullscreen
             && (this.settings.applications.BLUR_ON_OVERVIEW || !this.overview_visible);
@@ -488,6 +594,15 @@ export const ApplicationsBlur = class ApplicationsBlur {
 
         this.window_opacity.set(meta_window.get_compositor_private(), 255, blur_actor);
 
+        if (meta_window.solid_overlay) {
+            const window_actor = meta_window.get_compositor_private();
+            try {
+                window_actor?.remove_child(meta_window.solid_overlay);
+            } catch (e) {}
+            meta_window.solid_overlay.destroy();
+            delete meta_window.solid_overlay;
+        }
+
         if (meta_window.bg_manager) {
             meta_window.bg_manager._bms_pipeline.destroy();
             meta_window.bg_manager.destroy();
@@ -520,6 +635,31 @@ export const ApplicationsBlur = class ApplicationsBlur {
         [...this.meta_windows].forEach(meta_window =>
             this.untrack_meta_window(meta_window)
         );
+
+        // Thorough cleanup sweep across all windows on all workspaces
+        for (let i = 0; i < global.workspace_manager.get_n_workspaces(); ++i) {
+            let workspace = global.workspace_manager.get_workspace_by_index(i);
+            workspace.list_windows().forEach(meta_window => {
+                let window_actor = meta_window.get_compositor_private();
+                if (window_actor) {
+                    this.window_opacity.set(window_actor, 255, null);
+                    window_actor.get_children().forEach(child => {
+                        if (child.name === BLUR_ACTOR_NAME || child.name === 'bms-solid-overview-overlay') {
+                            try {
+                                window_actor.remove_child(child);
+                            } catch (e) {}
+                            child.destroy();
+                        }
+                    });
+                }
+                if (meta_window.solid_overlay) {
+                    try {
+                        meta_window.solid_overlay.destroy();
+                    } catch (e) {}
+                    delete meta_window.solid_overlay;
+                }
+            });
+        }
 
         this.menus.disable();
         this.connections.disconnect_all();

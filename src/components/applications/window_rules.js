@@ -21,6 +21,17 @@ export function is_app_popup(meta_window) {
         && meta_window.get_client_type() === Meta.WindowClientType.WAYLAND;
 }
 
+export function get_window_identifier(meta_window) {
+    let id = meta_window.get_wm_class?.();
+    if (!id && meta_window.get_gtk_application_id)
+        id = meta_window.get_gtk_application_id();
+    if (!id && meta_window.get_sandboxed_app_id)
+        id = meta_window.get_sandboxed_app_id();
+    if (!id && meta_window.get_wm_class_instance)
+        id = meta_window.get_wm_class_instance();
+    return id || '';
+}
+
 /// Converts a case-insensitive wildcard pattern, where `*` matches any sequence and `?` any single
 /// character, to a RegExp.
 function wildcard_to_regex(pattern) {
@@ -34,8 +45,23 @@ function to_rule(entry) {
     const by_title = entry.startsWith(TITLE_PREFIX);
     const pattern = wildcard_to_regex(by_title ? entry.slice(TITLE_PREFIX.length) : entry);
     return meta_window => {
-        const value = by_title ? meta_window.get_title() : meta_window.get_wm_class();
-        return Boolean(value) && pattern.test(value);
+        if (by_title) {
+            const value = meta_window.get_title?.();
+            return Boolean(value) && pattern.test(value);
+        }
+        const wm_class = meta_window.get_wm_class?.();
+        if (wm_class && pattern.test(wm_class))
+            return true;
+        const gtk_id = meta_window.get_gtk_application_id?.();
+        if (gtk_id && pattern.test(gtk_id))
+            return true;
+        const sandbox_id = meta_window.get_sandboxed_app_id?.();
+        if (sandbox_id && pattern.test(sandbox_id))
+            return true;
+        const instance = meta_window.get_wm_class_instance?.();
+        if (instance && pattern.test(instance))
+            return true;
+        return false;
     };
 }
 
@@ -63,7 +89,7 @@ export class WindowRules {
     }
 
     matches(meta_window) {
-        return meta_window.get_wm_class() !== ''
+        return get_window_identifier(meta_window) !== ''
             && this.listed(meta_window)
             && BLURRED_FRAME_TYPES.includes(meta_window.get_frame_type());
     }

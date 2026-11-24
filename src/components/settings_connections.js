@@ -167,6 +167,10 @@ export function connect_component_settings(extension) {
         applications,
         () => applications.connect_to_overview()
     ));
+    connect(settings.applications, 'SOLID_ON_WORKSPACE_SWITCH', when_enabled(
+        applications,
+        () => applications.reconcile_all_windows()
+    ));
     connect(settings.applications, 'UNBLUR_WHEN_FULLSCREEN', when_enabled(
         applications,
         () => applications.update_fullscreen_status()
@@ -185,17 +189,11 @@ export function connect_component_settings(extension) {
     ));
     connect(settings.applications, 'WHITELIST', when_enabled(
         applications,
-        () => {
-            if (!settings.applications.ENABLE_ALL)
-                applications.update_all_windows();
-        }
+        () => applications.update_all_windows()
     ));
     connect(settings.applications, 'BLACKLIST', when_enabled(
         applications,
-        () => {
-            if (settings.applications.ENABLE_ALL)
-                applications.update_all_windows();
-        }
+        () => applications.update_all_windows()
     ));
 
     connect(settings, 'POWER_SAVER', () => extension._update_power_saver());

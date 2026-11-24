@@ -528,6 +528,11 @@
             <default>false</default>
             <summary>Whether or not to blur applications on the overview</summary>
         </key>
+        <!-- SOLID ON WORKSPACE SWITCH -->
+        <key type="b" name="solid-on-workspace-switch">
+            <default>true</default>
+            <summary>Whether or not to keep windows opaque during workspace switching and overview transitions</summary>
+        </key>
         <!-- UNBLUR WHEN FULLSCREEN -->
         <key type="b" name="unblur-when-fullscreen">
             <default>false</default>
