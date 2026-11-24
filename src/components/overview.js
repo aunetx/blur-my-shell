@@ -89,7 +89,9 @@ export const OverviewBlur = class OverviewBlur {
                 && overview_blur.active_patch_generation === generation
                 && !had_switch
             )
-                overview_blur.prepare_workspace_switch();
+                overview_blur.prepare_workspace_switch(
+                    this._switchData?.monitors?.map(group => group.index)
+                );
             return result;
         };
         this._patched_FinishSwitch = function (...params) {
@@ -153,7 +155,7 @@ export const OverviewBlur = class OverviewBlur {
         );
     }
 
-    prepare_workspace_switch() {
+    prepare_workspace_switch(switching_monitors) {
         this._log("prepare workspace switch");
         this.finish_workspace_switch();
 
@@ -164,8 +166,10 @@ export const OverviewBlur = class OverviewBlur {
 
         const only_on_primary = Meta.prefs_get_workspaces_only_on_primary();
         this.animation_background_group.get_children().forEach(background => {
-            background.visible = !only_on_primary
-                || background.monitorIndex === Main.layoutManager.primaryIndex;
+            const switching = switching_monitors === undefined
+                || switching_monitors.includes(background.monitorIndex);
+            background.visible = switching && (!only_on_primary
+                || background.monitorIndex === Main.layoutManager.primaryIndex);
         });
     }
 
