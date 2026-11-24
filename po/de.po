@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-07 17:51+0000\n"
+"PO-Revision-Date: 2026-11-24 13:12+0000\n"
 "Last-Translator: Ulfius <ulfius@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -727,6 +727,8 @@ msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
 "single one."
 msgstr ""
+"* als Platzhalter für eine beliebige Zahl von Zeichen benutzen, zum Beispiel "
+"Firefox* oder *Code*, und ? als Platzhalter für genau ein beliebiges Zeichen."
 
 #: resources/ui/pages/applications.ui:126
 #: resources/ui/pages/applications.ui:148
@@ -1122,7 +1124,7 @@ msgstr "Hinter dem Fensterumschalter"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
-msgstr ""
+msgstr "Fensterklasse"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
