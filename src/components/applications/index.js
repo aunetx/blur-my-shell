@@ -1,4 +1,5 @@
 import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
 import Meta from 'gi://Meta';
 import St from 'gi://St';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -308,6 +309,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
             window_actor,
             'child-added',
             () => {
+                if (meta_window.solid_overlay && meta_window.blur_actor) {
+                    try {
+                        window_actor.set_child_below_sibling(meta_window.solid_overlay, meta_window.blur_actor);
+                    } catch (e) {}
+                }
                 if (this.settings.applications.STATIC_BLUR
                     && meta_window.get_client_type() === Meta.WindowClientType.X11)
                     window_actor.set_child_below_sibling(meta_window.blur_actor, null);
@@ -417,6 +423,12 @@ export const ApplicationsBlur = class ApplicationsBlur {
             meta_window.solid_overlay = solid_overlay;
         }
 
+        if (meta_window.solid_overlay && blur_actor) {
+            try {
+                window_actor.set_child_below_sibling(meta_window.solid_overlay, blur_actor);
+            } catch (e) {}
+        }
+
         meta_window.blur_actor = blur_actor;
         this.connect_blur_signals(meta_window, window_actor);
 
@@ -438,8 +450,10 @@ export const ApplicationsBlur = class ApplicationsBlur {
         const so = meta_window.solid_overlay;
         so.x = (frame.x - buffer.x) / scale;
         so.y = (frame.y - buffer.y) / scale;
-        so.width = frame.width / scale;
-        so.height = frame.height / scale;
+        if (frame.width > 0 && frame.height > 0) {
+            so.width = frame.width / scale;
+            so.height = frame.height / scale;
+        }
 
         const is_max = meta_window.maximized_horizontally || meta_window.maximized_vertically;
         const is_full = meta_window.fullscreen;
@@ -490,31 +504,34 @@ export const ApplicationsBlur = class ApplicationsBlur {
         if (!window_actor)
             return;
 
+        if (meta_window._bms_blur_transition_id) {
+            GLib.source_remove(meta_window._bms_blur_transition_id);
+            meta_window._bms_blur_transition_id = 0;
+        }
+
         const is_focused = this.settings.applications.DYNAMIC_OPACITY
             && meta_window === this.focused_window;
         const is_fullscreen = this.settings.applications.UNBLUR_WHEN_FULLSCREEN
             && meta_window.fullscreen;
-        const is_minimized = meta_window.minimized || (meta_window.is_hidden && meta_window.is_hidden());
+        const is_minimized = meta_window.minimized;
 
         const active_workspace = global.workspace_manager.get_active_workspace();
         const is_on_active_workspace = meta_window.is_on_all_workspaces?.()
             || meta_window.get_workspace?.() === active_workspace
             || meta_window.located_on_workspace?.(active_workspace);
 
-        const solid_transition = this.settings.applications.SOLID_ON_WORKSPACE_SWITCH
+        const should_be_solid = this.settings.applications.SOLID_ON_WORKSPACE_SWITCH
             && (this.overview_visible || !is_on_active_workspace);
 
-        if (solid_transition && !is_minimized) {
-            blur_actor.hide();
+        if (should_be_solid) {
+            if (blur_actor.visible)
+                blur_actor.hide();
             this.update_solid_overlay(meta_window);
-            if (meta_window.solid_overlay)
+            if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
                 meta_window.solid_overlay.show();
             this.window_opacity.set(window_actor, 255, blur_actor);
             return;
         }
-
-        if (meta_window.solid_overlay)
-            meta_window.solid_overlay.hide();
 
         const visible_for_blur = meta_window.showing_on_its_workspace()
             || (this.settings.applications.BLUR_ON_OVERVIEW && this.overview_visible);
@@ -524,16 +541,42 @@ export const ApplicationsBlur = class ApplicationsBlur {
             && !is_fullscreen
             && (this.settings.applications.BLUR_ON_OVERVIEW || !this.overview_visible);
 
-        if (show_blur)
-            blur_actor.show();
-        else
-            blur_actor.hide();
+        if (show_blur) {
+            if (!blur_actor.visible)
+                blur_actor.show();
 
-        this.window_opacity.set(
-            window_actor,
-            show_blur ? this.settings.applications.OPACITY : 255,
-            blur_actor
-        );
+            // Transition buffer: keep the window 100% solid while blur initializes,
+            // then smoothly switch to transparent with blur. This eliminates any flash of transparency.
+            this.update_solid_overlay(meta_window);
+            if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
+                meta_window.solid_overlay.show();
+            this.window_opacity.set(window_actor, 255, blur_actor);
+
+            meta_window._bms_blur_transition_id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 80, () => {
+                meta_window._bms_blur_transition_id = 0;
+                const cur_active = global.workspace_manager.get_active_workspace();
+                const cur_on_active = meta_window.is_on_all_workspaces?.()
+                    || meta_window.get_workspace?.() === cur_active
+                    || meta_window.located_on_workspace?.(cur_active);
+                if (cur_on_active && !this.overview_visible && !meta_window.minimized) {
+                    if (meta_window.solid_overlay?.visible)
+                        meta_window.solid_overlay.hide();
+                    this.window_opacity.set(
+                        window_actor,
+                        this.settings.applications.OPACITY,
+                        blur_actor
+                    );
+                }
+                return GLib.SOURCE_REMOVE;
+            });
+        } else {
+            if (blur_actor.visible)
+                blur_actor.hide();
+            this.update_solid_overlay(meta_window);
+            if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
+                meta_window.solid_overlay.show();
+            this.window_opacity.set(window_actor, 255, blur_actor);
+        }
     }
 
     /// Update all corners, to use when the setting has been changed.
@@ -586,6 +629,11 @@ export const ApplicationsBlur = class ApplicationsBlur {
             return;
 
         this._log('removing window blur');
+
+        if (meta_window._bms_blur_transition_id) {
+            GLib.source_remove(meta_window._bms_blur_transition_id);
+            meta_window._bms_blur_transition_id = 0;
+        }
 
         this.blur_signal_ids.get(meta_window).forEach(({ object, id }) =>
             this.connections.disconnect(object, id)
@@ -657,6 +705,10 @@ export const ApplicationsBlur = class ApplicationsBlur {
                         meta_window.solid_overlay.destroy();
                     } catch (e) {}
                     delete meta_window.solid_overlay;
+                }
+                if (meta_window._bms_blur_transition_id) {
+                    GLib.source_remove(meta_window._bms_blur_transition_id);
+                    meta_window._bms_blur_transition_id = 0;
                 }
             });
         }

@@ -20,7 +20,9 @@ export class WindowOpacity {
         }
 
         window_actor.get_children().forEach(child => {
-            if (child === blur_actor || child.name === BLUR_ACTOR_NAME)
+            if (child === blur_actor
+                || child.name === BLUR_ACTOR_NAME
+                || child.name === 'bms-solid-overview-overlay')
                 return;
 
             if (opacity === 255) {
