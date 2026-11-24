@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-07 17:51+0000\n"
-"Last-Translator: SUNPHASΣ <lleolau@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-23 21:51+0000\n"
+"Last-Translator: Ocin4ever <85343782+Ocin4ever@users.noreply.github.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 "X-Poedit-Basepath: ../resources/ui\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -212,7 +212,7 @@ msgstr "Convertit l’image de l’espace de couleur HSLA vers RGBA."
 #: resources/ui/pages/shell/overview.ui:8 resources/ui/pages/shell/panel.ui:8
 #: resources/ui/pages/shell/popup.ui:8
 msgid "Blur"
-msgstr "Floue"
+msgstr "Flou"
 
 #: src/effects/effect_groups.js:18
 msgid "Texture"
@@ -289,41 +289,50 @@ msgid ""
 "Shape of the bend near the edge. Low values bend softly, higher values bend "
 "more sharply right at the edge."
 msgstr ""
+"Forme de la courbure près du bord. Les valeurs faibles s'incurvent "
+"doucement, tandis que les valeurs plus élevées s'incurvent plus nettement "
+"juste au bord."
 
 #: src/effects/refraction/info.js:71
 msgid "Fresnel glare"
-msgstr ""
+msgstr "effet Fresnel"
 
 #: src/effects/refraction/info.js:72
 msgid "Strength of the directional fresnel glare from the glass edge."
-msgstr ""
+msgstr "Intensité de l'effet Fresnel directionnel sur les bords du verre."
 
 #: src/effects/refraction/info.js:81
 msgid "Fresnel glare angle"
-msgstr ""
+msgstr "angle de l'effet Fresnel"
 
 #: src/effects/refraction/info.js:82
 msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"Direction de la lumière pour l'effet de Fresnel, en degrés (0 correspond au-"
+"dessus, les valeurs positives tournent dans le sens horaire)."
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
-msgstr ""
+msgstr "largeur de l'effet Fresnel"
 
 #: src/effects/refraction/info.js:92
 msgid "Thickness multiplier of the fresnel glare ring along the glass edge."
 msgstr ""
+"Multiplicateur d'épaisseur de l'anneau de l'effet Fresnel le long du bord du "
+"verre."
 
 #: src/effects/refraction/info.js:101
 msgid "Specular glare strength"
-msgstr ""
+msgstr "Intensité du reflet spéculaire"
 
 #: src/effects/refraction/info.js:102
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr ""
+"Intensité du reflet spéculaire montrant la direction de la lumière (0 pour "
+"désactiver)."
 
 #: src/effects/refraction/info.js:111
 msgid "Tint strength"
@@ -425,6 +434,8 @@ msgstr "Échelle inférieure (effet avancé)"
 #: src/effects/texture/info.js:37
 msgid "An effect that downscales the image and puts it in the top-left corner."
 msgstr ""
+"Un effet qui réduit l'échelle de l'image et la place dans le coin supérieur "
+"gauche."
 
 #: src/effects/texture/info.js:61
 msgid "Upscale (advanced effect)"
@@ -640,7 +651,7 @@ msgstr "Applications"
 #: resources/ui/pages/applications.ui:36
 #: resources/ui/pages/shell/overview.ui:26 resources/ui/pages/shell/panel.ui:39
 msgid "Appearance"
-msgstr ""
+msgstr "Apparence"
 
 #: resources/ui/pages/applications.ui:41
 msgid "Opacity"
@@ -648,7 +659,7 @@ msgstr "Opacité"
 
 #: resources/ui/pages/applications.ui:42
 msgid "Higher values are easier to read"
-msgstr ""
+msgstr "Des valeurs plus élevées sont plus faciles à lire"
 
 #: resources/ui/pages/applications.ui:62
 msgid "Opaque focused window"
@@ -657,12 +668,12 @@ msgstr "Fenêtre ciblée opaque"
 #: resources/ui/pages/applications.ui:68 resources/ui/pages/shell/panel.ui:44
 #: resources/ui/pages/shell/popup.ui:61
 msgid "Corner radius"
-msgstr "Rayon du coin"
+msgstr "Rayon des coins"
 
 #: resources/ui/pages/applications.ui:75 resources/ui/pages/shell/panel.ui:51
 #: resources/ui/pages/shell/popup.ui:66
 msgid "Rounded corners"
-msgstr ""
+msgstr "Coins arrondis"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
@@ -682,7 +693,7 @@ msgstr ""
 
 #: resources/ui/pages/applications.ui:102
 msgid "Unblur when Fullscreen"
-msgstr ""
+msgstr "Supprimer le flou en plein écran"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
@@ -715,39 +726,39 @@ msgstr ""
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
 msgid "All"
-msgstr ""
+msgstr "Tout"
 
 #: resources/ui/pages/applications.ui:163 resources/ui/pages/shell/panel.ui:151
 #: resources/ui/pages/shell/popup.ui:161
 msgid "Top only"
-msgstr ""
+msgstr "Haut seulement"
 
 #: resources/ui/pages/applications.ui:164 resources/ui/pages/shell/panel.ui:152
 #: resources/ui/pages/shell/popup.ui:162
 msgid "Bottom only"
-msgstr ""
+msgstr "Bas seulement"
 
 #: resources/ui/pages/applications.ui:165 resources/ui/pages/shell/panel.ui:153
 #: resources/ui/pages/shell/popup.ui:163
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:11
 #: src/preferences/pages/pipelines/pipeline_row.js:61
 msgid "Pipeline Menu"
-msgstr ""
+msgstr "Menu pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:24
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:30
 msgid "Pipeline ID"
-msgstr ""
+msgstr "ID pipeline"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:36
 msgid "Copy"
-msgstr ""
+msgstr "Copier"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:49
 msgid "Effects"
@@ -761,18 +772,18 @@ msgstr "Ajouter un effet"
 #: resources/ui/pages/pipelines/pipeline-page.ui:73
 #: src/preferences/pages/pipelines/pipeline_row.js:75
 msgid "No effects yet"
-msgstr ""
+msgstr "Pas d'effets maintenant"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:94
 #: src/preferences/pages/pipelines/pipeline_row.js:42
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliquer"
 
 #: resources/ui/pages/pipelines/pipeline-page.ui:98
 #: src/preferences/pages/pipelines/index.js:122
 #: src/preferences/pages/pipelines/pipeline_row.js:43
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: resources/ui/pages/pipelines/pipelines.ui:5
 msgid "Pipelines"
@@ -817,7 +828,7 @@ msgstr "Foncé"
 #: resources/ui/pages/shell/dash.ui:64 resources/ui/pages/shell/overview.ui:59
 #: resources/ui/pages/shell/panel.ui:163 resources/ui/pages/shell/popup.ui:172
 msgid "Automatic"
-msgstr ""
+msgstr "Automatique"
 
 #: resources/ui/pages/shell/dash.ui:30 resources/ui/pages/shell/panel.ui:30
 msgid "Disable in overview"
@@ -826,7 +837,7 @@ msgstr "Désactiver dans l'aperçu"
 #: resources/ui/pages/shell/dash.ui:39 resources/ui/pages/shell/panel.ui:73
 #: resources/ui/pages/shell/popup.ui:32 resources/ui/pages/shell/shell.ui:51
 msgid "Background"
-msgstr ""
+msgstr "Arrière-plan"
 
 #: resources/ui/pages/shell/dash.ui:44 resources/ui/pages/shell/panel.ui:78
 #: resources/ui/pages/shell/popup.ui:37
@@ -924,23 +935,24 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
-msgstr ""
+msgstr "Haut"
 
 #: resources/ui/pages/shell/panel.ui:177
 msgid "Bottom"
-msgstr ""
+msgstr "Bas"
 
 #: resources/ui/pages/shell/popup.ui:51
 msgid "Preserve shell theme"
-msgstr ""
+msgstr "Conserver le thème du shell"
 
 #: resources/ui/pages/shell/popup.ui:52
 msgid "Keep your shell theme's colors for popup controls."
 msgstr ""
+"Garder le thème de couleur de votre shell pour les contrôles des popups."
 
 #: resources/ui/pages/shell/popup.ui:73
 msgid "Menus"
-msgstr ""
+msgstr "Menus"
 
 #: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
@@ -968,7 +980,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:122
 msgid "Volume and brightness"
-msgstr ""
+msgstr "Volume et luminosité"
 
 #: resources/ui/pages/shell/popup.ui:129
 msgid "Window resize hints"
@@ -976,23 +988,23 @@ msgstr ""
 
 #: resources/ui/pages/shell/popup.ui:136
 msgid "Dialogs"
-msgstr ""
+msgstr "Dialogues"
 
 #: resources/ui/pages/shell/popup.ui:143
 msgid "On-screen keyboard"
-msgstr ""
+msgstr "Clavier à l'écran"
 
 #: resources/ui/pages/shell/popup.ui:150
 msgid "Other popup surfaces"
-msgstr ""
+msgstr "Autres surfaces popup"
 
 #: resources/ui/pages/shell/shell.ui:5
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: resources/ui/pages/shell/shell.ui:16
 msgid "Desktop"
-msgstr ""
+msgstr "Bureau"
 
 #: resources/ui/pages/shell/shell.ui:21
 #: src/preferences/pages/pipelines/components.js:7
@@ -1010,7 +1022,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
-msgstr ""
+msgstr "Dash to Dock, Ubuntu Dock, Dhruva et les docks similaires"
 
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
@@ -1046,7 +1058,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
 msgid "Lock screen"
-msgstr ""
+msgstr "Écran de vérouillage"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
@@ -1055,7 +1067,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
 msgid "Screenshot"
-msgstr ""
+msgstr "Capture d'écran"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
@@ -1128,13 +1140,15 @@ msgstr "Pipeline"
 
 #: src/preferences/legacy_blur_notice.js:26
 msgid "Rounded-blur is no longer needed"
-msgstr ""
+msgstr "Rounded-blur n'est plus nécessaire"
 
 #: src/preferences/legacy_blur_notice.js:27
 msgid ""
 "Blur my Shell handles rounded corners directly. You can remove the old "
 "library if nothing else uses it."
 msgstr ""
+"Blur my Shell prend directement en charge les coins arrondis. Vous pouvez "
+"retirer l'ancienne librairie si rien d'autre ne l'utilise."
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
@@ -1197,7 +1211,7 @@ msgstr ""
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: src/preferences/menu.js:80
 msgid "Reset"
@@ -1205,54 +1219,54 @@ msgstr "Réinitialiser"
 
 #: src/preferences/pages/pipelines/index.js:78
 msgid "New pipeline"
-msgstr ""
+msgstr "Nouveau pipeline"
 
 #: src/preferences/pages/pipelines/index.js:116
 #, javascript-format
 msgid "Delete “%s”?"
-msgstr ""
+msgstr "Supprimer \"%s\" ?"
 
 #: src/preferences/pages/pipelines/index.js:117
 msgid "Delete this pipeline?"
-msgstr ""
+msgstr "Supprimer ce pipeline ?"
 
 #: src/preferences/pages/pipelines/index.js:118
 #, javascript-format
 msgid "It is used by %s, which will switch to the default pipeline."
-msgstr ""
+msgstr "C'est utilisé par \"%s\", ce qui va rétablir le pipeline par défaut."
 
 #: src/preferences/pages/pipelines/index.js:147
 #, javascript-format
 msgid "\"%s\" deleted"
-msgstr ""
+msgstr "\"%s\" supprimé"
 
 #: src/preferences/pages/pipelines/index.js:148
 msgid "Pipeline deleted"
-msgstr ""
+msgstr "Pipeline supprimée"
 
 #: src/preferences/pages/pipelines/index.js:151
 msgid "Undo"
-msgstr ""
+msgstr "Annuler"
 
 #: src/preferences/pages/pipelines/pipeline_row.js:74
 msgid "Unknown effect"
-msgstr ""
+msgstr "Effet inconnu"
 
 #: src/preferences/widgets/effect_row.js:14
 msgid "Move Up"
-msgstr ""
+msgstr "Déplacer vers le haut"
 
 #: src/preferences/widgets/effect_row.js:15
 msgid "Move Down"
-msgstr ""
+msgstr "Déplacer vers le bas"
 
 #: src/preferences/widgets/effect_row.js:47
 msgid "Effect Menu"
-msgstr ""
+msgstr "Menu Effets"
 
 #: src/preferences/widgets/pipeline_choose_row.js:28
 msgid "Create new pipeline"
-msgstr ""
+msgstr "Créer un nouveau pipeline"
 
 #~ msgid ""
 #~ "Makes the focused window opaque and the other ones blurred, helping with "

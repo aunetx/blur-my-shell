@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-10 01:51+0000\n"
-"Last-Translator: Daniel Nylander "
-"<yeagersthlm2@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-23 21:51+0000\n"
+"Last-Translator: bittin1ddc447d824349b2 "
+"<bittin1ddc447d824349b2@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/sv/>\n"
 "Language: sv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -306,6 +306,8 @@ msgid ""
 "Light direction of the fresnel glare, in degrees (0 is from above, positive "
 "rotates clockwise)."
 msgstr ""
+"Ljusriktning för Fresnel-bländningen, i grader (0 är uppifrån, positiva "
+"värden innebär rotation medurs)."
 
 #: src/effects/refraction/info.js:91
 msgid "Fresnel glare width"
@@ -324,6 +326,8 @@ msgstr "Styrka för spegelblänk"
 msgid ""
 "Strength of the specular glare showing the light direction (0 disables it)."
 msgstr ""
+"Styrka hos den speglande bländeffekten som visar ljusriktningen (0 "
+"inaktiverar den)."
 
 #: src/effects/refraction/info.js:111
 msgid "Tint strength"
@@ -710,6 +714,8 @@ msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
 "single one."
 msgstr ""
+"Använd * för att matcha valfria tecken, till exempel Firefox* eller *Code*, "
+"och ? för att matcha ett enskilt tecken."
 
 #: resources/ui/pages/applications.ui:126
 #: resources/ui/pages/applications.ui:148
@@ -1098,7 +1104,7 @@ msgstr "Bakom fönsterväxlaren"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
-msgstr ""
+msgstr "Fönster klass"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
