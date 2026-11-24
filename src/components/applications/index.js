@@ -28,6 +28,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.menus = new ApplicationMenus(settings, effects_manager, this.rules);
         this.window_opacity = new WindowOpacity();
         this.enabled = false;
+        this._workspace_swiping = false;
+        this._watched_switch_monitors = new WeakSet();
 
         this.service = new ApplicationsService;
     }
@@ -88,21 +90,53 @@ export const ApplicationsBlur = class ApplicationsBlur {
         this.connections.connect(
             global.workspace_manager,
             'workspace-switched',
-            () => this.reconcile_all_windows()
+            () => {
+                // Defer to a microtask so ShellWM's animateSwitch populates _switchData first.
+                Promise.resolve().then(() => {
+                    if (this.enabled)
+                        this._schedule_workspace_reconcile();
+                });
+            }
         );
 
         if (Main.wm?._workspaceAnimation?._swipeTracker) {
-            this.connections.connect(
-                Main.wm._workspaceAnimation._swipeTracker,
-                'begin',
-                () => this.reconcile_all_windows()
-            );
-            this.connections.connect(
-                Main.wm._workspaceAnimation._swipeTracker,
-                'end',
-                () => this.reconcile_all_windows()
-            );
+            const tracker = Main.wm._workspaceAnimation._swipeTracker;
+            this.connections.connect(tracker, 'begin', () => {
+                this._workspace_swiping = true;
+                Promise.resolve().then(() => {
+                    if (this.enabled)
+                        this._schedule_workspace_reconcile();
+                });
+            });
+            this.connections.connect(tracker, 'end', () => {
+                Promise.resolve().then(() => {
+                    if (this.enabled)
+                        this._schedule_workspace_reconcile();
+                });
+            });
         }
+    }
+
+    _is_workspace_animating() {
+        return this._workspace_swiping || Boolean(Main.wm?._workspaceAnimation?._switchData);
+    }
+
+    _schedule_workspace_reconcile() {
+        const monitor_group = Main.wm?._workspaceAnimation?._switchData?.monitors?.[0];
+        if (monitor_group) {
+            if (!this._watched_switch_monitors.has(monitor_group)) {
+                this._watched_switch_monitors.add(monitor_group);
+                this.connections.connect(monitor_group, 'destroy', () => {
+                    this._workspace_swiping = false;
+                    if (this.enabled)
+                        this.reconcile_all_windows();
+                });
+            }
+            return;
+        }
+
+        this._workspace_swiping = false;
+        this.reconcile_all_windows();
     }
 
     enable_service() {
@@ -129,27 +163,32 @@ export const ApplicationsBlur = class ApplicationsBlur {
     /// shown on every window of the workspaces viewer.
     connect_to_overview() {
         this.connections.disconnect_all_for(Main.overview);
-        this.overview_visible = Main.overview.visible;
+        this.overview_visible = this.settings.applications.SOLID_ON_WORKSPACE_SWITCH
+            ? (Main.overview.visible && !Main.overview.animationInProgress)
+            : Main.overview.visible;
 
-        const reconcile_windows = () => this.meta_windows.forEach(
-            meta_window => this.reconcile_window_visibility(meta_window)
-        );
         this.connections.connect(Main.overview, 'showing', _ => {
-            this.overview_visible = true;
-            reconcile_windows();
+            if (!this.settings.applications.SOLID_ON_WORKSPACE_SWITCH) {
+                this.overview_visible = true;
+                this.reconcile_all_windows();
+            }
+        });
+        this.connections.connect(Main.overview, 'shown', _ => {
+            if (this.settings.applications.SOLID_ON_WORKSPACE_SWITCH) {
+                this.overview_visible = true;
+                this.reconcile_all_windows();
+            }
         });
         this.connections.connect(Main.overview, 'hidden', _ => {
             this.overview_visible = false;
-            reconcile_windows();
+            this.reconcile_all_windows();
         });
         this.connections.connect(Main.overview, 'window-drag-end', (_, meta_window) => {
             if (this.settings.applications.BLUR_ON_OVERVIEW)
                 finish_preview_fade(meta_window);
         });
 
-        this.meta_windows.forEach(meta_window =>
-            this.reconcile_window_visibility(meta_window)
-        );
+        this.reconcile_all_windows();
     }
 
     reconcile_all_windows() {
@@ -432,7 +471,7 @@ export const ApplicationsBlur = class ApplicationsBlur {
         meta_window.blur_actor = blur_actor;
         this.connect_blur_signals(meta_window, window_actor);
 
-        if (!this.settings.applications.BLUR_ON_OVERVIEW && Main.overview.visible)
+        if (!this.settings.applications.BLUR_ON_OVERVIEW && this.overview_visible)
             blur_actor.hide();
 
         this.update_size(meta_window);
@@ -504,11 +543,6 @@ export const ApplicationsBlur = class ApplicationsBlur {
         if (!window_actor)
             return;
 
-        if (meta_window._bms_blur_transition_id) {
-            GLib.source_remove(meta_window._bms_blur_transition_id);
-            meta_window._bms_blur_transition_id = 0;
-        }
-
         const is_focused = this.settings.applications.DYNAMIC_OPACITY
             && meta_window === this.focused_window;
         const is_fullscreen = this.settings.applications.UNBLUR_WHEN_FULLSCREEN
@@ -520,10 +554,29 @@ export const ApplicationsBlur = class ApplicationsBlur {
             || meta_window.get_workspace?.() === active_workspace
             || meta_window.located_on_workspace?.(active_workspace);
 
-        const should_be_solid = this.settings.applications.SOLID_ON_WORKSPACE_SWITCH
+        const solid_enabled = this.settings.applications.SOLID_ON_WORKSPACE_SWITCH;
+
+        // Keep currently blurred windows untouched while a workspace swipe/slide animation is
+        // still visible on screen; they will turn solid only after leaving the viewport.
+        if (solid_enabled
+            && this._is_workspace_animating()
+            && !this.overview_visible
+            && blur_actor.visible
+            && !meta_window.solid_overlay?.visible)
+            return;
+
+        const cancel_transition = () => {
+            if (meta_window._bms_blur_transition_id) {
+                GLib.source_remove(meta_window._bms_blur_transition_id);
+                meta_window._bms_blur_transition_id = 0;
+            }
+        };
+
+        const should_be_solid = solid_enabled
             && (this.overview_visible || !is_on_active_workspace);
 
         if (should_be_solid) {
+            cancel_transition();
             if (blur_actor.visible)
                 blur_actor.hide();
             this.update_solid_overlay(meta_window);
@@ -542,39 +595,61 @@ export const ApplicationsBlur = class ApplicationsBlur {
             && (this.settings.applications.BLUR_ON_OVERVIEW || !this.overview_visible);
 
         if (show_blur) {
+            const was_solid_or_hidden = !blur_actor.visible || Boolean(meta_window.solid_overlay?.visible);
+
             if (!blur_actor.visible)
                 blur_actor.show();
 
-            // Transition buffer: keep the window 100% solid while blur initializes,
-            // then smoothly switch to transparent with blur. This eliminates any flash of transparency.
-            this.update_solid_overlay(meta_window);
-            if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
-                meta_window.solid_overlay.show();
-            this.window_opacity.set(window_actor, 255, blur_actor);
+            if (meta_window._bms_blur_transition_id)
+                return;
 
-            meta_window._bms_blur_transition_id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 80, () => {
-                meta_window._bms_blur_transition_id = 0;
-                const cur_active = global.workspace_manager.get_active_workspace();
-                const cur_on_active = meta_window.is_on_all_workspaces?.()
-                    || meta_window.get_workspace?.() === cur_active
-                    || meta_window.located_on_workspace?.(cur_active);
-                if (cur_on_active && !this.overview_visible && !meta_window.minimized) {
-                    if (meta_window.solid_overlay?.visible)
-                        meta_window.solid_overlay.hide();
-                    this.window_opacity.set(
-                        window_actor,
-                        this.settings.applications.OPACITY,
-                        blur_actor
-                    );
-                }
-                return GLib.SOURCE_REMOVE;
-            });
+            if (solid_enabled && was_solid_or_hidden) {
+                // Transition buffer: keep the window 100% solid while blur initializes,
+                // then smoothly switch to transparent with blur. This eliminates any flash of transparency.
+                this.update_solid_overlay(meta_window);
+                if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
+                    meta_window.solid_overlay.show();
+                this.window_opacity.set(window_actor, 255, blur_actor);
+
+                meta_window._bms_blur_transition_id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 80, () => {
+                    meta_window._bms_blur_transition_id = 0;
+                    if (!this.enabled)
+                        return GLib.SOURCE_REMOVE;
+                    const cur_active = global.workspace_manager.get_active_workspace();
+                    const cur_on_active = meta_window.is_on_all_workspaces?.()
+                        || meta_window.get_workspace?.() === cur_active
+                        || meta_window.located_on_workspace?.(cur_active);
+                    if (cur_on_active && !this.overview_visible && !meta_window.minimized) {
+                        if (meta_window.solid_overlay?.visible)
+                            meta_window.solid_overlay.hide();
+                        this.window_opacity.set(
+                            window_actor,
+                            this.settings.applications.OPACITY,
+                            blur_actor
+                        );
+                    }
+                    return GLib.SOURCE_REMOVE;
+                });
+            } else {
+                if (meta_window.solid_overlay?.visible)
+                    meta_window.solid_overlay.hide();
+                this.window_opacity.set(
+                    window_actor,
+                    this.settings.applications.OPACITY,
+                    blur_actor
+                );
+            }
         } else {
+            cancel_transition();
             if (blur_actor.visible)
                 blur_actor.hide();
-            this.update_solid_overlay(meta_window);
-            if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
-                meta_window.solid_overlay.show();
+            if (solid_enabled) {
+                this.update_solid_overlay(meta_window);
+                if (meta_window.solid_overlay && !meta_window.solid_overlay.visible)
+                    meta_window.solid_overlay.show();
+            } else if (meta_window.solid_overlay?.visible) {
+                meta_window.solid_overlay.hide();
+            }
             this.window_opacity.set(window_actor, 255, blur_actor);
         }
     }
@@ -677,6 +752,8 @@ export const ApplicationsBlur = class ApplicationsBlur {
     disable() {
         this._log("removing blur from applications...");
         this.enabled = false;
+        this._workspace_swiping = false;
+        this._watched_switch_monitors = new WeakSet();
 
         delete this.mutter_gsettings;
 
