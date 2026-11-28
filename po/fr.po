@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2026-11-26 12:51+0000\n"
+"PO-Revision-Date: 2026-11-27 16:51+0000\n"
 "Last-Translator: SUNPHASΣ <lleolau@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/fr/>\n"
@@ -519,6 +519,8 @@ msgid ""
 "A flowing wave displacement for a lively and dynamic feel with natural "
 "movement."
 msgstr ""
+"Une vague qui se déplace pour un rendu plus vivant et dynamique avec des "
+"mouvements naturels."
 
 #: src/effects/wave/info.js:11
 msgid "Wave frequency"
@@ -526,7 +528,7 @@ msgstr "Fréquence de l'onde"
 
 #: src/effects/wave/info.js:12
 msgid "How tightly packed the ripples are."
-msgstr ""
+msgstr "A quel point les ondulations sont resserrés."
 
 #: src/effects/wave/info.js:21
 msgid "Wave amplitude"
@@ -545,24 +547,29 @@ msgid ""
 "Detail level of the wave shape. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Niveau de détail de la forme de l'onde. Les valeurs élevées ajoutent plus de "
+"détails au prix de moins bonnes performances."
 
 #: src/effects/wave/info.js:39
 msgid "Vapor octaves"
-msgstr ""
+msgstr "Octaves de la vapeur"
 
 #: src/effects/wave/info.js:40
 msgid ""
 "Detail level of the misty texture. Higher adds more detail at the cost of "
 "performance."
 msgstr ""
+"Niveau de détail de la texture brumeuse. Une valeur élevée augmente le "
+"niveau de détails au prix de moins bonnes performances."
 
 #: src/effects/wave/info.js:47
 msgid "Vapor speed"
-msgstr ""
+msgstr "Vitesse de la vapeur"
 
 #: src/effects/wave/info.js:48
 msgid "How quickly the misty vapor texture drifts over time."
 msgstr ""
+"A quelle vitesse la texture brumeuse de la vapeur dérive au cours du temps."
 
 #: src/effects/wave/info.js:57
 msgid "Texture grain"
@@ -570,7 +577,7 @@ msgstr "Grain de texture"
 
 #: src/effects/wave/info.js:58
 msgid "Adds a fine sandblasted texture to the image."
-msgstr ""
+msgstr "Ajoute une texture finement sablée à l'image."
 
 #: src/effects/wave/info.js:68
 msgid "The saturation of the effect."
@@ -578,7 +585,7 @@ msgstr "Saturation de l'effet"
 
 #: src/effects/wave/info.js:78
 msgid "The brightness of the effect."
-msgstr ""
+msgstr "La luminosité de l'effet."
 
 #: src/effects/wave/info.js:87
 msgid "Zoom"
@@ -586,7 +593,7 @@ msgstr "Zoom"
 
 #: src/effects/wave/info.js:88
 msgid "Magnifies the backdrop toward the surface's center."
-msgstr ""
+msgstr "Amplifie le fond vers le centre de la surface."
 
 #: src/effects/wave/info.js:97
 msgid "Dispersion"
@@ -594,11 +601,12 @@ msgstr "Dispersion"
 
 #: src/effects/wave/info.js:98
 msgid "Chromatic aberration strength for a glitchy feel."
-msgstr ""
+msgstr "Intensité de l'aberration chromatique pour un effet \"glitch\"."
 
 #: src/effects/wave/info.js:107
+#, fuzzy
 msgid "Enable flow animation"
-msgstr ""
+msgstr "Active l'animation \"flow\"."
 
 #: src/effects/wave/info.js:108
 msgid "Whether the wave noise continuously flows over time."
@@ -615,21 +623,23 @@ msgstr "Vitesse de base à laquelle le motif de vague coule."
 
 #: src/effects/wave/info.js:122
 msgid "Resize ease duration"
-msgstr ""
+msgstr "Redimensionne la durée de l'adoucissement"
 
 #: src/effects/wave/info.js:123
 msgid ""
 "How long the effect takes to adjust when a window changes size "
 "(milliseconds)."
 msgstr ""
+"Combien de temps prend l'effet pour s'ajuster lorsque la taille de la "
+"fenêtre change (milliseconde)."
 
 #: resources/ui/menu.ui:6
 msgid "Debug Logging"
-msgstr ""
+msgstr "Registre de debug"
 
 #: resources/ui/menu.ui:10
 msgid "Disable on Power Saver"
-msgstr ""
+msgstr "Désactiver en économie d'énergie"
 
 #: resources/ui/menu.ui:14
 msgid "Reset Preferences…"
@@ -649,7 +659,7 @@ msgstr "Licence"
 
 #: resources/ui/menu.ui:38
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu Principal"
 
 #: resources/ui/pages/applications.ui:5
 #: src/preferences/pages/pipelines/components.js:16
@@ -685,11 +695,11 @@ msgstr "Coins arrondis"
 
 #: resources/ui/pages/applications.ui:82
 msgid "Round maximized and fullscreen windows"
-msgstr ""
+msgstr "Arrondi de fenêtre maximiser et écran entier"
 
 #: resources/ui/pages/applications.ui:90
 msgid "Behavior"
-msgstr ""
+msgstr "Comportement"
 
 #: resources/ui/pages/applications.ui:95
 msgid "Blur on overview"
@@ -705,15 +715,15 @@ msgstr "Supprimer le flou en plein écran"
 
 #: resources/ui/pages/applications.ui:108
 msgid "Blur all windows"
-msgstr ""
+msgstr "Floute toutes les fenêtres"
 
 #: resources/ui/pages/applications.ui:109
 msgid "When off, only the windows listed below are blurred."
-msgstr ""
+msgstr "Quand éteint, seulement les fenêtres listées sont floutées."
 
 #: resources/ui/pages/applications.ui:117
 msgid "Blurred windows"
-msgstr ""
+msgstr "Fenêtres floutées"
 
 #: resources/ui/pages/applications.ui:118
 #: resources/ui/pages/applications.ui:140
@@ -721,6 +731,8 @@ msgid ""
 "Use * to match any characters, like Firefox* or *Code*, and ? to match a "
 "single one."
 msgstr ""
+"Utilisé * pour concorder avec n'importe quel caractère, comme Firefox* ou "
+"Code*, et ? pour concorder avec un seul."
 
 #: resources/ui/pages/applications.ui:126
 #: resources/ui/pages/applications.ui:148
@@ -729,7 +741,7 @@ msgstr "Ajouter une fenêtre"
 
 #: resources/ui/pages/applications.ui:139
 msgid "Excluded windows"
-msgstr ""
+msgstr "Fenêtres exclues"
 
 #: resources/ui/pages/applications.ui:162 resources/ui/pages/shell/panel.ui:150
 #: resources/ui/pages/shell/popup.ui:160
@@ -803,7 +815,7 @@ msgstr ""
 
 #: resources/ui/pages/pipelines/pipelines.ui:17
 msgid "New Pipeline"
-msgstr ""
+msgstr "Nouveau Pipeline"
 
 #: resources/ui/pages/shell/app-folders.ui:24
 msgid "Application folder dialogs style"
@@ -867,7 +879,7 @@ msgstr ""
 
 #: resources/ui/pages/shell/overview.ui:39
 msgid "Workspace corner radius"
-msgstr ""
+msgstr "Rayon de l'angle de l'espace de travail"
 
 #: resources/ui/pages/shell/panel.ui:58
 msgid "Force light text"
@@ -875,23 +887,23 @@ msgstr "Forcer un texte clair"
 
 #: resources/ui/pages/shell/panel.ui:59
 msgid "Useful with a light shell theme"
-msgstr ""
+msgstr "Utile avec un thème clair de shell"
 
 #: resources/ui/pages/shell/panel.ui:65
 msgid "Match theme in overview"
-msgstr ""
+msgstr "S'adapte au thème en aperçu"
 
 #: resources/ui/pages/shell/panel.ui:92
 msgid "Override background dynamically"
-msgstr ""
+msgstr "Outrepasse dynamiquement le fond"
 
 #: resources/ui/pages/shell/panel.ui:93
 msgid "Changes the background when a window is near the panel"
-msgstr ""
+msgstr "Change le fond lorsque une fenêtre est proche du panneau"
 
 #: resources/ui/pages/shell/panel.ui:100
 msgid "When a window is near"
-msgstr ""
+msgstr "Quand une fenêtre est proche"
 
 #: resources/ui/pages/shell/panel.ui:101
 msgid ""
@@ -903,11 +915,11 @@ msgstr ""
 
 #: resources/ui/pages/shell/panel.ui:110
 msgid "Gradient background"
-msgstr ""
+msgstr "Fond du gradient"
 
 #: resources/ui/pages/shell/panel.ui:117
 msgid "Gradient direction"
-msgstr ""
+msgstr "Direction du gradient"
 
 #: resources/ui/pages/shell/panel.ui:127
 msgid "Compatibility"
@@ -919,7 +931,7 @@ msgstr "Extension Hidetopbar"
 
 #: resources/ui/pages/shell/panel.ui:133
 msgid "Keeps the blur visible in the overview, best with static blur"
-msgstr ""
+msgstr "Garde le flou visible en aperçu, meilleur avec un flou statique"
 
 #: resources/ui/pages/shell/panel.ui:140
 msgid "Blur original panel with Dash to Panel"
@@ -927,7 +939,7 @@ msgstr "Flouter le panneau original lorsque Dash to Panel est utilisé"
 
 #: resources/ui/pages/shell/panel.ui:141
 msgid "When Dash to Panel keeps the original panel"
-msgstr ""
+msgstr "Quand Dash to Panel garde le panneau d'origine"
 
 #: resources/ui/pages/shell/panel.ui:162
 msgid "Contrasted"
@@ -935,11 +947,11 @@ msgstr "Contrasté"
 
 #: resources/ui/pages/shell/panel.ui:169
 msgid "Blur on Window Proximity"
-msgstr ""
+msgstr "Floute à proximité d'une fenêtre"
 
 #: resources/ui/pages/shell/panel.ui:170
 msgid "Background on Window Proximity"
-msgstr ""
+msgstr "Arrière plan à proximité d'une fenêtre"
 
 #: resources/ui/pages/shell/panel.ui:176
 msgid "Top"
@@ -964,27 +976,27 @@ msgstr "Menus"
 
 #: resources/ui/pages/shell/popup.ui:80
 msgid "Input method candidates"
-msgstr ""
+msgstr "Candidat de méthode d'ajout"
 
 #: resources/ui/pages/shell/popup.ui:87
 msgid "Quick settings"
-msgstr ""
+msgstr "Paramètres rapides"
 
 #: resources/ui/pages/shell/popup.ui:94
 msgid "Quick settings submenus"
-msgstr ""
+msgstr "Sous-menus des paramètres rapides"
 
 #: resources/ui/pages/shell/popup.ui:101
 msgid "Calendar and notification center"
-msgstr ""
+msgstr "Calendrier et centre de notification"
 
 #: resources/ui/pages/shell/popup.ui:108
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: resources/ui/pages/shell/popup.ui:115
 msgid "Window and workspace switchers"
-msgstr ""
+msgstr "Boutons pour fenêtre et espace de travail"
 
 #: resources/ui/pages/shell/popup.ui:122
 msgid "Volume and brightness"
@@ -1026,7 +1038,7 @@ msgstr ""
 #: resources/ui/pages/shell/shell.ui:29
 #: src/preferences/pages/pipelines/components.js:8
 msgid "Dock"
-msgstr ""
+msgstr "Dock"
 
 #: resources/ui/pages/shell/shell.ui:30
 msgid "Dash to Dock, Ubuntu Dock, Dhruva and similar docks"
@@ -1035,11 +1047,11 @@ msgstr "Dash to Dock, Ubuntu Dock, Dhruva et les docks similaires"
 #: resources/ui/pages/shell/shell.ui:37
 #: src/preferences/pages/pipelines/components.js:9
 msgid "Popups"
-msgstr ""
+msgstr "Popups"
 
 #: resources/ui/pages/shell/shell.ui:38
 msgid "Menus, quick settings, notifications and dialogs"
-msgstr ""
+msgstr "Menus, configurations rapides, notifications et dialogues"
 
 #: resources/ui/pages/shell/shell.ui:46
 #: src/preferences/pages/pipelines/components.js:10
@@ -1048,20 +1060,20 @@ msgstr "Aperçu"
 
 #: resources/ui/pages/shell/shell.ui:52
 msgid "The wallpaper behind the workspaces"
-msgstr ""
+msgstr "Fond d'écran derrière les espaces de travail"
 
 #: resources/ui/pages/shell/shell.ui:59
 #: src/preferences/pages/pipelines/components.js:11
 msgid "App folders"
-msgstr ""
+msgstr "Dossiers d'App"
 
 #: resources/ui/pages/shell/shell.ui:60
 msgid "Folders opened from the app grid"
-msgstr ""
+msgstr "Dossiers ouverts depuis la grille des applications"
 
 #: resources/ui/pages/shell/shell.ui:68
 msgid "System"
-msgstr ""
+msgstr "Système"
 
 #: resources/ui/pages/shell/shell.ui:73
 #: src/preferences/pages/pipelines/components.js:12
@@ -1070,7 +1082,7 @@ msgstr "Écran de vérouillage"
 
 #: resources/ui/pages/shell/shell.ui:74
 msgid "Behind the password prompt"
-msgstr ""
+msgstr "Derrière le prompt du mot de passe"
 
 #: resources/ui/pages/shell/shell.ui:81
 #: src/preferences/pages/pipelines/components.js:13
@@ -1079,20 +1091,20 @@ msgstr "Capture d'écran"
 
 #: resources/ui/pages/shell/shell.ui:82
 msgid "Behind the window selector"
-msgstr ""
+msgstr "Derrière le selecteur de la fenêtre"
 
 #: resources/ui/pages/shell/shell.ui:90
 msgid "Extensions"
-msgstr ""
+msgstr "Extensions"
 
 #: resources/ui/pages/shell/shell.ui:95
 #: src/preferences/pages/pipelines/components.js:14
 msgid "Window List"
-msgstr ""
+msgstr "Liste"
 
 #: resources/ui/pages/shell/shell.ui:96
 msgid "The taskbar from the Window List extension"
-msgstr ""
+msgstr "Barre des tâches depuis la liste d'extension"
 
 #: resources/ui/pages/shell/shell.ui:103
 #: src/preferences/pages/pipelines/components.js:15
@@ -1101,28 +1113,28 @@ msgstr ""
 
 #: resources/ui/pages/shell/shell.ui:104
 msgid "Behind the window switcher"
-msgstr ""
+msgstr "Derrière le bouton de fenêtre"
 
 #: resources/ui/widgets/application-row.ui:4
 msgid "Window class"
-msgstr ""
+msgstr "Classe de fenêtre"
 
 #: resources/ui/widgets/application-row.ui:10
 msgid "Pick a Window"
-msgstr ""
+msgstr "Choisir une fenêtre"
 
 #: resources/ui/widgets/application-row.ui:21
 #: src/preferences/widgets/effect_row.js:17
 msgid "Remove"
-msgstr ""
+msgstr "Enlever"
 
 #: resources/ui/widgets/application-row.ui:30
 msgid "Window selection failed. Make sure the extension is enabled."
-msgstr ""
+msgstr "La selection de fenêtre a échoué. Vérifiez que l'extension est activée."
 
 #: resources/ui/widgets/application-row.ui:34
 msgid "The selected actor is not a window."
-msgstr ""
+msgstr "L'acteur sélectionné n'est pas une fenêtre."
 
 #: resources/ui/widgets/blur-mode-row.ui:4
 msgid "Blur type"
@@ -1130,7 +1142,7 @@ msgstr "Type de flou"
 
 #: resources/ui/widgets/blur-mode-row.ui:5
 msgid "Static blurs only the wallpaper"
-msgstr ""
+msgstr "Le flou statique s'applique seulement au fond d'écran"
 
 #: resources/ui/widgets/blur-mode-row.ui:23
 msgid "Static"
@@ -1160,21 +1172,23 @@ msgstr ""
 
 #: src/preferences/legacy_blur_notice.js:31
 msgid "Removal instructions"
-msgstr ""
+msgstr "Instruction de suppression"
 
 #: src/preferences/legacy_blur_notice.js:37
 #: src/preferences/legacy_blur_notice.js:43
 msgid "Dismiss"
-msgstr ""
+msgstr "Rejeter"
 
 #: src/preferences/legacy_blur_notice.js:58
 msgid "Removing the old blur library"
-msgstr ""
+msgstr "Enlève l'ancienne librairie de flou"
 
 #: src/preferences/legacy_blur_notice.js:60
 msgid ""
 "Removal is optional. Keep the library if another extension still needs it."
 msgstr ""
+"La suppression est optionnelle. Garder la librairie si une autre extension "
+"en dépend."
 
 #: src/preferences/legacy_blur_notice.js:61
 msgid ""
@@ -1187,6 +1201,8 @@ msgid ""
 "Installed with the old Blur my Shell helper? The instructions explain how to "
 "run its uninstaller."
 msgstr ""
+"Installé avec un ancien assistant Blur my Shell ? L'instruction explique "
+"comment utiliser son désinstalleur."
 
 #: src/preferences/legacy_blur_notice.js:63
 msgid ""
@@ -1200,22 +1216,26 @@ msgid ""
 "Log out and back in after removal. Blur my Shell will not uninstall anything "
 "for you."
 msgstr ""
+"Déconnectez et reconnectez vous après suppression. Blur my Shell ne va rien "
+"désinstaller pour vous."
 
 #: src/preferences/legacy_blur_notice.js:69
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: src/preferences/legacy_blur_notice.js:70
 msgid "Open instructions"
-msgstr ""
+msgstr "Ouvrir les instructions"
 
 #: src/preferences/menu.js:76
 msgid "Reset all preferences?"
-msgstr ""
+msgstr "Réinitialiser toutes les préférences ?"
 
 #: src/preferences/menu.js:77
 msgid "Pipelines and component settings will return to their defaults."
 msgstr ""
+"Configurations des pipelines et composants retourneront à leurs valeurs par "
+"défaut."
 
 #: src/preferences/menu.js:79 src/preferences/pages/pipelines/index.js:121
 msgid "Cancel"

@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: blur-my-shell@aunetx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-29 16:39+0100\n"
-"PO-Revision-Date: 2025-04-06 17:36+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-11-27 16:51+0000\n"
+"Last-Translator: SUNPHASΣ <lleolau@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/blur-my-shell/"
 "blur-my-shell/ko/>\n"
 "Language: ko\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: src/effects/blur/info.js:7
 msgid "Dual Kawase blur"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: src/effects/blur/info.js:8
 msgid "A fast, high-quality blur."
-msgstr ""
+msgstr "빠른, 고품질 불러."
 
 #: src/effects/blur/info.js:11
 msgid "Radius"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: src/effects/color/info.js:27
 msgid "Screen"
-msgstr ""
+msgstr "화면"
 
 #: src/effects/color/info.js:28
 msgid "Overlay"
